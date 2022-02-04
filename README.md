@@ -1,7 +1,7 @@
 # WhistleWind's Lobotomy Corp Mod
 Inspired by KingSlime's wonderful mod, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
 The cards in this mod are designed to be as faithful to their original counterparts as possible, while still being 'balanced' (heavy air quotes there) relative to vanilla Inscryption.
-This mod adds [card] obtainable cards, [ability] custom abilities, and [special] special abilities, with plans to add the remaining abnormalities in the future.
+This mod adds [card] obtainable cards, 31 abilities, and 11+ special abilities, with plans to add the remaining abnormalities in the future.
 
 ## Known Issues
 ### Debug lag
@@ -78,7 +78,7 @@ To prevent this, go to the [Logging.Console] section of your BepInEx config file
 * Gift Giver
   * When this card dies, create a random card in your hand. (Unique behaviour when held by Laetitia)
 * Piercing
-  * When this card strikes an opposing card, deal 1 overkill damage.
+  * When this card strikes a card, deal 1 overkill damage if applicable.
 
 ## Hidden/Special Abilities
 A number of cards added by this mod possess special abilities not found in the Rulebook.
@@ -103,4 +103,6 @@ In the spirit of the original game, I won't be listing the effects here, only wh
 * Special Abilities in Rulebook
   * DEFAULT: false
   * Adds the special abilities to the rulebook for your viewing pleasure. Disclaimer: descriptions may or may not be helpful.
-* 
+* Reveal Select Descriptions
+  * DEFAULT: false
+  * Changes the description of certain abilities to actually describe what they do.
