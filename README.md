@@ -13,335 +13,336 @@ To prevent this, go to the [Logging.Console] section of your BepInEx config file
 
 
 # Full List of (Non-transformation) Cards
-* Standard Training-Dummy Rabbit
-	* (１,１)
+#### Standard Training-Dummy Rabbit
+(１,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_1.png)
 
-* Scorched Girl
-	* (１,１)
+#### Scorched Girl
+(１,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png)
 
-* One Sin
-	* (０,１)
+#### One Sin
+(０,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* Magical Girl H
-	* (２,２)
+#### Magical Girl H
+(２,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Happy Teddy Bear
-	* (３,２)
+#### Happy Teddy Bear
+(３,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_8.png)
 
-* Red Shoes
-	* (０,３)
+#### Red Shoes
+(０,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Theresia
-	* (０,２)
+#### Theresia
+(０,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* Old Lady
-	* (１,１)
+#### Old Lady
+(１,２)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_2.png)
+
+#### Nameless Fetus
+(０,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_5.png)
 
-* Nameless Fetus
-	* (０,１)
-![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_5.png)
-
-* The Lady Facing the Wall
-	* (０,２)
+#### The Lady Facing the Wall
+(０,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Nothing There
-	* (１,２)
+#### Nothing There
+(１,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png)
 
-* 1.76 MHz
-	* (０,２)
+#### 1.76 MHz
+(０,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Singing Machine		0	5	2
-	* (０,５)
+#### Singing Machine
+(０,５)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* The Silent Orchestra
-	* (２,５)
+#### The Silent Orchestra
+(２,５)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png)
-* Chairs
-	* (１,１)
+##### Chairs
+(１,１)
 
-* Warm-Hearted Woodsman	2	3	2
-	* (２,３)
+#### Warm-Hearted Woodsman
+(２,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* The Snow Queen
-	* (１,２)
+#### The Snow Queen
+(１,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png)
-* Frozen Heart
-	* (０,１)
-* Block of Ice
-	* (０,１)
+#### Frozen Heart
+(０,１)
+#### Block of Ice
+(０,１)
 
-* Big Bird
-	* (２,４)
+#### Big Bird
+(２,４)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* All-Around Helper
-	* (１,３)
-![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
+#### All-Around Helper
+(１,３)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* Snow White's Apple
-	* (１,３)
+#### Snow White's Apple
+(１,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png)
-* Thorny Vines
-	* (０,２)
+#### Thorny Vines
+(０,１)
 
-* Spider Bud
-	* (０,２)
+#### Spider Bud
+(０,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png)
-* Spiderling
-	* (１,１)
+#### Spiderling
+(０,１)
 
-* Beauty and the Beast
-	* (１,１)
+#### Beauty and the Beast
+(１,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Plague Doctor
-	* (０,３)
+#### Plague Doctor
+(０,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png)
 
-* Don't Touch Me
-* (０,２)
+#### Don't Touch Me
+(０,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Rudolta of the Sleigh
-* (２,３)
+#### Rudolta of the Sleigh
+(２,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* Queen Bee
-* (０,４)
+#### Queen Bee
+(０,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
-* Worker Bee
-* (１,１)
+#### Worker Bee
+(１,２)
 
-* Bloodbath
-* (０,３)
+#### Bloodbath
+(０,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* [ F-05-52 ]
+#### [ F-05-52 ]
 
-* Alriune
-* (４,５)
+#### Alriune
+(４,５)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png)
 
-* Forsaken Murderer
-* (４,１)
+#### Forsaken Murderer
+(４,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_8.png)
 
-* [ O-01-55 ]
+#### [ O-01-55 ]
 
-* Punishing Bird
-* (１,２)
+#### Punishing Bird
+(１,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Little Red Riding Hooded Mercenary
-* (２,３)
+#### Little Red Riding Hooded Mercenary
+(２,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* Big and Will be Bad Wolf
-* (３,２)
+#### Big and Will be Bad Wolf
+(３,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* You're Bald...
-* (１,１)
-![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_4.png)
+#### You're Bald...
+(１,１)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_2.png)
 
-* [ O-03-60 ]
+#### [ O-03-60 ]
 
-* Crumbling Armour
-* (０,４)
-![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_5.png)
+#### Crumbling Armour
+(０,2)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png)
 
-* Judgement Bird
-* (１,１)
+#### Judgement Bird
+(１,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* [ O-02-63 ]
+#### [ O-02-63 ]
 
-* Magical Girl D
-* (０,３)
+#### Magical Girl D
+(０,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* [ O-04-66 ]
-* [ O-04-66 ]
+#### [ O-04-66 ]
+#### [ O-04-66 ]
 
-* Laetitia
-* (１,２)
+#### Laetitia
+(１,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
-* Laetitia's Friend
-* (２,２)
-
-* Funeral of the Dead Butterflies
-* (２,２)
-![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
-
-* Der Freiscütz
-* (１,１)
-![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
-
-* [ F-02-70 ]
-
-* The Dreaming Current
-* (３,２)
-![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
-
-* THE BURROWING HEAVEN
-* (０,２)
+#### Little Witch's Friend
+(２,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Magical Girl S
-* (２,５)
+#### Funeral of the Dead Butterflies
+(２,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* The Naked Nest
-* (０,２)
+#### Der Freiscütz
+(１,１)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
+
+#### [ F-02-70 ]
+
+#### The Dreaming Current
+(３,２)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
+
+#### The Burrowing Heaven
+(０,２)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
+
+#### Magical Girl S
+(２,４)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
+
+#### The Naked Nest
+(０,４)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png)
-* Naked Worm
-* (１,１)
+#### Naked Worm
+(１,１)
 
-* The Mountain of Smiling Bodies
-* (２,１)
+#### The Mountain of Smiling Bodies
+(２,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png)
 
-* Schadenfreude
-* (０,１)
+#### Schadenfreude
+(０,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png)
 
-* The Heart of Aspiration
-* (０,２)
+#### The Heart of Aspiration
+(１,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* Notes from a Crazed Researcher
-* (０,２)
+#### Notes from a Crazed Researcher
+(０,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Flesh Idol
-* (０,２)
+#### Flesh Idol
+(０,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png)
 
-* [ T-09-80 ]
+#### [ T-09-80 ]
 
-* Mirror of Adjustment
-* (０,４)
+#### Mirror of Adjustment
+(０,４)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Shelter from the 27th of March
-* (０,１)
+#### Shelter from the 27th of March
+(０,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png)
 
-* Fairy Festival
-* (１,１)
+#### Fairy Festival
+(１,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Meat Lantern
-* (１,３)
+#### Meat Lantern
+(１,４)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* We can Change Anything
-* (０,１)
+#### We can Change Anything
+(０,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Express Train to Hell
-* (０,４)
+#### Express Train to Hell
+(０,４)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_1.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_0.png)
 
-* Scarecrow Searching for Wisdom
-* (１,２)
+#### Scarecrow Searching for Wisdom
+(１,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_5.png)
 
-* Dimensional Refraction Variant
-* (４,４)
+#### Dimensional Refraction Variant
+(４,４)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png)
 
-* CENSORED
-* (６,２)
+#### CENSORED
+(６,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_4.png)
-* (CENSORED)
-* (２,１)
+#### (CENSORED)
+(２,１)
 
-* [ T-09-90	]
+#### [ T-09-90 ]
 
-* [ O-09-91	]
+#### [ O-09-91 ]
 
-* Today's Shy Look
-* (１,２)
+#### Today's Shy Look
+(１,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* Blue Star
-* (０,４)
+#### Blue Star
+(０,４)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_4.png)
 
-* [ T-09-94 ]
+#### [ T-09-94 ]
 
-* Luminous Adjustment
-* (０,１)
+#### Luminous Adjustment
+(０,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_5.png)
 
-* BEHAVIOUR ADJUSTMENT	0		
-* (０,１)
+#### BEHAVIOUR ADJUSTMENT
+(０,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* [ T-09-97 ]
+#### [ T-09-97 ]
 
-* Porccubus
-* (１,３)
+#### Porccubus
+(１,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* Void Dream T-02-99
-* (１,１)
+#### Void Dream
+(０,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* GRAVE OF CHERRY BLOSSOMS
-* (０,２)
+#### GRAVE OF CHERRY BLOSSOMS
+(０,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-* The Firebird
-* (１,３)
+#### The Firebird
+(１,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* [ O-05-102 ]
+#### [ O-05-102 ]
 
-* [ O-07-103 ]
+#### [ O-07-103 ]
 
-* [ O-07-103 ]
+#### [ O-07-103 ]
 
-* [ D-09-104 ]
+#### [ D-09-104 ]
 
-* [ D-01-105 ]
+#### [ D-01-105 ]
 
-* Army in Pink
-* (２,２)
+#### Army in Pink
+(２,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-* Ppodae
-* (１,１)
+#### Ppodae
+(１,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png)
 
-* PARASITE TREE
-* (０,３)
+#### PARASITE TREE
+(０,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
-* SAPLING
-* (１,１)
+#### SAPLING
+(１,３)
 
-* MELTING LOVE
-* (２,７)
+#### MELTING LOVE
+(２,７)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png)
-* SLIME
-* (１,２)
+#### SLIME
+(１,２)
 
-* Honoured Monk 2	2	2
-* (２,２)
+#### Honoured Monk
+(２,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
 ## Abilities
