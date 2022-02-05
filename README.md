@@ -1,5 +1,5 @@
 # WhistleWind's Lobotomy Corp Mod
-Inspired by KingSlime's wonderful mod, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
+Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
 The cards in this mod are designed to be as faithful to their original counterparts as possible, while still being 'balanced' (heavy air quotes there) relative to vanilla Inscryption.
 This mod adds 68 obtainable (plus an additional 10 ability-created, for 86 total) cards, 31 abilities, and 11+ special abilities.
 
