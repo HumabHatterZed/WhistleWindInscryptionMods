@@ -60,17 +60,12 @@ namespace WhistleWindLobotomyMod
                 Healer.ability
             };
 
-            List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
-            {
-                //PlagueDoctor.GetSpecialAbilityId
-            };
-
             WstlUtils.Add(
                 "wstl_plagueDoctor", "Plague Doctor",
                 "A worker of miracles.",
                 3, 0, 0, 0,
                 resource,
-                abilities: abilities, specialAbilities: specialAbilities,
+                abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), onePerDeck: true);
         }
     }

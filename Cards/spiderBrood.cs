@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_spiderBrood", "Spider Brood",
                 "Big and mean.",
-                2, 2, 0, 0,
+                3, 1, 0, 0,
                 Resources.spiderBrood,
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
                 tribes: tribes);

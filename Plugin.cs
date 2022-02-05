@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGUID = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWindLobotomyCorp";
-        private const string pluginVersion = "1.0.0.107"; // Major.Minor.Patch.Cards
+        private const string pluginVersion = "0.7.6.107"; // Major.Minor.Patch.Cards
         internal static ManualLogSource Log;
 
         internal static bool ModEnabled { get; private set; }
@@ -72,7 +72,6 @@ namespace WhistleWindLobotomyMod
             {
                 #region SPECIAL ABILITIES
                 SpecialAbility_NamelessFetus();
-                //SpecialAbility_PlagueDoctor();
                 SpecialAbility_BloodBath();
                 SpecialAbility_BloodBath1();
                 SpecialAbility_Bloodbath2();
@@ -213,7 +212,7 @@ namespace WhistleWindLobotomyMod
                 DerFreischutz_F0169();
                 //  DreamOfABlackSwan_F0270();
                 DreamingCurrent_T0271();
-                //  BurrowingHeaven_O0472();
+                BurrowingHeaven_O0472();
                 MagicalGirlSpade_O0173();
                 KnightOfDespair_O0173();
                 TheNakedNest_O0274();

@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_punishingBird", "Punishing Bird",
                 "A small bird on a mission to punish evildoers.",
-                2, 1, 1, 0,
+                1, 1, 1, 0,
                 Resources.punishingBird,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,

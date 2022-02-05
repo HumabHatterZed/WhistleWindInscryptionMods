@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_snowQueen", "The Snow Queen",
                 "A queen from far away. Those who enter her palace never leave.",
-                1, 2, 0, 5,
+                2, 1, 0, 6,
                 Resources.snowQueen,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);

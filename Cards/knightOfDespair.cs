@@ -11,7 +11,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new List<Ability>
             {
-                Ability.SplitStrike
+                Ability.SplitStrike,
+                Piercing.ability
             };
 
             WstlUtils.Add(

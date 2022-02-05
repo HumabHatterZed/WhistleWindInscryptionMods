@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_meatLantern", "Meat Lantern",
                 "A beautiful flower attached to a mysterious creature.",
-                3, 1, 1, 0,
+                4, 1, 2, 0,
                 Resources.meatLantern,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);

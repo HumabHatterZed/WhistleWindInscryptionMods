@@ -22,8 +22,8 @@ namespace WhistleWindLobotomyMod
 
             WstlUtils.Add(
                 "wstl_derFreischutz", "Der Freischütz",
-                "A friendly hunter to some, a bloody gunsman to others. His bullet always hits its mark.",
-                1, 1, 3, 0,
+                "A friendly hunter to some, a bloody gunsman to others. His bullets always hits their mark.",
+                1, 1, 2, 0,
                 Resources.derFreischutz,
                 abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,

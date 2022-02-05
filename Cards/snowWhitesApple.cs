@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_snowWhitesApple", "Snow White's Apple",
                 "A poisoned apple brought to life, on a fruitless search for its own happily ever after.",
-                1, 1, 0, 3,
+                3, 1, 0, 3,
                 Resources.snowWhitesApple,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,

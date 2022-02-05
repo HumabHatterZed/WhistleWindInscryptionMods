@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_spiderBud", "Spider Bud",
                 "Grotesque mother of spiders.",
-                2, 0, 0, 0,
+                2, 0, 0, 4,
                 Resources.spiderBud,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode);
