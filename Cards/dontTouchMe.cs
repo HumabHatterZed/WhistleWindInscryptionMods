@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new List<Ability>
             {
                 Punisher.ability,
-                Ability.WhackAMole
+                Ability.GuardDog
             };
 
             WstlUtils.Add(

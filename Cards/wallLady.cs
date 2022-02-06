@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_wallLady", "The Lady Facing the Wall",
                 "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.",
-                2, 0, 1, 0,
+                2, 0, 0, 4,
                 Resources.wallLady,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);

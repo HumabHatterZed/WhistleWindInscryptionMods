@@ -15,7 +15,8 @@ To prevent this, go to the [Logging.Console] section of your BepInEx config file
 # Selective List of Non-Secret Cards
 #### Standard Training-Dummy Rabbit
 (１,１)
-![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_1.png)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)
+![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_1.png)
 
 #### Scorched Girl
 (１,１)

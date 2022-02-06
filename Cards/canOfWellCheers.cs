@@ -7,19 +7,19 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private void MeatLantern_O0484()
+        private void CanOfWellCheers_F0552()
         {
             List<Ability> abilities = new List<Ability>
             {
-                Punisher.ability,
-                Ability.Reach
+                Ability.Submerge,
+                Ability.Strafe
             };
 
             WstlUtils.Add(
-                "wstl_meatLantern", "Meat Lantern",
-                "A beautiful flower attached to a mysterious creature.",
-                3, 1, 2, 0,
-                Resources.meatLantern,
+                "wstl_canOfWellCheers", "Opened Can of WellCheers",
+                "A vending machine dispensing ocean soda.",
+                1, 1, 1, 0,
+                Resources.canOfWellCheers,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
         }

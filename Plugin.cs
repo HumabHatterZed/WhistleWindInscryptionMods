@@ -125,8 +125,8 @@ namespace WhistleWindLobotomyMod
                 Ability_GiftGiver();
                 Ability_Apostle();
                 Ability_TrueSaviour();
-                Ability_Piercing();
                 Ability_Confession();
+                Ability_Piercing();
 
                 #endregion
 
@@ -184,7 +184,7 @@ namespace WhistleWindLobotomyMod
                 BloodBath1_T0551();
                 BloodBath2_T0551();
                 BloodBath3_T0551();
-                //  CanOfWellCheers_F0552();
+                CanOfWellCheers_F0552();
                 Alriune_T0453();
                 ForsakenMurderer_T0154();
                 //  ChildOfTheGalaxy_O0155();

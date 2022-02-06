@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_porccubus", "Porccubus",
                 "A prick of its quills creates a deadly euphoria.",
-                3, 1, 2, 0,
+                2, 1, 0, 6,
                 Resources.porccubus,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
