@@ -27,15 +27,19 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
 
         private CardSlot targetedSlot = null;
+
+        private bool heretic = false;
         private bool IsDoctor => base.Card.Info.name.ToLowerInvariant().Contains("plaguedoctor");
         private string invalidDialogue;
 
         private readonly string healDialogue = "No allies to receive a blessing. An enemy will suffice instead.";
         private readonly string failDialogue = "No enemies either. It seems no blessings will be given this turn.";
 
+        //WhiteNight
         private readonly string transformDialogue = "The time has come. A new world will come.";
         private readonly string convertDialogue = "Rise, my servants. Rise and serve me.";
-        private readonly string hereticDialogue = "Rise, my servants. Rise and serve me.";
+        private readonly string declareDialogue = "I am death and life. Darkness and light.";
+        private readonly string hereticDialogue = "Have I not chosen you, the Twelve? Yet one of you is a devil.";
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
@@ -43,6 +47,8 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
+            yield return base.PreSuccessfulTriggerSequence();
+
             Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode, false);
             if (!ValidAllies())
             {
@@ -81,8 +87,6 @@ namespace WhistleWindLobotomyMod
                 }
                 yield break;
             }
-
-            yield return base.PreSuccessfulTriggerSequence();
 
             IEnumerator selectTarget = ChooseTarget();
             yield return selectTarget;
@@ -211,56 +215,61 @@ namespace WhistleWindLobotomyMod
 
                 CardInfo cardByName = CardLoader.GetCardByName("wstl_whiteNight");
                 yield return base.Card.TransformIntoCard(cardByName);
-                yield return new WaitForSeconds(0.2f);
+                yield return base.Card.RenderInfo.forceEmissivePortrait = true;
+                base.Card.Status.hiddenAbilities.Add(Ability.Flying);
+                base.Card.AddTemporaryMod(new CardModificationInfo(Ability.Flying));
+                base.Card.RenderCard();
 
+                yield return new WaitForSeconds(0.2f);
                 if (!PersistentValues.ClockThisRun)
                 {
                     PersistentValues.ClockThisRun = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(transformDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(declareDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(convertDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
                     yield return new WaitForSeconds(0.2f);
                 }
 
-                bool player = true;
-                var thisCardSlot = Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card == base.Card);
-                foreach (var slot in thisCardSlot)
+                foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(slot => slot.Card != base.Card))
                 {
-                    player = slot.IsPlayerSlot;
-                }
-
-                bool heretic = false;
-                var slotsWithCards = Singleton<BoardManager>.Instance.GetSlots(player).Where(slot => slot.Card != base.Card);
-                foreach (var slot in slotsWithCards)
-                {
-                    if (slot.Card != null && !slot.Card.Info.HasTrait(Trait.Pelt) && !slot.Card.Info.HasTrait(Trait.Terrain))
+                    if (slot.Card != null)
                     {
-                        CardInfo randApostle = CardLoader.GetCardByName("wstl_apostleScythe");
-
-                        // 1/12 chance of being Heretic
-                        if (new System.Random().Next(0, 12) != 0 || heretic)
+                        if (slot.Card.Info.HasTrait(Trait.Pelt) || slot.Card.Info.HasTrait(Trait.Terrain) || slot.Card.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
                         {
-                            switch (new System.Random().Next(0, 2))
-                            {
-                                case 0: // Scythe
-                                    break;
-                                case 1: // Spear
-                                    randApostle = CardLoader.GetCardByName("wstl_apostleSpear");
-                                    break;
-                                case 2: // Staff
-                                    randApostle = CardLoader.GetCardByName("wstl_apostleStaff");
-                                    break;
-                            }
+                            yield return slot.Card.Die(false, base.Card);
                         }
                         else
                         {
-                            Plugin.Log.LogInfo($"Heretic");
-                            heretic = true;
-                            //randApostle = CardLoader.GetCardByName("wstl_heretic");
-                        }
-                        yield return slot.Card.TransformIntoCard(randApostle);
-                        if (heretic)
-                        {
-                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(convertDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
+                            CardInfo randApostle = CardLoader.GetCardByName("wstl_apostleScythe");
+
+                            // 1/12 chance of being Heretic, there can only be one Heretic per battle
+                            if (new System.Random().Next(0, 1) == 0 && !heretic)
+                            {
+                                heretic = true;
+                                randApostle = CardLoader.GetCardByName("wstl_apostleHeretic");
+                            }
+                            else
+                            {
+                                switch (new System.Random().Next(0, 3))
+                                {
+                                    case 0: // Scythe
+                                        break;
+                                    case 1: // Spear
+                                        randApostle = CardLoader.GetCardByName("wstl_apostleSpear");
+                                        break;
+                                    case 2: // Staff
+                                        randApostle = CardLoader.GetCardByName("wstl_apostleStaff");
+                                        break;
+                                }
+                            }
+                            yield return slot.Card.TransformIntoCard(randApostle);
+
+                            if (heretic && !PersistentValues.ApostleHeretic)
+                            {
+                                PersistentValues.ApostleHeretic = true;
+                                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hereticDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
+                                yield return new WaitForSeconds(0.2f);
+                            }
                         }
                     }
                 }
@@ -271,15 +280,14 @@ namespace WhistleWindLobotomyMod
         {
             int count = 0;
             bool playerSlot = base.Card.Slot.IsPlayerSlot;
-            var slotsWithCards = Singleton<BoardManager>.Instance.GetSlots(playerSlot).Where(slot => slot.Card != base.Card);
-            foreach (var slot in slotsWithCards)
+            foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(playerSlot).Where(slot => slot.Card != base.Card))
             {
                 if (slot.Card != null)
                 {
                     count++;
                 }
             }
-            return count > 1;
+            return count > 0;
         }
     }
 }

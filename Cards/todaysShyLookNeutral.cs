@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new List<Ability>
             {
-                Ability.RandomAbility
+                Ability.DrawCopyOnDeath
             };
 
             WstlUtils.Add(

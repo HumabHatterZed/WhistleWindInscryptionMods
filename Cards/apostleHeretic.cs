@@ -7,9 +7,9 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private void HundredsGoodDeeds_O0303()
+        private void ApostleHeretic_T0346()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Confession.ability
             };
@@ -21,13 +21,12 @@ namespace WhistleWindLobotomyMod
             };
 
             WstlUtils.Add(
-                "wstl_hundredsGoodDeeds", "Hundreds of Good Deeds",
-                "Its hollow sockets see through you.",
-                777, 0, 0, 0,
-                Resources.hundredsGoodDeeds,
+                "wstl_apostleHeretic", "Heretic",
+                "The time has come.",
+                7, 0, 0, 0,
+                Resources.apostleHeretic,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), traits: traits,
-                appearanceBehaviour: CardUtils.getTerrainAppearance);
+                new List<Tribe>(), traits: traits);
         }
     }
 }

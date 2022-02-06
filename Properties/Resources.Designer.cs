@@ -433,9 +433,29 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] censored_title {
+            get {
+                object obj = ResourceManager.GetObject("censored_title", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] censoredMinion {
             get {
                 object obj = ResourceManager.GetObject("censoredMinion", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] censoredMinion_emission {
+            get {
+                object obj = ResourceManager.GetObject("censoredMinion_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -496,6 +516,16 @@ namespace WhistleWindLobotomyMod.Properties {
         public static byte[] dimensionalRefraction {
             get {
                 object obj = ResourceManager.GetObject("dimensionalRefraction", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] dimensionalRefraction_emission {
+            get {
+                object obj = ResourceManager.GetObject("dimensionalRefraction_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -836,6 +866,16 @@ namespace WhistleWindLobotomyMod.Properties {
         public static byte[] mhz176 {
             get {
                 object obj = ResourceManager.GetObject("mhz176", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] mhz176_emission {
+            get {
+                object obj = ResourceManager.GetObject("mhz176_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -1613,16 +1653,6 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] sigilHeretic {
-            get {
-                object obj = ResourceManager.GetObject("sigilHeretic", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         public static byte[] sigilIdol {
             get {
                 object obj = ResourceManager.GetObject("sigilIdol", resourceCulture);
@@ -2106,6 +2136,26 @@ namespace WhistleWindLobotomyMod.Properties {
         public static byte[] whiteNight {
             get {
                 object obj = ResourceManager.GetObject("whiteNight", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] whiteNight_emission {
+            get {
+                object obj = ResourceManager.GetObject("whiteNight_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] whiteNight_title {
+            get {
+                object obj = ResourceManager.GetObject("whiteNight_title", resourceCulture);
                 return ((byte[])(obj));
             }
         }

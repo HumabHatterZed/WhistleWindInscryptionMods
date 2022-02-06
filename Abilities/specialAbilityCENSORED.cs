@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using DiskCardGame;
 using UnityEngine;
 using APIPlugin;
+using HarmonyLib;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -21,7 +23,7 @@ namespace WhistleWindLobotomyMod
     {
         public static SpecialTriggeredAbility specialAbility;
 
-        private readonly string dialogue = "How disgusting...";
+        private readonly string dialogue = "What have you done to my beast?";
 
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
@@ -34,21 +36,40 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return fromCombat && killer == base.Card;
+            // Returns true when this card is the killer,
+            // and the killed is not Terrain or a Pelt
+            return killer == base.Card && (!card.Info.HasTrait(Trait.Terrain) && !card.Info.HasTrait(Trait.Pelt));
         }
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
+            base.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.5f);
             if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
             {
                 yield return new WaitForSeconds(0.2f);
                 Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
                 yield return new WaitForSeconds(0.2f);
             }
-            CardInfo cardInfo = CardLoader.GetCardByName("wstl_censoredMinion");
-            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
+            // Creates a minion that has the abilities, tribes, health of the killed card
+            CardInfo minion = CardLoader.GetCardByName("wstl_censoredMinion");
+            List <CardModificationInfo> killedInfo = new();
+            int killedHp = card.Info.baseHealth - 1 <= 0 ? 0 : card.Info.baseHealth - 1;
+            //int killedAtk = card.Info.baseAttack - 1 <= 0 ? 0 : card.Info.baseAttack - 1;
+            CardModificationInfo stats = new CardModificationInfo(0, killedHp);
+            killedInfo.Add(stats);
+            foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            {
+                killedInfo.Add(new CardModificationInfo(item));
+            }
+
+            foreach (Tribe item in card.Info.tribes.FindAll((Tribe x) => x != Tribe.NUM_TRIBES))
+            {
+                minion.tribes.Add(item);
+            }
+
+            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(minion, killedInfo, 0.25f, null);
 
             yield return new WaitForSeconds(0.45f);
             if (!PersistentValues.HasSeenCensoredKill)
@@ -57,6 +78,7 @@ namespace WhistleWindLobotomyMod
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Surprise);
             }
             yield return new WaitForSeconds(0.25f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
         }
     }
 }

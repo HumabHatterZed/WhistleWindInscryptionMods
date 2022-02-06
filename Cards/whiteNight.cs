@@ -24,10 +24,11 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_whiteNight", "WhiteNight",
                 "The time has come.",
-                66, 0, 0, 0,
+                666, 0, 0, 0,
                 Resources.whiteNight,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), traits: traits);
+                new List<Tribe>(), traits: traits,
+                emissionTexture: Resources.whiteNight_emission, titleTexture: Resources.whiteNight_title);
         }
     }
 }

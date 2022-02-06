@@ -70,7 +70,7 @@ namespace WhistleWindLobotomyMod
                     }
                     break;
             }
-            yield break;
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }

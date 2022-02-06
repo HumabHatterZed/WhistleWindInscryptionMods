@@ -55,22 +55,25 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             CardInfo cardInfo = CardLoader.GetCardByName("wstl_workerBee");
-            if (card.name != "Card (Worker Bee)" && card != base.Card && card != null && base.Card != null)
+            if (card != null)
             {
-                yield return PreSuccessfulTriggerSequence();
-
-                base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.4f);
-                if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
+                if (!card.Info.name.ToLowerInvariant().Contains("workerBee") && card != base.Card && base.Card != null)
                 {
-                    yield return new WaitForSeconds(0.2f);
-                    Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
-                    yield return new WaitForSeconds(0.2f);
-                }
-                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
+                    yield return PreSuccessfulTriggerSequence();
 
-                yield return new WaitForSeconds(0.4f);
-                yield return LearnAbility(0.4f);
+                    base.Card.Anim.StrongNegationEffect();
+                    yield return new WaitForSeconds(0.4f);
+                    if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
+                    {
+                        yield return new WaitForSeconds(0.2f);
+                        Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
+                        yield return new WaitForSeconds(0.2f);
+                    }
+                    yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
+
+                    yield return new WaitForSeconds(0.4f);
+                    yield return LearnAbility(0.4f);
+                }
             }
         }
     }

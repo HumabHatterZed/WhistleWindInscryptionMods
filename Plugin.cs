@@ -126,10 +126,7 @@ namespace WhistleWindLobotomyMod
                 Ability_Apostle();
                 Ability_TrueSaviour();
                 Ability_Piercing();
-
-
-                //Ability_Heretic();
-                //Ability_Confession();
+                Ability_Confession();
 
                 #endregion
 
@@ -178,7 +175,7 @@ namespace WhistleWindLobotomyMod
                 ApostleStaffDown_T0346();
                 ApostleSpear_T0346();
                 ApostleSpearDown_T0346();
-                //  ApostleHeretic_T0346();
+                ApostleHeretic_T0346();
                 DontTouchMe_O0547();
                 RudoltaSleigh_F0249();
                 QueenBee_T0450();
@@ -246,7 +243,7 @@ namespace WhistleWindLobotomyMod
                 BlueStar3_O0393();
                 //  YouMustBeHappy_T0994();
                 LuminousBracelet_O0995();
-                //  BehaviourAdjustment_O0996();
+                //BehaviourAdjustment_O0996();
                 //  FaithAndPromise_T0997();
                 Porccubus_O0298();
                 VoidDream_T0299();
@@ -278,12 +275,12 @@ namespace WhistleWindLobotomyMod
 
                 RunStateHelper.Initialize(harmony);
 
-                Logger.LogInfo($"The clock is at [{PersistentValues.NumberOfBlessings}]. This doesn't mean anything yet.");
+                Logger.LogInfo($"The clock is at [{PersistentValues.NumberOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Time to get to work manager!");
             }
             else
             {
-                Logger.LogInfo($"{pluginName} is loaded but is currently disabled in the configuration!");
+                Logger.LogInfo($"{pluginName} is loaded but is currently disabled in the configuration.");
             }
         }
     }

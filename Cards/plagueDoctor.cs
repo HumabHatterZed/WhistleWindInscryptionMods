@@ -63,7 +63,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_plagueDoctor", "Plague Doctor",
                 "A worker of miracles.",
-                3, 0, 0, 0,
+                3, 0, 0, 3,
                 resource,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), onePerDeck: true);

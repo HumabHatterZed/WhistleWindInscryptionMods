@@ -24,6 +24,8 @@ namespace WhistleWindLobotomyMod
 			CardMetaCategory metaCategory = CardMetaCategory.NUM_CATEGORIES,
 			CardComplexity complexity = CardComplexity.Simple,
 			byte[] emissionTexture = null,
+			byte[] altTexture = null,
+			byte[] titleTexture = null,
 			List<Texture> decals = null,
 			List<CardAppearanceBehaviour.Appearance> appearanceBehaviour = null,
 			IceCubeIdentifier iceCubeId = null,
@@ -60,7 +62,8 @@ namespace WhistleWindLobotomyMod
 				name, displayName, description,
 				baseHealth, baseAttack,
 				bloodCost, bonesCost, defaultTexture, abilities, specialAbilities, tribes, triggeredAbilities,
-				metaCategory, complexity, emissionTexture, decals, appearanceBehaviour, iceCubeId, evolveId, tailId, traits, onePerDeck);
+				metaCategory, complexity, emissionTexture, altTexture, titleTexture,
+				decals, appearanceBehaviour, iceCubeId, evolveId, tailId, traits, onePerDeck);
 		}
 
 		public static void Add(
@@ -76,6 +79,8 @@ namespace WhistleWindLobotomyMod
 			CardMetaCategory metaCategory = CardMetaCategory.NUM_CATEGORIES,
 			CardComplexity complexity = CardComplexity.Simple,
 			byte[] emissionTexture = null,
+			byte[] altTexture = null,
+			byte[] titleTexture = null,
 			List<Texture> decals = null,
 			List<CardAppearanceBehaviour.Appearance> appearanceBehaviour = null,
 			IceCubeIdentifier iceCubeId = null,
@@ -122,15 +127,21 @@ namespace WhistleWindLobotomyMod
 			cardInfo.traits = traits;
 			cardInfo.onePerDeck = onePerDeck;
 
-			var texture = ImageUtils.LoadTextureFromResource(defaultTexture);
-			/*cardInfo.portraitTex = Sprite.Create(
-				texture, CardUtils.DefaultCardArtRect, new Vector2(0.5f, 0.5f));
-			*/
-
-			var emissionTex = ImageUtils.LoadTextureFromResource(defaultTexture);
+			Texture2D texture = ImageUtils.LoadTextureFromResource(defaultTexture);
+			Texture2D emissionTex = null;
 			if (emissionTexture != null)
 			{
 				emissionTex = ImageUtils.LoadTextureFromResource(emissionTexture);
+			}
+			Texture2D altTex = null;
+			if (altTexture != null)
+			{
+				altTex = ImageUtils.LoadTextureFromResource(altTexture);
+			}
+			Texture titleTex = null;
+			if (titleTexture != null)
+			{
+				titleTex = ImageUtils.LoadTextureFromResource(titleTexture);
 			}
 
 			NewCard.Add(name, displayName, baseAttack, baseHealth,
@@ -140,10 +151,8 @@ namespace WhistleWindLobotomyMod
 				null, specialAbilitiesIdsParam: specialAbilities,
 				null, null, null, null, false,
 				onePerDeck, appearanceBehaviour, texture,
-				null, null, null, emissionTex, null, decals,
+				altTex, titleTex, null, emissionTex, null, decals,
 				evolveId: evolveId, iceCubeId: iceCubeId, tailId: tailId);
-
-			//NewCard.Add(cardInfo, specialAbilitiesIdsParam: specialAbilities, iceCubeId: iceCubeId, evolveId: evolveId);
 		}
 		#endregion
 

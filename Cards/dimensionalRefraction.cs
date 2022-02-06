@@ -16,11 +16,12 @@ namespace WhistleWindLobotomyMod
 
             WstlUtils.Add(
                 "wstl_dimensionalRefraction", "Dimensional Refraction Variant",
-                "The beast is the phenomenon itself.",
+                "A strange phenomenon. Or rather, the creature is the phenomena in and of itself.",
                 4, 4, 3, 0,
                 Resources.dimensionalRefraction,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.dimensionalRefraction_emission);
         }
     }
 }

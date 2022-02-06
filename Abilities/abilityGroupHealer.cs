@@ -24,46 +24,43 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
+        public override bool RespondsToUpkeep(bool playerUpkeep)
         {
-            if (!Card.Slot.IsPlayerSlot)
+            if (!base.Card.Slot.IsPlayerSlot)
             {
-                return playerTurnEnd;
+                return !playerUpkeep;
             }
-            return !playerTurnEnd;
+            return playerUpkeep;
         }
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
+        public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
 
-            yield return PreSuccessfulTriggerSequence();
+            yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.25f);
-            if (Card.Slot.IsPlayerSlot)
+
+            bool player = base.Card.Slot.IsPlayerSlot;
+            int count = 0;
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(player).Where(slot => slot.Card != base.Card))
             {
-                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(true).Where(slot => slot.Card != Card))
+                if (slot.Card != null && slot.Card.Health < slot.Card.MaxHealth)
                 {
-                    if (slot.Card != null && slot.Card.Health < slot.Card.MaxHealth)
-                    {
-                        slot.Card.HealDamage(1);
-                        slot.Card.OnStatsChanged();
-                        slot.Card.Anim.StrongNegationEffect();
-                    }
+                    count++;
+                    slot.Card.HealDamage(1);
+                    slot.Card.OnStatsChanged();
+                    slot.Card.Anim.StrongNegationEffect();
                 }
             }
-            if (!base.Card.Slot.IsPlayerSlot)
+            if (count == 0)
             {
-                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(false).Where(slot => slot.Card != Card))
-                {
-                    if (slot.Card != null && slot.Card.Health < slot.Card.MaxHealth)
-                    {
-                        slot.Card.HealDamage(1);
-                        slot.Card.OnStatsChanged();
-                        slot.Card.Anim.StrongNegationEffect();
-                    }
-                }
+                base.Card.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.4f);
             }
-            yield return new WaitForSeconds(0.4f);
-            yield return LearnAbility(0.4f);
+            else
+            {
+                yield return new WaitForSeconds(0.4f);
+                yield return base.LearnAbility(0.4f);
+            }
         }
     }
 }

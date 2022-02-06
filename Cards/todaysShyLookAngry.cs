@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_todaysShyLookAngry", "Today's Shy Look",
                 "An indecisive creature. Its expression is different each time you draw it.",
-                1, 2, 0, 0,
+                1, 2, 1, 0,
                 Resources.todaysShyLookAngry,
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>());

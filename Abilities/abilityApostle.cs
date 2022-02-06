@@ -42,22 +42,16 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            CardInfo sinInfo = CardLoader.GetCardByName("wstl_hundredsGoodDeeds");
-            CardInfo downedInfo = CardLoader.GetCardByName("wstl_apostleScytheDown");
-            if (IsSpear)
-            {
-                downedInfo = CardLoader.GetCardByName("wstl_apostleSpearDown");
-            }
-            else if (IsStaff)
-            {
-                downedInfo = CardLoader.GetCardByName("wstl_apostleStaffDown");
-            }
-
             yield return base.PreSuccessfulTriggerSequence();
+
+            CardInfo downedInfo = CardLoader.GetCardByName("wstl_apostleScytheDown");
+
+            if (IsSpear) { downedInfo = CardLoader.GetCardByName("wstl_apostleSpearDown"); }
+            if (IsStaff) { downedInfo = CardLoader.GetCardByName("wstl_apostleStaffDown"); }
 
             if (killer != null)
             {
-                if (killer.Info != sinInfo)
+                if (!killer.Info.name.ToLowerInvariant().Contains("hundredsgooddeeds"))
                 {
                     yield return Singleton<BoardManager>.Instance.CreateCardInSlot(downedInfo, base.Card.Slot, 0.15f);
                     if (!PersistentValues.ApostleKilled)

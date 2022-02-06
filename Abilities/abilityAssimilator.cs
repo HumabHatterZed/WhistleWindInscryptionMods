@@ -34,9 +34,9 @@ namespace WhistleWindLobotomyMod
         {
             yield return PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
-            Card.AddTemporaryMod(mod);
-            Card.OnStatsChanged();
-            Card.Anim.StrongNegationEffect();
+            base.Card.AddTemporaryMod(mod);
+            base.Card.OnStatsChanged();
+            base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.2f);
             yield return LearnAbility(0.4f);
         }

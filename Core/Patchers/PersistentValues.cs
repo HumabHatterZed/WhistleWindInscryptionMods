@@ -57,6 +57,17 @@ namespace WhistleWindLobotomyMod
                 SaveGameHelper.SetValue("ApostleKilled", value.ToString());
             }
         }
+        public static bool ApostleHeretic // Keeps track of whether this is the first time the player has tried to kill WhiteNight
+        {
+            get
+            {
+                return SaveGameHelper.GetBool("ApostleHeretic");
+            }
+            set
+            {
+                SaveGameHelper.SetValue("ApostleHeretic", value.ToString());
+            }
+        }
         public static bool WhiteNightKilled // Keeps track of whether this is the first time WhiteNight has been killed by a card
         {
             get
