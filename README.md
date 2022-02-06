@@ -12,7 +12,7 @@ To prevent this, go to the [Logging.Console] section of your BepInEx config file
 'Debug' logging is disabled by default, so if you haven't messed with it you should be golden.
 
 
-# Full List of (Non-transformation) Cards
+# Selective List of Non-Secret Cards
 #### Standard Training-Dummy Rabbit
 (１,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_1.png)
@@ -109,7 +109,7 @@ To prevent this, go to the [Logging.Console] section of your BepInEx config file
 
 #### Plague Doctor
 (０,３)
-![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png)
 
 #### Don't Touch Me
 (０,１)
@@ -303,9 +303,9 @@ To prevent this, go to the [Logging.Console] section of your BepInEx config file
 (０,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
-#### GRAVE OF CHERRY BLOSSOMS
+#### Grave of Cherry Blossoms
 (０,２)
-![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_2.png)
 
 #### The Firebird
 (１,３)
