@@ -3,8 +3,8 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AssemblyName>WhistleWindLobotomyMod</AssemblyName>
-		<Description>My first plugin</Description>
-		<Version>1.0.0.0</Version>
+		<Description>A mod for Inscryption adding cards based on Lobotomy Corp abnormalities.</Description>
+		<Version>0.85.28.113</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<LangVersion>9.0</LangVersion>
 	</PropertyGroup>
@@ -53,7 +53,8 @@
 
 		<Copy Condition="Exists('C:\inscryption-mods\')" SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\inscryption-mods\Inscryption\profiles\Default\BepInEx\plugins\" />
 		<Copy Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Inscryption\')" SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Inscryption\BepInEx\plugins\" />
-
+		<Copy Condition="Exists('C:\Users\Me\Desktop\Games\CardMod\WhistleWindLobotomyMod')" SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Users\Me\Desktop\Games\CardMod\WhistleWindLobotomyMod" />
+		
 		<Message Text="Copied build files" Importance="High" />
 	</Target>
 
