@@ -24,6 +24,7 @@ The sigils still work even without this, but it does look better.
 ## Credits
 Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to draw from.
 Code based on "borrowed" code from these creators is denoted by a comment within the respective file.
+Additional shoutout to James Veug and his ReadMeMaker mod. I didn't use it to make this ReadMe, but I am using the images he's provided.
 
 ## Special Abilities
 A number of cards added by this mod possess hidden, special abilities not found in the Rulebook.
