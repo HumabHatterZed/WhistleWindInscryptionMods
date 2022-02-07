@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Collections;
+﻿using System.Collections;
 using DiskCardGame;
 using UnityEngine;
 using APIPlugin;
@@ -9,42 +8,43 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private NewSpecialAbility SpecialAbility_QueenOfHatredExhausted()
+        private NewSpecialAbility SpecialAbility_Bloodbath2()
         {
-            const string rulebookName = "Hate B";
-            const string rulebookDescription = "Transforms into a stronger form on turn's end.";
-            return WstlUtils.CreateSpecialAbility<QueenOfHatredExhausted>(
+            const string rulebookName = "Hands 2";
+            const string rulebookDescription = "Reacts to cards being sacrificed.";
+            return WstlUtils.CreateSpecialAbility<BloodBath2>(
                 AbilitiesUtil.LoadAbilityIcon("None"),
                 rulebookName, rulebookDescription, false, false, false);
         }
     }
-    public class QueenOfHatredExhausted : SpecialCardBehaviour
+    public class BloodBath2 : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string dialogue = "The monster returns to full strength.";
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
             {
-                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Hate B");
+                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Hands 2");
             }
+
         }
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
+        private readonly string dialogue = "A third hand reaches out, as if asking for help.";
+
+        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            if (!base.PlayableCard.Slot.IsPlayerSlot)
+            if (base.PlayableCard.OnBoard)
             {
-                return !playerTurnEnd;
+                return !fromCombat && card != base.PlayableCard;
             }
-            return playerTurnEnd;
+            return false;
         }
 
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            CardInfo evolution = CardLoader.GetCardByName("wstl_queenOfHatred");
+            CardInfo evolution = CardLoader.GetCardByName("wstl_bloodBath3");
 
+            yield return new WaitForSeconds(0.25f);
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
@@ -52,9 +52,9 @@ namespace WhistleWindLobotomyMod
             }
             yield return base.PlayableCard.TransformIntoCard(evolution);
             yield return new WaitForSeconds(0.5f);
-            if (!PersistentValues.HasSeenHatredRecover)
+            if (!PersistentValues.HasSeenBloodbathHand2)
             {
-                PersistentValues.HasSeenHatredRecover = true;
+                PersistentValues.HasSeenBloodbathHand2 = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f);
             }
             yield return new WaitForSeconds(0.25f);

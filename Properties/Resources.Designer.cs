@@ -1603,6 +1603,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] sigilGardener {
+            get {
+                object obj = ResourceManager.GetObject("sigilGardener", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] sigilGiftGiver {
             get {
                 object obj = ResourceManager.GetObject("sigilGiftGiver", resourceCulture);
@@ -1646,6 +1656,16 @@ namespace WhistleWindLobotomyMod.Properties {
         public static byte[] sigilHeart {
             get {
                 object obj = ResourceManager.GetObject("sigilHeart", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] sigilHunter {
+            get {
+                object obj = ResourceManager.GetObject("sigilHunter", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -1733,9 +1753,29 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] sigilScrambler {
+            get {
+                object obj = ResourceManager.GetObject("sigilScrambler", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] sigilSerpentsNest {
             get {
                 object obj = ResourceManager.GetObject("sigilSerpentsNest", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] sigilSlime {
+            get {
+                object obj = ResourceManager.GetObject("sigilSlime", resourceCulture);
                 return ((byte[])(obj));
             }
         }

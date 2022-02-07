@@ -22,15 +22,6 @@ namespace WhistleWindLobotomyMod
     public class MagicalGirlHeart : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string dialogue = "Balance must be maintained between good and evil.";
-        private readonly string dialogue2 = "When one outweighs the other, she will tip the scale back.";
-        private readonly string dialogue3 = "No matter what she must become, or whose side she must take.";
-        private readonly string altDialogue = "Good cannot exist without evil.";
-
-        private int allyDeaths;
-        private int opponentDeaths;
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
@@ -39,6 +30,13 @@ namespace WhistleWindLobotomyMod
             }
         }
 
+        private readonly string dialogue = "Balance must be maintained between good and evil.";
+        private readonly string dialogue2 = "When one outweighs the other, she will tip the scale back.";
+        private readonly string dialogue3 = "No matter what she must become, or whose side she must take.";
+        private readonly string altDialogue = "Good cannot exist without evil.";
+
+        private int allyDeaths;
+        private int opponentDeaths;
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             return fromCombat;

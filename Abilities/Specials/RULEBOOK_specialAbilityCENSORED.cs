@@ -12,8 +12,8 @@ namespace WhistleWindLobotomyMod
     {
         private NewSpecialAbility SpecialAbility_CENSORED()
         {
-            const string rulebookName = "(CENSORED)";
-            const string rulebookDescription = "(CENSORED) cards when they're killed. Creates a (CENSORED) in your hand.";
+            const string rulebookName = "CENSORED";
+            const string rulebookDescription = "(CENSORED) killed cards then adds them to your hand.";
             return WstlUtils.CreateSpecialAbility<CENSORED>(
                 AbilitiesUtil.LoadAbilityIcon("None"),
                 rulebookName, rulebookDescription, false, false, false);
@@ -22,18 +22,17 @@ namespace WhistleWindLobotomyMod
     public class CENSORED : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string dialogue = "What have you done to my beast?";
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
             {
-                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "(CENSORED)");
+                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "CENSORED");
             }
 
         }
-
+        /*
+        private readonly string censoredDialogue = "What have you done to my beast?";
+        
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             // Returns true when this card is the killer,
@@ -44,8 +43,7 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             base.Card.Anim.StrongNegationEffect();
-            base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.4f);
             if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
             {
                 yield return new WaitForSeconds(0.2f);
@@ -55,9 +53,8 @@ namespace WhistleWindLobotomyMod
             // Creates a minion that has the abilities, tribes, health of the killed card
             CardInfo minion = CardLoader.GetCardByName("wstl_censoredMinion");
             List <CardModificationInfo> killedInfo = new();
-            int killedHp = card.Info.baseHealth - 1 <= 0 ? 0 : card.Info.baseHealth - 1;
-            //int killedAtk = card.Info.baseAttack - 1 <= 0 ? 0 : card.Info.baseAttack - 1;
-            CardModificationInfo stats = new CardModificationInfo(0, killedHp);
+            int killedAtk = card.Info.baseAttack - 1 <= 0 ? 0 : card.Info.baseAttack - 1;
+            CardModificationInfo stats = new CardModificationInfo(killedAtk, 0);
             killedInfo.Add(stats);
             foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
             {
@@ -75,10 +72,10 @@ namespace WhistleWindLobotomyMod
             if (!PersistentValues.HasSeenCensoredKill)
             {
                 PersistentValues.HasSeenCensoredKill = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Surprise);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(censoredDialogue, -0.65f, 0.4f, Emotion.Surprise);
             }
             yield return new WaitForSeconds(0.25f);
             Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
-        }
+        }*/
     }
 }

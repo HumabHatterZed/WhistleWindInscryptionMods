@@ -14,17 +14,12 @@ namespace WhistleWindLobotomyMod
                 Assimilator.ability
             };
 
-            List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
-            {
-                MountainOfBodies3.GetSpecialAbilityId
-            };
-
             WstlUtils.Add(
                 "wstl_mountainOfBodies3", "The Mountain of Smiling Bodies",
                 "A mass grave, melted and congealed into one eternally hungry beast.",
                 1, 4, 0, 0,
                 Resources.mountainOfBodies3,
-                abilities: abilities, specialAbilities: specialAbilities,
+                abilities: abilities, specialAbilities: new(),
                 new List<Tribe>(),
                 appearanceBehaviour: CardUtils.getRareAppearance);
         }

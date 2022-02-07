@@ -14,17 +14,12 @@ namespace WhistleWindLobotomyMod
                 Bloodfiend.ability
             };
 
-            List<SpecialAbilityIdentifier> specialAbilities = new()
-            {
-                CENSORED.GetSpecialAbilityId
-            };
-
             WstlUtils.Add(
                 "wstl_censored", "CENSORED",
                 "It's best you never learn what it looks like.",
                 2, 6, 4, 0,
                 Resources.censored,
-                abilities: abilities, specialAbilities: specialAbilities,
+                abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
                 emissionTexture: Resources.censored_emission,
                 titleTexture: Resources.censored_title,

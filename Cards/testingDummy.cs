@@ -11,7 +11,6 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new List<Ability>
             {
-                Piercing.ability,
                 Ability.TripleBlood
             };
 

@@ -12,9 +12,14 @@ namespace WhistleWindLobotomyMod
     {
         private NewAbility Ability_TrueSaviour()
         {
-            const string rulebookName = "";
-            const string rulebookDescription = "My story is nowhere, unknown to all.";
+            const string rulebookName = "True Saviour";
+            string rulebookDescription = "My story is nowhere, unknown to all.";
             const string dialogue = "I am death and life. Darkness and light.";
+
+            if (WhiteNightDescRulebook)
+            {
+                rulebookDescription = "Cannot die. Transform non-Terrain and non-Pelt cards into Apostles. 1-in-12 chance that the Apostle will be a Heretic.";
+            }
 
             return WstlUtils.CreateAbility<TrueSaviour>(
                 Resources.sigilTrueSaviour,

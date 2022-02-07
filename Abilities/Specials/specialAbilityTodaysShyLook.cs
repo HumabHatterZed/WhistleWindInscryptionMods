@@ -20,9 +20,6 @@ namespace WhistleWindLobotomyMod
     public class TodaysShyLook : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        CardInfo cardByName = null;
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
@@ -31,6 +28,8 @@ namespace WhistleWindLobotomyMod
             }
 
         }
+
+        CardInfo cardByName = null;
 
         public override bool RespondsToDrawn()
         {

@@ -7,20 +7,20 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private void Laetitia_O0167()
+        private void MeltingLoveSlime_D03109()
         {
             List<Ability> abilities = new List<Ability>
             {
-                GiftGiver.ability
+                Slime.ability
             };
 
             WstlUtils.Add(
-                "wstl_laetitia", "Laetitia",
-                "A little witch carrying a heart-shaped gift.",
-                2, 1, 1, 0,
-                Resources.laetitia,
+                "wstl_meltingLoveMinion", "Slime",
+                "Don't let your beasts get too close now.",
+                1, 1, 0, 0,
+                Resources.meltingLoveMinion,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
+                new List<Tribe>(),
                 emissionTexture: Resources.rudoltaSleigh_emission);
         }
     }

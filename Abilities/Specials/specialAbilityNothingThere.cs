@@ -21,9 +21,6 @@ namespace WhistleWindLobotomyMod
     public class NothingThere : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string dialogue = "What is that thing?";
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
@@ -31,6 +28,8 @@ namespace WhistleWindLobotomyMod
                 return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Nothing 0");
             }
         }
+
+        private readonly string dialogue = "What is that thing?";
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {

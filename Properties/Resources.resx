@@ -580,6 +580,9 @@
   <data name="sigilFrozenHeart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilFrozenHeart.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="sigilGardener" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sigilGardener.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="sigilGiftGiver" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilGiftGiver.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -594,6 +597,9 @@
   </data>
   <data name="sigilHeart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilHeart.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilHunter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sigilHunter.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="sigilIdol" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilIdol.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -619,8 +625,14 @@
   <data name="sigilRoots" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilRoots.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="sigilScrambler" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sigilScrambler.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="sigilSerpentsNest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilSerpentsNest.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilSlime" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sigilSlime.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="sigilSpade" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilSpade.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

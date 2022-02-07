@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             return WstlUtils.CreateAbility<Burning>(
                 Resources.sigilBurning,
-                rulebookName, rulebookDescription, dialogue, 2);
+                rulebookName, rulebookDescription, dialogue, 2, true);
         }
     }
     public class Burning : AbilityBehaviour

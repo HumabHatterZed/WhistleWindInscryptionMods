@@ -8,37 +8,41 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private NewSpecialAbility SpecialAbility_MountainOfBodies()
+        private NewSpecialAbility SpecialAbility_JudgementBird()
         {
-            const string rulebookName = "Bodies 1";
-            const string rulebookDescription = "Grows when it kills a card.";
-            return WstlUtils.CreateSpecialAbility<MountainOfBodies>(
+            const string rulebookName = "Judge";
+            const string rulebookDescription = "Hangs those deemed sinners.";
+            return WstlUtils.CreateSpecialAbility<Judgement>(
                 AbilitiesUtil.LoadAbilityIcon("None"),
                 rulebookName, rulebookDescription, false, false, false);
         }
     }
-    public class MountainOfBodies : SpecialCardBehaviour
+    public class Judgement : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string growDialogue = "With each body its appetite grows.";
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
             {
-                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Bodies 1");
+                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Judge");
             }
 
         }
 
+        private readonly string dialogue = "A hand rises from the overflowing pool.";
+
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return killer == base.Card;
+            if (base.PlayableCard.InHand)
+            {
+                return !fromCombat && Singleton<BoardManager>.Instance.currentSacrificeDemandingCard == base.PlayableCard;
+            }
+            return !fromCombat;
         }
+
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            CardInfo evolution = CardLoader.GetCardByName("wstl_mountainOfBodies2");
+            CardInfo evolution = CardLoader.GetCardByName("wstl_bloodBath1");
 
             yield return new WaitForSeconds(0.25f);
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
@@ -48,10 +52,10 @@ namespace WhistleWindLobotomyMod
             }
             yield return base.PlayableCard.TransformIntoCard(evolution);
             yield return new WaitForSeconds(0.5f);
-            if (!PersistentValues.HasSeenMountainGrow)
+            if (!PersistentValues.HasSeenBloodbathHand)
             {
-                PersistentValues.HasSeenMountainGrow = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(growDialogue, -0.65f, 0.4f);
+                PersistentValues.HasSeenBloodbathHand = true;
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f);
             }
             yield return new WaitForSeconds(0.25f);
         }

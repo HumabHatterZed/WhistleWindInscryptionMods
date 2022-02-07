@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Team Leader";
             const string rulebookDescription = "While this card is on the board, all ally cards gain 1 Power.";
-            const string dialogue = "Your creature emboldens its allies.";
+            const string dialogue = "Your beast emboldens its allies.";
 
             return WstlUtils.CreateAbility<TeamLeader>(
                 Resources.sigilTeamLeader,
@@ -29,21 +29,18 @@ namespace WhistleWindLobotomyMod
         {
             return ActivateOnPlay();
         }
-
         public override IEnumerator OnResolveOnBoard()
         {
             yield return base.LearnAbility(0.5f);
-            yield break;
         }
+
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
             return ActivateOnPlay();
         }
-
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
             yield return base.LearnAbility(0.5f);
-            yield break;
         }
         public bool ActivateOnPlay()
         {

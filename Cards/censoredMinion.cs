@@ -17,8 +17,7 @@ namespace WhistleWindLobotomyMod
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(),
                 emissionTexture: Resources.censoredMinion_emission,
-                titleTexture: Resources.censored_title,
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                titleTexture: Resources.censored_title);
         }
     }
 }

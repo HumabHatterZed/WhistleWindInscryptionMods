@@ -57,7 +57,7 @@ namespace WhistleWindLobotomyMod
             CardInfo cardInfo = CardLoader.GetCardByName("wstl_workerBee");
             if (card != null)
             {
-                if (!card.Info.name.ToLowerInvariant().Contains("workerBee") && card != base.Card && base.Card != null)
+                if (!card.Info.name.ToLowerInvariant().Contains("workerbee") && card != base.Card && base.Card != null)
                 {
                     yield return PreSuccessfulTriggerSequence();
 

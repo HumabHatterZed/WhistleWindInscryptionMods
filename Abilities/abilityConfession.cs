@@ -11,9 +11,14 @@ namespace WhistleWindLobotomyMod
     {
         private NewAbility Ability_Confession()
         {
-            const string rulebookName = "";
-            const string rulebookDescription = "Keep faith with unwavering resolve.";
+            const string rulebookName = "Confession and Pentinence";
+            string rulebookDescription = "Keep faith with unwavering resolve.";
             const string dialogue = "Keep faith with unwavering resolve.";
+
+            if (WhiteNightDescRulebook)
+            {
+                rulebookDescription = "If held by the Heretic, kills the Heretic at the end of the opponent's turn and adds a special card to your hand. If held by the special card, kill Apostles and WhiteNight and deal 33 direct damage.";
+            }
 
             return WstlUtils.CreateAbility<Confession>(
                 Resources.sigilMartyr,

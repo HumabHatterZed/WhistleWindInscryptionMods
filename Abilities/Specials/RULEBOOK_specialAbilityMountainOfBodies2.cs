@@ -21,10 +21,6 @@ namespace WhistleWindLobotomyMod
     public class MountainOfBodies2 : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string dieDialogue = "Though it has become smaller, its hunger continues to grow.";
-        private readonly string growDialogue = "The smiling faces are unfamiliar, yet sorrowful.";
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
@@ -33,6 +29,10 @@ namespace WhistleWindLobotomyMod
             }
 
         }
+        /*
+        private readonly string dieDialogue = "Though it has become smaller, its hunger continues to grow.";
+        private readonly string growDialogue = "The smiling faces are unfamiliar, yet sorrowful.";
+
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
             return !wasSacrifice;
@@ -78,6 +78,6 @@ namespace WhistleWindLobotomyMod
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(growDialogue, -0.65f, 0.4f);
             }
             yield return new WaitForSeconds(0.25f);
-        }
+        }*/
     }
 }

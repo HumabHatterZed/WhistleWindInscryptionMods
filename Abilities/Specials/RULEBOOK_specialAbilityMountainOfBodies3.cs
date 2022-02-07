@@ -21,9 +21,6 @@ namespace WhistleWindLobotomyMod
     public class MountainOfBodies3 : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string dieDialogue = "No worry. There are bodies to spare.";
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
@@ -32,6 +29,9 @@ namespace WhistleWindLobotomyMod
             }
 
         }
+        /*
+        private readonly string dieDialogue = "No worry. There are bodies to spare.";
+
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
             return !wasSacrifice;
@@ -53,6 +53,6 @@ namespace WhistleWindLobotomyMod
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dieDialogue, -0.65f, 0.4f);
             }
             yield return new WaitForSeconds(0.25f);
-        }
+        }*/
     }
 }

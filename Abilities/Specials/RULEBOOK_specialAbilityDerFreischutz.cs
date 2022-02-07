@@ -22,12 +22,6 @@ namespace WhistleWindLobotomyMod
     public class DerFreischutz : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string dialogue = "The Devil proposed a childist contract.";
-        private readonly string dialogue2 = "The seventh bullet would pierce the heart of his most beloved.";
-        private readonly string dialogue3 = "On hearing this, the hunter sought and shot everyone he loved.";
-        private int shotCount;
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
@@ -35,6 +29,11 @@ namespace WhistleWindLobotomyMod
                 return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Devil");
             }
         }
+        /*
+        private readonly string dialogue = "The Devil proposed a childist contract.";
+        private readonly string dialogue2 = "The seventh bullet would pierce the heart of his most beloved.";
+        private readonly string dialogue3 = "On hearing this, the hunter sought and shot everyone he loved.";
+        private int shotCount;
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target)
         {
@@ -46,7 +45,7 @@ namespace WhistleWindLobotomyMod
             if (shotCount >= 6)
             {
                 yield return new WaitForSeconds(0.25f);
-                base.Card.Anim.StrongNegationEffect();
+                base.PlayableCard.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.5f);
 
                 if (!PersistentValues.HasSeenDerFreischutzSeventh)
@@ -58,25 +57,15 @@ namespace WhistleWindLobotomyMod
                     yield return new WaitForSeconds(0.5f);
                 }
 
-                CardSlot thisSlot = null;
-
-                foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(true).Where(slot => slot && slot.Card == base.Card))
-                {
-                    if (slot != null)
-                    {
-                        thisSlot = slot;
-                    }
-                }
                 foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(true).Where(slot => slot && slot.Card != base.Card))
                 {
                     if (slot.Card != null)
                     {
-                        yield return slot.Card.TakeDamage(thisSlot.Card.Attack, thisSlot.Card);
+                        yield return slot.Card.TakeDamage(base.PlayableCard.Attack, base.PlayableCard);
                     }
                 }
                 shotCount = 0;
             }
-            // Plugin.Log.LogInfo($"{shotCount} bullets fired.");
             yield break;
         }
 
@@ -90,7 +79,7 @@ namespace WhistleWindLobotomyMod
             if (shotCount >= 6)
             {
                 yield return new WaitForSeconds(0.25f);
-                base.Card.Anim.StrongNegationEffect();
+                base.PlayableCard.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.5f);
 
                 if (!PersistentValues.HasSeenDerFreischutzSeventh)
@@ -102,26 +91,16 @@ namespace WhistleWindLobotomyMod
                     yield return new WaitForSeconds(0.5f);
                 }
 
-                CardSlot thisSlot = null;
-
-                foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(true).Where(slot => slot && slot.Card == base.Card))
-                {
-                    if (slot != null)
-                    {
-                        thisSlot = slot;
-                    }
-                }
                 foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(true).Where(slot => slot && slot.Card != base.Card))
                 {
                     if (slot.Card != null)
                     {
-                        yield return slot.Card.TakeDamage(thisSlot.Card.Attack, thisSlot.Card);
+                        yield return slot.Card.TakeDamage(base.PlayableCard.Attack, base.PlayableCard);
                     }
                 }
                 shotCount = 0;
             }
-            // Plugin.Log.LogInfo($"{shotCount} bulletss fired.");
             yield break;
-        }
+        }*/
     }
 }

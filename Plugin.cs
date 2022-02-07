@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGUID = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWindLobotomyCorp";
-        private const string pluginVersion = "0.7.6.107"; // Major.Minor.Patch.Cards
+        private const string pluginVersion = "0.28.86.113"; // Major.Minor.Patch.Cards
         internal static ManualLogSource Log;
 
         internal static bool ModEnabled { get; private set; }
@@ -43,7 +43,7 @@ namespace WhistleWindLobotomyMod
             {
                 return Config.Bind(
                     pluginName, "SPECIAL ABILITIES IN RULEBOOK", false,
-                    new ConfigDescription("Adds special abilities to the rulebook when set to true.")).Value;
+                    new ConfigDescription("Adds hidden special abilities to the rulebook when set to true.")).Value;
             }
         }
         private bool Config_RulebookWhiteNightDesc
@@ -52,7 +52,7 @@ namespace WhistleWindLobotomyMod
             {
                 return Config.Bind(
                     pluginName, "REVEAL SELECT DESCRIPTIONS", false,
-                    new ConfigDescription("Changes the descriptions of the abilities Apostle, True Saviour, Heretic and Confession.")).Value;
+                    new ConfigDescription("Changes the descriptions of the abilities Apostle, True Saviour, and Confession and Pentinence.")).Value;
             }
         }
 
@@ -82,15 +82,21 @@ namespace WhistleWindLobotomyMod
                 SpecialAbility_NothingThereTrue();
                 SpecialAbility_NothingThereEgg();
                 SpecialAbility_MagicalGirlDiamond();
-                SpecialAbility_DerFreischutz();
-                SpecialAbility_CrumblingArmour();
                 SpecialAbility_MagicalGirlSpade();
-                SpecialAbility_MountainOfBodies();
-                SpecialAbility_MountainOfBodies2();
-                SpecialAbility_MountainOfBodies3();
-                SpecialAbility_CENSORED();
                 SpecialAbility_TodaysShyLook();
 
+                if (Config_RulebookSpecials)
+                {
+                    // These special abilities' only exist for their Rulebook entries
+                    // Their actual effects can be found in the custom ability they each possess
+                    SpecialAbility_DerFreischutz();
+                    SpecialAbility_CrumblingArmour();
+                    SpecialAbility_MountainOfBodies();
+                    SpecialAbility_MountainOfBodies2();
+                    SpecialAbility_MountainOfBodies3();
+                    SpecialAbility_CENSORED();
+                    SpecialAbility_JudgementBird();
+                }
 
                 #endregion
 
@@ -123,10 +129,15 @@ namespace WhistleWindLobotomyMod
                 Ability_Regenerator();
                 Ability_Volatile();
                 Ability_GiftGiver();
+                Ability_Piercing();
+                Ability_Scrambler();
+                Ability_Gardener();
+                Ability_Slime();
+                Ability_Hunter();
+
                 Ability_Apostle();
                 Ability_TrueSaviour();
                 Ability_Confession();
-                Ability_Piercing();
 
                 #endregion
 
@@ -195,7 +206,7 @@ namespace WhistleWindLobotomyMod
                 //  FragmentOfUniverse_O0360();
                 CrumblingArmour_O0561();
                 JudgementBird_O0262();
-                ApocalypseBird_O0263();
+                //  ApocalypseBird_O0263();
                 //  BigEyes_O0263();
                 //  SmallBeak_O0263();
                 //  LongArms_O0263();
@@ -241,9 +252,9 @@ namespace WhistleWindLobotomyMod
                 BlueStar_O0393();
                 BlueStar2_O0393();
                 BlueStar3_O0393();
-                //  YouMustBeHappy_T0994();
+                YouMustBeHappy_T0994();
                 LuminousBracelet_O0995();
-                //BehaviourAdjustment_O0996();
+                //  BehaviourAdjustment_O0996();
                 //  FaithAndPromise_T0997();
                 Porccubus_O0298();
                 VoidDream_T0299();
@@ -259,10 +270,10 @@ namespace WhistleWindLobotomyMod
                 ArmyInBlack_D01106();
                 Ppodae_D02107();
                 PpodaeBuff_D02107();
-                //ParasiteTree_D04108();
-                //ParasiteSapling_D04108();
-                //MeltingLove_D03109();
-                //MeltingLoveSlime_D03109();
+                ParasiteTree_D04108();
+                ParasiteTreeSapling_D04108();
+                MeltingLove_D03109();
+                MeltingLoveSlime_D03109();
                 HonouredMonk_D01110();
                 CloudedMonk_D01110();
                 //  Ruina Expansion

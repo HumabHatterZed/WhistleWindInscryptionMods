@@ -21,13 +21,6 @@ namespace WhistleWindLobotomyMod
     public class MagicalGirlSpade : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private CardModificationInfo mod = new CardModificationInfo(0, 1);
-
-        private readonly string protectDialogue = "The knight softens the oncoming blows.";
-
-        private readonly string transformDialogue = "Having failed to protect again, the knight fell into despair.";
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
@@ -35,6 +28,11 @@ namespace WhistleWindLobotomyMod
                 return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Spade");
             }
         }
+
+        private CardModificationInfo mod = new CardModificationInfo(0, 1);
+
+        private readonly string protectDialogue = "The knight softens the oncoming blows.";
+        private readonly string transformDialogue = "Having failed to protect again, the knight fell into despair.";
 
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {

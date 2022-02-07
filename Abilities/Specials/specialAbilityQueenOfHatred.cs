@@ -21,9 +21,6 @@ namespace WhistleWindLobotomyMod
     public class QueenOfHatred : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string dialogue = "A formidable attack. Shame it has left her too tired to defend herself.";
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
@@ -31,6 +28,8 @@ namespace WhistleWindLobotomyMod
                 return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Hate A");
             }
         }
+
+        private readonly string dialogue = "A formidable attack. Shame it has left her too tired to defend herself.";
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {

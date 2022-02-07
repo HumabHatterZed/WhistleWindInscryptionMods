@@ -21,9 +21,6 @@ namespace WhistleWindLobotomyMod
     public class CrumblingArmour : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string cowardKill = "A coward on the battlefield does not deserve to see its end.";
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
@@ -31,6 +28,9 @@ namespace WhistleWindLobotomyMod
                 return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Warrior");
             }
         }
+        /*
+        private readonly string cowardKill = "A coward on the battlefield does not deserve to see its end.";
+
         public override bool RespondsToResolveOnBoard()
         {
             return ActivateOnPlay();
@@ -121,6 +121,6 @@ namespace WhistleWindLobotomyMod
                 }
             }
             return num > 0;
-        }
+        }*/
     }
 }

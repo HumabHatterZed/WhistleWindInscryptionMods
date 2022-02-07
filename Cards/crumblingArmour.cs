@@ -13,17 +13,13 @@ namespace WhistleWindLobotomyMod
             {
                 Courageous.ability
             };
-            List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
-            {
-                CrumblingArmour.GetSpecialAbilityId
-            };
 
             WstlUtils.Add(
                 "wstl_crumblingArmour", "Crumbling Armour",
                 "A suit of armour that rewards the brave.",
                 2, 0, 0, 6,
                 Resources.crumblingArmour,
-                abilities: abilities, specialAbilities: specialAbilities,
+                abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
         }
     }

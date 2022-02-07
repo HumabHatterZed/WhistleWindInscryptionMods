@@ -7,19 +7,18 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private void NotesFromResearcher_T0978()
+        private void ParasiteTree_D04108()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
-                FlagBearer.ability,
-                Volatile.ability
+                Gardener.ability
             };
 
             WstlUtils.Add(
-                "wstl_notesFromResearcher", "Notes from a Crazed Researcher",
-                "An insane garble of guilty confessions and incoherent gibberish.",
-                2, 0, 1, 0,
-                Resources.notesFromResearcher,
+                "wstl_parasiteTree", "Parasite Tree",
+                "A beautiful tree. It wants only to help you and your beasts.",
+                3, 0, 2, 0,
+                Resources.parasiteTree,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
         }

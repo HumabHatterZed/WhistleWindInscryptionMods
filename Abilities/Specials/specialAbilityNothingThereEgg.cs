@@ -9,28 +9,27 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private NewSpecialAbility SpecialAbility_MagicalGirlDiamond()
+        private NewSpecialAbility SpecialAbility_NothingThereEgg()
         {
-            const string rulebookName = "Diamond";
+            const string rulebookName = "Nothing 2";
             const string rulebookDescription = "Transforms into a stronger form on turn's end.";
-            return WstlUtils.CreateSpecialAbility<MagicalGirlDiamond>(
+            return WstlUtils.CreateSpecialAbility<NothingThereEgg>(
                 AbilitiesUtil.LoadAbilityIcon("None"),
                 rulebookName, rulebookDescription, false, false, false);
         }
     }
-    public class MagicalGirlDiamond : SpecialCardBehaviour
+    public class NothingThereEgg : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string dialogue = "Desire unfulfilled, the koi continues for Eden.";
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
             {
-                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Diamond");
+                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Nothing 2");
             }
         }
+
+        private readonly string dialogue = "Is that supposed to be a...human?";
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
@@ -59,13 +58,13 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
             yield return new WaitForSeconds(0.25f);
-            CardInfo cardByName = CardLoader.GetCardByName("wstl_kingOfGreed");
+            CardInfo cardByName = CardLoader.GetCardByName("wstl_nothingThereFinal");
             yield return base.PlayableCard.TransformIntoCard(cardByName);
-            yield return new WaitForSeconds(0.5f);
-            if (!PersistentValues.HasSeenGreedTransformation)
+            yield return new WaitForSeconds(0.25f);
+            if (!PersistentValues.HasSeenNothingTransformationEgg)
             {
-                PersistentValues.HasSeenGreedTransformation = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f);
+                PersistentValues.HasSeenNothingTransformationEgg = true;
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Curious);
             }
             yield return new WaitForSeconds(0.25f);
         }

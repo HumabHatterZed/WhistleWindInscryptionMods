@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
     {
         private NewAbility Ability_Apostle()
         {
-            const string rulebookName = "";
+            const string rulebookName = "Apostle";
             string rulebookDescription = " Thou wilt abandon flesh and be born again.";
             const string dialogue = "Do not fear, for I am with thee.";
 

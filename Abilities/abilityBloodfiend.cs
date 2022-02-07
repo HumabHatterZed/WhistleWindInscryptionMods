@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using DiskCardGame;
 using UnityEngine;
 using APIPlugin;
@@ -23,6 +24,9 @@ namespace WhistleWindLobotomyMod
     {
         public static Ability ability;
         public override Ability Ability => ability;
+
+        private readonly string censoredDialogue = "What have you done to my beast?";
+
         public override bool RespondsToDealDamage(int amount, PlayableCard target)
         {
             return amount > 0;
@@ -36,6 +40,54 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.4f);
             yield return base.LearnAbility(0.4f);
             yield break;
+        }
+
+        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
+        {
+            if (killer != null)
+            {
+                return fromCombat && killer == base.Card && base.Card.Info.name.ToLowerInvariant().Equals("wstl_censored") &&
+                    !card.Info.HasTrait(Trait.Terrain) && !card.Info.HasTrait(Trait.Pelt);
+            }
+            return false;
+        }
+
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
+        {
+            base.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.4f);
+            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
+            {
+                yield return new WaitForSeconds(0.2f);
+                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
+                yield return new WaitForSeconds(0.2f);
+            }
+            // Creates a minion that has the abilities, tribes, health of the killed card
+            CardInfo minion = CardLoader.GetCardByName("wstl_censoredMinion");
+            List<CardModificationInfo> killedInfo = new();
+            int killedAtk = card.Info.baseAttack - 1 <= 0 ? 0 : card.Info.baseAttack - 1;
+            CardModificationInfo stats = new CardModificationInfo(killedAtk, 0);
+            killedInfo.Add(stats);
+            foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            {
+                killedInfo.Add(new CardModificationInfo(item));
+            }
+
+            foreach (Tribe item in card.Info.tribes.FindAll((Tribe x) => x != Tribe.NUM_TRIBES))
+            {
+                minion.tribes.Add(item);
+            }
+
+            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(minion, killedInfo, 0.25f, null);
+
+            yield return new WaitForSeconds(0.45f);
+            if (!PersistentValues.HasSeenCensoredKill)
+            {
+                PersistentValues.HasSeenCensoredKill = true;
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(censoredDialogue, -0.65f, 0.4f, Emotion.Surprise);
+            }
+            yield return new WaitForSeconds(0.25f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
         }
     }
 }

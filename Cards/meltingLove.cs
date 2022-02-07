@@ -7,22 +7,22 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private void DerFreischutz_F0169()
+        private void MeltingLove_D03109()
         {
             List<Ability> abilities = new List<Ability>
             {
-                Ability.SplitStrike,
-                Hunter.ability
+                Slime.ability
             };
 
             WstlUtils.Add(
-                "wstl_derFreischutz", "Der Freischütz",
-                "A friendly hunter to some, a bloody gunsman to others. His bullets always hit their mark.",
-                1, 1, 2, 0,
-                Resources.derFreischutz,
+                "wstl_meltingLove", "Melting Love",
+                "Don't let your beasts get too close now.",
+                2, 4, 3, 0,
+                Resources.meltingLove,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                emissionTexture: Resources.rudoltaSleigh_emission,
+                appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
         }
     }
 }

@@ -30,6 +30,7 @@ namespace WhistleWindLobotomyMod
 
         private readonly string buffFail = "Your creature's consitution is too weak.";
         private readonly string buffRefuse = "Coward's don't get the boon of the brave.";
+        private readonly string cowardKill = "A coward on the battlefield does not deserve to see its end.";
 
         public override bool RespondsToResolveOnBoard()
         {
@@ -49,7 +50,7 @@ namespace WhistleWindLobotomyMod
                 if (slot.Card != null)
                 {
                     yield return new WaitForSeconds(0.25f);
-                    if (!slot.Card.HasAbility(Ability.TailOnHit) && !slot.Card.HasAbility(Ability.Submerge))
+                    if (!slot.Card.HasAbility(Ability.TailOnHit) && !slot.Card.HasAbility(Ability.Submerge) && !slot.Card.Status.hiddenAbilities.Contains(Ability.TailOnHit))
                     {
                         if (slot.Card.Health > 1 && !slot.Card.TemporaryMods.Contains(courageMod))
                         {
@@ -81,7 +82,19 @@ namespace WhistleWindLobotomyMod
                     }
                     else
                     {
-                        if (!PersistentValues.HasSeenCrumblingArmourRefuse && PersistentValues.HasSeenCrumblingArmourKill)
+                        if (base.Card.Info.name.ToLowerInvariant().Contains("crumblingarmour"))
+                        {
+                            base.Card.Anim.StrongNegationEffect();
+                            yield return new WaitForSeconds(0.25f);
+                            yield return slot.Card.Die(false, base.Card);
+                            if (!PersistentValues.HasSeenCrumblingArmourKill)
+                            {
+                                PersistentValues.HasSeenCrumblingArmourKill = true;
+                                yield return new WaitForSeconds(0.5f);
+                                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(cowardKill, -0.65f, 0.4f);
+                            }
+                        }
+                        else if (!PersistentValues.HasSeenCrumblingArmourRefuse)
                         {
                             PersistentValues.HasSeenCrumblingArmourRefuse = true;
                             yield return new WaitForSeconds(0.25f);
@@ -108,12 +121,12 @@ namespace WhistleWindLobotomyMod
         {
             yield return PreSuccessfulTriggerSequence();
 
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot).Where(slot => slot.Card == otherCard))
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot))
             {
                 if (slot.Card != null)
                 {
                     yield return new WaitForSeconds(0.25f);
-                    if (!slot.Card.HasAbility(Ability.TailOnHit) && !slot.Card.HasAbility(Ability.Submerge))
+                    if (!slot.Card.HasAbility(Ability.TailOnHit) && !slot.Card.HasAbility(Ability.Submerge) && !slot.Card.Status.hiddenAbilities.Contains(Ability.TailOnHit))
                     {
                         if (slot.Card.Health > 1 && !slot.Card.TemporaryMods.Contains(courageMod))
                         {
@@ -145,7 +158,19 @@ namespace WhistleWindLobotomyMod
                     }
                     else
                     {
-                        if (!PersistentValues.HasSeenCrumblingArmourRefuse && PersistentValues.HasSeenCrumblingArmourKill)
+                        if (base.Card.Info.name.ToLowerInvariant().Contains("crumblingarmour"))
+                        {
+                            base.Card.Anim.StrongNegationEffect();
+                            yield return new WaitForSeconds(0.25f);
+                            yield return slot.Card.Die(false, base.Card);
+                            if (!PersistentValues.HasSeenCrumblingArmourKill)
+                            {
+                                PersistentValues.HasSeenCrumblingArmourKill = true;
+                                yield return new WaitForSeconds(0.5f);
+                                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(cowardKill, -0.65f, 0.4f);
+                            }
+                        }
+                        else if (!PersistentValues.HasSeenCrumblingArmourRefuse)
                         {
                             PersistentValues.HasSeenCrumblingArmourRefuse = true;
                             yield return new WaitForSeconds(0.25f);

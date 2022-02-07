@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_workerBee", "Worker Bee",
                 "A blind servant of the hive.",
-                2, 1, 0, 0,
+                1, 1, 0, 0,
                 Resources.workerBee,
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
                 tribes: tribes, evolveId: new EvolveIdentifier("wstl_queenBee", 1));

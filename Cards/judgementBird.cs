@@ -11,8 +11,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new List<Ability>
             {
-                Ability.Sniper,
-                Ability.Deathtouch
+                Hunter.ability
             };
 
             List<Tribe> tribes = new List<Tribe>
@@ -22,7 +21,7 @@ namespace WhistleWindLobotomyMod
 
             WstlUtils.Add(
                 "wstl_judgementBird", "Judgement Bird",
-                "A judge whose scales are always tipped to one side.",
+                "A long bird that judges sinners with its tipped scales.",
                 1, 1, 2, 0,
                 Resources.judgementBird,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),

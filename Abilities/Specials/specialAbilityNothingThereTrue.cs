@@ -9,29 +9,27 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private NewSpecialAbility SpecialAbility_NothingThereEgg()
+        private NewSpecialAbility SpecialAbility_NothingThereTrue()
         {
-            const string rulebookName = "Nothing 2";
-            const string rulebookDescription = "Transforms into a stronger form on turn's end.";
-            return WstlUtils.CreateSpecialAbility<NothingThereEgg>(
+            const string rulebookName = "Nothing 1";
+            const string rulebookDescription = "Transforms into another form on turn's end.";
+            return WstlUtils.CreateSpecialAbility<NothingThereTrue>(
                 AbilitiesUtil.LoadAbilityIcon("None"),
                 rulebookName, rulebookDescription, false, false, false);
         }
     }
-    public class NothingThereEgg : SpecialCardBehaviour
+    public class NothingThereTrue : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string dialogue = "Is that supposed to be a...human?";
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
             {
-                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Nothing 2");
+                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Nothing 1");
             }
         }
 
+        private readonly string dialogue = "What is it doing?";
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
             // check player slots
@@ -59,13 +57,13 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
             yield return new WaitForSeconds(0.25f);
-            CardInfo cardByName = CardLoader.GetCardByName("wstl_nothingThereFinal");
+            CardInfo cardByName = CardLoader.GetCardByName("wstl_nothingThereEgg");
             yield return base.PlayableCard.TransformIntoCard(cardByName);
             yield return new WaitForSeconds(0.25f);
-            if (!PersistentValues.HasSeenNothingTransformationEgg)
+            if (!PersistentValues.HasSeenNothingTransformationTrue)
             {
-                PersistentValues.HasSeenNothingTransformationEgg = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Curious);
+                PersistentValues.HasSeenNothingTransformationTrue = true;
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f);
             }
             yield return new WaitForSeconds(0.25f);
         }

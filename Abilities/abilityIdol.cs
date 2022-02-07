@@ -31,7 +31,6 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnResolveOnBoard()
         {
             yield return base.LearnAbility(0.5f);
-            yield break;
         }
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
@@ -40,12 +39,11 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
             yield return base.LearnAbility(0.5f);
-            yield break;
         }
         public bool ActivateOnPlay()
         {
             int num = 0;
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(false))
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(!base.Card.Slot.IsPlayerSlot))
             {
                 if (slot.Card != null)
                 {

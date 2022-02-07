@@ -20,10 +20,6 @@ namespace WhistleWindLobotomyMod
     public class NamelessFetus : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string dialogue = "As you cut into the beast's flesh, it lets out a piercing cry.";
-        private int sacrificeCount;
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
@@ -31,6 +27,9 @@ namespace WhistleWindLobotomyMod
                 return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Fetus");
             }
         }
+
+        private readonly string dialogue = "As you cut into the beast's flesh, it lets out a piercing cry.";
+        private int sacrificeCount;
 
         public override bool RespondsToSacrifice()
         {

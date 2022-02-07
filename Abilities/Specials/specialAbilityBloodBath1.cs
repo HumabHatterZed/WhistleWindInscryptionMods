@@ -20,9 +20,6 @@ namespace WhistleWindLobotomyMod
     public class BloodBath1 : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-
-        private readonly string dialogue = "Another pale hand emerges.";
-
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
@@ -31,6 +28,8 @@ namespace WhistleWindLobotomyMod
             }
 
         }
+
+        private readonly string dialogue = "Another pale hand emerges.";
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
