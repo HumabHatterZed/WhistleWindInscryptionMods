@@ -447,10 +447,10 @@ In the spirit of the original game, I won't be listing the effects here, only wh
 #### Sapling
 (１,２)
 
-#### MELTING LOVE
+#### Melting Love
 (４,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png)
-#### SLIME
+#### Slime
 (１,１)
 
 #### Honoured Monk
