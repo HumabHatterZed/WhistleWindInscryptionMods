@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGUID = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWindLobotomyCorp";
-        private const string pluginVersion = "0.28.86.113"; // Major.Minor.Patch.Cards
+        private const string pluginVersion = "0.28.85.113"; // Major.Minor.Patch.Cards
         internal static ManualLogSource Log;
 
         internal static bool ModEnabled { get; private set; }
