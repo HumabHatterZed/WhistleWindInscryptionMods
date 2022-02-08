@@ -9,10 +9,10 @@ namespace WhistleWindLobotomyMod
     {
         private void AllAroundHelper_T0541()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
-                Ability.SplitStrike,
-                Ability.Strafe
+                Ability.Strafe,
+                Ability.SplitStrike
             };
 
             WstlUtils.Add(
@@ -21,7 +21,8 @@ namespace WhistleWindLobotomyMod
                 3, 1, 2, 0,
                 Resources.allAroundHelper,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.allAroundHelper_emission);
         }
     }
 }

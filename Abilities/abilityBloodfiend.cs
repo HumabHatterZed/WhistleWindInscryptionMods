@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target)
         {
-            return amount > 0;
+            return amount > 0 && base.Card.Health > 0;
         }
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
@@ -39,7 +39,6 @@ namespace WhistleWindLobotomyMod
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
             yield return base.LearnAbility(0.4f);
-            yield break;
         }
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
@@ -54,6 +53,7 @@ namespace WhistleWindLobotomyMod
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
+            #region CENSORED
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
             if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
@@ -68,13 +68,21 @@ namespace WhistleWindLobotomyMod
             int killedAtk = card.Info.baseAttack - 1 <= 0 ? 0 : card.Info.baseAttack - 1;
             CardModificationInfo stats = new CardModificationInfo(killedAtk, 0);
             killedInfo.Add(stats);
+
+            foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+            {
+                // Adds merged sigils
+                CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
+                killedInfo.Add(cardModificationInfo);
+            }
             foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
             {
+                // Adds base sigils
                 killedInfo.Add(new CardModificationInfo(item));
             }
-
             foreach (Tribe item in card.Info.tribes.FindAll((Tribe x) => x != Tribe.NUM_TRIBES))
             {
+                // Adds tribes
                 minion.tribes.Add(item);
             }
 
@@ -88,6 +96,7 @@ namespace WhistleWindLobotomyMod
             }
             yield return new WaitForSeconds(0.25f);
             Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
+            #endregion
         }
     }
 }

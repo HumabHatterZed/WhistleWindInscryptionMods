@@ -41,7 +41,9 @@ namespace WhistleWindLobotomyMod
         {
             if (otherCard != null)
             {
-                if (!otherCard.Info.name.ToLowerInvariant().Contains("hundredsGoodDeeds") && !otherCard.Info.name.ToLowerInvariant().Contains("apostle"))
+                if (!otherCard.Info.name.ToLowerInvariant().Contains("hundredsGoodDeeds") &&
+                    !otherCard.Info.name.ToLowerInvariant().Contains("apostle") &&
+                    otherCard != base.Card)
                 {
                     if (!otherCard.Slot.IsPlayerSlot)
                     {
@@ -55,7 +57,9 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            if (otherCard.Info.HasTrait(Trait.Pelt) || otherCard.Info.HasTrait(Trait.Terrain) || otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
+            if (otherCard.Info.HasTrait(Trait.Pelt) ||
+                otherCard.Info.HasTrait(Trait.Terrain) ||
+                otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
             {
                 yield return otherCard.Die(false, base.Card);
             }

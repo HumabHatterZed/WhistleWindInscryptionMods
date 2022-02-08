@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Apostle";
             string rulebookDescription = " Thou wilt abandon flesh and be born again.";
-            const string dialogue = "Do not fear, for I am with thee.";
+            const string dialogue = "Ye who are full of blessings, rejoice. For I am with ye.";
 
             if (WhiteNightDescRulebook)
             {
@@ -30,11 +30,15 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private readonly string dialogue = "Do not fear, for I am with thee.";
-        private readonly string dialogue2 = "Be not frightened. I am thy savior and I shall be with thee.";
+        private readonly string downedDialogue = "I shall be with ye as I relieve you of the fear of horrifying death.";
+        private readonly string hammeredDialogue = "Be at ease. No calamity shall be able to trouble you.";
 
-        private bool IsSpear => base.Card.Info == base.Card.Info.name.ToLowerInvariant().Contains("apostlespear");
-        private bool IsStaff => base.Card.Info == base.Card.Info.name.ToLowerInvariant().Contains("apostlestaff");
+        private int downCount = 0;
+
+        private bool IsSpear => base.Card.Info.name.ToLowerInvariant().Contains("apostlespear");
+        private bool IsStaff => base.Card.Info.name.ToLowerInvariant().Contains("apostlestaff");
+
+        private bool IsDowned => base.Card.Info.name.ToLowerInvariant().Contains("apostle") && base.Card.Info.name.ToLowerInvariant().Contains("down");
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
@@ -58,7 +62,7 @@ namespace WhistleWindLobotomyMod
                     {
                         yield return new WaitForSeconds(0.2f);
                         PersistentValues.ApostleKilled = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
+                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(downedDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
                     }
                 }
             }
@@ -69,8 +73,34 @@ namespace WhistleWindLobotomyMod
                 {
                     yield return new WaitForSeconds(0.2f);
                     PersistentValues.ApostleKilled = true;
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue2, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hammeredDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
                 }
+            }
+        }
+
+        public override bool RespondsToUpkeep(bool playerUpkeep)
+        {
+            return playerUpkeep && IsDowned;
+        }
+        public override IEnumerator OnUpkeep(bool playerUpkeep)
+        {
+            yield return base.PreSuccessfulTriggerSequence();
+
+            downCount++;
+            base.Card.Anim.LightNegationEffect();
+            if (downCount >= 2)
+            {
+                downCount = 0;
+                CardInfo risenInfo = CardLoader.GetCardByName("wstl_apostleScythe");
+
+                if (IsSpear) { risenInfo = CardLoader.GetCardByName("wstl_apostleSpear"); }
+                if (IsStaff) { risenInfo = CardLoader.GetCardByName("wstl_apostleStaff"); }
+
+                yield return new WaitForSeconds(0.2f);
+                yield return base.LearnAbility(0.5f);
+                yield return new WaitForSeconds(0.2f);
+                yield return base.Card.TransformIntoCard(risenInfo);
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }

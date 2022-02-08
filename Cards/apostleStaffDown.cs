@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new List<Ability>
             {
                 Ability.PreventAttack,
-                Ability.Evolve
+                Apostle.ability
             };
 
             List<Trait> traits = new()
@@ -22,13 +22,13 @@ namespace WhistleWindLobotomyMod
             };
 
             WstlUtils.Add(
-                "wstl_apostleStaffDown", "Apostle",
+                "wstl_apostleStaffDown", "Staff Apostle",
                 "The time has come.",
                 6, 0, 0, 0,
                 Resources.apostleStaffDown,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), traits: traits,
-                evolveId: new EvolveIdentifier("wstl_apostleStaff", 2));
+                emissionTexture: Resources.apostleStaffDown_emission);
         }
     }
 }

@@ -41,7 +41,6 @@ namespace WhistleWindLobotomyMod
             }
             CardInfo cardInfo = CardLoader.GetCardByName("wstl_spiderling");
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
-
             yield return new WaitForSeconds(0.45f);
             yield return base.LearnAbility(0.5f);
         }

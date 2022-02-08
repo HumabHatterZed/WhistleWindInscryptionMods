@@ -138,7 +138,6 @@ namespace WhistleWindLobotomyMod
                 Ability_Apostle();
                 Ability_TrueSaviour();
                 Ability_Confession();
-
                 #endregion
 
                 #region CARDS
@@ -278,10 +277,10 @@ namespace WhistleWindLobotomyMod
                 CloudedMonk_D01110();
                 //  Ruina Expansion
                 //  Wonderlab?
-
                 #endregion
 
                 harmony.PatchAll(typeof(GlobalPassives));
+                harmony.PatchAll(typeof(ForcedEmissions));
                 harmony.PatchAll(typeof(PersistentValues));
 
                 RunStateHelper.Initialize(harmony);

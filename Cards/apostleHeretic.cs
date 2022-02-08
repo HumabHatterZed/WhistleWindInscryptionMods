@@ -26,7 +26,8 @@ namespace WhistleWindLobotomyMod
                 7, 0, 0, 0,
                 Resources.apostleHeretic,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), traits: traits);
+                new List<Tribe>(), traits: traits,
+                emissionTexture: Resources.apostleHeretic_emission);
         }
     }
 }

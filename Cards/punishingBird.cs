@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 Resources.punishingBird,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,
-                onePerDeck: true);
+                emissionTexture: Resources.punishingBird_emission, onePerDeck: true);
         }
     }
 }

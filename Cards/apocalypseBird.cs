@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_apocalypseBird", "Apocalypse Bird",
                 "There was no moon, no stars. Just a bird, alone in the Black Forest.",
                 3, 10, 4, 0,
-                Resources.apocalypseBird,
+                Resources.oneSin,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes,
                 appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);

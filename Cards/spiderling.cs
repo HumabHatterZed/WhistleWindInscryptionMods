@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 1, 0, 0, 0,
                 Resources.spiderling,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes,
+                tribes: tribes, emissionTexture: Resources.spiderling_emission,
                 evolveId: new EvolveIdentifier("wstl_spiderBrood", 1));
         }
     }

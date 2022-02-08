@@ -11,8 +11,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new List<Ability>
             {
-                Bloodfiend.ability,
-                Ability.Sharp
+                Ability.Sharp,
+                Bloodfiend.ability
             };
 
             WstlUtils.Add(
@@ -21,7 +21,8 @@ namespace WhistleWindLobotomyMod
                 2, 0, 0, 2,
                 Resources.graveOfBlossoms,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.graveOfBlossoms_emission);
         }
     }
 }

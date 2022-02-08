@@ -25,7 +25,8 @@ namespace WhistleWindLobotomyMod
                 2, 0, 0, 4,
                 Resources.spiderBud,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode);
+                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.spiderBud_emission);
         }
     }
 }

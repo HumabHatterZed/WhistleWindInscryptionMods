@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 3, 1, 0, 0,
                 Resources.spiderBrood,
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
-                tribes: tribes);
+                tribes: tribes, emissionTexture: Resources.spiderBrood_emission);
         }
     }
 }

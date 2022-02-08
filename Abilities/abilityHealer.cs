@@ -215,10 +215,8 @@ namespace WhistleWindLobotomyMod
 
                 CardInfo cardByName = CardLoader.GetCardByName("wstl_whiteNight");
                 yield return base.Card.TransformIntoCard(cardByName);
-                yield return base.Card.RenderInfo.forceEmissivePortrait = true;
                 base.Card.Status.hiddenAbilities.Add(Ability.Flying);
                 base.Card.AddTemporaryMod(new CardModificationInfo(Ability.Flying));
-                base.Card.RenderCard();
 
                 yield return new WaitForSeconds(0.2f);
                 if (!PersistentValues.ClockThisRun)

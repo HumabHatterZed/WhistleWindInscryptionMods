@@ -22,12 +22,13 @@ namespace WhistleWindLobotomyMod
             };
 
             WstlUtils.Add(
-                "wstl_apostleScythe", "Apostle",
+                "wstl_apostleScythe", "Scythe Apostle",
                 "The time has come.",
                 6, 3, 0, 0,
                 Resources.apostleScythe,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), traits: traits);
+                new List<Tribe>(), traits: traits,
+                emissionTexture: Resources.apostleScythe_emission);
         }
     }
 }

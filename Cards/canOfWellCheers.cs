@@ -11,8 +11,9 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new List<Ability>
             {
-                Ability.Submerge,
-                Ability.Strafe
+                Ability.Strafe,
+                Ability.Submerge
+                
             };
 
             WstlUtils.Add(

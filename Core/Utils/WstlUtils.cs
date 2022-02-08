@@ -251,7 +251,8 @@ namespace WhistleWindLobotomyMod
 		#region SpecialAbilities
 		public static StatIconInfo CreateSpecialInfoWithDefaultSettings(
 			string rulebookName, string rulebookDescription, Texture iconGraphic,
-			bool appliesToHealth = false, bool appliesToAttack = false, bool inRulebook = false)
+			bool appliesToHealth = false, bool appliesToAttack = false,
+			bool inRulebook = false, bool overrideDesc = false)
 		{
 			StatIconInfo specialInfo = ScriptableObject.CreateInstance<StatIconInfo>();
 			specialInfo.rulebookName = rulebookName;
@@ -260,7 +261,7 @@ namespace WhistleWindLobotomyMod
 			specialInfo.appliesToAttack = appliesToAttack;
 			specialInfo.iconGraphic = iconGraphic;
 
-			if (inRulebook || Plugin.SpecialsInRulebook)
+			if ((inRulebook || Plugin.SpecialsInRulebook) && !overrideDesc)
 			{
 				specialInfo.metaCategories = new List<AbilityMetaCategory>(){
 					AbilityMetaCategory.Part1Rulebook};
@@ -279,25 +280,27 @@ namespace WhistleWindLobotomyMod
 		public static NewSpecialAbility CreateSpecialAbility<T>(
 			byte[] iconGraphic,
 			string rulebookName, string rulebookDescription,
-			bool appliesToHealth = false, bool appliesToAttack = false, bool inRulebook = false)
+			bool appliesToHealth = false, bool appliesToAttack = false,
+			bool inRulebook = false, bool overrideDesc = false)
 			where T : SpecialCardBehaviour
 		{
 			return CreateSpecialAbility<T>(
 				ImageUtils.LoadTextureFromResource(iconGraphic),
 				rulebookName, rulebookDescription,
-				appliesToHealth, appliesToAttack, inRulebook);
+				appliesToHealth, appliesToAttack, inRulebook, overrideDesc);
 		}
 
 		public static NewSpecialAbility CreateSpecialAbility<T>(
 			Texture iconGraphic,
 			string rulebookName, string rulebookDescription,
-			bool appliesToHealth, bool appliesToAttack, bool inRulebook)
+			bool appliesToHealth = false, bool appliesToAttack = false,
+			bool inRulebook = false, bool overrideDesc = false)
 			where T : SpecialCardBehaviour
 		{
 			return CreateSpecialAbility<T>(
 				CreateSpecialInfoWithDefaultSettings(
 					rulebookName, rulebookDescription, iconGraphic,
-					appliesToHealth, appliesToAttack, inRulebook));
+					appliesToHealth, appliesToAttack, inRulebook, overrideDesc));
 		}
 		
 		public static NewSpecialAbility CreateSpecialAbility<T>(StatIconInfo specialInfo)
