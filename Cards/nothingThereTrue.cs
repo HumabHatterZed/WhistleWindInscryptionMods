@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         {
             List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
             {
-                NothingThereTrue.GetSpecialAbilityId
+                SpecialEvolve.GetSpecialAbilityId
             };
 
             List<Tribe> tribes = new List<Tribe>

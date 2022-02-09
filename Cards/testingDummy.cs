@@ -9,9 +9,10 @@ namespace WhistleWindLobotomyMod
     {
         private void TestingDummy_XXXXX()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
-                Ability.TripleBlood
+                Ability.TripleBlood,
+                Slime.ability
             };
 
             WstlUtils.Add(

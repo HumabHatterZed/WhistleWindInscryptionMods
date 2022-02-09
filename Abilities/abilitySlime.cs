@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         private NewAbility Ability_Slime()
         {
             const string rulebookName = "Made of Slime";
-            const string rulebookDescription = "While this card is on the board, all opposing cards lose 1 Power.";
+            const string rulebookDescription = "A card bearing this sigil takes 1 less damage from attacks. Additionally, cards adjacent to this card are turned into Slimes at the start of the owner's turn.";
             const string dialogue = "Its army grows everyday.";
 
             return WstlUtils.CreateAbility<Slime>(
@@ -25,6 +25,7 @@ namespace WhistleWindLobotomyMod
     {
         public static Ability ability;
         public override Ability Ability => ability;
+
         public override bool RespondsToResolveOnBoard()
         {
             return ActivateOnPlay();
@@ -67,6 +68,7 @@ namespace WhistleWindLobotomyMod
                 }
             }
         }
+
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
             return ActivateOnPlay();
@@ -115,6 +117,20 @@ namespace WhistleWindLobotomyMod
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default, false, false);
                 yield return new WaitForSeconds(0.2f);
             }
+        }
+
+        public override bool RespondsToTakeDamage(PlayableCard source)
+        {
+            if (source != null)
+            {
+                return source.Health > 0;
+            }
+            return false;
+        }
+        public override IEnumerator OnTakeDamage(PlayableCard source)
+        {
+            yield return base.PreSuccessfulTriggerSequence();
+            base.Card.Status.damageTaken -= 1;
         }
         public bool ActivateOnPlay()
         {

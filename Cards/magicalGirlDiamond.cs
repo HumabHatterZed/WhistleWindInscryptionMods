@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         {
             List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
             {
-                MagicalGirlDiamond.GetSpecialAbilityId
+                SpecialEvolve.GetSpecialAbilityId
             };
 
             WstlUtils.Add(

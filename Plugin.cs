@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGUID = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWindLobotomyCorp";
-        private const string pluginVersion = "0.28.85.113"; // Major.Minor.Patch.Cards
+        private const string pluginVersion = "0.37.76.113"; // Major.Minor.Patch.Cards
         internal static ManualLogSource Log;
 
         internal static bool ModEnabled { get; private set; }
@@ -71,31 +71,28 @@ namespace WhistleWindLobotomyMod
             if (ModEnabled)
             {
                 #region SPECIAL ABILITIES
-                SpecialAbility_NamelessFetus();
-                SpecialAbility_BloodBath();
-                SpecialAbility_BloodBath1();
-                SpecialAbility_Bloodbath2();
-                SpecialAbility_MagicalGirlHeart();
-                SpecialAbility_QueenOfHatred();
-                SpecialAbility_QueenOfHatredExhausted();
-                SpecialAbility_NothingThere();
-                SpecialAbility_NothingThereTrue();
-                SpecialAbility_NothingThereEgg();
-                SpecialAbility_MagicalGirlDiamond();
-                SpecialAbility_MagicalGirlSpade();
-                SpecialAbility_TodaysShyLook();
+                SpecialAbility_Fetus();
+                SpecialAbility_Bath();
+                SpecialAbility_Hate();
+                SpecialAbility_Nothing();
+                SpecialAbility_Despair();
+                SpecialAbility_Shy();
+
+                // Unique special ability
+                // Stores transform info for certain cards
+                HiddenEvolveHelper();
 
                 if (Config_RulebookSpecials)
                 {
                     // These special abilities' only exist for their Rulebook entries
-                    // Their actual effects can be found in the custom ability they each possess
-                    SpecialAbility_DerFreischutz();
-                    SpecialAbility_CrumblingArmour();
-                    SpecialAbility_MountainOfBodies();
-                    SpecialAbility_MountainOfBodies2();
-                    SpecialAbility_MountainOfBodies3();
+                    // Their actual effects can be found in the custom ability they each possess / SpecialEvolve
+                    SpecialAbility_Greed();
+                    SpecialAbility_Devil();
+                    SpecialAbility_Warrior();
+                    SpecialAbility_Bodies();
                     SpecialAbility_CENSORED();
-                    SpecialAbility_JudgementBird();
+                    SpecialAbility_Judge();
+                    SpecialAbility_Queen();
                 }
 
                 #endregion

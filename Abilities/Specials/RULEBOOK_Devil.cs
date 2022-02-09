@@ -10,7 +10,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private NewSpecialAbility SpecialAbility_DerFreischutz()
+        private NewSpecialAbility SpecialAbility_Devil()
         {
             const string rulebookName = "Devil";
             const string rulebookDescription = "The seventh bullet will pierce loved ones' hearts.";

@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private NewAbility Ability_Scrambler()
         {
             const string rulebookName = "Scrambler";
-            const string rulebookDescription = "When this card is sacrificed, add its stats onto the card it was sacrificed to, then scramble the card's stats.";
+            const string rulebookDescription = "When this card is sacrificed, add its stats to the card it was sacrificed to, then scramble that card's stats.";
             const string dialogue = "Do you love your city?";
 
             return WstlUtils.CreateAbility<Scrambler>(

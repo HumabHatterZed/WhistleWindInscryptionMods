@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private NewSpecialAbility SpecialAbility_NamelessFetus()
+        private NewSpecialAbility SpecialAbility_Fetus()
         {
             const string rulebookName = "Fetus";
             const string rulebookDescription = "Will awaken after sacrificed six times.";

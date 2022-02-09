@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private NewSpecialAbility SpecialAbility_CrumblingArmour()
+        private NewSpecialAbility SpecialAbility_Warrior()
         {
             const string rulebookName = "Warrior";
             const string rulebookDescription = "Kills the cowardly.";

@@ -25,7 +25,11 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
-            return source;
+            if (source != null)
+            {
+                return source.Health > 0;
+            }
+            return false;
         }
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {

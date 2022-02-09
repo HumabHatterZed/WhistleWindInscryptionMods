@@ -297,6 +297,17 @@ namespace WhistleWindLobotomyMod
                 SaveGameHelper.SetValue("HasSeenCrumblingArmourRefuse", value.ToString());
             }
         }
+        public static bool HasSeenSnowQueenFreeze // Keeps track of whether this is the first time Freischutz has shot his seventh bullet
+        {
+            get
+            {
+                return SaveGameHelper.GetBool("HasSeenSnowQueenFreeze");
+            }
+            set
+            {
+                SaveGameHelper.SetValue("HasSeenSnowQueenFreeze", value.ToString());
+            }
+        }
         #endregion
 
         #region TETHs

@@ -28,7 +28,8 @@ Additional shoutout to James Veug and his ReadMeMaker mod. I didn't use it to ma
 
 ## Special Abilities
 A number of cards added by this mod possess hidden, special abilities not found in the Rulebook.
-In the spirit of the original game, I won't be listing the effects here, only which cards possess a special ability and what triggers it. You'll need to mess with the cards to figure out exactly what they do 🙃.
+In the spirit of the original game, I won't be listing the effects here, only which cards possess a special ability and what triggers it.
+You'll need to mess with the cards to figure out exactly what they do 🙃.
 
 * Nameless Fetus
 	* Reacts to being sacrificed.
@@ -39,7 +40,7 @@ In the spirit of the original game, I won't be listing the effects here, only wh
 * Nothing There
 	* Reacts to dying.
 * Magical Girl D
-	* Reacts to turn end.
+	* Reacts to upkeep.
 * Der Freiscütz
 	* Reacts to dealing damage and direct damage.
 * Crumbling Armour
@@ -54,6 +55,8 @@ In the spirit of the original game, I won't be listing the effects here, only wh
 	* Reacts to being drawn.
 * Judgement Bird
 	* Reacts to dealing damage.
+* Snow Queen
+	* Reacts to being played.
 
 ## Abilities
 * Punisher ☠️
@@ -73,7 +76,7 @@ In the spirit of the original game, I won't be listing the effects here, only wh
 * Woodcutter 🪓
 	* When a card moves into the space opposing this card, deal damage equal to this card's Power to it.
 * Frozen Heart ❄️
-	* When this card dies, the killer gains 3 Health.
+	* When this card dies, the killer gains 1 Health.
 * Frost Ruler 👑
 	* When this card is played, create a Frozen Heart in the opposing spaces to its left and right if they are occupied, and a Block of Ice if they are empty. A Frozen Heart is defined as: 0 Power, 1 Health. A Block of Ice is defined as: 0 Power, 3 Health.
 * Roots 🌵

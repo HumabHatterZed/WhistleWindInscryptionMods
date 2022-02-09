@@ -9,10 +9,10 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private NewSpecialAbility SpecialAbility_NothingThere()
+        private NewSpecialAbility SpecialAbility_Nothing()
         {
-            const string rulebookName = "Nothing 0";
-            const string rulebookDescription = "Reveals itself on death.";
+            const string rulebookName = "Nothing";
+            const string rulebookDescription = "Reveals itself on death. Changes formes on upkeep.";
             return WstlUtils.CreateSpecialAbility<NothingThere>(
                 AbilitiesUtil.LoadAbilityIcon("None"),
                 rulebookName, rulebookDescription, false, false, false);
@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Nothing 0");
+                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Nothing");
             }
         }
 

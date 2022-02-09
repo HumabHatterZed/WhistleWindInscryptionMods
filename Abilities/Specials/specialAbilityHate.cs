@@ -10,10 +10,10 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private NewSpecialAbility SpecialAbility_MagicalGirlHeart()
+        private NewSpecialAbility SpecialAbility_Hate()
         {
-            const string rulebookName = "Heart";
-            const string rulebookDescription = "Transforms when the balance has shifted too far.";
+            const string rulebookName = "Hate";
+            const string rulebookDescription = "Transforms when the balance has shifted too far. Enters a weakened forme every other turn.";
             return WstlUtils.CreateSpecialAbility<MagicalGirlHeart>(
                 AbilitiesUtil.LoadAbilityIcon("None"),
                 rulebookName, rulebookDescription, false, false, false);
@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Heart");
+                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Hate");
             }
         }
 

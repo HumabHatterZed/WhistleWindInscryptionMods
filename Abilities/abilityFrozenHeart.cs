@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private NewAbility Ability_FrozenHeart()
         {
             const string rulebookName = "Frozen Heart";
-            const string rulebookDescription = "When this card dies, the killer gains 3 Health.";
+            const string rulebookDescription = "When this card dies, the killer gains 1 Health.";
             const string dialogue = "Spring arrives with blossoming roses.";
             return WstlUtils.CreateAbility<FrozenHeart>(
                 Resources.sigilFrozenHeart,
@@ -23,8 +23,8 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public CardModificationInfo mod = new CardModificationInfo(0, 3);
-        public CardModificationInfo mod2 = new CardModificationInfo(0, 4);
+        public CardModificationInfo mod = new CardModificationInfo(0, 1);
+        public CardModificationInfo mod2 = new CardModificationInfo(0, 2);
 
         private string altDialogue = "The Woodcutter stuffs the melted heart into his chest.";
 
@@ -38,9 +38,8 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.25f);
             if (killer != null)
             {
-                //Debug.Log($"[{killer.name}]");
                 killer.Anim.LightNegationEffect();
-                if (killer.name == "Card (Warm-Hearted Woodsman)")
+                if (killer.Info.name.ToLowerInvariant().Contains("warmheartedwoodsman"))
                 {
                     killer.AddTemporaryMod(mod2);
                     if (!base.HasLearned)

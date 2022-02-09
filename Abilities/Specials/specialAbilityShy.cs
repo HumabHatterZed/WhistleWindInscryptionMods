@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private NewSpecialAbility SpecialAbility_TodaysShyLook()
+        private NewSpecialAbility SpecialAbility_Shy()
         {
             const string rulebookName = "Shy";
             const string rulebookDescription = "Switches forms when drawn.";

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
             {
-                BloodBath2.GetSpecialAbilityId
+                BloodBath.GetSpecialAbilityId
             };
 
             WstlUtils.Add(
