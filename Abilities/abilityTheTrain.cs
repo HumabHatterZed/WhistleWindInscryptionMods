@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private NewAbility Ability_TheTrain()
         {
             const string rulebookName = "The Train";
-            const string rulebookDescription = "One turn after this card is played, kill all cards on the board.";
+            const string rulebookDescription = "One turn after this card is played, kill all cards on the board. If the card is not the ticket taker, only kill the card's allies at a 10% chance.";
             const string dialogue = "The train boards those that don't step away from the tracks.";
 
             return WstlUtils.CreateAbility<TheTrain>(
@@ -37,27 +37,71 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            if (count >= 1)
+            count++;
+            yield return PreSuccessfulTriggerSequence();
+            if (count >= 2)
             {
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board);
 
-                yield return PreSuccessfulTriggerSequence();
-
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.55f);
-                foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != base.Card))
+                if (base.Card.Info.name.ToLowerInvariant().Equals("wstl_expresshelltrain"))
                 {
-                    if (slot.Card != null)
+                    foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != base.Card))
                     {
-                        slot.Card.Anim.StrongNegationEffect();
+                        if (slot.Card != null)
+                        {
+                            slot.Card.Anim.StrongNegationEffect();
+                        }
+                    }
+                    yield return new WaitForSeconds(0.55f);
+                    foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != base.Card))
+                    {
+                        if (slot.Card != null)
+                        {
+                            yield return slot.Card.Die(false, base.Card);
+                        }
                     }
                 }
-                yield return new WaitForSeconds(0.55f);
-                foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != base.Card))
+                else
                 {
-                    if (slot.Card != null)
+                    int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber;
+                    int rand = SeededRandom.Range(0, 10, randomSeed);
+                    if (rand == 0)
                     {
-                        yield return slot.Card.Die(false, base.Card);
+                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != base.Card))
+                        {
+                            if (slot.Card != null)
+                            {
+                                slot.Card.Anim.StrongNegationEffect();
+                            }
+                        }
+                        yield return new WaitForSeconds(0.55f);
+                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != base.Card))
+                        {
+                            if (slot.Card != null)
+                            {
+                                yield return slot.Card.Die(false, base.Card);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(slot => slot.Card != base.Card))
+                        {
+                            if (slot.Card != null)
+                            {
+                                slot.Card.Anim.StrongNegationEffect();
+                            }
+                        }
+                        yield return new WaitForSeconds(0.55f);
+                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(slot => slot.Card != base.Card))
+                        {
+                            if (slot.Card != null)
+                            {
+                                yield return slot.Card.Die(false, base.Card);
+                            }
+                        }
                     }
                 }
                 yield return new WaitForSeconds(0.55f);
@@ -65,11 +109,6 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.4f);
                 yield return LearnAbility(0.4f);
             }
-            else
-            {
-                count++;
-            }
-            yield break;
         }
     }
 }

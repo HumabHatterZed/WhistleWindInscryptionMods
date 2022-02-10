@@ -903,6 +903,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] meltingLoveMinion_emission {
+            get {
+                object obj = ResourceManager.GetObject("meltingLoveMinion_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] mhz176 {
             get {
                 object obj = ResourceManager.GetObject("mhz176", resourceCulture);
@@ -1026,6 +1036,16 @@ namespace WhistleWindLobotomyMod.Properties {
         public static byte[] nothingThereEgg {
             get {
                 object obj = ResourceManager.GetObject("nothingThereEgg", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] nothingThereEgg_emission {
+            get {
+                object obj = ResourceManager.GetObject("nothingThereEgg_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }

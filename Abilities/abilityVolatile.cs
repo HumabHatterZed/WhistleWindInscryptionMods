@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
 
             return WstlUtils.CreateAbility<Volatile>(
                 Resources.sigilVolatile,
-                rulebookName, rulebookDescription, dialogue, 0, true);
+                rulebookName, rulebookDescription, dialogue, 0, addModular: true);
         }
     }
     public class Volatile : AbilityBehaviour

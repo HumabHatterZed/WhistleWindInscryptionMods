@@ -10,7 +10,7 @@ namespace WhistleWindLobotomyMod
         private void CENSOREDMinion_O0389()
         {
             WstlUtils.Add(
-                "wstl_censoredMinion", "(CENSORED)",
+                "wstl_censoredMinion", "CENSORED",
                 "I think it's best you don't know what it looks like.",
                 1, 1, 0, 0,
                 Resources.censoredMinion,

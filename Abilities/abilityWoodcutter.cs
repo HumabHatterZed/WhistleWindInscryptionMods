@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             return WstlUtils.CreateAbility<Woodcutter>(
                 Resources.sigilWoodcutter,
-                rulebookName, rulebookDescription, dialogue, 4, true);
+                rulebookName, rulebookDescription, dialogue, 4, addModular: true);
         }
     }
     // ripped from Sentry code

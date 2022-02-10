@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             return WstlUtils.CreateAbility<Scrambler>(
                 Resources.sigilScrambler,
-                rulebookName, rulebookDescription, dialogue, 3, true);
+                rulebookName, rulebookDescription, dialogue, 3, addModular: true);
         }
     }
     public class Scrambler : AbilityBehaviour

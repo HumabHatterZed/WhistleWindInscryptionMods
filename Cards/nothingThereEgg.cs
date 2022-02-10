@@ -17,11 +17,12 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_nothingThereEgg", "An Egg",
                 "What is it doing?",
-                5, 0, 0, 0,
+                4, 0, 0, 0,
                 Resources.nothingThereEgg,
                 new List<Ability>(), specialAbilities: specialAbilities,
                 new List<Tribe>(),
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                emissionTexture: Resources.nothingThereEgg_emission,
+                appearanceBehaviour: CardUtils.getTerrainBackgroundAppearance);
         }
     }
 }

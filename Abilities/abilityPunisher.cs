@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Retaliation is swift, but death is slow.";
             return WstlUtils.CreateAbility<Punisher>(
                 Resources.sigilPunisher,
-                rulebookName, rulebookDescription, dialogue, 4, true);
+                rulebookName, rulebookDescription, dialogue, 4, addModular: true);
         }
     }
     public class Punisher : AbilityBehaviour

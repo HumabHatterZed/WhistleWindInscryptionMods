@@ -26,8 +26,7 @@ namespace WhistleWindLobotomyMod
                 777, 0, 0, 0,
                 Resources.hundredsGoodDeeds,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), traits: traits,
-                appearanceBehaviour: CardUtils.getTerrainAppearance);
+                new List<Tribe>(), traits: traits);
         }
     }
 }

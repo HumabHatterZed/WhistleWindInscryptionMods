@@ -11,19 +11,19 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new List<Ability>
             {
-                Ability.DrawCopy,
-                Ability.Evolve
+                Ability.DrawCopyOnDeath,
+                Protector.ability
             };
 
             WstlUtils.Add(
                 "wstl_armyInPink", "Army in Pink",
-                "Helpful little soldiers.",
+                "The human heart is pink. They wear its colour as to blend in with your mind.",
                 2, 2, 2, 0,
                 Resources.armyInPink,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
-                appearanceBehaviour: CardUtils.getRareAppearance,
-                evolveId: new EvolveIdentifier("wstl_armyInBlack", 1));
+                emissionTexture: Resources.armyInPink_emission,
+                appearanceBehaviour: CardUtils.getRareAppearance);
         }
     }
 }

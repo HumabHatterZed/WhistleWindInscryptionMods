@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             return WstlUtils.CreateAbility<Piercing>(
                 Resources.sigilPiercing,
-                rulebookName, rulebookDescription, dialogue, 2, true);
+                rulebookName, rulebookDescription, dialogue, 2, addModular: true);
         }
     }
     public class Piercing : AbilityBehaviour

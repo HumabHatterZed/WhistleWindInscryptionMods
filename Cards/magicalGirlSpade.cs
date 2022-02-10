@@ -9,9 +9,9 @@ namespace WhistleWindLobotomyMod
     {
         private void MagicalGirlSpade_O0173()
         {
-            List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
+            List<Ability> abilities = new()
             {
-                MagicalGirlSpade.GetSpecialAbilityId
+                Protector.ability
             };
 
             WstlUtils.Add(
@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 "A loyal knight fighting to protect those close to her.",
                 4, 2, 2, 0,
                 Resources.magicalGirlSpade,
-                new List<Ability>(), specialAbilities: specialAbilities,
+                abilities: abilities, new(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
                 appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
         }

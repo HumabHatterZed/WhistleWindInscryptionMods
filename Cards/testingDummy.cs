@@ -11,14 +11,13 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.TripleBlood,
-                Slime.ability
+                Ability.TripleBlood
             };
 
             WstlUtils.Add(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                11, 1, 0, 0,
+                10, 1, 0, 0,
                 Resources.testingDummy,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>());

@@ -28,6 +28,7 @@ namespace WhistleWindLobotomyMod
 
         private CardSlot targetedSlot = null;
 
+        private int softLock = 0;
         private bool heretic = false;
         private bool IsDoctor => base.Card.Info.name.ToLowerInvariant().Contains("plaguedoctor");
         private string invalidDialogue;
@@ -234,7 +235,13 @@ namespace WhistleWindLobotomyMod
                     {
                         if (slot.Card.Info.HasTrait(Trait.Pelt) || slot.Card.Info.HasTrait(Trait.Terrain) || slot.Card.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
                         {
+                            softLock++;
                             yield return slot.Card.Die(false, base.Card);
+                            if (softLock >= 6)
+                            {
+                                softLock = 0;
+                                yield break;
+                            }
                         }
                         else
                         {

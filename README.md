@@ -1,16 +1,18 @@
 # WhistleWind's Lobotomy Corp Mod
 Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
-The cards in this mod are designed to be as faithful to their original counterparts as possible, while still being 'balanced' (heavy air quotes there) relative to vanilla Inscryption.
-This mod adds 70 obtainable (aka non-minion or transformation) cards and 36 custom abilities.
+The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay.
+To this end, a number of custom abilities and special abilities have been diligently crafted with unique and, for some, broken effects.
+Now for the numbers: this mod adds 70 obtainable (aka non-minion or transformation) cards and 37 custom abilities.
 
 ## Known Issues
 ### LogLevel 'Debug' causing lag
-If your BepInEx console is set to output 'Debug' or 'All' log levels, you WILL experience massive lag spikes when dealing with cards with special abilities.
-This includes vanilla cards such as Ants or Tentacles, as well as the Rulebook itself.
+If your BepInEx console is set to output 'Debug' or 'All' log levels, you WILL experience lag spikes whenever dealing with cards with special abilities.
+This includes vanilla cards such as Ants or Tentacles, as well as the Rulebook entries for said abilities.
 
 _'Debug' logging is disabled by default, so if you haven't messed with it you should be golden._
 
-To prevent this, go to the [Logging.Console] section of your BepInEx config file, then for setting 'LogLevel' remove the value 'Debug'. If you have it set to log 'All', set it to something else, like the default value.
+To prevent this lag, go to the [Logging.Console] section of your BepInEx config file, then for setting 'LogLevel' remove the value 'Debug' if it's present'.
+If you have it set to 'All', set it to something else, like the default value.
 
 ## Dependencies
 ### BepInEx-BepInExPack_Inscryption v5.4.17
@@ -57,13 +59,16 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 	* Reacts to dealing damage.
 * Snow Queen
 	* Reacts to being played.
+* Army in Pink
+	* Reacts to adjacent cards.
 
 ## Abilities
-* Punisher ☠️
+Abilities marked with a * are available as totem bases.
+* Punisher ☠️ *
 	* When a card bearing this sigil is struck, the striker is killed.
-* Bloodfiend 🩸
+* Bloodfiend 🩸 *
 	* When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.
-* Martyr ✟
+* Martyr ✟ *
 	* When a card bearing this sigil dies, all allied creatures gain 2 Health.
 * Aggravating ⏰
 	* While this card is on the board, all opposing cards gain 1 Power.
@@ -73,27 +78,27 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 	* While this card is on the board, all opposing cards lose 1 Power.
 * Conductor 🎼
 	* When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 1 Health.
-* Woodcutter 🪓
+* Woodcutter 🪓 *
 	* When a card moves into the space opposing this card, deal damage equal to this card's Power to it.
 * Frozen Heart ❄️
 	* When this card dies, the killer gains 1 Health.
 * Frost Ruler 👑
 	* When this card is played, create a Frozen Heart in the opposing spaces to its left and right if they are occupied, and a Block of Ice if they are empty. A Frozen Heart is defined as: 0 Power, 1 Health. A Block of Ice is defined as: 0 Power, 3 Health.
-* Roots 🌵
+* Roots 🌵 *
 	* When this card is played, Vines are created on adjacent empty spaces. A Vine is defined as: 1 Power, 1 Health.
-* Brood Mother 🕷️
+* Brood Mother 🕷️ *
 	* When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health.
 * Cursed 🥀
 	* When a card bearing this sigil dies, turn the killer into a copy of this card.
 * Healer ❤️
 	 * This card will heal a selected ally for 2 Health.
-* Queen Nest 🐝
+* Queen Nest 🐝 *
 	* When a card bearing this sigil is played, a Worker Bee is created in your hand. Create an additional Worker Bee whenever another card dies.
-* Bitter Enemies 💢
+* Bitter Enemies 💢 *
 	* A card bearing this sigil gains 1 Power when another card on this board also has this sigil.
 * Courageous ⚔️
 	* Adjacent cards lose up to 2 Health but gain 1 Power for every 1 Health lost via this effect. Affected cards will not go below 1 Health.
-* Serpent's Nest 🪱
+* Serpent's Nest 🪱 *
 	* When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.
 * Assimilator 🖤
 	* When a card bearing this sigil kills an enemy card, this card gains 1 Power and 1 Health.
@@ -106,18 +111,18 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 * Grinder ⚙️
 	* This card gains the stats of the cards sacrificed to play it.
 * The Train 🚂
-	* One turn after this card is played, kill all cards on the board.
+	* One turn after this card is played, kill all cards on the board. If the card is not the ticket taker, only kill the card's allies at a 10% chance.
 * Burning 🔥
 	* The opposing card takes 1 damage at the end of their turn.
 * Regenerator 💗
 	* Adjacent cards gain 1 Health at the end of the opponent's turn.
-* Volatile 💣
+* Volatile 💣 *
 	* When this card dies, adjacent and opposing cards are dealt 10 damage. (identical to Detonator)
 * Gift Giver 🎁
 	* When this card is played, create a random card in your hand.
-* Piercing 🔱
+* Piercing 🔱 *
 	* When this card strikes a card, deal 1 overkill damage if applicable.
-* Scrambler 🎲
+* Scrambler 🎲 *
 	* When this card is sacrificed, add its stats onto the card it was sacrificed to, then scramble the card's stats.
 * Gardener 🌱
 	* When an ally card dies, create a Sapling in their place. A slot is defined as: 1 Power, 3 Health.
@@ -125,6 +130,8 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 	* A card bearing this sigil takes 1 less damage from attacks. Additionally, cards adjacent to this card are turned into Slimes at the start of the owner's turn.
 * Hunter 🎯
 	* You may choose which opposing space a card bearing this sigil strikes. (identical to Sniper)
+* Protector 🛡️
+	* Adjacent cards take 1 less damage from attacks.
 
 # List of Obtainable and Minion Cards
 #### Standard Training-Dummy Rabbit
@@ -473,13 +480,12 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
   * Changes the description of certain abilities to actually describe what they do.
 
 ## Changelog
-### v0.28.85.113
-Pre-release build
-28 - cards with sprites and emissions
-85 - cards that need sprites and emissions
-113- total number of cards
+### v0.44.69.113
+Initial release
+* Added initial batch of 70 cards
 
 ## Future Plans
 * Add remaining abnormalities (denoted under Cards by their classification numbers)
 * Add custom choice node for mod cards (part of overall plan to rebalance some things once this thing's gotten some feedback)
-* Additional expansion pack relating to the sequel game
+* Additional expansion pack(s) relating to the sequel game
+* Another custom node?

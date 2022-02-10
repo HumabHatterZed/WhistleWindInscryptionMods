@@ -370,6 +370,9 @@
   <data name="meltingLoveMinion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\meltingLoveMinion.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="meltingLoveMinion_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\meltingLoveMinion_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="mhz176" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Mhz176.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -408,6 +411,9 @@
   </data>
   <data name="nothingThereEgg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nothingThereEgg.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="nothingThereEgg_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nothingThereEgg_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="nothingThereFinal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nothingThereFinal.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

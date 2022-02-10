@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             return WstlUtils.CreateAbility<Martyr>(
                 Resources.sigilMartyr,
-                rulebookName, rulebookDescription, dialogue, 3, true);
+                rulebookName, rulebookDescription, dialogue, 3, addModular: true);
         }
     }
     public class Martyr : AbilityBehaviour

@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Resentment bursts forth like a weed.";
             return WstlUtils.CreateAbility<Roots>(
                 Resources.sigilRoots,
-                rulebookName, rulebookDescription, dialogue, 3);
+                rulebookName, rulebookDescription, dialogue, 3, addModular: true);
         }
     }
     public class Roots : AbilityBehaviour

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             return WstlUtils.CreateAbility<SerpentsNest>(
                 Resources.sigilSerpentsNest,
-                rulebookName, rulebookDescription, dialogue, 4, true);
+                rulebookName, rulebookDescription, dialogue, 4, addModular: true);
         }
     }
     public class SerpentsNest : AbilityBehaviour

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 using DiskCardGame;
 using UnityEngine;
 using APIPlugin;
@@ -30,17 +31,38 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private bool Pentinence => base.Card.Info.name.ToLowerInvariant().Contains("hundredsgooddeeds");
+        private bool deeds = false;
+
         public override bool RespondsToResolveOnBoard()
         {
-            return Pentinence;
+            return base.Card.Info.name.ToLowerInvariant().Equals("wstl_hundredsgooddeeds");
         }
         public override IEnumerator OnResolveOnBoard()
         {
             yield return base.PreSuccessfulTriggerSequence();
-            base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.5f);
 
+            Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
+            yield return new WaitForSeconds(0.4f);
+            base.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.4f);
+            (Singleton<PlayerHand>.Instance as PlayerHand3D).MoveCardAboveHand(base.Card);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
+
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
+            {
+                // kill WhiteNight first
+                if (slot.Card.Info.name.ToLowerInvariant().Contains("whitenight"))
+                {
+                    while (slot.Card != null)
+                    {
+                        if (slot.Card.Health > 0)
+                        {
+                            yield return slot.Card.TakeDamage(66, base.Card);
+                            yield return new WaitForSeconds(0.4f);
+                        }
+                    }
+                }
+            }
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
             {
                 if (slot.Card.Info.name.ToLowerInvariant().Contains("apostle") || slot.Card.Info.name.ToLowerInvariant().Contains("whitenight"))
@@ -80,33 +102,35 @@ namespace WhistleWindLobotomyMod
         {
             yield return base.PreSuccessfulTriggerSequence();
 
-            if (Pentinence)
+            if (!killer.Info.name.ToLowerInvariant().Equals("wstl_hundredsgooddeeds"))
             {
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
-                yield break;
             }
-
-            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
-            {
-                yield return new WaitForSeconds(0.2f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
-                yield return new WaitForSeconds(0.2f);
-            }
-
-            CardInfo cardInfo = CardLoader.GetCardByName("wstl_hundredsGoodDeeds");
-            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
-            yield return new WaitForSeconds(0.45f);
-            yield return base.LearnAbility(0.5f);
         }
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
+
+        public override bool RespondsToUpkeep(bool playerUpkeep)
         {
-            return !playerTurnEnd && !Pentinence;
+            return playerUpkeep;
         }
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
+        public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
-            yield return base.Card.Die(false, base.Card);
+
+            if (!deeds)
+            {
+                deeds = true;
+                if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
+                {
+                    yield return new WaitForSeconds(0.2f);
+                    Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
+                    yield return new WaitForSeconds(0.2f);
+                }
+
+                CardInfo cardInfo = CardLoader.GetCardByName("wstl_hundredsGoodDeeds");
+                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
+                yield return new WaitForSeconds(0.45f);
+                yield return base.LearnAbility(0.5f);
+            }
         }
     }
 }

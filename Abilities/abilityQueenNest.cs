@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Awfully fleshy for a bee.";
             return WstlUtils.CreateAbility<QueenNest>(
                 Resources.sigilIdol,
-                rulebookName, rulebookDescription, dialogue, 3, true);
+                rulebookName, rulebookDescription, dialogue, 3, addModular: true);
         }
     }
     public class QueenNest : AbilityBehaviour

@@ -38,14 +38,14 @@ namespace WhistleWindLobotomyMod
     
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            var slotsWithCards = Singleton<BoardManager>.Instance.GetSlots(true).Where(slot => slot && slot.Card == base.Card);
-            CardSlot thisSlot = null;
-            foreach (var slot in slotsWithCards)
+            CardInfo evolution = CardLoader.GetCardByName("wstl_nothingThereTrue");
+            foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
-                 thisSlot = slot;
+                CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
+                evolution.Mods.Add(cardModificationInfo);
             }
             yield return new WaitForSeconds(0.25f);
-            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_nothingThereTrue"), thisSlot, 0.15f);
+            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(evolution, base.PlayableCard.Slot, 0.15f);
             yield return new WaitForSeconds(0.25f);
             if (!PersistentValues.HasSeenNothingTransformation)
             {

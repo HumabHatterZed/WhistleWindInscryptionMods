@@ -62,11 +62,13 @@ namespace WhistleWindLobotomyMod
                 Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
                 yield return new WaitForSeconds(0.2f);
             }
-            // Creates a minion that has the abilities, tribes, health of the killed card
+            // Creates a minion that has the abilities, tribes, power of the killed card
             CardInfo minion = CardLoader.GetCardByName("wstl_censoredMinion");
             List<CardModificationInfo> killedInfo = new();
+
             int killedAtk = card.Info.baseAttack - 1 <= 0 ? 0 : card.Info.baseAttack - 1;
             CardModificationInfo stats = new CardModificationInfo(killedAtk, 0);
+
             killedInfo.Add(stats);
 
             foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
@@ -85,6 +87,8 @@ namespace WhistleWindLobotomyMod
                 // Adds tribes
                 minion.tribes.Add(item);
             }
+
+            minion.displayedName = card.Info.displayedName;
 
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(minion, killedInfo, 0.25f, null);
 

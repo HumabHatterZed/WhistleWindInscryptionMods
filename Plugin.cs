@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGUID = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWindLobotomyCorp";
-        private const string pluginVersion = "0.37.76.113"; // Major.Minor.Patch.Cards
+        private const string pluginVersion = "0.44.69.113"; // Major.Minor.Patch.Cards
         internal static ManualLogSource Log;
 
         internal static bool ModEnabled { get; private set; }
@@ -73,10 +73,9 @@ namespace WhistleWindLobotomyMod
                 #region SPECIAL ABILITIES
                 SpecialAbility_Fetus();
                 SpecialAbility_Bath();
-                SpecialAbility_Hate();
                 SpecialAbility_Nothing();
-                SpecialAbility_Despair();
                 SpecialAbility_Shy();
+                SpecialAbility_Hate();
 
                 // Unique special ability
                 // Stores transform info for certain cards
@@ -87,12 +86,14 @@ namespace WhistleWindLobotomyMod
                     // These special abilities' only exist for their Rulebook entries
                     // Their actual effects can be found in the custom ability they each possess / SpecialEvolve
                     SpecialAbility_Greed();
+                    SpecialAbility_Despair();
                     SpecialAbility_Devil();
                     SpecialAbility_Warrior();
                     SpecialAbility_Bodies();
                     SpecialAbility_CENSORED();
                     SpecialAbility_Judge();
                     SpecialAbility_Queen();
+                    SpecialAbility_Army();
                 }
 
                 #endregion
@@ -131,6 +132,7 @@ namespace WhistleWindLobotomyMod
                 Ability_Gardener();
                 Ability_Slime();
                 Ability_Hunter();
+                Ability_Protector();
 
                 Ability_Apostle();
                 Ability_TrueSaviour();
