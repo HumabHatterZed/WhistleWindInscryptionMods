@@ -261,7 +261,7 @@ namespace WhistleWindLobotomyMod
 			specialInfo.appliesToAttack = appliesToAttack;
 			specialInfo.iconGraphic = iconGraphic;
 
-			if ((inRulebook || Plugin.SpecialsInRulebook) && !overrideDesc)
+			if ((inRulebook || ConfigHelper.Instance.RevealSpecials) && !overrideDesc)
 			{
 				specialInfo.metaCategories = new List<AbilityMetaCategory>(){
 					AbilityMetaCategory.Part1Rulebook};

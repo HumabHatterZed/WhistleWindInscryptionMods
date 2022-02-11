@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             return WstlUtils.CreateAbility<Idol>(
                 Resources.sigilIdol,
-                rulebookName, rulebookDescription, dialogue, 4);
+                rulebookName, rulebookDescription, dialogue, 5);
         }
     }
     public class Idol : AbilityBehaviour

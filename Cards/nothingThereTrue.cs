@@ -9,11 +9,14 @@ namespace WhistleWindLobotomyMod
     {
         private void NothingThereTrue_O0620()
         {
+            List<Ability> abilities = new()
+            {
+                Ability.Evolve
+            };
             List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
             {
-                SpecialEvolve.GetSpecialAbilityId
+                _AbilityDialogueHelper.GetSpecialAbilityId
             };
-
             List<Tribe> tribes = new List<Tribe>
             {
                 Tribe.Canine,
@@ -25,9 +28,10 @@ namespace WhistleWindLobotomyMod
                 "What is that?",
                 3, 3, 0, 0,
                 Resources.nothingThereTrue,
-                new List<Ability>(), specialAbilities: specialAbilities,
+                abilities: abilities, specialAbilities: specialAbilities,
                 tribes: tribes,
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                appearanceBehaviour: CardUtils.getRareAppearance,
+                evolveId: new EvolveIdentifier("wstl_nothingThereEgg", 1));
         }
     }
 }

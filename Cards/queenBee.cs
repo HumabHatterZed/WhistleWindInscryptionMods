@@ -25,7 +25,8 @@ namespace WhistleWindLobotomyMod
                 3, 0, 2, 0,
                 Resources.queenBee,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode);
+                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.queenBee_emission);
         }
     }
 }

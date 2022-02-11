@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         {
             List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
             {
-                SpecialEvolve.GetSpecialAbilityId
+                _AbilityDialogueHelper.GetSpecialAbilityId
             };
 
             List<Tribe> tribes = new List<Tribe>
@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_queenOfHatredExhausted", "The Queen of Hatred",
                 "Exhaustion: the cost of an all-out attack.",
-                1, 0, 0, 0,
+                2, 0, 0, 0,
                 Resources.queenOfHatredExhausted,
                 new List<Ability>(), specialAbilities: specialAbilities,
                 tribes: tribes,

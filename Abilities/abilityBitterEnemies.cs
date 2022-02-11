@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             return WstlUtils.CreateAbility<BitterEnemies>(
                 Resources.sigilBitterEnemies,
-                rulebookName, rulebookDescription, dialogue, 3, addModular: true);
+                rulebookName, rulebookDescription, dialogue, 2, addModular: true);
         }
     }
     public class BitterEnemies : AbilityBehaviour

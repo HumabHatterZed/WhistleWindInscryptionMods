@@ -9,9 +9,13 @@ namespace WhistleWindLobotomyMod
     {
         private void NothingThereEgg_O0620()
         {
+            List<Ability> abilities = new()
+            {
+                Ability.Evolve
+            };
             List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
             {
-                SpecialEvolve.GetSpecialAbilityId
+                _AbilityDialogueHelper.GetSpecialAbilityId
             };
 
             WstlUtils.Add(
@@ -19,10 +23,11 @@ namespace WhistleWindLobotomyMod
                 "What is it doing?",
                 4, 0, 0, 0,
                 Resources.nothingThereEgg,
-                new List<Ability>(), specialAbilities: specialAbilities,
+                abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(),
                 emissionTexture: Resources.nothingThereEgg_emission,
-                appearanceBehaviour: CardUtils.getTerrainBackgroundAppearance);
+                appearanceBehaviour: CardUtils.getTerrainBackgroundAppearance,
+                evolveId: new EvolveIdentifier("wstl_nothingThereFinal", 1));
         }
     }
 }

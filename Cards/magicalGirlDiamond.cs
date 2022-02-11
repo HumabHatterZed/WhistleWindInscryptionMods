@@ -9,9 +9,13 @@ namespace WhistleWindLobotomyMod
     {
         private void MagicalGirlDiamond_O0164()
         {
+            List<Ability> abilities = new()
+            {
+                Ability.Evolve
+            };
             List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
             {
-                SpecialEvolve.GetSpecialAbilityId
+                _AbilityDialogueHelper.GetSpecialAbilityId
             };
 
             WstlUtils.Add(
@@ -19,9 +23,9 @@ namespace WhistleWindLobotomyMod
                 "Greed hardened into golden amber, trapping the happiness inside.",
                 3, 0, 2, 0,
                 Resources.magicalGirlDiamond,
-                new List<Ability>(), specialAbilities: specialAbilities,
+                abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                onePerDeck: true);
+                evolveId: new EvolveIdentifier("wstl_kingOfGreed", 1), onePerDeck: true);
         }
     }
 }

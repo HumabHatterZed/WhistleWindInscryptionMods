@@ -10,7 +10,7 @@ namespace WhistleWindLobotomyMod
         private void PlagueDoctor_O0145()
         {
             byte[] resource = Resources.plagueDoctor;
-
+            /*
             switch (PersistentValues.NumberOfBlessings)
             {
                 case 0:
@@ -52,7 +52,7 @@ namespace WhistleWindLobotomyMod
                 case 12:
                     resource = Resources.plagueDoctor12;
                     break;
-            }
+            }/**/
 
             List<Ability> abilities = new()
             {

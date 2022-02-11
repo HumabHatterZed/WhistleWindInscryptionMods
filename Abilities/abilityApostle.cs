@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             string rulebookDescription = " Thou wilt abandon flesh and be born again.";
             const string dialogue = "Ye who are full of blessings, rejoice. For I am with ye.";
 
-            if (WhiteNightDescRulebook)
+            if (ConfigHelper.Instance.RevealWhiteNight)
             {
                 rulebookDescription = "While WhiteNight is on the board, this card will enter a downed state instead of dying.";
             }

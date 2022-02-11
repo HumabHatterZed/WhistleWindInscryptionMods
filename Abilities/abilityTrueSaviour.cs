@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             string rulebookDescription = "My story is nowhere, unknown to all.";
             const string dialogue = "I am death and life. Darkness and light.";
 
-            if (WhiteNightDescRulebook)
+            if (ConfigHelper.Instance.RevealWhiteNight)
             {
                 rulebookDescription = "Cannot die. Transform non-Terrain and non-Pelt cards into Apostles. 1-in-12 chance that the Apostle will be a Heretic.";
             }

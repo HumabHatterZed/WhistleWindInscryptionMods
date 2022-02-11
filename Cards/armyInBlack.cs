@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_armyInBlack", "Army in Black",
                 "Duty-bound.",
-                2, 1, 0, 0,
+                2, 2, 0, 0,
                 Resources.armyInBlack,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(),

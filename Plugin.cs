@@ -24,64 +24,30 @@ namespace WhistleWindLobotomyMod
         private const string pluginVersion = "0.44.69.113"; // Major.Minor.Patch.Cards
         internal static ManualLogSource Log;
 
-        internal static bool ModEnabled { get; private set; }
-        internal static bool SpecialsInRulebook { get; private set; }
-        internal static bool WhiteNightDescRulebook { get; private set; }
-
-        private bool Config_ModEnabled
-        {
-            get
-            {
-                return Config.Bind(
-                    pluginName, "ENABLE MOD", true,
-                    new ConfigDescription("Enables the mod when set to true.")).Value;
-            }
-        }
-        private bool Config_RulebookSpecials
-        {
-            get
-            {
-                return Config.Bind(
-                    pluginName, "SPECIAL ABILITIES IN RULEBOOK", false,
-                    new ConfigDescription("Adds hidden special abilities to the rulebook when set to true.")).Value;
-            }
-        }
-        private bool Config_RulebookWhiteNightDesc
-        {
-            get
-            {
-                return Config.Bind(
-                    pluginName, "REVEAL SELECT DESCRIPTIONS", false,
-                    new ConfigDescription("Changes the descriptions of the abilities Apostle, True Saviour, and Confession and Pentinence.")).Value;
-            }
-        }
-
         private void Awake()
         {
             Log = base.Logger;
             Harmony harmony = new(pluginGUID);
 
             #region CONFIG
-            ModEnabled = Config_ModEnabled;
-            SpecialsInRulebook = Config_RulebookSpecials;
-            WhiteNightDescRulebook = Config_RulebookWhiteNightDesc;
+            ConfigHelper.Instance.BindConfig();
 
             #endregion
 
-            if (ModEnabled)
+            if (ConfigHelper.Instance.ModEnabled)
             {
                 #region SPECIAL ABILITIES
+                // Unique special ability
+                // Controls dialogue, some other stuff too
+                AbilityDialogueHelper();
+
                 SpecialAbility_Fetus();
                 SpecialAbility_Bath();
                 SpecialAbility_Nothing();
                 SpecialAbility_Shy();
                 SpecialAbility_Hate();
 
-                // Unique special ability
-                // Stores transform info for certain cards
-                HiddenEvolveHelper();
-
-                if (Config_RulebookSpecials)
+                if (ConfigHelper.Instance.RevealSpecials)
                 {
                     // These special abilities' only exist for their Rulebook entries
                     // Their actual effects can be found in the custom ability they each possess / SpecialEvolve

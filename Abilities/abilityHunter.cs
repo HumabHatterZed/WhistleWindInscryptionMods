@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
     {
         private NewAbility Ability_Hunter()
         {
-            const string rulebookName = "Hunter";
+            const string rulebookName = "Marksman";
             const string rulebookDescription = "You may choose which opposing space a card bearing this sigil strikes.";
             const string dialogue = "Your beast strikes with precision.";
 

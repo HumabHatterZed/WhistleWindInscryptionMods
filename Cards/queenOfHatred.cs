@@ -9,17 +9,17 @@ namespace WhistleWindLobotomyMod
     {
         private void QueenOfHatred_O0104()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Ability.Flying
             };
 
-            List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
+            List<SpecialAbilityIdentifier> specialAbilities = new()
             {
-                SpecialEvolve.GetSpecialAbilityId
+                _AbilityDialogueHelper.GetSpecialAbilityId
             };
 
-            List<Tribe> tribes = new List<Tribe>
+            List<Tribe> tribes = new()
             {
                 Tribe.Reptile
             };
@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_queenOfHatred", "The Queen of Hatred",
                 "Heroes exist to fight evil. In its absence, they must create it.",
-                1, 5, 0, 0,
+                2, 7, 0, 0,
                 Resources.queenOfHatred,
                 abilities: abilities, specialAbilities: specialAbilities,
                 tribes: tribes,

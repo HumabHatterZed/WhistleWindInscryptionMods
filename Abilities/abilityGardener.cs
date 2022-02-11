@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When an ally card dies, create a Sapling in their place. A slot is defined as: 1 Power, 2 Health.";
             const string dialogue = "They proliferate and become whole. Can you feel it?";
             return WstlUtils.CreateAbility<Gardener>(
-                Resources.sigilIdol,
+                Resources.sigilGardener,
                 rulebookName, rulebookDescription, dialogue, 4, true);
         }
     }

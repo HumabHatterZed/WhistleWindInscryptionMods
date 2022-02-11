@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_dontTouchMe", "Don't Touch Me",
                 "What happens when you press it?",
-                1, 0, 1, 0,
+                1, 0, 0, 2,
                 Resources.dontTouchMe,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,

@@ -111,7 +111,7 @@ Abilities marked with a * are available as totem bases.
 * Grinder ⚙️
 	* This card gains the stats of the cards sacrificed to play it.
 * The Train 🚂
-	* One turn after this card is played, kill all cards on the board. If the card is not the ticket taker, only kill the card's allies at a 10% chance.
+	* One turn after this card is played, kill all cards on the board. If this card is not the ticket taker, only kill the card's allies at a 10% chance.
 * Burning 🔥
 	* The opposing card takes 1 damage at the end of their turn.
 * Regenerator 💗
@@ -123,11 +123,11 @@ Abilities marked with a * are available as totem bases.
 * Piercing 🔱 *
 	* When this card strikes a card, deal 1 overkill damage if applicable.
 * Scrambler 🎲 *
-	* When this card is sacrificed, add its stats onto the card it was sacrificed to, then scramble the card's stats.
+	* When this card is sacrificed, add its stats onto the card it was sacrificed to, then scramble that card's stats.
 * Gardener 🌱
 	* When an ally card dies, create a Sapling in their place. A slot is defined as: 1 Power, 3 Health.
 * Slime 🦠
-	* A card bearing this sigil takes 1 less damage from attacks. Additionally, cards adjacent to this card are turned into Slimes at the start of the owner's turn.
+	* A card bearing this sigil takes 1 less damage from attacks. Additionally, cards placed adjacent to this card are turned into Slimes.
 * Hunter 🎯
 	* You may choose which opposing space a card bearing this sigil strikes. (identical to Sniper)
 * Protector 🛡️

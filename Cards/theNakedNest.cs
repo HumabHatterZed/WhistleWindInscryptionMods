@@ -17,10 +17,11 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_theNakedNest", "The Naked Nest",
                 "They can enter your body through any aperture.",
-                4, 0, 0, 4,
+                2, 0, 0, 4,
                 Resources.theNakedNest,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.theNakedNest_emission);
         }
     }
 }

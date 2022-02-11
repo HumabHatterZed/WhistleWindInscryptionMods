@@ -65,8 +65,7 @@ namespace WhistleWindLobotomyMod
                     CardSlot randSlot;
                     if (slotsWithCards.Count > 0)
                     {
-                        PersistentValues.NumberOfBlessings++;
-                        Plugin.Log.LogInfo($"The clock now strikes: [{PersistentValues.NumberOfBlessings}]");
+                        ConfigHelper.Instance.UpdateBlessings(1);
 
                         randSlot = slotsWithCards[SeededRandom.Range(0, slotsWithCards.Count, randomSeed)];
                         randSlot.Card.HealDamage(2);
@@ -96,8 +95,7 @@ namespace WhistleWindLobotomyMod
             {
                 if (IsDoctor)
                 {
-                    PersistentValues.NumberOfBlessings++;
-                    Plugin.Log.LogInfo($"The clock now strikes: [{PersistentValues.NumberOfBlessings}]");
+                    ConfigHelper.Instance.UpdateBlessings(1);
                 }
                 targetedSlot.Card.HealDamage(2);
                 targetedSlot.Card.Anim.LightNegationEffect();
@@ -210,9 +208,9 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator ClockTwelve()
         {
-            if (PersistentValues.NumberOfBlessings >= 12)
+            if (ConfigHelper.Instance.NumOfBlessings >= 12)
             {
-                PersistentValues.NumberOfBlessings = 0;
+                ConfigHelper.Instance.UpdateBlessings(-ConfigHelper.Instance.NumOfBlessings);
 
                 CardInfo cardByName = CardLoader.GetCardByName("wstl_whiteNight");
                 yield return base.Card.TransformIntoCard(cardByName);

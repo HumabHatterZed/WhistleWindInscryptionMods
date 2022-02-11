@@ -16,13 +16,13 @@ namespace WhistleWindLobotomyMod
             string rulebookDescription = "Keep faith with unwavering resolve.";
             const string dialogue = "Keep faith with unwavering resolve.";
 
-            if (WhiteNightDescRulebook)
+            if (ConfigHelper.Instance.RevealWhiteNight)
             {
                 rulebookDescription = "If held by the Heretic, kills the Heretic at the end of the opponent's turn and adds a special card to your hand. If held by the special card, kill Apostles and WhiteNight and deal 33 direct damage.";
             }
 
             return WstlUtils.CreateAbility<Confession>(
-                Resources.sigilMartyr,
+                Resources.sigilConfession,
                 rulebookName, rulebookDescription, dialogue, -3);
         }
     }

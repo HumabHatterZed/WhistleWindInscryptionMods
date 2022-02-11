@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil is played, create a Worker Bee in your hand. Create an additional Worker Bee whenever another card dies.";
             const string dialogue = "Awfully fleshy for a bee.";
             return WstlUtils.CreateAbility<QueenNest>(
-                Resources.sigilIdol,
+                Resources.sigilQueenNest,
                 rulebookName, rulebookDescription, dialogue, 3, addModular: true);
         }
     }
