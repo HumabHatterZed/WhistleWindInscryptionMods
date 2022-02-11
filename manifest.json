@@ -1,0 +1,10 @@
+{
+	"name": "WhistleWindLobotomyMod",
+	"version_number": "0.47.66.113",
+	"website_url": "https://github.com/HumabHatterZed/WhistleWindLobotomyMod",
+	"description": "Initial release of 70 cards.",
+	"dependencies": [
+    "BepInEx-BepInExPack_Inscryption-5.4.1701",
+		"API_dev-API-1.13.0",
+	]
+}
