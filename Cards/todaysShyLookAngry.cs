@@ -7,14 +7,19 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
+        List<SpecialAbilityIdentifier> specialAbilities = new()
+        {
+            TodaysShyLook.GetSpecialAbilityId
+        };
+
         private void TodaysShyLookAngry_O0192()
         {
             WstlUtils.Add(
-                "wstl_todaysShyLookAngry", "Today's Shy Look",
+                "wstl_todaysShyLookAngry", "Today's Angry Look",
                 "An indecisive creature. Its expression is different each time you draw it.",
                 1, 2, 1, 0,
                 Resources.todaysShyLookAngry,
-                new List<Ability>(), new List<SpecialAbilityIdentifier>(),
+                new List<Ability>(), specialAbilities: specialAbilities,
                 new List<Tribe>());
         }
     }

@@ -77,10 +77,7 @@ namespace WhistleWindLobotomyMod
             {
                 if (ProgressionData.Data.introducedConsumables[i].StartsWith($"{SaveGameHelper.SaveKey}.{RunStateKey}"))
                 {
-                    if (!ProgressionData.Data.introducedConsumables[i].Contains("NumberOfBlessings"))
-                    {
-                        ProgressionData.Data.introducedConsumables.RemoveAt(i);
-                    }
+                    ProgressionData.Data.introducedConsumables.RemoveAt(i);
                 }
                 else
                 {

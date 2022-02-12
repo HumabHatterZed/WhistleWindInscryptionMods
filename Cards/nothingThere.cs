@@ -9,18 +9,23 @@ namespace WhistleWindLobotomyMod
     {
         private void NothingThere_O0620()
         {
+            List<Ability> abilities = new()
+            {
+                Ability.Reach
+            };
             List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
             {
                 NothingThere.GetSpecialAbilityId
             };
 
             WstlUtils.Add(
-                "wstl_nothingThere", "Bullfrog",
-                "A rare Bullfrog? How odd...",
-                2, 1, 3, 0,
+                "wstl_nothingThere", "Yumi",
+                "A rare death card?",
+                2, 3, 2, 0,
                 Resources.nothingThere,
-                new List<Ability>(), specialAbilities: specialAbilities,
+                abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
+                emissionTexture: Resources.nothingThere_emission,
                 appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
         }
     }

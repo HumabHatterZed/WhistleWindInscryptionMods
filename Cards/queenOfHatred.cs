@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
 
             List<SpecialAbilityIdentifier> specialAbilities = new()
             {
-                _AbilityDialogueHelper.GetSpecialAbilityId
+                _AbilityHelper.GetSpecialAbilityId
             };
 
             List<Tribe> tribes = new()
@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_queenOfHatred", "The Queen of Hatred",
                 "Heroes exist to fight evil. In its absence, they must create it.",
-                2, 7, 0, 0,
+                2, 7, 1, 0,
                 Resources.queenOfHatred,
                 abilities: abilities, specialAbilities: specialAbilities,
                 tribes: tribes,

@@ -7,7 +7,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private void BlockOfIce_F0137()
+        private void SnowQueenIceBlock_F0137()
         {
             List<Trait> traits = new List<Trait>
             {
@@ -15,10 +15,10 @@ namespace WhistleWindLobotomyMod
             };
 
             WstlUtils.Add(
-                "wstl_blockOfIce", "Block of Ice",
+                "wstl_snowQueenIceBlock", "Block of Ice",
                 "The palace was cold and lonely.",
                 1, 0, 0, 0,
-                Resources.blockOfIce,
+                Resources.snowQueenIceBlock,
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), traits: traits,
                 appearanceBehaviour: CardUtils.getTerrainAppearance);

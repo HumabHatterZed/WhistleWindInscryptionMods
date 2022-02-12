@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
 
             return WstlUtils.CreateAbility<Apostle>(
                 Resources.sigilApostle,
-                rulebookName, rulebookDescription, dialogue, -3);
+                rulebookName, rulebookDescription, dialogue, -3, overrideModular: true);
         }
     }
     public class Apostle : AbilityBehaviour

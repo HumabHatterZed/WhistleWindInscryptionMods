@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_ppodae", "Ppodae",
                 "A cute little doggo...did I say that?",
-                1, 1, 0, 6,
+                1, 1, 0, 5,
                 Resources.ppodae,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,

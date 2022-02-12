@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_blueStar3", "Blue Star",
                 "When this is over, let's meet again as stars.",
-                2, 2, 0, 0,
+                3, 2, 4, 0,
                 Resources.blueStar3,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(),

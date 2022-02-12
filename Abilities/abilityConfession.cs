@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
 
             return WstlUtils.CreateAbility<Confession>(
                 Resources.sigilConfession,
-                rulebookName, rulebookDescription, dialogue, -3);
+                rulebookName, rulebookDescription, dialogue, -3, overrideModular: true);
         }
     }
     public class Confession : AbilityBehaviour

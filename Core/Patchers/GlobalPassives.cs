@@ -10,6 +10,20 @@ namespace WhistleWindLobotomyMod
 {
     public static class GlobalPassives // ripped in its near entirety from  divisionbyz0rro / Infiniscryption / VanillaStackable
     {
+        private static int AbilityCount(this PlayableCard card, Ability ability)
+        {
+            // count total number of abilities, since these are mod abilities and thus aren't automatically run
+            int count = card.Info.Abilities
+                        .Concat(AbilitiesUtil.GetAbilitiesFromMods(card.TemporaryMods))
+                        .Where(ab => ab == ability)
+                        .Count();
+
+            if (count > 0)
+                return count;
+            else
+                return 0;
+        }
+
         [HarmonyPatch(typeof(PlayableCard), "GetPassiveAttackBuffs")]
         [HarmonyPostfix]
         public static void GetGlobalBuffs(ref int __result, ref PlayableCard __instance)
@@ -73,19 +87,6 @@ namespace WhistleWindLobotomyMod
                 }
                 #endregion
             }
-        }
-        private static int AbilityCount(this PlayableCard card, Ability ability)
-        {
-            // count total number of abilities, since these are mod abilities and thus aren't automatically run
-            int count = card.Info.Abilities
-                        .Concat(AbilitiesUtil.GetAbilitiesFromMods(card.TemporaryMods))
-                        .Where(ab => ab == ability)
-                        .Count();
-
-            if (count > 0)
-                return count;
-            else
-                return 0;
         }
     }
 }

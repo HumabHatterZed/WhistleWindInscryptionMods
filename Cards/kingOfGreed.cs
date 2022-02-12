@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_kingOfGreed", "The King of Greed",
                 "An aged storyteller. She can tell you any tale, even those that can't exist.",
-                5, 4, 0, 0,
+                5, 4, 2, 0,
                 Resources.kingOfGreed,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>());

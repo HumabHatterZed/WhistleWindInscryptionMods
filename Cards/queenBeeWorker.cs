@@ -7,7 +7,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private void WorkerBee_T0450()
+        private void QueenBeeWorker_T0450()
         {
             List<Tribe> tribes = new List<Tribe>
             {
@@ -15,12 +15,14 @@ namespace WhistleWindLobotomyMod
             };
 
             WstlUtils.Add(
-                "wstl_workerBee", "Worker Bee",
+                "wstl_queenBeeWorker", "Worker Bee",
                 "A blind servant of the hive.",
                 1, 1, 0, 0,
-                Resources.workerBee,
+                Resources.queenBeeWorker,
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, evolveId: new EvolveIdentifier("wstl_queenBee", 1));
+                tribes: tribes,
+                emissionTexture: Resources.queenBeeWorker_emission,
+                evolveId: new EvolveIdentifier("wstl_queenBee", 1));
         }
     }
 }

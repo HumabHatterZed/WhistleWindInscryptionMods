@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_ppodaeBuff", "Ppodae",
                 "",
-                1, 3, 0, 0,
+                1, 3, 0, 8,
                 Resources.ppodaeBuff,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes, emissionTexture: Resources.ppodaeBuff_emission);

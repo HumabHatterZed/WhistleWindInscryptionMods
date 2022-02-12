@@ -7,22 +7,21 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private void ShelterFrom27March_T0982()
+        private void WorldPortrait_O0991()
         {
             List<Ability> abilities = new List<Ability>
             {
-                Ability.PreventAttack,
-                Aggravating.ability
+               Reflector.ability
             };
 
             WstlUtils.Add(
-                "wstl_shelterFrom27March", "Shelter From the 27th of March",
-                "It makes itself the safest place in the world by altering the reality around it.",
-                1, 0, 0, 3,
-                Resources.shelterFrom27March,
+                "wstl_worldPortrait", "Portrait of Another World",
+                "The portrait captures a moment, one we're destined to lose.",
+                4, 0, 1, 0,
+                Resources.worldPortrait,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.shelterFrom27March_emission);
+                emissionTexture: Resources.mhz176_emission);
         }
     }
 }

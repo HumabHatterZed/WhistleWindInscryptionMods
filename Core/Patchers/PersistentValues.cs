@@ -13,17 +13,6 @@ namespace WhistleWindLobotomyMod
     public static partial class PersistentValues
     {
         #region Plague Doctor
-        public static int NumberOfBlessings // Keeps track of the number of times Plague Doctor has healed a card
-        {
-            get
-            {
-                return SaveGameHelper.GetInt("NumberOfBlessings", 0);
-            }
-            set
-            {
-                SaveGameHelper.SetValue("NumberOfBlessings", value.ToString());
-            }
-        }
         public static bool ClockThisRun // Keeps track of whether Plague Doctor activated this run (Does nothing currently)
         {
             get

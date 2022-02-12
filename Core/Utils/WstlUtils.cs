@@ -160,7 +160,7 @@ namespace WhistleWindLobotomyMod
 		public static AbilityInfo CreateInfoWithDefaultSettings(
 			string rulebookName, string rulebookDescription, string dialogue,
 			bool addModular = false, bool isPassive = false, bool canStack = false,
-			bool withDialogue = true, int powerLevel = 0)
+			bool withDialogue = true, bool overrideModular = false, int powerLevel = 0)
 		{
 			AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 			info.powerLevel = powerLevel;
@@ -168,7 +168,7 @@ namespace WhistleWindLobotomyMod
 			info.rulebookDescription = rulebookDescription;
 			info.passive = isPassive;
 			info.canStack = canStack;
-			if (addModular)
+			if ( (addModular || ConfigHelper.Instance.AllModular) && !overrideModular)
 			{
 				info.metaCategories = new List<AbilityMetaCategory>(){
 					AbilityMetaCategory.Part1Modular,
@@ -203,13 +203,13 @@ namespace WhistleWindLobotomyMod
 		public static NewAbility CreateAbility<T>(
 			byte[] texture, string rulebookName, string rulebookDescription,
 			string dialogue, int powerLevel = 0, bool addModular = false,
-			bool isPassive = false, bool canStack = false)
+			bool isPassive = false, bool canStack = false, bool overrideModular = false)
 			where T : AbilityBehaviour
 		{
 			return CreateAbility<T>(
 				ImageUtils.LoadTextureFromResource(texture),
 				rulebookName, rulebookDescription,
-				dialogue, powerLevel, addModular, isPassive, canStack);
+				dialogue, powerLevel, addModular, isPassive, canStack, overrideModular);
 		}
 		// Uses the above info to generate AbilityInfo (Need both for the conversion from byte[] to Texture?)
 		public static NewAbility CreateAbility<T>(
@@ -220,13 +220,14 @@ namespace WhistleWindLobotomyMod
 			int powerLevel = 0,
 			bool addModular = false,
 			bool isPassive = false,
-			bool canStack = false)
+			bool canStack = false,
+			bool  overrideModular = false)
 			where T : AbilityBehaviour
 		{
 			return CreateAbility<T>(
 				CreateInfoWithDefaultSettings(
 					rulebookName, rulebookDescription,
-					dialogue, addModular, isPassive, canStack, powerLevel: powerLevel), texture);
+					dialogue, addModular, isPassive, canStack, overrideModular, powerLevel: powerLevel), texture);
 		}
 		// Instantiates ability
 		private static NewAbility CreateAbility<T>(

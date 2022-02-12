@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
             {
-                _AbilityDialogueHelper.GetSpecialAbilityId
+                _AbilityHelper.GetSpecialAbilityId
             };
             List<Tribe> tribes = new List<Tribe>
             {
@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_nothingThereTrue", "Nothing There",
                 "What is that?",
-                3, 3, 0, 0,
+                2, 3, 3, 0,
                 Resources.nothingThereTrue,
                 abilities: abilities, specialAbilities: specialAbilities,
                 tribes: tribes,

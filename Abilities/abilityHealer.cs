@@ -136,8 +136,7 @@ namespace WhistleWindLobotomyMod
                     {
                         if (IsDoctor)
                         {
-                            PersistentValues.NumberOfBlessings++;
-                            Plugin.Log.LogInfo($"The clock now strikes: [{PersistentValues.NumberOfBlessings}]");
+                            ConfigHelper.Instance.UpdateBlessings(1);
                         }
                         targetedSlot.Card.HealDamage(2);
                         targetedSlot.Card.Anim.LightNegationEffect();

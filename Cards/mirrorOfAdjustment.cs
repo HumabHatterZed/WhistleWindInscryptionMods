@@ -9,18 +9,22 @@ namespace WhistleWindLobotomyMod
     {
         private void MirrorOfAdjustment_O0981()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
-                Reflector.ability
+                Woodcutter.ability
             };
-
+            List<SpecialTriggeredAbility> triggeredAbilities = new()
+            {
+                SpecialTriggeredAbility.Mirror
+            };
             WstlUtils.Add(
                 "wstl_mirrorOfAdjustment", "The Mirror of Adjustment",
                 "A mirror that reflects nothing on its surface.",
-                4, 0, 1, 0,
+                1, 0, 1, 0,
                 Resources.mirrorOfAdjustment,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                new List<Tribe>(), triggeredAbilities: triggeredAbilities,
+                metaCategory: CardMetaCategory.ChoiceNode);
         }
     }
 }

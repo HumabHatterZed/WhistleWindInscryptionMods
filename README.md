@@ -2,7 +2,7 @@
 Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay.
 To this end, a number of custom abilities and special abilities have been diligently crafted with unique and, for some, broken effects.
-Now for the numbers: this mod adds 70 obtainable (aka non-minion or transformation) cards and 37 custom abilities.
+Now for the numbers: this mod adds 71 obtainable (aka non-minion or transformation) cards and 37 custom abilities.
 
 ## Known Issues
 ### LogLevel 'Debug' causing lag
@@ -103,7 +103,7 @@ Abilities marked with a * are available as totem bases.
 * Assimilator 🖤
 	* When a card bearing this sigil kills an enemy card, this card gains 1 Power and 1 Health.
 * Group Healer 💖
-	* While a card bearing this sigil is on the board, all allies regain 1 Health at the end of the opponent's turn.
+	* While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.
 * Reflector 🪞
 	* When this card is struck, the striker is dealt damage equal to the striker's Power.
 * Flag Bearer 🚩
@@ -190,7 +190,7 @@ Abilities marked with a * are available as totem bases.
 (２,５)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png)
 ##### Chairs
-(１,１)
+(０,２)
 
 #### Warm-Hearted Woodsman
 (２,３)
@@ -304,7 +304,7 @@ Abilities marked with a * are available as totem bases.
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 #### Little Witch's Friend
 (２,２)
-![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png)
 
 #### Funeral of the Dead Butterflies
 (２,２)
@@ -357,7 +357,7 @@ Abilities marked with a * are available as totem bases.
 #### [ T-09-80 ]
 
 #### Mirror of Adjustment
-(０,４)
+(０,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
 #### Shelter from the 27th of March
@@ -369,7 +369,7 @@ Abilities marked with a * are available as totem bases.
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
 #### Meat Lantern
-(１,４)
+(１,３)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
 #### We can Change Anything
@@ -396,14 +396,16 @@ Abilities marked with a * are available as totem bases.
 
 #### [ T-09-90 ]
 
-#### [ O-09-91 ]
+#### Portrait of Another World
+(０,３)
+![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
 #### Today's Shy Look
 (１,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png)
 
 #### Blue Star
-(０,４)
+(０,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_4.png)
 
 #### You Must Be Happy
@@ -480,7 +482,7 @@ Abilities marked with a * are available as totem bases.
   * Changes the description of certain abilities to actually describe what they do.
 
 ## Changelog
-### v0.44.69.113
+### v0.86.47.66
 Initial release
 * Added initial batch of 70 cards
 

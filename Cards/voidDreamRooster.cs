@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_voidDreamRooster", "Void Dream",
                 "Quite the chimera.",
-                2, 2, 0, 0,
+                2, 2, 2, 0,
                 Resources.voidDreamRooster,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes);

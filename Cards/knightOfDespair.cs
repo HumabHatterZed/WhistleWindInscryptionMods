@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_knightOfDespair", "The Knight of Despair",
                 "Failing to protect, she realised nothing was ever truly upheld.",
-                4, 2, 0, 0,
+                4, 2, 2, 0,
                 Resources.knightOfDespair,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(),

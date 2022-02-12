@@ -12,9 +12,9 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_nothingThereFinal", "Nothing There",
                 "A grotesque attempt at mimicry. Pray it does not improve its disguise.",
-                9, 9, 0, 0,
+                9, 9, 4, 0,
                 Resources.nothingThereFinal,
-                new List<Ability>(), new List<SpecialAbilityIdentifier>(),
+                new List<Ability>(), new(),
                 new List<Tribe>(),
                 appearanceBehaviour: CardUtils.getRareAppearance);
         }

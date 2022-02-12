@@ -13,14 +13,17 @@ namespace WhistleWindLobotomyMod
             {
                 Slime.ability
             };
-
+            List<Trait> traits = new()
+            {
+                Trait.KillsSurvivors
+            };
             WstlUtils.Add(
                 "wstl_meltingLove", "Melting Love",
                 "Don't let your beasts get too close now.",
                 2, 4, 3, 0,
                 Resources.meltingLove,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
+                new List<Tribe>(), traits: traits, metaCategory: CardMetaCategory.Rare,
                 emissionTexture: Resources.rudoltaSleigh_emission,
                 appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
         }

@@ -11,8 +11,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new List<Ability>
             {
-                Ability.TripleBlood,
-                Ability.QuadrupleBones
+                Ability.TripleBlood
             };
 
             List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
@@ -23,7 +22,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_bloodBath2", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
-                3, 0, 0, 0,
+                3, 0, 2, 0,
                 Resources.bloodBath2,
                 abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(), emissionTexture: Resources.bloodBath2_emission);

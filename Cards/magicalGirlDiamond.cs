@@ -13,9 +13,9 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Evolve
             };
-            List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
+            List<SpecialAbilityIdentifier> specialAbilities = new()
             {
-                _AbilityDialogueHelper.GetSpecialAbilityId
+                _AbilityHelper.GetSpecialAbilityId
             };
 
             WstlUtils.Add(

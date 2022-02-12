@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_namelessFetusAwake", "Nameless Fetus",
                 "Only a sacrifice will stop its piercing wails.",
-                6, 0, 0, 0,
+                6, 0, 0, 5,
                 Resources.namelessFetusAwake,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), emissionTexture: Resources.namelessFetusAwake_emission);

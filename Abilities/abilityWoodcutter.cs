@@ -71,7 +71,7 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.25f);
             for (int i = 0; i < this.NumShots; i++)
             {
-                if (otherCard != null && !otherCard.Dead)
+                if (otherCard != null && !otherCard.Dead && base.Card.Attack > 0)
                 {
                     yield return base.PreSuccessfulTriggerSequence();
                     base.Card.Anim.LightNegationEffect();

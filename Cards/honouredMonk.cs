@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_honouredMonk", "Honoured Monk",
                 "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...",
-                2, 2, 2, 0,
+                1, 2, 2, 0,
                 Resources.honouredMonk,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,

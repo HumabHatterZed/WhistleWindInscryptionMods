@@ -30,6 +30,9 @@ namespace WhistleWindLobotomyMod
         private ConfigEntry<bool> Config_WhiteNightInRulebook;
         public bool RevealWhiteNight => Config_WhiteNightInRulebook.Value;
 
+        private ConfigEntry<bool> Config_AllModular;
+        public bool AllModular => Config_AllModular.Value;
+
         private ConfigEntry<int> Config_Blessings;
         public int NumOfBlessings => Config_Blessings.Value;
 
@@ -44,8 +47,12 @@ namespace WhistleWindLobotomyMod
                     new ConfigDescription("Adds hidden special abilities to the rulebook when set to true."));
 
             Config_WhiteNightInRulebook = WstlConfigFile.Bind(
-                    pluginName, "REVEAL SELECT DESCRIPTIONS", false,
+                    pluginName, "REVEAL DESCRIPTIONS", false,
                     new ConfigDescription("Changes the descriptions of the abilities Apostle, True Saviour, and Confession and Pentinence."));
+
+            Config_AllModular = WstlConfigFile.Bind(
+                    pluginName, "ALL MODULAR", false,
+                    new ConfigDescription("Makes all added abilities modular. This means they are available as totems and den trial sigils."));
 
             Config_Blessings = WstlConfigFile.Bind(
                     pluginName, "NUMBER OF BLESSINGS", 0);

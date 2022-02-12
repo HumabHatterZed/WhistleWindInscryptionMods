@@ -196,9 +196,6 @@
   <data name="bigBird_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bigBird_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="blockOfIce" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\blockOfIce.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="bloodBath" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bloodBath.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -310,9 +307,6 @@
   <data name="forsakenMurderer_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\forsakenMurderer_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="frozenHeart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frozenHeart.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="funeralOfButterflies" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\funeralOfButterflies.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -421,6 +415,9 @@
   <data name="nothingThereTrue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nothingThereTrue.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="nothingThere_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nothingThere_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="oldLady" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\oldLady.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -459,6 +456,12 @@
   </data>
   <data name="queenBee" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\queenBee.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="queenBeeWorker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\queenBeeWorker.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="queenBeeWorker_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\queenBeeWorker_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="queenBee_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\queenBee_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -628,6 +631,12 @@
   <data name="snowQueen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\snowQueen.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="snowQueenIceBlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\snowQueenIceBlock.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="snowQueenIceHeart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\snowQueenIceHeart.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="snowQueen_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\snowQueen_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -730,8 +739,8 @@
   <data name="wisdomScarecrow_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wisdomScarecrow_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="workerBee" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\workerBee.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="worldPortrait" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\worldPortrait.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="youMustBeHappy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\youMustBeHappy.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

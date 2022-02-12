@@ -8,23 +8,23 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private NewSpecialAbility AbilityDialogueHelper()
+        private NewSpecialAbility AbilityHelper()
         {
-            const string rulebookName = "AbilityDialogueHelper";
-            const string rulebookDescription = "Unique dialogue for vanilla abilities.";
-            return WstlUtils.CreateSpecialAbility<_AbilityDialogueHelper>(
+            const string rulebookName = "AbilityHelper";
+            const string rulebookDescription = "tiddy";
+            return WstlUtils.CreateSpecialAbility<_AbilityHelper>(
                 AbilitiesUtil.LoadAbilityIcon("None"),
                 rulebookName, rulebookDescription, overrideDesc: true);
         }
     }
-    public class _AbilityDialogueHelper : SpecialCardBehaviour
+    public class _AbilityHelper : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
         public static SpecialAbilityIdentifier GetSpecialAbilityId
         {
             get
             {
-                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "AbilityDialogueHelper");
+                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "AbilityHelper");
             }
         }
 
@@ -38,7 +38,7 @@ namespace WhistleWindLobotomyMod
         private readonly string hateBDialogue = "The monster returns to full strength.";
         private readonly string greedDialogue = "Desire unfulfilled, the koi continues for Eden.";
         private readonly string nothingTrueDialogue = "What is it doing?";
-        private readonly string nothingEggDialogue = "Is that supposed to be a...human?";
+        private readonly string nothingEggDialogue = "It seems to be trying to mimic you. 'Trying' is the key word.";
 
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
@@ -74,11 +74,25 @@ namespace WhistleWindLobotomyMod
             }
             if (IsNothingEgg) // Nothing There Egg --> Nothing There Final
             {
+                CardInfo evolution = CardLoader.GetCardByName("wstl_nothingThereFinal");
+
+                foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+                {
+                    CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
+                    if (cardModificationInfo.HasAbility(Ability.Evolve))
+                    {
+                        cardModificationInfo.abilities.Remove(Ability.Evolve);
+                    }
+                    evolution.Mods.Add(cardModificationInfo);
+                }
+                yield return base.PlayableCard.TransformIntoCard(evolution);
+                yield return new WaitForSeconds(0.5f);
                 if (!PersistentValues.HasSeenNothingTransformationEgg)
                 {
                     PersistentValues.HasSeenNothingTransformationEgg = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(nothingEggDialogue, -0.65f, 0.4f, Emotion.Curious);
                 }
+                yield return new WaitForSeconds(0.25f);
                 yield break;
             }
         }

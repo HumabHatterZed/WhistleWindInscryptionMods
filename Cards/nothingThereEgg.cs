@@ -13,20 +13,20 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Evolve
             };
-            List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
+            List<SpecialAbilityIdentifier> specialAbilities = new()
             {
-                _AbilityDialogueHelper.GetSpecialAbilityId
+                _AbilityHelper.GetSpecialAbilityId
             };
 
             WstlUtils.Add(
                 "wstl_nothingThereEgg", "An Egg",
                 "What is it doing?",
-                4, 0, 0, 0,
+                4, 0, 3, 0,
                 Resources.nothingThereEgg,
                 abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(),
                 emissionTexture: Resources.nothingThereEgg_emission,
-                appearanceBehaviour: CardUtils.getTerrainBackgroundAppearance,
+                appearanceBehaviour: CardUtils.getRareAppearance,
                 evolveId: new EvolveIdentifier("wstl_nothingThereFinal", 1));
         }
     }

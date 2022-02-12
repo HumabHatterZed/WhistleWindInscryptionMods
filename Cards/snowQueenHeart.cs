@@ -7,23 +7,23 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private void Frozenheart_F0137()
+        private void SnowQueenIceHeart_F0137()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 FrozenHeart.ability
             };
 
-            List<Trait> traits = new List<Trait>
+            List<Trait> traits = new()
             {
                 Trait.Terrain
             };
 
             WstlUtils.Add(
-                "wstl_frozenHeart", "Frozen Heart",
+                "wstl_snowQueenIceHeart", "Frozen Heart",
                 "The palace was cold and lonely.",
                 1, 0, 0, 0,
-                Resources.frozenHeart,
+                Resources.snowQueenIceHeart,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), traits: traits,
                 appearanceBehaviour: CardUtils.getTerrainAppearance);

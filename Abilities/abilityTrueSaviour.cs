@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
 
             return WstlUtils.CreateAbility<TrueSaviour>(
                 Resources.sigilTrueSaviour,
-                rulebookName, rulebookDescription, dialogue, -3);
+                rulebookName, rulebookDescription, dialogue, -3, overrideModular: true);
         }
     }
     public class TrueSaviour : AbilityBehaviour

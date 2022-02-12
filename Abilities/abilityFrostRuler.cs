@@ -129,12 +129,12 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator SpawnFrozenHeart(CardSlot slot)
         {
-            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_frozenHeart"), slot, 0.15f);
+            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_snowQueenIceHeart"), slot, 0.15f);
         }
 
         private IEnumerator SpawnBlockOfIce(CardSlot slot)
         {
-            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_blockOfIce"), slot, 0.15f);
+            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_snowQueenIceBlock"), slot, 0.15f);
         }
     }
 }

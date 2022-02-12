@@ -39,7 +39,7 @@ namespace WhistleWindLobotomyMod
                 #region SPECIAL ABILITIES
                 // Unique special ability
                 // Controls dialogue, some other stuff too
-                AbilityDialogueHelper();
+                AbilityHelper();
 
                 SpecialAbility_Fetus();
                 SpecialAbility_Bath();
@@ -132,8 +132,8 @@ namespace WhistleWindLobotomyMod
                 SilentEnsemble_T0131();
                 WarmHeartedWoodsman_F0532();
                 SnowQueen_F0137();
-                Frozenheart_F0137();
-                BlockOfIce_F0137();
+                SnowQueenIceHeart_F0137();
+                SnowQueenIceBlock_F0137();
                 BigBird_O0240();
                 AllAroundHelper_T0541();
                 SnowWhitesApple_F0442();
@@ -154,7 +154,7 @@ namespace WhistleWindLobotomyMod
                 DontTouchMe_O0547();
                 RudoltaSleigh_F0249();
                 QueenBee_T0450();
-                WorkerBee_T0450();
+                QueenBeeWorker_T0450();
                 BloodBath_T0551();
                 BloodBath1_T0551();
                 BloodBath2_T0551();
@@ -208,7 +208,7 @@ namespace WhistleWindLobotomyMod
                 CENSORED_O0389();
                 CENSOREDMinion_O0389();
                 //  SkinProphecy_T0990();
-                //  WorldPortrait_O0991();
+                WorldPortrait_O0991();
                 TodaysShyLook_O0192();
                 TodaysShyLookAngry_O0192();
                 TodaysShyLookHappy_O0192();
@@ -247,10 +247,11 @@ namespace WhistleWindLobotomyMod
                 harmony.PatchAll(typeof(GlobalPassives));
                 harmony.PatchAll(typeof(ForcedEmissions));
                 harmony.PatchAll(typeof(PersistentValues));
+                harmony.PatchAll(typeof(DeathCardPatcher));
 
                 RunStateHelper.Initialize(harmony);
 
-                Logger.LogInfo($"The clock is at [{PersistentValues.NumberOfBlessings}].");
+                Logger.LogInfo($"The clock is at [{ConfigHelper.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Time to get to work manager!");
             }
             else

@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Queen Nest";
             const string rulebookDescription = "When a card bearing this sigil is played, create a Worker Bee in your hand. Create an additional Worker Bee whenever another card dies.";
-            const string dialogue = "Awfully fleshy for a bee.";
+            const string dialogue = "For the hive.";
             return WstlUtils.CreateAbility<QueenNest>(
                 Resources.sigilQueenNest,
                 rulebookName, rulebookDescription, dialogue, 3, addModular: true);
@@ -43,7 +43,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.2f);
             }
 
-            CardInfo cardInfo = CardLoader.GetCardByName("wstl_workerBee");
+            CardInfo cardInfo = CardLoader.GetCardByName("wstl_queenBeeWorker");
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
             yield return new WaitForSeconds(0.45f);
             yield return base.LearnAbility(0.5f);
@@ -54,10 +54,10 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            CardInfo cardInfo = CardLoader.GetCardByName("wstl_workerBee");
+            CardInfo cardInfo = CardLoader.GetCardByName("wstl_queenBeeWorker");
             if (card != null)
             {
-                if (!card.Info.name.ToLowerInvariant().Contains("workerbee") && card != base.Card && base.Card != null)
+                if (!card.Info.name.ToLowerInvariant().Contains("queenbeeworker") && card != base.Card && base.Card != null)
                 {
                     yield return PreSuccessfulTriggerSequence();
 
