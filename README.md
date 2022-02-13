@@ -4,29 +4,50 @@ The cards in this mod are designed to be as faithful to their original counterpa
 To this end, a number of custom abilities and special abilities have been diligently crafted with unique and, for some, broken effects.
 Now for the numbers: this mod adds 71 obtainable (aka non-minion or transformation) cards and 37 custom abilities.
 
+## Dependencies
+### BepInEx-BepInExPack_Inscryption v5.4.17
+### API_dev-API v1.13.0+ (non-Kaycee version)
+### Sigil Art Fix by Memez4Life (not required but recommended)
+
 ## Known Issues
+### Kaycee's Mod incompatibility
+This mod is currently incompatible with Kaycee's Mod, so you'll have to switch to vanilla Inscryption.
+
 ### LogLevel 'Debug' causing lag
 If your BepInEx console is set to output 'Debug' or 'All' log levels, you WILL experience lag spikes whenever dealing with cards with special abilities.
 This includes vanilla cards such as Ants or Tentacles, as well as the Rulebook entries for said abilities.
 
-_'Debug' logging is disabled by default, so if you haven't messed with it you should be golden._
+__'Debug' logging is disabled by default, so if you haven't messed with the config you should be golden.__
 
 To prevent this lag, go to the [Logging.Console] section of your BepInEx config file, then for setting 'LogLevel' remove the value 'Debug' if it's present'.
 If you have it set to 'All', set it to something else, like the default value.
 
-## Dependencies
-### BepInEx-BepInExPack_Inscryption v5.4.17
-### API_dev-API v1.13.0+
-
-## Recommended non-dependencies
-### Sigil Art Fix by Memez4Life OR Inscryption Unofficial Patch by UnofficialScrybePatches
-Found as part of the Inscryption Unofficial Patch mod, this will fix any instances where more than 3 sigils are added to a card at once.
-The sigils still work even without this, but it does look better.
+### Kopie's Rulebook Expander possibly affecting added abilities
+This has not been tested, but as I understand it Rulebook Expander makes all abilities modular (can be found on totems).
+Assuming this does affect this mod's abilities, it isn't game breaking, don't feel compelled to disable Rulebook Expander if you have it active.
 
 ## Credits
-Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to draw from.
-Code based on "borrowed" code from these creators is denoted by a comment within the respective file.
-Additional shoutout to James Veug and his ReadMeMaker mod. I didn't use it to make this ReadMe, but I am using the images he's provided.
+Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to.
+I'm not an expert coder by any measure, so your work has been incredibly helpful in letting make the mod I wanted to make.
+Additional shoutout to James Veug and his ReadMeMaker mod. I didn't use it to generate this ReadMe, but I am using the images he's provided.
+
+
+## Changelog
+### see CHANGELOG.md
+
+## Configuration Options
+* Enable Mod
+  * DEFAULT: true
+  * What it says on the tin, this config enables/disables this mod's content.
+* Special Abilities in Rulebook
+  * DEFAULT: false
+  * Adds the special abilities to the Rulebook for your viewing pleasure. NOTE: will cause laggier lag (see Known Issues).
+* Reveal Select Descriptions
+  * DEFAULT: false
+  * Changes the description of certain abilities to actually describe what they do.
+* All Modular
+  * DEFAULT: false
+  * Makes all custom abilities modular, meaning they can be found on totems bases and on cards from the den trial.
 
 ## Special Abilities
 A number of cards added by this mod possess hidden, special abilities not found in the Rulebook.
@@ -470,24 +491,11 @@ Abilities marked with a * are available as totem bases.
 (２,２)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png)
 
-## Configuration Options
-* Enable Mod
-  * DEFAULT: true
-  * What it says on the tin, this config enables/disables this mod's content.
-* Special Abilities in Rulebook
-  * DEFAULT: false
-  * Adds the special abilities to the rulebook. NOTE: will cause lag (see Known Issues).
-* Reveal Select Descriptions
-  * DEFAULT: false
-  * Changes the description of certain abilities to actually describe what they do.
-
-## Changelog
-### v0.86.47.66
-Initial release
-* Added initial batch of 70 cards
-
 ## Future Plans
+Hey, you made it to the bottom of this ReadMe, congrats! Below's a couple-a things I've got rattlin' around in my head.
+
 * Add remaining abnormalities (denoted under Cards by their classification numbers)
-* Add custom choice node for mod cards (part of overall plan to rebalance some things once this thing's gotten some feedback)
+	* Since some of the unadded cards are currently planned on using Kaycee Mod sigils, this will also coincide with this mod becoming Kaycee-compatible.
+* Add custom choice node for mod cards (part of overall plan to rebalance the cards once this thing's gotten some feedback and I've gotten some rest.)
 * Additional expansion pack(s) relating to the sequel game
 * Another custom node?
