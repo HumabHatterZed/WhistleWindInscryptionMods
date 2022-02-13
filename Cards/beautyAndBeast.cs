@@ -27,7 +27,8 @@ namespace WhistleWindLobotomyMod
                 1, 1, 1, 0,
                 Resources.beautyAndBeast,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode);
+                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.beautyAndBeast_emission);
         }
     }
 }

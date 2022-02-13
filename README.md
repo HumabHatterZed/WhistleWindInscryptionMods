@@ -156,7 +156,7 @@ Abilities marked with a * are available as totem bases.
 
 # List of Obtainable and Minion Cards
 #### Standard Training-Dummy Rabbit
-(１,１)
+(０,１)
 ![cost_icon](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone.png)![cost](https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_1.png)
 
 #### Scorched Girl
