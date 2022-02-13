@@ -5,12 +5,11 @@ using UnityEngine;
 using APIPlugin;
 using BepInEx;
 using BepInEx.Configuration;
-using Sirenix.Utilities;
 using static WhistleWindLobotomyMod.Plugin;
 
 namespace WhistleWindLobotomyMod
 {
-    public class ConfigHelper
+    public class ConfigHelper // Taken from GrimoraMod
     {
         private static ConfigHelper wstl_Instance;
         public static ConfigHelper Instance => wstl_Instance ??= new ConfigHelper();

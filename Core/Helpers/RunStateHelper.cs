@@ -65,7 +65,7 @@ namespace WhistleWindLobotomyMod
 
             SaveGameHelper.ClearValue($"{RunStateKey}.{key}");
         }
-
+        /*
         [HarmonyPatch(typeof(RunState), "Initialize")]
         [HarmonyPostfix]
         public static void ClearAllRunKeys()
@@ -84,6 +84,6 @@ namespace WhistleWindLobotomyMod
                     i += 1;
                 }
             }
-        }
+        }*/
     }
 }
