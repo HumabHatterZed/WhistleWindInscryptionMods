@@ -26,5 +26,14 @@
 |The Snow Queen|0|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png">|Frost Ruler|||
 |Frozen Heart|0|1||Frozen Heart|||
 |Block of Ice|0|1|||||
-|Big Bird|2|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">||||
-|All-Around Helper|1|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Strafe, Bifurcated Strike|||
+|Big Bird|2|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|||Avian|
+|All-Around Helper|1|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Sprinter, Bifurcated Strike|||
+|Snow White's Apple|1|3|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png">|Roots|||
+|Thorny Vines|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png">|Sharp Quills|||
+|Spider Bud|0|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Broodmother||Insect|
+|Spiderling|0|2||Fledgling||Insect|
+|Beauty and the Beast|1|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Cursed||Hooved, Insect|
+|Plague Doctor|0|3|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png">|Broodmother|Airborne, Healer||
+|Don't Touch Me|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_2.png">|Punisher, Guardian|||
+|Rudolta of the Sleigh|2|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Sprinter, Gift Giver||Hooved|
+|Rudolta of the Sleigh|2|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Sprinter, Gift Giver|||
