@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_mountainOfBodies", "The Mountain of Smiling Bodies",
                 "A mass grave, melted and congealed into one eternally hungry beast.",
-                2, 1, 3, 0,
+                2, 1, 2, 0,
                 Resources.mountainOfBodies,
                 abilities: abilities, specialAbilities: new(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_heartOfAspiration", "The Heart of Aspiration",
                 "A heart without an owner.",
-                1, 2, 2, 0,
+                1, 2, 1, 0,
                 Resources.heartOfAspiration,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);

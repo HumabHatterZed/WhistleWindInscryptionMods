@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.Sniper,
+                Hunter.ability,
                 BitterEnemies.ability
             };
 

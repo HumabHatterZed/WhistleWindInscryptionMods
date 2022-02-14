@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_luminousBracelet", "Luminous Bracelet",
                 "A bracelet that will heal those nearby. It does not forgive the greedy.",
-                0, 1, 0, 5,
+                0, 1, 0, 3,
                 Resources.luminousBracelet,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);

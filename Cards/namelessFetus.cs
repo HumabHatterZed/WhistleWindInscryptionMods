@@ -19,14 +19,17 @@ namespace WhistleWindLobotomyMod
             {
                 NamelessFetus.GetSpecialAbilityId
             };
-
+            List<Trait> traits = new()
+            {
+                Trait.Goat
+            };
             WstlUtils.Add(
                 "wstl_namelessFetus", "Nameless Fetus",
                 "A neverending supply a blood. Just don't wake it.",
                 0, 1, 0, 5,
                 Resources.namelessFetus,
                 abilities: abilities, specialAbilities,
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
+                new List<Tribe>(), traits: traits, metaCategory: CardMetaCategory.ChoiceNode,
                 emissionTexture: Resources.namelessFetus_emission);
         }
     }

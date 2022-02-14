@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_nothingThere", "Yumi",
                 "A rare death card?",
-                3, 2, 2, 0,
+                3, 2, 3, 0,
                 Resources.nothingThere,
                 abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,

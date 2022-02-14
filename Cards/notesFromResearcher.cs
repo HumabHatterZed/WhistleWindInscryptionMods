@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_notesFromResearcher", "Notes from a Crazed Researcher",
                 "An insane garble of guilty confessions and incoherent gibberish.",
-                0, 2, 1, 0,
+                0, 3, 1, 0,
                 Resources.notesFromResearcher,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_expressHellTrain", "Express Train to Hell",
                 "When the time comes, the train will sound its mighty horn.",
-                0, 4, 0, 10,
+                0, 4, 0, 8,
                 Resources.expressHellTrain,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,

@@ -16,7 +16,6 @@ namespace WhistleWindLobotomyMod
 
             List<Tribe> tribes = new()
             {
-                Tribe.Canine,
                 Tribe.Hooved,
                 Tribe.Insect
             };

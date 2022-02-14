@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_graveOfBlossoms", "Grave of Cherry Blossoms",
                 "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.",
-                0, 2, 0, 2,
+                0, 3, 1, 0,
                 Resources.graveOfBlossoms,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,

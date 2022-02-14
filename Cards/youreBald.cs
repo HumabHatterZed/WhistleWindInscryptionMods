@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_youreBald", "You're Bald...",
                 "I've always wondered what it was like to be bald.",
-                1, 1, 0, 2,
+                1, 1, 0, 3,
                 Resources.youreBald,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
