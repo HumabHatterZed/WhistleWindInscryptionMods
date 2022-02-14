@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "They proliferate and become whole. Can you feel it?";
             return WstlUtils.CreateAbility<Gardener>(
                 Resources.sigilGardener,
-                rulebookName, rulebookDescription, dialogue, 4, true);
+                rulebookName, rulebookDescription, dialogue, 4);
         }
     }
     public class Gardener : AbilityBehaviour

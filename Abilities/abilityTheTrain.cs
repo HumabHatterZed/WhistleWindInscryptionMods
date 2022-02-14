@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private NewAbility Ability_TheTrain()
         {
             const string rulebookName = "The Train";
-            const string rulebookDescription = "One turn after this card is played, kill all cards on the board. If this card is not the ticket taker, only kill the card's allies at a 10% chance.";
+            const string rulebookDescription = "One turn after this card is played, kill all cards on the board. If this card is not the ticket taker, kill only the card's allies at a 10% chance.";
             const string dialogue = "The train boards those that don't step away from the tracks.";
 
             return WstlUtils.CreateAbility<TheTrain>(

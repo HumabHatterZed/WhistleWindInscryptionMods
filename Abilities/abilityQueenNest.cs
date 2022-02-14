@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "For the hive.";
             return WstlUtils.CreateAbility<QueenNest>(
                 Resources.sigilQueenNest,
-                rulebookName, rulebookDescription, dialogue, 3, addModular: true);
+                rulebookName, rulebookDescription, dialogue, 3);
         }
     }
     public class QueenNest : AbilityBehaviour

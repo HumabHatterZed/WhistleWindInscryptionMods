@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Transforms into a stronger form on turn's end.";
             return WstlUtils.CreateSpecialAbility<MagicalGirlDiamond>(
                 AbilitiesUtil.LoadAbilityIcon("None"),
-                rulebookName, rulebookDescription, false, false, false);
+                rulebookName, rulebookDescription, false, false, overrideDesc: true);
         }
     }
     public class MagicalGirlDiamond : SpecialCardBehaviour
