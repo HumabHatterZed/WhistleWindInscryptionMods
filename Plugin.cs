@@ -51,7 +51,7 @@ namespace WhistleWindLobotomyMod
                 {
                     // These special abilities' only exist for their Rulebook entries
                     // Their actual effects can be found in the custom ability they each possess / SpecialEvolve
-                    SpecialAbility_Greed();
+                    //SpecialAbility_Greed();
                     SpecialAbility_Despair();
                     SpecialAbility_Devil();
                     SpecialAbility_Warrior();
