@@ -7,9 +7,9 @@ To this end, a number of custom abilities and special abilities have been dilige
 Now for the numbers: this mod adds 71 obtainable (aka non-minion or transformation) cards and 37 custom abilities.
 
 ## Dependencies
-### BepInEx-BepInExPack_Inscryption v5.4.17
-### API_dev-API v1.13.0+ (non-Kaycee version)
-### Sigil Art Fix by Memez4Life (not required but recommended)
+* BepInEx-BepInExPack_Inscryption v5.4.17
+* API_dev-API v1.13.0+ (non-Kaycee version)
+* Sigil Art Fix by Memez4Life (not required but recommended)
 
 ## Known Issues
 ### Kaycee's Mod incompatibility
@@ -28,14 +28,14 @@ If you have it set to 'All', set it to something else, like the default value.
 This has not been tested, but as I understand it Rulebook Expander makes all abilities modular (can be found on totems).
 Assuming this does affect this mod's abilities, it isn't game breaking, don't feel compelled to disable Rulebook Expander if you have it active.
 
+## Changelog
+* see CHANGELOG.md
+
 ## Credits
 Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to.
 I'm not an expert coder by any measure, so your work has been incredibly helpful in letting make the mod I wanted to make.
+
 Additional shoutout to James Veug and his ReadMeMaker mod. I found it very helpful in making this thing look minimally presentable.
-
-
-## Changelog
-### see CHANGELOG.md
 
 ## Configuration Options
 * Enable Mod
