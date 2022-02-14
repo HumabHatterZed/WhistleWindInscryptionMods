@@ -6,12 +6,12 @@ The cards in this mod are designed to be as faithful to their original counterpa
 To this end, a number of custom abilities and special abilities have been diligently crafted with unique and, for some, broken effects.
 Now for the numbers: this mod adds 71 obtainable (aka non-minion or transformation) cards and 37 custom abilities.
 
-## Dependencies
+## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.17
 * API_dev-API v1.13.0+ (non-Kaycee version)
 * Sigil Art Fix by Memez4Life (not required but recommended)
 
-## Known Issues
+## 🩹 Known Issues
 ### Kaycee's Mod incompatibility
 This mod is currently incompatible with Kaycee's Mod, so you'll have to switch to vanilla Inscryption.
 
@@ -28,16 +28,16 @@ If you have it set to 'All', set it to something else, like the default value.
 This has not been tested, but as I understand it Rulebook Expander makes all abilities modular (can be found on totems).
 Assuming this does affect this mod's abilities, it isn't game breaking, don't feel compelled to disable Rulebook Expander if you have it active.
 
-## Changelog
+## ⚖️ Changelog
 * see CHANGELOG.md
 
-## Credits
+## 💌 Credits
 Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to.
 I'm not an expert coder by any measure, so your work has been incredibly helpful in letting make the mod I wanted to make.
 
 Additional shoutout to James Veug and his ReadMeMaker mod. I found it very helpful in making this thing look minimally presentable.
 
-## Configuration Options
+## 🛠️ Configuration Options
 * Enable Mod
   * DEFAULT: true
   * What it says on the tin, this config enables/disables this mod's content.
@@ -51,7 +51,7 @@ Additional shoutout to James Veug and his ReadMeMaker mod. I found it very helpf
   * DEFAULT: false
   * Makes all custom abilities modular, meaning they can be found on totems bases and on cards from the den trial.
 
-## Special Abilities
+## ⚜️ Special Abilities
 A number of cards added by this mod possess hidden, special abilities not found in the Rulebook.
 In the spirit of the original game, I won't be listing the effects here, only which cards possess a special ability and what triggers it.
 You'll need to mess with the cards to figure out exactly what they do 🙃.
@@ -71,7 +71,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Snow Queen|Reacts to being played|
 |Army in Pink|Reacts to cards dying.|
 
-## Abilities
+## ✨ Abilities
 |Name|Description|Modular?|
 |-|-|:-:|
 |Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
@@ -109,7 +109,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Marksman|You may choose which opposing space a card bearing this sigil strikes. (identical to Sniper)||
 |Protector|Adjacent cards take 1 less damage from attacks.||
 
-# List of Obtainable and Minion Cards
+# 📜 List of Obtainable and Minion Cards
 <!---
 <img align="center" src="https://tinyurl.com/34daekbw">
 --->
