@@ -1,4 +1,6 @@
 # WhistleWind's Lobotomy Corp Mod
+### Face the Fear. Make the Future.
+
 Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay.
 To this end, a number of custom abilities and special abilities have been diligently crafted with unique and, for some, broken effects.
@@ -29,7 +31,7 @@ Assuming this does affect this mod's abilities, it isn't game breaking, don't fe
 ## Credits
 Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to.
 I'm not an expert coder by any measure, so your work has been incredibly helpful in letting make the mod I wanted to make.
-Additional shoutout to James Veug and his ReadMeMaker mod. I didn't use it to generate this ReadMe, but I am using the images he's provided.
+Additional shoutout to James Veug and his ReadMeMaker mod. I found it very helpful in making this thing look minimally presentable.
 
 
 ## Changelog
@@ -53,106 +55,59 @@ Additional shoutout to James Veug and his ReadMeMaker mod. I didn't use it to ge
 A number of cards added by this mod possess hidden, special abilities not found in the Rulebook.
 In the spirit of the original game, I won't be listing the effects here, only which cards possess a special ability and what triggers it.
 You'll need to mess with the cards to figure out exactly what they do 🙃.
-
-* Nameless Fetus
-	* Reacts to being sacrificed.
-* Bloodbath
-	* Reacts to cards being sacrificed.
-* Magical Girl H
-	* Reacts to cards dying.
-* Nothing There
-	* Reacts to dying.
-* Magical Girl D
-	* Reacts to upkeep.
-* Der Freiscütz
-	* Reacts to dealing damage and direct damage.
-* Crumbling Armour
-	* Reacts to adjacent cards.
-* Magical Girl S
-	* Reacts to adjacent cards.
-* Mountain of Smiling Bodies
-	* Reacts to killing cards.
-* CENSORED
-	* Reacts to killing cards.
-* Today's Shy Look
-	* Reacts to being drawn.
-* Judgement Bird
-	* Reacts to dealing damage.
-* Snow Queen
-	* Reacts to being played.
-* Army in Pink
-	* Reacts to adjacent cards.
+|Card|Trigger|
+|-|-|
+|Nameless Fetus|Reacts to being Sacrificed|
+|Bloodbath|Reacts to cards being sacrifice|
+|Magical Girl H|Reacts to cards dying.|
+|Nothing There|Reacts to dying.|
+|Der Freiscütz|Reacts to dealing damage.|
+|Crumbling Armour|Reacts to adjacent cards.|
+|Magical Girl S|Reacts to adjacent cards.|
+|Mountain of Smiling Bodies|Reacts to killing cards|
+|CENSORED|Reacts to killing cards|
+|Today's Shy Look|Reacts to being drawn.|
+|Judgement Bird|Reacts to attacking cards|
+|Snow Queen|Reacts to being played|
+|Army in Pink|Reacts to cards dying.|
 
 ## Abilities
-Abilities marked with a * are available as totem bases.
-* Punisher ☠️ *
-	* When a card bearing this sigil is struck, the striker is killed.
-* Bloodfiend 🩸 *
-	* When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.
-* Martyr ✟ *
-	* When a card bearing this sigil dies, all allied creatures gain 2 Health.
-* Aggravating ⏰
-	* While this card is on the board, all opposing cards gain 1 Power.
-* Team Leader 🐺
-	* While this card is on the board, all other ally cards gain 1 Power.
-* Idol 🛐
-	* While this card is on the board, all opposing cards lose 1 Power.
-* Conductor 🎼
-	* When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 1 Health.
-* Woodcutter 🪓 *
-	* When a card moves into the space opposing this card, deal damage equal to this card's Power to it.
-* Frozen Heart ❄️
-	* When this card dies, the killer gains 1 Health.
-* Frost Ruler 👑
-	* When this card is played, create a Frozen Heart in the opposing spaces to its left and right if they are occupied, and a Block of Ice if they are empty. A Frozen Heart is defined as: 0 Power, 1 Health. A Block of Ice is defined as: 0 Power, 3 Health.
-* Roots 🌵 *
-	* When this card is played, Vines are created on adjacent empty spaces. A Vine is defined as: 1 Power, 1 Health.
-* Brood Mother 🕷️ *
-	* When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health.
-* Cursed 🥀
-	* When a card bearing this sigil dies, turn the killer into a copy of this card.
-* Healer ❤️
-	 * This card will heal a selected ally for 2 Health.
-* Queen Nest 🐝 *
-	* When a card bearing this sigil is played, a Worker Bee is created in your hand. Create an additional Worker Bee whenever another card dies.
-* Bitter Enemies 💢 *
-	* A card bearing this sigil gains 1 Power when another card on this board also has this sigil.
-* Courageous ⚔️
-	* Adjacent cards lose up to 2 Health but gain 1 Power for every 1 Health lost via this effect. Affected cards will not go below 1 Health.
-* Serpent's Nest 🪱 *
-	* When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.
-* Assimilator 🖤
-	* When a card bearing this sigil kills an enemy card, this card gains 1 Power and 1 Health.
-* Group Healer 💖
-	* While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.
-* Reflector 🪞
-	* When this card is struck, the striker is dealt damage equal to the striker's Power.
-* Flag Bearer 🚩
-	* Adjacent cards gain 2 Health.
-* Grinder ⚙️
-	* This card gains the stats of the cards sacrificed to play it.
-* The Train 🚂
-	* One turn after this card is played, kill all cards on the board. If this card is not the ticket taker, only kill the card's allies at a 10% chance.
-* Burning 🔥
-	* The opposing card takes 1 damage at the end of their turn.
-* Regenerator 💗
-	* Adjacent cards gain 1 Health at the end of the opponent's turn.
-* Volatile 💣 *
-	* When this card dies, adjacent and opposing cards are dealt 10 damage. (identical to Detonator)
-* Gift Giver 🎁
-	* When this card is played, create a random card in your hand.
-* Piercing 🔱 *
-	* When this card strikes a card, deal 1 overkill damage if applicable.
-* Scrambler 🎲 *
-	* When this card is sacrificed, add its stats onto the card it was sacrificed to, then scramble that card's stats.
-* Gardener 🌱
-	* When an ally card dies, create a Sapling in their place. A slot is defined as: 1 Power, 3 Health.
-* Slime 🦠
-	* A card bearing this sigil takes 1 less damage from attacks. Additionally, cards placed adjacent to this card are turned into Slimes.
-* Hunter 🎯
-	* You may choose which opposing space a card bearing this sigil strikes. (identical to Sniper)
-* Protector 🛡️
-	* Adjacent cards take 1 less damage from attacks.
+|Name|Description|Modular?|
+|-|-|:-:|
+|Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
+|Bloodfiend|When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.|Yes|
+|Martyr|When a card bearing this sigil dies, all allied creatures gain 2 Health.|Yes|
+|Aggravating|While this card is on the board, all opposing cards gain 1 Power.||
+|Team Leader|While this card is on the board, all other ally cards gain 1 Power.||
+|Idol|While this card is on the board, all opposing cards lose 1 Power.||
+|Conductor|When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 1 Health.||
+|Woodcutter|When a card moves into the space opposing this card, deal damage equal to this card's Power to it.|Yes|
+|Frozen Heart|When this card dies, the killer gains 1 Health.||
+|Frost Ruler|When this card is played, create a Frozen Heart in the opposing spaces to its left and right if they are occupied, and a Block of Ice if they are empty. A Frozen Heart is defined as: 0 Power, 1 Health. A Block of Ice is defined as: 0 Power, 3 Health.||
+|Roots|When this card is played, Vines are created on adjacent empty spaces. A Vine is defined as: 1 Power, 1 Health.|Yes|
+|Broodmother|When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health.|Yes|
+|Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.||
+|Healer|This card will heal a selected ally for 2 Health.||
+|Queen Nest|When a card bearing this sigil is played, a Worker Bee is created in your hand. Create an additional Worker Bee whenever another card dies.||
+|Bitter Enemies|A card bearing this sigil gains 1 Power when another card on this board also has this sigil.|Yes|
+|Courageous|Adjacent cards lose up to 2 Health but gain 1 Power for every 1 Health lost via this effect. Affected cards will not go below 1 Health.||
+|Serpent's Nest|When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.|Yes|
+|Assimilator|When a card bearing this sigil kills an enemy card, this card gains 1 Power and 1 Health.||
+|Group Healer|While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.||
+|Reflector|When this card is struck, the striker is dealt damage equal to the striker's Power.||
+|Flag Bearer|Adjacent cards gain 2 Health.||
+|Grinder|This card gains the stats of the cards sacrificed to play it.||
+|The Train|One turn after this card is played, kill all cards on the board. If this card is not the ticket taker, kill only the card's allies at a 10% chance.||
+|Burning|The opposing card takes 1 damage at the end of their turn.||
+|Regenerator|Adjacent cards gain 1 Health at the end of the opponent's turn.||
+|Volatile|When this card dies, adjacent and opposing cards are dealt 10 damage. (identical to Detonator)|Yes|
+|Gift Giver|When this card is played, create a random card in your hand.||
+|Piercing|When this card strikes a card, deal 1 overkill damage if applicable.|Yes|
+|Scrambler|When this card is sacrificed, add its stats onto the card it was sacrificed to, then scramble that card's stats.|Yes|
+|Gardener|When an ally card dies, create a Sapling in their place. A slot is defined as: 1 Power, 3 Health.||
+|Slime|A card bearing this sigil takes 1 less damage from attacks. Additionally, cards placed adjacent to this card are turned into Slimes.||
+|Marksman|You may choose which opposing space a card bearing this sigil strikes. (identical to Sniper)||
+|Protector|Adjacent cards take 1 less damage from attacks.||
 
 # List of Obtainable and Minion Cards
 <!---
