@@ -1,4 +1,5 @@
 # WhistleWind's Lobotomy Corp Mod
+<img align="center" src="https://raw.githubusercontent.com/HumabHatterZed/WhistleWindLobotomyMod/main/icon.png">
 ### Face the Fear. Make the Future.
 
 Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
