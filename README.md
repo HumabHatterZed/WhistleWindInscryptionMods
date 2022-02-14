@@ -1,11 +1,12 @@
 # WhistleWind's Lobotomy Corp Mod
-<img align="center" src="https://raw.githubusercontent.com/HumabHatterZed/WhistleWindLobotomyMod/main/icon.png">
+
 ### Face the Fear. Make the Future.
 
 Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
+
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay.
-To this end, a number of custom abilities and special abilities have been diligently crafted with unique and, for some, broken effects.
-Now for the numbers: this mod adds 71 obtainable (aka non-minion or transformation) cards and 37 custom abilities.
+
+This mod currently adds **71** obtainable cards and **37** custom abilities.
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.17
