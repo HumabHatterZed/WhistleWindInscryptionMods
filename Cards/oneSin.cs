@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_oneSin", "One Sin",
                 "Its hollow sockets see through you.",
-                0, 1, 2, 4,
+                0, 1, 0, 4,
                 Resources.oneSin,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
