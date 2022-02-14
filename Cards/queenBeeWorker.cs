@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void QueenBeeWorker_T0450()
         {
-            List<Tribe> tribes = new List<Tribe>
+            List<Tribe> tribes = new()
             {
                 Tribe.Insect
             };

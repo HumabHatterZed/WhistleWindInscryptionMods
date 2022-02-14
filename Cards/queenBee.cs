@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,12 +9,12 @@ namespace WhistleWindLobotomyMod
     {
         private void QueenBee_T0450()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 QueenNest.ability
             };
 
-            List<Tribe> tribes = new List<Tribe>
+            List<Tribe> tribes = new()
             {
                 Tribe.Insect
             };
@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_queenBee", "Queen Bee",
                 "A monstrous amalgam of a hive and a bee.",
-                3, 0, 2, 0,
+                0, 3, 2, 0,
                 Resources.queenBee,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,

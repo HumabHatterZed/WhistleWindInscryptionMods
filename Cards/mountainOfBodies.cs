@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void MountainOfBodies_T0175()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Assimilator.ability
             };
@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_mountainOfBodies", "The Mountain of Smiling Bodies",
                 "A mass grave, melted and congealed into one eternally hungry beast.",
-                1, 2, 3, 0,
+                2, 1, 3, 0,
                 Resources.mountainOfBodies,
                 abilities: abilities, specialAbilities: new(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,

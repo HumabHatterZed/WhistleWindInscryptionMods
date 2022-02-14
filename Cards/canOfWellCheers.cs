@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,11 +9,11 @@ namespace WhistleWindLobotomyMod
     {
         private void CanOfWellCheers_F0552()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Ability.Strafe,
                 Ability.Submerge
-                
+
             };
 
             WstlUtils.Add(

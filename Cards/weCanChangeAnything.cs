@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void WeCanChangeAnything_T0985()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Grinder.ability
             };
@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_weCanChangeAnything", "We Can Change Anything",
                 "Whatever you're dissatisfied with, this machine will fix it. You just have to step inside.",
-                1, 0, 1, 0,
+                0, 1, 1, 0,
                 Resources.weCanChangeAnything,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,

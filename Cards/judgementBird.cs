@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,12 +9,12 @@ namespace WhistleWindLobotomyMod
     {
         private void JudgementBird_O0262()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Hunter.ability
             };
 
-            List<Tribe> tribes = new List<Tribe>
+            List<Tribe> tribes = new()
             {
                 Tribe.Bird
             };

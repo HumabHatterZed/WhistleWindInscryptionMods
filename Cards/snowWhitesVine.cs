@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,12 +9,12 @@ namespace WhistleWindLobotomyMod
     {
         private void SnowWhitesVine_F0442()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Ability.Sharp
             };
 
-            List<Trait> traits = new List<Trait>
+            List<Trait> traits = new()
             {
                 Trait.Terrain
             };
@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_snowWhitesVine", "Thorny Vines",
                 "A vine.",
-                1, 0, 0, 0,
+                0, 1, 0, 0,
                 Resources.snowWhitesVine,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), traits: traits,

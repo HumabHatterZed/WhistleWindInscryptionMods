@@ -47,7 +47,7 @@ namespace WhistleWindLobotomyMod
 
         public static void SetValue(string key, string value)
         {
-            
+
             for (int i = 0; i < ProgressionData.Data.introducedConsumables.Count; i++)
             {
                 if (ProgressionData.Data.introducedConsumables[i].StartsWith($"{SaveKey}.{key}"))

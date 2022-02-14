@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void GraveOfBlossoms_O04100()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Ability.Sharp,
                 Bloodfiend.ability
@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_graveOfBlossoms", "Grave of Cherry Blossoms",
                 "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.",
-                2, 0, 0, 2,
+                0, 2, 0, 2,
                 Resources.graveOfBlossoms,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,

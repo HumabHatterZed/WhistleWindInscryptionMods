@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,12 +9,12 @@ namespace WhistleWindLobotomyMod
     {
         private void ApocalypseBird_O0263()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Ability.AllStrike
             };
 
-            List<Tribe> tribes = new List<Tribe>
+            List<Tribe> tribes = new()
             {
                 Tribe.Bird
             };
@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_apocalypseBird", "Apocalypse Bird",
                 "There was no moon, no stars. Just a bird, alone in the Black Forest.",
-                3, 10, 4, 0,
+                10, 3, 4, 0,
                 Resources.oneSin,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes,

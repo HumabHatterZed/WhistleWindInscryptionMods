@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,12 +9,12 @@ namespace WhistleWindLobotomyMod
     {
         private void PpodaeBuff_D02107()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Ability.DebuffEnemy
             };
 
-            List<Tribe> tribes = new List<Tribe>
+            List<Tribe> tribes = new()
             {
                 Tribe.Canine
             };
@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_ppodaeBuff", "Ppodae",
                 "",
-                1, 3, 0, 8,
+                3, 2, 0, 8,
                 Resources.ppodaeBuff,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes, emissionTexture: Resources.ppodaeBuff_emission);

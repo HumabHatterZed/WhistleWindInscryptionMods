@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_snowQueenIceHeart", "Frozen Heart",
                 "The palace was cold and lonely.",
-                1, 0, 0, 0,
+                0, 1, 0, 0,
                 Resources.snowQueenIceHeart,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), traits: traits,

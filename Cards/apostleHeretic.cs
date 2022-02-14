@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_apostleHeretic", "Heretic",
                 "The time has come.",
-                7, 0, 0, 0,
+                0, 7, 0, 0,
                 Resources.apostleHeretic,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), traits: traits,

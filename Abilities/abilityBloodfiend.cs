@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using APIPlugin;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -67,7 +67,7 @@ namespace WhistleWindLobotomyMod
             List<CardModificationInfo> killedInfo = new();
 
             int killedAtk = card.Info.baseAttack - 1 <= 0 ? 0 : card.Info.baseAttack - 1;
-            CardModificationInfo stats = new CardModificationInfo(killedAtk, 0);
+            CardModificationInfo stats = new(killedAtk, 0);
 
             killedInfo.Add(stats);
 

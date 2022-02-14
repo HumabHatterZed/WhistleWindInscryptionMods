@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_cloudedMonk", "Clouded Monk",
                 "A monk no more.",
-                2, 4, 3, 0,
+                4, 2, 3, 0,
                 Resources.cloudedMonk,
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>());

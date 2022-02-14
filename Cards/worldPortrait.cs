@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void WorldPortrait_O0991()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                Reflector.ability
             };
@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_worldPortrait", "Portrait of Another World",
                 "The portrait captures a moment, one we're destined to lose.",
-                4, 0, 1, 0,
+                0, 4, 1, 0,
                 Resources.worldPortrait,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_todaysShyLookNeutral", "Today's Neutral Look",
                 "An indecisive creature. Its expression is different each time you draw it.",
-                2, 1, 1, 0,
+                1, 2, 1, 0,
                 Resources.todaysShyLook,
                 abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>());

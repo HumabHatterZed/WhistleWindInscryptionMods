@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Collections;
+﻿using APIPlugin;
 using DiskCardGame;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
-using APIPlugin;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private readonly CardModificationInfo mod = new CardModificationInfo(1, 1);
+        private readonly CardModificationInfo mod = new(1, 1);
 
         private readonly string growDialogue = "With each body added, its appetite grows.";
         private readonly string dieDialogue = "Don't worry, bodies are in no short supply.";

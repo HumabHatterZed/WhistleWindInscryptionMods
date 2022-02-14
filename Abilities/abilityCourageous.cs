@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Collections;
+﻿using APIPlugin;
 using DiskCardGame;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
-using APIPlugin;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -25,8 +25,8 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public static CardModificationInfo courageMod = new CardModificationInfo(0, -1);
-        public static CardModificationInfo courageMod2 = new CardModificationInfo(0, -1);
+        public static CardModificationInfo courageMod = new(0, -1);
+        public static CardModificationInfo courageMod2 = new(0, -1);
 
         private readonly string buffFail = "Your creature's consitution is too weak.";
         private readonly string buffRefuse = "Coward's don't get the boon of the brave.";

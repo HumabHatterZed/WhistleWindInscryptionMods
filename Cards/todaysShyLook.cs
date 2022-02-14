@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_todaysShyLook", "Today's Shy Look",
                 "A shy one. She dons a different face whenever drawn. Just don't look at her when she does.",
-                2, 1, 1, 0,
+                1, 2, 1, 0,
                 Resources.todaysShyLook,
                 new List<Ability>(), specialAbilities: specialAbilities,
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);

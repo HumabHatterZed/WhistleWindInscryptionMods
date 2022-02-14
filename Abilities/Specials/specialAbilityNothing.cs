@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Collections;
+﻿using APIPlugin;
 using DiskCardGame;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
-using APIPlugin;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod
         {
             return !wasSacrifice;
         }
-    
+
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             CardInfo evolution = CardLoader.GetCardByName("wstl_nothingThereTrue");

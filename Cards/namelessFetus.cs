@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,13 +9,13 @@ namespace WhistleWindLobotomyMod
     {
         private void NamelessFetus_O0115()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Ability.TripleBlood,
                 Ability.Sacrificial
             };
 
-            List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
+            List<SpecialAbilityIdentifier> specialAbilities = new()
             {
                 NamelessFetus.GetSpecialAbilityId
             };
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_namelessFetus", "Nameless Fetus",
                 "A neverending supply a blood. Just don't wake it.",
-                1, 0, 0, 5,
+                0, 1, 0, 5,
                 Resources.namelessFetus,
                 abilities: abilities, specialAbilities,
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,

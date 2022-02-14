@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,16 +9,16 @@ namespace WhistleWindLobotomyMod
     {
         private void BurrowingHeaven_O0472()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Ability.Sharp,
                 Ability.WhackAMole
             };
 
             WstlUtils.Add(
-                "wstl_burrowingHeaven", "Red Shoes",
+                "wstl_burrowingHeaven", "The Burrowing Heaven",
                 "Don't look away. Contain it in your sight.",
-                2, 0, 1, 0,
+                0, 2, 0, 3,
                 Resources.burrowingHeaven,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,

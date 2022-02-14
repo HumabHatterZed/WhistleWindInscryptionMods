@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_mirrorOfAdjustment", "The Mirror of Adjustment",
                 "A mirror that reflects nothing on its surface.",
-                1, 0, 1, 0,
+                0, 1, 1, 0,
                 Resources.mirrorOfAdjustment,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), triggeredAbilities: triggeredAbilities,

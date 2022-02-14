@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Reach
             };
-            List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
+            List<SpecialAbilityIdentifier> specialAbilities = new()
             {
                 NothingThere.GetSpecialAbilityId
             };
@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_nothingThere", "Yumi",
                 "A rare death card?",
-                2, 3, 2, 0,
+                3, 2, 2, 0,
                 Resources.nothingThere,
                 abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,12 +9,12 @@ namespace WhistleWindLobotomyMod
     {
         private void BloodBath_T0551()
         {
-            List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
+            List<SpecialAbilityIdentifier> specialAbilities = new()
             {
                 BloodBath.GetSpecialAbilityId
             };
 
-            List<Trait> traits = new List<Trait>
+            List<Trait> traits = new()
             {
                 Trait.Goat
             };
@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_bloodBath", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
-                3, 0, 1, 0,
+                0, 3, 1, 0,
                 Resources.bloodBath,
                 new List<Ability>(), specialAbilities: specialAbilities,
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,

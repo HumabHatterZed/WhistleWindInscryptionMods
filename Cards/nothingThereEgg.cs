@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_nothingThereEgg", "An Egg",
                 "What is it doing?",
-                4, 0, 3, 0,
+                0, 4, 4, 0,
                 Resources.nothingThereEgg,
                 abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(),

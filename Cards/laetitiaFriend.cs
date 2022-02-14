@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void LaetitiaFriend_O0167()
         {
-            List<Tribe> tribes = new List<Tribe>
+            List<Tribe> tribes = new()
             {
                 Tribe.Insect
             };
@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_laetitiaFriend", "Little Witch's Friend",
                 "She brought her friends along.",
-                2, 2, 1, 0,
+                2, 2, 0, 4,
                 Resources.laetitiaFriend,
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
                 tribes: tribes);

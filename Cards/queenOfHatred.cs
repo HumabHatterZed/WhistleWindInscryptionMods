@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_queenOfHatred", "The Queen of Hatred",
                 "Heroes exist to fight evil. In its absence, they must create it.",
-                2, 7, 1, 0,
+                7, 2, 1, 0,
                 Resources.queenOfHatred,
                 abilities: abilities, specialAbilities: specialAbilities,
                 tribes: tribes,

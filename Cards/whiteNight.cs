@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void WhiteNight_T0346()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 TrueSaviour.ability,
                 Idol.ability
@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_whiteNight", "WhiteNight",
                 "The time has come.",
-                666, 0, 0, 0,
+                0, 666, 0, 0,
                 Resources.whiteNight,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), traits: traits,

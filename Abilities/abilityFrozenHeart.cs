@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using APIPlugin;
 using DiskCardGame;
+using System.Collections;
 using UnityEngine;
-using APIPlugin;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -23,8 +23,8 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public CardModificationInfo mod = new CardModificationInfo(0, 1);
-        public CardModificationInfo mod2 = new CardModificationInfo(0, 2);
+        public CardModificationInfo mod = new(0, 1);
+        public CardModificationInfo mod2 = new(0, 2);
 
         private string altDialogue = "The Woodcutter stuffs the melted heart into his chest.";
 

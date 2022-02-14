@@ -1,10 +1,10 @@
-﻿using System.Linq;
+﻿using APIPlugin;
+using DiskCardGame;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
-using DiskCardGame;
+using System.Linq;
 using UnityEngine;
-using APIPlugin;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -159,8 +159,8 @@ namespace WhistleWindLobotomyMod
             //Plugin.Log.LogInfo("ChooseTarget A");
             CombatPhaseManager combatPhaseManager = Singleton<CombatPhaseManager>.Instance;
             BoardManager boardManager = Singleton<BoardManager>.Instance;
-            List<CardSlot> allSlots = new List<CardSlot>(boardManager.AllSlots);
-            List<CardSlot> playerSlots = new List<CardSlot>(boardManager.GetSlots(true));
+            List<CardSlot> allSlots = new(boardManager.AllSlots);
+            List<CardSlot> playerSlots = new(boardManager.GetSlots(true));
 
             Action<CardSlot> callback1 = null;
             Action<CardSlot> callback2 = null;

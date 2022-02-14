@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,13 +9,13 @@ namespace WhistleWindLobotomyMod
     {
         private void RudoltaSleigh_F0249()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Ability.Strafe,
                 GiftGiver.ability
             };
 
-            List<Tribe> tribes = new List<Tribe>
+            List<Tribe> tribes = new()
             {
                 Tribe.Hooved
             };
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_rudoltaSleigh", "Rudolta of the Sleigh",
                 "A grotesque effigy of a reindeer. With its infinite hate, it bequeaths gifts onto you.",
-                3, 2, 2, 0,
+                2, 3, 2, 0,
                 Resources.rudoltaSleigh,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,

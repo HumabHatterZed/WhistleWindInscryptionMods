@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Collections;
+﻿using APIPlugin;
 using DiskCardGame;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
-using APIPlugin;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private CardModificationInfo mod = new CardModificationInfo(0, 2);
+        private CardModificationInfo mod = new(0, 2);
         public override bool RespondsToResolveOnBoard()
         {
             int num = 0;

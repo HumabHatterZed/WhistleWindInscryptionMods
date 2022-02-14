@@ -1,16 +1,16 @@
-﻿using BepInEx;
+﻿using APIPlugin;
+using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+using DiskCardGame;
+using HarmonyLib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Linq;
 using System.IO;
-using DiskCardGame;
-using HarmonyLib;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
-using APIPlugin;
 
 namespace WhistleWindLobotomyMod
 {
@@ -237,7 +237,7 @@ namespace WhistleWindLobotomyMod
                 ParasiteTree_D04108();
                 ParasiteTreeSapling_D04108();
                 MeltingLove_D03109();
-                MeltingLoveSlime_D03109();
+                MeltingLoveMinion_D03109();
                 HonouredMonk_D01110();
                 CloudedMonk_D01110();
                 //  Ruina Expansion

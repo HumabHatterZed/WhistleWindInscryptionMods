@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_magicalGirlSpade", "Magical Girl",
                 "A loyal knight fighting to protect those close to her.",
-                4, 2, 2, 0,
+                2, 4, 2, 0,
                 Resources.magicalGirlSpade,
                 abilities: abilities, new(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,

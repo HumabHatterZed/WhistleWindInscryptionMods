@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -13,11 +13,11 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Evolve
             };
-            List<SpecialAbilityIdentifier> specialAbilities = new List<SpecialAbilityIdentifier>
+            List<SpecialAbilityIdentifier> specialAbilities = new()
             {
                 _AbilityHelper.GetSpecialAbilityId
             };
-            List<Tribe> tribes = new List<Tribe>
+            List<Tribe> tribes = new()
             {
                 Tribe.Canine,
                 Tribe.Hooved,
@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_nothingThereTrue", "Nothing There",
                 "What is that?",
-                2, 3, 3, 0,
+                4, 3, 3, 0,
                 Resources.nothingThereTrue,
                 abilities: abilities, specialAbilities: specialAbilities,
                 tribes: tribes,

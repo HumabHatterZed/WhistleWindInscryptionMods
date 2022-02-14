@@ -1,9 +1,9 @@
-﻿using System.Linq;
+﻿using APIPlugin;
+using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
-using DiskCardGame;
+using System.Linq;
 using UnityEngine;
-using APIPlugin;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -66,7 +66,7 @@ namespace WhistleWindLobotomyMod
                     // gains the killed card's Power, Health/2, sigils
                     int killedHp = Mathf.CeilToInt(slot.Card.Health / 2) <= 0 ? 1 : Mathf.CeilToInt(slot.Card.Health / 2);
                     int killedAtk = slot.Card.Info.baseAttack;
-                    CardModificationInfo stats = new CardModificationInfo(killedAtk, killedHp);
+                    CardModificationInfo stats = new(killedAtk, killedHp);
 
                     cardInfo.Mods.Add(stats);
 
@@ -130,7 +130,7 @@ namespace WhistleWindLobotomyMod
             // gains the killed card's Power, Health/2, sigils
             int killedHp = Mathf.CeilToInt(otherCard.Health / 2) <= 0 ? 1 : Mathf.CeilToInt(otherCard.Health / 2);
             int killedAtk = otherCard.Info.baseAttack;
-            CardModificationInfo stats = new CardModificationInfo(killedAtk, killedHp);
+            CardModificationInfo stats = new(killedAtk, killedHp);
 
             cardInfo.Mods.Add(stats);
 

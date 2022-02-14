@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void RedHoodedMercenary_F0157()
         {
-            List <Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Ability.Sniper,
                 BitterEnemies.ability
@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_redHoodedMercenary", "Little Red Riding Hooded Mercenary",
                 "A skilled mercenary. She'll help you on your journey if you help her find the Wolf.",
-                3, 2, 2, 0,
+                2, 3, 2, 0,
                 Resources.redHoodedMercenary,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);

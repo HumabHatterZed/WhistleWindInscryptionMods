@@ -1,10 +1,10 @@
-﻿using System.Linq;
+﻿using APIPlugin;
+using DiskCardGame;
+using HarmonyLib;
 using System.Collections;
 using System.Collections.Generic;
-using DiskCardGame;
+using System.Linq;
 using UnityEngine;
-using APIPlugin;
-using HarmonyLib;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -66,7 +66,7 @@ namespace WhistleWindLobotomyMod
             {
                 softLock++;
                 yield return otherCard.Die(false, base.Card);
-                if(softLock >= 6)
+                if (softLock >= 6)
                 {
                     softLock = 0;
                     yield break;

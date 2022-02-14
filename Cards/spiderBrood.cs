@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void SpiderBrood_O0243()
         {
-            List<Tribe> tribes = new List<Tribe>
+            List<Tribe> tribes = new()
             {
                 Tribe.Insect
             };
@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_spiderBrood", "Spider Brood",
                 "Big and mean.",
-                3, 1, 0, 0,
+                1, 3, 0, 0,
                 Resources.spiderBrood,
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
                 tribes: tribes, emissionTexture: Resources.spiderBrood_emission);

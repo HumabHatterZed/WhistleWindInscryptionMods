@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Collections;
+﻿using APIPlugin;
 using DiskCardGame;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
-using APIPlugin;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod
             yield return base.PreSuccessfulTriggerSequence();
 
             var demandingCard = Singleton<BoardManager>.Instance.currentSacrificeDemandingCard;
-            CardModificationInfo mod = new CardModificationInfo(base.Card.Attack, base.Card.MaxHealth);
+            CardModificationInfo mod = new(base.Card.Attack, base.Card.MaxHealth);
 
             demandingCard.AddTemporaryMod(mod);
             demandingCard.Anim.StrongNegationEffect();
@@ -52,7 +52,7 @@ namespace WhistleWindLobotomyMod
             int newHp = SeededRandom.Range(1, totalStats + 1, GetRandomSeed());
             int newAtk = totalStats - newHp;
 
-            CardModificationInfo newStats = new CardModificationInfo(-card.Attack + newAtk, -card.MaxHealth + newHp);
+            CardModificationInfo newStats = new(-card.Attack + newAtk, -card.MaxHealth + newHp);
             card.AddTemporaryMod(newStats);
             card.OnStatsChanged();
         }

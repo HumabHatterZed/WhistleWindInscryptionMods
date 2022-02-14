@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_forsakenMurderer", "Forsaken Murderer",
                 "Experimented on then forgotten. What was anger has become abhorrence.",
-                1, 4, 0, 8,
+                4, 1, 0, 8,
                 Resources.forsakenMurderer,
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,

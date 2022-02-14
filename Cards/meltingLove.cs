@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void MeltingLove_D03109()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Slime.ability
             };
@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_meltingLove", "Melting Love",
                 "Don't let your beasts get too close now.",
-                2, 4, 3, 0,
+                4, 2, 3, 0,
                 Resources.meltingLove,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), traits: traits, metaCategory: CardMetaCategory.Rare,

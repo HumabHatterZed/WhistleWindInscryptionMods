@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void KingOfGreed_O0164()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Ability.StrafePush
             };
@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_kingOfGreed", "The King of Greed",
                 "An aged storyteller. She can tell you any tale, even those that can't exist.",
-                5, 4, 2, 0,
+                4, 5, 2, 0,
                 Resources.kingOfGreed,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>());

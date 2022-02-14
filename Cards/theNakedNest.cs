@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void TheNakedNest_O0274()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 SerpentsNest.ability
             };
@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_theNakedNest", "The Naked Nest",
                 "They can enter your body through any aperture.",
-                2, 0, 0, 4,
+                0, 2, 0, 4,
                 Resources.theNakedNest,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), traits: traits, metaCategory: CardMetaCategory.ChoiceNode,

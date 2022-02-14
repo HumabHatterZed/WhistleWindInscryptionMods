@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void NamelessFetusAwake_O0115()
         {
-            List<Ability> abilities = new List<Ability>
+            List<Ability> abilities = new()
             {
                 Aggravating.ability,
                 Ability.PreventAttack
@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_namelessFetusAwake", "Nameless Fetus",
                 "Only a sacrifice will stop its piercing wails.",
-                6, 0, 0, 5,
+                0, 6, 0, 5,
                 Resources.namelessFetusAwake,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), emissionTexture: Resources.namelessFetusAwake_emission);

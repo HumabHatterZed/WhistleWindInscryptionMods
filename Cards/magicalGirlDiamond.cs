@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using APIPlugin;
 using DiskCardGame;
-using APIPlugin;
+using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_magicalGirlDiamond", "Magical Girl",
                 "Greed hardened into golden amber, trapping the happiness inside.",
-                3, 0, 2, 0,
+                0, 3, 2, 0,
                 Resources.magicalGirlDiamond,
                 abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
