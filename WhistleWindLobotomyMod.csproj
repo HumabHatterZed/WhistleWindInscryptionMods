@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Cards\burrowingHeaven.cs" />
+	  <Page Include="Cards\burrowingHeaven.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private NewAbility Ability_Apostle()
         {
             const string rulebookName = "Apostle";
-            string rulebookDescription = " Thou wilt abandon flesh and be born again.";
+            string rulebookDescription = "Thou wilt abandon flesh and be born again.";
             const string dialogue = "Ye who are full of blessings, rejoice. For I am with ye.";
 
             if (ConfigHelper.Instance.RevealWhiteNight)
