@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new()
             {
                 Ability.BuffNeighbours,
-                Ability.BuffEnemy
+                Irritating.ability
             };
 
             WstlUtils.Add(

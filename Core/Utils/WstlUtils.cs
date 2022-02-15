@@ -160,7 +160,7 @@ namespace WhistleWindLobotomyMod
         public static AbilityInfo CreateInfoWithDefaultSettings(
             string rulebookName, string rulebookDescription, string dialogue,
             bool addModular = false, bool isPassive = false, bool canStack = false,
-            bool withDialogue = true, bool overrideModular = false, int powerLevel = 0)
+            bool overrideModular = false, int powerLevel = 0)
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.powerLevel = powerLevel;
@@ -181,10 +181,7 @@ namespace WhistleWindLobotomyMod
                 {AbilityMetaCategory.Part1Rulebook};
             }
 
-            if (withDialogue)
-            {
-                info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
-            }
+            info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
             return info;
         }
         public static DialogueEvent.LineSet SetAbilityInfoDialogue(string dialogue)

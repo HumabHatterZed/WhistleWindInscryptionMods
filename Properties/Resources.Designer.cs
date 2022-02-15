@@ -1563,6 +1563,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] sigilIrritating {
+            get {
+                object obj = ResourceManager.GetObject("sigilIrritating", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] sigilMartyr {
             get {
                 object obj = ResourceManager.GetObject("sigilMartyr", resourceCulture);
@@ -1606,6 +1616,16 @@ namespace WhistleWindLobotomyMod.Properties {
         public static byte[] sigilQueenNest {
             get {
                 object obj = ResourceManager.GetObject("sigilQueenNest", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] sigilQuickDraw {
+            get {
+                object obj = ResourceManager.GetObject("sigilQuickDraw", resourceCulture);
                 return ((byte[])(obj));
             }
         }

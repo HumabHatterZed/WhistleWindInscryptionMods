@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new()
             {
                 GroupHealer.ability,
-                Ability.BuffEnemy
+                Irritating.ability
             };
 
             WstlUtils.Add(
@@ -21,8 +21,7 @@ namespace WhistleWindLobotomyMod
                 0, 4, 0, 6,
                 Resources.fleshIdol,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                onePerDeck: true);
+                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
         }
     }
 }

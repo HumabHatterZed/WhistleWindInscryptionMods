@@ -8,19 +8,19 @@ namespace WhistleWindLobotomyMod
 {
     public partial class Plugin
     {
-        private NewAbility Ability_Woodcutter()
+        private NewAbility Ability_QuickDraw()
         {
-            const string rulebookName = "Woodcutter";
-            const string rulebookDescription = "When a card moves into the space opposing this card, deal damage equal to this card's Power.";
-            const string dialogue = "No matter how many trees fall, the forest remains dense.";
+            const string rulebookName = "Quick Draw";
+            const string rulebookDescription = "When a card moves into the space opposing this card, deal 1 damage.";
+            const string dialogue = "The early bird gets the worm.";
 
-            return WstlUtils.CreateAbility<Woodcutter>(
-                Resources.sigilWoodcutter,
-                rulebookName, rulebookDescription, dialogue, 4);
+            return WstlUtils.CreateAbility<QuickDraw>(
+                Resources.sigilQuickDraw,
+                rulebookName, rulebookDescription, dialogue, 3);
         }
     }
     // ripped from Sentry code
-    public class Woodcutter : AbilityBehaviour
+    public class QuickDraw : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -70,7 +70,7 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.25f);
             for (int i = 0; i < this.NumShots; i++)
             {
-                if (otherCard != null && !otherCard.Dead && base.Card.Attack > 0)
+                if (otherCard != null && !otherCard.Dead)
                 {
                     yield return base.PreSuccessfulTriggerSequence();
                     base.Card.Anim.LightNegationEffect();
@@ -81,7 +81,7 @@ namespace WhistleWindLobotomyMod
                         impactFrameReached = true;
                     });
                     yield return new WaitUntil(() => impactFrameReached);
-                    yield return otherCard.TakeDamage(base.Card.Attack, base.Card);
+                    yield return otherCard.TakeDamage(1, base.Card);
                 }
             }
             yield return new WaitForSeconds(0.25f);

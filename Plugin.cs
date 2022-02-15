@@ -99,6 +99,8 @@ namespace WhistleWindLobotomyMod
                 Ability_Slime();
                 Ability_Hunter();
                 Ability_Protector();
+                Ability_Irritating();
+                Ability_QuickDraw();
 
                 Ability_Apostle();
                 Ability_TrueSaviour();

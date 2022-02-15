@@ -86,6 +86,13 @@ namespace WhistleWindLobotomyMod
                     }
                 }
                 #endregion
+
+                #region IRRITATING
+                if (__instance.Slot.opposingSlot.Card != null)
+                {
+                    __result += __instance.Slot.opposingSlot.Card.AbilityCount(Irritating.ability);
+                }
+                #endregion
             }
         }
     }
