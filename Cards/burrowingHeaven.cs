@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 Resources.burrowingHeaven,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.redShoes_emission);
+                emissionTexture: Resources.burrowingHeaven_emission);
         }
     }
 }

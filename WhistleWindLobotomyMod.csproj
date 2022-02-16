@@ -4,14 +4,10 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AssemblyName>WhistleWindLobotomyMod</AssemblyName>
 		<Description>A mod for Inscryption adding cards and sigils based on Lobotomy Corp's abnormalities.</Description>
-		<Version>0.87.51.63</Version>
+		<Version>0.83.59.55</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<LangVersion>9.0</LangVersion>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <Page Include="Cards\burrowingHeaven.cs" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
