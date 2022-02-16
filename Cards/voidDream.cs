@@ -11,8 +11,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.Evolve,
-                Ability.Flying
+                Ability.Flying,
+                Ability.Evolve
             };
 
             List<Tribe> tribes = new()
@@ -27,6 +27,7 @@ namespace WhistleWindLobotomyMod
                 Resources.voidDream,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.voidDream_emission,
                 evolveId: new EvolveIdentifier("wstl_voidDreamRooster", 1));
         }
     }

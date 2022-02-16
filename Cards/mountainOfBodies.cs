@@ -21,6 +21,7 @@ namespace WhistleWindLobotomyMod
                 Resources.mountainOfBodies,
                 abilities: abilities, specialAbilities: new(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
+                emissionTexture: Resources.mountainOfBodies_emission,
                 appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
         }
     }

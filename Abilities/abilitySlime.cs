@@ -76,11 +76,6 @@ namespace WhistleWindLobotomyMod
                         CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
                         cardInfo.Mods.Add(cardModificationInfo);
                     }
-                    foreach (Ability item in slot.Card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
-                    {
-                        // Adds base sigils
-                        cardInfo.Mods.Add(new CardModificationInfo(item));
-                    }
 
                     cardInfo.displayedName = slot.Card.Info.displayedName;
 

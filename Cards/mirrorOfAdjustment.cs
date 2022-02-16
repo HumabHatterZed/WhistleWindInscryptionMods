@@ -24,7 +24,8 @@ namespace WhistleWindLobotomyMod
                 Resources.mirrorOfAdjustment,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), triggeredAbilities: triggeredAbilities,
-                metaCategory: CardMetaCategory.ChoiceNode);
+                metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.mirrorOfAdjustment_emission);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 2, 2, 2, 0,
                 Resources.voidDreamRooster,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes);
+                tribes: tribes, emissionTexture: Resources.voidDreamRooster_emission);
         }
     }
 }

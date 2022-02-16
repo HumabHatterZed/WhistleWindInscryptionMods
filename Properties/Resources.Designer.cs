@@ -933,9 +933,29 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] mirrorOfAdjustment_emission {
+            get {
+                object obj = ResourceManager.GetObject("mirrorOfAdjustment_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] mountainOfBodies {
             get {
                 object obj = ResourceManager.GetObject("mountainOfBodies", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] mountainOfBodies_emission {
+            get {
+                object obj = ResourceManager.GetObject("mountainOfBodies_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -953,9 +973,29 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] mountainOfBodies2_emission {
+            get {
+                object obj = ResourceManager.GetObject("mountainOfBodies2_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] mountainOfBodies3 {
             get {
                 object obj = ResourceManager.GetObject("mountainOfBodies3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] mountainOfBodies3_emission {
+            get {
+                object obj = ResourceManager.GetObject("mountainOfBodies3_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -2053,9 +2093,29 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] voidDream_emission {
+            get {
+                object obj = ResourceManager.GetObject("voidDream_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] voidDreamRooster {
             get {
                 object obj = ResourceManager.GetObject("voidDreamRooster", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] voidDreamRooster_emission {
+            get {
+                object obj = ResourceManager.GetObject("voidDreamRooster_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }

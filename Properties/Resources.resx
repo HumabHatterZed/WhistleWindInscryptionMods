@@ -379,14 +379,26 @@
   <data name="mirrorOfAdjustment" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mirrorOfAdjustment.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="mirrorOfAdjustment_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mirrorOfAdjustment_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="mountainOfBodies" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mountainOfBodies.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="mountainOfBodies2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mountainOfBodies2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="mountainOfBodies2_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mountainOfBodies2_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="mountainOfBodies3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mountainOfBodies3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mountainOfBodies3_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mountainOfBodies3_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mountainOfBodies_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mountainOfBodies_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="namelessFetus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\namelessFetus.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -717,6 +729,12 @@
   </data>
   <data name="voidDreamRooster" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\voidDreamRooster.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="voidDreamRooster_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\voidDreamRooster_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="voidDream_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\voidDream_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="wallLady" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wallLady.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
