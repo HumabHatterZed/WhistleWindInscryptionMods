@@ -119,7 +119,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 <!---
 <img align="center" src="https://tinyurl.com/34daekbw">
 --->
-|Name|Atk|HP|Cost|Sigils|Traits|Tribes|
+|Name|Power|Health|Cost|Sigils|Traits|Tribes|
 |-|:-:|:-:|:-:|:-:|:-:|:-:|
 |Standard Training-Dummy Rabbit|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_1.png">||||
 |Scorched Girl|1|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png">|Volatile|||
