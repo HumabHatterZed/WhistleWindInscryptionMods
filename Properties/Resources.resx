@@ -244,9 +244,6 @@
   <data name="burrowingHeaven_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\burrowingHeaven_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="burrowingHeaven_emission1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\burrowingHeaven_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="canOfWellCheers" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\canOfWellCheers.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -321,6 +318,9 @@
   </data>
   <data name="happyTeddyBear" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\happyTeddyBear.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="happyTeddyBear_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\happyTeddyBear_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="heartOfAspiration" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\heartOfAspiration.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -417,6 +417,9 @@
   </data>
   <data name="notesFromResearcher" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\notesFromResearcher.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="notesFromResearcher_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\notesFromResearcher_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="nothingThere" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nothingThere.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

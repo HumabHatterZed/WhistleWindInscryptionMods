@@ -1,4 +1,4 @@
 ## Changelog
-### v0.83.59.55
+### v0.83.61.53
 Initial release
-* Added initial batch of 70 cards
+* Added initial batch of 71 cards, 114 total

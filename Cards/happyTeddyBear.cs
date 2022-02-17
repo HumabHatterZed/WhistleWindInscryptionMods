@@ -20,7 +20,8 @@ namespace WhistleWindLobotomyMod
                 3, 2, 0, 8,
                 Resources.happyTeddyBear,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.happyTeddyBear_emission);
         }
     }
 }
