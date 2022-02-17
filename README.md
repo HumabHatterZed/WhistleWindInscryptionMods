@@ -51,7 +51,7 @@ Additional shoutout to James Veug and his ReadMeMaker mod. I found it very helpf
   * Changes the description of certain abilities to actually describe what they do.
 * All Modular
   * DEFAULT: false
-  * Makes all custom abilities modular, meaning they can be found on totems bases and on cards from the den trial.
+  * Makes all custom abilities modular, meaning they can be found on totem bases and on cards from the den trial.
 
 ## ⚜️ Special Abilities
 A number of cards added by this mod possess special behaviour not normally found in the Rulebook.
