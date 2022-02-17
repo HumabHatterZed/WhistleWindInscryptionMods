@@ -26,11 +26,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
-            if (!base.Card.Slot.IsPlayerSlot)
-            {
-                return !playerUpkeep;
-            }
-            return playerUpkeep;
+            return base.Card.Slot.IsPlayerSlot ? playerUpkeep : !playerUpkeep;
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {

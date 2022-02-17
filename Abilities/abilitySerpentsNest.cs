@@ -26,19 +26,23 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
-            return true;
+            if (source != null)
+            {
+                return source.Health > 0;
+            }
+            return false;
         }
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
+            yield return base.PreSuccessfulTriggerSequence();
+
+            base.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.55f);
+            yield return source.TakeDamage(1, base.Card);
+            yield return new WaitForSeconds(0.4f);
+
             if (base.Card.Slot.IsPlayerSlot)
             {
-                yield return base.PreSuccessfulTriggerSequence();
-
-                base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.55f);
-                yield return source.TakeDamage(1, base.Card);
-                yield return new WaitForSeconds(0.4f);
-
                 if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
                 {
                     yield return new WaitForSeconds(0.2f);
@@ -51,7 +55,6 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.45f);
                 yield return base.LearnAbility(0.5f);
             }
-            yield break;
         }
     }
 }

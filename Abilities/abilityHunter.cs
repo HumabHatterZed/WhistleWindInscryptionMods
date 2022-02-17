@@ -25,6 +25,9 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
+        private bool IsDevil => base.Card.Info.name.ToLowerInvariant().Contains("derfreischutz");
+        private bool IsJudge => base.Card.Info.name.ToLowerInvariant().Contains("judgementbird");
+
         private readonly string freischutzDialogue = "The Devil proposed a childist contract.";
         private readonly string freischutzDialogue2 = "The seventh bullet would pierce the heart of his most beloved.";
         private readonly string freischutzDialogue3 = "On hearing this, the hunter sought and shot everyone he loved.";
@@ -49,7 +52,7 @@ namespace WhistleWindLobotomyMod
         {
             yield return base.PreSuccessfulTriggerSequence();
 
-            if (base.Card.Info.name.ToLowerInvariant().Contains("judgementbird"))
+            if (IsJudge)
             {
                 if (target.Health > 0)
                 {
@@ -64,7 +67,7 @@ namespace WhistleWindLobotomyMod
                     yield return target.Die(false, base.Card);
                 }
             }
-            if (base.Card.Info.name.ToLowerInvariant().Contains("derfreischutz"))
+            if (IsDevil)
             {
                 freischutzShots++;
                 if (freischutzShots >= 6)
@@ -103,14 +106,14 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDealDamageDirectly(int amount)
         {
-            return amount > 0;
+            return amount > 0 ;
         }
         public override IEnumerator OnDealDamageDirectly(int amount)
         {
-            yield return base.PreSuccessfulTriggerSequence();
-
-            if (base.Card.Info.name.ToLowerInvariant().Contains("derfreischutz"))
+            if (IsDevil)
             {
+                yield return base.PreSuccessfulTriggerSequence();
+
                 freischutzShots++;
                 if (freischutzShots >= 6)
                 {

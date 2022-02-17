@@ -81,7 +81,7 @@ namespace WhistleWindLobotomyMod
             if (cardName.Contains("mountainofbodies") && !cardName.Equals("wstl_mountainofbodies"))
             {
                 yield return PreSuccessfulTriggerSequence();
-                Plugin.Log.LogInfo($"{cardName}");
+
                 CardInfo previous = CardLoader.GetCardByName("wstl_mountainOfBodies");
                 if (cardName.Equals("wstl_mountainofbodies3"))
                 {

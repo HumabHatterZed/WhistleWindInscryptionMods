@@ -30,33 +30,29 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            return !wasSacrifice;
+            return !wasSacrifice && killer != null;
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            yield return new WaitForSeconds(0.25f);
-            if (killer != null)
+            yield return new WaitForSeconds(0.2f);
+            killer.Anim.LightNegationEffect();
+            if (killer.Info.name.ToLowerInvariant().Contains("warmheartedwoodsman"))
             {
-                killer.Anim.LightNegationEffect();
-                if (killer.Info.name.ToLowerInvariant().Contains("warmheartedwoodsman"))
+                killer.AddTemporaryMod(mod2);
+                if (!base.HasLearned)
                 {
-                    killer.AddTemporaryMod(mod2);
-                    if (!base.HasLearned)
-                    {
-                        yield return new WaitForSeconds(0.25f);
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue, -0.65f, 0.4f);
-                    }
-                }
-                else
-                {
-                    killer.AddTemporaryMod(mod);
                     yield return new WaitForSeconds(0.25f);
-                    yield return base.LearnAbility(0.25f);
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue, -0.65f, 0.4f);
                 }
+                yield return new WaitForSeconds(0.25f);
             }
-            yield return new WaitForSeconds(0.25f);
-            yield break;
+            else
+            {
+                killer.AddTemporaryMod(mod);
+                yield return new WaitForSeconds(0.4f);
+                yield return base.LearnAbility(0.4f);
+            }
         }
     }
 }

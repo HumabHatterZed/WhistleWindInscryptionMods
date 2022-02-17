@@ -50,37 +50,33 @@ namespace WhistleWindLobotomyMod
             yield return base.LearnAbility(0.5f);
         }
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
+        public override bool RespondsToUpkeep(bool onPlayerUpkeep)
         {
-            return true;
-        }
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-            if (!playerTurnEnd)
+            if (!base.Card.Slot.IsPlayerSlot)
             {
-                if (base.Card.Slot.IsPlayerSlot && count < 2) // If base Card is player-owned and ability has activated thrice (including initial play)
-                {
-                    yield return base.PreSuccessfulTriggerSequence();
-
-                    CardInfo cardInfo = CardLoader.GetCardByName("wstl_silentEnsemble");
-
-                    base.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.4f);
-
-                    if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
-                    {
-                        yield return new WaitForSeconds(0.2f);
-                        Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
-                        yield return new WaitForSeconds(0.2f);
-                    }
-
-                    count++;
-                    yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
-                    yield return new WaitForSeconds(0.25f);
-                }
+                return false;
             }
-            yield break;
+            return count < 2;
+        }
+        public override IEnumerator OnUpkeep(bool onPlayerUpkeep)
+        {
+            count++;
+            yield return base.PreSuccessfulTriggerSequence();
+
+            CardInfo cardInfo = CardLoader.GetCardByName("wstl_silentEnsemble");
+
+            base.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.4f);
+
+            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
+            {
+                yield return new WaitForSeconds(0.2f);
+                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
+                yield return new WaitForSeconds(0.2f);
+            }
+
+            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
+            yield return new WaitForSeconds(0.25f);
         }
     }
 }

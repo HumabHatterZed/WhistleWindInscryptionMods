@@ -25,28 +25,25 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            return !wasSacrifice;
+            return !wasSacrifice && killer != null;
         }
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            if (killer != null)
-            {
-                yield return PreSuccessfulTriggerSequence();
+            yield return PreSuccessfulTriggerSequence();
 
-                Singleton<ViewManager>.Instance.SwitchToView(View.Board, immediate: false, lockAfter: true);
-                yield return new WaitForSeconds(0.15f);
-                killer.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.15f);
-                yield return killer.TransformIntoCard(this.Card.Info);
-                yield return new WaitForSeconds(0.4f);
-                if (!PersistentValues.HasSeenBeautyTransform && killer.Slot.IsPlayerSlot)
-                {
-                    PersistentValues.HasSeenBeautyTransform = true;
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Did you think you were immune?", -0.65f, 0.4f, Emotion.Laughter);
-                }
-                yield return LearnAbility(0.4f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board, immediate: false, lockAfter: true);
+            yield return new WaitForSeconds(0.15f);
+            killer.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.55f);
+            yield return killer.TransformIntoCard(this.Card.Info);
+            yield return new WaitForSeconds(0.4f);
+            if (!PersistentValues.HasSeenBeautyTransform && killer.Slot.IsPlayerSlot)
+            {
+                PersistentValues.HasSeenBeautyTransform = true;
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Did you think you were immune?", -0.65f, 0.4f, Emotion.Laughter);
             }
+            yield return LearnAbility();
         }
     }
 }

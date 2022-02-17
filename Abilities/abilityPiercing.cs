@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            //PlayableCard queuedCard = Singleton<BoardManager>.Instance.GetCardQueuedForSlot(base.Card.Slot.opposingSlot);
+
             PlayableCard playableCard = Singleton<Opponent>.Instance.Queue.Find((PlayableCard x) => x.QueuedSlot == target.Slot);
             if (playableCard != null && !playableCard.Dead)
             {

@@ -60,6 +60,7 @@ namespace WhistleWindLobotomyMod
                     SpecialAbility_Judge();
                     SpecialAbility_Queen();
                     SpecialAbility_Army();
+                    SpecialAbility_Slime();
                 }
 
                 #endregion

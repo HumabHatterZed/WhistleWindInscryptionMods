@@ -27,50 +27,43 @@ namespace WhistleWindLobotomyMod
 
         private readonly string dialogue = "";
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
+        public override bool RespondsToUpkeep(bool playerUpkeep)
         {
-            if (!Card.Slot.IsPlayerSlot)
-            {
-                return playerTurnEnd;
-            }
-            return !playerTurnEnd;
+            return base.Card.Slot.IsPlayerSlot ? playerUpkeep : !playerUpkeep;
         }
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
+        public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             yield return PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.25f);
 
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot))
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot).Where(slot => slot.Card != null))
             {
-                if (slot.Card != null)
+                slot.Card.Anim.StrongNegationEffect();
+                if (slot.Card.Health + 2 >= slot.Card.MaxHealth)
                 {
-                    slot.Card.Anim.StrongNegationEffect();
-                    if (slot.Card.Health + 2 >= slot.Card.MaxHealth)
+                    yield return new WaitForSeconds(0.55f);
+                    yield return slot.Card.Die(false, slot.Card);
+                    yield return new WaitForSeconds(0.25f);
+                    yield return slot.Card.Slot.opposingSlot.Card.TakeDamage(10, slot.Card);
+                    foreach (CardSlot slots in Singleton<BoardManager>.Instance.GetAdjacentSlots(slot.Card.Slot))
                     {
-                        yield return new WaitForSeconds(0.55f);
-                        yield return slot.Card.Die(false, slot.Card);
-                        yield return new WaitForSeconds(0.25f);
-                        yield return slot.Card.Slot.opposingSlot.Card.TakeDamage(10, slot.Card);
-                        foreach (CardSlot slots in Singleton<BoardManager>.Instance.GetAdjacentSlots(slot.Card.Slot))
+                        if (slots.Card != null)
                         {
-                            if (slots.Card != null)
-                            {
-                                yield return slots.Card.TakeDamage(10, slot.Card);
-                            }
-                        }
-                        yield return new WaitForSeconds(0.4f);
-                        if (!PersistentValues.HasSeenRegeneratorExplode)
-                        {
-                            PersistentValues.HasSeenRegeneratorExplode = true;
-                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f);
+                            yield return slots.Card.TakeDamage(10, slot.Card);
                         }
                     }
-                    else
+                    yield return new WaitForSeconds(0.4f);
+                    if (!PersistentValues.HasSeenRegeneratorExplode)
                     {
-                        slot.Card.HealDamage(1);
-                        yield return new WaitForSeconds(0.4f);
-                        yield return LearnAbility(0.4f);
+                        PersistentValues.HasSeenRegeneratorExplode = true;
+                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f);
                     }
+                }
+                else
+                {
+                    slot.Card.HealDamage(1);
+                    yield return new WaitForSeconds(0.4f);
+                    yield return LearnAbility(0.4f);
                 }
             }
         }

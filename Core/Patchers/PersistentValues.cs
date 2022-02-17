@@ -250,6 +250,17 @@ namespace WhistleWindLobotomyMod
                 SaveGameHelper.SetValue("HasSeenArmyBlacked", value.ToString());
             }
         }
+        public static bool HasSeenMeltingHeal // Keeps track of whether this is the first time Censored has <CENSORED>
+        {
+            get
+            {
+                return SaveGameHelper.GetBool("HasSeenMeltingHeal");
+            }
+            set
+            {
+                SaveGameHelper.SetValue("HasSeenMeltingHeal", value.ToString());
+            }
+        }
         #endregion
 
         #region HEs

@@ -50,14 +50,14 @@ namespace WhistleWindLobotomyMod
         }
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return fromCombat && base.Card.Slot.IsPlayerSlot && base.Card != null;
+            return fromCombat && base.Card.Slot.IsPlayerSlot && killer != null;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             CardInfo cardInfo = CardLoader.GetCardByName("wstl_queenBeeWorker");
             if (card != null)
             {
-                if (!card.Info.name.ToLowerInvariant().Contains("queenbeeworker") && card != base.Card && base.Card != null)
+                if (!card.Info.name.ToLowerInvariant().Contains("queenbeeworker") && card != base.Card)
                 {
                     yield return PreSuccessfulTriggerSequence();
 
@@ -69,7 +69,7 @@ namespace WhistleWindLobotomyMod
                         Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
                         yield return new WaitForSeconds(0.2f);
                     }
-                    yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
+                    yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo);
 
                     yield return new WaitForSeconds(0.4f);
                     yield return LearnAbility(0.4f);

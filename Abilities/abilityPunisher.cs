@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);
-            yield return source.Die(false, base.Card, true);
+            yield return source.Die(false, base.Card);
             yield return base.LearnAbility(0.4f);
         }
     }

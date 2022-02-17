@@ -54,37 +54,39 @@ namespace WhistleWindLobotomyMod
             if (!ValidAllies())
             {
                 Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.5f);
-                if (IsDoctor)
+                yield return new WaitForSeconds(0.4f);
+                if (!IsDoctor)
                 {
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(healDialogue, -0.65f, 0.4f);
-                    yield return new WaitForSeconds(0.25f);
-
-                    int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber;
-                    List<CardSlot> slotsWithCards = Singleton<BoardManager>.Instance.OpponentSlotsCopy.FindAll((CardSlot x) => x.Card != null);
-                    CardSlot randSlot;
-                    if (slotsWithCards.Count > 0)
-                    {
-                        ConfigHelper.Instance.UpdateBlessings(1);
-
-                        randSlot = slotsWithCards[SeededRandom.Range(0, slotsWithCards.Count, randomSeed)];
-                        randSlot.Card.HealDamage(2);
-                        randSlot.Card.Anim.LightNegationEffect();
-                        yield return new WaitForSeconds(0.25f);
-                    }
-                    else
-                    {
-                        base.Card.Anim.StrongNegationEffect();
-                        yield return new WaitForSeconds(0.3f);
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(failDialogue, -0.65f, 0.4f, Emotion.Anger);
-                        yield return new WaitForSeconds(0.3f);
-                        yield break;
-                    }
-                    Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
-                    Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
-
-                    yield return ClockTwelve();
+                    yield break;
                 }
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(healDialogue, -0.65f, 0.4f);
+                yield return new WaitForSeconds(0.25f);
+
+                int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber;
+                List<CardSlot> slotsWithCards = Singleton<BoardManager>.Instance.OpponentSlotsCopy.FindAll((CardSlot x) => x.Card != null);
+                CardSlot randSlot;
+
+                if (slotsWithCards.Count > 0)
+                {
+                    ConfigHelper.Instance.UpdateBlessings(1);
+
+                    randSlot = slotsWithCards[SeededRandom.Range(0, slotsWithCards.Count, randomSeed)];
+                    randSlot.Card.HealDamage(2);
+                    randSlot.Card.Anim.LightNegationEffect();
+                    yield return new WaitForSeconds(0.25f);
+                }
+                else
+                {
+                    base.Card.Anim.StrongNegationEffect();
+                    yield return new WaitForSeconds(0.3f);
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(failDialogue, -0.65f, 0.4f, Emotion.Anger);
+                    yield return new WaitForSeconds(0.3f);
+                    yield break;
+                }
+                Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
+                Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
+
+                yield return ClockTwelve();
                 yield break;
             }
 
@@ -156,7 +158,6 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator ChooseTarget()
         {
-            //Plugin.Log.LogInfo("ChooseTarget A");
             CombatPhaseManager combatPhaseManager = Singleton<CombatPhaseManager>.Instance;
             BoardManager boardManager = Singleton<BoardManager>.Instance;
             List<CardSlot> allSlots = new(boardManager.AllSlots);
@@ -165,21 +166,17 @@ namespace WhistleWindLobotomyMod
             Action<CardSlot> callback1 = null;
             Action<CardSlot> callback2 = null;
 
-            //Plugin.Log.LogInfo("ChooseTarget B");
             combatPhaseManager.VisualizeStartSniperAbility(Card.slot);
 
-            //Plugin.Log.LogInfo("ChooseTarget C");
             CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
             if (cardSlot != null && allSlots.Contains(cardSlot))
             {
                 combatPhaseManager.VisualizeAimSniperAbility(Card.slot, cardSlot);
             }
 
-            //Plugin.Log.LogInfo("ChooseTarget D");
             List<CardSlot> allTargetSlots = allSlots;
             List<CardSlot> validTargetSlots = playerSlots;
 
-            //Plugin.Log.LogInfo("ChooseTarget E");
             targetedSlot = null;
             Action<CardSlot> targetSelectedCallback;
             if ((targetSelectedCallback = callback1) == null)
@@ -191,7 +188,6 @@ namespace WhistleWindLobotomyMod
                 });
             }
 
-            //Plugin.Log.LogInfo("ChooseTarget F");
             Action<CardSlot> invalidTargetCallback = null;
             Action<CardSlot> slotCursorEnterCallback;
             if ((slotCursorEnterCallback = callback2) == null)
@@ -202,7 +198,6 @@ namespace WhistleWindLobotomyMod
                 });
             }
 
-            //Plugin.Log.LogInfo("ChooseTarget G");
             yield return boardManager.ChooseTarget(allTargetSlots, validTargetSlots, targetSelectedCallback, invalidTargetCallback, slotCursorEnterCallback, () => false, CursorType.Target);
         }
         private IEnumerator ClockTwelve()

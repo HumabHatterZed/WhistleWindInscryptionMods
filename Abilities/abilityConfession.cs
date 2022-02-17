@@ -33,19 +33,20 @@ namespace WhistleWindLobotomyMod
 
         private bool deeds = false;
 
+        private bool IsDeeds => base.Card.Info.name.ToLowerInvariant().Equals("wstl_hundredsgooddeeds");
+
         public override bool RespondsToResolveOnBoard()
         {
-            return base.Card.Info.name.ToLowerInvariant().Equals("wstl_hundredsgooddeeds");
+            return IsDeeds;
         }
         public override IEnumerator OnResolveOnBoard()
         {
             yield return base.PreSuccessfulTriggerSequence();
 
-            Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
             yield return new WaitForSeconds(0.4f);
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
-            (Singleton<PlayerHand>.Instance as PlayerHand3D).MoveCardAboveHand(base.Card);
+
             Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
 
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
@@ -55,25 +56,19 @@ namespace WhistleWindLobotomyMod
                 {
                     while (slot.Card != null)
                     {
-                        if (slot.Card.Health > 0)
-                        {
-                            yield return slot.Card.TakeDamage(66, base.Card);
-                            yield return new WaitForSeconds(0.4f);
-                        }
+                        yield return slot.Card.TakeDamage(66, base.Card);
+                        yield return new WaitForSeconds(0.4f);
                     }
                 }
             }
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
             {
-                if (slot.Card.Info.name.ToLowerInvariant().Contains("apostle") || slot.Card.Info.name.ToLowerInvariant().Contains("whitenight"))
+                if (slot.Card.Info.name.ToLowerInvariant().Contains("apostle"))
                 {
                     while (slot.Card != null)
                     {
-                        if (slot.Card.Health > 0)
-                        {
-                            yield return slot.Card.TakeDamage(66, base.Card);
-                            yield return new WaitForSeconds(0.4f);
-                        }
+                        yield return slot.Card.TakeDamage(66, base.Card);
+                        yield return new WaitForSeconds(0.4f);
                     }
                 }
             }

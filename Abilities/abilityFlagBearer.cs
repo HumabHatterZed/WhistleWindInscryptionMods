@@ -41,15 +41,12 @@ namespace WhistleWindLobotomyMod
 
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot))
             {
-                if (slot.Card != null && !slot.Card.TemporaryMods.Contains(mod))
+                if (slot.Card.TemporaryMods.Contains(mod))
                 {
-                    slot.Card.AddTemporaryMod(mod);
-                    slot.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.25f);
-                    yield return LearnAbility(0.4f);
+                    yield break;
                 }
+                yield return Effect(slot.Card);
             }
-            yield break;
         }
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
@@ -57,11 +54,7 @@ namespace WhistleWindLobotomyMod
             {
                 if (slot.Card == otherCard)
                 {
-                    if (!base.Card.Slot.IsPlayerSlot)
-                    {
-                        return !otherCard.Slot.IsPlayerSlot;
-                    }
-                    return otherCard.Slot.IsPlayerSlot;
+                    return true;
                 }
             }
             return false;
@@ -70,18 +63,11 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
             yield return base.PreSuccessfulTriggerSequence();
-
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot))
+            if (otherCard.TemporaryMods.Contains(mod))
             {
-                if (slot.Card != null && !slot.Card.TemporaryMods.Contains(mod))
-                {
-                    slot.Card.AddTemporaryMod(mod);
-                    slot.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.25f);
-                    yield return LearnAbility(0.4f);
-                }
+                yield break;
             }
-            yield break;
+            yield return Effect(otherCard);
         }
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
@@ -90,8 +76,7 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return base.PreSuccessfulTriggerSequence();
-
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.2f);
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot))
             {
                 if (slot.Card != null && slot.Card.Health > 2)
@@ -101,6 +86,14 @@ namespace WhistleWindLobotomyMod
                     yield return new WaitForSeconds(0.25f);
                 }
             }
+        }
+
+        private IEnumerator Effect(PlayableCard card)
+        {
+            card.AddTemporaryMod(mod);
+            card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.4f);
+            yield return LearnAbility(0.4f);
         }
     }
 }

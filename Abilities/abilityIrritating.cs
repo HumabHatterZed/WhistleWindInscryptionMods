@@ -27,11 +27,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToResolveOnBoard()
         {
-            if (base.Card.Slot.opposingSlot != null)
-            {
-                return true;
-            }
-            return false;
+            return base.Card.Slot.opposingSlot != null;
         }
 
         public override IEnumerator OnResolveOnBoard()
@@ -40,11 +36,7 @@ namespace WhistleWindLobotomyMod
         }
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
-            if (base.Card.Slot.opposingSlot != null)
-            {
-                return true;
-            }
-            return false;
+            return base.Card.Slot.opposingSlot != null;
         }
 
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)

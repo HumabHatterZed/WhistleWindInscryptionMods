@@ -26,29 +26,22 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
-            if (base.Card.Slot.opposingSlot != null)
+            if (!(base.Card.Slot.opposingSlot.Card != null))
             {
-                if (base.Card.Slot.opposingSlot.IsPlayerSlot)
-                {
-                    return playerTurnEnd;
-                }
-                return !playerTurnEnd;
+                return false;
             }
-            return false;
+            return base.Card.Slot.opposingSlot.Card.Slot.IsPlayerSlot ? !playerTurnEnd : playerTurnEnd;
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            if (base.Card.Slot.opposingSlot.Card != null)
-            {
-                yield return PreSuccessfulTriggerSequence();
-                Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
-                base.Card.Slot.opposingSlot.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.55f);
-                yield return base.Card.Slot.opposingSlot.Card.TakeDamage(1, base.Card.Slot.opposingSlot.Card);
-                yield return new WaitForSeconds(0.4f);
-                yield return base.LearnAbility(0.4f);
-            }
+            yield return PreSuccessfulTriggerSequence();
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
+            base.Card.Slot.opposingSlot.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.4f);
 
+            yield return base.Card.Slot.opposingSlot.Card.TakeDamage(1, null);
+            yield return new WaitForSeconds(0.4f);
+            yield return base.LearnAbility(0.4f);
         }
     }
 }

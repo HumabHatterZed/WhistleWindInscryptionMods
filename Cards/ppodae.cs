@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
 
             WstlUtils.Add(
                 "wstl_ppodae", "Ppodae",
-                "A cute little doggo...did I say that?",
+                "An innocent little puppy.",
                 1, 1, 0, 4,
                 Resources.ppodae,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),

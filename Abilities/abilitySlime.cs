@@ -26,6 +26,9 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
+        private readonly string absorbDialogue = "They give themselves lovingly.";
+        private bool IsLove => base.Card.Info.name.ToLowerInvariant().Equals("wstl_meltinglove");
+
         public override bool RespondsToResolveOnBoard()
         {
             int num = 0;
@@ -84,13 +87,6 @@ namespace WhistleWindLobotomyMod
                     yield return slot.Card.TransformIntoCard(cardInfo);
                     yield return new WaitForSeconds(0.5f);
                     yield return base.LearnAbility(0.5f);
-
-                    if (base.Card.Info.name.ToLowerInvariant().Equals("wstl_meltinglove"))
-                    {
-                        base.Card.Anim.StrongNegationEffect();
-                        yield return new WaitForSeconds(0.4f);
-                        base.Card.AddTemporaryMod(new(1, 2));
-                    }
                 }
             }
         }
@@ -149,13 +145,6 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.5f);
             yield return base.LearnAbility(0.5f);
 
-            if (base.Card.Info.name.ToLowerInvariant().Equals("wstl_meltinglove"))
-            {
-                base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.4f);
-                base.Card.AddTemporaryMod(new(1, 2));
-            }
-
             if (Singleton<ViewManager>.Instance.CurrentView != View.Default)
             {
                 yield return new WaitForSeconds(0.2f);
@@ -174,8 +163,43 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
+            yield return base.Card.Status.damageTaken > 0 ? base.Card.Status.damageTaken-- : base.Card.Status.damageTaken;
+            base.Card.Anim.PlayHitAnimation();
             yield return base.PreSuccessfulTriggerSequence();
-            base.Card.Status.damageTaken -= 1;
+            if (!IsLove)
+            {
+                yield break;
+            }
+            if (base.Card.Health == 1 && base.Card.MaxHealth > 1)
+            {
+                yield return new WaitForSeconds(0.55f);
+                base.Card.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.55f);
+
+                foreach (var slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
+                {
+                    if (slot.Card.Info.name.ToLowerInvariant().Equals("wstl_meltingloveminion"))
+                    {
+                        int hp = slot.Card.Health;
+                        slot.Card.Anim.PlayHitAnimation();
+                        yield return new WaitForSeconds(0.1f);
+                        yield return slot.Card.Die(false, base.Card);
+                        base.Card.HealDamage(hp);
+                        base.Card.Anim.StrongNegationEffect();
+                        yield return new WaitForSeconds(0.4f);
+                        if (!PersistentValues.HasSeenMeltingHeal)
+                        {
+                            PersistentValues.HasSeenMeltingHeal = true;
+                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(absorbDialogue, -0.65f, 0.4f);
+                        }
+                    }
+
+                    if (base.Card.Health >= base.Card.MaxHealth)
+                    {
+                        yield break;
+                    }
+                }
+            }
         }
     }
 }

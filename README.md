@@ -59,19 +59,20 @@ In the spirit of the original game, I won't be listing the effects here, only wh
 You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Card|Trigger|
 |-|-|
-|Nameless Fetus|Reacts to being Sacrificed|
-|Bloodbath|Reacts to cards being sacrifice|
+|Nameless Fetus|Reacts to being sacrificed.|
+|Bloodbath|Reacts to cards being sacrifice.|
 |Magical Girl H|Reacts to cards dying.|
 |Nothing There|Reacts to dying.|
 |Der Freiscütz|Reacts to dealing damage.|
 |Crumbling Armour|Reacts to adjacent cards.|
 |Magical Girl S|Reacts to adjacent cards.|
-|Mountain of Smiling Bodies|Reacts to killing cards|
-|CENSORED|Reacts to killing cards|
+|Mountain of Smiling Bodies|Reacts to killing cards.|
+|CENSORED|Reacts to killing cards.|
 |Today's Shy Look|Reacts to being drawn.|
-|Judgement Bird|Reacts to attacking cards|
-|Snow Queen|Reacts to being played|
+|Judgement Bird|Reacts to attacking cards.|
+|Snow Queen|Reacts to being played.|
 |Army in Pink|Reacts to cards dying.|
+|Melting Love|Reacts to taking damage.|
 
 ## ✨ Abilities
 ||Name|Description|Modular?|

@@ -49,8 +49,8 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
         {
-            yield return base.PreSuccessfulTriggerSequence();
             yield return target.Status.damageTaken > 0 ? target.Status.damageTaken-- : target.Status.damageTaken;
+            yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
             if (IsDespair && !PersistentValues.HasSeenDespairProtect)
             {

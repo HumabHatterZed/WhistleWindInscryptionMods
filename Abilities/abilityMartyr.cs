@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            return !wasSacrifice;
+            return !wasSacrifice && killer != null;
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod
 
             // SigilADay julianperge
 
-            var slotsWithCards = Singleton<BoardManager>.Instance.GetSlots(true).Where(slot => slot.Card != base.Card);
+            var slotsWithCards = Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(slot => slot.Card != base.Card);
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
 
@@ -54,7 +54,6 @@ namespace WhistleWindLobotomyMod
             }
 
             yield return base.LearnAbility(0.25f);
-            yield break;
         }
     }
 }
