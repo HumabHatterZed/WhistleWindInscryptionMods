@@ -523,16 +523,6 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] censored_title {
-            get {
-                object obj = ResourceManager.GetObject("censored_title", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         public static byte[] censoredMinion {
             get {
                 object obj = ResourceManager.GetObject("censoredMinion", resourceCulture);

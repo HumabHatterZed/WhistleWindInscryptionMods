@@ -20,7 +20,9 @@ namespace WhistleWindLobotomyMod
                 1, 10, 0, 0,
                 Resources.testingDummy,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), evolveId: new EvolveIdentifier("wstl_trainingDummy", 1));
+                new List<Tribe>(),
+                //appearanceBehaviour: CardUtils.getRareAppearance,
+                evolveId: new EvolveIdentifier("wstl_trainingDummy", 1));
         }
     }
 }

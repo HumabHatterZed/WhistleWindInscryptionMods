@@ -81,6 +81,7 @@ namespace WhistleWindLobotomyMod
                     }
 
                     cardInfo.displayedName = slot.Card.Info.displayedName;
+                    cardInfo.appearanceBehaviour = slot.Card.Info.appearanceBehaviour;
 
                     slot.Card.Anim.StrongNegationEffect();
                     yield return new WaitForSeconds(0.4f);

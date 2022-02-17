@@ -89,6 +89,7 @@ namespace WhistleWindLobotomyMod
             }
 
             minion.displayedName = card.Info.displayedName;
+            minion.appearanceBehaviour = card.Info.appearanceBehaviour;
 
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(minion, killedInfo, 0.25f, null);
 
