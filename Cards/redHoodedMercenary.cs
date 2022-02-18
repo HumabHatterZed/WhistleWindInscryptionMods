@@ -17,11 +17,12 @@ namespace WhistleWindLobotomyMod
 
             WstlUtils.Add(
                 "wstl_redHoodedMercenary", "Little Red Riding Hooded Mercenary",
-                "A skilled mercenary. She'll help you on your journey if you help her find the Wolf.",
+                "A skilled mercenary with a bloody vendetta. Perhaps you'll help her sate it.",
                 2, 3, 2, 0,
                 Resources.redHoodedMercenary,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.redHoodedMercenary_emission);
         }
     }
 }

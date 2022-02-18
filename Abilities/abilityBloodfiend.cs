@@ -75,12 +75,13 @@ namespace WhistleWindLobotomyMod
             {
                 // Adds merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                killedInfo.Add(cardModificationInfo);
+                cardModificationInfo.fromCardMerge = true;
+                minion.Mods.Add(cardModificationInfo);
             }
             foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
             {
                 // Adds base sigils
-                killedInfo.Add(new CardModificationInfo(item));
+                minion.Mods.Add(new CardModificationInfo(item));
             }
             foreach (Tribe item in card.Info.tribes.FindAll((Tribe x) => x != Tribe.NUM_TRIBES))
             {

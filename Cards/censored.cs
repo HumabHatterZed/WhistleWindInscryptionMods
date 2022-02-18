@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
                 emissionTexture: Resources.censored_emission,
-                titleTexture: Resources.censored_title,
+                //titleTexture: Resources.censored_title,
                 appearanceBehaviour: CardUtils.getRareAppearance);
         }
     }

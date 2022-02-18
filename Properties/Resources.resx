@@ -223,18 +223,6 @@
   <data name="blueStar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blueStar.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="blueStar2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\blueStar2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="blueStar2_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\blueStar2_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="blueStar3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\blueStar3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="blueStar3_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\blueStar3_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="blueStar_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blueStar_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -492,6 +480,9 @@
   </data>
   <data name="redHoodedMercenary" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\redHoodedMercenary.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="redHoodedMercenary_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\redHoodedMercenary_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="redShoes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\redShoes.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -774,6 +765,9 @@
   </data>
   <data name="youMustBeHappy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\youMustBeHappy.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="youMustBeHappy_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\youMustBeHappy_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="youreBald" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\youreBald.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

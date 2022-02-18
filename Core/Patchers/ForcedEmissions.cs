@@ -21,50 +21,52 @@ namespace WhistleWindLobotomyMod
             {
                 case "wstl_spiderling":
                     __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
                     __instance.RenderCard();
                     break;
                 case "wstl_spiderbrood":
                     __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
                     __instance.RenderCard();
                     break;
                 case "wstl_whitenight":
                     __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
                     __instance.RenderCard();
                     break;
                 case "wstl_apostlescythe":
                     __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
                     __instance.RenderCard();
                     break;
                 case "wstl_apostlescythedown":
                     __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
                     __instance.RenderCard();
                     break;
                 case "wstl_apostlestaff":
                     __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
                     __instance.RenderCard();
                     break;
                 case "wstl_apostlestaffdown":
                     __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
                     __instance.RenderCard();
                     break;
                 case "wstl_apostlespear":
                     __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
                     __instance.RenderCard();
                     break;
                 case "wstl_apostlespeardown":
                     __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
                     __instance.RenderCard();
                     break;
                 case "wstl_apostleheretic":
                     __instance.RenderInfo.forceEmissivePortrait = true;
-                    __instance.RenderCard();
-                    break;
-                case "wstl_censored":
-                    __instance.RenderInfo.forceEmissivePortrait = true;
-                    __instance.RenderCard();
-                    break;
-                case "wstl_censoredminion":
-                    __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
                     __instance.RenderCard();
                     break;
                 default: // for testing only

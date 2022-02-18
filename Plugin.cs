@@ -218,7 +218,6 @@ namespace WhistleWindLobotomyMod
                 TodaysShyLookNeutral_O0192();
                 BlueStar_O0393();
                 BlueStar2_O0393();
-                BlueStar3_O0393();
                 YouMustBeHappy_T0994();
                 LuminousBracelet_O0995();
                 //  BehaviourAdjustment_O0996();

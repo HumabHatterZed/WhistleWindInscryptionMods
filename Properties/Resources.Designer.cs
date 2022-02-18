@@ -423,46 +423,6 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] blueStar2 {
-            get {
-                object obj = ResourceManager.GetObject("blueStar2", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] blueStar2_emission {
-            get {
-                object obj = ResourceManager.GetObject("blueStar2_emission", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] blueStar3 {
-            get {
-                object obj = ResourceManager.GetObject("blueStar3", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] blueStar3_emission {
-            get {
-                object obj = ResourceManager.GetObject("blueStar3_emission", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         public static byte[] burrowingHeaven {
             get {
                 object obj = ResourceManager.GetObject("burrowingHeaven", resourceCulture);
@@ -1306,6 +1266,16 @@ namespace WhistleWindLobotomyMod.Properties {
         public static byte[] redHoodedMercenary {
             get {
                 object obj = ResourceManager.GetObject("redHoodedMercenary", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] redHoodedMercenary_emission {
+            get {
+                object obj = ResourceManager.GetObject("redHoodedMercenary_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -2246,6 +2216,16 @@ namespace WhistleWindLobotomyMod.Properties {
         public static byte[] youMustBeHappy {
             get {
                 object obj = ResourceManager.GetObject("youMustBeHappy", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] youMustBeHappy_emission {
+            get {
+                object obj = ResourceManager.GetObject("youMustBeHappy_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }

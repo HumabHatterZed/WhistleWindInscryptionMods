@@ -11,19 +11,19 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Idol.ability,
-                Ability.Evolve,
+                Assimilator.ability,
+                Ability.AllStrike
             };
 
             WstlUtils.Add(
                 "wstl_blueStar2", "Blue Star",
                 "When this is over, let's meet again as stars.",
-                4, 3, 4, 0,
-                Resources.blueStar2,
+                4, 4, 4, 0,
+                Resources.blueStar,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(),
-                appearanceBehaviour: CardUtils.getRareAppearance,
-                evolveId: new EvolveIdentifier("wstl_blueStar3", 1));
+                emissionTexture: Resources.blueStar_emission,
+                appearanceBehaviour: CardUtils.getRareAppearance);
         }
     }
 }

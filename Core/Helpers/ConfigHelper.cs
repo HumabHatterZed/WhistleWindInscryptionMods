@@ -51,7 +51,7 @@ namespace WhistleWindLobotomyMod
 
             Config_AllModular = WstlConfigFile.Bind(
                     pluginName, "ALL MODULAR", false,
-                    new ConfigDescription("Makes all added abilities modular. This means they are available as totems and den trial sigils."));
+                    new ConfigDescription("Makes all custom abilities modular, meaning they can be found on totem bases and on cards from the den trial."));
 
             Config_Blessings = WstlConfigFile.Bind(
                     pluginName, "NUMBER OF BLESSINGS", 0);

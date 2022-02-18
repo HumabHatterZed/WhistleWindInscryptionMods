@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                1, 10, 0, 0,
+                1, 1, 0, 0,
                 Resources.testingDummy,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(),

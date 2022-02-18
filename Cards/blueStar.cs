@@ -11,8 +11,9 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Idol.ability,
-                Ability.Evolve
+                Ability.Evolve,
+                Idol.ability
+                
             };
 
             WstlUtils.Add(
@@ -23,6 +24,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
                 appearanceBehaviour: CardUtils.getRareAppearance,
+                emissionTexture: Resources.blueStar_emission,
                 evolveId: new EvolveIdentifier("wstl_blueStar2", 1), onePerDeck: true);
         }
     }

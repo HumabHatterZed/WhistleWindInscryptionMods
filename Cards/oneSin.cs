@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             };
 
             WstlUtils.Add(
-                "wstl_oneSin", "One Sin",
+                "wstl_oneSin", "One Sin and Hundreds of Good Deeds",
                 "Its hollow sockets see through you.",
                 0, 1, 0, 4,
                 Resources.oneSin,

@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 Resources.youMustBeHappy,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.rudoltaSleigh_emission);
+                emissionTexture: Resources.youMustBeHappy_emission);
         }
     }
 }
