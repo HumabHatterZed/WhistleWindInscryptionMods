@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 Resources.laetitia,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.rudoltaSleigh_emission);
+                emissionTexture: Resources.laetitia_emission);
         }
     }
 }
