@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 2, 2, 0, 4,
                 Resources.laetitiaFriend,
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
-                tribes: tribes);
+                tribes: tribes, emissionTexture: Resources.laetitiaFriend_emission);
         }
     }
 }
