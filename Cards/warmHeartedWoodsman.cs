@@ -20,7 +20,8 @@ namespace WhistleWindLobotomyMod
                 2, 3, 2, 0,
                 Resources.warmHeartedWoodsman,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.warmHeartedWoodsman_emission);
         }
     }
 }

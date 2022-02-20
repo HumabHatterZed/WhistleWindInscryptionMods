@@ -742,6 +742,9 @@
   <data name="warmHeartedWoodsman" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\warmHeartedWoodsman.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="warmHeartedWoodsman_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warmHeartedWoodsman_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="weCanChangeAnything" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\weCanChangeAnything.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
