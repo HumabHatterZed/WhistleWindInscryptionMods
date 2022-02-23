@@ -21,6 +21,7 @@ namespace WhistleWindLobotomyMod
                 Resources.magicalGirlHeart,
                 new List<Ability>(), specialAbilities: specialAbilities,
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
+                emissionTexture: Resources.magicalGirlHeart_emission,
                 appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
         }
     }
