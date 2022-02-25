@@ -11,7 +11,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.Flying
+                Ability.Flying,
+                Ability.Evolve
             };
 
             List<SpecialAbilityIdentifier> specialAbilities = new()
@@ -31,7 +32,9 @@ namespace WhistleWindLobotomyMod
                 Resources.queenOfHatred,
                 abilities: abilities, specialAbilities: specialAbilities,
                 tribes: tribes,
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                emissionTexture: Resources.queenOfHatred_emission,
+                appearanceBehaviour: CardUtils.getRareAppearance,
+                evolveId: new EvolveIdentifier("wstl_queenOfHatredExhausted", 1));
         }
     }
 }

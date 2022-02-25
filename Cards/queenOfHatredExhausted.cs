@@ -9,6 +9,11 @@ namespace WhistleWindLobotomyMod
     {
         private void QueenOfHatredExhausted_O0104()
         {
+            List<Ability> abilities = new()
+            {
+                Ability.Flying,
+                Ability.Evolve
+            };
             List<SpecialAbilityIdentifier> specialAbilities = new()
             {
                 _AbilityHelper.GetSpecialAbilityId
@@ -24,9 +29,10 @@ namespace WhistleWindLobotomyMod
                 "Exhaustion: the cost of an all-out attack.",
                 0, 2, 1, 0,
                 Resources.queenOfHatredExhausted,
-                new List<Ability>(), specialAbilities: specialAbilities,
+                abilities: abilities, specialAbilities: specialAbilities,
                 tribes: tribes,
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                appearanceBehaviour: CardUtils.getRareAppearance,
+                evolveId: new EvolveIdentifier("wstl_queenOfHatred", 1));
         }
     }
 }

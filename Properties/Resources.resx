@@ -487,6 +487,9 @@
   <data name="queenOfHatredExhausted" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\queenOfHatredExhausted.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="queenOfHatred_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\queenOfHatred_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="redHoodedMercenary" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\redHoodedMercenary.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

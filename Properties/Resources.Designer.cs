@@ -1283,6 +1283,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] queenOfHatred_emission {
+            get {
+                object obj = ResourceManager.GetObject("queenOfHatred_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] queenOfHatredExhausted {
             get {
                 object obj = ResourceManager.GetObject("queenOfHatredExhausted", resourceCulture);
