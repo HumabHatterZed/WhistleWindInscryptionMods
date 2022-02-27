@@ -117,7 +117,7 @@ namespace WhistleWindLobotomyMod
                 HundredsGoodDeeds_O0303();
                 MagicalGirlHeart_O0104();
                 QueenOfHatred_O0104();
-                QueenOfHatredExhausted_O0104();
+                QueenOfHatredTired_O0104();
                 HappyTeddyBear_T0406();
                 RedShoes_O0408();
                 Theresia_T0909();

@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod
         }
 
         private bool IsHateA => base.PlayableCard.Info.name.ToLowerInvariant().Equals("wstl_queenofhatred");
-        private bool IsHateB => base.PlayableCard.Info.name.ToLowerInvariant().Equals("wstl_queenofhatredexhausted");
+        private bool IsHateB => base.PlayableCard.Info.name.ToLowerInvariant().Equals("wstl_queenofhatredtired");
         private bool IsGreed => base.PlayableCard.Info.name.ToLowerInvariant().Equals("wstl_magicalgirldiamond");
         private bool IsNothingTrue => base.PlayableCard.Info.name.ToLowerInvariant().Equals("wstl_nothingtheretrue");
         private bool IsNothingEgg => base.PlayableCard.Info.name.ToLowerInvariant().Equals("wstl_nothingthereegg");
@@ -113,7 +113,7 @@ namespace WhistleWindLobotomyMod
         {
             if (IsHateA) // Queen of Hatred --> Queen of Hatred Exhausted
             {
-                CardInfo evolution = CardLoader.GetCardByName("wstl_queenOfHatredExhausted");
+                CardInfo evolution = CardLoader.GetCardByName("wstl_queenOfHatredTired");
 
                 foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
                 {

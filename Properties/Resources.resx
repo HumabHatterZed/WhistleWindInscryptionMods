@@ -343,6 +343,9 @@
   <data name="magicalGirlDiamond" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\magicalGirlDiamond.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="magicalGirlDiamond_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\magicalGirlDiamond_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="magicalGirlHeart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\magicalGirlHeart.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -484,8 +487,11 @@
   <data name="queenOfHatred" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\queenOfHatred.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="queenOfHatredExhausted" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\queenOfHatredExhausted.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="queenOfHatredTired" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\queenOfHatredTired.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="queenOfHatredTired_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\queenOfHatredTired_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="queenOfHatred_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\queenOfHatred_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

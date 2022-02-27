@@ -25,6 +25,7 @@ namespace WhistleWindLobotomyMod
                 Resources.magicalGirlDiamond,
                 abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.magicalGirlDiamond_emission,
                 evolveId: new EvolveIdentifier("wstl_kingOfGreed", 1), onePerDeck: true);
         }
     }

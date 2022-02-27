@@ -813,6 +813,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] magicalGirlDiamond_emission {
+            get {
+                object obj = ResourceManager.GetObject("magicalGirlDiamond_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] magicalGirlHeart {
             get {
                 object obj = ResourceManager.GetObject("magicalGirlHeart", resourceCulture);
@@ -1293,9 +1303,19 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] queenOfHatredExhausted {
+        public static byte[] queenOfHatredTired {
             get {
-                object obj = ResourceManager.GetObject("queenOfHatredExhausted", resourceCulture);
+                object obj = ResourceManager.GetObject("queenOfHatredTired", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] queenOfHatredTired_emission {
+            get {
+                object obj = ResourceManager.GetObject("queenOfHatredTired_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }
