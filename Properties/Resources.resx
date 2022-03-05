@@ -322,6 +322,9 @@
   <data name="kingOfGreed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kingOfGreed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="kingOfGreed_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kingOfGreed_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="knightOfDespair" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\knightOfDespair.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
