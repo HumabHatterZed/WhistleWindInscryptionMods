@@ -26,10 +26,10 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_nothingThereTrue", "Nothing There",
                 "What is that?",
-                4, 3, 3, 0,
+                4, 2, 2, 0,
                 Resources.nothingThereTrue,
                 abilities: abilities, specialAbilities: specialAbilities,
-                tribes: tribes,
+                tribes: tribes, emissionTexture: Resources.nothingThereTrue_emission,
                 appearanceBehaviour: CardUtils.getRareAppearance,
                 evolveId: new EvolveIdentifier("wstl_nothingThereEgg", 1));
         }

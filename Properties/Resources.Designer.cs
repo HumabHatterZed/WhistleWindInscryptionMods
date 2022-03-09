@@ -763,6 +763,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] knightOfDespair_emission {
+            get {
+                object obj = ResourceManager.GetObject("knightOfDespair_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] laetitia {
             get {
                 object obj = ResourceManager.GetObject("laetitia", resourceCulture);
@@ -856,6 +866,16 @@ namespace WhistleWindLobotomyMod.Properties {
         public static byte[] magicalGirlSpade {
             get {
                 object obj = ResourceManager.GetObject("magicalGirlSpade", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] magicalGirlSpade_emission {
+            get {
+                object obj = ResourceManager.GetObject("magicalGirlSpade_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -1126,6 +1146,16 @@ namespace WhistleWindLobotomyMod.Properties {
         public static byte[] nothingThereTrue {
             get {
                 object obj = ResourceManager.GetObject("nothingThereTrue", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] nothingThereTrue_emission {
+            get {
+                object obj = ResourceManager.GetObject("nothingThereTrue_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }

@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 2, 4, 2, 0,
                 Resources.knightOfDespair,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(),
+                new List<Tribe>(), emissionTexture: Resources.knightOfDespair_emission,
                 appearanceBehaviour: CardUtils.getRareAppearance);
         }
     }

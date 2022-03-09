@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_nothingThereEgg", "An Egg",
                 "What is it doing?",
-                0, 4, 4, 0,
+                0, 4, 2, 0,
                 Resources.nothingThereEgg,
                 abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(),

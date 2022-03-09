@@ -21,6 +21,7 @@ namespace WhistleWindLobotomyMod
                 Resources.magicalGirlSpade,
                 abilities: abilities, new(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
+                emissionTexture: Resources.magicalGirlSpade_emission,
                 appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
         }
     }
