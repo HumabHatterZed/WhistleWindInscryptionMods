@@ -439,6 +439,9 @@
   <data name="nothingThereFinal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nothingThereFinal.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="nothingThereFinal_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nothingThereFinal_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="nothingThereTrue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nothingThereTrue.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

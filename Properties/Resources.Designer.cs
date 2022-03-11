@@ -1143,6 +1143,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] nothingThereFinal_emission {
+            get {
+                object obj = ResourceManager.GetObject("nothingThereFinal_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] nothingThereTrue {
             get {
                 object obj = ResourceManager.GetObject("nothingThereTrue", resourceCulture);
