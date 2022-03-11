@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 Resources.worldPortrait,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.mhz176_emission);
+                emissionTexture: Resources.worldPortrait_emission);
         }
     }
 }
