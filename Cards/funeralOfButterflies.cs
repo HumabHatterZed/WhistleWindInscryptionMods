@@ -26,6 +26,7 @@ namespace WhistleWindLobotomyMod
                 Resources.funeralOfButterflies,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 tribes: tribes, metaCategory: CardMetaCategory.Rare,
+                emissionTexture: Resources.funeralOfButterflies_emission,
                 appearanceBehaviour: CardUtils.getRareAppearance);
         }
     }

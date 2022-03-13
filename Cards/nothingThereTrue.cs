@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_nothingThereTrue", "Nothing There",
                 "What is that?",
-                4, 2, 2, 0,
+                3, 3, 2, 0,
                 Resources.nothingThereTrue,
                 abilities: abilities, specialAbilities: specialAbilities,
                 tribes: tribes, emissionTexture: Resources.nothingThereTrue_emission,

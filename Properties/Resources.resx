@@ -295,6 +295,9 @@
   <data name="funeralOfButterflies" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\funeralOfButterflies.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="funeralOfButterflies_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\funeralOfButterflies_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="graveOfBlossoms" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\graveOfBlossoms.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
