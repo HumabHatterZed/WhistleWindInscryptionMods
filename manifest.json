@@ -4,7 +4,7 @@
 	"website_url": "https://github.com/HumabHatterZed/WhistleWindLobotomyMod",
 	"description": "A mod for Inscryption adding cards and sigils based on Lobotomy Corp's abnormalities.",
 	"dependencies": [
-    "BepInEx-BepInExPack_Inscryption-5.4.1701",
+		"BepInEx-BepInExPack_Inscryption-5.4.1701",
 		"API_dev-API-1.13.0"
 	]
 }
