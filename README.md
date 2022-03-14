@@ -117,6 +117,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||True Saviour|*My story is nowhere, unknown to all.*|||
 ||Confession and Pentinence|*Keep faith with unwavering resolve.*|||
 # 📜 List of Obtainable and Minion Cards
+**Note:** Singleton indicates you can only have a single copy of that card in your deck
 <!---
 <img align="center" src="https://tinyurl.com/34daekbw">
 --->
