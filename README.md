@@ -60,7 +60,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Card|Trigger|
 |-|-|
 |Nameless Fetus|Reacts to being sacrificed.|
-|Bloodbath|Reacts to cards being sacrifice.|
+|Bloodbath|Reacts to cards being sacrificed.|
 |Magical Girl H|Reacts to cards dying.|
 |Nothing There|Reacts to dying.|
 |Der Freiscütz|Reacts to dealing damage.|
@@ -180,22 +180,22 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||F-02-70|||||||
 ||The Dreaming Current|3|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Sprinter, Hefty|||
 ||The Burrowing Heaven|0|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png">||||
-||Magical Girl S|2|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Protector|Rare, Singleton||
-||The Knight of Despair|2|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Bifurcated Strike, Piercing|Rare, Singleton||
+||Magical Girl S|2|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Protector|Rare<br>Singleton||
+||The Knight of Despair|2|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Bifurcated Strike<br>Piercing|Rare<br>Singleton||
 ||The Naked Nest|0|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Serpent's Nest|||
 ||Naked Worm|1|1|||||
 ||Mountain of Smiling Bodies|2|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Assimilator|Rare||
-||Schadenfreude|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Quick Draw, Touch of Death|||
+||Schadenfreude|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Quick Draw<br>Touch of Death|||
 ||The Heart of Aspiration|1|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Leader|||
-||Notes from a Crazed Researcher|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Flag Bearer, Volatile|||
-||Flesh Idol|0|4|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png">|Group Healer, Irritating|||
+||Notes from a Crazed Researcher|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Flag Bearer<br>Volatile|||
+||Flesh Idol|0|4|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png">|Group Healer<br>Irritating|||
 ||T-09-80|||||||
 ||Mirror of Adjustment|M|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Woodcutter|||
-||Shelter from the 27th of March|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png">|Aggravating, Repulsive|||
+||Shelter from the 27th of March|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png">|Aggravating<br>Repulsive|||
 ||Fairy Festival|1|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Bloodfiend|||
-||Meat Lantern|1|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Punisher, Mighty Leap|||
+||Meat Lantern|1|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Punisher<br>Mighty Leap|||
 ||We can Change Anything|0|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Grinder|||
-||Express Train to Hell|0|4|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_8.png">|The Train|Rare, Singleton||
+||Express Train to Hell|0|4|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_8.png">|The Train|Rare<br>Singleton||
 ||Scarecrow Searching for Wisdom|1|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_5.png">|Bloodfiend|||
 ||Dimensional Refraction Variant|4|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png">|Amorphous|||
 ||CENSORED|6|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_4.png">|Bloodfiend|Rare||
@@ -203,23 +203,23 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||T-09-90|||||||
 ||Portrait of Another World|0|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Reflector|||
 ||Today's Shy Look|1|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">||||
-||Blue Star|4|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_4.png">|Idol, Fledgling|Rare||
-||^Blue Star|4|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_4.png">|Assimilator, Moon Strike|Rare||
+||Blue Star|4|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_4.png">|Idol<br>Fledgling|Rare||
+||^Blue Star|4|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_4.png">|Assimilator<br>Moon Strike|Rare||
 ||You Must be Happy|0|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_2.png">|Scrambler|||
 ||Luminous Bracelet|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png">|Regenerator|||
 ||O-09-96|||||||
 ||T-09-97|||||||
 ||Porccubus|1|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_5.png">|Touch of Death|||
-||Void Dream|0|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Fledgling, Flying||Hooved|
-||^Void Dream|2|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Stinky, Flying||Hooved, Avian|
-||Grave of Cherry Blossoms|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Sharp Quills, Bloodfiend||
+||Void Dream|0|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Fledgling<br>Flying||Hooved|
+||^Void Dream|2|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Stinky<br>Flying||Hooved, Avian|
+||Grave of Cherry Blossoms|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Sharp Quills<br>Bloodfiend||
 ||The Firebird|1|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Burning, Flying||Avian|
 ||O-05-102|||||||
 ||O-07-103|||||||
 ||D-09-104|||||||
 ||D-01-105|||||||
-||Army in Pink|2|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Fecundity, Protector|Rare|
-||Ppodae|1|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Stinky, Fledgling||Canine|
+||Army in Pink|2|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Fecundity<br>Protector|Rare|
+||Ppodae|1|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Stinky<br>Fledgling||Canine|
 ||^Ppodae|3|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_8.png">|Stinky||Canine|
 ||Parasite Tree|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Gardener||
 ||Sapling|1|2|||||
