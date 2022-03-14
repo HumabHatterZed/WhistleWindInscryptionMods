@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
                 4, 2, 3, 0,
                 Resources.cloudedMonk,
                 new List<Ability>(), new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>());
+                new List<Tribe>(), emissionTexture: Resources.cloudedMonk_emission);
         }
     }
 }

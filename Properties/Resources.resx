@@ -253,6 +253,9 @@
   <data name="cloudedMonk" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cloudedMonk.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="cloudedMonk_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cloudedMonk_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="crumblingArmour" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\crumblingArmour.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

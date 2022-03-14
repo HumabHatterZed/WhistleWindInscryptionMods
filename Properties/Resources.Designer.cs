@@ -513,6 +513,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] cloudedMonk_emission {
+            get {
+                object obj = ResourceManager.GetObject("cloudedMonk_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] crumblingArmour {
             get {
                 object obj = ResourceManager.GetObject("crumblingArmour", resourceCulture);
