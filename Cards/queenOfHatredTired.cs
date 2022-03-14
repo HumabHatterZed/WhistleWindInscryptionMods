@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 Resources.queenOfHatredTired,
                 new(), specialAbilities: specialAbilities,
                 tribes: tribes,
-                emissionTexture: Resources.queenOfHatredTired_emission);
+                emissionTexture: Resources.queenOfHatredTired_emission, onePerDeck: true);
         }
     }
 }

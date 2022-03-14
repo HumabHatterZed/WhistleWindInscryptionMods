@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(),
                 emissionTexture: Resources.blueStar_emission,
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
         }
     }
 }

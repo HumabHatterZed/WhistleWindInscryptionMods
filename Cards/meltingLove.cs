@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), traits: traits, metaCategory: CardMetaCategory.Rare,
                 emissionTexture: Resources.rudoltaSleigh_emission,
-                appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
+                appearanceBehaviour: CardUtils.getRareAppearance);
         }
     }
 }

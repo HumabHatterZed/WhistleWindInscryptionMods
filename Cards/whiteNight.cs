@@ -28,7 +28,8 @@ namespace WhistleWindLobotomyMod
                 Resources.whiteNight,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), traits: traits,
-                emissionTexture: Resources.whiteNight_emission, titleTexture: Resources.whiteNight_title);
+                emissionTexture: Resources.whiteNight_emission, onePerDeck: true,
+                titleTexture: Resources.whiteNight_title);
         }
     }
 }

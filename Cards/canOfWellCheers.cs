@@ -13,7 +13,6 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Strafe,
                 Ability.Submerge
-
             };
 
             WstlUtils.Add(
@@ -22,7 +21,8 @@ namespace WhistleWindLobotomyMod
                 1, 1, 1, 0,
                 Resources.canOfWellCheers,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.canOfWellCheers_emission);
         }
     }
 }

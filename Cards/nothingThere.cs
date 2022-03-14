@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
                 emissionTexture: Resources.nothingThere_emission,
-                appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
+                appearanceBehaviour: CardUtils.getRareAppearance);
         }
     }
 }

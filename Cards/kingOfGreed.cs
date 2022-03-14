@@ -20,7 +20,8 @@ namespace WhistleWindLobotomyMod
                 4, 5, 2, 0,
                 Resources.kingOfGreed,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), emissionTexture: Resources.kingOfGreed_emission);
+                new List<Tribe>(), emissionTexture: Resources.kingOfGreed_emission,
+                onePerDeck: true);
         }
     }
 }
