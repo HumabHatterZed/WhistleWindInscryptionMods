@@ -21,6 +21,7 @@ namespace WhistleWindLobotomyMod
                 Resources.honouredMonk,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
+                emissionTexture: Resources.honouredMonk_emission,
                 evolveId: new EvolveIdentifier("wstl_cloudedMonk", 1));
         }
     }
