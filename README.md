@@ -45,7 +45,7 @@ Additional shoutout to James Veug and his ReadMeMaker mod. I found it very helpf
   * What it says on the tin, this config enables/disables this mod's content.
 * Special Abilities in Rulebook
   * DEFAULT: false
-  * Adds the special abilities to the Rulebook for your viewing pleasure. NOTE: will cause laggier lag (see Known Issues).
+  * Adds the special abilities to the Rulebook for your viewing pleasure. NOTE: will cause lag (see Known Issues: LogLevel 'Debug').
 * Reveal Select Descriptions
   * DEFAULT: false
   * Changes the description of certain abilities to actually describe what they do.
