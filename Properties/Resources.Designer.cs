@@ -543,6 +543,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] derFreischutz_emission {
+            get {
+                object obj = ResourceManager.GetObject("derFreischutz_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] dimensionalRefraction {
             get {
                 object obj = ResourceManager.GetObject("dimensionalRefraction", resourceCulture);

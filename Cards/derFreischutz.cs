@@ -22,6 +22,7 @@ namespace WhistleWindLobotomyMod
                 Resources.derFreischutz,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
+                emissionTexture: Resources.derFreischutz_emission,
                 appearanceBehaviour: CardUtils.getRareAppearance);
         }
     }

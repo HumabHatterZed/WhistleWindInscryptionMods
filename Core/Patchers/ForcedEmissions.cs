@@ -69,10 +69,6 @@ namespace WhistleWindLobotomyMod
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
                     __instance.RenderCard();
                     break;
-                default: // for testing only
-                    __instance.RenderInfo.forceEmissivePortrait = true;
-                    __instance.RenderCard();
-                    break; /* */
             }
         }
     }
