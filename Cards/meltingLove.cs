@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Resources.meltingLove,
                 abilities: abilities, new List<SpecialAbilityIdentifier>(),
                 new List<Tribe>(), traits: traits, metaCategory: CardMetaCategory.Rare,
-                emissionTexture: Resources.rudoltaSleigh_emission,
+                emissionTexture: Resources.meltingLove_emission,
                 appearanceBehaviour: CardUtils.getRareAppearance);
         }
     }
