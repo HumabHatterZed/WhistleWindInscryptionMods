@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void QueenOfHatred_O0104()
         {
@@ -14,9 +15,9 @@ namespace WhistleWindLobotomyMod
                 Ability.Flying
             };
 
-            List<SpecialAbilityIdentifier> specialAbilities = new()
+            List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                _AbilityHelper.GetSpecialAbilityId
+                _AbilityHelper.specialAbility
             };
 
             List<Tribe> tribes = new()
@@ -28,10 +29,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_queenOfHatred", "The Queen of Hatred",
                 "Heroes exist to fight evil. In its absence, they must create it.",
                 7, 2, 1, 0,
-                Resources.queenOfHatred,
+                Resources.queenOfHatred, Resources.queenOfHatred_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                tribes: tribes,
-                emissionTexture: Resources.queenOfHatred_emission, onePerDeck: true);
+                metaCategories: new(), tribes: tribes, traits: new(),
+                onePerDeck: true);
         }
     }
 }

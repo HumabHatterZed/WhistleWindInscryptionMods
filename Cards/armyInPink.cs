@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void ArmyInPink_D01106()
         {
@@ -19,11 +20,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_armyInPink", "Army in Pink",
                 "The human heart is pink. They wear its colour as to blend in with your mind.",
                 2, 2, 2, 0,
-                Resources.armyInPink,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
-                emissionTexture: Resources.armyInPink_emission,
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                Resources.armyInPink, Resources.armyInPink_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                isRare: true);
         }
     }
 }

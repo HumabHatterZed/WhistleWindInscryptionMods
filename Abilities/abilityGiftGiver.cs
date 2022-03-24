@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,17 +8,17 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_GiftGiver()
+        private void Ability_GiftGiver()
         {
             const string rulebookName = "Gift Giver";
             const string rulebookDescription = "When this card is played, create a random card in your hand.";
             const string dialogue = "A gift for you.";
 
-            return WstlUtils.CreateAbility<GiftGiver>(
+            GiftGiver.ability = WstlUtils.CreateAbility<GiftGiver>(
                 Resources.sigilGiftGiver,
-                rulebookName, rulebookDescription, dialogue, 3);
+                rulebookName, rulebookDescription, dialogue, 3).Id;
         }
     }
     public class GiftGiver : AbilityBehaviour

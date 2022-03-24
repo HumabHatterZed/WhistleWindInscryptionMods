@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void Porccubus_O0298()
         {
@@ -14,13 +15,18 @@ namespace WhistleWindLobotomyMod
                 Ability.Deathtouch
             };
 
+            List<Trait> traits = new()
+            {
+                Trait.KillsSurvivors
+            };
             WstlUtils.Add(
                 "wstl_porccubus", "Porccubus",
                 "A prick of its quills creates a deadly euphoria.",
                 1, 2, 0, 5,
-                Resources.porccubus,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                Resources.porccubus, Resources.porccubus_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: traits,
+                isChoice: true);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,16 +7,16 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_GroupHealer()
+        private void Ability_GroupHealer()
         {
             const string rulebookName = "Group Healer";
             const string rulebookDescription = "While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.";
             const string dialogue = "You only delay the inevitable.";
-            return WstlUtils.CreateAbility<GroupHealer>(
+            GroupHealer.ability = WstlUtils.CreateAbility<GroupHealer>(
                 Resources.sigilGroupHealer,
-                rulebookName, rulebookDescription, dialogue, 4);
+                rulebookName, rulebookDescription, dialogue, 4).Id;
         }
     }
     public class GroupHealer : AbilityBehaviour

@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,17 +8,18 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Volatile()
+        private void Ability_Volatile()
         {
             const string rulebookName = "Volatile";
             const string rulebookDescription = "When this card dies, adjacent and opposing cards are dealt 10 damage.";
             const string dialogue = "An explosive finish.";
 
-            return WstlUtils.CreateAbility<Volatile>(
+            Volatile.ability = WstlUtils.CreateAbility<Volatile>(
                 Resources.sigilVolatile,
-                rulebookName, rulebookDescription, dialogue, 0, addModular: true);
+                rulebookName, rulebookDescription, dialogue, 0,
+                addModular: true).Id;
         }
     }
     public class Volatile : AbilityBehaviour

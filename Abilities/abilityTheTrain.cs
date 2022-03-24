@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,17 +7,17 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_TheTrain()
+        private void Ability_TheTrain()
         {
             const string rulebookName = "The Train";
             const string rulebookDescription = "One turn after this card is played, kill all cards on the board. If this card is not the ticket taker, kill only the card's allies at a 20% chance.";
             const string dialogue = "The train boards those that don't step away from the tracks.";
 
-            return WstlUtils.CreateAbility<TheTrain>(
+            TheTrain.ability = WstlUtils.CreateAbility<TheTrain>(
                 Resources.sigilTheTrain,
-                rulebookName, rulebookDescription, dialogue, 5);
+                rulebookName, rulebookDescription, dialogue, 5).Id;
         }
     }
     public class TheTrain : AbilityBehaviour

@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void GraveOfBlossoms_O04100()
         {
@@ -19,10 +20,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_graveOfBlossoms", "Grave of Cherry Blossoms",
                 "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.",
                 0, 3, 1, 0,
-                Resources.graveOfBlossoms,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.graveOfBlossoms_emission);
+                Resources.graveOfBlossoms, Resources.graveOfBlossoms_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true);
         }
     }
 }

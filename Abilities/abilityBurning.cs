@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,17 +7,18 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Burning()
+        private void Ability_Burning()
         {
             const string rulebookName = "Burning";
             const string rulebookDescription = "The opposing card takes 1 damage at the end of their turn.";
             const string dialogue = "A slow and painful death.";
 
-            return WstlUtils.CreateAbility<Burning>(
+            Burning.ability = WstlUtils.CreateAbility<Burning>(
                 Resources.sigilBurning,
-                rulebookName, rulebookDescription, dialogue, 2, true);
+                rulebookName, rulebookDescription, dialogue, 2,
+                addModular: true).Id;
         }
     }
     public class Burning : AbilityBehaviour

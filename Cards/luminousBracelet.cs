@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void LuminousBracelet_O0995()
         {
@@ -18,9 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_luminousBracelet", "Luminous Bracelet",
                 "A bracelet that will heal those nearby. It does not forgive the greedy.",
                 0, 1, 0, 3,
-                Resources.luminousBracelet,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                Resources.luminousBracelet, Resources.luminousBracelet_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true);
         }
     }
 }

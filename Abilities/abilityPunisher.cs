@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
@@ -6,28 +6,29 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Punisher()
+        private void Ability_Punisher()
         {
             const string rulebookName = "Punisher";
             const string rulebookDescription = "When a card bearing this sigil is struck, the striker is killed.";
             const string dialogue = "Retaliation is swift, but death is slow.";
-            return WstlUtils.CreateAbility<Punisher>(
+            Punisher.ability = WstlUtils.CreateAbility<Punisher>(
                 Resources.sigilPunisher,
-                rulebookName, rulebookDescription, dialogue, 4, addModular: true);
+                rulebookName, rulebookDescription, dialogue, 4,
+                addModular: true).Id;
         }
     }
     public class Punisher : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
-            if (source != null)
+            bool whiteNightEvent = !source.HasAbility(TrueSaviour.ability) && !source.HasAbility(Apostle.ability) && !source.HasAbility(Confession.ability);
+            if (source != null && !source.Dead && whiteNightEvent)
             {
-                return source.Health > 0;
+                return source.Health > 0 && !source.HasAbility(Ability.MadeOfStone);
             }
             return false;
         }

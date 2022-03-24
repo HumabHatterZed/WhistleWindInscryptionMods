@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using HarmonyLib;
 using System.Collections;
@@ -9,22 +9,23 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_TrueSaviour()
+        private void Ability_TrueSaviour()
         {
             const string rulebookName = "True Saviour";
             string rulebookDescription = "My story is nowhere, unknown to all.";
             const string dialogue = "I am death and life. Darkness and light.";
 
-            if (ConfigHelper.Instance.RevealWhiteNight)
+            if (ConfigUtils.Instance.RevealWhiteNight)
             {
                 rulebookDescription = "Cannot die. Transform non-Terrain and non-Pelt cards into Apostles. 1-in-12 chance that the Apostle will be a Heretic.";
             }
 
-            return WstlUtils.CreateAbility<TrueSaviour>(
+            TrueSaviour.ability = WstlUtils.CreateAbility<TrueSaviour>(
                 Resources.sigilTrueSaviour,
-                rulebookName, rulebookDescription, dialogue, -3, overrideModular: true);
+                rulebookName, rulebookDescription, dialogue, -3,
+                overrideModular: true).Id;
         }
     }
     public class TrueSaviour : AbilityBehaviour

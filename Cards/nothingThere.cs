@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void NothingThere_O0620()
         {
@@ -13,20 +14,19 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Reach
             };
-            List<SpecialAbilityIdentifier> specialAbilities = new()
+            List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                NothingThere.GetSpecialAbilityId
+                NothingThere.specialAbility
             };
 
             WstlUtils.Add(
                 "wstl_nothingThere", "Yumi",
                 "I don't remember this challenger...",
                 1, 1, 2, 0,
-                Resources.nothingThere,
+                Resources.nothingThere, Resources.nothingThere_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
-                emissionTexture: Resources.nothingThere_emission,
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                metaCategories: new(), tribes: new(), traits: new(),
+                isRare: true, onePerDeck: true);
         }
     }
 }

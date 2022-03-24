@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,17 +7,17 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Conductor()
+        private void Ability_Conductor()
         {
             const string rulebookName = "Conductor";
             const string rulebookDescription = "When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 1 Health.";
             const string dialogue = "From break and ruin, the most beautiful performance begins.";
 
-            return WstlUtils.CreateAbility<Conductor>(
+            Conductor.ability = WstlUtils.CreateAbility<Conductor>(
                 Resources.sigilConductor,
-                rulebookName, rulebookDescription, dialogue, 4);
+                rulebookName, rulebookDescription, dialogue, 4).Id;
         }
     }
     public class Conductor : AbilityBehaviour

@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,17 +7,18 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Martyr()
+        private void Ability_Martyr()
         {
             const string rulebookName = "Martyr";
             const string rulebookDescription = "When a card bearing this sigil dies, all allied creatures gain 2 Health.";
             const string dialogue = "A selfless death to cleanse your beasts of evil.";
 
-            return WstlUtils.CreateAbility<Martyr>(
+            Martyr.ability = WstlUtils.CreateAbility<Martyr>(
                 Resources.sigilMartyr,
-                rulebookName, rulebookDescription, dialogue, 3, addModular: true);
+                rulebookName, rulebookDescription, dialogue, 3,
+                addModular: true).Id;
         }
     }
     public class Martyr : AbilityBehaviour

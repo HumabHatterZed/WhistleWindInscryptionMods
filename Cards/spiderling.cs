@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void Spiderling_O0243()
         {
@@ -23,10 +24,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_spiderling", "Spiderling",
                 "Small and defenceless.",
                 0, 1, 0, 0,
-                Resources.spiderling,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, emissionTexture: Resources.spiderling_emission,
-                evolveId: new EvolveIdentifier("wstl_spiderBrood", 1));
+                Resources.spiderling, Resources.spiderling_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
+                evolveName: "wstl_spiderBrood");
         }
     }
 }

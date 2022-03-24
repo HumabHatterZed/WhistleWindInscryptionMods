@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void SnowQueen_F0137()
         {
@@ -18,10 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_snowQueen", "The Snow Queen",
                 "A queen from far away. Those who enter her palace never leave.",
                 1, 2, 0, 6,
-                Resources.snowQueen,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.snowQueen_emission);
+                Resources.snowQueen, Resources.snowQueen_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true);
         }
     }
 }

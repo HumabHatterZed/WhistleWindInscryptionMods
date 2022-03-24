@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void Alriune_T0453()
         {
@@ -24,10 +25,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_alriune", "Alriune",
                 "A doll yearning to be a human. A human yearning to be a doll.",
                 4, 5, 3, 0,
-                Resources.alriune,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.alriune_emission);
+                Resources.alriune, Resources.alriune_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
+                isChoice: true);
         }
     }
 }

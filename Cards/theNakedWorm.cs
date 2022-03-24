@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void TheNakedWorm_O0274()
         {
@@ -13,9 +14,9 @@ namespace WhistleWindLobotomyMod
                 "wstl_theNakedWorm", "Naked Worm",
                 "It can enter your body through any aperture.",
                 1, 1, 0, 0,
-                Resources.theNakedWorm,
-                new List<Ability>(), new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>());
+                Resources.theNakedWorm, Resources.theNakedWorm_emission,
+                abilities: new(), specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

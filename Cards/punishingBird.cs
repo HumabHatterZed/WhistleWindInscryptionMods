@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void PunishingBird_O0256()
         {
@@ -20,14 +21,19 @@ namespace WhistleWindLobotomyMod
                 Tribe.Bird
             };
 
+            List<Trait> traits = new()
+            {
+                Trait.KillsSurvivors
+            };
+
             WstlUtils.Add(
                 "wstl_punishingBird", "Punishing Bird",
                 "A small bird on a mission to punish evildoers.",
                 1, 1, 1, 0,
-                Resources.punishingBird,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.punishingBird_emission, onePerDeck: true);
+                Resources.punishingBird, Resources.punishingBird_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: traits,
+                isChoice: true, onePerDeck: true);
         }
     }
 }

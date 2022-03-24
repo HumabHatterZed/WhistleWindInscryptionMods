@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,17 +7,17 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Courageous()
+        private void Ability_Courageous()
         {
             const string rulebookName = "Courageous";
-            const string rulebookDescription = "Adjacent cards lose up to 2 Health but gain 1 Power for every 1 Health lost via this effect. Affected cards will not go below 1 Health.";
+            const string rulebookDescription = "Adjacent cards lose up to 2 Health but gain 1 Power for every 1 Health lost via this effect. These stats persist until battle's end.";
             const string dialogue = "Life is only given to those who don't fear death.";
 
-            return WstlUtils.CreateAbility<Courageous>(
+            Courageous.ability = WstlUtils.CreateAbility<Courageous>(
                 Resources.sigilCourageous,
-                rulebookName, rulebookDescription, dialogue, 3);
+                rulebookName, rulebookDescription, dialogue, 3).Id;
         }
     }
     public class Courageous : AbilityBehaviour
@@ -27,8 +27,8 @@ namespace WhistleWindLobotomyMod
 
         private bool IsArmour => base.Card.Info.name.ToLowerInvariant().Contains("crumblingarmour");
 
-        public static CardModificationInfo courageMod = new(0, -1);
-        public static CardModificationInfo courageMod2 = new(0, -1);
+        public static CardModificationInfo courageMod = new(1, -1);
+        public static CardModificationInfo courageMod2 = new(1, -1);
 
         private readonly string buffFail = "Your creature's consitution is too weak.";
         private readonly string buffRefuse = "Coward's don't get the boon of the brave.";
@@ -70,28 +70,8 @@ namespace WhistleWindLobotomyMod
             yield return Effect(otherCard);
         }
 
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
-        {
-            return true;
-        }
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-            yield return new WaitForSeconds(0.2f);
-
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot).Where(slot => slot.Card != null))
-            {
-                slot.Card.RemoveTemporaryMod(courageMod);
-                slot.Card.RemoveTemporaryMod(courageMod2);
-                slot.Card.OnStatsChanged();
-                slot.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.25f);
-            }
-        }
-
         private IEnumerator Effect(PlayableCard card)
         {
-            yield return new WaitForSeconds(0.2f);
             if (card.HasAbility(Ability.TailOnHit) || card.HasAbility(Ability.Submerge) || card.Status.hiddenAbilities.Contains(Ability.TailOnHit))
             {
                 if (IsArmour)
@@ -134,7 +114,7 @@ namespace WhistleWindLobotomyMod
                 card.AddTemporaryMod(courageMod);
                 card.OnStatsChanged();
             }
-            if (!card.TemporaryMods.Contains(courageMod2))
+            if (!card.TemporaryMods.Contains(courageMod2) && card.Health > 1)
             {
                 card.AddTemporaryMod(courageMod2);
                 card.OnStatsChanged();

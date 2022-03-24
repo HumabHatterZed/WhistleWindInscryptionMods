@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void SilentEnsemble_T0131()
         {
@@ -18,9 +19,9 @@ namespace WhistleWindLobotomyMod
                 "wstl_silentEnsemble", "Chairs",
                 "The conductor begins to direct the apocalypse.",
                 0, 2, 0, 0,
-                Resources.silentEnsemble,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>());
+                Resources.silentEnsemble, Resources.silentEnsemble_emission,
+                abilities: abilities, specialAbilities: new(),
+                tribes: new());
         }
     }
 }

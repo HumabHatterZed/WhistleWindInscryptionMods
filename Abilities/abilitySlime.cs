@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,17 +8,17 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Slime()
+        private void Ability_Slime()
         {
             const string rulebookName = "Made of Slime";
             const string rulebookDescription = "A card bearing this sigil takes 1 less damage from attacks. Additionally, cards adjacent to this card are turned into Slimes at the start of the owner's turn.";
             const string dialogue = "Its army grows everyday.";
 
-            return WstlUtils.CreateAbility<Slime>(
+            Slime.ability = WstlUtils.CreateAbility<Slime>(
                 Resources.sigilSlime,
-                rulebookName, rulebookDescription, dialogue, 5);
+                rulebookName, rulebookDescription, dialogue, 5).Id;
         }
     }
     public class Slime : AbilityBehaviour
@@ -194,7 +194,6 @@ namespace WhistleWindLobotomyMod
                             yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(absorbDialogue, -0.65f, 0.4f);
                         }
                     }
-
                     if (base.Card.Health >= base.Card.MaxHealth)
                     {
                         yield break;

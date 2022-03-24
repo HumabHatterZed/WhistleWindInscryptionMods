@@ -1,27 +1,29 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void FleshIdol_T0979()
         {
             List<Ability> abilities = new()
             {
                 GroupHealer.ability,
-                Irritating.ability
+                Ability.BuffEnemy
             };
 
             WstlUtils.Add(
                 "wstl_fleshIdol", "Flesh Idol",
-                "This is a record, a record of a day we must never forget.",
+                "Prayer inevitably ends with the worshipper's despair.",
                 0, 4, 0, 6,
-                Resources.fleshIdol,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                Resources.fleshIdol, Resources.fleshIdol_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true);
         }
     }
 }

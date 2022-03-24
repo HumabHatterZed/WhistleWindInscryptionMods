@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,17 +7,18 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Piercing()
+        private void Ability_Piercing()
         {
             const string rulebookName = "Piercing";
-            const string rulebookDescription = "When this card strikes a card, deal 1 overkill damage if applicable.";
+            const string rulebookDescription = "When this card strikes a card and there is another card behind it, deal 1 overkill damage to that card.";
             const string dialogue = "Your beast runs mine through.";
 
-            return WstlUtils.CreateAbility<Piercing>(
+            Piercing.ability = WstlUtils.CreateAbility<Piercing>(
                 Resources.sigilPiercing,
-                rulebookName, rulebookDescription, dialogue, 2, addModular: true);
+                rulebookName, rulebookDescription, dialogue, 2,
+                addModular: true).Id;
         }
     }
     public class Piercing : AbilityBehaviour
@@ -32,13 +33,13 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
             yield return base.PreSuccessfulTriggerSequence();
-
-            PlayableCard playableCard = Singleton<Opponent>.Instance.Queue.Find((PlayableCard x) => x.QueuedSlot == target.Slot);
-            if (playableCard != null && !playableCard.Dead)
+            PlayableCard queuedCard = Singleton<BoardManager>.Instance.GetCardQueuedForSlot(target.Slot);
+            if (queuedCard != null && !queuedCard.Dead)
             {
-                playableCard.TakeDamage(1, base.Card);
+                yield return Singleton<CombatPhaseManager>.Instance.DealOverkillDamage(1, base.Card.Slot, target.Slot);
                 yield return LearnAbility();
             }
+            yield break;
         }
     }
 }

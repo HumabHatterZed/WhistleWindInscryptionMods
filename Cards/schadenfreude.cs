@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void Schadenfreude_O0576()
         {
@@ -19,9 +20,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_schadenfreude", "SchadenFreude",
                 "A strange machine. You can feel someone's persistent gaze through the keyhole.",
                 0, 1, 0, 4,
-                Resources.schadenfreude,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                Resources.schadenfreude, Resources.schadenfreude_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true);
         }
     }
 }

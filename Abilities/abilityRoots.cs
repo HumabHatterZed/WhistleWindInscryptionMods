@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
@@ -6,16 +6,17 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Roots()
+        private void Ability_Roots()
         {
             const string rulebookName = "Roots";
             const string rulebookDescription = "When this card is played, create Thorny Vines on adjacent empty spaces. A Thorny Vine is defined as: 0 Power, 1 Health.";
             const string dialogue = "Resentment bursts forth like a weed.";
-            return WstlUtils.CreateAbility<Roots>(
+            Roots.ability = WstlUtils.CreateAbility<Roots>(
                 Resources.sigilRoots,
-                rulebookName, rulebookDescription, dialogue, 3, addModular: true);
+                rulebookName, rulebookDescription, dialogue, 3,
+                addModular: true).Id;
         }
     }
     public class Roots : AbilityBehaviour

@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void ParasiteTree_D04108()
         {
@@ -18,9 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_parasiteTree", "Parasite Tree",
                 "A beautiful tree. It wants only to help you and your beasts.",
                 0, 3, 2, 0,
-                Resources.parasiteTree,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                Resources.parasiteTree, Resources.parasiteTree_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true);
         }
     }
 }

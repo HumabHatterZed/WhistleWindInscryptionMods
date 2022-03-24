@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void MirrorOfAdjustment_O0981()
         {
@@ -13,7 +14,7 @@ namespace WhistleWindLobotomyMod
             {
                 Woodcutter.ability
             };
-            List<SpecialTriggeredAbility> triggeredAbilities = new()
+            List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 SpecialTriggeredAbility.Mirror
             };
@@ -21,11 +22,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_mirrorOfAdjustment", "The Mirror of Adjustment",
                 "A mirror that reflects nothing on its surface.",
                 0, 1, 1, 0,
-                Resources.mirrorOfAdjustment,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), triggeredAbilities: triggeredAbilities,
-                metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.mirrorOfAdjustment_emission);
+                Resources.mirrorOfAdjustment, Resources.mirrorOfAdjustment_emission,
+                abilities: abilities, specialAbilities: specialAbilities,
+                metaCategories: new(), tribes: new(), traits: new(),
+                isTerrain: true, isChoice: true);
         }
     }
 }

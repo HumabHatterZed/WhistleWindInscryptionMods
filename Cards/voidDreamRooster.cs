@@ -1,18 +1,18 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void VoidDreamRooster_T0299()
         {
             List<Ability> abilities = new()
             {
-                Ability.DebuffEnemy,
-                Ability.Flying
+                Ability.DebuffEnemy
             };
 
             List<Tribe> tribes = new()
@@ -25,9 +25,9 @@ namespace WhistleWindLobotomyMod
                 "wstl_voidDreamRooster", "Void Dream",
                 "Quite the chimera.",
                 2, 2, 2, 0,
-                Resources.voidDreamRooster,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, emissionTexture: Resources.voidDreamRooster_emission);
+                Resources.voidDreamRooster, Resources.voidDreamRooster_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new());
         }
     }
 }

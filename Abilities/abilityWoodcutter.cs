@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
@@ -6,17 +6,17 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Woodcutter()
+        private void Ability_Woodcutter()
         {
             const string rulebookName = "Woodcutter";
             const string rulebookDescription = "When a card moves into the space opposing this card, deal damage equal to this card's Power.";
             const string dialogue = "No matter how many trees fall, the forest remains dense.";
 
-            return WstlUtils.CreateAbility<Woodcutter>(
+            Woodcutter.ability = WstlUtils.CreateAbility<Woodcutter>(
                 Resources.sigilWoodcutter,
-                rulebookName, rulebookDescription, dialogue, 4);
+                rulebookName, rulebookDescription, dialogue, 4).Id;
         }
     }
     // ripped from Sentry code

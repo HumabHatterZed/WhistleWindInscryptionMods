@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
@@ -6,16 +6,16 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Cursed()
+        private void Ability_Cursed()
         {
             const string rulebookName = "Cursed";
             const string rulebookDescription = "When a card bearing this sigil dies, the killer transforms into this card.";
             const string dialogue = "The curse continues unabated.";
-            return WstlUtils.CreateAbility<Cursed>(
+            Cursed.ability = WstlUtils.CreateAbility<Cursed>(
                 Resources.sigilCursed,
-                rulebookName, rulebookDescription, dialogue, 0);
+                rulebookName, rulebookDescription, dialogue, 0).Id;
         }
     }
     public class Cursed : AbilityBehaviour

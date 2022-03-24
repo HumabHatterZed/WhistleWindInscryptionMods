@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,17 +7,17 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Protector()
+        private void Ability_Protector()
         {
             const string rulebookName = "Protector";
             const string rulebookDescription = "Adjacent cards take 1 less damage from attacks.";
             const string dialogue = "Your beast shields its ally against the blow.";
 
-            return WstlUtils.CreateAbility<Protector>(
+            Protector.ability = WstlUtils.CreateAbility<Protector>(
                 Resources.sigilProtector,
-                rulebookName, rulebookDescription, dialogue, 3);
+                rulebookName, rulebookDescription, dialogue, 3).Id;
         }
     }
     public class Protector : AbilityBehaviour
@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod
         private readonly string protectDialogue = "The knight shields her friend against the blow.";
         private readonly string despairDialogue = "Having failed to protect again, the knight fell once more to despair.";
 
-        private readonly string blackDialogue = "The human heart is black. They will clean it with their love.";
+        private readonly string blackDialogue = "The human heart is black, and must be cleaned.";
 
         public override bool RespondsToOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
         {

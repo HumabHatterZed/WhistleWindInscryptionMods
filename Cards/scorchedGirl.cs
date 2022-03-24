@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void ScorchedGirl_F0102()
         {
@@ -18,10 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_scorchedGirl", "Scorched Girl",
                 "Though there's nothing left to burn, the fire won't go out.",
                 1, 1, 0, 3,
-                Resources.scorchedGirl,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.scorchedGirl_emission);
+                Resources.scorchedGirl, Resources.scorchedGirl_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true);
         }
     }
 }

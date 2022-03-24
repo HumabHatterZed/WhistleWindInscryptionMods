@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
@@ -6,27 +6,20 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewSpecialAbility SpecialAbility_Fetus()
+        private void SpecialAbility_Fetus()
         {
             const string rulebookName = "Fetus";
-            const string rulebookDescription = "Will awaken after sacrificed six times.";
-            return WstlUtils.CreateSpecialAbility<NamelessFetus>(
-                AbilitiesUtil.LoadAbilityIcon("None"),
-                rulebookName, rulebookDescription, false, false, false);
+            const string rulebookDescription = "Reacts to being sacrificed 6 times.";
+            NamelessFetus.specialAbility = WstlUtils.CreateSpecialAbility<NamelessFetus>(rulebookName, rulebookDescription).Id;
         }
     }
     public class NamelessFetus : SpecialCardBehaviour
     {
+        public SpecialTriggeredAbility SpecialAbility => specialAbility;
+
         public static SpecialTriggeredAbility specialAbility;
-        public static SpecialAbilityIdentifier GetSpecialAbilityId
-        {
-            get
-            {
-                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Fetus");
-            }
-        }
 
         private readonly string dialogue = "As you cut into the beast's flesh, it lets out a piercing cry.";
         private int sacrificeCount;

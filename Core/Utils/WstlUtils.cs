@@ -1,4 +1,5 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System;
 using System.Collections.Generic;
@@ -9,181 +10,136 @@ namespace WhistleWindLobotomyMod
 {
     public static class WstlUtils
     {
-        // Ripped wholesale from GrimoraMod and SigilADay_julienperge
+        // Originally taken from GrimoraMod and SigilADay_julienperge
         #region Cards
         public static void Add(
-            string name, string displayName,
+            string name,
+            string displayName,
             string description,
-            int baseAttack, int baseHealth,
-            int bloodCost, int bonesCost,
+            int baseAttack,
+            int baseHealth,
+            int bloodCost,
+            int bonesCost,
             byte[] defaultTexture,
-            Ability ability = Ability.NUM_ABILITIES,
-            SpecialAbilityIdentifier specialAbility = null,
-            Tribe tribe = Tribe.NUM_TRIBES,
-            SpecialTriggeredAbility triggeredAbility = SpecialTriggeredAbility.NUM_ABILITIES,
-            CardMetaCategory metaCategory = CardMetaCategory.NUM_CATEGORIES,
-            CardComplexity complexity = CardComplexity.Simple,
             byte[] emissionTexture = null,
             byte[] altTexture = null,
             byte[] titleTexture = null,
-            List<Texture> decals = null,
-            List<CardAppearanceBehaviour.Appearance> appearanceBehaviour = null,
-            IceCubeIdentifier iceCubeId = null,
-            EvolveIdentifier evolveId = null,
-            TailIdentifier tailId = null,
+            List<Ability> abilities = null,
+            List<SpecialTriggeredAbility> specialAbilities = null,
+            List<CardMetaCategory> metaCategories = null,
+            List<Tribe> tribes = null,
             List<Trait> traits = null,
-            bool onePerDeck = false)
-        {
-            var abilities = new List<Ability>();
-            if (ability != Ability.NUM_ABILITIES)
-            {
-                abilities.Add(ability);
-            }
-
-            var specialAbilities = new List<SpecialAbilityIdentifier>();
-            if (specialAbility != null)
-            {
-                specialAbilities.Add(specialAbility);
-            }
-
-            var tribes = new List<Tribe>();
-            if (tribe != Tribe.NUM_TRIBES)
-            {
-                tribes.Add(tribe);
-            }
-
-            var triggeredAbilities = new List<SpecialTriggeredAbility>();
-            if (triggeredAbility != SpecialTriggeredAbility.NUM_ABILITIES)
-            {
-                triggeredAbilities.Add(triggeredAbility);
-            }
-
-            Add(
-                name, displayName, description,
-                baseAttack, baseHealth,
-                bloodCost, bonesCost, defaultTexture, abilities, specialAbilities, tribes, triggeredAbilities,
-                metaCategory, complexity, emissionTexture, altTexture, titleTexture,
-                decals, appearanceBehaviour, iceCubeId, evolveId, tailId, traits, onePerDeck);
-        }
-
-        public static void Add(
-            string name, string displayName,
-            string description,
-            int baseAttack, int baseHealth,
-            int bloodCost, int bonesCost,
-            byte[] defaultTexture,
-            List<Ability> abilities,
-            List<SpecialAbilityIdentifier> specialAbilities,
-            List<Tribe> tribes,
-            List<SpecialTriggeredAbility> triggeredAbilities = null,
-            CardMetaCategory metaCategory = CardMetaCategory.NUM_CATEGORIES,
-            CardComplexity complexity = CardComplexity.Simple,
-            byte[] emissionTexture = null,
-            byte[] altTexture = null,
-            byte[] titleTexture = null,
+            bool isTerrain = false,
+            bool isChoice = false,
+            bool isRare = false,
+            List<CardAppearanceBehaviour.Appearance> appearances = null,
             List<Texture> decals = null,
-            List<CardAppearanceBehaviour.Appearance> appearanceBehaviour = null,
-            IceCubeIdentifier iceCubeId = null,
-            EvolveIdentifier evolveId = null,
-            TailIdentifier tailId = null,
-            List<Trait> traits = null,
-            bool onePerDeck = false)
+            string iceCubeName = null,
+            string evolveName = null,
+            int numTurns = 1,
+            string tailName = null,
+            byte[] tailTexture = null,
+            int riskLevel = 0,
+            bool onePerDeck = false
+            )
         {
-            var metaCategories = new List<CardMetaCategory>();
-
-            switch (metaCategory)
-            {
-                case CardMetaCategory.Rare:
-                case CardMetaCategory.GBCPlayable:
-                    metaCategories.Add(metaCategory);
-                    break;
-                case CardMetaCategory.ChoiceNode:
-                    metaCategories = CardUtils.getNormalCardMetadata;
-                    break;
-            }
-            decals ??= new List<Texture>();
-            traits ??= new List<Trait>();
-            appearanceBehaviour ??= new List<CardAppearanceBehaviour.Appearance>();
-            abilities ??= new List<Ability>();
-            specialAbilities ??= new List<SpecialAbilityIdentifier>();
-            tribes ??= new List<Tribe>();
-
-            CardInfo cardInfo = ScriptableObject.CreateInstance<CardInfo>();
-
-            cardInfo.name = name;
-            cardInfo.displayedName = displayName;
-            cardInfo.baseHealth = baseHealth;
-            cardInfo.baseAttack = baseAttack;
-            cardInfo.metaCategories = metaCategories;
-            cardInfo.cardComplexity = complexity;
-            cardInfo.temple = CardTemple.Nature;
-            cardInfo.description = description;
-            cardInfo.cost = bloodCost;
-            cardInfo.bonesCost = bonesCost;
-            cardInfo.abilities = abilities;
-            cardInfo.tribes = tribes;
-            cardInfo.decals = decals;
-            cardInfo.appearanceBehaviour = appearanceBehaviour;
-            cardInfo.traits = traits;
-            cardInfo.onePerDeck = onePerDeck;
+            abilities ??= new();
+            specialAbilities ??= new();
+            metaCategories ??= new();
+            tribes ??= new();
+            traits ??= new();
+            appearances ??= new();
+            decals ??= new();
 
             Texture2D texture = ImageUtils.LoadTextureFromResource(defaultTexture);
             Texture2D emissionTex = null;
-            if (emissionTexture != null)
-            {
+            Texture2D altTex = null;
+            Texture titleTex = null;
+            Texture2D tailTex = null;
+
+            if (emissionTexture != null) {
                 emissionTex = ImageUtils.LoadTextureFromResource(emissionTexture);
             }
-            Texture2D altTex = null;
-            if (altTexture != null)
-            {
+            if (altTexture != null) {
                 altTex = ImageUtils.LoadTextureFromResource(altTexture);
             }
-            Texture titleTex = null;
-            if (titleTexture != null)
-            {
+            if (titleTexture != null) {
                 titleTex = ImageUtils.LoadTextureFromResource(titleTexture);
             }
+            if (tailTexture != null) {
+                tailTex = ImageUtils.LoadTextureFromResource(titleTexture);
+            }
 
-            NewCard.Add(name, displayName, baseAttack, baseHealth,
-                metaCategories, complexity, CardTemple.Nature,
-                description, false, bloodCost, bonesCost, 0, null,
-                SpecialStatIcon.None, tribes, traits, triggeredAbilities, abilities,
-                null, specialAbilitiesIdsParam: specialAbilities,
-                null, null, null, null, false,
-                onePerDeck, appearanceBehaviour, texture,
-                altTex, titleTex, null, emissionTex, null, decals,
-                evolveId: evolveId, iceCubeId: iceCubeId, tailId: tailId);
+            string risk = riskLevel switch
+            {
+                1 => "TETH",
+                2 => "HE",
+                3 => "WAW",
+                4 => "ALEPH",
+                _ => "ZAYIN",
+            };
+
+            CardInfo cardInfo = ScriptableObject.CreateInstance<CardInfo>();
+
+            cardInfo.SetPortrait(texture, emissionTex);
+            cardInfo.name = name;
+            cardInfo.displayedName = displayName;
+            cardInfo.description = description;
+            cardInfo.baseAttack = baseAttack;
+            cardInfo.baseHealth = baseHealth;
+            cardInfo.cost = bloodCost;
+            cardInfo.bonesCost = bonesCost;
+            cardInfo.abilities = abilities;
+            cardInfo.specialAbilities = specialAbilities;
+            cardInfo.metaCategories = metaCategories;
+            cardInfo.tribes = tribes;
+            cardInfo.traits = traits;
+            cardInfo.appearanceBehaviour = appearances;
+            cardInfo.decals = decals;
+            cardInfo.cardComplexity = CardComplexity.Simple;
+            cardInfo.temple = CardTemple.Nature;
+            cardInfo.onePerDeck = onePerDeck;
+            cardInfo.SetExtendedProperty("RiskLevel", risk);
+
+            if (altTex != null)
+            {
+                cardInfo.SetAltPortrait(altTex);
+            }
+            if (isTerrain)
+            {
+                cardInfo.SetTerrain();
+            }
+            if (isChoice)
+            {
+                cardInfo.SetDefaultPart1Card();
+            }
+            if (isRare)
+            {
+                cardInfo.SetRare();
+            }
+            if (titleTexture != null)
+            {
+                cardInfo.titleGraphic = titleTex;
+            }
+            if (iceCubeName != null)
+            {
+                cardInfo.SetEvolve(iceCubeName, numTurns);
+            }
+            if (evolveName != null)
+            {
+                cardInfo.SetEvolve(evolveName, numTurns);
+            }
+            if (tailName != null)
+            {
+                cardInfo.SetTail(tailName, tailTex);
+            }
+            cardInfo.onePerDeck = onePerDeck;
+
+            CardManager.Add(WstlPlugin.modPrefix, cardInfo);
         }
         #endregion
 
         #region Abilities
-        public static AbilityInfo CreateInfoWithDefaultSettings(
-            string rulebookName, string rulebookDescription, string dialogue,
-            bool addModular = false, bool isPassive = false, bool canStack = false,
-            bool overrideModular = false, int powerLevel = 0)
-        {
-            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            info.powerLevel = powerLevel;
-            info.rulebookName = rulebookName;
-            info.rulebookDescription = rulebookDescription;
-            info.passive = isPassive;
-            info.canStack = canStack;
-            if ((addModular || ConfigHelper.Instance.AllModular) && !overrideModular)
-            {
-                info.metaCategories = new List<AbilityMetaCategory>(){
-                    AbilityMetaCategory.Part1Modular,
-                    AbilityMetaCategory.Part1Rulebook};
-
-            }
-            else
-            {
-                info.metaCategories = new List<AbilityMetaCategory>()
-                {AbilityMetaCategory.Part1Rulebook};
-            }
-
-            info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
-            return info;
-        }
         public static DialogueEvent.LineSet SetAbilityInfoDialogue(string dialogue)
         {
             return new DialogueEvent.LineSet(new List<DialogueEvent.Line>()
@@ -196,21 +152,8 @@ namespace WhistleWindLobotomyMod
             );
         }
 
-        // Input method.  Grabs resource file and converts to Texture
-        public static NewAbility CreateAbility<T>(
-            byte[] texture, string rulebookName, string rulebookDescription,
-            string dialogue, int powerLevel = 0, bool addModular = false,
-            bool isPassive = false, bool canStack = false, bool overrideModular = false)
-            where T : AbilityBehaviour
-        {
-            return CreateAbility<T>(
-                ImageUtils.LoadTextureFromResource(texture),
-                rulebookName, rulebookDescription,
-                dialogue, powerLevel, addModular, isPassive, canStack, overrideModular);
-        }
-        // Uses the above info to generate AbilityInfo (Need both for the conversion from byte[] to Texture?)
-        public static NewAbility CreateAbility<T>(
-            Texture texture,
+        public static AbilityManager.FullAbility CreateAbility<T>(
+            byte[] texture,
             string rulebookName,
             string rulebookDescription,
             string dialogue,
@@ -218,108 +161,55 @@ namespace WhistleWindLobotomyMod
             bool addModular = false,
             bool isPassive = false,
             bool canStack = false,
+            bool opponent = false,
+            bool flipY = false,
+            byte[] customY = null,
             bool overrideModular = false)
             where T : AbilityBehaviour
         {
-            return CreateAbility<T>(
-                CreateInfoWithDefaultSettings(
-                    rulebookName, rulebookDescription,
-                    dialogue, addModular, isPassive, canStack, overrideModular, powerLevel: powerLevel), texture);
-        }
-        // Instantiates ability
-        private static NewAbility CreateAbility<T>(
-            AbilityInfo info,
-            Texture texture)
-            where T : AbilityBehaviour
-        {
-            Type type = typeof(T);
-            // instantiate
-            var newAbility = new NewAbility(
-                info, type, texture, GetAbilityId(info.rulebookName));
-            // Get static field
-            FieldInfo field = type.GetField("ability",
-                BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance);
-            field.SetValue(null, newAbility.ability);
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
-            return newAbility;
+            Texture2D tex = ImageUtils.LoadTextureFromResource(texture);
+            Texture2D flippedTex = null;
+            if (customY != null)
+            {
+                flippedTex = ImageUtils.LoadTextureFromResource(customY);
+            }
+
+            List<AbilityMetaCategory> list = new()
+            {
+                AbilityMetaCategory.Part1Rulebook
+            };
+            if ((addModular || ConfigUtils.Instance.AllModular) && !overrideModular)
+            {
+                list.Add(AbilityMetaCategory.Part1Modular);
+            }
+
+            info.rulebookName = rulebookName;
+            info.rulebookDescription = rulebookDescription;
+            info.powerLevel = powerLevel;
+            info.passive = isPassive;
+            info.canStack = canStack;
+            info.opponentUsable = opponent;
+            info.flipYIfOpponent = flipY;
+            info.metaCategories = list;
+            info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
+            if (flippedTex != null)
+            {
+                info.SetCustomFlippedTexture(flippedTex);
+            }
+
+            return AbilityManager.Add(WstlPlugin.modPrefix, info, typeof(T), tex);
         }
 
         #endregion
 
         #region SpecialAbilities
-        public static StatIconInfo CreateSpecialInfoWithDefaultSettings(
-            string rulebookName, string rulebookDescription, Texture iconGraphic,
-            bool appliesToHealth = false, bool appliesToAttack = false,
-            bool inRulebook = false, bool overrideDesc = false)
-        {
-            StatIconInfo specialInfo = ScriptableObject.CreateInstance<StatIconInfo>();
-            specialInfo.rulebookName = rulebookName;
-            specialInfo.rulebookDescription = rulebookDescription;
-            specialInfo.appliesToHealth = appliesToHealth;
-            specialInfo.appliesToAttack = appliesToAttack;
-            specialInfo.iconGraphic = iconGraphic;
-
-            if ((inRulebook || ConfigHelper.Instance.RevealSpecials) && !overrideDesc)
-            {
-                specialInfo.metaCategories = new List<AbilityMetaCategory>(){
-                    AbilityMetaCategory.Part1Rulebook};
-            }
-            else
-            {
-                specialInfo.metaCategories = new List<AbilityMetaCategory>()
-                {
-                    AbilityMetaCategory.None
-                };
-            }
-            return specialInfo;
-        }
-
-        // Input method.  Grabs resource file and converts to Texture
-        public static NewSpecialAbility CreateSpecialAbility<T>(
-            byte[] iconGraphic,
-            string rulebookName, string rulebookDescription,
-            bool appliesToHealth = false, bool appliesToAttack = false,
-            bool inRulebook = false, bool overrideDesc = false)
+        public static SpecialTriggeredAbilityManager.FullSpecialTriggeredAbility CreateSpecialAbility<T>(string rulebookName, string rulebookDesc)
             where T : SpecialCardBehaviour
         {
-            return CreateSpecialAbility<T>(
-                ImageUtils.LoadTextureFromResource(iconGraphic),
-                rulebookName, rulebookDescription,
-                appliesToHealth, appliesToAttack, inRulebook, overrideDesc);
+            return SpecialTriggeredAbilityManager.Add(WstlPlugin.modPrefix, rulebookName, typeof(T));
         }
-
-        public static NewSpecialAbility CreateSpecialAbility<T>(
-            Texture iconGraphic,
-            string rulebookName, string rulebookDescription,
-            bool appliesToHealth = false, bool appliesToAttack = false,
-            bool inRulebook = false, bool overrideDesc = false)
-            where T : SpecialCardBehaviour
-        {
-            return CreateSpecialAbility<T>(
-                CreateSpecialInfoWithDefaultSettings(
-                    rulebookName, rulebookDescription, iconGraphic,
-                    appliesToHealth, appliesToAttack, inRulebook, overrideDesc));
-        }
-
-        public static NewSpecialAbility CreateSpecialAbility<T>(StatIconInfo specialInfo)
-            where T : SpecialCardBehaviour
-        {
-            Type type = typeof(T);
-
-            var newSpecialAbility = new NewSpecialAbility(type, GetSpecialAbilityId(specialInfo.rulebookName), statIconInfo: specialInfo);
-
-            return newSpecialAbility;
-        }
-
         #endregion
-
-        public static AbilityIdentifier GetAbilityId(string rulebookName)
-        {
-            return AbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, rulebookName);
-        }
-        public static SpecialAbilityIdentifier GetSpecialAbilityId(string rulebookName)
-        {
-            return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, rulebookName);
-        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,17 +7,18 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Scrambler()
+        private void Ability_Scrambler()
         {
             const string rulebookName = "Scrambler";
             const string rulebookDescription = "When this card is sacrificed, add its stats to the card it was sacrificed to, then scramble that card's stats.";
             const string dialogue = "Do you love your city?";
 
-            return WstlUtils.CreateAbility<Scrambler>(
+            Scrambler.ability = WstlUtils.CreateAbility<Scrambler>(
                 Resources.sigilScrambler,
-                rulebookName, rulebookDescription, dialogue, 3, addModular: true);
+                rulebookName, rulebookDescription, dialogue, 3,
+                addModular: true).Id;
         }
     }
     public class Scrambler : AbilityBehaviour

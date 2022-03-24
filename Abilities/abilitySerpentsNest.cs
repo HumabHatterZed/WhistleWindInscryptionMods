@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,17 +7,18 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_SerpentsNest()
+        private void Ability_SerpentsNest()
         {
             const string rulebookName = "Serpent's Nest";
             const string rulebookDescription = "When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.";
             const string dialogue = "The infection spreads.";
 
-            return WstlUtils.CreateAbility<SerpentsNest>(
+            SerpentsNest.ability = WstlUtils.CreateAbility<SerpentsNest>(
                 Resources.sigilSerpentsNest,
-                rulebookName, rulebookDescription, dialogue, 4, addModular: true);
+                rulebookName, rulebookDescription, dialogue, 4,
+                addModular: true).Id;
         }
     }
     public class SerpentsNest : AbilityBehaviour

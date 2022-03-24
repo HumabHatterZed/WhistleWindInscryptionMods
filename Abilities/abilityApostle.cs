@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,22 +7,23 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Apostle()
+        private void Ability_Apostle()
         {
             const string rulebookName = "Apostle";
             string rulebookDescription = "Thou wilt abandon flesh and be born again.";
             const string dialogue = "Ye who are full of blessings, rejoice. For I am with ye.";
 
-            if (ConfigHelper.Instance.RevealWhiteNight)
+            if (ConfigUtils.Instance.RevealWhiteNight)
             {
                 rulebookDescription = "While WhiteNight is on the board, this card will enter a downed state instead of dying.";
             }
 
-            return WstlUtils.CreateAbility<Apostle>(
+            Apostle.ability = WstlUtils.CreateAbility<Apostle>(
                 Resources.sigilApostle,
-                rulebookName, rulebookDescription, dialogue, -3, overrideModular: true);
+                rulebookName, rulebookDescription, dialogue, -3,
+                overrideModular: true).Id;
         }
     }
     public class Apostle : AbilityBehaviour

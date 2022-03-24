@@ -11,12 +11,8 @@ This mod currently adds **71** obtainable cards and **39** custom abilities.
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.17
 * API_dev-API v1.13.0+ (non-Kaycee version)
-* Sigil Art Fix by Memez4Life (not required but recommended)
 
 ## 🩹 Known Issues
-### Kaycee's Mod incompatibility
-This mod is currently incompatible with Kaycee's Mod (working on it!), so you'll have to switch to vanilla Inscryption.
-
 ### LogLevel 'Debug' causing lag
 If your BepInEx console is set to output 'Debug' or 'All' log levels, you WILL experience lag spikes whenever dealing with cards with special abilities.
 This includes vanilla cards such as Ants or Tentacles, as well as the Rulebook entries for said abilities.
@@ -69,8 +65,6 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Mountain of Smiling Bodies|Reacts to killing cards.|
 |CENSORED|Reacts to killing cards.|
 |Today's Shy Look|Reacts to being drawn.|
-|Judgement Bird|Reacts to attacking cards.|
-|Snow Queen|Reacts to being played.|
 |Army in Pink|Reacts to cards dying.|
 |Melting Love|Reacts to taking damage.|
 
@@ -92,8 +86,8 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.||
 ||Healer|This card will heal a selected ally for 2 Health.||
 ||Queen Nest|When a card bearing this sigil is played, a Worker Bee is created in your hand. Create an additional Worker Bee whenever another card dies.||
-||Bitter Enemies|A card bearing this sigil gains 1 Power when another card on this board also has this sigil.|Yes|
-||Courageous|Adjacent cards lose up to 2 Health but gain 1 Power for every 1 Health lost via this effect. Affected cards will not go below 1 Health.||
+||Bitter Enemies|A card bearing this sigil gains 1 Power when another card on this board also bears this sigil.|Yes|
+||Courageous|Adjacent cards lose up to 2 Health but gain 1 Power for every 1 Health lost via this effect. These stats persist until battle's end.||
 ||Serpent's Nest|When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.|Yes|
 ||Assimilator|When a card bearing this sigil kills an enemy card, this card gains 1 Power and 1 Health.||
 ||Group Healer|While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.||
@@ -111,13 +105,13 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||Slime|A card bearing this sigil takes 1 less damage from attacks. Additionally, cards placed adjacent to this card are turned into Slimes.||
 ||Marksman|You may choose which opposing space a card bearing this sigil strikes. (identical to Sniper)||
 ||Protector|Adjacent cards take 1 less damage from attacks.||
-||Irritating|The creature opposing this card gains 1 Power.||
 ||Quick Draw|When a creature moves into the space opposite this card, they take 1 damage.||
 ||Apostle|*Thou wilt abandon flesh and be born again.*|||
 ||True Saviour|*My story is nowhere, unknown to all.*|||
 ||Confession and Pentinence|*Keep faith with unwavering resolve.*|||
 # 📜 List of Obtainable and Minion Cards
-**Note: Singleton indicates you can only have a single copy of that card in your deck.**
+**Notes: Singleton indicates you can only have a single copy of that card in your deck (like Ouroboros).**
+
 <!---
 <img align="center" src="https://tinyurl.com/34daekbw">
 --->
@@ -136,7 +130,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||The Lady Facing the Wall|0|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Punisher|||
 ||Nothing There|1|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">||Rare||
 ||The Lady Facing the Wall|0|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Punisher|||
-||1.76 MHz|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Leader<br>Irritating|||
+||1.76 MHz|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Leader<br>Annoying|||
 ||Singing Machine|0|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Team Leader<br>Aggravating|||
 ||The Silent Orchestra|2|5|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png">|Conductor|Rare||
 ||Chairs|0|2||Leader|||
@@ -182,13 +176,13 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||The Burrowing Heaven|0|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png">||||
 ||Magical Girl S|2|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Protector|Rare<br>Singleton||
 ||The Knight of Despair|2|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Bifurcated Strike<br>Piercing|Rare<br>Singleton||
-||The Naked Nest|0|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Serpent's Nest|||
+||The Naked Nest|0|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Serpent's Nest|Kills Survivors||
 ||Naked Worm|1|1|||||
 ||Mountain of Smiling Bodies|2|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Assimilator|Rare||
 ||Schadenfreude|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Quick Draw<br>Touch of Death|||
 ||The Heart of Aspiration|1|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Leader|||
 ||Notes from a Crazed Researcher|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Flag Bearer<br>Volatile|||
-||Flesh Idol|0|4|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png">|Group Healer<br>Irritating|||
+||Flesh Idol|0|4|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_6.png">|Group Healer<br>Annoying|||
 ||T-09-80|||||||
 ||Mirror of Adjustment|M|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Woodcutter|||
 ||Shelter from the 27th of March|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png">|Aggravating<br>Repulsive|||
@@ -209,7 +203,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||Luminous Bracelet|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png">|Regenerator|||
 ||O-09-96|||||||
 ||T-09-97|||||||
-||Porccubus|1|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_5.png">|Touch of Death|||
+||Porccubus|1|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_5.png">|Touch of Death|Kills Survivors||
 ||Void Dream|0|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Fledgling<br>Flying||Hooved|
 ||^Void Dream|2|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Stinky<br>Flying||Hooved<br>Avian|
 ||Grave of Cherry Blossoms|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Sharp Quills<br>Bloodfiend||
@@ -218,21 +212,23 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||O-07-103|||||||
 ||D-09-104|||||||
 ||D-01-105|||||||
-||Army in Pink|2|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Fecundity<br>Protector|Rare|
+||Army in Pink|2|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Fecundity<br>Protector|Rare||
 ||Ppodae|1|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Stinky<br>Fledgling||Canine|
 ||^Ppodae|3|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_8.png">|Stinky||Canine|
-||Parasite Tree|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Gardener||
+||Parasite Tree|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Gardener|||
 ||Sapling|1|2|||||
-||Melting Love|4|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png">|Made of Slime|Rare|
+||Melting Love|4|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png">|Made of Slime|Rare<br>Kills Survivors||
 ||Slime|0|0||Made of Slime|||
-||Honoured Monk|2|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Fledgling||
-||Clouded Monk|4|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png">|||
+||Honoured Monk|2|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Fledgling|||
+||Clouded Monk|4|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png">||||
 
 ## Future Plans
 Hey, you made it to the bottom of this ReadMe, congrats! Below's a couple-a things I've got rattlin' around in my head.
 
 * Add remaining abnormalities (denoted under Cards by their classification numbers)
-	* Since some of the unadded cards are currently planned on using Kaycee Mod sigils, this will also coincide with this mod becoming Kaycee-compatible.
-* Add custom choice node for mod cards (part of overall plan to rebalance the cards once this thing's gotten some feedback and I've gotten some rest.)
-* Additional expansion pack(s) relating to the sequel game
-* Another custom node?
+* Tweak some cards and/or abilities
+* Add custom card choice node specifically for abnormalities. This would pull from all cards - rares included - using a distribution based on their risk level.
+* Expansion pack of the Ruina abnormalities. Also maybe a Wonderlab one, but let's not get too far ahead of ourselves.
+* Custom challenges and starter decks
+* Ordeal battle node?
+* Items??

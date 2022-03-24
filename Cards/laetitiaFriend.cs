@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void LaetitiaFriend_O0167()
         {
@@ -18,9 +19,9 @@ namespace WhistleWindLobotomyMod
                 "wstl_laetitiaFriend", "Little Witch's Friend",
                 "She brought her friends along.",
                 2, 2, 0, 4,
-                Resources.laetitiaFriend,
-                new List<Ability>(), new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, emissionTexture: Resources.laetitiaFriend_emission);
+                Resources.laetitiaFriend, Resources.laetitiaFriend_emission,
+                abilities: new(), specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new());
         }
     }
 }

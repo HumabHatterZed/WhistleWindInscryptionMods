@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void MountainOfBodies_T0175()
         {
@@ -18,11 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_mountainOfBodies", "The Mountain of Smiling Bodies",
                 "A mass grave, melted and congealed into one eternally hungry beast.",
                 2, 1, 2, 0,
-                Resources.mountainOfBodies,
+                Resources.mountainOfBodies, Resources.mountainOfBodies_emission,
                 abilities: abilities, specialAbilities: new(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
-                emissionTexture: Resources.mountainOfBodies_emission,
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                metaCategories: new(), tribes: new(), traits: new(),
+                isRare: true);
         }
     }
 }

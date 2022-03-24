@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
@@ -6,16 +6,16 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Reflector()
+        private void Ability_Reflector()
         {
             const string rulebookName = "Reflector";
             const string rulebookDescription = "When this card is struck, the striker is dealt damage equal to the striker's Power.";
             const string dialogue = "What goes around comes around.";
-            return WstlUtils.CreateAbility<Reflector>(
+            Reflector.ability = WstlUtils.CreateAbility<Reflector>(
                 Resources.sigilReflector,
-                rulebookName, rulebookDescription, dialogue, 2);
+                rulebookName, rulebookDescription, dialogue, 2).Id;
         }
     }
     public class Reflector : AbilityBehaviour

@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void Ppodae_D02107()
         {
@@ -24,11 +25,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_ppodae", "Ppodae",
                 "An innocent little puppy.",
                 1, 1, 0, 4,
-                Resources.ppodae,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.ppodae_emission,
-                evolveId: new EvolveIdentifier("wstl_ppodaeBuff", 1));
+                Resources.ppodae, Resources.ppodae_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
+                isChoice: true, evolveName: "wstl_ppodaeBuff");
         }
     }
 }

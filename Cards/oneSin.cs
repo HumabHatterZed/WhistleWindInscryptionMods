@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void OneSin_O0303()
         {
@@ -18,9 +19,9 @@ namespace WhistleWindLobotomyMod
                 "wstl_oneSin", "One Sin and Hundreds of Good Deeds",
                 "Its hollow sockets see through you.",
                 0, 1, 0, 4,
-                Resources.oneSin,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode);
+                Resources.oneSin, Resources.oneSin_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

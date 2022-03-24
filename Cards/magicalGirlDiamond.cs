@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void MagicalGirlDiamond_O0164()
         {
@@ -13,20 +14,19 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Evolve
             };
-            List<SpecialAbilityIdentifier> specialAbilities = new()
+            List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                _AbilityHelper.GetSpecialAbilityId
+                _AbilityHelper.specialAbility
             };
 
             WstlUtils.Add(
                 "wstl_magicalGirlDiamond", "Magical Girl",
                 "Greed hardened into golden amber, trapping the happiness inside.",
                 0, 3, 2, 0,
-                Resources.magicalGirlDiamond,
+                Resources.magicalGirlDiamond, Resources.magicalGirlDiamond_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.magicalGirlDiamond_emission,
-                evolveId: new EvolveIdentifier("wstl_kingOfGreed", 1), onePerDeck: true);
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true, evolveName: "wstl_kingOfGreed", onePerDeck: true);
         }
     }
 }

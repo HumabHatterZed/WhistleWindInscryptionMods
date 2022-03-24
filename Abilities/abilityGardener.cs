@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,16 +7,16 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Gardener()
+        private void Ability_Gardener()
         {
             const string rulebookName = "Gardener";
             const string rulebookDescription = "When an ally card dies, create a Sapling in their place. A slot is defined as: 1 Power, 2 Health.";
             const string dialogue = "They proliferate and become whole. Can you feel it?";
-            return WstlUtils.CreateAbility<Gardener>(
+            Gardener.ability = WstlUtils.CreateAbility<Gardener>(
                 Resources.sigilGardener,
-                rulebookName, rulebookDescription, dialogue, 4);
+                rulebookName, rulebookDescription, dialogue, 4).Id;
         }
     }
     public class Gardener : AbilityBehaviour

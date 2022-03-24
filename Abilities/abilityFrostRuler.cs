@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
@@ -6,16 +6,16 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_FrostRuler()
+        private void Ability_FrostRuler()
         {
             const string rulebookName = "Ruler of Frost";
             const string rulebookDescription = "When this card is played, create a Block of Ice in the opposing spaces to its left and right. A Block of Ice is defined as: 0 Power, 1 Health.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
-            return WstlUtils.CreateAbility<FrostRuler>(
+            FrostRuler.ability = WstlUtils.CreateAbility<FrostRuler>(
                 Resources.sigilFrostRuler,
-                rulebookName, rulebookDescription, dialogue, 5);
+                rulebookName, rulebookDescription, dialogue, 5).Id;
         }
     }
     public class FrostRuler : AbilityBehaviour
