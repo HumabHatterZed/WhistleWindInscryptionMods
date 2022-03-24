@@ -418,6 +418,9 @@
   <data name="meltingLoveMinion_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\meltingLoveMinion_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="meltingLove_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\meltingLove_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="mhz176" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Mhz176.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

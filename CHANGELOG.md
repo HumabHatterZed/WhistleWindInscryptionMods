@@ -1,4 +1,6 @@
 ## Changelog
-### v0.83.61.53
+### v1.0.0.0
 Initial release
-* Added initial batch of 71 cards, 114 total
+* 71 obtainable cards, 114 total
+* 38 custom abilities
+* 13 special abilities

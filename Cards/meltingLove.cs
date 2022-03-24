@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void MeltingLove_D03109()
         {
@@ -17,15 +18,18 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.KillsSurvivors
             };
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                CardAppearanceBehaviour.Appearance.RareCardBackground
+            };
             WstlUtils.Add(
                 "wstl_meltingLove", "Melting Love",
                 "Don't let your beasts get too close now.",
                 4, 2, 3, 0,
-                Resources.meltingLove,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), traits: traits, metaCategory: CardMetaCategory.Rare,
-                emissionTexture: Resources.rudoltaSleigh_emission,
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                Resources.meltingLove, Resources.meltingLove_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: traits,
+                appearances: appearances); ;
         }
     }
 }

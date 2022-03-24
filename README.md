@@ -6,11 +6,11 @@ Inspired by KingSlime's own mod of this topic, this is my own take on translatin
 
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay.
 
-This mod currently adds **71** obtainable cards and **39** custom abilities.
+This mod currently adds **71** obtainable cards and **38** custom abilities, plus **13** special abilities.
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.17
-* API_dev-API v1.13.0+ (non-Kaycee version)
+* API_dev-API v2.0.0+
 
 ## 🩹 Known Issues
 ### LogLevel 'Debug' causing lag
@@ -30,7 +30,7 @@ Assuming this does affect this mod's abilities, it isn't game breaking, don't fe
 * see CHANGELOG.md
 
 ## 💌 Credits
-Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to.
+Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to/steal from.
 I'm not an expert coder by any measure, so your work has been incredibly helpful in letting make the mod I wanted to make.
 
 Additional shoutout to James Veug and his ReadMeMaker mod. I found it very helpful in making this thing look minimally presentable.
@@ -64,6 +64,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Magical Girl S|Reacts to adjacent cards.|
 |Mountain of Smiling Bodies|Reacts to killing cards.|
 |CENSORED|Reacts to killing cards.|
+|Judgement Bird|Reacts to attacking cards.|
 |Today's Shy Look|Reacts to being drawn.|
 |Army in Pink|Reacts to cards dying.|
 |Melting Love|Reacts to taking damage.|
