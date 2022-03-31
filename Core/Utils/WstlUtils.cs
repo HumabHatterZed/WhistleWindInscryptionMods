@@ -23,6 +23,7 @@ namespace WhistleWindLobotomyMod
             byte[] defaultTexture,
             byte[] emissionTexture = null,
             byte[] altTexture = null,
+            byte[] emissionAltTexture = null,
             byte[] titleTexture = null,
             List<Ability> abilities = null,
             List<SpecialTriggeredAbility> specialAbilities = null,
@@ -54,6 +55,7 @@ namespace WhistleWindLobotomyMod
             Texture2D texture = ImageUtils.LoadTextureFromResource(defaultTexture);
             Texture2D emissionTex = null;
             Texture2D altTex = null;
+            Texture2D emissionAltTex = null;
             Texture titleTex = null;
             Texture2D tailTex = null;
 
@@ -62,6 +64,10 @@ namespace WhistleWindLobotomyMod
             }
             if (altTexture != null) {
                 altTex = ImageUtils.LoadTextureFromResource(altTexture);
+            }
+            if (emissionAltTexture != null)
+            {
+                emissionAltTex = ImageUtils.LoadTextureFromResource(emissionAltTexture);
             }
             if (titleTexture != null) {
                 titleTex = ImageUtils.LoadTextureFromResource(titleTexture);
@@ -105,6 +111,10 @@ namespace WhistleWindLobotomyMod
             {
                 cardInfo.SetAltPortrait(altTex);
             }
+            //if (emissionAltTex != null)
+            //{
+            //    cardInfo.SetEmissiveAltPortrait(emissionAltTex);
+            //}
             if (isTerrain)
             {
                 cardInfo.SetTerrain();

@@ -29,8 +29,8 @@ namespace WhistleWindLobotomyMod
 
         private CardSlot targetedSlot = null;
 
-        private List<GameObject> sniperIcons = new List<GameObject>();
-        private GameObject sniperIconPrefab;
+        //private List<GameObject> sniperIcons = new List<GameObject>();
+        //private GameObject sniperIconPrefab;
 
         private int softLock = 0;
         private bool heretic = false;
