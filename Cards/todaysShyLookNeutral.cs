@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void TodaysShyLookNeutral_O0192()
         {
@@ -13,18 +14,18 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.DrawCopyOnDeath
             };
-            List<SpecialAbilityIdentifier> specialAbilities = new()
+            List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                TodaysShyLook.GetSpecialAbilityId
+                TodaysShyLook.specialAbility
             };
 
             WstlUtils.Add(
                 "wstl_todaysShyLookNeutral", "Today's Neutral Look",
                 "An indecisive creature. Its expression is different each time you draw it.",
                 1, 2, 1, 0,
-                Resources.todaysShyLook,
+                Resources.todaysShyLook, Resources.todaysShyLook_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                new List<Tribe>());
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

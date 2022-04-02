@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System;
 using System.Collections;
@@ -9,34 +9,35 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Healer()
+        private void Ability_Healer()
         {
             const string rulebookName = "Healer";
             const string rulebookDescription = "This card will heal a selected ally for 2 Health.";
             const string dialogue = "Never underestimate the importance of a healer.";
-            return WstlUtils.CreateAbility<Healer>(
+            Healer.ability = WstlUtils.CreateAbility<Healer>(
                 Resources.sigilHealer,
-                rulebookName, rulebookDescription, dialogue, 3);
+                rulebookName, rulebookDescription, dialogue, 3).Id;
         }
     }
     public class Healer : AbilityBehaviour // stolen from Zerg mod
     {
         public static Ability ability;
         public override Ability Ability => ability;
+        private bool IsDoctor => base.Card.Info.name.ToLowerInvariant().Contains("plaguedoctor");
 
         private CardSlot targetedSlot = null;
 
+        //private List<GameObject> sniperIcons = new List<GameObject>();
+        //private GameObject sniperIconPrefab;
+
         private int softLock = 0;
         private bool heretic = false;
-        private bool IsDoctor => base.Card.Info.name.ToLowerInvariant().Contains("plaguedoctor");
         private string invalidDialogue;
-
-        private readonly string healDialogue = "No allies to receive a blessing. An enemy will suffice instead.";
-        private readonly string failDialogue = "No enemies either. It seems no blessings will be given this turn.";
-
-        //WhiteNight
+        private readonly string failDialogue = "No one to heal.";
+        private readonly string failAsDoctorDialogue = "No allies to receive a blessing. An enemy will suffice instead.";
+        private readonly string failExtraHardDialogue = "No enemies either. It seems no blessings will be given this turn.";
         private readonly string transformDialogue = "The time has come. A new world will come.";
         private readonly string convertDialogue = "Rise, my servants. Rise and serve me.";
         private readonly string declareDialogue = "I am death and life. Darkness and light.";
@@ -44,68 +45,106 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
-            return base.Card.Slot.IsPlayerSlot ? playerTurnEnd : !playerTurnEnd;
+            return base.Card.OpponentCard ? !playerTurnEnd : playerTurnEnd;
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
+            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
+
             yield return base.PreSuccessfulTriggerSequence();
 
-            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode, false);
             if (!ValidAllies())
             {
                 Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
                 if (!IsDoctor)
                 {
+                    // If no valid allies and this card is not Plague Doctor, spit out failure message then break
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(failDialogue, -0.65f, 0.4f);
                     yield break;
                 }
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(healDialogue, -0.65f, 0.4f);
+
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(failAsDoctorDialogue, -0.65f, 0.4f);
                 yield return new WaitForSeconds(0.25f);
 
-                int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber;
-                List<CardSlot> slotsWithCards = Singleton<BoardManager>.Instance.OpponentSlotsCopy.FindAll((CardSlot x) => x.Card != null);
                 CardSlot randSlot;
+                List<CardSlot> opposingSlots = base.Card.OpponentCard ? Singleton<BoardManager>.Instance.PlayerSlotsCopy : Singleton<BoardManager>.Instance.OpponentSlotsCopy;
+                List<CardSlot> validTargets = opposingSlots.FindAll((CardSlot x) => x.Card != null);
+                int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber;
 
-                if (slotsWithCards.Count > 0)
+                // If there are valid targets on the opposing side, heal a random one of their cards.
+                // Else spit out another failure message then break
+                if (validTargets.Count > 0)
                 {
-                    ConfigHelper.Instance.UpdateBlessings(1);
-
-                    randSlot = slotsWithCards[SeededRandom.Range(0, slotsWithCards.Count, randomSeed)];
+                    randSlot = validTargets[SeededRandom.Range(0, validTargets.Count, randomSeed)];
+                    WstlCombatPhasePatcher.Instance.VisualizeConfirmSniperAbility(randSlot, false);
+                    yield return new WaitForSeconds(0.25f);
                     randSlot.Card.HealDamage(2);
-                    randSlot.Card.Anim.LightNegationEffect();
+                    randSlot.Card.Anim.StrongNegationEffect();
+                    WstlCombatPhasePatcher.Instance.VisualizeClearSniperAbility();
+                    ConfigUtils.Instance.UpdateBlessings(1);
                     yield return new WaitForSeconds(0.25f);
                 }
                 else
                 {
                     base.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.3f);
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(failDialogue, -0.65f, 0.4f, Emotion.Anger);
-                    yield return new WaitForSeconds(0.3f);
+                    yield return new WaitForSeconds(0.4f);
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(failExtraHardDialogue, -0.65f, 0.4f, Emotion.Anger);
+                    yield return new WaitForSeconds(0.25f);
                     yield break;
                 }
-                Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
-                Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
 
                 yield return ClockTwelve();
+                Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
+                Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
                 yield break;
             }
 
-            IEnumerator selectTarget = ChooseTarget();
-            yield return selectTarget;
-
-            if (targetedSlot != null && (targetedSlot.Card != null && targetedSlot.Card != base.Card && targetedSlot.Index != base.Card.Slot.Index))
+            #region OPPONENT LOGIC
+            if (base.Card.OpponentCard)
             {
+                // Grabs a random card from the available slots and heals it
+                CardSlot randSlot;
+                List<CardSlot> opponentSlots = Singleton<BoardManager>.Instance.OpponentSlotsCopy.FindAll((CardSlot x) => x.Card != null && x.Card != base.Card); ;
+                int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber;
+
+                randSlot = opponentSlots[SeededRandom.Range(0, opponentSlots.Count, randomSeed)];
+                WstlCombatPhasePatcher.Instance.VisualizeConfirmSniperAbility(randSlot, false);
+                yield return new WaitForSeconds(0.25f);
+                randSlot.Card.HealDamage(2);
+                randSlot.Card.Anim.StrongNegationEffect();
+                WstlCombatPhasePatcher.Instance.VisualizeClearSniperAbility();
                 if (IsDoctor)
                 {
-                    ConfigHelper.Instance.UpdateBlessings(1);
+                    ConfigUtils.Instance.UpdateBlessings(1);
                 }
+                yield return new WaitForSeconds(0.25f);
+                yield break;
+            }
+            #endregion
+
+            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+
+            yield return PlayerChooseTarget();
+
+            bool valid = targetedSlot != null && (targetedSlot.Card != null && targetedSlot.Card != base.Card && targetedSlot.Index != base.Card.Slot.Index);
+            
+            if (valid)
+            {
                 targetedSlot.Card.HealDamage(2);
-                targetedSlot.Card.Anim.LightNegationEffect();
+                targetedSlot.Card.Anim.StrongNegationEffect();
+                WstlCombatPhasePatcher.Instance.VisualizeClearSniperAbility();
+                if (IsDoctor)
+                {
+                    ConfigUtils.Instance.UpdateBlessings(1);
+                }
                 yield return new WaitForSeconds(0.25f);
             }
             else
             {
-                while (!(targetedSlot != null && (targetedSlot.Card != null && targetedSlot.Card != base.Card && targetedSlot.Index != base.Card.Slot.Index)))
+                while (!valid)
                 {
                     base.Card.Anim.StrongNegationEffect();
                     if (targetedSlot == base.Card.Slot)
@@ -114,97 +153,69 @@ namespace WhistleWindLobotomyMod
                     }
                     else
                     {
-                        int rand = new System.Random().Next(0, 3);
-                        switch (rand)
-                        {
-                            case 0:
-                                invalidDialogue = "Your creature demands a proper target.";
-                                break;
-                            case 1:
-                                invalidDialogue = "You can't heal the air.";
-                                break;
-                            case 2:
-                                invalidDialogue = "There's nothing there.";
-                                break;
-                        }
+                        invalidDialogue = "You can't heal the air.";
                     }
-                    yield return new WaitForSeconds(0.3f);
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(invalidDialogue, -0.65f, 0.4f);
-                    yield return new WaitForSeconds(0.3f);
-                    IEnumerator reSelectTarget = ChooseTarget();
-                    yield return reSelectTarget;
 
-                    if (targetedSlot != null && (targetedSlot.Card != null && targetedSlot.Card != base.Card && targetedSlot.Index != base.Card.Slot.Index))
+                    yield return new WaitForSeconds(0.25f);
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(invalidDialogue, -0.65f, 0.4f);
+                    yield return new WaitForSeconds(0.25f);
+
+                    WstlCombatPhasePatcher.Instance.VisualizeClearSniperAbility();
+                    yield return PlayerChooseTarget();
+
+                    valid = targetedSlot != null && (targetedSlot.Card != null && targetedSlot.Card != base.Card && targetedSlot.Index != base.Card.Slot.Index);
+                    if (valid)
                     {
+                        targetedSlot.Card.HealDamage(2);
+                        targetedSlot.Card.Anim.StrongNegationEffect();
+                        WstlCombatPhasePatcher.Instance.VisualizeClearSniperAbility();
                         if (IsDoctor)
                         {
-                            ConfigHelper.Instance.UpdateBlessings(1);
+                            ConfigUtils.Instance.UpdateBlessings(1);
                         }
-                        targetedSlot.Card.HealDamage(2);
-                        targetedSlot.Card.Anim.LightNegationEffect();
                         yield return new WaitForSeconds(0.25f);
                     }
                 }
             }
-            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
-            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
-            Singleton<CombatPhaseManager>.Instance.VisualizeClearSniperAbility();
 
             if (IsDoctor)
             {
                 yield return ClockTwelve();
             }
+            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
+            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
         }
 
-        private IEnumerator ChooseTarget()
+        private IEnumerator PlayerChooseTarget()
         {
-            CombatPhaseManager combatPhaseManager = Singleton<CombatPhaseManager>.Instance;
-            BoardManager boardManager = Singleton<BoardManager>.Instance;
-            List<CardSlot> allSlots = new(boardManager.AllSlots);
-            List<CardSlot> playerSlots = new(boardManager.GetSlots(true));
+            WstlCombatPhasePatcher.Instance.VisualizeStartSniperAbility(base.Card.Slot);
 
-            Action<CardSlot> callback1 = null;
-            Action<CardSlot> callback2 = null;
-
-            combatPhaseManager.VisualizeStartSniperAbility(Card.slot);
-
+            List<CardSlot> targetSlots = base.Card.OpponentCard ? Singleton<BoardManager>.Instance.OpponentSlotsCopy : Singleton<BoardManager>.Instance.PlayerSlotsCopy;
             CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
-            if (cardSlot != null && allSlots.Contains(cardSlot))
-            {
-                combatPhaseManager.VisualizeAimSniperAbility(Card.slot, cardSlot);
-            }
 
-            List<CardSlot> allTargetSlots = allSlots;
-            List<CardSlot> validTargetSlots = playerSlots;
+            if (cardSlot != null && targetSlots.Contains(cardSlot))
+            {
+                WstlCombatPhasePatcher.Instance.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
+            }
 
             targetedSlot = null;
-            Action<CardSlot> targetSelectedCallback;
-            if ((targetSelectedCallback = callback1) == null)
-            {
-                targetSelectedCallback = (callback1 = delegate (CardSlot s)
-                {
-                    targetedSlot = s;
-                    combatPhaseManager.VisualizeConfirmSniperAbility(s);
-                });
-            }
 
-            Action<CardSlot> invalidTargetCallback = null;
-            Action<CardSlot> slotCursorEnterCallback;
-            if ((slotCursorEnterCallback = callback2) == null)
+            yield return Singleton<BoardManager>.Instance.ChooseTarget(targetSlots, targetSlots, delegate (CardSlot s)
             {
-                slotCursorEnterCallback = (callback2 = delegate (CardSlot s)
-                {
-                    combatPhaseManager.VisualizeAimSniperAbility(Card.slot, s);
-                });
-            }
+                targetedSlot = s;
+                WstlCombatPhasePatcher.Instance.VisualizeConfirmSniperAbility(s, false);
+            }, null, delegate (CardSlot s)
+            {
+                WstlCombatPhasePatcher.Instance.VisualizeAimSniperAbility(base.Card.Slot, s);
 
-            yield return boardManager.ChooseTarget(allTargetSlots, validTargetSlots, targetSelectedCallback, invalidTargetCallback, slotCursorEnterCallback, () => false, CursorType.Target);
+            }, () => false, CursorType.Target);
         }
+
         private IEnumerator ClockTwelve()
         {
-            if (ConfigHelper.Instance.NumOfBlessings >= 12)
+            if (ConfigUtils.Instance.NumOfBlessings >= 12)
             {
-                ConfigHelper.Instance.UpdateBlessings(-ConfigHelper.Instance.NumOfBlessings);
+                ConfigUtils.Instance.UpdateBlessings(-ConfigUtils.Instance.NumOfBlessings);
 
                 CardInfo cardByName = CardLoader.GetCardByName("wstl_whiteNight");
                 yield return base.Card.TransformIntoCard(cardByName);
@@ -273,18 +284,20 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.2f);
             }
         }
+
         private bool ValidAllies()
         {
-            int count = 0;
-            bool playerSlot = base.Card.Slot.IsPlayerSlot;
-            foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(playerSlot).Where(slot => slot.Card != base.Card))
+            // Checks whether there are allies available to be healed.
+
+            List<CardSlot> validSlots = base.Card.OpponentCard ? Singleton<BoardManager>.Instance.OpponentSlotsCopy : Singleton<BoardManager>.Instance.PlayerSlotsCopy;
+            foreach (var slot in validSlots.Where((CardSlot slot) => slot.Card != base.Card))
             {
                 if (slot.Card != null)
                 {
-                    count++;
+                    return true;
                 }
             }
-            return count > 0;
+            return false;
         }
     }
 }

@@ -1,17 +1,18 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void JudgementBird_O0262()
         {
             List<Ability> abilities = new()
             {
-                Hunter.ability
+                Marksman.ability
             };
 
             List<Tribe> tribes = new()
@@ -23,10 +24,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_judgementBird", "Judgement Bird",
                 "A long bird that judges sinners with its tipped scales.",
                 1, 1, 2, 0,
-                Resources.judgementBird,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, metaCategory: CardMetaCategory.Rare,
-                appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
+                Resources.judgementBird, Resources.judgementBird_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
+                isRare: true, onePerDeck: true);
         }
     }
 }

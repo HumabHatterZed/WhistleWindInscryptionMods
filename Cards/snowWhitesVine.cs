@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void SnowWhitesVine_F0442()
         {
@@ -14,19 +15,13 @@ namespace WhistleWindLobotomyMod
                 Ability.Sharp
             };
 
-            List<Trait> traits = new()
-            {
-                Trait.Terrain
-            };
-
             WstlUtils.Add(
                 "wstl_snowWhitesVine", "Thorny Vines",
                 "A vine.",
                 0, 1, 0, 0,
-                Resources.snowWhitesVine,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), traits: traits,
-                appearanceBehaviour: CardUtils.getTerrainAppearance);
+                Resources.snowWhitesVine, Resources.snowWhitesVine_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void YoureBald_BaldIsAwesome()
         {
@@ -18,10 +19,9 @@ namespace WhistleWindLobotomyMod
                 "wstl_youreBald", "You're Bald...",
                 "I've always wondered what it was like to be bald.",
                 1, 1, 0, 3,
-                Resources.youreBald,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                onePerDeck: true);
+                Resources.youreBald, Resources.youreBald_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

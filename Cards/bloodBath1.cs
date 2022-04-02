@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void BloodBath1_T0551()
         {
@@ -14,18 +15,18 @@ namespace WhistleWindLobotomyMod
                 Ability.TripleBlood
             };
 
-            List<SpecialAbilityIdentifier> specialAbilities = new()
+            List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                BloodBath.GetSpecialAbilityId
+                BloodBath.specialAbility
             };
 
             WstlUtils.Add(
                 "wstl_bloodBath1", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
                 0, 3, 1, 0,
-                Resources.bloodBath1,
+                Resources.bloodBath1, Resources.bloodBath1_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                new List<Tribe>(), emissionTexture: Resources.bloodBath1_emission);
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

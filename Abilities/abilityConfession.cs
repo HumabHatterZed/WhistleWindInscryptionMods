@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,22 +8,23 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Confession()
+        private void Ability_Confession()
         {
             const string rulebookName = "Confession and Pentinence";
             string rulebookDescription = "Keep faith with unwavering resolve.";
             const string dialogue = "Keep faith with unwavering resolve.";
 
-            if (ConfigHelper.Instance.RevealWhiteNight)
+            if (ConfigUtils.Instance.RevealWhiteNight)
             {
                 rulebookDescription = "If held by the Heretic, kills the Heretic at the end of the opponent's turn and adds a special card to your hand. If held by the special card, kill Apostles and WhiteNight and deal 33 direct damage.";
             }
 
-            return WstlUtils.CreateAbility<Confession>(
+            Confession.ability = WstlUtils.CreateAbility<Confession>(
                 Resources.sigilConfession,
-                rulebookName, rulebookDescription, dialogue, -3, overrideModular: true);
+                rulebookName, rulebookDescription, dialogue, -3,
+                overrideModular: true).Id;
         }
     }
     public class Confession : AbilityBehaviour

@@ -1,17 +1,18 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void RedHoodedMercenary_F0157()
         {
             List<Ability> abilities = new()
             {
-                Hunter.ability,
+                Marksman.ability,
                 BitterEnemies.ability
             };
 
@@ -19,10 +20,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_redHoodedMercenary", "Little Red Riding Hooded Mercenary",
                 "A skilled mercenary with a bloody vendetta. Perhaps you'll help her sate it.",
                 2, 3, 2, 0,
-                Resources.redHoodedMercenary,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.redHoodedMercenary_emission);
+                Resources.redHoodedMercenary, Resources.redHoodedMercenary_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true);
         }
     }
 }

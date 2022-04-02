@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using HarmonyLib;
 using System.Collections;
@@ -13,30 +13,6 @@ namespace WhistleWindLobotomyMod
         private static readonly string mirabelle = "wstl_mirabelleDeathCard";
         private static readonly string poussey = "wstl_posseyDeathCard";
         private static readonly string stemcell642 = "wstl_stemCell642DeathCard";
-
-        public static CardInfo GetDeathCard()
-        {
-            int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
-            List<CardModificationInfo> choosableDeathcardMods = SaveManager.SaveFile.GetChoosableDeathcardMods();
-
-            CardInfo cardInfo = null;
-
-            if (choosableDeathcardMods.Count > 0)
-            {
-                CardModificationInfo cardModificationInfo = choosableDeathcardMods[SeededRandom.Range(0, choosableDeathcardMods.Count, randomSeed)];
-                cardInfo = CardLoader.CreateDeathCard(cardModificationInfo);
-            }
-            if (cardInfo == null)
-            {
-                CardModificationInfo cardModificationInfo2 = new();
-                cardModificationInfo2.nameReplacement = "Guinevere";
-                cardModificationInfo2.deathCardInfo = new DeathCardInfo(CompositeFigurine.FigurineType.Wildling, 0, 4);
-                cardModificationInfo2.attackAdjustment = 1;
-                cardModificationInfo2.healthAdjustment = 2;
-                cardInfo = CardLoader.CreateDeathCard(cardModificationInfo2);
-            }
-            return cardInfo;
-        }
 
         [HarmonyPatch(typeof(RunState), "Initialize")]
         [HarmonyPostfix]
@@ -86,8 +62,6 @@ namespace WhistleWindLobotomyMod
             cardModInfo3.bloodCostAdjustment = 1;
             cardModInfo3.deathCardInfo = new DeathCardInfo(CompositeFigurine.FigurineType.Chief, 5, 2);
             SaveManager.SaveFile.deathCardMods.Add(cardModInfo3);
-
-            Plugin.Log.LogInfo($"Added custom deathcards!");
         }
     }
 }

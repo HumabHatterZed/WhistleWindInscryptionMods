@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void PpodaeBuff_D02107()
         {
@@ -23,9 +24,9 @@ namespace WhistleWindLobotomyMod
                 "wstl_ppodaeBuff", "Ppodae",
                 "",
                 3, 2, 0, 8,
-                Resources.ppodaeBuff,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, emissionTexture: Resources.ppodaeBuff_emission);
+                Resources.ppodaeBuff, Resources.ppodaeBuff_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new());
         }
     }
 }

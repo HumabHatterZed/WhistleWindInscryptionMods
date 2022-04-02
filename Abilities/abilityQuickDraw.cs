@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
@@ -6,17 +6,17 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_QuickDraw()
+        private void Ability_QuickDraw()
         {
             const string rulebookName = "Quick Draw";
             const string rulebookDescription = "When a card moves into the space opposing this card, deal 1 damage.";
             const string dialogue = "The early bird gets the worm.";
 
-            return WstlUtils.CreateAbility<QuickDraw>(
+            QuickDraw.ability = WstlUtils.CreateAbility<QuickDraw>(
                 Resources.sigilQuickDraw,
-                rulebookName, rulebookDescription, dialogue, 3);
+                rulebookName, rulebookDescription, dialogue, 3).Id;
         }
     }
     // ripped from Sentry code

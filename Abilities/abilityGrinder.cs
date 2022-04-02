@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
@@ -6,16 +6,16 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Grinder()
+        private void Ability_Grinder()
         {
             const string rulebookName = "Grinder";
             const string rulebookDescription = "This card gains the stats of the cards sacrificed to play it.";
             const string dialogue = "Now everything will be just fine.";
-            return WstlUtils.CreateAbility<Grinder>(
+            Grinder.ability = WstlUtils.CreateAbility<Grinder>(
                 Resources.sigilGrinder,
-                rulebookName, rulebookDescription, dialogue, 2);
+                rulebookName, rulebookDescription, dialogue, 2).Id;
         }
     }
     public class Grinder : AbilityBehaviour

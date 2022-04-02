@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,27 +8,20 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewSpecialAbility SpecialAbility_Hate()
+        private void SpecialAbility_Hate()
         {
             const string rulebookName = "Hate";
             const string rulebookDescription = "Transforms when the balance has shifted too far. Enters a weakened forme every other turn.";
-            return WstlUtils.CreateSpecialAbility<MagicalGirlHeart>(
-                AbilitiesUtil.LoadAbilityIcon("None"),
-                rulebookName, rulebookDescription, false, false, false);
+            MagicalGirlHeart.specialAbility = WstlUtils.CreateSpecialAbility<MagicalGirlHeart>(rulebookName, rulebookDescription).Id;
         }
     }
     public class MagicalGirlHeart : SpecialCardBehaviour
     {
+        public SpecialTriggeredAbility SpecialAbility => specialAbility;
+
         public static SpecialTriggeredAbility specialAbility;
-        public static SpecialAbilityIdentifier GetSpecialAbilityId
-        {
-            get
-            {
-                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Hate");
-            }
-        }
 
         private readonly string dialogue = "Balance must be maintained between good and evil.";
         private readonly string dialogue2 = "When one outweighs the other, she will tip the scale back.";
@@ -39,7 +32,7 @@ namespace WhistleWindLobotomyMod
         private int opponentDeaths;
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return fromCombat;
+            return fromCombat && killer != null;
         }
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)

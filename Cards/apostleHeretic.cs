@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void ApostleHeretic_T0346()
         {
@@ -24,10 +25,9 @@ namespace WhistleWindLobotomyMod
                 "wstl_apostleHeretic", "Heretic",
                 "The time has come.",
                 0, 7, 0, 0,
-                Resources.apostleHeretic,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), traits: traits,
-                emissionTexture: Resources.apostleHeretic_emission);
+                Resources.apostleHeretic, Resources.apostleHeretic_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: traits);
         }
     }
 }

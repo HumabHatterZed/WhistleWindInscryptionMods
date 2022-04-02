@@ -1,29 +1,29 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void DerFreischutz_F0169()
         {
             List<Ability> abilities = new()
             {
                 Ability.SplitStrike,
-                Hunter.ability
+                Marksman.ability
             };
 
             WstlUtils.Add(
                 "wstl_derFreischutz", "Der Freischütz",
                 "A friendly hunter to some, a bloody gunsman to others. His bullets always hit their mark.",
                 1, 1, 2, 0,
-                Resources.derFreischutz,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.Rare,
-                emissionTexture: Resources.derFreischutz_emission,
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                Resources.derFreischutz, Resources.derFreischutz_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                isRare: true);
         }
     }
 }

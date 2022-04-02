@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,16 +7,16 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Assimilator()
+        private void Ability_Assimilator()
         {
             const string rulebookName = "Assimilator";
             const string rulebookDescription = "When a card bearing this sigil kills an enemy card, this card gains 1 Power and 1 Health.";
             const string dialogue = "From the many, one.";
-            return WstlUtils.CreateAbility<Assimilator>(
+            Assimilator.ability = WstlUtils.CreateAbility<Assimilator>(
                 Resources.sigilAssimilator,
-                rulebookName, rulebookDescription, dialogue, 4);
+                rulebookName, rulebookDescription, dialogue, 4).Id;
         }
     }
     public class Assimilator : AbilityBehaviour

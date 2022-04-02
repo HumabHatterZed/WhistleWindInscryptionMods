@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void BlueStar2_O0393()
         {
@@ -15,15 +16,19 @@ namespace WhistleWindLobotomyMod
                 Ability.AllStrike
             };
 
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                CardAppearanceBehaviour.Appearance.RareCardBackground
+            };
+
             WstlUtils.Add(
                 "wstl_blueStar2", "Blue Star",
                 "When this is over, let's meet again as stars.",
-                4, 4, 4, 0,
-                Resources.blueStar,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(),
-                emissionTexture: Resources.blueStar_emission,
-                appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
+                2, 8, 4, 0,
+                Resources.blueStar, Resources.blueStar_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                appearances: appearances, onePerDeck: true);
         }
     }
 }

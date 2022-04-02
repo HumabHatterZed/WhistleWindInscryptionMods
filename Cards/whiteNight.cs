@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void WhiteNight_T0346()
         {
@@ -25,11 +26,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_whiteNight", "WhiteNight",
                 "The time has come.",
                 0, 666, 0, 0,
-                Resources.whiteNight,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), traits: traits,
-                emissionTexture: Resources.whiteNight_emission, onePerDeck: true,
-                titleTexture: Resources.whiteNight_title);
+                Resources.whiteNight, Resources.whiteNight_emission, titleTexture: Resources.whiteNight_title,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: traits,
+                onePerDeck: true);
         }
     }
 }

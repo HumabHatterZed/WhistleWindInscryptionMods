@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void ApostleStaff_T0346()
         {
@@ -25,10 +26,9 @@ namespace WhistleWindLobotomyMod
                 "wstl_apostleStaff", "Staff Apostle",
                 "The time has come.",
                 3, 6, 0, 0,
-                Resources.apostleStaff,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), traits: traits,
-                emissionTexture: Resources.apostleStaff_emission);
+                Resources.apostleStaff, Resources.apostleStaff_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: traits);
         }
     }
 }

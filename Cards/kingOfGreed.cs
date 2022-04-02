@@ -1,26 +1,27 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void KingOfGreed_O0164()
         {
             List<Ability> abilities = new()
             {
-                Ability.StrafePush
+                Ability.StrafeSwap
             };
 
             WstlUtils.Add(
                 "wstl_kingOfGreed", "The King of Greed",
                 "An aged storyteller. She can tell you any tale, even those that can't exist.",
                 4, 5, 2, 0,
-                Resources.kingOfGreed,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), emissionTexture: Resources.kingOfGreed_emission,
+                Resources.kingOfGreed, Resources.kingOfGreed_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
                 onePerDeck: true);
         }
     }

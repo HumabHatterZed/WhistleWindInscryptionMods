@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void VoidDream_T0299()
         {
@@ -24,11 +25,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_voidDream", "Void Dream",
                 "A sleeping goat. Or is it a sheep?",
                 0, 1, 1, 0,
-                Resources.voidDream,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.voidDream_emission,
-                evolveId: new EvolveIdentifier("wstl_voidDreamRooster", 1));
+                Resources.voidDream, Resources.voidDream_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
+                isChoice: true, evolveName: "wstl_voidDreamRooster");
         }
     }
 }

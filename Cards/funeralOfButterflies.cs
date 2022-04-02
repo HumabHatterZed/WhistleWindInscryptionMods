@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void FuneralOfButterflies_T0168()
         {
@@ -23,11 +24,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_funeralOfButterflies", "Funeral of the Dead Butterflies",
                 "The coffin is a tribute to the fallen. A memorial to those who can't return home.",
                 2, 2, 2, 0,
-                Resources.funeralOfButterflies,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, metaCategory: CardMetaCategory.Rare,
-                emissionTexture: Resources.funeralOfButterflies_emission,
-                appearanceBehaviour: CardUtils.getRareAppearance);
+                Resources.funeralOfButterflies, Resources.funeralOfButterflies_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
+                isRare: true);
         }
     }
 }

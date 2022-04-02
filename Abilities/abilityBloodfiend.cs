@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,17 +7,18 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Bloodfiend()
+        private void Ability_Bloodfiend()
         {
             const string rulebookName = "Bloodfiend";
             const string rulebookDescription = "When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.";
             const string dialogue = "Accursed fiend.";
 
-            return WstlUtils.CreateAbility<Bloodfiend>(
+            Bloodfiend.ability = WstlUtils.CreateAbility<Bloodfiend>(
                 Resources.sigilBloodfiend,
-                rulebookName, rulebookDescription, dialogue, 3, true);
+                rulebookName, rulebookDescription, dialogue, 3,
+                addModular: true).Id;
         }
     }
     public class Bloodfiend : AbilityBehaviour

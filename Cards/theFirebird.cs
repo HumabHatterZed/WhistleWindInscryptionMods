@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void TheFirebird_O02101()
         {
@@ -24,10 +25,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_theFirebird", "The Firebird",
                 "A bird that longs for the thrill of being hunted.",
                 1, 3, 2, 0,
-                Resources.theFirebird,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.theFirebird_emission);
+                Resources.theFirebird, Resources.theFirebird_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
+                isChoice: true);
         }
     }
 }

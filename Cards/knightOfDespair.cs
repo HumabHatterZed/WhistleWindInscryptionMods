@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void KnightOfDespair_O0173()
         {
@@ -15,14 +16,18 @@ namespace WhistleWindLobotomyMod
                 Piercing.ability
             };
 
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                CardAppearanceBehaviour.Appearance.RareCardBackground
+            };
             WstlUtils.Add(
                 "wstl_knightOfDespair", "The Knight of Despair",
                 "Failing to protect, she realised nothing was ever truly upheld.",
                 2, 4, 2, 0,
-                Resources.knightOfDespair,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), emissionTexture: Resources.knightOfDespair_emission,
-                appearanceBehaviour: CardUtils.getRareAppearance, onePerDeck: true);
+                Resources.knightOfDespair, Resources.knightOfDespair_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                appearances: appearances, onePerDeck: true);
         }
     }
 }

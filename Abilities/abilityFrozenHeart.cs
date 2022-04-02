@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
@@ -6,16 +6,16 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_FrozenHeart()
+        private void Ability_FrozenHeart()
         {
             const string rulebookName = "Frozen Heart";
             const string rulebookDescription = "When this card dies, the killer gains 1 Health.";
             const string dialogue = "Spring arrives with blossoming roses.";
-            return WstlUtils.CreateAbility<FrozenHeart>(
+            FrozenHeart.ability = WstlUtils.CreateAbility<FrozenHeart>(
                 Resources.sigilFrozenHeart,
-                rulebookName, rulebookDescription, dialogue, 0);
+                rulebookName, rulebookDescription, dialogue, 0).Id;
         }
     }
     public class FrozenHeart : AbilityBehaviour

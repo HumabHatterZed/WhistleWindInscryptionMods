@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,16 +7,16 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_QueenNest()
+        private void Ability_QueenNest()
         {
             const string rulebookName = "Queen Nest";
             const string rulebookDescription = "When a card bearing this sigil is played, create a Worker Bee in your hand. Create an additional Worker Bee whenever another card dies.";
             const string dialogue = "For the hive.";
-            return WstlUtils.CreateAbility<QueenNest>(
+            QueenNest.ability = WstlUtils.CreateAbility<QueenNest>(
                 Resources.sigilQueenNest,
-                rulebookName, rulebookDescription, dialogue, 3);
+                rulebookName, rulebookDescription, dialogue, 3).Id;
         }
     }
     public class QueenNest : AbilityBehaviour

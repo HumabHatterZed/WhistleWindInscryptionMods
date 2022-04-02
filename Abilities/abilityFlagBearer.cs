@@ -1,53 +1,67 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_FlagBearer()
+        private void Ability_FlagBearer()
         {
             const string rulebookName = "Flag Bearer";
             const string rulebookDescription = "Adjacent cards gain 2 Health.";
             const string dialogue = "Morale runs high.";
 
-            return WstlUtils.CreateAbility<FlagBearer>(
+            FlagBearer.ability = WstlUtils.CreateAbility<FlagBearer>(
                 Resources.sigilFlagBearer,
-                rulebookName, rulebookDescription, dialogue, 3);
+                rulebookName, rulebookDescription, dialogue, 3).Id;
         }
     }
-    public class FlagBearer : AbilityBehaviour
+    public class FlagBearer : ExtendedAbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
+        public override bool ProvidesPassiveHealthBuff => true;
 
-        private CardModificationInfo mod = new(0, 2);
+        public override int[] GetPassiveHealthBuffs()
+        {
+            List<int> slots = new() { 0, 0, 0, 0 };
+            foreach (CardSlot slot in (base.Card.OpponentCard ? Singleton<BoardManager>.Instance.opponentSlots : Singleton<BoardManager>.Instance.playerSlots))
+            {
+                if (slot == base.Card.Slot)
+                {
+                    CardSlot leftSlot = Singleton<BoardManager>.Instance.GetAdjacent(slot, true);
+                    CardSlot rightSlot = Singleton<BoardManager>.Instance.GetAdjacent(slot, false);
+                    if (leftSlot != null && leftSlot.Card != null)
+                    {
+                        slots[leftSlot.Index] += 2;
+                    }
+                    if (rightSlot != null && rightSlot.Card != null)
+                    {
+                        slots[rightSlot.Index] += 2;
+                    }
+                }
+            }
+            return slots.ToArray();
+        }
         public override bool RespondsToResolveOnBoard()
         {
-            int num = 0;
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
             {
-                num++;
+                return true;
             }
-            return num > 0;
+            return false;
         }
         public override IEnumerator OnResolveOnBoard()
         {
-            yield return base.PreSuccessfulTriggerSequence();
-
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot))
-            {
-                if (slot.Card.TemporaryMods.Contains(mod))
-                {
-                    yield break;
-                }
-                yield return Effect(slot.Card);
-            }
+            yield return base.LearnAbility(0.4f);
         }
+        
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
@@ -62,38 +76,7 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
-            yield return base.PreSuccessfulTriggerSequence();
-            if (otherCard.TemporaryMods.Contains(mod))
-            {
-                yield break;
-            }
-            yield return Effect(otherCard);
-        }
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
-        {
-            return true;
-        }
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-            yield return new WaitForSeconds(0.2f);
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot))
-            {
-                if (slot.Card != null && slot.Card.Health > 2)
-                {
-                    slot.Card.RemoveTemporaryMod(mod);
-                    slot.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.25f);
-                }
-            }
-        }
-
-        private IEnumerator Effect(PlayableCard card)
-        {
-            card.AddTemporaryMod(mod);
-            card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
-            yield return LearnAbility(0.4f);
+            yield return base.LearnAbility(0.4f);
         }
     }
 }

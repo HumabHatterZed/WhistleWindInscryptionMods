@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void DontTouchMe_O0547()
         {
@@ -19,10 +20,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_dontTouchMe", "Don't Touch Me",
                 "What happens when you press it?",
                 0, 1, 0, 2,
-                Resources.dontTouchMe,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.dontTouchMe_emission);
+                Resources.dontTouchMe, Resources.dontTouchMe_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true);
         }
     }
 }

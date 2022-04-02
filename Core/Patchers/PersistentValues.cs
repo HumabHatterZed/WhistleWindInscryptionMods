@@ -1,6 +1,8 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+using InscryptionAPI;
+using InscryptionAPI.Saves;
 using DiskCardGame;
 using HarmonyLib;
 using System;
@@ -17,66 +19,66 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                return SaveGameHelper.GetBool("ClockThisRun");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "ClockStruckTwelve");
             }
             set
             {
-                SaveGameHelper.SetValue("ClockThisRun", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "ClockStruckTwelve", value);
             }
         }
         public static bool ApostleDowned // Keeps track of whether this is the first time an Apostle has been downed
         {
             get
             {
-                return SaveGameHelper.GetBool("ApostleDowned");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "ApostleDowned");
             }
             set
             {
-                SaveGameHelper.SetValue("ApostleDowned", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "ApostleDowned", value);
             }
         }
         public static bool ApostleKilled // Keeps track of whether this is the first time the player has tried to kill an Apostle
         {
             get
             {
-                return SaveGameHelper.GetBool("ApostleKilled");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "ApostleMurderAttempted");
             }
             set
             {
-                SaveGameHelper.SetValue("ApostleKilled", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "ApostleMurderAttempted", value);
             }
         }
         public static bool ApostleHeretic // Keeps track of whether this is the first time the player has tried to kill WhiteNight
         {
             get
             {
-                return SaveGameHelper.GetBool("ApostleHeretic");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "ApostleHereticAppeared");
             }
             set
             {
-                SaveGameHelper.SetValue("ApostleHeretic", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "ApostleHereticAppeared", value);
             }
         }
         public static bool WhiteNightKilled // Keeps track of whether this is the first time WhiteNight has been killed by a card
         {
             get
             {
-                return SaveGameHelper.GetBool("WhiteNightKilled");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "WhiteNightDefeated");
             }
             set
             {
-                SaveGameHelper.SetValue("WhiteNightKilled", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "WhiteNightDefeated", value);
             }
         }
         public static bool WhiteNightHammer // Keeps track of whether this is the first time the player has tried to kill WhiteNight
         {
             get
             {
-                return SaveGameHelper.GetBool("WhiteNightHammer");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "WhiteNightMurderAttempted");
             }
             set
             {
-                SaveGameHelper.SetValue("WhiteNightHammer", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "WhiteNightMurderAttempted", value);
             }
         }
         #endregion
@@ -86,66 +88,66 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenHatredTransformation");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "TransformedIntoHatred");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenHatredTransformation", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "TransformedIntoHatred", value);
             }
         }
         public static bool HasSeenHatredTireOut // Keeps track of whether this is the first time Queen oF Hatred has transformed
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenHatredTireOut");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "HatedExhausted");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenHatredTireOut", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "HatredExhausted", value);
             }
         }
         public static bool HasSeenHatredRecover // Keeps track of whether this is the first time Queen oF Hatred (E) has transformed
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenHatredRecover");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "HatredRecovered");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenHatredRecover", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "HatredRecovered", value);
             }
         }
         public static bool HasSeenGreedTransformation // Keeps track of whether this is the first time Magical Girl D has transformed
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenGreedTransformation");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "TransformedIntoGreed");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenGreedTransformation", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "TransformedIntoGreed", value);
             }
         }
         public static bool HasSeenDespairTransformation // Keeps track of whether this is the first time Magical Girl S has transformed
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenDespairTransformation");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "TransformedIntoDespair");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenDespairTransformation", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "TransformedIntoDespair", value);
             }
         }
         public static bool HasSeenDespairProtect // Keeps track of whether this is the first time Magical Girl S has protected
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenDespairProtect");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "ProtectedByKnight");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenDespairProtect", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "ProtectedByKnight", value);
             }
         }
         #endregion
@@ -155,110 +157,110 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenNothingTransformation");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "NothingThereRevealed");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenNothingTransformation", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.modPrefix, "NothingThereRevealed", value);
             }
         }
         public static bool HasSeenNothingTransformationTrue // Keeps track of whether this is the first time Nothing There True has transformed
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenNothingTransformationTrue");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "NothingThereTransformed");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenNothingTransformationTrue", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "NothingThereTransformed", value);
             }
         }
         public static bool HasSeenNothingTransformationEgg // Keeps track of whether this is the first time Nothing There Egg has transformed
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenNothingTransformationEgg");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "NothingThereHatched");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenNothingTransformationEgg", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "NothingThereHatched", value);
             }
         }
         public static bool HasSeenMountainGrow // Keeps track of whether this is the first time MoSB has grown
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenMountainGrow");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "MountainOfBodiesGrown1");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenMountainGrow", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "MountainOfBodiesGrown1", value);
             }
         }
         public static bool HasSeenMountainGrow2 // Keeps track of whether this is the first time MoSB-2 has grown
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenMountainGrow2");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "MountainOfBodiesGrown2");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenMountainGrow2", value.ToString());
-            }
-        }
-        public static bool HasSeenMountainShrink2 // Keeps track of whether this is the first time MoSB-2 has shrunk
-        {
-            get
-            {
-                return SaveGameHelper.GetBool("HasSeenMountainShrink2");
-            }
-            set
-            {
-                SaveGameHelper.SetValue("HasSeenMountainShrink2", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "MountainOfBodiesGrown2", value);
             }
         }
         public static bool HasSeenMountainShrink3 // Keeps track of whether this is the first time MoSB-3 has shrunk
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenMountainShrink3");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "MountainOfBodiesShrunk3");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenMountainShrink3", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "MountainOfBodiesShrunk3", value);
+            }
+        }
+        public static bool HasSeenMountainShrink2 // Keeps track of whether this is the first time MoSB-2 has shrunk
+        {
+            get
+            {
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "MountainOfBodiesShrunk2");
+            }
+            set
+            {
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "MountainOfBodiesShrunk2", value);
             }
         }
         public static bool HasSeenCensoredKill // Keeps track of whether this is the first time Censored has <CENSORED>
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenCensoredKill");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "CENSOREDCreatedMinion");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenCensoredKill", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "CENSOREDCreatedMinion", value);
             }
         }
         public static bool HasSeenArmyBlacked // Keeps track of whether this is the first time Censored has <CENSORED>
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenArmyBlacked");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "ArmyTurnedBlack");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenArmyBlacked", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "ArmyTurnedBlack", value);
             }
         }
         public static bool HasSeenMeltingHeal // Keeps track of whether this is the first time Censored has <CENSORED>
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenMeltingHeal");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "MeltingLoveMinionAbsorbed");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenMeltingHeal", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "MeltingLoveMinionAbsorbed", value);
             }
         }
         #endregion
@@ -268,55 +270,55 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenDerFreischutzSeventh");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "FreischutzSeventhBullet");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenDerFreischutzSeventh", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "FreischutzSeventhBullet", value);
             }
         }
         public static bool HasSeenCrumblingArmourKill // Keeps track of whether this is the first time Crumbling Armour has punished a coward
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenCrumblingArmourKill");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "CowardnessPunished");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenCrumblingArmourKill", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "CowardnessPunished", value);
             }
         }
         public static bool HasSeenCrumblingArmourFail // Keeps track of whether this is the first time Crumbling Armour hasn't given Power
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenCrumblingArmourFail");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "CourageFailed");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenCrumblingArmourFail", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "CourageFailed", value);
             }
         }
         public static bool HasSeenCrumblingArmourRefuse // Keeps track of whether this is the first time -Courageous- has refused to give Power
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenCrumblingArmourRefuse");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "CourageRefused");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenCrumblingArmourRefuse", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "CourageRefused", value);
             }
         }
-        public static bool HasSeenSnowQueenFreeze // Keeps track of whether this is the first time Freischutz has shot his seventh bullet
+        public static bool HasSeenSnowQueenFreeze // Keeps track of whether this is the first time Snow Quene has frozen a card
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenSnowQueenFreeze");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "SnowQueenFrozen");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenSnowQueenFreeze", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "SnowQueenFrozen", value);
             }
         }
         #endregion
@@ -326,88 +328,88 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenBloodbathHand");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "BloodBathHand1");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenBloodbathHand", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "BloodBathHand1", value);
             }
         }
         public static bool HasSeenBloodbathHand1 // Keeps track of whether this is the first time Bloodbath has grown
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenBloodbathHand1");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "BloodBathHand2");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenBloodbathHand1", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "BloodBathHand2", value);
             }
         }
         public static bool HasSeenBloodbathHand2 // Keeps track of whether this is the first time Bloodbath has grown
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenBloodbathHand2");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "BloodBathHand3");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenBloodbathHand3", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "BloodBathHand3", value);
             }
         }
         public static bool HasSeenBeautyTransform // Keeps track of whether this is the first time a player card has transformed
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenBeautyTransform");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "PlayerTransformedByCurse");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenBeautyTransform", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "PlayerTransformedByCurse", value);
             }
         }
         public static bool HasSeenShyLookAngry // Keeps track of whether this is the first time Today's Shy Look became Angry
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenShyLookAngry");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "ShyLookedAngryToday");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenShyLookAngry", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "ShyLookedAngryToday", value);
             }
         }
         public static bool HasSeenShyLookHappy // Keeps track of whether this is the first time Today's Shy Look became Angry
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenShyLookHappy");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "ShyLookedHappyToday");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenShyLookHappy", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "ShyLookedHappyToday", value);
             }
         }
         public static bool HasSeenShyLookNeutral // Keeps track of whether this is the first time Today's Shy Look be indecisive
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenShyLookNeutral");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "ShyLookedNeutralToday");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenShyLookNeutral", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "ShyLookedNeutralToday", value);
             }
         }
         public static bool HasSeenRegeneratorExplode // Keeps track of whether this is the first time Regenerator caused explosions
         {
             get
             {
-                return SaveGameHelper.GetBool("HasSeenRegeneratorExplode");
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "RegeneratorExploded");
             }
             set
             {
-                SaveGameHelper.SetValue("HasSeenRegeneratorExplode", value.ToString());
+                ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "RegeneratorExploded", value);
             }
         }
         #endregion

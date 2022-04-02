@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void HonouredMonk_D01110()
         {
@@ -18,11 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_honouredMonk", "Honoured Monk",
                 "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...",
                 2, 1, 2, 0,
-                Resources.honouredMonk,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(), metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.honouredMonk_emission,
-                evolveId: new EvolveIdentifier("wstl_cloudedMonk", 1));
+                Resources.honouredMonk, Resources.honouredMonk_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true, evolveName: "wstl_cloudedMonk");
         }
     }
 }

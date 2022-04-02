@@ -1,4 +1,5 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
@@ -6,28 +7,21 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewSpecialAbility SpecialAbility_Bath()
+        private void SpecialAbility_Bath()
         {
-            const string rulebookName = "Bath";
-            const string rulebookDescription = "Reacts to cards being sacrificed.";
-            return WstlUtils.CreateSpecialAbility<BloodBath>(
-                AbilitiesUtil.LoadAbilityIcon("None"),
-                rulebookName, rulebookDescription, false, false, false);
+            const string rulebookName = "Bloodbath";
+            const string rulebookDescription = "Reacts to other cards being sacrificed.";
+            BloodBath.specialAbility = WstlUtils.CreateSpecialAbility<BloodBath>(rulebookName, rulebookDescription).Id;
         }
     }
+
     public class BloodBath : SpecialCardBehaviour
     {
-        public static SpecialTriggeredAbility specialAbility;
-        public static SpecialAbilityIdentifier GetSpecialAbilityId
-        {
-            get
-            {
-                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Bath");
-            }
+        public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        }
+        public static SpecialTriggeredAbility specialAbility;
 
         private readonly string bathDialogue1 = "A hand rises from the sanguine pool.";
         private readonly string bathDialogue2 = "Another pale hand emerges.";
@@ -35,13 +29,8 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            if (base.PlayableCard.InHand && base.PlayableCard.Info.name.ToLowerInvariant().Equals("wstl_bloodbath"))
-            {
-                return !fromCombat && Singleton<BoardManager>.Instance.currentSacrificeDemandingCard == base.PlayableCard;
-            }
-            return !fromCombat;
+            return !fromCombat && card != base.Card;
         }
-
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             int name = 0;

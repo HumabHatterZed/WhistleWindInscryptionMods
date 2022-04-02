@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void BigBird_O0240()
         {
@@ -18,10 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_bigBird", "Big Bird",
                 "Its eyes light up the darkness like stars.",
                 2, 4, 2, 0,
-                Resources.bigBird,
-                new List<Ability>(), new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.bigBird_emission, onePerDeck: true);
+                Resources.bigBird, Resources.bigBird_emission,
+                abilities: new(), specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
+                isChoice: true, onePerDeck: true);
         }
     }
 }

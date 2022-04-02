@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void MeltingLoveMinion_D03109()
         {
@@ -18,10 +19,9 @@ namespace WhistleWindLobotomyMod
                 "wstl_meltingLoveMinion", "Slime",
                 "Don't let your beasts get too close now.",
                 0, 0, 0, 0,
-                Resources.meltingLoveMinion,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                new List<Tribe>(),
-                emissionTexture: Resources.meltingLoveMinion_emission);
+                Resources.meltingLoveMinion, Resources.meltingLoveMinion_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

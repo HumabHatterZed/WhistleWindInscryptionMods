@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void NothingThereEgg_O0620()
         {
@@ -13,21 +14,23 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Evolve
             };
-            List<SpecialAbilityIdentifier> specialAbilities = new()
+            List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                _AbilityHelper.GetSpecialAbilityId
+                _AbilityHelper.specialAbility
             };
 
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                CardAppearanceBehaviour.Appearance.RareCardBackground
+            };
             WstlUtils.Add(
                 "wstl_nothingThereEgg", "An Egg",
                 "What is it doing?",
                 0, 4, 2, 0,
-                Resources.nothingThereEgg,
+                Resources.nothingThereEgg, Resources.nothingThereEgg_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                new List<Tribe>(),
-                emissionTexture: Resources.nothingThereEgg_emission,
-                appearanceBehaviour: CardUtils.getRareAppearance,
-                evolveId: new EvolveIdentifier("wstl_nothingThereFinal", 1));
+                metaCategories: new(), tribes: new(), traits: new(),
+                appearances: appearances, evolveName: "wstl_nothingThereFinal");
         }
     }
 }

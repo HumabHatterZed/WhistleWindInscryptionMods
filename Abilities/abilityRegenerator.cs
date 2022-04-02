@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -7,17 +7,17 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewAbility Ability_Regenerator()
+        private void Ability_Regenerator()
         {
             const string rulebookName = "Regenerator";
             const string rulebookDescription = "Adjacent cards gain 1 Health at the end of the opponent's turn.";
             const string dialogue = "Wounds heal, but the scars remain.";
 
-            return WstlUtils.CreateAbility<Regenerator>(
+            Regenerator.ability = WstlUtils.CreateAbility<Regenerator>(
                 Resources.sigilRegenerator,
-                rulebookName, rulebookDescription, dialogue, 3);
+                rulebookName, rulebookDescription, dialogue, 3).Id;
         }
     }
     public class Regenerator : AbilityBehaviour

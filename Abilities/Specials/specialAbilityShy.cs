@@ -1,4 +1,4 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
@@ -6,28 +6,20 @@ using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
-        private NewSpecialAbility SpecialAbility_Shy()
+        private void SpecialAbility_Shy()
         {
             const string rulebookName = "Shy";
             const string rulebookDescription = "Switches forms when drawn.";
-            return WstlUtils.CreateSpecialAbility<TodaysShyLook>(
-                AbilitiesUtil.LoadAbilityIcon("None"),
-                rulebookName, rulebookDescription, false, false, false);
+            TodaysShyLook.specialAbility = WstlUtils.CreateSpecialAbility<TodaysShyLook>(rulebookName, rulebookDescription).Id;
         }
     }
     public class TodaysShyLook : SpecialCardBehaviour
     {
-        public static SpecialTriggeredAbility specialAbility;
-        public static SpecialAbilityIdentifier GetSpecialAbilityId
-        {
-            get
-            {
-                return SpecialAbilityIdentifier.GetID(WhistleWindLobotomyMod.Plugin.pluginGUID, "Shy");
-            }
+        public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        }
+        public static SpecialTriggeredAbility specialAbility;
 
         CardInfo cardByName = null;
 

@@ -1,11 +1,12 @@
-﻿using APIPlugin;
+﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class Plugin
+    public partial class WstlPlugin
     {
         private void BeautyAndBeast_O0244()
         {
@@ -24,10 +25,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_beautyAndBeast", "Beauty and the Beast",
                 "A pitiable creature. Death would be a mercy for it.",
                 1, 1, 1, 0,
-                Resources.beautyAndBeast,
-                abilities: abilities, new List<SpecialAbilityIdentifier>(),
-                tribes: tribes, metaCategory: CardMetaCategory.ChoiceNode,
-                emissionTexture: Resources.beautyAndBeast_emission);
+                Resources.beautyAndBeast, Resources.beautyAndBeast_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
+                isChoice: true);
         }
     }
 }
