@@ -9,7 +9,7 @@ The cards in this mod are designed to be as faithful to their original counterpa
 This mod currently adds **71** obtainable cards and **38** custom abilities, plus **13** special abilities.
 
 ## ⚙️ Dependencies
-* BepInEx-BepInExPack_Inscryption v5.4.17
+* BepInEx-BepInExPack_Inscryption v5.4.19
 * API_dev-API v2.0.0+
 
 ## 🩹 Known Issues
