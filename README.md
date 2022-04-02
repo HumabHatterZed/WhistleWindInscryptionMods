@@ -9,22 +9,11 @@ The cards in this mod are designed to be as faithful to their original counterpa
 This mod currently adds **71** obtainable cards and **38** custom abilities, plus **13** special abilities.
 
 ## ⚙️ Dependencies
-* BepInEx-BepInExPack_Inscryption v5.4.19
-* API_dev-API v2.0.0+
+* BepInEx-BepInExPack_Inscryption v5.4.1901
+* API_dev-API v2.1.0
 
 ## 🩹 Known Issues
-### LogLevel 'Debug' causing lag
-If your BepInEx console is set to output 'Debug' or 'All' log levels, you WILL experience lag spikes whenever dealing with cards with special abilities.
-This includes vanilla cards such as Ants or Tentacles, as well as the Rulebook entries for said abilities.
-
-__'Debug' logging is disabled by default, so if you haven't messed with the config you should be golden.__
-
-To prevent this lag, go to the [Logging.Console] section of your BepInEx config file, then for setting 'LogLevel' remove the value 'Debug' if it's present'.
-If you have it set to 'All', set it to something else, like the default value.
-
-### Kopie's Rulebook Expander possibly affecting added abilities
-This has not been tested, but as I understand it Rulebook Expander makes all abilities modular (can be found on totems).
-Assuming this does affect this mod's abilities, it isn't game breaking, don't feel compelled to disable Rulebook Expander if you have it active.
+### None so far! Let me know if you find some!
 
 ## ⚖️ Changelog
 * see CHANGELOG.md
