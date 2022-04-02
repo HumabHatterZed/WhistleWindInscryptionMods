@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_parasiteTreeSapling", "Sapling",
                 "They proliferate and become whole. Can you feel it?",
-                1, 2, 0, 0,
+                0, 2, 0, 0,
                 Resources.parasiteTreeSapling, Resources.parasiteTreeSapling_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new());
