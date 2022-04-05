@@ -13,7 +13,7 @@ This mod currently adds **71** obtainable cards and **38** custom abilities, plu
 * API_dev-API v2.1.0
 
 ## 🩹 Known Issues
-### Passive ability buffs causing lag (Aggravating, Idol, Bitter Enemies, Team Leader)
+### Passive ability buffs causing lag (Aggravating, Idol, Bitter Enemies, Team Leader, Flag Bearer)
 As I understand it, the above-listed abilities cause the game to slow down when active, with this lag getting worse the more instances are on the board.
 This is an issue with the API itself, and is being worked on by the team.
 There is no solution I can give, so if your computer isn't the best or you just don't want to deal with it, it would be best to avoid playing cards with those sigils.
