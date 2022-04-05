@@ -4,7 +4,7 @@
 
 Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
 
-The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay.
+The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being ""balanced"".
 
 This mod currently adds **71** obtainable cards and **38** custom abilities, plus **13** special abilities.
 
@@ -63,6 +63,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Melting Love|Reacts to taking damage.|
 
 ## ✨ Abilities
+**Notes: Modular indicates the ability can be found on totem bases or in den trials**
 ||Name|Description|Modular?|
 |-|-|-|:-:|
 ||Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
