@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
             };
 
             WstlUtils.Add(
-                "wstl_todaysShyLookNeutral", "Today's Neutral Look",
+                "wstl_todaysShyLookNeutral", "Today's Shy Look",
                 "An indecisive creature. Its expression is different each time you draw it.",
                 1, 2, 1, 0,
                 Resources.todaysShyLook, Resources.todaysShyLook_emission,

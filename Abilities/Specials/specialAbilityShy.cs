@@ -21,16 +21,23 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-        CardInfo cardByName = null;
-
         public override bool RespondsToDrawn()
         {
             return true;
         }
         public override IEnumerator OnDrawn()
         {
+            yield return ChangeForme();
+        }
+
+        public IEnumerator ChangeForme()
+        {
+            CardInfo cardByName;
+
             (Singleton<PlayerHand>.Instance as PlayerHand3D).MoveCardAboveHand(base.PlayableCard);
+
             int rand = new System.Random().Next(0, 3);
+
             switch (rand)
             {
                 case 0:
