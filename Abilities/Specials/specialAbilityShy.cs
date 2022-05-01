@@ -27,40 +27,26 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnDrawn()
         {
-            yield return ChangeForme();
-        }
-
-        public IEnumerator ChangeForme()
-        {
-            CardInfo cardByName;
-
             (Singleton<PlayerHand>.Instance as PlayerHand3D).MoveCardAboveHand(base.PlayableCard);
-
-            int rand = new System.Random().Next(0, 3);
-
-            switch (rand)
+            yield return base.PlayableCard.FlipInHand(ChangeForme);
+            yield return new WaitForSeconds(0.1f);
+            switch (base.Card.Info.name.ToLowerInvariant())
             {
-                case 0:
-                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookAngry");
-                    base.Card.SetInfo(cardByName);
+                case "wstl_todaysshylookangry":
                     if (!PersistentValues.HasSeenShyLookAngry)
                     {
                         PersistentValues.HasSeenShyLookAngry = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Weary of always forcing a smile, she gave herself a brief reprieve.", -0.65f, 0.4f);
+                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Some days you don't feel like smiling.", -0.65f, 0.4f);
                     }
                     break;
-                case 1:
-                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookHappy");
-                    base.Card.SetInfo(cardByName);
+                case "wstl_todaysshylookhappy":
                     if (!PersistentValues.HasSeenShyLookHappy)
                     {
                         PersistentValues.HasSeenShyLookHappy = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Conforming to other's expectation is not true happiness.", -0.65f, 0.4f);
+                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("There was no place for frowns in the City.", -0.65f, 0.4f);
                     }
                     break;
-                case 2:
-                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookNeutral");
-                    base.Card.SetInfo(cardByName);
+                case "wstl_todaysshylookneutral":
                     if (!PersistentValues.HasSeenShyLookNeutral)
                     {
                         PersistentValues.HasSeenShyLookNeutral = true;
@@ -68,7 +54,27 @@ namespace WhistleWindLobotomyMod
                     }
                     break;
             }
-            yield return new WaitForSeconds(0.5f);
+        }
+
+        private void ChangeForme()
+        {
+            CardInfo cardByName = CardLoader.GetCardByName("wstl_todaysShyLookNeutral");
+
+            int rand = SeededRandom.Range(0, 3, base.GetRandomSeed());
+            switch (rand)
+            {
+                case 0:
+                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookAngry");
+                    break;
+                case 1:
+                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookHappy");
+                    break;
+                case 2:
+                    break;
+            }
+
+            base.Card.ClearAppearanceBehaviours();
+            base.Card.SetInfo(cardByName);
         }
     }
 }

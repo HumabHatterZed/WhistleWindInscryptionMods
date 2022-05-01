@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             WstlUtils.Add(
                 "wstl_todaysShyLook", "Today's Shy Look",
-                "A shy one. She dons a different face whenever drawn. Just don't look at her when she does.",
+                "A shy creature that's always changing her expression.",
                 1, 2, 1, 0,
                 Resources.todaysShyLook, Resources.todaysShyLook_emission,
                 abilities: new(), specialAbilities: specialAbilities,
