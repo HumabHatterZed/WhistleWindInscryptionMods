@@ -72,6 +72,13 @@ namespace WhistleWindLobotomyMod
                 case 2:
                     break;
             }
+            foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+            {
+                // Adds merged sigils
+                CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
+                cardModificationInfo.fromCardMerge = true;
+                cardByName.Mods.Add(cardModificationInfo);
+            }
 
             base.Card.ClearAppearanceBehaviours();
             base.Card.SetInfo(cardByName);
