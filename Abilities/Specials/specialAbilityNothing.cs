@@ -69,7 +69,7 @@ namespace WhistleWindLobotomyMod
 				CardInfo info = CardLoader.CreateDeathCard(i);
 				list.Add(info);
             }
-			list.RemoveAll((CardInfo x) => x.name == "!STATIC!GLITCH");
+			list.RemoveAll((CardInfo x) => x.name == "wstl_nothingThere" || x.name == "!STATIC!GLITCH");
 			CardInfo disguise = ((list.Count <= 0) ? CardLoader.GetCardByName("wstl_nothingThere") : list[SeededRandom.Range(0, list.Count, SaveManager.SaveFile.GetCurrentRandomSeed())]);
 			this.DisguiseAsCard(disguise);
 			base.PlayableCard.AddPermanentBehaviour<NothingThere>();

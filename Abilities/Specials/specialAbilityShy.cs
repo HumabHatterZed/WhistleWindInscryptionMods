@@ -56,11 +56,49 @@ namespace WhistleWindLobotomyMod
             }
         }
 
+        public override IEnumerator OnSelectedForDeckTrial()
+        {
+            this.ChangeFormeDeck();
+            yield break;
+        }
+
+        public override void OnShownInDeckReview()
+        {
+            this.ChangeFormeDeck();
+        }
         private void ChangeForme()
         {
             CardInfo cardByName = CardLoader.GetCardByName("wstl_todaysShyLookNeutral");
 
             int rand = SeededRandom.Range(0, 3, base.GetRandomSeed());
+            switch (rand)
+            {
+                case 0:
+                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookAngry");
+                    break;
+                case 1:
+                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookHappy");
+                    break;
+                case 2:
+                    break;
+            }
+            foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+            {
+                // Adds merged sigils
+                CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
+                cardModificationInfo.fromCardMerge = true;
+                cardByName.Mods.Add(cardModificationInfo);
+            }
+
+            base.Card.ClearAppearanceBehaviours();
+            base.Card.SetInfo(cardByName);
+        }
+
+        private void ChangeFormeDeck()
+        {
+            CardInfo cardByName = CardLoader.GetCardByName("wstl_todaysShyLookNeutral");
+
+            int rand = UnityEngine.Random.Range(0, 3);
             switch (rand)
             {
                 case 0:
