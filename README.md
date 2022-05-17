@@ -4,7 +4,7 @@
 
 Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
 
-The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being ""balanced"".
+The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
 This mod currently adds **71** obtainable cards and **38** custom abilities, plus **13** special abilities.
 
@@ -63,7 +63,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Melting Love|Reacts to taking damage.|
 
 ## ✨ Abilities
-**Notes: Modular indicates the ability can be found on totem bases or in den trials**
+**Note: Modular indicates the ability can be found on totem bases or on cards from den trials**
 ||Name|Description|Modular?|
 |-|-|-|:-:|
 ||Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
@@ -105,7 +105,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||True Saviour|*My story is nowhere, unknown to all.*|||
 ||Confession and Pentinence|*Keep faith with unwavering resolve.*|||
 # 📜 List of Obtainable and Minion Cards
-**Notes: Singleton indicates you can only have a single copy of that card in your deck (like Ouroboros).**
+**Note: Singleton indicates you can only have a single copy of that card in your deck  per run(like Ouroboros).**
 
 <!---
 <img align="center" src="https://tinyurl.com/34daekbw">
@@ -218,12 +218,13 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||Clouded Monk|4|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png">||||
 
 ## Future Plans
-Hey, you made it to the bottom of this ReadMe, congrats! Below's a couple-a things I've got rattlin' around in my head.
+Hey, you made it to the bottom of this ReadMe, congrats! Below's a couple-a things I've got rattlin' around in my head. These may or may not be implemented in the future, depending on how things go.
 
-* Add remaining abnormalities (denoted under Cards by their classification numbers)
-* Tweak some cards and/or abilities
-* Add custom card choice node specifically for abnormalities. This would pull from all cards - rares included - using a distribution based on their risk level.
-* Expansion pack of the Ruina abnormalities. Also maybe a Wonderlab one, but let's not get too far ahead of ourselves.
-* Custom challenges and starter decks
-* Ordeal battle node?
-* Items??
+* Add remaining abnormalities (denoted under Cards by their classification numbers). This one is _definitely_ going to happen. Definitely. Maybe.
+* Further balancing, tweaking of cards and abilities.
+* Add a custom card choice node for abnormalities, based on their Lob Corp risk level.
+* Expansion pack of Library of Ruina abnormalities. Also maybe add the Wonderlab abnormalities, but let's not get too far ahead of ourselves.
+* Custom challenges and starter decks.
+* Ordeal battle node? Depends on whether ordeals are abnormalities or not, I'll have check the _Lore_.
+* Items?? Possibily convert some tool abnormalities into items (or not, I'll figure it out).
+* Maybe bosses??? they can't be _that_ hard to make and implement, I'm sure. 
