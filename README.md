@@ -4,7 +4,7 @@
 
 Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
 
-The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay.
+The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being ""balanced"".
 
 This mod currently adds **71** obtainable cards and **38** custom abilities, plus **13** special abilities.
 
@@ -13,7 +13,11 @@ This mod currently adds **71** obtainable cards and **38** custom abilities, plu
 * API_dev-API v2.1.0
 
 ## 🩹 Known Issues
-### None so far! Let me know if you find some!
+### Passive ability buffs causing lag (Aggravating, Idol, Bitter Enemies, Team Leader, Flag Bearer)
+As I understand it, the above-listed abilities cause the game to slow down when active, with this lag getting worse the more instances are on the board.
+This is an issue with the API itself, and is being worked on by the team.
+There is no solution I can give, so if your computer isn't the best or you just don't want to deal with it, it would be best to avoid playing cards with those sigils.
+Sorry :( .
 
 ## ⚖️ Changelog
 * see CHANGELOG.md
@@ -59,6 +63,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Melting Love|Reacts to taking damage.|
 
 ## ✨ Abilities
+**Notes: Modular indicates the ability can be found on totem bases or in den trials**
 ||Name|Description|Modular?|
 |-|-|-|:-:|
 ||Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
