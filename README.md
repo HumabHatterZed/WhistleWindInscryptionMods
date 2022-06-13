@@ -63,8 +63,8 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Melting Love|Reacts to taking damage.|
 
 ## ✨ Abilities
-**Note: Modular indicates the ability can be found on totem bases or on cards from den trials.**
-|Name|Description|Modular?|
+**Note: Totem indicates the ability can be found on totem bases and on cards from den trials.**
+|Name|Description|Totem|
 |-|-|:-:|
 |Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
 |Bloodfiend|When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.|Yes|
@@ -104,7 +104,8 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
 |True Saviour|*My story is nowhere, unknown to all.*|||
 |Confession and Pentinence|*Keep faith with unwavering resolve.*|||
-# 📜 List of Obtainable and Minion Cards
+
+## 📜 List of Obtainable and Minion Cards
 **Notes: Singleton means you can only have a single copy of that card in your deck  per run (like Ouroboros).
 Poisonous means the card will kill survivors at the campfire when eaten.**
 
