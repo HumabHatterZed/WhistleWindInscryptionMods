@@ -10,7 +10,7 @@ This mod currently adds **71** obtainable cards and **38** custom abilities, plu
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1901
-* API_dev-API v2.1.0
+* API_dev-API v2.4.0+
 
 ## 🩹 Known Issues
 ### Passive ability buffs causing lag (Aggravating, Idol, Bitter Enemies, Team Leader, Flag Bearer)
@@ -23,7 +23,7 @@ Sorry :( .
 * see CHANGELOG.md
 
 ## 💌 Credits
-Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to/steal from.
+Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to/~~steal~~borrow from.
 I'm not an expert coder by any measure, so your work has been incredibly helpful in letting make the mod I wanted to make.
 
 Additional shoutout to James Veug and his ReadMeMaker mod. I found it very helpful in making this thing look minimally presentable.
@@ -222,9 +222,9 @@ Hey, you made it to the bottom of this ReadMe, congrats! Below's a couple-a thin
 
 * Add remaining abnormalities (denoted under Cards by their classification numbers). This one is _definitely_ going to happen. Definitely. Maybe.
 * Further balancing, tweaking of cards and abilities.
-* Add a custom card choice node for abnormalities, based on their Lob Corp risk level.
+<!--- * Add a custom card choice node for abnormalities, based on their Lob Corp risk level.
 * Expansion pack of Library of Ruina abnormalities. Also maybe add the Wonderlab abnormalities, but let's not get too far ahead of ourselves.
 * Custom challenges and starter decks.
 * Ordeal battle node? Depends on whether ordeals are abnormalities or not, I'll have check the _Lore_.
 * Items?? Possibily convert some tool abnormalities into items (or not, I'll figure it out).
-* Maybe bosses??? they can't be _that_ hard to make and implement, I'm sure. 
+* Maybe bosses??? they can't be _that_ hard to make and implement, I'm sure. --->
