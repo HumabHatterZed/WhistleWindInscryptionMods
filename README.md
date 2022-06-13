@@ -105,7 +105,8 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||True Saviour|*My story is nowhere, unknown to all.*|||
 ||Confession and Pentinence|*Keep faith with unwavering resolve.*|||
 # 📜 List of Obtainable and Minion Cards
-**Note: Singleton indicates you can only have a single copy of that card in your deck  per run(like Ouroboros).**
+**Notes: Singleton indicates you can only have a single copy of that card in your deck  per run(like Ouroboros).
+Poisonous means the card will kill survivors at the campfire when eaten.**
 
 <!---
 <img align="center" src="https://tinyurl.com/34daekbw">
@@ -171,7 +172,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||The Burrowing Heaven|0|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png">||||
 ||Magical Girl S|2|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Protector|Rare<br>Singleton||
 ||The Knight of Despair|2|4|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Bifurcated Strike<br>Piercing|Rare<br>Singleton||
-||The Naked Nest|0|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Serpent's Nest|Kills Survivors||
+||The Naked Nest|0|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Serpent's Nest|Poisonous||
 ||Naked Worm|1|1|||||
 ||Mountain of Smiling Bodies|2|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Assimilator|Rare||
 ||Schadenfreude|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_4.png">|Quick Draw<br>Touch of Death|||
@@ -198,7 +199,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||Luminous Bracelet|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_3.png">|Regenerator|||
 ||O-09-96|||||||
 ||T-09-97|||||||
-||Porccubus|1|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_5.png">|Touch of Death|Kills Survivors||
+||Porccubus|1|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_5.png">|Touch of Death|Poisonous||
 ||Void Dream|0|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Fledgling<br>Flying||Hooved|
 ||^Void Dream|2|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Stinky<br>Flying||Hooved<br>Avian|
 ||Grave of Cherry Blossoms|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_1.png">|Sharp Quills<br>Bloodfiend||
@@ -212,7 +213,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ||^Ppodae|3|2|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_8.png">|Stinky||Canine|
 ||Parasite Tree|0|3|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Gardener|||
 ||Sapling|1|2|||||
-||Melting Love|4|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png">|Made of Slime|Rare<br>Kills Survivors||
+||Melting Love|4|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png">|Made of Slime|Rare<br>Poisonous||
 ||Slime|0|0||Made of Slime|||
 ||Honoured Monk|2|1|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_2.png">|Fledgling|||
 ||Clouded Monk|4|2|<img align="center" src="https://tinyurl.com/5xp6vxj7"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_blood_3.png">||||
