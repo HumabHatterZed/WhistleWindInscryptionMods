@@ -15,6 +15,7 @@ namespace WhistleWindLobotomyMod
         public static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
         {
             __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(NothingThere.specialAbility));
+            __result.RemoveAll((CardInfo x) => x.name.ToLowerInvariant().Contains("plaguedoctor"));
         }
 
         [HarmonyPatch(typeof(Deathtouch), "RespondsToDealDamage")]

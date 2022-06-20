@@ -30,16 +30,16 @@ Additional shoutout to James Veug and his ReadMeMaker mod. I found it very helpf
 
 ## 🛠️ Configuration Options
 * Enable Mod
-  * DEFAULT: true
+  * DEFAULT: True
   * What it says on the tin, this config enables/disables this mod's content.
 * Special Abilities in Rulebook
-  * DEFAULT: false
-  * Adds the special abilities to the Rulebook for your viewing pleasure. NOTE: will cause lag (see Known Issues: LogLevel 'Debug').
+  * DEFAULT: False
+  * Adds entries for the special abilities to the Rulebook for your viewing pleasure.
 * Reveal Select Descriptions
-  * DEFAULT: false
+  * DEFAULT: False
   * Changes the description of certain abilities to actually describe what they do.
 * All Modular
-  * DEFAULT: false
+  * DEFAULT: False
   * Makes all custom abilities modular, meaning they can be found on totem bases and on cards from the den trial.
 
 ## ⚜️ Special Abilities
@@ -109,9 +109,6 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 **Notes: Singleton means you can only have a single copy of that card in your deck  per run (like Ouroboros).
 Poisonous means the card will kill survivors at the campfire when eaten.**
 
-<!---
-<img align="center" src="https://tinyurl.com/34daekbw">
---->
 |Name|ATK|HP|Cost|Sigils|Traits|Tribes|
 |-|:-:|:-:|:-:|:-:|:-:|:-:|
 |Standard Training-Dummy Rabbit|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/cost_bone_1.png">||||
@@ -230,3 +227,4 @@ Hey, you made it to the bottom of this ReadMe, congrats! Below's a couple-a thin
 * Ordeal battle node? Depends on whether ordeals are abnormalities or not, I'll have check the _Lore_.
 * Items?? Possibily convert some tool abnormalities into items (or not, I'll figure it out).
 * Maybe bosses??? they can't be _that_ hard to make and implement, I'm sure. --->
+<!--- <img align="center" src="https://tinyurl.com/34daekbw"> --->
