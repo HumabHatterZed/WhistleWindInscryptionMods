@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Courageous()
         {
             const string rulebookName = "Courageous";
-            const string rulebookDescription = "Adjacent cards lose up to 2 Health but gain 1 Power for every 1 Health lost via this effect. These stats persist until battle's end.";
+            const string rulebookDescription = "If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Adjacent cards with the Waterborne or Loose Tail sigil are not affected by this effect. Stat changes persists until battle's end.";
             const string dialogue = "Life is only given to those who don't fear death.";
 
             Courageous.ability = WstlUtils.CreateAbility<Courageous>(

@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "0.70.96.17"; // Major.Minor.Patch.Cards
+        private const string pluginVersion = "1.0.0.0"; // 0.82.113.0 | Major.Minor.Patch.Cards
         public const string modPrefix = "wstl";
 
         internal static ManualLogSource Log;
@@ -260,7 +260,6 @@ namespace WhistleWindLobotomyMod
                 harmony.PatchAll(typeof(WstlAbilityBehaviour));
                 harmony.PatchAll(typeof(DeathCardPatcher));
                 harmony.PatchAll(typeof(PersistentValues));
-                harmony.PatchAll(typeof(ForcedEmissions));
                 harmony.PatchAll(typeof(CardPatcher));
                 
                 ConfigUtils.Instance.BindConfig();

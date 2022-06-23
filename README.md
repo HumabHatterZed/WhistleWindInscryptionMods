@@ -219,8 +219,8 @@ Poisonous means the card will kill survivors at the campfire when eaten.**
 ## Future Plans
 Hey, you made it to the bottom of this ReadMe, congrats! Below's a couple-a things I've got rattlin' around in my head. These may or may not be implemented in the future, depending on how things go.
 
-* Add remaining abnormalities (denoted under Cards by their classification numbers). This one is _definitely_ going to happen. Definitely. Maybe.
-* Further balancing, tweaking of cards and abilities.
+* Add remaining 24 abnormalities (denoted under Cards by their classification numbers). This one is _definitely_ going to happen. Definitely. Maybe.
+* Further balancing, tweaks, bug fixes.
 <!--- * Add a custom card choice node for abnormalities, based on their Lob Corp risk level.
 * Expansion pack of Library of Ruina abnormalities. Also maybe add the Wonderlab abnormalities, but let's not get too far ahead of ourselves.
 * Custom challenges and starter decks.
