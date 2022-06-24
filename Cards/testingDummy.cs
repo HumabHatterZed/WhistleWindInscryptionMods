@@ -13,9 +13,8 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new()
             {
                 Idol.ability,
-                BitterEnemies.ability,
-                FlagBearer.ability,
-                TeamLeader.ability
+                TeamLeader.ability,
+                Aggravating.ability
             };
 
             List<SpecialTriggeredAbility> specialAbilities = new()

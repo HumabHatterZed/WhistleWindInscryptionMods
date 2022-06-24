@@ -6,7 +6,7 @@ Inspired by KingSlime's own mod of this topic, this is my own take on translatin
 
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
-This mod currently adds **71** obtainable cards and **38** custom abilities, plus **13** special abilities.
+This mod currently adds **71** obtainable cards and **38** custom abilities, plus **13** special abilities, with plans to eventually add more.
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1901
@@ -25,8 +25,6 @@ Sorry :( .
 ## 💌 Credits
 Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to/~~steal~~borrow from.
 I'm not an expert coder by any measure, so your work has been incredibly helpful in letting make the mod I wanted to make.
-
-Additional shoutout to James Veug and his ReadMeMaker mod. I found it very helpful in making this thing look minimally presentable.
 
 ## 🛠️ Configuration Options
 * Enable Mod
@@ -82,7 +80,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Healer|This card will heal a selected ally for 2 Health.||
 |Queen Nest|When a card bearing this sigil is played, a Worker Bee is created in your hand. Create an additional Worker Bee whenever another card dies.||
 |Bitter Enemies|A card bearing this sigil gains 1 Power when another card on this board also bears this sigil.|Yes|
-|Courageous|Adjacent cards lose up to 2 Health but gain 1 Power for every 1 Health lost via this effect. These stats persist until battle's end.||
+|Courageous|If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Adjacent cards with the Waterborne or Loose Tail sigil are not affected by this effect. Stat changes persists until battle's end.||
 |Serpent's Nest|When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.|Yes|
 |Assimilator|When a card bearing this sigil kills an enemy card, this card gains 1 Power and 1 Health.||
 |Group Healer|While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.||

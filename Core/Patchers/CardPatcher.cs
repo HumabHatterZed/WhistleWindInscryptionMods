@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
     public static class CardPatcher
     {
         // Removes certain cards from valid pool of hosts for card merges
-        [HarmonyPatch(typeof(CardMergeSequencer), "GetValidCardsForHost")]
+        [HarmonyPatch(typeof(CardMergeSequencer), nameof(CardMergeSequencer.GetValidCardsForHost))]
         [HarmonyPostfix]
         public static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
         {
@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
         }
 
         // Removes certain cards from valid pool of sacrifices for card merges
-        [HarmonyPatch(typeof(CardMergeSequencer), "GetValidCardsForSacrifice")]
+        [HarmonyPatch(typeof(CardMergeSequencer), nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
         [HarmonyPostfix]
         public static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result)
         {
@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod
 
         // Makes WhiteNight, its Apostles, and Hundreds of Good Deeds immune to Touch of Death
         // Effectively gives them Made of Stone but without the whole 'they're not made of stone' thing
-        [HarmonyPatch(typeof(Deathtouch), "RespondsToDealDamage")]
+        [HarmonyPatch(typeof(Deathtouch), nameof(Deathtouch.RespondsToDealDamage))]
         [HarmonyPrefix]
         public static bool ImmunetoDeathTouch(ref int amount, ref PlayableCard target)
         {
@@ -45,7 +45,7 @@ namespace WhistleWindLobotomyMod
         // Only for a select few cards
         // Let's not get too liberal with the 'make everything glowy' button
         // Might be a better way of doing this, but oh well
-        [HarmonyPatch(typeof(Card), "ApplyAppearanceBehaviours")]
+        [HarmonyPatch(typeof(Card), nameof(Card.ApplyAppearanceBehaviours))]
         [HarmonyPostfix]
         public static void ForcedEmissions(ref Card __instance)
         {
