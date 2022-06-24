@@ -45,7 +45,7 @@ A number of cards added by this mod possess special behaviour not normally found
 In the spirit of the original game, I won't be listing the effects here, only which cards possess a special ability and what triggers it.
 You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Card|Trigger|
-|-|-|
+|:-|:-|
 |Nameless Fetus|Reacts to being sacrificed.|
 |Bloodbath|Reacts to cards being sacrificed.|
 |Magical Girl H|Reacts to cards dying.|
@@ -63,7 +63,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ## ✨ Abilities
 **Note: Totem indicates the ability can be found on totem bases and on cards from den trials.**
 |Name|Description|Totem|
-|-|-|:-:|
+|:-|:-|:-:|
 |Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
 |Bloodfiend|When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.|Yes|
 |Martyr|When a card bearing this sigil dies, all allied creatures gain 2 Health.|Yes|
@@ -107,8 +107,8 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 **Notes: Singleton means you can only have a single copy of that card in your deck  per run (like Ouroboros).
 Poisonous means the card will kill survivors at the campfire when eaten.**
 
-|Name|ATK|HP|Cost|Sigils|Traits|Tribes|
-|-|:-:|:-:|:-:|:-:|:-:|:-:|
+|Name|Power|Health|Cost|Sigils|Traits|Tribes|
+|:-|:-:|:-:|:-:|:-:|:-:|:-:|
 |Standard Training-Dummy Rabbit|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/BoneCost/1.png">||||
 |Scorched Girl|1|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/BoneCost/3.png">|Volatile|||
 |One Sin|0|1|<img align="center" src="https://tinyurl.com/2p86btxk"><img align="center" src="https://raw.githubusercontent.com/JamesVeug/InscyptionReadmeMaker/main/Artwork/Git/BoneCost/4.png">|Martyr|||
