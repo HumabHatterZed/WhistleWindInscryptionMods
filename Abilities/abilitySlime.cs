@@ -158,7 +158,7 @@ namespace WhistleWindLobotomyMod
         {
             if (source != null)
             {
-                return source.Health > 0;
+                return source.Health > 0 && IsLove;
             }
             return false;
         }
@@ -167,10 +167,6 @@ namespace WhistleWindLobotomyMod
             yield return base.Card.Status.damageTaken > 0 ? base.Card.Status.damageTaken-- : base.Card.Status.damageTaken;
             base.Card.Anim.PlayHitAnimation();
             yield return base.PreSuccessfulTriggerSequence();
-            if (!IsLove)
-            {
-                yield break;
-            }
             if (base.Card.Health == 1 && base.Card.MaxHealth > 1)
             {
                 yield return new WaitForSeconds(0.55f);

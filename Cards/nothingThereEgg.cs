@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                _AbilityHelper.specialAbility
+                SpecialAbilityFledgling.specialAbility
             };
 
             List<CardAppearanceBehaviour.Appearance> appearances = new()
@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_nothingThereEgg", "An Egg",
                 "What is it doing?",
-                0, 4, 2, 0,
+                0, 3, 2, 0,
                 Resources.nothingThereEgg, Resources.nothingThereEgg_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),

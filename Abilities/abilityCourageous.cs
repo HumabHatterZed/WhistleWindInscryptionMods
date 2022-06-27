@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Courageous()
         {
             const string rulebookName = "Courageous";
-            const string rulebookDescription = "If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Adjacent cards with the Waterborne or Loose Tail sigil are not affected by this effect. Stat changes persists until battle's end.";
+            const string rulebookDescription = "If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Stat changes persist until battle's end.";
             const string dialogue = "Life is only given to those who don't fear death.";
 
             Courageous.ability = WstlUtils.CreateAbility<Courageous>(
@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod
         public static CardModificationInfo courageMod2 = new(1, -1);
 
         private readonly string buffFail = "Your creature's consitution is too weak.";
-        private readonly string buffRefuse = "Coward's don't get the boon of the brave.";
+        private readonly string buffRefuse = "Cowards don't get the boon of the brave.";
         private readonly string cowardKill = "A coward on the battlefield does not deserve to see its end.";
 
         public override bool RespondsToResolveOnBoard()

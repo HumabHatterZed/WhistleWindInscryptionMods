@@ -23,9 +23,7 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-        private readonly string dialogue = "Balance must be maintained between good and evil.";
-        private readonly string dialogue2 = "When one outweighs the other, she will tip the scale back.";
-        private readonly string dialogue3 = "No matter what she must become, or whose side she must take.";
+        private readonly string dialogue = "The balance must be maintained. Good cannot exist without evil.";
         private readonly string altDialogue = "Good cannot exist without evil.";
 
         private int allyDeaths;
@@ -142,8 +140,6 @@ namespace WhistleWindLobotomyMod
             {
                 PersistentValues.HasSeenHatredTransformation = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue2, -0.65f, 0.4f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue3, -0.65f, 0.4f);
                 yield return new WaitForSeconds(0.5f);
             }
             else

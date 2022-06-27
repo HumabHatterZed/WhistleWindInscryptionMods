@@ -107,8 +107,7 @@ namespace WhistleWindLobotomyMod
                 #region SPECIAL ABILITIES
                 // Unique special ability
                 // Controls dialogue, some other stuff too
-                AbilityHelper();
-
+                SpecialAbilityEvolve();
                 SpecialAbility_Fetus();
                 SpecialAbility_Bath();
                 SpecialAbility_Nothing();
@@ -256,15 +255,15 @@ namespace WhistleWindLobotomyMod
 
                 #endregion
                 
-                harmony.PatchAll(typeof(WstlCombatPhasePatcher));
-                harmony.PatchAll(typeof(WstlAbilityBehaviour));
+                harmony.PatchAll(typeof(CombatPhasePatcher));
+                harmony.PatchAll(typeof(AddBonesPatcher));
                 harmony.PatchAll(typeof(DeathCardPatcher));
                 harmony.PatchAll(typeof(PersistentValues));
                 harmony.PatchAll(typeof(CardPatcher));
                 
                 ConfigUtils.Instance.BindConfig();
 
-                Logger.LogInfo($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
+                Logger.LogWarning($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }
             else

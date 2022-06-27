@@ -22,85 +22,42 @@ namespace WhistleWindLobotomyMod
                 rulebookName, rulebookDescription, dialogue, 5).Id;
         }
     }
-    public class TeamLeader : AbilityBehaviour
+    public class TeamLeader : AbilityBehaviour, IPassiveAttackBuff
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
+        // Check if there are already other cards on the board
+        // Used for LearnAbility dialogue
         public override bool RespondsToResolveOnBoard()
         {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(true))
+            List<CardSlot> otherSlots = base.Card.OpponentCard ? Singleton<BoardManager>.Instance.OpponentSlotsCopy : Singleton<BoardManager>.Instance.PlayerSlotsCopy;
+            List<CardSlot> validSlots = otherSlots.FindAll((CardSlot x) => x.Card != null && x.Card != base.Card);
+            if (validSlots.Count > 0)
             {
-                if (slot.Card != null && slot.Card != base.Card)
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
         public override IEnumerator OnResolveOnBoard()
         {
-            BuffAllies allies = new BuffAllies();
-
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(true))
-            {
-                if (slot.Card != null && slot.Card != base.Card)
-                {
-                    yield return allies.GetPassiveAttackBuff(slot.Card);
-                }
-            }
             yield return base.LearnAbility(0.4f);
-
         }
 
+        // Respond to other card resolving if it and this card are on the player's side of the board and
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
-            return !otherCard.OpponentCard;
+            return base.Card.OnBoard && !base.Card.OpponentCard && !otherCard.OpponentCard;
         }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
-            BuffAllies allies = new BuffAllies();
-
-            if (otherCard != null && otherCard != base.Card)
-            {
-                allies.GetPassiveAttackBuff(otherCard);
-            }
             yield return base.LearnAbility(0.4f);
         }
-    }
 
-    /*public class OnBuffAllies : IOnCardPassiveAttackBuffs
-    {
-        public bool RespondsToCardPassiveAttackBuffs(PlayableCard card, int value)
-        {
-            if (card != null && card.OnBoard && !card.OpponentCard && value > 0)
-            {
-                WstlPlugin.Log.LogInfo("true");
-                return true;
-            }
-            else
-            {
-                WstlPlugin.Log.LogInfo("false");
-                return false;
-            }
-        }
-
-    }*/
-    
-    public class BuffAllies : IPassiveAttackBuff
-    {
+        // Gives +1 Power if on board and target card is on same side of the board
         public int GetPassiveAttackBuff(PlayableCard target)
         {
-            if (target != null && target.OnBoard && !target.OpponentCard)
-            {
-                WstlPlugin.Log.LogInfo("1");
-                return 1;
-            }
-            else
-            {
-                WstlPlugin.Log.LogInfo("0");
-                return 0;
-            }
+            return this.Card.OnBoard && target.OpponentCard == this.Card.OpponentCard && target != base.Card ? 1 : 0;
         }
     }
 }

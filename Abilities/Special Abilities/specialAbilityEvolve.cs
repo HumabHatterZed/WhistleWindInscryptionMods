@@ -8,14 +8,14 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void AbilityHelper()
+        private void SpecialAbilityEvolve()
         {
-            const string rulebookName = "AbilityHelper";
-            const string rulebookDescription = "Triggers special dialogue.";
-            _AbilityHelper.specialAbility = WstlUtils.CreateSpecialAbility<_AbilityHelper>(rulebookName, rulebookDescription).Id;
+            const string rulebookName = "SpecialAbilityEvolve";
+            const string rulebookDescription = "Special ability version of Fledgling for certain cards.";
+            SpecialAbilityFledgling.specialAbility = WstlUtils.CreateSpecialAbility<SpecialAbilityFledgling>(rulebookName, rulebookDescription).Id;
         }
     }
-    public class _AbilityHelper : SpecialCardBehaviour
+    public class SpecialAbilityFledgling : SpecialCardBehaviour
     {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -58,6 +58,8 @@ namespace WhistleWindLobotomyMod
             }
             if (IsNothingTrue) // Nothing There True --> Nothing There Egg
             {
+                base.Card.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.4f);
                 if (!PersistentValues.HasSeenNothingTransformationTrue)
                 {
                     PersistentValues.HasSeenNothingTransformationTrue = true;

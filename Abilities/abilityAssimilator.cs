@@ -43,13 +43,9 @@ namespace WhistleWindLobotomyMod
 
             // checks if this card is one of MoSB's first two forms
             var cardName = base.Card.Info.name.ToLowerInvariant();
-            if (cardName.Contains("mountainofbodies") && !cardName.Equals("wstl_mountainofbodies3"))
+            if (cardName.Equals("wstl_mountainofbodies") || cardName.Equals("wstl_mountainofbodies2"))
             {
-                CardInfo evolution = CardLoader.GetCardByName("wstl_mountainOfBodies2");
-                if (cardName.Equals("wstl_mountainofbodies2"))
-                {
-                    evolution = CardLoader.GetCardByName("wstl_mountainOfBodies3");
-                }
+                CardInfo evolution = cardName.Equals("wstl_mountainofbodies") ? CardLoader.GetCardByName("wstl_mountainofbodies2") : CardLoader.GetCardByName("wstl_mountainofbodies3");
                 yield return new WaitForSeconds(0.25f);
                 foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
                 {
@@ -78,15 +74,10 @@ namespace WhistleWindLobotomyMod
         {
             // checks if this card is one of MoSB's evolutions, excluding its first forme
             var cardName = base.Card.Info.name.ToLowerInvariant();
-            if (cardName.Contains("mountainofbodies") && !cardName.Equals("wstl_mountainofbodies"))
+            if (cardName.Equals("wstl_mountainofbodies3") || cardName.Equals("wstl_mountainofbodies2"))
             {
                 yield return PreSuccessfulTriggerSequence();
-
-                CardInfo previous = CardLoader.GetCardByName("wstl_mountainOfBodies");
-                if (cardName.Equals("wstl_mountainofbodies3"))
-                {
-                    previous = CardLoader.GetCardByName("wstl_mountainOfBodies2");
-                }
+                CardInfo previous = cardName.Equals("wstl_mountainofbodies2") ? CardLoader.GetCardByName("wstl_mountainOfBodies") : CardLoader.GetCardByName("wstl_mountainOfBodies2");
                 yield return new WaitForSeconds(0.25f);
                 foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
                 {
@@ -95,9 +86,9 @@ namespace WhistleWindLobotomyMod
                 }
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(previous, base.Card.Slot, 0.15f);
                 yield return new WaitForSeconds(0.25f);
-                if (!PersistentValues.HasSeenMountainShrink2)
+                if (!PersistentValues.HasSeenMountainShrink)
                 {
-                    PersistentValues.HasSeenMountainShrink2 = true;
+                    PersistentValues.HasSeenMountainShrink = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dieDialogue, -0.65f, 0.4f);
                 }
             }

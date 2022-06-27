@@ -1,5 +1,6 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
+using InscryptionAPI.Triggers;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,23 +23,10 @@ namespace WhistleWindLobotomyMod
                 rulebookName, rulebookDescription, dialogue, 5).Id;
         }
     }
-    public class Idol : WstlAbilityBehaviour
+    public class Idol : AbilityBehaviour, IPassiveAttackBuff
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override bool ProvidesPassiveAttackBuffOpponent => true;
-        public override int[] GetPassiveAttackBuffsOpponent()
-        {
-            List<int> slots = new() { 0, 0, 0, 0 };
-            foreach (CardSlot slot in (base.Card.OpponentCard ? Singleton<BoardManager>.Instance.playerSlots : Singleton<BoardManager>.Instance.opponentSlots))
-            {
-                if (slot.Card != null)
-                {
-                    slots[slot.Index] -= 1;
-                }
-            }
-            return slots.ToArray();
-        }
         public override bool RespondsToResolveOnBoard()
         {
             return ActivateOnPlay();
@@ -55,17 +43,20 @@ namespace WhistleWindLobotomyMod
         {
             yield return base.LearnAbility(0.5f);
         }
+        public int GetPassiveAttackBuff(PlayableCard target)
+        {
+            return this.Card.OnBoard && target.OpponentCard != this.Card.OpponentCard && target != base.Card ? -1 : 0;
+        }
         public bool ActivateOnPlay()
         {
-            int num = 0;
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(!base.Card.Slot.IsPlayerSlot))
             {
-                if (slot.Card != null)
+                if (slot.Card != null && slot.Card.Attack > 0)
                 {
-                    num++;
+                    return true;
                 }
             }
-            return num > 0;
+            return false;
         }
     }
 }

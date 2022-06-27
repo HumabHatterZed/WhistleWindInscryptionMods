@@ -13,18 +13,13 @@ This mod currently adds **71** obtainable cards and **38** custom abilities, plu
 * API_dev-API v2.4.0+
 
 ## 🩹 Known Issues
-### Passive ability buffs causing lag (Aggravating, Idol, Bitter Enemies, Team Leader, Flag Bearer)
-As I understand it, the above-listed abilities cause the game to slow down when active, with this lag getting worse the more instances are on the board.
-This is an issue with the API itself, and is being worked on by the team.
-There is no solution I can give, so if your computer isn't the best or you just don't want to deal with it, it would be best to avoid playing cards with those sigils.
-Sorry :( .
+### None so far!
 
 ## ⚖️ Changelog
 * see CHANGELOG.md
 
 ## 💌 Credits
-Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to/~~steal~~ borrow from.
-I'm not an expert coder by any measure, so your work has been incredibly helpful in letting make the mod I wanted to make.
+Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to/~~steal~~borrow from.
 
 Also, big thanks to James Veug's ReadmeMaker mod for the cost sprites I use, as well as providing a template for my own li'l tables.
 
@@ -75,14 +70,14 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Conductor|When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 1 Health.||
 |Woodcutter|When a card moves into the space opposing this card, deal damage equal to this card's Power to it.||
 |Frozen Heart|When this card dies, the killer gains 1 Health.||
-|Frost Ruler|When this card is played, create a Frozen Heart in the opposing spaces to its left and right if they are occupied, and a Block of Ice if they are empty. A Frozen Heart is defined as: 0 Power, 1 Health. A Block of Ice is defined as: 0 Power, 3 Health.||
+|Ruler of Frost|When this card is played, create a Block of Ice in the opposing adjacent slots if they are empty. Otherwise, if the occupying card has 1 Health, kill it and create a Frozen Heart in its place. A Block of Ice and a Frozen Heart are both defined as: 0 Power, 1 Health.||
 |Root|When this card is played, Vines are created on adjacent empty spaces. A Vine is defined as: 1 Power, 1 Health.|Yes|
 |Broodmother|When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health.|Yes|
 |Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.||
 |Healer|This card will heal a selected ally for 2 Health.||
 |Queen Nest|When a card bearing this sigil is played, a Worker Bee is created in your hand. Create an additional Worker Bee whenever another card dies.||
 |Bitter Enemies|A card bearing this sigil gains 1 Power when another card on this board also bears this sigil.|Yes|
-|Courageous|If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Adjacent cards with the Waterborne or Loose Tail sigil are not affected by this effect. Stat changes persists until battle's end.||
+|Courageous|If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Stat changes persist until battle's end.||
 |Serpent's Nest|When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.|Yes|
 |Assimilator|When a card bearing this sigil kills an enemy card, this card gains 1 Power and 1 Health.||
 |Group Healer|While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.||

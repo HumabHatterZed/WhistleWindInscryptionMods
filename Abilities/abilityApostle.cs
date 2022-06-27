@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private readonly string downedDialogue = "I shall be with ye as I relieve you of the fear of horrifying death.";
+        private readonly string downedDialogue = "None of you can leave my side until I permit you.";
         private readonly string hammeredDialogue = "Be at ease. No calamity shall be able to trouble you.";
 
         private int downCount = 0;

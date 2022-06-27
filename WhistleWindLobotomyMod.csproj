@@ -47,7 +47,7 @@
 		  <LastGenOutput>Resources.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 	</ItemGroup>
-
+	
 	<Target Name="CopyDLLs" AfterTargets="Build">
 		<Message Text="Executing CopyDLLs task" Importance="High" />
 
