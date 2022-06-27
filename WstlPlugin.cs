@@ -117,7 +117,7 @@ namespace WhistleWindLobotomyMod
                 #endregion
 
                 #region CARDS
-                TestingDummy_XXXXX();
+                //TestingDummy_XXXXX();
 
                 TrainingDummy_00000();
                 ScorchedGirl_F0102();
