@@ -1,4 +1,5 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using HarmonyLib;
 using System.Collections;
@@ -10,14 +11,26 @@ namespace WhistleWindLobotomyMod
 {
     public static class CardPatcher
     {
-        [HarmonyPatch(typeof(CardMergeSequencer), "GetValidCardsForHost")]
+        // Removes cards from valid pool of hosts for card merges
+        [HarmonyPatch(typeof(CardMergeSequencer), nameof(CardMergeSequencer.GetValidCardsForHost))]
         [HarmonyPostfix]
         public static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
         {
             __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(NothingThere.specialAbility));
+            __result.RemoveAll((CardInfo x) => x.name.Equals("wstl_ExpressHellTrain"));
+        }
+        // Removes cards from valid pool of sacrifices for card merges
+        [HarmonyPatch(typeof(CardMergeSequencer), nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
+        [HarmonyPostfix]
+        public static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result)
+        {
+            __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(NothingThere.specialAbility));
+            __result.RemoveAll((CardInfo x) => x.name.Equals("wstl_ExpressHellTrain"));
         }
 
-        [HarmonyPatch(typeof(Deathtouch), "RespondsToDealDamage")]
+        // Makes WhiteNight, its Apostles, and Hundreds of Good Deeds immune to Touch of Death
+        // Effectively gives them Made of Stone but without the whole 'they're not made of stone' thing
+        [HarmonyPatch(typeof(Deathtouch), nameof(Deathtouch.RespondsToDealDamage))]
         [HarmonyPrefix]
         public static bool ImmunetoDeathTouch(ref int amount, ref PlayableCard target)
         {
@@ -29,76 +42,79 @@ namespace WhistleWindLobotomyMod
             return false;
         }
 
-        // Forces cards to render their emissive texture
-        // Only for a select few cards
-        // Let's not get too liberal with the 'make everything glowy' button
-        // Update: I got too liberal with the 'make everything glowy' button
-        [HarmonyPatch(typeof(Card), "ApplyAppearanceBehaviours")]
+        // Controls custom emission rules for added cards
+        // E.g., forced emissions (always glowy), custom colours
+        [HarmonyPatch(typeof(Card), nameof(Card.ApplyAppearanceBehaviours))]
         [HarmonyPostfix]
-        public static void ForcedEmissions(ref Card __instance)
+        public static void CustomEmissions(ref Card __instance)
         {
-            switch (__instance.Info.name.ToLowerInvariant())
+            string instanceName = __instance.Info.name.ToLowerInvariant();
+
+            switch(instanceName)
             {
-                case "wstl_spiderling":
-                    __instance.RenderInfo.forceEmissivePortrait = true;
-                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
-                    __instance.RenderCard();
-                    break;
-                case "wstl_spiderbrood":
-                    __instance.RenderInfo.forceEmissivePortrait = true;
-                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
-                    __instance.RenderCard();
-                    break;
-                case "wstl_whitenight":
+                case "wstl_apostleheretic":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
-                    __instance.RenderCard();
                     break;
                 case "wstl_apostlescythe":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
-                    __instance.RenderCard();
                     break;
-                case "wstl_apostlescythedown":
+                case "wstl_apostlescythedowned":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
-                    __instance.RenderCard();
-                    break;
-                case "wstl_apostlestaff":
-                    __instance.RenderInfo.forceEmissivePortrait = true;
-                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
-                    __instance.RenderCard();
-                    break;
-                case "wstl_apostlestaffdown":
-                    __instance.RenderInfo.forceEmissivePortrait = true;
-                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
-                    __instance.RenderCard();
                     break;
                 case "wstl_apostlespear":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
-                    __instance.RenderCard();
                     break;
-                case "wstl_apostlespeardown":
+                case "wstl_apostlespeardowned":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
-                    __instance.RenderCard();
                     break;
-                case "wstl_apostleheretic":
+                case "wstl_apostlestaff":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
-                    __instance.RenderCard();
+                    break;
+                case "wstl_apostlestaffdowned":
+                    __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
                     break;
                 case "wstl_hundredsgooddeeds":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
-                    __instance.RenderCard();
                     break;
-                default: // for testing only
+                case "wstl_redshoes":
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
+                    break;
+                case "wstl_shelterfrom27march":
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
+                    break;
+                case "wstl_spiderbrood":
                     __instance.RenderInfo.forceEmissivePortrait = true;
-                    __instance.RenderCard();
-                    break; /* */
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
+                    break;
+                case "wstl_spiderbud":
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
+                    break;
+                case "wstl_spiderling":
+                    __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
+                    break;
+                case "wstl_warmheartedwoodsman":
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
+                    break;
+                case "wstl_wecanchangeanything":
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
+                    break;
+                case "wstl_whitenight":
+                    __instance.RenderInfo.forceEmissivePortrait = true;
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
+                    break;
+
             }
+            // For testing emissions
+            //__instance.RenderInfo.forceEmissivePortrait = true;
         }
     }
 }

@@ -12,10 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Idol.ability,
-                BitterEnemies.ability,
-                FlagBearer.ability,
-                TeamLeader.ability
+                TheTrain.ability
             };
 
             List<SpecialTriggeredAbility> specialAbilities = new()
@@ -27,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
                 1, 10, 0, 0,
-                Resources.testingDummy, Resources.blueStar_emission,
+                Resources.bigBird, Resources.bigBird_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new());
         }

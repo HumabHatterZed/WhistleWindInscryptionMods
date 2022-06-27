@@ -1,5 +1,7 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
+using HarmonyLib;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -12,103 +14,53 @@ namespace WhistleWindLobotomyMod
         private void Ability_TheTrain()
         {
             const string rulebookName = "The Train";
-            const string rulebookDescription = "One turn after this card is played, kill all cards on the board. If this card is not the ticket taker, kill only the card's allies at a 20% chance.";
+            const string rulebookDescription = "Activate: Pay 10 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.";
             const string dialogue = "The train boards those that don't step away from the tracks.";
 
-            TheTrain.ability = WstlUtils.CreateAbility<TheTrain>(
+            TheTrain.ability = WstlUtils.CreateActivatedAbility<TheTrain>(
                 Resources.sigilTheTrain,
                 rulebookName, rulebookDescription, dialogue, 5).Id;
         }
     }
-    public class TheTrain : AbilityBehaviour
+    public class TheTrain : ActivatedAbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private int count = 0;
-
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
+        public override int BonesCost => 0;
+        // Kills all cards on the board after a li'l sequence
+        public override IEnumerator Activate()
         {
-            if (!base.Card.Slot.IsPlayerSlot)
+            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
+            yield return base.PreSuccessfulTriggerSequence();
+            base.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.55f);
+            AudioController.Instance.PlaySound2D("combatbell_vibrate");
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
             {
-                return !playerTurnEnd;
+                if (slot.Card != base.Card)
+                {
+                    slot.Card.Anim.SetShaking(true);
+                }
             }
-            return playerTurnEnd;
-        }
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
-            count++;
-            yield return PreSuccessfulTriggerSequence();
-            if (count >= 2)
+            yield return new WaitForSeconds(0.55f);
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
             {
-                Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-
-                base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.55f);
-                if (base.Card.Info.name.ToLowerInvariant().Equals("wstl_expresshelltrain"))
+                if (slot.Card != base.Card)
                 {
-                    foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != base.Card))
-                    {
-                        if (slot.Card != null)
-                        {
-                            slot.Card.Anim.StrongNegationEffect();
-                        }
-                    }
-                    yield return new WaitForSeconds(0.55f);
-                    foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != base.Card))
-                    {
-                        if (slot.Card != null)
-                        {
-                            yield return slot.Card.Die(false, base.Card);
-                        }
-                    }
+                    yield return slot.Card.Info.SetExtendedProperty("killedByTrain",1);
+                    yield return slot.Card.Die(false, base.Card);
+                    yield return new WaitForSeconds(0.1f);
                 }
-                else
-                {
-                    int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber;
-                    int rand = SeededRandom.Range(0, 5, randomSeed);
-                    if (rand == 0)
-                    {
-                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != base.Card))
-                        {
-                            if (slot.Card != null)
-                            {
-                                slot.Card.Anim.StrongNegationEffect();
-                            }
-                        }
-                        yield return new WaitForSeconds(0.55f);
-                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != base.Card))
-                        {
-                            if (slot.Card != null)
-                            {
-                                yield return slot.Card.Die(false, base.Card);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(slot => slot.Card != base.Card))
-                        {
-                            if (slot.Card != null)
-                            {
-                                slot.Card.Anim.StrongNegationEffect();
-                            }
-                        }
-                        yield return new WaitForSeconds(0.55f);
-                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(slot => slot.Card != base.Card))
-                        {
-                            if (slot.Card != null)
-                            {
-                                yield return slot.Card.Die(false, base.Card);
-                            }
-                        }
-                    }
-                }
-                yield return new WaitForSeconds(0.55f);
-                yield return this.Card.Die(false, base.Card);
-                yield return new WaitForSeconds(0.4f);
-                yield return LearnAbility(0.4f);
             }
+            yield return new WaitForSeconds(0.5f);
+            yield return base.Card.Info.SetExtendedProperty("killedByTrain", 1);
+            yield return base.Card.Die(false, base.Card);
+            yield return new WaitForSeconds(0.4f);
+            yield return base.LearnAbility();
+            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.DefaultView);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
     }
 }

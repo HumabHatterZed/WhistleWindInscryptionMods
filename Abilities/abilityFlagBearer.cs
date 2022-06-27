@@ -1,5 +1,6 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
+using InscryptionAPI.Triggers;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,33 +23,10 @@ namespace WhistleWindLobotomyMod
                 rulebookName, rulebookDescription, dialogue, 3).Id;
         }
     }
-    public class FlagBearer : ExtendedAbilityBehaviour
+    public class FlagBearer : AbilityBehaviour, IPassiveHealthBuff
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override bool ProvidesPassiveHealthBuff => true;
-
-        public override int[] GetPassiveHealthBuffs()
-        {
-            List<int> slots = new() { 0, 0, 0, 0 };
-            foreach (CardSlot slot in (base.Card.OpponentCard ? Singleton<BoardManager>.Instance.opponentSlots : Singleton<BoardManager>.Instance.playerSlots))
-            {
-                if (slot == base.Card.Slot)
-                {
-                    CardSlot leftSlot = Singleton<BoardManager>.Instance.GetAdjacent(slot, true);
-                    CardSlot rightSlot = Singleton<BoardManager>.Instance.GetAdjacent(slot, false);
-                    if (leftSlot != null && leftSlot.Card != null)
-                    {
-                        slots[leftSlot.Index] += 2;
-                    }
-                    if (rightSlot != null && rightSlot.Card != null)
-                    {
-                        slots[rightSlot.Index] += 2;
-                    }
-                }
-            }
-            return slots.ToArray();
-        }
         public override bool RespondsToResolveOnBoard()
         {
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
@@ -77,6 +55,29 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
             yield return base.LearnAbility(0.4f);
+        }
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
+        {
+            return true;
+        }
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
+        {
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
+            {
+                if (slot.Card.Health < 3)
+                {
+                    slot.Card.HealDamage(1);
+                }
+            }
+            yield break;
+        }
+        public int GetPassiveHealthBuff(PlayableCard target)
+        {
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(target.Slot).Where(slot => slot.Card != null))
+            {
+                return this.Card.OnBoard && slot.Card == this.Card ? 2 : 0;
+            }
+            return 0;
         }
     }
 }

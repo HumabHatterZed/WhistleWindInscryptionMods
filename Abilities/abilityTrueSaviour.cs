@@ -118,10 +118,7 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            if (base.Card.Health <= base.Card.MaxHealth)
-            {
-                base.Card.HealDamage(base.Card.MaxHealth - base.Card.Health);
-            }
+            base.Card.HealDamage(base.Card.MaxHealth - base.Card.Health);
         }
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
@@ -147,9 +144,12 @@ namespace WhistleWindLobotomyMod
                     }
                     yield return killer.Die(false, base.Card);
                 }
-                AudioController.Instance.PlaySound2D("mycologist_scream");
-                Singleton<UIManager>.Instance.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 0.4f);
-                yield return new WaitForSeconds(0.5f);
+                else
+                {
+                    AudioController.Instance.PlaySound2D("mycologist_scream");
+                    Singleton<UIManager>.Instance.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 0.4f);
+                    yield return new WaitForSeconds(0.5f);
+                }
             }
             else
             {

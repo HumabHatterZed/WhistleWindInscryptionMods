@@ -8,13 +8,14 @@ using UnityEngine;
 
 namespace WhistleWindLobotomyMod
 {
+    // Adds custom deaths cards to the death card pool
     public class DeathCardPatcher
     {
         private static readonly string mirabelle = "wstl_mirabelleDeathCard";
         private static readonly string poussey = "wstl_posseyDeathCard";
         private static readonly string stemcell642 = "wstl_stemCell642DeathCard";
 
-        [HarmonyPatch(typeof(RunState), "Initialize")]
+        [HarmonyPatch(typeof(RunState), nameof(RunState.Initialize))]
         [HarmonyPostfix]
         public static void AddDeathCards()
         {

@@ -9,16 +9,17 @@ using UnityEngine;
 
 namespace WhistleWindLobotomyMod
 {
-	public class WstlCombatPhasePatcher
+	public class CombatPhasePatcher
 	{
-		private static WstlCombatPhasePatcher w_instance;
-		public static WstlCombatPhasePatcher Instance => w_instance ??= new WstlCombatPhasePatcher();
+		private static CombatPhasePatcher w_instance;
+		public static CombatPhasePatcher Instance => w_instance ??= new CombatPhasePatcher();
 
 		private List<GameObject> sniperIcons = new List<GameObject>();
 		private GameObject sniperIconPrefab;
 
 		// nothing I love more than just ripping code verbatim
-		[HarmonyPatch(typeof(CombatPhaseManager), "SlotAttackSequence")]
+		// basically just adds the Marksman ability to the attack sequence code, plus all the special code
+		[HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.SlotAttackSequence))]
 		[HarmonyPostfix]
 		public static IEnumerator SlotAttackSequence(IEnumerator enumerator, CombatPhaseManager __instance, CardSlot slot)
 		{
@@ -57,20 +58,20 @@ namespace WhistleWindLobotomyMod
 			Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
 			for (int i = 0; i < numAttacks; i++)
 			{
-				WstlCombatPhasePatcher.Instance.VisualizeStartSniperAbility(slot);
+				CombatPhasePatcher.Instance.VisualizeStartSniperAbility(slot);
 				CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
 
 				if (cardSlot != null && opposingSlots.Contains(cardSlot))
 				{
-					WstlCombatPhasePatcher.Instance.VisualizeAimSniperAbility(slot, cardSlot);
+					CombatPhasePatcher.Instance.VisualizeAimSniperAbility(slot, cardSlot);
 				}
 				yield return Singleton<BoardManager>.Instance.ChooseTarget(Singleton<BoardManager>.Instance.OpponentSlotsCopy, Singleton<BoardManager>.Instance.OpponentSlotsCopy, delegate (CardSlot s)
 				{
 					opposingSlots.Add(s);
-					WstlCombatPhasePatcher.Instance.VisualizeConfirmSniperAbility(s, isJudge);
+					CombatPhasePatcher.Instance.VisualizeConfirmSniperAbility(s, isJudge);
 				}, null, delegate (CardSlot s)
 				{
-					WstlCombatPhasePatcher.Instance.VisualizeAimSniperAbility(slot, s);
+					CombatPhasePatcher.Instance.VisualizeAimSniperAbility(slot, s);
 
 				}, () => false, isJudge ? CursorType.Sacrifice : CursorType.Target);
 			}
@@ -80,7 +81,7 @@ namespace WhistleWindLobotomyMod
 				if (isJudge && item.Card != null)
                 {
 					yield return new WaitForSeconds(0.1f);
-					yield return WstlCombatPhasePatcher.Instance.Execution(item.Card);
+					yield return CombatPhasePatcher.Instance.Execution(item.Card);
 				}
 				else
                 {
@@ -89,7 +90,7 @@ namespace WhistleWindLobotomyMod
 			}
 			Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode);
 			Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
-			WstlCombatPhasePatcher.Instance.VisualizeClearSniperAbility();
+			CombatPhasePatcher.Instance.VisualizeClearSniperAbility();
 			yield break;
 		}
 

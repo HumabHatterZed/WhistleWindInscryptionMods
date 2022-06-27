@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_FrostRuler()
         {
             const string rulebookName = "Ruler of Frost";
-            const string rulebookDescription = "When this card is played, create a Block of Ice in the opposing spaces to its left and right. A Block of Ice is defined as: 0 Power, 1 Health.";
+            const string rulebookDescription = "When this card is played, create a Block of Ice in the opposing adjacent slots if they are empty. Otherwise, if the occupying card has 1 Health, kill it and create a Frozen Heart in its place. A Block of Ice and a Frozen Heart are both defined as: 0 Power, 1 Health.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
             FrostRuler.ability = WstlUtils.CreateAbility<FrostRuler>(
                 Resources.sigilFrostRuler,
@@ -23,11 +23,8 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override int Priority => int.MaxValue;
-
         private readonly string failDialogue = "The snow melts away. Perhaps spring is coming.";
-        private readonly string springDialogue = "Spring arrived with blossoming roses.";
-        private readonly string heartDialogue = "With a single kiss, the Snow Queen froze their hearts.";
+        private readonly string kissDialogue = "With a single kiss, the Snow Queen froze their hearts.";
 
         public override bool RespondsToResolveOnBoard()
         {
@@ -37,104 +34,81 @@ namespace WhistleWindLobotomyMod
         {
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
 
-            CardSlot toLeft = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: true);
-            CardSlot toRight = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: false);
+            CardSlot opposingSlotLeft = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: true);
+            CardSlot opposingSlotRight = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: false);
+            bool spawnedBlock = false;
+            bool spawnedHeart = false;
 
-            CardSlot toTopLeft = null;
-            CardSlot toTopRight = null;
-
-            bool toLeftValid = toLeft != null;
-            bool toRightValid = toRight != null;
-
-            if (toLeftValid)
-            {
-                toTopLeft = toLeft.opposingSlot;
-            }
-            if (toRightValid)
-            {
-                toTopRight = toRight.opposingSlot;
-            }
-
-            bool toLeftBlock = toTopLeft.Card == null;
-            bool toRightBlock = toTopRight.Card == null;
-
-            bool toLeftHeart = toTopLeft.Card != null;
-            bool toRightHeart = toTopRight.Card != null;
-
+            yield return new WaitForSeconds(0.1f);
             yield return base.PreSuccessfulTriggerSequence();
 
-            if (toLeftBlock)
+            if (opposingSlotLeft != null)
             {
-                yield return this.SpawnBlockOfIce(toTopLeft);
-                yield return new WaitForSeconds(0.25f);
-            }
-            if (toRightBlock)
-            {
-                yield return this.SpawnBlockOfIce(toTopRight);
-                yield return new WaitForSeconds(0.25f);
-            }
-            if (toLeftBlock || toRightBlock)
-            {
-                yield return base.LearnAbility(0.25f);
-            }
-
-            if (base.Card.Info.name.ToLowerInvariant().Contains("snowqueen"))
-            {
-                if (toLeftHeart &&
-                    !toTopLeft.Card.FaceDown &&
-                    !toTopLeft.Card.Info.HasTrait(Trait.Uncuttable) &&
-                    !toTopLeft.Card.Info.HasTrait(Trait.Terrain) &&
-                    !toTopLeft.Card.Info.HasTrait(Trait.Pelt))
+                opposingSlotLeft = opposingSlotLeft.opposingSlot;
+                if (opposingSlotLeft.Card == null)
                 {
-                    yield return new WaitForSeconds(0.25f);
-                    yield return toTopLeft.Card.Die(false, base.Card);
-                    yield return this.SpawnFrozenHeart(toTopLeft);
-                    yield return new WaitForSeconds(0.25f);
+                    spawnedBlock = true;
+                    yield return SpawnCard(opposingSlotLeft, "wstl_snowQueenIceBlock");
                 }
-                if (toRightHeart &&
-                    !toTopRight.Card.FaceDown &&
-                    !toTopRight.Card.Info.HasTrait(Trait.Uncuttable) &&
-                    !toTopRight.Card.Info.HasTrait(Trait.Terrain) &&
-                    !toTopRight.Card.Info.HasTrait(Trait.Pelt))
+                else if (opposingSlotLeft.Card != null && opposingSlotLeft.Card.Health == 1 &&
+                    !opposingSlotLeft.Card.HasAbility(Burning.ability) && !opposingSlotLeft.Card.HasAbility(TrueSaviour.ability) &&
+                    !opposingSlotLeft.Card.HasAbility(Apostle.ability) && !opposingSlotLeft.Card.HasAbility(Confession.ability))
                 {
-                    yield return new WaitForSeconds(0.25f);
-                    yield return toTopRight.Card.Die(false, base.Card);
-                    yield return this.SpawnFrozenHeart(toTopRight);
-                    yield return new WaitForSeconds(0.25f);
-                }
-
-                if (toLeftHeart || toRightHeart && !PersistentValues.HasSeenSnowQueenFreeze)
-                {
-                    PersistentValues.HasSeenSnowQueenFreeze = true;
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(heartDialogue, -0.65f, 0.4f);
-                }
-                if (!toLeftBlock && !toRightBlock && !toLeftHeart && !toRightHeart)
-                {
-                    base.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.4f);
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(springDialogue, -0.65f, 0.4f);
+                    spawnedHeart = true;
+                    opposingSlotLeft.Card.Anim.LightNegationEffect();
+                    yield return new WaitForSeconds(0.15f);
+                    yield return opposingSlotLeft.Card.Die(false, base.Card);
+                    yield return SpawnCard(opposingSlotLeft, "wstl_snowQueenIceHeart");
+                    if (!PersistentValues.HasSeenSnowQueenFreeze)
+                    {
+                        PersistentValues.HasSeenSnowQueenFreeze = true;
+                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
+                    }
                 }
             }
-            else
+            if (opposingSlotRight != null)
             {
-                if (!toLeftBlock && !toRightBlock)
+                opposingSlotRight = opposingSlotRight.opposingSlot;
+                if (opposingSlotRight.Card == null)
                 {
-                    base.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.4f);
+                    spawnedBlock = true;
+                    yield return SpawnCard(opposingSlotRight, "wstl_snowQueenIceBlock");
+                }
+                else if (opposingSlotRight.Card != null && opposingSlotRight.Card.Health == 1 &&
+                    !opposingSlotLeft.Card.HasAbility(Burning.ability) && !opposingSlotLeft.Card.HasAbility(TrueSaviour.ability) &&
+                    !opposingSlotLeft.Card.HasAbility(Apostle.ability) && !opposingSlotLeft.Card.HasAbility(Confession.ability))
+                {
+                    spawnedHeart = true;
+                    opposingSlotRight.Card.Anim.LightNegationEffect();
+                    yield return new WaitForSeconds(0.15f);
+                    yield return opposingSlotRight.Card.Die(false, base.Card);
+                    yield return SpawnCard(opposingSlotRight, "wstl_snowQueenIceHeart");
+                    if (!PersistentValues.HasSeenSnowQueenFreeze)
+                    {
+                        PersistentValues.HasSeenSnowQueenFreeze = true;
+                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
+                    }
+                }
+            }
+            if (spawnedBlock)
+            {
+                yield return base.LearnAbility();
+            }
+            else if (!spawnedBlock && !spawnedHeart)
+            {
+                base.Card.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.4f);
+                if (!PersistentValues.HasSeenSnowQueenFail)
+                {
+                    PersistentValues.HasSeenSnowQueenFail = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(failDialogue, -0.65f, 0.4f);
                 }
             }
-
         }
-
-        private IEnumerator SpawnFrozenHeart(CardSlot slot)
+        private IEnumerator SpawnCard(CardSlot slot,string name)
         {
-            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_snowQueenIceHeart"), slot, 0.15f);
-        }
-
-        private IEnumerator SpawnBlockOfIce(CardSlot slot)
-        {
-            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_snowQueenIceBlock"), slot, 0.15f);
+            CardInfo cardByName = CardLoader.GetCardByName(name);
+            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(cardByName, slot, 0.15f);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
+using InscryptionAPI.Triggers;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,36 +24,11 @@ namespace WhistleWindLobotomyMod
                 addModular: true).Id;
         }
     }
-    public class BitterEnemies : WstlAbilityBehaviour
+    public class BitterEnemies : AbilityBehaviour, IPassiveAttackBuff
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override bool ProvidesPassiveAttackBuffAlly => true;
-        public override bool ProvidesPassiveAttackBuffOpponent => true;
-        public override int[] GetPassiveAttackBuffsAlly()
-        {
-            List<int> slots = new() { 0, 0, 0, 0 };
-            foreach (CardSlot slot in (base.Card.OpponentCard ? Singleton<BoardManager>.Instance.opponentSlots : Singleton<BoardManager>.Instance.playerSlots).Where((CardSlot s) => s.Card != null))
-            {
-                if (slot != base.Card.Slot && slot.Card.HasAbility(BitterEnemies.ability))
-                {
-                    slots[slot.Index] += 1;
-                }
-            }
-            return slots.ToArray();
-        }
-        public override int[] GetPassiveAttackBuffsOpponent()
-        {
-            List<int> slots = new() { 0, 0, 0, 0 };
-            foreach (CardSlot slot in (base.Card.OpponentCard ? Singleton<BoardManager>.Instance.playerSlots : Singleton<BoardManager>.Instance.opponentSlots).Where((CardSlot s) => s.Card != null))
-            {
-                if (slot.Card.HasAbility(BitterEnemies.ability))
-                {
-                    slots[slot.Index] += 1;
-                }
-            }
-            return slots.ToArray();
-        }
+
         public override bool RespondsToResolveOnBoard()
         {
             return ActivateOnPlay();
@@ -68,6 +44,19 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
             yield return base.LearnAbility(0.4f);
+        }
+        // Gives +1 Attack to all cards with Bitter Enemies when two or more exist on the board
+        public int GetPassiveAttackBuff(PlayableCard target)
+        {
+            int count = 0;
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot != base.Card.Slot))
+            {
+                if (slot.Card != null && slot.Card.HasAbility(BitterEnemies.ability))
+                {
+                    count++;
+                }
+            }
+            return this.Card.OnBoard && target != this.Card && target.Info.HasAbility(BitterEnemies.ability) && count > 0 ? 1 : 0;
         }
         public bool ActivateOnPlay()
         {

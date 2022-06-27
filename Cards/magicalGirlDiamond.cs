@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                _AbilityHelper.specialAbility
+                SpecialAbilityFledgling.specialAbility
             };
 
             WstlUtils.Add(

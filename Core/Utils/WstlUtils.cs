@@ -1,5 +1,6 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers;
 using DiskCardGame;
 using System;
 using System.Collections.Generic;
@@ -7,39 +8,23 @@ using System.Reflection;
 using UnityEngine;
 
 namespace WhistleWindLobotomyMod
-{
+{   
     public static class WstlUtils
     {
-        // Originally taken from GrimoraMod and SigilADay_julienperge
-        #region Cards
+        // Base code taken from GrimoraMod and SigilADay_julienperge
+
+        #region Card-adding method
         public static void Add(
-            string name,
-            string displayName,
-            string description,
-            int baseAttack,
-            int baseHealth,
-            int bloodCost,
-            int bonesCost,
-            byte[] defaultTexture,
-            byte[] emissionTexture = null,
-            byte[] altTexture = null,
-            byte[] emissionAltTexture = null,
-            byte[] titleTexture = null,
-            List<Ability> abilities = null,
-            List<SpecialTriggeredAbility> specialAbilities = null,
-            List<CardMetaCategory> metaCategories = null,
-            List<Tribe> tribes = null,
-            List<Trait> traits = null,
-            bool isTerrain = false,
-            bool isChoice = false,
-            bool isRare = false,
-            List<CardAppearanceBehaviour.Appearance> appearances = null,
-            List<Texture> decals = null,
-            string iceCubeName = null,
-            string evolveName = null,
-            int numTurns = 1,
-            string tailName = null,
-            byte[] tailTexture = null,
+            string name, string displayName, string description,
+            int baseAttack, int baseHealth, int bloodCost, int bonesCost,
+            byte[] defaultTexture, byte[] emissionTexture = null,
+            byte[] altTexture = null, byte[] emissionAltTexture = null, byte[] titleTexture = null,
+            List<Ability> abilities = null, List<SpecialTriggeredAbility> specialAbilities = null,
+            List<CardMetaCategory> metaCategories = null, List<Tribe> tribes = null, List<Trait> traits = null,
+            bool isTerrain = false, bool isChoice = false, bool isRare = false,
+            List<CardAppearanceBehaviour.Appearance> appearances = null, List<Texture> decals = null,
+            string iceCubeName = null, string evolveName = null, int numTurns = 1,
+            string tailName = null, byte[] tailTexture = null,
             int riskLevel = 0,
             bool onePerDeck = false
             )
@@ -52,7 +37,7 @@ namespace WhistleWindLobotomyMod
             appearances ??= new();
             decals ??= new();
 
-            Texture2D texture = ImageUtils.LoadTextureFromResource(defaultTexture);
+            Texture2D texture = LoadTextureFromResource(defaultTexture);
             Texture2D emissionTex = null;
             Texture2D altTex = null;
             Texture2D emissionAltTex = null;
@@ -60,29 +45,27 @@ namespace WhistleWindLobotomyMod
             Texture2D tailTex = null;
 
             if (emissionTexture != null) {
-                emissionTex = ImageUtils.LoadTextureFromResource(emissionTexture);
+                emissionTex = LoadTextureFromResource(emissionTexture);
             }
             if (altTexture != null) {
-                altTex = ImageUtils.LoadTextureFromResource(altTexture);
+                altTex = LoadTextureFromResource(altTexture);
             }
             if (emissionAltTexture != null)
             {
-                emissionAltTex = ImageUtils.LoadTextureFromResource(emissionAltTexture);
+                emissionAltTex = LoadTextureFromResource(emissionAltTexture);
             }
             if (titleTexture != null) {
-                titleTex = ImageUtils.LoadTextureFromResource(titleTexture);
+                titleTex = LoadTextureFromResource(titleTexture);
             }
             if (tailTexture != null) {
-                tailTex = ImageUtils.LoadTextureFromResource(titleTexture);
+                tailTex = LoadTextureFromResource(titleTexture);
             }
 
+            // For later riskLevel system, currently does nothing
             string risk = riskLevel switch
             {
-                1 => "TETH",
-                2 => "HE",
-                3 => "WAW",
-                4 => "ALEPH",
-                _ => "ZAYIN",
+                1 => "ZAYIN", 2 => "TETH", 3 => "HE",
+                4 => "WAW", 5 => "ALEPH", _ => null
             };
 
             CardInfo cardInfo = ScriptableObject.CreateInstance<CardInfo>();
@@ -133,7 +116,7 @@ namespace WhistleWindLobotomyMod
             }
             if (iceCubeName != null)
             {
-                cardInfo.SetEvolve(iceCubeName, numTurns);
+                cardInfo.SetIceCube(iceCubeName);
             }
             if (evolveName != null)
             {
@@ -144,52 +127,31 @@ namespace WhistleWindLobotomyMod
                 cardInfo.SetTail(tailName, tailTex);
             }
             cardInfo.onePerDeck = onePerDeck;
-
             CardManager.Add(WstlPlugin.modPrefix, cardInfo);
         }
         #endregion
 
-        #region Abilities
-        public static DialogueEvent.LineSet SetAbilityInfoDialogue(string dialogue)
-        {
-            return new DialogueEvent.LineSet(new List<DialogueEvent.Line>()
-                {
-                    new()
-                    {
-                        text = dialogue
-                    }
-                }
-            );
-        }
-
+        #region Ability-adding method
         public static AbilityManager.FullAbility CreateAbility<T>(
             byte[] texture,
-            string rulebookName,
-            string rulebookDescription,
-            string dialogue,
+            string rulebookName, string rulebookDescription, string dialogue,
             int powerLevel = 0,
-            bool addModular = false,
-            bool isPassive = false,
-            bool canStack = false,
-            bool opponent = false,
-            bool flipY = false,
-            byte[] customY = null,
+            bool addModular = false, bool isPassive = false, bool canStack = false,
+            bool opponent = false, bool flipY = false, byte[] customY = null,
             bool overrideModular = false)
-            where T : AbilityBehaviour
+            where T:AbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
-            Texture2D tex = ImageUtils.LoadTextureFromResource(texture);
+            Texture2D tex = LoadTextureFromResource(texture);
             Texture2D flippedTex = null;
-            if (customY != null)
-            {
-                flippedTex = ImageUtils.LoadTextureFromResource(customY);
-            }
+            if (customY != null) { flippedTex = LoadTextureFromResource(customY); }
 
             List<AbilityMetaCategory> list = new()
             {
                 AbilityMetaCategory.Part1Rulebook
             };
+
             if ((addModular || ConfigUtils.Instance.AllModular) && !overrideModular)
             {
                 list.Add(AbilityMetaCategory.Part1Modular);
@@ -204,22 +166,70 @@ namespace WhistleWindLobotomyMod
             info.flipYIfOpponent = flipY;
             info.metaCategories = list;
             info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
-            if (flippedTex != null)
-            {
-                info.SetCustomFlippedTexture(flippedTex);
-            }
+            info.activated = false;
+            if (flippedTex != null) { info.SetCustomFlippedTexture(flippedTex); }
 
             return AbilityManager.Add(WstlPlugin.modPrefix, info, typeof(T), tex);
         }
-
         #endregion
 
-        #region SpecialAbilities
+        #region Activated ability-adding method
+        public static AbilityManager.FullAbility CreateActivatedAbility<T>(
+            byte[] texture,
+            string rulebookName, string rulebookDescription, string dialogue,
+            int powerLevel = 0) where T:ActivatedAbilityBehaviour
+        {
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+
+            Texture2D tex = LoadTextureFromResource(texture);
+
+            List<AbilityMetaCategory> list = new()
+            {
+                AbilityMetaCategory.Part1Rulebook
+            };
+
+            info.rulebookName = rulebookName;
+            info.rulebookDescription = rulebookDescription;
+            info.powerLevel = powerLevel;
+            info.passive = false;
+            info.canStack = false;
+            info.opponentUsable = false;
+            info.flipYIfOpponent = false;
+            info.activated = true;
+            info.metaCategories = list;
+            info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
+
+            return AbilityManager.Add(WstlPlugin.modPrefix, info, typeof(T), tex);
+        }
+        #endregion
+
+        // SpecialAbilities
         public static SpecialTriggeredAbilityManager.FullSpecialTriggeredAbility CreateSpecialAbility<T>(string rulebookName, string rulebookDesc)
             where T : SpecialCardBehaviour
         {
             return SpecialTriggeredAbilityManager.Add(WstlPlugin.modPrefix, rulebookName, typeof(T));
         }
-        #endregion
+
+        // Adds AbilityInfo dialogue
+        public static DialogueEvent.LineSet SetAbilityInfoDialogue(string dialogue)
+        {
+            return new DialogueEvent.LineSet(new List<DialogueEvent.Line>()
+                {
+                    new()
+                    {
+                        text = dialogue
+                    }
+                }
+            );
+        }
+
+        // For loading textures from resource files
+        public static Texture2D LoadTextureFromResource(byte[] resourceFile)
+        {
+            var texture = new Texture2D(2, 2);
+            texture.LoadImage(resourceFile);
+            texture.filterMode = FilterMode.Point;
+            return texture;
+        }
     }
 }

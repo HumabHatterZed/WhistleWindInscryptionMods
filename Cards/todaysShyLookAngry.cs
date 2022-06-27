@@ -8,13 +8,13 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        List<SpecialTriggeredAbility> specialAbilities = new()
-        {
-            TodaysShyLook.specialAbility
-        };
-
         private void TodaysShyLookAngry_O0192()
         {
+            List<SpecialTriggeredAbility> specialAbilities = new()
+            {
+                TodaysShyLook.specialAbility
+            };
+
             WstlUtils.Add(
                 "wstl_todaysShyLookAngry", "Today's Angry Look",
                 "An indecisive creature. Its expression is different each time you draw it.",
