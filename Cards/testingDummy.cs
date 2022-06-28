@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                TheTrain.ability
+                Confession.ability
             };
 
             List<SpecialTriggeredAbility> specialAbilities = new()
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                1, 10, 0, 0,
+                5, 10, 0, 0,
                 Resources.bigBird, Resources.bigBird_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new());

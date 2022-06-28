@@ -14,9 +14,41 @@ This mod currently adds **71** obtainable cards and **38** custom abilities, plu
 
 ## 🩹 Known Issues
 ### None so far!
+If you find any issues whilst playing, create an issue on the GitHub or @ me on the modding Discord so I can fix it asap.
 
 ## ⚖️ Changelog
-* see CHANGELOG.md
+<details>
+<summary>Changelog</summary>
+
+### v1.0.2 - Prayer and Bees patch (6/28/2022)
+* Bug fixes
+  * Fixed Queen Nest ability softlocking when Queen Bee is dropped by the Mule
+* Tweaks
+  * Tweaked Confession ability to make Heretic sequence smoother
+* Balancing
+  * Cards from the WhiteNight event no longer drop bones when killed
+  * Hundreds of Good Deeds now dies if Confession is activated during a boss
+
+### v1.0.1 - Bones and Trains patch (6/27/2022)
+* Groundwork
+  * Removed the fourth zero from the in-game version number to be consistent with the Thunderstore version number
+* Bug Fixes
+  * Fixed Boons of the Bone Lord not giving bones
+  * Fixed cards not dropping bones if a copy was previously killed by The Train
+  * Fixed The Train ability being free to activate
+* Tweaks
+  * Confession ability changed to an activated-type ability
+  * Fixed an error in the README regarding The Train ability's description
+  * Can no longer activate The Train ability if there are no other cards on the board
+* Balancing
+  * Increased The Train ability activation cost 10 --> 12
+
+### v1.0.0 - Initial release (6/26/2022)
+* Additions
+  * 71 Cards
+  * 38 Abilities
+  * 13 Special abilities
+</details>
 
 ## 💌 Credits
 Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to/~~steal~~borrow from.
@@ -84,7 +116,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Reflector|When this card is struck, the striker is dealt damage equal to the striker's Power.||
 |Flag Bearer|Adjacent cards gain 2 Health.||
 |Grinder|This card gains the stats of the cards sacrificed to play it.||
-|The Train|One turn after this card is played, kill all cards on the board. If this card is not the ticket taker, kill only the card's allies at a 10% chance.||
+|The Train|Activate: Pay 12 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.||
 |Burning|The opposing card takes 1 damage at the end of their turn.||
 |Regenerator|Adjacent cards gain 1 Health at the end of the opponent's turn.||
 |Volatile|When this card dies, adjacent and opposing cards are dealt 10 damage. (identical to Detonator)|Yes|
@@ -98,7 +130,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Quick Draw|When a creature moves into the space opposite this card, they take 1 damage.||
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
 |True Saviour|*My story is nowhere, unknown to all.*|||
-|Confession and Pentinence|*Keep faith with unwavering resolve.*|||
+|Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||
 
 ## 📜 List of Obtainable and Minion Cards
 **Notes: Singleton means you can only have a single copy of that card in your deck  per run (like Ouroboros).
@@ -178,7 +210,7 @@ Poisonous means the card will kill survivors at the campfire when eaten.**
 |Fairy Festival|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Bloodfiend|||
 |Meat Lantern|1|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Punisher<br>Mighty Leap|||
 |We can Change Anything|0|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Grinder|||
-|Express Train to Hell|0|4|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/cEvPoTk.png">|The Train|Rare<br>Singleton||
+|Express Train to Hell|0|1||The Train|Rare<br>Singleton||
 |Scarecrow Searching for Wisdom|1|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Bloodfiend|||
 |Dimensional Refraction Variant|4|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Amorphous|||
 |CENSORED|6|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Bloodfiend|Rare||

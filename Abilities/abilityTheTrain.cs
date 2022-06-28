@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_TheTrain()
         {
             const string rulebookName = "The Train";
-            const string rulebookDescription = "Activate: Pay 10 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.";
+            const string rulebookDescription = "Activate: Pay 12 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.";
             const string dialogue = "The train boards those that don't step away from the tracks.";
 
             TheTrain.ability = WstlUtils.CreateActivatedAbility<TheTrain>(
@@ -27,7 +27,14 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override int BonesCost => 0;
+        public override int BonesCost => 12;
+
+        public override bool CanActivate()
+        {
+            var validCards = Singleton<BoardManager>.Instance.AllSlotsCopy.Where((CardSlot s) => s.Card != null).Count();
+            return validCards > 1;
+        }
+
         // Kills all cards on the board after a li'l sequence
         public override IEnumerator Activate()
         {

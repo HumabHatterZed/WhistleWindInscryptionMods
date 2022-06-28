@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 Resources.expressHellTrain, Resources.expressHellTrain_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true);
+                isRare: true, onePerDeck: true);
         }
     }
 }
