@@ -50,7 +50,7 @@ namespace WhistleWindLobotomyMod
         }
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return fromCombat && base.Card.Slot.IsPlayerSlot && killer != null;
+            return base.Card.OnBoard && deathSlot.IsPlayerSlot && card != base.Card;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {

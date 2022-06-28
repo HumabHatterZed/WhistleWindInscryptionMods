@@ -13,43 +13,37 @@ namespace WhistleWindLobotomyMod
         private void Ability_Confession()
         {
             const string rulebookName = "Confession and Pentinence";
-            string rulebookDescription = "Keep faith with unwavering resolve.";
+            string rulebookDescription = !ConfigUtils.Instance.RevealWhiteNight ? "Activate: Keep faith with unwavering resolve." : "Activate: If this sigil is on the Heretic, kill it and add a special card to your hand. If it's on the special card, kill WhiteNight and their Apostles and deal 33 direct damage to your opponent.";
             const string dialogue = "Keep faith with unwavering resolve.";
 
-            if (ConfigUtils.Instance.RevealWhiteNight)
-            {
-                rulebookDescription = "If held by the Heretic, kills the Heretic at the end of the opponent's turn and adds a special card to your hand. If held by the special card, kill Apostles and WhiteNight and deal 33 direct damage.";
-            }
-
-            Confession.ability = WstlUtils.CreateAbility<Confession>(
+            Confession.ability = WstlUtils.CreateActivatedAbility<Confession>(
                 Resources.sigilConfession,
-                rulebookName, rulebookDescription, dialogue, -3,
-                overrideModular: true).Id;
+                rulebookName, rulebookDescription, dialogue, -3).Id;
         }
     }
-    public class Confession : AbilityBehaviour
+    public class Confession : ActivatedAbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private bool deeds = false;
-
-        private bool IsDeeds => base.Card.Info.name.ToLowerInvariant().Equals("wstl_hundredsgooddeeds");
-
-        public override bool RespondsToResolveOnBoard()
+        public override bool CanActivate()
         {
-            return IsDeeds;
+            return base.Card.Info.name != "wstl_hundredsGoodDeeds";
         }
-        public override IEnumerator OnResolveOnBoard()
+        public override IEnumerator Activate()
         {
+            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
             yield return base.PreSuccessfulTriggerSequence();
-
-            yield return new WaitForSeconds(0.4f);
             base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
-
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
-
+            yield return new WaitForSeconds(0.55f);
+            CardSlot thisSlot = base.Card.Slot;
+            yield return base.Card.Die(false, base.Card);
+            yield return new WaitForSeconds(0.5f);
+            CardInfo cardInfo = CardLoader.GetCardByName("wstl_hundredsGoodDeeds");
+            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(cardInfo, thisSlot, 0.15f);
+            yield return new WaitForSeconds(0.45f);
+            yield return base.LearnAbility(0.5f);
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
             {
                 // kill WhiteNight first
@@ -79,8 +73,8 @@ namespace WhistleWindLobotomyMod
             yield return combatManager.DamageDealtThisPhase += 33;
 
             yield return new WaitForSeconds(0.4f);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             yield return combatManager.VisualizeDamageMovingToScales(true);
-
             int excessDamage = Singleton<LifeManager>.Instance.Balance + combatManager.DamageDealtThisPhase - 5;
             int damage = combatManager.DamageDealtThisPhase - excessDamage;
 
@@ -88,6 +82,11 @@ namespace WhistleWindLobotomyMod
 
             RunState.Run.currency += excessDamage;
             yield return combatManager.VisualizeExcessLethalDamage(excessDamage, specialSequence);
+
+            if (Singleton<TurnManager>.Instance.Opponent.NumLives > 1)
+            {
+                yield return thisSlot.Card.Die(false, thisSlot.Card);
+            }
         }
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
@@ -98,34 +97,9 @@ namespace WhistleWindLobotomyMod
         {
             yield return base.PreSuccessfulTriggerSequence();
 
-            if (!killer.Info.name.ToLowerInvariant().Equals("wstl_hundredsgooddeeds"))
+            if (killer != base.Card)
             {
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
-            }
-        }
-
-        public override bool RespondsToUpkeep(bool playerUpkeep)
-        {
-            return playerUpkeep;
-        }
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-
-            if (!deeds)
-            {
-                deeds = true;
-                if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
-                {
-                    yield return new WaitForSeconds(0.2f);
-                    Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
-                    yield return new WaitForSeconds(0.2f);
-                }
-
-                CardInfo cardInfo = CardLoader.GetCardByName("wstl_hundredsGoodDeeds");
-                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
-                yield return new WaitForSeconds(0.45f);
-                yield return base.LearnAbility(0.5f);
             }
         }
     }
