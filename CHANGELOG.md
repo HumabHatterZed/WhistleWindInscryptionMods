@@ -1,7 +1,8 @@
 ## Changelog
-### v1.0.3 - Mountains of Coloured Text patch (6/29/2022)
+### v1.0.3 & v1.0.4 - Mountains of Coloured Text patch (6/29/2022)
 * Bug fixes
   * Fixed Assimilator ability not doing proper checks on the base Card
+  * Fixed Assimilator ability not properly checking for MoSB evolutions (v1.0.4)
 * Tweaks
   * Leshy's eyes now turn red during the WhiteNight event
   * Changed colour of text relating to WhiteNight event
