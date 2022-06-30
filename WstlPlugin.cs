@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.0.2"; // 0.82.113.0 | Major.Minor.Patch.Cards
+        private const string pluginVersion = "1.0.3"; // 0.82.113.0 | Major.Minor.Patch.Cards
         public const string modPrefix = "wstl";
 
         internal static ManualLogSource Log;
