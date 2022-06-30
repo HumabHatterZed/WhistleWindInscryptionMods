@@ -14,11 +14,19 @@ This mod currently adds **71** obtainable cards and **38** custom abilities, plu
 
 ## 🩹 Known Issues
 ### None so far!
-If you find any issues whilst playing, create an issue on the GitHub or @ me on the modding Discord so I can fix it asap.
+If you find any issues or bugs whilst playing, please open an issue on the GitHub or @ me on the modding Discord so I can fix it asap.
 
 ## ⚖️ Changelog
 <details>
 <summary>Changelog</summary>
+
+### v1.0.3 - Mountains of Coloured Text patch (6/29/2022)
+* Bug fixes
+  * Fixed Assimilator ability not doing proper checks on the base Card
+* Tweaks
+  * Leshy's eyes now turn red during the WhiteNight event
+  * Changed colour of text relating to WhiteNight event
+  * Tweaked Assimilator ability OnDie trigger to be specific to MoSB
 
 ### v1.0.2 - Prayer and Bees patch (6/28/2022)
 * Bug fixes

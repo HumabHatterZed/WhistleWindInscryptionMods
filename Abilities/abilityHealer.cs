@@ -33,12 +33,12 @@ namespace WhistleWindLobotomyMod
         private bool heretic = false;
         private string invalidDialogue;
         private readonly string failDialogue = "No one to heal.";
-        private readonly string failAsDoctorDialogue = "No allies to receive a blessing. An enemy will suffice instead.";
+        private readonly string failAsDoctorDialogue = "No allies to receive a blessing. [c:bR]An enemy[c:] will suffice instead.";
         private readonly string failExtraHardDialogue = "No enemies either. It seems no blessings will be given this turn.";
-        private readonly string transformDialogue = "The time has come. A new world will come.";
-        private readonly string convertDialogue = "Rise, my servants. Rise and serve me.";
-        private readonly string declareDialogue = "I am death and life. Darkness and light.";
-        private readonly string hereticDialogue = "Have I not chosen you, the Twelve? Yet one of you is a devil.";
+        private readonly string transformDialogue = "[c:bR]The time has come. A new world will come.[c:]";
+        private readonly string convertDialogue = "[c:bR]Rise, my servants. Rise and serve me.[c:]";
+        private readonly string declareDialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
+        private readonly string hereticDialogue = "[c:bR]Have I not chosen you, the Twelve? Yet one of you is a devil.[c:]";
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
@@ -204,11 +204,12 @@ namespace WhistleWindLobotomyMod
             }
             if (ConfigUtils.Instance.NumOfBlessings < 0)
             {
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Thou cannot stop my ascension. Even the tutelary bows to mine authority.", -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]Thou cannot stop my ascension. Even the tutelary bows to mine authority.[c:]", -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
             }
+
             // Reset the number of Blessings to 0
             ConfigUtils.Instance.UpdateBlessings(-ConfigUtils.Instance.NumOfBlessings);
-
+            LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
             // The Miracle Worker ascends above us
             yield return base.Card.TransformIntoCard(CardLoader.GetCardByName("wstl_whiteNight"));
             base.Card.Status.hiddenAbilities.Add(Ability.Flying);

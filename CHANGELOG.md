@@ -1,4 +1,12 @@
 ## Changelog
+### v1.0.3 - Mountains of Coloured Text patch (6/29/2022)
+* Bug fixes
+  * Fixed Assimilator ability not doing proper checks on the base Card
+* Tweaks
+  * Leshy's eyes now turn red during the WhiteNight event
+  * Changed colour of text relating to WhiteNight event
+  * Tweaked Assimilator ability OnDie trigger to be specific to MoSB
+
 ### v1.0.2 - Prayer and Bees patch (6/28/2022)
 * Bug fixes
   * Fixed Queen Nest ability softlocking when Queen Bee is dropped by the Mule

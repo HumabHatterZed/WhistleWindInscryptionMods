@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Confession and Pentinence";
             string rulebookDescription = !ConfigUtils.Instance.RevealWhiteNight ? "Activate: Keep faith with unwavering resolve." : "Activate: If this sigil is on the Heretic, kill it and add a special card to your hand. If it's on the special card, kill WhiteNight and their Apostles and deal 33 direct damage to your opponent.";
-            const string dialogue = "Keep faith with unwavering resolve.";
+            const string dialogue = "[c:bG]Keep faith with unwavering resolve.[c:]";
 
             Confession.ability = WstlUtils.CreateActivatedAbility<Confession>(
                 Resources.sigilConfession,

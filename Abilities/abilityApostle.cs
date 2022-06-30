@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Apostle";
             string rulebookDescription = "Thou wilt abandon flesh and be born again.";
-            const string dialogue = "Ye who are full of blessings, rejoice. For I am with ye.";
+            const string dialogue = "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:bR]";
 
             if (ConfigUtils.Instance.RevealWhiteNight)
             {
@@ -31,8 +31,8 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private readonly string downedDialogue = "None of you can leave my side until I permit you.";
-        private readonly string hammeredDialogue = "Be at ease. No calamity shall be able to trouble you.";
+        private readonly string downedDialogue = "[c:bR]None of you can leave my side until I permit you.[c:]";
+        private readonly string hammeredDialogue = "[c:bR]Be at ease. No calamity shall be able to trouble you.[c:]";
 
         private int downCount = 0;
 

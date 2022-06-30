@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "True Saviour";
             string rulebookDescription = "My story is nowhere, unknown to all.";
-            const string dialogue = "I am death and life. Darkness and light.";
+            const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
 
             if (ConfigUtils.Instance.RevealWhiteNight)
             {
@@ -37,9 +37,9 @@ namespace WhistleWindLobotomyMod
         private int count = 0;
         private bool heretic = false;
 
-        private readonly string killedDialogue = "Do not deny me.";
-        private readonly string hammerDialogue = "I shall not leave thee until I have completed my mission.";
-        private readonly string hereticDialogue = "Have I not chosen you, the Twelve? Yet one of you is a devil.";
+        private readonly string killedDialogue = "[c:bR]Do not deny me.[c:]";
+        private readonly string hammerDialogue = "[c:bR]I shall not leave thee until I have completed my mission.[c:]";
+        private readonly string hereticDialogue = "[c:bR]Have I not chosen you, the Twelve? Yet one of you is a devil.[c:]";
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
@@ -154,7 +154,6 @@ namespace WhistleWindLobotomyMod
             else
             {
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
-
                 if (!PersistentValues.WhiteNightHammer)
                 {
                     yield return new WaitForSeconds(0.2f);
