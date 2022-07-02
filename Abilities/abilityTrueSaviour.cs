@@ -14,13 +14,8 @@ namespace WhistleWindLobotomyMod
         private void Ability_TrueSaviour()
         {
             const string rulebookName = "True Saviour";
-            string rulebookDescription = "My story is nowhere, unknown to all.";
-            const string dialogue = "I am death and life. Darkness and light.";
-
-            if (ConfigUtils.Instance.RevealWhiteNight)
-            {
-                rulebookDescription = "Cannot die. Transform non-Terrain and non-Pelt cards into Apostles. 1-in-12 chance that the Apostle will be a Heretic.";
-            }
+            string rulebookDescription = ConfigUtils.Instance.RevealWhiteNight ? "Cannot die. Transforms non-Terrain and non-Pelt cards into Apostles." : "My story is nowhere, unknown to all.";
+            const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
 
             TrueSaviour.ability = WstlUtils.CreateAbility<TrueSaviour>(
                 Resources.sigilTrueSaviour,
@@ -37,9 +32,9 @@ namespace WhistleWindLobotomyMod
         private int count = 0;
         private bool heretic = false;
 
-        private readonly string killedDialogue = "Do not deny me.";
-        private readonly string hammerDialogue = "I shall not leave thee until I have completed my mission.";
-        private readonly string hereticDialogue = "Have I not chosen you, the Twelve? Yet one of you is a devil.";
+        private readonly string killedDialogue = "[c:bR]Do not deny me.[c:]";
+        private readonly string hammerDialogue = "[c:bR]I shall not leave thee until I have completed my mission.[c:]";
+        private readonly string hereticDialogue = "[c:bR]Have I not chosen you, the Twelve? Yet one of you is a devil.[c:]";
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
@@ -154,7 +149,6 @@ namespace WhistleWindLobotomyMod
             else
             {
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
-
                 if (!PersistentValues.WhiteNightHammer)
                 {
                     yield return new WaitForSeconds(0.2f);

@@ -12,13 +12,8 @@ namespace WhistleWindLobotomyMod
         private void Ability_Apostle()
         {
             const string rulebookName = "Apostle";
-            string rulebookDescription = "Thou wilt abandon flesh and be born again.";
-            const string dialogue = "Ye who are full of blessings, rejoice. For I am with ye.";
-
-            if (ConfigUtils.Instance.RevealWhiteNight)
-            {
-                rulebookDescription = "While WhiteNight is on the board, this card will enter a downed state instead of dying.";
-            }
+            string rulebookDescription = ConfigUtils.Instance.RevealWhiteNight ? "This card will enter a downed state instead of dying, recovering at the start of the owner's turn." : "Thou wilt abandon flesh and be born again.";
+            const string dialogue = "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:bR]";
 
             Apostle.ability = WstlUtils.CreateAbility<Apostle>(
                 Resources.sigilApostle,
@@ -31,8 +26,8 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private readonly string downedDialogue = "None of you can leave my side until I permit you.";
-        private readonly string hammeredDialogue = "Be at ease. No calamity shall be able to trouble you.";
+        private readonly string downedDialogue = "[c:bR]None of you can leave my side until I permit you.[c:]";
+        private readonly string hammeredDialogue = "[c:bR]Be at ease. No calamity shall be able to trouble you.[c:]";
 
         private int downCount = 0;
 

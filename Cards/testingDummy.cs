@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Confession.ability
+                TheTrain.ability
             };
 
             List<SpecialTriggeredAbility> specialAbilities = new()
