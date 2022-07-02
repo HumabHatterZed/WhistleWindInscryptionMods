@@ -42,6 +42,18 @@ namespace WhistleWindLobotomyMod
 
             if (ConfigUtils.Instance.ModEnabled)
             {
+                #region SPECIAL ABILITIES
+                // Unique special ability
+                // Controls dialogue, some other stuff too
+                SpecialAbilityEvolve();
+                SpecialAbility_Fetus();
+                SpecialAbility_Bath();
+                SpecialAbility_Nothing();
+                SpecialAbility_Shy();
+                SpecialAbility_Hate();
+
+                #endregion
+
                 #region ABILITIES
                 Ability_Punisher();
                 Ability_Bloodfiend();
@@ -78,10 +90,10 @@ namespace WhistleWindLobotomyMod
                 Ability_Hunter();
                 Ability_Protector();
                 Ability_QuickDraw();
-
                 Ability_Apostle();
                 Ability_TrueSaviour();
                 Ability_Confession();
+                Ability_Alchemist();
 
                 if (ConfigUtils.Instance.RevealSpecials)
                 {
@@ -101,18 +113,6 @@ namespace WhistleWindLobotomyMod
                     Rulebook_ArmyInPink();
                     Rulebook_MeltingLove();
                 }
-
-                #endregion
-
-                #region SPECIAL ABILITIES
-                // Unique special ability
-                // Controls dialogue, some other stuff too
-                SpecialAbilityEvolve();
-                SpecialAbility_Fetus();
-                SpecialAbility_Bath();
-                SpecialAbility_Nothing();
-                SpecialAbility_Shy();
-                SpecialAbility_Hate();
 
                 #endregion
 
