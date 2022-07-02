@@ -14,13 +14,8 @@ namespace WhistleWindLobotomyMod
         private void Ability_TrueSaviour()
         {
             const string rulebookName = "True Saviour";
-            string rulebookDescription = "My story is nowhere, unknown to all.";
+            string rulebookDescription = ConfigUtils.Instance.RevealWhiteNight ? "Cannot die. Transforms non-Terrain and non-Pelt cards into Apostles." : "My story is nowhere, unknown to all.";
             const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
-
-            if (ConfigUtils.Instance.RevealWhiteNight)
-            {
-                rulebookDescription = "Cannot die. Transform non-Terrain and non-Pelt cards into Apostles. 1-in-12 chance that the Apostle will be a Heretic.";
-            }
 
             TrueSaviour.ability = WstlUtils.CreateAbility<TrueSaviour>(
                 Resources.sigilTrueSaviour,

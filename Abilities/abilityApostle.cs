@@ -12,13 +12,8 @@ namespace WhistleWindLobotomyMod
         private void Ability_Apostle()
         {
             const string rulebookName = "Apostle";
-            string rulebookDescription = "Thou wilt abandon flesh and be born again.";
+            string rulebookDescription = ConfigUtils.Instance.RevealWhiteNight ? "This card will enter a downed state instead of dying, recovering at the start of the owner's turn." : "Thou wilt abandon flesh and be born again.";
             const string dialogue = "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:bR]";
-
-            if (ConfigUtils.Instance.RevealWhiteNight)
-            {
-                rulebookDescription = "While WhiteNight is on the board, this card will enter a downed state instead of dying.";
-            }
 
             Apostle.ability = WstlUtils.CreateAbility<Apostle>(
                 Resources.sigilApostle,
