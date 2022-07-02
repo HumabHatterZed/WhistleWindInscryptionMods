@@ -493,6 +493,12 @@
   <data name="nothingThere_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nothingThere_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="oldFaithAndPromise" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\oldFaithAndPromise.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="oldFaithAndPromise_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\oldFaithAndPromise_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="oldLady" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\oldLady.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -612,6 +618,9 @@
   </data>
   <data name="sigilAggravating" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilAggravating.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilAlchemist" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sigilAlchemist.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="sigilApostle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilApostle.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

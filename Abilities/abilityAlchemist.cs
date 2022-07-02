@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The unending faith of countless promises.";
 
             Alchemist.ability = WstlUtils.CreateActivatedAbility<Alchemist>(
-                Resources.sigilTheTrain,
+                Resources.sigilAlchemist,
                 rulebookName, rulebookDescription, dialogue, 2).Id;
         }
     }

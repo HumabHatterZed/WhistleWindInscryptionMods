@@ -229,7 +229,7 @@ namespace WhistleWindLobotomyMod
                 YouMustBeHappy_T0994();
                 LuminousBracelet_O0995();
                 //  BehaviourAdjustment_O0996();
-                //  FaithAndPromise_T0997();
+                OldFaithAndPromise_T0997();
                 Porccubus_O0298();
                 VoidDream_T0299();
                 VoidDreamRooster_T0299();

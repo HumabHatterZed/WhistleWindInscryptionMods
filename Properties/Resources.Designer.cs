@@ -1313,6 +1313,26 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] oldFaithAndPromise {
+            get {
+                object obj = ResourceManager.GetObject("oldFaithAndPromise", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] oldFaithAndPromise_emission {
+            get {
+                object obj = ResourceManager.GetObject("oldFaithAndPromise_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] oldLady {
             get {
                 object obj = ResourceManager.GetObject("oldLady", resourceCulture);
@@ -1706,6 +1726,16 @@ namespace WhistleWindLobotomyMod.Properties {
         public static byte[] sigilAggravating {
             get {
                 object obj = ResourceManager.GetObject("sigilAggravating", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] sigilAlchemist {
+            get {
+                object obj = ResourceManager.GetObject("sigilAlchemist", resourceCulture);
                 return ((byte[])(obj));
             }
         }
