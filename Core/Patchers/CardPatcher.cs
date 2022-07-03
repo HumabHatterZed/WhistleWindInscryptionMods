@@ -11,6 +11,16 @@ namespace WhistleWindLobotomyMod
 {
     public static class CardPatcher
     {
+        // Adds Nothing There to the deck when chosen in a card choice (Trader, Boss Box, etc.)
+        [HarmonyPatch(typeof(DeckInfo), nameof(DeckInfo.AddCard))]
+        [HarmonyPrefix]
+        public static void AddNothing(ref CardInfo card)
+        {
+            if (card.Mods.Exists((CardModificationInfo x) => x.singletonId == "wstl_nothingThere"))
+            {
+                card = CardLoader.GetCardByName("wstl_nothingThere");
+            }
+        }
         // Adds select Kaycee Mod sigils to the Part 1 rulebook
         [HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
         [HarmonyPostfix]
@@ -119,27 +129,12 @@ namespace WhistleWindLobotomyMod
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
                     break;
-                case "wstl_redshoes":
-                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
-                    break;
-                case "wstl_shelterfrom27march":
-                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
-                    break;
                 case "wstl_spiderbrood":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
                     break;
-                case "wstl_spiderbud":
-                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
-                    break;
                 case "wstl_spiderling":
                     __instance.RenderInfo.forceEmissivePortrait = true;
-                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
-                    break;
-                case "wstl_warmheartedwoodsman":
-                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
-                    break;
-                case "wstl_wecanchangeanything":
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
                     break;
                 case "wstl_whitenight":

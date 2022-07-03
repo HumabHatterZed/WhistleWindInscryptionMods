@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_giantTreeSap", "Giant Tree Sap",
                 "An aged storyteller. She can tell you any tale, even those that can't exist.",
-                1, 2, 0, 2,
+                0, 2, 0, 4,
                 Resources.giantTreeSap, Resources.giantTreeSap_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

@@ -18,14 +18,18 @@ namespace WhistleWindLobotomyMod
             {
                 NothingThere.specialAbility
             };
+            List<Trait> traits = new()
+            {
+                Trait.DeathcardCreationNonOption
+            };
 
             WstlUtils.Add(
                 "wstl_nothingThere", "Yumi",
                 "I don't remember this challenger...",
-                1, 1, 0, 0,
+                1, 1, 1, 0,
                 Resources.nothingThere, Resources.nothingThere_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: new(), traits: traits,
                 isRare: true, onePerDeck: true);
         }
     }

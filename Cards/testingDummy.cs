@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
 
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                NothingThere.specialAbility
+                //NothingThere.specialAbility
             };
 
             WstlUtils.Add(
