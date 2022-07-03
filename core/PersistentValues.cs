@@ -234,5 +234,9 @@ namespace WhistleWindLobotomyMod
             set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "RegeneratorCancer", value); }
         }
         #endregion
+
+        #region ZAYINs
+
+        #endregion
     }
 }
