@@ -27,8 +27,6 @@ namespace WhistleWindLobotomyMod
 
         private readonly string dialogue = "What is that thing?";
 
-
-
 		public override bool RespondsToDrawn()
 		{
 			return true;
@@ -37,6 +35,31 @@ namespace WhistleWindLobotomyMod
 		{
 			this.DisguiseInBattle();
 			yield break;
+		}
+		public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
+		{
+			return !wasSacrifice;
+		}
+
+		public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
+		{
+			base.PlayableCard.ClearAppearanceBehaviours();
+			CardInfo evolution = CardLoader.GetCardByName("wstl_nothingThereTrue");
+			foreach (Ability item in base.Card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+			{
+				// Adds base sigils
+				evolution.Mods.Add(new CardModificationInfo(item));
+			}
+
+			yield return new WaitForSeconds(0.25f);
+			yield return Singleton<BoardManager>.Instance.CreateCardInSlot(evolution, base.PlayableCard.Slot, 0.15f);
+			yield return new WaitForSeconds(0.25f);
+			if (!PersistentValues.HasSeenNothingTransformation)
+			{
+				PersistentValues.HasSeenNothingTransformation = true;
+				yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Surprise);
+			}
+			yield return new WaitForSeconds(0.25f);
 		}
 
 		public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
@@ -96,11 +119,11 @@ namespace WhistleWindLobotomyMod
 				CardInfo info = CardLoader.CreateDeathCard(i);
 				list.Add(info);
 			}
-			list.RemoveAll((CardInfo x) => x.name == "wstl_nothingThere" || x.name == "!STATIC!GLITCH");
-			CardInfo disguise = ((list.Count <= 0) ? CardLoader.GetCardByName("wstl_nothingThere") : list[UnityEngine.Random.Range(0, list.Count)]);
+			int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
+			CardInfo disguise = ((list.Count <= 0) ? CardLoader.GetCardByName("wstl_nothingThere") : list[SeededRandom.Range(0, list.Count, randomSeed)]);
 
 			CardModificationInfo cardModificationInfo = new CardModificationInfo();
-			cardModificationInfo.singletonId = "nothingThere";
+			cardModificationInfo.singletonId = "wstl_nothingThere";
 			cardModificationInfo.nameReplacement = string.Format(Localization.Translate("{0}?"), disguise.DisplayedNameLocalized);
 			disguise.Mods.Add(cardModificationInfo);
 			this.DisguiseAsCard(disguise);
@@ -111,30 +134,5 @@ namespace WhistleWindLobotomyMod
 			base.Card.ClearAppearanceBehaviours();
 			base.Card.SetInfo(disguise);
 		}
-		public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
-        {
-            return !wasSacrifice;
-        }
-
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
-			base.PlayableCard.ClearAppearanceBehaviours();
-			CardInfo evolution = CardLoader.GetCardByName("wstl_nothingThereTrue");
-			foreach (Ability item in base.Card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
-			{
-				// Adds base sigils
-				evolution.Mods.Add(new CardModificationInfo(item));
-			}
-
-            yield return new WaitForSeconds(0.25f);
-            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(evolution, base.PlayableCard.Slot, 0.15f);
-            yield return new WaitForSeconds(0.25f);
-            if (!PersistentValues.HasSeenNothingTransformation)
-            {
-                PersistentValues.HasSeenNothingTransformation = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Surprise);
-            }
-            yield return new WaitForSeconds(0.25f);
-        }
     }
 }
