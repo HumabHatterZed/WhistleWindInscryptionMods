@@ -51,6 +51,7 @@ namespace WhistleWindLobotomyMod
                 SpecialAbility_Nothing();
                 SpecialAbility_Shy();
                 SpecialAbility_Hate();
+                SpecialAbility_Nettles();
 
                 #endregion
 
@@ -173,15 +174,15 @@ namespace WhistleWindLobotomyMod
                 CanOfWellCheers_F0552();
                 Alriune_T0453();
                 ForsakenMurderer_T0154();
-                //  ChildOfTheGalaxy_O0155();
+                ChildOfTheGalaxy_O0155();
                 PunishingBird_O0256();
                 RedHoodedMercenary_F0157();
                 WillBeBadWolf_F0258();
                 YoureBald_BaldIsAwesome();
-                //  FragmentOfUniverse_O0360();
+                FragmentOfUniverse_O0360();
                 CrumblingArmour_O0561();
                 JudgementBird_O0262();
-                //  ApocalypseBird_O0263();
+                ApocalypseBird_O0263();
                 //  BigEyes_O0263();
                 //  SmallBeak_O0263();
                 //  LongArms_O0263();
@@ -193,7 +194,7 @@ namespace WhistleWindLobotomyMod
                 LaetitiaFriend_O0167();
                 FuneralOfButterflies_T0168();
                 DerFreischutz_F0169();
-                //  DreamOfABlackSwan_F0270();
+                DreamOfABlackSwan_F0270();
                 DreamingCurrent_T0271();
                 BurrowingHeaven_O0472();
                 MagicalGirlSpade_O0173();
@@ -207,7 +208,7 @@ namespace WhistleWindLobotomyMod
                 HeartOfAspiration_O0977();
                 NotesFromResearcher_T0978();
                 FleshIdol_T0979();
-                //  GiantTreeSap_T0980();
+                GiantTreeSap_T0980();
                 MirrorOfAdjustment_O0981();
                 ShelterFrom27March_T0982();
                 FairyFestival_F0483();
@@ -239,7 +240,7 @@ namespace WhistleWindLobotomyMod
                 //  Yang_O07103();
                 //  YinYang_O07103();
                 //  BackwardClock_D09104();
-                //  DellaLuna_D01105();
+                DellaLuna_D01105();
                 ArmyInPink_D01106();
                 ArmyInBlack_D01106();
                 Ppodae_D02107();
