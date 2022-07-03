@@ -12,8 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Volatile.ability,
-                Ability.Deathtouch
+                TimeMachine.ability
             };
 
             List<SpecialTriggeredAbility> specialAbilities = new()

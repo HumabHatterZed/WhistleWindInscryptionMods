@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.0.4"; // 0.82.113.0 | Major.Minor.Patch.Cards
+        private const string pluginVersion = "1.0.5"; // 0.82.113.0 | Major.Minor.Patch.Cards
         public const string modPrefix = "wstl";
 
         internal static ManualLogSource Log;
@@ -95,6 +95,7 @@ namespace WhistleWindLobotomyMod
                 Ability_TrueSaviour();
                 Ability_Confession();
                 Ability_Alchemist();
+                Ability_TimeMachine();
 
                 if (ConfigUtils.Instance.RevealSpecials)
                 {
@@ -245,7 +246,7 @@ namespace WhistleWindLobotomyMod
                 //  Yin_O05102();
                 //  Yang_O07103();
                 //  YinYang_O07103();
-                //  BackwardClock_D09104();
+                BackwardClock_D09104();
                 DellaLuna_D01105();
                 ArmyInPink_D01106();
                 ArmyInBlack_D01106();

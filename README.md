@@ -157,6 +157,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Protector|Adjacent cards take 1 less damage from attacks.||
 |Quick Draw|When a creature moves into the space opposite this card, they take 1 damage.||
 |Alchemist|Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.||
+|Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck at random based on their power level.||
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
 |True Saviour|*My story is nowhere, unknown to all.*|||
 |Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||
@@ -266,7 +267,7 @@ Poisonous means the card will kill survivors at the campfire when eaten.**
 |The Firebird|1|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Burning<br>Flying||Avian|
 |『O-05-102』|||||||
 |『O-07-103』|||||||
-|『D-09-104』|||||||
+|Backward Clock|0|1||Time Machine|Rare<br>Singleton||
 |Il Pianto della Luna|1|7|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Group Healer|||
 |Army in Pink|2|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fecundity<br>Protector|Rare||
 |Ppodae|1|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Stinky<br>Fledgling||Canine|

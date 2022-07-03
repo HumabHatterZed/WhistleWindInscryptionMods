@@ -8,11 +8,11 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void ExpressHellTrain_T0986()
+        private void BackwardClock_D09104()
         {
             List<Ability> abilities = new()
             {
-                TheTrain.ability
+                TimeMachine.ability
             };
             List<Trait> traits = new()
             {
@@ -20,10 +20,10 @@ namespace WhistleWindLobotomyMod
             };
 
             WstlUtils.Add(
-                "wstl_expressHellTrain", "Express Train to Hell",
-                "When the time comes, the train will sound its mighty horn.",
+                "wstl_backwardClock", "Backward Clock",
+                "A clock that rewinds your wasted time. A blatant cheat.",
                 0, 1, 0, 0,
-                Resources.expressHellTrain, Resources.expressHellTrain_emission,
+                Resources.backwardClock, Resources.backwardClock_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
                 isTerrain: true, isRare: true, onePerDeck: true);

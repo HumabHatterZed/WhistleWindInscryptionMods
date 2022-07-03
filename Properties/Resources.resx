@@ -190,6 +190,12 @@
   <data name="armyInPink_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\armyInPink_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="backwardClock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\backwardClock.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="backwardClock_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\backwardClock_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="beautyAndBeast" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\beautyAndBeast.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -795,6 +801,9 @@
   </data>
   <data name="sigilTheTrain" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilTheTrain.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTimeMachine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sigilTimeMachine.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="sigilTrueSaviour" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilTrueSaviour.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

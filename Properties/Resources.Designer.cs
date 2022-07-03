@@ -303,6 +303,26 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] backwardClock {
+            get {
+                object obj = ResourceManager.GetObject("backwardClock", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] backwardClock_emission {
+            get {
+                object obj = ResourceManager.GetObject("backwardClock_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] beautyAndBeast {
             get {
                 object obj = ResourceManager.GetObject("beautyAndBeast", resourceCulture);
@@ -2316,6 +2336,16 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] sigilTheTrain {
             get {
                 object obj = ResourceManager.GetObject("sigilTheTrain", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sigilTimeMachine {
+            get {
+                object obj = ResourceManager.GetObject("sigilTimeMachine", resourceCulture);
                 return ((byte[])(obj));
             }
         }
