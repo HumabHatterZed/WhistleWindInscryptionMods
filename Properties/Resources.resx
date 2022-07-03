@@ -130,6 +130,12 @@
   <data name="alriune_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\alriune_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="apocalypseBird" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\apocalypseBird.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="apocalypseBird_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\apocalypseBird_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="apostleHeretic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\apostleHeretic.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -253,6 +259,12 @@
   <data name="censored_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\censored_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="childOfTheGalaxy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\childOfTheGalaxy.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="childOfTheGalaxy_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\childOfTheGalaxy_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="cloudedMonk" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cloudedMonk.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -264,6 +276,12 @@
   </data>
   <data name="crumblingArmour_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\crumblingArmour_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dellaLuna" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dellaLuna.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dellaLuna_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dellaLuna_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="derFreischutz" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\derFreischutz.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -289,6 +307,48 @@
   <data name="dreamingCurrent_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dreamingCurrent_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="dreamOfABlackSwan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwan.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwanBrother1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother1_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwanBrother1_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwanBrother2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother2_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwanBrother2_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwanBrother3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother3_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwanBrother3_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwanBrother4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother4_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwanBrother4_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwanBrother5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother5_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwanBrother5_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwanBrother6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother6_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwanBrother6_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwan_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamOfABlackSwan_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="expressHellTrain" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\expressHellTrain.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -313,11 +373,23 @@
   <data name="forsakenMurderer_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\forsakenMurderer_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="fragmentOfUniverse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fragmentOfUniverse.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="fragmentOfUniverse_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fragmentOfUniverse_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="funeralOfButterflies" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\funeralOfButterflies.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="funeralOfButterflies_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\funeralOfButterflies_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="giantTreeSap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\giantTreeSap.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="giantTreeSap_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\giantTreeSap_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="graveOfBlossoms" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\graveOfBlossoms.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

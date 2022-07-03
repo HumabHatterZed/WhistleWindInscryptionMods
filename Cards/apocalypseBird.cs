@@ -22,14 +22,14 @@ namespace WhistleWindLobotomyMod
 
             List <CardAppearanceBehaviour.Appearance> appearances = new()
             {
-
+                CardAppearanceBehaviour.Appearance.RareCardBackground
             };
 
             WstlUtils.Add(
                 "wstl_apocalypseBird", "Apocalypse Bird",
                 "There was no moon, no stars. Just a bird, alone in the Black Forest.",
                 10, 3, 4, 0,
-                Resources.oneSin, Resources.oneSin_emission,
+                Resources.apocalypseBird, Resources.apocalypseBird_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances, onePerDeck: true);
