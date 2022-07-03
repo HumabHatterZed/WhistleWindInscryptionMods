@@ -20,6 +20,16 @@ If you find any issues or bugs whilst playing, please open an issue on the GitHu
 <details>
 <summary>Changelog</summary>
 
+### v1.0.5 - Nothing patch (7/3/2022)
+* Bug fixes
+  * Fixed Apostles not entering Downed state when killed
+  * Fixed Nothing There not being properly added to the deck
+* Tweaks
+  * Dreaming Current now has Rampager instead of Sprinter and Hefty
+  * Reverted some cards' emissions to the default colour
+* Balancing
+  * Select cards can no longer be used at the Campfire or Mycologists
+
 ### v1.0.3 & v1.0.4 - Mountains of Coloured Text patch (6/29/2022)
 * Bug fixes
   * Fixed Assimilator ability not doing proper checks on the base Card
