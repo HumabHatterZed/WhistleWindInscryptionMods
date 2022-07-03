@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_Nettles()
         {
             const string rulebookName = "Nettles";
-            const string rulebookDescription = "Adds 1 random Brother card to your hand when played.";
+            const string rulebookDescription = "When this card moves to a new slot, create a random Brother card in the old slot. Adjacent Brothers take 1 less damage.";
             DreamOfBlackSwan.specialAbility = WstlUtils.CreateSpecialAbility<DreamOfBlackSwan>(rulebookName, rulebookDescription).Id;
         }
     }

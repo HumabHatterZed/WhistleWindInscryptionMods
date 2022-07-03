@@ -195,6 +195,12 @@ namespace WhistleWindLobotomyMod
                 FuneralOfButterflies_T0168();
                 DerFreischutz_F0169();
                 DreamOfABlackSwan_F0270();
+                FirstBrother_F0270();
+                SecondBrother_F0270();
+                ThirdBrother_F0270();
+                FourthBrother_F0270();
+                FifthBrother_F0270();
+                SixthBrother_F0270();
                 DreamingCurrent_T0271();
                 BurrowingHeaven_O0472();
                 MagicalGirlSpade_O0173();

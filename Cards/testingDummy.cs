@@ -12,19 +12,20 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Alchemist.ability
+                Volatile.ability,
+                Ability.Deathtouch
             };
 
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                //NothingThere.specialAbility
+                NothingThere.specialAbility
             };
 
             WstlUtils.Add(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
                 5, 10, 0, 0,
-                Resources.bigBird, Resources.bigBird_emission,
+                Resources.testingDummy, Resources.bigBird_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new());
         }

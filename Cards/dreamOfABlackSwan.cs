@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
 
             WstlUtils.Add(
                 "wstl_dreamOfABlackBird", "Dream of a Black Swan",
-                "Its eyes light up the darkness like stars.",
+                "What happens when the black swan wakes up from dreaming of a white swan?",
                 2, 5, 3, 0,
                 Resources.dreamOfABlackSwan, Resources.dreamOfABlackSwan_emission,
                 abilities: abilities, specialAbilities: specialAbilities,

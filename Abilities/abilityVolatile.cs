@@ -62,7 +62,6 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator BombCard(PlayableCard target, PlayableCard attacker)
         {
-            //target.Anim.PlayHitAnimation();
             yield return target.TakeDamage(10, attacker);
             yield return new WaitForSeconds(0.15f);
         }

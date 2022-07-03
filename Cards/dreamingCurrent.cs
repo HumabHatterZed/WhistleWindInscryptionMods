@@ -12,8 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.Strafe,
-                Ability.StrafePush
+                Ability.StrafeSwap
             };
 
             WstlUtils.Add(

@@ -8,19 +8,18 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void ChildOfTheGalaxy_O0155()
+        private void FragmentOfUniverse_O0360()
         {
             List<Ability> abilities = new()
             {
-                FlagBearer.ability,
-                Ability.BoneDigger
+                Piercing.ability
             };
 
             WstlUtils.Add(
-                "wstl_childOfTheGalaxy", "Child of the Galaxy",
-                "The longing becomes a tear, and cascades down like a shooting star.",
-                1, 4, 2, 0,
-                Resources.childOfTheGalaxy, Resources.childOfTheGalaxy_emission,
+                "wstl_fragmentOfUniverse", "Fragment of the Universe",
+                "You see a song in front of you. It's approaching, becoming more colorful by the second.",
+                1, 2, 1, 0,
+                Resources.fragmentOfUniverse, Resources.fragmentOfUniverse_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 isChoice: true);

@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_nothingThere", "Yumi",
                 "I don't remember this challenger...",
-                1, 1, 2, 0,
+                1, 1, 0, 0,
                 Resources.nothingThere, Resources.nothingThere_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
