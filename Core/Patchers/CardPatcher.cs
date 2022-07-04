@@ -105,7 +105,7 @@ namespace WhistleWindLobotomyMod
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
                     break;
-                case "wstl_apostlescythedowned":
+                case "wstl_apostlescythedown":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
                     break;
@@ -113,7 +113,7 @@ namespace WhistleWindLobotomyMod
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
                     break;
-                case "wstl_apostlespeardowned":
+                case "wstl_apostlespeardown":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
                     break;
@@ -121,7 +121,7 @@ namespace WhistleWindLobotomyMod
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
                     break;
-                case "wstl_apostlestaffdowned":
+                case "wstl_apostlestaffdown":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
                     break;
