@@ -38,16 +38,16 @@ namespace WhistleWindLobotomyMod
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);
             CardSlot thisSlot = base.Card.Slot;
+            CardInfo cardInfo = CardLoader.GetCardByName("wstl_hundredsGoodDeeds");
             yield return base.Card.Die(false, base.Card);
             yield return new WaitForSeconds(0.5f);
-            CardInfo cardInfo = CardLoader.GetCardByName("wstl_hundredsGoodDeeds");
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(cardInfo, thisSlot, 0.15f);
             yield return new WaitForSeconds(0.45f);
             yield return base.LearnAbility(0.5f);
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
             {
                 // kill WhiteNight first
-                if (slot.Card.Info.name.ToLowerInvariant().Contains("whitenight"))
+                if (slot.Card.Info.name == "wstl_whiteNight")
                 {
                     while (slot.Card != null)
                     {
@@ -91,12 +91,11 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            return true;
+            return base.Card.Info.name != "wstl_hundredsGoodDeeds";
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return base.PreSuccessfulTriggerSequence();
-
             if (killer != base.Card)
             {
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
