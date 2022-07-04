@@ -1,8 +1,10 @@
 ## Changelog
-### v1.0.5 - Nothing patch (7/3/2022)
+### v1.0.5 & v1.0.6 - Nothing Angels patch (7/3/2022)
 * Bug fixes
   * Fixed Apostles not entering Downed state when killed
   * Fixed Nothing There not being properly added to the deck
+  * Fixed Apostle Spear emission not showing
+  * WhiteNight event works again
 * Tweaks
   * Dreaming Current now has Rampager instead of Sprinter and Hefty
   * Reverted some cards' emissions to the default colour

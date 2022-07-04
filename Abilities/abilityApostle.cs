@@ -31,12 +31,15 @@ namespace WhistleWindLobotomyMod
 
         private int downCount = 0;
 
-        private bool IsSpear => base.Card.Info.name.ToLowerInvariant().Contains("apostlespear");
-        private bool IsStaff => base.Card.Info.name.ToLowerInvariant().Contains("apostlestaff");
-        private bool IsDowned => base.Card.Info.name.ToLowerInvariant().Contains("wstl_apostle") && base.Card.Info.name.ToLowerInvariant().Contains("down");
-
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
+            if (killer != null)
+            {
+                if (killer.Info.name == "wstl_hundredsGoodDeeds" || killer.Info.name == "wstl_apostleHeretic")
+                {
+                    return false;
+                }
+            }
             return true;
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
@@ -45,14 +48,16 @@ namespace WhistleWindLobotomyMod
 
             if (killer != null)
             {
-                if (killer.Info.name.Equals("wstl_hundredsGoodDeeds"))
-                {
-                    yield break;
-                }
-
                 CardInfo downedInfo = CardLoader.GetCardByName("wstl_apostleScytheDown");
-                if (IsSpear) { downedInfo = CardLoader.GetCardByName("wstl_apostleSpearDown"); }
-                if (IsStaff) { downedInfo = CardLoader.GetCardByName("wstl_apostleStaffDown"); }
+                switch (base.Card.Info.name)
+                {
+                    case "wstl_apostleSpear":
+                        downedInfo = CardLoader.GetCardByName("wstl_apostleSpearDown");
+                        break;
+                    case "wstl_apostleStaff":
+                        downedInfo = CardLoader.GetCardByName("wstl_apostleStaffDown");
+                        break;
+                }
 
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(downedInfo, base.Card.Slot, 0.15f);
                 if (!PersistentValues.ApostleDowned)
@@ -76,7 +81,11 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
-            return playerUpkeep && IsDowned;
+            if (base.Card.Info.name == "wstl_apostleScytheDown" || base.Card.Info.name == "wstl_apostleSpearDown" || base.Card.Info.name == "wstl_apostleStaffDown")
+            {
+                return playerUpkeep;
+            }
+            return false;
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
@@ -88,9 +97,15 @@ namespace WhistleWindLobotomyMod
             {
                 downCount = 0;
                 CardInfo risenInfo = CardLoader.GetCardByName("wstl_apostleScythe");
-
-                if (IsSpear) { risenInfo = CardLoader.GetCardByName("wstl_apostleSpear"); }
-                if (IsStaff) { risenInfo = CardLoader.GetCardByName("wstl_apostleStaff"); }
+                switch (base.Card.Info.name)
+                {
+                    case "wstl_apostleSpear":
+                        risenInfo = CardLoader.GetCardByName("wstl_apostleSpear");
+                        break;
+                    case "wstl_apostleStaff":
+                        risenInfo = CardLoader.GetCardByName("wstl_apostleStaff");
+                        break;
+                }
 
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
                 yield return new WaitForSeconds(0.2f);
