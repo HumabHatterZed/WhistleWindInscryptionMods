@@ -126,7 +126,7 @@ namespace WhistleWindLobotomyMod
 
             if (killer != null)
             {
-                if (!killer.Info.name.ToLowerInvariant().Contains("hundredsgooddeeds"))
+                if (killer.Info.name != "wstl_hundredsGoodDeeds")
                 {
                     yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
                     yield return new WaitForSeconds(0.2f);
