@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod
         {
             if (killer != null)
             {
-                if (killer.Info.name.Equals("wstl_hundredsGoodDeeds"))
+                if (killer.Info.name == "wstl_hundredsGoodDeeds" || killer.Info.name == "wstl_apostleHeretic")
                 {
                     return false;
                 }

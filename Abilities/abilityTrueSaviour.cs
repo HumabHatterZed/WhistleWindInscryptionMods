@@ -40,15 +40,9 @@ namespace WhistleWindLobotomyMod
         {
             if (otherCard != null)
             {
-                if (!otherCard.Info.name.ToLowerInvariant().Contains("hundredsGoodDeeds") &&
-                    !otherCard.Info.name.ToLowerInvariant().Contains("apostle") &&
-                    otherCard != base.Card)
+                if (otherCard.Info.name != "wstl_hundredsGoodDeeds" && !otherCard.Info.name.Contains("wstl_apostle") && otherCard != base.Card)
                 {
-                    if (!otherCard.Slot.IsPlayerSlot)
-                    {
-                        return !base.Card.Slot.IsPlayerSlot;
-                    }
-                    return base.Card.Slot.IsPlayerSlot;
+                    return otherCard.Slot.IsPlayerSlot ? base.Card.Slot.IsPlayerSlot : !base.Card.Slot.IsPlayerSlot;
                 }
             }
             return false;
@@ -104,7 +98,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
-            if (source.Info.name.ToLowerInvariant().Contains("hundredsgooddeeds"))
+            if (source.Info.name == "wstl_hundredsGoodDeeds" || source.Info.name == "wstl_apostleHeretic")
             {
                 return false;
             }
@@ -123,28 +117,24 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return base.PreSuccessfulTriggerSequence();
-
             if (killer != null)
             {
-                if (killer.Info.name != "wstl_hundredsGoodDeeds")
-                {
-                    yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
-                    yield return new WaitForSeconds(0.2f);
-
-                    if (!PersistentValues.WhiteNightKilled)
-                    {
-                        PersistentValues.WhiteNightKilled = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(killedDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
-                        yield return new WaitForSeconds(0.2f);
-                    }
-                    yield return killer.Die(false, base.Card);
-                }
-                else
+                if (killer.Info.name == "wstl_hundredsGoodDeeds" || killer.Info.name == "wstl_apostleHeretic")
                 {
                     AudioController.Instance.PlaySound2D("mycologist_scream");
                     Singleton<UIManager>.Instance.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 0.4f);
-                    yield return new WaitForSeconds(0.5f);
+                    yield break;
                 }
+                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
+                yield return new WaitForSeconds(0.2f);
+
+                if (!PersistentValues.WhiteNightKilled)
+                {
+                    PersistentValues.WhiteNightKilled = true;
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(killedDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
+                    yield return new WaitForSeconds(0.2f);
+                }
+                yield return killer.Die(false, base.Card);
             }
             else
             {
@@ -160,86 +150,6 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.2f);
                 yield return Singleton<LifeManager>.Instance.ShowDamageSequence(1, 1, toPlayer: true, 0.25f, ResourceBank.Get<GameObject>("Prefabs/Environment/ScaleWeights/Weight_RealTooth"));
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(killedDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
-            }
-        }
-
-        public override bool RespondsToUpkeep(bool playerUpkeep)
-        {
-            if (!heretic)
-            {
-                return playerUpkeep;
-            }
-            return false;
-        }
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-
-            List<PlayableCard> list = Singleton<PlayerHand>.Instance.CardsInHand.FindAll((PlayableCard x) => x != Singleton<PlayerHand>.Instance.ChoosingSlotCard);
-            while (list.Count > 0)
-            {
-                if (list[0].Info.name.ToLowerInvariant().Equals("wstl_hundredsgooddeeds"))
-                {
-                    count++;
-                    if (count >= 2)
-                    {
-                        yield return base.PreSuccessfulTriggerSequence();
-
-                        Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
-                        yield return new WaitForSeconds(0.4f);
-                        list[0].Anim.StrongNegationEffect();
-                        yield return new WaitForSeconds(0.4f);
-                        (Singleton<PlayerHand>.Instance as PlayerHand3D).MoveCardAboveHand(list[0]);
-                        Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
-
-                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
-                        {
-                            // kill WhiteNight first
-                            if (slot.Card.Info.name.ToLowerInvariant().Contains("whitenight"))
-                            {
-                                while (slot.Card != null)
-                                {
-                                    if (slot.Card.Health > 0)
-                                    {
-                                        yield return slot.Card.TakeDamage(66, list[0]);
-                                        yield return new WaitForSeconds(0.4f);
-                                    }
-                                }
-                            }
-                        }
-                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
-                        {
-                            if (slot.Card.Info.name.ToLowerInvariant().Contains("apostle") || slot.Card.Info.name.ToLowerInvariant().Contains("whitenight"))
-                            {
-                                while (slot.Card != null)
-                                {
-                                    if (slot.Card.Health > 0)
-                                    {
-                                        yield return slot.Card.TakeDamage(66, list[0]);
-                                        yield return new WaitForSeconds(0.4f);
-                                    }
-                                }
-                            }
-                        }
-                        SpecialBattleSequencer specialSequence = null;
-                        var combatManager = Singleton<CombatPhaseManager>.Instance;
-
-                        yield return combatManager.DamageDealtThisPhase += 33;
-
-                        yield return new WaitForSeconds(0.4f);
-                        yield return combatManager.VisualizeDamageMovingToScales(true);
-
-                        int excessDamage = Singleton<LifeManager>.Instance.Balance + combatManager.DamageDealtThisPhase - 5;
-                        int damage = combatManager.DamageDealtThisPhase - excessDamage;
-
-                        yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
-
-                        RunState.Run.currency += excessDamage;
-                        yield return combatManager.VisualizeExcessLethalDamage(excessDamage, specialSequence);
-                    }
-                    yield break;
-                }
-                list.RemoveAt(0);
             }
         }
     }

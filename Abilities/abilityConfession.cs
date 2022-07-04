@@ -42,8 +42,20 @@ namespace WhistleWindLobotomyMod
             yield return base.Card.Die(false, base.Card);
             yield return new WaitForSeconds(0.5f);
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(cardInfo, thisSlot, 0.15f);
-            yield return new WaitForSeconds(0.45f);
-            yield return base.LearnAbility(0.5f);
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
+            {
+                // kill WhiteNight first
+                if (slot.Card.Info.name == "wstl_whiteNight" || slot.Card.Info.name.Contains("wstl_apostle"))
+                {
+                    if (slot.Card != base.Card)
+                    {
+                        slot.Card.Anim.SetShaking(true);
+                    }
+                }
+            }
+            yield return new WaitForSeconds(0.85f);
+            yield return base.LearnAbility();
+            yield return new WaitForSeconds(0.4f);
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
             {
                 // kill WhiteNight first
@@ -54,6 +66,7 @@ namespace WhistleWindLobotomyMod
                         yield return slot.Card.TakeDamage(66, base.Card);
                         yield return new WaitForSeconds(0.4f);
                     }
+                    yield return new WaitForSeconds(0.5f);
                 }
             }
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
@@ -67,14 +80,15 @@ namespace WhistleWindLobotomyMod
                     }
                 }
             }
+            yield return new WaitForSeconds(0.5f);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+
             SpecialBattleSequencer specialSequence = null;
             var combatManager = Singleton<CombatPhaseManager>.Instance;
 
             yield return combatManager.DamageDealtThisPhase += 33;
+            //yield return combatManager.VisualizeDamageMovingToScales(true);
 
-            yield return new WaitForSeconds(0.4f);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
-            yield return combatManager.VisualizeDamageMovingToScales(true);
             int excessDamage = Singleton<LifeManager>.Instance.Balance + combatManager.DamageDealtThisPhase - 5;
             int damage = combatManager.DamageDealtThisPhase - excessDamage;
 

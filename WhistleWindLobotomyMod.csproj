@@ -47,17 +47,17 @@
 		  <LastGenOutput>Resources.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 	</ItemGroup>
-	<!--
+	
 	<Target Name="CopyDLLs" AfterTargets="Build">
 		<Message Text="Executing CopyDLLs task" Importance="High" />
 
 		<Copy Condition="Exists('C:\inscryption-mods\')" SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\inscryption-mods\Inscryption\profiles\Default\BepInEx\plugins\" />
 		<Copy Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Inscryption\')" SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Inscryption\BepInEx\plugins\" />
-		<Copy Condition="Exists('C:\Users\Me\Desktop\Games\CardMod\WhistleWindLobotomyMod')" SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Users\Me\Desktop\Games\CardMod\WhistleWindLobotomyMod" />
+		<Copy Condition="Exists('C:\Users\Me\Desktop\Mods\CardMod\WhistleWindLobotomyMod')" SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Users\Me\Desktop\Mods\CardMod\WhistleWindLobotomyMod" />
 		
 		<Message Text="Copied build files" Importance="High" />
 	</Target>
-	-->
+	
 	<ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
 	</ItemGroup>

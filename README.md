@@ -24,7 +24,8 @@ If you find any issues or bugs whilst playing, please open an issue on the GitHu
 * Bug fixes
   * Fixed Apostles not entering Downed state when killed
   * Fixed Nothing There not being properly added to the deck
-  * Confession ability no longer spam kills Hundreds of Good Deeds
+  * Fixed Apostle Spear emission not showing
+  * WhiteNight event works again
 * Tweaks
   * Dreaming Current now has Rampager instead of Sprinter and Hefty
   * Reverted some cards' emissions to the default colour
