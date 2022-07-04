@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_apostleStaff", "Staff Apostle",
                 "The time has come.",
-                3, 6, 0, 0,
+                3, 3, 0, 0,
                 Resources.apostleStaff, Resources.apostleStaff_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits);
