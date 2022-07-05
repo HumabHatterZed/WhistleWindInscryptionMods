@@ -91,11 +91,12 @@ namespace WhistleWindLobotomyMod
                 Ability_Hunter();
                 Ability_Protector();
                 Ability_QuickDraw();
+                Ability_Alchemist();
+                Ability_TimeMachine();
+
                 Ability_Apostle();
                 Ability_TrueSaviour();
                 Ability_Confession();
-                Ability_Alchemist();
-                Ability_TimeMachine();
 
                 if (ConfigUtils.Instance.RevealSpecials)
                 {
@@ -114,6 +115,7 @@ namespace WhistleWindLobotomyMod
                     Rulebook_TodaysShyLook();
                     Rulebook_ArmyInPink();
                     Rulebook_MeltingLove();
+                    Rulebook_DreamOfABlackSwan();
                 }
 
                 #endregion

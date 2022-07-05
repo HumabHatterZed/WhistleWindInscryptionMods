@@ -147,6 +147,7 @@ namespace WhistleWindLobotomyMod
 
                 }
                 yield return new WaitForSeconds(0.2f);
+                yield return Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase += 1;
                 yield return Singleton<LifeManager>.Instance.ShowDamageSequence(1, 1, toPlayer: true, 0.25f, ResourceBank.Get<GameObject>("Prefabs/Environment/ScaleWeights/Weight_RealTooth"));
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(killedDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
             }

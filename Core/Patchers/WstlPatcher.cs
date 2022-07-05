@@ -125,6 +125,9 @@ namespace WhistleWindLobotomyMod
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
                     break;
+                case "wstl_backwardclock":
+                    __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
+                    break;
                 case "wstl_hundredsgooddeeds":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
