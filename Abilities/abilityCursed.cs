@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            return !wasSacrifice && killer != null;
+            return !wasSacrifice && killer != null && !killer.Dead;
         }
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)

@@ -27,10 +27,19 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
+        // Failsafe that prevents ability from being used multiple times per run
+        public override bool CanActivate()
+        {
+            return !PersistentValues.HasUsedBackwardClock;
+        }
+
         // Ends the battle
         public override IEnumerator Activate()
         {
-            yield break;
+            PersistentValues.HasUsedBackwardClock = true;
+            int damage = Singleton<LifeManager>.Instance.DamageUntilPlayerWin;
+            yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false, 0.25f, ResourceBank.Get<GameObject>("Prefabs/Environment/ScaleWeights/Weight_RealTooth"));
+            RunState.Run.playerDeck.RemoveCard(base.Card.Info);
         }
     }
 }

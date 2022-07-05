@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                5, 10, 0, 0,
+                0, 10, 0, 0,
                 Resources.testingDummy, Resources.bigBird_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new());

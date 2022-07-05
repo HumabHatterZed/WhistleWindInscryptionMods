@@ -54,46 +54,6 @@ namespace WhistleWindLobotomyMod
         }
         #endregion
 
-        #region Magical Girls
-        public static bool HasSeenHatredTransformation
-        {
-            // Keeps track of whether this is the first time Magical Girl H has transformed
-            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "TransformedIntoHatred");
-            }
-            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "TransformedIntoHatred", value); }
-        }
-        public static bool HasSeenHatredTireOut
-        {
-            // Keeps track of whether this is the first time Queen oF Hatred has transformed
-            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "HatredExhausted"); }
-            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "HatredExhausted", value); }
-        }
-        public static bool HasSeenHatredRecover
-        {
-            // Keeps track of whether this is the first time Queen oF Hatred (E) has transformed
-            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "HatredRecovered"); }
-            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "HatredRecovered", value); }
-        }
-        public static bool HasSeenGreedTransformation
-        {
-            // Keeps track of whether this is the first time Magical Girl D has transformed
-            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "TransformedIntoGreed"); }
-            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "TransformedIntoGreed", value); }
-        }
-        public static bool HasSeenDespairProtect
-        {
-            // Keeps track of whether this is the first time Magical Girl S has protected
-            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "ProtectedByKnight"); }
-            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "ProtectedByKnight", value); }
-        }
-        public static bool HasSeenDespairTransformation
-        {
-            // Keeps track of whether this is the first time Magical Girl S has transformed
-            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "TransformedIntoDespair"); }
-            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "TransformedIntoDespair", value); }
-        }
-        #endregion
-
         #region ALEPHs
         public static bool HasSeenNothingTransformation
         {
@@ -145,6 +105,53 @@ namespace WhistleWindLobotomyMod
         }
         #endregion
 
+        #region WAWs
+        public static bool HasSeenHatredTransformation
+        {
+            // Keeps track of whether this is the first time Magical Girl H has transformed
+            get
+            {
+                return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "TransformedIntoHatred");
+            }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "TransformedIntoHatred", value); }
+        }
+        public static bool HasSeenHatredTireOut
+        {
+            // Keeps track of whether this is the first time Queen oF Hatred has transformed
+            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "HatredExhausted"); }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "HatredExhausted", value); }
+        }
+        public static bool HasSeenHatredRecover
+        {
+            // Keeps track of whether this is the first time Queen oF Hatred (E) has transformed
+            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "HatredRecovered"); }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "HatredRecovered", value); }
+        }
+        public static bool HasSeenGreedTransformation
+        {
+            // Keeps track of whether this is the first time Magical Girl D has transformed
+            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "TransformedIntoGreed"); }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "TransformedIntoGreed", value); }
+        }
+        public static bool HasSeenDespairProtect
+        {
+            // Keeps track of whether this is the first time Magical Girl S has protected
+            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "ProtectedByKnight"); }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "ProtectedByKnight", value); }
+        }
+        public static bool HasSeenDespairTransformation
+        {
+            // Keeps track of whether this is the first time Magical Girl S has transformed
+            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "TransformedIntoDespair"); }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "TransformedIntoDespair", value); }
+        }
+        public static bool HasUsedBackwardClock
+        {
+            // Keeps track of whether Backward Clock has been used this run
+            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "UsedBackwardClock"); }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "UsedBackwardClock", value); }
+        }
+        #endregion
         #region HEs
         public static bool HasSeenDerFreischutzSeventh
         {

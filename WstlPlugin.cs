@@ -267,7 +267,7 @@ namespace WhistleWindLobotomyMod
                 harmony.PatchAll(typeof(AddBonesPatcher));
                 harmony.PatchAll(typeof(DeathCardPatcher));
                 harmony.PatchAll(typeof(PersistentValues));
-                harmony.PatchAll(typeof(CardPatcher));
+                harmony.PatchAll(typeof(WstlPatcher));
                 
                 ConfigUtils.Instance.BindConfig();
 

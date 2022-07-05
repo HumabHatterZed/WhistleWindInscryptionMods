@@ -29,7 +29,6 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
 
         private int softLock = 0;
-        private int count = 0;
         private bool heretic = false;
 
         private readonly string killedDialogue = "[c:bR]Do not deny me.[c:]";

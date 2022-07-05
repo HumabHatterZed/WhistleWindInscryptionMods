@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace WhistleWindLobotomyMod
 {
-    public static class CardPatcher
+    public static class WstlPatcher
     {
         // Adds Nothing There to the deck when chosen in a card choice (Trader, Boss Box, etc.)
         [HarmonyPatch(typeof(DeckInfo), nameof(DeckInfo.AddCard))]

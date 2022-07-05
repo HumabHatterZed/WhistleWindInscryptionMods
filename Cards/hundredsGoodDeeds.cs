@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             List<Trait> traits = new()
             {
                 Trait.Uncuttable,
-                Trait.Pelt
+                Trait.Terrain
             };
 
             WstlUtils.Add(

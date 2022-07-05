@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
 
             WstlUtils.Add(
                 "wstl_backwardClock", "Backward Clock",
-                "A clock that rewinds your wasted time. A blatant cheat.",
+                "A clock to rewind your wasted time. A blatant cheat.",
                 0, 1, 0, 0,
                 Resources.backwardClock, Resources.backwardClock_emission,
                 abilities: abilities, specialAbilities: new(),
