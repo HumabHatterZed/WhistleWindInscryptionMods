@@ -30,15 +30,15 @@ namespace WhistleWindLobotomyMod
         private CardSlot targetedSlot = null;
 
         private int softLock = 0;
-        private bool heretic = false;
         private string invalidDialogue;
         private readonly string failDialogue = "No one to heal.";
         private readonly string failAsDoctorDialogue = "No allies to receive a blessing. [c:bR]An enemy[c:] will suffice instead.";
         private readonly string failExtraHardDialogue = "No enemies either. It seems no blessings will be given this turn.";
-        private readonly string transformDialogue = "[c:bR]The time has come. A new world will come.[c:]";
-        private readonly string convertDialogue = "[c:bR]Rise, my servants. Rise and serve me.[c:]";
-        private readonly string declareDialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
-        private readonly string hereticDialogue = "[c:bR]Have I not chosen you, the Twelve? Yet one of you is a devil.[c:]";
+        private readonly string eventDialogue = "[c:bR]The time has come. A new world will come.[c:]";
+        private readonly string eventDialogue2 = "[c:bR]I am death and life. Darkness and light.[c:]";
+        private readonly string eventDialogue3 = "[c:bR]Rise, my servants. Rise and serve me.[c:]";
+        private readonly string eventDialogueA = "[c:bR]The time has come again. I will be thy guide.[c:]";
+        private readonly string hereticDialogue = "[c:bR]Have I not chosen you, the Twelve? Yet one of you is [c:][c:bG]a devil[c:][c:bR].[c:]";
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
@@ -168,6 +168,151 @@ namespace WhistleWindLobotomyMod
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
         }
 
+        // Call the Clock
+        private IEnumerator ClockTwelve()
+        {
+            // If Blessings are between (0,11), break
+            if (0 <= ConfigUtils.Instance.NumOfBlessings && ConfigUtils.Instance.NumOfBlessings < 12)
+            {
+                yield break;
+            }
+            // If blessings are in the negatives (aka someone cheated), wag a finger and go 'nuh-uh-uh!'
+            if (ConfigUtils.Instance.NumOfBlessings < 0)
+            {
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]Thou cannot stop my ascension. Even the tutelary bows to mine authority.[c:]", -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
+            }
+            // Reset the number of Blessings to 0 and change Leshy's eyes to red
+            ConfigUtils.Instance.UpdateBlessings(-ConfigUtils.Instance.NumOfBlessings);
+            LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
+            // Transform the Doctor into Him
+            yield return base.Card.TransformIntoCard(CardLoader.GetCardByName("wstl_whiteNight"));
+            base.Card.Status.hiddenAbilities.Add(Ability.Flying);
+            base.Card.AddTemporaryMod(new CardModificationInfo(Ability.Flying));
+            yield return new WaitForSeconds(0.2f);
+            // Create dialogue depending on whether this is the first time this has happened this run
+            if (!PersistentValues.ClockThisRun)
+            {
+                PersistentValues.ClockThisRun = true;
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventDialogue2, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventDialogue3, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
+            }
+            else
+            {
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventDialogueA, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventDialogue3, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
+            }
+            yield return new WaitForSeconds(0.2f);
+            // Determine whether a Heretic is needed by seeing if One Sin exists in the player's deck
+            bool heretic = false;
+            bool sinful = new List<CardInfo>(RunState.DeckList).FindAll((CardInfo info) => info.name == "wstl_oneSin").Count() > 0;
+            // Kill non-living/Mule cards and transform the rest (excluding One Sin) into Apostles
+            foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(slot => slot.Card != base.Card))
+            {
+                if (slot.Card != null && slot.Card.Info.name != "wstl_oneSin")
+                {
+                    if (slot.Card.Info.HasTrait(Trait.Pelt) || slot.Card.Info.HasTrait(Trait.Terrain) ||
+                        slot.Card.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
+                    {
+                        yield return slot.Card.Die(false, base.Card);
+                        softLock++;
+                        if (softLock >= 6)
+                        {
+                            softLock = 0;
+                            WstlPlugin.Log.LogWarning("Stuck in a loop, breaking and moving on.");
+                            yield break;
+                        }
+                    }
+                    else
+                    {
+                        CardInfo randApostle = new System.Random().Next(0, 3) switch
+                        {
+                            0 => CardLoader.GetCardByName("wstl_apostleScythe"),
+                            1 => CardLoader.GetCardByName("wstl_apostleSpear"),
+                            _ => CardLoader.GetCardByName("wstl_apostleStaff")
+                        };
+                        if (!heretic && !sinful)
+                        {
+                            if (new System.Random().Next(0, 12) == 0)
+                            {
+                                heretic = true;
+                                randApostle = CardLoader.GetCardByName("wstl_apostleHeretic");
+                            }
+                        }
+                        yield return slot.Card.TransformIntoCard(randApostle);
+                        if (heretic && !PersistentValues.ApostleHeretic)
+                        {
+                            PersistentValues.ApostleHeretic = true;
+                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hereticDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
+                            yield return new WaitForSeconds(0.2f);
+                        }
+                    }
+                }
+            }
+            // If the player has One Sin
+            if (sinful)
+            {
+                // if there is a One Sin on the board
+                if (Singleton<BoardManager>.Instance.PlayerSlotsCopy.FindAll((CardSlot slot) => slot.Card != null && slot.Card.Info.name == "wstl_oneSin").Count > 0)
+                {
+                    foreach (CardSlot slot in Singleton<BoardManager>.Instance.PlayerSlotsCopy.Where(s => s.Card != null && s.Card.Info.name == "wstl_oneSin"))
+                    {
+                        // Transform the first One Sin into Heretic
+                        // Remove the rest
+                        if (!heretic)
+                        {
+                            heretic = true;
+                            yield return slot.Card.TransformIntoCard(CardLoader.GetCardByName("wstl_apostleHeretic"));
+                        }
+                        else
+                        {
+                            slot.Card.Dead = true;
+                            slot.Card.UnassignFromSlot();
+                            SpecialCardBehaviour[] components = slot.Card.GetComponents<SpecialCardBehaviour>();
+                            for (int i = 0; i < components.Length; i++)
+                            {
+                                components[i].OnCleanUp();
+                            }
+                            slot.Card.ExitBoard(0.3f, Vector3.zero);
+                        }
+                    }
+                }
+                else
+                {
+                    // Transform into Heretic
+                    Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
+                    yield return new WaitForSeconds(0.25f);
+                    foreach (PlayableCard card in Singleton<PlayerHand>.Instance.CardsInHand.Where(c => c.Info.name == "wstl_oneSin"))
+                    {
+                        if (!heretic)
+                        {
+                            heretic = true;
+                            yield return card.TransformIntoCard(CardLoader.GetCardByName("wstl_apostleHeretic"));
+                        }
+                        else
+                        {
+                            card.Dead = true;
+                            card.UnassignFromSlot();
+                            SpecialCardBehaviour[] components = card.GetComponents<SpecialCardBehaviour>();
+                            for (int i = 0; i < components.Length; i++)
+                            {
+                                components[i].OnCleanUp();
+                            }
+                            card.ExitBoard(0.3f, Vector3.zero);
+                        }
+                    }
+
+                }
+                // Spawn card to hand if One Sin is in the deck or dead
+                if (!heretic)
+                {
+                    heretic = true;
+                    yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_apostleHeretic"));
+                }
+            }
+            Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+            yield return new WaitForSeconds(0.2f);
+        }
         // Stolen from Zerg mod with love <3
         private IEnumerator PlayerChooseTarget()
         {
@@ -193,95 +338,6 @@ namespace WhistleWindLobotomyMod
 
             }, () => false, CursorType.Target);
         }
-
-        // Call the Clock
-        private IEnumerator ClockTwelve()
-        {
-            // If Blessings are between (0,11), break
-            if (0 <= ConfigUtils.Instance.NumOfBlessings && ConfigUtils.Instance.NumOfBlessings < 12)
-            {
-                yield break;
-            }
-            if (ConfigUtils.Instance.NumOfBlessings < 0)
-            {
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]Thou cannot stop my ascension. Even the tutelary bows to mine authority.[c:]", -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
-            }
-
-            // Reset the number of Blessings to 0
-            ConfigUtils.Instance.UpdateBlessings(-ConfigUtils.Instance.NumOfBlessings);
-            LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
-            // The Miracle Worker ascends above us
-            yield return base.Card.TransformIntoCard(CardLoader.GetCardByName("wstl_whiteNight"));
-            base.Card.Status.hiddenAbilities.Add(Ability.Flying);
-            base.Card.AddTemporaryMod(new CardModificationInfo(Ability.Flying));
-
-            yield return new WaitForSeconds(0.2f);
-            if (!PersistentValues.ClockThisRun)
-            {
-                PersistentValues.ClockThisRun = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(transformDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(declareDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(convertDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
-                yield return new WaitForSeconds(0.2f);
-            }
-
-            // Kill certain cards and transform the rest
-            foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(slot => slot.Card != base.Card))
-            {
-                if (slot.Card != null)
-                {
-                    if (slot.Card.Info.HasTrait(Trait.Pelt) ||
-                        slot.Card.Info.HasTrait(Trait.Terrain) ||
-                        slot.Card.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
-                    {
-                        softLock++;
-                        yield return slot.Card.Die(false, base.Card);
-                        if (softLock >= 6)
-                        {
-                            softLock = 0;
-                            yield break;
-                        }
-                    }
-                    else
-                    {
-                        // Default Apostle
-                        CardInfo randApostle = CardLoader.GetCardByName("wstl_apostleScythe");
-
-                        // 1/12 chance of being Heretic, there can only be one Heretic per battle
-                        if (new System.Random().Next(0, 12) == 0 && !heretic)
-                        {
-                            heretic = true;
-                            randApostle = CardLoader.GetCardByName("wstl_apostleHeretic");
-                        }
-                        else
-                        {
-                            // Equal chance for any of three main Apostles of arising
-                            switch (new System.Random().Next(0, 3))
-                            {
-                                case 0: // Scythe
-                                    break;
-                                case 1: // Spear
-                                    randApostle = CardLoader.GetCardByName("wstl_apostleSpear");
-                                    break;
-                                case 2: // Staff
-                                    randApostle = CardLoader.GetCardByName("wstl_apostleStaff");
-                                    break;
-                            }
-                        }
-                        yield return slot.Card.TransformIntoCard(randApostle);
-
-                        if (heretic && !PersistentValues.ApostleHeretic)
-                        {
-                            PersistentValues.ApostleHeretic = true;
-                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hereticDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
-                            yield return new WaitForSeconds(0.2f);
-                        }
-                    }
-                }
-            }
-            yield return new WaitForSeconds(0.2f);
-        }
-
         private bool ValidAllies()
         {
             // Checks whether there are allies available to be healed.

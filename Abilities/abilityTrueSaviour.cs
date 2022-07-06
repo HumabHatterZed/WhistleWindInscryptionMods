@@ -29,19 +29,48 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
 
         private int softLock = 0;
-        private bool heretic = false;
+        // Heretic doesn't exist in the player's hand or on the board
+        private bool heretic = new List<PlayableCard>(Singleton<PlayerHand>.Instance.CardsInHand).FindAll((PlayableCard card) => card.Info.name == "wstl_apostleHeretic").Count == 0
+            && new List<CardSlot>(Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null && slot.Card.Info.name == "wstl_apostleHeretic")).Count == 0;
 
         private readonly string killedDialogue = "[c:bR]Do not deny me.[c:]";
         private readonly string hammerDialogue = "[c:bR]I shall not leave thee until I have completed my mission.[c:]";
-        private readonly string hereticDialogue = "[c:bR]Have I not chosen you, the Twelve? Yet one of you is a devil.[c:]";
+        private readonly string hereticDialogue = "[c:bR]Have I not chosen you, the Twelve? Yet one of you is [c:][c:bG]a devil[c:][c:bR].[c:]";
+        private readonly string oneSinDialogue = "[c:bR]What are you doing?[c:]";
 
+        public override bool RespondsToUpkeep(bool playerUpkeep)
+        {
+            // Return owner's turn and whether the player has Heretic in their hand
+            return (base.Card.Slot.IsPlayerSlot ? playerUpkeep : !playerUpkeep) && Singleton<PlayerHand>.Instance.CardsInHand.FindAll((PlayableCard c) => c.Info.name == "wstl_apostleHeretic").Count() != 0;
+        }
+        public override IEnumerator OnUpkeep(bool playerUpkeep)
+        {
+            // If all slots on the owner's side are full
+            if (Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(s => s.Card != null).Count() == 4)
+            {
+                int randomSeed = base.GetRandomSeed();
+                List<CardSlot> cardsToKill = Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).FindAll((CardSlot s) => s.Card != null && s.Card != base.Card);
+                PlayableCard cardToKill = cardsToKill[SeededRandom.Range(0, 3, randomSeed++)].Card;
+                Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
+                foreach (PlayableCard card in Singleton<PlayerHand>.Instance.CardsInHand.Where(c => c.Info.name == "wstl_apostleHeretic"))
+                {
+                    card.Anim.StrongNegationEffect();
+                }
+                yield return new WaitForSeconds(0.4f);
+                Singleton<ViewManager>.Instance.SwitchToView(View.BoardCentered);
+                cardToKill.Anim.SetShaking(true);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(oneSinDialogue, -0.65f, 0.4f, emotion: Emotion.Curious, speaker: DialogueEvent.Speaker.Bonelord);
+                yield return cardToKill.Die(false, base.Card);
+            }
+            yield break;
+        }
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
-            if (otherCard != null)
+            if (otherCard != null && otherCard != base.Card)
             {
-                if (otherCard.Info.name != "wstl_hundredsGoodDeeds" && !otherCard.Info.name.Contains("wstl_apostle") && otherCard != base.Card)
+                if (!otherCard.Info.name.Contains("wstl_apostle") && otherCard.Info.name != "wstl_oneSins" && otherCard.Info.name != "wstl_hundredsGoodDeeds")
                 {
-                    return otherCard.Slot.IsPlayerSlot ? base.Card.Slot.IsPlayerSlot : !base.Card.Slot.IsPlayerSlot;
+                    return (base.Card.OnBoard && otherCard.Slot.IsPlayerSlot) ? base.Card.Slot.IsPlayerSlot : !base.Card.Slot.IsPlayerSlot;
                 }
             }
             return false;
@@ -49,55 +78,50 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            if (otherCard.Info.HasTrait(Trait.Pelt) ||
-                otherCard.Info.HasTrait(Trait.Terrain) ||
-                otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
+            if (otherCard != null)
             {
-                softLock++;
-                yield return otherCard.Die(false, base.Card);
-                if (softLock >= 6)
+                if (otherCard.Info.HasTrait(Trait.Pelt) || otherCard.Info.HasTrait(Trait.Terrain) ||
+                    otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
                 {
-                    softLock = 0;
-                    yield break;
-                }
-            }
-            else
-            {
-                CardInfo randApostle = CardLoader.GetCardByName("wstl_apostleScythe");
-
-                // 1/12 chance of being Heretic, there can only be one Heretic
-                if (new System.Random().Next(0, 12) == 0 && !heretic)
-                {
-                    heretic = true;
-                    randApostle = CardLoader.GetCardByName("wstl_apostleHeretic");
+                    yield return otherCard.Die(false, base.Card);
+                    softLock++;
+                    if (softLock >= 6)
+                    {
+                        softLock = 0;
+                        WstlPlugin.Log.LogError("Stuck in a loop, breaking and moving on.");
+                        yield break;
+                    }
                 }
                 else
                 {
-                    switch (new System.Random().Next(0, 3))
+                    CardInfo randApostle = new System.Random().Next(0, 3) switch
                     {
-                        case 0: // Scythe
-                            break;
-                        case 1: // Spear
-                            randApostle = CardLoader.GetCardByName("wstl_apostleSpear");
-                            break;
-                        case 2: // Staff
-                            randApostle = CardLoader.GetCardByName("wstl_apostleStaff");
-                            break;
+                        0 => CardLoader.GetCardByName("wstl_apostleScythe"),
+                        1 => CardLoader.GetCardByName("wstl_apostleSpear"),
+                        _ => CardLoader.GetCardByName("wstl_apostleStaff")
+                    };
+                    if (!heretic)
+                    {
+                        if (new System.Random().Next(0, 12) == 0)
+                        {
+                            heretic = true;
+                            randApostle = CardLoader.GetCardByName("wstl_apostleHeretic");
+                        }
                     }
-                }
-                yield return otherCard.TransformIntoCard(randApostle);
-                if (heretic && !PersistentValues.ApostleHeretic)
-                {
-                    PersistentValues.ApostleHeretic = true;
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hereticDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
-                    yield return new WaitForSeconds(0.2f);
+                    yield return otherCard.TransformIntoCard(randApostle);
+                    if (heretic && !PersistentValues.ApostleHeretic)
+                    {
+                        PersistentValues.ApostleHeretic = true;
+                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hereticDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
+                        yield return new WaitForSeconds(0.2f);
+                    }
                 }
             }
         }
 
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
-            if (source.Info.name == "wstl_hundredsGoodDeeds" || source.Info.name == "wstl_apostleHeretic")
+            if (source.Info.name == "wstl_apostleHeretic")
             {
                 return false;
             }
@@ -118,7 +142,8 @@ namespace WhistleWindLobotomyMod
             yield return base.PreSuccessfulTriggerSequence();
             if (killer != null)
             {
-                if (killer.Info.name == "wstl_hundredsGoodDeeds" || killer.Info.name == "wstl_apostleHeretic")
+                // If killed by Heretic, die and break
+                if (killer.Info.name == "wstl_apostleHeretic")
                 {
                     AudioController.Instance.PlaySound2D("mycologist_scream");
                     Singleton<UIManager>.Instance.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 0.4f);
@@ -126,7 +151,6 @@ namespace WhistleWindLobotomyMod
                 }
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
                 yield return new WaitForSeconds(0.2f);
-
                 if (!PersistentValues.WhiteNightKilled)
                 {
                     PersistentValues.WhiteNightKilled = true;
