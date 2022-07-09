@@ -266,10 +266,11 @@ namespace WhistleWindLobotomyMod
                 #endregion
                 
                 harmony.PatchAll(typeof(CombatPhasePatcher));
-                harmony.PatchAll(typeof(AddBonesPatcher));
-                harmony.PatchAll(typeof(DeathCardPatcher));
                 harmony.PatchAll(typeof(PersistentValues));
-                harmony.PatchAll(typeof(WstlPatcher));
+                harmony.PatchAll(typeof(DeathCardPatcher));
+                harmony.PatchAll(typeof(AddBonesPatcher));
+                harmony.PatchAll(typeof(NodePatcher));
+                harmony.PatchAll(typeof(CardPatcher));
                 
                 ConfigUtils.Instance.BindConfig();
 
@@ -278,7 +279,7 @@ namespace WhistleWindLobotomyMod
             }
             else
             {
-                Logger.LogInfo($"{pluginName} is loaded but is currently disabled in the configuration.");
+                Logger.LogWarning($"{pluginName} is loaded but is disabled in the configuration.");
             }
         }
     }

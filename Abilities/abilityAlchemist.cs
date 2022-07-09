@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
 
             Alchemist.ability = WstlUtils.CreateActivatedAbility<Alchemist>(
                 Resources.sigilAlchemist,
-                rulebookName, rulebookDescription, dialogue, 2).Id;
+                rulebookName, rulebookDescription, dialogue, 3).Id;
         }
     }
     public class Alchemist : ActivatedAbilityBehaviour
@@ -32,7 +32,15 @@ namespace WhistleWindLobotomyMod
 
         public override bool CanActivate()
         {
-            return Singleton<PlayerHand>.Instance.cardsInHand.Count() > 0;
+            if (Singleton<PlayerHand>.Instance.CardsInHand.Count() > 0)
+            {
+                if (Singleton<CardDrawPiles3D>.Instance.Deck.Cards.Count == 0)
+                {
+                    return Singleton<CardDrawPiles3D>.Instance.SideDeck.Cards.Count > 0;
+                }
+                return true;
+            }
+            return false;
         }
 
         // Discard all hands in card and draw an equal number
@@ -41,10 +49,10 @@ namespace WhistleWindLobotomyMod
             yield return base.PreSuccessfulTriggerSequence();
             Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
 
-            List<PlayableCard> cardsInHand = new(Singleton<PlayerHand>.Instance.cardsInHand);
+            List<PlayableCard> cardsInHand = new(Singleton<PlayerHand>.Instance.CardsInHand);
             int count = 0;
 
-            Singleton<PlayerHand>.Instance.cardsInHand.Clear();
+            Singleton<PlayerHand>.Instance.CardsInHand.Clear();
             foreach (PlayableCard item in cardsInHand)
             {
                 if (item != null)
@@ -55,9 +63,23 @@ namespace WhistleWindLobotomyMod
             }
             for (int i = 0; i < count; i++)
             {
-                yield return Singleton<CardDrawPiles>.Instance.DrawCardFromDeck();
+                if (Singleton<CardDrawPiles3D>.Instance.Deck.Cards.Count > 0)
+                {
+                    Singleton<CardDrawPiles3D>.Instance.pile.Draw();
+                    yield return Singleton<CardDrawPiles3D>.Instance.DrawCardFromDeck();
+                }
+                else if (Singleton<CardDrawPiles3D>.Instance.SideDeck.Cards.Count > 0)
+                {
+                    Singleton<CardDrawPiles3D>.Instance.sidePile.Draw();
+                    yield return Singleton<CardDrawPiles3D>.Instance.DrawFromSidePile();
+                }
+                else
+                {
+                    yield return new WaitForSeconds(0.4f);
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("You've exhausted your available cards.", -0.65f, 0.4f);
+                    break;
+                }
             }
-
             yield return new WaitForSeconds(0.2f);
             yield return base.LearnAbility();
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.DefaultView);

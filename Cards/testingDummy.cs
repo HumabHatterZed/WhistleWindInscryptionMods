@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                TimeMachine.ability
+                Alchemist.ability
             };
 
             List<SpecialTriggeredAbility> specialAbilities = new()
