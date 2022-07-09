@@ -79,7 +79,7 @@ Also, big thanks to James Veug's ReadmeMaker mod for the cost sprites I use, as 
 ## 🛠️ Configuration Options
 * Enable Mod
   * DEFAULT: True
-  * What it says on the tin, this config enables/disables this mod's content.
+  * What it says on the tin; this config enables/disables this mod's content.
 * Special Abilities in Rulebook
   * DEFAULT: False
   * Adds entries for the special abilities to the Rulebook for your viewing pleasure.
@@ -88,7 +88,7 @@ Also, big thanks to James Veug's ReadmeMaker mod for the cost sprites I use, as 
   * Changes the description of certain abilities to actually describe what they do.
 * All Modular
   * DEFAULT: False
-  * Makes all custom abilities modular, meaning they can be found on totem bases and on cards from the den trial.
+  * Makes _most_ custom abilities modular, meaning they can be found on totem bases and on cards from the den trial.
 
 ## ⚜️ Special Abilities
 A number of cards added by this mod possess special behaviour not normally found in the Rulebook.
@@ -109,7 +109,6 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Today's Shy Look|Reacts to being drawn.|
 |Army in Pink|Reacts to cards dying.|
 |Melting Love|Reacts to taking damage.|
-|Dream of a Black Swan|Reacts to moving spaces.|
 
 ## ✨ Abilities
 **Note: Totem indicates the ability can be found on totem bases and on cards from den trials.**
@@ -151,7 +150,8 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Protector|Adjacent cards take 1 less damage from attacks.||
 |Quick Draw|When a creature moves into the space opposite this card, they take 1 damage.||
 |Alchemist|Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.||
-|Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck at random based on their power level.||
+|Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on the cards' power level.||
+|Clothes Made of Nettles|When a card bearing this sigil is played, create random Brothers in empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.||
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
 |True Saviour|*My story is nowhere, unknown to all.*|||
 |Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||
@@ -216,13 +216,13 @@ Poisonous means the card will kill survivors at the campfire when eaten.**
 |Laetitia|1|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Gift Giver|||
 |Laetitia's Friend|2|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|||Insect|
 |Funeral of the Dead Butterflies|2|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Bifurcated Strike|Rare||
-|Dream of a Black Swan|2|5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">||Protector|Avian|
-|⤷ First Brother|1|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Guardian|||
-|⤷ Second Brother|1|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">||||
+|Dream of a Black Swan|2|5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Clothes Made of Nettles<br>Protector|Rare|Avian|
+|⤷ First Brother|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Double Strike|||
+|⤷ Second Brother|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">||||
 |⤷ Third Brother|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Reflector|||
-|⤷ Fourth Brother|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Touch of Death|||
-|⤷ Fifth Brother|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Sharp Quills|||
-|⤷ Sixth Brother|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Double Strike|||
+|⤷ Fourth Brother|0|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Touch of Death|||
+|⤷ Fifth Brother|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Sharp Quills|||
+|⤷ Sixth Brother|0|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Stinky|||
 |The Dreaming Current|3|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Rampager|||
 |The Burrowing Heaven|0|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">||||
 |Magical Girl S|2|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Protector|Rare<br>Singleton||

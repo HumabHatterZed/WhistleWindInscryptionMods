@@ -14,7 +14,6 @@ namespace WhistleWindLobotomyMod
             {
                 Reflector.ability
             };
-
             WstlUtils.Add(
                 "wstl_dreamOfABlackSwanBrother3", "Third Brother",
                 "What happens when the black swan wakes up from dreaming of a white swan?",

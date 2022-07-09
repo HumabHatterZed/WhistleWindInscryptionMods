@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Rulebook_DreamOfABlackSwan()
         {
             const string rulebookName = "Dream of a Black Swan";
-            const string rulebookDescription = "Creates a random Brother card on the board whenever she moves to a new slot. Adjacent Brothers take 1 less damage.";
+            const string rulebookDescription = "Whenever this card moves to a new slot, create a random Brother in an old slot.";
             const string dialogue = "femboy";
             EntryDreamOfABlackSwan.ability = WstlUtils.CreateAbility<EntryDreamOfABlackSwan>(
                 Resources.sigilAbnormality,

@@ -151,6 +151,11 @@ namespace WhistleWindLobotomyMod
             get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "UsedBackwardClock"); }
             set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "UsedBackwardClock", value); }
         }
+        public static bool HasSeenSwanFail
+        {
+            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "BlackSwanFail"); }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "BlackSwanFail", value); }
+        }
         #endregion
         #region HEs
         public static bool HasSeenDerFreischutzSeventh

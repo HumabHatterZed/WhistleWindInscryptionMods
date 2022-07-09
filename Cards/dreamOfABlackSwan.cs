@@ -12,25 +12,21 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
+                Nettles.ability,
                 Protector.ability
             };
             List<Tribe> tribes = new()
             {
                 Tribe.Bird
             };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                DreamOfBlackSwan.specialAbility
-            };
-
             WstlUtils.Add(
-                "wstl_dreamOfABlackBird", "Dream of a Black Swan",
+                "wstl_dreamOfABlackSwan", "Dream of a Black Swan",
                 "What happens when the black swan wakes up from dreaming of a white swan?",
                 2, 5, 3, 0,
                 Resources.dreamOfABlackSwan, Resources.dreamOfABlackSwan_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
+                abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true);
+                isRare: true);
         }
     }
 }

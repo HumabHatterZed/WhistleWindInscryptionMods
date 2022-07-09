@@ -207,7 +207,7 @@ namespace WhistleWindLobotomyMod
             bool heretic = false;
             bool sinful = new List<CardInfo>(RunState.DeckList).FindAll((CardInfo info) => info.name == "wstl_oneSin").Count() > 0;
             // Kill non-living/Mule cards and transform the rest (excluding One Sin) into Apostles
-            foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(slot => slot.Card != base.Card))
+            foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(slot => slot.Card != base.Card))
             {
                 if (slot.Card != null && slot.Card.Info.name != "wstl_oneSin")
                 {

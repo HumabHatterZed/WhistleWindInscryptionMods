@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Alchemist.ability
+                Nettles.ability
             };
 
             List<SpecialTriggeredAbility> specialAbilities = new()
@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
                 0, 10, 0, 0,
-                Resources.testingDummy, Resources.bigBird_emission,
+                Resources.testingDummy, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new());
         }

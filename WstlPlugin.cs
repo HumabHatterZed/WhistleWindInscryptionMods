@@ -43,15 +43,12 @@ namespace WhistleWindLobotomyMod
             if (ConfigUtils.Instance.ModEnabled)
             {
                 #region SPECIAL ABILITIES
-                // Unique special ability
-                // Controls dialogue, some other stuff too
                 SpecialAbilityEvolve();
                 SpecialAbility_Fetus();
                 SpecialAbility_Bath();
                 SpecialAbility_Nothing();
                 SpecialAbility_Shy();
                 SpecialAbility_Hate();
-                SpecialAbility_Nettles();
 
                 #endregion
 
@@ -93,6 +90,7 @@ namespace WhistleWindLobotomyMod
                 Ability_QuickDraw();
                 Ability_Alchemist();
                 Ability_TimeMachine();
+                Ability_Nettles();
 
                 Ability_Apostle();
                 Ability_TrueSaviour();

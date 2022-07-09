@@ -15,7 +15,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
             FrostRuler.ability = WstlUtils.CreateAbility<FrostRuler>(
                 Resources.sigilFrostRuler,
-                rulebookName, rulebookDescription, dialogue, 5).Id;
+                rulebookName, rulebookDescription, dialogue, 5,
+                overrideModular: true).Id;
         }
     }
     public class FrostRuler : AbilityBehaviour

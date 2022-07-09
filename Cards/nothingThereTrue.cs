@@ -14,24 +14,20 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Evolve
             };
-
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 SpecialAbilityFledgling.specialAbility
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Canine,
                 Tribe.Hooved,
                 Tribe.Reptile
             };
-
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 CardAppearanceBehaviour.Appearance.RareCardBackground
             };
-
             WstlUtils.Add(
                 "wstl_nothingThereTrue", "Nothing There",
                 "What is that?",
