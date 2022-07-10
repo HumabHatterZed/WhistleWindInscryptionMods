@@ -1,6 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
@@ -11,12 +13,11 @@ namespace WhistleWindLobotomyMod
         private void Ability_Spores()
         {
             const string rulebookName = "Spores";
-            const string rulebookDescription = "Adjacent cards gain 1 Spore at the start of each turn and take damage equal to their amount of Spore at the end of each turn. If a card with Spore is killed, create a Spore Mold Creature in that card's slot.";
-            const string dialogue = "Resentment bursts forth like a weed.";
+            const string rulebookDescription = "Adjacent cards gain 1 Spore and take damage equal to their Spore at the end of each turn. If a card with Spore is killed, create a Spore Mold Creature in that card's slot whose stats are equal to the card's Spore.";
+            const string dialogue = "Even if this turns to be a curse, they will love this curse like a blessing.";
             Spores.ability = WstlUtils.CreateAbility<Spores>(
                 Resources.sigilSpores,
-                rulebookName, rulebookDescription, dialogue, 2,
-                addModular: true).Id;
+                rulebookName, rulebookDescription, dialogue, 2).Id;
         }
     }
     public class Spores : AbilityBehaviour
@@ -24,51 +25,76 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private string altDialogue = "Not enough space for the vines to grow.";
-
-        public override bool RespondsToResolveOnBoard()
+        public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
-            return true;
+            if (base.Card != null)
+            {
+                return base.Card.OpponentCard != playerTurnEnd;
+            }
+            return false;
         }
-        public override IEnumerator OnResolveOnBoard()
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             CardSlot toLeft = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: true);
             CardSlot toRight = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: false);
-            bool toLeftValid = toLeft != null && toLeft.Card == null;
-            bool toRightValid = toRight != null && toRight.Card == null;
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            yield return AddSpore(toLeft, toRight);
+        }
+        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
+        {
+            return fromCombat && card.Info.GetExtendedPropertyAsInt("Spore") != null;
+        }
+        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
+        {
+            int spores = !(card.Info.GetExtendedPropertyAsInt("Spore") != null) ? 0 : (int)card.Info.GetExtendedPropertyAsInt("Spore");
+            if (spores < 1)
+            {
+                yield break;
+            }
+            CardInfo minion = CardLoader.GetCardByName("wstl_theLittlePrinceMinion");
+            minion.Mods.Add(new(spores, spores));
+
             yield return base.PreSuccessfulTriggerSequence();
-            if (toLeftValid)
+            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(minion, deathSlot, 0.15f);
+        }
+        private IEnumerator AddSpore(CardSlot toLeft, CardSlot toRight)
+        {
+            bool validLeft = toLeft != null && toLeft.Card != null && toLeft.Card.Info.name != "wstl_theLittlePrinceMinion";
+            bool validRight = toRight != null && toRight.Card != null && toRight.Card.Info.name != "wstl_theLittlePrinceMinion";
+            if (validLeft || validRight)
             {
-                yield return new WaitForSeconds(0.1f);
-                yield return this.SpawnCardOnSlot(toLeft);
-            }
-            if (toRightValid)
-            {
-                yield return new WaitForSeconds(0.1f);
-                yield return this.SpawnCardOnSlot(toRight);
-            }
-            if (toLeftValid || toRightValid)
-            {
-                yield return new WaitForSeconds(0.25f);
-                yield return base.LearnAbility();
+                yield return base.PreSuccessfulTriggerSequence();
             }
             else
             {
-                yield return new WaitForSeconds(0.25f);
-                base.Card.Anim.StrongNegationEffect();
-                if (!base.HasLearned)
-                {
-                    yield return new WaitForSeconds(0.25f);
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue, -0.65f, 0.4f);
-                }
-                yield return new WaitForSeconds(0.25f);
+                yield break;
             }
-        }
+            if (validLeft)
+            {
+                int sporeLeft = !(toLeft.Card.Info.GetExtendedPropertyAsInt("Spore") != null) ? 0 : (int)toLeft.Card.Info.GetExtendedPropertyAsInt("Spore");
+                yield return toLeft.Card.Info.SetExtendedProperty("Spore", sporeLeft + 1);
+                toLeft.Card.Anim.StrongNegationEffect();
 
-        private IEnumerator SpawnCardOnSlot(CardSlot slot)
-        {
-            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_snowWhitesVine"), slot, 0.15f);
+            }
+            if (validRight)
+            {
+                int sporeRight = !(toRight.Card.Info.GetExtendedPropertyAsInt("Spore") != null) ? 0 : (int)toRight.Card.Info.GetExtendedPropertyAsInt("Spore");
+                yield return toRight.Card.Info.SetExtendedProperty("Spore", sporeRight + 1);
+                toRight.Card.Anim.StrongNegationEffect();
+            }
+            yield return new WaitForSeconds(0.4f);
+            if (validLeft)
+            {
+                yield return toLeft.Card.TakeDamage((int)toLeft.Card.Info.GetExtendedPropertyAsInt("Spore"), null);
+            }
+            if (validRight)
+            {
+                yield return toRight.Card.TakeDamage((int)toRight.Card.Info.GetExtendedPropertyAsInt("Spore"), null);
+            }
+            if (validLeft || validRight)
+            {
+                yield return base.LearnAbility();
+            }
         }
     }
 }

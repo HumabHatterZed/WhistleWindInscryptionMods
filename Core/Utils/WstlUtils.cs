@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
             List<CardAppearanceBehaviour.Appearance> appearances = null, List<Texture> decals = null,
             string iceCubeName = null, string evolveName = null, int numTurns = 1,
             string tailName = null, byte[] tailTexture = null,
-            bool onePerDeck = false,
+            bool onePerDeck = false, bool hideStats = false,
             int riskLevel = 0, bool isDonator = false
             )
         {
@@ -89,7 +89,7 @@ namespace WhistleWindLobotomyMod
             cardInfo.temple = CardTemple.Nature;
             cardInfo.onePerDeck = onePerDeck;
             cardInfo.SetExtendedProperty("RiskLevel", risk);
-
+            cardInfo.hideAttackAndHealth = hideStats;
             if (altTex != null)
             {
                 cardInfo.SetAltPortrait(altTex);

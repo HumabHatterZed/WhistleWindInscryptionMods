@@ -1006,6 +1006,30 @@
   <data name="worldPortrait_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\worldPortrait_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="yang" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yang.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="yang_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yang_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="yin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yin.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="yinYangBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yinYangBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="yinYangBody_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yinYangBody_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="yinYangHead" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yinYangHead.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="yinYangHead_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yinYangHead_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="yin_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yin_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="youMustBeHappy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\youMustBeHappy.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

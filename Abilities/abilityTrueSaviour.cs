@@ -38,34 +38,6 @@ namespace WhistleWindLobotomyMod
         private readonly string hereticDialogue = "[c:bR]Have I not chosen you, the Twelve? Yet one of you is [c:][c:bG]a devil[c:][c:bR].[c:]";
         private readonly string oneSinDialogue = "[c:bR]What are you doing?[c:]";
 
-        public override bool RespondsToUpkeep(bool playerUpkeep)
-        {
-            // Return owner's turn and whether the player has Heretic in their hand
-            return (base.Card.Slot.IsPlayerSlot ? playerUpkeep : !playerUpkeep) && Singleton<PlayerHand>.Instance.CardsInHand.FindAll((PlayableCard c) => c.Info.name == "wstl_apostleHeretic").Count() != 0;
-        }
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-            yield return new WaitForSeconds(0.4f);
-            // If all slots on the owner's side are full
-            if (Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(s => s.Card != null).Count() == 4)
-            {
-                int randomSeed = base.GetRandomSeed();
-                List<CardSlot> cardsToKill = Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).FindAll((CardSlot s) => s.Card != null && s.Card != base.Card);
-                PlayableCard cardToKill = cardsToKill[SeededRandom.Range(0, 3, randomSeed++)].Card;
-                Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
-                foreach (PlayableCard card in Singleton<PlayerHand>.Instance.CardsInHand.Where(c => c.Info.name == "wstl_apostleHeretic"))
-                {
-                    card.Anim.StrongNegationEffect();
-                }
-                yield return new WaitForSeconds(0.4f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.BoardCentered);
-                cardToKill.Anim.SetShaking(true);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(oneSinDialogue, -0.65f, 0.4f, emotion: Emotion.Curious, speaker: DialogueEvent.Speaker.Bonelord);
-                yield return cardToKill.Die(false, base.Card);
-            }
-            yield break;
-        }
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
             if (otherCard != null && otherCard != base.Card)
@@ -85,13 +57,28 @@ namespace WhistleWindLobotomyMod
                 if (otherCard.Info.HasTrait(Trait.Pelt) || otherCard.Info.HasTrait(Trait.Terrain) ||
                     otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
                 {
+                    if ((otherCard.HasAbility(Ability.DrawCopy) || otherCard.HasAbility(Ability.DrawCopyOnDeath)) && otherCard.HasAbility(Ability.CorpseEater))
+                    {
+                        otherCard.Info.RemoveBaseAbility(Ability.CorpseEater);
+                    }
+                    if (otherCard.HasAbility(Ability.IceCube))
+                    {
+                        otherCard.Info.RemoveBaseAbility(Ability.IceCube);
+                    }
                     yield return otherCard.Die(false, base.Card);
                     softLock++;
-                    if (softLock >= 6)
+                    if (softLock >= 3)
                     {
                         softLock = 0;
-                        WstlPlugin.Log.LogError("Stuck in a loop, breaking and moving on.");
-                        yield break;
+                        WstlPlugin.Log.LogWarning("Stuck in a loop, forcing removal of card.");
+                        otherCard.UnassignFromSlot();
+                        SpecialCardBehaviour[] components = otherCard.GetComponents<SpecialCardBehaviour>();
+                        for (int i = 0; i < components.Length; i++)
+                        {
+                            components[i].OnCleanUp();
+                        }
+                        otherCard.ExitBoard(0.3f, Vector3.zero);
+                        yield return new WaitForSeconds(0.5f);
                     }
                 }
                 else
@@ -176,6 +163,34 @@ namespace WhistleWindLobotomyMod
                 yield return Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase += 1;
                 yield return Singleton<LifeManager>.Instance.ShowDamageSequence(1, 1, toPlayer: true, 0.25f, ResourceBank.Get<GameObject>("Prefabs/Environment/ScaleWeights/Weight_RealTooth"));
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(killedDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
+            }
+        }
+
+        public override bool RespondsToUpkeep(bool playerUpkeep)
+        {
+            // Return owner's turn and whether the player has Heretic in their hand
+            return (base.Card.Slot.IsPlayerSlot ? playerUpkeep : !playerUpkeep) && Singleton<PlayerHand>.Instance.CardsInHand.FindAll((PlayableCard c) => c.Info.name == "wstl_apostleHeretic").Count() != 0;
+        }
+        public override IEnumerator OnUpkeep(bool playerUpkeep)
+        {
+            yield return base.PreSuccessfulTriggerSequence();
+            yield return new WaitForSeconds(0.4f);
+            // If all slots on the owner's side are full
+            if (Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(s => s.Card != null).Count() == 4)
+            {
+                int randomSeed = base.GetRandomSeed();
+                List<CardSlot> cardsToKill = Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).FindAll((CardSlot s) => s.Card != null && s.Card != base.Card);
+                PlayableCard cardToKill = cardsToKill[SeededRandom.Range(0, 3, randomSeed++)].Card;
+                Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
+                foreach (PlayableCard card in Singleton<PlayerHand>.Instance.CardsInHand.Where(c => c.Info.name == "wstl_apostleHeretic"))
+                {
+                    card.Anim.StrongNegationEffect();
+                }
+                yield return new WaitForSeconds(0.4f);
+                Singleton<ViewManager>.Instance.SwitchToView(View.BoardCentered);
+                cardToKill.Anim.SetShaking(true);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(oneSinDialogue, -0.65f, 0.4f, emotion: Emotion.Curious, speaker: DialogueEvent.Speaker.Bonelord);
+                yield return cardToKill.Die(false, base.Card);
             }
         }
     }

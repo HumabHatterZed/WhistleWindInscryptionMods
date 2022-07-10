@@ -12,7 +12,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Nettles.ability
+                Ability.TripleBlood,
+                Ability.DrawCopyOnDeath
             };
 
             List<SpecialTriggeredAbility> specialAbilities = new()
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                6, 10, 0, 0,
+                0, 10, 0, 0,
                 Resources.testingDummy, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new());

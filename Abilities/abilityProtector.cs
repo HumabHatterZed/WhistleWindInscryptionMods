@@ -69,9 +69,9 @@ namespace WhistleWindLobotomyMod
         {
             if (IsDespair || IsArmy)
             {
-                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
+                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot != null))
                 {
-                    if (slot.Card == card)
+                    if (slot.Card != null && slot.Card == card)
                     {
                         return fromCombat;
                     }

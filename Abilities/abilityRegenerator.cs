@@ -25,8 +25,8 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private readonly string dialogue = "Greed leads to excessive regeneration.";
-
+        private readonly string dialogue = "You got greedy with your beast's [c:br]Health[c:].";
+        private int softLock = 0;
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
             return base.Card.Slot.IsPlayerSlot ? playerUpkeep : !playerUpkeep;
@@ -63,6 +63,79 @@ namespace WhistleWindLobotomyMod
                     yield return LearnAbility(0.4f);
                 }
             }
+        }
+
+        // Code for Yin-Yang
+        public override bool RespondsToResolveOnBoard()
+        {
+            if (base.Card.Info.name == "wstl_yang")
+            {
+                return true;
+            }
+            return false;
+        }
+        public override IEnumerator OnResolveOnBoard()
+        {
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(s => s != null && s.Card != null))
+            {
+                if (slot.Card.Info.name == "wstl_yin")
+                {
+                    yield return DragonSequence(slot.Card);
+                    break;
+                }
+            }
+        }
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
+        {
+            if (base.Card.Info.name == "wstl_yang")
+            {
+                return otherCard.Info.name == "wstl_yin";
+            }
+            return false;
+        }
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
+        {
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(s => s != null && s.Card != null))
+            {
+                if (slot.Card == otherCard)
+                {
+                    yield return DragonSequence(otherCard);
+                    break;
+                }
+            }
+        }
+        private IEnumerator DragonSequence(PlayableCard card)
+        {
+            yield return CleanUpCard(base.Card);
+            yield return CleanUpCard(card);
+            yield return new WaitForSeconds(0.6f);
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy)
+            {
+                if (slot.Card != null)
+                {
+                    // Remove abilities that can cause a softlock
+                    if ((slot.Card.HasAbility(Ability.DrawCopy) || slot.Card.HasAbility(Ability.DrawCopyOnDeath)) && slot.Card.HasAbility(Ability.CorpseEater))
+                    {
+                        slot.Card.Info.RemoveBaseAbility(Ability.CorpseEater);
+                    }
+                    if (slot.Card.HasAbility(Ability.IceCube))
+                    {
+                        slot.Card.Info.RemoveBaseAbility(Ability.IceCube);
+                    }
+                    yield return slot.Card.Die(false, null);
+                }
+            }
+        }
+        private IEnumerator CleanUpCard(PlayableCard item)
+        {
+            item.UnassignFromSlot();
+            SpecialCardBehaviour[] components = item.GetComponents<SpecialCardBehaviour>();
+            for (int i = 0; i < components.Length; i++)
+            {
+                components[i].OnCleanUp();
+            }
+            item.ExitBoard(0.3f, Vector3.zero);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }

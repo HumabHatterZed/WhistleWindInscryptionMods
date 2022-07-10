@@ -67,6 +67,7 @@ namespace WhistleWindLobotomyMod
                         yield return new WaitForSeconds(0.4f);
                     }
                     yield return new WaitForSeconds(0.5f);
+                    break;
                 }
             }
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))

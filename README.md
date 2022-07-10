@@ -112,6 +112,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Today's Shy Look|Reacts to being drawn.|
 |Army in Pink|Reacts to cards dying.|
 |Melting Love|Reacts to taking damage.|
+|Yin and Yang|Reacts to being adjacent to another card.|
 
 ## ✨ Abilities
 **Note: Totem indicates the ability can be found on totem bases and on cards from den trials.**
@@ -155,7 +156,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Alchemist|Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.||
 |Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on the cards' power level.||
 |Clothes Made of Nettles|When a card bearing this sigil is played, create random Brothers in empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.||
-|Spores|Adjacent cards gain 1 Spore at the start of each turn and take damage equal to their amount of Spore at the end of each turn. If a card with Spore is killed, create a Spore Mold Creature in that card's slot.||
+|Spores|Adjacent cards gain 1 Spore and take damage equal to their Spore at the end of each turn. If a card with Spore is killed, create a Spore Mold Creature in that card's slot whose stats are equal to the card's Spore.||
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
 |True Saviour|*My story is nowhere, unknown to all.*|||
 |Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||

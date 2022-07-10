@@ -42,7 +42,11 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
-            return base.Card.OpponentCard ? !playerTurnEnd : playerTurnEnd;
+            if (base.Card != null)
+            {
+                return base.Card.OpponentCard != playerTurnEnd;
+            }
+            return false;
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
@@ -214,13 +218,28 @@ namespace WhistleWindLobotomyMod
                     if (slot.Card.Info.HasTrait(Trait.Pelt) || slot.Card.Info.HasTrait(Trait.Terrain) ||
                         slot.Card.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
                     {
+                        if ((slot.Card.HasAbility(Ability.DrawCopy) || slot.Card.HasAbility(Ability.DrawCopyOnDeath)) && slot.Card.HasAbility(Ability.CorpseEater))
+                        {
+                            slot.Card.Info.RemoveBaseAbility(Ability.CorpseEater);
+                        }
+                        if (slot.Card.HasAbility(Ability.IceCube))
+                        {
+                            slot.Card.Info.RemoveBaseAbility(Ability.IceCube);
+                        }
                         yield return slot.Card.Die(false, base.Card);
                         softLock++;
-                        if (softLock >= 6)
+                        if (softLock >= 3)
                         {
                             softLock = 0;
-                            WstlPlugin.Log.LogWarning("Stuck in a loop, breaking and moving on.");
-                            yield break;
+                            WstlPlugin.Log.LogWarning("Stuck in a loop, forcing removal of card.");
+                            slot.Card.UnassignFromSlot();
+                            SpecialCardBehaviour[] components = slot.Card.GetComponents<SpecialCardBehaviour>();
+                            for (int i = 0; i < components.Length; i++)
+                            {
+                                components[i].OnCleanUp();
+                            }
+                            slot.Card.ExitBoard(0.3f, Vector3.zero);
+                            yield return new WaitForSeconds(0.5f);
                         }
                     }
                     else

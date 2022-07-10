@@ -49,7 +49,6 @@ namespace WhistleWindLobotomyMod
                 SpecialAbility_Nothing();
                 SpecialAbility_Shy();
                 SpecialAbility_Hate();
-
                 #endregion
 
                 #region ABILITIES
@@ -91,6 +90,7 @@ namespace WhistleWindLobotomyMod
                 Ability_Alchemist();
                 Ability_TimeMachine();
                 Ability_Nettles();
+                Ability_Spores();
 
                 Ability_Apostle();
                 Ability_TrueSaviour();
@@ -113,7 +113,7 @@ namespace WhistleWindLobotomyMod
                     Rulebook_TodaysShyLook();
                     Rulebook_ArmyInPink();
                     Rulebook_MeltingLove();
-                    Rulebook_DreamOfABlackSwan();
+                    Rulebook_YinAndYang();
                 }
 
                 #endregion
@@ -243,9 +243,10 @@ namespace WhistleWindLobotomyMod
                 VoidDreamRooster_T0299();
                 GraveOfBlossoms_O04100();
                 TheFirebird_O02101();
-                //  Yin_O05102();
-                //  Yang_O07103();
-                //  YinYang_O07103();
+                Yin_O05102();
+                Yang_O07103();
+                YinYangHead_O07103();
+                YinYangBody_O07103();
                 BackwardClock_D09104();
                 DellaLuna_D01105();
                 ArmyInPink_D01106();
@@ -265,9 +266,8 @@ namespace WhistleWindLobotomyMod
                 
                 harmony.PatchAll(typeof(CombatPhasePatcher));
                 harmony.PatchAll(typeof(PersistentValues));
-                harmony.PatchAll(typeof(DeathCardPatcher));
                 harmony.PatchAll(typeof(AddBonesPatcher));
-                harmony.PatchAll(typeof(GamePatcher));
+                harmony.PatchAll(typeof(WstlPatcher));
                 harmony.PatchAll(typeof(NodePatcher));
                 harmony.PatchAll(typeof(CardPatcher));
                 
