@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Alchemist()
         {
             const string rulebookName = "Alchemist";
-            const string rulebookDescription = "Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.";
+            const string rulebookDescription = "Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.";
             const string dialogue = "The unending faith of countless promises.";
 
             Alchemist.ability = WstlUtils.CreateActivatedAbility<Alchemist>(

@@ -93,11 +93,10 @@ namespace WhistleWindLobotomyMod
                     yield return new WaitForSeconds(0.25f);
                     yield break;
                 }
-
-                // Call the Clock if an opponent is healed
-                yield return ClockTwelve();
                 Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
                 Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
+                // Call the Clock if an opponent is healed
+                yield return ClockTwelve();
                 yield break;
             }
             // Logic for opponent cards
@@ -159,13 +158,13 @@ namespace WhistleWindLobotomyMod
             targetedSlot.Card.Anim.StrongNegationEffect();
             CombatPhasePatcher.Instance.VisualizeClearSniperAbility();
             yield return new WaitForSeconds(0.25f);
+            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
+            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
             if (IsDoctor)
             {
                 ConfigUtils.Instance.UpdateBlessings(1);
                 yield return ClockTwelve();
             }
-            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
-            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
         }
 
         // Call the Clock
@@ -176,13 +175,14 @@ namespace WhistleWindLobotomyMod
             {
                 yield break;
             }
+            yield return new WaitForSeconds(0.5f);
             // If blessings are in the negatives (aka someone cheated), wag a finger and go 'nuh-uh-uh!'
             if (ConfigUtils.Instance.NumOfBlessings < 0)
             {
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]Thou cannot stop my ascension. Even the tutelary bows to mine authority.[c:]", -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
             }
             // Reset the number of Blessings to 0 and change Leshy's eyes to red
-            ConfigUtils.Instance.UpdateBlessings(-ConfigUtils.Instance.NumOfBlessings);
+            //ConfigUtils.Instance.UpdateBlessings(-ConfigUtils.Instance.NumOfBlessings);
             LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
             // Transform the Doctor into Him
             yield return base.Card.TransformIntoCard(CardLoader.GetCardByName("wstl_whiteNight"));
@@ -252,6 +252,7 @@ namespace WhistleWindLobotomyMod
             // If the player has One Sin
             if (sinful)
             {
+                yield return new WaitForSeconds(0.5f);
                 // if there is a One Sin on the board
                 if (Singleton<BoardManager>.Instance.PlayerSlotsCopy.FindAll((CardSlot slot) => slot.Card != null && slot.Card.Info.name == "wstl_oneSin").Count > 0)
                 {
@@ -280,7 +281,6 @@ namespace WhistleWindLobotomyMod
                 else
                 {
                     // Transform into Heretic
-                    Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
                     yield return new WaitForSeconds(0.25f);
                     foreach (PlayableCard card in Singleton<PlayerHand>.Instance.CardsInHand.Where(c => c.Info.name == "wstl_oneSin"))
                     {
@@ -288,6 +288,7 @@ namespace WhistleWindLobotomyMod
                         {
                             heretic = true;
                             yield return card.TransformIntoCard(CardLoader.GetCardByName("wstl_apostleHeretic"));
+                            yield return new WaitForSeconds(0.5f);
                         }
                         else
                         {
@@ -310,7 +311,7 @@ namespace WhistleWindLobotomyMod
                     yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_apostleHeretic"));
                 }
             }
-            Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+            //Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             yield return new WaitForSeconds(0.2f);
         }
         // Stolen from Zerg mod with love <3

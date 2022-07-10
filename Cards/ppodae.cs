@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 Resources.ppodae, Resources.ppodae_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, evolveName: "wstl_ppodaeBuff");
+                isChoice: true, evolveName: "wstl_ppodaeBuff", isDonator: true);
         }
     }
 }

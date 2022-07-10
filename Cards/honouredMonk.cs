@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 Resources.honouredMonk, Resources.honouredMonk_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, evolveName: "wstl_cloudedMonk");
+                isChoice: true, evolveName: "wstl_cloudedMonk", isDonator: true);
         }
     }
 }

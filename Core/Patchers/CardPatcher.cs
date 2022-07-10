@@ -11,32 +11,6 @@ namespace WhistleWindLobotomyMod
 {
     public static class CardPatcher
     {
-        // Adds select Kaycee Mod sigils to the Part 1 rulebook
-        [HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
-        [HarmonyPostfix]
-        private static void AddKayceeAbilities(ref int abilityIndex, ref AbilityMetaCategory rulebookCategory, ref bool __result)
-        {
-            AbilityInfo info = AbilitiesUtil.GetInfo((Ability)abilityIndex);
-            if (!SaveFile.IsAscension && info.metaCategories.Contains(AbilityMetaCategory.AscensionUnlocked))
-            {
-                if (info.name.Equals("BoneDigger") || //info.name.Equals("DeathShield") ||
-                    info.name.Equals("DoubleStrike") || //info.name.Equals("OpponentBones")
-                    info.name.Equals("StrafeSwap") || info.name.Equals("Morsel"))
-                {
-                    __result = true;
-                }
-            }
-        }
-        // Adds Nothing There to the deck when chosen in a card choice (Trader, Boss Box, etc.)
-        [HarmonyPatch(typeof(DeckInfo), nameof(DeckInfo.AddCard))]
-        [HarmonyPrefix]
-        public static void AddNothing(ref CardInfo card)
-        {
-            if (card.Mods.Exists((CardModificationInfo x) => x.singletonId == "wstl_nothingThere"))
-            {
-                card = CardLoader.GetCardByName("wstl_nothingThere");
-            }
-        }
         // Makes WhiteNight, its Apostles, and Hundreds of Good Deeds immune to Touch of Death
         // Effectively gives them Made of Stone but without the whole 'they're not made of stone' thing
         [HarmonyPatch(typeof(Deathtouch), nameof(Deathtouch.RespondsToDealDamage))]

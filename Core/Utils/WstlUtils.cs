@@ -25,8 +25,8 @@ namespace WhistleWindLobotomyMod
             List<CardAppearanceBehaviour.Appearance> appearances = null, List<Texture> decals = null,
             string iceCubeName = null, string evolveName = null, int numTurns = 1,
             string tailName = null, byte[] tailTexture = null,
-            int riskLevel = 0,
-            bool onePerDeck = false
+            bool onePerDeck = false,
+            int riskLevel = 0, bool isDonator = false
             )
         {
             abilities ??= new();
@@ -104,11 +104,21 @@ namespace WhistleWindLobotomyMod
             }
             if (isChoice)
             {
-                cardInfo.SetDefaultPart1Card();
+                if (!isDonator || (isDonator && !ConfigUtils.Instance.NoDonators))
+                {
+                    cardInfo.SetDefaultPart1Card();
+                }
             }
             if (isRare)
             {
-                cardInfo.SetRare();
+                if (!isDonator || (isDonator && !ConfigUtils.Instance.NoDonators))
+                {
+                    cardInfo.SetRare();
+                }
+                else if (isDonator && ConfigUtils.Instance.NoDonators)
+                {
+                    cardInfo.appearanceBehaviour = new() { CardAppearanceBehaviour.Appearance.RareCardBackground };
+                }
             }
             if (titleTexture != null)
             {

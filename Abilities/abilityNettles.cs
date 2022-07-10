@@ -64,6 +64,7 @@ namespace WhistleWindLobotomyMod
                 yield break;
             }
 
+            // Create list of all Brothers
             List<CardInfo> brothers = new()
             {
                 CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother1"), CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother2"),
@@ -71,6 +72,7 @@ namespace WhistleWindLobotomyMod
                 CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother5"), CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother6")
             };
 
+            // Create a unique Brother for each valid slot
             foreach (CardSlot s in validSlots)
             {
                 int seed = SeededRandom.Range(0, brothers.Count, base.GetRandomSeed());
@@ -136,7 +138,7 @@ namespace WhistleWindLobotomyMod
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue, -0.65f, 0.4f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue2, -0.65f, 0.4f);
             }
-            base.Card.TakeDamage(1, null);
+            yield return base.Card.TakeDamage(1, null);
         }
     }
 }

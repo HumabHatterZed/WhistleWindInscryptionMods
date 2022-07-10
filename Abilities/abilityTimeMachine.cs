@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_TimeMachine()
         {
             const string rulebookName = "Time Machine";
-            const string rulebookDescription = "Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck at random based on their power level.";
+            const string rulebookDescription = "End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck at random based on their power level.";
             const string dialogue = "Close your eyes, and count to ten.";
 
             TimeMachine.ability = WstlUtils.CreateActivatedAbility<TimeMachine>(

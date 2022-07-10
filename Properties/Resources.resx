@@ -799,6 +799,9 @@
   <data name="sigilSlime" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilSlime.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="sigilSpores" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sigilSpores.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="sigilTeamLeader" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilTeamLeader.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -891,6 +894,18 @@
   </data>
   <data name="theFirebird_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\theFirebird_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="theLittlePrince" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\theLittlePrince.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="theLittlePrinceMinion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\theLittlePrinceMinion.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="theLittlePrinceMinion_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\theLittlePrinceMinion_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="theLittlePrince_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\theLittlePrince_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="theNakedNest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\theNakedNest.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

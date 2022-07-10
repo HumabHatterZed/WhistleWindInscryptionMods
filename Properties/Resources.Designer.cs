@@ -2333,6 +2333,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] sigilSpores {
+            get {
+                object obj = ResourceManager.GetObject("sigilSpores", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] sigilTeamLeader {
             get {
                 object obj = ResourceManager.GetObject("sigilTeamLeader", resourceCulture);
@@ -2636,6 +2646,46 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] theFirebird_emission {
             get {
                 object obj = ResourceManager.GetObject("theFirebird_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] theLittlePrince {
+            get {
+                object obj = ResourceManager.GetObject("theLittlePrince", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] theLittlePrince_emission {
+            get {
+                object obj = ResourceManager.GetObject("theLittlePrince_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] theLittlePrinceMinion {
+            get {
+                object obj = ResourceManager.GetObject("theLittlePrinceMinion", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] theLittlePrinceMinion_emission {
+            get {
+                object obj = ResourceManager.GetObject("theLittlePrinceMinion_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }

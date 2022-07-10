@@ -45,6 +45,8 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
+            yield return base.PreSuccessfulTriggerSequence();
+            yield return new WaitForSeconds(0.4f);
             // If all slots on the owner's side are full
             if (Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(s => s.Card != null).Count() == 4)
             {

@@ -18,10 +18,6 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.KillsSurvivors
             };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.RareCardBackground
-            };
             WstlUtils.Add(
                 "wstl_meltingLove", "Melting Love",
                 "Don't let your beasts get too close now.",
@@ -29,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 Resources.meltingLove, Resources.meltingLove_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances); ;
+                isRare: true, isDonator: true);
         }
     }
 }

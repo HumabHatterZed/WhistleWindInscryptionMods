@@ -8,22 +8,21 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void BlueStar_O0393()
+        private void TheLittlePrince_O0466()
         {
             List<Ability> abilities = new()
             {
-                Ability.Evolve,
-                Idol.ability
+                Spores.ability
             };
 
             WstlUtils.Add(
-                "wstl_blueStar", "Blue Star",
-                "When this is over, let's meet again as stars.",
-                0, 4, 4, 0,
-                Resources.blueStar, Resources.blueStar_emission,
+                "wstl_theLittlePrince", "The Little Prince",
+                "An aged storyteller. She can tell you any tale, even those that can't exist.",
+                1, 4, 2, 0,
+                Resources.theLittlePrince, Resources.theLittlePrince_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true, evolveName: "wstl_blueStar2", onePerDeck: true);
+                isChoice: true);
         }
     }
 }

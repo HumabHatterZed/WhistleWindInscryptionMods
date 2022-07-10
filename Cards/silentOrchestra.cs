@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 Resources.silentOrchestra, Resources.silentOrchestra_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true, onePerDeck: true);
+                isRare: true);
         }
     }
 }

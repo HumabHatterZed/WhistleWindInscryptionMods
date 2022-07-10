@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 Resources.parasiteTree, Resources.parasiteTree_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, isDonator: true);
         }
     }
 }

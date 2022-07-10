@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 Resources.backwardClock, Resources.backwardClock_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                isTerrain: true, isRare: true, onePerDeck: true);
+                isTerrain: true, isRare: true, onePerDeck: true, isDonator: true);
         }
     }
 }

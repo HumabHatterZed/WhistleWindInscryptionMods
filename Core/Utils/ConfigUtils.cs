@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         public static ConfigUtils Instance => wstl_Instance ??= new ConfigUtils();
 
         private readonly ConfigFile WstlConfigFile = new(
-            Path.Combine(Paths.ConfigPath, "wstl.LobotomyCorpMod.cfg"), true);
+            Path.Combine(Paths.ConfigPath, "wstl.inscryption.lobotomyCorpMod.cfg"), true);
         /* May move dialogue bools to separate config eventually, idk
         private readonly ConfigFile WstlValuesFile = new(
             Path.Combine(Paths.ConfigPath, "Wstl.LobotomyCorpModValues.cfg"), true);
@@ -31,6 +31,12 @@ namespace WhistleWindLobotomyMod
 
         private ConfigEntry<bool> Config_AllModular;
         public bool AllModular => Config_AllModular.Value;
+
+        private ConfigEntry<bool> Config_NoDonators;
+        public bool NoDonators => Config_NoDonators.Value;
+
+        //private ConfigEntry<bool> Config_NoRuina;
+        //public bool NoRuina => Config_NoRuina.Value;
 
         private ConfigEntry<int> Config_Blessings;
         public int NumOfBlessings => Config_Blessings.Value;
@@ -53,6 +59,14 @@ namespace WhistleWindLobotomyMod
                     pluginName, "ALL MODULAR", false,
                     new ConfigDescription("Makes -most- custom abilities modular, meaning they can be found on totem bases and on cards from the den trial."));
 
+            Config_NoDonators = WstlConfigFile.Bind(
+                pluginName, "NO DONATORS", false,
+                new ConfigDescription("Prevents Donator-class abnormalities from being obtainable in-game (Backward Clock... Honoured Monk)"));
+
+            //Config_NoDonators = WstlConfigFile.Bind(
+            //    pluginName, "NO RUINA", false,
+            //    new ConfigDescription("Prevents abnormalities from the Library of Ruina expansion from being obtainable in-game."));
+
             Config_Blessings = WstlConfigFile.Bind(
                     pluginName, "NUMBER OF BLESSINGS", 0);
         }
@@ -65,7 +79,10 @@ namespace WhistleWindLobotomyMod
         public void UpdateBlessings(int value)
         {
             Config_Blessings.Value += value;
-            WstlPlugin.Log.LogInfo($"The clock now strikes: [{ConfigUtils.Instance.NumOfBlessings}]");
+        }
+        public void SetBlessings(int value)
+        {
+            Config_Blessings.Value = value;
         }
     }
 }

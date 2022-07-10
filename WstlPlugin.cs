@@ -189,8 +189,8 @@ namespace WhistleWindLobotomyMod
                 //  LongArms_O0263();
                 MagicalGirlDiamond_O0164();
                 KingOfGreed_O0164();
-                //  TheLittlePrince_O0466();
-                //  TheLittlePrinceMinion_O0466();
+                TheLittlePrince_O0466();
+                TheLittlePrinceMinion_O0466();
                 Laetitia_O0167();
                 LaetitiaFriend_O0167();
                 FuneralOfButterflies_T0168();
@@ -267,11 +267,15 @@ namespace WhistleWindLobotomyMod
                 harmony.PatchAll(typeof(PersistentValues));
                 harmony.PatchAll(typeof(DeathCardPatcher));
                 harmony.PatchAll(typeof(AddBonesPatcher));
+                harmony.PatchAll(typeof(GamePatcher));
                 harmony.PatchAll(typeof(NodePatcher));
                 harmony.PatchAll(typeof(CardPatcher));
                 
                 ConfigUtils.Instance.BindConfig();
-
+                if (ConfigUtils.Instance.NumOfBlessings >= 12)
+                {
+                    ConfigUtils.Instance.SetBlessings(11);
+                }
                 Logger.LogWarning($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }

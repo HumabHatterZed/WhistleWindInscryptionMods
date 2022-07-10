@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Confession()
         {
             const string rulebookName = "Confession and Pentinence";
-            string rulebookDescription = ConfigUtils.Instance.RevealWhiteNight ? "Activate: Kills the Heretic and creates a special card. If used on the special card, kill WhiteNight, his Apostles, and deal 33 direct damage." : "Activate: Keep faith with unwavering resolve.";
+            string rulebookDescription = ConfigUtils.Instance.RevealWhiteNight ? "Kills the Heretic and creates a special card. If used on the special card, kill WhiteNight, his Apostles, and deal 33 direct damage." : "Activate: Keep faith with unwavering resolve.";
             const string dialogue = "[c:bG]Keep faith with unwavering resolve.[c:]";
 
             Confession.ability = WstlUtils.CreateActivatedAbility<Confession>(
@@ -53,7 +53,7 @@ namespace WhistleWindLobotomyMod
                     }
                 }
             }
-            yield return new WaitForSeconds(0.85f);
+            yield return new WaitForSeconds(0.8f);
             yield return base.LearnAbility();
             yield return new WaitForSeconds(0.4f);
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
@@ -76,7 +76,7 @@ namespace WhistleWindLobotomyMod
                     while (slot.Card != null)
                     {
                         yield return slot.Card.TakeDamage(66, base.Card);
-                        yield return new WaitForSeconds(0.4f);
+                        yield return new WaitForSeconds(0.2f);
                     }
                 }
             }
@@ -94,13 +94,16 @@ namespace WhistleWindLobotomyMod
 
             yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
 
-            RunState.Run.currency += excessDamage;
             yield return combatManager.VisualizeExcessLethalDamage(excessDamage, specialSequence);
+            RunState.Run.currency += excessDamage;
 
             if (Singleton<TurnManager>.Instance.Opponent.NumLives > 1)
             {
                 yield return thisSlot.Card.Die(false, thisSlot.Card);
             }
+            // Resets Blessings
+            ConfigUtils.Instance.SetBlessings(0);
+            WstlPlugin.Log.LogDebug($"Resetting the clock to [0].");
         }
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)

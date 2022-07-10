@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_dreamOfABlackSwanBrother6", "Sixth Brother",
                 "What happens when the black swan wakes up from dreaming of a white swan?",
-                0, 1, 1, 0,
+                0, 2, 1, 0,
                 Resources.dreamOfABlackSwanBrother6, Resources.dreamOfABlackSwanBrother6_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new()

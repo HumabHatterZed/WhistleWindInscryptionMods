@@ -89,6 +89,9 @@ Also, big thanks to James Veug's ReadmeMaker mod for the cost sprites I use, as 
 * All Modular
   * DEFAULT: False
   * Makes _most_ custom abilities modular, meaning they can be found on totem bases and on cards from the den trial.
+* No Donators
+  * DEFAULT: False
+  * Prevents Donator-class abnormalities from being obtainable in-game (Backward Clock... Honoured Monk).
 
 ## ⚜️ Special Abilities
 A number of cards added by this mod possess special behaviour not normally found in the Rulebook.
@@ -152,6 +155,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Alchemist|Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.||
 |Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on the cards' power level.||
 |Clothes Made of Nettles|When a card bearing this sigil is played, create random Brothers in empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.||
+|Spores|Adjacent cards gain 1 Spore at the start of each turn and take damage equal to their amount of Spore at the end of each turn. If a card with Spore is killed, create a Spore Mold Creature in that card's slot.||
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
 |True Saviour|*My story is nowhere, unknown to all.*|||
 |Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||
@@ -217,12 +221,12 @@ Poisonous means the card will kill survivors at the campfire when eaten.**
 |Laetitia's Friend|2|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|||Insect|
 |Funeral of the Dead Butterflies|2|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Bifurcated Strike|Rare||
 |Dream of a Black Swan|2|5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Clothes Made of Nettles<br>Protector|Rare|Avian|
-|⤷ First Brother|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Double Strike|||
+|⤷ First Brother|0|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Double Strike|||
 |⤷ Second Brother|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">||||
 |⤷ Third Brother|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Reflector|||
 |⤷ Fourth Brother|0|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Touch of Death|||
 |⤷ Fifth Brother|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Sharp Quills|||
-|⤷ Sixth Brother|0|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Stinky|||
+|⤷ Sixth Brother|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Stinky|||
 |The Dreaming Current|3|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Rampager|||
 |The Burrowing Heaven|0|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">||||
 |Magical Girl S|2|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Protector|Rare<br>Singleton||

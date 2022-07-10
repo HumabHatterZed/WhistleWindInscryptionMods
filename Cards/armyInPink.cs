@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 Resources.armyInPink, Resources.armyInPink_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true);
+                isRare: true, isDonator: true);
         }
     }
 }
