@@ -54,13 +54,11 @@ namespace WhistleWindLobotomyMod
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
 
             yield return base.PreSuccessfulTriggerSequence();
-
+            Card.Anim.StrongNegationEffect();
             // Checks whether there are other cards on this card's side of the board that can be healed
             if (!ValidAllies())
             {
-                Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-
                 // If this card is not the Plague Doctor, spit out a failure message then break
                 // Otherwise, check for valid opponent cards to heal instead
                 if (!IsDoctor)
@@ -105,7 +103,6 @@ namespace WhistleWindLobotomyMod
             }
             // Logic for opponent cards
             // Heals a randomly selected card from the available pool
-            Card.Anim.LightNegationEffect();
             if (base.Card.OpponentCard)
             {
                 CardSlot randSlot;
@@ -138,16 +135,8 @@ namespace WhistleWindLobotomyMod
             {
                 while (!valid)
                 {
+                    invalidDialogue = targetedSlot == base.Card.Slot ? "You must choose one of your other cards to heal." : "You can't heal the air.";
                     base.Card.Anim.StrongNegationEffect();
-                    if (targetedSlot == base.Card.Slot)
-                    {
-                        invalidDialogue = "You must choose one of your other cards to heal.";
-                    }
-                    else
-                    {
-                        invalidDialogue = "You can't heal the air.";
-                    }
-
                     yield return new WaitForSeconds(0.25f);
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(invalidDialogue, -0.65f, 0.4f);
                     yield return new WaitForSeconds(0.25f);
@@ -162,6 +151,7 @@ namespace WhistleWindLobotomyMod
             targetedSlot.Card.Anim.StrongNegationEffect();
             CombatPhasePatcher.Instance.VisualizeClearSniperAbility();
             yield return new WaitForSeconds(0.25f);
+            yield return base.LearnAbility();
             Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
             if (IsDoctor)

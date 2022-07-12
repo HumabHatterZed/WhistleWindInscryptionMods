@@ -11,6 +11,16 @@ namespace WhistleWindLobotomyMod
 {
     public static class CardPatcher
     {
+        // Adds Nothing There to the deck when chosen in a card choice (Trader, Boss Box, etc.)
+        [HarmonyPatch(typeof(DeckInfo), nameof(DeckInfo.AddCard))]
+        [HarmonyPrefix]
+        public static void AddNothing(ref CardInfo card)
+        {
+            if (card.Mods.Exists((CardModificationInfo x) => x.singletonId == "wstl_nothingThere"))
+            {
+                card = CardLoader.GetCardByName("wstl_nothingThere");
+            }
+        }
         // Makes WhiteNight, its Apostles, and Hundreds of Good Deeds immune to Touch of Death
         // Effectively gives them Made of Stone but without the whole 'they're not made of stone' thing
         [HarmonyPatch(typeof(Deathtouch), nameof(Deathtouch.RespondsToDealDamage))]
@@ -63,6 +73,9 @@ namespace WhistleWindLobotomyMod
                     break;
                 case "wstl_backwardclock":
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
+                    break;
+                case "blue_star2":
+                    __instance.RenderInfo.forceEmissivePortrait = true;
                     break;
                 case "wstl_hundredsgooddeeds":
                     __instance.RenderInfo.forceEmissivePortrait = true;

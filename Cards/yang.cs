@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
                 Regenerator.ability
             };
             WstlUtils.Add(
-                "wstl_yang", "Yin",
+                "wstl_yang", "Yang",
                 "The white carp swims towards [c:bR]chaos[c:].",
                 0, 3, 1, 0,
                 Resources.yang, Resources.yang_emission,

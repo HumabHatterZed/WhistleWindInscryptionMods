@@ -49,6 +49,7 @@ namespace WhistleWindLobotomyMod
                 SpecialAbility_Nothing();
                 SpecialAbility_Shy();
                 SpecialAbility_Hate();
+                SpecialAbility_Sap();
                 #endregion
 
                 #region ABILITIES
@@ -91,10 +92,16 @@ namespace WhistleWindLobotomyMod
                 Ability_TimeMachine();
                 Ability_Nettles();
                 Ability_Spores();
+                Ability_Witness();
 
+                // WhiteNight
                 Ability_Apostle();
                 Ability_TrueSaviour();
                 Ability_Confession();
+                // Apocalypse Bird
+                // Ability_
+                // Ability_
+                // Ability_
 
                 if (ConfigUtils.Instance.RevealSpecials)
                 {
@@ -113,7 +120,8 @@ namespace WhistleWindLobotomyMod
                     Rulebook_TodaysShyLook();
                     Rulebook_ArmyInPink();
                     Rulebook_MeltingLove();
-                    Rulebook_YinAndYang();
+                    Rulebook_Yang();
+                    Rulebook_GiantTreeSap();
                 }
 
                 #endregion
@@ -226,7 +234,7 @@ namespace WhistleWindLobotomyMod
                 DimensionalRefraction_O0388();
                 CENSORED_O0389();
                 CENSOREDMinion_O0389();
-                //  SkinProphecy_T0990();
+                SkinProphecy_T0990();
                 WorldPortrait_O0991();
                 TodaysShyLook_O0192();
                 TodaysShyLookAngry_O0192();
@@ -266,10 +274,9 @@ namespace WhistleWindLobotomyMod
                 
                 harmony.PatchAll(typeof(CombatPhasePatcher));
                 harmony.PatchAll(typeof(PersistentValues));
-                harmony.PatchAll(typeof(AddBonesPatcher));
                 harmony.PatchAll(typeof(WstlPatcher));
-                harmony.PatchAll(typeof(NodePatcher));
                 harmony.PatchAll(typeof(CardPatcher));
+                harmony.PatchAll(typeof(NodePatcher));
                 
                 ConfigUtils.Instance.BindConfig();
                 if (ConfigUtils.Instance.NumOfBlessings >= 12)

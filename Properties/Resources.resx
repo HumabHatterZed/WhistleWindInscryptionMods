@@ -202,6 +202,12 @@
   <data name="beautyAndBeast_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\beautyAndBeast_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="behaviourAdjustment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\behaviourAdjustment.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="behaviourAdjustment_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\behaviourAdjustment_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="bigBird" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bigBird.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -817,6 +823,9 @@
   <data name="sigilVolatile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilVolatile.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="sigilWitness" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sigilWitness.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="sigilWoodcutter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilWoodcutter.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -837,6 +846,12 @@
   </data>
   <data name="singingMachine_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\singingMachine_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="skinProphecy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\skinProphecy.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="skinProphecy_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\skinProphecy_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="snowQueen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\snowQueen.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

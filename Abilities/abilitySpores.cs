@@ -42,11 +42,11 @@ namespace WhistleWindLobotomyMod
         }
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return fromCombat && card.Info.GetExtendedPropertyAsInt("Spore") != null;
+            return fromCombat && card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            int spores = !(card.Info.GetExtendedPropertyAsInt("Spore") != null) ? 0 : (int)card.Info.GetExtendedPropertyAsInt("Spore");
+            int spores = !(card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null) ? 0 : (int)card.Info.GetExtendedPropertyAsInt("wstl:Spore");
             if (spores < 1)
             {
                 yield break;
@@ -71,25 +71,25 @@ namespace WhistleWindLobotomyMod
             }
             if (validLeft)
             {
-                int sporeLeft = !(toLeft.Card.Info.GetExtendedPropertyAsInt("Spore") != null) ? 0 : (int)toLeft.Card.Info.GetExtendedPropertyAsInt("Spore");
-                yield return toLeft.Card.Info.SetExtendedProperty("Spore", sporeLeft + 1);
+                int sporeLeft = !(toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null) ? 0 : (int)toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore");
+                yield return toLeft.Card.Info.SetExtendedProperty("wstl:Spore", sporeLeft + 1);
                 toLeft.Card.Anim.StrongNegationEffect();
 
             }
             if (validRight)
             {
-                int sporeRight = !(toRight.Card.Info.GetExtendedPropertyAsInt("Spore") != null) ? 0 : (int)toRight.Card.Info.GetExtendedPropertyAsInt("Spore");
-                yield return toRight.Card.Info.SetExtendedProperty("Spore", sporeRight + 1);
+                int sporeRight = !(toRight.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null) ? 0 : (int)toRight.Card.Info.GetExtendedPropertyAsInt("wstl:Spore");
+                yield return toRight.Card.Info.SetExtendedProperty("wstl:Spore", sporeRight + 1);
                 toRight.Card.Anim.StrongNegationEffect();
             }
             yield return new WaitForSeconds(0.4f);
             if (validLeft)
             {
-                yield return toLeft.Card.TakeDamage((int)toLeft.Card.Info.GetExtendedPropertyAsInt("Spore"), null);
+                yield return toLeft.Card.TakeDamage((int)toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore"), null);
             }
             if (validRight)
             {
-                yield return toRight.Card.TakeDamage((int)toRight.Card.Info.GetExtendedPropertyAsInt("Spore"), null);
+                yield return toRight.Card.TakeDamage((int)toRight.Card.Info.GetExtendedPropertyAsInt("wstl:Spore"), null);
             }
             if (validLeft || validRight)
             {

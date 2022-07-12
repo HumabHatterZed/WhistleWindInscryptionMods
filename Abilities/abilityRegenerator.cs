@@ -26,7 +26,8 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
 
         private readonly string dialogue = "You got greedy with your beast's [c:br]Health[c:].";
-        private int softLock = 0;
+        private readonly string dragonDialogue = "The end becomes the beginning.";
+        private readonly string dragonDialogue2 = "At the end of the beginning, [c:bR]the dragon[c:] soared through the sky toward the unknown.";
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
             return base.Card.Slot.IsPlayerSlot ? playerUpkeep : !playerUpkeep;
@@ -42,6 +43,11 @@ namespace WhistleWindLobotomyMod
                 // If the target card is overhealed by 2, trigger death sequence
                 if (slot.Card.Health + 2 >= slot.Card.MaxHealth)
                 {
+                    if (slot.Card.FaceDown)
+                    {
+                        slot.Card.SetFaceDown(false);
+                        slot.Card.UpdateFaceUpOnBoardEffects();
+                    }
                     yield return new WaitForSeconds(0.55f);
                     // Take negative damage to simulate excessive regeneration, then die
                     for (int i = 0; i < 4; i++)
@@ -85,7 +91,7 @@ namespace WhistleWindLobotomyMod
                 }
             }
         }
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard)
         {
             if (base.Card.Info.name == "wstl_yang")
             {
@@ -93,7 +99,7 @@ namespace WhistleWindLobotomyMod
             }
             return false;
         }
-        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
+        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
         {
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(s => s != null && s.Card != null))
             {
@@ -106,9 +112,16 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator DragonSequence(PlayableCard card)
         {
+            yield return new WaitForSeconds(0.5f);
+            if (!PersistentValues.HasSeenDragon)
+            {
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dragonDialogue, -0.65f, 0.4f);
+            }
+            RunState.Run.playerDeck.RemoveCard(base.Card.Info);
+            RunState.Run.playerDeck.RemoveCard(card.Info);
             yield return CleanUpCard(base.Card);
             yield return CleanUpCard(card);
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.5f);
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy)
             {
                 if (slot.Card != null)
@@ -124,7 +137,23 @@ namespace WhistleWindLobotomyMod
                     }
                     yield return slot.Card.Die(false, null);
                 }
+                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_yinYangHead"),slot);
             }
+            yield return new WaitForSeconds(0.4f);
+            if (!PersistentValues.HasSeenDragon)
+            {
+                PersistentValues.HasSeenDragon = true;
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dragonDialogue2, -0.65f, 0.4f);
+            }
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy)
+            {
+                if (slot.Card != null)
+                {
+                    yield return CleanUpCard(slot.Card);
+                }
+            }
+            yield return new WaitForSeconds(0.2f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Default);
         }
         private IEnumerator CleanUpCard(PlayableCard item)
         {
@@ -135,7 +164,7 @@ namespace WhistleWindLobotomyMod
                 components[i].OnCleanUp();
             }
             item.ExitBoard(0.3f, Vector3.zero);
-            yield return new WaitForSeconds(0.5f);
+            yield break;
         }
     }
 }

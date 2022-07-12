@@ -10,12 +10,16 @@ namespace WhistleWindLobotomyMod
     {
         private void YinYangHead_O07103()
         {
+            List<SpecialTriggeredAbility> specialAbilities = new()
+            {
+                SpecialAbilityFledgling.specialAbility
+            };
             WstlUtils.Add(
-                "wstl_yinYangHead", "",
+                "wstl_yinYangHead", "The Dragon",
                 "Now you become [c:bR]the sky[c:], and I the land.",
-                0, 1, 0, 0,
+                0, 101, 0, 0,
                 Resources.yinYangHead, Resources.yinYangHead_emission,
-                abilities: new(), specialAbilities: new(),
+                abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 hideStats: true);
         }

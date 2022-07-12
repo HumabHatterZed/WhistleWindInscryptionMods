@@ -12,8 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Nettles.ability,
-                Protector.ability
+                Nettles.ability
             };
             List<Tribe> tribes = new()
             {

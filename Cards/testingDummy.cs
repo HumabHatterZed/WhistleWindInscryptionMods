@@ -12,13 +12,12 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.TripleBlood,
-                Ability.DrawCopyOnDeath
+                TheTrain.ability
             };
 
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                //NothingThere.specialAbility
+                GiantTreeSap.specialAbility
             };
 
             WstlUtils.Add(

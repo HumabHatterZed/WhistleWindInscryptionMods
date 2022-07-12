@@ -11,16 +11,6 @@ namespace WhistleWindLobotomyMod
 {
     public static class WstlPatcher
     {
-        // Adds Nothing There to the deck when chosen in a card choice (Trader, Boss Box, etc.)
-        [HarmonyPatch(typeof(DeckInfo), nameof(DeckInfo.AddCard))]
-        [HarmonyPrefix]
-        public static void AddNothing(ref CardInfo card)
-        {
-            if (card.Mods.Exists((CardModificationInfo x) => x.singletonId == "wstl_nothingThere"))
-            {
-                card = CardLoader.GetCardByName("wstl_nothingThere");
-            }
-        }
         // Adds select Kaycee Mod sigils to the Part 1 rulebook
         [HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
         [HarmonyPostfix]
@@ -46,6 +36,37 @@ namespace WhistleWindLobotomyMod
             {
                 ConfigUtils.Instance.UpdateBlessings(-ConfigUtils.Instance.NumOfBlessings);
                 WstlPlugin.Log.LogDebug($"Resetting the clock to [0].");
+            }
+        }
+        // Prevents bones from dropping under certain conditions
+        [HarmonyPatch(typeof(ResourcesManager), nameof(ResourcesManager.AddBones))]
+        [HarmonyPostfix]
+        public static IEnumerator AddBones(IEnumerator enumerator, CardSlot slot)
+        {
+            if (slot != null && slot.Card != null)
+            {
+                bool train = slot.Card.Info.GetExtendedProperty("wstl:KilledByTrain") != null && (bool)slot.Card.Info.GetExtendedPropertyAsBool("wstl:KilledByTrain");
+                bool whiteNight = slot.Card.Info.HasAbility(TrueSaviour.ability) || slot.Card.Info.HasAbility(Apostle.ability) || slot.Card.Info.HasAbility(Confession.ability);
+                if (train || whiteNight)
+                {
+                    if (train)
+                    {
+                        slot.Card.Info.SetExtendedProperty("wstl:KilledByTrain", false);
+                    }
+                    yield break;
+                }
+            }
+            yield return enumerator;
+        }
+        // Increases damage taken by amount of Prudence a card has
+        [HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.TakeDamage))]
+        [HarmonyPostfix]
+        public static void TakePrudenceDamage(PlayableCard __instance, ref int damage)
+        {
+            int prudence = !(__instance.Info.GetExtendedPropertyAsInt("wstl:Prudence") != null) ? 0 : (int)__instance.Info.GetExtendedPropertyAsInt("wstl:Prudence");
+            if (prudence > 0)
+            {
+                damage += prudence;
             }
         }
         // Adds custom death cards

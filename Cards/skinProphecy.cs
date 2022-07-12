@@ -8,23 +8,21 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void BlueStar_O0393()
+        private void SkinProphecy_T0990()
         {
             List<Ability> abilities = new()
             {
-                Ability.Evolve,
-                Idol.ability
+                Witness.ability
             };
 
             WstlUtils.Add(
-                "wstl_blueStar", "Blue Star",
-                "When this is over, let's meet again as stars.",
-                0, 4, 4, 0,
-                Resources.blueStar, Resources.blueStar_emission,
+                "wstl_skinProphecy", "Skin Prophecy",
+                "A holy book. Its believers wrapped it in skin to preserve its sanctity.",
+                0, 2, 1, 0,
+                Resources.skinProphecy, Resources.skinProphecy_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true, evolveName: "wstl_blueStar2", numTurns: 2,
-                onePerDeck: true);
+                isChoice: true);
         }
     }
 }

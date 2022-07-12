@@ -8,18 +8,18 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void Rulebook_YinAndYang()
+        private void Rulebook_GiantTreeSap()
         {
-            const string rulebookName = "Yin and Yang";
-            const string rulebookDescription = "Transforms when adjacent to their other half.";
+            const string rulebookName = "Giant Tree Sap";
+            const string rulebookDescription = "Has a chance to cause the sacrificed card to explode when sacrificed.";
             const string dialogue = "femboy";
-            EntryYinAndYang.ability = WstlUtils.CreateAbility<EntryYinAndYang>(
+            EntryGiantTreeSap.ability = WstlUtils.CreateAbility<EntryGiantTreeSap>(
                 Resources.sigilAbnormality,
                 rulebookName, rulebookDescription, dialogue, 0,
                 overrideModular: true).Id;
         }
     }
-    public class EntryYinAndYang : AbilityBehaviour
+    public class EntryGiantTreeSap : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;

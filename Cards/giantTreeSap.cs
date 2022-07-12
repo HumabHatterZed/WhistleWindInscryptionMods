@@ -15,10 +15,13 @@ namespace WhistleWindLobotomyMod
                 Ability.Morsel,
                 Ability.Sacrificial
             };
-
+            List<SpecialTriggeredAbility> specialAbilities = new()
+            {
+                GiantTreeSap.specialAbility
+            };
             WstlUtils.Add(
                 "wstl_giantTreeSap", "Giant Tree Sap",
-                "An aged storyteller. She can tell you any tale, even those that can't exist.",
+                "The sap of a tree at the end of the world. It is a potent healing agent.",
                 0, 2, 0, 4,
                 Resources.giantTreeSap, Resources.giantTreeSap_emission,
                 abilities: abilities, specialAbilities: new(),

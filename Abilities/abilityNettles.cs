@@ -41,6 +41,11 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnResolveOnBoard()
         {
+            if (base.Card.Info.name == "wstl_dreamOfABlackSwan")
+            {
+                base.Card.Status.hiddenAbilities.Add(Protector.ability);
+                base.Card.AddTemporaryMod(new CardModificationInfo(Protector.ability));
+            }
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             List<CardSlot> validSlots = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).FindAll((CardSlot slot) => !(slot.Card != null) && slot.Card != base.Card);
 

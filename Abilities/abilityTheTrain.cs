@@ -56,13 +56,13 @@ namespace WhistleWindLobotomyMod
             {
                 if (slot.Card != base.Card)
                 {
-                    yield return slot.Card.Info.SetExtendedProperty("killedByTrain",1);
+                    yield return slot.Card.Info.SetExtendedProperty("wstl:KilledByTrain", true);
                     yield return slot.Card.Die(false, base.Card);
                     yield return new WaitForSeconds(0.1f);
                 }
             }
             yield return new WaitForSeconds(0.5f);
-            yield return base.Card.Info.SetExtendedProperty("killedByTrain", 1);
+            yield return base.Card.Info.SetExtendedProperty("wstl:KilledByTrain", true);
             yield return base.Card.Die(false, base.Card);
             yield return new WaitForSeconds(0.4f);
             yield return base.LearnAbility();

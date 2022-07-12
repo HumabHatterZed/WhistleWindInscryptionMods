@@ -10,7 +10,7 @@ namespace WhistleWindLobotomyMod
     {
         private void SpecialAbilityEvolve()
         {
-            const string rulebookName = "SpecialAbilityEvolve";
+            const string rulebookName = "SpecialAbilityFledgling";
             const string rulebookDescription = "Special ability version of Fledgling for certain cards.";
             SpecialAbilityFledgling.specialAbility = WstlUtils.CreateSpecialAbility<SpecialAbilityFledgling>(rulebookName, rulebookDescription).Id;
         }
@@ -21,11 +21,13 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-        private bool IsHateA => base.PlayableCard.Info.name.ToLowerInvariant().Equals("wstl_queenofhatred");
-        private bool IsHateB => base.PlayableCard.Info.name.ToLowerInvariant().Equals("wstl_queenofhatredtired");
-        private bool IsGreed => base.PlayableCard.Info.name.ToLowerInvariant().Equals("wstl_magicalgirldiamond");
-        private bool IsNothingTrue => base.PlayableCard.Info.name.ToLowerInvariant().Equals("wstl_nothingtheretrue");
-        private bool IsNothingEgg => base.PlayableCard.Info.name.ToLowerInvariant().Equals("wstl_nothingthereegg");
+        private bool IsHateA => base.PlayableCard.Info.name.Equals("wstl_queenOfHatred");
+        private bool IsHateB => base.PlayableCard.Info.name.Equals("wstl_queenofHatredTired");
+        private bool IsGreed => base.PlayableCard.Info.name.Equals("wstl_magicalgirldiamond");
+        private bool IsNothingTrue => base.PlayableCard.Info.name.Equals("wstl_nothingThereTrue");
+        private bool IsNothingEgg => base.PlayableCard.Info.name.Equals("wstl_nothingThereEgg");
+
+        private bool IsDragonHead => base.PlayableCard.Info.name.Equals("wstl_yinYangHead");
 
         private readonly string hateADialogue = "A formidable attack. Shame it has left her too tired to defend herself.";
         private readonly string hateBDialogue = "The monster returns to full strength.";
@@ -144,6 +146,19 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.25f);
                 yield break;
             }
+        }
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
+        {
+            if (IsDragonHead && base.Card != null)
+            {
+                return otherCard != base.Card && otherCard.Info.name == "wstl_yinYangHead";
+            }
+            return false;
+        }
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
+        {
+            base.PlayableCard.SetInfo(CardLoader.GetCardByName("wstl_yinYangBody"));
+            yield break;
         }
     }
 }

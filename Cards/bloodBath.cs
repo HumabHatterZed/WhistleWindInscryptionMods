@@ -10,8 +10,6 @@ namespace WhistleWindLobotomyMod
     {
         private void BloodBath_T0551()
         {
-            var special = new BloodBath();
-
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 BloodBath.specialAbility
