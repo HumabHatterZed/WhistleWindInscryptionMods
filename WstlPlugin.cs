@@ -92,6 +92,7 @@ namespace WhistleWindLobotomyMod
                 Ability_Nettles();
                 Ability_Spores();
                 Ability_Witness();
+                Ability_Corrector();
 
                 // WhiteNight
                 Ability_Apostle();

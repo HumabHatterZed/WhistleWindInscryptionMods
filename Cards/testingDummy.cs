@@ -12,19 +12,19 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.TripleBlood,
-                Ability.Sacrificial
+                Corrector.ability,
+                Ability.DrawCopy
             };
 
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                GiantTreeSap.specialAbility
+
             };
 
             WstlUtils.Add(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                0, 10, 0, 0,
+                0, 1, 1, 0,
                 Resources.testingDummy, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new());

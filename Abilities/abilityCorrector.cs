@@ -1,5 +1,7 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +14,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Corrector()
         {
             const string rulebookName = "Corrector";
-            const string rulebookDescription = "A card bearing this sigil has its stats changed depending on its cost, with higher costs giving higher stat totals.";
+            const string rulebookDescription = "A card bearing this sigil has its stats changed based on its cost. Higher costs yield higher overall stats.";
             const string dialogue = "How balanced.";
             Corrector.ability = WstlUtils.CreateAbility<Corrector>(
                 Resources.sigilCorrector,
@@ -24,16 +26,6 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private List<int> bloodPower = new()
-        {
-            0,
-            7,
-            9,
-            14,
-            21,
-            28
-        };
-
         public override bool RespondsToDrawn()
         {
             return true;
@@ -43,69 +35,68 @@ namespace WhistleWindLobotomyMod
             (Singleton<PlayerHand>.Instance as PlayerHand3D).MoveCardAboveHand(base.Card);
             yield return base.Card.FlipInHand(ChangeStats);
             yield return new WaitForSeconds(0.1f);
+            yield return base.LearnAbility();
         }
 
         private void ChangeStats()
         {
-            int bloodPower = base.Card.Info.BloodCost switch
+            int powerLevel = base.Card.Info.BloodCost switch
             {
                 0 => 0,
-                1 => 7,
-                2 => 9,
+                1 => 5,
+                2 => 8,
                 3 => 14,
                 4 => 21,
                 _ => 28
             };
-            int bonesPower = base.Card.Info.BonesCost switch
+            powerLevel += base.Card.Info.BonesCost > 0 ? base.Card.Info.BonesCost + 1 : 0;
+            powerLevel += base.Card.Info.EnergyCost switch
             {
                 0 => 0,
-                1 => 2,
-                2 => 4,
+                1 => 1,
+                2 => 3,
                 3 => 5,
-                4 => 6,
-                5 => 6,
-                6 => 7,
-                7 => 8,
-                8 => 9,
-                _ => 10
-            };
-            int energyPower = base.Card.Info.EnergyCost switch
-            {
-                0 => 0,
-                1 => 2,
-                2 => 5,
-                3 => 6,
                 4 => 7,
                 5 => 9,
                 6 => 13,
-                _ => 18
+                _ => 17
             };
-            int gemsPower = base.Card.Info.GemsCost.Count switch
+            powerLevel += base.Card.Info.GemsCost.Count switch
             {
-                0 => 0,
                 1 => 4,
                 2 => 7,
-                _ => 12
+                3 => 10,
+                _ => 0
             };
+            // LifeCost API compatibility (maybe)
+            powerLevel += !(base.Card.Info.GetExtendedPropertyAsInt("LifeCost") != null) ? 0 : (int)base.Card.Info.GetExtendedPropertyAsInt("LifeCost");
+            powerLevel += !(base.Card.Info.GetExtendedPropertyAsInt("MoneyCost") != null) ? 0 : (int)base.Card.Info.GetExtendedPropertyAsInt("MoneyCost");
+            powerLevel += !(base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") != null) ? 0 : (int)base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost");
+
             int newPower = 0;
-            int newHealth = 1;
-            int totalPower = bloodPower + bonesPower + energyPower + gemsPower - 1;
-            while (totalPower > 0)
+            int newHealth = 0;
+            if (powerLevel <= 0)
             {
-                bool givePower = SeededRandom.Range(0, 3, base.GetRandomSeed()) == 0;
-                if (givePower && totalPower - 2 >= 0)
-                {
-                    newPower += 1;
-                    totalPower -= 2;
-                }
-                else
-                {
-                    newHealth += 1;
-                    totalPower -= 1;
-                }
+                newPower = base.Card.Info.Attack > 0 ? 1 : 0;
             }
-            base.Card.ClearAppearanceBehaviours();
-            base.Card.SetInfo(null);
+            while (powerLevel > 0)
+            {
+                // If can afford 1 Power
+                if (powerLevel - 2 >= 0)
+                {
+                    // Roll for 1 Power
+                    if (new System.Random().Next(0, 2) == 0)//SeededRandom.Range(0, 3, base.GetRandomSeed()) == 0;
+                    {
+                        newPower += 1;
+                        powerLevel -= 2;
+                        continue;
+                    }
+                }
+                newHealth += 1;
+                powerLevel -= 1;
+                WstlPlugin.Log.LogInfo($"{powerLevel}");
+            }
+            base.Card.AddTemporaryMod(new(newPower - base.Card.Attack, newHealth - base.Card.Health));
         }
     }
 }

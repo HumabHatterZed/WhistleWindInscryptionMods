@@ -162,7 +162,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Clothes Made of Nettles|When a card bearing this sigil is played, create random Brothers in empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.||
 |Spores|Adjacent cards gain 1 Spore and take damage equal to their Spore at the end of each turn. If a card with Spore is killed, create a Spore Mold Creature in that card's slot whose stats are equal to the card's Spore.||
 |Witness|Activate: Pay 3 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times.||
-|Corrector|A card bearing this sigil has its stats changed depending on its cost, with higher costs giving higher stat totals.|Yes|
+|Corrector|A card bearing this sigil has its stats changed based on its cost. Higher costs yield higher overall stats.|Yes|
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
 |True Saviour|*My story is nowhere, unknown to all.*|||
 |Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||
@@ -288,7 +288,7 @@ Poisonous means the card will kill survivors at the campfire when eaten. 'X' mea
 Hey, you made it to the bottom of this ReadMe, congrats! Below's a couple-a things I've got rattlin' around in my head. These may or may not be implemented in the future, depending on how things go.
 
 * Further balancing, tweaks, bug fixes.
-* Expansion pack of Library of Ruina abnormalities.
+* Expansion pack of Library of Ruina abnormalities?
 
 <!--- * Add a custom card choice node for abnormalities, based on their Lob Corp risk level.
 * Custom challenges and starter decks.
