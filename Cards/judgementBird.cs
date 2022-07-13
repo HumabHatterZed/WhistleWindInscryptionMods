@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 Resources.judgementBird, Resources.judgementBird_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isRare: true, onePerDeck: true);
+                isChoice: true, onePerDeck: true);
         }
     }
 }

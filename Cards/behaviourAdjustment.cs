@@ -8,25 +8,20 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void QueenBee_T0450()
+        private void BehaviourAdjustment_O0996()
         {
             List<Ability> abilities = new()
             {
-                QueenNest.ability
-            };
-
-            List<Tribe> tribes = new()
-            {
-                Tribe.Insect
+                Corrector.ability
             };
 
             WstlUtils.Add(
-                "wstl_queenBee", "Queen Bee",
-                "A monstrous amalgam of a hive and a bee.",
-                0, 5, 2, 0,
-                Resources.queenBee, Resources.queenBee_emission,
+                "wstl_behaviourAdjustment", "Behaviour Adjustment",
+                "A strange device. It was made to 'fix' any creature. I don't agree with the sentiment.",
+                0, 1, 0, 4,
+                Resources.behaviourAdjustment, Resources.behaviourAdjustment_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
                 isChoice: true);
         }
     }

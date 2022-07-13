@@ -1,8 +1,8 @@
-﻿using BepInEx.Logging;
+﻿using BepInEx;
+using BepInEx.Logging;
 using System;
 using System.Reflection;
 using HarmonyLib;
-using BepInEx;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -27,18 +27,17 @@ namespace WhistleWindLobotomyMod
         public const string pluginName = "WhistleWind Lobotomy Corp";
         private const string pluginVersion = "1.0.6"; // 0.82.113.0 | Major.Minor.Patch.Cards
         public const string modPrefix = "wstl";
+        public static string Directory;
 
         internal static ManualLogSource Log;
 
         private void Awake()
         {
             Harmony harmony = new(pluginGuid);
-            Log = base.Logger;
+            WstlPlugin.Log = base.Logger;
+            WstlPlugin.Directory = ((BaseUnityPlugin)this).Info.Location.Replace("WhistleWindLobotomyMod.dll", "");
 
-            #region CONFIG
             ConfigUtils.Instance.BindConfig();
-
-            #endregion
 
             if (ConfigUtils.Instance.ModEnabled)
             {
@@ -244,7 +243,7 @@ namespace WhistleWindLobotomyMod
                 BlueStar2_O0393();
                 YouMustBeHappy_T0994();
                 LuminousBracelet_O0995();
-                //  BehaviourAdjustment_O0996();
+                BehaviourAdjustment_O0996();
                 OldFaithAndPromise_T0997();
                 Porccubus_O0298();
                 VoidDream_T0299();
@@ -283,6 +282,7 @@ namespace WhistleWindLobotomyMod
                 {
                     ConfigUtils.Instance.SetBlessings(11);
                 }
+                //WstlUtils.GetPowerLevels();
                 Logger.LogWarning($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }

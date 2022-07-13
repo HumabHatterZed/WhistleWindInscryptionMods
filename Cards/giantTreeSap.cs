@@ -22,9 +22,9 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_giantTreeSap", "Giant Tree Sap",
                 "The sap of a tree at the end of the world. It is a potent healing agent.",
-                0, 2, 0, 4,
+                0, 3, 0, 4,
                 Resources.giantTreeSap, Resources.giantTreeSap_emission,
-                abilities: abilities, specialAbilities: new(),
+                abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 isChoice: true);
         }

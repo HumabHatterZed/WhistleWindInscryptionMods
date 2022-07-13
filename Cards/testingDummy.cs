@@ -12,7 +12,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                TheTrain.ability
+                Ability.TripleBlood,
+                Ability.Sacrificial
             };
 
             List<SpecialTriggeredAbility> specialAbilities = new()

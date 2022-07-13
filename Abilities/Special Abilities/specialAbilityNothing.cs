@@ -119,7 +119,7 @@ namespace WhistleWindLobotomyMod
 				CardInfo info = CardLoader.CreateDeathCard(i);
 				list.Add(info);
 			}
-			int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
+			int randomSeed = Environment.TickCount;
 			CardInfo disguise = ((list.Count <= 0) ? CardLoader.GetCardByName("wstl_nothingThere") : list[SeededRandom.Range(0, list.Count, randomSeed)]);
 
 			CardModificationInfo cardModificationInfo = new CardModificationInfo();

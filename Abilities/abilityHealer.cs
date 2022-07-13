@@ -234,7 +234,7 @@ namespace WhistleWindLobotomyMod
                     }
                     else
                     {
-                        CardInfo randApostle = new System.Random().Next(0, 3) switch
+                        CardInfo randApostle = SeededRandom.Range(0, 3, base.GetRandomSeed()) switch
                         {
                             0 => CardLoader.GetCardByName("wstl_apostleScythe"),
                             1 => CardLoader.GetCardByName("wstl_apostleSpear"),

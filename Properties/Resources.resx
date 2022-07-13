@@ -730,6 +730,9 @@
   <data name="sigilConfession" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilConfession.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="sigilCorrector" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sigilCorrector.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="sigilCourageous" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilCourageous.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

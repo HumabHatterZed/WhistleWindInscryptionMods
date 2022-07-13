@@ -3,6 +3,8 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Helpers;
 using DiskCardGame;
 using System;
+using System.IO;
+using System.Text;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -232,7 +234,6 @@ namespace WhistleWindLobotomyMod
                 }
             );
         }
-
         // For loading textures from resource files
         public static Texture2D LoadTextureFromResource(byte[] resourceFile)
         {
@@ -240,6 +241,26 @@ namespace WhistleWindLobotomyMod
             texture.LoadImage(resourceFile);
             texture.filterMode = FilterMode.Point;
             return texture;
+        }
+
+        // For debugging
+        public static void GetPowerLevels()
+        {
+            StringBuilder sb = new StringBuilder();
+            List<CardInfo> info = InscryptionAPI.Card.CardManager.AllCardsCopy;
+            string dl = "|";
+            for (int i = 0; i < info.Count; i++)
+            {
+                if (info[i].name.Contains("wstl_"))
+                {
+                    string p = $"Powerlevel: {info[i].PowerLevel}";
+                    string bc = $"BloodCost: {info[i].BloodCost}";
+                    string bb = $"BoneCost: {info[i].BonesCost}";
+                    sb.Append(info[i].name + dl + p + dl + bc + dl + bb + "\n");
+                }
+            }
+            File.WriteAllText(Path.Combine(WstlPlugin.Directory, "WSTL_POWERLEVEL.txt"), sb.ToString());
+            WstlPlugin.Log.LogDebug($"WSTL_POWERLEVEL.txt generated in plugins folder.");
         }
     }
 }

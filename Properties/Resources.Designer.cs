@@ -2103,6 +2103,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] sigilCorrector {
+            get {
+                object obj = ResourceManager.GetObject("sigilCorrector", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] sigilCourageous {
             get {
                 object obj = ResourceManager.GetObject("sigilCourageous", resourceCulture);

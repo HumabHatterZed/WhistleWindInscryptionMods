@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             WstlUtils.Add(
                 "wstl_crumblingArmour", "Crumbling Armour",
                 "A suit of armour that rewards the brave.",
-                0, 2, 0, 6,
+                0, 4, 0, 6,
                 Resources.crumblingArmour, Resources.crumblingArmour_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod
 
         public override IEnumerator OnSacrifice()
         {
-            if (Random.Range(0, 10 - sacrificeCount) == 0)
+            if (sacrificeCount >= 8 || SeededRandom.Range(0, 10 - sacrificeCount, base.GetRandomSeed()) == 0)
             {
                 sacrificeCount = 0;
                 PlayableCard card = Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard;

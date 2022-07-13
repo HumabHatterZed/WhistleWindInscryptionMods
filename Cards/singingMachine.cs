@@ -15,7 +15,10 @@ namespace WhistleWindLobotomyMod
                 TeamLeader.ability,
                 Aggravating.ability
             };
-
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                CardAppearanceBehaviour.Appearance.TerrainBackground
+            };
             WstlUtils.Add(
                 "wstl_singingMachine", "Singing Machine",
                 "A wind-up music machine. The song it plays is to die for.",
@@ -23,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 Resources.singingMachine, Resources.singingMachine,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                appearances: appearances, isChoice: true);
         }
     }
 }
