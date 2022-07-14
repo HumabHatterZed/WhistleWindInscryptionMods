@@ -46,7 +46,7 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            int spores = !(card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null) ? 0 : (int)card.Info.GetExtendedPropertyAsInt("wstl:Spore");
+            int spores = card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null ? (int)card.Info.GetExtendedPropertyAsInt("wstl:Spore") : 0;
             if (spores < 1)
             {
                 yield break;
@@ -71,14 +71,14 @@ namespace WhistleWindLobotomyMod
             }
             if (validLeft)
             {
-                int sporeLeft = !(toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null) ? 0 : (int)toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore");
+                int sporeLeft = toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null ? (int)toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") : 0;
                 yield return toLeft.Card.Info.SetExtendedProperty("wstl:Spore", sporeLeft + 1);
                 toLeft.Card.Anim.StrongNegationEffect();
 
             }
             if (validRight)
             {
-                int sporeRight = !(toRight.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null) ? 0 : (int)toRight.Card.Info.GetExtendedPropertyAsInt("wstl:Spore");
+                int sporeRight = toRight.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null ? (int)toRight.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") : 0;
                 yield return toRight.Card.Info.SetExtendedProperty("wstl:Spore", sporeRight + 1);
                 toRight.Card.Anim.StrongNegationEffect();
             }

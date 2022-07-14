@@ -284,7 +284,7 @@ namespace WhistleWindLobotomyMod
                     ConfigUtils.Instance.SetBlessings(11);
                 }
                 //WstlUtils.GetPowerLevels();
-                Logger.LogWarning($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
+                Logger.LogInfo($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }
             else
