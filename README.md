@@ -6,7 +6,10 @@ Inspired by KingSlime's own mod of this topic, this is my own take on translatin
 
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
-This mod currently adds **71** obtainable cards and **38** custom abilities, plus **13** special abilities, with plans to eventually add more.
+This mod currently adds all **84** abnormalities from Lobotomy Corp, as well as:
+* **41** new abilities
+* **15** special abilities
+* 
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1901
@@ -14,7 +17,7 @@ This mod currently adds **71** obtainable cards and **38** custom abilities, plu
 
 ## 🩹 Known Issues
 ### None so far!
-If you find any issues or bugs whilst playing, please open an issue on the GitHub or @ me on the modding Discord so I can fix it asap.
+If you find any issues or bugs, please report them to me asap on the modding Discord or on the GitHub page!
 
 ## 💌 Credits
 Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to/~~steal~~borrow from.
@@ -119,7 +122,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Giant Tree Sap|Reacts to being sacrificed.|
 
 ## ✨ Abilities
-**Note: Totem indicates the ability can be found on totem bases and on cards from den trials.**
+**Note: 'Totem' indicates the ability can be found on totem bases and on cards from den trials.**
 |Name|Description|Totem|
 |:-|:-|:-:|
 |Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
@@ -168,8 +171,10 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||
 
 ## 📜 List of Obtainable and Minion Cards
-**Notes: Singleton means you can only have a single copy of that card in your deck  at a time (like Ouroboros).
-Poisonous means the card will kill survivors at the campfire when eaten. 'X' means that that stat varies.**
+**NOTES**<br>
+**Singleton** means you can only have a single copy of that card in your deck  at a time (like Ouroboros).<br>
+**Poisonous** means the card will kill survivors at the campfire when eaten.<br>
+**X** means that that stat varies.
 
 |Name|Power|Health|Cost|Sigils|Traits|Tribes|
 |:-|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -268,7 +273,7 @@ Poisonous means the card will kill survivors at the campfire when eaten. 'X' mea
 |Porccubus|1|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Touch of Death|Poisonous||
 |Void Dream|0|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Fledgling<br>Flying||Hooved|
 |⤷ Void Dream|2|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Stinky<br>Flying||Hooved<br>Avian|
-|Grave of Cherry Blossoms|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sharp Quills<br>Bloodfiend||
+|Grave of Cherry Blossoms|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sharp Quills<br>Bloodfiend||
 |The Firebird|1|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Burning<br>Flying||Avian|
 |Yin|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Regenerator|Singleton||
 |Yang|2|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Strafe<br>Waterborne|Singleton||
@@ -285,9 +290,9 @@ Poisonous means the card will kill survivors at the campfire when eaten. 'X' mea
 |⤷ Clouded Monk|4|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">||||
 
 ## Future Plans
-Hey, you made it to the bottom of this ReadMe, congrats! Below's a couple-a things I've got rattlin' around in my head. These may or may not be implemented in the future, depending on how things go.
+Congrats on scrolling all the way down here! Below are a few things that I'll be working on in the future, or at least plan on doing.
 
-* Further balancing, tweaks, bug fixes.
+* Further balancing, tweaks, bug fixes (feedback is always welcome!).
 * Expansion pack of Library of Ruina abnormalities?
 
 <!--- * Add a custom card choice node for abnormalities, based on their Lob Corp risk level.

@@ -79,11 +79,11 @@ namespace WhistleWindLobotomyMod
                 if (validTargets.Count > 0)
                 {
                     randSlot = validTargets[SeededRandom.Range(0, validTargets.Count, randomSeed)];
-                    CombatPhasePatcher.Instance.VisualizeConfirmSniperAbility(randSlot, false);
+                    CombatPhaseManagerPatch.Instance.VisualizeConfirmSniperAbility(randSlot, false);
                     yield return new WaitForSeconds(0.25f);
                     randSlot.Card.HealDamage(2);
                     randSlot.Card.Anim.StrongNegationEffect();
-                    CombatPhasePatcher.Instance.VisualizeClearSniperAbility();
+                    CombatPhaseManagerPatch.Instance.VisualizeClearSniperAbility();
                     ConfigUtils.Instance.UpdateBlessings(1);
                     yield return new WaitForSeconds(0.25f);
                 }
@@ -110,11 +110,11 @@ namespace WhistleWindLobotomyMod
                 int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber;
 
                 randSlot = opponentSlots[SeededRandom.Range(0, opponentSlots.Count, randomSeed)];
-                CombatPhasePatcher.Instance.VisualizeConfirmSniperAbility(randSlot, false);
+                CombatPhaseManagerPatch.Instance.VisualizeConfirmSniperAbility(randSlot, false);
                 yield return new WaitForSeconds(0.25f);
                 randSlot.Card.HealDamage(2);
                 randSlot.Card.Anim.StrongNegationEffect();
-                CombatPhasePatcher.Instance.VisualizeClearSniperAbility();
+                CombatPhaseManagerPatch.Instance.VisualizeClearSniperAbility();
                 if (IsDoctor)
                 {
                     ConfigUtils.Instance.UpdateBlessings(1);
@@ -141,7 +141,7 @@ namespace WhistleWindLobotomyMod
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(invalidDialogue, -0.65f, 0.4f);
                     yield return new WaitForSeconds(0.25f);
 
-                    CombatPhasePatcher.Instance.VisualizeClearSniperAbility();
+                    CombatPhaseManagerPatch.Instance.VisualizeClearSniperAbility();
                     yield return PlayerChooseTarget();
 
                     valid = targetedSlot != null && (targetedSlot.Card != null && targetedSlot.Card != base.Card && targetedSlot.Index != base.Card.Slot.Index);
@@ -149,7 +149,7 @@ namespace WhistleWindLobotomyMod
             }
             targetedSlot.Card.HealDamage(2);
             targetedSlot.Card.Anim.StrongNegationEffect();
-            CombatPhasePatcher.Instance.VisualizeClearSniperAbility();
+            CombatPhaseManagerPatch.Instance.VisualizeClearSniperAbility();
             yield return new WaitForSeconds(0.25f);
             yield return base.LearnAbility();
             Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
@@ -326,14 +326,14 @@ namespace WhistleWindLobotomyMod
         // Stolen from Zerg mod with love <3
         private IEnumerator PlayerChooseTarget()
         {
-            CombatPhasePatcher.Instance.VisualizeStartSniperAbility(base.Card.Slot);
+            CombatPhaseManagerPatch.Instance.VisualizeStartSniperAbility(base.Card.Slot);
 
             List<CardSlot> targetSlots = base.Card.OpponentCard ? Singleton<BoardManager>.Instance.OpponentSlotsCopy : Singleton<BoardManager>.Instance.PlayerSlotsCopy;
             CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
 
             if (cardSlot != null && targetSlots.Contains(cardSlot))
             {
-                CombatPhasePatcher.Instance.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
+                CombatPhaseManagerPatch.Instance.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
             }
 
             targetedSlot = null;
@@ -341,10 +341,10 @@ namespace WhistleWindLobotomyMod
             yield return Singleton<BoardManager>.Instance.ChooseTarget(targetSlots, targetSlots, delegate (CardSlot s)
             {
                 targetedSlot = s;
-                CombatPhasePatcher.Instance.VisualizeConfirmSniperAbility(s, false);
+                CombatPhaseManagerPatch.Instance.VisualizeConfirmSniperAbility(s, false);
             }, null, delegate (CardSlot s)
             {
-                CombatPhasePatcher.Instance.VisualizeAimSniperAbility(base.Card.Slot, s);
+                CombatPhaseManagerPatch.Instance.VisualizeAimSniperAbility(base.Card.Slot, s);
 
             }, () => false, CursorType.Target);
         }

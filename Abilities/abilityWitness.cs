@@ -82,7 +82,7 @@ namespace WhistleWindLobotomyMod
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(invalidDialogue, -0.65f, 0.4f);
                     yield return new WaitForSeconds(0.25f);
 
-                    CombatPhasePatcher.Instance.VisualizeClearSniperAbility();
+                    CombatPhaseManagerPatch.Instance.VisualizeClearSniperAbility();
                     yield return PlayerChooseTarget();
 
                     valid = targetedSlot != null && (targetedSlot.Card != null && targetedSlot.Card != base.Card && targetedSlot.Index != base.Card.Slot.Index);
@@ -97,7 +97,7 @@ namespace WhistleWindLobotomyMod
             yield return targetedSlot.Card.Info.SetExtendedProperty("wstl:Prudence", prudence + 1);
             targetedSlot.Card.HealDamage(2);
             targetedSlot.Card.Anim.StrongNegationEffect();
-            CombatPhasePatcher.Instance.VisualizeClearSniperAbility();
+            CombatPhaseManagerPatch.Instance.VisualizeClearSniperAbility();
             yield return new WaitForSeconds(0.25f);
             Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
@@ -108,14 +108,14 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator PlayerChooseTarget()
         {
-            CombatPhasePatcher.Instance.VisualizeStartSniperAbility(base.Card.Slot);
+            CombatPhaseManagerPatch.Instance.VisualizeStartSniperAbility(base.Card.Slot);
 
             List<CardSlot> targetSlots = base.Card.OpponentCard ? Singleton<BoardManager>.Instance.OpponentSlotsCopy : Singleton<BoardManager>.Instance.PlayerSlotsCopy;
             CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
 
             if (cardSlot != null && targetSlots.Contains(cardSlot))
             {
-                CombatPhasePatcher.Instance.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
+                CombatPhaseManagerPatch.Instance.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
             }
 
             targetedSlot = null;
@@ -123,10 +123,10 @@ namespace WhistleWindLobotomyMod
             yield return Singleton<BoardManager>.Instance.ChooseTarget(targetSlots, targetSlots, delegate (CardSlot s)
             {
                 targetedSlot = s;
-                CombatPhasePatcher.Instance.VisualizeConfirmSniperAbility(s, false);
+                CombatPhaseManagerPatch.Instance.VisualizeConfirmSniperAbility(s, false);
             }, null, delegate (CardSlot s)
             {
-                CombatPhasePatcher.Instance.VisualizeAimSniperAbility(base.Card.Slot, s);
+                CombatPhaseManagerPatch.Instance.VisualizeAimSniperAbility(base.Card.Slot, s);
 
             }, () => false, CursorType.Target);
         }

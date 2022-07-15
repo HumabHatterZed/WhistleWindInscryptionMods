@@ -15,6 +15,7 @@ using InscryptionAPI.Ascension;
 using InscryptionAPI.Helpers;
 using InscryptionAPI.Encounters;
 using System.Linq;
+using Sirenix.Utilities;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,108 +26,26 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.0.6"; // 0.82.113.0 | Major.Minor.Patch.Cards
-        public const string modPrefix = "wstl";
-        public static string Directory;
+        private const string pluginVersion = "1.1.0";
 
         internal static ManualLogSource Log;
-
+        private static Harmony harmony;
+        public static string Directory;
         private void Awake()
         {
-            Harmony harmony = new(pluginGuid);
             WstlPlugin.Log = base.Logger;
-            WstlPlugin.Directory = ((BaseUnityPlugin)this).Info.Location.Replace("WhistleWindLobotomyMod.dll", "");
-
+            harmony = Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), pluginGuid);
             ConfigUtils.Instance.BindConfig();
 
-            if (ConfigUtils.Instance.ModEnabled)
+            if (!ConfigUtils.Instance.ModEnabled)
             {
-                #region SPECIAL ABILITIES
-                SpecialAbilityEvolve();
-                SpecialAbility_Fetus();
-                SpecialAbility_Bath();
-                SpecialAbility_Nothing();
-                SpecialAbility_Shy();
-                SpecialAbility_Hate();
-                SpecialAbility_Sap();
-                #endregion
+                Logger.LogWarning($"{pluginName} is loaded but is disabled in the configuration.");
+            }
+            else
+            {
+                LoadSpecialAbilities();
+                LoadAbilities();
 
-                #region ABILITIES
-                Ability_Punisher();
-                Ability_Bloodfiend();
-                Ability_Martyr();
-                Ability_Aggravating();
-                Ability_TeamLeader();
-                Ability_Idol();
-                Ability_Conductor();
-                Ability_Woodcutter();
-                Ability_FrozenHeart();
-                Ability_FrostRuler();
-                Ability_Roots();
-                Ability_BroodMother();
-                Ability_Cursed();
-                Ability_Healer();
-                Ability_QueenNest();
-                Ability_BitterEnemies();
-                Ability_Courageous();
-                Ability_SerpentsNest();
-                Ability_Assimilator();
-                Ability_GroupHealer();
-                Ability_Reflector();
-                Ability_FlagBearer();
-                Ability_Grinder();
-                Ability_TheTrain();
-                Ability_Burning();
-                Ability_Regenerator();
-                Ability_Volatile();
-                Ability_GiftGiver();
-                Ability_Piercing();
-                Ability_Scrambler();
-                Ability_Gardener();
-                Ability_Slime();
-                Ability_Hunter();
-                Ability_Protector();
-                Ability_QuickDraw();
-                Ability_Alchemist();
-                Ability_TimeMachine();
-                Ability_Nettles();
-                Ability_Spores();
-                Ability_Witness();
-                Ability_Corrector();
-
-                // WhiteNight
-                Ability_Apostle();
-                Ability_TrueSaviour();
-                Ability_Confession();
-                // Apocalypse Bird
-                // Ability_
-                // Ability_
-                // Ability_
-
-                if (ConfigUtils.Instance.RevealSpecials)
-                {
-                    // These abilities only exist for their Rulebook entries
-                    // Maybe there's a better way of adding entries, but eh
-                    Rulebook_NamelessFetus();
-                    Rulebook_BloodBath();
-                    Rulebook_MagicalGirlH();
-                    Rulebook_NothingThere();
-                    Rulebook_DerFreischutz();
-                    Rulebook_CrumblingArmour();
-                    Rulebook_MagicalGirlS();
-                    Rulebook_MountainOfBodies();
-                    Rulebook_CENSORED();
-                    Rulebook_JudgementBird();
-                    Rulebook_TodaysShyLook();
-                    Rulebook_ArmyInPink();
-                    Rulebook_MeltingLove();
-                    Rulebook_Yang();
-                    Rulebook_GiantTreeSap();
-                }
-
-                #endregion
-
-                #region CARDS
                 TestingDummy_XXXXX();
 
                 TrainingDummy_00000();
@@ -267,29 +186,22 @@ namespace WhistleWindLobotomyMod
                 MeltingLoveMinion_D03109();
                 HonouredMonk_D01110();
                 CloudedMonk_D01110();
-                //  Ruina Expansion
-                //  Wonderlab?
 
-                #endregion
-                
-                harmony.PatchAll(typeof(CombatPhasePatcher));
-                harmony.PatchAll(typeof(PersistentValues));
-                harmony.PatchAll(typeof(WstlPatcher));
-                harmony.PatchAll(typeof(CardPatcher));
-                harmony.PatchAll(typeof(NodePatcher));
-                
-                ConfigUtils.Instance.BindConfig();
-                if (ConfigUtils.Instance.NumOfBlessings >= 12)
-                {
-                    ConfigUtils.Instance.SetBlessings(11);
-                }
-                //WstlUtils.GetPowerLevels();
+                if (ConfigUtils.Instance.NumOfBlessings > 11) { ConfigUtils.Instance.SetBlessings(11); }
                 Logger.LogInfo($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }
-            else
+        }
+        private void LoadSpecialAbilities()
+        {
+            AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
+        }
+        private void LoadAbilities()
+        {
+            AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("Ability")).ForEach(mi => mi.Invoke(this, null));
+            if (ConfigUtils.Instance.RevealSpecials)
             {
-                Logger.LogWarning($"{pluginName} is loaded but is disabled in the configuration.");
+                AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("Rulebook")).ForEach(mi => mi.Invoke(this, null));
             }
         }
     }

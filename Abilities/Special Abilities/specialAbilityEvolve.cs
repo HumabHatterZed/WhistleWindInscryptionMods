@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SpecialAbilityEvolve()
+        private void SpecialAbility_Evolve()
         {
             const string rulebookName = "SpecialAbilityFledgling";
             const string rulebookDescription = "Special ability version of Fledgling for certain cards.";
