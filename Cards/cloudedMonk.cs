@@ -10,13 +10,13 @@ namespace WhistleWindLobotomyMod
     {
         private void CloudedMonk_D01110()
         {
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_cloudedMonk", "Clouded Monk",
                 "A monk no more.",
                 4, 2, 3, 0,
                 Resources.cloudedMonk, Resources.cloudedMonk_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 4);
         }
     }
 }

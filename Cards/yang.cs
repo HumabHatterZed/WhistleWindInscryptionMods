@@ -14,14 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Regenerator.ability
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_yang", "Yang",
                 "The white carp swims towards [c:bR]chaos[c:].",
                 0, 3, 1, 0,
                 Resources.yang, Resources.yang_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                onePerDeck: true);
+                onePerDeck: true, riskLevel: 4);
         }
     }
 }

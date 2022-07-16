@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Fetus";
             const string rulebookDescription = "Reacts to being sacrificed 6 times.";
-            NamelessFetus.specialAbility = WstlUtils.CreateSpecialAbility<NamelessFetus>(rulebookName, rulebookDescription).Id;
+            NamelessFetus.specialAbility = AbilityHelper.CreateSpecialAbility<NamelessFetus>(rulebookName, rulebookDescription).Id;
         }
     }
     public class NamelessFetus : SpecialCardBehaviour

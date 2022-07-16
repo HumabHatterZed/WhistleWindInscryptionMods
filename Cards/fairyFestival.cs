@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Bloodfiend.ability
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_fairyFestival", "Fairy Festival",
                 "Everything will be peaceful while you're under the fairies' care.",
                 1, 1, 1, 0,
                 Resources.fairyFestival, Resources.fairyFestival_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 1);
         }
     }
 }

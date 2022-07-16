@@ -16,14 +16,14 @@ namespace WhistleWindLobotomyMod
                 Marksman.ability
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_derFreischutz", "Der Freischütz",
                 "A friendly hunter to some, a bloody gunsman to others. His bullets always hit their mark.",
                 1, 1, 2, 0,
                 Resources.derFreischutz, Resources.derFreischutz_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true);
+                isRare: true, riskLevel: 3);
         }
     }
 }

@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Insect
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_queenBeeWorker", "Worker Bee",
                 "A blind servant of the hive.",
                 1, 1, 0, 0,
                 Resources.queenBeeWorker, Resources.queenBeeWorker_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                evolveName: "wstl_queenBee");
+                evolveName: "wstl_queenBee", riskLevel: 3);
         }
     }
 }

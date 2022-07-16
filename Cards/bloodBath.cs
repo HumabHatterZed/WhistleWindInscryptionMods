@@ -20,14 +20,14 @@ namespace WhistleWindLobotomyMod
                 Trait.Goat
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_bloodBath", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
                 0, 3, 1, 0,
                 Resources.bloodBath, Resources.bloodBath_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,
-                isChoice: true);
+                isChoice: true, riskLevel: 2);
         }
     }
 }

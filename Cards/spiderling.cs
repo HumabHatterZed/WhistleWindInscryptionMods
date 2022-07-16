@@ -14,20 +14,18 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Evolve
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Insect
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_spiderling", "Spiderling",
                 "Small and defenceless.",
                 0, 1, 0, 0,
                 Resources.spiderling, Resources.spiderling_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                evolveName: "wstl_spiderBrood");
+                evolveName: "wstl_spiderBrood", riskLevel: 1);
         }
     }
 }

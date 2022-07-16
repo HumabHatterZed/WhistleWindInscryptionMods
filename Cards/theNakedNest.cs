@@ -18,14 +18,14 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.KillsSurvivors
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_theNakedNest", "The Naked Nest",
                 "They can enter your body through any aperture.",
                 0, 2, 0, 4,
                 Resources.theNakedNest, Resources.theNakedNest_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                isChoice: true);
+                isChoice: true, riskLevel: 4);
         }
     }
 }

@@ -15,20 +15,18 @@ namespace WhistleWindLobotomyMod
                 Ability.Flying,
                 Ability.Evolve
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Hooved
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_voidDream", "Void Dream",
                 "A sleeping goat. Or is it a sheep?",
                 0, 1, 1, 0,
                 Resources.voidDream, Resources.voidDream_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, evolveName: "wstl_voidDreamRooster");
+                isChoice: true, evolveName: "wstl_voidDreamRooster", riskLevel: 2);
         }
     }
 }

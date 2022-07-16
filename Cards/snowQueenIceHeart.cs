@@ -14,8 +14,7 @@ namespace WhistleWindLobotomyMod
             {
                 FrozenHeart.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_snowQueenIceHeart", "Frozen Heart",
                 "The palace was cold and lonely.",
                 0, 1, 0, 0,

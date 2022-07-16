@@ -14,20 +14,18 @@ namespace WhistleWindLobotomyMod
             {
                 SpecialAbilityFledgling.specialAbility
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Reptile
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_queenOfHatredTired", "The Queen of Hatred",
                 "Exhaustion: the cost of an all-out attack.",
                 0, 2, 1, 0,
                 Resources.queenOfHatredTired, Resources.queenOfHatredTired_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
-                onePerDeck: true);
+                onePerDeck: true, riskLevel: 4);
         }
     }
 }

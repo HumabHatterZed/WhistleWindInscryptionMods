@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Ability.Evolve
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_honouredMonk", "Honoured Monk",
                 "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...",
                 2, 1, 2, 0,
                 Resources.honouredMonk, Resources.honouredMonk_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, evolveName: "wstl_cloudedMonk", isDonator: true);
+                isChoice: true, evolveName: "wstl_cloudedMonk", isDonator: true, riskLevel: 4);
         }
     }
 }

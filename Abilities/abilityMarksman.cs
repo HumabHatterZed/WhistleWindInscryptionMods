@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "You may choose which opposing space a card bearing this sigil strikes.";
             const string dialogue = "Your beast strikes with precision.";
 
-            Marksman.ability = WstlUtils.CreateAbility<Marksman>(
+            Marksman.ability = AbilityHelper.CreateAbility<Marksman>(
                 Resources.sigilMarksman,
                 rulebookName, rulebookDescription, dialogue, 3).Id;
         }

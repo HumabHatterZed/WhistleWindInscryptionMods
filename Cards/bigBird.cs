@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Tribe.Bird
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_bigBird", "Big Bird",
                 "Its eyes light up the darkness like stars.",
                 2, 4, 2, 0,
                 Resources.bigBird, Resources.bigBird_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, onePerDeck: true);
+                isChoice: true, onePerDeck: true, riskLevel: 4);
         }
     }
 }

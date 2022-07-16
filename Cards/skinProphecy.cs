@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Witness.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_skinProphecy", "Skin Prophecy",
                 "A holy book. Its believers wrapped it in skin to preserve its sanctity.",
                 0, 2, 1, 0,
                 Resources.skinProphecy, Resources.skinProphecy_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 2);
         }
     }
 }

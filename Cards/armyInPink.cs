@@ -16,14 +16,14 @@ namespace WhistleWindLobotomyMod
                 Protector.ability
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_armyInPink", "Army in Pink",
                 "The human heart is pink. They wear its colour as to blend in with your mind.",
                 2, 2, 2, 0,
                 Resources.armyInPink, Resources.armyInPink_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true, isDonator: true);
+                isRare: true, isDonator: true, riskLevel: 5);
         }
     }
 }

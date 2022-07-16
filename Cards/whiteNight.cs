@@ -15,21 +15,19 @@ namespace WhistleWindLobotomyMod
                 TrueSaviour.ability,
                 Idol.ability
             };
-
             List<Trait> traits = new()
             {
                 Trait.Uncuttable,
                 Trait.Terrain
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_whiteNight", "WhiteNight",
                 "The time has come.",
                 0, 666, 0, 0,
                 Resources.whiteNight, Resources.whiteNight_emission, titleTexture: Resources.whiteNight_title,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                onePerDeck: true);
+                onePerDeck: true, riskLevel: 5);
         }
     }
 }

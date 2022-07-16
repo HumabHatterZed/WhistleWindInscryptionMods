@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Protector.ability
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_magicalGirlSpade", "Magical Girl",
                 "A loyal knight fighting to protect those close to her.",
                 2, 4, 2, 0,
                 Resources.magicalGirlSpade, Resources.magicalGirlSpade_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true, onePerDeck: true);
+                isRare: true, onePerDeck: true, riskLevel: 4);
         }
     }
 }

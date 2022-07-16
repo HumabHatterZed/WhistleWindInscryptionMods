@@ -10,13 +10,13 @@ namespace WhistleWindLobotomyMod
     {
         private void ParasiteTreeSapling_D04108()
         {
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_parasiteTreeSapling", "Sapling",
                 "They proliferate and become whole. Can you feel it?",
                 0, 2, 0, 0,
                 Resources.parasiteTreeSapling, Resources.parasiteTreeSapling_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 3);
         }
     }
 }

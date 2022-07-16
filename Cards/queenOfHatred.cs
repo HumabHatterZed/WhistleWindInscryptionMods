@@ -14,25 +14,22 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Flying
             };
-
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 SpecialAbilityFledgling.specialAbility
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Reptile
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_queenOfHatred", "The Queen of Hatred",
                 "Heroes exist to fight evil. In its absence, they must create it.",
                 7, 2, 1, 0,
                 Resources.queenOfHatred, Resources.queenOfHatred_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
-                onePerDeck: true);
+                onePerDeck: true, riskLevel: 4);
         }
     }
 }

@@ -7,9 +7,10 @@ Inspired by KingSlime's own mod of this topic, this is my own take on translatin
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
 This mod currently adds all **84** abnormalities from Lobotomy Corp, as well as:
-* **41** new abilities
+* **41** new abilities (excluding the 3 event-exclusive ones)
 * **15** special abilities
-* 
+* **2** new map nodes
+* A few unique battle events
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1901
@@ -164,7 +165,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on the cards' power level.||
 |Clothes Made of Nettles|When a card bearing this sigil is played, create random Brothers in empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.||
 |Spores|Adjacent cards gain 1 Spore and take damage equal to their Spore at the end of each turn. If a card with Spore is killed, create a Spore Mold Creature in that card's slot whose stats are equal to the card's Spore.||
-|Witness|Activate: Pay 3 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times.||
+|Witness|Activate: Pay 3 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.||
 |Corrector|A card bearing this sigil has its stats changed based on its cost. Higher costs yield higher overall stats.|Yes|
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
 |True Saviour|*My story is nowhere, unknown to all.*|||
@@ -193,7 +194,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |The Lady Facing the Wall|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Punisher|||
 |1.76 MHz|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Leader<br>Annoying|||
 |Singing Machine|0|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Team Leader<br>Aggravating|||
-|The Silent Orchestra|2|5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Conductor|Rare||
+|The Silent Orchestra|2|6|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Conductor|Rare||
 |⤷ Chairs|0|2||Leader|||
 |Warm-Hearted Woodsman|2|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Woodcutter|||
 |The Snow Queen|0|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/r1Q62Ck.png">|Frost Ruler|||

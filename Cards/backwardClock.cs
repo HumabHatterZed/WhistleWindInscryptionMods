@@ -19,14 +19,14 @@ namespace WhistleWindLobotomyMod
                 Trait.DeathcardCreationNonOption
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_backwardClock", "Backward Clock",
                 "A clock to rewind your wasted time. A blatant cheat.",
                 0, 1, 0, 0,
                 Resources.backwardClock, Resources.backwardClock_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                isTerrain: true, isRare: true, onePerDeck: true, isDonator: true);
+                isTerrain: true, isRare: true, onePerDeck: true, isDonator: true, riskLevel: 4);
         }
     }
 }

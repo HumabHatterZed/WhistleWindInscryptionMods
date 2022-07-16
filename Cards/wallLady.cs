@@ -14,15 +14,18 @@ namespace WhistleWindLobotomyMod
             {
                 Punisher.ability
             };
-
-            WstlUtils.Add(
+            List<Trait> traits = new()
+            {
+                Trait.KillsSurvivors
+            };
+            CardHelper.CreateCard(
                 "wstl_wallLady", "The Lady Facing the Wall",
                 "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.",
                 0, 2, 0, 4,
                 Resources.wallLady, Resources.wallLady_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                metaCategories: new(), tribes: new(), traits: traits,
+                isChoice: true, riskLevel: 2);
         }
     }
 }

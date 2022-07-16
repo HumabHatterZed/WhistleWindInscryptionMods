@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Cursed";
             const string rulebookDescription = "When a card bearing this sigil dies, the killer transforms into this card.";
             const string dialogue = "The curse continues unabated.";
-            Cursed.ability = WstlUtils.CreateAbility<Cursed>(
+            Cursed.ability = AbilityHelper.CreateAbility<Cursed>(
                 Resources.sigilCursed,
                 rulebookName, rulebookDescription, dialogue, 0).Id;
         }

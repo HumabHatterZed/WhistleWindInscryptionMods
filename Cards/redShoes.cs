@@ -15,15 +15,14 @@ namespace WhistleWindLobotomyMod
                 Ability.Sharp,
                 Ability.GuardDog
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_redShoes", "Red Shoes",
                 "How pretty. Maybe they'll fit.",
                 0, 3, 1, 0,
                 Resources.redShoes, Resources.redShoes_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 3);
         }
     }
 }

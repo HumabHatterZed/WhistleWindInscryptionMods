@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil dies, all allied creatures gain 2 Health.";
             const string dialogue = "A selfless death to cleanse your beasts of evil.";
 
-            Martyr.ability = WstlUtils.CreateAbility<Martyr>(
+            Martyr.ability = AbilityHelper.CreateAbility<Martyr>(
                 Resources.sigilMartyr,
                 rulebookName, rulebookDescription, dialogue, 3,
                 addModular: true).Id;

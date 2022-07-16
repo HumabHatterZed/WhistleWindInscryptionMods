@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Corrector.ability
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_behaviourAdjustment", "Behaviour Adjustment",
                 "A strange device. It was made to 'fix' any creature. I don't agree with the sentiment.",
                 0, 1, 0, 4,
                 Resources.behaviourAdjustment, Resources.behaviourAdjustment_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 2);
         }
     }
 }

@@ -16,14 +16,14 @@ namespace WhistleWindLobotomyMod
                 Bloodfiend.ability
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_graveOfBlossoms", "Grave of Cherry Blossoms",
                 "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.",
                 0, 2, 1, 0,
                 Resources.graveOfBlossoms, Resources.graveOfBlossoms_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 2);
         }
     }
 }

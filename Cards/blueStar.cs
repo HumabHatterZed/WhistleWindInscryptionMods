@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 Idol.ability
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_blueStar", "Blue Star",
                 "When this is over, let's meet again as stars.",
                 0, 4, 4, 0,
@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 isRare: true, evolveName: "wstl_blueStar2", numTurns: 2,
-                onePerDeck: true);
+                onePerDeck: true, riskLevel: 5);
         }
     }
 }

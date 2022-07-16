@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Ability.StrafeSwap
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_dreamingCurrent", "The Dreaming Current",
                 "A sickly child. Everyday it was fed candy that let it see the ocean.",
                 3, 2, 2, 0,
                 Resources.dreamingCurrent, Resources.dreamingCurrent_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 4);
         }
     }
 }

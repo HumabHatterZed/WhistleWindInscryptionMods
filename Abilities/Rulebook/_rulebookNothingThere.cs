@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Nothing There";
             const string rulebookDescription = "Disguises as past challengers. Reveals itself on death.";
             const string dialogue = "femboy";
-            EntryNothingThere.ability = WstlUtils.CreateAbility<EntryNothingThere>(
+            EntryNothingThere.ability = AbilityHelper.CreateAbility<EntryNothingThere>(
                 Resources.sigilAbnormality,
                 rulebookName, rulebookDescription, dialogue, 0,
                 overrideModular: true).Id;

@@ -18,14 +18,14 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.KillsSurvivors
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_meltingLove", "Melting Love",
                 "Don't let your beasts get too close now.",
                 4, 2, 3, 0,
                 Resources.meltingLove, Resources.meltingLove_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                isRare: true, isDonator: true);
+                isRare: true, isDonator: true, riskLevel: 5);
         }
     }
 }

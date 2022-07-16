@@ -14,14 +14,13 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Insect
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_spiderBrood", "Spider Brood",
                 "Big and mean.",
                 1, 3, 0, 0,
                 Resources.spiderBrood, Resources.spiderBrood_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new());
+                metaCategories: new(), tribes: tribes, traits: new(), riskLevel: 2);
         }
     }
 }

@@ -22,13 +22,13 @@ namespace WhistleWindLobotomyMod
                 Trait.Terrain
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_apostleStaffDown", "Staff Apostle",
                 "The time has come.",
                 0, 6, 0, 0,
                 Resources.apostleStaffDown, Resources.apostleStaffDown_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits);
+                metaCategories: new(), tribes: new(), traits: traits, riskLevel: 5);
         }
     }
 }

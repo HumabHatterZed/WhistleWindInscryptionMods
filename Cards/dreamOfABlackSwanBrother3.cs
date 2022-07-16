@@ -14,14 +14,13 @@ namespace WhistleWindLobotomyMod
             {
                 Reflector.ability
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_dreamOfABlackSwanBrother3", "Third Brother",
                 "What happens when the black swan wakes up from dreaming of a white swan?",
                 0, 3, 1, 0,
                 Resources.dreamOfABlackSwanBrother3, Resources.dreamOfABlackSwanBrother3_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new()
-                );
+                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 4);
         }
     }
 }

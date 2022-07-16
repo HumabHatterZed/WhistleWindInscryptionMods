@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Bloodfiend.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_wisdomScarecrow", "Scarecrow Searching for Wisdom",
                 "A hollow-headed scarecrow. Blood soaks its straw limbs.",
                 1, 2, 0, 5,
                 Resources.wisdomScarecrow, Resources.wisdomScarecrow_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 3);
         }
     }
 }

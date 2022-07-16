@@ -16,14 +16,14 @@ namespace WhistleWindLobotomyMod
                 Ability.BuffEnemy
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_mhz176", "1.76 MHz",
                 "This is a record, a record of a day we must never forget.",
                 0, 3, 1, 0,
                 Resources.mhz176, Resources.mhz176_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 2);
         }
     }
 }

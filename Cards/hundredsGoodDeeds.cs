@@ -21,13 +21,13 @@ namespace WhistleWindLobotomyMod
                 Trait.Terrain
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_hundredsGoodDeeds", "One Sin and Hundreds of Good Deeds",
                 "Its hollow sockets see through you.",
                 0, 777, 0, 0,
                 Resources.hundredsGoodDeeds, Resources.hundredsGoodDeeds_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits);
+                metaCategories: new(), tribes: new(), traits: traits, riskLevel: 1);
         }
     }
 }

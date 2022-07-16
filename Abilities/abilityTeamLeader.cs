@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "While this card is on the board, all ally cards gain 1 Power.";
             const string dialogue = "Your beast emboldens its allies.";
 
-            TeamLeader.ability = WstlUtils.CreateAbility<TeamLeader>(
+            TeamLeader.ability = AbilityHelper.CreateAbility<TeamLeader>(
                 Resources.sigilTeamLeader,
                 rulebookName, rulebookDescription, dialogue, 5).Id;
         }

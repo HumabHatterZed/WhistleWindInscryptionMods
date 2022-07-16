@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Spores.ability
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_theLittlePrince", "The Little Prince",
                 "An aged storyteller. She can tell you any tale, even those that can't exist.",
                 1, 4, 2, 0,
                 Resources.theLittlePrince, Resources.theLittlePrince_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 4);
         }
     }
 }

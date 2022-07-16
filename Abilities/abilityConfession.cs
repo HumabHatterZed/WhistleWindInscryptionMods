@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             string rulebookDescription = ConfigUtils.Instance.RevealWhiteNight ? "Kills the Heretic and creates a special card. If used on the special card, kill WhiteNight, his Apostles, and deal 33 direct damage." : "Activate: Keep faith with unwavering resolve.";
             const string dialogue = "[c:bG]Keep faith with unwavering resolve.[c:]";
 
-            Confession.ability = WstlUtils.CreateActivatedAbility<Confession>(
+            Confession.ability = AbilityHelper.CreateActivatedAbility<Confession>(
                 Resources.sigilConfession,
                 rulebookName, rulebookDescription, dialogue, -3).Id;
         }

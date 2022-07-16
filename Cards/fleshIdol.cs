@@ -16,14 +16,14 @@ namespace WhistleWindLobotomyMod
                 Ability.BuffEnemy
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_fleshIdol", "Flesh Idol",
                 "Prayer inevitably ends with the worshipper's despair.",
                 0, 4, 0, 6,
                 Resources.fleshIdol, Resources.fleshIdol_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 4);
         }
     }
 }

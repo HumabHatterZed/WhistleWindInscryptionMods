@@ -15,13 +15,13 @@ namespace WhistleWindLobotomyMod
                 Tribe.Insect
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_laetitiaFriend", "Little Witch's Friend",
                 "She brought her friends along.",
                 2, 2, 0, 4,
                 Resources.laetitiaFriend, Resources.laetitiaFriend_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new());
+                metaCategories: new(), tribes: tribes, traits: new(), riskLevel: 3);
         }
     }
 }

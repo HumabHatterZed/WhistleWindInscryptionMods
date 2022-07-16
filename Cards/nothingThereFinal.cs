@@ -14,14 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 CardAppearanceBehaviour.Appearance.RareCardBackground
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_nothingThereFinal", "Nothing There",
                 "A grotesque attempt at mimicry. Pray it does not improve its disguise.",
                 9, 9, 4, 0,
                 Resources.nothingThereFinal, Resources.nothingThereFinal_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances);
+                appearances: appearances, riskLevel: 5);
         }
     }
 }

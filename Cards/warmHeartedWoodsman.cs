@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Woodcutter.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_warmHeartedWoodsman", "Warm-Hearted Woodsman",
                 "A tin woodsman on the search for a heart. Perhaps you can give him yours.",
                 2, 3, 2, 0,
                 Resources.warmHeartedWoodsman, Resources.warmHeartedWoodsman_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 3);
         }
     }
 }

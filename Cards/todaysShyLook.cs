@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 TodaysShyLook.specialAbility
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_todaysShyLook", "Today's Shy Look",
                 "A shy creature that's always changing her expression.",
                 1, 2, 1, 0,
                 Resources.todaysShyLook, Resources.todaysShyLook_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 2);
         }
     }
 }

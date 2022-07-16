@@ -14,20 +14,18 @@ namespace WhistleWindLobotomyMod
             {
                 QueenNest.ability
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Insect
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_queenBee", "Queen Bee",
                 "A monstrous amalgam of a hive and a bee.",
                 0, 5, 2, 0,
                 Resources.queenBee, Resources.queenBee_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 4);
         }
     }
 }

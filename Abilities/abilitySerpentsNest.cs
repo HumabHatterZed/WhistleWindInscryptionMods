@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.";
             const string dialogue = "The infection spreads.";
 
-            SerpentsNest.ability = WstlUtils.CreateAbility<SerpentsNest>(
+            SerpentsNest.ability = AbilityHelper.CreateAbility<SerpentsNest>(
                 Resources.sigilSerpentsNest,
                 rulebookName, rulebookDescription, dialogue, 4,
                 addModular: true).Id;

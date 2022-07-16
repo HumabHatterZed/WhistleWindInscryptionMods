@@ -19,14 +19,14 @@ namespace WhistleWindLobotomyMod
                 SpecialAbilityFledgling.specialAbility
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_magicalGirlDiamond", "Magical Girl",
                 "Greed hardened into golden amber, trapping the happiness inside.",
                 0, 3, 2, 0,
                 Resources.magicalGirlDiamond, Resources.magicalGirlDiamond_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, evolveName: "wstl_kingOfGreed", onePerDeck: true);
+                isChoice: true, evolveName: "wstl_kingOfGreed", onePerDeck: true, riskLevel: 4);
         }
     }
 }

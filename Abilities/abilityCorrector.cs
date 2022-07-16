@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Corrector";
             const string rulebookDescription = "A card bearing this sigil has its stats changed based on its cost. Higher costs yield higher overall stats.";
             const string dialogue = "How balanced.";
-            Corrector.ability = WstlUtils.CreateAbility<Corrector>(
+            Corrector.ability = AbilityHelper.CreateAbility<Corrector>(
                 Resources.sigilCorrector,
                 rulebookName, rulebookDescription, dialogue, 2,
                 addModular: true).Id;

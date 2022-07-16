@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Giant Tree Sap";
             const string rulebookDescription = "Has a chance to cause the sacrificed card to explode when sacrificed.";
             const string dialogue = "femboy";
-            EntryGiantTreeSap.ability = WstlUtils.CreateAbility<EntryGiantTreeSap>(
+            EntryGiantTreeSap.ability = AbilityHelper.CreateAbility<EntryGiantTreeSap>(
                 Resources.sigilAbnormality,
                 rulebookName, rulebookDescription, dialogue, 0,
                 overrideModular: true).Id;

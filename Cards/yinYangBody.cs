@@ -10,7 +10,7 @@ namespace WhistleWindLobotomyMod
     {
         private void YinYangBody_O07103()
         {
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_yinYangBody", "",
                 "Now you become [c:bR]the sky[c:], and I the land.",
                 0, 101, 0, 0,

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When this card dies, adjacent and opposing cards are dealt 10 damage.";
             const string dialogue = "An explosive finish.";
 
-            Volatile.ability = WstlUtils.CreateAbility<Volatile>(
+            Volatile.ability = AbilityHelper.CreateAbility<Volatile>(
                 Resources.sigilVolatile,
                 rulebookName, rulebookDescription, dialogue, 0,
                 addModular: true).Id;

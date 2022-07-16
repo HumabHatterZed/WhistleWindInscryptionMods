@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Ability.StrafeSwap
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_kingOfGreed", "The King of Greed",
                 "An aged storyteller. She can tell you any tale, even those that can't exist.",
                 4, 5, 2, 0,
                 Resources.kingOfGreed, Resources.kingOfGreed_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                onePerDeck: true);
+                onePerDeck: true, riskLevel: 4);
         }
     }
 }

@@ -22,13 +22,13 @@ namespace WhistleWindLobotomyMod
                 Trait.Terrain
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_apostleScythe", "Scythe Apostle",
                 "The time has come.",
                 3, 6, 0, 0,
                 Resources.apostleScythe, Resources.apostleScythe_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits);
+                metaCategories: new(), tribes: new(), traits: traits, riskLevel: 5);
         }
     }
 }

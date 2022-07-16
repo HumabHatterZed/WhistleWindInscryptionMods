@@ -10,13 +10,13 @@ namespace WhistleWindLobotomyMod
     {
         private void CENSOREDMinion_O0389()
         {
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_censoredMinion", "CENSORED",
                 "I think it's best you don't know what it looks like.",
                 1, 1, 0, 0,
                 Resources.censoredMinion, Resources.censoredMinion_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 5);
         }
     }
 }

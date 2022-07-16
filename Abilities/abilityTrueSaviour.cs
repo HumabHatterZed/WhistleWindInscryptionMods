@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             string rulebookDescription = ConfigUtils.Instance.RevealWhiteNight ? "Cannot die. Transforms non-Terrain and non-Pelt cards into Apostles." : "My story is nowhere, unknown to all.";
             const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
 
-            TrueSaviour.ability = WstlUtils.CreateAbility<TrueSaviour>(
+            TrueSaviour.ability = AbilityHelper.CreateAbility<TrueSaviour>(
                 Resources.sigilTrueSaviour,
                 rulebookName, rulebookDescription, dialogue, -3,
                 overrideModular: true).Id;

@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Courageous.ability
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_crumblingArmour", "Crumbling Armour",
                 "A suit of armour that rewards the brave.",
                 0, 4, 0, 6,
                 Resources.crumblingArmour, Resources.crumblingArmour_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 2);
         }
     }
 }

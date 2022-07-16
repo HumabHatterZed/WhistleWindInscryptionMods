@@ -10,13 +10,13 @@ namespace WhistleWindLobotomyMod
     {
         private void TheLittlePrinceMinion_O0466()
         {
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_theLittlePrinceMinion", "Spore Mold Creature",
                 "An aged storyteller. She can tell you any tale, even those that can't exist.",
                 0, 0, 0, 0,
                 Resources.theLittlePrinceMinion, Resources.theLittlePrinceMinion_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 4);
         }
     }
 }

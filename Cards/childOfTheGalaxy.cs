@@ -16,14 +16,14 @@ namespace WhistleWindLobotomyMod
                 Ability.BoneDigger
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_childOfTheGalaxy", "Child of the Galaxy",
                 "The longing becomes a tear, and cascades down like a shooting star.",
                 1, 4, 2, 0,
                 Resources.childOfTheGalaxy, Resources.childOfTheGalaxy_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 3);
         }
     }
 }

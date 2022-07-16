@@ -70,12 +70,6 @@ namespace WhistleWindLobotomyMod
             Config_Blessings = WstlConfigFile.Bind(
                     pluginName, "NUMBER OF BLESSINGS", 0);
         }
-        /*
-        internal void BindValues()
-        {
-
-        }
-        */
         public void UpdateBlessings(int value)
         {
             Config_Blessings.Value += value;

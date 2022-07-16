@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Nothing";
             const string rulebookDescription = "Reveals itself on death. Changes formes on upkeep.";
-            NothingThere.specialAbility = WstlUtils.CreateSpecialAbility<NothingThere>(rulebookName, rulebookDescription).Id;
+            NothingThere.specialAbility = AbilityHelper.CreateSpecialAbility<NothingThere>(rulebookName, rulebookDescription).Id;
         }
     }
     public class NothingThere : SpecialCardBehaviour

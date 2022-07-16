@@ -15,15 +15,14 @@ namespace WhistleWindLobotomyMod
                 Marksman.ability,
                 BitterEnemies.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_redHoodedMercenary", "Little Red Riding Hooded Mercenary",
                 "A skilled mercenary with a bloody vendetta. Perhaps you'll help her sate it.",
                 2, 3, 2, 0,
                 Resources.redHoodedMercenary, Resources.redHoodedMercenary_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 4);
         }
     }
 }

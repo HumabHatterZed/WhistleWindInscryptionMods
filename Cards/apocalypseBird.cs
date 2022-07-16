@@ -25,14 +25,14 @@ namespace WhistleWindLobotomyMod
                 CardAppearanceBehaviour.Appearance.RareCardBackground
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_apocalypseBird", "Apocalypse Bird",
                 "There was no moon, no stars. Just a bird, alone in the Black Forest.",
                 10, 3, 4, 0,
                 Resources.apocalypseBird, Resources.apocalypseBird_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                appearances: appearances, onePerDeck: true);
+                appearances: appearances, onePerDeck: true, riskLevel: 5);
         }
     }
 }

@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Alchemist.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_oldFaithAndPromise", "Old Faith and Promise",
                 "A mysterious marble. Use it without desire or expectation, and you may be rewarded.",
                 0, 1, 0, 2,
                 Resources.oldFaithAndPromise, Resources.oldFaithAndPromise_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 1);
         }
     }
 }

@@ -14,19 +14,18 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Deathtouch
             };
-
             List<Trait> traits = new()
             {
                 Trait.KillsSurvivors
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_porccubus", "Porccubus",
                 "A prick of its quills creates a deadly euphoria.",
                 1, 2, 0, 5,
                 Resources.porccubus, Resources.porccubus_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                isChoice: true);
+                isChoice: true, riskLevel: 3);
         }
     }
 }

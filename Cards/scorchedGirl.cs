@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Volatile.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_scorchedGirl", "Scorched Girl",
                 "Though there's nothing left to burn, the fire won't go out.",
                 1, 1, 0, 3,
                 Resources.scorchedGirl, Resources.scorchedGirl_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 2);
         }
     }
 }

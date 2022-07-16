@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Stat changes persist until battle's end.";
             const string dialogue = "Life is only given to those who don't fear death.";
 
-            Courageous.ability = WstlUtils.CreateAbility<Courageous>(
+            Courageous.ability = AbilityHelper.CreateAbility<Courageous>(
                 Resources.sigilCourageous,
                 rulebookName, rulebookDescription, dialogue, 3).Id;
         }

@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Bloodbath";
             const string rulebookDescription = "Reacts to other cards being sacrificed.";
-            BloodBath.specialAbility = WstlUtils.CreateSpecialAbility<BloodBath>(rulebookName, rulebookDescription).Id;
+            BloodBath.specialAbility = AbilityHelper.CreateSpecialAbility<BloodBath>(rulebookName, rulebookDescription).Id;
         }
     }
 

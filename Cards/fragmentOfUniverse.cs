@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Piercing.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_fragmentOfUniverse", "Fragment of the Universe",
                 "You see a song in front of you. It's approaching, becoming more colorful by the second.",
                 1, 2, 1, 0,
                 Resources.fragmentOfUniverse, Resources.fragmentOfUniverse_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 2);
         }
     }
 }

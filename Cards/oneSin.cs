@@ -14,14 +14,13 @@ namespace WhistleWindLobotomyMod
             {
                 Martyr.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_oneSin", "One Sin and Hundreds of Good Deeds",
                 "Its hollow sockets see through you.",
                 0, 1, 0, 2,
                 Resources.oneSin, Resources.oneSin_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 1);
         }
     }
 }

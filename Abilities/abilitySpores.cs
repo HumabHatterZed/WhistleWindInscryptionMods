@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Spores";
             const string rulebookDescription = "Adjacent cards gain 1 Spore and take damage equal to their Spore at the end of each turn. If a card with Spore is killed, create a Spore Mold Creature in that card's slot whose stats are equal to the card's Spore.";
             const string dialogue = "Even if this turns to be a curse, they will love this curse like a blessing.";
-            Spores.ability = WstlUtils.CreateAbility<Spores>(
+            Spores.ability = AbilityHelper.CreateAbility<Spores>(
                 Resources.sigilSpores,
                 rulebookName, rulebookDescription, dialogue, 2).Id;
         }

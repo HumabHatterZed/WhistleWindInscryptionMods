@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card moves into the space opposing this card, deal 1 damage.";
             const string dialogue = "The early bird gets the worm.";
 
-            QuickDraw.ability = WstlUtils.CreateAbility<QuickDraw>(
+            QuickDraw.ability = AbilityHelper.CreateAbility<QuickDraw>(
                 Resources.sigilQuickDraw,
                 rulebookName, rulebookDescription, dialogue, 3).Id;
         }

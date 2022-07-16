@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Shy";
             const string rulebookDescription = "Switches formes when drawn.";
-            TodaysShyLook.specialAbility = WstlUtils.CreateSpecialAbility<TodaysShyLook>(rulebookName, rulebookDescription).Id;
+            TodaysShyLook.specialAbility = AbilityHelper.CreateSpecialAbility<TodaysShyLook>(rulebookName, rulebookDescription).Id;
         }
     }
     public class TodaysShyLook : SpecialCardBehaviour

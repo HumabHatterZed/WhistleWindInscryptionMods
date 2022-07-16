@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Adjacent cards gain 1 Health at the end of the opponent's turn.";
             const string dialogue = "Wounds heal, but the scars remain.";
 
-            Regenerator.ability = WstlUtils.CreateAbility<Regenerator>(
+            Regenerator.ability = AbilityHelper.CreateAbility<Regenerator>(
                 Resources.sigilRegenerator,
                 rulebookName, rulebookDescription, dialogue, 3).Id;
         }

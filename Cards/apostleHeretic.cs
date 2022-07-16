@@ -21,13 +21,13 @@ namespace WhistleWindLobotomyMod
                 Trait.Terrain
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_apostleHeretic", "Heretic",
                 "The time has come.",
                 0, 7, 0, 0,
                 Resources.apostleHeretic, Resources.apostleHeretic_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits);
+                metaCategories: new(), tribes: new(), traits: traits, riskLevel: 1);
         }
     }
 }

@@ -15,13 +15,13 @@ namespace WhistleWindLobotomyMod
                 Slime.ability
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_meltingLoveMinion", "Slime",
                 "Don't let your beasts get too close now.",
                 0, 0, 0, 0,
                 Resources.meltingLoveMinion, Resources.meltingLoveMinion_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 5);
         }
     }
 }

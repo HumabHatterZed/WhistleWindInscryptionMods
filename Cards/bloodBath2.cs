@@ -20,13 +20,13 @@ namespace WhistleWindLobotomyMod
                 BloodBath.specialAbility
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_bloodBath2", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
                 0, 3, 2, 0,
                 Resources.bloodBath2, Resources.bloodBath2_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 2);
         }
     }
 }

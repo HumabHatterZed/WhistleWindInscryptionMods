@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "SpecialAbilityFledgling";
             const string rulebookDescription = "Special ability version of Fledgling for certain cards.";
-            SpecialAbilityFledgling.specialAbility = WstlUtils.CreateSpecialAbility<SpecialAbilityFledgling>(rulebookName, rulebookDescription).Id;
+            SpecialAbilityFledgling.specialAbility = AbilityHelper.CreateSpecialAbility<SpecialAbilityFledgling>(rulebookName, rulebookDescription).Id;
         }
     }
     public class SpecialAbilityFledgling : SpecialCardBehaviour

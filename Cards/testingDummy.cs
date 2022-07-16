@@ -12,15 +12,13 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                TheTrain.ability
-            };
 
+            };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
 
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
                 0, 1, 0, 0,

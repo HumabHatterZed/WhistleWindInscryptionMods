@@ -19,14 +19,14 @@ namespace WhistleWindLobotomyMod
             {
                 CardAppearanceBehaviour.Appearance.TerrainBackground
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_singingMachine", "Singing Machine",
                 "A wind-up music machine. The song it plays is to die for.",
                 0, 4, 2, 0,
                 Resources.singingMachine, Resources.singingMachine,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, isChoice: true);
+                appearances: appearances, isChoice: true, riskLevel: 3);
         }
     }
 }

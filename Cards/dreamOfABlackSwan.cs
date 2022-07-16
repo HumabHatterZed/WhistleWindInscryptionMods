@@ -18,14 +18,14 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Bird
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_dreamOfABlackSwan", "Dream of a Black Swan",
                 "What happens when the black swan wakes up from dreaming of a white swan?",
                 2, 5, 3, 0,
                 Resources.dreamOfABlackSwan, Resources.dreamOfABlackSwan_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isRare: true);
+                isRare: true, riskLevel: 4);
         }
     }
 }

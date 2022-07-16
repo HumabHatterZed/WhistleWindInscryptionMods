@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "While this card is on the board, all opposing cards gain 1 Power.";
             const string dialogue = "The presence of your creature drives my beasts to bloodlust.";
 
-            Aggravating.ability = WstlUtils.CreateAbility<Aggravating>(
+            Aggravating.ability = AbilityHelper.CreateAbility<Aggravating>(
                 Resources.sigilAggravating,
                 rulebookName, rulebookDescription, dialogue, -3).Id;
         }

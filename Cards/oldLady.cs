@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.DebuffEnemy
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_oldLady", "Old Lady",
                 "An aged storyteller. She can tell you any tale, even those that can't exist.",
                 1, 2, 0, 2,
                 Resources.oldLady, Resources.oldLady_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 2);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace WhistleWindLobotomyMod
     {
         private void SnowQueenIceBlock_F0137()
         {
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_snowQueenIceBlock", "Block of Ice",
                 "The palace was cold and lonely.",
                 0, 1, 0, 0,

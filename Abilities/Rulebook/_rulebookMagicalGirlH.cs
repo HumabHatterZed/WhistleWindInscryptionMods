@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Magical Girl H";
             const string rulebookDescription = "Keeps track of card deaths for each side. Transforms when the difference between these amounts is two or greater.";
             const string dialogue = "femboy";
-            EntryMagicalGirlH.ability = WstlUtils.CreateAbility<EntryMagicalGirlH>(
+            EntryMagicalGirlH.ability = AbilityHelper.CreateAbility<EntryMagicalGirlH>(
                 Resources.sigilAbnormality,
                 rulebookName, rulebookDescription, dialogue, 0,
                 overrideModular: true).Id;

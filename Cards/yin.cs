@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Ability.Submerge,
                 Ability.Strafe
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_yin", "Yin",
                 "Now you become [c:bR]the sky[c:], and I the land.",
                 2, 3, 2, 0,
                 Resources.yin, Resources.yin_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                onePerDeck: true);
+                onePerDeck: true, riskLevel: 4);
         }
     }
 }

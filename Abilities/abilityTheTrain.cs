@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Pay 12 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.";
             const string dialogue = "The train boards those that don't step away from the tracks.";
 
-            TheTrain.ability = WstlUtils.CreateActivatedAbility<TheTrain>(
+            TheTrain.ability = AbilityHelper.CreateActivatedAbility<TheTrain>(
                 Resources.sigilTheTrain,
                 rulebookName, rulebookDescription, dialogue, 5).Id;
         }

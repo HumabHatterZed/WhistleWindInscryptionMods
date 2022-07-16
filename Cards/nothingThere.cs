@@ -22,15 +22,14 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.DeathcardCreationNonOption
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_nothingThere", "Yumi",
                 "I don't remember this challenger...",
                 1, 1, 2, 0,
                 Resources.nothingThere, Resources.nothingThere_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,
-                isRare: true, onePerDeck: true);
+                isRare: true, onePerDeck: true, riskLevel: 5);
         }
     }
 }

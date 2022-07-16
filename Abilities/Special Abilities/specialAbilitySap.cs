@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Sap";
             const string rulebookDescription = "May react to being sacrificed.";
-            GiantTreeSap.specialAbility = WstlUtils.CreateSpecialAbility<GiantTreeSap>(rulebookName, rulebookDescription).Id;
+            GiantTreeSap.specialAbility = AbilityHelper.CreateSpecialAbility<GiantTreeSap>(rulebookName, rulebookDescription).Id;
         }
     }
     public class GiantTreeSap : SpecialCardBehaviour
@@ -25,6 +25,16 @@ namespace WhistleWindLobotomyMod
         private readonly string dialogue = "A strange gurgling sound comes from your beast's stomach.";
         private int sacrificeCount;
 
+        public override bool RespondsToResolveOnBoard()
+        {
+            return true;
+        }
+        public override IEnumerator OnResolveOnBoard()
+        {
+            base.PlayableCard.Status.hiddenAbilities.Add(Ability.Sacrificial);
+            base.PlayableCard.AddTemporaryMod(new CardModificationInfo(Ability.Sacrificial));
+            yield break;
+        }
         public override bool RespondsToSacrifice()
         {
             return true;

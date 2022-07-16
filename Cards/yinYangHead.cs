@@ -14,14 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 SpecialAbilityFledgling.specialAbility
             };
-            WstlUtils.Add(
-                "wstl_yinYangHead", "The Dragon",
+            CardHelper.CreateCard(
+                "wstl_yinYangHead", "",
                 "Now you become [c:bR]the sky[c:], and I the land.",
                 0, 101, 0, 0,
                 Resources.yinYangHead, Resources.yinYangHead_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                hideStats: true);
+                hideStats: true, riskLevel: 5);
         }
     }
 }
