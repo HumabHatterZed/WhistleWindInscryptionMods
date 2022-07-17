@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override int BonesCost => 3;
+        public override int BonesCost => 2;
 
         private CardSlot targetedSlot = null;
         private string invalidDialogue;

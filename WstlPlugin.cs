@@ -218,19 +218,19 @@ namespace WhistleWindLobotomyMod
         }
         private void AddStarterDecks()
         {
-            StarterDeckHelper.AddStartDeck("The Control Department", Resources.starterDeckBlackForest, new()
+            StarterDeckHelper.AddStartDeck("The Control Department", Resources.starterDeckControl, new()
             {
                 CardLoader.GetCardByName("wstl_oneSin"),
                 CardLoader.GetCardByName("wstl_fairyFestival"),
                 CardLoader.GetCardByName("wstl_oldLady")
             }, 0);
-            StarterDeckHelper.AddStartDeck("The Way Home", Resources.starterDeckBlackForest, new()
+            StarterDeckHelper.AddStartDeck("The Way Home", Resources.starterDeckFairyTale, new()
             {
                 CardLoader.GetCardByName("wstl_wisdomScarecrow"),
                 CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
                 CardLoader.GetCardByName("WolfCub")
             }, 4);
-            StarterDeckHelper.AddStartDeck("Magical Girls!", Resources.starterDeckBlackForest, new()
+            StarterDeckHelper.AddStartDeck("Magical Girls!", Resources.starterDeckMagicalGirls, new()
             {
                 CardLoader.GetCardByName("wstl_magicalGirlHeart"),
                 CardLoader.GetCardByName("wstl_magicalGirlDiamond"),

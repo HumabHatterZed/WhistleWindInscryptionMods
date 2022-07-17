@@ -3273,6 +3273,36 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] starterDeckControl {
+            get {
+                object obj = ResourceManager.GetObject("starterDeckControl", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] starterDeckFairyTale {
+            get {
+                object obj = ResourceManager.GetObject("starterDeckFairyTale", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] starterDeckMagicalGirls {
+            get {
+                object obj = ResourceManager.GetObject("starterDeckMagicalGirls", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] testingDummy {
             get {
                 object obj = ResourceManager.GetObject("testingDummy", resourceCulture);

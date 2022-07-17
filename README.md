@@ -165,7 +165,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on the cards' power level.||
 |Clothes Made of Nettles|When a card bearing this sigil is played, create random Brothers in empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.||
 |Spores|Adjacent cards gain 1 Spore and take damage equal to their Spore at the end of each turn. If a card with Spore is killed, create a Spore Mold Creature in that card's slot whose stats are equal to the card's Spore.||
-|Witness|Activate: Pay 3 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.||
+|Witness|Activate: Pay 2 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.||
 |Corrector|A card bearing this sigil has its stats changed based on its cost. Higher costs yield higher overall stats.|Yes|
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
 |True Saviour|*My story is nowhere, unknown to all.*|||

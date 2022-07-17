@@ -1081,6 +1081,15 @@
   <data name="starterDeckBlackForest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\starterDeckBlackForest.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="starterDeckControl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\starterDeckControl.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="starterDeckFairyTale" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\starterDeckFairyTale.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="starterDeckMagicalGirls" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\starterDeckMagicalGirls.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="testingDummy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\testingDummy.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
