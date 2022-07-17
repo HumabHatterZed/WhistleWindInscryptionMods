@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 0, 2, 0, 0,
                 Resources.silentEnsemble, Resources.silentEnsemble_emission,
                 abilities: abilities, specialAbilities: new(),
-                tribes: new(), riskLevel: 3);
+                tribes: new());
         }
     }
 }

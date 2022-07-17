@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private string altDialogue = "Not enough space for the vines to grow.";
+        private readonly string altDialogue = "Not enough space for the vines to grow.";
 
         public override bool RespondsToResolveOnBoard()
         {

@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 0, 2, 1, 0,
                 Resources.dreamOfABlackSwanBrother5, Resources.dreamOfABlackSwanBrother5_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 4);
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

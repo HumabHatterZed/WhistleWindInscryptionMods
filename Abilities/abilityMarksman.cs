@@ -26,7 +26,6 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
         private bool IsDevil => base.Card.Info.name.ToLowerInvariant().Contains("derfreischutz");
-        private bool IsJudge => base.Card.Info.name.ToLowerInvariant().Contains("judgementbird");
 
         private readonly string freischutzDialogue = "The Devil proposed a childist contract.";
         private readonly string freischutzDialogue2 = "The seventh bullet would pierce the heart of his most beloved.";

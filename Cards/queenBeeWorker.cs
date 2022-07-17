@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 Resources.queenBeeWorker, Resources.queenBeeWorker_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                evolveName: "wstl_queenBee", riskLevel: 3);
+                evolveName: "wstl_queenBee");
         }
     }
 }

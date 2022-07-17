@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 0, 1, 0, 5,
                 Resources.namelessFetusAwake, Resources.namelessFetusAwake,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 3);
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

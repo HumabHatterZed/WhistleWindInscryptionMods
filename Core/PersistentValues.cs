@@ -15,6 +15,14 @@ namespace WhistleWindLobotomyMod
     // Currently only used for special dialogue, will be used for other things/replaced with a better system(s)
     public static partial class PersistentValues
     {
+        #region Mechanics
+        public static bool AbnormalityCardChoice
+        {
+            // Has chosen the abnormality card choice?
+            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "AbnormalityCardChoice"); }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "AbnormalityCardChoice", value); }
+        }
+        #endregion
         #region Plague Doctor
         public static bool ClockThisRun
         {

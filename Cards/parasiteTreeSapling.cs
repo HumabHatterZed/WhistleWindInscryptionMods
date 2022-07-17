@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 0, 2, 0, 0,
                 Resources.parasiteTreeSapling, Resources.parasiteTreeSapling_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 3);
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

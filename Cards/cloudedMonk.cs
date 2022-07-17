@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 4, 2, 3, 0,
                 Resources.cloudedMonk, Resources.cloudedMonk_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 4);
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

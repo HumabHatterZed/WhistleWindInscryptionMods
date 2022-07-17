@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 1, 2, 1, 0,
                 Resources.todaysShyLook, Resources.todaysShyLook_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 2);
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

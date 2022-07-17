@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod
                 Resources.nothingThereEgg, Resources.nothingThereEgg_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, evolveName: "wstl_nothingThereFinal", riskLevel: 5);
+                appearances: appearances, evolveName: "wstl_nothingThereFinal");
         }
     }
 }

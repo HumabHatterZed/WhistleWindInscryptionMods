@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 3, 3, 3, 0,
                 Resources.bloodBath3, Resources.bloodBath3_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 2);
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

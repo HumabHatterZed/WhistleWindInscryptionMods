@@ -29,12 +29,12 @@ namespace WhistleWindLobotomyMod
         private readonly string altDialogue2 = "She fell to the ground, vomiting ooze like the rest of [c:bR]the City[c:].";
         private readonly string altDialogue3 = "The lake ripples gently. As if a number of swans just took flight.";
 
-        private CardModificationInfo mod1 = new(Ability.DoubleStrike);
-        private CardModificationInfo mod2 = new(1,0);
-        private CardModificationInfo mod3 = new(Reflector.ability);
-        private CardModificationInfo mod4 = new(Ability.Deathtouch);
-        private CardModificationInfo mod5 = new(Ability.Sharp);
-        private CardModificationInfo mod6 = new(Ability.DebuffEnemy);
+        private readonly CardModificationInfo mod1 = new(Ability.DoubleStrike);
+        private readonly CardModificationInfo mod2 = new(1,0);
+        private readonly CardModificationInfo mod3 = new(Reflector.ability);
+        private readonly CardModificationInfo mod4 = new(Ability.Deathtouch);
+        private readonly CardModificationInfo mod5 = new(Ability.Sharp);
+        private readonly CardModificationInfo mod6 = new(Ability.DebuffEnemy);
         public override bool RespondsToResolveOnBoard()
         {
             return true;

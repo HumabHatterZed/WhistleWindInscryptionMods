@@ -122,7 +122,7 @@ namespace WhistleWindLobotomyMod
 			int randomSeed = Environment.TickCount;
 			CardInfo disguise = ((list.Count <= 0) ? CardLoader.GetCardByName("wstl_nothingThere") : list[SeededRandom.Range(0, list.Count, randomSeed)]);
 
-			CardModificationInfo cardModificationInfo = new CardModificationInfo();
+			CardModificationInfo cardModificationInfo = new();
 			cardModificationInfo.singletonId = "wstl_nothingThere";
 			cardModificationInfo.nameReplacement = string.Format(Localization.Translate("{0}?"), disguise.DisplayedNameLocalized);
 			disguise.Mods.Add(cardModificationInfo);

@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod
             int powerLevel = 0) where T : ActivatedAbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            Texture2D tex = TextureHelper.LoadTextureFromResource(texture);
+            Texture2D tex = WstlTextureHelper.LoadTextureFromResource(texture);
             List<AbilityMetaCategory> list = new() { AbilityMetaCategory.Part1Rulebook };
             info.rulebookName = rulebookName;
             info.rulebookDescription = rulebookDescription;
@@ -54,9 +54,9 @@ namespace WhistleWindLobotomyMod
             where T:AbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            Texture2D tex = TextureHelper.LoadTextureFromResource(texture);
+            Texture2D tex = WstlTextureHelper.LoadTextureFromResource(texture);
             Texture2D flippedTex = null;
-            if (customY != null) { flippedTex = TextureHelper.LoadTextureFromResource(customY); }
+            if (customY != null) { flippedTex = WstlTextureHelper.LoadTextureFromResource(customY); }
             List<AbilityMetaCategory> list = new() { AbilityMetaCategory.Part1Rulebook };
             if ((addModular || ConfigUtils.Instance.AllModular) && !overrideModular)
             {

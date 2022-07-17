@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 3, 6, 0, 0,
                 Resources.apostleScythe, Resources.apostleScythe_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits, riskLevel: 5);
+                metaCategories: new(), tribes: new(), traits: traits);
         }
     }
 }

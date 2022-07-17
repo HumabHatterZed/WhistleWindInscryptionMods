@@ -16,12 +16,10 @@ namespace WhistleWindLobotomyMod
                 Ability.AllStrike,
                 Idol.ability,
             };
-
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 CardAppearanceBehaviour.Appearance.RareCardBackground
             };
-
             CardHelper.CreateCard(
                 "wstl_blueStar2", "Blue Star",
                 "When this is over, let's meet again as stars.",
@@ -29,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 Resources.blueStar, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, onePerDeck: true, riskLevel: 5);
+                appearances: appearances);
         }
     }
 }

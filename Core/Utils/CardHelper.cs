@@ -38,25 +38,25 @@ namespace WhistleWindLobotomyMod
             appearances ??= new();
             decals ??= new();
 
-            Texture2D texture = TextureHelper.LoadTextureFromResource(defaultTexture);
+            Texture2D texture = WstlTextureHelper.LoadTextureFromResource(defaultTexture);
             Texture2D emissionTex = null;
             Texture2D altTex = null;
             Texture2D emissionAltTex = null;
             Texture titleTex = null;
             Texture2D tailTex = null;
 
-            if (emissionTexture != null) { emissionTex = TextureHelper.LoadTextureFromResource(emissionTexture); }
-            if (altTexture != null) { altTex = TextureHelper.LoadTextureFromResource(altTexture); }
-            if (emissionAltTexture != null) { emissionAltTex = TextureHelper.LoadTextureFromResource(emissionAltTexture); }
-            if (titleTexture != null) { titleTex = TextureHelper.LoadTextureFromResource(titleTexture); }
-            if (tailTexture != null) { tailTex = TextureHelper.LoadTextureFromResource(titleTexture); }
+            if (emissionTexture != null) { emissionTex = WstlTextureHelper.LoadTextureFromResource(emissionTexture); }
+            if (altTexture != null) { altTex = WstlTextureHelper.LoadTextureFromResource(altTexture); }
+            if (emissionAltTexture != null) { emissionAltTex = WstlTextureHelper.LoadTextureFromResource(emissionAltTexture); }
+            if (titleTexture != null) { titleTex = WstlTextureHelper.LoadTextureFromResource(titleTexture); }
+            if (tailTexture != null) { tailTex = WstlTextureHelper.LoadTextureFromResource(titleTexture); }
             string risk = riskLevel switch
             {
-                1 => "wstl:ZAYIN",
-                2 => "wstl:TETH",
-                3 => "wstl:HE",
-                4 => "wstl:WAW",
-                5 => "wstl:ALEPH",
+                1 => "Zayin",
+                2 => "Teth",
+                3 => "He",
+                4 => "Waw",
+                5 => "Aleph",
                 _ => null
             };
             CardInfo cardInfo = ScriptableObject.CreateInstance<CardInfo>();
@@ -78,7 +78,7 @@ namespace WhistleWindLobotomyMod
             cardInfo.cardComplexity = CardComplexity.Simple;
             cardInfo.temple = CardTemple.Nature;
             cardInfo.onePerDeck = onePerDeck;
-            cardInfo.SetExtendedProperty("RiskLevel", risk);
+            cardInfo.SetExtendedProperty("wstl:RiskLevel", risk);
             cardInfo.hideAttackAndHealth = hideStats;
             cardInfo.onePerDeck = onePerDeck;
             if (altTex != null) { cardInfo.SetAltPortrait(altTex); }
@@ -108,22 +108,6 @@ namespace WhistleWindLobotomyMod
             if (tailName != null && tailTex != null) { cardInfo.SetTail(tailName, tailTex); }
 
             CardManager.Add(modPrefix, cardInfo);
-        }
-        public static void AddNode()
-        {
-
-        }
-        // Adds AbilityInfo dialogue
-        public static DialogueEvent.LineSet SetAbilityInfoDialogue(string dialogue)
-        {
-            return new DialogueEvent.LineSet(new List<DialogueEvent.Line>()
-                {
-                    new()
-                    {
-                        text = dialogue
-                    }
-                }
-            );
         }
     }
 }

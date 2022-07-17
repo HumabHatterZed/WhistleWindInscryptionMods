@@ -24,8 +24,7 @@ namespace WhistleWindLobotomyMod
                 0, 2, 1, 0,
                 Resources.queenOfHatredTired, Resources.queenOfHatredTired_emission,
                 abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new(),
-                onePerDeck: true, riskLevel: 4);
+                metaCategories: new(), tribes: tribes, traits: new());
         }
     }
 }

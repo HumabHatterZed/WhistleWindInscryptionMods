@@ -21,8 +21,7 @@ namespace WhistleWindLobotomyMod
                 4, 5, 2, 0,
                 Resources.kingOfGreed, Resources.kingOfGreed_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                onePerDeck: true, riskLevel: 4);
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

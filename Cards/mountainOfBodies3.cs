@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 Resources.mountainOfBodies3, Resources.mountainOfBodies3_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, riskLevel: 5);
+                appearances: appearances);
         }
     }
 }

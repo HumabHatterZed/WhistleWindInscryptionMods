@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 2, 2, 2, 0,
                 Resources.voidDreamRooster, Resources.voidDreamRooster_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(), riskLevel: 2);
+                metaCategories: new(), tribes: tribes, traits: new());
         }
     }
 }

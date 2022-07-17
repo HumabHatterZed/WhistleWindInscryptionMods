@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod
                 Resources.apocalypseBird, Resources.apocalypseBird_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                appearances: appearances, onePerDeck: true, riskLevel: 5);
+                appearances: appearances, onePerDeck: true);
         }
     }
 }

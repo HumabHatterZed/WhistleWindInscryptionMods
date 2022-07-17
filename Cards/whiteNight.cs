@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 Resources.whiteNight, Resources.whiteNight_emission, titleTexture: Resources.whiteNight_title,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                onePerDeck: true, riskLevel: 5);
+                onePerDeck: true);
         }
     }
 }

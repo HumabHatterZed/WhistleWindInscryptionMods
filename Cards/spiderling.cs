@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 Resources.spiderling, Resources.spiderling_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                evolveName: "wstl_spiderBrood", riskLevel: 1);
+                evolveName: "wstl_spiderBrood");
         }
     }
 }

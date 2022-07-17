@@ -1493,6 +1493,46 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] nodeAbnormalityCardChoice1 {
+            get {
+                object obj = ResourceManager.GetObject("nodeAbnormalityCardChoice1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] nodeAbnormalityCardChoice2 {
+            get {
+                object obj = ResourceManager.GetObject("nodeAbnormalityCardChoice2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] nodeAbnormalityCardChoice3 {
+            get {
+                object obj = ResourceManager.GetObject("nodeAbnormalityCardChoice3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] nodeAbnormalityCardChoice4 {
+            get {
+                object obj = ResourceManager.GetObject("nodeAbnormalityCardChoice4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] notesFromResearcher {
             get {
                 object obj = ResourceManager.GetObject("notesFromResearcher", resourceCulture);
@@ -2676,6 +2716,16 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] spiderling_emission {
             get {
                 object obj = ResourceManager.GetObject("spiderling_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] starterDeckBlackForest {
+            get {
+                object obj = ResourceManager.GetObject("starterDeckBlackForest", resourceCulture);
                 return ((byte[])(obj));
             }
         }

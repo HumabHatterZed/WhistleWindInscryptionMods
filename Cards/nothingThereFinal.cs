@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 Resources.nothingThereFinal, Resources.nothingThereFinal_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, riskLevel: 5);
+                appearances: appearances);
         }
     }
 }

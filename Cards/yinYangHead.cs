@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 Resources.yinYangHead, Resources.yinYangHead_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                hideStats: true, riskLevel: 5);
+                hideStats: true);
         }
     }
 }

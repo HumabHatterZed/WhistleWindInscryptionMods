@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 2, 2, 0, 4,
                 Resources.laetitiaFriend, Resources.laetitiaFriend_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(), riskLevel: 3);
+                metaCategories: new(), tribes: tribes, traits: new());
         }
     }
 }

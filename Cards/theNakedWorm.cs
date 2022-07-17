@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 1, 1, 0, 0,
                 Resources.theNakedWorm, Resources.theNakedWorm_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 3);
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

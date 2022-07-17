@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 2, 1, 1, 0,
                 Resources.todaysShyLookAngry, Resources.todaysShyLookAngry_emission,
                 abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 2);
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

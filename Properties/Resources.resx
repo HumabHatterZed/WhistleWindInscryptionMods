@@ -547,6 +547,18 @@
   <data name="namelessFetus_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\namelessFetus_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="nodeAbnormalityCardChoice1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nodeAbnormalityCardChoice1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="nodeAbnormalityCardChoice2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nodeAbnormalityCardChoice2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="nodeAbnormalityCardChoice3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nodeAbnormalityCardChoice3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="nodeAbnormalityCardChoice4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nodeAbnormalityCardChoice4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="notesFromResearcher" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\notesFromResearcher.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -903,6 +915,9 @@
   </data>
   <data name="spiderling_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\spiderling_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="starterDeckBlackForest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\starterDeckBlackForest.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="testingDummy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\testingDummy.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 0, 3, 2, 0,
                 Resources.bloodBath2, Resources.bloodBath2_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 2);
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

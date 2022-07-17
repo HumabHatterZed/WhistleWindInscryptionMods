@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 3, 2, 0, 8,
                 Resources.ppodaeBuff, Resources.ppodaeBuff_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(), riskLevel: 2);
+                metaCategories: new(), tribes: tribes, traits: new());
         }
     }
 }

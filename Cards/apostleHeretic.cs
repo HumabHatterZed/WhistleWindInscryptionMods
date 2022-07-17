@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 0, 7, 0, 0,
                 Resources.apostleHeretic, Resources.apostleHeretic_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits, riskLevel: 1);
+                metaCategories: new(), tribes: new(), traits: traits);
         }
     }
 }

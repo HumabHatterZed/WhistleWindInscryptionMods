@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 Resources.knightOfDespair, Resources.knightOfDespair_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, onePerDeck: true, riskLevel: 4);
+                appearances: appearances);
         }
     }
 }
