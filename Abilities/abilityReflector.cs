@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When this card is struck, the striker is dealt damage equal to the striker's Power.";
             const string dialogue = "What goes around comes around.";
             Reflector.ability = AbilityHelper.CreateAbility<Reflector>(
-                Resources.sigilReflector,
-                rulebookName, rulebookDescription, dialogue, 2).Id;
+                Resources.sigilReflector, Resources.sigilReflector_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2).Id;
         }
     }
     public class Reflector : AbilityBehaviour

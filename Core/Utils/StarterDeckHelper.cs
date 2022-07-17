@@ -13,13 +13,13 @@ namespace WhistleWindLobotomyMod
 {
     public static class StarterDeckHelper // Methods specific to getting modded cards
     {
-        public static StarterDeckManager.FullStarterDeck AddStartDeck(string title, byte[] icon, List<CardInfo> cards)
+        public static StarterDeckManager.FullStarterDeck AddStartDeck(string title, byte[] icon, List<CardInfo> cards, int unlockLevel = 0)
         {
-            StarterDeckInfo starterDeckInfo = new();
+            StarterDeckInfo starterDeckInfo = ScriptableObject.CreateInstance<StarterDeckInfo>();
             starterDeckInfo.title = title;
-            starterDeckInfo.iconSprite = WstlTextureHelper.LoadSpriteFromResource(icon, true);
+            starterDeckInfo.iconSprite = WstlTextureHelper.LoadSpriteFromResource(icon, 0);
             starterDeckInfo.cards = cards;
-            return StarterDeckManager.Add("wstl", starterDeckInfo);
+            return StarterDeckManager.Add("wstl", starterDeckInfo, unlockLevel);
         }
     }
 }

@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "A slow and painful death.";
 
             Burning.ability = AbilityHelper.CreateAbility<Burning>(
-                Resources.sigilBurning,
-                rulebookName, rulebookDescription, dialogue, 2,
+                Resources.sigilBurning, Resources.sigilBurning_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true).Id;
         }
     }

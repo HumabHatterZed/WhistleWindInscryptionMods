@@ -23,40 +23,42 @@ namespace WhistleWindLobotomyMod
         }
         // Activated Ability
         public static AbilityManager.FullAbility CreateActivatedAbility<T>(
-            byte[] texture,
-            string rulebookName, string rulebookDescription, string dialogue,
-            int powerLevel = 0) where T : ActivatedAbilityBehaviour
+            byte[] texture, byte[] gbcTexture,
+            string rulebookName, string rulebookDescription,
+            string dialogue, int powerLevel = 0) where T : ActivatedAbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             Texture2D tex = WstlTextureHelper.LoadTextureFromResource(texture);
-            List<AbilityMetaCategory> list = new() { AbilityMetaCategory.Part1Rulebook };
+            Texture2D gbcTex = WstlTextureHelper.LoadTextureFromResource(gbcTexture);
+            info.SetPixelAbilityIcon(gbcTex);
             info.rulebookName = rulebookName;
             info.rulebookDescription = rulebookDescription;
+            info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
             info.powerLevel = powerLevel;
+            info.activated = true;
             info.passive = false;
             info.canStack = false;
             info.opponentUsable = false;
             info.flipYIfOpponent = false;
-            info.activated = true;
-            info.metaCategories = list;
-            info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
+            info.metaCategories = new() { AbilityMetaCategory.Part1Rulebook };
 
             return AbilityManager.Add(modPrefix, info, typeof(T), tex);
         }
         // Ability
         public static AbilityManager.FullAbility CreateAbility<T>(
-            byte[] texture,
-            string rulebookName, string rulebookDescription, string dialogue,
-            int powerLevel = 0,
-            bool addModular = false, bool isPassive = false, bool canStack = false,
-            bool opponent = false, bool flipY = false, byte[] customY = null,
+            byte[] texture, byte[] gbcTexture,
+            string rulebookName, string rulebookDescription,
+            string dialogue, int powerLevel = 0,
+            bool addModular = false, bool isPassive = false,
+            bool canStack = false, bool opponent = false,
+            bool flipY = false, byte[] customY = null,
             bool overrideModular = false)
             where T:AbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             Texture2D tex = WstlTextureHelper.LoadTextureFromResource(texture);
-            Texture2D flippedTex = null;
-            if (customY != null) { flippedTex = WstlTextureHelper.LoadTextureFromResource(customY); }
+            Texture2D flippedTex = customY != null ? WstlTextureHelper.LoadTextureFromResource(customY) : null;
+            Texture2D gbcTex = gbcTexture != null ? WstlTextureHelper.LoadTextureFromResource(gbcTexture) : null;
             List<AbilityMetaCategory> list = new() { AbilityMetaCategory.Part1Rulebook };
             if ((addModular || ConfigUtils.Instance.AllModular) && !overrideModular)
             {
@@ -73,7 +75,7 @@ namespace WhistleWindLobotomyMod
             info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
             info.activated = false;
             if (flippedTex != null) { info.SetCustomFlippedTexture(flippedTex); }
-
+            if (gbcTex != null) { info.SetPixelAbilityIcon(gbcTex); }
             return AbilityManager.Add(modPrefix, info, typeof(T), tex);
         }
         // Adds AbilityInfo dialogue

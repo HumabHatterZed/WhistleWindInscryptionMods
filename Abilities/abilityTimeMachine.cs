@@ -19,8 +19,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Close your eyes, and count to ten.";
 
             TimeMachine.ability = AbilityHelper.CreateActivatedAbility<TimeMachine>(
-                Resources.sigilTimeMachine,
-                rulebookName, rulebookDescription, dialogue, 5).Id;
+                Resources.sigilTimeMachine, Resources.sigilTimeMachine_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }
     public class TimeMachine : ActivatedAbilityBehaviour

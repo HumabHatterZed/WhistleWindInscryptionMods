@@ -18,8 +18,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The train boards those that don't step away from the tracks.";
 
             TheTrain.ability = AbilityHelper.CreateActivatedAbility<TheTrain>(
-                Resources.sigilTheTrain,
-                rulebookName, rulebookDescription, dialogue, 5).Id;
+                Resources.sigilTheTrain, Resources.sigilTheTrain_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }
     public class TheTrain : ActivatedAbilityBehaviour

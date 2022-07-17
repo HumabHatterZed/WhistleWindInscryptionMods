@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:bR]";
 
             Apostle.ability = AbilityHelper.CreateAbility<Apostle>(
-                Resources.sigilApostle,
-                rulebookName, rulebookDescription, dialogue, -3,
+                Resources.sigilApostle, Resources.sigilApostle_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 overrideModular: true).Id;
         }
     }

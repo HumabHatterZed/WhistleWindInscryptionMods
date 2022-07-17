@@ -17,8 +17,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "A gift for you.";
 
             GiftGiver.ability = AbilityHelper.CreateAbility<GiftGiver>(
-                Resources.sigilGiftGiver,
-                rulebookName, rulebookDescription, dialogue, 3).Id;
+                Resources.sigilGiftGiver, Resources.sigilGiftGiver_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
     public class GiftGiver : AbilityBehaviour

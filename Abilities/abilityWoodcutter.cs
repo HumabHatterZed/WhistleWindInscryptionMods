@@ -15,8 +15,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "No matter how many trees fall, the forest remains dense.";
 
             Woodcutter.ability = AbilityHelper.CreateAbility<Woodcutter>(
-                Resources.sigilWoodcutter,
-                rulebookName, rulebookDescription, dialogue, 4).Id;
+                Resources.sigilWoodcutter, Resources.sigilWoodcutter_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
         }
     }
     // ripped from Sentry code

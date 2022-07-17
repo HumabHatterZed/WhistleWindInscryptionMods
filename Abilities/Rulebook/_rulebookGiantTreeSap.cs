@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Has a chance to cause the sacrificed card to explode when sacrificed.";
             const string dialogue = "femboy";
             EntryGiantTreeSap.ability = AbilityHelper.CreateAbility<EntryGiantTreeSap>(
-                Resources.sigilAbnormality,
-                rulebookName, rulebookDescription, dialogue, 0,
+                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 overrideModular: true).Id;
         }
     }

@@ -16,18 +16,38 @@ namespace WhistleWindLobotomyMod
         private const string modPrefix = "wstl";
         // Cards
         public static void CreateCard(
-            string name, string displayName, string description,
-            int baseAttack, int baseHealth, int bloodCost, int bonesCost,
-            byte[] defaultTexture, byte[] emissionTexture = null,
-            byte[] altTexture = null, byte[] emissionAltTexture = null, byte[] titleTexture = null,
-            List<Ability> abilities = null, List<SpecialTriggeredAbility> specialAbilities = null,
-            List<CardMetaCategory> metaCategories = null, List<Tribe> tribes = null, List<Trait> traits = null,
-            bool isTerrain = false, bool isChoice = false, bool isRare = false,
-            List<CardAppearanceBehaviour.Appearance> appearances = null, List<Texture> decals = null,
-            string iceCubeName = null, string evolveName = null, int numTurns = 1,
-            string tailName = null, byte[] tailTexture = null,
-            bool onePerDeck = false, bool hideStats = false,
-            int riskLevel = 0, bool isDonator = false
+            string name,
+            string displayName,
+            string description,
+            int baseAttack,
+            int baseHealth,
+            int bloodCost,
+            int bonesCost,
+            byte[] defaultTexture,
+            byte[] emissionTexture = null,
+            byte[] gbcTexture = null,
+            byte[] altTexture = null,
+            byte[] emissionAltTexture = null,
+            byte[] titleTexture = null,
+            List<Ability> abilities = null,
+            List<SpecialTriggeredAbility> specialAbilities = null,
+            List<CardMetaCategory> metaCategories = null,
+            List<Tribe> tribes = null,
+            List<Trait> traits = null,
+            List<CardAppearanceBehaviour.Appearance> appearances = null,
+            List<Texture> decals = null,
+            string iceCubeName = null,
+            string evolveName = null,
+            int numTurns = 1,
+            string tailName = null,
+            byte[] tailTexture = null,
+            int riskLevel = 0,
+            bool isTerrain = false,
+            bool isChoice = false,
+            bool isRare = false,
+            bool onePerDeck = false,
+            bool hideStats = false,
+            bool isDonator = false
             )
         {
             abilities ??= new();
@@ -39,17 +59,13 @@ namespace WhistleWindLobotomyMod
             decals ??= new();
 
             Texture2D texture = WstlTextureHelper.LoadTextureFromResource(defaultTexture);
-            Texture2D emissionTex = null;
-            Texture2D altTex = null;
-            Texture2D emissionAltTex = null;
-            Texture titleTex = null;
-            Texture2D tailTex = null;
+            Texture2D emissionTex = emissionTexture != null ? WstlTextureHelper.LoadTextureFromResource(emissionTexture) : null;
+            Texture2D altTex = altTexture != null ? WstlTextureHelper.LoadTextureFromResource(altTexture) : null;
+            Texture2D emissionAltTex = emissionAltTexture != null ? WstlTextureHelper.LoadTextureFromResource(emissionAltTexture) : null;
+            Texture titleTex = titleTexture != null ? WstlTextureHelper.LoadTextureFromResource(titleTexture) : null;
+            Texture2D gbcTex = gbcTexture != null ? WstlTextureHelper.LoadTextureFromResource(gbcTexture) : null;
+            Texture2D tailTex = tailTexture != null ? WstlTextureHelper.LoadTextureFromResource(titleTexture) : null;
 
-            if (emissionTexture != null) { emissionTex = WstlTextureHelper.LoadTextureFromResource(emissionTexture); }
-            if (altTexture != null) { altTex = WstlTextureHelper.LoadTextureFromResource(altTexture); }
-            if (emissionAltTexture != null) { emissionAltTex = WstlTextureHelper.LoadTextureFromResource(emissionAltTexture); }
-            if (titleTexture != null) { titleTex = WstlTextureHelper.LoadTextureFromResource(titleTexture); }
-            if (tailTexture != null) { tailTex = WstlTextureHelper.LoadTextureFromResource(titleTexture); }
             string risk = riskLevel switch
             {
                 1 => "Zayin",
@@ -81,8 +97,10 @@ namespace WhistleWindLobotomyMod
             cardInfo.SetExtendedProperty("wstl:RiskLevel", risk);
             cardInfo.hideAttackAndHealth = hideStats;
             cardInfo.onePerDeck = onePerDeck;
+            if (gbcTexture != null) { cardInfo.SetPixelPortrait(gbcTex); }
             if (altTex != null) { cardInfo.SetAltPortrait(altTex); }
-            //if (emissionAltTex != null) { cardInfo.SetEmissiveAltPortrait(emissionAltTex); }
+            if (emissionAltTex != null) { cardInfo.SetEmissiveAltPortrait(emissionAltTex); }
+            if (titleTexture != null) { cardInfo.titleGraphic = titleTex; }
             if (isTerrain) { cardInfo.SetTerrain(); }
             if (isChoice)
             {
@@ -102,7 +120,6 @@ namespace WhistleWindLobotomyMod
                     cardInfo.appearanceBehaviour = new() { CardAppearanceBehaviour.Appearance.RareCardBackground };
                 }
             }
-            if (titleTexture != null) { cardInfo.titleGraphic = titleTex; }
             if (iceCubeName != null) { cardInfo.SetIceCube(iceCubeName); }
             if (evolveName != null) { cardInfo.SetEvolve(evolveName, numTurns); }
             if (tailName != null && tailTex != null) { cardInfo.SetTail(tailName, tailTex); }

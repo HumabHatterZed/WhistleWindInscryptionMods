@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil is struck, the striker is killed.";
             const string dialogue = "Retaliation is swift, but death is slow.";
             Punisher.ability = AbilityHelper.CreateAbility<Punisher>(
-                Resources.sigilPunisher,
-                rulebookName, rulebookDescription, dialogue, 4,
+                Resources.sigilPunisher, Resources.sigilPunisher_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 addModular: true).Id;
         }
     }

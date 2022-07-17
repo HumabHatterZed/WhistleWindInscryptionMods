@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Kills selected cards. This does not activate abilities like Sharp Quills.";
             const string dialogue = "femboy";
             EntryJudgementBird.ability = AbilityHelper.CreateAbility<EntryJudgementBird>(
-                Resources.sigilAbnormality,
-                rulebookName, rulebookDescription, dialogue, 0,
+                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                rulebookName, rulebookDescription, dialogue, powerlevel: 0,
                 overrideModular: true).Id;
         }
     }

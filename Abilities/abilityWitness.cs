@@ -19,8 +19,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The truth will set you free.";
 
             Witness.ability = AbilityHelper.CreateActivatedAbility<Witness>(
-                Resources.sigilWitness,
-                rulebookName, rulebookDescription, dialogue, 2).Id;
+                Resources.sigilWitness, Resources.sigilWitness_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2).Id;
         }
     }
     public class Witness : ActivatedAbilityBehaviour

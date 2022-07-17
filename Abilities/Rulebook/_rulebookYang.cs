@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Transforms when adjacent to their other half.";
             const string dialogue = "femboy";
             EntryYang.ability = AbilityHelper.CreateAbility<EntryYang>(
-                Resources.sigilAbnormality,
-                rulebookName, rulebookDescription, dialogue, 0,
+                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 overrideModular: true).Id;
         }
     }

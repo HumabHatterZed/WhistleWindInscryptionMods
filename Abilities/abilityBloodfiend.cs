@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Accursed fiend.";
 
             Bloodfiend.ability = AbilityHelper.CreateAbility<Bloodfiend>(
-                Resources.sigilBloodfiend,
-                rulebookName, rulebookDescription, dialogue, 3,
+                Resources.sigilBloodfiend, Resources.sigilBloodfiend_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: true).Id;
         }
     }

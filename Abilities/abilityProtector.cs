@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Your beast shields its ally against the blow.";
 
             Protector.ability = AbilityHelper.CreateAbility<Protector>(
-                Resources.sigilProtector,
-                rulebookName, rulebookDescription, dialogue, 3).Id;
+                Resources.sigilProtector, Resources.sigilProtector_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
     public class Protector : AbilityBehaviour

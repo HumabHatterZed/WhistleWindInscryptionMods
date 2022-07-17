@@ -19,8 +19,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "A bitter grudge laid bare.";
 
             BitterEnemies.ability = AbilityHelper.CreateAbility<BitterEnemies>(
-                Resources.sigilBitterEnemies,
-                rulebookName, rulebookDescription, dialogue, 2,
+                Resources.sigilBitterEnemies, Resources.sigilBitterEnemies_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true).Id;
         }
     }

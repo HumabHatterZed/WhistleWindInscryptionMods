@@ -15,8 +15,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The early bird gets the worm.";
 
             QuickDraw.ability = AbilityHelper.CreateAbility<QuickDraw>(
-                Resources.sigilQuickDraw,
-                rulebookName, rulebookDescription, dialogue, 3).Id;
+                Resources.sigilQuickDraw, Resources.sigilQuickDraw_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
     // ripped from Sentry code

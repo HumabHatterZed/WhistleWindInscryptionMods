@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When this card dies, the killer gains 1 Health.";
             const string dialogue = "Spring arrives with blossoming roses.";
             FrozenHeart.ability = AbilityHelper.CreateAbility<FrozenHeart>(
-                Resources.sigilFrozenHeart,
-                rulebookName, rulebookDescription, dialogue, 0).Id;
+                Resources.sigilFrozenHeart, Resources.sigilFrozenHeart_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0).Id;
         }
     }
     public class FrozenHeart : AbilityBehaviour

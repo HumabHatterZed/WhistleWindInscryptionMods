@@ -19,8 +19,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The unending faith of countless promises.";
 
             Alchemist.ability = AbilityHelper.CreateActivatedAbility<Alchemist>(
-                Resources.sigilAlchemist,
-                rulebookName, rulebookDescription, dialogue, 3).Id;
+                Resources.sigilAlchemist, Resources.sigilAlchemist_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
     public class Alchemist : ActivatedAbilityBehaviour

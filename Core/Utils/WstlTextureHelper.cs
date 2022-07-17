@@ -14,17 +14,25 @@ namespace WhistleWindLobotomyMod
     public static class WstlTextureHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         // Create Texture2D's from resource files
-        public static Texture2D LoadTextureFromResource(byte[] resourceFile)
+        public static Texture2D LoadTextureFromResource(byte[] resourceFile, bool part1 = true)
         {
             var texture = new Texture2D(2, 2);
             texture.LoadImage(resourceFile);
             texture.filterMode = FilterMode.Point;
             return texture;
         }
-        public static Sprite LoadSpriteFromResource(byte[] resourceFile, bool starterDeck)
+        public static Sprite LoadSpriteFromResource(byte[] resourceFile, int spriteRect = 0)
         {
             var texture = LoadTextureFromResource(resourceFile);
-            return Sprite.Create(texture, starterDeck ? new Rect(0f, 0f, 35f, 44f) : new Rect(0f, 0f, 49f, 49f), starterDeck ? new Vector2(0.5f, 0.5f) : new Vector2(0.5f, 0.5f));
+            Rect rect = spriteRect switch
+            {
+                1 => new Rect(0f, 0f, 49f, 49f), 2 => new Rect(0f, 0f, 17f, 17f), _ => new Rect(0f, 0f, 35f, 44f)
+            };
+            Vector2 pivot = spriteRect switch
+            {
+                _ => new Vector2(0.5f, 0.5f)
+            };
+            return Sprite.Create(texture, rect, pivot);
         }
     }
 }

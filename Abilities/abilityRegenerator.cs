@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Wounds heal, but the scars remain.";
 
             Regenerator.ability = AbilityHelper.CreateAbility<Regenerator>(
-                Resources.sigilRegenerator,
-                rulebookName, rulebookDescription, dialogue, 3).Id;
+                Resources.sigilRegenerator, Resources.sigilRegenerator_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
     public class Regenerator : AbilityBehaviour

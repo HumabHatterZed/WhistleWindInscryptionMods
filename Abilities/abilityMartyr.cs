@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "A selfless death to cleanse your beasts of evil.";
 
             Martyr.ability = AbilityHelper.CreateAbility<Martyr>(
-                Resources.sigilMartyr,
-                rulebookName, rulebookDescription, dialogue, 3,
+                Resources.sigilMartyr, Resources.sigilMartyr_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true).Id;
         }
     }

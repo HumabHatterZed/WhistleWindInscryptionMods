@@ -218,18 +218,30 @@ namespace WhistleWindLobotomyMod
         }
         private void AddStarterDecks()
         {
+            StarterDeckHelper.AddStartDeck("The Control Department", Resources.starterDeckBlackForest, new()
+            {
+                CardLoader.GetCardByName("wstl_oneSin"),
+                CardLoader.GetCardByName("wstl_fairyFestival"),
+                CardLoader.GetCardByName("wstl_oldLady")
+            }, 0);
+            StarterDeckHelper.AddStartDeck("The Way Home", Resources.starterDeckBlackForest, new()
+            {
+                CardLoader.GetCardByName("wstl_wisdomScarecrow"),
+                CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
+                CardLoader.GetCardByName("WolfCub")
+            }, 4);
+            StarterDeckHelper.AddStartDeck("Magical Girls!", Resources.starterDeckBlackForest, new()
+            {
+                CardLoader.GetCardByName("wstl_magicalGirlHeart"),
+                CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
+                CardLoader.GetCardByName("wstl_magicalGirlSpade")
+            }, 7);
             StarterDeckHelper.AddStartDeck("Birds of the Black Forest", Resources.starterDeckBlackForest, new()
             {
                 CardLoader.GetCardByName("wstl_punishingBird"),
                 CardLoader.GetCardByName("wstl_bigBird"),
                 CardLoader.GetCardByName("wstl_judgementBird")
-            });
-            StarterDeckHelper.AddStartDeck("The Way Home", Resources.starterDeckBlackForest, new()
-            {
-                CardLoader.GetCardByName("wstl_wisdomScarecrow"),
-                CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
-                CardLoader.GetCardByName("Wolf")
-            });
+            }, 10);
         }
     }
 }

@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Kills adjacent cards if they possess the Waterborne or Loose Tail ability.";
             const string dialogue = "femboy";
             EntryCrumblingArmour.ability = AbilityHelper.CreateAbility<EntryCrumblingArmour>(
-                Resources.sigilAbnormality,
-                rulebookName, rulebookDescription, dialogue, 0,
+                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 overrideModular: true).Id;
         }
     }

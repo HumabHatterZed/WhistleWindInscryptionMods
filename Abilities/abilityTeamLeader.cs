@@ -18,8 +18,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Your beast emboldens its allies.";
 
             TeamLeader.ability = AbilityHelper.CreateAbility<TeamLeader>(
-                Resources.sigilTeamLeader,
-                rulebookName, rulebookDescription, dialogue, 5).Id;
+                Resources.sigilTeamLeader, Resources.sigilTeamLeader_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }
     public class TeamLeader : AbilityBehaviour, IPassiveAttackBuff

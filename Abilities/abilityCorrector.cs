@@ -17,8 +17,8 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "A card bearing this sigil has its stats changed based on its cost. Higher costs yield higher overall stats.";
             const string dialogue = "How balanced.";
             Corrector.ability = AbilityHelper.CreateAbility<Corrector>(
-                Resources.sigilCorrector,
-                rulebookName, rulebookDescription, dialogue, 2,
+                Resources.sigilCorrector, Resources.sigilCorrector_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true).Id;
         }
     }

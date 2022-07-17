@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Keeps track of card deaths for each side. Transforms when the difference between these amounts is two or greater.";
             const string dialogue = "femboy";
             EntryMagicalGirlH.ability = AbilityHelper.CreateAbility<EntryMagicalGirlH>(
-                Resources.sigilAbnormality,
-                rulebookName, rulebookDescription, dialogue, 0,
+                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 overrideModular: true).Id;
         }
     }
