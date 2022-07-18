@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "femboy";
             EntryJudgementBird.ability = AbilityHelper.CreateAbility<EntryJudgementBird>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
-                rulebookName, rulebookDescription, dialogue, powerlevel: 0,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 overrideModular: true).Id;
         }
     }
