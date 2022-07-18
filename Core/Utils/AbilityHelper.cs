@@ -64,6 +64,7 @@ namespace WhistleWindLobotomyMod
             {
                 list.Add(AbilityMetaCategory.Part1Modular);
             }
+            info.SetPixelAbilityIcon(gbcTex);
             info.rulebookName = rulebookName;
             info.rulebookDescription = rulebookDescription;
             info.powerLevel = powerLevel;
@@ -75,7 +76,7 @@ namespace WhistleWindLobotomyMod
             info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
             info.activated = false;
             if (flippedTex != null) { info.SetCustomFlippedTexture(flippedTex); }
-            if (gbcTex != null) { info.SetPixelAbilityIcon(gbcTex); }
+
             return AbilityManager.Add(modPrefix, info, typeof(T), tex);
         }
         // Adds AbilityInfo dialogue

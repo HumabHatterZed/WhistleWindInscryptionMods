@@ -26,7 +26,8 @@ namespace WhistleWindLobotomyMod
             var texture = LoadTextureFromResource(resourceFile);
             Rect rect = spriteRect switch
             {
-                1 => new Rect(0f, 0f, 49f, 49f), 2 => new Rect(0f, 0f, 17f, 17f), _ => new Rect(0f, 0f, 35f, 44f)
+                1 => new Rect(0f, 0f, 49f, 49f), 2 => new Rect(0f, 0f, 17f, 17f),
+                3 => new Rect(0f, 0f, 22f, 10f), _ => new Rect(0f, 0f, 35f, 44f)
             };
             Vector2 pivot = spriteRect switch
             {
