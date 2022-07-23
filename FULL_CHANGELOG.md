@@ -1,4 +1,12 @@
 ## Changelog
+### v1.1.0 - The First Major Update(tm)
+* Bug fixes
+  * 
+* Tweaks
+  * 
+* Balancing
+  * 
+
 ### v1.0.5 & v1.0.6 - Nothing Angels patch (7/3/2022)
 * Bug fixes
   * Fixed Apostles not entering Downed state when killed

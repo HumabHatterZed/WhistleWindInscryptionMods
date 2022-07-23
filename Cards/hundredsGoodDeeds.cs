@@ -18,10 +18,10 @@ namespace WhistleWindLobotomyMod
             List<Trait> traits = new()
             {
                 Trait.Uncuttable,
-                Trait.Pelt
+                Trait.Terrain
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_hundredsGoodDeeds", "One Sin and Hundreds of Good Deeds",
                 "Its hollow sockets see through you.",
                 0, 777, 0, 0,

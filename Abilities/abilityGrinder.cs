@@ -13,9 +13,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Grinder";
             const string rulebookDescription = "This card gains the stats of the cards sacrificed to play it.";
             const string dialogue = "Now everything will be just fine.";
-            Grinder.ability = WstlUtils.CreateAbility<Grinder>(
-                Resources.sigilGrinder,
-                rulebookName, rulebookDescription, dialogue, 2).Id;
+            Grinder.ability = AbilityHelper.CreateAbility<Grinder>(
+                Resources.sigilGrinder, Resources.sigilGrinder_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2).Id;
         }
     }
     public class Grinder : AbilityBehaviour

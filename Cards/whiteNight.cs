@@ -15,14 +15,12 @@ namespace WhistleWindLobotomyMod
                 TrueSaviour.ability,
                 Idol.ability
             };
-
             List<Trait> traits = new()
             {
                 Trait.Uncuttable,
-                Trait.Pelt
+                Trait.Terrain
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_whiteNight", "WhiteNight",
                 "The time has come.",
                 0, 666, 0, 0,

@@ -14,8 +14,7 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Sharp
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_snowWhitesVine", "Thorny Vines",
                 "A vine.",
                 0, 1, 0, 0,

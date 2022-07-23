@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Conductor.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_silentOrchestra", "The Silent Orchestra",
                 "A conductor of the apocalypse.",
-                2, 5, 3, 0,
+                2, 6, 3, 0,
                 Resources.silentOrchestra, Resources.silentOrchestra_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true, onePerDeck: true);
+                isRare: true, riskLevel: 5);
         }
     }
 }

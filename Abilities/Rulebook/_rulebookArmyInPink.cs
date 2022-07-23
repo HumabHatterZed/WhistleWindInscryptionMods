@@ -13,9 +13,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Army in Pink";
             const string rulebookDescription = "Transforms when an adjacent card dies.";
             const string dialogue = "femboy";
-            EntryArmyInPink.ability = WstlUtils.CreateAbility<EntryArmyInPink>(
-                Resources.sigilAbnormality,
-                rulebookName, rulebookDescription, dialogue, 0,
+            EntryArmyInPink.ability = AbilityHelper.CreateAbility<EntryArmyInPink>(
+                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 overrideModular: true).Id;
         }
     }

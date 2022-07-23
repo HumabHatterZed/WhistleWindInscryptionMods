@@ -15,15 +15,14 @@ namespace WhistleWindLobotomyMod
                 Ability.PreventAttack,
                 Aggravating.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_shelterFrom27March", "Shelter From the 27th of March",
                 "It makes itself the safest place in the world by altering the reality around it.",
                 0, 1, 0, 3,
                 Resources.shelterFrom27March, Resources.shelterFrom27March_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 3);
         }
     }
 }

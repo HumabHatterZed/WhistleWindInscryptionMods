@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Bloodfiend.ability
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_censored", "CENSORED",
                 "It's best you never learn what it looks like.",
                 6, 2, 4, 0,
                 Resources.censored, Resources.censored_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true);
+                isRare: true, riskLevel: 5);
         }
     }
 }

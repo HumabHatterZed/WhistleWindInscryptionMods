@@ -15,9 +15,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 1 Health.";
             const string dialogue = "From break and ruin, the most beautiful performance begins.";
 
-            Conductor.ability = WstlUtils.CreateAbility<Conductor>(
-                Resources.sigilConductor,
-                rulebookName, rulebookDescription, dialogue, 4).Id;
+            Conductor.ability = AbilityHelper.CreateAbility<Conductor>(
+                Resources.sigilConductor, Resources.sigilConductor_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
         }
     }
     public class Conductor : AbilityBehaviour

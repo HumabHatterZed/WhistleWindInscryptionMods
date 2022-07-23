@@ -1,4 +1,5 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When this card dies, adjacent and opposing cards are dealt 10 damage.";
             const string dialogue = "An explosive finish.";
 
-            Volatile.ability = WstlUtils.CreateAbility<Volatile>(
-                Resources.sigilVolatile,
-                rulebookName, rulebookDescription, dialogue, 0,
+            Volatile.ability = AbilityHelper.CreateAbility<Volatile>(
+                Resources.sigilVolatile, Resources.sigilVolatile_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 addModular: true).Id;
         }
     }
@@ -27,6 +28,15 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
+        public override bool RespondsToResolveOnBoard()
+        {
+            return base.Card.Info.GetExtendedPropertyAsBool("wstl:Sap") != null && (bool)base.Card.Info.GetExtendedPropertyAsBool("wstl:Sap");
+        }
+        public override IEnumerator OnResolveOnBoard()
+        {
+            yield return base.Card.Info.SetExtendedProperty("wstl:Sap", false);
+            yield return base.Card.Die(false, null);
+        }
         public override bool RespondsToPreDeathAnimation(bool wasSacrifice)
         {
             return base.Card.OnBoard && !wasSacrifice;
@@ -62,7 +72,6 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator BombCard(PlayableCard target, PlayableCard attacker)
         {
-            //target.Anim.PlayHitAnimation();
             yield return target.TakeDamage(10, attacker);
             yield return new WaitForSeconds(0.15f);
         }

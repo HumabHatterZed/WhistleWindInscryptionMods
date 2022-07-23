@@ -16,9 +16,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "A card bearing this sigil takes 1 less damage from attacks. Additionally, cards adjacent to this card are turned into Slimes at the start of the owner's turn.";
             const string dialogue = "Its army grows everyday.";
 
-            Slime.ability = WstlUtils.CreateAbility<Slime>(
-                Resources.sigilSlime,
-                rulebookName, rulebookDescription, dialogue, 5).Id;
+            Slime.ability = AbilityHelper.CreateAbility<Slime>(
+                Resources.sigilSlime, Resources.sigilSlime_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }
     public class Slime : AbilityBehaviour

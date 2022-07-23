@@ -16,14 +16,14 @@ namespace WhistleWindLobotomyMod
                 Ability.WhackAMole
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_burrowingHeaven", "The Burrowing Heaven",
                 "Don't look away. Contain it in your sight.",
                 0, 2, 0, 3,
                 Resources.burrowingHeaven, Resources.burrowingHeaven_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 4);
         }
     }
 }

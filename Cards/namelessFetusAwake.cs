@@ -15,8 +15,7 @@ namespace WhistleWindLobotomyMod
                 Aggravating.ability,
                 Ability.PreventAttack
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_namelessFetusAwake", "Nameless Fetus",
                 "Only a sacrifice will stop its piercing wails.",
                 0, 1, 0, 5,

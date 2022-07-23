@@ -15,15 +15,18 @@ namespace WhistleWindLobotomyMod
                 TeamLeader.ability,
                 Aggravating.ability
             };
-
-            WstlUtils.Add(
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                CardAppearanceBehaviour.Appearance.TerrainBackground
+            };
+            CardHelper.CreateCard(
                 "wstl_singingMachine", "Singing Machine",
                 "A wind-up music machine. The song it plays is to die for.",
                 0, 4, 2, 0,
                 Resources.singingMachine, Resources.singingMachine,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                appearances: appearances, isChoice: true, riskLevel: 3);
         }
     }
 }

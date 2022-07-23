@@ -16,14 +16,14 @@ namespace WhistleWindLobotomyMod
                 Ability.GuardDog
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_dontTouchMe", "Don't Touch Me",
                 "What happens when you press it?",
                 0, 1, 0, 2,
                 Resources.dontTouchMe, Resources.dontTouchMe_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 1);
         }
     }
 }

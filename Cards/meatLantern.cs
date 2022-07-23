@@ -16,14 +16,14 @@ namespace WhistleWindLobotomyMod
                 Ability.Reach
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_meatLantern", "Meat Lantern",
                 "A beautiful flower attached to a mysterious creature.",
                 1, 2, 2, 0,
                 Resources.meatLantern, Resources.meatLantern_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 2);
         }
     }
 }

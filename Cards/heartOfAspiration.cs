@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Ability.BuffNeighbours
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_heartOfAspiration", "The Heart of Aspiration",
                 "A heart without an owner.",
                 1, 2, 1, 0,
                 Resources.heartOfAspiration, Resources.heartOfAspiration_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 2);
         }
     }
 }

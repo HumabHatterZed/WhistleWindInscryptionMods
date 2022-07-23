@@ -15,15 +15,14 @@ namespace WhistleWindLobotomyMod
                 QuickDraw.ability,
                 Ability.Deathtouch
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_schadenfreude", "SchadenFreude",
                 "A strange machine. You can feel someone's persistent gaze through the keyhole.",
                 0, 1, 0, 4,
                 Resources.schadenfreude, Resources.schadenfreude_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 3);
         }
     }
 }

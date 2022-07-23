@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Hate";
             const string rulebookDescription = "Transforms when the balance has shifted too far. Enters a weakened forme every other turn.";
-            MagicalGirlHeart.specialAbility = WstlUtils.CreateSpecialAbility<MagicalGirlHeart>(rulebookName, rulebookDescription).Id;
+            MagicalGirlHeart.specialAbility = AbilityHelper.CreateSpecialAbility<MagicalGirlHeart>(rulebookName, rulebookDescription).Id;
         }
     }
     public class MagicalGirlHeart : SpecialCardBehaviour

@@ -14,8 +14,7 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Insect
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_queenBeeWorker", "Worker Bee",
                 "A blind servant of the hive.",
                 1, 1, 0, 0,

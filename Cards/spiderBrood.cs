@@ -14,8 +14,7 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Insect
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_spiderBrood", "Spider Brood",
                 "Big and mean.",
                 1, 3, 0, 0,

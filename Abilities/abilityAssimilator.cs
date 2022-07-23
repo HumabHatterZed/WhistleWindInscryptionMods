@@ -14,9 +14,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Assimilator";
             const string rulebookDescription = "When a card bearing this sigil kills an enemy card, this card gains 1 Power and 1 Health.";
             const string dialogue = "From the many, one.";
-            Assimilator.ability = WstlUtils.CreateAbility<Assimilator>(
-                Resources.sigilAssimilator,
-                rulebookName, rulebookDescription, dialogue, 4).Id;
+            Assimilator.ability = AbilityHelper.CreateAbility<Assimilator>(
+                Resources.sigilAssimilator, Resources.sigilAssimilator_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
         }
     }
     public class Assimilator : AbilityBehaviour

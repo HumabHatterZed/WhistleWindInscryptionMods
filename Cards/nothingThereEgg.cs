@@ -18,15 +18,14 @@ namespace WhistleWindLobotomyMod
             {
                 SpecialAbilityFledgling.specialAbility
             };
-
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 CardAppearanceBehaviour.Appearance.RareCardBackground
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_nothingThereEgg", "An Egg",
                 "What is it doing?",
-                0, 3, 2, 0,
+                0, 3, 3, 0,
                 Resources.nothingThereEgg, Resources.nothingThereEgg_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),

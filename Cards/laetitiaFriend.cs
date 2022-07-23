@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
                 Tribe.Insect
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_laetitiaFriend", "Little Witch's Friend",
                 "She brought her friends along.",
                 2, 2, 0, 4,

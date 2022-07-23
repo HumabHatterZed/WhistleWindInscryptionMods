@@ -15,25 +15,22 @@ namespace WhistleWindLobotomyMod
                 Ability.Flying,
                 Punisher.ability
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Bird
             };
-
             List<Trait> traits = new()
             {
                 Trait.KillsSurvivors
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_punishingBird", "Punishing Bird",
                 "A small bird on a mission to punish evildoers.",
                 1, 1, 1, 0,
-                Resources.punishingBird, Resources.punishingBird_emission,
+                Resources.punishingBird, Resources.punishingBird_emission, gbcTexture: Resources.punishingBird_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: traits,
-                isChoice: true, onePerDeck: true);
+                isChoice: true, onePerDeck: true, riskLevel: 2);
         }
     }
 }

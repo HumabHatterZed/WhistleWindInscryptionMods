@@ -16,9 +16,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When this card is played, create a random card in your hand.";
             const string dialogue = "A gift for you.";
 
-            GiftGiver.ability = WstlUtils.CreateAbility<GiftGiver>(
-                Resources.sigilGiftGiver,
-                rulebookName, rulebookDescription, dialogue, 3).Id;
+            GiftGiver.ability = AbilityHelper.CreateAbility<GiftGiver>(
+                Resources.sigilGiftGiver, Resources.sigilGiftGiver_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
     public class GiftGiver : AbilityBehaviour

@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 BloodBath.specialAbility
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_bloodBath1", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
                 0, 3, 1, 0,

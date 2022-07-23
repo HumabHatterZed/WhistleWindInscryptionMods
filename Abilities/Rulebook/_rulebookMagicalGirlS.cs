@@ -13,9 +13,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Magical Girl S";
             const string rulebookDescription = "Transforms when an adjacent card dies.";
             const string dialogue = "femboy";
-            EntryMagicalGirlS.ability = WstlUtils.CreateAbility<EntryMagicalGirlS>(
-                Resources.sigilAbnormality,
-                rulebookName, rulebookDescription, dialogue, 0,
+            EntryMagicalGirlS.ability = AbilityHelper.CreateAbility<EntryMagicalGirlS>(
+                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 overrideModular: true).Id;
         }
     }

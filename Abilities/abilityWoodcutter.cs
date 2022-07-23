@@ -14,9 +14,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card moves into the space opposing this card, deal damage equal to this card's Power.";
             const string dialogue = "No matter how many trees fall, the forest remains dense.";
 
-            Woodcutter.ability = WstlUtils.CreateAbility<Woodcutter>(
-                Resources.sigilWoodcutter,
-                rulebookName, rulebookDescription, dialogue, 4).Id;
+            Woodcutter.ability = AbilityHelper.CreateAbility<Woodcutter>(
+                Resources.sigilWoodcutter, Resources.sigilWoodcutter_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
         }
     }
     // ripped from Sentry code

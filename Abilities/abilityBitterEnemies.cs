@@ -18,9 +18,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "A card bearing this sigil gains 1 Power when another card on this board also has this sigil.";
             const string dialogue = "A bitter grudge laid bare.";
 
-            BitterEnemies.ability = WstlUtils.CreateAbility<BitterEnemies>(
-                Resources.sigilBitterEnemies,
-                rulebookName, rulebookDescription, dialogue, 2,
+            BitterEnemies.ability = AbilityHelper.CreateAbility<BitterEnemies>(
+                Resources.sigilBitterEnemies, Resources.sigilBitterEnemies_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true).Id;
         }
     }

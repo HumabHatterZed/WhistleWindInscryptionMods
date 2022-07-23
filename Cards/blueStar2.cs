@@ -13,22 +13,21 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new()
             {
                 Assimilator.ability,
-                Ability.AllStrike
+                Ability.AllStrike,
+                Idol.ability,
             };
-
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 CardAppearanceBehaviour.Appearance.RareCardBackground
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_blueStar2", "Blue Star",
                 "When this is over, let's meet again as stars.",
-                2, 8, 4, 0,
+                1, 4, 4, 0,
                 Resources.blueStar, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, onePerDeck: true);
+                appearances: appearances);
         }
     }
 }

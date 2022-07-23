@@ -18,14 +18,14 @@ namespace WhistleWindLobotomyMod
             {
                 SpecialTriggeredAbility.Mirror
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_mirrorOfAdjustment", "The Mirror of Adjustment",
                 "A mirror that reflects nothing on its surface.",
                 0, 1, 1, 0,
                 Resources.mirrorOfAdjustment, Resources.mirrorOfAdjustment_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                isTerrain: true, isChoice: true);
+                isTerrain: true, isChoice: true, riskLevel: 1);
         }
     }
 }

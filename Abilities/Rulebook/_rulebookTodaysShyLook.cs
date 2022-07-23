@@ -13,9 +13,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Today's Shy Look";
             const string rulebookDescription = "Changes forme when drawn.";
             const string dialogue = "femboy";
-            EntryTodaysShyLook.ability = WstlUtils.CreateAbility<EntryTodaysShyLook>(
-                Resources.sigilAbnormality,
-                rulebookName, rulebookDescription, dialogue, 0,
+            EntryTodaysShyLook.ability = AbilityHelper.CreateAbility<EntryTodaysShyLook>(
+                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 overrideModular: true).Id;
         }
     }

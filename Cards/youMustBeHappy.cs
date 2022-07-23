@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Scrambler.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_youMustBeHappy", "You Must be Happy",
                 "Those that undergo the procedure find themselves rested and healthy again.",
                 0, 1, 0, 2,
                 Resources.youMustBeHappy, Resources.youMustBeHappy_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 1);
         }
     }
 }

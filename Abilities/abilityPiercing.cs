@@ -15,9 +15,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When this card strikes a card and there is another card behind it, deal 1 overkill damage to that card.";
             const string dialogue = "Your beast runs mine through.";
 
-            Piercing.ability = WstlUtils.CreateAbility<Piercing>(
-                Resources.sigilPiercing,
-                rulebookName, rulebookDescription, dialogue, 2,
+            Piercing.ability = AbilityHelper.CreateAbility<Piercing>(
+                Resources.sigilPiercing, Resources.sigilPiercing_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true).Id;
         }
     }

@@ -13,9 +13,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Bloodbath";
             const string rulebookDescription = "Transforms whenever another card is sacrificed, up to three times.";
             const string dialogue = "femboy";
-            EntryBloodBath.ability = WstlUtils.CreateAbility<EntryBloodBath>(
-                Resources.sigilAbnormality,
-                rulebookName, rulebookDescription, dialogue, 0,
+            EntryBloodBath.ability = AbilityHelper.CreateAbility<EntryBloodBath>(
+                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 overrideModular: true).Id;
         }
     }

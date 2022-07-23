@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Nothing";
             const string rulebookDescription = "Reveals itself on death. Changes formes on upkeep.";
-            NothingThere.specialAbility = WstlUtils.CreateSpecialAbility<NothingThere>(rulebookName, rulebookDescription).Id;
+            NothingThere.specialAbility = AbilityHelper.CreateSpecialAbility<NothingThere>(rulebookName, rulebookDescription).Id;
         }
     }
     public class NothingThere : SpecialCardBehaviour
@@ -119,10 +119,10 @@ namespace WhistleWindLobotomyMod
 				CardInfo info = CardLoader.CreateDeathCard(i);
 				list.Add(info);
 			}
-			int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
+			int randomSeed = Environment.TickCount;
 			CardInfo disguise = ((list.Count <= 0) ? CardLoader.GetCardByName("wstl_nothingThere") : list[SeededRandom.Range(0, list.Count, randomSeed)]);
 
-			CardModificationInfo cardModificationInfo = new CardModificationInfo();
+			CardModificationInfo cardModificationInfo = new();
 			cardModificationInfo.singletonId = "wstl_nothingThere";
 			cardModificationInfo.nameReplacement = string.Format(Localization.Translate("{0}?"), disguise.DisplayedNameLocalized);
 			disguise.Mods.Add(cardModificationInfo);

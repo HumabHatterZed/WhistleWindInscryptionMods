@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 CardAppearanceBehaviour.Appearance.RareCardBackground
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_armyInBlack", "Army in Black",
                 "Duty-bound.",
                 2, 2, 2, 0,

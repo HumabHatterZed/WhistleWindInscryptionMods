@@ -13,9 +13,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Cursed";
             const string rulebookDescription = "When a card bearing this sigil dies, the killer transforms into this card.";
             const string dialogue = "The curse continues unabated.";
-            Cursed.ability = WstlUtils.CreateAbility<Cursed>(
-                Resources.sigilCursed,
-                rulebookName, rulebookDescription, dialogue, 0).Id;
+            Cursed.ability = AbilityHelper.CreateAbility<Cursed>(
+                Resources.sigilCursed, Resources.sigilCursed_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0).Id;
         }
     }
     public class Cursed : AbilityBehaviour
@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            return !wasSacrifice && killer != null;
+            return !wasSacrifice && killer != null && !killer.Dead;
         }
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)

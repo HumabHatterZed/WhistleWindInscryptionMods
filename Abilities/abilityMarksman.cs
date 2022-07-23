@@ -16,9 +16,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "You may choose which opposing space a card bearing this sigil strikes.";
             const string dialogue = "Your beast strikes with precision.";
 
-            Marksman.ability = WstlUtils.CreateAbility<Marksman>(
-                Resources.sigilMarksman,
-                rulebookName, rulebookDescription, dialogue, 3).Id;
+            Marksman.ability = AbilityHelper.CreateAbility<Marksman>(
+                Resources.sigilMarksman, Resources.sigilMarksman_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
     public class Marksman : AbilityBehaviour
@@ -26,7 +26,6 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
         private bool IsDevil => base.Card.Info.name.ToLowerInvariant().Contains("derfreischutz");
-        private bool IsJudge => base.Card.Info.name.ToLowerInvariant().Contains("judgementbird");
 
         private readonly string freischutzDialogue = "The Devil proposed a childist contract.";
         private readonly string freischutzDialogue2 = "The seventh bullet would pierce the heart of his most beloved.";
