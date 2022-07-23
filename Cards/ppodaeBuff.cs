@@ -19,8 +19,7 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Canine
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_ppodaeBuff", "Ppodae",
                 "",
                 3, 2, 0, 8,

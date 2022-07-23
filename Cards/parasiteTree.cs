@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Gardener.ability
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_parasiteTree", "Parasite Tree",
                 "A beautiful tree. It wants only to help you and your beasts.",
                 0, 3, 2, 0,
                 Resources.parasiteTree, Resources.parasiteTree_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, isDonator: true, riskLevel: 4);
         }
     }
 }

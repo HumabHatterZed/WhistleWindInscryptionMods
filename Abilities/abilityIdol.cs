@@ -18,9 +18,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "While this card is on the board, all opposing cards lose 1 Power.";
             const string dialogue = "My beasts defer to you.";
 
-            Idol.ability = WstlUtils.CreateAbility<Idol>(
-                Resources.sigilIdol,
-                rulebookName, rulebookDescription, dialogue, 5).Id;
+            Idol.ability = AbilityHelper.CreateAbility<Idol>(
+                Resources.sigilIdol,// Resources.sigilIdol_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }
     public class Idol : AbilityBehaviour, IPassiveAttackBuff

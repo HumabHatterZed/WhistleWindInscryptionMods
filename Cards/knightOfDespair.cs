@@ -20,14 +20,14 @@ namespace WhistleWindLobotomyMod
             {
                 CardAppearanceBehaviour.Appearance.RareCardBackground
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_knightOfDespair", "The Knight of Despair",
                 "Failing to protect, she realised nothing was ever truly upheld.",
                 2, 4, 2, 0,
                 Resources.knightOfDespair, Resources.knightOfDespair_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, onePerDeck: true);
+                appearances: appearances);
         }
     }
 }

@@ -15,9 +15,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.";
             const string dialogue = "Accursed fiend.";
 
-            Bloodfiend.ability = WstlUtils.CreateAbility<Bloodfiend>(
-                Resources.sigilBloodfiend,
-                rulebookName, rulebookDescription, dialogue, 3,
+            Bloodfiend.ability = AbilityHelper.CreateAbility<Bloodfiend>(
+                Resources.sigilBloodfiend,// Resources.sigilBloodfiend_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: true).Id;
         }
     }

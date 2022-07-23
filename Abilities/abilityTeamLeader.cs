@@ -17,9 +17,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "While this card is on the board, all ally cards gain 1 Power.";
             const string dialogue = "Your beast emboldens its allies.";
 
-            TeamLeader.ability = WstlUtils.CreateAbility<TeamLeader>(
-                Resources.sigilTeamLeader,
-                rulebookName, rulebookDescription, dialogue, 5).Id;
+            TeamLeader.ability = AbilityHelper.CreateAbility<TeamLeader>(
+                Resources.sigilTeamLeader,// Resources.sigilTeamLeader_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }
     public class TeamLeader : AbilityBehaviour, IPassiveAttackBuff

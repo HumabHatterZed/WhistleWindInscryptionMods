@@ -15,9 +15,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Adjacent cards take 1 less damage from attacks.";
             const string dialogue = "Your beast shields its ally against the blow.";
 
-            Protector.ability = WstlUtils.CreateAbility<Protector>(
-                Resources.sigilProtector,
-                rulebookName, rulebookDescription, dialogue, 3).Id;
+            Protector.ability = AbilityHelper.CreateAbility<Protector>(
+                Resources.sigilProtector,// Resources.sigilProtector_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
     public class Protector : AbilityBehaviour
@@ -69,9 +69,9 @@ namespace WhistleWindLobotomyMod
         {
             if (IsDespair || IsArmy)
             {
-                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
+                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot != null))
                 {
-                    if (slot.Card == card)
+                    if (slot.Card != null && slot.Card == card)
                     {
                         return fromCombat;
                     }

@@ -15,14 +15,14 @@ namespace WhistleWindLobotomyMod
                 Ability.DebuffEnemy
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_happyTeddyBear", "Happy Teddy Bear",
                 "Its memories began with a warm hug.",
                 3, 2, 0, 8,
                 Resources.happyTeddyBear, Resources.happyTeddyBear_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 3);
         }
     }
 }

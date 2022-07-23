@@ -14,8 +14,7 @@ namespace WhistleWindLobotomyMod
             {
                 TodaysShyLook.specialAbility
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_todaysShyLookAngry", "Today's Angry Look",
                 "An indecisive creature. Its expression is different each time you draw it.",
                 2, 1, 1, 0,

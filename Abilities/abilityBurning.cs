@@ -15,9 +15,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "The opposing card takes 1 damage at the end of their turn.";
             const string dialogue = "A slow and painful death.";
 
-            Burning.ability = WstlUtils.CreateAbility<Burning>(
-                Resources.sigilBurning,
-                rulebookName, rulebookDescription, dialogue, 2,
+            Burning.ability = AbilityHelper.CreateAbility<Burning>(
+                Resources.sigilBurning,// Resources.sigilBurning_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true).Id;
         }
     }

@@ -21,14 +21,14 @@ namespace WhistleWindLobotomyMod
             };
 
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_alriune", "Alriune",
                 "A doll yearning to be a human. A human yearning to be a doll.",
                 4, 5, 3, 0,
                 Resources.alriune, Resources.alriune_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true);
+                isChoice: true, riskLevel: 4);
         }
     }
 }

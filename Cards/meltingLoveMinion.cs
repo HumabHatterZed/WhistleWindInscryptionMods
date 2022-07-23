@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
                 Slime.ability
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_meltingLoveMinion", "Slime",
                 "Don't let your beasts get too close now.",
                 0, 0, 0, 0,

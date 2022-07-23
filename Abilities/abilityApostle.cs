@@ -15,9 +15,9 @@ namespace WhistleWindLobotomyMod
             string rulebookDescription = ConfigUtils.Instance.RevealWhiteNight ? "This card will enter a downed state instead of dying, recovering at the start of the owner's turn." : "Thou wilt abandon flesh and be born again.";
             const string dialogue = "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:bR]";
 
-            Apostle.ability = WstlUtils.CreateAbility<Apostle>(
-                Resources.sigilApostle,
-                rulebookName, rulebookDescription, dialogue, -3,
+            Apostle.ability = AbilityHelper.CreateAbility<Apostle>(
+                Resources.sigilApostle,// Resources.sigilApostle_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 overrideModular: true).Id;
         }
     }
@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod
         {
             if (killer != null)
             {
-                if (killer.Info.name == "wstl_hundredsGoodDeeds" || killer.Info.name == "wstl_apostleHeretic")
+                if (killer.Info.name == "wstl_apostleHeretic" || killer.Info.name == "wstl_whiteNight")
                 {
                     return false;
                 }

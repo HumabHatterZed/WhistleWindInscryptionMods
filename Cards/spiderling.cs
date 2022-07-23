@@ -14,13 +14,11 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Evolve
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Insect
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_spiderling", "Spiderling",
                 "Small and defenceless.",
                 0, 1, 0, 0,

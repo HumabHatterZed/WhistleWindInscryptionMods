@@ -18,9 +18,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Adjacent cards gain 2 Health.";
             const string dialogue = "Morale runs high.";
 
-            FlagBearer.ability = WstlUtils.CreateAbility<FlagBearer>(
-                Resources.sigilFlagBearer,
-                rulebookName, rulebookDescription, dialogue, 3).Id;
+            FlagBearer.ability = AbilityHelper.CreateAbility<FlagBearer>(
+                Resources.sigilFlagBearer,// Resources.sigilFlagBearer_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
     public class FlagBearer : AbilityBehaviour, IPassiveHealthBuff

@@ -19,10 +19,10 @@ namespace WhistleWindLobotomyMod
             List<Trait> traits = new()
             {
                 Trait.Uncuttable,
-                Trait.Pelt
+                Trait.Terrain
             };
 
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_apostleScythe", "Scythe Apostle",
                 "The time has come.",
                 3, 6, 0, 0,

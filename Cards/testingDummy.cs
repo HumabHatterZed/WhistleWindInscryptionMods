@@ -12,19 +12,17 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                TheTrain.ability
+                Martyr.ability
             };
-
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                //NothingThere.specialAbility
-            };
 
-            WstlUtils.Add(
+            };
+            CardHelper.CreateCard(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                5, 10, 0, 0,
-                Resources.bigBird, Resources.bigBird_emission,
+                0, 1, 0, 0,
+                Resources.testingDummy, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new());
         }

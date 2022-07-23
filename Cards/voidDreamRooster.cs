@@ -14,14 +14,12 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.DebuffEnemy
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Hooved,
                 Tribe.Bird
             };
-
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_voidDreamRooster", "Void Dream",
                 "Quite the chimera.",
                 2, 2, 2, 0,

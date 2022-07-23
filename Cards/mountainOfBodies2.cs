@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             {
                 CardAppearanceBehaviour.Appearance.RareCardBackground
             };
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_mountainOfBodies2", "The Mountain of Smiling Bodies",
                 "A mass grave, melted and congealed into one eternally hungry beast.",
                 3, 1, 3, 0,

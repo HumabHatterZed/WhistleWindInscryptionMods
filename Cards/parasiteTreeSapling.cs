@@ -10,7 +10,7 @@ namespace WhistleWindLobotomyMod
     {
         private void ParasiteTreeSapling_D04108()
         {
-            WstlUtils.Add(
+            CardHelper.CreateCard(
                 "wstl_parasiteTreeSapling", "Sapling",
                 "They proliferate and become whole. Can you feel it?",
                 0, 2, 0, 0,

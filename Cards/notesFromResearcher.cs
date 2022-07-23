@@ -15,15 +15,19 @@ namespace WhistleWindLobotomyMod
                 FlagBearer.ability,
                 Volatile.ability
             };
-
-            WstlUtils.Add(
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                CardAppearanceBehaviour.Appearance.TerrainBackground,
+                CardAppearanceBehaviour.Appearance.TerrainLayout
+            };
+            CardHelper.CreateCard(
                 "wstl_notesFromResearcher", "Notes from a Crazed Researcher",
                 "An insane garble of guilty confessions and incoherent gibberish.",
                 0, 3, 1, 0,
                 Resources.notesFromResearcher, Resources.notesFromResearcher_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                isTerrain: true, isChoice: true);
+                metaCategories: new(), tribes: new(), traits: new(), appearances: appearances,
+                isChoice: true, riskLevel: 3);
         }
     }
 }

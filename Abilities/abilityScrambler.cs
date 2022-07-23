@@ -15,9 +15,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When this card is sacrificed, add its stats to the card it was sacrificed to, then scramble that card's stats.";
             const string dialogue = "Do you love your city?";
 
-            Scrambler.ability = WstlUtils.CreateAbility<Scrambler>(
-                Resources.sigilScrambler,
-                rulebookName, rulebookDescription, dialogue, 3,
+            Scrambler.ability = AbilityHelper.CreateAbility<Scrambler>(
+                Resources.sigilScrambler,// Resources.sigilScrambler_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: true).Id;
         }
     }
