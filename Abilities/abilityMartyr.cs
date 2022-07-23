@@ -28,32 +28,26 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            return !wasSacrifice && killer != null;
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.PlayerSlotsCopy.Where((CardSlot s) => s.Card != null && s.Card != base.Card))
+            {
+                return !base.Card.OpponentCard && !wasSacrifice && killer != null;
+            }
+            return false;
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            yield return base.PreSuccessfulTriggerSequence();
-
             // SigilADay julianperge
-
-            var slotsWithCards = Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(slot => slot.Card != base.Card);
-
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-
-            foreach (var slot in slotsWithCards)
+            yield return base.PreSuccessfulTriggerSequence();
+            yield return new WaitForSeconds(0.2f);
+            foreach (var slot in Singleton<BoardManager>.Instance.PlayerSlotsCopy.Where(slot => slot.Card != base.Card))
             {
-                slot.Card.HealDamage(2);
-                slot.Card.Anim.LightNegationEffect();
-                yield return new WaitForSeconds(0.15f);
+                if (slot.Card != null)
+                {
+                    slot.Card.HealDamage(2);
+                    slot.Card.Anim.LightNegationEffect();
+                    yield return new WaitForSeconds(0.15f);
+                }
             }
-
-            if (Singleton<ViewManager>.Instance.CurrentView != View.Default)
-            {
-                yield return new WaitForSeconds(0.15f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-                yield return new WaitForSeconds(0.15f);
-            }
-
             yield return base.LearnAbility(0.25f);
         }
     }
