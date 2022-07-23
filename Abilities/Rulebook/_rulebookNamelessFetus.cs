@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Transforms when sacrificed six times.";
             const string dialogue = "femboy";
             EntryNamelessFetus.ability = AbilityHelper.CreateAbility<EntryNamelessFetus>(
-                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                Resources.sigilAbnormality,// Resources.sigilAbnormality_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 overrideModular: true).Id;
         }

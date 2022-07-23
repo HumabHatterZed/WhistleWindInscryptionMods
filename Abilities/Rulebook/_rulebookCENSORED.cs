@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Whenever it kills a card, <CENSORED> them and add the resulting minion to your hand.";
             const string dialogue = "femboy";
             EntryCENSORED.ability = AbilityHelper.CreateAbility<EntryCENSORED>(
-                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                Resources.sigilAbnormality,// Resources.sigilAbnormality_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 overrideModular: true).Id;
         }

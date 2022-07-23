@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When this card is played, create Thorny Vines on adjacent empty spaces. A Thorny Vine is defined as: 0 Power, 1 Health.";
             const string dialogue = "Resentment bursts forth like a weed.";
             Roots.ability = AbilityHelper.CreateAbility<Roots>(
-                Resources.sigilRoots, Resources.sigilRoots_pixel,
+                Resources.sigilRoots,// Resources.sigilRoots_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: true).Id;
         }

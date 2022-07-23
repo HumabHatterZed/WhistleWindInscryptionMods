@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.1.0";
+        private const string pluginVersion = "1.0.7";
 
         internal static ManualLogSource Log;
         private static Harmony harmony;
@@ -51,8 +51,8 @@ namespace WhistleWindLobotomyMod
                 AddAbilities();
                 AddSpecialAbilities();
                 AddCards();
-                AddNodes();
-                AddStarterDecks();
+                //AddNodes();
+                //AddStarterDecks();
                 Logger.LogInfo($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }
@@ -69,10 +69,10 @@ namespace WhistleWindLobotomyMod
                 AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("Rulebook")).ForEach(mi => mi.Invoke(this, null));
             }
         }
-        private void AddNodes()
-        {
-            Node_ModCardChoice();
-        }
+        //private void AddNodes()
+        //{
+        //    Node_ModCardChoice();
+        //}
         private void AddCards()
         {
             TestingDummy_XXXXX();
@@ -131,33 +131,33 @@ namespace WhistleWindLobotomyMod
             CanOfWellCheers_F0552();
             Alriune_T0453();
             ForsakenMurderer_T0154();
-            ChildOfTheGalaxy_O0155();
+            //ChildOfTheGalaxy_O0155();
             PunishingBird_O0256();
             RedHoodedMercenary_F0157();
             WillBeBadWolf_F0258();
             YoureBald_BaldIsAwesome();
-            FragmentOfUniverse_O0360();
+            //FragmentOfUniverse_O0360();
             CrumblingArmour_O0561();
             JudgementBird_O0262();
-            ApocalypseBird_O0263();
+            //ApocalypseBird_O0263();
             //  BigEyes_O0263();
             //  SmallBeak_O0263();
             //  LongArms_O0263();
             MagicalGirlDiamond_O0164();
             KingOfGreed_O0164();
-            TheLittlePrince_O0466();
-            TheLittlePrinceMinion_O0466();
+            //TheLittlePrince_O0466();
+            //TheLittlePrinceMinion_O0466();
             Laetitia_O0167();
             LaetitiaFriend_O0167();
             FuneralOfButterflies_T0168();
             DerFreischutz_F0169();
-            DreamOfABlackSwan_F0270();
-            FirstBrother_F0270();
-            SecondBrother_F0270();
-            ThirdBrother_F0270();
-            FourthBrother_F0270();
-            FifthBrother_F0270();
-            SixthBrother_F0270();
+            //DreamOfABlackSwan_F0270();
+            //FirstBrother_F0270();
+            //SecondBrother_F0270();
+            //ThirdBrother_F0270();
+            //FourthBrother_F0270();
+            //FifthBrother_F0270();
+            //SixthBrother_F0270();
             DreamingCurrent_T0271();
             BurrowingHeaven_O0472();
             MagicalGirlSpade_O0173();
@@ -171,7 +171,7 @@ namespace WhistleWindLobotomyMod
             HeartOfAspiration_O0977();
             NotesFromResearcher_T0978();
             FleshIdol_T0979();
-            GiantTreeSap_T0980();
+            //GiantTreeSap_T0980();
             MirrorOfAdjustment_O0981();
             ShelterFrom27March_T0982();
             FairyFestival_F0483();
@@ -182,7 +182,7 @@ namespace WhistleWindLobotomyMod
             DimensionalRefraction_O0388();
             CENSORED_O0389();
             CENSOREDMinion_O0389();
-            SkinProphecy_T0990();
+            //SkinProphecy_T0990();
             WorldPortrait_O0991();
             TodaysShyLook_O0192();
             TodaysShyLookAngry_O0192();
@@ -192,19 +192,19 @@ namespace WhistleWindLobotomyMod
             BlueStar2_O0393();
             YouMustBeHappy_T0994();
             LuminousBracelet_O0995();
-            BehaviourAdjustment_O0996();
-            OldFaithAndPromise_T0997();
+            //BehaviourAdjustment_O0996();
+            //OldFaithAndPromise_T0997();
             Porccubus_O0298();
             VoidDream_T0299();
             VoidDreamRooster_T0299();
             GraveOfBlossoms_O04100();
             TheFirebird_O02101();
-            Yin_O05102();
-            Yang_O07103();
-            YinYangHead_O07103();
-            YinYangBody_O07103();
-            BackwardClock_D09104();
-            DellaLuna_D01105();
+            //Yin_O05102();
+            //Yang_O07103();
+            //YinYangHead_O07103();
+            //YinYangBody_O07103();
+            //BackwardClock_D09104();
+            //DellaLuna_D01105();
             ArmyInPink_D01106();
             ArmyInBlack_D01106();
             Ppodae_D02107();
@@ -216,32 +216,32 @@ namespace WhistleWindLobotomyMod
             HonouredMonk_D01110();
             CloudedMonk_D01110();
         }
-        private void AddStarterDecks()
-        {
-            StarterDeckHelper.AddStartDeck("The Control Department", Resources.starterDeckControl, new()
-            {
-                CardLoader.GetCardByName("wstl_oneSin"),
-                CardLoader.GetCardByName("wstl_fairyFestival"),
-                CardLoader.GetCardByName("wstl_oldLady")
-            }, 0);
-            StarterDeckHelper.AddStartDeck("The Way Home", Resources.starterDeckFairyTale, new()
-            {
-                CardLoader.GetCardByName("wstl_wisdomScarecrow"),
-                CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
-                CardLoader.GetCardByName("WolfCub")
-            }, 4);
-            StarterDeckHelper.AddStartDeck("Magical Girls!", Resources.starterDeckMagicalGirls, new()
-            {
-                CardLoader.GetCardByName("wstl_magicalGirlHeart"),
-                CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
-                CardLoader.GetCardByName("wstl_magicalGirlSpade")
-            }, 7);
-            StarterDeckHelper.AddStartDeck("Birds of the Black Forest", Resources.starterDeckBlackForest, new()
-            {
-                CardLoader.GetCardByName("wstl_punishingBird"),
-                CardLoader.GetCardByName("wstl_bigBird"),
-                CardLoader.GetCardByName("wstl_judgementBird")
-            }, 10);
-        }
+        //private void AddStarterDecks()
+        //{
+        //    StarterDeckHelper.AddStartDeck("The Control Department", Resources.starterDeckControl, new()
+        //    {
+        //        CardLoader.GetCardByName("wstl_oneSin"),
+        //        CardLoader.GetCardByName("wstl_fairyFestival"),
+        //        CardLoader.GetCardByName("wstl_oldLady")
+        //    }, 0);
+        //    StarterDeckHelper.AddStartDeck("The Way Home", Resources.starterDeckFairyTale, new()
+        //    {
+        //        CardLoader.GetCardByName("wstl_wisdomScarecrow"),
+        //        CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
+        //        CardLoader.GetCardByName("WolfCub")
+        //    }, 4);
+        //    StarterDeckHelper.AddStartDeck("Magical Girls!", Resources.starterDeckMagicalGirls, new()
+        //    {
+        //        CardLoader.GetCardByName("wstl_magicalGirlHeart"),
+        //        CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
+        //        CardLoader.GetCardByName("wstl_magicalGirlSpade")
+        //    }, 7);
+        //    StarterDeckHelper.AddStartDeck("Birds of the Black Forest", Resources.starterDeckBlackForest, new()
+        //    {
+        //        CardLoader.GetCardByName("wstl_punishingBird"),
+        //        CardLoader.GetCardByName("wstl_bigBird"),
+        //        CardLoader.GetCardByName("wstl_judgementBird")
+        //    }, 10);
+        //}
     }
 }

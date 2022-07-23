@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Transforms whenever it kills a card, up to two times. When killed after transforming, returns to a previous forme.";
             const string dialogue = "femboy";
             EntryMountainOfBodies.ability = AbilityHelper.CreateAbility<EntryMountainOfBodies>(
-                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                Resources.sigilAbnormality,// Resources.sigilAbnormality_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 overrideModular: true).Id;
         }

@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "An explosive finish.";
 
             Volatile.ability = AbilityHelper.CreateAbility<Volatile>(
-                Resources.sigilVolatile, Resources.sigilVolatile_pixel,
+                Resources.sigilVolatile,// Resources.sigilVolatile_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 addModular: true).Id;
         }

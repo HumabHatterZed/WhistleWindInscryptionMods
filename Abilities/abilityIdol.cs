@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "My beasts defer to you.";
 
             Idol.ability = AbilityHelper.CreateAbility<Idol>(
-                Resources.sigilIdol, Resources.sigilIdol_pixel,
+                Resources.sigilIdol,// Resources.sigilIdol_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }

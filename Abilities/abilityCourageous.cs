@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Life is only given to those who don't fear death.";
 
             Courageous.ability = AbilityHelper.CreateAbility<Courageous>(
-                Resources.sigilCourageous, Resources.sigilCourageous_pixel,
+                Resources.sigilCourageous,// Resources.sigilCourageous_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }

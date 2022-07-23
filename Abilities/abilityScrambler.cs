@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Do you love your city?";
 
             Scrambler.ability = AbilityHelper.CreateAbility<Scrambler>(
-                Resources.sigilScrambler, Resources.sigilScrambler_pixel,
+                Resources.sigilScrambler,// Resources.sigilScrambler_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: true).Id;
         }

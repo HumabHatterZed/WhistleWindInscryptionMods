@@ -99,7 +99,7 @@ namespace WhistleWindLobotomyMod
         {
             // Keeps track of whether this is the first time Nothing There has revealed its True forme
             get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "NothingThereRevealed"); }
-            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.modPrefix, "NothingThereRevealed", value); }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "NothingThereRevealed", value); }
         }
         public static bool HasSeenNothingTransformationTrue
         {

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "This card will heal a selected ally for 2 Health.";
             const string dialogue = "Never underestimate the importance of a healer.";
             Healer.ability = AbilityHelper.CreateAbility<Healer>(
-                Resources.sigilHealer, Resources.sigilHealer_pixel,
+                Resources.sigilHealer,// Resources.sigilHealer_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }

@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Wounds heal, but the scars remain.";
 
             Regenerator.ability = AbilityHelper.CreateAbility<Regenerator>(
-                Resources.sigilRegenerator, Resources.sigilRegenerator_pixel,
+                Resources.sigilRegenerator,// Resources.sigilRegenerator_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
@@ -72,7 +72,7 @@ namespace WhistleWindLobotomyMod
         }
 
         // Code for Yin-Yang
-        public override bool RespondsToResolveOnBoard()
+        /*public override bool RespondsToResolveOnBoard()
         {
             if (base.Card.Info.name == "wstl_yang")
             {
@@ -140,11 +140,11 @@ namespace WhistleWindLobotomyMod
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_yinYangHead"),slot);
             }
             yield return new WaitForSeconds(0.4f);
-            if (!PersistentValues.HasSeenDragon)
-            {
-                PersistentValues.HasSeenDragon = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dragonDialogue2, -0.65f, 0.4f);
-            }
+            //if (!PersistentValues.HasSeenDragon)
+            //{
+            //    PersistentValues.HasSeenDragon = true;
+            //    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dragonDialogue2, -0.65f, 0.4f);
+            //}
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy)
             {
                 if (slot.Card != null)
@@ -165,6 +165,6 @@ namespace WhistleWindLobotomyMod
             }
             item.ExitBoard(0.3f, Vector3.zero);
             yield break;
-        }
+        }*/
     }
 }

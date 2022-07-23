@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health.";
             const string dialogue = "A small spider takes refuge in your hand.";
             BroodMother.ability = AbilityHelper.CreateAbility<BroodMother>(
-                Resources.sigilBroodMother, Resources.sigilBroodMother_pixel,
+                Resources.sigilBroodMother,// Resources.sigilBroodMother_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 addModular: true).Id;
         }

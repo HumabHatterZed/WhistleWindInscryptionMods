@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Your beast runs mine through.";
 
             Piercing.ability = AbilityHelper.CreateAbility<Piercing>(
-                Resources.sigilPiercing, Resources.sigilPiercing_pixel,
+                Resources.sigilPiercing,// Resources.sigilPiercing_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true).Id;
         }

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Your beast strikes with precision.";
 
             Marksman.ability = AbilityHelper.CreateAbility<Marksman>(
-                Resources.sigilMarksman, Resources.sigilMarksman_pixel,
+                Resources.sigilMarksman,// Resources.sigilMarksman_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }

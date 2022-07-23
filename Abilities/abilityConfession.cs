@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "[c:bG]Keep faith with unwavering resolve.[c:]";
 
             Confession.ability = AbilityHelper.CreateActivatedAbility<Confession>(
-                Resources.sigilConfession, Resources.sigilConfession_pixel,
+                Resources.sigilConfession,// Resources.sigilConfession_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3).Id;
         }
     }

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Its army grows everyday.";
 
             Slime.ability = AbilityHelper.CreateAbility<Slime>(
-                Resources.sigilSlime, Resources.sigilSlime_pixel,
+                Resources.sigilSlime,// Resources.sigilSlime_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }

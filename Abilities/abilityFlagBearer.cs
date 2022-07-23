@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Morale runs high.";
 
             FlagBearer.ability = AbilityHelper.CreateAbility<FlagBearer>(
-                Resources.sigilFlagBearer, Resources.sigilFlagBearer_pixel,
+                Resources.sigilFlagBearer,// Resources.sigilFlagBearer_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }

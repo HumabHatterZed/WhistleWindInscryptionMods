@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "From break and ruin, the most beautiful performance begins.";
 
             Conductor.ability = AbilityHelper.CreateAbility<Conductor>(
-                Resources.sigilConductor, Resources.sigilConductor_pixel,
+                Resources.sigilConductor,// Resources.sigilConductor_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
         }
     }
