@@ -34,6 +34,8 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnResolveOnBoard()
         {
+            base.Card.Anim.LightNegationEffect();
+            yield return new WaitForSeconds(0.25f);
             yield return base.Card.Info.SetExtendedProperty("wstl:Sap", false);
             yield return base.Card.Die(false, null);
         }
