@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_judgementBird", "Judgement Bird",
                 "A long bird that judges sinners with its tipped scales.",
                 1, 1, 2, 0,
-                Resources.judgementBird,// Resources.judgementBird_emission, gbcTexture: Resources.judgementBird_pixel,
+                Resources.judgementBird, Resources.judgementBird_emission,// gbcTexture: Resources.judgementBird_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 isChoice: true, onePerDeck: true, riskLevel: 4);

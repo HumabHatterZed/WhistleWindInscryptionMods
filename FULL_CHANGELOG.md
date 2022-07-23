@@ -4,6 +4,9 @@
   * Fixed Martyr ability softlocking when there aren't any other valid cards
 * Tweaks
   * Changed sigil icons of activated abilities to better indicate their nature
+  * Martyr ability now longer changes your view during combat
+* General
+  * Internal refactoring and some other stuff from the 1.1 development branch that I can't recall
 
 ### v1.0.5 & v1.0.6 - Nothing Angels patch (7/3/2022)
 * Bug fixes

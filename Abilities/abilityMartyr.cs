@@ -46,13 +46,6 @@ namespace WhistleWindLobotomyMod
                 }    
             }
 
-            if (Singleton<ViewManager>.Instance.CurrentView != View.Default)
-            {
-                yield return new WaitForSeconds(0.15f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-                yield return new WaitForSeconds(0.15f);
-            }
-
             yield return base.LearnAbility(0.25f);
         }
     }
