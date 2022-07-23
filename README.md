@@ -32,6 +32,14 @@ For the full changelog, refer to the .md file included in the mod package.
 <details>
 <summary>Changelog</summary>
 
+### v1.0.7 - Martyr bug fix (7/22/2022)
+* Bug fixes
+  * Fixed Martyr ability softlocking when there aren't any other valid cards
+  * Melting Love can now be found as a rare card
+  * Judgement Bird is now found as a common choice instead of a rare
+* Tweaks
+  * Changed sigil icons of activated abilities to better indicate their nature
+
 ### v1.0.5 & v1.0.6 - Nothing Angels patch (7/3/2022)
 * Bug fixes
   * Fixed Apostles not entering Downed state when killed

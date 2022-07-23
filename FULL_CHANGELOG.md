@@ -1,7 +1,9 @@
 ## Changelog
 ### v1.1.0 - The First Major Update(tm)
 * Bug fixes
-  * 
+  * Fixed Martyr ability softlocking when there aren't any other valid cards
+  * Melting Love can now be found as a rare card
+  * Judgement Bird is now found as a common choice instead of a rare
 * Tweaks
   * 
 * Balancing
