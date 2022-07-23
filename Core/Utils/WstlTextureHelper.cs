@@ -21,18 +21,11 @@ namespace WhistleWindLobotomyMod
             texture.filterMode = FilterMode.Point;
             return texture;
         }
-        public static Sprite LoadSpriteFromResource(byte[] resourceFile, int spriteRect = 0)
+        public static Sprite LoadSpriteFromResource(byte[] resourceFile, bool isStarter = false)
         {
             var texture = LoadTextureFromResource(resourceFile);
-            Rect rect = spriteRect switch
-            {
-                1 => new Rect(0f, 0f, 49f, 49f), 2 => new Rect(0f, 0f, 17f, 17f),
-                3 => new Rect(0f, 0f, 22f, 10f), _ => new Rect(0f, 0f, 35f, 44f)
-            };
-            Vector2 pivot = spriteRect switch
-            {
-                _ => new Vector2(0.5f, 0.5f)
-            };
+            Rect rect = isStarter ? new Rect(0f, 0f, 35f, 44f) : new Rect(0f, 0f, 49f, 49f);
+            Vector2 pivot = new(0.5f, 0.5f);
             return Sprite.Create(texture, rect, pivot);
         }
     }

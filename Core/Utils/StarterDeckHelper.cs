@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
         {
             StarterDeckInfo starterDeckInfo = ScriptableObject.CreateInstance<StarterDeckInfo>();
             starterDeckInfo.title = title;
-            starterDeckInfo.iconSprite = WstlTextureHelper.LoadSpriteFromResource(icon, 0);
+            starterDeckInfo.iconSprite = WstlTextureHelper.LoadSpriteFromResource(icon, true);
             starterDeckInfo.cards = cards;
             return StarterDeckManager.Add("wstl", starterDeckInfo, unlockLevel);
         }
