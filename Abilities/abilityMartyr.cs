@@ -28,15 +28,18 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            return !wasSacrifice && killer != null;
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.PlayerSlotsCopy.Where((CardSlot s) => s.Card != null && s.Card != base.Card))
+            {
+                return !base.Card.OpponentCard && !wasSacrifice && killer != null;
+            }
+            return false;
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             // SigilADay julianperge
             yield return base.PreSuccessfulTriggerSequence();
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-
-            foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(slot => slot.Card != base.Card))
+            yield return new WaitForSeconds(0.2f);
+            foreach (var slot in Singleton<BoardManager>.Instance.PlayerSlotsCopy.Where(slot => slot.Card != base.Card))
             {
                 if (slot.Card != null)
                 {
@@ -45,7 +48,6 @@ namespace WhistleWindLobotomyMod
                     yield return new WaitForSeconds(0.15f);
                 }    
             }
-
             yield return base.LearnAbility(0.25f);
         }
     }
