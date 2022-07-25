@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
     public static class NodeHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         public static NewNodeManager.FullNode CreateNode(
-            string name, GenerationType generationType, Type T, List<byte[]> animationFrames)
+            string name, GenerationType generationType, Type T, List<byte[]> animationFrames, GenerationType extraGenType = GenerationType.None)
         {
             List<Texture2D> nodeAnimation = new();
             if (animationFrames.Count != 4)
@@ -31,7 +31,14 @@ namespace WhistleWindLobotomyMod
                     nodeAnimation.Add(WstlTextureHelper.LoadTextureFromResource(animationFrames[i]));
                 }
             }
-            return NewNodeManager.New(WstlPlugin.pluginGuid, name, generationType, T, nodeAnimation);
+            if (extraGenType == GenerationType.None)
+            {
+                return NewNodeManager.New(WstlPlugin.pluginGuid, name, generationType, T, nodeAnimation);
+            }
+            else
+            {
+                return NewNodeManager.New(WstlPlugin.pluginGuid, name, generationType | extraGenType, T, nodeAnimation);
+            }
         }
     }
 }
