@@ -6,8 +6,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
 using Pixelplacement;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,12 +25,15 @@ namespace WhistleWindLobotomyMod
             NodeHelper.CreateNode("wstlRiskLevelCardChoiceNode", GenerationType.RegionStart/*GenerationType.SpecialCardChoice*/, typeof(WstlModCardChoicesSequencer), animationFrames);
         }
     }
-    // Pulled wholesale from 
+    // Pulled wholesale from CardSingleChoicesSequencer and CardChoiceSequencer
     public class WstlModCardChoicesSequencer : CustomCardChoiceNodeSequencer
     {
+        protected CardPile modDeckPile = SpecialNodeHandler.Instance.cardChoiceSequencer.deckPile;
+        protected GamepadGridControl modGamepadGrid = SpecialNodeHandler.Instance.cardChoiceSequencer.gamepadGrid;
+
         public ViewController.ControlMode viewControlMode = ViewController.ControlMode.CardChoice;
-        public MainInputInteractable rerollInteractable = SpecialNodeHandler.Instance.cardChoiceSequencer.rerollInteractable;
-        private Animator rerollAnim = SpecialNodeHandler.Instance.cardChoiceSequencer.rerollAnim;
+        public MainInputInteractable modRerollInteractable = SpecialNodeHandler.Instance.cardChoiceSequencer.rerollInteractable;
+        private Animator modRerollAnim = SpecialNodeHandler.Instance.cardChoiceSequencer.rerollAnim;
         private readonly bool showMushrooms = true;
         private List<GameObject> mushrooms = new();
         private SelectableCard chosenReward;
@@ -38,34 +41,68 @@ namespace WhistleWindLobotomyMod
         private Vector3 basePosition;
         private void Start()
         {
-            if (rerollInteractable != null)
+            // Sets up the clover and the basePosition,
+            // which just makes sure that when you're moving b/t your deck and the choices it doesn't get funky
+            if (modRerollInteractable != null)
             {
-                MainInputInteractable mainInputInteractable = this.rerollInteractable;
+                MainInputInteractable mainInputInteractable = modRerollInteractable;
                 mainInputInteractable.CursorSelectEnded = (Action<MainInputInteractable>)Delegate.Combine(mainInputInteractable.CursorSelectEnded, (Action<MainInputInteractable>)delegate
                 {
                     this.OnRerollChoices();
                 });
-                MainInputInteractable mainInputInteractable2 = this.rerollInteractable;
+                MainInputInteractable mainInputInteractable2 = modRerollInteractable;
                 mainInputInteractable2.CursorEntered = (Action<MainInputInteractable>)Delegate.Combine(mainInputInteractable2.CursorEntered, (Action<MainInputInteractable>)delegate
                 {
                     this.OnCursorEnterRerollInteractable();
                 });
             }
-            basePosition = base.transform.position;
+            this.basePosition = base.transform.position;
         }
+        // The framework code, basically
+        // This is essentially ChooseCards from CardChoiceSequencer plus the code of deckpile.DestroyCards()
         public override IEnumerator DoCustomSequence(CustomSpecialNodeData choicesData)
         {
-            Singleton<ViewManager>.Instance.SwitchToView(View.Default, false, true);
-            Singleton<TableRuleBook>.Instance.SetOnBoard(true);
-            if (rerollInteractable != null)
+            // Spawns the rulebook and deck before the dialogue starts
+            if (modGamepadGrid != null)
+            {
+                modGamepadGrid.enabled = true;
+            }
+            Singleton<TableRuleBook>.Instance.SetOnBoard(onBoard: true);
+            base.StartCoroutine(modDeckPile.SpawnCards(SaveManager.SaveFile.CurrentDeck.Cards.Count));
+
+            // First-time dialogue for the node
+            if (!PersistentValues.AbnormalityCardChoice)
+            {
+                Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+                yield return new WaitForSeconds(0.4f);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The trees pull away from you as you enter a strange clearing.");
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Three black metal poles jut from the ashen ground and into the sky. Suspended in the air on each is a black container.");
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The boxes lower to the ground. The clink of intricate machinery fills the air as each box shudders and opens, revealing their contents.");
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]3[c:] strange creatures stand before you. Powerful, mysterious...");
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]abnormal[c:].");
+                yield return new WaitForSeconds(0.25f);
+            }
+
+            Singleton<ViewManager>.Instance.SwitchToView(this.choicesView, immediate: false, lockAfter: true);
+            yield return this.CardSelectionSequence(choicesData);
+            if (modGamepadGrid != null)
+            {
+                modGamepadGrid.enabled = false;
+            }
+            yield return new WaitForSeconds(0.75f);
+            yield return modDeckPile.DestroyCards();
+        }
+        public override IEnumerator CardSelectionSequence(SpecialNodeData choicesData)
+        {
+            if (modRerollInteractable != null)
             {
                 if (!AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.NoClover))
                 {
-                    rerollInteractable.gameObject.SetActive(value: true);
-                    rerollInteractable.SetEnabled(enabled: false);
+                    modRerollInteractable.gameObject.SetActive(value: true);
+                    modRerollInteractable.SetEnabled(enabled: false);
                     CustomCoroutine.WaitThenExecute(1f, delegate
                     {
-                        rerollInteractable.SetEnabled(enabled: true);
+                        modRerollInteractable.SetEnabled(enabled: true);
                     });
                 }
                 ChallengeActivationUI.TryShowActivation(AscensionChallenge.NoClover);
@@ -75,18 +112,6 @@ namespace WhistleWindLobotomyMod
                     yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("ChallengeNoClover", TextDisplayer.MessageAdvanceMode.Input);
                 }
             }
-            yield return new WaitForSeconds(0.5f);
-            if (!PersistentValues.AbnormalityCardChoice)
-            {
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The trees close in around you, obscuring you in darkness. Cold air coils around you, restricting your breath.");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("From the inky black emerges [c:bR]3[c:] strange creatures.");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Powerful, mysterious...");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]abnormal[c:].");
-                yield return new WaitForSeconds(0.25f);
-            }
-            Singleton<ViewManager>.Instance.SwitchToView(View.Choices, false, true);
-            // Enable the mouse.
-            InteractionCursor.Instance.SetEnabled(true);
 
             chosenReward = null;
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
@@ -95,11 +120,11 @@ namespace WhistleWindLobotomyMod
                 List<CardChoice> choices = GenerateRiskChoices(randomSeed);
                 randomSeed *= 2;
                 float x = (float)(choices.Count - 1) * 0.5f * -1.5f;
-                selectableCards = base.SpawnCards(choices.Count, base.transform, new Vector3(x, 5.01f, 0f));
+                base.selectableCards = base.SpawnCards(choices.Count, base.transform, new Vector3(x, 5.01f, 0f));
                 for (int i = 0; i < choices.Count; i++)
                 {
                     CardChoice cardChoice = choices[i];
-                    SelectableCard card = selectableCards[i];
+                    SelectableCard card = base.selectableCards[i];
                     card.gameObject.SetActive(value: true);
                     card.SetParticlesEnabled(enabled: true);
                     card.SetEnabled(enabled: false);
@@ -129,7 +154,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.2f);
                 base.SetCollidersEnabled(collidersEnabled: true);
                 this.choicesRerolled = false;
-                base.EnableViewDeck(this.viewControlMode, basePosition);
+                base.EnableViewDeck(this.viewControlMode, this.basePosition);
                 yield return new WaitUntil(() => this.chosenReward != null || this.choicesRerolled);
                 base.DisableViewDeck();
                 CleanUpCards();
@@ -182,6 +207,48 @@ namespace WhistleWindLobotomyMod
             }
             return "Zayin";
         }
+        private IEnumerator AddCardToDeckAndCleanUp(SelectableCard card)
+        {
+            CleanUpRerollItem();
+            Singleton<RuleBookController>.Instance.SetShown(shown: false);
+            yield return RewardChosenSequence(card);
+            ProgressionData.SetMechanicLearned(MechanicsConcept.CardChoice);
+            AddChosenCardToDeck();
+            Singleton<TextDisplayer>.Instance.Clear();
+            yield return new WaitForSeconds(0.1f);
+            UnityEngine.Object.Destroy(card.gameObject, 0.5f);
+        }
+        private IEnumerator RewardChosenSequence(SelectableCard card)
+        {
+            card.OnCardAddedToDeck();
+            float num = 0f;
+            if (!ProgressionData.LearnedMechanic(MechanicsConcept.CardChoice))
+            {
+                num = 0.5f;
+            }
+            base.deckPile.MoveCardToPile(card, flipFaceDown: true, num);
+            yield return new WaitForSeconds(num);
+            if (!ProgressionData.LearnedMechanic(MechanicsConcept.CardChoice))
+            {
+                Singleton<TextDisplayer>.Instance.Clear();
+                yield return new WaitForSeconds(0.15f);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The creature joins your caravan as the other boxes close themselves.", 0f, 0.4f, Emotion.Neutral, TextDisplayer.LetterAnimation.WavyJitter);
+            }
+        }
+        private void AddChosenCardToDeck()
+        {
+            base.deckPile.AddToPile(this.chosenReward.transform);
+            SaveManager.SaveFile.CurrentDeck.AddCard(this.chosenReward.Info);
+            AnalyticsManager.SendCardPickedEvent(this.chosenReward.Info.name);
+            if (this.chosenReward.Info.name == "MantisGod")
+            {
+                AscensionStatsData.TryIncrementStat(AscensionStat.Type.MantisGodsPicked);
+                if (StoryEventsData.EventCompleted(StoryEvent.LeshyDefeated))
+                {
+                    VoiceOverPlayer.Instance.PlayVoiceOver("Yeah. Always pick Mantis God.", "VO_mantisgod", VoiceOverPlayer.VOCameraAnim.MediumRefocus, StoryEvent.LukeVOMantisGod);
+                }
+            }
+        }
         private void OnRewardChosen(SelectableCard card)
         {
             if (!ProgressionData.LearnedMechanic(MechanicsConcept.CardChoice) && !this.AllCardsFlippedUp())
@@ -228,7 +295,7 @@ namespace WhistleWindLobotomyMod
                 {
                     PersistentValues.AbnormalityCardChoice = true;
                     yield return new WaitForSeconds(0.25f);
-                    Singleton<TextDisplayer>.Instance.ShowMessage("[c:bR]1[c:] will follow you. The others will stay with me.");
+                    Singleton<TextDisplayer>.Instance.ShowMessage("You may choose [c:bR]1[c:] to join you. The others will remain here, sealed in their tombs.");
                 }
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             }
@@ -263,48 +330,6 @@ namespace WhistleWindLobotomyMod
             }
             base.selectableCards.Clear();
         }
-        private IEnumerator AddCardToDeckAndCleanUp(SelectableCard card)
-        {
-            CleanUpRerollItem();
-            Singleton<RuleBookController>.Instance.SetShown(shown: false);
-            yield return RewardChosenSequence(card);
-            ProgressionData.SetMechanicLearned(MechanicsConcept.CardChoice);
-            AddChosenCardToDeck();
-            Singleton<TextDisplayer>.Instance.Clear();
-            yield return new WaitForSeconds(0.1f);
-            UnityEngine.Object.Destroy(card.gameObject, 0.5f);
-        }
-        private IEnumerator RewardChosenSequence(SelectableCard card)
-        {
-            card.OnCardAddedToDeck();
-            float num = 0f;
-            if (!ProgressionData.LearnedMechanic(MechanicsConcept.CardChoice))
-            {
-                num = 0.5f;
-            }
-            base.deckPile.MoveCardToPile(card, flipFaceDown: true, num);
-            yield return new WaitForSeconds(num);
-            if (!ProgressionData.LearnedMechanic(MechanicsConcept.CardChoice))
-            {
-                Singleton<TextDisplayer>.Instance.Clear();
-                yield return new WaitForSeconds(0.15f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Another creature joins your caravan.", 0f, 0.4f, Emotion.Neutral, TextDisplayer.LetterAnimation.WavyJitter);
-            }
-        }
-        private void AddChosenCardToDeck()
-        {
-            base.deckPile.AddToPile(this.chosenReward.transform);
-            SaveManager.SaveFile.CurrentDeck.AddCard(this.chosenReward.Info);
-            AnalyticsManager.SendCardPickedEvent(this.chosenReward.Info.name);
-            if (this.chosenReward.Info.name == "MantisGod")
-            {
-                AscensionStatsData.TryIncrementStat(AscensionStat.Type.MantisGodsPicked);
-                if (StoryEventsData.EventCompleted(StoryEvent.LeshyDefeated))
-                {
-                    VoiceOverPlayer.Instance.PlayVoiceOver("Yeah. Always pick Mantis God.", "VO_mantisgod", VoiceOverPlayer.VOCameraAnim.MediumRefocus, StoryEvent.LukeVOMantisGod);
-                }
-            }
-        }
         private Texture GetCardbackTexture(CardChoice choice)
         {
             if (choice.resourceType == ResourceType.Blood)
@@ -324,17 +349,17 @@ namespace WhistleWindLobotomyMod
         }
         private void OnCursorEnterRerollInteractable()
         {
-            rerollAnim.Play("shake", 0, 0f);
+            modRerollAnim.Play("shake", 0, 0f);
         }
         private void CleanUpRerollItem()
         {
-            if (rerollInteractable != null && rerollInteractable.gameObject.activeSelf)
+            if (modRerollInteractable != null && modRerollInteractable.gameObject.activeSelf)
             {
-                rerollInteractable.SetEnabled(enabled: false);
-                rerollAnim.Play("exit", 0, 0f);
+                modRerollInteractable.SetEnabled(enabled: false);
+                modRerollAnim.Play("exit", 0, 0f);
                 CustomCoroutine.WaitThenExecute(0.25f, delegate
                 {
-                    rerollInteractable.gameObject.SetActive(value: false);
+                    modRerollInteractable.gameObject.SetActive(value: false);
                 });
             }
         }
