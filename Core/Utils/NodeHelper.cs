@@ -17,19 +17,19 @@ namespace WhistleWindLobotomyMod
             List<Texture2D> nodeAnimation = new();
             if (animationFrames.Count != 4)
             {
-                WstlPlugin.Log.LogError("Node animation doesn't have the correct number of frame, using placeholder texture instead.");
                 Texture2D defaultTexture = WstlTextureHelper.LoadTextureFromResource(Resources.sigilAbnormality);
                 for (int i = 0; i < 4; i++)
                 {
                     nodeAnimation.Add(defaultTexture);
                 }
+                WstlPlugin.Log.LogError("Node animation doesn't have the correct number of frames, using placeholder texture instead.");
             }
             else
             {
-                nodeAnimation.Add(WstlTextureHelper.LoadTextureFromResource(animationFrames[0]));
-                nodeAnimation.Add(WstlTextureHelper.LoadTextureFromResource(animationFrames[1]));
-                nodeAnimation.Add(WstlTextureHelper.LoadTextureFromResource(animationFrames[2]));
-                nodeAnimation.Add(WstlTextureHelper.LoadTextureFromResource(animationFrames[3]));
+                for (int i= 0; i < 4; i++)
+                {
+                    nodeAnimation.Add(WstlTextureHelper.LoadTextureFromResource(animationFrames[i]));
+                }
             }
             return NewNodeManager.New(WstlPlugin.pluginGuid, name, generationType, T, nodeAnimation);
         }

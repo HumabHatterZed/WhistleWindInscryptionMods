@@ -7,9 +7,9 @@ Inspired by KingSlime's own mod of this topic, this is my own take on translatin
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
 This mod currently adds all **84** abnormalities from Lobotomy Corp, as well as:
-* **41** new abilities (excluding the 3 event-exclusive ones)
+* **41** new abilities (excluding event-exclusive ones)
 * **15** special abilities
-* **2** new map nodes
+* **1** new map node
 * A few unique battle events
 
 ## ⚙️ Dependencies
@@ -25,7 +25,7 @@ Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitH
 
 Special mention to James Veug's ReadmeMaker mod for providing the cost sprites I use; you're a lifesaver!
 
-Big thanks to Rengar and yam the nokia for reporting bugs to me!
+Big thanks to Rengar, yam the nokia, and everyone else for reporting bugs to me!
 
 ## ⚖️ Changelog
 For the full changelog, refer to the .md file included in the mod package.
@@ -164,13 +164,13 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Gift Giver|When this card is played, create a random card in your hand.||
 |Piercing|When this card strikes a card, deal 1 overkill damage if applicable.|Yes|
 |Scrambler|When this card is sacrificed, add its stats onto the card it was sacrificed to, then scramble that card's stats.|Yes|
-|Gardener|When an ally card dies, create a Sapling in their place. A slot is defined as: 1 Power, 3 Health.||
+|Gardener|When an ally card dies, create a Sapling in their place. A Sapling is defined as: 0 Power, 2 Health.||
 |Slime|A card bearing this sigil takes 1 less damage from attacks. Additionally, cards placed adjacent to this card are turned into Slimes.||
 |Marksman|You may choose which opposing space a card bearing this sigil strikes. (identical to Sniper)||
 |Protector|Adjacent cards take 1 less damage from attacks.||
 |Quick Draw|When a creature moves into the space opposite this card, they take 1 damage.||
 |Alchemist|Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.||
-|Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on the cards' power level.||
+|Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on their power level.||
 |Clothes Made of Nettles|When a card bearing this sigil is played, create random Brothers in empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.||
 |Spores|Adjacent cards gain 1 Spore and take damage equal to their Spore at the end of each turn. If a card with Spore is killed, create a Spore Mold Creature in that card's slot whose stats are equal to the card's Spore.||
 |Witness|Activate: Pay 2 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.||
