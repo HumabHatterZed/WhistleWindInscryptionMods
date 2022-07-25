@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 Resources.nodeAbnormalityCardChoice3,
                 Resources.nodeAbnormalityCardChoice4
             };
-            NodeHelper.CreateNode("wstlRiskLevelCardChoiceNode", GenerationType.RegionStart/*GenerationType.SpecialCardChoice*/, typeof(WstlModCardChoicesSequencer), animationFrames);
+            NodeHelper.CreateNode("wstlRiskLevelCardChoiceNode", GenerationType.SpecialCardChoice, typeof(WstlModCardChoicesSequencer), animationFrames);
         }
     }
     // Pulled wholesale from CardSingleChoicesSequencer and CardChoiceSequencer
