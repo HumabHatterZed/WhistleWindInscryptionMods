@@ -130,7 +130,6 @@ namespace WhistleWindLobotomyMod
             if (evolveName != null) { cardInfo.SetEvolve(evolveName, numTurns); }
             if (tailName != null && tailTex != null) { cardInfo.SetTail(tailName, tailTex); }
 
-            WstlPlugin.AllWstlModCards.Add(cardInfo);
             CardManager.Add(modPrefix, cardInfo);
         }
     }

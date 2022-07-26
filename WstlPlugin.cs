@@ -34,8 +34,6 @@ namespace WhistleWindLobotomyMod
         private static Harmony harmony;
         public static string Directory;
 
-        public static List<CardInfo> AllWstlModCards = new();
-        public static List<CardInfo> AllPlayableWstlModCards = new();
         private void Awake()
         {
             WstlPlugin.Log = base.Logger;
@@ -61,6 +59,14 @@ namespace WhistleWindLobotomyMod
                 Logger.LogInfo($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }
+        }
+        private void AddNodes()
+        {
+            Node_ModCardChoice();
+        }
+        private void AddSpecialAbilities()
+        {
+            AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
         }
         private void AddAbilities()
         {
@@ -115,18 +121,9 @@ namespace WhistleWindLobotomyMod
                 AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("Rulebook")).ForEach(mi => mi.Invoke(this, null));
             }
         }
-        private void AddSpecialAbilities()
-        {
-            AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
-        }
-        private void AddNodes()
-        {
-            Node_ModCardChoice();
-        }
         private void AddCards()
         {
             TestingDummy_XXXXX();
-
             TrainingDummy_00000();
             ScorchedGirl_F0102();
             OneSin_O0303();
@@ -265,18 +262,14 @@ namespace WhistleWindLobotomyMod
             MeltingLoveMinion_D03109();
             HonouredMonk_D01110();
             CloudedMonk_D01110();
-
-            // From Grimora's Mod
-            AllWstlModCards.Sort((info1, info2) => string.Compare(info1.name, info2.name, StringComparison.Ordinal));
-            AllPlayableWstlModCards = AllWstlModCards.Where(info => info.metaCategories.Any()).ToList();
         }
         private static void AddStarterDecks()
         {
-            StarterDeckHelper.AddStartDeck("Early Zayins", Resources.starterDeckControl, new()
+            StarterDeckHelper.AddStartDeck("Manager's First Day", Resources.starterDeckControl, new()
             {
                 CardLoader.GetCardByName("wstl_oneSin"),
                 CardLoader.GetCardByName("wstl_fairyFestival"),
-                CardLoader.GetCardByName("wstl_canOfWellCheers")
+                CardLoader.GetCardByName("wstl_oldLady")
             }, 0);
             StarterDeckHelper.AddStartDeck("Road to Oz", Resources.starterDeckFairyTale, new()
             {
