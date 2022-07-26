@@ -34,6 +34,7 @@ namespace WhistleWindLobotomyMod
             List<CardMetaCategory> metaCategories = null,
             List<Tribe> tribes = null,
             List<Trait> traits = null,
+            SpecialStatIcon statIcon = SpecialStatIcon.None,
             List<CardAppearanceBehaviour.Appearance> appearances = null,
             List<Texture> decals = null,
             string iceCubeName = null,
@@ -101,13 +102,17 @@ namespace WhistleWindLobotomyMod
             if (altTex != null) { cardInfo.SetAltPortrait(altTex); }
             if (emissionAltTex != null) { cardInfo.SetEmissiveAltPortrait(emissionAltTex); }
             if (titleTexture != null) { cardInfo.titleGraphic = titleTex; }
+            if (statIcon != SpecialStatIcon.None) { cardInfo.SetStatIcon(statIcon); }
             if (isTerrain) { cardInfo.SetTerrain(); }
             if (isChoice)
             {
-                if (!isDonator || (isDonator && !ConfigUtils.Instance.NoDonators))
+                if (isDonator && ConfigUtils.Instance.NoDonators)
+                {
+
+                }
+                else
                 {
                     cardInfo.SetDefaultPart1Card();
-                    WstlPlugin.AllWstlModCards.Add(cardInfo);
                 }
             }
             if (isRare)
