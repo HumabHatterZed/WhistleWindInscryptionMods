@@ -9,8 +9,8 @@ The cards in this mod are designed to be as faithful to their original counterpa
 This mod currently adds all **84** abnormalities from Lobotomy Corp, as well as:
 * **41** new abilities (excluding event-exclusive ones)
 * **15** special abilities
-* **1** new map node
-* A few unique battle events
+* **1** new card choice node and **1** new battle node
+* **Plus** a few special events!
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1901
