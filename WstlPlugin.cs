@@ -32,6 +32,9 @@ namespace WhistleWindLobotomyMod
         internal static ManualLogSource Log;
         private static Harmony harmony;
         public static string Directory;
+
+        public static List<CardInfo> AllWstlModCards = new();
+        public static List<CardInfo> AllPlayableWstlModCards = new();
         private void Awake()
         {
             WstlPlugin.Log = base.Logger;
@@ -56,6 +59,11 @@ namespace WhistleWindLobotomyMod
                 Logger.LogInfo($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }
+        }
+        private void OnDestroy()
+        {
+            AllWstlModCards = new();
+            AllPlayableWstlModCards = new();
         }
         private void AddSpecialAbilities()
         {
@@ -215,6 +223,10 @@ namespace WhistleWindLobotomyMod
             MeltingLoveMinion_D03109();
             HonouredMonk_D01110();
             CloudedMonk_D01110();
+
+            // From Grimora's Mod
+            AllWstlModCards.Sort((info1, info2) => string.Compare(info1.name, info2.name, StringComparison.Ordinal));
+            AllPlayableWstlModCards = AllWstlModCards.Where(info => info.metaCategories.Any()).ToList();
         }
         private void AddStarterDecks()
         {

@@ -107,23 +107,25 @@ namespace WhistleWindLobotomyMod
                 if (!isDonator || (isDonator && !ConfigUtils.Instance.NoDonators))
                 {
                     cardInfo.SetDefaultPart1Card();
+                    WstlPlugin.AllWstlModCards.Add(cardInfo);
                 }
             }
             if (isRare)
             {
-                if (!isDonator || (isDonator && !ConfigUtils.Instance.NoDonators))
-                {
-                    cardInfo.SetRare();
-                }
-                else if (isDonator && ConfigUtils.Instance.NoDonators)
+                if (isDonator && ConfigUtils.Instance.NoDonators)
                 {
                     cardInfo.appearanceBehaviour = new() { CardAppearanceBehaviour.Appearance.RareCardBackground };
+                }
+                else
+                {
+                    cardInfo.SetRare();
                 }
             }
             if (iceCubeName != null) { cardInfo.SetIceCube(iceCubeName); }
             if (evolveName != null) { cardInfo.SetEvolve(evolveName, numTurns); }
             if (tailName != null && tailTex != null) { cardInfo.SetTail(tailName, tailTex); }
 
+            WstlPlugin.AllWstlModCards.Add(cardInfo);
             CardManager.Add(modPrefix, cardInfo);
         }
     }
