@@ -54,6 +54,7 @@ namespace WhistleWindLobotomyMod
                 }
                 AddAbilities();
                 AddSpecialAbilities();
+                AddStatIcons();
                 AddCards();
                 AddNodes();
                 AddEncounters();
@@ -62,15 +63,6 @@ namespace WhistleWindLobotomyMod
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }
         }
-        private void OnDestroy()
-        {
-            AllWstlModCards = new();
-            AllPlayableWstlModCards = new();
-        }
-        private void AddSpecialAbilities()
-        {
-            AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
-        }
         private void AddAbilities()
         {
             AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("Ability")).ForEach(mi => mi.Invoke(this, null));
@@ -78,6 +70,14 @@ namespace WhistleWindLobotomyMod
             {
                 AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("Rulebook")).ForEach(mi => mi.Invoke(this, null));
             }
+        }
+        private void AddSpecialAbilities()
+        {
+            AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
+        }
+        private void AddStatIcons()
+        {
+            AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("StatIcon")).ForEach(mi => mi.Invoke(this, null));
         }
         private void AddNodes()
         {
@@ -260,7 +260,7 @@ namespace WhistleWindLobotomyMod
         private static void AddEncounters()
         {
             RegionProgression.Instance.regions[0].encounters.Clear();
-            RegionProgression.Instance.regions[0].AddEncounters(EncounterHelper.CreateRandomBlueprint());
+            //RegionProgression.Instance.regions[0].AddEncounters(EncounterHelper.CreateRandomBlueprint());
         }
     }
 }

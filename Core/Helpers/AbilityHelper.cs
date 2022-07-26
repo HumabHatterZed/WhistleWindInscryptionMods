@@ -8,18 +8,30 @@ using System.Text;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using static WhistleWindLobotomyMod.WstlPlugin;
 
 namespace WhistleWindLobotomyMod
 {
     public static class AbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
-        private const string modPrefix = "wstl";
-
         // Special Abilities
         public static SpecialTriggeredAbilityManager.FullSpecialTriggeredAbility CreateSpecialAbility<T>(string rulebookName, string rulebookDesc)
             where T : SpecialCardBehaviour
         {
-            return SpecialTriggeredAbilityManager.Add(modPrefix, rulebookName, typeof(T));
+            return SpecialTriggeredAbilityManager.Add(pluginGuid, rulebookName, typeof(T));
+        }
+        // Stat Icons
+        public static StatIconManager.FullStatIcon CreateStatIcon<T>(
+            string name, string description, byte[] texture, byte[] pixelTexture, bool attack = true, bool health = false)
+            where T : VariableStatBehaviour
+        {
+            StatIconInfo statIconInfo = StatIconManager.New(pluginGuid, name, description, typeof(T)).SetDefaultPart1Ability();
+            statIconInfo.iconGraphic = WstlTextureHelper.LoadTextureFromResource(texture);
+            statIconInfo.SetPixelIcon(WstlTextureHelper.LoadTextureFromResource(pixelTexture));
+            statIconInfo.appliesToAttack = attack;
+            statIconInfo.appliesToHealth = health;
+
+            return StatIconManager.Add(pluginGuid, statIconInfo, typeof(T));
         }
         // Activated Ability
         public static AbilityManager.FullAbility CreateActivatedAbility<T>(
@@ -42,7 +54,7 @@ namespace WhistleWindLobotomyMod
             info.flipYIfOpponent = false;
             info.metaCategories = new() { AbilityMetaCategory.Part1Rulebook };
 
-            return AbilityManager.Add(modPrefix, info, typeof(T), tex);
+            return AbilityManager.Add(pluginGuid, info, typeof(T), tex);
         }
         // Ability
         public static AbilityManager.FullAbility CreateAbility<T>(
@@ -77,7 +89,7 @@ namespace WhistleWindLobotomyMod
             info.activated = false;
             if (flippedTex != null) { info.SetCustomFlippedTexture(flippedTex); }
 
-            return AbilityManager.Add(modPrefix, info, typeof(T), tex);
+            return AbilityManager.Add(pluginGuid, info, typeof(T), tex);
         }
         // Adds AbilityInfo dialogue
         public static DialogueEvent.LineSet SetAbilityInfoDialogue(string dialogue)
