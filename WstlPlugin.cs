@@ -229,7 +229,7 @@ namespace WhistleWindLobotomyMod
                 CardLoader.GetCardByName("wstl_wisdomScarecrow"),
                 CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
                 CardLoader.GetCardByName("WolfCub")
-            }, 4);
+            }, 3);
             StarterDeckHelper.AddStartDeck("Magical Girls!", Resources.starterDeckMagicalGirls, new()
             {
                 CardLoader.GetCardByName("wstl_magicalGirlHeart"),
