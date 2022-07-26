@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
     public static class EncounterHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         public static EncounterBlueprintData.CardBlueprint CreateCardBlueprint(
-            string cardName, int minDifficulty, int maxDifficulty, string replacement = null, int replacementChance = 0)
+            string cardName, int minDifficulty, int maxDifficulty, string replacement = "wstl_trainingDummy", int replacementChance = 0)
         {
             return new()
             {

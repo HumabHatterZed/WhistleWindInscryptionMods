@@ -54,8 +54,8 @@ namespace WhistleWindLobotomyMod
                 pluginName, "NO DONATORS", false,
                 new ConfigDescription("Prevents Donator-class abnormalities from being obtainable in-game (Backward Clock --> Honoured Monk)"));
 
-            Config_AllModular = WstlConfigFile.Bind(
-                    pluginName, "MOD CARD NODE AT START", false,
+            Config_BoxStart = WstlConfigFile.Bind(
+                    pluginName, "CARD CHOICE NODE AT START", false,
                     new ConfigDescription("Adds the abnormality card choice node to the start of each region."));
 
             Config_AllModular = WstlConfigFile.Bind(
