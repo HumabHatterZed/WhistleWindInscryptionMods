@@ -54,10 +54,10 @@ namespace WhistleWindLobotomyMod
                 }
                 AddAbilities();
                 AddSpecialAbilities();
-                AddStatIcons();
+                //AddStatIcons();
                 AddCards();
                 AddNodes();
-                AddEncounters();
+                //AddEncounters();
                 AddStarterDecks();
                 Logger.LogInfo($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
@@ -68,6 +68,7 @@ namespace WhistleWindLobotomyMod
             AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("Ability")).ForEach(mi => mi.Invoke(this, null));
             if (ConfigUtils.Instance.RevealSpecials)
             {
+                Log.LogDebug("Adding special ability rulebook entries.");
                 AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("Rulebook")).ForEach(mi => mi.Invoke(this, null));
             }
         }
