@@ -7,9 +7,10 @@ Inspired by KingSlime's own mod of this topic, this is my own take on translatin
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
 This mod currently adds all **84** abnormalities from Lobotomy Corp, as well as:
-* **41** new abilities (excluding event-exclusive ones)
+* **41** abilities (excluding event-exclusive ones)
 * **15** special abilities
-* **1** new card choice node and **1** new battle node
+* **4** starter decks for Kaycee's Mod
+* **1** card choice node and **1** battle node
 * **Plus** a few special events!
 
 ## ⚙️ Dependencies
@@ -95,18 +96,21 @@ For the full changelog, refer to the .md file included in the mod package.
 * Enable Mod
   * DEFAULT: True
   * What it says on the tin; this config enables/disables this mod's content.
+* No Donators
+  * DEFAULT: False
+  * Prevents Donator-class abnormalities from being obtainable in-game (Backward Clock... Honoured Monk), like the original Lobotomy Corp.
+* Choice Node at Start
+  * DEFAULT: False
+  * Adds the custom card choice node to the start of each region.
+* All Modular
+  * DEFAULT: False
+  * Makes _most_ custom abilities modular, meaning they can be found on totem bases and on cards from the den trial.
 * Special Abilities in Rulebook
   * DEFAULT: False
   * Adds entries for the special abilities to the Rulebook for your viewing pleasure.
 * Reveal Select Descriptions
   * DEFAULT: False
   * Changes the description of certain abilities to actually describe what they do.
-* All Modular
-  * DEFAULT: False
-  * Makes _most_ custom abilities modular, meaning they can be found on totem bases and on cards from the den trial.
-* No Donators
-  * DEFAULT: False
-  * Prevents Donator-class abnormalities from being obtainable in-game (Backward Clock... Honoured Monk), like the original Lobotomy Corp.
 
 ## ⚜️ Special Abilities
 A number of cards added by this mod possess special behaviour not normally found in the Rulebook.
