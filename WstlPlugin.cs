@@ -218,11 +218,11 @@ namespace WhistleWindLobotomyMod
         }
         private void AddStarterDecks()
         {
-            StarterDeckHelper.AddStartDeck("The Control Department", Resources.starterDeckControl, new()
+            StarterDeckHelper.AddStartDeck("Early Zayins", Resources.starterDeckControl, new()
             {
                 CardLoader.GetCardByName("wstl_oneSin"),
                 CardLoader.GetCardByName("wstl_fairyFestival"),
-                CardLoader.GetCardByName("wstl_oldLady")
+                CardLoader.GetCardByName("wstl_canOfWellCheers")
             }, 0);
             StarterDeckHelper.AddStartDeck("Road to Oz", Resources.starterDeckFairyTale, new()
             {
