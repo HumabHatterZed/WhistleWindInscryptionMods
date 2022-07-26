@@ -54,7 +54,6 @@ namespace WhistleWindLobotomyMod
                 }
                 AddAbilities();
                 AddSpecialAbilities();
-                //AddStatIcons();
                 AddCards();
                 AddNodes();
                 //AddEncounters();
@@ -65,7 +64,51 @@ namespace WhistleWindLobotomyMod
         }
         private void AddAbilities()
         {
-            AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("Ability")).ForEach(mi => mi.Invoke(this, null));
+            Ability_Punisher();
+            Ability_Bloodfiend();
+            Ability_Aggravating();
+            Ability_TeamLeader();
+            Ability_Idol();
+            Ability_Conductor();
+            Ability_Woodcutter();
+            Ability_FrozenHeart();
+            Ability_FrostRuler();
+            Ability_Roots();
+            Ability_BroodMother();
+            Ability_Cursed();
+            Ability_Healer();
+            Ability_QueenNest();
+            Ability_BitterEnemies();
+            Ability_Courageous();
+            Ability_SerpentsNest();
+            Ability_Assimilator();
+            Ability_GroupHealer();
+            Ability_Reflector();
+            Ability_FlagBearer();
+            Ability_Grinder();
+            Ability_TheTrain();
+            Ability_Burning();
+            Ability_Regenerator();
+            Ability_Volatile();
+            Ability_GiftGiver();
+            Ability_Piercing();
+            Ability_Scrambler();
+            Ability_Gardener();
+            Ability_Slime();
+            Ability_Hunter();
+            Ability_Protector();
+            Ability_QuickDraw();
+            Ability_Alchemist();
+            Ability_TimeMachine();
+            Ability_Nettles();
+            Ability_Spores();
+            Ability_Witness();
+            Ability_Corrector();
+
+            Ability_Apostle();
+            Ability_TrueSaviour();
+            Ability_Confession();
+
             if (ConfigUtils.Instance.RevealSpecials)
             {
                 Log.LogDebug("Adding special ability rulebook entries.");
@@ -75,10 +118,6 @@ namespace WhistleWindLobotomyMod
         private void AddSpecialAbilities()
         {
             AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
-        }
-        private void AddStatIcons()
-        {
-            AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("StatIcon")).ForEach(mi => mi.Invoke(this, null));
         }
         private void AddNodes()
         {
