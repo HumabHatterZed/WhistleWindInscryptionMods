@@ -6,7 +6,7 @@ Inspired by KingSlime's own mod of this topic, this is my own take on translatin
 
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
-This mod currently adds all **84** abnormalities from Lobotomy Corp, as well as:
+This mod currently adds all **85** abnormalities from Lobotomy Corp, as well as:
 * **41** abilities (excluding event-exclusive ones)
 * **15** special abilities
 * **4** starter decks for Kaycee's Mod
@@ -29,7 +29,7 @@ Special mention to James Veug's ReadmeMaker mod for providing the cost sprites I
 Big thanks to Rengar, yam the nokia, and everyone else for reporting bugs to me!
 
 ## ⚖️ Changelog
-For the full changelog, refer to the .md file included in the mod package.
+For the full changelog, please refer to the .md file included in the mod package.
 <details>
 <summary>Changelog</summary>
 
@@ -301,6 +301,14 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |⤷ Slime|X|X||Made of Slime|||
 |Honoured Monk|2|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fledgling|||
 |⤷ Clouded Monk|4|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">||||
+
+## Starter Decks
+|Starter Deck|Cards|Level Unlocked|
+|:-|:-:|:-:|
+|First Day|One Sin and Hundreds of Good Deeds<br>Fairy Festival<br>Old Lady|0|
+|Road to Oz|Wolf Cub<br>Scarecrow Searching for Wisdom|<br>Warm-Hearted Woodsman|3|
+|Magical Girls!|Magical Girl H<br>Magical Girl D<br>Magical Girl S|9|
+|The Black Forest|Punishing Bird<br>Big Bird<br>Judgement Bird|10|
 
 ## Future Plans
 Congrats on scrolling all the way down here! Below are a few things that I'll be working on in the future, or at least plan on doing.

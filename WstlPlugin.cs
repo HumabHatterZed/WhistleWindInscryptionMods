@@ -72,6 +72,7 @@ namespace WhistleWindLobotomyMod
         {
             Ability_Punisher();
             Ability_Bloodfiend();
+            Ability_Martyr();
             Ability_Aggravating();
             Ability_TeamLeader();
             Ability_Idol();
@@ -265,7 +266,7 @@ namespace WhistleWindLobotomyMod
         }
         private static void AddStarterDecks()
         {
-            StarterDeckHelper.AddStartDeck("Manager's First Day", Resources.starterDeckControl, new()
+            StarterDeckHelper.AddStartDeck("First Day", Resources.starterDeckControl, new()
             {
                 CardLoader.GetCardByName("wstl_oneSin"),
                 CardLoader.GetCardByName("wstl_fairyFestival"),
@@ -273,16 +274,17 @@ namespace WhistleWindLobotomyMod
             }, 0);
             StarterDeckHelper.AddStartDeck("Road to Oz", Resources.starterDeckFairyTale, new()
             {
-                CardLoader.GetCardByName("wstl_wisdomScarecrow"),
+                CardLoader.GetCardByName("WolfCub"),
                 CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
-                CardLoader.GetCardByName("WolfCub")
+                CardLoader.GetCardByName("wstl_wisdomScarecrow")
+                
             }, 3);
             StarterDeckHelper.AddStartDeck("Magical Girls!", Resources.starterDeckMagicalGirls, new()
             {
                 CardLoader.GetCardByName("wstl_magicalGirlHeart"),
                 CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
                 CardLoader.GetCardByName("wstl_magicalGirlSpade")
-            }, 7);
+            }, 9);
             StarterDeckHelper.AddStartDeck("The Black Forest", Resources.starterDeckBlackForest, new()
             {
                 CardLoader.GetCardByName("wstl_punishingBird"),
