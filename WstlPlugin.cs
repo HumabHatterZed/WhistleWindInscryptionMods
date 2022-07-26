@@ -9,10 +9,11 @@ using System.IO;
 using DiskCardGame;
 using UnityEngine;
 using InscryptionAPI;
-using InscryptionAPI.Saves;
 using InscryptionAPI.Card;
-using InscryptionAPI.Ascension;
+using InscryptionAPI.Saves;
 using InscryptionAPI.Helpers;
+using InscryptionAPI.Regions;
+using InscryptionAPI.Ascension;
 using InscryptionAPI.Encounters;
 using System.Linq;
 using Sirenix.Utilities;
@@ -55,6 +56,7 @@ namespace WhistleWindLobotomyMod
                 AddSpecialAbilities();
                 AddCards();
                 AddNodes();
+                AddEncounters();
                 AddStarterDecks();
                 Logger.LogInfo($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
@@ -228,7 +230,7 @@ namespace WhistleWindLobotomyMod
             AllWstlModCards.Sort((info1, info2) => string.Compare(info1.name, info2.name, StringComparison.Ordinal));
             AllPlayableWstlModCards = AllWstlModCards.Where(info => info.metaCategories.Any()).ToList();
         }
-        private void AddStarterDecks()
+        private static void AddStarterDecks()
         {
             StarterDeckHelper.AddStartDeck("Early Zayins", Resources.starterDeckControl, new()
             {
@@ -254,6 +256,11 @@ namespace WhistleWindLobotomyMod
                 CardLoader.GetCardByName("wstl_bigBird"),
                 CardLoader.GetCardByName("wstl_judgementBird")
             }, 10);
+        }
+        private static void AddEncounters()
+        {
+            RegionProgression.Instance.regions[0].encounters.Clear();
+            RegionProgression.Instance.regions[0].AddEncounters(EncounterHelper.CreateRandomBlueprint());
         }
     }
 }
