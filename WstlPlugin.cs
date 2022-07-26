@@ -224,7 +224,7 @@ namespace WhistleWindLobotomyMod
                 CardLoader.GetCardByName("wstl_fairyFestival"),
                 CardLoader.GetCardByName("wstl_oldLady")
             }, 0);
-            StarterDeckHelper.AddStartDeck("The Way Home", Resources.starterDeckFairyTale, new()
+            StarterDeckHelper.AddStartDeck("Road to Oz", Resources.starterDeckFairyTale, new()
             {
                 CardLoader.GetCardByName("wstl_wisdomScarecrow"),
                 CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
