@@ -17,7 +17,7 @@ This mod currently adds all **85** abnormalities from Lobotomy Corp, as well as:
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1901
-* API_dev-API v2.4.0+
+* API_dev-API v2.4.0
 
 ## 🩹 Known Issues
 ### v1.1.0 Changes Notices
@@ -27,7 +27,9 @@ This means that **ANY** config changes you've made will **NOT** carry over and y
 
 A number of other changes have been made that _shouldn't_ break your game, but just in case it is recommended that you start a new run after updating.
 
-If you find any issues or bugs, please report them to me asap on the modding Discord or on the GitHub page!
+If you encounter any issues or bugs please report them to me asap by contacting me on the modding Discord or by opening an issue on the GitHub.
+
+Feel free to contact me with any other feedback you have too!
 
 ## 💌 Credits
 Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to/~~steal~~borrow from.
@@ -150,10 +152,10 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Giant Tree Sap|Reacts to being sacrificed.|
 
 ## ✨ Abilities
-**Note: 'Totem' indicates the ability can be found on totem bases and on cards from den trials.**
 <details>
 <summary>Abilities</summary>
 
+**Note: 'Totem' indicates the ability can be found on totem bases and on cards from den trials.**
 |Name|Description|Totem|
 |:-|:-|:-:|
 |Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
