@@ -23,8 +23,7 @@ namespace WhistleWindLobotomyMod
                 Resources.blueStar, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true, evolveName: "wstl_blueStar2", numTurns: 2,
-                onePerDeck: true, riskLevel: 5);
+                isRare: true, evolveName: "wstl_blueStar2", riskLevel: 5);
         }
     }
 }

@@ -13,8 +13,7 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new()
             {
                 Assimilator.ability,
-                Ability.AllStrike,
-                Idol.ability,
+                Ability.AllStrike
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
