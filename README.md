@@ -170,6 +170,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 **Note: 'Totem' indicates the ability can be found on totem bases and on cards from den trials.**
 <details>
 <summary>View abilities</summary>
+
 |Name|Description|Totem|
 |:-|:-|:-:|
 |Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
@@ -219,13 +220,12 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 </details>
 
 ## 📜 List of Obtainable and Minion Cards
+**NOTES**
+* **Singleton** means you can only have a single copy of that card in your deck  at a time (like Ouroboros).
+* **Poisonous** means the card will kill survivors at the campfire when eaten.
+* **X** means that that stat varies (typically because the card in question inherits its stats from somewhere else).
 <details>
 <summary>View cards</summary>
-
-**NOTES**<br>
-**Singleton** means you can only have a single copy of that card in your deck  at a time (like Ouroboros).<br>
-**Poisonous** means the card will kill survivors at the campfire when eaten.<br>
-**X** means that that stat varies.
 
 |Name|Power|Health|Cost|Sigils|Traits|Tribes|
 |:-|:-:|:-:|:-:|:-:|:-:|:-:|
