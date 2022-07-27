@@ -14,18 +14,17 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.TripleBlood
             };
-
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                BloodBath.specialAbility
+                BloodBath.specialAbility,
+                SpecialTriggeredAbility.SacrificesThisTurn
             };
-
             CardHelper.CreateCard(
                 "wstl_bloodBath1", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
-                0, 3, 1, 0,
+                0, 1, 1, 0,
                 Resources.bloodBath1, Resources.bloodBath1_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
+                abilities: abilities, specialAbilities: specialAbilities, statIcon: SpecialStatIcon.SacrificesThisTurn,
                 metaCategories: new(), tribes: new(), traits: new());
         }
     }
