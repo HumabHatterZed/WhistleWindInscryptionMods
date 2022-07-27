@@ -1,5 +1,6 @@
-﻿using InscryptionAPI;
-using DiskCardGame;
+﻿using DiskCardGame;
+using InscryptionAPI;
+using InscryptionAPI.Triggers;
 using System.Collections;
 using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
@@ -20,7 +21,7 @@ namespace WhistleWindLobotomyMod
         }
     }
     // ripped from Sentry code
-    public class QuickDraw : AbilityBehaviour
+    public class QuickDraw : AbilityBehaviour, IOnPreSlotAttackSequence
     {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -28,18 +29,19 @@ namespace WhistleWindLobotomyMod
         private int lastShotTurn = -1;
 
         private PlayableCard lastShotCard;
-
+        private PlayableCard queuedCard;
         private int NumShots => Mathf.Max(base.Card.Info.Abilities.FindAll((Ability x) => x == this.Ability).Count, 1);
 
+        private bool antiLock = false;
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
-            return RespondsToTrigger(otherCard);
+            // don't respond to resolve for Pack Mule
+            return !otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule) && RespondsToTrigger(otherCard);
         }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
             yield return FireAtOpposingSlot(otherCard);
         }
-
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard)
         {
             return RespondsToTrigger(otherCard);
@@ -47,6 +49,23 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
         {
             yield return FireAtOpposingSlot(otherCard);
+        }
+
+        public bool RespondsToPreSlotAttackSequence(CardSlot slot)
+        {
+            // Only respond if we're in an antiLock situation
+            if (antiLock && queuedCard != null)
+            {
+                return RespondsToTrigger(queuedCard);
+            }
+            return false;
+        }
+        public IEnumerator OnPreSlotAttackSequence(CardSlot slot)
+        {
+            WstlPlugin.Log.LogDebug("Killing queued card.");
+            yield return FireAtOpposingSlot(queuedCard);
+            antiLock = false;
+            queuedCard = null;
         }
 
         private bool RespondsToTrigger(PlayableCard otherCard)
@@ -57,13 +76,29 @@ namespace WhistleWindLobotomyMod
             }
             return false;
         }
-
         private IEnumerator FireAtOpposingSlot(PlayableCard otherCard)
         {
+            // If this is the same as the last shot card and is the same turn, don't fire again
             if (!(otherCard != this.lastShotCard) && Singleton<TurnManager>.Instance.TurnNumber == this.lastShotTurn)
             {
                 yield break;
             }
+
+            // If the Pack Mule just resolved on the board, queue it then break
+            if (otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
+            {
+                WstlPlugin.Log.LogDebug("Enemy is a Pack Mule.");
+                if (otherCard.TurnPlayed == 0)
+                {
+                    WstlPlugin.Log.LogDebug("Enemy was played this turn.");
+                    antiLock = true;
+                    queuedCard = otherCard;
+                    base.Card.Anim.LightNegationEffect();
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput($"Your {base.Card.Info.DisplayedNameLocalized} tenses...");
+                    yield break;
+                }
+            }
+
             this.lastShotCard = otherCard;
             this.lastShotTurn = Singleton<TurnManager>.Instance.TurnNumber;
             Singleton<ViewManager>.Instance.SwitchToView(View.Board, immediate: false, lockAfter: true);
