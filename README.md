@@ -152,6 +152,9 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 
 ## ✨ Abilities
 **Note: 'Totem' indicates the ability can be found on totem bases and on cards from den trials.**
+<details>
+<summary>Abilities</summary>
+
 |Name|Description|Totem|
 |:-|:-|:-:|
 |Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
@@ -199,7 +202,12 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |True Saviour|*My story is nowhere, unknown to all.*|||
 |Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||
 
+</details>
+
 ## 📜 List of Obtainable and Minion Cards
+<details>
+<summary>Cards</summary>
+
 **NOTES**<br>
 **Singleton** means you can only have a single copy of that card in your deck  at a time (like Ouroboros).<br>
 **Poisonous** means the card will kill survivors at the campfire when eaten.<br>
@@ -318,11 +326,13 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Honoured Monk|2|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fledgling|||
 |⤷ Clouded Monk|4|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">||||
 
+</details>
+
 ## Starter Decks
 |Starter Deck|Cards|Level Unlocked|
-|:-|:-:|:-:|
+|:-|:-|:-:|
 |First Day|One Sin and Hundreds of Good Deeds<br>Fairy Festival<br>Old Lady|0|
-|Road to Oz|Wolf Cub<br>Scarecrow Searching for Wisdom|<br>Warm-Hearted Woodsman|3|
+|Road to Oz|Wolf Cub<br>Scarecrow Searching for Wisdom<br>Warm-Hearted Woodsman|3|
 |Magical Girls!|Magical Girl H<br>Magical Girl D<br>Magical Girl S|9|
 |The Black Forest|Punishing Bird<br>Big Bird<br>Judgement Bird|10|
 
