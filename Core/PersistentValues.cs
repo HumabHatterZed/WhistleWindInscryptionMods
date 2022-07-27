@@ -23,12 +23,12 @@ namespace WhistleWindLobotomyMod
             set { ModdedSaveManager.SaveData.SetValue(WstlPlugin.pluginGuid, "AbnormalityCardChoice", value); }
         }
         #endregion
-        #region Plague Doctor
+        #region WhiteNight
         public static bool ClockThisRun
         {
             // Has the Clock struck twelve this run?
-            get { return ModdedSaveManager.SaveData.GetValueAsBoolean(WstlPlugin.pluginGuid, "ClockStruckTwelve"); }
-            set { ModdedSaveManager.SaveData.SetValue(WstlPlugin.pluginGuid, "ClockStruckTwelve", value); }
+            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "ClockStruckTwelve"); }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "ClockStruckTwelve", value); }
         }
         public static bool ApostleKilled
         {
@@ -156,8 +156,8 @@ namespace WhistleWindLobotomyMod
         public static bool HasUsedBackwardClock
         {
             // Keeps track of whether Backward Clock has been used this run
-            get { return ModdedSaveManager.SaveData.GetValueAsBoolean(WstlPlugin.pluginGuid, "UsedBackwardClock"); }
-            set { ModdedSaveManager.SaveData.SetValue(WstlPlugin.pluginGuid, "UsedBackwardClock", value); }
+            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "UsedBackwardClock"); }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "UsedBackwardClock", value); }
         }
         public static bool HasSeenSwanFail
         {
