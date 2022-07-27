@@ -4,6 +4,8 @@
 
 Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
 
+Now with its first major update!
+
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
 This mod currently adds all **85** abnormalities from Lobotomy Corp, as well as:
@@ -18,6 +20,13 @@ This mod currently adds all **85** abnormalities from Lobotomy Corp, as well as:
 * API_dev-API v2.4.0+
 
 ## 🩹 Known Issues
+### v1.1.0 Changes
+The mod's config file has been renamed to ```wstl.inscryption.lobotomycorp.cfg```.
+
+This means that **any** config changes you've made will **not** carry over and you'll have to manually change them again.
+
+A number of other changes have been made that __shouldn't__ break your game, but just in case it is recommended that you start a new run after updating.
+
 ### None so far!
 If you find any issues or bugs, please report them to me asap on the modding Discord or on the GitHub page!
 
@@ -33,6 +42,13 @@ For the full changelog, please refer to the .md file included in the mod package
 <details>
 <summary>Changelog</summary>
 
+### v1.1.0 - First Major Update(tm) (?/?/202?)
+* Groundwork
+* Bug fixes
+  * 
+* Tweaks
+  *
+* Balancing
 ### v1.0.7 - Martyr bug fix (7/22/2022)
 * Bug fixes
   * Fixed Martyr ability softlocking when there aren't any other valid cards

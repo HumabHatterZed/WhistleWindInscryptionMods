@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         public static ConfigUtils Instance => wstl_Instance ??= new ConfigUtils();
 
         private readonly ConfigFile WstlConfigFile = new(
-            Path.Combine(Paths.ConfigPath, "wstl.inscryption.lobotomyCorpMod.cfg"), true);
+            Path.Combine(Paths.ConfigPath, "wstl.inscryption.lobotomycorp.cfg"), true);
         /* May move dialogue bools to separate config eventually, idk
         private readonly ConfigFile WstlValuesFile = new(
             Path.Combine(Paths.ConfigPath, "Wstl.LobotomyCorpModValues.cfg"), true);
