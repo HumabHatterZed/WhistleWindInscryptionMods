@@ -12,8 +12,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.SplitStrike,
-                Marksman.ability
+                Marksman.ability,
+                Ability.SplitStrike
             };
 
             CardHelper.CreateCard(
