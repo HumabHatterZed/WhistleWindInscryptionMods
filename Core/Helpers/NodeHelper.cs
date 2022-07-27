@@ -1,5 +1,6 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Nodes;
+using InscryptionAPI.Encounters;
 using DiskCardGame;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,8 @@ namespace WhistleWindLobotomyMod
     public static class NodeHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         public static NewNodeManager.FullNode CreateNode(
-            string name, GenerationType generationType, Type T, List<byte[]> animationFrames, GenerationType extraGenType = GenerationType.None)
+            string name, Type T, List<byte[]> animationFrames,
+            GenerationType generationType, GenerationType extraGenType = GenerationType.None)
         {
             List<Texture2D> nodeAnimation = new();
             if (animationFrames.Count != 4)
@@ -26,7 +28,7 @@ namespace WhistleWindLobotomyMod
             }
             else
             {
-                for (int i= 0; i < 4; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     nodeAnimation.Add(WstlTextureHelper.LoadTextureFromResource(animationFrames[i]));
                 }
@@ -37,7 +39,11 @@ namespace WhistleWindLobotomyMod
             }
             else
             {
-                return NewNodeManager.New(WstlPlugin.pluginGuid, name, generationType | extraGenType, T, nodeAnimation);
+                List<NodeData.SelectionCondition> data = new()
+                {
+                    new NodeData.WithinRegionIndexRange(0, 1)
+                };
+                return NewNodeManager.New(WstlPlugin.pluginGuid, name, generationType | extraGenType, T, nodeAnimation).SetGenerationPrerequisites(data);
             }
         }
     }
