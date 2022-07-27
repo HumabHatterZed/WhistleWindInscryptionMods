@@ -9,11 +9,11 @@ using UnityEngine;
 
 namespace WhistleWindLobotomyMod
 {
-    public static class DefaultDeathCardsPatch
+    [HarmonyPatch(typeof(DefaultDeathCards))]
+    public class DefaultDeathCardsPatch
     {
         // Adds custom death cards
-        [HarmonyPatch(typeof(DefaultDeathCards), nameof(DefaultDeathCards.CreateDefaultCardMods))]
-        [HarmonyPostfix]
+        [HarmonyPostfix, HarmonyPatch(nameof(DefaultDeathCards.CreateDefaultCardMods))]
         public static void AddDeathCards(ref List<CardModificationInfo> __result)
         {
             __result.Add(new CardModificationInfo(3, 2)
