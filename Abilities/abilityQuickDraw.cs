@@ -85,18 +85,12 @@ namespace WhistleWindLobotomyMod
             }
 
             // If the Pack Mule just resolved on the board, queue it then break
-            if (otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
+            if (otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule)
+                && otherCard.TurnPlayed == 0)
             {
                 WstlPlugin.Log.LogDebug("Enemy is a Pack Mule.");
-                if (otherCard.TurnPlayed == 0)
-                {
-                    WstlPlugin.Log.LogDebug("Enemy was played this turn.");
-                    antiLock = true;
-                    queuedCard = otherCard;
-                    base.Card.Anim.LightNegationEffect();
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput($"Your {base.Card.Info.DisplayedNameLocalized} tenses...");
-                    yield break;
-                }
+                yield return QueueKill();
+                yield break;
             }
 
             this.lastShotCard = otherCard;
@@ -122,6 +116,14 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.25f);
             yield return base.LearnAbility();
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+        }
+        private IEnumerator QueueKill()
+        {
+            WstlPlugin.Log.LogDebug("Enemy was played this turn.");
+            antiLock = true;
+            queuedCard = otherCard;
+            base.Card.Anim.LightNegationEffect();
+            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput($"Your {base.Card.Info.DisplayedNameLocalized} tenses...");
         }
     }
 }
