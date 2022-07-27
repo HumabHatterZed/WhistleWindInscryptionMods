@@ -50,6 +50,12 @@ namespace WhistleWindLobotomyMod
                     evolution = CardLoader.GetCardByName("wstl_bloodBath3");
                     break;
             }
+
+            View view = Singleton<ViewManager>.Instance.CurrentView;
+            if (view != View.Hand)
+            {
+                Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
+            }
             yield return new WaitForSeconds(0.25f);
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
@@ -57,7 +63,8 @@ namespace WhistleWindLobotomyMod
                 evolution.Mods.Add(cardModificationInfo);
             }
             yield return base.PlayableCard.TransformIntoCard(evolution);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.4f);
+            Singleton<ViewManager>.Instance.SwitchToView(view);
 
             switch (name)
             {
