@@ -4,52 +4,63 @@
 
 Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
 
-Now with its first major update!
-
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
-This mod currently adds all **85** abnormalities from Lobotomy Corp, as well as:
-* **41** abilities (excluding event-exclusive ones)
-* **15** special abilities
-* **4** starter decks for Kaycee's Mod
-* **1** card choice node and **1** battle node
-* **Plus** a few special events!
+### Major update v1.1.0 now released!
+
+This mod currently adds all abnormalities from Lobotomy Corp. Broken down, this means:
+* **```84```** obtainable cards (excluding evolutions, minions, event-exclusives)
+* **```41```** abilities (excluding event-exclusive ones)
+* **```15```** special abilities
+* **```4```** starter decks for Kaycee's Mod
+* **```1```** card choice node
+* Custom encounters
+* Plus a few special events!
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1901
 * API_dev-API v2.4.0
 
-## 🩹 Known Issues
-### v1.1.0 Changes Notices
-The mod's config file has been renamed to ```wstl.inscryption.lobotomycorp.cfg```.
+## ‼️ NOTICE ON v1.1.0 CHANGES ‼️
+The mod's configuration file has been renamed to **```wstl.inscryption.lobotomycorp.cfg```**.
 
-This means that **ANY** config changes you've made will **NOT** carry over and you'll have to manually change them again.
+Any changes made in the old config file will **NOT** carry over and must be changed in the new config file after loading the game at least once.
 
-A number of other changes have been made that _shouldn't_ break your game, but just in case it is recommended that you start a new run after updating.
+The old config can be safely deleted at your convenience.
+
+A number of other internal changes have been made that _shouldn't_ break your game, but just in case it is recommended that you start a new run after updating.
+
+Please see the full changelog (included in the download package) for a full breakdown of what exactly has changed.
+
+Card and ability changes will be listed in the Changelog section below, of course.
+
+## 🩹 Known Bugs and Issues
+### Hard to tell!
+Because of the way Thunderstore works I can't (as far as I know) update this section of the ReadMe without updating the entire mod, so you'll have to check the Issues tab on the GitHub to see an accurate list of current bugs, issues, etc.
 
 If you encounter any issues or bugs please report them to me asap by contacting me on the modding Discord or by opening an issue on the GitHub.
 
 Feel free to contact me with any other feedback you have too!
 
 ## 💌 Credits
-Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to/~~steal~~borrow from.
+Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to and ~~steal~~borrow code from.
 
 Special mention to James Veug's ReadmeMaker mod for providing the cost sprites I use; you're a lifesaver!
 
-Big thanks to Rengar, yam the nokia, and everyone else for reporting bugs to me!
+Big thanks to Rengar, yam the nokia, and everyone else on the modding Discord for reporting bugs to me!
 
 ## ⚖️ Changelog
 For the full changelog, please refer to the .md file included in the mod package.
 <details>
-<summary>Changelog</summary>
+<summary>View changelog</summary>
 
 ### v1.1.0 - First Major Update(tm) (?/?/202?)
-* Groundwork
 * Bug fixes
   * 
 * Tweaks
   *
 * Balancing
+
 ### v1.0.7 - Martyr bug fix (7/22/2022)
 * Bug fixes
   * Fixed Martyr ability softlocking when there aren't any other valid cards
@@ -133,6 +144,9 @@ For the full changelog, please refer to the .md file included in the mod package
 A number of cards added by this mod possess special behaviour not normally found in the Rulebook.
 In the spirit of the original game, I won't be listing the effects here, only which cards possess a special ability and what triggers it.
 You'll need to mess with the cards to figure out exactly what they do 🙃.
+<details>
+<summary>View specials</summary>
+ 
 |Card|Trigger|
 |:-|:-|
 |Nameless Fetus|Reacts to being sacrificed.|
@@ -150,12 +164,12 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Melting Love|Reacts to taking damage.|
 |Yang|Reacts to being adjacent to another card.|
 |Giant Tree Sap|Reacts to being sacrificed.|
-
+ </details>
+ 
 ## ✨ Abilities
-<details>
-<summary>Abilities</summary>
-
 **Note: 'Totem' indicates the ability can be found on totem bases and on cards from den trials.**
+<details>
+<summary>View abilities</summary>
 |Name|Description|Totem|
 |:-|:-|:-:|
 |Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
@@ -202,12 +216,11 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
 |True Saviour|*My story is nowhere, unknown to all.*|||
 |Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||
-
 </details>
 
 ## 📜 List of Obtainable and Minion Cards
 <details>
-<summary>Cards</summary>
+<summary>View cards</summary>
 
 **NOTES**<br>
 **Singleton** means you can only have a single copy of that card in your deck  at a time (like Ouroboros).<br>
@@ -326,7 +339,6 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |⤷ Slime|X|X||Made of Slime|||
 |Honoured Monk|2|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fledgling|||
 |⤷ Clouded Monk|4|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">||||
-
 </details>
 
 ## Starter Decks
@@ -340,11 +352,12 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ## Future Plans
 Congrats on scrolling all the way down here! Below are a few things that I'll be working on in the future, or at least plan on doing.
 
-* Further balancing, tweaks, bug fixes (feedback is always welcome!).
-* Expansion pack of Library of Ruina abnormalities?
+* Further balancing, tweaks, bug fixes, and general refinement of what's currently available (feedback is welcomed and encouraged!).
+* Further expansion pack of Library of Ruina abnormalities
+* Challenges and Anti-Challenges (Cheats)
 
-<!--- * Add a custom card choice node for abnormalities, based on their Lob Corp risk level.
-* Custom challenges and starter decks.
-* Ordeal battle node? Depends on whether ordeals are abnormalities or not, I'll have check the _Lore_.
+<!---
+* Custom challenges.
+* Ordeal battle node? Depends on whether ordeals are abnormalities or not, I'll have to check the _Lore_.
 * Items?? Possibily convert some tool abnormalities into items (or not, I'll figure it out).
 * Maybe bosses??? they can't be _that_ hard to make and implement, I'm sure. --->
