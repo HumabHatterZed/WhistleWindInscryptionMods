@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod
             {
                 List<NodeData.SelectionCondition> data = new()
                 {
-                    new NodeData.WithinRegionIndexRange(0, 1)
+                    new NodeData.WithinRegionIndexRange(0, 2)
                 };
                 return NewNodeManager.New(WstlPlugin.pluginGuid, name, generationType | extraGenType, T, nodeAnimation).SetGenerationPrerequisites(data);
             }
