@@ -12,7 +12,6 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.DrawCopyOnDeath,
                 Protector.ability
             };
 
