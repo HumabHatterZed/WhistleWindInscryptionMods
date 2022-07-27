@@ -20,14 +20,13 @@ This mod currently adds all **85** abnormalities from Lobotomy Corp, as well as:
 * API_dev-API v2.4.0+
 
 ## 🩹 Known Issues
-### v1.1.0 Changes
+### v1.1.0 Changes Notices
 The mod's config file has been renamed to ```wstl.inscryption.lobotomycorp.cfg```.
 
-This means that **any** config changes you've made will **not** carry over and you'll have to manually change them again.
+This means that **ANY** config changes you've made will **NOT** carry over and you'll have to manually change them again.
 
-A number of other changes have been made that __shouldn't__ break your game, but just in case it is recommended that you start a new run after updating.
+A number of other changes have been made that _shouldn't_ break your game, but just in case it is recommended that you start a new run after updating.
 
-### None so far!
 If you find any issues or bugs, please report them to me asap on the modding Discord or on the GitHub page!
 
 ## 💌 Credits
