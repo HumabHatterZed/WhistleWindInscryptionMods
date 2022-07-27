@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
         }
     }
     // ripped from Sentry code
-    public class QuickDraw : AbilityBehaviour, IOnPreSlotAttackSequence
+    public class QuickDraw : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -50,17 +50,16 @@ namespace WhistleWindLobotomyMod
         {
             yield return FireAtOpposingSlot(otherCard);
         }
-
-        public bool RespondsToPreSlotAttackSequence(CardSlot slot)
+        public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
             // Only respond if we're in an antiLock situation
             if (antiLock && queuedCard != null)
             {
-                return RespondsToTrigger(queuedCard);
+                return base.Card.OpponentCard != playerTurnEnd && RespondsToTrigger(queuedCard);
             }
             return false;
         }
-        public IEnumerator OnPreSlotAttackSequence(CardSlot slot)
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
             WstlPlugin.Log.LogDebug("Killing queued card.");
             yield return FireAtOpposingSlot(queuedCard);
@@ -89,6 +88,14 @@ namespace WhistleWindLobotomyMod
                 && otherCard.TurnPlayed == 0)
             {
                 WstlPlugin.Log.LogDebug("Enemy is a Pack Mule.");
+                yield return QueueKill(otherCard);
+                yield break;
+            }
+            if (otherCard.Info.HasAbility(Ability.TailOnHit)
+                && otherCard.TurnPlayed != 0
+                && !otherCard.Status.hiddenAbilities.Contains(Ability.TailOnHit))
+            {
+                WstlPlugin.Log.LogDebug("Enemy has Loose tail.");
                 yield return QueueKill(otherCard);
                 yield break;
             }
@@ -123,7 +130,7 @@ namespace WhistleWindLobotomyMod
             antiLock = true;
             queuedCard = otherCard;
             base.Card.Anim.LightNegationEffect();
-            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput($"Your {base.Card.Info.DisplayedNameLocalized} tenses...");
+            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput($"Your [c:bR]{base.Card.Info.DisplayedNameLocalized}[c:] tenses...");
         }
     }
 }
