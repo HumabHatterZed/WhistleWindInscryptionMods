@@ -53,10 +53,52 @@ For the full changelog, please refer to the .md file included in the mod package
 
 ### v1.1.0 - First Major Update(tm) (?/?/202?)
 * Bug fixes
-  * 
+  * Fixed custom death cards not being properly added to the game
+  * Fixed Nothing There and Express Train to Hell being selectable at card merge or campfire nodes
+  * Fixed Martyr ability causing the game to freeze when there are no valid targets to be healed
+  * Fixed Quick Draw and Woodcutter abilities causing the game to freeze in certain scenarios
+  * Judgement Bird's special ability no longer affects cards with Repulsive ability
+  * Mirror of Adjustment now properly displays the Mirror stat icon
 * Tweaks
-  *
+  * Tweaked Bloodbath's special ability to better indicate when it is activated whilst Bloodbath is in your hand
+  * Assimilator and Bloodfiend abilities now check if the base card is dead before activating. This should prevent visual glitches
+  * Updated Rulebook entry for Judgement Bird's special ability
+  * Connected Nameless Fetus's head to its body in both of its sprites
+  * Minor change to Mirror of Adjustment's description
 * Balancing
+  * Changed Queen Bee's stats from (0,5) --> (1,3)
+  * Changed Bloodbath's stats and gave it the Spilled Blood stat icon
+  * Express Train to Hell cost increased from (FREE) --> (x6)
+  * The Train ability cost reduced from (x12) --> (x6)
+  * Blue Star 1 now only takes 1 turn to evolve and is no longer Singleton (one per deck)
+  * Blue Star 1 no longer has Idol ability
+  * Blue Star 2 no longer has Idol ability
+  * Army in Pink no longer has Undying ability
+  * Army in Black buffed from 2 Power --> 4 Power
+  * Grave of Cherry Blossoms nerfed from 3 Health --> 2 Health
+* Additions
+  * Added 4 starter decks
+  * Added card choice node
+  * Added 2 new config options
+  * Added card Child of the Galaxy
+  * Added card Fragment of the Universe
+  * Added card Apocalypse Bird
+  * Added card The Little Prince
+  * Added card Dream of a Black Swan
+  * Added card Giant Tree Sap
+  * Added card Skin Prophecy
+  * Added card Behaviour Adjustment
+  * Added card Old Faith and Promise
+  * Added card Yin
+  * Added card Yang
+  * Added card Backward Clock
+  * Added card Il Pianto della Luna
+  * Added ability Spores
+  * Added ability Nettles
+  * Added ability Witness
+  * Added ability Corrector
+  * Added ability Alchemist
+  * Added ability Time Machine
 
 ## 🛠️ Configuration Options
 * Enable Mod

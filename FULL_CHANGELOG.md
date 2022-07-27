@@ -1,13 +1,73 @@
 ## Changelog
 ### v1.1.0 - The First Major Update(tm)
+* Groundwork
+  * Changed file name for config file (see ReadMe for more info on this)
+  * Added some new patchers and helpers
+  * Added stat icon support to CardHelper
+  * Added pixel sprite support to CardHelper and AbilityHelper
+  * Rearranged the order of the configs in the config file
 * Bug fixes
-  * Fixed Martyr ability softlocking when there aren't any other valid cards
-  * Melting Love can now be found as a rare card
-  * Judgement Bird is now found as a common choice instead of a rare
+  * Fixed custom death cards not being properly added to the game
+  * Fixed Nothing There and Express Train to Hell being selectable at card merge or campfire nodes
+  * Fixed Martyr ability causing the game to freeze when there are no valid targets to be healed
+  * Fixed Quick Draw and Woodcutter abilities causing the game to freeze in certain scenarios
+  * Fixed certain custom save data only saving per run and not per save
+  * Judgement Bird's special ability no longer affects cards with Repulsive ability
+  * Mirror of Adjustment now properly displays the Mirror stat icon
 * Tweaks
-  * 
+  * Tweaked Bloodbath's special ability to better indicate when it is activated whilst Bloodbath is in your hand
+  * Assimilator and Bloodfiend abilities now check if the base card is dead before activating. This should prevent visual glitches
+  * Updated Rulebook entry for Judgement Bird's special ability
+  * Connected Nameless Fetus's head to its body in both of its sprites
+  * Minor change to Mirror of Adjustment's description
+  * Changed Mirror of Adjustment to use the default stat layout
 * Balancing
-  * 
+  * Changed Queen Bee's stats from (0,5) --> (1,3)
+  * Changed Bloodbath's stats and gave it the Spilled Blood stat icon
+    * Bloodbath 0 (0,3) --> (0,1)
+    * Bloodbath 1 (1,3) --> (0,1)
+    * Bloodbath 2 (2,3) --> (0,2)
+    * Bloodbath 3 (3,3) --> (1,3)
+  * Express Train to Hell cost increased from (FREE) --> (x6)
+  * The Train ability cost reduced from (x12) --> (x6)
+  * Blue Star 1 now only takes 1 turn to evolve
+  * Blue Star 1 is no longer singleton (one per deck)
+  * Blue Star 1 no longer has Idol ability
+  * Blue Star 2 no longer has Idol ability
+  * Army in Pink no longer has Undying ability
+  * Army in Black buffed from 2 Power --> 4 Power
+  * Grave of Cherry Blossoms nerfed from 3 Health --> 2 Health
+* Additions
+  * Added starter deck First Day
+    * One Sin, Fairy Festival, Old Lady
+  * Added starter deck Road to Oz
+    * Wolf Cub, Scarecrow Searching for Wisdom, Warm-Hearted Woodsman
+  * Added starter deck Magical Girls!
+    * Magical Girl H, Magical Girl D, Magical Girl S
+  * Added starter deck The Black Forest
+    * Punishing Bird, Big Bird, Punishing Bird
+  * Added card choice node
+  * Added config option No Donators
+  * Added config option Card Choice at Start
+  * Added card Child of the Galaxy
+  * Added card Fragment of the Universe
+  * Added card Apocalypse Bird
+  * Added card The Little Prince
+  * Added card Dream of a Black Swan
+  * Added card Giant Tree Sap
+  * Added card Skin Prophecy
+  * Added card Behaviour Adjustment
+  * Added card Old Faith and Promise
+  * Added card Yin
+  * Added card Yang
+  * Added card Backward Clock
+  * Added card Il Pianto della Luna
+  * Added ability Spores
+  * Added ability Nettles
+  * Added ability Witness
+  * Added ability Corrector
+  * Added ability Alchemist
+  * Added ability Time Machine
 
 ### v1.0.7 - Martyr bug fix (7/22/2022)
 * Bug fixes
