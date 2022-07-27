@@ -191,7 +191,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Bitter Enemies|A card bearing this sigil gains 1 Power when another card on this board also bears this sigil.|Yes|
 |Courageous|If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Stat changes persist until battle's end.||
 |Serpent's Nest|When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.|Yes|
-|Assimilator|When a card bearing this sigil kills an enemy card, this card gains 1 Power and 1 Health.||
+|Assimilator|When a card bearing this sigil attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.||
 |Group Healer|While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.||
 |Reflector|When this card is struck, the striker is dealt damage equal to the striker's Power.||
 |Flag Bearer|Adjacent cards gain 2 Health.||
