@@ -53,18 +53,21 @@ namespace WhistleWindLobotomyMod
             // Then get a list of all cards above-equal-to the min powerlevel (currently 8)
             // If there is more than 1 card in highInfo, choose a random one from highInfo
             // Else choose the first item in deckInfo (highest powerlevel
+            WstlPlugin.Log.LogInfo("1");
             if (deckInfo != null)
             {
+                WstlPlugin.Log.LogInfo("2");
                 bool removed = false;
                 CardInfo cardInfo = null;
                 int randomSeed = base.GetRandomSeed();
                 List<CardInfo> highInfo = deckInfo.FindAll((CardInfo i) => i.PowerLevel >= min);
+                WstlPlugin.Log.LogInfo("3");
                 deckInfo.Sort((CardInfo a, CardInfo b) => b.PowerLevel - a.PowerLevel);
-
+                WstlPlugin.Log.LogInfo("4");
                 if (highInfo.Count > 1)
                 {
                     highInfo.Sort((CardInfo a, CardInfo b) => b.PowerLevel - a.PowerLevel);
-                    cardInfo = (!(SeededRandom.Value(randomSeed++) > 0.85f)) ? highInfo[SeededRandom.Range(0, deckInfo.Count, randomSeed++)] : highInfo[0];
+                    cardInfo = (!(SeededRandom.Value(randomSeed++) > 0.85f)) ? highInfo[SeededRandom.Range(0, highInfo.Count, randomSeed++)] : highInfo[0];
                 }
                 else
                 {
