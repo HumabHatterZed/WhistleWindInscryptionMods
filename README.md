@@ -14,7 +14,6 @@ This mod currently adds all abnormalities from Lobotomy Corp. Broken down, this 
 * **```15```** special abilities
 * **```4```** starter decks for Kaycee's Mod
 * **```1```** card choice node
-* Custom encounters
 * Plus a few special events!
 
 ## ⚙️ Dependencies
