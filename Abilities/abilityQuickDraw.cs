@@ -89,7 +89,7 @@ namespace WhistleWindLobotomyMod
                 && otherCard.TurnPlayed == 0)
             {
                 WstlPlugin.Log.LogDebug("Enemy is a Pack Mule.");
-                yield return QueueKill();
+                yield return QueueKill(otherCard);
                 yield break;
             }
 
@@ -117,7 +117,7 @@ namespace WhistleWindLobotomyMod
             yield return base.LearnAbility();
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
-        private IEnumerator QueueKill()
+        private IEnumerator QueueKill(PlayableCard otherCard)
         {
             WstlPlugin.Log.LogDebug("Enemy was played this turn.");
             antiLock = true;
