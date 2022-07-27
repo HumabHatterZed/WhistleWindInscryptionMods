@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target)
         {
-            return amount > 0 && base.Card.Health > 0;
+            return amount > 0 && base.Card.Health > 0 && !base.Card.Dead;
         }
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
