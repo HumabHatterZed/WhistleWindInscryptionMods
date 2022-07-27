@@ -12,8 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.Evolve,
-                Idol.ability
+                Ability.Evolve
             };
 
             CardHelper.CreateCard(
