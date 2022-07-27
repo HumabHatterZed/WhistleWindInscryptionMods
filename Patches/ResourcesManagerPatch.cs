@@ -10,7 +10,7 @@ using UnityEngine;
 namespace WhistleWindLobotomyMod
 {
     [HarmonyPatch(typeof(ResourcesManager))]
-    public class ResourcesManagerPatch
+    public static class ResourcesManagerPatch
     {
         // Prevents bones from dropping under certain conditions
         [HarmonyPostfix, HarmonyPatch(nameof(ResourcesManager.AddBones))]

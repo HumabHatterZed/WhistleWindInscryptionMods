@@ -10,7 +10,7 @@ using UnityEngine;
 namespace WhistleWindLobotomyMod
 {
     [HarmonyPatch(typeof(RuleBookInfo))]
-    public class RuleBookInfoPatch
+    public static class RuleBookInfoPatch
     {
         // Adds select Kaycee Mod sigils to the Part 1 rulebook
         [HarmonyPostfix,HarmonyPatch(nameof(RuleBookInfo.AbilityShouldBeAdded))]

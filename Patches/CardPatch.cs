@@ -10,7 +10,7 @@ using UnityEngine;
 namespace WhistleWindLobotomyMod
 {
     [HarmonyPatch(typeof(Card))]
-    public class CardPatch
+    public static class CardPatch
     {
         // Controls custom emission rules for added cards
         // E.g., forced emissions (always glowy), custom colours

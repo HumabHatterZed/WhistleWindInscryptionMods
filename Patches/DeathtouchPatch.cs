@@ -10,7 +10,7 @@ using UnityEngine;
 namespace WhistleWindLobotomyMod
 {
     [HarmonyPatch(typeof(Deathtouch))]
-    public class DeathtouchPatch
+    public static class DeathtouchPatch
     {
         // Makes WhiteNight, its Apostles, and Hundreds of Good Deeds immune to Touch of Death
         // Effectively gives them Made of Stone but without the whole 'they're not made of stone' thing

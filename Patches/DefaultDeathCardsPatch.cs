@@ -10,7 +10,7 @@ using UnityEngine;
 namespace WhistleWindLobotomyMod
 {
     [HarmonyPatch(typeof(DefaultDeathCards))]
-    public class DefaultDeathCardsPatch
+    public static class DefaultDeathCardsPatch
     {
         // Adds custom death cards
         [HarmonyPostfix, HarmonyPatch(nameof(DefaultDeathCards.CreateDefaultCardMods))]

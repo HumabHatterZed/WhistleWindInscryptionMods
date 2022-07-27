@@ -10,7 +10,7 @@ using UnityEngine;
 namespace WhistleWindLobotomyMod
 {
     [HarmonyPatch(typeof(CardStatBoostSequencer))]
-    public class StatBoostPatcher
+    public static class StatBoostPatcher
     {
         // Removes cards from valid pool of hosts for stat boosts
         [HarmonyPostfix, HarmonyPatch(nameof(CardStatBoostSequencer.GetValidCards))]
@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
         }
     }
     [HarmonyPatch(typeof(DuplicateMergeSequencer))]
-    public class DuplicateMergePatch
+    public static class DuplicateMergePatch
     {
         // Removes cards from valid pool of duplicate choices
         [HarmonyPostfix, HarmonyPatch(nameof(DuplicateMergeSequencer.GetValidDuplicateCards))]
@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod
         }
     }
     [HarmonyPatch(typeof(CardMergeSequencer))]
-    public class CardMergePatch
+    public static class CardMergePatch
     {
         // Removes cards from valid pool of hosts for card merges
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForHost))]

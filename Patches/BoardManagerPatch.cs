@@ -10,7 +10,7 @@ using UnityEngine;
 namespace WhistleWindLobotomyMod
 {
     [HarmonyPatch(typeof(BoardManager))]
-    public class BoardManagerPatch
+    public static class BoardManagerPatch
     {
         // Resets NumOfBlessings when the event ends with WhiteNight on the board
         [HarmonyPostfix, HarmonyPatch(nameof(BoardManager.CleanUp))]
