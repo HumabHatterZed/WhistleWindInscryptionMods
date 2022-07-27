@@ -349,6 +349,27 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Magical Girls!|Magical Girl H<br>Magical Girl D<br>Magical Girl S|9|
 |The Black Forest|Punishing Bird<br>Big Bird<br>Judgement Bird|10|
 
+## Abnormality Card Choice Node
+This node draws cards based on their internal 'Risk Level'.
+
+Like with other choice nodes, you're given three cards to choose from. What cards are chosen are determined by the cards' Risk Level.
+
+Cards with higher Risk Levels are generally more powerful, and are thus rarer. In order of rarity they are: Zayin, Teth, He, Waw, and Aleph.
+
+Additionally there is a separate chance that one of the three card choices will be Rare, in which case it is chosen from a pool of all Rare cards regardless of Risk Level.
+
+The exact probabilities change as you progress through a run, with higher Risk Levels becoming more common as you go along.
+
+Below is a table of the exact probabilities.
+
+Note that all Aleph-level cards are Rare, and thus aren't included in the table below.
+
+|Map #|Zayin|Teth|He|Waw|Rare|
+|:-|:-:|:-:|:-:|:-:|:-:|:-:|
+|0|40%|30%|20%|10%|0%|
+|1|30%|30%|20%|20%|5%|
+|2|25%|25%|25%|25%|10%|
+
 ## Future Plans
 Congrats on scrolling all the way down here! Below are a few things that I'll be working on in the future, or at least plan on doing.
 
