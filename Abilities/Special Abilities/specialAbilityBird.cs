@@ -196,12 +196,6 @@ namespace WhistleWindLobotomyMod
         {
             PersistentValues.HasSeenApocalypseEffects = true;
 
-            yield return new WaitForSeconds(0.166f);
-            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
-            yield return new WaitForSeconds(0.166f);
-            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
-            yield return new WaitForSeconds(1.418f);
-
             Color glowRed = GameColors.Instance.glowRed;
             Color darkRed = GameColors.Instance.darkRed;
             darkRed.a = 0.5f;
@@ -209,6 +203,11 @@ namespace WhistleWindLobotomyMod
             gray.a = 0.5f;
 
             Singleton<TableVisualEffectsManager>.Instance.ChangeTableColors(GameColors.Instance.nearBlack, GameColors.Instance.gray, GameColors.Instance.gray, darkRed, darkRed, glowRed, glowRed, glowRed, glowRed);
+
+            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
+            yield return new WaitForSeconds(0.166f);
+            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
+            yield return new WaitForSeconds(1.418f);
 
             AudioController.Instance.StopLoop(1);
             AudioController.Instance.SetLoopVolume((Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.25f);
