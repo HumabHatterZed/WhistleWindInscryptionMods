@@ -49,6 +49,8 @@
   * Added card choice node
   * Added config option No Donators
   * Added config option Card Choice at Start
+  * Added Yin and Yang mini-event
+  * Added Apocalypse Bird mini-event
   * Added card Child of the Galaxy
   * Added card Fragment of the Universe
   * Added card Apocalypse Bird
@@ -68,6 +70,8 @@
   * Added ability Corrector
   * Added ability Alchemist
   * Added ability Time Machine
+  * Added special ability Giant Tree Sap
+  * Added special ability Big Bird
 
 ### v1.0.7 - Martyr bug fix (7/22/2022)
 * Bug fixes

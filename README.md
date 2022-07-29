@@ -11,7 +11,7 @@ The cards in this mod are designed to be as faithful to their original counterpa
 This mod currently adds all abnormalities from Lobotomy Corp. Broken down, this means:
 * **```84```** obtainable cards (excluding evolutions, minions, event-exclusives)
 * **```41```** abilities (excluding event-exclusive ones)
-* **```15```** special abilities
+* **```16```** special abilities
 * **```4```** starter decks for Kaycee's Mod
 * **```1```** card choice node
 * Plus a few special events!
@@ -80,6 +80,7 @@ For the full changelog, please refer to the .md file included in the mod package
   * Added 4 starter decks
   * Added card choice node
   * Added 2 new config options
+  * Added 2 new mini-events
   * Added card Child of the Galaxy
   * Added card Fragment of the Universe
   * Added card Apocalypse Bird
@@ -144,6 +145,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Melting Love|Reacts to taking damage.|
 |Yang|Reacts to being adjacent to another card.|
 |Giant Tree Sap|Reacts to being sacrificed.|
+|Big Bird|Reacts to other card on the board.|
  </details>
  
 ## ✨ Abilities
