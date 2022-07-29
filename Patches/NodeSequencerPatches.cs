@@ -10,11 +10,11 @@ using UnityEngine;
 namespace WhistleWindLobotomyMod
 {
     [HarmonyPatch(typeof(CardStatBoostSequencer))]
-    public static class StatBoostPatcher
+    public static class StatBoostPatch
     {
         // Removes cards from valid pool of hosts for stat boosts
         [HarmonyPostfix, HarmonyPatch(nameof(CardStatBoostSequencer.GetValidCards))]
-        public static void RemoveFromValidCards(ref List<CardInfo> __result)
+        public static void RemoveFromValidCardsForStatBoost(ref List<CardInfo> __result)
         {
             __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(NothingThere.specialAbility)
             || x.Abilities.Contains(TheTrain.ability)
@@ -30,11 +30,12 @@ namespace WhistleWindLobotomyMod
         {
             __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(NothingThere.specialAbility)
             || x.Abilities.Contains(TheTrain.ability)
-            || x.Abilities.Contains(TimeMachine.ability));
+            || x.Abilities.Contains(TimeMachine.ability)
+            || x.name == "wstl_apocalypseBird");
         }
     }
     [HarmonyPatch(typeof(CardMergeSequencer))]
-    public static class CardMergePatch
+    public static class CardMergePatches
     {
         // Removes cards from valid pool of hosts for card merges
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForHost))]
@@ -50,7 +51,8 @@ namespace WhistleWindLobotomyMod
         {
             __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(NothingThere.specialAbility)
             || x.Abilities.Contains(TheTrain.ability)
-            || x.Abilities.Contains(TimeMachine.ability));
+            || x.Abilities.Contains(TimeMachine.ability)
+            || x.name == "wstl_apocalypseBird");
         }
     }
 }
