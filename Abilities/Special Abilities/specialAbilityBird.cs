@@ -35,9 +35,10 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnResolveOnBoard()
         {
+            // Create table effects if Apocalypse Bird then break
             if (base.PlayableCard.Info.name == "wstl_apocalypseBird")
             {
-                Singleton<TableVisualEffectsManager>.Instance.ResetTableColors();
+                yield return TableEffects();
                 yield break;
             }
             yield return CheckSum();
@@ -145,23 +146,7 @@ namespace WhistleWindLobotomyMod
             RemoveCard(base.PlayableCard);
             yield return new WaitForSeconds(0.5f);
 
-            Color glowRed = GameColors.Instance.glowRed;
-            Color darkRed = GameColors.Instance.darkRed;
-            darkRed.a = 0.5f;
-            Color gray = GameColors.Instance.gray;
-            gray.a = 0.5f;
-
-            Singleton<TableVisualEffectsManager>.Instance.ChangeTableColors(GameColors.Instance.nearBlack, GameColors.Instance.gray, GameColors.Instance.gray, darkRed, darkRed, glowRed, glowRed, glowRed, glowRed);
-
-            yield return new WaitForSeconds(0.166f);
-            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
-            yield return new WaitForSeconds(0.166f);
-            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
-            yield return new WaitForSeconds(1.418f);
-            //AudioController.Instance.PlaySound2D("metal_object_up#2", MixerGroup.TableObjectsSFX, 1f, 0.25f);
-
-            AudioController.Instance.StopLoop(1);
-            AudioController.Instance.SetLoopVolume((Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.25f);
+            yield return TableEffects();
 
             // More text
             if (!PersistentValues.HasSeenApocalypse)
@@ -194,7 +179,6 @@ namespace WhistleWindLobotomyMod
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("No creatures. No beast. No sun or moon or stars. Only a single bird, alone in an empty forest. ");
                 yield return new WaitForSeconds(0.15f);
             }
-            PersistentValues.HasSeenApocalypseEffects = true;
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
         private void RemoveCard(PlayableCard item)
@@ -207,6 +191,27 @@ namespace WhistleWindLobotomyMod
                 components[i].OnCleanUp();
             }
             item.ExitBoard(0.3f, Vector3.zero);
+        }
+        private IEnumerator TableEffects()
+        {
+            PersistentValues.HasSeenApocalypseEffects = true;
+
+            yield return new WaitForSeconds(0.166f);
+            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
+            yield return new WaitForSeconds(0.166f);
+            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
+            yield return new WaitForSeconds(1.418f);
+
+            Color glowRed = GameColors.Instance.glowRed;
+            Color darkRed = GameColors.Instance.darkRed;
+            darkRed.a = 0.5f;
+            Color gray = GameColors.Instance.gray;
+            gray.a = 0.5f;
+
+            Singleton<TableVisualEffectsManager>.Instance.ChangeTableColors(GameColors.Instance.nearBlack, GameColors.Instance.gray, GameColors.Instance.gray, darkRed, darkRed, glowRed, glowRed, glowRed, glowRed);
+
+            AudioController.Instance.StopLoop(1);
+            AudioController.Instance.SetLoopVolume((Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.25f);
         }
     }
 }
