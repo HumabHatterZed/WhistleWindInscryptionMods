@@ -130,7 +130,7 @@ namespace WhistleWindLobotomyMod
             antiLock = true;
             queuedCard = otherCard;
             base.Card.Anim.LightNegationEffect();
-            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput($"Your [c:bR]{base.Card.Info.DisplayedNameLocalized}[c:] waits for an opportunity to strike.);
+            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput($"Your [c:bR]{base.Card.Info.DisplayedNameLocalized}[c:] waits for an opportunity to strike.");
         }
     }
 }
