@@ -10,7 +10,7 @@ using UnityEngine;
 namespace WhistleWindLobotomyMod
 {
     [HarmonyPatch(typeof(DeckInfo))]
-    public static class DeckInfoPatches
+    public static class DeckInfoPatch
     {
         // Adds Nothing There to the deck when chosen in a card choice (Trader, Boss Box, etc.)
         [HarmonyPrefix, HarmonyPatch(nameof(DeckInfo.AddCard))]
