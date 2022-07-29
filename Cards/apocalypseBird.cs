@@ -12,15 +12,17 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.TriStrike,
-                Ability.AllStrike
+                Ability.AllStrike,
+                Ability.TriStrike
             };
-
+            List<SpecialTriggeredAbility> specialAbilities = new()
+            {
+                BigBird.specialAbility
+            };
             List<Tribe> tribes = new()
             {
                 Tribe.Bird
             };
-
             List <CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 CardAppearanceBehaviour.Appearance.RareCardBackground
@@ -29,9 +31,9 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_apocalypseBird", "Apocalypse Bird",
                 "There was no moon, no stars. Just a bird, alone in the Black Forest.",
-                5, 3, 4, 0,
+                2, 8, 4, 0,
                 Resources.apocalypseBird, Resources.apocalypseBird_emission,
-                abilities: abilities, specialAbilities: new(),
+                abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances, onePerDeck: true);
         }
