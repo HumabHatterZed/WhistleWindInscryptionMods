@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod
             PlayableCard queuedCard = Singleton<BoardManager>.Instance.GetCardQueuedForSlot(target.Slot);
             if (queuedCard != null && !queuedCard.Dead)
             {
-                yield return Singleton<CombatPhaseManager>.Instance.DealOverkillDamage(1, base.Card.Slot, target.Slot);
+                yield return Singleton<CombatPhaseManager>.Instance.DealOverkillDamage(base.Card.Info.name == "wstl_ApostleSpear" ? base.Card.Attack : 1, base.Card.Slot, target.Slot);
                 yield return LearnAbility();
             }
             yield break;
