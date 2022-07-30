@@ -61,13 +61,10 @@ For the full changelog, please refer to the .md file included in the mod package
   * Mirror of Adjustment now properly displays the Mirror stat icon
 * Tweaks
   * Tweaked Bloodbath's special ability to better indicate when it is activated whilst Bloodbath is in your hand
-  * Assimilator and Bloodfiend abilities now check if the base card is dead before activating. This should prevent visual glitches
-  * Updated Rulebook entry for Judgement Bird's special ability
   * Connected Nameless Fetus's head to its body in both of its sprites
-  * Minor change to Mirror of Adjustment's description
 * Balancing
   * Changed Queen Bee's stats from (0,5) --> (1,3)
-  * Changed Bloodbath's stats and gave it the Spilled Blood stat icon
+  * Changed Bloodbath's stats and gave it the Spilled Blood stat icon 
   * Express Train to Hell cost increased from (FREE) --> (x6)
   * The Train ability cost reduced from (x12) --> (x6)
   * Blue Star 1 now only takes 1 turn to evolve and is no longer Singleton (one per deck)
@@ -76,6 +73,9 @@ For the full changelog, please refer to the .md file included in the mod package
   * Army in Pink no longer has Undying ability
   * Army in Black buffed from 2 Power --> 4 Power
   * Grave of Cherry Blossoms nerfed from 3 Health --> 2 Health
+  * Judgement Bird is Rare again
+  * WhiteNight's Apostles are no longer immune to Touch of Death
+  * Crumbling Armour's Health nerfed from 4 --> 3
 * Additions
   * Added 4 starter decks
   * Added card choice node
@@ -331,24 +331,26 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Magical Girls!|Magical Girl H<br>Magical Girl D<br>Magical Girl S|9|
 |The Black Forest|Punishing Bird<br>Big Bird<br>Judgement Bird|10|
 
-## 📇 Abnormality Card Choice Node
-This node only draws from the pool of obtainable mod cards, including Rares!
+## 📇 Abnormality Card Choice
+This special node can be found randomly as a card choice after battles (and at the start of every region depending on the config) and draws exclusively from this mod's cards.
 
-Each card has a Risk Level which determines the probability that they'll be selected as a card choice at this node.
+Uniquely, this node uses a special value called 'Risk Level' to determine what cards are drawn which acts as a general indication of their power.
 
-The Risk Levels are, in order from least to most rare: Zayin, Teth, He, Waw, Aleph.
+The Risk Levels are, in order from least to most powerful: Zayin, Teth, He, Waw, Aleph.
 
-For each card choice there is a chance that it will instead draw from the pool of Rare mod cards, bypassing the Risk Level mechanic.
+The node randomly chooses one of the first four Risk Levels, and then randomly chooses a card that has that Risk Level.
 
-The exact probabilities for each Risk Level and for Rare cards changes as you progress, as seen below.
+For each card choice there is a chance that it will instead draw from the pool of Rare mod cards, disregarding the Risk Level.
+
+The chances of a certain Risk Level being chosen or getting a Rare card changes based on the map number (you start a run on map #1, regardless of the region).
 
 Note that all Aleph-level cards are Rare cards and thus aren't part of the regular pool.
 
-|Map #|Zayin|Teth|He|Waw|Rare|
+|Map #|Zayin|Teth|He|Waw|_Rare_|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|1|40%|30%|20%|10%|0%|
-|2|30%|30%|20%|20%|5%|
-|3|25%|25%|25%|25%|10%|
+|1|40%|30%|20%|10%|-0%_|
+|2|30%|30%|20%|20%|_5%_|
+|3|25%|25%|25%|25%|_10%_|
 
 ## 🕓 Future Plans
 Congrats on scrolling all the way down here! Below are a few things that I'll be working on in the future, or at least plan on doing.

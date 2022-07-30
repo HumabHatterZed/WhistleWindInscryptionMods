@@ -37,6 +37,10 @@
   * Army in Pink no longer has Undying ability
   * Army in Black buffed from 2 Power --> 4 Power
   * Grave of Cherry Blossoms nerfed from 3 Health --> 2 Health
+  * Judgement Bird is a Rare card again
+  * WhiteNight's Apostles are no longer immune to Touch of Death
+  * Scythe Apostle now has 2 Power, Double Strike ability
+  * Crumbling Armour Health's nerfed from 4 --> 3
 * Additions
   * Added starter deck First Day
     * One Sin, Fairy Festival, Old Lady
