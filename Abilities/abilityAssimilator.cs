@@ -16,7 +16,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "From the many, one.";
             Assimilator.ability = AbilityHelper.CreateAbility<Assimilator>(
                 Resources.sigilAssimilator, Resources.sigilAssimilator_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                addModular: true).Id;
         }
     }
     public class Assimilator : AbilityBehaviour
