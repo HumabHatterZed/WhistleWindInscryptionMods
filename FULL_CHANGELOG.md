@@ -21,8 +21,9 @@
   * Connected Nameless Fetus's head to its body in both of its sprites
   * Minor change to Mirror of Adjustment's description
   * Changed Mirror of Adjustment to use the default stat layout
+  * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities modular
 * Balancing
-  * Changed Queen Bee's stats from (0,5) --> (1,3)
+  * Increased Queen Bee's Health from 5 --> 6
   * Changed Bloodbath's stats and gave it the Spilled Blood stat icon
     * Bloodbath 0 (0,3) --> (0,1)
     * Bloodbath 1 (1,3) --> (0,1)
@@ -41,6 +42,7 @@
   * WhiteNight's Apostles are no longer immune to Touch of Death
   * Scythe Apostle now has 2 Power, Double Strike ability
   * Crumbling Armour Health's nerfed from 4 --> 3
+  * Parasite Tree's cost reduced from 2 blood --> 1 blood
 * Additions
   * Added starter deck First Day
     * One Sin, Fairy Festival, Old Lady

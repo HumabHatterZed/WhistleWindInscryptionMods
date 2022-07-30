@@ -62,8 +62,10 @@ For the full changelog, please refer to the .md file included in the mod package
 * Tweaks
   * Tweaked Bloodbath's special ability to better indicate when it is activated whilst Bloodbath is in your hand
   * Connected Nameless Fetus's head to its body in both of its sprites
+  * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities modular
 * Balancing
-  * Changed Queen Bee's stats from (0,5) --> (1,3)
+  * Queen Nest ability no longer creates a Worker Bee when played
+  * Increased Queen Bee's Health from 5 --> 6
   * Changed Bloodbath's stats and gave it the Spilled Blood stat icon 
   * Express Train to Hell cost increased from (FREE) --> (x6)
   * The Train ability cost reduced from (x12) --> (x6)
@@ -76,6 +78,7 @@ For the full changelog, please refer to the .md file included in the mod package
   * Judgement Bird is Rare again
   * WhiteNight's Apostles are no longer immune to Touch of Death
   * Crumbling Armour's Health nerfed from 4 --> 3
+  * Parasite Tree's cost reduced from 2 blood --> 1 blood
 * Additions
   * Added 4 starter decks
   * Added card choice node
@@ -161,26 +164,26 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Aggravating|While this card is on the board, all opposing cards gain 1 Power.||
 |Team Leader|While this card is on the board, all other ally cards gain 1 Power.||
 |Idol|While this card is on the board, all opposing cards lose 1 Power.||
-|Conductor|When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 1 Health.||
+|Conductor|When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 2 Health, Leader.||
 |Woodcutter|When a card moves into the space opposing this card, deal damage equal to this card's Power to it.||
 |Frozen Heart|When this card dies, the killer gains 1 Health.||
 |Ruler of Frost|When this card is played, create a Block of Ice in the opposing adjacent slots if they are empty. Otherwise, if the occupying card has 1 Health, kill it and create a Frozen Heart in its place. A Block of Ice and a Frozen Heart are both defined as: 0 Power, 1 Health.||
 |Root|When this card is played, Vines are created on adjacent empty spaces. A Vine is defined as: 1 Power, 1 Health.|Yes|
 |Broodmother|When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health.|Yes|
-|Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.||
+|Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.|Yes|
 |Healer|This card will heal a selected ally for 2 Health.||
-|Queen Nest|When a card bearing this sigil is played, a Worker Bee is created in your hand. Create an additional Worker Bee whenever another card dies.||
+|Queen Nest|When a card dies while a card bearing this sigil is on the board, a Worker Bee is created in your hand. A Worker Bee is defined as: 1 Power, 1 Health.|Yes|
 |Bitter Enemies|A card bearing this sigil gains 1 Power when another card on this board also bears this sigil.|Yes|
 |Courageous|If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Stat changes persist until battle's end.||
 |Serpent's Nest|When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.|Yes|
-|Assimilator|When a card bearing this sigil attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.||
+|Assimilator|When a card bearing this sigil attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.|Yes|
 |Group Healer|While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.||
-|Reflector|When this card is struck, the striker is dealt damage equal to the striker's Power.||
+|Reflector|When this card is struck, the striker is dealt damage equal to the striker's Power.|Yes|
 |Flag Bearer|Adjacent cards gain 2 Health.||
-|Grinder|This card gains the stats of the cards sacrificed to play it.||
+|Grinder|This card gains the stats of the cards sacrificed to play it.|Yes|
 |The Train|Activate: Pay 12 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.||
 |Burning|The opposing card takes 1 damage at the end of their turn.||
-|Regenerator|Adjacent cards gain 1 Health at the end of the opponent's turn.||
+|Regenerator|Adjacent cards gain 1 Health at the end of the opponent's turn.|Yes|
 |Volatile|When this card dies, adjacent and opposing cards are dealt 10 damage. (identical to Detonator)|Yes|
 |Gift Giver|When this card is played, create a random card in your hand.||
 |Piercing|When this card strikes a card, deal 1 overkill damage if applicable.|Yes|
