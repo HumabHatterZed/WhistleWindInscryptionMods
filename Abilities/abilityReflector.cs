@@ -15,7 +15,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "What goes around comes around.";
             Reflector.ability = AbilityHelper.CreateAbility<Reflector>(
                 Resources.sigilReflector, Resources.sigilReflector_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                addModular: true).Id;
         }
     }
     public class Reflector : AbilityBehaviour

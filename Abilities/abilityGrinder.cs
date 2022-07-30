@@ -15,7 +15,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Now everything will be just fine.";
             Grinder.ability = AbilityHelper.CreateAbility<Grinder>(
                 Resources.sigilGrinder, Resources.sigilGrinder_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                addModular: true).Id;
         }
     }
     public class Grinder : AbilityBehaviour
