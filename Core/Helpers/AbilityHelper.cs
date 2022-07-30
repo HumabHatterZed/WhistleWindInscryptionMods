@@ -42,7 +42,7 @@ namespace WhistleWindLobotomyMod
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             Texture2D tex = WstlTextureHelper.LoadTextureFromResource(texture);
             Texture2D gbcTex = WstlTextureHelper.LoadTextureFromResource(gbcTexture);
-            info.SetPixelAbilityIcon(gbcTex);
+            info.pixelIcon = gbcTex.ConvertTexture();
             info.rulebookName = rulebookName;
             info.rulebookDescription = rulebookDescription;
             info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
