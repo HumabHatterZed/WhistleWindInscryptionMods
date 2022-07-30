@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Conductor()
         {
             const string rulebookName = "Conductor";
-            const string rulebookDescription = "When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 1 Health.";
+            const string rulebookDescription = "When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 2 Health, Leader.";
             const string dialogue = "From break and ruin, the most beautiful performance begins.";
 
             Conductor.ability = AbilityHelper.CreateAbility<Conductor>(
