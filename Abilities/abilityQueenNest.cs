@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_QueenNest()
         {
             const string rulebookName = "Queen Nest";
-            const string rulebookDescription = "When a card bearing this sigil is on the board and a card dies, create an additional Worker Bee whenever another card dies.";
+            const string rulebookDescription = "When a card dies while a card bearing this sigil is on the board, a Worker Bee is created in your hand. A Worker Bee is defined as: 1 Power, 1 Health.";
             const string dialogue = "For the hive.";
             QueenNest.ability = AbilityHelper.CreateAbility<QueenNest>(
                 Resources.sigilQueenNest, Resources.sigilQueenNest_pixel,
