@@ -15,7 +15,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The curse continues unabated.";
             Cursed.ability = AbilityHelper.CreateAbility<Cursed>(
                 Resources.sigilCursed, Resources.sigilCursed_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 0).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
+                addModular: true).Id;
         }
     }
     public class Cursed : AbilityBehaviour
