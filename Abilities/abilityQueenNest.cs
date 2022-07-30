@@ -12,11 +12,12 @@ namespace WhistleWindLobotomyMod
         private void Ability_QueenNest()
         {
             const string rulebookName = "Queen Nest";
-            const string rulebookDescription = "When a card bearing this sigil is played, create a Worker Bee in your hand. Create an additional Worker Bee whenever another card dies.";
+            const string rulebookDescription = "When a card bearing this sigil is on the board and a card dies, create an additional Worker Bee whenever another card dies.";
             const string dialogue = "For the hive.";
             QueenNest.ability = AbilityHelper.CreateAbility<QueenNest>(
                 Resources.sigilQueenNest, Resources.sigilQueenNest_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                addModular: true).Id;
         }
     }
     public class QueenNest : AbilityBehaviour
@@ -24,33 +25,9 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToResolveOnBoard()
-        {
-            return true;
-        }
-
-        public override IEnumerator OnResolveOnBoard()
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-
-            base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
-
-            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
-            {
-                yield return new WaitForSeconds(0.2f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
-                yield return new WaitForSeconds(0.2f);
-            }
-
-            CardInfo cardInfo = CardLoader.GetCardByName("wstl_queenBeeWorker");
-            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
-            yield return new WaitForSeconds(0.45f);
-            yield return base.LearnAbility(0.5f);
-        }
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return base.Card.OnBoard && deathSlot.IsPlayerSlot && card != base.Card;
+            return base.Card.OnBoard && !base.Card.OpponentCard && card != base.Card && killer != null;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
