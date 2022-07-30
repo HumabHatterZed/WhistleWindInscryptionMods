@@ -170,7 +170,8 @@ namespace WhistleWindLobotomyMod
             {
                 CardChoice cardChoice = new();
                 string risk = GetRiskLevel(randomSeed++, regionTier);
-                bool rareChoice = !gotRare && !(SeededRandom.Value(randomSeed++) >= regionTier * 0.05f);
+                float mult = SaveFile.IsAscension ? 0.02f : 0.04f;
+                bool rareChoice = !gotRare && !(SeededRandom.Value(randomSeed++) >= regionTier * mult);
                 CardInfo card = ModCardLoader.GetRandomChoosableModCard(randomSeed++, risk);
                 if (rareChoice)
                 {
