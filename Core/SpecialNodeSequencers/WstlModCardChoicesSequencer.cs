@@ -94,7 +94,7 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator CardSelectionSequence(SpecialNodeData choicesData)
         {
-            if (modRerollInteractable != null)
+            if (StoryEventsData.EventCompleted(StoryEvent.CloverFound) && modRerollInteractable != null)
             {
                 if (!AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.NoClover))
                 {
