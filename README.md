@@ -354,12 +354,17 @@ Note that all Aleph-level cards are Rare cards and thus aren't part of the regul
 
 *If you're playing Kaycee's Mod the chance of drawing a Rare is halved to 2% and 4% for maps #2 and #3 respectively.
 
-## 🕓 Future Plans
-Congrats on scrolling all the way down here! Below are a few things that I'll be working on in the future, or at least plan on doing.
+## 🕓 Closing Notes
+Hello all! Thanks for all the support!! I hope you've been enjoying the mod, and I hope you enjoy this update!
+
+There were some things I decided not to include in this update, such as Challenges and custom encounters, so expect another update with these features sometime in the future!!
+
+Below is a small list of things that I plan on doing in the coming months
 
 * Further balancing, tweaks, bug fixes, and general refinement of what's currently available (feedback is welcomed and encouraged!).
+* Custom encounters, abnormality battle node (maybe Ordeals? Idk if they're considered abnormalities though, I'll have to check)
+* Challenges and Anti-Challenges (aka Cheats)
 * Further expansion pack of Library of Ruina abnormalities
-* Challenges and Anti-Challenges (Cheats)
 
 <!---
 * Custom challenges.
