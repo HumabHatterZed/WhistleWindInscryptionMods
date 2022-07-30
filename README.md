@@ -346,11 +346,13 @@ The chances of a certain Risk Level being chosen or getting a Rare card changes 
 
 Note that all Aleph-level cards are Rare cards and thus aren't part of the regular pool.
 
-|Map #|Zayin|Teth|He|Waw|_Rare_|
-|:-:|:-:|:-:|:-:|:-:|:-:|
-|1|40%|30%|20%|10%|-0%_|
-|2|30%|30%|20%|20%|_5%_|
-|3|25%|25%|25%|25%|_10%_|
+|Map #|Zayin|Teth|He|Waw|_Rare_||
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|1|40%|30%|20%|10%|_0%_|
+|2|30%|30%|20%|20%|_4%*_|
+|3|25%|25%|25%|25%|_8%*_|
+
+*If you're playing Kaycee's Mod the chance of drawing a Rare is halved to 2% and 4% for maps #2 and #3 respectively.
 
 ## 🕓 Future Plans
 Congrats on scrolling all the way down here! Below are a few things that I'll be working on in the future, or at least plan on doing.
