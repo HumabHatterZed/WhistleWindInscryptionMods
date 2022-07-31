@@ -21,7 +21,7 @@
   * Connected Nameless Fetus's head to its body in both of its sprites
   * Minor change to Mirror of Adjustment's description
   * Changed Mirror of Adjustment to use the default stat layout
-  * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities modular
+  * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
 * Balancing
   * Increased Queen Bee's Health from 5 --> 6
   * Changed Bloodbath's stats and gave it the Spilled Blood stat icon
@@ -44,6 +44,8 @@
   * Crumbling Armour Health's nerfed from 4 --> 3
   * Parasite Tree's cost reduced from 2 blood --> 1 blood
   * Rebalanced Made of Slime to activate on upkeep, no longer inherits the killed card's Power
+  * CENSORED buffed from 2 Health --> 3 Health
+  * CENSORED's minions now inherit the full Power of the killed card
 * Additions
   * Added starter deck First Day
     * One Sin, Fairy Festival, Old Lady
@@ -56,6 +58,8 @@
   * Added card choice node
   * Added config option No Donators
   * Added config option Card Choice at Start
+  * Added mini-event for Apocaylpse Bird
+  * Added mini-event for Yin and Yang
   * Added Yin and Yang mini-event
   * Added Apocalypse Bird mini-event
   * Added card Child of the Galaxy
@@ -72,7 +76,7 @@
   * Added card Backward Clock
   * Added card Il Pianto della Luna
   * Added ability Spores
-  * Added ability Nettles
+  * Added ability Clothes Made of Nettles
   * Added ability Witness
   * Added ability Corrector
   * Added ability Alchemist

@@ -61,8 +61,7 @@ For the full changelog, please refer to the .md file included in the mod package
   * Mirror of Adjustment now properly displays the Mirror stat icon
 * Tweaks
   * Tweaked Bloodbath's special ability to better indicate when it is activated whilst Bloodbath is in your hand
-  * Connected Nameless Fetus's head to its body in both of its sprites
-  * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities modular
+  * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
 * Balancing
   * Queen Nest ability no longer creates a Worker Bee when played
   * Increased Queen Bee's Health from 5 --> 6
@@ -76,10 +75,11 @@ For the full changelog, please refer to the .md file included in the mod package
   * Army in Black buffed from 2 Power --> 4 Power
   * Grave of Cherry Blossoms nerfed from 3 Health --> 2 Health
   * Judgement Bird is Rare again
-  * WhiteNight's Apostles are no longer immune to Touch of Death
   * Crumbling Armour's Health nerfed from 4 --> 3
   * Parasite Tree's cost reduced from 2 blood --> 1 blood
   * Rebalanced Made of Slime to activate on upkeep, no longer inherits the killed card's Power
+  * CENSORED buffed from 2 Health --> 3 Health
+  * CENSORED's minions now inherit the full Power of the killed card
 * Additions
   * Added 4 starter decks
   * Added card choice node
@@ -99,7 +99,7 @@ For the full changelog, please refer to the .md file included in the mod package
   * Added card Backward Clock
   * Added card Il Pianto della Luna
   * Added ability Spores
-  * Added ability Nettles
+  * Added ability Clothes Made of Nettles
   * Added ability Witness
   * Added ability Corrector
   * Added ability Alchemist
@@ -328,12 +328,13 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 </details>
 
 ## 🗃️ Starter Decks
-|Starter Deck|Cards|Level Unlocked|
+***Level indicates the Challenge Level at which the deck is unlocked (0 meaning it's always unlocked)**
+|Starter Deck|Cards|Level|
 |:-|:-|:-:|
 |First Day|One Sin and Hundreds of Good Deeds<br>Fairy Festival<br>Old Lady|0|
 |Road to Oz|Wolf Cub<br>Scarecrow Searching for Wisdom<br>Warm-Hearted Woodsman|3|
 |Magical Girls!|Magical Girl H<br>Magical Girl D<br>Magical Girl S|9|
-|The Black Forest|Punishing Bird<br>Big Bird<br>Judgement Bird|10|
+|The Black Forest|Punishing Bird<br>Big Bird<br>Judgement Bird|13|
 
 ## 📇 Abnormality Card Choice
 This special node can be found randomly as a card choice after battles (and at the start of every region depending on the config) and draws exclusively from this mod's cards.
