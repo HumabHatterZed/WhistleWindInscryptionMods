@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Rulebook_CENSORED()
         {
             const string rulebookName = "CENSORED";
-            const string rulebookDescription = "Whenever it kills a card, <CENSORED> them and add the resulting minion to your hand.";
+            const string rulebookDescription = "On killing a card, <CENSORED> them and add the resulting minion to your hand. The minion is defined as: X Power, 1 Health.";
             const string dialogue = "femboy";
             EntryCENSORED.ability = AbilityHelper.CreateAbility<EntryCENSORED>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
