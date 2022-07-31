@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Slime()
         {
             const string rulebookName = "Made of Slime";
-            const string rulebookDescription = "A card bearing this sigil takes 1 less damage from attacks. Additionally, cards adjacent to this card are turned into Slimes at the start of the owner's turn.";
+            const string rulebookDescription = "Adjacent cards are turned into Slimes at the start of the owner's turn. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.";
             const string dialogue = "Its army grows everyday.";
 
             Slime.ability = AbilityHelper.CreateAbility<Slime>(
@@ -27,175 +27,144 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
 
         private readonly string absorbDialogue = "They give themselves lovingly.";
-        private bool IsLove => base.Card.Info.name.ToLowerInvariant().Equals("wstl_meltinglove");
 
-        public override bool RespondsToResolveOnBoard()
+        public override bool RespondsToUpkeep(bool playerUpkeep)
         {
-            int num = 0;
-            bool hasAbility;
-            bool traits;
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot))
+            if (base.Card != null)
             {
-                if (slot.Card != null)
-                {
-                    hasAbility = slot.Card.Info.HasAbility(Slime.ability);
-                    traits = slot.Card.Info.HasTrait(Trait.Terrain) || slot.Card.Info.HasTrait(Trait.Pelt);
-                    if (!traits && !hasAbility)
-                    {
-                        num++;
-                    }
-                }
-            }
-            return num > 0;
-        }
-        public override IEnumerator OnResolveOnBoard()
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-            base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
-
-            bool hasAbility;
-            bool traits;
-            foreach (var slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
-            {
-                CardInfo cardInfo = CardLoader.GetCardByName("wstl_meltingLoveMinion");
-
-                // does not affect terrain or pelts
-                hasAbility = slot.Card.Info.HasAbility(Slime.ability);
-                traits = slot.Card.Info.HasTrait(Trait.Terrain) || slot.Card.Info.HasTrait(Trait.Pelt);
-
-                if (!traits && !hasAbility)
-                {
-                    // gains the killed card's Power, Health/2, sigils
-                    int killedHp = Mathf.CeilToInt(slot.Card.Health / 2) <= 0 ? 1 : Mathf.CeilToInt(slot.Card.Health / 2);
-                    int killedAtk = slot.Card.Info.baseAttack;
-                    CardModificationInfo stats = new(killedAtk, killedHp);
-
-                    cardInfo.Mods.Add(stats);
-
-                    foreach (CardModificationInfo item in slot.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
-                    {
-                        // Adds merged sigils
-                        CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                        cardInfo.Mods.Add(cardModificationInfo);
-                    }
-
-                    cardInfo.displayedName = slot.Card.Info.displayedName;
-                    cardInfo.appearanceBehaviour = slot.Card.Info.appearanceBehaviour;
-
-                    slot.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.4f);
-                    yield return slot.Card.TransformIntoCard(cardInfo);
-                    yield return new WaitForSeconds(0.5f);
-                    yield return base.LearnAbility(0.5f);
-                }
-            }
-        }
-
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
-        {
-            bool hasAbility;
-            bool traits;
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot))
-            {
-                if (slot.Card != null)
-                {
-                    hasAbility = slot.Card.Info.HasAbility(Slime.ability);
-                    traits = slot.Card.Info.HasTrait(Trait.Terrain) || slot.Card.Info.HasTrait(Trait.Pelt);
-                    if (!traits && !hasAbility)
-                    {
-                        return slot.Card == otherCard;
-                    }
-                }
+                return base.Card.OpponentCard != playerUpkeep;
             }
             return false;
         }
-        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
+        public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            yield return base.PreSuccessfulTriggerSequence();
-            base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
+            // If Melting Love and has low Health
+            if (base.Card.Info.name.Equals("wstl_meltingLove") && base.Card.Health == 1)
+            {
+                if (Singleton<ViewManager>.Instance.CurrentView != View.Board)
+                {
+                    Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+                    yield return new WaitForSeconds(0.15f);
+                }
+                CardSlot leftSlot = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, true);
+                CardSlot rightSlot = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, false);
 
+                // check if left card is valid target
+                bool leftValid = leftSlot != null && leftSlot.Card != null && leftSlot.Card.HasAbility(Slime.ability);
+
+                // check if right card is valid target
+                bool rightValid = rightSlot != null && rightSlot.Card != null && rightSlot.Card.HasAbility(Slime.ability);
+
+                // break if none are valid
+                if (!leftValid || !rightValid)
+                {
+                    base.Card.Anim.LightNegationEffect();
+                    yield return new WaitForSeconds(0.15f);
+                    yield break;
+                }
+
+                if (leftValid)
+                {
+                    leftSlot.Card.Anim.LightNegationEffect();
+                    yield return new WaitForSeconds(0.2f);
+                }
+                if (rightValid)
+                {
+                    rightSlot.Card.Anim.LightNegationEffect();
+                    yield return new WaitForSeconds(0.2f);
+                }
+                yield return new WaitForSeconds(0.2f);
+                if (!PersistentValues.HasSeenMeltingHeal)
+                {
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(absorbDialogue);
+                    yield return new WaitForSeconds(0.1f);
+                }
+                if (leftValid)
+                {
+                    int leftHealth = leftSlot.Card.Health;
+                    base.Card.Anim.StrongNegationEffect();
+                    yield return leftSlot.Card.Die(false, base.Card);
+                    base.Card.HealDamage(leftHealth);
+                    yield return new WaitForSeconds(0.4f);
+                }
+                if (rightValid && base.Card.Health < base.Card.Info.baseHealth)
+                {
+                    int rightHealth = rightSlot.Card.Health;
+                    base.Card.Anim.StrongNegationEffect();
+                    yield return rightSlot.Card.Die(false, base.Card);
+                    base.Card.HealDamage(rightHealth);
+                    yield return new WaitForSeconds(0.4f);
+                }
+                Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+                yield return new WaitForSeconds(0.15f);
+                // don't transform cards
+                yield break;
+            }
+
+            // Transform cards
+            CardSlot leftSlot2 = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, true);
+            CardSlot rightSlot2 = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, false);
+
+            // check if left card is valid target
+            bool leftValid2 = leftSlot2 != null && leftSlot2.Card != null && !leftSlot2.Card.HasAbility(Slime.ability) &&
+                !leftSlot2.Card.Info.HasTrait(Trait.Terrain) && !leftSlot2.Card.Info.HasTrait(Trait.Pelt); ;
+
+            // check if right card is valid target
+            bool rightValid2 = rightSlot2 != null && rightSlot2.Card != null && !rightSlot2.Card.HasAbility(Slime.ability) &&
+                !rightSlot2.Card.Info.HasTrait(Trait.Terrain) && !rightSlot2.Card.Info.HasTrait(Trait.Pelt);
+
+            yield return base.PreSuccessfulTriggerSequence();
+
+            // transform valid cards
+            if (leftValid2)
+            {
+                CardInfo leftInfo = SlimeInfo(leftSlot2.Card.Info);
+                yield return leftSlot2.Card.TransformIntoCard(leftInfo);
+                yield return new WaitForSeconds(0.2f);
+            }
+            if (rightValid2)
+            {
+                CardInfo rightInfo = SlimeInfo(rightSlot2.Card.Info);
+                yield return rightSlot2.Card.TransformIntoCard(rightInfo);
+                yield return new WaitForSeconds(0.2f);
+            }
+            // learn ability or do a shimmy
+            if (leftValid2 || rightValid2)
+            {
+                yield return new WaitForSeconds(0.5f);
+                yield return base.LearnAbility();
+            }
+        }
+        private CardInfo SlimeInfo(CardInfo otherInfo)
+        {
             CardInfo cardInfo = CardLoader.GetCardByName("wstl_meltingLoveMinion");
 
-            // does not affect terrain or pelts
-            // gains the killed card's Power, Health/2, sigils
-            int killedHp = Mathf.CeilToInt(otherCard.Health / 2) <= 0 ? 1 : Mathf.CeilToInt(otherCard.Health / 2);
-            int killedAtk = otherCard.Info.baseAttack;
-            CardModificationInfo stats = new(killedAtk, killedHp);
+            // copy name, costs
+            cardInfo.displayedName = otherInfo.displayedName + " Slime";
+            cardInfo.cost = otherInfo.BloodCost;
+            cardInfo.bonesCost = otherInfo.BonesCost;
+            cardInfo.energyCost = otherInfo.EnergyCost;
+            cardInfo.gemsCost = otherInfo.GemsCost;
 
-            cardInfo.Mods.Add(stats);
+            // Health - 1, Power 1 if killed card had Power > 0
+            int newPower = otherInfo.baseAttack > 0 ? 1 : 0;
+            int newHealth = otherInfo.baseHealth - 1 < 1 ? 1 : otherInfo.baseHealth - 1;
 
-            foreach (CardModificationInfo item in otherCard.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+            cardInfo.Mods.Add(new(newPower, newHealth));
+
+            foreach (CardModificationInfo item in otherInfo.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
-                // Adds merged sigils
+                // Copy merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
                 cardInfo.Mods.Add(cardModificationInfo);
             }
-            foreach (Ability item in otherCard.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            foreach (Ability item in otherInfo.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
             {
-                // Adds base sigils
+                // Copy base sigils
                 cardInfo.Mods.Add(new CardModificationInfo(item));
             }
 
-            cardInfo.displayedName = otherCard.Info.displayedName;
-
-            otherCard.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
-            yield return otherCard.TransformIntoCard(cardInfo);
-            yield return new WaitForSeconds(0.5f);
-            yield return base.LearnAbility(0.5f);
-
-            if (Singleton<ViewManager>.Instance.CurrentView != View.Default)
-            {
-                yield return new WaitForSeconds(0.2f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.Default, false, false);
-                yield return new WaitForSeconds(0.2f);
-            }
-        }
-
-        public override bool RespondsToTakeDamage(PlayableCard source)
-        {
-            if (source != null)
-            {
-                return source.Health > 0 && IsLove;
-            }
-            return false;
-        }
-        public override IEnumerator OnTakeDamage(PlayableCard source)
-        {
-            yield return base.Card.Status.damageTaken > 0 ? base.Card.Status.damageTaken-- : base.Card.Status.damageTaken;
-            base.Card.Anim.PlayHitAnimation();
-            yield return base.PreSuccessfulTriggerSequence();
-            if (base.Card.Health == 1 && base.Card.MaxHealth > 1)
-            {
-                yield return new WaitForSeconds(0.55f);
-                base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.55f);
-
-                foreach (var slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
-                {
-                    if (slot.Card.Info.name.ToLowerInvariant().Equals("wstl_meltingloveminion"))
-                    {
-                        int hp = slot.Card.Health;
-                        slot.Card.Anim.PlayHitAnimation();
-                        yield return new WaitForSeconds(0.1f);
-                        yield return slot.Card.Die(false, base.Card);
-                        base.Card.HealDamage(hp);
-                        base.Card.Anim.StrongNegationEffect();
-                        yield return new WaitForSeconds(0.4f);
-                        if (!PersistentValues.HasSeenMeltingHeal)
-                        {
-                            PersistentValues.HasSeenMeltingHeal = true;
-                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(absorbDialogue, -0.65f, 0.4f);
-                        }
-                    }
-                    if (base.Card.Health >= base.Card.MaxHealth)
-                    {
-                        yield break;
-                    }
-                }
-            }
+            return cardInfo;
         }
     }
 }
