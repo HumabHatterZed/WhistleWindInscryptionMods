@@ -46,7 +46,8 @@ namespace WhistleWindLobotomyMod
         {
             if (killer != null)
             {
-                return fromCombat && killer == base.Card && base.Card.Info.name.ToLowerInvariant().Equals("wstl_censored") &&
+                return killer == base.Card && !base.Card.OpponentCard && fromCombat &&
+                    base.Card.Info.name.ToLowerInvariant().Equals("wstl_censored") &&
                     !card.Info.HasTrait(Trait.Terrain) && !card.Info.HasTrait(Trait.Pelt);
             }
             return false;
@@ -65,12 +66,17 @@ namespace WhistleWindLobotomyMod
             }
             // Creates a minion that has the abilities, tribes, power of the killed card
             CardInfo minion = CardLoader.GetCardByName("wstl_censoredMinion");
-            List<CardModificationInfo> killedInfo = new();
 
-            int killedAtk = card.Info.baseAttack - 1 <= 0 ? 0 : card.Info.baseAttack - 1;
-            CardModificationInfo stats = new(killedAtk, 0);
+            minion.displayedName = card.Info.displayedName;
+            minion.appearanceBehaviour = card.Info.appearanceBehaviour;
+            minion.cost = card.Info.BloodCost;
+            minion.bonesCost = card.Info.BonesCost;
+            minion.energyCost = card.Info.EnergyCost;
+            minion.gemsCost = card.Info.GemsCost;
 
-            killedInfo.Add(stats);
+            int newAttack = card.Info.baseAttack < 1 ? 1 : card.Info.baseAttack;
+
+            minion.Mods.Add(new(newAttack, 1));
 
             foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
@@ -90,10 +96,7 @@ namespace WhistleWindLobotomyMod
                 minion.tribes.Add(item);
             }
 
-            minion.displayedName = card.Info.displayedName;
-            minion.appearanceBehaviour = card.Info.appearanceBehaviour;
-
-            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(minion, killedInfo, 0.25f, null);
+            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(minion);
 
             yield return new WaitForSeconds(0.45f);
             if (!PersistentValues.HasSeenCensoredKill)
