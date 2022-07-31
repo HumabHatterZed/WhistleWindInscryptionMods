@@ -290,7 +290,7 @@ namespace WhistleWindLobotomyMod
                 CardLoader.GetCardByName("wstl_punishingBird"),
                 CardLoader.GetCardByName("wstl_bigBird"),
                 CardLoader.GetCardByName("wstl_judgementBird")
-            }, 10);
+            }, 13);
         }
         private static void AddEncounters()
         {
