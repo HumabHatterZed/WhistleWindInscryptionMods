@@ -2,10 +2,9 @@
 ### v1.1.0 - The First Major Update(tm)
 * Groundwork
   * Changed file name for config file (see ReadMe for more info on this)
-  * Added some new patchers and helpers
-  * Added stat icon support to CardHelper
-  * Added pixel sprite support to CardHelper and AbilityHelper
+  * Added some new game patches
   * Rearranged the order of the configs in the config file
+  * All abilities now have an icon for Act 2, if you want to mess around with them in Act 2 for whatever reason
 * Bug fixes
   * Fixed custom death cards not being properly added to the game
   * Fixed Nothing There and Express Train to Hell being selectable at card merge or campfire nodes
