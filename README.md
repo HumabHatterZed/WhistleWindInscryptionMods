@@ -79,6 +79,7 @@ For the full changelog, please refer to the .md file included in the mod package
   * WhiteNight's Apostles are no longer immune to Touch of Death
   * Crumbling Armour's Health nerfed from 4 --> 3
   * Parasite Tree's cost reduced from 2 blood --> 1 blood
+  * Rebalanced Made of Slime to activate on upkeep, no longer inherits the killed card's Power
 * Additions
   * Added 4 starter decks
   * Added card choice node
@@ -184,13 +185,13 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |The Train|Activate: Pay 12 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.||
 |Burning|The opposing card takes 1 damage at the end of their turn.||
 |Regenerator|Adjacent cards gain 1 Health at the end of the opponent's turn.|Yes|
-|Volatile|When this card dies, adjacent and opposing cards are dealt 10 damage. (identical to Detonator)|Yes|
+|Volatile|When this card dies, adjacent and opposing cards are dealt 10 damage.|Yes|
 |Gift Giver|When this card is played, create a random card in your hand.||
 |Piercing|When this card strikes a card, deal 1 overkill damage if applicable.|Yes|
 |Scrambler|When this card is sacrificed, add its stats onto the card it was sacrificed to, then scramble that card's stats.|Yes|
 |Gardener|When an ally card dies, create a Sapling in their place. A Sapling is defined as: 0 Power, 2 Health.||
-|Slime|A card bearing this sigil takes 1 less damage from attacks. Additionally, cards placed adjacent to this card are turned into Slimes.||
-|Marksman|You may choose which opposing space a card bearing this sigil strikes. (identical to Sniper)||
+|Made of Slime|Adjacent cards are turned into Slimes at the start of the owner's turn. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.||
+|Marksman|You may choose which opposing space a card bearing this sigil strikes.||
 |Protector|Adjacent cards take 1 less damage from attacks.||
 |Quick Draw|When a creature moves into the space opposite this card, they take 1 damage.||
 |Alchemist|Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.||

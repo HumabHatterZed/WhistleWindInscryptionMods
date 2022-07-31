@@ -43,6 +43,7 @@
   * Scythe Apostle now has 2 Power, Double Strike ability
   * Crumbling Armour Health's nerfed from 4 --> 3
   * Parasite Tree's cost reduced from 2 blood --> 1 blood
+  * Rebalanced Made of Slime to activate on upkeep, no longer inherits the killed card's Power
 * Additions
   * Added starter deck First Day
     * One Sin, Fairy Festival, Old Lady
