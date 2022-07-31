@@ -141,6 +141,7 @@ namespace WhistleWindLobotomyMod
 
             // copy name, costs
             cardInfo.displayedName = otherInfo.displayedName + " Slime";
+            cardInfo.appearanceBehaviour = otherInfo.appearanceBehaviour;
             cardInfo.cost = otherInfo.BloodCost;
             cardInfo.bonesCost = otherInfo.BonesCost;
             cardInfo.energyCost = otherInfo.EnergyCost;
