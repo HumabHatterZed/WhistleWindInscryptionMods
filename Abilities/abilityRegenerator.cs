@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod
         private readonly string dragonDialogue2 = "At the end of the beginning, [c:bR]the dragon[c:] soared through the sky toward the unknown.";
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
-            return base.Card.Slot.IsPlayerSlot ? playerUpkeep : !playerUpkeep;
+            return base.Card.OpponentCard != playerUpkeep;
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
