@@ -62,6 +62,7 @@ For the full changelog, please refer to the .md file included in the mod package
 * Tweaks
   * Tweaked Bloodbath's special ability to better indicate when it is activated whilst Bloodbath is in your hand
   * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
+  * Plague Doctor now changes appearance based on the number of times it's healed cards
 * Balancing
   * Queen Nest ability no longer creates a Worker Bee when played
   * Increased Queen Bee's Health from 5 --> 6
