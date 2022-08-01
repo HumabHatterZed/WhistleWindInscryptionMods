@@ -16,11 +16,11 @@ namespace WhistleWindLobotomyMod
         [HarmonyPostfix, HarmonyPatch(nameof(CardLoader.GetUnlockedCards))]
         public static void RemoveUniqueCards(ref List<CardInfo> __result)
         {
-            if (PersistentValues.HasUsedBackwardClock)
+            if (WstlSaveManager.HasUsedBackwardClock)
             {
                 __result.RemoveAll((CardInfo x) => x.name == "wstl_backwardClock");
             }
-            if (PersistentValues.HasApocalypse)
+            if (WstlSaveManager.HasApocalypse)
             {
                 __result.RemoveAll((CardInfo x) => x.name == "wstl_punishingBird"
                 || x.name == "wstl_bigBird" || x.name == "wstl_judgementBird");

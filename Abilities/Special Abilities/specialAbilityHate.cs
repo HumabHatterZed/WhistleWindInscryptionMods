@@ -136,9 +136,9 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator PlayDialogue()
         {
-            if (!PersistentValues.HasSeenHatredTransformation)
+            if (!WstlSaveManager.HasSeenHatredTransformation)
             {
-                PersistentValues.HasSeenHatredTransformation = true;
+                WstlSaveManager.HasSeenHatredTransformation = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f);
                 yield return new WaitForSeconds(0.5f);
             }

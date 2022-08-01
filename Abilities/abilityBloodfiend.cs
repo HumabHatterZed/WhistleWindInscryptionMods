@@ -99,9 +99,9 @@ namespace WhistleWindLobotomyMod
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(minion);
 
             yield return new WaitForSeconds(0.45f);
-            if (!PersistentValues.HasSeenCensoredKill)
+            if (!WstlSaveManager.HasSeenCensoredKill)
             {
-                PersistentValues.HasSeenCensoredKill = true;
+                WstlSaveManager.HasSeenCensoredKill = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(censoredDialogue, -0.65f, 0.4f, Emotion.Surprise);
             }
             yield return new WaitForSeconds(0.25f);

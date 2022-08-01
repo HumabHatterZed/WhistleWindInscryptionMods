@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
         public static CardInfo GetRandomRareModCard(int randomSeed)
         {
             List<CardInfo> unlockedCards = ModCardLoader.GetUnlockedModCards(CardMetaCategory.Rare, CardTemple.Nature);
-            if (PersistentValues.HasUsedBackwardClock)
+            if (WstlSaveManager.HasUsedBackwardClock)
             {
                 unlockedCards.RemoveAll((CardInfo x) => x.name == "wstl_backwardBlock");
             }

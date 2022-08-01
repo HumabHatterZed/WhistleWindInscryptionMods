@@ -48,9 +48,9 @@ namespace WhistleWindLobotomyMod
                     base.Card.Anim.StrongNegationEffect();
                     yield return new WaitForSeconds(0.5f);
 
-                    if (!PersistentValues.HasSeenDerFreischutzSeventh)
+                    if (!WstlSaveManager.HasSeenDerFreischutzSeventh)
                     {
-                        PersistentValues.HasSeenDerFreischutzSeventh = true;
+                        WstlSaveManager.HasSeenDerFreischutzSeventh = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue, -0.65f, 0.4f);
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue2, -0.65f, 0.4f);
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue3, -0.65f, 0.4f);
@@ -93,9 +93,9 @@ namespace WhistleWindLobotomyMod
                     base.Card.Anim.StrongNegationEffect();
                     yield return new WaitForSeconds(0.5f);
 
-                    if (!PersistentValues.HasSeenDerFreischutzSeventh)
+                    if (!WstlSaveManager.HasSeenDerFreischutzSeventh)
                     {
-                        PersistentValues.HasSeenDerFreischutzSeventh = true;
+                        WstlSaveManager.HasSeenDerFreischutzSeventh = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue, -0.65f, 0.4f);
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue2, -0.65f, 0.4f);
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue3, -0.65f, 0.4f);

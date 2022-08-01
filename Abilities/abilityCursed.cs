@@ -39,9 +39,9 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.55f);
             yield return killer.TransformIntoCard(this.Card.Info);
             yield return new WaitForSeconds(0.4f);
-            if (!PersistentValues.HasSeenBeautyTransform && killer.Slot.IsPlayerSlot)
+            if (!WstlSaveManager.HasSeenBeautyTransform && killer.Slot.IsPlayerSlot)
             {
-                PersistentValues.HasSeenBeautyTransform = true;
+                WstlSaveManager.HasSeenBeautyTransform = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Did you think you were immune?", -0.65f, 0.4f, Emotion.Laughter);
             }
             yield return LearnAbility();

@@ -71,7 +71,7 @@ namespace WhistleWindLobotomyMod
             base.StartCoroutine(modDeckPile.SpawnCards(SaveManager.SaveFile.CurrentDeck.Cards.Count));
 
             // First-time dialogue for the node
-            if (!PersistentValues.AbnormalityCardChoice)
+            if (!WstlSaveManager.AbnormalityCardChoice)
             {
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default);
                 yield return new WaitForSeconds(0.4f);
@@ -292,9 +292,9 @@ namespace WhistleWindLobotomyMod
                 Singleton<RuleBookController>.Instance.SetShown(shown: false);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(card.Info.description);
                 ProgressionData.SetCardIntroduced(card.Info);
-                if (!PersistentValues.AbnormalityCardChoice && this.AllCardsFlippedUp())
+                if (!WstlSaveManager.AbnormalityCardChoice && this.AllCardsFlippedUp())
                 {
-                    PersistentValues.AbnormalityCardChoice = true;
+                    WstlSaveManager.AbnormalityCardChoice = true;
                     yield return new WaitForSeconds(0.25f);
                     Singleton<TextDisplayer>.Instance.ShowMessage("You may choose [c:bR]1[c:] to join you. The others will remain here, sealed in their tombs.");
                 }

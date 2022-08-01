@@ -57,9 +57,9 @@ namespace WhistleWindLobotomyMod
                     }
                     yield return slot.Card.Die(false, slot.Card);
                     yield return new WaitForSeconds(0.25f);
-                    if (!PersistentValues.HasSeenRegeneratorExplode)
+                    if (!WstlSaveManager.HasSeenRegeneratorExplode)
                     {
-                        PersistentValues.HasSeenRegeneratorExplode = true;
+                        WstlSaveManager.HasSeenRegeneratorExplode = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f);
                     }
                 }
@@ -114,7 +114,7 @@ namespace WhistleWindLobotomyMod
         private IEnumerator DragonSequence(PlayableCard card)
         {
             yield return new WaitForSeconds(0.5f);
-            if (!PersistentValues.HasSeenDragon)
+            if (!WstlSaveManager.HasSeenDragon)
             {
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dragonDialogue, -0.65f, 0.4f);
             }
@@ -141,9 +141,9 @@ namespace WhistleWindLobotomyMod
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_yinYangHead"),slot);
             }
             yield return new WaitForSeconds(0.4f);
-            if (!PersistentValues.HasSeenDragon)
+            if (!WstlSaveManager.HasSeenDragon)
             {
-                PersistentValues.HasSeenDragon = true;
+                WstlSaveManager.HasSeenDragon = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dragonDialogue2, -0.65f, 0.4f);
             }
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy)

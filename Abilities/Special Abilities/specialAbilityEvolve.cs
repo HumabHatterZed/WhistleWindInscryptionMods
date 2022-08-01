@@ -51,9 +51,9 @@ namespace WhistleWindLobotomyMod
         {
             if (IsGreed) // Magical Girl D --> King of Greed
             {
-                if (!PersistentValues.HasSeenGreedTransformation)
+                if (!WstlSaveManager.HasSeenGreedTransformation)
                 {
-                    PersistentValues.HasSeenGreedTransformation = true;
+                    WstlSaveManager.HasSeenGreedTransformation = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(greedDialogue, -0.65f, 0.4f);
                 }
                 yield break;
@@ -62,9 +62,9 @@ namespace WhistleWindLobotomyMod
             {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                if (!PersistentValues.HasSeenNothingTransformationTrue)
+                if (!WstlSaveManager.HasSeenNothingTransformationTrue)
                 {
-                    PersistentValues.HasSeenNothingTransformationTrue = true;
+                    WstlSaveManager.HasSeenNothingTransformationTrue = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(nothingTrueDialogue, -0.65f, 0.4f);
                 }
                 yield break;
@@ -84,9 +84,9 @@ namespace WhistleWindLobotomyMod
                 }
                 yield return base.PlayableCard.TransformIntoCard(evolution);
                 yield return new WaitForSeconds(0.5f);
-                if (!PersistentValues.HasSeenNothingTransformationEgg)
+                if (!WstlSaveManager.HasSeenNothingTransformationEgg)
                 {
-                    PersistentValues.HasSeenNothingTransformationEgg = true;
+                    WstlSaveManager.HasSeenNothingTransformationEgg = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(nothingEggDialogue, -0.65f, 0.4f, Emotion.Curious);
                 }
                 yield return new WaitForSeconds(0.25f);
@@ -119,9 +119,9 @@ namespace WhistleWindLobotomyMod
                 }
                 yield return base.PlayableCard.TransformIntoCard(evolution);
                 yield return new WaitForSeconds(0.5f);
-                if (!PersistentValues.HasSeenHatredTireOut)
+                if (!WstlSaveManager.HasSeenHatredTireOut)
                 {
-                    PersistentValues.HasSeenHatredTireOut = true;
+                    WstlSaveManager.HasSeenHatredTireOut = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hateADialogue, -0.65f, 0.4f);
                 }
                 yield return new WaitForSeconds(0.25f);
@@ -138,9 +138,9 @@ namespace WhistleWindLobotomyMod
                 }
                 yield return base.PlayableCard.TransformIntoCard(evolution);
                 yield return new WaitForSeconds(0.5f);
-                if (!PersistentValues.HasSeenHatredRecover)
+                if (!WstlSaveManager.HasSeenHatredRecover)
                 {
-                    PersistentValues.HasSeenHatredRecover = true;
+                    WstlSaveManager.HasSeenHatredRecover = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hateBDialogue, -0.65f, 0.4f);
                 }
                 yield return new WaitForSeconds(0.25f);

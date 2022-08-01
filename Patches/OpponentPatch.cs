@@ -16,9 +16,9 @@ namespace WhistleWindLobotomyMod
         [HarmonyPostfix, HarmonyPatch(nameof(Opponent.OutroSequence))]
         public static IEnumerator ResetEffects(IEnumerator enumerator)
         {
-            if (PersistentValues.HasSeenApocalypseEffects)
+            if (WstlSaveManager.HasSeenApocalypseEffects)
             {
-                PersistentValues.HasSeenApocalypseEffects = false;
+                WstlSaveManager.HasSeenApocalypseEffects = false;
                 Singleton<TableVisualEffectsManager>.Instance.ResetTableColors();
             }
             yield return enumerator;

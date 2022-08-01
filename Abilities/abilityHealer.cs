@@ -1,4 +1,5 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System;
 using System.Collections;
@@ -84,7 +85,9 @@ namespace WhistleWindLobotomyMod
                     randSlot.Card.HealDamage(2);
                     randSlot.Card.Anim.StrongNegationEffect();
                     CombatPhaseManagerPatch.Instance.VisualizeClearSniperAbility();
+                    base.Card.Anim.LightNegationEffect();
                     ConfigUtils.Instance.UpdateBlessings(1);
+                    UpdatePortrait();
                     yield return new WaitForSeconds(0.25f);
                 }
                 else
@@ -117,7 +120,10 @@ namespace WhistleWindLobotomyMod
                 CombatPhaseManagerPatch.Instance.VisualizeClearSniperAbility();
                 if (IsDoctor)
                 {
+                    base.Card.Anim.LightNegationEffect();
                     ConfigUtils.Instance.UpdateBlessings(1);
+                    UpdatePortrait();
+                    yield return new WaitForSeconds(0.15f);
                 }
                 yield return new WaitForSeconds(0.25f);
                 yield break;
@@ -156,7 +162,10 @@ namespace WhistleWindLobotomyMod
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
             if (IsDoctor)
             {
+                base.Card.Anim.LightNegationEffect();
                 ConfigUtils.Instance.UpdateBlessings(1);
+                UpdatePortrait();
+                yield return new WaitForSeconds(0.15f);
                 yield return ClockTwelve();
             }
         }
@@ -175,8 +184,7 @@ namespace WhistleWindLobotomyMod
             {
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]Thou cannot stop my ascension. Even the tutelary bows to mine authority.[c:]", -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
             }
-            // Reset the number of Blessings to 0 and change Leshy's eyes to red
-            //ConfigUtils.Instance.UpdateBlessings(-ConfigUtils.Instance.NumOfBlessings);
+            // Change Leshy's eyes to red
             LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
             // Transform the Doctor into Him
             yield return base.Card.TransformIntoCard(CardLoader.GetCardByName("wstl_whiteNight"));
@@ -184,9 +192,9 @@ namespace WhistleWindLobotomyMod
             base.Card.AddTemporaryMod(new CardModificationInfo(Ability.Flying));
             yield return new WaitForSeconds(0.2f);
             // Create dialogue depending on whether this is the first time this has happened this run
-            if (!PersistentValues.ClockThisRun)
+            if (!WstlSaveManager.ClockThisRun)
             {
-                PersistentValues.ClockThisRun = true;
+                WstlSaveManager.ClockThisRun = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventDialogue2, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventDialogue3, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
@@ -249,9 +257,9 @@ namespace WhistleWindLobotomyMod
                             }
                         }
                         yield return slot.Card.TransformIntoCard(randApostle);
-                        if (heretic && !PersistentValues.ApostleHeretic)
+                        if (heretic && !WstlSaveManager.ApostleHeretic)
                         {
-                            PersistentValues.ApostleHeretic = true;
+                            WstlSaveManager.ApostleHeretic = true;
                             yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hereticDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
                             yield return new WaitForSeconds(0.2f);
                         }
@@ -360,6 +368,66 @@ namespace WhistleWindLobotomyMod
                 }
             }
             return false;
+        }
+        private void UpdatePortrait()
+        {
+            Texture2D portrait;
+            Texture2D emissive;
+
+            switch (ConfigUtils.Instance.NumOfBlessings)
+            {
+                case 0:
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor_emission);
+                    break;
+                case 1:
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor1);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor1_emission);
+                    break;
+                case 2:
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor2);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor2_emission);
+                    break;
+                case 3:
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor3);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor3_emission);
+                    break;
+                case 4:
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor4);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor4_emission);
+                    break;
+                case 5:
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor5);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor5_emission);
+                    break;
+                case 6:
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor6);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor6_emission);
+                    break;
+                case 7:
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor7);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor7_emission);
+                    break;
+                case 8:
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor8);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor8_emission);
+                    break;
+                case 9:
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor9);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor9_emission);
+                    break;
+                case 10:
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor10);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor10_emission);
+                    break;
+                default:
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor11);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor11_emission);
+                    break;
+            }
+
+            base.Card.Info.SetPortrait(portrait, emissive);
+            base.Card.UpdateStatsText();
         }
     }
 }

@@ -58,9 +58,9 @@ namespace WhistleWindLobotomyMod
                     }
                     yield return base.Card.TransformIntoCard(evolution);
                     yield return new WaitForSeconds(0.5f);
-                    if (!PersistentValues.HasSeenMountainGrow)
+                    if (!WstlSaveManager.HasSeenMountainGrow)
                     {
-                        PersistentValues.HasSeenMountainGrow = true;
+                        WstlSaveManager.HasSeenMountainGrow = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(growDialogue, -0.65f, 0.4f);
                     }
                 }
@@ -87,9 +87,9 @@ namespace WhistleWindLobotomyMod
             }
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(previous, base.Card.Slot, 0.15f);
             yield return new WaitForSeconds(0.25f);
-            if (!PersistentValues.HasSeenMountainShrink)
+            if (!WstlSaveManager.HasSeenMountainShrink)
             {
-                PersistentValues.HasSeenMountainShrink = true;
+                WstlSaveManager.HasSeenMountainShrink = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dieDialogue, -0.65f, 0.4f);
             }
         }

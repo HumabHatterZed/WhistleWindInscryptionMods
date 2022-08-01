@@ -52,9 +52,9 @@ namespace WhistleWindLobotomyMod
             yield return target.Status.damageTaken > 0 ? target.Status.damageTaken-- : target.Status.damageTaken;
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
-            if (IsDespair && !PersistentValues.HasSeenDespairProtect)
+            if (IsDespair && !WstlSaveManager.HasSeenDespairProtect)
             {
-                PersistentValues.HasSeenDespairProtect = true;
+                WstlSaveManager.HasSeenDespairProtect = true;
                 yield return new WaitForSeconds(0.4f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(protectDialogue, -0.65f, 0.4f);
             }
@@ -95,9 +95,9 @@ namespace WhistleWindLobotomyMod
                 }
                 yield return base.Card.TransformIntoCard(cardByName);
                 yield return new WaitForSeconds(0.5f);
-                if (!PersistentValues.HasSeenDespairTransformation)
+                if (!WstlSaveManager.HasSeenDespairTransformation)
                 {
-                    PersistentValues.HasSeenDespairTransformation = true;
+                    WstlSaveManager.HasSeenDespairTransformation = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(despairDialogue, -0.65f, 0.4f);
                 }
                 yield return new WaitForSeconds(0.25f);
@@ -113,9 +113,9 @@ namespace WhistleWindLobotomyMod
                     cardByName.Mods.Add(cardModificationInfo);
                 }
                 yield return new WaitForSeconds(0.5f);
-                if (!PersistentValues.HasSeenArmyBlacked)
+                if (!WstlSaveManager.HasSeenArmyBlacked)
                 {
-                    PersistentValues.HasSeenArmyBlacked = true;
+                    WstlSaveManager.HasSeenArmyBlacked = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(blackDialogue, -0.65f, 0.4f);
                 }
                 yield return new WaitForSeconds(0.25f);

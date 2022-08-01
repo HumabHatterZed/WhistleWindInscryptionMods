@@ -79,16 +79,16 @@ namespace WhistleWindLobotomyMod
                     base.Card.Anim.StrongNegationEffect();
                     yield return new WaitForSeconds(0.25f);
                     yield return card.Die(false, base.Card);
-                    if (!PersistentValues.HasSeenCrumblingArmourKill)
+                    if (!WstlSaveManager.HasSeenCrumblingArmourKill)
                     {
-                        PersistentValues.HasSeenCrumblingArmourKill = true;
+                        WstlSaveManager.HasSeenCrumblingArmourKill = true;
                         yield return new WaitForSeconds(0.5f);
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(cowardKill, -0.65f, 0.4f);
                     }
                 }
-                else if (!PersistentValues.HasSeenCrumblingArmourRefuse)
+                else if (!WstlSaveManager.HasSeenCrumblingArmourRefuse)
                 {
-                    PersistentValues.HasSeenCrumblingArmourRefuse = true;
+                    WstlSaveManager.HasSeenCrumblingArmourRefuse = true;
                     yield return new WaitForSeconds(0.25f);
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(buffRefuse, -0.65f, 0.4f);
                     yield return new WaitForSeconds(0.25f);
@@ -100,9 +100,9 @@ namespace WhistleWindLobotomyMod
             {
                 card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.25f);
-                if (!PersistentValues.HasSeenCrumblingArmourFail)
+                if (!WstlSaveManager.HasSeenCrumblingArmourFail)
                 {
-                    PersistentValues.HasSeenCrumblingArmourFail = true;
+                    WstlSaveManager.HasSeenCrumblingArmourFail = true;
                     yield return new WaitForSeconds(0.25f);
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(buffFail, -0.65f, 0.4f);
                 }

@@ -1,4 +1,5 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using BepInEx;
 using BepInEx.Configuration;
 using DiskCardGame;
@@ -6,6 +7,7 @@ using System.Collections;
 using System.IO;
 using UnityEngine;
 using static WhistleWindLobotomyMod.WstlPlugin;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {

@@ -66,23 +66,23 @@ namespace WhistleWindLobotomyMod
             switch (base.PlayableCard.Info.name)
             {
                 case "wstl_bloodBath1":
-                    if (!PersistentValues.HasSeenBloodbathHand)
+                    if (!WstlSaveManager.HasSeenBloodbathHand)
                     {
-                        PersistentValues.HasSeenBloodbathHand = true;
+                        WstlSaveManager.HasSeenBloodbathHand = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("A hand rises from the sanguine pool.", -0.65f, 0.4f);
                     }
                     break;
                 case "wstl_bloodBath2":
-                    if (!PersistentValues.HasSeenBloodbathHand1)
+                    if (!WstlSaveManager.HasSeenBloodbathHand1)
                     {
-                        PersistentValues.HasSeenBloodbathHand1 = true;
+                        WstlSaveManager.HasSeenBloodbathHand1 = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Another pale hand emerges.", -0.65f, 0.4f);
                     }
                     break;
                 case "wstl_bloodBath3":
-                    if (!PersistentValues.HasSeenBloodbathHand2)
+                    if (!WstlSaveManager.HasSeenBloodbathHand2)
                     {
-                        PersistentValues.HasSeenBloodbathHand2 = true;
+                        WstlSaveManager.HasSeenBloodbathHand2 = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("A third hand reaches out, as if asking for help.", -0.65f, 0.4f);
                     }
                     break;

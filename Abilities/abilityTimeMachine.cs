@@ -33,13 +33,13 @@ namespace WhistleWindLobotomyMod
         // Failsafe that prevents ability from being used multiple times per run
         public override bool CanActivate()
         {
-            return !PersistentValues.HasUsedBackwardClock;
+            return !WstlSaveManager.HasUsedBackwardClock;
         }
 
         // Ends the battle
         public override IEnumerator Activate()
         {
-            PersistentValues.HasUsedBackwardClock = true;
+            WstlSaveManager.HasUsedBackwardClock = true;
             AudioController.Instance.PlaySound2D("antigravity_elevator_down");
             yield return base.Card.RenderInfo.forceEmissivePortrait = true;
             yield return new WaitForSeconds(0.4f);

@@ -58,7 +58,7 @@ namespace WhistleWindLobotomyMod
         private IEnumerator CheckSum()
         {
             // Break if alread have Apocalypse Bird
-            if (PersistentValues.HasApocalypse)
+            if (WstlSaveManager.HasApocalypse)
             {
                 yield break;
             }
@@ -98,7 +98,7 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.7f);
 
             // Exposit story of the Black Forest
-            if (!PersistentValues.HasSeenApocalypse)
+            if (!WstlSaveManager.HasSeenApocalypse)
             {
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Let me tell you a story. The story of the [c:bR]Black Forest[c:].");
             }
@@ -107,7 +107,7 @@ namespace WhistleWindLobotomyMod
             AudioController.Instance.SetLoopAndPlay("red_noise", 1);
             AudioController.Instance.SetLoopVolumeImmediate(0.3f, 1);
 
-            if (!PersistentValues.HasSeenApocalypse)
+            if (!WstlSaveManager.HasSeenApocalypse)
             {
                 yield return new WaitForSeconds(0.4f);
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default, false, true);
@@ -149,7 +149,7 @@ namespace WhistleWindLobotomyMod
             yield return TableEffects();
 
             // More text
-            if (!PersistentValues.HasSeenApocalypse)
+            if (!WstlSaveManager.HasSeenApocalypse)
             {
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Darkness fell upon the forest. Mayhem ran amok as creatures screamed in terror at the towering bird.");
             }
@@ -163,7 +163,7 @@ namespace WhistleWindLobotomyMod
             // set cost to 0 for this fight (can play immediately that way)
             info.cost = 0;
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0.25f, null);
-            PersistentValues.HasApocalypse = true;
+            WstlSaveManager.HasApocalypse = true;
             yield return new WaitForSeconds(0.2f);
 
             // Li'l text blurb
@@ -172,9 +172,9 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.2f);
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             yield return new WaitForSeconds(0.15f);
-            if (!PersistentValues.HasSeenApocalypse)
+            if (!WstlSaveManager.HasSeenApocalypse)
             {
-                PersistentValues.HasSeenApocalypse = true;
+                WstlSaveManager.HasSeenApocalypse = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The three birds, [c:bR]now one[c:] looked around for [c:bR]the Beast[c:]. But there was nothing.");
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("No creatures. No beast. No sun or moon or stars. Only a single bird, alone in an empty forest. ");
                 yield return new WaitForSeconds(0.15f);
@@ -194,7 +194,7 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator TableEffects()
         {
-            PersistentValues.HasSeenApocalypseEffects = true;
+            WstlSaveManager.HasSeenApocalypseEffects = true;
 
             Color glowRed = GameColors.Instance.glowRed;
             Color darkRed = GameColors.Instance.darkRed;

@@ -60,20 +60,20 @@ namespace WhistleWindLobotomyMod
                 }
 
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(downedInfo, base.Card.Slot, 0.15f);
-                if (!PersistentValues.ApostleDowned)
+                if (!WstlSaveManager.ApostleDowned)
                 {
                     yield return new WaitForSeconds(0.2f);
-                    PersistentValues.ApostleDowned = true;
+                    WstlSaveManager.ApostleDowned = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(downedDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
                 }
             }
             else
             {
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
-                if (!PersistentValues.ApostleKilled)
+                if (!WstlSaveManager.ApostleKilled)
                 {
                     yield return new WaitForSeconds(0.2f);
-                    PersistentValues.ApostleKilled = true;
+                    WstlSaveManager.ApostleKilled = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hammeredDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
                 }
             }

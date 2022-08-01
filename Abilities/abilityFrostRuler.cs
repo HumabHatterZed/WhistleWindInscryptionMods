@@ -60,9 +60,9 @@ namespace WhistleWindLobotomyMod
                     yield return new WaitForSeconds(0.15f);
                     yield return opposingSlotLeft.Card.Die(false, base.Card);
                     yield return SpawnCard(opposingSlotLeft, "wstl_snowQueenIceHeart");
-                    if (!PersistentValues.HasSeenSnowQueenFreeze)
+                    if (!WstlSaveManager.HasSeenSnowQueenFreeze)
                     {
-                        PersistentValues.HasSeenSnowQueenFreeze = true;
+                        WstlSaveManager.HasSeenSnowQueenFreeze = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
                     }
                 }
@@ -84,9 +84,9 @@ namespace WhistleWindLobotomyMod
                     yield return new WaitForSeconds(0.15f);
                     yield return opposingSlotRight.Card.Die(false, base.Card);
                     yield return SpawnCard(opposingSlotRight, "wstl_snowQueenIceHeart");
-                    if (!PersistentValues.HasSeenSnowQueenFreeze)
+                    if (!WstlSaveManager.HasSeenSnowQueenFreeze)
                     {
-                        PersistentValues.HasSeenSnowQueenFreeze = true;
+                        WstlSaveManager.HasSeenSnowQueenFreeze = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
                     }
                 }
@@ -99,9 +99,9 @@ namespace WhistleWindLobotomyMod
             {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                if (!PersistentValues.HasSeenSnowQueenFail)
+                if (!WstlSaveManager.HasSeenSnowQueenFail)
                 {
-                    PersistentValues.HasSeenSnowQueenFail = true;
+                    WstlSaveManager.HasSeenSnowQueenFail = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(failDialogue, -0.65f, 0.4f);
                 }
             }

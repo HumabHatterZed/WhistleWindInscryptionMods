@@ -46,6 +46,7 @@ namespace WhistleWindLobotomyMod
             }
             else
             {
+                //WstlSaveManager.NumOfBlessings = ConfigUtils.Instance.NumOfBlessings;
                 if (ConfigUtils.Instance.NumOfBlessings > 11)
                 {
                     ConfigUtils.Instance.SetBlessings(11);

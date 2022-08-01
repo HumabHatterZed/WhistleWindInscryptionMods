@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
         [HarmonyPostfix, HarmonyPatch(nameof(BoardManager.CleanUp))]
         private static void ResetBlessings(ref BoardManager __instance)
         {
-            if (ConfigUtils.Instance.NumOfBlessings >= 12 && __instance.AllSlotsCopy.FindAll((CardSlot s) => s.Card != null && s.Card.Info.name == "wstl_whiteNight").Count > 0)
+            if (__instance.AllSlotsCopy.FindAll((CardSlot s) => s.Card != null && s.Card.Info.name == "wstl_whiteNight").Count > 0)
             {
                 ConfigUtils.Instance.UpdateBlessings(-ConfigUtils.Instance.NumOfBlessings);
                 WstlPlugin.Log.LogDebug($"Resetting the clock to [0].");
