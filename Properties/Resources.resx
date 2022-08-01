@@ -646,6 +646,72 @@
   <data name="plagueDoctor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\plagueDoctor.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="plagueDoctor1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor10.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor10_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor10_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor11.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor11_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor11_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor1_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor1_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor2_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor2_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor3_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor3_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor4_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor4_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor5_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor5_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor6_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor6_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor7.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor7_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor7_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor8.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor8_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor8_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor9.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="plagueDoctor9_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plagueDoctor9_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="plagueDoctor_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\plagueDoctor_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

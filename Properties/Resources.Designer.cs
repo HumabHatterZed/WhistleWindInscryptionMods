@@ -1833,6 +1833,226 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] plagueDoctor1 {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor1_emission {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor1_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor10 {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor10", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor10_emission {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor10_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor11 {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor11", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor11_emission {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor11_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor2 {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor2_emission {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor2_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor3 {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor3_emission {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor3_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor4 {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor4_emission {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor4_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor5 {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor5_emission {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor5_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor6 {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor6", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor6_emission {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor6_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor7 {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor7", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor7_emission {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor7_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor8 {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor8", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor8_emission {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor8_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor9 {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor9", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] plagueDoctor9_emission {
+            get {
+                object obj = ResourceManager.GetObject("plagueDoctor9_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] porccubus {
             get {
                 object obj = ResourceManager.GetObject("porccubus", resourceCulture);
