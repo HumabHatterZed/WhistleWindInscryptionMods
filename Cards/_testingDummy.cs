@@ -12,8 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                QuickDraw.ability,
-                Ability.Deathtouch
+                Ability.QuadrupleBones
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -26,7 +25,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                1, 1, 0, 0,
+                5, 1, 0, 0,
                 Resources.testingDummy, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new());
