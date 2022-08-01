@@ -16,8 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "If she gave her brothers the nettle clothing, their happy days would be restored.";
             Nettles.ability = AbilityHelper.CreateAbility<Nettles>(
                 Resources.sigilNettles, Resources.sigilNettles_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                overrideModular: true).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }
     public class Nettles : AbilityBehaviour
@@ -29,6 +28,7 @@ namespace WhistleWindLobotomyMod
         private readonly string altDialogue2 = "She fell to the ground, vomiting ooze like the rest of [c:bR]the City[c:].";
         private readonly string altDialogue3 = "The lake ripples gently. As if a number of swans just took flight.";
 
+        // 1 mode for each brother
         private readonly CardModificationInfo mod1 = new(Ability.DoubleStrike);
         private readonly CardModificationInfo mod2 = new(1,0);
         private readonly CardModificationInfo mod3 = new(Reflector.ability);
@@ -41,6 +41,7 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnResolveOnBoard()
         {
+            // if Dream of A Black Swan, give hidden Protector ability
             if (base.Card.Info.name == "wstl_dreamOfABlackSwan")
             {
                 base.Card.Status.hiddenAbilities.Add(Protector.ability);
@@ -55,9 +56,9 @@ namespace WhistleWindLobotomyMod
             {
                 yield return new WaitForSeconds(0.25f);
                 base.Card.Anim.StrongNegationEffect();
-                if (!PersistentValues.HasSeenSwanFail)
+                if (!WstlSaveManager.HasSeenSwanFail)
                 {
-                    PersistentValues.HasSeenSwanFail = true;
+                    WstlSaveManager.HasSeenSwanFail = true;
                     yield return new WaitForSeconds(0.25f);
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue, -0.65f, 0.4f);
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue2, -0.65f, 0.4f);
@@ -95,10 +96,12 @@ namespace WhistleWindLobotomyMod
         }
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
+            // respond if otherCard on same side of board and is a Brother
             return otherCard.OpponentCard == base.Card.OpponentCard && otherCard.Info.name.Contains("wstl_dreamOfABlackSwanBrother");
         }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
+            // get the right mod
             CardModificationInfo cardMod = otherCard.Info.name switch
             {
                 "wstl_dreamOfABlackSwanBrother1" => mod1,
@@ -108,6 +111,8 @@ namespace WhistleWindLobotomyMod
                 "wstl_dreamOfABlackSwanBrother5" => mod5,
                 _ => mod6
             };
+
+            // reference the ability of the Brother to determine what ability to flag as hidden
             if (otherCard.Info.Abilities.Count != 0)
             {
                 base.Card.Status.hiddenAbilities.Add(otherCard.Info.Abilities[0]);
@@ -136,9 +141,9 @@ namespace WhistleWindLobotomyMod
                 base.Card.Status.hiddenAbilities.Remove(card.Info.Abilities[0]);
             }
             base.Card.RemoveTemporaryMod(cardMod);
-            if (!PersistentValues.HasSeenSwanFail)
+            if (!WstlSaveManager.HasSeenSwanFail)
             {
-                PersistentValues.HasSeenSwanFail = true;
+                WstlSaveManager.HasSeenSwanFail = true;
                 yield return new WaitForSeconds(0.25f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue, -0.65f, 0.4f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue2, -0.65f, 0.4f);
