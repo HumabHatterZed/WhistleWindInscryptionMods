@@ -30,8 +30,8 @@ namespace WhistleWindLobotomyMod
 
         private int softLock = 0;
         // Heretic doesn't exist in the player's hand or on the board
-        private bool heretic = new List<PlayableCard>(Singleton<PlayerHand>.Instance.CardsInHand).FindAll((PlayableCard card) => card.Info.name == "wstl_apostleHeretic").Count == 0
-            && new List<CardSlot>(Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null && slot.Card.Info.name == "wstl_apostleHeretic")).Count == 0;
+        private bool heretic = new List<PlayableCard>(Singleton<PlayerHand>.Instance.CardsInHand).FindAll((PlayableCard card) => card.Info.name == "wstl_apostleHeretic").Count != 0
+            || new List<CardSlot>(Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null && slot.Card.Info.name == "wstl_apostleHeretic")).Count != 0;
 
         private readonly string killedDialogue = "[c:bR]Do not deny me.[c:]";
         private readonly string hammerDialogue = "[c:bR]I shall not leave thee until I have completed my mission.[c:]";
@@ -98,9 +98,9 @@ namespace WhistleWindLobotomyMod
                         }
                     }
                     yield return otherCard.TransformIntoCard(randApostle);
-                    if (heretic && !PersistentValues.ApostleHeretic)
+                    if (heretic && !WstlSaveManager.ApostleHeretic)
                     {
-                        PersistentValues.ApostleHeretic = true;
+                        WstlSaveManager.ApostleHeretic = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hereticDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
                         yield return new WaitForSeconds(0.2f);
                     }
@@ -140,9 +140,9 @@ namespace WhistleWindLobotomyMod
                 }
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
                 yield return new WaitForSeconds(0.2f);
-                if (!PersistentValues.WhiteNightKilled)
+                if (!WstlSaveManager.WhiteNightKilled)
                 {
-                    PersistentValues.WhiteNightKilled = true;
+                    WstlSaveManager.WhiteNightKilled = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(killedDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
                     yield return new WaitForSeconds(0.2f);
                 }
@@ -151,10 +151,10 @@ namespace WhistleWindLobotomyMod
             else
             {
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
-                if (!PersistentValues.WhiteNightHammer)
+                if (!WstlSaveManager.WhiteNightHammer)
                 {
                     yield return new WaitForSeconds(0.2f);
-                    PersistentValues.WhiteNightHammer = true;
+                    WstlSaveManager.WhiteNightHammer = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hammerDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
                     yield return new WaitForSeconds(0.2f);
 
