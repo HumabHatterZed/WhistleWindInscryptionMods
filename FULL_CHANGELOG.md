@@ -47,6 +47,7 @@
   * CENSORED buffed from 2 Health --> 3 Health
   * CENSORED's minions now inherit the full Power of the killed card
   * We Can Change Anything buffed from 1 Health --> 2 Health
+  * Luminous Bracelet buffed from 1 Health --> 2 Health
 * Additions
   * Added starter deck First Day
     * One Sin, Fairy Festival, Old Lady
