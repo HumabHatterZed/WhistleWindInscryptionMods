@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_blueStar2", "Blue Star",
                 "When this is over, let's meet again as stars.",
-                1, 4, 4, 0,
+                1, 8, 4, 0,
                 Resources.blueStar, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
