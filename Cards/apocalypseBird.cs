@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new()
             {
                 Ability.AllStrike,
-                Ability.TriStrike
+                Ability.SplitStrike
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
