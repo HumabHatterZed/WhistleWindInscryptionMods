@@ -211,7 +211,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 **NOTES**
 * **Singleton** means you can only have a single copy of that card in your deck  at a time (like Ouroboros).
 * **Poisonous** means the card will kill survivors at the campfire when eaten.
-* **X** means that that stat varies (typically because the card in question inherits its stats from somewhere else).
+* **X** means that that stat is dependant on the stats of another card.
 <details>
 <summary>View cards</summary>
 
