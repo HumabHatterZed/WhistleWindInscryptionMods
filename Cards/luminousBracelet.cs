@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_luminousBracelet", "Luminous Bracelet",
                 "A bracelet that will heal those nearby. It does not forgive the greedy.",
-                0, 1, 0, 3,
+                0, 2, 0, 3,
                 Resources.luminousBracelet, Resources.luminousBracelet_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
