@@ -335,7 +335,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |First Day|One Sin and Hundreds of Good Deeds<br>Fairy Festival<br>Old Lady|0|
 |Road to Oz|Wolf Cub<br>Scarecrow Searching for Wisdom<br>Warm-Hearted Woodsman|3|
 |Magical Girls!|Magical Girl H<br>Magical Girl D<br>Magical Girl S|9|
-|The Black Forest|Punishing Bird<br>Big Bird<br>Judgement Bird|13|
+|Twilight|Punishing Bird<br>Big Bird<br>Judgement Bird|13|
 
 ## 📇 Abnormality Card Choice
 This special node can be found randomly as a card choice after battles (and at the start of every region depending on the config) and draws exclusively from this mod's cards.

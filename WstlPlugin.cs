@@ -286,7 +286,7 @@ namespace WhistleWindLobotomyMod
                 CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
                 CardLoader.GetCardByName("wstl_magicalGirlSpade")
             }, 9);
-            StarterDeckHelper.AddStartDeck("The Black Forest", Resources.starterDeckBlackForest, new()
+            StarterDeckHelper.AddStartDeck("Twilight", Resources.starterDeckBlackForest, new()
             {
                 CardLoader.GetCardByName("wstl_punishingBird"),
                 CardLoader.GetCardByName("wstl_bigBird"),

@@ -53,7 +53,7 @@
     * Wolf Cub, Scarecrow Searching for Wisdom, Warm-Hearted Woodsman
   * Added starter deck Magical Girls!
     * Magical Girl H, Magical Girl D, Magical Girl S
-  * Added starter deck The Black Forest
+  * Added starter deck Twilight
     * Punishing Bird, Big Bird, Punishing Bird
   * Added card choice node
   * Added config option No Donators
