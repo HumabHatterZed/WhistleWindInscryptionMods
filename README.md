@@ -81,6 +81,7 @@ For the full changelog, please refer to the .md file included in the mod package
   * Rebalanced Made of Slime to activate on upkeep, no longer inherits the killed card's Power
   * CENSORED buffed from 2 Health --> 3 Health
   * CENSORED's minions now inherit the full Power of the killed card
+  * We Can Change Anything buffed from 1 Health --> 2 Health
 * Additions
   * Added 4 starter decks
   * Added card choice node
@@ -248,7 +249,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Plague Doctor|0|3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Airborne<br>Healer|Singleton||
 |Don't Touch Me|0|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Punisher<br>Guardian|||
 |Rudolta of the Sleigh|2|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Sprinter<br>Gift Giver||Hooved|
-|Queen Bee|0|5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Queen Nest||Insect|
+|Queen Bee|0|6|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Queen Nest||Insect|
 |⤷ Worker Bee|1|1||||Insect|
 |Bloodbath|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||Goat||
 |Opened Can of WellCheers|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sprinter<br>Waterborne|||
@@ -293,7 +294,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Shelter from the 27th of March|0|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Aggravating<br>Repulsive|||
 |Fairy Festival|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Bloodfiend|||
 |Meat Lantern|1|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Punisher<br>Mighty Leap|||
-|We can Change Anything|0|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Grinder|||
+|We can Change Anything|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Grinder|||
 |Express Train to Hell|0|1||The Train|Rare<br>Singleton||
 |Scarecrow Searching for Wisdom|1|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Bloodfiend|||
 |Dimensional Refraction Variant|4|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Amorphous|||
@@ -320,7 +321,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Army in Pink|2|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fecundity<br>Protector|Rare||
 |Ppodae|1|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Stinky<br>Fledgling||Canine|
 |⤷ Ppodae|3|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/cEvPoTk.png">|Stinky||Canine|
-|Parasite Tree|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Gardener|||
+|Parasite Tree|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Gardener|||
 |⤷ Sapling|1|2|||||
 |Melting Love|4|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Made of Slime|Rare<br>Poisonous||
 |⤷ Slime|X|X||Made of Slime|||
@@ -334,7 +335,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |:-|:-|:-:|
 |First Day|One Sin and Hundreds of Good Deeds<br>Fairy Festival<br>Old Lady|0|
 |Road to Oz|Wolf Cub<br>Scarecrow Searching for Wisdom<br>Warm-Hearted Woodsman|3|
-|Magical Girls!|Magical Girl H<br>Magical Girl D<br>Magical Girl S|9|
+|Magical Girls!|Magical Girl H<br>Magical Girl D<br>Magical Girl S|8|
 |Twilight|Punishing Bird<br>Big Bird<br>Judgement Bird|13|
 
 ## 📇 Abnormality Card Choice
