@@ -1,5 +1,6 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
+using InscryptionAPI.Guid;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
@@ -12,7 +13,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.QuadrupleBones
+                //Test.ability
+                //GuidManager.GetEnumValue<Ability>("arackulele.inscryption.grimoramod", "Maternal")
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
