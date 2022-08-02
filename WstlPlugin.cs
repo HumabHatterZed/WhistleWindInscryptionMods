@@ -280,12 +280,18 @@ namespace WhistleWindLobotomyMod
                 CardLoader.GetCardByName("wstl_wisdomScarecrow")
                 
             }, 3);
+            /*StarterDeckHelper.AddStartDeck("Blood Machines", Resources.starterDeckMagicalGirls, new()
+            {
+                CardLoader.GetCardByName("wstl_allAroundHelper"),
+                CardLoader.GetCardByName("wstl_weCanChangeAnything"),
+                CardLoader.GetCardByName("wstl_youMustBeHappy")
+            }, 4);*/
             StarterDeckHelper.AddStartDeck("Magical Girls!", Resources.starterDeckMagicalGirls, new()
             {
                 CardLoader.GetCardByName("wstl_magicalGirlHeart"),
                 CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
                 CardLoader.GetCardByName("wstl_magicalGirlSpade")
-            }, 9);
+            }, 8);
             StarterDeckHelper.AddStartDeck("Twilight", Resources.starterDeckBlackForest, new()
             {
                 CardLoader.GetCardByName("wstl_punishingBird"),
