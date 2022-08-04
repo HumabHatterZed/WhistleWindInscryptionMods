@@ -55,4 +55,15 @@ namespace WhistleWindLobotomyMod
             || x.name == "wstl_apocalypseBird");
         }
     }
+    [HarmonyPatch(typeof(CopyCardSequencer))]
+    public static class CopyCardPatch
+    {
+        // Removes cards from valid pool of hosts for stat boosts
+        [HarmonyPostfix, HarmonyPatch(nameof(CopyCardSequencer.GetValidCards))]
+        public static void RemoveFromValidCardsForCopyCard(ref List<CardInfo> __result)
+        {
+            __result.RemoveAll((CardInfo x) => x.Abilities.Contains(TheTrain.ability)
+            || x.Abilities.Contains(TimeMachine.ability));
+        }
+    }
 }
