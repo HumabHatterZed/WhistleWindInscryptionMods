@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Test()
         {
             const string rulebookName = "Test";
-            const string rulebookDescription = "Test ability";
+            const string rulebookDescription = "This is a test ability.";
             const string dialogue = "femboy";
             Test.ability = AbilityHelper.CreateAbility<Test>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
