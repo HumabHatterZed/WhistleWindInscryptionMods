@@ -57,7 +57,7 @@ namespace WhistleWindLobotomyMod
                 AddNodes();
                 //AddEncounters();
                 AddStarterDecks();
-                Logger.LogInfo($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
+                Logger.LogMessage($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }
         }
