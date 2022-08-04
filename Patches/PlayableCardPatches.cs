@@ -22,13 +22,12 @@ namespace WhistleWindLobotomyMod
                 damage += prudence;
             }
         }
-		// Fixes All Strike to attack the opposing space instead of just slot[0] for non-giant player cards
-		[HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.GetOpposingSlots))]
-		public static List<CardSlot> AllStrikeFix(List<CardSlot> list, PlayableCard __instance)
-		{
-			if (__instance.HasAbility(Ability.AllStrike) && !__instance.HasTrait(Trait.Giant))
+        // Fixes All Strike to attack the opposing space instead of just slot[0]
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.GetOpposingSlots))]
+        public static List<CardSlot> AllStrikeFix(List<CardSlot> list, PlayableCard __instance)
+        {
+            if (__instance.HasAbility(Ability.AllStrike) && !__instance.OpponentCard && !__instance.HasTrait(Trait.Giant))
             {
-				// reset list (may not work, but eh)
 				list = new List<CardSlot>();
 				ProgressionData.SetAbilityLearned(Ability.AllStrike);
 				List<CardSlot> list2 = Singleton<BoardManager>.Instance.OpponentSlotsCopy;
@@ -42,14 +41,11 @@ namespace WhistleWindLobotomyMod
 						}
 					}
 				}
-				else
-                {
-					list.Add(__instance.Slot.opposingSlot);
-				}
+				list.Add(__instance.Slot.opposingSlot);
 				if (__instance.HasAbility(Ability.SplitStrike))
 				{
 					ProgressionData.SetAbilityLearned(Ability.SplitStrike);
-					//list.Remove(__instance.Slot.opposingSlot);
+					list.Remove(__instance.Slot.opposingSlot);
 					list.AddRange(Singleton<BoardManager>.Instance.GetAdjacentSlots(__instance.Slot.opposingSlot));
 				}
 				if (__instance.HasTriStrike())
