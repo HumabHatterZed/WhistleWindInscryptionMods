@@ -10,8 +10,8 @@ The cards in this mod are designed to be as faithful to their original counterpa
 
 This mod currently adds all abnormalities from Lobotomy Corp. Broken down, this means:
 * **```84```** obtainable cards (excluding evolutions, minions, event-exclusives)
-* **```41```** abilities (excluding event-exclusive ones)
-* **```16```** special abilities
+* **```41```** abilities (excluding event-exclusives)
+* **```17```** special abilities/behaviours
 * **```4```** starter decks for Kaycee's Mod
 * **```1```** card choice node
 * Plus a few special events!
@@ -20,22 +20,18 @@ This mod currently adds all abnormalities from Lobotomy Corp. Broken down, this 
 * BepInEx-BepInExPack_Inscryption v5.4.1901
 * API_dev-API v2.4.0
 
-## ‼️ NOTICE ON v1.1.0 CHANGES ‼️
+## ‼️ IMPORTANT NOTICE REGARDING v1.1.0 CONFIGURATION FILE ‼️
 The mod's configuration file has been renamed to **```wstl.inscryption.lobotomycorp.cfg```**.
 
 Any changes made in the old config file will **NOT** carry over and must be changed in the new config file after loading the game at least once.
 
 The old config can be safely deleted at your convenience.
 
-A number of other internal changes have been made that _shouldn't_ break your game, but just in case it is recommended that you start a new run after updating.
-
-Please see the full changelog (included in the download package) for a full breakdown of what exactly has changed.
-
-Card and ability changes will be listed in the Changelog section below, of course.
-
 ## 🩹 Known Bugs and Issues
 ### Hard to tell!
 Because of the way Thunderstore works I can't (as far as I know) update this section of the ReadMe without updating the entire mod, so you'll have to check the Issues tab on the GitHub to see an accurate list of current bugs, issues, etc.
+
+Chances are that if there are any game-breaking bugs I'll release a patch as soon as I become aware of it.
 
 If you encounter any issues or bugs please report them to me asap by contacting me on the modding Discord or by opening an issue on the GitHub.
 
@@ -46,7 +42,7 @@ Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitH
 
 Special mention to James Veug's ReadmeMaker mod for providing the cost sprites I use; you're a lifesaver!
 
-Big thanks to Rengar, yam the nokia, and everyone else on the modding Discord for reporting bugs to me!
+Big thanks to Rengar, yam the nokia, Orochi Umbra, and everyone else on the modding Discord that reported bugs to me!
 
 ## ⚖️ Changelog
 For the full changelog, please refer to the .md file included in the mod package.
@@ -64,6 +60,7 @@ For the full changelog, please refer to the .md file included in the mod package
   * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
   * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
   * Patched Omni Strike to now properly attack the card's opposing slot when there are no opponents instead of just the leftmost one
+  * Big Bird and Blue Star 1 and 2 now all have special behaviour
 * Balancing
   * Queen Nest ability no longer creates a Worker Bee when played
   * Increased Queen Bee's Health from 5 --> 6
@@ -84,29 +81,13 @@ For the full changelog, please refer to the .md file included in the mod package
   * CENSORED's minions now inherit the full Power of the killed card
   * We Can Change Anything buffed from 1 Health --> 2 Health
 * Additions
+  * Added 13 obtainable cards
+  * Added 6 abilities
+  * Added 4 special abilities
   * Added 4 starter decks
   * Added card choice node
   * Added 2 new config options
   * Added 2 new mini-events
-  * Added card Child of the Galaxy
-  * Added card Fragment of the Universe
-  * Added card Apocalypse Bird
-  * Added card The Little Prince
-  * Added card Dream of a Black Swan
-  * Added card Giant Tree Sap
-  * Added card Skin Prophecy
-  * Added card Behaviour Adjustment
-  * Added card Old Faith and Promise
-  * Added card Yin
-  * Added card Yang
-  * Added card Backward Clock
-  * Added card Il Pianto della Luna
-  * Added ability Spores
-  * Added ability Clothes Made of Nettles
-  * Added ability Witness
-  * Added ability Corrector
-  * Added ability Alchemist
-  * Added ability Time Machine
 
 ## 🛠️ Configuration Options
 * Enable Mod
@@ -128,9 +109,9 @@ For the full changelog, please refer to the .md file included in the mod package
   * DEFAULT: False
   * Changes the description of certain abilities to actually describe what they do.
 
-## ⚜️ Special Abilities
-A number of cards added by this mod possess special behaviour not normally found in the Rulebook.
-In the spirit of the original game, I won't be listing the effects here, only which cards possess a special ability and what triggers it.
+## ⚜️ Special/Hidden Abilities
+A number of cards added by this mod possess special behaviour unique to themselves that is not normally found in the Rulebook.
+In the spirit of the original game, I won't be listing the effects here, only which cards possesses a special ability and what triggers it.
 You'll need to mess with the cards to figure out exactly what they do 🙃.
 <details>
 <summary>View specials</summary>
@@ -152,7 +133,8 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Melting Love|Reacts to taking damage.|
 |Yang|Reacts to being adjacent to another card.|
 |Giant Tree Sap|Reacts to being sacrificed.|
-|Big Bird|Reacts to other card on the board.|
+|Big Bird|Reacts to ally cards.|
+|Blue Star|Reacts to the opposing side of the board| 
  </details>
  
 ## ✨ Abilities
