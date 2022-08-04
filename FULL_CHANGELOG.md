@@ -23,6 +23,7 @@
   * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
   * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
   * Patched Omni Strike to now properly attack the card's opposing slot when there are no opponents instead of just the leftmost one
+  * Big Bird and Blue Star 1 and 2 now all have special behaviour
 * Balancing
   * Increased Queen Bee's Health from 5 --> 6
   * Changed Bloodbath's stats and gave it the Spilled Blood stat icon
