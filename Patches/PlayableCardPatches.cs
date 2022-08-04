@@ -49,7 +49,6 @@ namespace WhistleWindLobotomyMod
 				if (__instance.HasAbility(Ability.SplitStrike))
 				{
 					ProgressionData.SetAbilityLearned(Ability.SplitStrike);
-					//list.Remove(__instance.Slot.opposingSlot);
 					list.AddRange(Singleton<BoardManager>.Instance.GetAdjacentSlots(__instance.Slot.opposingSlot));
 				}
 				if (__instance.HasTriStrike())
