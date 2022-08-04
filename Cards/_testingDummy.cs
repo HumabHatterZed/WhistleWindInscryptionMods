@@ -13,8 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Test.ability
-                //GuidManager.GetEnumValue<Ability>("arackulele.inscryption.grimoramod", "Maternal")
+                Ability.TripleBlood
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
