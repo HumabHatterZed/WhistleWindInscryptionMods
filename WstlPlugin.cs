@@ -71,6 +71,8 @@ namespace WhistleWindLobotomyMod
         }
         private void AddAbilities()
         {
+            Ability_Test();
+            
             Ability_Punisher();
             Ability_Bloodfiend();
             Ability_Martyr();

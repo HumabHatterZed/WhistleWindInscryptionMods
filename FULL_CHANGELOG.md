@@ -21,7 +21,8 @@
   * Minor change to Mirror of Adjustment's description
   * Changed Mirror of Adjustment to use the default stat layout
   * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
-  * Plague Doctor now changes appearance based on the number of times it's healed cards
+  * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
+  * Patched Omni Strike to now properly attack the card's opposing slot when there are no opponents instead of just the leftmost one
 * Balancing
   * Increased Queen Bee's Health from 5 --> 6
   * Changed Bloodbath's stats and gave it the Spilled Blood stat icon
