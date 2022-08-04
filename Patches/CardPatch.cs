@@ -72,7 +72,7 @@ namespace WhistleWindLobotomyMod
                     break;
             }
             // For testing emissions
-            //__instance.RenderInfo.forceEmissivePortrait = true;
+            __instance.RenderInfo.forceEmissivePortrait = true;
         }
     }
 }
