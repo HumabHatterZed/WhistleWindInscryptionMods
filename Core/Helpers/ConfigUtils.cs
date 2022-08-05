@@ -82,10 +82,12 @@ namespace WhistleWindLobotomyMod
         public void UpdateBlessings(int value)
         {
             Config_Blessings.Value += value;
+            Log.LogDebug($"The Clock is now at [{Config_Blessings}]");
         }
         public void SetBlessings(int value)
         {
             Config_Blessings.Value = value;
+            Log.LogDebug($"The Clock is now at [{Config_Blessings}]");
         }
     }
 }
