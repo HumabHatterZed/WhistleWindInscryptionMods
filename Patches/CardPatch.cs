@@ -51,12 +51,19 @@ namespace WhistleWindLobotomyMod
                 case "wstl_backwardclock":
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
                     break;
-                case "blue_star2":
+                case "wstl_bluestar2":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     break;
                 case "wstl_hundredsgooddeeds":
                     __instance.RenderInfo.forceEmissivePortrait = true;
                     __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
+                    break;
+                case "wstl_plaguedoctor":
+                    if (ConfigUtils.Instance.NumOfBlessings == 11)
+                    {
+                        __instance.RenderInfo.forceEmissivePortrait = true;
+                        __instance.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
+                    }
                     break;
                 case "wstl_spiderbrood":
                     __instance.RenderInfo.forceEmissivePortrait = true;
