@@ -44,7 +44,20 @@ namespace WhistleWindLobotomyMod
 				}
 				else
                 {
-					list.Add(__instance.Slot.opposingSlot);
+					if (__instance.Info.name.ToLowerInvariant().Contains("bluestar"))
+                    {
+						foreach (CardSlot item in list2)
+						{
+							if (__instance.CanAttackDirectly(item))
+							{
+								list.Add(item);
+							}
+						}
+					}
+					else
+                    {
+						list.Add(__instance.Slot.opposingSlot);
+					}
 				}
 				if (__instance.HasAbility(Ability.SplitStrike))
 				{
