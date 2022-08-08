@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             Burning.ability = AbilityHelper.CreateAbility<Burning>(
                 Resources.sigilBurning, Resources.sigilBurning_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                addModular: true).Id;
+                addModular: true, opponent: true, canStack: true, isPassive: false).Id;
         }
     }
     public class Burning : AbilityBehaviour

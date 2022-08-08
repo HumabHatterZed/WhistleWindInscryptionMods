@@ -18,7 +18,8 @@ namespace WhistleWindLobotomyMod
 
             GiftGiver.ability = AbilityHelper.CreateAbility<GiftGiver>(
                 Resources.sigilGiftGiver, Resources.sigilGiftGiver_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class GiftGiver : AbilityBehaviour

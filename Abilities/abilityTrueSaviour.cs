@@ -20,6 +20,7 @@ namespace WhistleWindLobotomyMod
             TrueSaviour.ability = AbilityHelper.CreateAbility<TrueSaviour>(
                 Resources.sigilTrueSaviour, Resources.sigilTrueSaviour_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
+                addModular: false, opponent: false, canStack: false, isPassive: false,
                 overrideModular: true).Id;
         }
     }

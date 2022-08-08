@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             Corrector.ability = AbilityHelper.CreateAbility<Corrector>(
                 Resources.sigilCorrector, Resources.sigilCorrector_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                addModular: true).Id;
+                addModular: true, opponent: true, canStack: false, isPassive: false).Id;
         }
     }
     public class Corrector : AbilityBehaviour

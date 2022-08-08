@@ -16,7 +16,8 @@ namespace WhistleWindLobotomyMod
 
             Woodcutter.ability = AbilityHelper.CreateAbility<Woodcutter>(
                 Resources.sigilWoodcutter, Resources.sigilWoodcutter_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                addModular: false, opponent: true, canStack: false, isPassive: false).Id;
         }
     }
     // ripped from Sentry code

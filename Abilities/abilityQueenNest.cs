@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             QueenNest.ability = AbilityHelper.CreateAbility<QueenNest>(
                 Resources.sigilQueenNest, Resources.sigilQueenNest_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                addModular: true).Id;
+                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class QueenNest : AbilityBehaviour

@@ -10,7 +10,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void Ability_Hunter()
+        private void Ability_Marksman()
         {
             const string rulebookName = "Marksman";
             const string rulebookDescription = "You may choose which opposing space a card bearing this sigil strikes.";
@@ -18,7 +18,8 @@ namespace WhistleWindLobotomyMod
 
             Marksman.ability = AbilityHelper.CreateAbility<Marksman>(
                 Resources.sigilMarksman, Resources.sigilMarksman_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Marksman : AbilityBehaviour

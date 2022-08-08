@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             Regenerator.ability = AbilityHelper.CreateAbility<Regenerator>(
                 Resources.sigilRegenerator, Resources.sigilRegenerator_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                addModular: true).Id;
+                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Regenerator : AbilityBehaviour

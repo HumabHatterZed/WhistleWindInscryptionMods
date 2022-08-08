@@ -17,7 +17,8 @@ namespace WhistleWindLobotomyMod
 
             Protector.ability = AbilityHelper.CreateAbility<Protector>(
                 Resources.sigilProtector, Resources.sigilProtector_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Protector : AbilityBehaviour

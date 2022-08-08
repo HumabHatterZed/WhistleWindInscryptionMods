@@ -16,7 +16,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "If she gave her brothers the nettle clothing, their happy days would be restored.";
             Nettles.ability = AbilityHelper.CreateAbility<Nettles>(
                 Resources.sigilNettles, Resources.sigilNettles_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Nettles : AbilityBehaviour

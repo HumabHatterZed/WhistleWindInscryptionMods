@@ -19,7 +19,8 @@ namespace WhistleWindLobotomyMod
 
             TeamLeader.ability = AbilityHelper.CreateAbility<TeamLeader>(
                 Resources.sigilTeamLeader, Resources.sigilTeamLeader_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
+                addModular: false, opponent: true, canStack: true, isPassive: true).Id;
         }
     }
     public class TeamLeader : AbilityBehaviour, IPassiveAttackBuff

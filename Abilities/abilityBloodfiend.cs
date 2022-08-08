@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             Bloodfiend.ability = AbilityHelper.CreateAbility<Bloodfiend>(
                 Resources.sigilBloodfiend, Resources.sigilBloodfiend_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                addModular: true).Id;
+                addModular: true, opponent: true, canStack: true, isPassive: false).Id;
         }
     }
     public class Bloodfiend : AbilityBehaviour

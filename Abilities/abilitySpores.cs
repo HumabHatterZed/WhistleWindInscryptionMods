@@ -17,7 +17,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Even if this turns to be a curse, they will love this curse like a blessing.";
             Spores.ability = AbilityHelper.CreateAbility<Spores>(
                 Resources.sigilSpores, Resources.sigilSpores_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Spores : AbilityBehaviour

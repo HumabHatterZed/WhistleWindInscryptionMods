@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             Scrambler.ability = AbilityHelper.CreateAbility<Scrambler>(
                 Resources.sigilScrambler, Resources.sigilScrambler_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                addModular: true).Id;
+                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Scrambler : AbilityBehaviour

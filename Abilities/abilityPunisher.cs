@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             Punisher.ability = AbilityHelper.CreateAbility<Punisher>(
                 Resources.sigilPunisher, Resources.sigilPunisher_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                addModular: true).Id;
+                addModular: true, opponent: true, canStack: false, isPassive: false).Id;
         }
     }
     public class Punisher : AbilityBehaviour

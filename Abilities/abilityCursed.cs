@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             Cursed.ability = AbilityHelper.CreateAbility<Cursed>(
                 Resources.sigilCursed, Resources.sigilCursed_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
-                addModular: true).Id;
+                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Cursed : AbilityBehaviour

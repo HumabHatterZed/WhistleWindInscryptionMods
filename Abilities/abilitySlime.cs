@@ -18,7 +18,8 @@ namespace WhistleWindLobotomyMod
 
             Slime.ability = AbilityHelper.CreateAbility<Slime>(
                 Resources.sigilSlime, Resources.sigilSlime_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Slime : AbilityBehaviour

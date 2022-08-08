@@ -1057,6 +1057,9 @@
   <data name="sigilVolatile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilVolatile.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="sigilVolatile_flipped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sigilVolatile_flipped.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="sigilVolatile_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sigilVolatile_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

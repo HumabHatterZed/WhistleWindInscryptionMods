@@ -17,7 +17,8 @@ namespace WhistleWindLobotomyMod
 
             Conductor.ability = AbilityHelper.CreateAbility<Conductor>(
                 Resources.sigilConductor, Resources.sigilConductor_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Conductor : AbilityBehaviour

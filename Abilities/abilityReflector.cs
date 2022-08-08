@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             Reflector.ability = AbilityHelper.CreateAbility<Reflector>(
                 Resources.sigilReflector, Resources.sigilReflector_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                addModular: true).Id;
+                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Reflector : AbilityBehaviour

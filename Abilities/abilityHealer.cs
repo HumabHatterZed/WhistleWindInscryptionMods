@@ -19,7 +19,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Never underestimate the importance of a healer.";
             Healer.ability = AbilityHelper.CreateAbility<Healer>(
                 Resources.sigilHealer, Resources.sigilHealer_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Healer : AbilityBehaviour

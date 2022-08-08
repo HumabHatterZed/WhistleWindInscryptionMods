@@ -17,7 +17,8 @@ namespace WhistleWindLobotomyMod
 
             Courageous.ability = AbilityHelper.CreateAbility<Courageous>(
                 Resources.sigilCourageous, Resources.sigilCourageous_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Courageous : AbilityBehaviour

@@ -15,7 +15,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Spring arrives with blossoming roses.";
             FrozenHeart.ability = AbilityHelper.CreateAbility<FrozenHeart>(
                 Resources.sigilFrozenHeart, Resources.sigilFrozenHeart_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 0).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class FrozenHeart : AbilityBehaviour

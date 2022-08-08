@@ -16,7 +16,8 @@ namespace WhistleWindLobotomyMod
             FrostRuler.ability = AbilityHelper.CreateAbility<FrostRuler>(
                 Resources.sigilFrostRuler, Resources.sigilFrostRuler_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                overrideModular: true).Id;
+                addModular: false, opponent: false, canStack: false, isPassive: false,
+                flipY: true).Id;
         }
     }
     public class FrostRuler : AbilityBehaviour

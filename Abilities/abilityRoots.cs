@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             Roots.ability = AbilityHelper.CreateAbility<Roots>(
                 Resources.sigilRoots, Resources.sigilRoots_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                addModular: true).Id;
+                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Roots : AbilityBehaviour

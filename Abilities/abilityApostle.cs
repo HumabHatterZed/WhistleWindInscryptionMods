@@ -18,6 +18,7 @@ namespace WhistleWindLobotomyMod
             Apostle.ability = AbilityHelper.CreateAbility<Apostle>(
                 Resources.sigilApostle, Resources.sigilApostle_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
+                addModular: false, opponent: false, canStack: false, isPassive: false,
                 overrideModular: true).Id;
         }
     }

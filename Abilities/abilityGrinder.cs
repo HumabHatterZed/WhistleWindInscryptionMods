@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             Grinder.ability = AbilityHelper.CreateAbility<Grinder>(
                 Resources.sigilGrinder, Resources.sigilGrinder_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                addModular: true).Id;
+                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Grinder : AbilityBehaviour

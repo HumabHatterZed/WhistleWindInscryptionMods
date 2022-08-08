@@ -17,7 +17,8 @@ namespace WhistleWindLobotomyMod
 
             QuickDraw.ability = AbilityHelper.CreateAbility<QuickDraw>(
                 Resources.sigilQuickDraw, Resources.sigilQuickDraw_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     // ripped from Sentry code

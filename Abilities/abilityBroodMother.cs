@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             BroodMother.ability = AbilityHelper.CreateAbility<BroodMother>(
                 Resources.sigilBroodMother, Resources.sigilBroodMother_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                addModular: true).Id;
+                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class BroodMother : AbilityBehaviour

@@ -16,7 +16,8 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "You only delay the inevitable.";
             GroupHealer.ability = AbilityHelper.CreateAbility<GroupHealer>(
                 Resources.sigilGroupHealer, Resources.sigilGroupHealer_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class GroupHealer : AbilityBehaviour

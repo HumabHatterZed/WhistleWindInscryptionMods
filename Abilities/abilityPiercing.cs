@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             Piercing.ability = AbilityHelper.CreateAbility<Piercing>(
                 Resources.sigilPiercing, Resources.sigilPiercing_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                addModular: true).Id;
+                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Piercing : AbilityBehaviour

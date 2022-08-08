@@ -20,7 +20,8 @@ namespace WhistleWindLobotomyMod
 
             Aggravating.ability = AbilityHelper.CreateAbility<Aggravating>(
                 Resources.sigilAggravating, Resources.sigilAggravating_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: -3).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: -3,
+                addModular: false, opponent: false, canStack: false, isPassive: true).Id;
         }
     }
     public class Aggravating : AbilityBehaviour,IPassiveAttackBuff

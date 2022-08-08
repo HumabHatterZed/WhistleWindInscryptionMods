@@ -3193,6 +3193,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] sigilVolatile_flipped {
+            get {
+                object obj = ResourceManager.GetObject("sigilVolatile_flipped", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] sigilVolatile_pixel {
             get {
                 object obj = ResourceManager.GetObject("sigilVolatile_pixel", resourceCulture);
