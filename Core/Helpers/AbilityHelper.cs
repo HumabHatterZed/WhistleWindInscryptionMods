@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
-            Texture2D flippedTex = customY != null ? WstlTextureHelper.LoadTextureFromResource(customY) : null;
+            //Texture2D flippedTex = customY != null ? WstlTextureHelper.LoadTextureFromResource(customY) : null;
 
             info.SetPixelAbilityIcon(WstlTextureHelper.LoadTextureFromResource(gbcTexture));
 
@@ -39,7 +39,6 @@ namespace WhistleWindLobotomyMod
             info.passive = isPassive;
 
             info.flipYIfOpponent = flipY;
-            if (flippedTex != null) { info.SetCustomFlippedTexture(flippedTex); }
 
             List<AbilityMetaCategory> list = new() { AbilityMetaCategory.Part1Rulebook };
             if ((addModular || ConfigUtils.Instance.AllModular) && !overrideModular) { list.Add(AbilityMetaCategory.Part1Modular); }

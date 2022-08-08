@@ -16,15 +16,10 @@ namespace WhistleWindLobotomyMod
         private const string modPrefix = "wstl";
         // Cards
         public static void CreateCard(
-            string name,
-            string displayName,
+            string name, string displayName,
             string description,
-            int baseAttack,
-            int baseHealth,
-            int bloodCost,
-            int bonesCost,
-            byte[] defaultTexture,
-            byte[] emissionTexture = null,
+            int baseAttack, int baseHealth, int bloodCost, int bonesCost,
+            byte[] defaultTexture, byte[] emissionTexture = null,
             byte[] gbcTexture = null,
             byte[] altTexture = null,
             byte[] emissionAltTexture = null,
@@ -95,6 +90,7 @@ namespace WhistleWindLobotomyMod
             cardInfo.cardComplexity = CardComplexity.Simple;
             cardInfo.temple = CardTemple.Nature;
             cardInfo.onePerDeck = onePerDeck;
+
             cardInfo.SetExtendedProperty("wstl:RiskLevel", risk);
             cardInfo.hideAttackAndHealth = hideStats;
             cardInfo.onePerDeck = onePerDeck;

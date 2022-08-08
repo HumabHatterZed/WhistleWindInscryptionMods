@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 Resources.sigilVolatile, Resources.sigilVolatile_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 addModular: true, opponent: true, canStack: false, isPassive: false,
-                flipY: true, Resources.sigilVolatile_flipped).Id;
+                flipY: true).Id;
         }
     }
     public class Volatile : AbilityBehaviour
