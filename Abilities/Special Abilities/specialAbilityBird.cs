@@ -202,7 +202,7 @@ namespace WhistleWindLobotomyMod
             Color gray = GameColors.Instance.gray;
             gray.a = 0.5f;
 
-            Singleton<TableVisualEffectsManager>.Instance.ChangeTableColors(GameColors.Instance.nearBlack, GameColors.Instance.gray, GameColors.Instance.gray, darkRed, darkRed, glowRed, glowRed, glowRed, glowRed);
+            Singleton<TableVisualEffectsManager>.Instance.ChangeTableColors(GameColors.Instance.nearBlack, GameColors.Instance.brown, GameColors.Instance.gray, darkRed, darkRed, glowRed, glowRed, glowRed, glowRed);
 
             Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
             yield return new WaitForSeconds(0.166f);
