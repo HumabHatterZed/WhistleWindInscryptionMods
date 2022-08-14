@@ -32,6 +32,12 @@ namespace WhistleWindLobotomyMod
 				list = new List<CardSlot>();
 				ProgressionData.SetAbilityLearned(Ability.AllStrike);
 				List<CardSlot> list2 = Singleton<BoardManager>.Instance.OpponentSlotsCopy;
+				if (list2.Exists((CardSlot x) => x.Card != null && x.Card.HasTrait(Trait.Giant)))
+                {
+					list.Add(list2.Find((CardSlot y) => y.Card != null && y.Card.HasTrait(Trait.Giant)));
+					return list;
+                }
+
 				if (list2.Exists((CardSlot x) => x.Card != null && !__instance.CanAttackDirectly(x)))
 				{
 					foreach (CardSlot item in list2)
@@ -43,9 +49,9 @@ namespace WhistleWindLobotomyMod
 					}
 				}
 				else
-                {
+				{
 					if (__instance.Info.name.ToLowerInvariant().Contains("bluestar"))
-                    {
+					{
 						foreach (CardSlot item in list2)
 						{
 							if (__instance.CanAttackDirectly(item))
@@ -53,11 +59,9 @@ namespace WhistleWindLobotomyMod
 								list.Add(item);
 							}
 						}
+						return list;
 					}
-					else
-                    {
-						list.Add(__instance.Slot.opposingSlot);
-					}
+					list.Add(__instance.Slot.opposingSlot);
 				}
 				if (__instance.HasAbility(Ability.SplitStrike))
 				{
