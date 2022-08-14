@@ -12,9 +12,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Ability_Spores()
         {
-            const string rulebookName = "Spores";
-            const string rulebookDescription = "Adjacent cards gain 1 Spore and take damage equal to their Spore at the end of each turn. If a card with Spore is killed, create a Spore Mold Creature in that card's slot whose stats are equal to the card's Spore.";
-            const string dialogue = "Even if this turns to be a curse, they will love this curse like a blessing.";
+            const string rulebookName = "Fungal Infector";
+            const string rulebookDescription = "At the end of the owner's turn, adjacent cards gain 1 Spore. Cards with Spore take damage equal to their Spore at turn's end and create a Spore Mold Creature in their slot on death. A Spore Mold Creature is defined as: [ Spore ] Power, [ Spore ] Health.";
+            const string dialogue = "Even if this turns out to be a curse, they will love this curse like a blessing.";
             Spores.ability = AbilityHelper.CreateAbility<Spores>(
                 Resources.sigilSpores, Resources.sigilSpores_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
@@ -38,60 +38,51 @@ namespace WhistleWindLobotomyMod
         {
             CardSlot toLeft = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: true);
             CardSlot toRight = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: false);
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-            yield return AddSpore(toLeft, toRight);
-        }
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
-            return fromCombat && card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null;
-        }
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
-            int spores = card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null ? (int)card.Info.GetExtendedPropertyAsInt("wstl:Spore") : 0;
-            if (spores < 1)
-            {
-                yield break;
-            }
-            CardInfo minion = CardLoader.GetCardByName("wstl_theLittlePrinceMinion");
-            minion.Mods.Add(new(spores, spores));
 
-            yield return base.PreSuccessfulTriggerSequence();
-            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(minion, deathSlot, 0.15f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            yield return new WaitForSeconds(0.1f);
+            yield return EmitSpores(toLeft, toRight);
         }
-        private IEnumerator AddSpore(CardSlot toLeft, CardSlot toRight)
+
+        private bool CheckValid(CardSlot slot)
         {
-            bool validLeft = toLeft != null && toLeft.Card != null && toLeft.Card.Info.name != "wstl_theLittlePrinceMinion";
-            bool validRight = toRight != null && toRight.Card != null && toRight.Card.Info.name != "wstl_theLittlePrinceMinion";
-            if (validLeft || validRight)
-            {
-                yield return base.PreSuccessfulTriggerSequence();
-            }
-            else
+            return slot != null && slot.Card != null && slot.Card.Info.name != "wstl_theLittlePrinceMinion";
+        }
+        private IEnumerator EmitSpores(CardSlot toLeft, CardSlot toRight)
+        {
+            bool validLeft = CheckValid(toLeft);
+            bool validRight = CheckValid(toRight);
+            if (!validLeft && !validRight)
             {
                 yield break;
             }
+            yield return base.PreSuccessfulTriggerSequence();
             if (validLeft)
             {
-                int sporeLeft = toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null ? (int)toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") : 0;
-                yield return toLeft.Card.Info.SetExtendedProperty("wstl:Spore", sporeLeft + 1);
-                toLeft.Card.Anim.StrongNegationEffect();
-
+                if (toLeft.Card.Info.GetExtendedProperty("wstl:HasSpore") == null)
+                {
+                    yield return toRight.Card.Info.SetExtendedProperty("wstl:HasSpore", true);
+                    toLeft.Card.AddPermanentBehaviour<SporeDamage>();
+                    toRight.Card.Info.TempDecals.Clear();
+                    toRight.Card.Info.TempDecals.Add(ResourceBank.Get<Texture>("Art/Cards/Decals/decal_fungus"));
+                    toLeft.Card.OnStatsChanged();
+                    toLeft.Card.Anim.StrongNegationEffect();
+                }
             }
             if (validRight)
             {
-                int sporeRight = toRight.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null ? (int)toRight.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") : 0;
-                yield return toRight.Card.Info.SetExtendedProperty("wstl:Spore", sporeRight + 1);
-                toRight.Card.Anim.StrongNegationEffect();
+                if (toRight.Card.Info.GetExtendedProperty("wstl:HasSpore") == null)
+                {
+                    yield return toRight.Card.Info.SetExtendedProperty("wstl:HasSpore", true);
+                    toRight.Card.AddPermanentBehaviour<SporeDamage>();
+                    toRight.Card.Info.TempDecals.Clear();
+                    toRight.Card.Info.TempDecals.Add(ResourceBank.Get<Texture>("Art/Cards/Decals/decal_fungus"));
+                    toRight.Card.OnStatsChanged();
+                    toRight.Card.Anim.StrongNegationEffect();
+                }
             }
             yield return new WaitForSeconds(0.4f);
-            if (validLeft)
-            {
-                yield return toLeft.Card.TakeDamage((int)toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore"), null);
-            }
-            if (validRight)
-            {
-                yield return toRight.Card.TakeDamage((int)toRight.Card.Info.GetExtendedPropertyAsInt("wstl:Spore"), null);
-            }
+
             if (validLeft || validRight)
             {
                 yield return base.LearnAbility();
