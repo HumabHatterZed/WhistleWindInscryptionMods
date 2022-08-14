@@ -16,6 +16,7 @@ namespace WhistleWindLobotomyMod
             EntryTodaysShyLook.ability = AbilityHelper.CreateAbility<EntryTodaysShyLook>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
+                addModular: false, opponent: false, canStack: false, isPassive: true,
                 overrideModular: true).Id;
         }
     }

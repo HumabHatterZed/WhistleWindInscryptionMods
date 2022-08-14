@@ -16,6 +16,7 @@ namespace WhistleWindLobotomyMod
             EntryYang.ability = AbilityHelper.CreateAbility<EntryYang>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
+                addModular: false, opponent: false, canStack: false, isPassive: true,
                 overrideModular: true).Id;
         }
     }
