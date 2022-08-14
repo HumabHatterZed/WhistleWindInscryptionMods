@@ -13,16 +13,14 @@ namespace WhistleWindLobotomyMod
 {
     public static class CardHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
-        private const string modPrefix = "wstl";
         // Cards
         public static void CreateCard(
             string name, string displayName,
             string description,
             int baseAttack, int baseHealth, int bloodCost, int bonesCost,
-            byte[] defaultTexture, byte[] emissionTexture = null,
+            byte[] defaultTexture, byte[] emissionTexture,
             byte[] gbcTexture = null,
-            byte[] altTexture = null,
-            byte[] emissionAltTexture = null,
+            byte[] altTexture = null, byte[] emissionAltTexture = null,
             byte[] titleTexture = null,
             List<Ability> abilities = null,
             List<SpecialTriggeredAbility> specialAbilities = null,
@@ -115,7 +113,7 @@ namespace WhistleWindLobotomyMod
             {
                 if (isDonator && ConfigUtils.Instance.NoDonators)
                 {
-                    cardInfo.appearanceBehaviour = new() { CardAppearanceBehaviour.Appearance.RareCardBackground };
+                    cardInfo.AddAppearances(CardAppearanceBehaviour.Appearance.RareCardBackground);
                 }
                 else
                 {
@@ -126,7 +124,12 @@ namespace WhistleWindLobotomyMod
             if (evolveName != null) { cardInfo.SetEvolve(evolveName, numTurns); }
             if (tailName != null && tailTex != null) { cardInfo.SetTail(tailName, tailTex); }
 
-            CardManager.Add(modPrefix, cardInfo);
+            CardManager.Add("wstl", cardInfo);
+        }
+
+        public static CardAppearanceBehaviourManager.FullCardAppearanceBehaviour CreateAppearance<T>(string name) where T : CardAppearanceBehaviour
+        {
+            return CardAppearanceBehaviourManager.Add(WstlPlugin.pluginGuid, name, typeof(T));
         }
     }
 }
