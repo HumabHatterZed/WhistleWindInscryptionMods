@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             };
             CardHelper.CreateCard(
                 "wstl_redHoodedMercenary", "Little Red Riding Hooded Mercenary",
-                "A skilled mercenary with a bloody vendetta. Perhaps you'll help her sate it.",
+                "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.",
                 2, 3, 2, 0,
                 Resources.redHoodedMercenary, Resources.redHoodedMercenary_emission,
                 abilities: abilities, specialAbilities: new(),
