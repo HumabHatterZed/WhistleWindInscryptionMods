@@ -26,7 +26,11 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return fromCombat && base.Card.Slot.IsPlayerSlot && deathSlot.IsPlayerSlot;
+            if (base.Card != null && base.Card.OnBoard)
+            {
+                return fromCombat && card != base.Card && card.OpponentCard == base.Card.OpponentCard;
+            }
+            return false;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
@@ -39,7 +43,7 @@ namespace WhistleWindLobotomyMod
                     base.Card.Anim.StrongNegationEffect();
                     yield return new WaitForSeconds(0.4f);
 
-                    yield return SpawnCardOnSlot(deathSlot);
+                    yield return SpawnCardOnSlot(card, deathSlot);
 
                     yield return new WaitForSeconds(0.4f);
                     yield return LearnAbility(0.4f);
@@ -47,9 +51,22 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        private IEnumerator SpawnCardOnSlot(CardSlot slot)
+        private IEnumerator SpawnCardOnSlot(PlayableCard card, CardSlot slot)
         {
-            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_parasiteTreeSapling"), slot, 0.15f);
+            CardInfo minion = CardLoader.GetCardByName("wstl_parasiteTreeSapling");
+            foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+            {
+                // Adds merged sigils
+                CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
+                cardModificationInfo.fromCardMerge = true;
+                minion.Mods.Add(cardModificationInfo);
+            }
+            foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            {
+                // Adds base sigils
+                minion.Mods.Add(new CardModificationInfo(item));
+            }
+            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(minion, slot, 0.15f);
         }
     }
 }
