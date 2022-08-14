@@ -77,21 +77,24 @@ namespace WhistleWindLobotomyMod
 
             int newPower = 0;
             int newHealth = 1;
+            int randomSeed = base.GetRandomSeed();
             while (powerLevel > 0)
             {
                 // If can afford 1 Power
                 if (powerLevel - 2 >= 0)
                 {
                     // Roll for 1 Power
-                    if (random.Next(3) == 0)//SeededRandom.Range(0, 3, base.GetRandomSeed()) == 0;
+                    if (SeededRandom.Range(0, 3, randomSeed) == 0)
                     {
                         newPower += 1;
                         powerLevel -= 2;
+                        randomSeed++;
                         continue;
                     }
                 }
                 newHealth += 1;
                 powerLevel -= 1;
+                randomSeed++;
             }
             base.Card.AddTemporaryMod(new(newPower - base.Card.Attack, newHealth - base.Card.Health));
         }
