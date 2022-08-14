@@ -73,6 +73,10 @@ namespace WhistleWindLobotomyMod
             {
                 PlagueDoctor.specialAbility
             };
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                ForcedWhite.appearance
+            };
             CardHelper.CreateCard(
                 "wstl_plagueDoctor", "Plague Doctor",
                 "A worker of miracles.",
@@ -80,7 +84,7 @@ namespace WhistleWindLobotomyMod
                 portrait, emissive,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                onePerDeck: true, riskLevel: 1);
+                appearances: appearances, onePerDeck: true, riskLevel: 1);
         }
     }
 }

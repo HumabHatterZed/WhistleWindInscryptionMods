@@ -25,13 +25,14 @@ namespace WhistleWindLobotomyMod
             };
             List <CardAppearanceBehaviour.Appearance> appearances = new()
             {
+                ForcedWhite.appearance,
                 CardAppearanceBehaviour.Appearance.RareCardBackground
             };
 
             CardHelper.CreateCard(
                 "wstl_apocalypseBird", "Apocalypse Bird",
                 "There was no moon, no stars. Just a bird, alone in the Black Forest.",
-                1, 8, 4, 0,
+                2, 8, 4, 0,
                 Resources.apocalypseBird, Resources.apocalypseBird_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),

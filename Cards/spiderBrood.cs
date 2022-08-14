@@ -14,13 +14,18 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Insect
             };
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                ForcedRed.appearance
+            };
             CardHelper.CreateCard(
                 "wstl_spiderBrood", "Spider Brood",
                 "Big and mean.",
                 1, 3, 0, 0,
                 Resources.spiderBrood, Resources.spiderBrood_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new());
+                metaCategories: new(), tribes: tribes, traits: new(),
+                appearances: appearances);
         }
     }
 }

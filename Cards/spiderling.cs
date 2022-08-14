@@ -18,6 +18,10 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Insect
             };
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                ForcedRed.appearance
+            };
             CardHelper.CreateCard(
                 "wstl_spiderling", "Spiderling",
                 "Small and defenceless.",
@@ -25,7 +29,7 @@ namespace WhistleWindLobotomyMod
                 Resources.spiderling, Resources.spiderling_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                evolveName: "wstl_spiderBrood");
+                appearances: appearances, evolveName: "wstl_spiderBrood");
         }
     }
 }

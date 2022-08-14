@@ -18,7 +18,10 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.DeathcardCreationNonOption
             };
-
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                ForcedWhite.appearance
+            };
             CardHelper.CreateCard(
                 "wstl_backwardClock", "Backward Clock",
                 "A clock to rewind your wasted time. A blatant cheat.",
@@ -26,6 +29,7 @@ namespace WhistleWindLobotomyMod
                 Resources.backwardClock, Resources.backwardClock_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
+                appearances: appearances,
                 isTerrain: true, isRare: true, onePerDeck: true, isDonator: true, riskLevel: 4);
         }
     }
