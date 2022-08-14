@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Slime()
         {
             const string rulebookName = "Made of Slime";
-            const string rulebookDescription = "Adjacent cards are turned into Slimes at the start of the owner's turn. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.";
+            const string rulebookDescription = "Adjacent cards with greater than 1 Health are turned into Slimes at the start of the owner's turn. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.";
             const string dialogue = "Its army grows everyday.";
 
             Slime.ability = AbilityHelper.CreateAbility<Slime>(
@@ -51,10 +51,10 @@ namespace WhistleWindLobotomyMod
                 CardSlot rightSlot = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, false);
 
                 // check if left card is valid target
-                bool leftValid = leftSlot != null && leftSlot.Card != null && leftSlot.Card.HasAbility(Slime.ability);
+                bool leftValid = leftSlot != null && leftSlot.Card != null && leftSlot.Card.Info.name == "wstl_meltingLoveMinion";
 
                 // check if right card is valid target
-                bool rightValid = rightSlot != null && rightSlot.Card != null && rightSlot.Card.HasAbility(Slime.ability);
+                bool rightValid = rightSlot != null && rightSlot.Card != null && rightSlot.Card.Info.name == "wstl_meltingLoveMinion";
 
                 // break if none are valid
                 if (!leftValid || !rightValid)
@@ -107,11 +107,13 @@ namespace WhistleWindLobotomyMod
             CardSlot rightSlot2 = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, false);
 
             // check if left card is valid target
-            bool leftValid2 = leftSlot2 != null && leftSlot2.Card != null && !leftSlot2.Card.HasAbility(Slime.ability) &&
+            bool leftValid2 = leftSlot2 != null && leftSlot2.Card != null &&
+                !leftSlot2.Card.HasAbility(Slime.ability) && leftSlot2.Card.Info.Health > 1 &&
                 !leftSlot2.Card.Info.HasTrait(Trait.Terrain) && !leftSlot2.Card.Info.HasTrait(Trait.Pelt); ;
 
             // check if right card is valid target
-            bool rightValid2 = rightSlot2 != null && rightSlot2.Card != null && !rightSlot2.Card.HasAbility(Slime.ability) &&
+            bool rightValid2 = rightSlot2 != null && rightSlot2.Card != null &&
+                !rightSlot2.Card.HasAbility(Slime.ability) && rightSlot2.Card.Info.Health > 1 &&
                 !rightSlot2.Card.Info.HasTrait(Trait.Terrain) && !rightSlot2.Card.Info.HasTrait(Trait.Pelt);
 
             yield return base.PreSuccessfulTriggerSequence();
@@ -140,17 +142,15 @@ namespace WhistleWindLobotomyMod
         {
             CardInfo cardInfo = CardLoader.GetCardByName("wstl_meltingLoveMinion");
 
-            // copy name, costs
-            cardInfo.displayedName = otherInfo.displayedName + " Slime";
             cardInfo.appearanceBehaviour = otherInfo.appearanceBehaviour;
             cardInfo.cost = otherInfo.BloodCost;
             cardInfo.bonesCost = otherInfo.BonesCost;
             cardInfo.energyCost = otherInfo.EnergyCost;
             cardInfo.gemsCost = otherInfo.GemsCost;
 
-            // Health - 1, Power 1 if killed card had Power > 0
-            int newPower = otherInfo.baseAttack > 0 ? 1 : 0;
-            int newHealth = otherInfo.baseHealth - 1 < 1 ? 1 : otherInfo.baseHealth - 1;
+            // Health - 1, Power 1
+            int newPower = 1;
+            int newHealth = otherInfo.baseHealth - 1;
 
             cardInfo.Mods.Add(new(newPower, newHealth));
 
