@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             FlagBearer.ability = AbilityHelper.CreateAbility<FlagBearer>(
                 Resources.sigilFlagBearer, Resources.sigilFlagBearer_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                addModular: false, opponent: false, canStack: false, isPassive: true).Id;
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class FlagBearer : AbilityBehaviour, IPassiveHealthBuff
@@ -57,6 +57,7 @@ namespace WhistleWindLobotomyMod
         {
             yield return base.LearnAbility(0.4f);
         }
+
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
             return true;
@@ -65,20 +66,18 @@ namespace WhistleWindLobotomyMod
         {
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
             {
-                if (slot.Card.Health < 3)
+                if (slot.Card.Health - 2 < 3)
                 {
-                    slot.Card.HealDamage(1);
+                    slot.Card.HealDamage(2);
                 }
             }
             yield break;
         }
+
         public int GetPassiveHealthBuff(PlayableCard target)
         {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(target.Slot).Where(slot => slot.Card != null))
-            {
-                return this.Card.OnBoard && slot.Card == this.Card ? 2 : 0;
-            }
-            return 0;
+            return this.Card.OnBoard && Singleton<BoardManager>.Instance.GetAdjacentSlots(target.Slot)
+                .Where(slot => slot != null && slot.Card != null && slot.Card.HasAbility(ability)).Count() > 0 ? 2 : 0;
         }
     }
 }

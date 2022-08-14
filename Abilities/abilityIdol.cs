@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             Idol.ability = AbilityHelper.CreateAbility<Idol>(
                 Resources.sigilIdol, Resources.sigilIdol_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                addModular: false, opponent: false, canStack: true, isPassive: true).Id;
+                addModular: false, opponent: false, canStack: true, isPassive: false).Id;
         }
     }
     public class Idol : AbilityBehaviour, IPassiveAttackBuff

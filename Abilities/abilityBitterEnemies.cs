@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             BitterEnemies.ability = AbilityHelper.CreateAbility<BitterEnemies>(
                 Resources.sigilBitterEnemies, Resources.sigilBitterEnemies_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                addModular: true, opponent: true, canStack: true, isPassive: true).Id;
+                addModular: true, opponent: true, canStack: true, isPassive: false).Id;
         }
     }
     public class BitterEnemies : AbilityBehaviour, IPassiveAttackBuff
