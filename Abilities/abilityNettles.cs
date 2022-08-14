@@ -11,8 +11,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Ability_Nettles()
         {
-            const string rulebookName = "Clothes Made of Nettles";
-            const string rulebookDescription = "When a card bearing this sigil is played, create random Brothers in empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.";
+            const string rulebookName = "Nettle Clothes";
+            const string rulebookDescription = "When a card bearing this sigil is played, create a random Brother in all empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.";
             const string dialogue = "If she gave her brothers the nettle clothing, their happy days would be restored.";
             Nettles.ability = AbilityHelper.CreateAbility<Nettles>(
                 Resources.sigilNettles, Resources.sigilNettles_pixel,
