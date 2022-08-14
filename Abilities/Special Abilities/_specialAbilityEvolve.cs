@@ -131,9 +131,11 @@ namespace WhistleWindLobotomyMod
             {
                 CardInfo evolution = CardLoader.GetCardByName("wstl_queenOfHatred");
 
-                foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+                foreach (CardModificationInfo item in base.PlayableCard.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
                 {
+                    // Adds merged sigils
                     CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
+                    cardModificationInfo.fromCardMerge = true;
                     evolution.Mods.Add(cardModificationInfo);
                 }
                 yield return base.PlayableCard.TransformIntoCard(evolution);
