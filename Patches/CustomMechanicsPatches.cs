@@ -32,4 +32,33 @@ namespace WhistleWindLobotomyMod
             yield return enumerator;
         }
     }
+    [HarmonyPatch(typeof(BoardManager))]
+    public static class BoardManagerPatch
+    {
+        // Resets NumOfBlessings when the event ends with WhiteNight on the board
+        [HarmonyPostfix, HarmonyPatch(nameof(BoardManager.CleanUp))]
+        private static void ResetBlessings(ref BoardManager __instance)
+        {
+            if (__instance.AllSlotsCopy.FindAll((CardSlot s) => s.Card != null && s.Card.Info.name == "wstl_whiteNight").Count > 0)
+            {
+                ConfigUtils.Instance.UpdateBlessings(-ConfigUtils.Instance.NumOfBlessings);
+                WstlPlugin.Log.LogDebug($"Resetting the clock to [0].");
+            }
+        }
+    }
+    [HarmonyPatch(typeof(Opponent))]
+    public class OpponentPatch
+    {
+        // Adds Nothing There to the deck when chosen in a card choice (Trader, Boss Box, etc.)
+        [HarmonyPostfix, HarmonyPatch(nameof(Opponent.OutroSequence))]
+        public static IEnumerator ResetEffects(IEnumerator enumerator)
+        {
+            if (WstlSaveManager.HasSeenApocalypseEffects)
+            {
+                WstlSaveManager.HasSeenApocalypseEffects = false;
+                Singleton<TableVisualEffectsManager>.Instance.ResetTableColors();
+            }
+            yield return enumerator;
+        }
+    }
 }

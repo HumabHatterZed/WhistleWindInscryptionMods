@@ -9,6 +9,24 @@ using UnityEngine;
 
 namespace WhistleWindLobotomyMod
 {
+    [HarmonyPatch(typeof(CardLoader))]
+    public static class CardLoaderPatch
+    {
+        // Removes select cards following specific sequences
+        [HarmonyPostfix, HarmonyPatch(nameof(CardLoader.GetUnlockedCards))]
+        public static void RemoveUniqueCards(ref List<CardInfo> __result)
+        {
+            if (WstlSaveManager.HasUsedBackwardClock)
+            {
+                __result.RemoveAll((CardInfo x) => x.name == "wstl_backwardClock");
+            }
+            if (WstlSaveManager.HasApocalypse)
+            {
+                __result.RemoveAll((CardInfo x) => x.name == "wstl_punishingBird"
+                || x.name == "wstl_bigBird" || x.name == "wstl_judgementBird");
+            }
+        }
+    }
     [HarmonyPatch(typeof(DeckInfo))]
     public static class DeckInfoPatch
     {
