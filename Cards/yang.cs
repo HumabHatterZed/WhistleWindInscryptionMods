@@ -14,13 +14,19 @@ namespace WhistleWindLobotomyMod
             {
                 Regenerator.ability
             };
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                BlackFish.appearance
+            };
             CardHelper.CreateCard(
                 "wstl_yang", "Yang",
-                "The white carp swims towards [c:bR]chaos[c:].",
+                "A white pendant that heals those nearby.",
                 0, 3, 1, 0,
                 Resources.yang, Resources.yang_emission,
+                altTexture: Resources.yangAlt, emissionAltTexture: Resources.yangAlt_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
+                appearances: appearances,
                 onePerDeck: true, riskLevel: 4);
         }
     }

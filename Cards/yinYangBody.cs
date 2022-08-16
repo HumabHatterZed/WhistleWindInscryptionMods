@@ -10,6 +10,10 @@ namespace WhistleWindLobotomyMod
     {
         private void YinYangBody_O07103()
         {
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                ForcedWhite.appearance
+            };
             CardHelper.CreateCard(
                 "wstl_yinYangBody", "",
                 "Now you become [c:bR]the sky[c:], and I the land.",
@@ -17,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 Resources.yinYangBody, Resources.yinYangBody_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                hideStats: true);
+                appearances: appearances, hideStats: true);
         }
     }
 }

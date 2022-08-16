@@ -12,16 +12,22 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.Submerge,
-                Ability.Strafe
+                Ability.Strafe,
+                Ability.Submerge
+            };
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                BlackFish.appearance
             };
             CardHelper.CreateCard(
                 "wstl_yin", "Yin",
-                "Now you become [c:bR]the sky[c:], and I the land.",
+                "A black pendant in search of its missing half.",
                 2, 3, 2, 0,
                 Resources.yin, Resources.yin_emission,
+                altTexture: Resources.yinAlt, emissionAltTexture: Resources.yinAlt_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
+                appearances: appearances,
                 onePerDeck: true, riskLevel: 4);
         }
     }
