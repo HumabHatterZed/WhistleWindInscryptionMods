@@ -13,6 +13,9 @@
   * Fixed certain custom save data only saving per run and not per save
   * Judgement Bird's special ability no longer affects cards with Repulsive ability
   * Mirror of Adjustment now properly displays the Mirror stat icon
+  * Fixed Flag Bearer ability revoking the Health buff under certain situations
+  * Fixed Regenerator ability killing cards when at max Health
+  * Fixed incorrect Regenerator ability description
 * Tweaks
   * Tweaked Bloodbath's special ability to better indicate when it is activated whilst Bloodbath is in your hand
   * Assimilator and Bloodfiend abilities now check if the base card is dead before activating. This should prevent visual glitches
@@ -24,6 +27,9 @@
   * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
   * Patched Omni Strike to now properly attack the card's opposing slot when there are no opponents instead of just the leftmost one
   * Big Bird and Blue Star 1 and 2 now all have special behaviour
+  * Redid WhiteNight sprite, emission
+  * Minor tweak to Red Hooded Mercenary's card choice dialogue
+  * Cards killed by WhiteNight's ability no longer activate certain death-related triggers
 * Balancing
   * Increased Queen Bee's Health from 5 --> 6
   * Changed Bloodbath's stats and gave it the Spilled Blood stat icon
@@ -33,10 +39,9 @@
     * Bloodbath 3 (3,3) --> (1,3)
   * Express Train to Hell cost increased from (FREE) --> (x6)
   * The Train ability cost reduced from (x12) --> (x6)
-  * Blue Star 1 now only takes 1 turn to evolve
-  * Blue Star 1 is no longer singleton (one per deck)
-  * Blue Star 1 no longer has Idol ability
-  * Blue Star 2 no longer has Idol ability
+  * Blue Star 1 rebalanced to be (0,2) stats, Fledgling(1)
+  * Blue Star 2 rebalanced to be (2,6) stats, Assimilator, Omni Strike
+  * Blue Star 1 and 2 now both have a special ability
   * Army in Pink no longer has Undying ability
   * Army in Black buffed from 2 Power --> 4 Power
   * Grave of Cherry Blossoms nerfed from 3 Health --> 2 Health
@@ -45,7 +50,8 @@
   * Scythe Apostle now has 2 Power, Double Strike ability
   * Crumbling Armour Health's nerfed from 4 --> 3
   * Parasite Tree's cost reduced from 2 blood --> 1 blood
-  * Rebalanced Made of Slime to activate on upkeep, no longer inherits the killed card's Power
+  * Minions created by Gardener now inherit the dead card's sigils
+  * Rebalanced Made of Slime to give a flat 1 Power to affected cards, no longer affects cards with 1 Health or lower, inherits name based on tribe
   * CENSORED buffed from 2 Health --> 3 Health
   * CENSORED's minions now inherit the full Power of the killed card
   * We Can Change Anything buffed from 1 Health --> 2 Health

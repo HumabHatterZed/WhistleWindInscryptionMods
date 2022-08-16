@@ -11,9 +11,8 @@ The cards in this mod are designed to be as faithful to their original counterpa
 This mod currently adds all abnormalities from Lobotomy Corp. Broken down, this means:
 * **```84```** obtainable cards (excluding evolutions, minions, event-exclusives)
 * **```41```** abilities (excluding event-exclusives)
-* **```17```** special abilities/behaviours
 * **```4```** starter decks for Kaycee's Mod
-* **```1```** card choice node
+* **```1```** custom node
 * Plus a few special events!
 
 ## ⚙️ Dependencies
@@ -24,6 +23,8 @@ This mod currently adds all abnormalities from Lobotomy Corp. Broken down, this 
 The mod's configuration file has been renamed to **```wstl.inscryption.lobotomycorp.cfg```**.
 
 Any changes made in the old config file will **NOT** carry over and must be changed in the new config file after loading the game at least once.
+
+The order of the configuration options has also changed, so simply copy-pasting the old config into the new *may* not work.
 
 The old config can be safely deleted at your convenience.
 
@@ -55,6 +56,9 @@ For the full changelog, please refer to the .md file included in the mod package
   * Fixed Quick Draw and Woodcutter abilities causing the game to freeze in certain scenarios
   * Judgement Bird's special ability no longer affects cards with Repulsive ability
   * Mirror of Adjustment now properly displays the Mirror stat icon
+  * Fixed Flag Bearer ability revoking the Health buff under certain situations
+  * Fixed Regenerator ability killing cards when at max Health
+  * Fixed incorrect Regenerator ability description
 * Tweaks
   * Tweaked Bloodbath's special ability to better indicate when it is activated whilst Bloodbath is in your hand
   * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
@@ -67,16 +71,17 @@ For the full changelog, please refer to the .md file included in the mod package
   * Changed Bloodbath's stats and gave it the Spilled Blood stat icon 
   * Express Train to Hell cost increased from (FREE) --> (x6)
   * The Train ability cost reduced from (x12) --> (x6)
-  * Blue Star 1 now only takes 1 turn to evolve and is no longer Singleton (one per deck)
-  * Blue Star 1 no longer has Idol ability
-  * Blue Star 2 no longer has Idol ability
+  * Blue Star 1 rebalanced to be (0,2) stats, Fledgling(2)
+  * Blue Star 2 rebalanced to be (2,6) stats, Assimilator, Omni Strike
+  * Blue Star 1 and 2 now both have a special ability
   * Army in Pink no longer has Undying ability
   * Army in Black buffed from 2 Power --> 4 Power
   * Grave of Cherry Blossoms nerfed from 3 Health --> 2 Health
   * Judgement Bird is Rare again
   * Crumbling Armour's Health nerfed from 4 --> 3
   * Parasite Tree's cost reduced from 2 blood --> 1 blood
-  * Rebalanced Made of Slime to activate on upkeep, no longer inherits the killed card's Power
+  * Minions created by Gardener now inherit the dead card's sigils
+  * Rebalanced Made of Slime to give a flat 1 Power to affected cards, no longer affects cards with 1 Health or lower
   * CENSORED buffed from 2 Health --> 3 Health
   * CENSORED's minions now inherit the full Power of the killed card
   * We Can Change Anything buffed from 1 Health --> 2 Health
@@ -134,7 +139,8 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Yang|Reacts to being adjacent to another card.|
 |Giant Tree Sap|Reacts to being sacrificed.|
 |Big Bird|Reacts to ally cards.|
-|Blue Star|Reacts to the opposing side of the board| 
+|Plague Doctor|Reacts to ability activation.|
+|Blue Star|Reacts to the opposing side of the board.| 
  </details>
  
 ## ✨ Abilities
@@ -167,7 +173,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Reflector|When this card is struck, the striker is dealt damage equal to the striker's Power.|Yes|
 |Flag Bearer|Adjacent cards gain 2 Health.||
 |Grinder|This card gains the stats of the cards sacrificed to play it.|Yes|
-|The Train|Activate: Pay 12 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.||
+|The Train|Activate: Pay 6 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.||
 |Burning|The opposing card takes 1 damage at the end of their turn.||
 |Regenerator|Adjacent cards gain 1 Health at the end of the opponent's turn.|Yes|
 |Volatile|When this card dies, adjacent and opposing cards are dealt 10 damage.|Yes|
@@ -175,14 +181,14 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Piercing|When this card strikes a card, deal 1 overkill damage if applicable.|Yes|
 |Scrambler|When this card is sacrificed, add its stats onto the card it was sacrificed to, then scramble that card's stats.|Yes|
 |Gardener|When an ally card dies, create a Sapling in their place. A Sapling is defined as: 0 Power, 2 Health.||
-|Made of Slime|Adjacent cards are turned into Slimes at the start of the owner's turn. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.||
+|Made of Slime|Adjacent cards with greater than 1 Health are turned into Slimes at the start of the owner's turn. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.||
 |Marksman|You may choose which opposing space a card bearing this sigil strikes.||
 |Protector|Adjacent cards take 1 less damage from attacks.||
 |Quick Draw|When a creature moves into the space opposite this card, they take 1 damage.||
 |Alchemist|Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.||
 |Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on their power level.||
-|Clothes Made of Nettles|When a card bearing this sigil is played, create random Brothers in empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.||
-|Spores|Adjacent cards gain 1 Spore and take damage equal to their Spore at the end of each turn. If a card with Spore is killed, create a Spore Mold Creature in that card's slot whose stats are equal to the card's Spore.||
+|Nettle Clothes|When a card bearing this sigil is played, create a random Brother in all empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.||
+|Fungal Infector|At the end of the owner's turn, adjacent cards gain 1 Spore. Cards with Spore take damage equal to their Spore at turn's end and create a Spore Mold Creature in their slot on death. A Spore Mold Creature is defined as: [ Spore ] Power, [ Spore ] Health.||
 |Witness|Activate: Pay 2 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.||
 |Corrector|A card bearing this sigil has its stats randomly changed according to its cost.|Yes|
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
@@ -194,7 +200,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 **NOTES**
 * **Singleton** means you can only have a single copy of that card in your deck  at a time (like Ouroboros).
 * **Poisonous** means the card will kill survivors at the campfire when eaten.
-* **X** means that that stat is dependant on the stats of another card.
+* **X** means that the given field is inherited from a base card or status effect.
 <details>
 <summary>View cards</summary>
 
@@ -245,12 +251,12 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |You're Bald...|1|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Fecundity|||
 |Fragment of the Universe|1|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Piercing|||
 |Crumbling Armour|0|3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/r1Q62Ck.png">|Courageous|||
-|Judgement Bird|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Marksman|Singleton|Avian|
-|Apocalypse Bird|10|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Omni Strike|Rare<br>Singleton|Avian|
+|Judgement Bird|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Marksman|Rare<br>Singleton|Avian|
+|Apocalypse Bird|2|8|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Omni Strike<br>Bifurcated Strike|Rare<br>Singleton|Avian|
 |Magical Girl D|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fledgling|Singleton||
 |⤷ The King of Greed|4|5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Hefty|Singleton||
 |The Little Prince|1|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Spores|||
-|⤷ Spore Mold Creature|X|X|||||
+|⤷ Spore Mold Creature|X|X|X|X|||
 |Laetitia|1|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Gift Giver|||
 |Laetitia's Friend|2|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|||Insect|
 |Funeral of the Dead Butterflies|2|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Bifurcated Strike|Rare||
@@ -282,12 +288,12 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Scarecrow Searching for Wisdom|1|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Bloodfiend|||
 |Dimensional Refraction Variant|4|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Amorphous|||
 |CENSORED|6|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Bloodfiend|Rare||
-|⤷ CENSORED|X|X|||||
+|⤷ CENSORED|X|1|X|X||X|
 |Skin Prophecy|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Witness|||
 |Portrait of Another World|0|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Reflector|||
 |Today's Shy Look|1|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||||
-|Blue Star|0|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Fledgling(2)|Rare<br>Singleton||
-|⤷ Blue Star|1|8|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Assimilator<br>Omni Strike<br>Idol|Rare<br>Singleton||
+|Blue Star|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Fledgling(2)|Rare||
+|⤷ Blue Star|2|6|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Assimilator<br>Omni Strike|Rare||
 |You Must be Happy|0|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Scrambler|||
 |Luminous Bracelet|0|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Regenerator|||
 |Behaviour Adjustment|0|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Corrector|||
@@ -305,9 +311,9 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Ppodae|1|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Stinky<br>Fledgling||Canine|
 |⤷ Ppodae|3|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/cEvPoTk.png">|Stinky||Canine|
 |Parasite Tree|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Gardener|||
-|⤷ Sapling|1|2|||||
+|⤷ Sapling|1|2||X|||
 |Melting Love|4|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Made of Slime|Rare<br>Poisonous||
-|⤷ Slime|X|X||Made of Slime|||
+|⤷ Slime|1|X-1|X|X<br>Made of Slime|||
 |Honoured Monk|2|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fledgling|||
 |⤷ Clouded Monk|4|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">||||
 </details>

@@ -66,7 +66,7 @@ namespace WhistleWindLobotomyMod
         {
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
             {
-                if (slot.Card.Health - 2 < 3)
+                if (slot.Card.Health < 3)
                 {
                     slot.Card.HealDamage(2);
                 }

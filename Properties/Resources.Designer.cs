@@ -323,6 +323,36 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] backwardClock_emission_1 {
+            get {
+                object obj = ResourceManager.GetObject("backwardClock_emission_1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] backwardClock_emission_2 {
+            get {
+                object obj = ResourceManager.GetObject("backwardClock_emission_2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] backwardClock_emission_3 {
+            get {
+                object obj = ResourceManager.GetObject("backwardClock_emission_3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] beautyAndBeast {
             get {
                 object obj = ResourceManager.GetObject("beautyAndBeast", resourceCulture);
@@ -3973,6 +4003,26 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] yangAlt {
+            get {
+                object obj = ResourceManager.GetObject("yangAlt", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] yangAlt_emission {
+            get {
+                object obj = ResourceManager.GetObject("yangAlt_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] yin {
             get {
                 object obj = ResourceManager.GetObject("yin", resourceCulture);
@@ -3986,6 +4036,26 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] yin_emission {
             get {
                 object obj = ResourceManager.GetObject("yin_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] yinAlt {
+            get {
+                object obj = ResourceManager.GetObject("yinAlt", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] yinAlt_emission {
+            get {
+                object obj = ResourceManager.GetObject("yinAlt_emission", resourceCulture);
                 return ((byte[])(obj));
             }
         }

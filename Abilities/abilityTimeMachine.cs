@@ -40,30 +40,32 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator Activate()
         {
             WstlSaveManager.HasUsedBackwardClock = true;
+            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Have I backed you into a corner? Or am I simply boring you?", -0.65f, 0.4f);
+            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("I suppose it doesn't matter. I will honour your request.", -0.65f, 0.4f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             AudioController.Instance.PlaySound2D("antigravity_elevator_down");
-            yield return base.Card.RenderInfo.forceEmissivePortrait = true;
+            base.Card.Anim.LightNegationEffect();
+            RandomEmission();
             yield return new WaitForSeconds(0.4f);
             yield return base.LearnAbility();
-            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("When you open them, you will be standing at the exact moment you wished to be in.", -0.65f, 0.4f);
+            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("When you open them, you will be standing at the exact moment you wish to be in.", -0.65f, 0.4f);
             // Gets a list of all cards in the player's deck, minus Backward Clock
             List<CardInfo> deckInfo = new(RunState.DeckList);
             deckInfo.Remove(base.Card.Info);
-            yield return RemoveCard(base.Card);
+            base.Card.RemoveFromBoard(true);
             // Sort by highest powerlevel if there are cards in the deck
             // Then get a list of all cards above-equal-to the min powerlevel (currently 8)
             // If there is more than 1 card in highInfo, choose a random one from highInfo
             // Else choose the first item in deckInfo (highest powerlevel
-            WstlPlugin.Log.LogInfo("1");
             if (deckInfo != null)
             {
-                WstlPlugin.Log.LogInfo("2");
                 bool removed = false;
                 CardInfo cardInfo = null;
                 int randomSeed = base.GetRandomSeed();
                 List<CardInfo> highInfo = deckInfo.FindAll((CardInfo i) => i.PowerLevel >= min);
-                WstlPlugin.Log.LogInfo("3");
+
                 deckInfo.Sort((CardInfo a, CardInfo b) => b.PowerLevel - a.PowerLevel);
-                WstlPlugin.Log.LogInfo("4");
+
                 if (highInfo.Count > 1)
                 {
                     highInfo.Sort((CardInfo a, CardInfo b) => b.PowerLevel - a.PowerLevel);
@@ -81,7 +83,8 @@ namespace WhistleWindLobotomyMod
                     {
                         removed = true;
                         yield return new WaitForSeconds(0.25f);
-                        yield return RemoveCard(slot.Card);
+                        slot.Card.RemoveFromBoard(true);
+                        yield return new WaitForSeconds(0.5f);
                     }
                 }
                 else
@@ -94,13 +97,19 @@ namespace WhistleWindLobotomyMod
                     removed = true;
                     foreach (PlayableCard card in Singleton<PlayerHand>.Instance.CardsInHand.Where(c => c.Info == cardInfo))
                     {
-                        yield return new WaitForSeconds(0.25f);
-                        yield return RemoveCard(card);
+                        yield return new WaitForSeconds(0.5f);
+                        card.RemoveFromBoard(true);
+                        yield return new WaitForSeconds(0.5f);
                     }
                 }
                 if (!removed)
                 {
                     RunState.Run.playerDeck.RemoveCard(cardInfo);
+                }
+                if (Singleton<ViewManager>.Instance.CurrentView != View.Default)
+                {
+                    Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+                    yield return new WaitForSeconds(0.2f);
                 }
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]The Clock[c:] and your [c:bR]" + cardInfo.DisplayedNameLocalized + "[c:] will remain in that abandoned time.", -0.65f, 0.4f);
                 yield return new WaitForSeconds(0.2f);
@@ -108,23 +117,28 @@ namespace WhistleWindLobotomyMod
             yield return EndBattle();
         }
 
-        private IEnumerator RemoveCard(PlayableCard item)
-        {
-            RunState.Run.playerDeck.RemoveCard(item.Info);
-            item.UnassignFromSlot();
-            SpecialCardBehaviour[] components = item.GetComponents<SpecialCardBehaviour>();
-            for (int i = 0; i < components.Length; i++)
-            {
-                components[i].OnCleanUp();
-            }
-            item.ExitBoard(0.3f, Vector3.zero);
-            yield return new WaitForSeconds(0.5f);
-        }
         private IEnumerator EndBattle()
         {
             int damage = Singleton<LifeManager>.Instance.DamageUntilPlayerWin;
             yield return Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = damage;
             yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
+        }
+
+        private void RandomEmission()
+        {
+            int rand = new System.Random().Next(4);
+            byte[] resource = rand switch
+            {
+                0 => Resources.backwardClock_emission,
+                1 => Resources.backwardClock_emission_1,
+                2 => Resources.backwardClock_emission_2,
+                _ => Resources.backwardClock_emission_3
+            };
+            base.Card.ClearAppearanceBehaviours();
+            base.Card.ApplyAppearanceBehaviours(new() { CardAppearanceBehaviour.Appearance.RareCardBackground });
+            base.Card.Info.SetEmissivePortrait(WstlTextureHelper.LoadTextureFromResource(resource));
+            base.Card.RenderInfo.forceEmissivePortrait = true;
+            base.Card.UpdateStatsText();
         }
     }
 }

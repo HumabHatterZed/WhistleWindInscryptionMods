@@ -46,18 +46,18 @@ namespace WhistleWindLobotomyMod
             }
             else
             {
-                //WstlSaveManager.NumOfBlessings = ConfigUtils.Instance.NumOfBlessings;
                 if (ConfigUtils.Instance.NumOfBlessings > 11)
                 {
                     ConfigUtils.Instance.SetBlessings(11);
                 }
                 AddAbilities();
                 AddSpecialAbilities();
+                AddAppearances();
                 AddCards();
                 AddNodes();
                 //AddEncounters();
                 AddStarterDecks();
-                Logger.LogMessage($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
+                Logger.LogInfo($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }
         }
@@ -65,14 +65,16 @@ namespace WhistleWindLobotomyMod
         {
             Node_ModCardChoice();
         }
+        private void AddAppearances()
+        {
+            AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
+        }
         private void AddSpecialAbilities()
         {
             AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
         }
         private void AddAbilities()
         {
-            Ability_Test();
-            
             Ability_Punisher();
             Ability_Bloodfiend();
             Ability_Martyr();
@@ -105,7 +107,7 @@ namespace WhistleWindLobotomyMod
             Ability_Scrambler();
             Ability_Gardener();
             Ability_Slime();
-            Ability_Hunter();
+            Ability_Marksman();
             Ability_Protector();
             Ability_QuickDraw();
             Ability_Alchemist();

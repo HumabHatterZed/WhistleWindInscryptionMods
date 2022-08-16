@@ -26,7 +26,6 @@ namespace WhistleWindLobotomyMod
         private bool IsGreed => base.PlayableCard.Info.name.Equals("wstl_magicalgirldiamond");
         private bool IsNothingTrue => base.PlayableCard.Info.name.Equals("wstl_nothingThereTrue");
         private bool IsNothingEgg => base.PlayableCard.Info.name.Equals("wstl_nothingThereEgg");
-
         private bool IsDragonHead => base.PlayableCard.Info.name.Equals("wstl_yinYangHead");
 
         private readonly string hateADialogue = "A formidable attack. Shame it has left her too tired to defend herself.";
@@ -35,6 +34,7 @@ namespace WhistleWindLobotomyMod
         private readonly string nothingTrueDialogue = "What is it doing?";
         private readonly string nothingEggDialogue = "It seems to be trying to mimic you. 'Trying' is the key word.";
 
+        CardInfo bodyInfo = CardLoader.GetCardByName("wstl_yinYangBody");
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
             if (IsGreed || IsNothingTrue || IsNothingEgg)
@@ -149,6 +149,7 @@ namespace WhistleWindLobotomyMod
                 yield break;
             }
         }
+
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
             if (IsDragonHead && base.Card != null)
@@ -159,7 +160,8 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
-            base.PlayableCard.SetInfo(CardLoader.GetCardByName("wstl_yinYangBody"));
+            base.PlayableCard.SetInfo(bodyInfo);
+            base.PlayableCard.UpdateStatsText();
             yield break;
         }
     }

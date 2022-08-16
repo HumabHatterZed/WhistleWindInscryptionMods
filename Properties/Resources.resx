@@ -196,6 +196,15 @@
   <data name="backwardClock_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\backwardClock_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="backwardClock_emission_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\backwardClock_emission_1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="backwardClock_emission_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\backwardClock_emission_2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="backwardClock_emission_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\backwardClock_emission_3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="beautyAndBeast" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\beautyAndBeast.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1288,11 +1297,23 @@
   <data name="yang" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\yang.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="yangAlt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yangAlt.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="yangAlt_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yangAlt_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="yang_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\yang_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="yin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\yin.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="yinAlt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yinAlt.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="yinAlt_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yinAlt_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="yinYangBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\yinYangBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
