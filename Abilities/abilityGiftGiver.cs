@@ -36,8 +36,8 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnResolveOnBoard()
         {
             yield return base.PreSuccessfulTriggerSequence();
-            yield return new WaitForSeconds(0.2f);
             base.Card.Anim.LightNegationEffect();
+            yield return new WaitForSeconds(0.2f);
             yield return CreateDrawnCard();
         }
 

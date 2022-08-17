@@ -34,20 +34,14 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            if (card != null && !card.Info.HasTrait(Trait.Terrain) && !card.Info.HasTrait(Trait.Pelt))
+            if (card != null && !card.Info.HasTrait(Trait.Terrain) && !card.Info.HasTrait(Trait.Pelt)
+                && !card.Info.name.ToLowerInvariant().Contains("parasitetreesapling"))
             {
-                if (!card.Info.name.ToLowerInvariant().Contains("parasitetreesapling") && card != base.Card && base.Card != null)
-                {
-                    yield return PreSuccessfulTriggerSequence();
-
-                    base.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.4f);
-
-                    yield return SpawnCardOnSlot(card, deathSlot);
-
-                    yield return new WaitForSeconds(0.4f);
-                    yield return LearnAbility(0.4f);
-                }
+                yield return PreSuccessfulTriggerSequence();
+                base.Card.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.4f);
+                yield return SpawnCardOnSlot(card, deathSlot);
+                yield return LearnAbility(0.4f);
             }
         }
 

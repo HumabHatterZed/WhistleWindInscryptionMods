@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target)
         {
-            return amount > 0 && base.Card.Health > 0 && !base.Card.Dead;
+            return amount > 0 && !base.Card.Dead;
         }
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
@@ -38,7 +38,6 @@ namespace WhistleWindLobotomyMod
             base.Card.HealDamage(1);
             base.Card.OnStatsChanged();
             base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
             yield return base.LearnAbility(0.4f);
         }
 
@@ -78,17 +77,17 @@ namespace WhistleWindLobotomyMod
 
             minion.Mods.Add(new(newAttack, 1));
 
+            foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            {
+                // Adds base sigils
+                minion.Mods.Add(new CardModificationInfo(item));
+            }
             foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
                 // Adds merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
                 cardModificationInfo.fromCardMerge = true;
                 minion.Mods.Add(cardModificationInfo);
-            }
-            foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
-            {
-                // Adds base sigils
-                minion.Mods.Add(new CardModificationInfo(item));
             }
             foreach (Tribe item in card.Info.tribes.FindAll((Tribe x) => x != Tribe.NUM_TRIBES))
             {

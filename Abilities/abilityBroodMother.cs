@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_BroodMother()
         {
             const string rulebookName = "Broodmother";
-            const string rulebookDescription = "When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health.";
+            const string rulebookDescription = "When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health, Fledgling.";
             const string dialogue = "A small spider takes refuge in your hand.";
             BroodMother.ability = AbilityHelper.CreateAbility<BroodMother>(
                 Resources.sigilBroodMother, Resources.sigilBroodMother_pixel,
@@ -42,8 +42,7 @@ namespace WhistleWindLobotomyMod
             }
             CardInfo cardInfo = CardLoader.GetCardByName("wstl_spiderling");
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
-            yield return new WaitForSeconds(0.45f);
-            yield return base.LearnAbility(0.5f);
+            yield return base.LearnAbility(0.95f);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Spring arrives with blossoming roses.";
             FrozenHeart.ability = AbilityHelper.CreateAbility<FrozenHeart>(
                 Resources.sigilFrozenHeart, Resources.sigilFrozenHeart_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
+                rulebookName, rulebookDescription, dialogue, powerLevel: -1,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
@@ -41,9 +41,9 @@ namespace WhistleWindLobotomyMod
             if (killer.Info.name.ToLowerInvariant().Contains("warmheartedwoodsman"))
             {
                 killer.AddTemporaryMod(mod2);
+                yield return new WaitForSeconds(0.2f);
                 if (!base.HasLearned)
                 {
-                    yield return new WaitForSeconds(0.25f);
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue, -0.65f, 0.4f);
                 }
                 yield return new WaitForSeconds(0.25f);
@@ -51,7 +51,6 @@ namespace WhistleWindLobotomyMod
             else
             {
                 killer.AddTemporaryMod(mod);
-                yield return new WaitForSeconds(0.4f);
                 yield return base.LearnAbility(0.4f);
             }
         }

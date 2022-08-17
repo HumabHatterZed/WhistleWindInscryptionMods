@@ -80,8 +80,7 @@ namespace WhistleWindLobotomyMod
                     break;
                 }
             }
-            yield return new WaitForSeconds(0.2f);
-            yield return base.LearnAbility();
+            yield return base.LearnAbility(0.2f);
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.DefaultView);
         }
     }

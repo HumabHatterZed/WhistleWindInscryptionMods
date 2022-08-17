@@ -1,6 +1,7 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
@@ -11,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Grinder()
         {
             const string rulebookName = "Grinder";
-            const string rulebookDescription = "This card gains the stats of the cards sacrificed to play it.";
+            const string rulebookDescription = "This card gains the stats of the card sacrificed to play it.";
             const string dialogue = "Now everything will be just fine.";
             Grinder.ability = AbilityHelper.CreateAbility<Grinder>(
                 Resources.sigilGrinder, Resources.sigilGrinder_pixel,
@@ -31,8 +32,9 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            base.Card.AddTemporaryMod(new CardModificationInfo(card.Attack, card.Health));
             base.Card.Anim.LightNegationEffect();
+            base.Card.AddTemporaryMod(new(card.Attack, card.Health));
+            base.Card.OnStatsChanged();
             yield return new WaitForSeconds(0.25f);
             yield return base.LearnAbility(0.4f);
         }
