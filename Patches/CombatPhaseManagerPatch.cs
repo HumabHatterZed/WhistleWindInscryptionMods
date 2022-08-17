@@ -71,8 +71,14 @@ namespace WhistleWindLobotomyMod
 			foreach (CardSlot item in opposingSlots)
 			{
 				Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
-				if (isJudge && item.Card != null && item.Card.HasAbility(Ability.PreventAttack))
+				if (isJudge && item.Card != null && !item.Card.HasAbility(Ability.PreventAttack))
                 {
+					if (slot.Card.FaceDown)
+					{
+						slot.Card.SetFaceDown(false);
+						slot.Card.UpdateFaceUpOnBoardEffects();
+						yield return new WaitForSeconds(0.2f);
+					}
 					slot.Card.Anim.StrongNegationEffect();
 					yield return new WaitForSeconds(0.6f);
 					yield return CombatPhaseManagerPatch.Instance.Execution(item.Card);
