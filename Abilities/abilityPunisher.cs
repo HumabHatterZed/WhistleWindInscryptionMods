@@ -25,8 +25,8 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
-            bool whiteNightEvent = !source.HasAbility(TrueSaviour.ability) && !source.HasAbility(Apostle.ability) && !source.HasAbility(Confession.ability);
-            if (source != null && !source.Dead && whiteNightEvent)
+            bool whiteNightEvent = source.HasAbility(TrueSaviour.ability) || source.HasAbility(Apostle.ability) || source.HasAbility(Confession.ability);
+            if (source != null && !source.Dead && !whiteNightEvent)
             {
                 return source.Health > 0 && !source.HasAbility(Ability.MadeOfStone);
             }

@@ -42,7 +42,6 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.4f);
             yield return demandingCard.Anim.FlipInAir();
             ScrambleStats(demandingCard);
-            yield return new WaitForSeconds(0.5f);
             yield return base.LearnAbility(0.5f);
         }
 

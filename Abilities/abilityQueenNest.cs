@@ -41,7 +41,6 @@ namespace WhistleWindLobotomyMod
                 if (!card.Info.name.ToLowerInvariant().Contains("queenbeeworker") && card != base.Card)
                 {
                     yield return PreSuccessfulTriggerSequence();
-
                     base.Card.Anim.StrongNegationEffect();
                     yield return new WaitForSeconds(0.4f);
                     if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
@@ -51,8 +50,6 @@ namespace WhistleWindLobotomyMod
                         yield return new WaitForSeconds(0.2f);
                     }
                     yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo);
-
-                    yield return new WaitForSeconds(0.4f);
                     yield return LearnAbility(0.4f);
                 }
             }

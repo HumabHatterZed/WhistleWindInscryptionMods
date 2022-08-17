@@ -42,7 +42,7 @@ namespace WhistleWindLobotomyMod
                 {
                     if (slot.Card == target)
                     {
-                        return true;
+                        return amount > 0;
                     }
                 }
             }
@@ -50,20 +50,20 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
         {
-            yield return target.Status.damageTaken > 0 ? target.Status.damageTaken-- : target.Status.damageTaken;
+            yield return target.Status.damageTaken--;
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
-            if (IsDespair && !WstlSaveManager.HasSeenDespairProtect)
+            if (!IsDespair)
+            {
+                yield return base.LearnAbility(0.4f);
+            }
+            else if (!WstlSaveManager.HasSeenDespairProtect)
             {
                 WstlSaveManager.HasSeenDespairProtect = true;
                 yield return new WaitForSeconds(0.4f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(protectDialogue, -0.65f, 0.4f);
+                yield return new WaitForSeconds(0.25f);
             }
-            else if (!IsDespair)
-            {
-                yield return base.LearnAbility(0.4f);
-            }
-            yield return new WaitForSeconds(0.25f);
         }
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)

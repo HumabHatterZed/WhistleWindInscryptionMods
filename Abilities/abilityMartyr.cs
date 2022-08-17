@@ -28,25 +28,25 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.PlayerSlotsCopy.Where((CardSlot s) => s.Card != null && s.Card != base.Card))
-            {
-                return !base.Card.OpponentCard && !wasSacrifice && killer != null;
-            }
-            return false;
+            return !wasSacrifice;
         }
+        // original code taken from SigilADay - julianperge
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            // SigilADay julianperge
+            var validCards = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(s => s.Card != null && s.Card != base.Card);
+
+            // if no other cards on the board except this card
+            if (validCards.Count() == 0)
+            {
+                yield break;
+            }
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
-            foreach (var slot in Singleton<BoardManager>.Instance.PlayerSlotsCopy.Where(slot => slot.Card != base.Card))
+            foreach (var slot in validCards)
             {
-                if (slot.Card != null)
-                {
-                    slot.Card.HealDamage(2);
-                    slot.Card.Anim.LightNegationEffect();
-                    yield return new WaitForSeconds(0.15f);
-                }
+                slot.Card.Anim.LightNegationEffect();
+                slot.Card.HealDamage(2);
+                yield return new WaitForSeconds(0.2f);
             }
             yield return base.LearnAbility(0.25f);
         }
