@@ -5,7 +5,8 @@
   * Added some new game patches
   * Rearranged the order of the configs in the config file
   * All abilities now have an icon for Act 2, if you want to mess around with them in Act 2 for whatever reason
-* Bug fixes
+  * Fixed inaccurate/incorrect information in the ReadMe
+* Bug fixes ??
   * Fixed custom death cards not being properly added to the game
   * Fixed Nothing There and Express Train to Hell being selectable at card merge or campfire nodes
   * Fixed Martyr ability causing the game to freeze when there are no valid targets to be healed
@@ -16,7 +17,7 @@
   * Fixed Flag Bearer ability revoking the Health buff under certain situations
   * Fixed Regenerator ability killing cards when at max Health
   * Fixed incorrect Regenerator ability description
-* Tweaks
+* Tweaks ??
   * Tweaked Bloodbath's special ability to better indicate when it is activated whilst Bloodbath is in your hand
   * Assimilator and Bloodfiend abilities now check if the base card is dead before activating. This should prevent visual glitches
   * Updated Rulebook entry for Judgement Bird's special ability
@@ -30,7 +31,7 @@
   * Redid WhiteNight sprite, emission
   * Minor tweak to Red Hooded Mercenary's card choice dialogue
   * Cards killed by WhiteNight's ability no longer activate certain death-related triggers
-* Balancing
+* Balancing ??
   * Increased Queen Bee's Health from 5 --> 6
   * Changed Bloodbath's stats and gave it the Spilled Blood stat icon
     * Bloodbath 0 (0,3) --> (0,1)
@@ -41,22 +42,22 @@
   * The Train ability cost reduced from (x12) --> (x6)
   * Blue Star 1 rebalanced to be (0,2) stats, Fledgling(1)
   * Blue Star 2 rebalanced to be (2,6) stats, Assimilator, Omni Strike
-  * Blue Star 1 and 2 now both have a special ability
+  * Blue Star has a special ability
   * Army in Pink no longer has Undying ability
   * Army in Black buffed from 2 Power --> 4 Power
   * Grave of Cherry Blossoms nerfed from 3 Health --> 2 Health
-  * Judgement Bird is a Rare card again
   * WhiteNight's Apostles are no longer immune to Touch of Death
   * Scythe Apostle now has 2 Power, Double Strike ability
-  * Crumbling Armour Health's nerfed from 4 --> 3
+  * Crumbling Armour's stats changed from (0,4) 6 bones --> (0,3) 5 bones
   * Parasite Tree's cost reduced from 2 blood --> 1 blood
   * Minions created by Gardener now inherit the dead card's sigils
-  * Rebalanced Made of Slime to give a flat 1 Power to affected cards, no longer affects cards with 1 Health or lower, inherits name based on tribe
+  * Rebalanced Made of Slime to give a flat 1 Power to affected cards, no longer affects cards with 1 Health or lower
   * CENSORED buffed from 2 Health --> 3 Health
   * CENSORED's minions now inherit the full Power of the killed card
-  * We Can Change Anything buffed from 1 Health --> 2 Health
+  * We Can Change Anything buffed from (0,1) --> (1,2)
   * Luminous Bracelet buffed from 1 Health --> 2 Health
-* Additions
+  * Scarecrow Searching for Wisdom buffed from 2 Health --> 3 Health
+* Additions ?
   * Added starter deck First Day
     * One Sin, Fairy Festival, Old Lady
   * Added starter deck Road to Oz

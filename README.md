@@ -49,7 +49,7 @@ Big thanks to Rengar, yam the nokia, Orochi Umbra, and everyone else on the modd
 For the full changelog, please refer to the .md file included in the mod package.
 
 ### v1.1.0 - First Major Update(tm) (?/?/202?)
-* Bug fixes
+* Bug fixes 🩹
   * Fixed custom death cards not being properly added to the game
   * Fixed Nothing There and Express Train to Hell being selectable at card merge or campfire nodes
   * Fixed Martyr ability causing the game to freeze when there are no valid targets to be healed
@@ -59,13 +59,13 @@ For the full changelog, please refer to the .md file included in the mod package
   * Fixed Flag Bearer ability revoking the Health buff under certain situations
   * Fixed Regenerator ability killing cards when at max Health
   * Fixed incorrect Regenerator ability description
-* Tweaks
+* Tweaks 🔧
   * Tweaked Bloodbath's special ability to better indicate when it is activated whilst Bloodbath is in your hand
   * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
   * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
   * Patched Omni Strike to now properly attack the card's opposing slot when there are no opponents instead of just the leftmost one
   * Big Bird and Blue Star 1 and 2 now all have special behaviour
-* Balancing
+* Balancing ⚖️
   * Queen Nest ability no longer creates a Worker Bee when played
   * Increased Queen Bee's Health from 5 --> 6
   * Changed Bloodbath's stats and gave it the Spilled Blood stat icon 
@@ -73,19 +73,20 @@ For the full changelog, please refer to the .md file included in the mod package
   * The Train ability cost reduced from (x12) --> (x6)
   * Blue Star 1 rebalanced to be (0,2) stats, Fledgling(2)
   * Blue Star 2 rebalanced to be (2,6) stats, Assimilator, Omni Strike
-  * Blue Star 1 and 2 now both have a special ability
+  * Blue Star has a special ability
   * Army in Pink no longer has Undying ability
   * Army in Black buffed from 2 Power --> 4 Power
   * Grave of Cherry Blossoms nerfed from 3 Health --> 2 Health
-  * Judgement Bird is Rare again
-  * Crumbling Armour's Health nerfed from 4 --> 3
+  * Crumbling Armour's stats changed from (0,4) 6 bones --> (0,3) 5 bones
   * Parasite Tree's cost reduced from 2 blood --> 1 blood
   * Minions created by Gardener now inherit the dead card's sigils
   * Rebalanced Made of Slime to give a flat 1 Power to affected cards, no longer affects cards with 1 Health or lower
   * CENSORED buffed from 2 Health --> 3 Health
   * CENSORED's minions now inherit the full Power of the killed card
-  * We Can Change Anything buffed from 1 Health --> 2 Health
-* Additions
+  * We Can Change Anything buffed from (0,1) --> (1,2)
+  * Luminous Bracelet buffed from 1 Health --> 2 Health
+  * Scarecrow Searching for Wisdom buffed from 2 Health --> 3 Health
+* Additions ➕
   * Added 13 obtainable cards
   * Added 6 abilities
   * Added 4 special abilities
@@ -161,7 +162,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Frozen Heart|When this card dies, the killer gains 1 Health.||
 |Ruler of Frost|When this card is played, create a Block of Ice in the opposing adjacent slots if they are empty. Otherwise, if the occupying card has 1 Health, kill it and create a Frozen Heart in its place. A Block of Ice and a Frozen Heart are both defined as: 0 Power, 1 Health.||
 |Root|When this card is played, Vines are created on adjacent empty spaces. A Vine is defined as: 1 Power, 1 Health.|Yes|
-|Broodmother|When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health.|Yes|
+|Broodmother|When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health, Fledgling.|Yes|
 |Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.|Yes|
 |Healer|This card will heal a selected ally for 2 Health.||
 |Queen Nest|When a card dies while a card bearing this sigil is on the board, a Worker Bee is created in your hand. A Worker Bee is defined as: 1 Power, 1 Health.|Yes|
@@ -174,7 +175,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Flag Bearer|Adjacent cards gain 2 Health.||
 |Grinder|This card gains the stats of the cards sacrificed to play it.|Yes|
 |The Train|Activate: Pay 6 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.||
-|Burning|The opposing card takes 1 damage at the end of their turn.||
+|Burning|The opposing card takes 1 damage at the end of their owner's turn.|Yes|
 |Regenerator|Adjacent cards gain 1 Health at the end of the opponent's turn.|Yes|
 |Volatile|When this card dies, adjacent and opposing cards are dealt 10 damage.|Yes|
 |Gift Giver|When this card is played, create a random card in your hand.||
@@ -250,8 +251,8 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Big and Will be Bad Wolf|3|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Bitter Enemies||Canine|
 |You're Bald...|1|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Fecundity|||
 |Fragment of the Universe|1|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Piercing|||
-|Crumbling Armour|0|3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/r1Q62Ck.png">|Courageous|||
-|Judgement Bird|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Marksman|Rare<br>Singleton|Avian|
+|Crumbling Armour|0|3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Courageous|||
+|Judgement Bird|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Marksman|Singleton|Avian|
 |Apocalypse Bird|2|8|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Omni Strike<br>Bifurcated Strike|Rare<br>Singleton|Avian|
 |Magical Girl D|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fledgling|Singleton||
 |⤷ The King of Greed|4|5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Hefty|Singleton||
@@ -283,9 +284,9 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Shelter from the 27th of March|0|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Aggravating<br>Repulsive|||
 |Fairy Festival|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Bloodfiend|||
 |Meat Lantern|1|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Punisher<br>Mighty Leap|||
-|We can Change Anything|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Grinder|||
+|We can Change Anything|1|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Grinder|||
 |Express Train to Hell|0|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/r1Q62Ck.png">|The Train|Rare<br>Singleton||
-|Scarecrow Searching for Wisdom|1|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Bloodfiend|||
+|Scarecrow Searching for Wisdom|1|3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Bloodfiend|||
 |Dimensional Refraction Variant|4|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Amorphous|||
 |CENSORED|6|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Bloodfiend|Rare||
 |⤷ CENSORED|X|1|X|X||X|
