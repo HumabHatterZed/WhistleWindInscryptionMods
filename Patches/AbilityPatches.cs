@@ -17,10 +17,10 @@ namespace WhistleWindLobotomyMod
         [HarmonyPrefix, HarmonyPatch(nameof(Deathtouch.RespondsToDealDamage))]
         public static bool ImmunetoDeathTouch(ref int amount, ref PlayableCard target)
         {
-            bool whiteNightEvent = !target.HasAbility(TrueSaviour.ability) && !target.HasAbility(Confession.ability);
+            bool whiteNightEvent = target.HasAbility(TrueSaviour.ability) || target.HasAbility(Confession.ability);
             if (amount > 0 && target != null && !target.Dead)
             {
-                return whiteNightEvent && !target.HasAbility(Ability.MadeOfStone);
+                return !whiteNightEvent && !target.HasAbility(Ability.MadeOfStone);
             }
             return false;
         }
