@@ -73,6 +73,52 @@ namespace WhistleWindLobotomyMod
         {
             AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
         }
+        private static void AddEncounters()
+        {
+            var encounterData = ScriptableObject.CreateInstance<EncounterBlueprintData>();
+
+            encounterData.name = "wstl_debug";
+            encounterData.turns = new List<List<EncounterBlueprintData.CardBlueprint>>
+            {
+                new List<EncounterBlueprintData.CardBlueprint> { EncounterHelper.CreateCardBlueprint("Sniper") }
+            };
+            RegionProgression.Instance.regions[0].encounters.Clear();
+            RegionProgression.Instance.regions[0].AddEncounters(encounterData);
+        }
+        private static void AddStarterDecks()
+        {
+            StarterDeckHelper.AddStartDeck("First Day", Resources.starterDeckControl, new()
+            {
+                CardLoader.GetCardByName("wstl_oneSin"),
+                CardLoader.GetCardByName("wstl_fairyFestival"),
+                CardLoader.GetCardByName("wstl_oldLady")
+            }, 0);
+            StarterDeckHelper.AddStartDeck("Road to Oz", Resources.starterDeckFairyTale, new()
+            {
+                CardLoader.GetCardByName("WolfCub"),
+                CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
+                CardLoader.GetCardByName("wstl_wisdomScarecrow")
+
+            }, 3);
+            /*StarterDeckHelper.AddStartDeck("Blood Machines", Resources.starterDeckBloodMachines, new()
+            {
+                CardLoader.GetCardByName("wstl_allAroundHelper"),
+                CardLoader.GetCardByName("wstl_weCanChangeAnything"),
+                CardLoader.GetCardByName("wstl_youMustBeHappy")
+            }, 4);*/
+            StarterDeckHelper.AddStartDeck("Magical Girls!", Resources.starterDeckMagicalGirls, new()
+            {
+                CardLoader.GetCardByName("wstl_magicalGirlHeart"),
+                CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
+                CardLoader.GetCardByName("wstl_magicalGirlSpade")
+            }, 8);
+            StarterDeckHelper.AddStartDeck("Twilight", Resources.starterDeckBlackForest, new()
+            {
+                CardLoader.GetCardByName("wstl_punishingBird"),
+                CardLoader.GetCardByName("wstl_bigBird"),
+                CardLoader.GetCardByName("wstl_judgementBird")
+            }, 13);
+        }
         private void AddAbilities()
         {
             Ability_Punisher();
@@ -268,45 +314,6 @@ namespace WhistleWindLobotomyMod
             MeltingLoveMinion_D03109();
             HonouredMonk_D01110();
             CloudedMonk_D01110();
-        }
-        private static void AddStarterDecks()
-        {
-            StarterDeckHelper.AddStartDeck("First Day", Resources.starterDeckControl, new()
-            {
-                CardLoader.GetCardByName("wstl_oneSin"),
-                CardLoader.GetCardByName("wstl_fairyFestival"),
-                CardLoader.GetCardByName("wstl_oldLady")
-            }, 0);
-            StarterDeckHelper.AddStartDeck("Road to Oz", Resources.starterDeckFairyTale, new()
-            {
-                CardLoader.GetCardByName("WolfCub"),
-                CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
-                CardLoader.GetCardByName("wstl_wisdomScarecrow")
-                
-            }, 3);
-            /*StarterDeckHelper.AddStartDeck("Blood Machines", Resources.starterDeckMagicalGirls, new()
-            {
-                CardLoader.GetCardByName("wstl_allAroundHelper"),
-                CardLoader.GetCardByName("wstl_weCanChangeAnything"),
-                CardLoader.GetCardByName("wstl_youMustBeHappy")
-            }, 4);*/
-            StarterDeckHelper.AddStartDeck("Magical Girls!", Resources.starterDeckMagicalGirls, new()
-            {
-                CardLoader.GetCardByName("wstl_magicalGirlHeart"),
-                CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
-                CardLoader.GetCardByName("wstl_magicalGirlSpade")
-            }, 8);
-            StarterDeckHelper.AddStartDeck("Twilight", Resources.starterDeckBlackForest, new()
-            {
-                CardLoader.GetCardByName("wstl_punishingBird"),
-                CardLoader.GetCardByName("wstl_bigBird"),
-                CardLoader.GetCardByName("wstl_judgementBird")
-            }, 13);
-        }
-        private static void AddEncounters()
-        {
-            RegionProgression.Instance.regions[0].encounters.Clear();
-            //RegionProgression.Instance.regions[0].AddEncounters(EncounterHelper.CreateRandomBlueprint());
         }
     }
 }
