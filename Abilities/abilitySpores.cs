@@ -25,7 +25,10 @@ namespace WhistleWindLobotomyMod
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
+        public static CardModificationInfo fungusDecal = new()
+        {
+            DecalIds = { "decal_fungus"}
+        };
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
             if (base.Card != null)
@@ -50,6 +53,7 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator EmitSpores(CardSlot toLeft, CardSlot toRight)
         {
+            bool forceLeft = false;
             bool validLeft = CheckValid(toLeft);
             bool validRight = CheckValid(toRight);
             if (!validLeft && !validRight)
@@ -61,12 +65,19 @@ namespace WhistleWindLobotomyMod
             {
                 if (toLeft.Card.Info.GetExtendedProperty("wstl:HasSpore") == null)
                 {
-                    yield return toRight.Card.Info.SetExtendedProperty("wstl:HasSpore", true);
+                    yield return toLeft.Card.Info.SetExtendedProperty("wstl:HasSpore", true);
                     toLeft.Card.AddPermanentBehaviour<SporeDamage>();
-                    toRight.Card.Info.TempDecals.Clear();
-                    toRight.Card.Info.TempDecals.Add(ResourceBank.Get<Texture>("Art/Cards/Decals/decal_fungus"));
+                    //toLeft.Card.Info.TempDecals.Clear();
+                    //toLeft.Card.Info.TempDecals.Add(ResourceBank.Get<Texture>("Art/Cards/Decals/decal_fungus"));
                     toLeft.Card.OnStatsChanged();
                     toLeft.Card.Anim.StrongNegationEffect();
+
+                    // Because of the way triggers work, if the card is on the left we have to manually make it take its first turn of damage here
+                    // Check if it has no Spore, then do the damage thing if true
+                    if (!(toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null))
+                    {
+                        forceLeft = true;
+                    }
                 }
             }
             if (validRight)
@@ -75,17 +86,23 @@ namespace WhistleWindLobotomyMod
                 {
                     yield return toRight.Card.Info.SetExtendedProperty("wstl:HasSpore", true);
                     toRight.Card.AddPermanentBehaviour<SporeDamage>();
-                    toRight.Card.Info.TempDecals.Clear();
-                    toRight.Card.Info.TempDecals.Add(ResourceBank.Get<Texture>("Art/Cards/Decals/decal_fungus"));
+                    //toRight.Card.Info.TempDecals.Clear();
+                    //toRight.Card.Info.TempDecals.Add(ResourceBank.Get<Texture>("Art/Cards/Decals/decal_fungus"));
                     toRight.Card.OnStatsChanged();
                     toRight.Card.Anim.StrongNegationEffect();
                 }
             }
-            yield return new WaitForSeconds(0.4f);
-
+            yield return new WaitForSeconds(0.2f);
             if (validLeft || validRight)
             {
-                yield return base.LearnAbility();
+                yield return base.LearnAbility(0.4f);
+            }
+            if (forceLeft)
+            {
+                yield return new WaitForSeconds(0.2f);
+                yield return toLeft.Card.Info.SetExtendedProperty("wstl:Spore", 1);
+                yield return toLeft.Card.TakeDamage((int)toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore"), null);
+                yield return new WaitForSeconds(0.4f);
             }
         }
     }

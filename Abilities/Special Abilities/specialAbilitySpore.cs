@@ -59,12 +59,10 @@ namespace WhistleWindLobotomyMod
             int spores = base.PlayableCard.Info.GetExtendedPropertyAsInt("wstl:Spore") != null ?
                 (int)base.PlayableCard.Info.GetExtendedPropertyAsInt("wstl:Spore") : 0;
 
-            if (spores == 0)
+            if (spores == 0 || base.PlayableCard.Slot == null)
             {
                 yield break;
             }
-
-            CardSlot thisSlot = base.PlayableCard.Slot;
 
             CardInfo minion = CardLoader.GetCardByName("wstl_theLittlePrinceMinion");
 
