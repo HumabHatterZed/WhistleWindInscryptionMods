@@ -56,15 +56,18 @@ namespace WhistleWindLobotomyMod
                     !opposingSlotLeft.Card.HasAbility(Burning.ability) && !opposingSlotLeft.Card.HasAbility(TrueSaviour.ability) &&
                     !opposingSlotLeft.Card.HasAbility(Apostle.ability) && !opposingSlotLeft.Card.HasAbility(Confession.ability))
                 {
-                    spawnedHeart = true;
                     opposingSlotLeft.Card.Anim.LightNegationEffect();
                     yield return new WaitForSeconds(0.15f);
                     yield return opposingSlotLeft.Card.Die(false, base.Card);
-                    yield return SpawnCard(opposingSlotLeft, "wstl_snowQueenIceHeart");
-                    if (!WstlSaveManager.HasSeenSnowQueenFreeze)
+                    if (!(opposingSlotLeft.Card != null))
                     {
-                        WstlSaveManager.HasSeenSnowQueenFreeze = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
+                        spawnedHeart = true;
+                        yield return SpawnCard(opposingSlotLeft, "wstl_snowQueenIceHeart");
+                        if (!WstlSaveManager.HasSeenSnowQueenFreeze)
+                        {
+                            WstlSaveManager.HasSeenSnowQueenFreeze = true;
+                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
+                        }
                     }
                 }
             }
@@ -80,15 +83,18 @@ namespace WhistleWindLobotomyMod
                     !opposingSlotLeft.Card.HasAbility(Burning.ability) && !opposingSlotLeft.Card.HasAbility(TrueSaviour.ability) &&
                     !opposingSlotLeft.Card.HasAbility(Apostle.ability) && !opposingSlotLeft.Card.HasAbility(Confession.ability))
                 {
-                    spawnedHeart = true;
                     opposingSlotRight.Card.Anim.LightNegationEffect();
                     yield return new WaitForSeconds(0.15f);
                     yield return opposingSlotRight.Card.Die(false, base.Card);
-                    yield return SpawnCard(opposingSlotRight, "wstl_snowQueenIceHeart");
-                    if (!WstlSaveManager.HasSeenSnowQueenFreeze)
+                    if (!(opposingSlotRight.Card != null))
                     {
-                        WstlSaveManager.HasSeenSnowQueenFreeze = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
+                        spawnedHeart = true;
+                        yield return SpawnCard(opposingSlotRight, "wstl_snowQueenIceHeart");
+                        if (!WstlSaveManager.HasSeenSnowQueenFreeze)
+                        {
+                            WstlSaveManager.HasSeenSnowQueenFreeze = true;
+                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
+                        }
                     }
                 }
             }
