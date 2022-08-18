@@ -46,54 +46,110 @@ Special mention to James Veug's ReadmeMaker mod for providing the cost sprites I
 Big thanks to Rengar, yam the nokia, Orochi Umbra, and everyone else on the modding Discord that reported bugs to me!
 
 ## ⚖️ Changelog
-For the full changelog, please refer to the .md file included in the mod package.
+For the full list of updates, please refer to the .md file included in the mod package.
 
-### v1.1.0 - First Major Update(tm) (?/?/202?)
-* Bug fixes 🩹
+<details>
+<summary>Latest Update - v1.1.0</summary>
+
+### v1.1.0 - First Major Update(tm) (8/?/2022)
+* 🧱 General
+  * Changed file name for config file (see above for more information on this)
+  * Rearranged the order of the configs in the config file
+  * Added opponent AI compatibility for Sniper and Marksman abilities
+  * Bifurcated Strike, Trifurcated Strike, and Double Strike now stack with each other if the card has Sniper or Marksman
+  * Omni Strike now attacks the base card's opposing slot if they aren't a Giant card rather than only the leftmost slot
+  * All abilities now have an icon for Act 2 if you wish to mess around with them in Act 2 - NOTE: Act 2 is not supported and has not been playtested
+  * Fixed inaccurate information in the ReadMe
+* 🩹 Bug fixes
   * Fixed custom death cards not being properly added to the game
-  * Fixed Nothing There and Express Train to Hell being selectable at card merge or campfire nodes
+  * Fixed Assimilator and Bloodfiend still activating when the base card has died
   * Fixed Martyr ability causing the game to freeze when there are no valid targets to be healed
   * Fixed Quick Draw and Woodcutter abilities causing the game to freeze in certain scenarios
-  * Judgement Bird's special ability no longer affects cards with Repulsive ability
-  * Mirror of Adjustment now properly displays the Mirror stat icon
+  * Fixed Gardener ability activating when not on the board
+  * Fixed Gardener ability causing the game to freeze when the dead card's slot isn't empty
+  * Fixed Ruler of Frost ability causing the game to freeze when the dead card's slot isn't empty
+  * Fixed Nothing There and Express Train to Hell being selectable hosts/sacrifices at card merge and campfire nodes
   * Fixed Flag Bearer ability revoking the Health buff under certain situations
-  * Fixed Regenerator ability killing cards when at max Health
+  * Fixed Regenerator ability killing adjacent cards when they are at max Health
   * Fixed incorrect Regenerator ability description
-* Tweaks 🔧
-  * Tweaked Bloodbath's special ability to better indicate when it is activated whilst Bloodbath is in your hand
+  * Fixed Judgement Bird's special ability not accounting for Airborne or Repulsive
+  * Fixed Submerged cards not flipping when targeted by Judgement Bird
+  * Fixed the Mirror of Adjustment not properly displaying the Mirror stat icon
+* 🔧 Tweaks
   * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
+  * Tweaked Bloodbath's special ability to better indicate to the player when it has activated whilst in hand
+  * Bifurcated Strike, Trifurcated Strike, and Double Strike now both stack with Sniper and Marksman abilities
   * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
-  * Patched Omni Strike to now properly attack the card's opposing slot when there are no opponents instead of just the leftmost one
-  * Big Bird and Blue Star 1 and 2 now all have special behaviour
-* Balancing ⚖️
+  * Updated Nameless Fetus's sprites
+  * Updated WhiteNight's sprite and emission
+  * Mirror of Adjustment now uses the default stat layout
+  * Made minor changes to various card and ability descriptions
+  * Cards killed by certain event cards no longer activate triggers. This is to prevent softlocks relating to certain ability combinations
+* ⚖️ Balancing
   * Queen Nest ability no longer creates a Worker Bee when played
-  * Increased Queen Bee's Health from 5 --> 6
-  * Changed Bloodbath's stats and gave it the Spilled Blood stat icon 
-  * Express Train to Hell cost increased from (FREE) --> (x6)
-  * The Train ability cost reduced from (x12) --> (x6)
-  * Blue Star 1 rebalanced to be (0,2) stats, Fledgling(2)
-  * Blue Star 2 rebalanced to be (2,6) stats, Assimilator, Omni Strike
-  * Blue Star has a special ability
-  * Army in Pink no longer has Undying ability
-  * Army in Black buffed from 2 Power --> 4 Power
-  * Grave of Cherry Blossoms nerfed from 3 Health --> 2 Health
-  * Crumbling Armour's stats changed from (0,4) 6 bones --> (0,3) 5 bones
-  * Parasite Tree's cost reduced from 2 blood --> 1 blood
+  * Made of Slime ability now gives created cards 1 Power, no longer affects cards with 1 Health
+  * Changed Bloodbaths' stats and gave them the Spilled Blood stat icon
+  * Cards created by the Roots ability now inherit the base card's sigils
   * Minions created by Gardener now inherit the dead card's sigils
-  * Rebalanced Made of Slime to give a flat 1 Power to affected cards, no longer affects cards with 1 Health or lower
-  * CENSORED buffed from 2 Health --> 3 Health
-  * CENSORED's minions now inherit the full Power of the killed card
-  * We Can Change Anything buffed from (0,1) --> (1,2)
-  * Luminous Bracelet buffed from 1 Health --> 2 Health
-  * Scarecrow Searching for Wisdom buffed from 2 Health --> 3 Health
-* Additions ➕
-  * Added 13 obtainable cards
-  * Added 6 abilities
-  * Added 4 special abilities
-  * Added 4 starter decks
+  * Minions created by CENSORED now inherit the full Power of the killed card
+  * Bloodbath 1,2, and 3 now all the have Spilled Blood stat icon
+  * Buffed CENSORED's Health from 2 --> 3
+  * Buffed Queen Bee's Health from 5 --> 6
+  * Buffed Scarecrow Searching for Wisdom's Health from 2 --> 3
+  * Buffed Luminous Bracelet's Health from 1 --> 2
+  * Buffed Army in Black's Power from 2 --> 4
+  * Buffed We Can Change Anything's stats from (0,1) --> (1,2)
+  * Buffed Express Train to Hell's cost from FREE --> 6 Bones
+  * Reduced The Train ability's activation cost from 12 Bones --> 6 Bones
+  * Reduced Parasite Tree's cost from 2 Blood --> 1 Blood
+  * Rebalanced Blue Star 1 to have (0,2) stats, Fledgling
+  * Rebalanced Blue Star 2 to have (2,6) stats, Assimilator, Omni Strike
+  * Rebalanced Flesh Idol to have (0,2) stats, 3 Bones cost
+  * Rebalanced Crumbling Armour to have (0,3) stats, 5 Bones cost
+  * Nerfed Bloodbath's Health from 3 --> 1
+  * Nerfed Bloodbath 1's Health from 3 --> 1 
+  * Nerfed Bloodbath 2's Health from 3 --> 2
+  * Nerfed Bloodbath 3's Power from 3 --> 1
+  * Nerfed Grave of Cherry Blossoms's Health 3 --> 2
+* ➕ Additions
+  * Big Bird and Blue Star now possess special abilities
+  * Added starter deck First Day
+    * One Sin, Fairy Festival, Old Lady
+  * Added starter deck Road to Oz
+    * Wolf Cub, Scarecrow Searching for Wisdom, Warm-Hearted Woodsman
+  * Added starter deck Magical Girls!
+    * Magical Girl H, Magical Girl D, Magical Girl S
+  * Added starter deck Twilight
+    * Punishing Bird, Big Bird, Punishing Bird
   * Added card choice node
-  * Added 2 new config options
-  * Added 2 new mini-events
+  * Added config option No Donators
+  * Added config option Card Choice at Start
+  * Added combat event for Apocaylpse Bird
+  * Added combat event for Yin and Yang
+  * Added Yin and Yang mini-event
+  * Added Apocalypse Bird mini-event
+  * Added card Child of the Galaxy
+  * Added card Fragment of the Universe
+  * Added card Apocalypse Bird
+  * Added card The Little Prince
+  * Added card Dream of a Black Swan
+  * Added card Giant Tree Sap
+  * Added card Skin Prophecy
+  * Added card Behaviour Adjustment
+  * Added card Old Faith and Promise
+  * Added card Yin
+  * Added card Yang
+  * Added card Backward Clock
+  * Added card Il Pianto della Luna
+  * Added ability Spores
+  * Added ability Clothes Made of Nettles
+  * Added ability Witness
+  * Added ability Corrector
+  * Added ability Alchemist
+  * Added ability Time Machine
+  * Added special ability Giant Tree Sap
+  * Added special ability Big Bird
+</details>
 
 ## 🛠️ Configuration Options
 * Enable Mod
@@ -160,7 +216,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Conductor|When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 2 Health, Leader.||
 |Woodcutter|When a card moves into the space opposing this card, deal damage equal to this card's Power to it.||
 |Frozen Heart|When this card dies, the killer gains 1 Health.||
-|Ruler of Frost|When this card is played, create a Block of Ice in the opposing adjacent slots if they are empty. Otherwise, if the occupying card has 1 Health, kill it and create a Frozen Heart in its place. A Block of Ice and a Frozen Heart are both defined as: 0 Power, 1 Health.||
+|Ruler of Frost|When this card is played, create a Block of Ice in each opposing space to the left and right of this card. If either slot is occupied by a card with 1 Health, kill it and create a Frozen Heart in its place.||
 |Root|When this card is played, Vines are created on adjacent empty spaces. A Vine is defined as: 1 Power, 1 Health.|Yes|
 |Broodmother|When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health, Fledgling.|Yes|
 |Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.|Yes|
@@ -278,7 +334,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Schadenfreude|0|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Quick Draw<br>Touch of Death|||
 |The Heart of Aspiration|1|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Leader|||
 |Notes from a Crazed Researcher|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Flag Bearer<br>Volatile|||
-|Flesh Idol|0|4|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/r1Q62Ck.png">|Group Healer<br>Annoying|||
+|Flesh Idol|0|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Group Healer<br>Annoying|||
 |Giant Tree Sap|0|2|x4|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Morsel<br>Undying||
 |Mirror of Adjustment|M|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Woodcutter|||
 |Shelter from the 27th of March|0|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Aggravating<br>Repulsive|||
@@ -320,7 +376,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 </details>
 
 ## 🗃️ Starter Decks
-***Level indicates the Challenge Level at which the deck is unlocked (0 meaning it's always unlocked)**
+***Level indicates the Challenge Level at which the deck is unlocked (0 means it's always unlocked)**
 |Starter Deck|Cards|Level|
 |:-|:-|:-:|
 |First Day|One Sin and Hundreds of Good Deeds<br>Fairy Festival<br>Old Lady|0|
@@ -354,17 +410,11 @@ Note that all Aleph-level cards are Rare cards and thus aren't part of the regul
 ## 🕓 Closing Notes
 Hello all! Thanks for all the support!! I hope you've been enjoying the mod, and I hope you enjoy this update!
 
-There were some things I decided not to include in this update, such as Challenges and custom encounters, so expect another update with these features sometime in the future!!
+There were some things I decided not to include in this update due to time restraints, so expect another update or two with these features sometime in the future!!
 
-Below is a small list of things that I plan on doing in the coming months
+Below is a list of currently planned updates that may or may not happen, depending on how things go.
 
-* Further balancing, tweaks, bug fixes, and general refinement of what's currently available (feedback is welcomed and encouraged!).
-* Custom encounters, abnormality battle node (maybe Ordeals? Idk if they're considered abnormalities though, I'll have to check)
-* Challenges and Anti-Challenges (aka Cheats)
-* Further expansion pack of Library of Ruina abnormalities
-
-<!---
-* Custom challenges.
-* Ordeal battle node? Depends on whether ordeals are abnormalities or not, I'll have to check the _Lore_.
-* Items?? Possibily convert some tool abnormalities into items (or not, I'll figure it out).
-* Maybe bosses??? they can't be _that_ hard to make and implement, I'm sure. --->
+* Further balancing, tweaking, bug fixes, and general refinement of what's currently available (feedback is welcomed and encouraged!).
+* Custom encounters, abnormality battle node
+* Challenges and Anti-Challenges
+* Expansion pack of Library of Ruina abnormalities
