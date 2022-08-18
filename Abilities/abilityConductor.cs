@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
 
         private int count = 0;
-        private CardInfo cardInfo = CardLoader.GetCardByName("wstl_silentEnsemble");
+        private readonly CardInfo cardInfo = CardLoader.GetCardByName("wstl_silentEnsemble");
 
         public override bool RespondsToResolveOnBoard()
         {

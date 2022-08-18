@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
         public CardModificationInfo mod = new(0, 1);
         public CardModificationInfo mod2 = new(0, 2);
 
-        private string altDialogue = "The Woodcutter stuffs the melted heart into his chest.";
+        private readonly string altDialogue = "The Woodcutter stuffs the melted heart into his chest.";
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
