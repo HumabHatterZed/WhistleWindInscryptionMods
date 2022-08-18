@@ -80,11 +80,13 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Tweaked Bloodbath's special ability to better indicate to the player when it has activated whilst in hand
   * Bifurcated Strike, Trifurcated Strike, and Double Strike now both stack with Sniper and Marksman abilities
   * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
+  * Piercing ability now has different behaviour when possessed by Staff Apostle
   * Updated Nameless Fetus's sprites
   * Updated WhiteNight's sprite and emission
   * Mirror of Adjustment now uses the default stat layout
   * Made minor changes to various card and ability descriptions
   * Cards killed by certain event cards no longer activate triggers. This is to prevent softlocks relating to certain ability combinations
+  * Made of number of abilities stackable (see Abilities section for more information)
 * ⚖️ Balancing
   * Queen Nest ability no longer creates a Worker Bee when played
   * Made of Slime ability now gives created cards 1 Power, no longer affects cards with 1 Health
@@ -95,6 +97,7 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Bloodbath 1,2, and 3 now all the have Spilled Blood stat icon
   * Buffed CENSORED's Health from 2 --> 3
   * Buffed Queen Bee's Health from 5 --> 6
+  * Buffed Snow Queen's Health from 2 --> 3
   * Buffed Scarecrow Searching for Wisdom's Health from 2 --> 3
   * Buffed Luminous Bracelet's Health from 1 --> 2
   * Buffed Army in Black's Power from 2 --> 4
@@ -106,6 +109,7 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Rebalanced Blue Star 2 to have (2,6) stats, Assimilator, Omni Strike
   * Rebalanced Flesh Idol to have (0,2) stats, 3 Bones cost
   * Rebalanced Crumbling Armour to have (0,3) stats, 5 Bones cost
+  * Rebalanced Scythe Apostle from 3 Power, Woodcutter --> 2 Power, Double Strike
   * Nerfed Bloodbath's Health from 3 --> 1
   * Nerfed Bloodbath 1's Health from 3 --> 1 
   * Nerfed Bloodbath 2's Health from 3 --> 2
@@ -201,53 +205,56 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
  </details>
  
 ## ✨ Abilities
-**Note: 'Totem' indicates the ability can be found on totem bases and on cards from den trials.**
+**NOTES**
+* **Totem** indicates the ability can be found on totem bases and on cards from den trials.
+* **Stackable** means the ability can stack with itself, activating once for every instance of the ability.
+
 <details>
 <summary>View abilities</summary>
 
-|Name|Description|Totem|
+|Name|Description|Totem|Stackable|
 |:-|:-|:-:|
-|Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes|
-|Bloodfiend|When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.|Yes|
-|Martyr|When a card bearing this sigil dies, all allied creatures gain 2 Health.|Yes|
-|Aggravating|While this card is on the board, all opposing cards gain 1 Power.||
-|Team Leader|While this card is on the board, all other ally cards gain 1 Power.||
-|Idol|While this card is on the board, all opposing cards lose 1 Power.||
-|Conductor|When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 2 Health, Leader.||
-|Woodcutter|When a card moves into the space opposing this card, deal damage equal to this card's Power to it.||
-|Frozen Heart|When this card dies, the killer gains 1 Health.||
-|Ruler of Frost|When this card is played, create a Block of Ice in each opposing space to the left and right of this card. If either slot is occupied by a card with 1 Health, kill it and create a Frozen Heart in its place.||
-|Root|When this card is played, Vines are created on adjacent empty spaces. A Vine is defined as: 1 Power, 1 Health.|Yes|
-|Broodmother|When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health, Fledgling.|Yes|
-|Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.|Yes|
-|Healer|This card will heal a selected ally for 2 Health.||
-|Queen Nest|When a card dies while a card bearing this sigil is on the board, a Worker Bee is created in your hand. A Worker Bee is defined as: 1 Power, 1 Health.|Yes|
-|Bitter Enemies|A card bearing this sigil gains 1 Power when another card on this board also bears this sigil.|Yes|
-|Courageous|If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Stat changes persist until battle's end.||
-|Serpent's Nest|When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.|Yes|
-|Assimilator|When a card bearing this sigil attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.|Yes|
-|Group Healer|While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.||
-|Reflector|When this card is struck, the striker is dealt damage equal to the striker's Power.|Yes|
-|Flag Bearer|Adjacent cards gain 2 Health.||
-|Grinder|This card gains the stats of the cards sacrificed to play it.|Yes|
-|The Train|Activate: Pay 6 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.||
-|Burning|The opposing card takes 1 damage at the end of their owner's turn.|Yes|
-|Regenerator|Adjacent cards gain 1 Health at the end of the opponent's turn.|Yes|
-|Volatile|When this card dies, adjacent and opposing cards are dealt 10 damage.|Yes|
-|Gift Giver|When this card is played, create a random card in your hand.||
-|Piercing|When this card strikes a card, deal 1 overkill damage if applicable.|Yes|
-|Scrambler|When this card is sacrificed, add its stats onto the card it was sacrificed to, then scramble that card's stats.|Yes|
-|Gardener|When an ally card dies, create a Sapling in their place. A Sapling is defined as: 0 Power, 2 Health.||
-|Made of Slime|Adjacent cards with greater than 1 Health are turned into Slimes at the start of the owner's turn. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.||
-|Marksman|You may choose which opposing space a card bearing this sigil strikes.||
-|Protector|Adjacent cards take 1 less damage from attacks.||
-|Quick Draw|When a creature moves into the space opposite this card, they take 1 damage.||
-|Alchemist|Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.||
-|Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on their power level.||
-|Nettle Clothes|When a card bearing this sigil is played, create a random Brother in all empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.||
-|Fungal Infector|At the end of the owner's turn, adjacent cards gain 1 Spore. Cards with Spore take damage equal to their Spore at turn's end and create a Spore Mold Creature in their slot on death. A Spore Mold Creature is defined as: [ Spore ] Power, [ Spore ] Health.||
-|Witness|Activate: Pay 2 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.||
-|Corrector|A card bearing this sigil has its stats randomly changed according to its cost.|Yes|
+|Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes||
+|Bloodfiend|When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.|Yes|Yes|
+|Martyr|When a card bearing this sigil dies, all allied creatures gain 2 Health.|Yes||
+|Aggravating|While this card is on the board, all opposing cards gain 1 Power.|||
+|Team Leader|While this card is on the board, all other ally cards gain 1 Power.|||
+|Idol|While this card is on the board, all opposing cards lose 1 Power.|||
+|Conductor|When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 2 Health, Leader.|||
+|Woodcutter|When a card moves into the space opposing this card, deal damage equal to this card's Power to it.|||
+|Frozen Heart|When this card dies, the killer gains 1 Health.|||
+|Ruler of Frost|When this card is played, create a Block of Ice in each opposing space to the left and right of this card. If either slot is occupied by a card with 1 Health, kill it and create a Frozen Heart in its place.|||
+|Root|When this card is played, Vines are created on adjacent empty spaces. A Vine is defined as: 1 Power, 1 Health.|Yes||
+|Broodmother|When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health, Fledgling.|Yes||
+|Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.|Yes||
+|Healer|This card will heal a selected ally for 2 Health.|||
+|Queen Nest|When a card dies while a card bearing this sigil is on the board, a Worker Bee is created in your hand. A Worker Bee is defined as: 1 Power, 1 Health.|Yes||
+|Bitter Enemies|A card bearing this sigil gains 1 Power when another card on this board also bears this sigil.|Yes|Yes|
+|Courageous|If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Stat changes persist until battle's end.|||
+|Serpent's Nest|When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.|Yes||
+|Assimilator|When a card bearing this sigil attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.|Yes|Yes|
+|Group Healer|While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.|||
+|Reflector|When this card is struck, the striker is dealt damage equal to the striker's Power.|Yes||
+|Flag Bearer|Adjacent cards gain 2 Health.||Yes|
+|Grinder|This card gains the stats of the cards sacrificed to play it.|Yes||
+|The Train|Activate: Pay 6 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.|||
+|Burning|The opposing card takes 1 damage at the end of their owner's turn.|Yes|Yes|
+|Regenerator|Adjacent cards gain 1 Health at the end of the opponent's turn.|Yes||
+|Volatile|When this card dies, adjacent and opposing cards are dealt 10 damage.|Yes||
+|Gift Giver|When this card is played, create a random card in your hand.|||
+|Piercing|When this card strikes a card, deal 1 overkill damage if applicable.|Yes|Yes|
+|Scrambler|When this card is sacrificed, add its stats onto the card it was sacrificed to, then scramble that card's stats.|Yes||
+|Gardener|When an ally card dies, create a Sapling in their place. A Sapling is defined as: 0 Power, 2 Health.|||
+|Made of Slime|Adjacent cards with greater than 1 Health are turned into Slimes at the start of the owner's turn. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.|||
+|Marksman|You may choose which opposing space a card bearing this sigil strikes.|||
+|Protector|Adjacent cards take 1 less damage from attacks.|||
+|Quick Draw|When a creature moves into the space opposite this card, they take 1 damage.||Yes|
+|Alchemist|Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.|||
+|Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on their power level.|||
+|Nettle Clothes|When a card bearing this sigil is played, create a random Brother in all empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.|||
+|Fungal Infector|At the end of the owner's turn, adjacent cards gain 1 Spore. Cards with Spore take damage equal to their Spore at turn's end and create a Spore Mold Creature in their slot on death. A Spore Mold Creature is defined as: [ Spore ] Power, [ Spore ] Health.|||
+|Witness|Activate: Pay 2 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.|||
+|Corrector|A card bearing this sigil has its stats randomly changed according to its cost.|Yes||
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
 |True Saviour|*My story is nowhere, unknown to all.*|||
 |Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||
@@ -281,9 +288,9 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |The Silent Orchestra|2|6|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Conductor|Rare||
 |⤷ Chairs|0|2||Leader|||
 |Warm-Hearted Woodsman|2|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Woodcutter|||
-|The Snow Queen|0|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/r1Q62Ck.png">|Frost Ruler|||
-|⤷ Frozen Heart|0|1||Frozen Heart|||
+|The Snow Queen|1|3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/r1Q62Ck.png">|Frost Ruler|||
 |⤷ Block of Ice|0|1|||||
+|⤷ Frozen Heart|0|1||Frozen Heart|||
 |Big Bird|2|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">||Singleton|Avian|
 |All-Around Helper|1|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Sprinter<br>Bifurcated Strike|||
 |Snow White's Apple|1|3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Roots|||
