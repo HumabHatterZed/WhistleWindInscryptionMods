@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                Forced.appearance
+
             };
             List<Tribe> tribes = new()
             {
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                5, 1, 0, 0,
+                5, 10, 0, 0,
                 Resources.testingDummy, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
