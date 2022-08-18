@@ -26,16 +26,15 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            if (base.Card != null && base.Card.OnBoard)
+            if (base.Card.OnBoard && card != base.Card)
             {
-                return fromCombat && card != base.Card && card.OpponentCard == base.Card.OpponentCard;
+                return fromCombat && card.OpponentCard == base.Card.OpponentCard && !(deathSlot != null) && !card.Info.name.Equals("wstl_parasiteTreeSapling");
             }
             return false;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            if (card != null && !card.Info.HasTrait(Trait.Terrain) && !card.Info.HasTrait(Trait.Pelt)
-                && !card.Info.name.ToLowerInvariant().Contains("parasitetreesapling"))
+            if (card != null && !card.Info.HasTrait(Trait.Terrain) && !card.Info.HasTrait(Trait.Pelt))
             {
                 yield return PreSuccessfulTriggerSequence();
                 base.Card.Anim.StrongNegationEffect();
