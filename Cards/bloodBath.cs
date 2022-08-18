@@ -13,7 +13,6 @@ namespace WhistleWindLobotomyMod
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 BloodBath.specialAbility,
-                SpecialTriggeredAbility.SacrificesThisTurn
             };
 
             List<Trait> traits = new()
@@ -26,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 "A tub of blood. The hands of people you once loved wait inside.",
                 0, 1, 1, 0,
                 Resources.bloodBath, Resources.bloodBath_emission,
-                abilities: new(), specialAbilities: specialAbilities, statIcon: SpecialStatIcon.SacrificesThisTurn,
+                abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,
                 isChoice: true, riskLevel: 2);
         }
