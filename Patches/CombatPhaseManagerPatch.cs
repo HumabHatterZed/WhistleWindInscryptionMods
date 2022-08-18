@@ -51,12 +51,17 @@ namespace WhistleWindLobotomyMod
 			if (slot.Card.HasAbility(Ability.SplitStrike))
 			{
 				// Add 1 for BiStrike (total 2)
-				numAttacks += 1;
+				numAttacks++;
 			}
+			if(slot.Card.HasAbility(Ability.DoubleStrike))
+            {
+				// Add 1 for Double Strike
+				numAttacks++;
+            }
 			if (hasSniper && hasMarksman)
 			{
 				// Add 1 if both Sniper and Marksman are present
-				numAttacks += 1;
+				numAttacks++;
 			}
 
 			// if card is an opponent
