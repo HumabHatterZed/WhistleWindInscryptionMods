@@ -213,7 +213,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 <summary>View abilities</summary>
 
 |Name|Description|Totem|Stackable|
-|:-|:-|:-:|
+|:-|:-|:-:|:-:|
 |Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes||
 |Bloodfiend|When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.|Yes|Yes|
 |Martyr|When a card bearing this sigil dies, all allied creatures gain 2 Health.|Yes||
