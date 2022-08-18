@@ -83,7 +83,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.5f);
             }
 
-            foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(true).Where(slot => slot.Card != base.Card))
+            foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(slot => slot.Card != base.Card))
             {
                 if (slot.Card != null)
                 {
