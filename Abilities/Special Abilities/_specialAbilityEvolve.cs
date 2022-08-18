@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod
         private readonly string nothingTrueDialogue = "What is it doing?";
         private readonly string nothingEggDialogue = "It seems to be trying to mimic you. 'Trying' is the key word.";
 
-        CardInfo bodyInfo = CardLoader.GetCardByName("wstl_yinYangBody");
+        private readonly CardInfo bodyInfo = CardLoader.GetCardByName("wstl_yinYangBody");
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
             if (IsGreed || IsNothingTrue || IsNothingEgg)
