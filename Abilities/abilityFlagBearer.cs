@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             FlagBearer.ability = AbilityHelper.CreateAbility<FlagBearer>(
                 Resources.sigilFlagBearer, Resources.sigilFlagBearer_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
+                addModular: false, opponent: false, canStack: true, isPassive: false).Id;
         }
     }
     public class FlagBearer : AbilityBehaviour, IPassiveHealthBuff

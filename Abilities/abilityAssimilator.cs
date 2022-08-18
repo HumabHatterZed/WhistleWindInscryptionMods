@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             Assimilator.ability = AbilityHelper.CreateAbility<Assimilator>(
                 Resources.sigilAssimilator, Resources.sigilAssimilator_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
+                addModular: true, opponent: false, canStack: true, isPassive: false).Id;
         }
     }
     public class Assimilator : AbilityBehaviour

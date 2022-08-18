@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_GroupHealer()
         {
             const string rulebookName = "Group Healer";
-            const string rulebookDescription = "While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.";
+            const string rulebookDescription = "While this card is on the board, all allies whose Health is below their maximum regain 1 Health on upkeep.";
             const string dialogue = "You only delay the inevitable.";
             GroupHealer.ability = AbilityHelper.CreateAbility<GroupHealer>(
                 Resources.sigilGroupHealer, Resources.sigilGroupHealer_pixel,
