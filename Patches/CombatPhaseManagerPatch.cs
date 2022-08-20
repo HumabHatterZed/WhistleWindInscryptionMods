@@ -25,15 +25,13 @@ namespace WhistleWindLobotomyMod
 		{
 			bool hasSniper = slot.Card.HasAbility(Ability.Sniper);
 			bool hasMarksman = slot.Card.HasAbility(Marksman.ability);
-			bool isJudge = slot.Card.Info.name.Equals("wstl_judgementBird");
-
 			// If does not have Marksman or Sniper, return normal sequence
 			if (!hasMarksman && !hasSniper)
 			{
 				yield return enumerator;
 				yield break;
 			}
-
+						bool isJudge = slot.Card.Info.name.Equals("wstl_judgementBird");
 			// Change to combat view
 			Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
 			Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
