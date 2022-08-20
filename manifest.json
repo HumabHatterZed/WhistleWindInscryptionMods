@@ -5,6 +5,6 @@
 	"description": "A mod for Inscryption adding cards and sigils based on Lobotomy Corp's abnormalities.",
 	"dependencies": [
 		"BepInEx-BepInExPack_Inscryption-5.4.1901",
-		"API_dev-API-2.4.0"
+		"API_dev-API-2.4.1"
 	]
 }
