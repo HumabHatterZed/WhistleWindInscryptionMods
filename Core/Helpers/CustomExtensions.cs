@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod
                 {
                     yield return Singleton<ResourcesManager>.Instance.AddBones(1, slotBeforeDeath);
                 }
-                if (card.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule) && card.TriggerHandler.RespondsToTrigger(Trigger.Die, false, null))
+                if (card.Info.HasTrait(Trait.Uncuttable) && card.TriggerHandler.RespondsToTrigger(Trigger.Die, false, null))
                 {
                     yield return card.TriggerHandler.OnTrigger(Trigger.Die, false, null);
                 }
