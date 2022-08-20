@@ -17,7 +17,7 @@ This mod currently adds all abnormalities from Lobotomy Corp. Broken down, this 
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1901
-* API_dev-API v2.4.0
+* API_dev-API v2.4.0+
 
 ## ‼️ IMPORTANT NOTICE REGARDING v1.1.0 CONFIGURATION FILE ‼️
 The mod's configuration file has been renamed to **```wstl.inscryption.lobotomycorp.cfg```**.
@@ -207,16 +207,16 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 ## ✨ Abilities
 **NOTES**
 * **Totem** indicates the ability can be found on totem bases and on cards from den trials.
-* **Stackable** means the ability can stack with itself, activating once for every instance of the ability.
+* **Stacks** means the ability can stack with itself, activating once for every instance of the ability.
 
 <details>
 <summary>View abilities</summary>
 
-|Name|Description|Totem|Stackable|
+|Name|Description|Totem|Stacks|
 |:-|:-|:-:|:-:|
 |Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes||
 |Bloodfiend|When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.|Yes|Yes|
-|Martyr|When a card bearing this sigil dies, all allied creatures gain 2 Health.|Yes||
+|Martyr|When a card bearing this sigil dies, all allied creatures gain 2 Health.|Yes|Yes|
 |Aggravating|While this card is on the board, all opposing cards gain 1 Power.|||
 |Team Leader|While this card is on the board, all other ally cards gain 1 Power.|||
 |Idol|While this card is on the board, all opposing cards lose 1 Power.|||
@@ -406,8 +406,8 @@ The chances of a certain Risk Level being chosen or getting a Rare card changes 
 
 Note that all Aleph-level cards are Rare cards and thus aren't part of the regular pool.
 
-|Map #|Zayin|Teth|He|Waw|_Rare_||
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|Map #|Zayin|Teth|He|Waw|_Rare_|
+|:-:|:-:|:-:|:-:|:-:|:-:|
 |1|40%|30%|20%|10%|_0%_|
 |2|30%|30%|20%|20%|_4%*_|
 |3|25%|25%|25%|25%|_8%*_|
