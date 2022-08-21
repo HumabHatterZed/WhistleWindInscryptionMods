@@ -177,6 +177,11 @@ namespace WhistleWindLobotomyMod
             get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "TransformedIntoDespair"); }
             set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "TransformedIntoDespair", value); }
         }
+        public static bool HasSeenPlaceholder
+        {
+            get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "MagicalPlaceholder"); }
+            set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "MagicalPlaceholder", value); }
+        }
         public static bool HasUsedBackwardClock
         {
             // Keeps track of whether Backward Clock has been used this run

@@ -26,13 +26,24 @@ namespace WhistleWindLobotomyMod
         private readonly string dialogue = "The balance must be maintained. Good cannot exist without evil.";
         private readonly string altDialogue = "Good cannot exist without evil.";
 
+        private bool IsMagical => base.PlayableCard.Info.name.Contains("magicalGirl");
+
         private int allyDeaths;
         private int opponentDeaths;
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
+
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
-            return base.PlayableCard.OnBoard && fromCombat && killer != null;
+            return otherCard.OpponentCard == base.PlayableCard.OpponentCard;
+        }
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
+        {
+            yield return CheckSum();
         }
 
+        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
+        {
+            return base.PlayableCard.OnBoard && IsMagical && fromCombat && killer != null;
+        }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             // does not increment if Magical Girl H is the killer
@@ -49,9 +60,10 @@ namespace WhistleWindLobotomyMod
             }
             yield break;
         }
+        
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
-            return base.PlayableCard.OnBoard && base.PlayableCard.OpponentCard != playerUpkeep;
+            return base.PlayableCard.OnBoard && IsMagical && base.PlayableCard.OpponentCard != playerUpkeep;
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
@@ -131,6 +143,17 @@ namespace WhistleWindLobotomyMod
                 yield return PlayDialogue();
             }
         }
+
+        private CardInfo GetEvolve(PlayableCard card)
+        {
+            CardInfo evolution = CardLoader.GetCardByName("wstl_queenOfHatred");
+            foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+            {
+                CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
+                evolution.Mods.Add(cardModificationInfo);
+            }
+            return evolution;
+        }
         private IEnumerator PlayDialogue()
         {
             if (!WstlSaveManager.HasSeenHatredTransformation)
@@ -145,16 +168,6 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.5f);
             }
         }
-        private CardInfo GetEvolve(PlayableCard card)
-        {
-            CardInfo evolution = CardLoader.GetCardByName("wstl_queenOfHatred");
-            foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
-            {
-                CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                evolution.Mods.Add(cardModificationInfo);
-            }
-            return evolution;
-        }
         private IEnumerator PerformTransformation(CardInfo evolution)
         {
             yield return new WaitForSeconds(0.15f);
@@ -168,6 +181,45 @@ namespace WhistleWindLobotomyMod
             base.PlayableCard.SetIsOpponentCard(opponent);
             base.PlayableCard.transform.eulerAngles += new Vector3(0f, 0f, -180f);
             yield return Singleton<BoardManager>.Instance.AssignCardToSlot(base.PlayableCard, slot, 0.25f);
+        }
+        private IEnumerator CheckSum()
+        {
+            bool Greed = false;
+            bool Despair = false;
+            CardSlot greedSlot = null;
+            CardSlot despairSlot = null;
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(!base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+            {
+                if (slot != base.PlayableCard.Slot)
+                {
+                    string slotName = slot.Card.Info.name.ToLowerInvariant();
+                    if (slotName.Contains("magicalgirld") || slotName.Contains("kingofgreed"))
+                    {
+                        WstlPlugin.Log.LogDebug("Player has Magical Girl D.");
+                        Greed = true;
+                        despairSlot = slot;
+                    }
+                    if (slotName.Contains("magicalgirls") || slotName.Contains("knightofdespair"))
+                    {
+                        WstlPlugin.Log.LogDebug("Player already has Magical Girl S.");
+                        Despair = true;
+                        despairSlot = slot;
+                    }
+                }
+            }
+            if (Greed && Despair)
+            {
+                if (!WstlSaveManager.HasSeenPlaceholder)
+                {
+                    WstlSaveManager.HasSeenPlaceholder = true;
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The absence of [c:bB]the fourth[c:] has rendered their purpose null.", -0.65f, 0.4f);
+                    yield return new WaitForSeconds(0.5f);
+                }
+            }
+            else
+            {
+                yield break;
+            }
         }
     }
 }
