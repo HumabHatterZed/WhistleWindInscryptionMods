@@ -71,13 +71,13 @@ namespace WhistleWindLobotomyMod
             {
                 if (slot != base.PlayableCard.Slot)
                 {
-                    if (slot.Card.Info.name.ToLowerInvariant().Contains("punishingbird"))
+                    if (slot.Card.Info.name == "wstl_punishingBird")
                     {
                         WstlPlugin.Log.LogDebug("Player has Punishing Bird.");
                         Punishing = true;
                         punishSlot = slot;
                     }
-                    if (slot.Card.Info.name.ToLowerInvariant().Contains("judgementbird"))
+                    if (slot.Card.Info.name == "wstl_judgementBird")
                     {
                         WstlPlugin.Log.LogDebug("Player already has Judgement Bird.");
                         Judgement = true;

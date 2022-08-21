@@ -23,13 +23,11 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-        private readonly string dialogue = "The balance must be maintained. Good cannot exist without evil.";
-        private readonly string altDialogue = "Good cannot exist without evil.";
-
-        private bool IsMagical => base.PlayableCard.Info.name.Contains("magicalGirl");
-
         private int allyDeaths;
         private int opponentDeaths;
+        private bool IsMagical => base.PlayableCard.Info.name == ("wstl_magicalGirlH");
+        private readonly string dialogue = "The balance must be maintained. Good cannot exist without evil.";
+        private readonly string altDialogue = "Good cannot exist without evil.";
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
@@ -192,16 +190,14 @@ namespace WhistleWindLobotomyMod
             {
                 if (slot != base.PlayableCard.Slot)
                 {
-                    string slotName = slot.Card.Info.name.ToLowerInvariant();
-                    if (slotName.Contains("magicalgirld") || slotName.Contains("kingofgreed"))
+                    string slotName = slot.Card.Info.name;
+                    if (slotName == "wstl_magicalGirlD" || slotName == "wstl_kingOfGreed")
                     {
-                        WstlPlugin.Log.LogDebug("Player has Magical Girl D.");
                         Greed = true;
                         despairSlot = slot;
                     }
-                    if (slotName.Contains("magicalgirls") || slotName.Contains("knightofdespair"))
+                    if (slotName == "wstl_magicalGirlS" || slotName == "wstl_knightOfDespair")
                     {
-                        WstlPlugin.Log.LogDebug("Player already has Magical Girl S.");
                         Despair = true;
                         despairSlot = slot;
                     }
