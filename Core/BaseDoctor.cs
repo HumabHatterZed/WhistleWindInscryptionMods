@@ -23,10 +23,12 @@ namespace WhistleWindLobotomyMod
 
         public IEnumerator ConvertToApostle(PlayableCard otherCard, bool HasOneSin = false)
         {
+            bool isOpponent = otherCard.OpponentCard;
             // null check should be done elsewhere
             if (otherCard.Info.HasTrait(Trait.Pelt) || otherCard.Info.HasTrait(Trait.Terrain) || otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
             {
                 yield return otherCard.DieTriggerless();
+                Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             }
             else
             {
@@ -42,16 +44,36 @@ namespace WhistleWindLobotomyMod
                     if (new System.Random().Next(0, 12) == 0)
                     {
                         HasHeretic = true;
-                        randApostle = Heretic;
+                        if (!isOpponent)
+                        {
+                            randApostle = Heretic;
+                        }
+                        else
+                        {
+                            otherCard.RemoveFromBoard();
+                            yield return new WaitForSeconds(0.5f);
+                            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
+                            {
+                                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
+                                yield return new WaitForSeconds(0.2f);
+                            }
+                            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(Heretic, null, 0.25f, null);
+                            yield return new WaitForSeconds(0.45f);
+                        }
                     }
                 }
-                yield return otherCard.TransformIntoCard(randApostle);
+                if (otherCard != null)
+                {
+                    yield return otherCard.TransformIntoCard(randApostle);
+                }
                 if (HasHeretic && !WstlSaveManager.ApostleHeretic)
                 {
                     WstlSaveManager.ApostleHeretic = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hereticDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
                     yield return new WaitForSeconds(0.2f);
                 }
+                Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
+                yield return new WaitForSeconds(0.2f);
             }
         }
     }

@@ -43,6 +43,22 @@ namespace WhistleWindLobotomyMod
             yield return MakeRoomForOneSin();
         }
 
+        public override bool RespondsToResolveOnBoard()
+        {
+            return base.Card.OpponentCard;
+        }
+        public override IEnumerator OnResolveOnBoard()
+        {
+            foreach (var slot in Singleton<BoardManager>.Instance.OpponentSlotsCopy.Where(slot => slot.Card != base.Card))
+            {
+                // Kill non-living/Mule card(s) and transform the rest (excluding One Sin) into Apostles
+                if (slot.Card != null && slot.Card.Info.name != "wstl_oneSin")
+                {
+                    yield return base.ConvertToApostle(slot.Card);
+                }
+            }
+        }
+
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
             if (otherCard != null && otherCard != base.Card)
