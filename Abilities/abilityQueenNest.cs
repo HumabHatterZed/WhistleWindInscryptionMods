@@ -12,11 +12,12 @@ namespace WhistleWindLobotomyMod
         private void Ability_QueenNest()
         {
             const string rulebookName = "Queen Nest";
-            const string rulebookDescription = "When a card bearing this sigil is played, create a Worker Bee in your hand. Create an additional Worker Bee whenever another card dies.";
+            const string rulebookDescription = "When a card dies while a card bearing this sigil is on the board, a Worker Bee is created in your hand. A Worker Bee is defined as: 1 Power, 1 Health.";
             const string dialogue = "For the hive.";
             QueenNest.ability = AbilityHelper.CreateAbility<QueenNest>(
-                Resources.sigilQueenNest,// Resources.sigilQueenNest_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                Resources.sigilQueenNest, Resources.sigilQueenNest_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class QueenNest : AbilityBehaviour
@@ -24,33 +25,13 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToResolveOnBoard()
-        {
-            return true;
-        }
-
-        public override IEnumerator OnResolveOnBoard()
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-
-            base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
-
-            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
-            {
-                yield return new WaitForSeconds(0.2f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
-                yield return new WaitForSeconds(0.2f);
-            }
-
-            CardInfo cardInfo = CardLoader.GetCardByName("wstl_queenBeeWorker");
-            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
-            yield return new WaitForSeconds(0.45f);
-            yield return base.LearnAbility(0.5f);
-        }
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return base.Card.OnBoard && deathSlot.IsPlayerSlot && card != base.Card;
+            if (base.Card != null && base.Card.OnBoard)
+            {
+                return fromCombat && killer != null && card != base.Card && !base.Card.OpponentCard;
+            }
+            return false;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
@@ -60,7 +41,6 @@ namespace WhistleWindLobotomyMod
                 if (!card.Info.name.ToLowerInvariant().Contains("queenbeeworker") && card != base.Card)
                 {
                     yield return PreSuccessfulTriggerSequence();
-
                     base.Card.Anim.StrongNegationEffect();
                     yield return new WaitForSeconds(0.4f);
                     if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
@@ -70,8 +50,6 @@ namespace WhistleWindLobotomyMod
                         yield return new WaitForSeconds(0.2f);
                     }
                     yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo);
-
-                    yield return new WaitForSeconds(0.4f);
                     yield return LearnAbility(0.4f);
                 }
             }

@@ -16,9 +16,9 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Accursed fiend.";
 
             Bloodfiend.ability = AbilityHelper.CreateAbility<Bloodfiend>(
-                Resources.sigilBloodfiend,// Resources.sigilBloodfiend_pixel,
+                Resources.sigilBloodfiend, Resources.sigilBloodfiend_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                addModular: true).Id;
+                addModular: true, opponent: true, canStack: true, isPassive: false).Id;
         }
     }
     public class Bloodfiend : AbilityBehaviour
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target)
         {
-            return amount > 0 && base.Card.Health > 0;
+            return amount > 0 && !base.Card.Dead;
         }
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
@@ -38,7 +38,6 @@ namespace WhistleWindLobotomyMod
             base.Card.HealDamage(1);
             base.Card.OnStatsChanged();
             base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
             yield return base.LearnAbility(0.4f);
         }
 
@@ -46,7 +45,8 @@ namespace WhistleWindLobotomyMod
         {
             if (killer != null)
             {
-                return fromCombat && killer == base.Card && base.Card.Info.name.ToLowerInvariant().Equals("wstl_censored") &&
+                return killer == base.Card && !base.Card.OpponentCard && fromCombat &&
+                    base.Card.Info.name.ToLowerInvariant().Equals("wstl_censored") &&
                     !card.Info.HasTrait(Trait.Terrain) && !card.Info.HasTrait(Trait.Pelt);
             }
             return false;
@@ -65,13 +65,23 @@ namespace WhistleWindLobotomyMod
             }
             // Creates a minion that has the abilities, tribes, power of the killed card
             CardInfo minion = CardLoader.GetCardByName("wstl_censoredMinion");
-            List<CardModificationInfo> killedInfo = new();
 
-            int killedAtk = card.Info.baseAttack - 1 <= 0 ? 0 : card.Info.baseAttack - 1;
-            CardModificationInfo stats = new(killedAtk, 0);
+            minion.displayedName = card.Info.displayedName;
+            minion.appearanceBehaviour = card.Info.appearanceBehaviour;
+            minion.cost = card.Info.BloodCost;
+            minion.bonesCost = card.Info.BonesCost;
+            minion.energyCost = card.Info.EnergyCost;
+            minion.gemsCost = card.Info.GemsCost;
 
-            killedInfo.Add(stats);
+            int newAttack = card.Info.baseAttack < 1 ? 1 : card.Info.baseAttack;
 
+            minion.Mods.Add(new(newAttack, 1));
+
+            foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            {
+                // Adds base sigils
+                minion.Mods.Add(new CardModificationInfo(item));
+            }
             foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
                 // Adds merged sigils
@@ -79,26 +89,18 @@ namespace WhistleWindLobotomyMod
                 cardModificationInfo.fromCardMerge = true;
                 minion.Mods.Add(cardModificationInfo);
             }
-            foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
-            {
-                // Adds base sigils
-                minion.Mods.Add(new CardModificationInfo(item));
-            }
             foreach (Tribe item in card.Info.tribes.FindAll((Tribe x) => x != Tribe.NUM_TRIBES))
             {
                 // Adds tribes
                 minion.tribes.Add(item);
             }
 
-            minion.displayedName = card.Info.displayedName;
-            minion.appearanceBehaviour = card.Info.appearanceBehaviour;
-
-            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(minion, killedInfo, 0.25f, null);
+            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(minion);
 
             yield return new WaitForSeconds(0.45f);
-            if (!PersistentValues.HasSeenCensoredKill)
+            if (!WstlSaveManager.HasSeenCensoredKill)
             {
-                PersistentValues.HasSeenCensoredKill = true;
+                WstlSaveManager.HasSeenCensoredKill = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(censoredDialogue, -0.65f, 0.4f, Emotion.Surprise);
             }
             yield return new WaitForSeconds(0.25f);

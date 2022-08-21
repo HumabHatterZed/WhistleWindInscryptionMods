@@ -14,8 +14,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil dies, the killer transforms into this card.";
             const string dialogue = "The curse continues unabated.";
             Cursed.ability = AbilityHelper.CreateAbility<Cursed>(
-                Resources.sigilCursed,// Resources.sigilCursed_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 0).Id;
+                Resources.sigilCursed, Resources.sigilCursed_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
+                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Cursed : AbilityBehaviour
@@ -38,9 +39,9 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.55f);
             yield return killer.TransformIntoCard(this.Card.Info);
             yield return new WaitForSeconds(0.4f);
-            if (!PersistentValues.HasSeenBeautyTransform && killer.Slot.IsPlayerSlot)
+            if (!WstlSaveManager.HasSeenBeautyTransform && killer.Slot.IsPlayerSlot)
             {
-                PersistentValues.HasSeenBeautyTransform = true;
+                WstlSaveManager.HasSeenBeautyTransform = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Did you think you were immune?", -0.65f, 0.4f, Emotion.Laughter);
             }
             yield return LearnAbility();

@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             };
             CardHelper.CreateCard(
                 "wstl_worldPortrait", "Portrait of Another World",
-                "The portrait captures a moment, one we're destined to lose.",
+                "This portrait captures a moment, one we're destined to lose.",
                 0, 4, 1, 0,
                 Resources.worldPortrait, Resources.worldPortrait_emission,
                 abilities: abilities, specialAbilities: new(),

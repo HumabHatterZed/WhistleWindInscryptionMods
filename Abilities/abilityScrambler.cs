@@ -16,9 +16,9 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Do you love your city?";
 
             Scrambler.ability = AbilityHelper.CreateAbility<Scrambler>(
-                Resources.sigilScrambler,// Resources.sigilScrambler_pixel,
+                Resources.sigilScrambler, Resources.sigilScrambler_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                addModular: true).Id;
+                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Scrambler : AbilityBehaviour
@@ -42,7 +42,6 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.4f);
             yield return demandingCard.Anim.FlipInAir();
             ScrambleStats(demandingCard);
-            yield return new WaitForSeconds(0.5f);
             yield return base.LearnAbility(0.5f);
         }
 

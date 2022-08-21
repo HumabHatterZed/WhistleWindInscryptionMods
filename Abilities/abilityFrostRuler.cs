@@ -11,12 +11,13 @@ namespace WhistleWindLobotomyMod
         private void Ability_FrostRuler()
         {
             const string rulebookName = "Ruler of Frost";
-            const string rulebookDescription = "When this card is played, create a Block of Ice in the opposing adjacent slots if they are empty. Otherwise, if the occupying card has 1 Health, kill it and create a Frozen Heart in its place. A Block of Ice and a Frozen Heart are both defined as: 0 Power, 1 Health.";
+            const string rulebookDescription = "When this card is played, create a Block of Ice in each opposing space to the left and right of this card. If either slot is occupied by a card with 1 Health, kill it and create a Frozen Heart in its place.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
             FrostRuler.ability = AbilityHelper.CreateAbility<FrostRuler>(
-                Resources.sigilFrostRuler,// Resources.sigilFrostRuler_pixel,
+                Resources.sigilFrostRuler, Resources.sigilFrostRuler_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                overrideModular: true).Id;
+                addModular: false, opponent: false, canStack: false, isPassive: false,
+                flipY: true).Id;
         }
     }
     public class FrostRuler : AbilityBehaviour
@@ -55,15 +56,18 @@ namespace WhistleWindLobotomyMod
                     !opposingSlotLeft.Card.HasAbility(Burning.ability) && !opposingSlotLeft.Card.HasAbility(TrueSaviour.ability) &&
                     !opposingSlotLeft.Card.HasAbility(Apostle.ability) && !opposingSlotLeft.Card.HasAbility(Confession.ability))
                 {
-                    spawnedHeart = true;
                     opposingSlotLeft.Card.Anim.LightNegationEffect();
                     yield return new WaitForSeconds(0.15f);
                     yield return opposingSlotLeft.Card.Die(false, base.Card);
-                    yield return SpawnCard(opposingSlotLeft, "wstl_snowQueenIceHeart");
-                    if (!PersistentValues.HasSeenSnowQueenFreeze)
+                    if (!(opposingSlotLeft.Card != null))
                     {
-                        PersistentValues.HasSeenSnowQueenFreeze = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
+                        spawnedHeart = true;
+                        yield return SpawnCard(opposingSlotLeft, "wstl_snowQueenIceHeart");
+                        if (!WstlSaveManager.HasSeenSnowQueenFreeze)
+                        {
+                            WstlSaveManager.HasSeenSnowQueenFreeze = true;
+                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
+                        }
                     }
                 }
             }
@@ -79,15 +83,18 @@ namespace WhistleWindLobotomyMod
                     !opposingSlotLeft.Card.HasAbility(Burning.ability) && !opposingSlotLeft.Card.HasAbility(TrueSaviour.ability) &&
                     !opposingSlotLeft.Card.HasAbility(Apostle.ability) && !opposingSlotLeft.Card.HasAbility(Confession.ability))
                 {
-                    spawnedHeart = true;
                     opposingSlotRight.Card.Anim.LightNegationEffect();
                     yield return new WaitForSeconds(0.15f);
                     yield return opposingSlotRight.Card.Die(false, base.Card);
-                    yield return SpawnCard(opposingSlotRight, "wstl_snowQueenIceHeart");
-                    if (!PersistentValues.HasSeenSnowQueenFreeze)
+                    if (!(opposingSlotRight.Card != null))
                     {
-                        PersistentValues.HasSeenSnowQueenFreeze = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
+                        spawnedHeart = true;
+                        yield return SpawnCard(opposingSlotRight, "wstl_snowQueenIceHeart");
+                        if (!WstlSaveManager.HasSeenSnowQueenFreeze)
+                        {
+                            WstlSaveManager.HasSeenSnowQueenFreeze = true;
+                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
+                        }
                     }
                 }
             }
@@ -99,9 +106,9 @@ namespace WhistleWindLobotomyMod
             {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                if (!PersistentValues.HasSeenSnowQueenFail)
+                if (!WstlSaveManager.HasSeenSnowQueenFail)
                 {
-                    PersistentValues.HasSeenSnowQueenFail = true;
+                    WstlSaveManager.HasSeenSnowQueenFail = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(failDialogue, -0.65f, 0.4f);
                 }
             }

@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_censored", "CENSORED",
                 "It's best you never learn what it looks like.",
-                6, 2, 4, 0,
+                6, 3, 4, 0,
                 Resources.censored, Resources.censored_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

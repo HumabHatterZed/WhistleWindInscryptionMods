@@ -16,9 +16,9 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The infection spreads.";
 
             SerpentsNest.ability = AbilityHelper.CreateAbility<SerpentsNest>(
-                Resources.sigilSerpentsNest,// Resources.sigilSerpentsNest_pixel,
+                Resources.sigilSerpentsNest, Resources.sigilSerpentsNest_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                addModular: true).Id;
+                addModular: true, opponent: true, canStack: false, isPassive: false).Id;
         }
     }
     public class SerpentsNest : AbilityBehaviour

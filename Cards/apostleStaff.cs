@@ -15,20 +15,23 @@ namespace WhistleWindLobotomyMod
                 Ability.Sniper,
                 Apostle.ability
             };
-
             List<Trait> traits = new()
             {
                 Trait.Uncuttable,
                 Trait.Terrain
             };
-
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                ForcedWhite.appearance
+            };
             CardHelper.CreateCard(
                 "wstl_apostleStaff", "Staff Apostle",
                 "The time has come.",
                 3, 6, 0, 0,
                 Resources.apostleStaff, Resources.apostleStaff_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits);
+                metaCategories: new(), tribes: new(), traits: traits,
+                appearances: appearances);
         }
     }
 }

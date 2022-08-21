@@ -10,15 +10,16 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void Ability_Hunter()
+        private void Ability_Marksman()
         {
             const string rulebookName = "Marksman";
             const string rulebookDescription = "You may choose which opposing space a card bearing this sigil strikes.";
             const string dialogue = "Your beast strikes with precision.";
 
             Marksman.ability = AbilityHelper.CreateAbility<Marksman>(
-                Resources.sigilMarksman,// Resources.sigilMarksman_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                Resources.sigilMarksman, Resources.sigilMarksman_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Marksman : AbilityBehaviour
@@ -43,36 +44,10 @@ namespace WhistleWindLobotomyMod
                 freischutzShots++;
                 if (freischutzShots >= 6)
                 {
-                    freischutzShots = 0;
-                    yield return new WaitForSeconds(0.5f);
-                    base.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.5f);
-
-                    if (!PersistentValues.HasSeenDerFreischutzSeventh)
-                    {
-                        PersistentValues.HasSeenDerFreischutzSeventh = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue, -0.65f, 0.4f);
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue2, -0.65f, 0.4f);
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue3, -0.65f, 0.4f);
-                        yield return new WaitForSeconds(0.5f);
-                    }
-
-                    foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(true).Where(slot => slot.Card != base.Card))
-                    {
-                        if (slot.Card != null)
-                        {
-                            yield return slot.Card.TakeDamage(base.Card.Attack, base.Card);
-                        }
-                    }
-                    freischutzShots = 0;
+                    yield return SeventhBullet();
                 }
             }
-
-            if (!base.HasLearned)
-            {
-                yield return new WaitForSeconds(0.4f);
-                yield return base.LearnAbility();
-            }
+            yield return base.LearnAbility(0.4f);
         }
 
         public override bool RespondsToDealDamageDirectly(int amount)
@@ -81,42 +56,39 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnDealDamageDirectly(int amount)
         {
+            yield return base.PreSuccessfulTriggerSequence();
             if (IsDevil)
             {
-                yield return base.PreSuccessfulTriggerSequence();
-
                 freischutzShots++;
                 if (freischutzShots >= 6)
                 {
-                    freischutzShots = 0;
-                    yield return new WaitForSeconds(0.5f);
-                    base.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.5f);
-
-                    if (!PersistentValues.HasSeenDerFreischutzSeventh)
-                    {
-                        PersistentValues.HasSeenDerFreischutzSeventh = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue, -0.65f, 0.4f);
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue2, -0.65f, 0.4f);
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue3, -0.65f, 0.4f);
-                        yield return new WaitForSeconds(0.5f);
-                    }
-
-                    foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(true).Where(slot => slot.Card != base.Card))
-                    {
-                        if (slot.Card != null)
-                        {
-                            yield return slot.Card.TakeDamage(base.Card.Attack, base.Card);
-                        }
-                    }
-                    freischutzShots = 0;
+                    yield return SeventhBullet();
                 }
             }
+            yield return base.LearnAbility(0.4f);
+        }
+        private IEnumerator SeventhBullet()
+        {
+            freischutzShots = 0;
+            yield return new WaitForSeconds(0.5f);
+            base.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.5f);
 
-            if (!base.HasLearned)
+            if (!WstlSaveManager.HasSeenDerFreischutzSeventh)
             {
-                yield return new WaitForSeconds(0.4f);
-                yield return base.LearnAbility();
+                WstlSaveManager.HasSeenDerFreischutzSeventh = true;
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue, -0.65f, 0.4f);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue2, -0.65f, 0.4f);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue3, -0.65f, 0.4f);
+                yield return new WaitForSeconds(0.5f);
+            }
+
+            foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(slot => slot.Card != base.Card))
+            {
+                if (slot.Card != null)
+                {
+                    yield return slot.Card.TakeDamage(base.Card.Attack, base.Card);
+                }
             }
         }
     }

@@ -30,105 +30,112 @@ namespace WhistleWindLobotomyMod
         private int opponentDeaths;
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return fromCombat && killer != null;
+            return base.PlayableCard.OnBoard && fromCombat && killer != null;
         }
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             // does not increment if Magical Girl H is the killer
-
             if (killer != base.PlayableCard)
             {
-                if (card.Slot.IsPlayerSlot)
+                if (card.OpponentCard)
                 {
-                    allyDeaths++;
+                    opponentDeaths++;
                 }
                 else
                 {
-                    opponentDeaths++;
+                    allyDeaths++;
                 }
             }
             yield break;
         }
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
-            if (!base.PlayableCard.Slot.IsPlayerSlot)
-            {
-                return !playerUpkeep;
-            }
-            return playerUpkeep;
+            return base.PlayableCard.OnBoard && base.PlayableCard.OpponentCard != playerUpkeep;
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            if (opponentDeaths + 1 < allyDeaths)
+            // 2 more player cards have died than opponent cards
+            if (allyDeaths > opponentDeaths + 1)
             {
-                // 2 more player card deaths than Leshy card deaths
+                CardInfo evolution = GetEvolve(base.PlayableCard);
 
-                yield return new WaitForSeconds(0.15f);
-                base.PlayableCard.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.15f);
+                yield return PerformTransformation(evolution);
 
-                CardInfo evolution = CardLoader.GetCardByName("wstl_queenOfHatred");
-                foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+                // If on opponent's side, move to player's if there's room, otherwise create in hand
+                if (base.PlayableCard.OpponentCard)
                 {
-                    CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                    evolution.Mods.Add(cardModificationInfo);
-                }
-                yield return base.PlayableCard.TransformIntoCard(evolution);
-                yield return new WaitForSeconds(0.5f);
-
-                if (!base.PlayableCard.Slot.IsPlayerSlot)
-                {
-                    // If this card is on Leshy's side of the board, move it to your side
-                    // unless there's no available space, in which case create a copy in your hand
-
-                    yield return new WaitForSeconds(0.25f);
-
                     if (base.PlayableCard.Slot.opposingSlot.Card != null)
                     {
+                        base.PlayableCard.RemoveFromBoard();
+                        yield return new WaitForSeconds(0.5f);
                         yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(evolution, null, 0.25f, null);
-                        yield return base.PlayableCard.Die(false);
                     }
                     else
                     {
-                        base.PlayableCard.SetIsOpponentCard(opponentCard: false);
-                        base.PlayableCard.transform.eulerAngles += new Vector3(0f, 0f, -180f);
-                        yield return Singleton<BoardManager>.Instance.AssignCardToSlot(base.PlayableCard, base.PlayableCard.Slot.opposingSlot, 0.25f);
+                        yield return MoveToSlot(false, base.PlayableCard.Slot.opposingSlot);
                     }
                     yield return new WaitForSeconds(0.25f);
                 }
                 yield return PlayDialogue();
             }
+
+            // 2 more Leshy card deaths than player card deaths
             if (allyDeaths + 1 < opponentDeaths)
             {
-                // 2 more Leshy card deaths than player card deaths
+                CardInfo evolution = GetEvolve(base.PlayableCard);
 
-                yield return new WaitForSeconds(0.15f);
-                base.PlayableCard.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.15f);
+                yield return PerformTransformation(evolution);
 
-                CardInfo evolution = CardLoader.GetCardByName("wstl_queenOfHatred");
-                foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+                // if owned by the player, go to the opponent's side
+                if (!base.PlayableCard.OpponentCard)
                 {
-                    CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                    evolution.Mods.Add(cardModificationInfo);
-                }
-                yield return base.PlayableCard.TransformIntoCard(evolution);
-                yield return new WaitForSeconds(0.5f);
+                    CardSlot opposingSlot = base.PlayableCard.Slot.opposingSlot;
+                    List<CardSlot> queuedSlots = Singleton<TurnManager>.Instance.Opponent.QueuedSlots;
 
-                if (base.PlayableCard.Slot.IsPlayerSlot)
-                {
-                    // If this card in on your side of the board, move to Leshy's side
-                    // Acts like the Angler's hook, minus the animations
-
-                    yield return new WaitForSeconds(0.25f);
-                    if (base.PlayableCard.Slot.opposingSlot.Card != null)
+                    // if the opposing slot is empty, move over to it
+                    if (base.PlayableCard.Slot.opposingSlot.Card == null)
                     {
-                        yield return Singleton<TurnManager>.Instance.Opponent.ReturnCardToQueue(base.PlayableCard.Slot.opposingSlot.Card, 0.25f);
+                        yield return MoveToSlot(true, opposingSlot);
                     }
-                    base.PlayableCard.SetIsOpponentCard();
-                    base.PlayableCard.transform.eulerAngles += new Vector3(0f, 0f, -180f);
-                    yield return Singleton<BoardManager>.Instance.AssignCardToSlot(base.PlayableCard, base.PlayableCard.Slot.opposingSlot, 0.25f);
+                    // if the opposing slot is occupied but the opposing queue is empty
+                    else if (!queuedSlots.Contains(opposingSlot))
+                    {
+                        // if it's not Uncuttable, return to queue than move to slot
+                        if (!opposingSlot.Card.Info.HasTrait(Trait.Uncuttable))
+                        {
+                            yield return Singleton<TurnManager>.Instance.Opponent.ReturnCardToQueue(opposingSlot.Card, 0.25f);
+                            yield return MoveToSlot(true, opposingSlot);
+                        }
+                        // otherwise add this card to queue
+                        else
+                        {
+                            base.PlayableCard.RemoveFromBoard();
+                            yield return new WaitForSeconds(0.5f);
+                            yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(evolution, opposingSlot);
+                        }
+                    }
+                    // if the opposing slot and queue are occupied but there's an unoccupied queue slot
+                    else if (queuedSlots.Count() != 4)
+                    {
+                        foreach (CardSlot slot in queuedSlots.Where(s => s != opposingSlot))
+                        {
+                            base.PlayableCard.RemoveFromBoard();
+                            yield return new WaitForSeconds(0.5f);
+                            yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(evolution, opposingSlot);
+                            break;
+                        }
+                    }
+                    // if there are no available queues, opposing etc., add to turnplan
+                    else
+                    {
+                        base.PlayableCard.RemoveFromBoard();
+                        yield return new WaitForSeconds(0.5f);
+                        List<List<CardInfo>> turnPlan = Singleton<TurnManager>.Instance.Opponent.TurnPlan;
+                        List<CardInfo> addInfo = new() { evolution };
+                        turnPlan.Add(addInfo);
+                        yield return Singleton<TurnManager>.Instance.Opponent.ModifyTurnPlan(turnPlan);
+                    }
                     yield return new WaitForSeconds(0.25f);
                 }
                 yield return PlayDialogue();
@@ -136,9 +143,9 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator PlayDialogue()
         {
-            if (!PersistentValues.HasSeenHatredTransformation)
+            if (!WstlSaveManager.HasSeenHatredTransformation)
             {
-                PersistentValues.HasSeenHatredTransformation = true;
+                WstlSaveManager.HasSeenHatredTransformation = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f);
                 yield return new WaitForSeconds(0.5f);
             }
@@ -147,6 +154,30 @@ namespace WhistleWindLobotomyMod
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue, -0.65f, 0.4f);
                 yield return new WaitForSeconds(0.5f);
             }
+        }
+        private CardInfo GetEvolve(PlayableCard card)
+        {
+            CardInfo evolution = CardLoader.GetCardByName("wstl_queenOfHatred");
+            foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+            {
+                CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
+                evolution.Mods.Add(cardModificationInfo);
+            }
+            return evolution;
+        }
+        private IEnumerator PerformTransformation(CardInfo evolution)
+        {
+            yield return new WaitForSeconds(0.15f);
+            base.PlayableCard.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.4f);
+            yield return base.PlayableCard.TransformIntoCard(evolution);
+            yield return new WaitForSeconds(0.5f);
+        }
+        private IEnumerator MoveToSlot(bool opponent, CardSlot slot)
+        {
+            base.PlayableCard.SetIsOpponentCard(opponent);
+            base.PlayableCard.transform.eulerAngles += new Vector3(0f, 0f, -180f);
+            yield return Singleton<BoardManager>.Instance.AssignCardToSlot(base.PlayableCard, slot, 0.25f);
         }
     }
 }

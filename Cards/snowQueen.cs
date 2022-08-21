@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_snowQueen", "The Snow Queen",
                 "A queen from far away. Those who enter her palace never leave.",
-                1, 2, 0, 6,
+                1, 3, 0, 6,
                 Resources.snowQueen, Resources.snowQueen_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

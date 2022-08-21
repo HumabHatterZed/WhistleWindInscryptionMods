@@ -17,8 +17,9 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "A gift for you.";
 
             GiftGiver.ability = AbilityHelper.CreateAbility<GiftGiver>(
-                Resources.sigilGiftGiver,// Resources.sigilGiftGiver_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                Resources.sigilGiftGiver, Resources.sigilGiftGiver_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class GiftGiver : AbilityBehaviour
@@ -35,8 +36,8 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnResolveOnBoard()
         {
             yield return base.PreSuccessfulTriggerSequence();
-            yield return new WaitForSeconds(0.2f);
             base.Card.Anim.LightNegationEffect();
+            yield return new WaitForSeconds(0.2f);
             yield return CreateDrawnCard();
         }
 

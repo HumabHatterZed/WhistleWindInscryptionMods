@@ -12,19 +12,17 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.Evolve,
-                Idol.ability
+                Ability.Evolve
             };
 
             CardHelper.CreateCard(
                 "wstl_blueStar", "Blue Star",
                 "When this is over, let's meet again as stars.",
-                0, 4, 4, 0,
+                0, 2, 4, 0,
                 Resources.blueStar, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true, evolveName: "wstl_blueStar2", numTurns: 2,
-                onePerDeck: true, riskLevel: 5);
+                isRare: true, evolveName: "wstl_blueStar2", riskLevel: 5);
         }
     }
 }

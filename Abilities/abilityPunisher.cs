@@ -14,9 +14,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil is struck, the striker is killed.";
             const string dialogue = "Retaliation is swift, but death is slow.";
             Punisher.ability = AbilityHelper.CreateAbility<Punisher>(
-                Resources.sigilPunisher,// Resources.sigilPunisher_pixel,
+                Resources.sigilPunisher, Resources.sigilPunisher_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                addModular: true).Id;
+                addModular: true, opponent: true, canStack: false, isPassive: false).Id;
         }
     }
     public class Punisher : AbilityBehaviour
@@ -25,8 +25,8 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
-            bool whiteNightEvent = !source.HasAbility(TrueSaviour.ability) && !source.HasAbility(Apostle.ability) && !source.HasAbility(Confession.ability);
-            if (source != null && !source.Dead && whiteNightEvent)
+            bool whiteNightEvent = source.HasAbility(TrueSaviour.ability) || source.HasAbility(Apostle.ability) || source.HasAbility(Confession.ability);
+            if (source != null && !source.Dead && !whiteNightEvent)
             {
                 return source.Health > 0 && !source.HasAbility(Ability.MadeOfStone);
             }

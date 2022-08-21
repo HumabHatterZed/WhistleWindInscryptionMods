@@ -16,8 +16,9 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Life is only given to those who don't fear death.";
 
             Courageous.ability = AbilityHelper.CreateAbility<Courageous>(
-                Resources.sigilCourageous,// Resources.sigilCourageous_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                Resources.sigilCourageous, Resources.sigilCourageous_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Courageous : AbilityBehaviour
@@ -36,26 +37,24 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToResolveOnBoard()
         {
-            int num = 0;
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot).Where(slot => slot.Card != null))
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
             {
-                num++;
+                return true;
             }
-            return num > 0;
+            return false;
         }
         public override IEnumerator OnResolveOnBoard()
         {
             yield return PreSuccessfulTriggerSequence();
-
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot).Where(slot => slot.Card != null))
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
             {
-                yield return Effect(slot.Card);
+                yield return ApplyEffect(slot.Card);
             }
         }
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot).Where(slot => slot.Card != null))
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
             {
                 if (slot.Card == otherCard)
                 {
@@ -67,28 +66,28 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
             yield return PreSuccessfulTriggerSequence();
-            yield return Effect(otherCard);
+            yield return ApplyEffect(otherCard);
         }
 
-        private IEnumerator Effect(PlayableCard card)
+        private IEnumerator ApplyEffect(PlayableCard card)
         {
             if (card.HasAbility(Ability.TailOnHit) || card.HasAbility(Ability.Submerge) || card.Status.hiddenAbilities.Contains(Ability.TailOnHit))
             {
                 if (IsArmour)
                 {
                     base.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.25f);
+                    yield return new WaitForSeconds(0.4f);
                     yield return card.Die(false, base.Card);
-                    if (!PersistentValues.HasSeenCrumblingArmourKill)
+                    if (!WstlSaveManager.HasSeenCrumblingArmourKill)
                     {
-                        PersistentValues.HasSeenCrumblingArmourKill = true;
+                        WstlSaveManager.HasSeenCrumblingArmourKill = true;
                         yield return new WaitForSeconds(0.5f);
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(cowardKill, -0.65f, 0.4f);
                     }
                 }
-                else if (!PersistentValues.HasSeenCrumblingArmourRefuse)
+                else if (!WstlSaveManager.HasSeenCrumblingArmourRefuse)
                 {
-                    PersistentValues.HasSeenCrumblingArmourRefuse = true;
+                    WstlSaveManager.HasSeenCrumblingArmourRefuse = true;
                     yield return new WaitForSeconds(0.25f);
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(buffRefuse, -0.65f, 0.4f);
                     yield return new WaitForSeconds(0.25f);
@@ -99,10 +98,10 @@ namespace WhistleWindLobotomyMod
             if (card.Health == 1)
             {
                 card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.25f);
-                if (!PersistentValues.HasSeenCrumblingArmourFail)
+                yield return new WaitForSeconds(0.4f);
+                if (!WstlSaveManager.HasSeenCrumblingArmourFail)
                 {
-                    PersistentValues.HasSeenCrumblingArmourFail = true;
+                    WstlSaveManager.HasSeenCrumblingArmourFail = true;
                     yield return new WaitForSeconds(0.25f);
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(buffFail, -0.65f, 0.4f);
                 }

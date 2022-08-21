@@ -16,9 +16,9 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Your beast runs mine through.";
 
             Piercing.ability = AbilityHelper.CreateAbility<Piercing>(
-                Resources.sigilPiercing,// Resources.sigilPiercing_pixel,
+                Resources.sigilPiercing, Resources.sigilPiercing_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                addModular: true).Id;
+                addModular: true, opponent: false, canStack: true, isPassive: false).Id;
         }
     }
     public class Piercing : AbilityBehaviour
@@ -32,14 +32,17 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
-            yield return base.PreSuccessfulTriggerSequence();
             PlayableCard queuedCard = Singleton<BoardManager>.Instance.GetCardQueuedForSlot(target.Slot);
             if (queuedCard != null && !queuedCard.Dead)
             {
-                yield return Singleton<CombatPhaseManager>.Instance.DealOverkillDamage(1, base.Card.Slot, target.Slot);
-                yield return LearnAbility();
+                yield return base.PreSuccessfulTriggerSequence();
+                yield return Singleton<CombatPhaseManager>.Instance.DealOverkillDamage(base.Card.Info.name == "wstl_ApostleSpear" ? base.Card.Attack : 1, base.Card.Slot, target.Slot);
+                yield return LearnAbility(0.25f);
             }
-            yield break;
+            else
+            {
+                yield break;
+            }
         }
     }
 }

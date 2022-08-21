@@ -19,8 +19,9 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The presence of your creature drives my beasts to bloodlust.";
 
             Aggravating.ability = AbilityHelper.CreateAbility<Aggravating>(
-                Resources.sigilAggravating,// Resources.sigilAggravating_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: -3).Id;
+                Resources.sigilAggravating, Resources.sigilAggravating_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: -3,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Aggravating : AbilityBehaviour,IPassiveAttackBuff

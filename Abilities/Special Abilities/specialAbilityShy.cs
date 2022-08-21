@@ -33,23 +33,23 @@ namespace WhistleWindLobotomyMod
             switch (base.Card.Info.name.ToLowerInvariant())
             {
                 case "wstl_todaysshylookangry":
-                    if (!PersistentValues.HasSeenShyLookAngry)
+                    if (!WstlSaveManager.HasSeenShyLookAngry)
                     {
-                        PersistentValues.HasSeenShyLookAngry = true;
+                        WstlSaveManager.HasSeenShyLookAngry = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Some days you don't feel like smiling.", -0.65f, 0.4f);
                     }
                     break;
                 case "wstl_todaysshylookhappy":
-                    if (!PersistentValues.HasSeenShyLookHappy)
+                    if (!WstlSaveManager.HasSeenShyLookHappy)
                     {
-                        PersistentValues.HasSeenShyLookHappy = true;
+                        WstlSaveManager.HasSeenShyLookHappy = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("There was no place for frowns in the City.", -0.65f, 0.4f);
                     }
                     break;
                 case "wstl_todaysshylookneutral":
-                    if (!PersistentValues.HasSeenShyLookNeutral)
+                    if (!WstlSaveManager.HasSeenShyLookNeutral)
                     {
-                        PersistentValues.HasSeenShyLookNeutral = true;
+                        WstlSaveManager.HasSeenShyLookNeutral = true;
                         yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Unable to decide what face to wear, she became shy again.", -0.65f, 0.4f);
                     }
                     break;

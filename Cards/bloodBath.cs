@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                BloodBath.specialAbility
+                BloodBath.specialAbility,
             };
 
             List<Trait> traits = new()
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_bloodBath", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
-                0, 3, 1, 0,
+                0, 1, 1, 0,
                 Resources.bloodBath, Resources.bloodBath_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,

@@ -23,65 +23,74 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-        private readonly string bathDialogue1 = "A hand rises from the sanguine pool.";
-        private readonly string bathDialogue2 = "Another pale hand emerges.";
-        private readonly string bathDialogue3 = "A third hand reaches out, as if asking for help.";
-
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return !fromCombat && card != base.Card;
+            return card != base.Card && !fromCombat;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            int name = 0;
             CardInfo evolution = CardLoader.GetCardByName("wstl_bloodBath");
-            switch (base.PlayableCard.Info.name.ToLowerInvariant())
+            switch (base.PlayableCard.Info.name)
             {
-                case "wstl_bloodbath":
-                    name = 1;
+                case "wstl_bloodBath":
                     evolution = CardLoader.GetCardByName("wstl_bloodBath1");
                     break;
-                case "wstl_bloodbath1":
-                    name = 2;
+                case "wstl_bloodBath1":
                     evolution = CardLoader.GetCardByName("wstl_bloodBath2");
                     break;
-                case "wstl_bloodbath2":
-                    name = 3;
+                case "wstl_bloodBath2":
                     evolution = CardLoader.GetCardByName("wstl_bloodBath3");
                     break;
             }
-            yield return new WaitForSeconds(0.25f);
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
                 evolution.Mods.Add(cardModificationInfo);
             }
-            yield return base.PlayableCard.TransformIntoCard(evolution);
-            yield return new WaitForSeconds(0.5f);
-
-            switch (name)
+            View view = Singleton<ViewManager>.Instance.CurrentView;
+            if (base.PlayableCard.InHand && Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard != base.PlayableCard)
             {
-                case 1:
-                    if (!PersistentValues.HasSeenBloodbathHand)
+                base.PlayableCard.ClearAppearanceBehaviours();
+                base.PlayableCard.SetInfo(evolution);
+                Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
+                yield return new WaitForSeconds(0.2f);
+                base.PlayableCard.Anim.LightNegationEffect();
+                yield return new WaitForSeconds(0.1f);
+            }
+            else
+            {
+                yield return base.PlayableCard.TransformIntoCard(evolution);
+                yield return new WaitForSeconds(0.4f);
+            }
+
+            switch (base.PlayableCard.Info.name)
+            {
+                case "wstl_bloodBath1":
+                    if (!WstlSaveManager.HasSeenBloodbathHand)
                     {
-                        PersistentValues.HasSeenBloodbathHand = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(bathDialogue1, -0.65f, 0.4f);
+                        WstlSaveManager.HasSeenBloodbathHand = true;
+                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("A hand rises from the sanguine pool.", -0.65f, 0.4f);
                     }
                     break;
-                case 2:
-                    if (!PersistentValues.HasSeenBloodbathHand1)
+                case "wstl_bloodBath2":
+                    if (!WstlSaveManager.HasSeenBloodbathHand1)
                     {
-                        PersistentValues.HasSeenBloodbathHand1 = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(bathDialogue2, -0.65f, 0.4f);
+                        WstlSaveManager.HasSeenBloodbathHand1 = true;
+                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Another pale hand emerges.", -0.65f, 0.4f);
                     }
                     break;
-                case 3:
-                    if (!PersistentValues.HasSeenBloodbathHand2)
+                case "wstl_bloodBath3":
+                    if (!WstlSaveManager.HasSeenBloodbathHand2)
                     {
-                        PersistentValues.HasSeenBloodbathHand2 = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(bathDialogue3, -0.65f, 0.4f);
+                        WstlSaveManager.HasSeenBloodbathHand2 = true;
+                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("A third hand reaches out, as if asking for help.", -0.65f, 0.4f);
                     }
                     break;
+            }
+            yield return new WaitForSeconds(base.PlayableCard.InHand ? 0.5f : 0.25f);
+            if (Singleton<ViewManager>.Instance.CurrentView != view)
+            {
+                Singleton<ViewManager>.Instance.SwitchToView(view);
             }
         }
     }

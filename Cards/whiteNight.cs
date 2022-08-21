@@ -20,6 +20,10 @@ namespace WhistleWindLobotomyMod
                 Trait.Uncuttable,
                 Trait.Terrain
             };
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                ForcedWhite.appearance
+            };
             CardHelper.CreateCard(
                 "wstl_whiteNight", "WhiteNight",
                 "The time has come.",
@@ -27,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 Resources.whiteNight, Resources.whiteNight_emission, titleTexture: Resources.whiteNight_title,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                onePerDeck: true);
+                appearances: appearances, onePerDeck: true);
         }
     }
 }

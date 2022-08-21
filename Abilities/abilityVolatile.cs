@@ -18,9 +18,10 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "An explosive finish.";
 
             Volatile.ability = AbilityHelper.CreateAbility<Volatile>(
-                Resources.sigilVolatile,// Resources.sigilVolatile_pixel,
+                Resources.sigilVolatile, Resources.sigilVolatile_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
-                addModular: true).Id;
+                addModular: true, opponent: true, canStack: false, isPassive: false,
+                flipY: true).Id;
         }
     }
     public class Volatile : AbilityBehaviour
@@ -35,7 +36,7 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnResolveOnBoard()
         {
             base.Card.Anim.LightNegationEffect();
-            yield return base.LearnAbility(0.25f);
+            yield return new WaitForSeconds(0.25f);
             yield return base.Card.Info.SetExtendedProperty("wstl:Sap", false);
             yield return base.Card.Die(false, null);
         }

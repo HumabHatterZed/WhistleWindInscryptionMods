@@ -16,8 +16,9 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Your beast shields its ally against the blow.";
 
             Protector.ability = AbilityHelper.CreateAbility<Protector>(
-                Resources.sigilProtector,// Resources.sigilProtector_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                Resources.sigilProtector, Resources.sigilProtector_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
     public class Protector : AbilityBehaviour
@@ -41,7 +42,7 @@ namespace WhistleWindLobotomyMod
                 {
                     if (slot.Card == target)
                     {
-                        return true;
+                        return amount > 0;
                     }
                 }
             }
@@ -49,20 +50,20 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
         {
-            yield return target.Status.damageTaken > 0 ? target.Status.damageTaken-- : target.Status.damageTaken;
+            yield return target.Status.damageTaken--;
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
-            if (IsDespair && !PersistentValues.HasSeenDespairProtect)
-            {
-                PersistentValues.HasSeenDespairProtect = true;
-                yield return new WaitForSeconds(0.4f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(protectDialogue, -0.65f, 0.4f);
-            }
-            else if (!IsDespair)
+            if (!IsDespair)
             {
                 yield return base.LearnAbility(0.4f);
             }
-            yield return new WaitForSeconds(0.25f);
+            else if (!WstlSaveManager.HasSeenDespairProtect)
+            {
+                WstlSaveManager.HasSeenDespairProtect = true;
+                yield return new WaitForSeconds(0.4f);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(protectDialogue, -0.65f, 0.4f);
+                yield return new WaitForSeconds(0.25f);
+            }
         }
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
@@ -95,9 +96,9 @@ namespace WhistleWindLobotomyMod
                 }
                 yield return base.Card.TransformIntoCard(cardByName);
                 yield return new WaitForSeconds(0.5f);
-                if (!PersistentValues.HasSeenDespairTransformation)
+                if (!WstlSaveManager.HasSeenDespairTransformation)
                 {
-                    PersistentValues.HasSeenDespairTransformation = true;
+                    WstlSaveManager.HasSeenDespairTransformation = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(despairDialogue, -0.65f, 0.4f);
                 }
                 yield return new WaitForSeconds(0.25f);
@@ -113,9 +114,9 @@ namespace WhistleWindLobotomyMod
                     cardByName.Mods.Add(cardModificationInfo);
                 }
                 yield return new WaitForSeconds(0.5f);
-                if (!PersistentValues.HasSeenArmyBlacked)
+                if (!WstlSaveManager.HasSeenArmyBlacked)
                 {
-                    PersistentValues.HasSeenArmyBlacked = true;
+                    WstlSaveManager.HasSeenArmyBlacked = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(blackDialogue, -0.65f, 0.4f);
                 }
                 yield return new WaitForSeconds(0.25f);

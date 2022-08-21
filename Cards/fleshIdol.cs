@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_fleshIdol", "Flesh Idol",
                 "Prayer inevitably ends with the worshipper's despair.",
-                0, 4, 0, 6,
+                0, 2, 0, 3,
                 Resources.fleshIdol, Resources.fleshIdol_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
