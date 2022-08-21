@@ -76,11 +76,11 @@ namespace WhistleWindLobotomyMod
         private static void AddEncounters()
         {
             var encounterData = ScriptableObject.CreateInstance<EncounterBlueprintData>();
-
+            var squirrelBp = EncounterHelper.CreateCardBlueprint("Squirrel");
             encounterData.name = "wstl_debug";
             encounterData.turns = new List<List<EncounterBlueprintData.CardBlueprint>>
             {
-                new List<EncounterBlueprintData.CardBlueprint> { EncounterHelper.CreateCardBlueprint("Sniper") }
+                new List<EncounterBlueprintData.CardBlueprint> { EncounterHelper.CreateCardBlueprint("Opossum") }
             };
             RegionProgression.Instance.regions[0].encounters.Clear();
             RegionProgression.Instance.regions[0].AddEncounters(encounterData);
