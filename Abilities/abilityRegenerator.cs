@@ -116,6 +116,8 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator DragonSequence(PlayableCard card)
         {
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
+
             yield return new WaitForSeconds(0.5f);
             if (!WstlSaveManager.HasSeenDragon)
             {
@@ -125,6 +127,8 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.1f);
             card.RemoveFromBoard(true);
             yield return new WaitForSeconds(0.5f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            yield return new WaitForSeconds(0.2f);
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy)
             {
                 if (slot.Card != null)
@@ -138,6 +142,7 @@ namespace WhistleWindLobotomyMod
             {
                 WstlSaveManager.HasSeenDragon = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dragonDialogue2, -0.65f, 0.4f);
+                yield return new WaitForSeconds(0.2f);
             }
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy)
@@ -148,6 +153,33 @@ namespace WhistleWindLobotomyMod
                     yield return new WaitForSeconds(0.05f);
                 }
             }
+            yield return new WaitForSeconds(0.5f);
+
+            int balance = Singleton<LifeManager>.Instance.Balance * -2;
+            int damageToDeal = Mathf.Abs(balance);
+            bool isNegative = balance < 0;
+
+            Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = damageToDeal;
+            if (damageToDeal != 0)
+            {
+                yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damageToDeal, 1, toPlayer: isNegative);
+                yield return new WaitForSeconds(0.5f);
+                if (isNegative)
+                {
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The end at the beginning.", -0.65f, 0.4f);
+                }
+                else
+                {
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The beginning at the end.", -0.65f, 0.4f);
+                }
+            }
+            else
+            {
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Everything is equal. Everything is as it should be.", -0.65f, 0.4f);
+            }
+            yield return new WaitForSeconds(0.2f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
     }
 }
