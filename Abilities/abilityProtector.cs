@@ -62,7 +62,6 @@ namespace WhistleWindLobotomyMod
                 WstlSaveManager.HasSeenDespairProtect = true;
                 yield return new WaitForSeconds(0.4f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(protectDialogue, -0.65f, 0.4f);
-                yield return new WaitForSeconds(0.25f);
             }
         }
 
@@ -85,7 +84,7 @@ namespace WhistleWindLobotomyMod
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.15f);
             base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.4f);
             if (IsDespair)
             {
                 CardInfo cardByName = CardLoader.GetCardByName("wstl_knightOfDespair");
@@ -106,14 +105,9 @@ namespace WhistleWindLobotomyMod
             }
             if (IsArmy)
             {
-                CardInfo cardByName = CardLoader.GetCardByName("wstl_armyInBlack");
-                yield return base.Card.TransformIntoCard(cardByName);
-                foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
-                {
-                    CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                    cardByName.Mods.Add(cardModificationInfo);
-                }
-                yield return new WaitForSeconds(0.5f);
+                yield return base.Card.Die(false);
+                yield return new WaitForSeconds(0.4f);
+                yield return CreateArmyInHand();
                 if (!WstlSaveManager.HasSeenArmyBlacked)
                 {
                     WstlSaveManager.HasSeenArmyBlacked = true;
@@ -122,6 +116,22 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.25f);
                 yield break;
             }
+        }
+        private IEnumerator CreateArmyInHand()
+        {
+            CardInfo cardByName = CardLoader.GetCardByName("wstl_armyInBlack");
+
+            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
+            {
+                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
+                yield return new WaitForSeconds(0.2f);
+            }
+
+            for (int i = 0;i < 4;i++)
+            {
+                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardByName, null, 0.25f, null);
+            }
+            yield return new WaitForSeconds(0.45f);
         }
     }
 }
