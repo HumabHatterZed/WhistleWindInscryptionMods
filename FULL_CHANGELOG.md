@@ -5,7 +5,7 @@
   * Changed file name for config file (see above for more information on this)
   * Rearranged the order of the configs in the config file
   * Added opponent AI compatibility for Sniper and Marksman abilities
-  * Bifurcated Strike, Trifurcated Strike, and Double Strike now stack with each other if the card has Sniper or Marksman
+  * Bifurcated Strike, Trifurcated Strike, and Double Strike now add stackable extra attacks for Sniper and Marksman abilities
   * Omni Strike now attacks the base card's opposing slot if they aren't a Giant card rather than only the leftmost slot
   * All abilities now have an icon for Act 2 if you wish to mess around with them in Act 2 - NOTE: Act 2 is not supported and has not been playtested
   * Fixed inaccurate information in the ReadMe
@@ -28,7 +28,6 @@
 * 🔧 Tweaks
   * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
   * Tweaked Bloodbath's special ability to better indicate to the player when it has activated whilst in hand
-  * Bifurcated Strike, Trifurcated Strike, and Double Strike now both stack with Sniper and Marksman abilities
   * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
   * Piercing ability now has different behaviour when possessed by Staff Apostle
   * Updated Nameless Fetus's sprites
@@ -44,7 +43,7 @@
   * Cards created by the Roots ability now inherit the base card's sigils
   * Minions created by Gardener now inherit the dead card's sigils
   * Minions created by CENSORED now inherit the full Power of the killed card
-  * Bloodbath 1,2, and 3 now all the have Spilled Blood stat icon
+  * Bloodbath 1, 2, and 3 now all the have Spilled Blood stat icon
   * Buffed CENSORED's Health from 2 --> 3
   * Buffed Queen Bee's Health from 5 --> 6
   * Buffed Snow Queen's Health from 2 --> 3
@@ -80,8 +79,6 @@
   * Added config option Card Choice at Start
   * Added combat event for Apocaylpse Bird
   * Added combat event for Yin and Yang
-  * Added Yin and Yang mini-event
-  * Added Apocalypse Bird mini-event
   * Added card Child of the Galaxy
   * Added card Fragment of the Universe
   * Added card Apocalypse Bird
@@ -95,7 +92,7 @@
   * Added card Yang
   * Added card Backward Clock
   * Added card Il Pianto della Luna
-  * Added ability Spores
+  * Added ability Fungal Infector
   * Added ability Clothes Made of Nettles
   * Added ability Witness
   * Added ability Corrector

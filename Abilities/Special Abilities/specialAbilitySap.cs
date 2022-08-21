@@ -25,21 +25,10 @@ namespace WhistleWindLobotomyMod
         private readonly string dialogue = "A strange gurgling sound comes from your beast's stomach.";
         private int sacrificeCount;
 
-        public override bool RespondsToResolveOnBoard()
-        {
-            return true;
-        }
-        public override IEnumerator OnResolveOnBoard()
-        {
-            base.PlayableCard.Status.hiddenAbilities.Add(Ability.Sacrificial);
-            base.PlayableCard.AddTemporaryMod(new CardModificationInfo(Ability.Sacrificial));
-            yield break;
-        }
         public override bool RespondsToSacrifice()
         {
             return true;
         }
-
         public override IEnumerator OnSacrifice()
         {
             if (sacrificeCount >= 8 || SeededRandom.Range(0, 10 - sacrificeCount, base.GetRandomSeed()) == 0)
@@ -48,11 +37,15 @@ namespace WhistleWindLobotomyMod
                 PlayableCard card = Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard;
                 if (!card.HasAbility(Volatile.ability))
                 {
-                    card.Status.hiddenAbilities.Add(Volatile.ability);
-                    card.AddTemporaryMod(new CardModificationInfo(Volatile.ability));
+                    card.FlipInHand(AddVolatile);
+                    yield return new WaitForSeconds(0.5f);
+                }
+                else
+                {
+                    card.Anim.StrongNegationEffect();
+                    yield return new WaitForSeconds(0.4f);
                 }
                 yield return card.Info.SetExtendedProperty("wstl:Sap", true);
-                yield return new WaitForSeconds(0.25f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Curious);
                 yield return new WaitForSeconds(0.25f);
             }
@@ -60,6 +53,12 @@ namespace WhistleWindLobotomyMod
             {
                 this.sacrificeCount++;
             }
+        }
+
+        private void AddVolatile()
+        {
+            PlayableCard card = Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard;
+            card.AddTemporaryMod(new CardModificationInfo(Volatile.ability));
         }
     }
 }

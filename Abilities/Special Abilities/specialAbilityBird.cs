@@ -57,9 +57,10 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator CheckSum()
         {
-            // Break if alread have Apocalypse Bird
+            // Break if already have Apocalypse Bird
             if (WstlSaveManager.HasApocalypse)
             {
+                WstlPlugin.Log.LogDebug("Player already has Apocalypse Bird.");
                 yield break;
             }
             Punishing = false;
@@ -70,13 +71,15 @@ namespace WhistleWindLobotomyMod
             {
                 if (slot != base.PlayableCard.Slot)
                 {
-                    if (slot.Card.Info.name == "wstl_punishingBird")
+                    if (slot.Card.Info.name.ToLowerInvariant().Contains("punishingbird"))
                     {
+                        WstlPlugin.Log.LogDebug("Player has Punishing Bird.");
                         Punishing = true;
                         punishSlot = slot;
                     }
-                    if (slot.Card.Info.name == "wstl_judgementBird")
+                    if (slot.Card.Info.name.ToLowerInvariant().Contains("judgementbird"))
                     {
+                        WstlPlugin.Log.LogDebug("Player already has Judgement Bird.");
                         Judgement = true;
                         judgeSlot = slot;
                     }

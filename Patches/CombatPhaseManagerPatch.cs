@@ -3,15 +3,10 @@ using DiskCardGame;
 using HarmonyLib;
 using System.Collections;
 using System.Collections.Generic;
-<<<<<<< HEAD
-using System.IO;
-using UnityEngine;
-=======
 using System.Linq;
 using System.IO;
 using UnityEngine;
 using static WhistleWindLobotomyMod.WstlPlugin;
->>>>>>> origin/development
 
 namespace WhistleWindLobotomyMod
 {
@@ -24,39 +19,6 @@ namespace WhistleWindLobotomyMod
 		private GameObject sniperIconPrefab;
 
 		// nothing I love more than just ripping code verbatim
-<<<<<<< HEAD
-		// basically just adds the Marksman ability to the attack sequence code, plus all the special code
-		[HarmonyPostfix, HarmonyPatch(nameof(CombatPhaseManager.SlotAttackSequence))]
-		public static IEnumerator SlotAttackSequence(IEnumerator enumerator, CombatPhaseManager __instance, CardSlot slot)
-		{
-			bool hasMarksman = slot.Card != null && slot.Card.HasAbility(Marksman.ability);
-			bool isJudge = slot.Card != null && slot.Card.Info.name.Equals("wstl_judgementBird");
-			if (slot.Card.OpponentCard || !hasMarksman)
-			{
-				// Returns normal behaviour for opponent cards
-				yield return enumerator;
-				yield break;
-			}
-
-			List<CardSlot> opposingSlots = new();
-			Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
-			Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
-			int numAttacks = 1;
-			if (slot.Card.HasTriStrike())
-			{
-				numAttacks = 3;
-			}
-			else if (slot.Card.HasAbility(Ability.SplitStrike))
-			{
-				numAttacks = 2;
-			}
-			if (slot.Card.HasAbility(Ability.Sniper))
-			{
-				// If a card has both Sniper and Marksman, then it'll add an extra shot. How nice am I.
-				numAttacks += 1;
-			}
-		    Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode);
-=======
 		// Adds Marksman ability support, as well as support for opponent sniper/marksman
 		[HarmonyPostfix, HarmonyPatch(nameof(CombatPhaseManager.SlotAttackSequence))]
 		public static IEnumerator SlotAttackSequence(IEnumerator enumerator, CombatPhaseManager __instance, CardSlot slot)
@@ -222,28 +184,19 @@ namespace WhistleWindLobotomyMod
 
 			// Non-opponent sequence
 			Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode);
->>>>>>> origin/development
 			Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
 			for (int i = 0; i < numAttacks; i++)
 			{
 				CombatPhaseManagerPatch.Instance.VisualizeStartSniperAbility(slot);
 				CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
 
-<<<<<<< HEAD
-				if (cardSlot != null && opposingSlots.Contains(cardSlot))
-=======
 				if (cardSlot != null && targetedSlots.Contains(cardSlot))
->>>>>>> origin/development
 				{
 					CombatPhaseManagerPatch.Instance.VisualizeAimSniperAbility(slot, cardSlot);
 				}
 				yield return Singleton<BoardManager>.Instance.ChooseTarget(Singleton<BoardManager>.Instance.OpponentSlotsCopy, Singleton<BoardManager>.Instance.OpponentSlotsCopy, delegate (CardSlot s)
 				{
-<<<<<<< HEAD
-					opposingSlots.Add(s);
-=======
 					targetedSlots.Add(s);
->>>>>>> origin/development
 					CombatPhaseManagerPatch.Instance.VisualizeConfirmSniperAbility(s, isJudge);
 				}, null, delegate (CardSlot s)
 				{
@@ -251,14 +204,6 @@ namespace WhistleWindLobotomyMod
 
 				}, () => false, isJudge ? CursorType.Sacrifice : CursorType.Target);
 			}
-<<<<<<< HEAD
-			foreach (CardSlot item in opposingSlots)
-			{
-				Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
-				if (isJudge && item.Card != null)
-                {
-					yield return new WaitForSeconds(0.1f);
-=======
 			foreach (CardSlot item in targetedSlots)
 			{
 				Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
@@ -272,16 +217,11 @@ namespace WhistleWindLobotomyMod
 					}
 					slot.Card.Anim.StrongNegationEffect();
 					yield return new WaitForSeconds(0.4f);
->>>>>>> origin/development
 					yield return CombatPhaseManagerPatch.Instance.Execution(item.Card);
 				}
 				else
                 {
-<<<<<<< HEAD
-					yield return Singleton<CombatPhaseManager>.Instance.SlotAttackSlot(slot, item, (opposingSlots.Count > 1) ? 0.1f : 0f);
-=======
 					yield return Singleton<CombatPhaseManager>.Instance.SlotAttackSlot(slot, item, (targetedSlots.Count > 1) ? 0.1f : 0f);
->>>>>>> origin/development
 				}
 			}
 			Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode);
@@ -326,10 +266,6 @@ namespace WhistleWindLobotomyMod
 			target.Anim.PlaySacrificeSound();
 			target.Anim.DeactivateSacrificeHoverMarker();
 			yield return target.Die(wasSacrifice: false);
-<<<<<<< HEAD
-			yield return Singleton<ResourcesManager>.Instance.AddBones(1, target.Slot);
-=======
->>>>>>> origin/development
 		}
 	}
 }

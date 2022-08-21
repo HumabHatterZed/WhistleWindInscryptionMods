@@ -222,13 +222,13 @@ namespace WhistleWindLobotomyMod
         }
         public static bool HasSeenSnowQueenFreeze
         {
-            // Keeps track of whether this is the first time Snow Quene has frozen a card
+            // Keeps track of whether this is the first time Snow Queen has frozen a card
             get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "SnowQueenFrozen"); }
             set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "SnowQueenFrozen", value); }
         }
         public static bool HasSeenSnowQueenFail
         {
-            // Keeps track of whether this is the first time Snow Quene has failed to freeze
+            // Keeps track of whether this is the first time Snow Queen has failed to freeze
             get { return ModdedSaveManager.RunState.GetValueAsBoolean(WstlPlugin.pluginGuid, "SnowQueenFail"); }
             set { ModdedSaveManager.RunState.SetValue(WstlPlugin.pluginGuid, "SnowQueenFail", value); }
         }

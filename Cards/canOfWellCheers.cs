@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_canOfWellCheers", "Opened Can of WellCheers",
                 "A vending machine dispensing ocean soda.",
-                1, 1, 1, 0,
+                1, 2, 1, 0,
                 Resources.canOfWellCheers, Resources.canOfWellCheers_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

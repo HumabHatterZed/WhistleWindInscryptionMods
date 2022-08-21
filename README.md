@@ -49,12 +49,12 @@ For the full list of updates, please refer to the .md file included in the mod p
 <details>
 <summary>Latest Update - v1.1.0</summary>
 
-### v1.1.0 - First Major Update(tm) (8/21/2022)
+### v1.1.0 - First Major Update(tm) (8/2?/2022)
 * 🧱 General
   * Changed file name for config file (see above for more information on this)
   * Rearranged the order of the configs in the config file
   * Added opponent AI compatibility for Sniper and Marksman abilities
-  * Bifurcated Strike, Trifurcated Strike, and Double Strike now stack with each other if the card has Sniper or Marksman
+  * Bifurcated Strike, Trifurcated Strike, and Double Strike now add stackable extra attacks for Sniper and Marksman abilities
   * Omni Strike now attacks the base card's opposing slot if they aren't a Giant card rather than only the leftmost slot
   * All abilities now have an icon for Act 2 if you wish to mess around with them in Act 2 - NOTE: Act 2 is not supported and has not been playtested
   * Fixed inaccurate information in the ReadMe
@@ -66,7 +66,7 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Fixed Gardener ability activating when not on the board
   * Fixed Gardener ability causing the game to freeze when the dead card's slot isn't empty
   * Fixed Ruler of Frost ability causing the game to freeze when the dead card's slot isn't empty
-  * Fixed Nothing There and Express Train to Hell being selectable hosts/sacrifices at card merge and campfire nodes
+  * Fixed Cursed ability affecting Giant cards
   * Fixed Flag Bearer ability revoking the Health buff under certain situations
   * Fixed Regenerator ability killing adjacent cards when they are at max Health
   * Fixed incorrect Regenerator ability description
@@ -74,10 +74,11 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Fixed Judgement Bird's special ability not accounting for Airborne or Repulsive
   * Fixed Submerged cards not flipping when targeted by Judgement Bird
   * Fixed the Mirror of Adjustment not properly displaying the Mirror stat icon
+  * Fixed Nothing There and Express Train to Hell being selectable hosts/sacrifices at card merge and campfire nodes
 * 🔧 Tweaks
   * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
   * Tweaked Bloodbath's special ability to better indicate to the player when it has activated whilst in hand
-  * Bifurcated Strike, Trifurcated Strike, and Double Strike now both stack with Sniper and Marksman abilities
+  * Snow White's Apple now kills survivors at the Campfire
   * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
   * Piercing ability now has different behaviour when possessed by Staff Apostle
   * Updated Nameless Fetus's sprites
@@ -89,16 +90,18 @@ For the full list of updates, please refer to the .md file included in the mod p
 * ⚖️ Balancing
   * Queen Nest ability no longer creates a Worker Bee when played
   * Made of Slime ability now gives created cards 1 Power, no longer affects cards with 1 Health
+  * Cursed ability no longer affects card with the Uncuttable trait or the Made of Stone ability
   * Changed Bloodbaths' stats and gave them the Spilled Blood stat icon
   * Cards created by the Roots ability now inherit the base card's sigils
   * Minions created by Gardener now inherit the dead card's sigils
   * Minions created by CENSORED now inherit the full Power of the killed card
-  * Bloodbath 1,2, and 3 now all the have Spilled Blood stat icon
+  * Bloodbath 1, 2, and 3 now all the have Spilled Blood stat icon
   * Buffed CENSORED's Health from 2 --> 3
   * Buffed Queen Bee's Health from 5 --> 6
   * Buffed Snow Queen's Health from 2 --> 3
   * Buffed Scarecrow Searching for Wisdom's Health from 2 --> 3
   * Buffed Luminous Bracelet's Health from 1 --> 2
+  * Buffed Opened Can of WellCheers's Health from 1 --> 2
   * Buffed Army in Black's Power from 2 --> 4
   * Buffed We Can Change Anything's stats from (0,1) --> (1,2)
   * Buffed Express Train to Hell's cost from FREE --> 6 Bones
@@ -129,8 +132,6 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Added config option Card Choice at Start
   * Added combat event for Apocaylpse Bird
   * Added combat event for Yin and Yang
-  * Added Yin and Yang mini-event
-  * Added Apocalypse Bird mini-event
   * Added card Child of the Galaxy
   * Added card Fragment of the Universe
   * Added card Apocalypse Bird
@@ -144,7 +145,7 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Added card Yang
   * Added card Backward Clock
   * Added card Il Pianto della Luna
-  * Added ability Spores
+  * Added ability Fungal Infector
   * Added ability Clothes Made of Nettles
   * Added ability Witness
   * Added ability Corrector
@@ -259,7 +260,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||
 </details>
 
-## 📜 List of Obtainable and Minion Cards
+## 📜 Obtainable Cards
 **NOTES**
 * **Singleton** means you can only have a single copy of that card in your deck  at a time (like Ouroboros).
 * **Poisonous** means the card will kill survivors at the campfire when eaten.

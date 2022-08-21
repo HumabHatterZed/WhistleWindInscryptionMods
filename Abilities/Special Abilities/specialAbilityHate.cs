@@ -87,8 +87,9 @@ namespace WhistleWindLobotomyMod
 
                 yield return PerformTransformation(evolution);
 
-                // if owned by the player, go to the opponent's side
-                if (!base.PlayableCard.OpponentCard)
+                List<CardSlot> giantCheck = Singleton<BoardManager>.Instance.OpponentSlotsCopy.Where(s => s.Card != null && s.Card.Info.HasTrait(Trait.Giant)).ToList();
+                // if owned by the player and there are no giant cards, go to the opponent's side
+                if (!base.PlayableCard.OpponentCard && giantCheck.Count() == 0)
                 {
                     CardSlot opposingSlot = base.PlayableCard.Slot.opposingSlot;
                     List<CardSlot> queuedSlots = Singleton<TurnManager>.Instance.Opponent.QueuedSlots;
@@ -113,17 +114,6 @@ namespace WhistleWindLobotomyMod
                             base.PlayableCard.RemoveFromBoard();
                             yield return new WaitForSeconds(0.5f);
                             yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(evolution, opposingSlot);
-                        }
-                    }
-                    // if the opposing slot and queue are occupied but there's an unoccupied queue slot
-                    else if (queuedSlots.Count() != 4)
-                    {
-                        foreach (CardSlot slot in queuedSlots.Where(s => s != opposingSlot))
-                        {
-                            base.PlayableCard.RemoveFromBoard();
-                            yield return new WaitForSeconds(0.5f);
-                            yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(evolution, opposingSlot);
-                            break;
                         }
                     }
                     // if there are no available queues, opposing etc., add to turnplan
