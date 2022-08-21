@@ -1,63 +1,72 @@
-## Changelog
-### v1.1.0 - The First Major Update(tm)
-* Groundwork
-  * Changed file name for config file (see ReadMe for more info on this)
-  * Added some new game patches
+﻿## FULL CHANGELOG
+
+### v1.1.0 - First Major Update(tm) (8/21/2022)
+* 🧱 General
+  * Changed file name for config file (see above for more information on this)
   * Rearranged the order of the configs in the config file
-  * All abilities now have an icon for Act 2, if you want to mess around with them in Act 2 for whatever reason
-  * Fixed inaccurate/incorrect information in the ReadMe
-* Bug fixes ??
+  * Added opponent AI compatibility for Sniper and Marksman abilities
+  * Bifurcated Strike, Trifurcated Strike, and Double Strike now stack with each other if the card has Sniper or Marksman
+  * Omni Strike now attacks the base card's opposing slot if they aren't a Giant card rather than only the leftmost slot
+  * All abilities now have an icon for Act 2 if you wish to mess around with them in Act 2 - NOTE: Act 2 is not supported and has not been playtested
+  * Fixed inaccurate information in the ReadMe
+* 🩹 Bug fixes
   * Fixed custom death cards not being properly added to the game
-  * Fixed Nothing There and Express Train to Hell being selectable at card merge or campfire nodes
+  * Fixed Assimilator and Bloodfiend still activating when the base card has died
   * Fixed Martyr ability causing the game to freeze when there are no valid targets to be healed
   * Fixed Quick Draw and Woodcutter abilities causing the game to freeze in certain scenarios
-  * Fixed certain custom save data only saving per run and not per save
-  * Judgement Bird's special ability no longer affects cards with Repulsive ability
-  * Mirror of Adjustment now properly displays the Mirror stat icon
+  * Fixed Gardener ability activating when not on the board
+  * Fixed Gardener ability causing the game to freeze when the dead card's slot isn't empty
+  * Fixed Ruler of Frost ability causing the game to freeze when the dead card's slot isn't empty
+  * Fixed Nothing There and Express Train to Hell being selectable hosts/sacrifices at card merge and campfire nodes
   * Fixed Flag Bearer ability revoking the Health buff under certain situations
-  * Fixed Regenerator ability killing cards when at max Health
+  * Fixed Regenerator ability killing adjacent cards when they are at max Health
   * Fixed incorrect Regenerator ability description
-* Tweaks ??
-  * Tweaked Bloodbath's special ability to better indicate when it is activated whilst Bloodbath is in your hand
-  * Assimilator and Bloodfiend abilities now check if the base card is dead before activating. This should prevent visual glitches
-  * Updated Rulebook entry for Judgement Bird's special ability
-  * Connected Nameless Fetus's head to its body in both of its sprites
-  * Minor change to Mirror of Adjustment's description
-  * Changed Mirror of Adjustment to use the default stat layout
+  * Fixed Magical Girl H's special ability not accounting for certain situations
+  * Fixed Judgement Bird's special ability not accounting for Airborne or Repulsive
+  * Fixed Submerged cards not flipping when targeted by Judgement Bird
+  * Fixed the Mirror of Adjustment not properly displaying the Mirror stat icon
+* 🔧 Tweaks
   * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
+  * Tweaked Bloodbath's special ability to better indicate to the player when it has activated whilst in hand
+  * Bifurcated Strike, Trifurcated Strike, and Double Strike now both stack with Sniper and Marksman abilities
   * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
-  * Patched Omni Strike to now properly attack the card's opposing slot when there are no opponents instead of just the leftmost one
-  * Big Bird and Blue Star 1 and 2 now all have special behaviour
-  * Redid WhiteNight sprite, emission
-  * Minor tweak to Red Hooded Mercenary's card choice dialogue
-  * Cards killed by WhiteNight's ability no longer activate certain death-related triggers
-* Balancing ??
-  * Increased Queen Bee's Health from 5 --> 6
-  * Changed Bloodbath's stats and gave it the Spilled Blood stat icon
-    * Bloodbath 0 (0,3) --> (0,1)
-    * Bloodbath 1 (1,3) --> (0,1)
-    * Bloodbath 2 (2,3) --> (0,2)
-    * Bloodbath 3 (3,3) --> (1,3)
-  * Express Train to Hell cost increased from (FREE) --> (x6)
-  * The Train ability cost reduced from (x12) --> (x6)
-  * Blue Star 1 rebalanced to be (0,2) stats, Fledgling(1)
-  * Blue Star 2 rebalanced to be (2,6) stats, Assimilator, Omni Strike
-  * Blue Star has a special ability
-  * Army in Pink no longer has Undying ability
-  * Army in Black buffed from 2 Power --> 4 Power
-  * Grave of Cherry Blossoms nerfed from 3 Health --> 2 Health
-  * WhiteNight's Apostles are no longer immune to Touch of Death
-  * Scythe Apostle now has 2 Power, Double Strike ability
-  * Crumbling Armour's stats changed from (0,4) 6 bones --> (0,3) 5 bones
-  * Parasite Tree's cost reduced from 2 blood --> 1 blood
+  * Piercing ability now has different behaviour when possessed by Staff Apostle
+  * Updated Nameless Fetus's sprites
+  * Updated WhiteNight's sprite and emission
+  * Mirror of Adjustment now uses the default stat layout
+  * Made minor changes to various card and ability descriptions
+  * Cards killed by certain event cards no longer activate triggers. This is to prevent softlocks relating to certain ability combinations
+  * Made a number of abilities stackable (see Abilities section for more information)
+* ⚖️ Balancing
+  * Queen Nest ability no longer creates a Worker Bee when played
+  * Made of Slime ability now gives created cards 1 Power, no longer affects cards with 1 Health
+  * Changed Bloodbaths' stats and gave them the Spilled Blood stat icon
+  * Cards created by the Roots ability now inherit the base card's sigils
   * Minions created by Gardener now inherit the dead card's sigils
-  * Rebalanced Made of Slime to give a flat 1 Power to affected cards, no longer affects cards with 1 Health or lower
-  * CENSORED buffed from 2 Health --> 3 Health
-  * CENSORED's minions now inherit the full Power of the killed card
-  * We Can Change Anything buffed from (0,1) --> (1,2)
-  * Luminous Bracelet buffed from 1 Health --> 2 Health
-  * Scarecrow Searching for Wisdom buffed from 2 Health --> 3 Health
-* Additions ?
+  * Minions created by CENSORED now inherit the full Power of the killed card
+  * Bloodbath 1,2, and 3 now all the have Spilled Blood stat icon
+  * Buffed CENSORED's Health from 2 --> 3
+  * Buffed Queen Bee's Health from 5 --> 6
+  * Buffed Snow Queen's Health from 2 --> 3
+  * Buffed Scarecrow Searching for Wisdom's Health from 2 --> 3
+  * Buffed Luminous Bracelet's Health from 1 --> 2
+  * Buffed Army in Black's Power from 2 --> 4
+  * Buffed We Can Change Anything's stats from (0,1) --> (1,2)
+  * Buffed Express Train to Hell's cost from FREE --> 6 Bones
+  * Reduced The Train ability's activation cost from 12 Bones --> 6 Bones
+  * Reduced Parasite Tree's cost from 2 Blood --> 1 Blood
+  * Rebalanced Blue Star 1 to have (0,2) stats, Fledgling
+  * Rebalanced Blue Star 2 to have (2,6) stats, Assimilator, Omni Strike
+  * Rebalanced Flesh Idol to have (0,2) stats, 3 Bones cost
+  * Rebalanced Crumbling Armour to have (0,3) stats, 5 Bones cost
+  * Rebalanced Scythe Apostle from 3 Power, Woodcutter --> 2 Power, Double Strike
+  * Nerfed Bloodbath's Health from 3 --> 1
+  * Nerfed Bloodbath 1's Health from 3 --> 1 
+  * Nerfed Bloodbath 2's Health from 3 --> 2
+  * Nerfed Bloodbath 3's Power from 3 --> 1
+  * Nerfed Grave of Cherry Blossoms's Health 3 --> 2
+* ➕ Additions
+  * Big Bird and Blue Star now possess special abilities
   * Added starter deck First Day
     * One Sin, Fairy Festival, Old Lady
   * Added starter deck Road to Oz
@@ -69,8 +78,8 @@
   * Added card choice node
   * Added config option No Donators
   * Added config option Card Choice at Start
-  * Added mini-event for Apocaylpse Bird
-  * Added mini-event for Yin and Yang
+  * Added combat event for Apocaylpse Bird
+  * Added combat event for Yin and Yang
   * Added Yin and Yang mini-event
   * Added Apocalypse Bird mini-event
   * Added card Child of the Galaxy
@@ -103,8 +112,8 @@
 * Tweaks
   * Changed sigil icons of activated abilities to better indicate their nature
   * Martyr ability now longer changes your view during combat
-* General
-  * Internal refactoring and some other stuff from the 1.1 development branch that I can't recall
+* Balancing
+  * Reduced One Sin's cost from 4 Bones --> 2 Bones
 
 ### v1.0.5 & v1.0.6 - Nothing Angels patch (7/3/2022)
 * Bug fixes

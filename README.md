@@ -6,8 +6,6 @@ Inspired by KingSlime's own mod of this topic, this is my own take on translatin
 
 The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
-### Major update v1.1.0 now released!
-
 This mod currently adds all abnormalities from Lobotomy Corp. Broken down, this means:
 * **```84```** obtainable cards (excluding evolutions, minions, event-exclusives)
 * **```41```** abilities (excluding event-exclusives)
@@ -51,7 +49,7 @@ For the full list of updates, please refer to the .md file included in the mod p
 <details>
 <summary>Latest Update - v1.1.0</summary>
 
-### v1.1.0 - First Major Update(tm) (8/?/2022)
+### v1.1.0 - First Major Update(tm) (8/21/2022)
 * 🧱 General
   * Changed file name for config file (see above for more information on this)
   * Rearranged the order of the configs in the config file
@@ -72,6 +70,7 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Fixed Flag Bearer ability revoking the Health buff under certain situations
   * Fixed Regenerator ability killing adjacent cards when they are at max Health
   * Fixed incorrect Regenerator ability description
+  * Fixed Magical Girl H's special ability not accounting for certain situations
   * Fixed Judgement Bird's special ability not accounting for Airborne or Repulsive
   * Fixed Submerged cards not flipping when targeted by Judgement Bird
   * Fixed the Mirror of Adjustment not properly displaying the Mirror stat icon
@@ -86,7 +85,7 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Mirror of Adjustment now uses the default stat layout
   * Made minor changes to various card and ability descriptions
   * Cards killed by certain event cards no longer activate triggers. This is to prevent softlocks relating to certain ability combinations
-  * Made of number of abilities stackable (see Abilities section for more information)
+  * Made a number of abilities stackable (see Abilities section for more information)
 * ⚖️ Balancing
   * Queen Nest ability no longer creates a Worker Bee when played
   * Made of Slime ability now gives created cards 1 Power, no longer affects cards with 1 Health
