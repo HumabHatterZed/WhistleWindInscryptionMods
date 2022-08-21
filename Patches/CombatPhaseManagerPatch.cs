@@ -56,6 +56,19 @@ namespace WhistleWindLobotomyMod
 				// Add 1 for Double Strike
 				numAttacks++;
             }
+			if(slot.Card.HasAbility(Ability.AllStrike) && slot.Card.Info.name.StartsWith("wstl_blueStar"))
+            {
+				// Add 1 for every opposing card - 1, or 3 if no opposing cards (4 total)
+				int opposingSlotsCount = Singleton<BoardManager>.Instance.GetSlots(slot.Card.OpponentCard).Where(s => s.Card != null).ToList().Count();
+				if (opposingSlotsCount != 0)
+                {
+					numAttacks += opposingSlotsCount - 1;
+                }
+				else
+                {
+					numAttacks += 3;
+                }
+            }
 			if (hasSniper && hasMarksman)
 			{
 				// Add 1 if both Sniper and Marksman are present
