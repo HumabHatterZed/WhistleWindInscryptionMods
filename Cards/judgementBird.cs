@@ -14,12 +14,10 @@ namespace WhistleWindLobotomyMod
             {
                 Marksman.ability
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Bird
             };
-
             CardHelper.CreateCard(
                 "wstl_judgementBird", "Judgement Bird",
                 "A long bird that judges sinners with swift efficiency. Only it is above consequences.",

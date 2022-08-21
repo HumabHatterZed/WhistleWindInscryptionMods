@@ -81,6 +81,7 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Snow White's Apple now kills survivors at the Campfire
   * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
   * Piercing ability now has different behaviour when possessed by Staff Apostle
+  * Added placeholder text for when all 3 Magical Girls are on the same side of the board
   * Updated Nameless Fetus's sprites
   * Updated WhiteNight's sprite and emission
   * Mirror of Adjustment now uses the default stat layout
@@ -95,6 +96,7 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Cards created by the Roots ability now inherit the base card's sigils
   * Minions created by Gardener now inherit the dead card's sigils
   * Minions created by CENSORED now inherit the full Power of the killed card
+  * Army in Pink's special ability now creates 4 copies of Army in Black in hand when triggered
   * Bloodbath 1, 2, and 3 now all the have Spilled Blood stat icon
   * Buffed CENSORED's Health from 2 --> 3
   * Buffed Queen Bee's Health from 5 --> 6
@@ -102,16 +104,18 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Buffed Scarecrow Searching for Wisdom's Health from 2 --> 3
   * Buffed Luminous Bracelet's Health from 1 --> 2
   * Buffed Opened Can of WellCheers's Health from 1 --> 2
-  * Buffed Army in Black's Power from 2 --> 4
   * Buffed We Can Change Anything's stats from (0,1) --> (1,2)
   * Buffed Express Train to Hell's cost from FREE --> 6 Bones
   * Reduced The Train ability's activation cost from 12 Bones --> 6 Bones
   * Reduced Parasite Tree's cost from 2 Blood --> 1 Blood
+  * Rebalanced 1.76 MHz to 2 Bones cost
   * Rebalanced Blue Star 1 to have (0,2) stats, Fledgling
   * Rebalanced Blue Star 2 to have (2,6) stats, Assimilator, Omni Strike
   * Rebalanced Flesh Idol to have (0,2) stats, 3 Bones cost
   * Rebalanced Crumbling Armour to have (0,3) stats, 5 Bones cost
   * Rebalanced Scythe Apostle from 3 Power, Woodcutter --> 2 Power, Double Strike
+  * Rebalanced Army in Pink to have (3,3) stats, Protector, Clinger
+  * Rebalanced Army in Black to have (0,1) stats, Volatile, Brittle, 0 cost
   * Nerfed Bloodbath's Health from 3 --> 1
   * Nerfed Bloodbath 1's Health from 3 --> 1 
   * Nerfed Bloodbath 2's Health from 3 --> 2
@@ -195,13 +199,13 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |CENSORED|Reacts to killing cards.|
 |Judgement Bird|Reacts to attacking cards.|
 |Today's Shy Look|Reacts to being drawn.|
-|Army in Pink|Reacts to cards dying.|
+|Army in Pink|Reacts to adjacent cards.|
 |Melting Love|Reacts to taking damage.|
-|Yang|Reacts to being adjacent to another card.|
+|Yang|Reacts to adjacent cards.|
 |Giant Tree Sap|Reacts to being sacrificed.|
 |Big Bird|Reacts to ally cards.|
 |Plague Doctor|Reacts to ability activation.|
-|Blue Star|Reacts to the opposing side of the board.| 
+|Blue Star|Reacts to combat phase.| 
  </details>
  
 ## ✨ Abilities
@@ -283,7 +287,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |The Lady Facing the Wall|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Punisher|||
 |Nothing There|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">||Rare||
 |The Lady Facing the Wall|0|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Punisher|||
-|1.76 MHz|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Leader<br>Annoying|||
+|1.76 MHz|0|3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Leader<br>Annoying|||
 |Singing Machine|0|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Team Leader<br>Aggravating|||
 |The Silent Orchestra|2|6|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Conductor|Rare||
 |⤷ Chairs|0|2||Leader|||
@@ -293,11 +297,11 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |⤷ Frozen Heart|0|1||Frozen Heart|||
 |Big Bird|2|4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">||Singleton|Avian|
 |All-Around Helper|1|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Sprinter<br>Bifurcated Strike|||
-|Snow White's Apple|1|3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Roots|||
+|Snow White's Apple|1|3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Roots|Poisonous||
 |Thorny Vines|0|1||Sharp Quills|||
 |Spider Bud|0|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Broodmother||Insect|
-|Spiderling|0|1||Fledgling||Insect|
-|⤷ Spider Brood|1|3||||Insect|
+|⤷ Spiderling|0|1||Fledgling||Insect|
+|  ⤷ Spider Brood|1|3||||Insect|
 |Beauty and the Beast|1|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Cursed||Hooved<br>Insect|
 |Plague Doctor|0|3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Airborne<br>Healer|Singleton||
 |Don't Touch Me|0|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Punisher<br>Guardian|||
@@ -371,7 +375,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Yang|2|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Strafe<br>Waterborne|Singleton||
 |Backward Clock|0|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Time Machine|Rare<br>Singleton||
 |Il Pianto della Luna|1|7|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Group Healer|||
-|Army in Pink|2|2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fecundity<br>Protector|Rare||
+|Army in Pink|3|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Protector<br>Guardian|Rare||
 |Ppodae|1|1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Stinky<br>Fledgling||Canine|
 |⤷ Ppodae|3|2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/cEvPoTk.png">|Stinky||Canine|
 |Parasite Tree|0|3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Gardener|||
