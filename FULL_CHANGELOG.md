@@ -1,6 +1,6 @@
 ﻿## FULL CHANGELOG
 
-### v1.1.0 - First Major Update(tm) (8/21/2022)
+### v1.1.0 - First Major Update(tm) (8/22/2022)
 * 🧱 General
   * Changed file name for config file (see above for more information on this)
   * Rearranged the order of the configs in the config file
@@ -17,7 +17,7 @@
   * Fixed Gardener ability activating when not on the board
   * Fixed Gardener ability causing the game to freeze when the dead card's slot isn't empty
   * Fixed Ruler of Frost ability causing the game to freeze when the dead card's slot isn't empty
-  * Fixed Nothing There and Express Train to Hell being selectable hosts/sacrifices at card merge and campfire nodes
+  * Fixed Cursed ability affecting Giant cards
   * Fixed Flag Bearer ability revoking the Health buff under certain situations
   * Fixed Regenerator ability killing adjacent cards when they are at max Health
   * Fixed incorrect Regenerator ability description
@@ -25,11 +25,14 @@
   * Fixed Judgement Bird's special ability not accounting for Airborne or Repulsive
   * Fixed Submerged cards not flipping when targeted by Judgement Bird
   * Fixed the Mirror of Adjustment not properly displaying the Mirror stat icon
+  * Fixed Nothing There and Express Train to Hell being selectable hosts/sacrifices at card merge and campfire nodes
 * 🔧 Tweaks
   * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
   * Tweaked Bloodbath's special ability to better indicate to the player when it has activated whilst in hand
+  * Snow White's Apple now kills survivors at the Campfire
   * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
   * Piercing ability now has different behaviour when possessed by Staff Apostle
+  * Added placeholder text for when all 3 Magical Girls are on the same side of the board
   * Updated Nameless Fetus's sprites
   * Updated WhiteNight's sprite and emission
   * Mirror of Adjustment now uses the default stat layout
@@ -39,26 +42,31 @@
 * ⚖️ Balancing
   * Queen Nest ability no longer creates a Worker Bee when played
   * Made of Slime ability now gives created cards 1 Power, no longer affects cards with 1 Health
+  * Cursed ability no longer affects card with the Uncuttable trait or the Made of Stone ability
   * Changed Bloodbaths' stats and gave them the Spilled Blood stat icon
   * Cards created by the Roots ability now inherit the base card's sigils
   * Minions created by Gardener now inherit the dead card's sigils
   * Minions created by CENSORED now inherit the full Power of the killed card
+  * Army in Pink's special ability now creates 4 copies of Army in Black in hand when triggered
   * Bloodbath 1, 2, and 3 now all the have Spilled Blood stat icon
   * Buffed CENSORED's Health from 2 --> 3
   * Buffed Queen Bee's Health from 5 --> 6
   * Buffed Snow Queen's Health from 2 --> 3
   * Buffed Scarecrow Searching for Wisdom's Health from 2 --> 3
   * Buffed Luminous Bracelet's Health from 1 --> 2
-  * Buffed Army in Black's Power from 2 --> 4
+  * Buffed Opened Can of WellCheers's Health from 1 --> 2
   * Buffed We Can Change Anything's stats from (0,1) --> (1,2)
   * Buffed Express Train to Hell's cost from FREE --> 6 Bones
   * Reduced The Train ability's activation cost from 12 Bones --> 6 Bones
   * Reduced Parasite Tree's cost from 2 Blood --> 1 Blood
+  * Rebalanced 1.76 MHz to 2 Bones cost
   * Rebalanced Blue Star 1 to have (0,2) stats, Fledgling
   * Rebalanced Blue Star 2 to have (2,6) stats, Assimilator, Omni Strike
   * Rebalanced Flesh Idol to have (0,2) stats, 3 Bones cost
   * Rebalanced Crumbling Armour to have (0,3) stats, 5 Bones cost
   * Rebalanced Scythe Apostle from 3 Power, Woodcutter --> 2 Power, Double Strike
+  * Rebalanced Army in Pink to have (3,3) stats, Protector, Clinger
+  * Rebalanced Army in Black to have (0,1) stats, Volatile, Brittle, 0 cost
   * Nerfed Bloodbath's Health from 3 --> 1
   * Nerfed Bloodbath 1's Health from 3 --> 1 
   * Nerfed Bloodbath 2's Health from 3 --> 2

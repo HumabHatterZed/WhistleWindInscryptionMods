@@ -49,7 +49,7 @@ For the full list of updates, please refer to the .md file included in the mod p
 <details>
 <summary>Latest Update - v1.1.0</summary>
 
-### v1.1.0 - First Major Update(tm) (8/2?/2022)
+### v1.1.0 - First Major Update(tm) (8/22/2022)
 * 🧱 General
   * Changed file name for config file (see above for more information on this)
   * Rearranged the order of the configs in the config file
