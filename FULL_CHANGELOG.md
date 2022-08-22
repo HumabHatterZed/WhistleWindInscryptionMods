@@ -28,6 +28,7 @@
   * Fixed Nothing There and Express Train to Hell being selectable hosts/sacrifices at card merge and campfire nodes
 * 🔧 Tweaks
   * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
+  * Made a number of abilities stackable (see Abilities section for more information)
   * Tweaked Bloodbath's special ability to better indicate to the player when it has activated whilst in hand
   * Snow White's Apple now kills survivors at the Campfire
   * Plague Doctor now changes its appearance based on the number of times it has healed cards (change persists even if you reset mid-battle)
@@ -38,7 +39,6 @@
   * Mirror of Adjustment now uses the default stat layout
   * Made minor changes to various card and ability descriptions
   * Cards killed by certain event cards no longer activate triggers. This is to prevent softlocks relating to certain ability combinations
-  * Made a number of abilities stackable (see Abilities section for more information)
 * ⚖️ Balancing
   * Queen Nest ability no longer creates a Worker Bee when played
   * Made of Slime ability now gives created cards 1 Power, no longer affects cards with 1 Health
@@ -56,7 +56,7 @@
   * Buffed Luminous Bracelet's Health from 1 --> 2
   * Buffed Opened Can of WellCheers's Health from 1 --> 2
   * Buffed We Can Change Anything's stats from (0,1) --> (1,2)
-  * Buffed Express Train to Hell's cost from FREE --> 6 Bones
+  * Increased Express Train to Hell's cost from FREE --> 6 Bones
   * Reduced The Train ability's activation cost from 12 Bones --> 6 Bones
   * Reduced Parasite Tree's cost from 2 Blood --> 1 Blood
   * Rebalanced 1.76 MHz to 2 Bones cost
@@ -71,7 +71,6 @@
   * Nerfed Bloodbath 1's Health from 3 --> 1 
   * Nerfed Bloodbath 2's Health from 3 --> 2
   * Nerfed Bloodbath 3's Power from 3 --> 1
-  * Nerfed Grave of Cherry Blossoms's Health 3 --> 2
 * ➕ Additions
   * Big Bird and Blue Star now possess special abilities
   * Added starter deck First Day
