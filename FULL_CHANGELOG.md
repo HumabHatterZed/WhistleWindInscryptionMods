@@ -1,5 +1,23 @@
 ﻿## FULL CHANGELOG
 
+### v1.1.1 - Broken Shovel patch (8/25/2022)
+* 🧱 General
+  * Fixed ReadMe's description of Sapling showing the wrong Power
+  * Fixed ReadMe's description of Giant Tree being incorrectly formatted
+  * Removed an duplicate entry in the ReadMe of Lady Facing the Wall
+  * Changed ReadMe's description of Nothing There to display X/X for stats
+* 🩹 Bug fixes
+  * Fixed Gardener not activating at all
+  * Fixed Magical Girl S and Army in Pink's special abilities activating whilst in hand
+  * Fixed Omni Strike not attacking Giant cards properly
+* 🔧 Tweaks
+  * Changed emissions of Parasite Tree, Sapling, and The Little Prince to not obscure their cost
+  * Tweaked Army in Pink's special ability
+* ⚖️ Balancing
+  * Buffed Apocalypse Bird's Power from 2 --> 3
+  * Buffed Army in Black's Power from 0 --> 1
+  * Buffed Void Dream's Power from 0 --> 1
+
 ### v1.1.0 - First Major Update(tm) (8/22/2022)
 * 🧱 General
   * Changed file name for config file (see above for more information on this)
@@ -109,62 +127,62 @@
   * Added special ability Big Bird
 
 ### v1.0.7 - Martyr bug fix (7/22/2022)
-* Bug fixes
+* 🩹 Bug fixes
   * Fixed Martyr ability softlocking when there aren't any other valid cards
   * Melting Love can now be found as a rare card
   * Judgement Bird is now found as a common choice instead of a rare
-* Tweaks
+* 🔧 Tweaks
   * Changed sigil icons of activated abilities to better indicate their nature
   * Martyr ability now longer changes your view during combat
-* Balancing
+* ⚖️ Balancing
   * Reduced One Sin's cost from 4 Bones --> 2 Bones
 
 ### v1.0.5 & v1.0.6 - Nothing Angels patch (7/3/2022)
-* Bug fixes
+* 🩹 Bug fixes
   * Fixed Apostles not entering Downed state when killed
   * Fixed Nothing There not being properly added to the deck
   * Fixed Apostle Spear emission not showing
   * WhiteNight event works again
-* Tweaks
+* 🔧 Tweaks
   * Dreaming Current now has Rampager instead of Sprinter and Hefty
   * Reverted some cards' emissions to the default colour
-* Balancing
+* ⚖️ Balancing
   * Select cards can no longer be used at the Campfire or Mycologists
 
 ### v1.0.3 & v1.0.4 - Mountains of Coloured Text patch (6/29/2022)
-* Bug fixes
+* 🩹 Bug fixes
   * Fixed Assimilator ability not doing proper checks on the base Card
   * Fixed Assimilator ability not properly checking for MoSB evolutions (v1.0.4)
-* Tweaks
+* 🔧 Tweaks
   * Leshy's eyes now turn red during the WhiteNight event
   * Changed colour of text relating to WhiteNight event
   * Tweaked Assimilator ability OnDie trigger to be specific to MoSB
 
 ### v1.0.2 - Prayer and Bees patch (6/28/2022)
-* Bug fixes
+* 🩹 Bug fixes
   * Fixed Queen Nest ability softlocking when Queen Bee is dropped by the Mule
-* Tweaks
+* 🔧 Tweaks
   * Tweaked Confession ability to make Heretic sequence smoother
-* Balancing
+* ⚖️ Balancing
   * Cards from the WhiteNight event no longer drop bones when killed
   * Hundreds of Good Deeds now dies if Confession is activated during a boss
 
 ### v1.0.1 - Bones and Trains patch (6/27/2022)
-* Groundwork
+* 🧱 General
   * Removed the fourth zero from the in-game version number to be consistent with the Thunderstore version number
-* Bug Fixes
+* 🩹 Bug Fixes
   * Fixed Boons of the Bone Lord not giving bones
   * Fixed cards not dropping bones if a copy was previously killed by The Train
   * Fixed The Train ability being free to activate
-* Tweaks
+* 🔧 Tweaks
   * Confession ability changed to an activated-type ability
   * Fixed an error in the README regarding The Train ability's description
   * Can no longer activate The Train ability if there are no other cards on the board
-* Balancing
+* ⚖️ Balancing
   * Increased The Train ability activation cost 10 --> 12
 
 ### v1.0.0 - Initial release (6/26/2022)
-* Additions
+* ➕ Additions
   * 71 Cards
   * 38 Abilities
   * 13 Special abilities

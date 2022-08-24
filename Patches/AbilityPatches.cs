@@ -49,12 +49,6 @@ namespace WhistleWindLobotomyMod
 				list = new List<CardSlot>();
 				ProgressionData.SetAbilityLearned(Ability.AllStrike);
 				List<CardSlot> list2 = Singleton<BoardManager>.Instance.OpponentSlotsCopy;
-				if (list2.Exists((CardSlot x) => x.Card != null && x.Card.HasTrait(Trait.Giant)))
-				{
-					list.Add(list2.Find((CardSlot y) => y.Card != null));
-					return list;
-				}
-
 				if (list2.Exists((CardSlot x) => x.Card != null && !__instance.CanAttackDirectly(x)))
 				{
 					foreach (CardSlot item in list2)

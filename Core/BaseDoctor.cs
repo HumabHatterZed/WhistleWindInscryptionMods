@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
         {
             bool isOpponent = otherCard.OpponentCard;
             // null check should be done elsewhere
-            if (otherCard.Info.HasTrait(Trait.Pelt) || otherCard.Info.HasTrait(Trait.Terrain) || otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
+            if (otherCard.Info.HasAnyOfTraits(new() { Trait.Pelt, Trait.Terrain }) || otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule))
             {
                 yield return otherCard.DieTriggerless();
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board);

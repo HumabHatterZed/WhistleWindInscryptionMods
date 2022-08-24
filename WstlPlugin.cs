@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.1.0";
+        private const string pluginVersion = "1.1.1";
 
         internal static ManualLogSource Log;
         private static Harmony harmony;
@@ -80,7 +80,7 @@ namespace WhistleWindLobotomyMod
             encounterData.name = "wstl_debug";
             encounterData.turns = new List<List<EncounterBlueprintData.CardBlueprint>>
             {
-                new List<EncounterBlueprintData.CardBlueprint> { EncounterHelper.CreateCardBlueprint("Opossum") }
+                new List<EncounterBlueprintData.CardBlueprint> { EncounterHelper.CreateCardBlueprint("!GIANTCARD_MOON") }
             };
             RegionProgression.Instance.regions[0].encounters.Clear();
             RegionProgression.Instance.regions[0].AddEncounters(encounterData);

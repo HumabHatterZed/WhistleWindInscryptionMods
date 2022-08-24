@@ -36,22 +36,19 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
         {
-            if (!attacker.Dead)
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
             {
-                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
+                if (slot.Card == target)
                 {
-                    if (slot.Card == target)
-                    {
-                        return amount > 0;
-                    }
+                    return amount > 0;
                 }
             }
             return false;
         }
         public override IEnumerator OnOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
         {
-            yield return target.Status.damageTaken--;
             yield return base.PreSuccessfulTriggerSequence();
+            yield return target.Status.damageTaken--;
             base.Card.Anim.StrongNegationEffect();
             if (!IsDespair)
             {
@@ -67,11 +64,11 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            if (IsDespair || IsArmy)
+            if (fromCombat && (IsDespair || IsArmy) && base.Card.OnBoard)
             {
-                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot != null))
+                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
                 {
-                    if (slot.Card != null && slot.Card == card)
+                    if (slot.Card == card)
                     {
                         return fromCombat;
                     }
@@ -105,8 +102,14 @@ namespace WhistleWindLobotomyMod
             }
             if (IsArmy)
             {
-                yield return base.Card.Die(false);
-                yield return new WaitForSeconds(0.4f);
+                CardInfo cardByName = CardLoader.GetCardByName("wstl_armyInBlack");
+                foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+                {
+                    CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
+                    cardByName.Mods.Add(cardModificationInfo);
+                }
+                yield return base.Card.TransformIntoCard(cardByName);
+                yield return new WaitForSeconds(0.5f);
                 yield return CreateArmyInHand();
                 if (!WstlSaveManager.HasSeenArmyBlacked)
                 {
@@ -127,7 +130,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.2f);
             }
 
-            for (int i = 0;i < 4;i++)
+            for (int i = 0; i < 3; i++)
             {
                 yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardByName, null, 0.25f, null);
             }

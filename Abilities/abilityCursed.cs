@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod
         {
             if (!wasSacrifice && killer != null && !killer.Dead)
             {
-                return !killer.HasAbility(Ability.MadeOfStone) && !killer.Info.HasTrait(Trait.Giant) && !killer.Info.HasTrait(Trait.Uncuttable);
+                return !killer.HasAbility(Ability.MadeOfStone) && !killer.Info.HasAnyOfTraits(new() { Trait.Giant, Trait.Uncuttable });
             }
             return false;
         }
