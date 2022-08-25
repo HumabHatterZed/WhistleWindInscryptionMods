@@ -52,6 +52,7 @@ For the full list of updates, please refer to the .md file included in the mod p
 ### v1.1.1 - Broken Shovel patch (8/25/2022)
 * 🧱 General
   * Fixed inaccurate information in the ReadMe
+  * Adjusted the Obtainable Cards section of the ReadMe
 * 🩹 Bug fixes
   * Fixed Gardener not activating at all
   * Fixed Magical Girl S and Army in Pink's special abilities activating whilst in hand
@@ -61,6 +62,7 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Tweaked Army in Pink's special ability
 * ⚖️ Balancing
   * Buffed Apocalypse Bird, Army in Black, Void Dream
+  * Increased cost of Spider Brood
 
 ### v1.1.0 - First Major Update(tm) (8/22/2022)
 * 🧱 General
@@ -97,33 +99,35 @@ For the full list of updates, please refer to the .md file included in the mod p
 </details>
 
 ## 🛠️ Configuration Options
-* Enable Mod
+* **Enable Mod**
   * DEFAULT: True
   * What it says on the tin; this config enables/disables this mod's content.
-* No Donators
+* **No Donators**
   * DEFAULT: False
   * Prevents Donator-class abnormalities from being obtainable in-game (Backward Clock... Honoured Monk), like the original Lobotomy Corp.
-* Choice Node at Start
+* **Choice Node at Start**
   * DEFAULT: False
   * Adds the custom card choice node to the start of each region.
-* All Modular
+* **All Modular**
   * DEFAULT: False
   * Makes _most_ custom abilities modular, meaning they can be found on totem bases and on cards from the den trial.
-* Special Abilities in Rulebook
+* **Special Abilities in Rulebook**
   * DEFAULT: False
   * Adds entries for the special abilities to the Rulebook for your viewing pleasure.
-* Reveal Select Descriptions
+* **Reveal Select Descriptions**
   * DEFAULT: False
   * Changes the description of certain abilities to actually describe what they do.
 
 ## ⚜️ Special/Hidden Abilities
-A number of cards added by this mod possess special behaviour unique to themselves that is not normally found in the Rulebook.
-In the spirit of the original game, I won't be listing the effects here, only which cards possesses a special ability and what triggers it.
-You'll need to mess with the cards to figure out exactly what they do 🙃.
+A number of cards added by this mod possess special abilities that are not found in the Rulebook.
+
+In the spirit of the original game, I won't detail the abilities, only which cards possess one and what triggers it.
+
+You'll need to play with the cards in order to figure out their special ability does 🙃.
 <details>
 <summary>View specials</summary>
  
-|Card|Trigger|
+|CARD|TRIGGER|
 |:-|:-|
 |Nameless Fetus|Reacts to being sacrificed.|
 |Bloodbath|Reacts to cards being sacrificed.|
@@ -146,14 +150,18 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
  </details>
  
 ## ✨ Abilities
-**NOTES**
-* **Totem** indicates the ability can be found on totem bases and on cards from den trials.
-* **Stacks** means the ability can stack with itself, activating once for every instance of the ability.
 
 <details>
 <summary>View abilities</summary>
 
-|Name|Description|Totem|Stacks|
+<br>
+
+**NOTES**
+* **Totem** indicates the ability can be found on totem bases and on cards from den trials.
+* **Stacks** means the ability can stack with itself, activating once for every instance of the ability.
+<br>
+
+|NAME|DESCRIPTION|TOTEM|STACKS|
 |:-|:-|:-:|:-:|
 |Punisher|When a card bearing this sigil is struck, the striker is killed.|Yes||
 |Bloodfiend|When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.|Yes|Yes|
@@ -202,14 +210,21 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 </details>
 
 ## 📜 Obtainable Cards
-**NOTES**
-* **Singleton** means you can only have a single copy of that card in your deck  at a time (like Ouroboros).
-* **Poisonous** means the card will kill survivors at the campfire when eaten.
-* **X** means that the given field is inherited from a base card or status effect.
+
 <details>
 <summary>View cards</summary>
 
-|Name|Power/Health|Cost|Sigils|Traits|Tribes|
+<br>
+
+**KEY**
+* **Singleton** - Can only have one copy in your deck at a time.
+* **Poisonous** - Kills survivors when eaten at the Campfire.
+* **X** - Variable, typically based on another card or status effect.
+* **S** - Spilled Blood, gains Power equal to the number of sacrifices this turn.
+* **M** - Mirror, gains Power equal to the opposing card's Power.
+<br>
+
+|NAME|STATS|COST|SIGILS|TRAITS|TRIBES|
 |:-|:-:|:-:|:-:|:-:|:-:|
 |Standard Training-Dummy Rabbit|0/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">||||
 |Scorched Girl|1/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Volatile|||
@@ -222,7 +237,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Old Lady|1/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Stinky|||
 |Nameless Fetus|0/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Worthy Sacrifice<br>Undying|Goat||
 |The Lady Facing the Wall|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Punisher|||
-|Nothing There|X/X|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">||Rare||
+|Nothing There|**X**/**X**|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">||Rare||
 |1.76 MHz|0/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Leader<br>Annoying|||
 |Singing Machine|0/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Team Leader<br>Aggravating|||
 |The Silent Orchestra|2/6|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Conductor|Rare||
@@ -234,17 +249,17 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Big Bird|2/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">||Singleton|Avian|
 |All-Around Helper|1/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Sprinter<br>Bifurcated Strike|||
 |Snow White's Apple|1/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Roots|Poisonous||
-|Thorny Vines|0/1||Sharp Quills|||
+|⤷ Thorny Vines|0/1||**X**<br>Sharp Quills|||
 |Spider Bud|0/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Broodmother||Insect|
 |⤷ Spiderling|0/1||Fledgling||Insect|
-|  ⤷ Spider Brood|1/3||||Insect|
+|  ⤷ Spider Brood|1/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|||Insect|
 |Beauty and the Beast|1/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Cursed||Hooved<br>Insect|
 |Plague Doctor|0/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Airborne<br>Healer|Singleton||
 |Don't Touch Me|0/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Punisher<br>Guardian|||
 |Rudolta of the Sleigh|2/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Sprinter<br>Gift Giver||Hooved|
 |Queen Bee|0/6|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Queen Nest||Insect|
 |⤷ Worker Bee|1/1||||Insect|
-|Bloodbath|0/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||Goat||
+|Bloodbath|**S**/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||Goat||
 |Opened Can of WellCheers|1/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sprinter<br>Waterborne|||
 |Alriune|4/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Sprinter||Hooved|
 |Forsaken Murderer|4/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/cEvPoTk.png">||||
@@ -260,17 +275,17 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Magical Girl D|0/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fledgling|Singleton||
 |⤷ The King of Greed|4/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Hefty|Singleton||
 |The Little Prince|1/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Spores|||
-|⤷ Spore Mold Creature|X/X|X|X|||
+|⤷ Spore Mold Creature|**X**/**X**|**X**|**X**|||
 |Laetitia|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Gift Giver|||
-|Laetitia's Friend|2/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|||Insect|
+|⤷ Laetitia's Friend|2/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|||Insect|
 |Funeral of the Dead Butterflies|2/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Bifurcated Strike|Rare||
-|Dream of a Black Swan|2/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Clothes Made of Nettles|Rare|Avian|
-|⤷ First Brother|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Double Strike|||
-|⤷ Second Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">||||
-|⤷ Third Brother|0/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Reflector|||
-|⤷ Fourth Brother|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Touch of Death|||
-|⤷ Fifth Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Sharp Quills|||
-|⤷ Sixth Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|Stinky|||
+|Dream of a Black Swan|2/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Clothes Made of Nettles|Rare|Avian|
+|⤷ First Brother|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Double Strike|||
+|⤷ Second Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||||
+|⤷ Third Brother|0/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Reflector|||
+|⤷ Fourth Brother|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Touch of Death|||
+|⤷ Fifth Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sharp Quills|||
+|⤷ Sixth Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Stinky|||
 |The Dreaming Current|3/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Rampager|||
 |The Burrowing Heaven|0/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Burrower>br>Sharp Quills|||
 |Magical Girl S|2/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Protector|Rare<br>Singleton||
@@ -283,7 +298,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Notes from a Crazed Researcher|0/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Flag Bearer<br>Volatile|||
 |Flesh Idol|0/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Group Healer<br>Annoying|||
 |Giant Tree Sap|0/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Morsel<br>Undying||
-|Mirror of Adjustment|M|1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Woodcutter|||
+|Mirror of Adjustment|**M**/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Woodcutter|||
 |Shelter from the 27th of March|0/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Aggravating<br>Repulsive|||
 |Fairy Festival|1/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Bloodfiend|||
 |Meat Lantern|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Punisher<br>Mighty Leap|||
@@ -292,7 +307,7 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Scarecrow Searching for Wisdom|1/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Bloodfiend|||
 |Dimensional Refraction Variant|4/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Amorphous|||
 |CENSORED|6/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Bloodfiend|Rare||
-|⤷ CENSORED|X/1|X|X||X|
+|⤷ CENSORED|**X**/1|**X**|**X**||**X**|
 |Skin Prophecy|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Witness|||
 |Portrait of Another World|0/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Reflector|||
 |Today's Shy Look|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||||
@@ -312,18 +327,19 @@ You'll need to mess with the cards to figure out exactly what they do 🙃.
 |Backward Clock|0/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Time Machine|Rare<br>Singleton||
 |Il Pianto della Luna|1/7|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Group Healer|||
 |Army in Pink|3/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Protector<br>Guardian|Rare||
+|Army in Black|2/1||Volatile<br>Brittle|Rare||
 |Ppodae|1/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Stinky<br>Fledgling||Canine|
 |⤷ Ppodae|3/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/cEvPoTk.png">|Stinky||Canine|
 |Parasite Tree|0/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Gardener|||
-|⤷ Sapling|0/2||X|||
+|⤷ Sapling|0/2||**X**|||
 |Melting Love|4/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Made of Slime|Rare<br>Poisonous||
-|⤷ Slime|1/X-1|X|X<br>Made of Slime|||
+|⤷ Slime|1/**X-1**|**X**|**X**<br>Made of Slime|||
 |Honoured Monk|2/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fledgling|||
 |⤷ Clouded Monk|4/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">||||
 </details>
 
 ## 🗃️ Starter Decks
-***Level indicates the Challenge Level at which the deck is unlocked (0 means it's always unlocked)**
+**Level indicates the Challenge Level at which the deck is unlocked (0 means it's always unlocked)**
 |Starter Deck|Cards|Level|
 |:-|:-|:-:|
 |First Day|One Sin and Hundreds of Good Deeds<br>Fairy Festival<br>Old Lady|0|
@@ -352,7 +368,7 @@ Note that all Aleph-level cards are Rare cards and thus aren't part of the regul
 |2/30%|30%|20%|20%|_4%*_|
 |3/25%|25%|25%|25%|_8%*_|
 
-*If you're playing Kaycee's Mod the chance of drawing a Rare is halved to 2% and 4% for maps #2 and #3 respectively.
+*If you're playing Kaycee's Mod, the chance of drawing a Rare is halved to 2% and 4% for maps #2 and #3 respectively.
 
 ## 🕓 Closing Notes
 Hello all! Thanks for all the support!! I hope you've been enjoying the mod, and I hope you enjoy this update!
