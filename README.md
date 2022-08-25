@@ -28,7 +28,7 @@ The old config can be safely deleted at your convenience.
 
 ## 🩹 Known Bugs and Issues
 ### Hard to tell!
-Because of the way Thunderstore works I can't (as far as I know) update this section of the ReadMe without updating the entire mod, so you'll have to check the Issues tab on the GitHub to see an accurate list of current bugs, issues, etc.
+Because of the way Thunderstore works I can't (as far as I know) update this section of the ReadMe without updating the entire mod.
 
 Chances are that if there are any game-breaking bugs I'll release a patch as soon as I become aware of it.
 
@@ -49,7 +49,7 @@ For the full list of updates, please refer to the .md file included in the mod p
 <details>
 <summary>Latest Update - v1.1.1</summary>
 
-### v1.1.1 - Broken Shovel patch (8/25/2022)
+### v1.1.1 - Broken Shovel patch (8/26/2022)
 * 🧱 General
   * Fixed inaccurate information in the ReadMe
   * Adjusted the Obtainable Cards section of the ReadMe
@@ -62,7 +62,7 @@ For the full list of updates, please refer to the .md file included in the mod p
   * Tweaked Army in Pink's special ability
 * ⚖️ Balancing
   * Buffed Apocalypse Bird, Army in Black, Void Dream
-  * Increased cost of Spider Brood
+  * Increased Spider Brood's cost to 1 Blood
 
 ### v1.1.0 - First Major Update(tm) (8/22/2022)
 * 🧱 General
@@ -99,24 +99,15 @@ For the full list of updates, please refer to the .md file included in the mod p
 </details>
 
 ## 🛠️ Configuration Options
-* **Enable Mod**
-  * DEFAULT: True
-  * What it says on the tin; this config enables/disables this mod's content.
-* **No Donators**
-  * DEFAULT: False
-  * Prevents Donator-class abnormalities from being obtainable in-game (Backward Clock... Honoured Monk), like the original Lobotomy Corp.
-* **Choice Node at Start**
-  * DEFAULT: False
-  * Adds the custom card choice node to the start of each region.
-* **All Modular**
-  * DEFAULT: False
-  * Makes _most_ custom abilities modular, meaning they can be found on totem bases and on cards from the den trial.
-* **Special Abilities in Rulebook**
-  * DEFAULT: False
-  * Adds entries for the special abilities to the Rulebook for your viewing pleasure.
-* **Reveal Select Descriptions**
-  * DEFAULT: False
-  * Changes the description of certain abilities to actually describe what they do.
+
+|NAME|DEFAULT|DESCRIPTION|
+|:-|:-|:-|
+|Enable Mod|True|Enables this mod's content.|
+|No Donators|True|Replicates the original Lobotomy Corp's 'No Donator' option, removing: Backward Clock...Honoured Monk.|
+|Custom Node at Start|False|Adds the custom choice node to the start of every region|
+|All Modular|False|Makes all non-special abilities modular.|
+|Special Abilities in Rulebook|False|Adds Rulebook entries for each special ability.|
+|Reveal Select Descriptions|Changes the Rulebook entries of certain abilities to properly describe their effect.|
 
 ## ⚜️ Special/Hidden Abilities
 A number of cards added by this mod possess special abilities that are not found in the Rulebook.
@@ -347,28 +338,20 @@ You'll need to play with the cards in order to figure out their special ability 
 |Magical Girls!|Magical Girl H<br>Magical Girl D<br>Magical Girl S|8|
 |Twilight|Punishing Bird<br>Big Bird<br>Judgement Bird|13|
 
-## 📇 Abnormality Card Choice
-This special node can be found randomly as a card choice after battles (and at the start of every region depending on the config) and draws exclusively from this mod's cards.
+## Custom Card Choice Node
+This special node can be found randomly as a card choice after battles and draws exclusively from this mod's pool of cards (including Rares!).
 
-Uniquely, this node uses a special value called 'Risk Level' to determine what cards are drawn which acts as a general indication of their power.
+Cards are chosen based on an internal 'Risk Level' system that splits all cards into five categories, based on their general power level.
 
-The Risk Levels are, in order from least to most powerful: Zayin, Teth, He, Waw, Aleph.
-
-The node randomly chooses one of the first four Risk Levels, and then randomly chooses a card that has that Risk Level.
-
-For each card choice there is a chance that it will instead draw from the pool of Rare mod cards, disregarding the Risk Level.
-
-The chances of a certain Risk Level being chosen or getting a Rare card changes based on the map number (you start a run on map #1, regardless of the region).
-
-Note that all Aleph-level cards are Rare cards and thus aren't part of the regular pool.
+The chances of cards with a certain 'Risk level' appearing as a choice change as you progress in a run according to the table below.
 
 |Map #|Zayin|Teth|He|Waw|_Rare_|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|1/40%|30%|20%|10%|_0%_|
-|2/30%|30%|20%|20%|_4%*_|
-|3/25%|25%|25%|25%|_8%*_|
+|1|40%|30%|20%|10%|_0%_|
+|2|30%|30%|20%|20%|_4%*_|
+|3|25%|25%|25%|25%|_8%*_|
 
-*If you're playing Kaycee's Mod, the chance of drawing a Rare is halved to 2% and 4% for maps #2 and #3 respectively.
+_*This percentage is halved in Kaycee's Mod._
 
 ## 🕓 Closing Notes
 Hello all! Thanks for all the support!! I hope you've been enjoying the mod, and I hope you enjoy this update!

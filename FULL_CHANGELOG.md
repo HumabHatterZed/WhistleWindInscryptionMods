@@ -1,6 +1,6 @@
 ﻿## FULL CHANGELOG
 
-### v1.1.1 - Broken Shovel patch (8/25/2022)
+### v1.1.1 - Broken Shovel patch (8/26/2022)
 * 🧱 General
   * Fixed ReadMe's description of Sapling showing the wrong Power
   * Fixed ReadMe's description of Giant Tree being incorrectly formatted
@@ -17,6 +17,7 @@
   * Buffed Apocalypse Bird's Power from 2 --> 3
   * Buffed Army in Black's Power from 0 --> 1
   * Buffed Void Dream's Power from 0 --> 1
+  * Increased Spider Brood's cost from FREE --> 1 Blood
 
 ### v1.1.0 - First Major Update(tm) (8/22/2022)
 * 🧱 General

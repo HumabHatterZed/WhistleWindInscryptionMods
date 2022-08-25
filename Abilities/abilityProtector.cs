@@ -108,7 +108,7 @@ namespace WhistleWindLobotomyMod
                     CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
                     cardByName.Mods.Add(cardModificationInfo);
                 }
-                yield return base.Card.TransformIntoCard(cardByName);
+                yield return base.Card.TransformIntoCard(cardByName, preTransformCallback: ResetDamage);
                 yield return new WaitForSeconds(0.5f);
                 yield return CreateArmyInHand();
                 if (!WstlSaveManager.HasSeenArmyBlacked)
@@ -135,6 +135,11 @@ namespace WhistleWindLobotomyMod
                 yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardByName, null, 0.25f, null);
             }
             yield return new WaitForSeconds(0.45f);
+        }
+
+        private void ResetDamage()
+        {
+            base.Card.Status.damageTaken = 0;
         }
     }
 }

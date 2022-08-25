@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_spiderBrood", "Spider Brood",
                 "Big and mean.",
-                1, 3, 0, 0,
+                1, 3, 1, 0,
                 Resources.spiderBrood, Resources.spiderBrood_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
