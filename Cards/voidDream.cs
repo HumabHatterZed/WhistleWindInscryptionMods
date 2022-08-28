@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_voidDream", "Void Dream",
                 "A sleeping goat. Or is it a sheep?",
-                0, 1, 1, 0,
+                1, 1, 1, 0,
                 Resources.voidDream, Resources.voidDream_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),

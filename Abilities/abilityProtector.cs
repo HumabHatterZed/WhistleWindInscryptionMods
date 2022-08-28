@@ -36,22 +36,19 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
         {
-            if (!attacker.Dead)
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
             {
-                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
+                if (slot.Card == target)
                 {
-                    if (slot.Card == target)
-                    {
-                        return amount > 0;
-                    }
+                    return amount > 0;
                 }
             }
             return false;
         }
         public override IEnumerator OnOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
         {
-            yield return target.Status.damageTaken--;
             yield return base.PreSuccessfulTriggerSequence();
+            yield return target.Status.damageTaken--;
             base.Card.Anim.StrongNegationEffect();
             if (!IsDespair)
             {
@@ -62,17 +59,16 @@ namespace WhistleWindLobotomyMod
                 WstlSaveManager.HasSeenDespairProtect = true;
                 yield return new WaitForSeconds(0.4f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(protectDialogue, -0.65f, 0.4f);
-                yield return new WaitForSeconds(0.25f);
             }
         }
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            if (IsDespair || IsArmy)
+            if (fromCombat && (IsDespair || IsArmy) && base.Card.OnBoard)
             {
-                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot != null))
+                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
                 {
-                    if (slot.Card != null && slot.Card == card)
+                    if (slot.Card == card)
                     {
                         return fromCombat;
                     }
@@ -85,7 +81,7 @@ namespace WhistleWindLobotomyMod
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.15f);
             base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.4f);
             if (IsDespair)
             {
                 CardInfo cardByName = CardLoader.GetCardByName("wstl_knightOfDespair");
@@ -107,13 +103,14 @@ namespace WhistleWindLobotomyMod
             if (IsArmy)
             {
                 CardInfo cardByName = CardLoader.GetCardByName("wstl_armyInBlack");
-                yield return base.Card.TransformIntoCard(cardByName);
                 foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
                 {
                     CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
                     cardByName.Mods.Add(cardModificationInfo);
                 }
+                yield return base.Card.TransformIntoCard(cardByName, preTransformCallback: ResetDamage);
                 yield return new WaitForSeconds(0.5f);
+                yield return CreateArmyInHand();
                 if (!WstlSaveManager.HasSeenArmyBlacked)
                 {
                     WstlSaveManager.HasSeenArmyBlacked = true;
@@ -122,6 +119,27 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.25f);
                 yield break;
             }
+        }
+        private IEnumerator CreateArmyInHand()
+        {
+            CardInfo cardByName = CardLoader.GetCardByName("wstl_armyInBlack");
+
+            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
+            {
+                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
+                yield return new WaitForSeconds(0.2f);
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardByName, null, 0.25f, null);
+            }
+            yield return new WaitForSeconds(0.45f);
+        }
+
+        private void ResetDamage()
+        {
+            base.Card.Status.damageTaken = 0;
         }
     }
 }

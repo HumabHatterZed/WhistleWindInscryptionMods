@@ -60,5 +60,29 @@ namespace WhistleWindLobotomyMod
             }
             item.ExitBoard(0.3f, Vector3.zero);
         }
+
+        public static bool HasAllOfTraits(this CardInfo info, List<Trait> traits)
+        {
+            foreach (Trait item in traits)
+            {
+                if (!info.traits.Contains(item))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static bool HasAnyOfTraits(this CardInfo info, List<Trait> traits)
+        {
+            foreach (Trait item in traits)
+            {
+                if (info.traits.Contains(item))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

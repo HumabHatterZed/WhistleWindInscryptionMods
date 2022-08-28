@@ -12,8 +12,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.GuardDog,
-                Volatile.ability
+                Volatile.ability,
+                Ability.Brittle
             };
 
             List<CardAppearanceBehaviour.Appearance> appearances = new()
@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_armyInBlack", "Army in Black",
                 "Duty-bound.",
-                4, 2, 2, 0,
+                2, 1, 0, 0,
                 Resources.armyInBlack, Resources.armyInBlack_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

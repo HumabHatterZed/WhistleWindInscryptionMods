@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_graveOfBlossoms", "Grave of Cherry Blossoms",
                 "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.",
-                0, 2, 1, 0,
+                0, 3, 1, 0,
                 Resources.graveOfBlossoms, Resources.graveOfBlossoms_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
