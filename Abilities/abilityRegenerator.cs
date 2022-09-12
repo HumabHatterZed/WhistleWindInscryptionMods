@@ -41,7 +41,10 @@ namespace WhistleWindLobotomyMod
 
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot).Where(slot => slot.Card != null))
             {
-                slot.Card.Anim.LightNegationEffect();
+                if (!slot.Card.FaceDown)
+                {
+                    slot.Card.Anim.LightNegationEffect();
+                }
                 // If the target card is overhealed by 2, trigger death sequence
                 if (slot.Card.Health >= slot.Card.MaxHealth + 2)
                 {
@@ -116,6 +119,7 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator DragonSequence(PlayableCard card)
         {
+            bool removeYin = SeededRandom.Range(0, 2, base.GetRandomSeed()) == 0;
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
 
             yield return new WaitForSeconds(0.5f);
@@ -123,9 +127,10 @@ namespace WhistleWindLobotomyMod
             {
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dragonDialogue, -0.65f, 0.4f);
             }
-            base.Card.RemoveFromBoard(true);
+            base.Card.RemoveFromBoard(!removeYin);
             yield return new WaitForSeconds(0.1f);
-            card.RemoveFromBoard(true);
+            card.RemoveFromBoard(removeYin);
+            WstlPlugin.Log.LogDebug($"Removed Yin: {removeYin}");
             yield return new WaitForSeconds(0.5f);
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             yield return new WaitForSeconds(0.2f);
