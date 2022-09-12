@@ -14,6 +14,10 @@ namespace WhistleWindLobotomyMod
             {
                 SerpentsNest.ability
             };
+            List<Tribe> tribes = new()
+            {
+                Tribe.Insect
+            };
             List<Trait> traits = new()
             {
                 Trait.KillsSurvivors
@@ -24,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 0, 2, 0, 4,
                 Resources.theNakedNest, Resources.theNakedNest_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
+                metaCategories: new(), tribes: tribes, traits: traits,
                 isChoice: true, riskLevel: 4);
         }
     }

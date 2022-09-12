@@ -10,13 +10,17 @@ namespace WhistleWindLobotomyMod
     {
         private void TheNakedWorm_O0274()
         {
+            List<Tribe> tribes = new()
+            {
+                Tribe.Insect
+            };
             CardHelper.CreateCard(
                 "wstl_theNakedWorm", "Naked Worm",
                 "It can enter your body through any aperture.",
                 1, 1, 0, 0,
                 Resources.theNakedWorm, Resources.theNakedWorm_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: tribes, traits: new());
         }
     }
 }
