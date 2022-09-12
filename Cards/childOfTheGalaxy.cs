@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_childOfTheGalaxy", "Child of the Galaxy",
                 "The longing becomes a tear, and cascades down like a shooting star.",
                 1, 4, 2, 0,
-                Resources.childOfTheGalaxy, Resources.childOfTheGalaxy_emission,
+                Resources.childOfTheGalaxy, Resources.childOfTheGalaxy_emission, gbcTexture: Resources.childOfTheGalaxy_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 isChoice: true, riskLevel: 3);
