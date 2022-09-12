@@ -158,6 +158,10 @@ namespace WhistleWindLobotomyMod
             {
                 // Copy merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
+                if (cardModificationInfo.attackAdjustment > 0)
+                {
+                    cardModificationInfo.attackAdjustment = 0;
+                }
                 cardInfo.Mods.Add(cardModificationInfo);
             }
             foreach (Ability item in otherInfo.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))

@@ -86,7 +86,10 @@ namespace WhistleWindLobotomyMod
             {
                 // Adds merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                cardModificationInfo.fromCardMerge = true;
+                if (cardModificationInfo.healthAdjustment > 0)
+                {
+                    cardModificationInfo.healthAdjustment = 0;
+                }
                 minion.Mods.Add(cardModificationInfo);
             }
             foreach (Tribe item in card.Info.tribes.FindAll((Tribe x) => x != Tribe.NUM_TRIBES))
