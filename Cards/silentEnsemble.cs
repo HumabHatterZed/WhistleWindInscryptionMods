@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_silentEnsemble", "Chairs",
                 "The conductor begins to direct the apocalypse.",
-                0, 2, 0, 0,
+                1, 3, 0, 0,
                 Resources.silentEnsemble, Resources.silentEnsemble_emission,
                 abilities: abilities, specialAbilities: new(),
                 tribes: new());
