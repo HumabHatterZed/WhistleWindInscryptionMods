@@ -22,12 +22,25 @@ namespace WhistleWindLobotomyMod
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
-    public class GiftGiver : AbilityBehaviour
+    public class GiftGiver : OpponentDrawCreatedCard
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
         private bool IsLaetitia => base.Card.Info.name.ToLowerInvariant().Contains("laetitia");
+        public override CardInfo CardToDraw
+        {
+            get
+            {
+                if (this.IsLaetitia)
+                {
+                    CardInfo cardByName = CardLoader.GetCardByName("wstl_laetitiaFriend");
+                    cardByName.Mods.AddRange(base.GetNonDefaultModsFromSelf(this.Ability));
+                    return cardByName;
+                }
+                List<CardInfo> list = ScriptableObjectLoader<CardInfo>.AllData.FindAll((CardInfo x) => x.metaCategories.Contains(CardMetaCategory.ChoiceNode));
+                return list[SeededRandom.Range(0, list.Count, base.GetRandomSeed())];
+            }
+        }
 
         public override bool RespondsToResolveOnBoard()
         {
@@ -36,35 +49,8 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnResolveOnBoard()
         {
             yield return base.PreSuccessfulTriggerSequence();
-            base.Card.Anim.LightNegationEffect();
-            yield return new WaitForSeconds(0.2f);
-            yield return CreateDrawnCard();
-        }
-
-        private IEnumerator CreateDrawnCard()
-        {
-            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
-            {
-                yield return new WaitForSeconds(0.2f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
-                yield return new WaitForSeconds(0.2f);
-            }
-            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardToDraw);
-            yield return new WaitForSeconds(0.45f);
-            yield return base.LearnAbility(0.1f);
-            Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-        }
-        private CardInfo CardToDraw
-        {
-            get
-            {
-                if (this.IsLaetitia)
-                {
-                    return CardLoader.GetCardByName("wstl_laetitiaFriend");
-                }
-                List<CardInfo> list = ScriptableObjectLoader<CardInfo>.AllData.FindAll((CardInfo x) => x.metaCategories.Contains(CardMetaCategory.ChoiceNode));
-                return list[SeededRandom.Range(0, list.Count, base.GetRandomSeed())];
-            }
+            yield return QueueOrCreateDrawnCard();
+            yield return base.LearnAbility();
         }
     }
 }

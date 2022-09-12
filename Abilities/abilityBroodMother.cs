@@ -19,11 +19,19 @@ namespace WhistleWindLobotomyMod
                 addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
-    public class BroodMother : AbilityBehaviour
+    public class BroodMother : OpponentDrawCreatedCard
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
+        public override CardInfo CardToDraw
+        {
+            get
+            {
+                CardInfo cardByName = CardLoader.GetCardByName("wstl_spiderling");
+                cardByName.Mods.AddRange(base.GetNonDefaultModsFromSelf(this.Ability));
+                return cardByName;
+            }
+        }
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
             return true;
@@ -31,18 +39,10 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
             yield return base.PreSuccessfulTriggerSequence();
-
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
-            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
-            {
-                yield return new WaitForSeconds(0.2f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
-                yield return new WaitForSeconds(0.2f);
-            }
-            CardInfo cardInfo = CardLoader.GetCardByName("wstl_spiderling");
-            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
-            yield return base.LearnAbility(0.95f);
+            yield return base.QueueOrCreateDrawnCard();
+            yield return base.LearnAbility(0.5f);
         }
     }
 }

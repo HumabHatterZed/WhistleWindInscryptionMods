@@ -21,10 +21,19 @@ namespace WhistleWindLobotomyMod
                 addModular: true, opponent: true, canStack: false, isPassive: false).Id;
         }
     }
-    public class SerpentsNest : AbilityBehaviour
+    public class SerpentsNest : OpponentDrawCreatedCard
     {
         public static Ability ability;
         public override Ability Ability => ability;
+        public override CardInfo CardToDraw
+        {
+            get
+            {
+                CardInfo cardByName = CardLoader.GetCardByName("wstl_theNakedWorm");
+                cardByName.Mods.AddRange(base.GetNonDefaultModsFromSelf(this.Ability));
+                return cardByName;
+            }
+        }
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
             if (source != null)
@@ -41,21 +50,12 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.55f);
             yield return source.TakeDamage(1, base.Card);
             yield return new WaitForSeconds(0.4f);
-
-            if (base.Card.Slot.IsPlayerSlot)
+            yield return base.QueueOrCreateDrawnCard();
+            if (!base.Card.OpponentCard)
             {
-                if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
-                {
-                    yield return new WaitForSeconds(0.2f);
-                    Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
-                    yield return new WaitForSeconds(0.2f);
-                }
-                CardInfo cardInfo = CardLoader.GetCardByName("wstl_theNakedWorm");
-                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null, 0.25f, null);
-
                 yield return new WaitForSeconds(0.45f);
-                yield return base.LearnAbility(0.5f);
             }
+            yield return base.LearnAbility(0.5f);
         }
     }
 }
