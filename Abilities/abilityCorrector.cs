@@ -27,7 +27,21 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private readonly System.Random random = new();
+        public override bool RespondsToResolveOnBoard()
+        {
+            return base.Card.OpponentCard;
+        }
+        public override IEnumerator OnResolveOnBoard()
+        {
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            yield return new WaitForSeconds(0.15f);
+            base.Card.Anim.PlayTransformAnimation();
+            yield return new WaitForSeconds(0.15f);
+            ChangeStats();
+            yield return new WaitForSeconds(0.45f);
+            yield return base.LearnAbility();
+        }
+
         public override bool RespondsToDrawn()
         {
             return true;
