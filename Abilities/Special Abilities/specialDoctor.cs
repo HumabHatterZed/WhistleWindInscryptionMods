@@ -69,7 +69,7 @@ namespace WhistleWindLobotomyMod
             Texture2D portrait;
             Texture2D emissive;
 
-            switch (ConfigUtils.Instance.NumOfBlessings)
+            switch (ConfigManager.Instance.NumOfBlessings)
             {
                 case 0:
                     portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor);

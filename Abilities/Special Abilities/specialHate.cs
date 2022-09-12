@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
 
         private int allyDeaths;
         private int opponentDeaths;
-        private bool IsMagical => base.PlayableCard.Info.name == ("wstl_magicalGirlH");
+        private bool IsMagical => base.PlayableCard.Info.name == "wstl_magicalGirlHeart";
         private readonly string dialogue = "The balance must be maintained. Good cannot exist without evil.";
         private readonly string altDialogue = "Good cannot exist without evil.";
 
@@ -40,7 +40,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return base.PlayableCard.OnBoard && IsMagical && fromCombat && killer != null;
+            return IsMagical && base.PlayableCard.OnBoard && fromCombat && killer != null;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
@@ -61,10 +61,12 @@ namespace WhistleWindLobotomyMod
         
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
-            return base.PlayableCard.OnBoard && IsMagical && base.PlayableCard.OpponentCard != playerUpkeep;
+            return IsMagical && base.PlayableCard.OnBoard && base.PlayableCard.OpponentCard != playerUpkeep;
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
+            WstlPlugin.Log.LogDebug($"Opponent: {opponentDeaths}");
+            WstlPlugin.Log.LogDebug($"Player: {allyDeaths}");
             // 2 more player cards have died than opponent cards
             if (allyDeaths > opponentDeaths + 1)
             {
@@ -79,15 +81,24 @@ namespace WhistleWindLobotomyMod
                     {
                         base.PlayableCard.RemoveFromBoard();
                         yield return new WaitForSeconds(0.5f);
-                        yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(evolution, null, 0.25f, null);
+
+                        if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
+                        {
+                            yield return new WaitForSeconds(0.2f);
+                            Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
+                            yield return new WaitForSeconds(0.2f);
+                        }
+                        yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(evolution);
+                        yield return new WaitForSeconds(0.45f);
                     }
                     else
                     {
                         yield return MoveToSlot(false, base.PlayableCard.Slot.opposingSlot);
+                        yield return new WaitForSeconds(0.25f);
                     }
-                    yield return new WaitForSeconds(0.25f);
                 }
                 yield return PlayDialogue();
+                Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             }
 
             // 2 more Leshy card deaths than player card deaths
@@ -107,20 +118,23 @@ namespace WhistleWindLobotomyMod
                     // if the opposing slot is empty, move over to it
                     if (base.PlayableCard.Slot.opposingSlot.Card == null)
                     {
+                        WstlPlugin.Log.LogDebug("Moving Queen of Hatred to opposing slot.");
                         yield return MoveToSlot(true, opposingSlot);
                     }
                     // if the opposing slot is occupied but the opposing queue is empty
                     else if (!queuedSlots.Contains(opposingSlot))
                     {
-                        // if it's not Uncuttable, return to queue than move to slot
+                        // if the opposing card isn't Uncuttable, return it to queue than move to slot
                         if (!opposingSlot.Card.Info.HasTrait(Trait.Uncuttable))
                         {
+                            WstlPlugin.Log.LogDebug("Moving opposing card to queue, moving Queen of Hatred to opposing slot.");
                             yield return Singleton<TurnManager>.Instance.Opponent.ReturnCardToQueue(opposingSlot.Card, 0.25f);
                             yield return MoveToSlot(true, opposingSlot);
                         }
                         // otherwise add this card to queue
                         else
                         {
+                            WstlPlugin.Log.LogDebug("Adding Queen of Hatred to opposing queue slot.");
                             base.PlayableCard.RemoveFromBoard();
                             yield return new WaitForSeconds(0.5f);
                             yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(evolution, opposingSlot);
@@ -129,6 +143,7 @@ namespace WhistleWindLobotomyMod
                     // if there are no available queues, opposing etc., add to turnplan
                     else
                     {
+                        WstlPlugin.Log.LogDebug("Adding Queen of Hatred to turn plan.");
                         base.PlayableCard.RemoveFromBoard();
                         yield return new WaitForSeconds(0.5f);
                         List<List<CardInfo>> turnPlan = Singleton<TurnManager>.Instance.Opponent.TurnPlan;

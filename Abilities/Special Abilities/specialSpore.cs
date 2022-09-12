@@ -23,6 +23,8 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
+        private int spores = 0;
+
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
             if (base.PlayableCard != null)
@@ -33,21 +35,12 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            int spores = base.PlayableCard.Info.GetExtendedPropertyAsInt("wstl:Spore") != null ?
-                (int)base.PlayableCard.Info.GetExtendedPropertyAsInt("wstl:Spore") : 0;
-
-            // WstlPlugin.Log.LogDebug($"Card {base.PlayableCard.Info.name} has {spores} Spore.");
-
-            int adjacentSpores = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot)
+            spores += Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot)
                 .Where((CardSlot s) => s != null && s.Card != null && s.Card.HasAbility(Spores.ability)).Count();
 
-            // WstlPlugin.Log.LogDebug($"There are {adjacentSpores} adjacent Spores ability cards.");
-
-            yield return base.PlayableCard.Info.SetExtendedProperty("wstl:Spore", spores + adjacentSpores);
-
-            // WstlPlugin.Log.LogDebug($"Card {base.PlayableCard.Info.name} has {base.PlayableCard.Info.GetExtendedPropertyAsInt("wstl:Spore")} Spore.");
-
-            yield return base.PlayableCard.TakeDamage((int)base.PlayableCard.Info.GetExtendedPropertyAsInt("wstl:Spore"), null);
+            base.PlayableCard.Anim.LightNegationEffect();
+            yield return new WaitForSeconds(0.2f);
+            yield return base.PlayableCard.TakeDamage(spores, null);
         }
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
@@ -56,8 +49,7 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            int spores = base.PlayableCard.Info.GetExtendedPropertyAsInt("wstl:Spore") != null ?
-                (int)base.PlayableCard.Info.GetExtendedPropertyAsInt("wstl:Spore") : 0;
+            WstlPlugin.Log.LogDebug($"Card {base.PlayableCard.Info.name} has {spores} Spore.");
 
             if (spores == 0 || base.PlayableCard.Slot == null)
             {
@@ -72,11 +64,19 @@ namespace WhistleWindLobotomyMod
             minion.energyCost = base.PlayableCard.Info.EnergyCost;
             minion.gemsCost = base.PlayableCard.Info.GemsCost;
 
-            foreach (CardModificationInfo item in base.PlayableCard.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+            foreach (CardModificationInfo item in base.PlayableCard.Info.Mods.FindAll((CardModificationInfo x) => x.fromCardMerge))
             {
                 // Adds merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                cardModificationInfo.fromCardMerge = true;
+                if (cardModificationInfo.healthAdjustment > 0)
+                {
+                    cardModificationInfo.healthAdjustment = 0;
+                }
+                if (cardModificationInfo.attackAdjustment > 0)
+                {
+                    cardModificationInfo.attackAdjustment = 0;
+                }
+                // cardModificationInfo.fromCardMerge = true;
                 minion.Mods.Add(cardModificationInfo);
             }
             foreach (Ability item in base.PlayableCard.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
