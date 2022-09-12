@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
         public static CardAppearanceBehaviour.Appearance appearance;
         public override void ApplyAppearance()
         {
-            if (base.Card.Info.name != "wstl_plagueDoctor" || (base.Card.Info.name == "wstl_plagueDoctor" && ConfigUtils.Instance.NumOfBlessings == 11))
+            if (base.Card.Info.name != "wstl_plagueDoctor" || (base.Card.Info.name == "wstl_plagueDoctor" && ConfigManager.Instance.NumOfBlessings == 11))
             {
                 base.Card.RenderInfo.forceEmissivePortrait = true;
                 base.Card.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);

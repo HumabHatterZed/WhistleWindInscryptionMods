@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                SpecialAbilityFledgling.specialAbility
+                CustomFledgling.specialAbility
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {

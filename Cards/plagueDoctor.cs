@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
             byte[] portrait;
             byte[] emissive;
 
-            switch (ConfigUtils.Instance.NumOfBlessings)
+            switch (ConfigManager.Instance.NumOfBlessings)
             {
                 case 0:
                     portrait = Resources.plagueDoctor;
