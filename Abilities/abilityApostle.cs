@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Apostle()
         {
             const string rulebookName = "Apostle";
-            string rulebookDescription = ConfigUtils.Instance.RevealWhiteNight ? "This card will enter a downed state instead of dying, recovering at the start of the owner's turn." : "Thou wilt abandon flesh and be born again.";
+            string rulebookDescription = ConfigManager.Instance.RevealWhiteNight ? "This card will enter a downed state instead of dying, recovering at the start of the owner's turn." : "Thou wilt abandon flesh and be born again.";
             const string dialogue = "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:bR]";
 
             Apostle.ability = AbilityHelper.CreateAbility<Apostle>(
@@ -49,21 +49,29 @@ namespace WhistleWindLobotomyMod
 
             if (killer != null)
             {
-                CardInfo downedInfo = CardLoader.GetCardByName("wstl_apostleScytheDown");
+                bool guardian = false;
+                CardInfo downedInfo;
                 switch (base.Card.Info.name)
                 {
+                    case "wstl_apostleGuardian":
+                        guardian = true;
+                        downedInfo = CardLoader.GetCardByName("wstl_apostleGuardianDown");
+                        break;
                     case "wstl_apostleSpear":
                         downedInfo = CardLoader.GetCardByName("wstl_apostleSpearDown");
                         break;
                     case "wstl_apostleStaff":
                         downedInfo = CardLoader.GetCardByName("wstl_apostleStaffDown");
                         break;
+                    default:
+                        downedInfo = CardLoader.GetCardByName("wstl_apostleScytheDown");
+                        break;
                 }
 
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(downedInfo, base.Card.Slot, 0.15f);
-                if (!WstlSaveManager.ApostleDowned)
+                yield return new WaitForSeconds(0.2f);
+                if (!WstlSaveManager.ApostleDowned && !guardian)
                 {
-                    yield return new WaitForSeconds(0.2f);
                     WstlSaveManager.ApostleDowned = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(downedDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
                 }
@@ -71,11 +79,11 @@ namespace WhistleWindLobotomyMod
             else
             {
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
+                yield return new WaitForSeconds(0.2f);
                 if (!WstlSaveManager.ApostleKilled)
                 {
-                    yield return new WaitForSeconds(0.2f);
                     WstlSaveManager.ApostleKilled = true;
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hammeredDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hammeredDialogue, -0.65f, 0.4f, Emotion.Laughter, speaker: DialogueEvent.Speaker.Bonelord);
                 }
             }
         }

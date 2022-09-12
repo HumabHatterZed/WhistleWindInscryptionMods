@@ -100,7 +100,7 @@ namespace WhistleWindLobotomyMod
             if (isTerrain) { cardInfo.SetTerrain(); }
             if (isChoice)
             {
-                if (isDonator && ConfigUtils.Instance.NoDonators)
+                if (isDonator && ConfigManager.Instance.NoDonators)
                 {
 
                 }
@@ -111,7 +111,7 @@ namespace WhistleWindLobotomyMod
             }
             if (isRare)
             {
-                if (isDonator && ConfigUtils.Instance.NoDonators)
+                if (isDonator && ConfigManager.Instance.NoDonators)
                 {
                     cardInfo.AddAppearances(CardAppearanceBehaviour.Appearance.RareCardBackground);
                 }
