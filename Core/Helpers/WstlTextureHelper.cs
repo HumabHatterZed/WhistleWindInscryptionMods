@@ -24,6 +24,7 @@ namespace WhistleWindLobotomyMod
         public static Sprite LoadSpriteFromResource(byte[] resourceFile, bool isStarter = false)
         {
             var texture = LoadTextureFromResource(resourceFile);
+            // Starter Deck icon or Challenge icon
             Rect rect = isStarter ? new Rect(0f, 0f, 35f, 44f) : new Rect(0f, 0f, 49f, 49f);
             Vector2 pivot = new(0.5f, 0.5f);
             return Sprite.Create(texture, rect, pivot);
