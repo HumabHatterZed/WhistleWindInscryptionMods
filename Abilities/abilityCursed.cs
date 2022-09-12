@@ -26,9 +26,9 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            if (!wasSacrifice && killer != null && !killer.Dead)
+            if (!wasSacrifice && killer != null && !killer.Dead && killer.Health != 0)
             {
-                return !killer.HasAbility(Ability.MadeOfStone) && !killer.Info.HasAnyOfTraits(new() { Trait.Giant, Trait.Uncuttable });
+                return !killer.HasAbility(Ability.MadeOfStone) && !killer.Info.HasAnyOfTraits(Trait.Giant, Trait.Uncuttable);
             }
             return false;
         }
