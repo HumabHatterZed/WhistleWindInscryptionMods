@@ -124,6 +124,9 @@
   <data name="allAroundHelper_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\allAroundHelper_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="allAroundHelper_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\allAroundHelper_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="alriune" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\alriune.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -136,11 +139,35 @@
   <data name="apocalypseBird_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\apocalypseBird_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="apostleGuardian" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\apostleGuardian.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="apostleGuardianDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\apostleGuardianDown.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="apostleGuardianDown_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\apostleGuardianDown_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="apostleGuardian_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\apostleGuardian_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="apostleHeretic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\apostleHeretic.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="apostleHeretic_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\apostleHeretic_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="apostleMoleman" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\apostleMoleman.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="apostleMolemanDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\apostleMolemanDown.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="apostleMolemanDown_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\apostleMolemanDown_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="apostleMoleman_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\apostleMoleman_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="apostleScythe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\apostleScythe.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -189,6 +216,30 @@
   </data>
   <data name="armyInPink_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\armyInPink_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionAbnormalBosses" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ascensionAbnormalBosses.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionAbnormalBosses_activated" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ascensionAbnormalBosses_activated.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionAbnormalEncounters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ascensionAbnormalEncounters.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionAbnormalEncounters_activated" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ascensionAbnormalEncounters_activated.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionBetterRareChances" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ascensionBetterRareChances.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionBetterRareChances_activated" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ascensionBetterRareChances_activated.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionMiracleWorker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ascensionMiracleWorker.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionMiracleWorker_activated" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ascensionMiracleWorker_activated.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="backwardClock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\backwardClock.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -288,6 +339,9 @@
   </data>
   <data name="childOfTheGalaxy_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\childOfTheGalaxy_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="childOfTheGalaxy_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\childOfTheGalaxy_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="cloudedMonk" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cloudedMonk.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -480,6 +534,9 @@
   </data>
   <data name="laetitia_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\laetitia_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="laetitia_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\laetitia_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="luminousBracelet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\luminousBracelet.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -805,6 +862,9 @@
   <data name="scorchedGirl_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\scorchedGirl_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="scorchedGirl_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scorchedGirl_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="shelterFrom27March" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\shelterFrom27March.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1102,6 +1162,15 @@
   <data name="singingMachine_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\singingMachine_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="singingMachine_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\singingMachine_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="skeleton_shrimp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\skeleton_shrimp.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="skeleton_shrimp_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\skeleton_shrimp_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="skinProphecy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\skinProphecy.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1158,6 +1227,12 @@
   </data>
   <data name="starterDeckBlackForest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\starterDeckBlackForest.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="starterDeckBloodMachines" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\starterDeckBloodMachines.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="starterDeckChildren" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\starterDeckChildren.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="starterDeckControl" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\starterDeckControl.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1263,6 +1338,9 @@
   </data>
   <data name="weCanChangeAnything_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\weCanChangeAnything_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="weCanChangeAnything_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\weCanChangeAnything_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="whiteNight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\whiteNight.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
