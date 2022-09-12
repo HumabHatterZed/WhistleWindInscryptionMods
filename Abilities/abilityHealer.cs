@@ -85,7 +85,7 @@ namespace WhistleWindLobotomyMod
                     randSlot.Card.Anim.StrongNegationEffect();
                     CombatPhaseManagerPatch.Instance.VisualizeClearSniperAbility();
                     base.Card.Anim.LightNegationEffect();
-                    ConfigUtils.Instance.UpdateBlessings(1);
+                    ConfigManager.Instance.UpdateBlessings(1);
                     UpdatePortrait();
                     yield return new WaitForSeconds(0.25f);
                 }
@@ -120,9 +120,10 @@ namespace WhistleWindLobotomyMod
                 if (IsDoctor)
                 {
                     base.Card.Anim.LightNegationEffect();
-                    ConfigUtils.Instance.UpdateBlessings(1);
+                    ConfigManager.Instance.UpdateBlessings(1);
                     UpdatePortrait();
                     yield return new WaitForSeconds(0.15f);
+                    yield return ClockTwelve();
                 }
                 yield return new WaitForSeconds(0.25f);
                 yield break;
@@ -162,7 +163,7 @@ namespace WhistleWindLobotomyMod
             if (IsDoctor)
             {
                 base.Card.Anim.LightNegationEffect();
-                ConfigUtils.Instance.UpdateBlessings(1);
+                ConfigManager.Instance.UpdateBlessings(1);
                 UpdatePortrait();
                 yield return new WaitForSeconds(0.15f);
                 yield return ClockTwelve();
@@ -212,13 +213,13 @@ namespace WhistleWindLobotomyMod
         private IEnumerator ClockTwelve()
         {
             // If Blessings are between (0,11), break
-            if (0 <= ConfigUtils.Instance.NumOfBlessings && ConfigUtils.Instance.NumOfBlessings < 12)
+            if (0 < ConfigManager.Instance.NumOfBlessings && ConfigManager.Instance.NumOfBlessings < 12)
             {
                 yield break;
             }
             yield return new WaitForSeconds(0.5f);
             // If blessings are in the negatives (aka someone cheated), wag a finger and go 'nuh-uh-uh!'
-            if (ConfigUtils.Instance.NumOfBlessings < 0)
+            if (ConfigManager.Instance.NumOfBlessings < 0)
             {
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]Thou cannot stop my ascension. Even the tutelary bows to mine authority.[c:]", -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
             }
@@ -228,7 +229,8 @@ namespace WhistleWindLobotomyMod
             yield return base.Card.TransformIntoCard(CardLoader.GetCardByName("wstl_whiteNight"));
             base.Card.Status.hiddenAbilities.Add(Ability.Flying);
             base.Card.AddTemporaryMod(new CardModificationInfo(Ability.Flying));
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.5f);
+            CardLoader.GetCardByName("wstl_plagueDoctor").SetPortrait(WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor), WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor_emission));
             // Create dialogue depending on whether this is the first time this has happened this run
             if (!WstlSaveManager.ClockThisRun)
             {
@@ -324,7 +326,7 @@ namespace WhistleWindLobotomyMod
             Texture2D portrait;
             Texture2D emissive;
 
-            switch (ConfigUtils.Instance.NumOfBlessings)
+            switch (ConfigManager.Instance.NumOfBlessings)
             {
                 case 0:
                     portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor);
