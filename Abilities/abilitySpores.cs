@@ -1,5 +1,6 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
+using InscryptionAPI.Triggers;
 using DiskCardGame;
 using System.Collections;
 using System.Linq;
@@ -25,85 +26,34 @@ namespace WhistleWindLobotomyMod
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public static CardModificationInfo fungusDecal = new()
-        {
-            DecalIds = { "decal_fungus"}
-        };
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
-        {
-            if (base.Card != null)
-            {
-                return base.Card.OpponentCard != playerTurnEnd;
-            }
-            return false;
-        }
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
-            CardSlot toLeft = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: true);
-            CardSlot toRight = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: false);
-
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-            yield return new WaitForSeconds(0.1f);
-            yield return EmitSpores(toLeft, toRight);
-        }
 
         private bool CheckValid(CardSlot slot)
         {
-            return slot != null && slot.Card != null && slot.Card.Info.name != "wstl_theLittlePrinceMinion";
+            return slot != null && slot.Card != null && slot.Card.Info.name != "wstl_theLittlePrinceMinion" && slot.Card.LacksSpecialAbility(SporeDamage.specialAbility);
         }
-        private IEnumerator EmitSpores(CardSlot toLeft, CardSlot toRight)
+        private IEnumerator EmitSpores(PlayableCard card)
         {
-            bool forceLeft = false;
-            bool validLeft = CheckValid(toLeft);
-            bool validRight = CheckValid(toRight);
-            if (!validLeft && !validRight)
-            {
-                yield break;
-            }
             yield return base.PreSuccessfulTriggerSequence();
-            if (validLeft)
-            {
-                if (toLeft.Card.Info.GetExtendedProperty("wstl:HasSpore") == null)
-                {
-                    yield return toLeft.Card.Info.SetExtendedProperty("wstl:HasSpore", true);
-                    toLeft.Card.AddPermanentBehaviour<SporeDamage>();
-                    //toLeft.Card.Info.TempDecals.Clear();
-                    //toLeft.Card.Info.TempDecals.Add(ResourceBank.Get<Texture>("Art/Cards/Decals/decal_fungus"));
-                    toLeft.Card.OnStatsChanged();
-                    toLeft.Card.Anim.StrongNegationEffect();
+            card.AddPermanentBehaviour<SporeDamage>();
+        }
 
-                    // Because of the way triggers work, if the card is on the left we have to manually make it take its first turn of damage here
-                    // Check if it has no Spore, then do the damage thing if true
-                    if (!(toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore") != null))
-                    {
-                        forceLeft = true;
-                    }
-                }
-            }
-            if (validRight)
+        public override bool RespondsToTurnEnd(bool playerTurnEnd)
+        {
+            return base.Card.OpponentCard != playerTurnEnd;
+        }
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
+        {
+            bool gaveSpore = false;
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(s => s.Card != null))
             {
-                if (toRight.Card.Info.GetExtendedProperty("wstl:HasSpore") == null)
+                if (CheckValid(slot))
                 {
-                    yield return toRight.Card.Info.SetExtendedProperty("wstl:HasSpore", true);
-                    toRight.Card.AddPermanentBehaviour<SporeDamage>();
-                    //toRight.Card.Info.TempDecals.Clear();
-                    //toRight.Card.Info.TempDecals.Add(ResourceBank.Get<Texture>("Art/Cards/Decals/decal_fungus"));
-                    toRight.Card.OnStatsChanged();
-                    toRight.Card.Anim.StrongNegationEffect();
+                    gaveSpore = true;
+                    yield return EmitSpores(slot.Card);
                 }
             }
-            yield return new WaitForSeconds(0.2f);
-            if (validLeft || validRight)
-            {
-                yield return base.LearnAbility(0.4f);
-            }
-            if (forceLeft)
-            {
-                yield return new WaitForSeconds(0.2f);
-                yield return toLeft.Card.Info.SetExtendedProperty("wstl:Spore", 1);
-                yield return toLeft.Card.TakeDamage((int)toLeft.Card.Info.GetExtendedPropertyAsInt("wstl:Spore"), null);
-                yield return new WaitForSeconds(0.4f);
-            }
+            if (gaveSpore)
+                base.LearnAbility(0.4f);
         }
     }
 }
