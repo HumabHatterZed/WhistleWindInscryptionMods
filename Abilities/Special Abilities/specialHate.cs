@@ -48,13 +48,9 @@ namespace WhistleWindLobotomyMod
             if (killer != base.PlayableCard)
             {
                 if (card.OpponentCard)
-                {
                     opponentDeaths++;
-                }
                 else
-                {
                     allyDeaths++;
-                }
             }
             yield break;
         }
@@ -121,35 +117,20 @@ namespace WhistleWindLobotomyMod
                         WstlPlugin.Log.LogDebug("Moving Queen of Hatred to opposing slot.");
                         yield return MoveToSlot(true, opposingSlot);
                     }
-                    // if the opposing slot is occupied but the opposing queue is empty
-                    else if (!queuedSlots.Contains(opposingSlot))
-                    {
-                        // if the opposing card isn't Uncuttable, return it to queue than move to slot
-                        if (!opposingSlot.Card.Info.HasTrait(Trait.Uncuttable))
-                        {
-                            WstlPlugin.Log.LogDebug("Moving opposing card to queue, moving Queen of Hatred to opposing slot.");
-                            yield return Singleton<TurnManager>.Instance.Opponent.ReturnCardToQueue(opposingSlot.Card, 0.25f);
-                            yield return MoveToSlot(true, opposingSlot);
-                        }
-                        // otherwise add this card to queue
-                        else
-                        {
-                            WstlPlugin.Log.LogDebug("Adding Queen of Hatred to opposing queue slot.");
-                            base.PlayableCard.RemoveFromBoard();
-                            yield return new WaitForSeconds(0.5f);
-                            yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(evolution, opposingSlot);
-                        }
-                    }
-                    // if there are no available queues, opposing etc., add to turnplan
+                    // if the opposing slot is occupied add to queue
                     else
                     {
-                        WstlPlugin.Log.LogDebug("Adding Queen of Hatred to turn plan.");
+                        WstlPlugin.Log.LogDebug("Adding Queen of Hatred to queue.");
                         base.PlayableCard.RemoveFromBoard();
                         yield return new WaitForSeconds(0.5f);
-                        List<List<CardInfo>> turnPlan = Singleton<TurnManager>.Instance.Opponent.TurnPlan;
-                        List<CardInfo> addInfo = new() { evolution };
-                        turnPlan.Add(addInfo);
-                        yield return Singleton<TurnManager>.Instance.Opponent.ModifyTurnPlan(turnPlan);
+                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.OpponentSlotsCopy)
+                        {
+                            if (!Singleton<TurnManager>.Instance.Opponent.QueuedSlots.Contains(slot))
+                            {
+                                yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(evolution, slot, doTween: false, changeView: false, setStartPosition: false);
+                                break;
+                            }
+                        }
                     }
                     yield return new WaitForSeconds(0.25f);
                 }
