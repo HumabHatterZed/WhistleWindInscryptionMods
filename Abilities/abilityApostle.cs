@@ -30,61 +30,60 @@ namespace WhistleWindLobotomyMod
         private readonly string downedDialogue = "[c:bR]None of you can leave my side until I permit you.[c:]";
         private readonly string hammeredDialogue = "[c:bR]Be at ease. No calamity shall be able to trouble you.[c:]";
 
+        private bool SpecialApostle => base.Card.Info.name.Contains("Guardian") || base.Card.Info.name.Contains("Moleman");
         private int downCount = 0;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
             if (killer != null)
             {
-                if (killer.Info.name == "wstl_apostleHeretic" || killer.Info.name == "wstl_whiteNight")
-                {
-                    return false;
-                }
+                return killer.Info.name != "wstl_apostleHeretic" && killer.Info.name != "wstl_whiteNight";
             }
             return true;
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return base.PreSuccessfulTriggerSequence();
-
             if (killer != null)
             {
-                bool guardian = false;
-                CardInfo downedInfo;
-                switch (base.Card.Info.name)
+                // Create the downed forme of the Apostle in its slot
+                CardInfo downedInfo = base.Card.Info.name switch
                 {
-                    case "wstl_apostleGuardian":
-                        guardian = true;
-                        downedInfo = CardLoader.GetCardByName("wstl_apostleGuardianDown");
-                        break;
-                    case "wstl_apostleSpear":
-                        downedInfo = CardLoader.GetCardByName("wstl_apostleSpearDown");
-                        break;
-                    case "wstl_apostleStaff":
-                        downedInfo = CardLoader.GetCardByName("wstl_apostleStaffDown");
-                        break;
-                    default:
-                        downedInfo = CardLoader.GetCardByName("wstl_apostleScytheDown");
-                        break;
-                }
-
+                    "wstl_apostleGuardian" => CardLoader.GetCardByName("wstl_apostleGuardianDown"),
+                    "wstl_apostleMoleman" => CardLoader.GetCardByName("wstl_apostleMolemanDown"),
+                    "wstl_apostleSpear" => CardLoader.GetCardByName("wstl_apostleSpearDown"),
+                    "wstl_apostleStaff" => CardLoader.GetCardByName("wstl_apostleStaffDown"),
+                    _ => CardLoader.GetCardByName("wstl_apostleScytheDown")
+                };
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(downedInfo, base.Card.Slot, 0.15f);
                 yield return new WaitForSeconds(0.2f);
-                if (!WstlSaveManager.ApostleDowned && !guardian)
+                if (!WstlSaveManager.ApostleDowned && !SpecialApostle)
                 {
                     WstlSaveManager.ApostleDowned = true;
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(downedDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
                 }
+                yield break;
             }
-            else
+            if (SpecialApostle)
             {
-                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
-                yield return new WaitForSeconds(0.2f);
-                if (!WstlSaveManager.ApostleKilled)
+                // Create the downed forme if Guardian or Moleman (to account for Royal's cannonballs)
+                CardInfo downedInfo = base.Card.Info.name switch
                 {
-                    WstlSaveManager.ApostleKilled = true;
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hammeredDialogue, -0.65f, 0.4f, Emotion.Laughter, speaker: DialogueEvent.Speaker.Bonelord);
-                }
+                    "wstl_apostleGuardian" => CardLoader.GetCardByName("wstl_apostleGuardianDown"),
+                    "wstl_apostleMoleman" => CardLoader.GetCardByName("wstl_apostleMolemanDown"),
+                    _ => CardLoader.GetCardByName("wstl_trainingDummy")
+                };
+                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(downedInfo, base.Card.Slot, 0.15f);
+                yield return new WaitForSeconds(0.2f);
+                yield break;
+            }
+            // Recreate this card in the same slot
+            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
+            yield return new WaitForSeconds(0.2f);
+            if (!WstlSaveManager.ApostleKilled)
+            {
+                WstlSaveManager.ApostleKilled = true;
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hammeredDialogue, -0.65f, 0.4f, Emotion.Laughter, speaker: DialogueEvent.Speaker.Bonelord);
             }
         }
 
@@ -98,24 +97,18 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            yield return base.PreSuccessfulTriggerSequence();
-
             downCount++;
+            yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.LightNegationEffect();
             if (downCount >= 2)
             {
                 downCount = 0;
-                CardInfo risenInfo = CardLoader.GetCardByName("wstl_apostleScythe");
-                switch (base.Card.Info.name)
+                CardInfo risenInfo = base.Card.Info.name switch
                 {
-                    case "wstl_apostleSpear":
-                        risenInfo = CardLoader.GetCardByName("wstl_apostleSpear");
-                        break;
-                    case "wstl_apostleStaff":
-                        risenInfo = CardLoader.GetCardByName("wstl_apostleStaff");
-                        break;
-                }
-
+                    "wstl_apostleSpear" => CardLoader.GetCardByName("wstl_apostleSpear"),
+                    "wstl_apostleStaff" => CardLoader.GetCardByName("wstl_apostleStaff"),
+                    _ => CardLoader.GetCardByName("wstl_apostleScythe")
+                };
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
                 yield return new WaitForSeconds(0.2f);
                 yield return base.LearnAbility(0.5f);
