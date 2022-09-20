@@ -125,7 +125,6 @@ namespace WhistleWindLobotomyMod
                 bonesCostAdjustment = 2,
                 deathCardInfo = new DeathCardInfo(CompositeFigurine.FigurineType.SettlerWoman, 5, 2)
             });
-            __result.RemoveAll((CardModificationInfo x) => x.abilities.Exists((Ability a) => !ProgressionData.LearnedAbility(a)));
         }
     }
 }
