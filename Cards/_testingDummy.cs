@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.TripleBlood
+                Test.ability
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                1, 10, 0, 0,
+                0, 10, 0, 0,
                 Resources.testingDummy, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
