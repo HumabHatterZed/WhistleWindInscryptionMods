@@ -173,7 +173,7 @@ namespace WhistleWindLobotomyMod
                 string risk = GetRiskLevel(randomSeed++, regionTier);
 
                 // Default : 4% P1 ; 2% KCM | Cheat/Config : 7% P1 ; 5% KCM
-                float mult = SaveFile.IsAscension ? (AscensionSaveData.Data.ChallengeIsActive(BetterRareChances.Id) ? 0.05f : 0.02f) : (ConfigManager.Instance.BetterRareChances ? 0.7f : 0.04f);
+                float mult = SaveFile.IsAscension ? (AscensionSaveData.Data.ChallengeIsActive(BetterRareChances.Id) ? 0.1f : 0.02f) : (ConfigManager.Instance.BetterRareChances ? 0.15f : 0.04f);
                 bool rareChoice = !gotRare && !(SeededRandom.Value(randomSeed++) >= regionTier * mult);
                 CardInfo card = ModCardLoader.GetRandomChoosableModCard(randomSeed++, risk);
                 if (rareChoice)
@@ -299,7 +299,7 @@ namespace WhistleWindLobotomyMod
                 {
                     WstlSaveManager.AbnormalityCardChoice = true;
                     yield return new WaitForSeconds(0.25f);
-                    Singleton<TextDisplayer>.Instance.ShowMessage("You may choose [c:bR]1[c:] to join you. The others will remain here, sealed in their tombs.");
+                    Singleton<TextDisplayer>.Instance.ShowMessage("You may choose [c:bR]1[c:] to join you. The others will remain here.");
                 }
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             }
