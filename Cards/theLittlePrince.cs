@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             CardHelper.CreateCard(
                 "wstl_theLittlePrince", "The Little Prince",
-                "An aged storyteller. She can tell you any tale, even those that can't exist.",
+                "A giant mushroom chunk. A mist of spores surrounds it.",
                 1, 4, 2, 0,
                 Resources.theLittlePrince, Resources.theLittlePrince_emission,
                 abilities: abilities, specialAbilities: new(),

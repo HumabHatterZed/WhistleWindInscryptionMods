@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             };
             CardHelper.CreateCard(
                 "wstl_todaysShyLook", "Today's Shy Look",
-                "A shy creature that's always changing her expression.",
+                "An indecisive creature. Her expression is different whenever you draw her.",
                 1, 2, 1, 0,
                 Resources.todaysShyLook, Resources.todaysShyLook_emission,
                 abilities: new(), specialAbilities: specialAbilities,

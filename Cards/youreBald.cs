@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             };
             CardHelper.CreateCard(
                 "wstl_youreBald", "You're Bald...",
-                "I've always wondered what it was like to be bald.",
+                "I've always wondered what it's like to be bald.",
                 1, 1, 0, 3,
                 Resources.youreBald, Resources.youreBald_emission,
                 abilities: abilities, specialAbilities: new(),

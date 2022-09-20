@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
 
             CardHelper.CreateCard(
                 "wstl_childOfTheGalaxy", "Child of the Galaxy",
-                "The longing becomes a tear, and cascades down like a shooting star.",
+                "A small child longing for a friend. Will you be his?",
                 1, 4, 2, 0,
                 Resources.childOfTheGalaxy, Resources.childOfTheGalaxy_emission, gbcTexture: Resources.childOfTheGalaxy_pixel,
                 abilities: abilities, specialAbilities: new(),

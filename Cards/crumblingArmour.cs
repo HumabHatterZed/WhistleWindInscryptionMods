@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             CardHelper.CreateCard(
                 "wstl_crumblingArmour", "Crumbling Armour",
-                "A suit of armour that rewards the brave and punished the cowardly.",
+                "A suit of armour that rewards the brave and punishes the cowardly.",
                 0, 3, 0, 5,
                 Resources.crumblingArmour, Resources.crumblingArmour_emission,
                 abilities: abilities, specialAbilities: new(),

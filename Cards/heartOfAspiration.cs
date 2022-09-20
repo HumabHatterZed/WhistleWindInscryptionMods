@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             CardHelper.CreateCard(
                 "wstl_heartOfAspiration", "The Heart of Aspiration",
-                "A heart without an owner.",
+                "A heart without an owner. It emboldens those nearby.",
                 1, 2, 1, 0,
                 Resources.heartOfAspiration, Resources.heartOfAspiration_emission,
                 abilities: abilities, specialAbilities: new(),

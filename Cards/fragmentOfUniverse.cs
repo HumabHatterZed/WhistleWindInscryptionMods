@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             };
             CardHelper.CreateCard(
                 "wstl_fragmentOfUniverse", "Fragment of the Universe",
-                "You see a song in front of you. It's approaching, becoming more colorful by the second.",
+                "You see a song in front of you. It's approaching, becoming more colourful by the second.",
                 1, 2, 1, 0,
                 Resources.fragmentOfUniverse, Resources.fragmentOfUniverse_emission,
                 abilities: abilities, specialAbilities: new(),

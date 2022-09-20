@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
 
             CardHelper.CreateCard(
                 "wstl_armyInPink", "Army in Pink",
-                "The human heart is pink. They wear its colour as to blend in with your mind.",
+                "A friendly soldier the colour of the human heart. It will protect you wherever you go.",
                 3, 3, 2, 0,
                 Resources.armyInPink, Resources.armyInPink_emission,
                 abilities: abilities, specialAbilities: new(),
