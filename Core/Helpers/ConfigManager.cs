@@ -89,7 +89,7 @@ namespace WhistleWindLobotomyMod
 
             Config_MiracleWorker = WstlConfigFile.Bind(
                 pluginName, "MIRACLE WORKER", false,
-                new ConfigDescription("PART 1 ONLY - Leshy will occasionally play Plague Doctor during regular battles. Beware the Clock."));
+                new ConfigDescription("PART 1 ONLY - Leshy will play Plague Doctor during regular battles. Beware the Clock."));
 
             Config_BetterRareChances = WstlConfigFile.Bind(
                 pluginName, "BETTER RARE CHANCES", false,
