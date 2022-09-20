@@ -75,6 +75,7 @@ namespace WhistleWindLobotomyMod
 			new List<CardInfo>()
 		};
 			this.TryAddDeathCardsToTurn(2, target, list[0]);
+			list[0].Add(CardLoader.GetCardByName("wstl_nothingThere"));
 			this.TryAddDeathCardsToTurn(1, target, list[1]);
 			this.TryAddDeathCardsToTurn(1, target, list[2]);
 			this.TryAddDeathCardsToTurn(2, target, list[4]);
@@ -89,10 +90,14 @@ namespace WhistleWindLobotomyMod
 			List<CardInfo> list = new();
 			foreach (CardModificationInfo item2 in SaveFile.IsAscension ? DefaultDeathCards.CreateAscensionCardMods() : SaveManager.SaveFile.deathCardMods)
 			{
-				if (!item2.abilities.Exists((Ability x) => !AbilitiesUtil.GetInfo(x).opponentUsable) && item2.singletonId.StartsWith("wstl"))
+				WstlPlugin.Log.LogDebug($"{item2.singletonId} {item2}");
+				if (!item2.abilities.Exists((Ability x) => !AbilitiesUtil.GetInfo(x).opponentUsable) && item2.singletonId != null)
 				{
-					CardInfo item = CardLoader.CreateDeathCard(item2);
-					list.Add(item);
+					if (item2.singletonId.StartsWith("wstl"))
+                    {
+						CardInfo item = CardLoader.CreateDeathCard(item2);
+						list.Add(item);
+					}
 				}
 			}
 			return list;
