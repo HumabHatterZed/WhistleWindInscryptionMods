@@ -37,6 +37,7 @@ namespace WhistleWindLobotomyMod
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.HealDamage(1);
             base.Card.OnStatsChanged();
+            yield return new WaitForSeconds(0.2f);
             base.Card.Anim.StrongNegationEffect();
             yield return base.LearnAbility(0.4f);
         }
