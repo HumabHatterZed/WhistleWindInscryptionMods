@@ -12,8 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                FlagBearer.ability,
-                Volatile.ability
+                FlagBearer.ability
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
