@@ -22,6 +22,10 @@
 			<HintPath>lib\InscryptionAPI.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Infiniscryption.PackManager">
+			<HintPath>lib\Infiniscryption.PackManager.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>
