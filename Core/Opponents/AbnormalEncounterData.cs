@@ -493,7 +493,7 @@ namespace WhistleWindLobotomyMod
                 {
                     new() { },
                     new() { },
-                    new() { CreateCardBlueprint("wstl_SKELETON_SHRIMP", 0), CreateCardBlueprint("wstl_theFireBird", 0) },
+                    new() { CreateCardBlueprint("wstl_SKELETON_SHRIMP", 0), CreateCardBlueprint("wstl_theFirebird", 0) },
                     new() { },
                     new() { },
                     new() { CreateCardBlueprint("wstl_SKELETON_SHRIMP", 0), CreateCardBlueprint("wstl_voidDreamRooster", 0) },
