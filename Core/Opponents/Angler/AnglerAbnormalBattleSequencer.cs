@@ -16,13 +16,6 @@ namespace WhistleWindLobotomyMod
 			EncounterData encounterData = base.BuildCustomEncounter(nodeData);
 			encounterData.Blueprint = AbnormalEncounterData.AnglerAbnormalBossP1;
 			encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, nodeData.difficulty + RunState.Run.DifficultyModifier);
-            if (nodeData.difficulty >= 15)
-            {
-                EncounterData.StartCondition startCondition = new();
-                startCondition.cardsInOpponentSlots[0] = CardLoader.GetCardByName("BaitBucket");
-                startCondition.cardsInOpponentSlots[3] = CardLoader.GetCardByName("BaitBucket");
-                encounterData.startConditions.Add(startCondition);
-            }
             return encounterData;
 		}
 		public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)

@@ -18,7 +18,8 @@ namespace WhistleWindLobotomyMod
 			encounterData.Blueprint = AbnormalEncounterData.LeshyAbnormalBossP1;
             int num = (SaveFile.IsAscension ? (-1) : 0);
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, nodeData.difficulty + RunState.Run.DifficultyModifier + num);
-			EncounterData.StartCondition startCondition = new EncounterData.StartCondition();
+			encounterData.startConditions.Clear();
+			EncounterData.StartCondition startCondition = new();
 			startCondition.cardsInOpponentSlots[2] = CardLoader.GetCardByName("wstl_apostleMoleman");
 			encounterData.startConditions.Add(startCondition);
 			return encounterData;

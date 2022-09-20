@@ -19,9 +19,6 @@ namespace WhistleWindLobotomyMod
 			encounterData.Blueprint = AbnormalEncounterData.ProspectorAbnormalBossP1;
 			int num = ((!StoryEventsData.EventCompleted(StoryEvent.TutorialRunCompleted)) ? 1 : 0);
 			encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, nodeData.difficulty + RunState.Run.DifficultyModifier + num);
-			EncounterData.StartCondition startCondition = new();
-			startCondition.cardsInPlayerSlots[3] = CardLoader.GetCardByName("Boulder");
-			encounterData.startConditions.Add(startCondition);
 			encounterData.aiId = ProspectorAbnormalAI.ID;
 			return encounterData;
 		}

@@ -17,7 +17,8 @@ namespace WhistleWindLobotomyMod
 			EncounterData encounterData = base.BuildCustomEncounter(nodeData);
 			encounterData.Blueprint = AbnormalEncounterData.PirateSkullAbnormalBossP1;
 			encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, 20);
-			EncounterData.StartCondition startCondition = new EncounterData.StartCondition();
+			encounterData.startConditions.Clear();
+			EncounterData.StartCondition startCondition = new();
 			startCondition.cardsInOpponentSlots[0] = CardLoader.GetCardByName("wstl_apostleMoleman");
 			startCondition.cardsInOpponentSlots[3] = CardLoader.GetCardByName("wstl_apostleMoleman");
 			encounterData.startConditions.Add(startCondition);
