@@ -32,13 +32,13 @@ namespace WhistleWindLobotomyMod
             harmony.PatchAll(typeof(AbnormalEncounters));
         }
 
-        [HarmonyPatch(typeof(RunState), nameof(RunState.Initialize))]
+        [HarmonyPatch(typeof(GameFlowManager), nameof(GameFlowManager.Start))]
         [HarmonyPostfix]
-        public static void ClearVanillaEncounters(ref RunState __instance)
+        public static void ClearVanillaEncounters(ref GameFlowManager __instance)
         {
-            if (!(__instance != null) && (AscensionSaveData.Data.ChallengeIsActive(Id) || (!SaveFile.IsAscension && ConfigManager.Instance.AbnormalBattles)))
+            if (__instance != null && (AscensionSaveData.Data.ChallengeIsActive(Id) || (!SaveFile.IsAscension && ConfigManager.Instance.AbnormalBattles)))
             {
-                //ChallengeActivationUI.TryShowActivation(Id);
+                ChallengeActivationUI.TryShowActivation(Id);
                 RegionProgression.Instance.regions[0].encounters.Clear();
                 RegionProgression.Instance.regions[1].encounters.Clear();
                 RegionProgression.Instance.regions[2].encounters.Clear();
