@@ -14,11 +14,6 @@ namespace WhistleWindLobotomyMod
             || new List<CardSlot>(Singleton<BoardManager>.Instance.AllSlotsCopy
                 .Where(slot => slot.Card != null && slot.Card.Info.name == "wstl_apostleHeretic")).Count != 0;
 
-        private readonly CardInfo ScytheApostle = CardLoader.GetCardByName("wstl_apostleScythe");
-        private readonly CardInfo SpearApostle = CardLoader.GetCardByName("wstl_apostleSpear");
-        private readonly CardInfo StaffApostle = CardLoader.GetCardByName("wstl_apostleStaff");
-        private readonly CardInfo Heretic = CardLoader.GetCardByName("wstl_apostleHeretic");
-
         private readonly string hereticDialogue = "[c:bR]Have I not chosen you, the Twelve? Yet one of you is [c:][c:bG]a devil[c:][c:bR].[c:]";
 
         public IEnumerator ConvertToApostle(PlayableCard otherCard, bool HasOneSin = false)
@@ -35,9 +30,9 @@ namespace WhistleWindLobotomyMod
                 int randomSeed = base.GetRandomSeed();
                 CardInfo randApostle = SeededRandom.Range(0, 3, randomSeed++) switch
                 {
-                    0 => ScytheApostle,
-                    1 => SpearApostle,
-                    _ => StaffApostle
+                    0 => CardLoader.GetCardByName("wstl_apostleScythe"),
+                    1 => CardLoader.GetCardByName("wstl_apostleSpear"),
+                    _ => CardLoader.GetCardByName("wstl_apostleStaff")
                 };
                 if (!HasHeretic && !HasOneSin)
                 {
@@ -46,7 +41,7 @@ namespace WhistleWindLobotomyMod
                         HasHeretic = true;
                         if (!isOpponent)
                         {
-                            randApostle = Heretic;
+                            randApostle = CardLoader.GetCardByName("wstl_apostleHeretic");
                         }
                         else
                         {
@@ -57,7 +52,7 @@ namespace WhistleWindLobotomyMod
                                 Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
                                 yield return new WaitForSeconds(0.2f);
                             }
-                            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(Heretic, null, 0.25f, null);
+                            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_apostleHeretic"), null, 0.25f, null);
                             yield return new WaitForSeconds(0.45f);
                         }
                     }
