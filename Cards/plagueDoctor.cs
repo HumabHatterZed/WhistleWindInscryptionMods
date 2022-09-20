@@ -13,6 +13,7 @@ namespace WhistleWindLobotomyMod
             byte[] portrait;
             byte[] emissive;
 
+            // Update portrait and emission on loadup
             switch (ConfigManager.Instance.NumOfBlessings)
             {
                 case 0:
@@ -75,11 +76,11 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance
+                //ForcedWhite.appearance
             };
             CardHelper.CreateCard(
                 "wstl_plagueDoctor", "Plague Doctor",
-                "A worker of miracles.",
+                "A worker of miracles. He humbly requests to join you.",
                 0, 3, 0, 3,
                 portrait, emissive,
                 abilities: abilities, specialAbilities: specialAbilities,
