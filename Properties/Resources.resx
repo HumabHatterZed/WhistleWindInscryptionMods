@@ -1165,6 +1165,12 @@
   <data name="singingMachine_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\singingMachine_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="skeleton_can" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\skeleton_can.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="skeleton_can_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\skeleton_can_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="skeleton_shrimp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\skeleton_shrimp.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1371,6 +1377,9 @@
   </data>
   <data name="worldPortrait_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\worldPortrait_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="wstl_pack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wstl_pack.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="yang" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\yang.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

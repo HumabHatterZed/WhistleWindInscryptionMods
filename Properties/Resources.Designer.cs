@@ -3553,6 +3553,26 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] skeleton_can {
+            get {
+                object obj = ResourceManager.GetObject("skeleton_can", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] skeleton_can_emission {
+            get {
+                object obj = ResourceManager.GetObject("skeleton_can_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] skeleton_shrimp {
             get {
                 object obj = ResourceManager.GetObject("skeleton_shrimp", resourceCulture);
@@ -4236,6 +4256,16 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] worldPortrait_emission {
             get {
                 object obj = ResourceManager.GetObject("worldPortrait_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] wstl_pack {
+            get {
+                object obj = ResourceManager.GetObject("wstl_pack", resourceCulture);
                 return ((byte[])(obj));
             }
         }
