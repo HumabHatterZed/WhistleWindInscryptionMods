@@ -12,6 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
+                Ability.Reach,
                 Ability.Evolve
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
@@ -26,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 Resources.apostleMolemanDown, Resources.apostleMolemanDown_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, evolveName: "wstl_apostleMoleman");
+                appearances: appearances, evolveName: "wstl_apostleMoleman", numTurns: 2);
         }
     }
 }

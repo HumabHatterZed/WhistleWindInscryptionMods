@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 Resources.skeleton_shrimp, Resources.skeleton_shrimp_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, iceCubeName: "Snelk_Neck", riskLevel: 1);
+                isChoice: false, iceCubeName: "wstl_CRUMPLED_CAN");
         }
     }
 }
