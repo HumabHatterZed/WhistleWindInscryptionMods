@@ -325,7 +325,7 @@ namespace WhistleWindLobotomyMod
         {
             Texture2D portrait;
             Texture2D emissive;
-
+            bool force = false;
             switch (ConfigManager.Instance.NumOfBlessings)
             {
                 case 0:
@@ -375,10 +375,15 @@ namespace WhistleWindLobotomyMod
                 default:
                     portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor11);
                     emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor11_emission);
+                    force = true;
                     break;
             }
 
             base.Card.Info.SetPortrait(portrait, emissive);
+            if (force)
+            {
+                base.Card.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
+            }
             base.Card.UpdateStatsText();
         }
     }
