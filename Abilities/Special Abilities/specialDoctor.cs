@@ -34,35 +34,27 @@ namespace WhistleWindLobotomyMod
 		}
 		public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
 		{
-			this.DisguiseOutOfBattle();
-			yield break;
+            this.UpdatePortrait();
+            yield break;
 		}
 		public override IEnumerator OnSelectedForDeckTrial()
 		{
-			this.DisguiseOutOfBattle();
-			yield break;
+            this.UpdatePortrait();
+            yield break;
 		}
 		public override void OnShownInDeckReview()
 		{
-			this.DisguiseOutOfBattle();
-		}
+            this.UpdatePortrait();
+        }
 		public override void OnShownForCardChoiceNode()
 		{
-			this.DisguiseAsCardChoice();
-		}
+            this.UpdatePortrait();
+        }
 		private void DisguiseInBattle()
 		{
 			this.UpdatePortrait();
 			base.PlayableCard.AddPermanentBehaviour<PlagueDoctor>();
-		}
-		private void DisguiseOutOfBattle()
-		{
-			this.UpdatePortrait();
-		}
-
-		private void DisguiseAsCardChoice()
-		{
-			this.UpdatePortrait();
+            base.PlayableCard.ApplyAppearanceBehaviours(new() { ForcedWhite.appearance });
 		}
         private void UpdatePortrait()
         {
