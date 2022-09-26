@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace WhistleWindLobotomyMod
 {
-    public abstract class BaseAbilityMethods
+    public abstract class BaseMethods
     {
         protected IEnumerator QueueCreatedCard(PlayableCard card, CardInfo CardToQueue)
         {
