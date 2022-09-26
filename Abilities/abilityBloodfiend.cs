@@ -44,18 +44,15 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            if (killer != null)
+            if (fromCombat)
             {
-                return killer == base.Card && !base.Card.OpponentCard && fromCombat &&
-                    base.Card.Info.name.ToLowerInvariant().Equals("wstl_censored") &&
-                    !card.Info.HasTrait(Trait.Terrain) && !card.Info.HasTrait(Trait.Pelt);
+                return killer == base.Card && !killer.OpponentCard && killer.Info.name == "wstl_censored" && !card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt);
             }
             return false;
         }
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            #region CENSORED
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
             if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
@@ -109,7 +106,6 @@ namespace WhistleWindLobotomyMod
             }
             yield return new WaitForSeconds(0.25f);
             Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
-            #endregion
         }
     }
 }
