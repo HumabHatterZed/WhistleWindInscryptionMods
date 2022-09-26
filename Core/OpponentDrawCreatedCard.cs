@@ -1,4 +1,4 @@
-﻿using InscryptionAPI;
+using InscryptionAPI;
 using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections;
