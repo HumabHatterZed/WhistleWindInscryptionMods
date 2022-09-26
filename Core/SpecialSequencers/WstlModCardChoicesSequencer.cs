@@ -172,7 +172,7 @@ namespace WhistleWindLobotomyMod
                 CardChoice cardChoice = new();
                 string risk = GetRiskLevel(randomSeed++, regionTier);
 
-                // Default : 4% P1 ; 2% KCM | Cheat/Config : 7% P1 ; 5% KCM
+                // Default : 4% P1 ; 2% KCM | Cheat/Config : 15% P1 ; 10% KCM
                 float mult = SaveFile.IsAscension ? (AscensionSaveData.Data.ChallengeIsActive(BetterRareChances.Id) ? 0.1f : 0.02f) : (ConfigManager.Instance.BetterRareChances ? 0.15f : 0.04f);
                 bool rareChoice = !gotRare && !(SeededRandom.Value(randomSeed++) >= regionTier * mult);
                 CardInfo card = ModCardLoader.GetRandomChoosableModCard(randomSeed++, risk);

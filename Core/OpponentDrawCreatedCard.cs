@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             // Queue card if opponent, otherwise draw card to hand
             if (base.Card.OpponentCard)
             {
-	    	yield return BaseMethods.QueueCreatedCard(CardToDraw);
+	    	yield return CustomMethods.QueueCreatedCard(CardToDraw);
 	    }
             else
             {
