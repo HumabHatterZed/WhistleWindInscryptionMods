@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_meltingLoveMinion", "Slime",
                 "Don't let your beasts get too close now.",
-                1, 0, 0, 0,
+                0, 0, 0, 0,
                 Resources.meltingLoveMinion, Resources.meltingLoveMinion_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new());

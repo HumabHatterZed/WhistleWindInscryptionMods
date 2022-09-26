@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                GiantTreeSap.specialAbility
+                Sap.specialAbility
             };
             CardHelper.CreateCard(
                 "wstl_giantTreeSap", "Giant Tree Sap",

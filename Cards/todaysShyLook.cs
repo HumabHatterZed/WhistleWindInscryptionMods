@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                TodaysShyLook.specialAbility
+                TodaysExpression.specialAbility
             };
             CardHelper.CreateCard(
                 "wstl_todaysShyLook", "Today's Shy Look",

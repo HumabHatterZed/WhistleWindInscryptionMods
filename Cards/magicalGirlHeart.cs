@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                MagicalGirlHeart.specialAbility
+                LoveAndHate.specialAbility
             };
 
             CardHelper.CreateCard(

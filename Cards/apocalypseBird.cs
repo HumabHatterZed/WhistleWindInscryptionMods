@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                BigBird.specialAbility
+                ThreeBirds.specialAbility
             };
             List<Tribe> tribes = new()
             {

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                NamelessFetus.specialAbility
+                Syrinx.specialAbility
             };
             List<Trait> traits = new()
             {

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                BloodBath.specialAbility,
+                WristCutter.specialAbility,
                 SpecialTriggeredAbility.SacrificesThisTurn
             };
 
