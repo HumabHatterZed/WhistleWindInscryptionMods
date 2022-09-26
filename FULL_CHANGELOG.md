@@ -1,5 +1,14 @@
 ﻿## FULL CHANGELOG
 
+### v1.2.1 - Minor patch (9/26/2022)
+* 🧱 General
+  * Fixed inaccurate information in the ReadMe
+  * CENSORED's ability now has opponent compatibility
+* 🩹 Bug fixes
+  * Fixed Hatred special not properly checking for other Magical Girls
+* 🔧 Tweaks
+  * Improved rulebook entry descriptions for special abilities
+
 ### v1.2.0 - Close Encounters of the Abnormal Kind (9/18/2022)
 * 🧱 General
   * Adjusted the descriptions for some configurations to reflect new changes/be clearer.

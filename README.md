@@ -2,9 +2,9 @@
 
 ### Face the Fear. Make the Future.
 
-Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.  The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
+Inspired by KingSlime's mod, this is my own take on adding Lobotomy Corp's abnormalities into Inscryption.  The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
-This mod currently adds all abnormalities from Lobotomy Corp. Broken down, this means:
+Features:
 * **```84```** obtainable cards
 * **```41```** obtainable abilities
 * **```6```** starter decks for Kaycee's Mod
@@ -25,33 +25,37 @@ The old config can be safely deleted at your convenience.
 
 ## 🩹 Known Bugs and Issues
 ### Curses Mod Challenge Incompatibility
-The Boss Revenge challenge from Infiniscryption's Curses mod will override the Abnormal Boss challenge if both are activate at once.
+The Boss Revenge challenge from Infiniscryption's Curses mod will override the Abnormal Boss challenge if both are activate at once (you'll stll be able to play the run).
 
 The Abnormal Boss challenge will still work for Royal since Boss Revenge does not affect him.
 
-### PackManager dependency error
-If you don't have Infiniscryption's Pack Management API installed you will get an error in the console when this mod is loaded.
-
-YOU CAN IGNORE IT. With 1.2.0 I've added custom pack art for anyone using the Pack API, but it is NOT required for this mod to work properly.
-
 --------------------------
 
-If you encounter any other issues or bugs, please report them to me asap by contacting me on the modding Discord or by opening an issue on the GitHub.
+If you encounter any other issues or bugs, or you just want to give some feedback, you can @ me on the Inscryption Modding Discord.
 
-Feel free to contact me with any other feedback you have too!
+## 💌 Credits/Acknowledgements
+Special mentions for Arackulele, divsionbyz0rro, and julien-perge for having public GitHubs I can ~~steal~~borrow code from.
 
-## 💌 Credits
-Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference and ~~steal~~borrow code from.
+Shoutout to James Veug's ReadmeMaker mod for providing the cost sprites I use in this ReadMe; you're a lifesaver!
 
-Special mention to James Veug's ReadmeMaker mod for providing the cost sprites I use; you're a lifesaver!
+Thank you to Rengar, yam the nokia, and everyone on the modding Discord that's reported bugs to me!
 
-Big thanks to Rengar, yam the nokia, Orochi Umbra, and everyone else on the modding Discord that reported bugs to me!
+Special thanks to Orochi Umbra for being my play tester and providing feedback during testing. I appreciate it!
 
 ## ⚖️ Changelog
 For a list of previous updates and a full description of the current update, refer to the FULL_CHANGELOG included in the mod package.
 
 <details>
-<summary>Latest Update - v1.2.0</summary>
+<summary>Latest Update - v1.2.1</summary>
+
+### v1.2.1 - Minor patch (9/26/2022)
+* 🧱 General
+  * Fixed inaccurate information in the ReadMe
+  * CENSORED's ability now has opponent compatibility
+* 🩹 Bug fixes
+  * Fixed Hatred special not properly checking for other Magical Girls
+* 🔧 Tweaks
+  * Improved rulebook entry descriptions for special abilities
 
 ### v1.2.0 - Close Encounters of the Abnormal Kind (9/18/2022)
 * 🧱 General
@@ -210,7 +214,6 @@ You'll need to play with the cards in order to figure out their special ability 
 * **Singleton** - Can only have one copy in your deck at a time.
 * **Poisonous** - Kills survivors when eaten at the Campfire.
 * **X** - Variable, typically based on another card or status effect.
-* **S** - Spilled Blood, gains Power equal to the number of sacrifices this turn.
 * **M** - Mirror, gains Power equal to the opposing card's Power.
 <br>
 
@@ -248,7 +251,7 @@ You'll need to play with the cards in order to figure out their special ability 
 |Rudolta of the Sleigh|2/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Sprinter<br>Gift Giver||Hooved|
 |Queen Bee|0/6|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Queen Nest||Insect|
 |⤷ Worker Bee|1/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|||Insect|
-|Bloodbath|**S**/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||Goat||
+|Bloodbath|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||Goat||
 |Opened Can of WellCheers|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sprinter<br>Waterborne|||
 |Alriune|4/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Sprinter||Hooved|
 |Forsaken Murderer|4/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/cEvPoTk.png">||||
@@ -362,12 +365,12 @@ The chances of cards with a certain 'Risk level' appearing as a choice change as
 _*This percentage is halved in Kaycee's Mod._
 
 ## 🕓 Closing Notes
-Another update! This one took longer than I expected. I didn't realise how complicated the bosses could be, but it was a fun experience! It was good practice for the future...
+Surprise patch! Nothing new here outside of some internal optimisation.
 
-Anyhow, this will likely be the last update for a while as I return to college. The next update I have planned is also pretty large in scope, so that'll lengthen things.
+The next major update (1.3 or 2.0, whichever I decide best fits) won't come out for...a long time. I have a lot of things I want to add (not just new cards ;>) and a lot to learn.
 
-Hope to see you then, and thanks for playing my mod! <3
+See you next time, and thanks for playing my mod! <3
 
-Quick list of planned updates:
+Current plans:
 * Further balancing, tweaking, bug fixes, and general refinement of what's currently added (feedback is welcomed and encouraged!).
 * Expansion pack of Library of Ruina abnormalities

@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForHost))]
         public static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(NothingThere.specialAbility)
+            __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(Mimicry.specialAbility)
             || x.Abilities.Contains(TheTrain.ability)
             || x.Abilities.Contains(TimeMachine.ability));
         }
@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
         public static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(NothingThere.specialAbility)
+            __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(Mimicry.specialAbility)
             || x.Abilities.Contains(TheTrain.ability)
             || x.Abilities.Contains(TimeMachine.ability)
             || x.name == "wstl_apocalypseBird");
@@ -47,7 +47,7 @@ namespace WhistleWindLobotomyMod
         [HarmonyPostfix, HarmonyPatch(nameof(CardStatBoostSequencer.GetValidCards))]
         public static void RemoveFromValidCardsForStatBoost(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(NothingThere.specialAbility)
+            __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(Mimicry.specialAbility)
             || x.Abilities.Contains(TheTrain.ability)
             || x.Abilities.Contains(TimeMachine.ability));
         }
