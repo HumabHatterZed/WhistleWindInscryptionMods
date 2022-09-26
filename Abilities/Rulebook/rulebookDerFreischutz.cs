@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Rulebook_DerFreischutz()
         {
             const string rulebookName = "Der Freischütz";
-            const string rulebookDescription = "After attacking six times, fires a seventh time at a random ally slot.";
+            const string rulebookDescription = "After attacking six times, attacks a random ally slot.";
             const string dialogue = "femboy";
             EntryDerFreischutz.ability = AbilityHelper.CreateAbility<EntryDerFreischutz>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,

@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Rulebook_Yang()
         {
             const string rulebookName = "Yang";
-            const string rulebookDescription = "Transforms when adjacent to their other half.";
+            const string rulebookDescription = "When adjacent to Yin, wipes the board then removes either Yin or itself from the deck at random.";
             const string dialogue = "femboy";
             EntryYang.ability = AbilityHelper.CreateAbility<EntryYang>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,

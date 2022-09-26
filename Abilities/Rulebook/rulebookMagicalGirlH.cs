@@ -10,8 +10,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_MagicalGirlH()
         {
-            const string rulebookName = "Magical Girl H";
-            const string rulebookDescription = "Keeps track of card deaths for each side. Transforms when the difference between these amounts is two or greater.";
+            const string rulebookName = "Magical Girl Heart";
+            const string rulebookDescription = "Transforms when the 2 more allied cards than opponent cards have died, or vice versa. Transforms on upkeep.";
             const string dialogue = "femboy";
             EntryMagicalGirlH.ability = AbilityHelper.CreateAbility<EntryMagicalGirlH>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
