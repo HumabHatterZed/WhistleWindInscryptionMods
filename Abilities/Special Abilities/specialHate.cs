@@ -112,7 +112,7 @@ namespace WhistleWindLobotomyMod
                     List<CardSlot> queuedSlots = Singleton<TurnManager>.Instance.Opponent.QueuedSlots;
 
                     // if the opposing slot is empty, move over to it
-                    if (base.PlayableCard.Slot.opposingSlot.Card == null)
+                    if (opposingSlot.Card == null)
                     {
                         WstlPlugin.Log.LogDebug("Moving Queen of Hatred to opposing slot.");
                         yield return MoveToSlot(true, opposingSlot);
@@ -123,14 +123,7 @@ namespace WhistleWindLobotomyMod
                         WstlPlugin.Log.LogDebug("Adding Queen of Hatred to queue.");
                         base.PlayableCard.RemoveFromBoard();
                         yield return new WaitForSeconds(0.5f);
-                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.OpponentSlotsCopy)
-                        {
-                            if (!Singleton<TurnManager>.Instance.Opponent.QueuedSlots.Contains(slot))
-                            {
-                                yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(evolution, slot, doTween: false, changeView: false, setStartPosition: false);
-                                break;
-                            }
-                        }
+                        BaseMethods.QueueCreatedCard(evolution);
                     }
                     yield return new WaitForSeconds(0.25f);
                 }
