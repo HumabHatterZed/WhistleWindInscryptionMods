@@ -180,12 +180,12 @@ namespace WhistleWindLobotomyMod
                 if (slot != base.PlayableCard.Slot)
                 {
                     string slotName = slot.Card.Info.name;
-                    if (slotName == "wstl_magicalGirlD" || slotName == "wstl_kingOfGreed")
+                    if (slotName == "wstl_magicalGirlDiamond" || slotName == "wstl_kingOfGreed")
                     {
                         Greed = true;
-                        despairSlot = slot;
+                        greedSlot = slot;
                     }
-                    if (slotName == "wstl_magicalGirlS" || slotName == "wstl_knightOfDespair")
+                    if (slotName == "wstl_magicalGirlSpade" || slotName == "wstl_knightOfDespair")
                     {
                         Despair = true;
                         despairSlot = slot;
