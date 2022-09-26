@@ -1,11 +1,10 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System;
 using System.Linq;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using UnityEngine;
 
 namespace WhistleWindLobotomyMod
 {
@@ -13,13 +12,13 @@ namespace WhistleWindLobotomyMod
     {
         private void SpecialAbility_Bird()
         {
-            const string rulebookName = "Big Bird";
-            const string rulebookDescription = "Reacts to other cards being played.";
-            BigBird.specialAbility = AbilityHelper.CreateSpecialAbility<BigBird>(rulebookName, rulebookDescription).Id;
+            const string rulebookName = "Three Birds";
+            const string rulebookDescription = "Transforms when Punishing Bird and Judgement Bird are played on the same side of the board.";
+            ThreeBirds.specialAbility = AbilityHelper.CreateSpecialAbility<ThreeBirds>(rulebookName, rulebookDescription).Id;
         }
     }
 
-    public class BigBird : SpecialCardBehaviour
+    public class ThreeBirds : SpecialCardBehaviour
     {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -79,7 +78,7 @@ namespace WhistleWindLobotomyMod
                     }
                     if (slot.Card.Info.name == "wstl_judgementBird")
                     {
-                        WstlPlugin.Log.LogDebug("Player already has Judgement Bird.");
+                        WstlPlugin.Log.LogDebug("Player has Judgement Bird.");
                         Judgement = true;
                         judgeSlot = slot;
                     }

@@ -4,20 +4,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SpecialAbility_Hate()
+        private void SpecialAbility_LoveAndHate()
         {
-            const string rulebookName = "Hate";
-            const string rulebookDescription = "Transforms when the balance has shifted too far. Enters a weakened forme every other turn.";
-            MagicalGirlHeart.specialAbility = AbilityHelper.CreateSpecialAbility<MagicalGirlHeart>(rulebookName, rulebookDescription).Id;
+            const string rulebookName = "Love and Hate";
+            const string rulebookDescription = "Transforms when the 2 more allied cards than opponent cards have died, or vice versa. Transforms on upkeep.";
+            LoveAndHate.specialAbility = AbilityHelper.CreateSpecialAbility<LoveAndHate>(rulebookName, rulebookDescription).Id;
         }
     }
-    public class MagicalGirlHeart : SpecialCardBehaviour
+    public class LoveAndHate : SpecialCardBehaviour
     {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -123,7 +122,7 @@ namespace WhistleWindLobotomyMod
                         WstlPlugin.Log.LogDebug("Adding Queen of Hatred to queue.");
                         base.PlayableCard.RemoveFromBoard();
                         yield return new WaitForSeconds(0.5f);
-                        BaseMethods.QueueCreatedCard(evolution);
+                        CustomMethods.QueueCreatedCard(evolution);
                     }
                     yield return new WaitForSeconds(0.25f);
                 }
@@ -173,8 +172,10 @@ namespace WhistleWindLobotomyMod
         {
             bool Greed = false;
             bool Despair = false;
+            //bool Wrath = false;
             CardSlot greedSlot = null;
             CardSlot despairSlot = null;
+            //CardSlot wrathSlot = null;
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(!base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 if (slot != base.PlayableCard.Slot)

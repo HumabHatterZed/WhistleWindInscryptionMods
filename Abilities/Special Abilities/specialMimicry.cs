@@ -1,25 +1,23 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
-using HarmonyLib;
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SpecialAbility_Nothing()
+        private void SpecialAbility_Mimicry()
         {
-            const string rulebookName = "Nothing";
-            const string rulebookDescription = "Reveals itself on death. Changes formes on upkeep.";
-            NothingThere.specialAbility = AbilityHelper.CreateSpecialAbility<NothingThere>(rulebookName, rulebookDescription).Id;
+            const string rulebookName = "Mimicry";
+            const string rulebookDescription = "Changes forme when killed. Changes forme on upkeep.";
+            Mimicry.specialAbility = AbilityHelper.CreateSpecialAbility<Mimicry>(rulebookName, rulebookDescription).Id;
         }
     }
-    public class NothingThere : SpecialCardBehaviour
+    public class Mimicry : SpecialCardBehaviour
     {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -95,7 +93,7 @@ namespace WhistleWindLobotomyMod
 			list.RemoveAll((CardInfo x) => x.name == "wstl_nothingThere" || x.name == "!STATIC!GLITCH");
 			CardInfo disguise = ((list.Count <= 0) ? CardLoader.GetCardByName("wstl_nothingThere") : list[SeededRandom.Range(0, list.Count, SaveManager.SaveFile.GetCurrentRandomSeed())]);
 			this.DisguiseAsCard(disguise);
-			base.PlayableCard.AddPermanentBehaviour<NothingThere>();
+			base.PlayableCard.AddPermanentBehaviour<Mimicry>();
 		}
 
 		private void DisguiseOutOfBattle()

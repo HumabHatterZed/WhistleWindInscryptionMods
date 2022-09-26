@@ -1,21 +1,23 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SpecialAbility_Fetus()
+        private void SpecialAbility_Syrinx()
         {
-            const string rulebookName = "Fetus";
-            const string rulebookDescription = "Reacts to being sacrificed 6 times.";
-            NamelessFetus.specialAbility = AbilityHelper.CreateSpecialAbility<NamelessFetus>(rulebookName, rulebookDescription).Id;
+            const string rulebookName = "Syrinx";
+            const string rulebookDescription = "Transforms when sacrificed 6 times.";
+            Syrinx.specialAbility = AbilityHelper.CreateSpecialAbility<Syrinx>(rulebookName, rulebookDescription).Id;
         }
     }
-    public class NamelessFetus : SpecialCardBehaviour
+    public class Syrinx : SpecialCardBehaviour
     {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
