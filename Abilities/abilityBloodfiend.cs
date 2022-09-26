@@ -46,21 +46,13 @@ namespace WhistleWindLobotomyMod
         {
             if (fromCombat)
             {
-                return killer == base.Card && !killer.OpponentCard && killer.Info.name == "wstl_censored" && !card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt);
+                return killer == base.Card && killer.Info.name == "wstl_censored" && !card.Info.HasAnyOfTraits(Trait.Terrain, Trait.Pelt);
             }
             return false;
         }
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
-            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
-            {
-                yield return new WaitForSeconds(0.2f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
-                yield return new WaitForSeconds(0.2f);
-            }
             // Creates a minion that has the abilities, tribes, power of the killed card
             CardInfo minion = CardLoader.GetCardByName("wstl_censoredMinion");
 
@@ -96,16 +88,31 @@ namespace WhistleWindLobotomyMod
                 minion.tribes.Add(item);
             }
 
-            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(minion);
+            base.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.4f);
 
-            yield return new WaitForSeconds(0.45f);
+            // create minion in hand if not an opponent, otherwise add to queue
+            if (!base.Card.OpponentCard)
+            {
+                if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
+                {
+                    yield return new WaitForSeconds(0.2f);
+                    Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
+                    yield return new WaitForSeconds(0.2f);
+                }
+                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(minion);
+                yield return new WaitForSeconds(0.45f);
+            }
+            else
+            {
+                CustomMethods.QueueCreatedCard(minion);
+            }
             if (!WstlSaveManager.HasSeenCensoredKill)
             {
                 WstlSaveManager.HasSeenCensoredKill = true;
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(censoredDialogue, -0.65f, 0.4f, Emotion.Surprise);
             }
             yield return new WaitForSeconds(0.25f);
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
         }
     }
 }
