@@ -10,15 +10,15 @@ namespace WhistleWindLobotomyMod
 {
     public abstract class BaseMethods
     {
-        protected IEnumerator QueueCreatedCard(PlayableCard card, CardInfo CardToQueue)
+        protected IEnumerator QueueCreatedCard(CardInfo cardToQueue)
         {
 		int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
                 List<CardSlot> openSlots = Singleton<BoardManager>.Instance.OpponentSlotsCopy.Where(s => !Singleton<TurnManager>.Instance.Opponent.QueuedSlots.Contains(s)).ToList();
-                if (openSlots.Count() < 1)
+                if (openSlots.Count() == 0)
                 {
                     WstlPlugin.Log.LogDebug($"Appending {CardToDraw.name} to end of turn plan.");
                     List<List<CardInfo>> turnPlan = Singleton<TurnManager>.Instance.Opponent.TurnPlan;
-                    List<CardInfo> addInfo = new() { CardToQueue };
+                    List<CardInfo> addInfo = new() { cardToQueue };
                     turnPlan.Add(addInfo);
                     yield return Singleton<TurnManager>.Instance.Opponent.ModifyTurnPlan(turnPlan);
                 }
