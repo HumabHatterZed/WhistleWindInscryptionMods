@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             // Queue card if opponent, otherwise draw card to hand
             if (base.Card.OpponentCard)
             {
-				int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
+		int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
                 List<CardSlot> openSlots = Singleton<BoardManager>.Instance.OpponentSlotsCopy.Where(s => !Singleton<TurnManager>.Instance.Opponent.QueuedSlots.Contains(s)).ToList();
                 if (openSlots.Count() < 1)
                 {
@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod
                     yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(CardToDraw, index);
                 }
                 yield return new WaitForSeconds(0.45f);
-			}
+	    }
             else
             {
                 yield return base.CreateDrawnCard();
