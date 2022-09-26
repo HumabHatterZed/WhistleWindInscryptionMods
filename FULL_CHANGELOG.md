@@ -1,5 +1,64 @@
 ﻿## FULL CHANGELOG
 
+### v1.2.0 - Close Encounters of the Abnormal Kind (9/18/2022)
+* 🧱 General
+  * Adjusted the descriptions for some configurations to reflect new changes/be clearer.
+  * Fixed inaccurate information in the ReadMe
+  * Added PackManager compatibility
+* 🩹 Bug fixes
+  * Fixed visual bug related to interactions with Regenerator and facedown cards
+  * Fixed visual bug related to Cursed ability activating when the killer has also died
+  * Fixed visual bug where created Spore Mold Creatures would glow when they shouldn't
+  * Fixed 1.76 MHz's cost being 3 bones instead of 2 bones
+  * Fixed First Brother's Health being 2 not 1
+  * Fixed Second Brother's Health being 2 not 1
+  * Fixed Fourth Brother's Heakth being 1 not 2
+  * Fixed Fungal Infector not affecting cards that were affected in previous battles
+  * Fixed Singing Machine not having an emission
+  * Fixed Queen of Hatred not switching back from Tired forme
+  * Fixed Magical Girl D not showing dialogue on evolve
+  * Fixed Plague Doctor special ability not activating when on the opponent's side of the board
+  * Fixed placeholder descriptions for Grave of Cherry Blossoms, The Little Prince still being present
+  * Fixed Witness ability's Rulebook entry displaying an incorrect cost
+* 🔧 Tweaks
+  * Reworked Conductor ability to now give passive Power rather than draw Chair cards
+  * Nettles Clothes ability now shows added abilities
+  * The Naked Nest and The Naked Worm are now part of the Insect tribe
+  * Redid the dialogue for the Abnormality choice node, no longer plays in KCM
+  * Tweaked Broodmother, Queen Nest, Serpent's Nest abilities to have drawn cards inherit merged sigils
+  * Tweaked Gift Giver ability to have drawn cards inherit merged sigils IF Gift Giver is possessed by Laetitia
+  * Broodmother, Gift Giver, Corrector abilities now have opponent support
+  * Rewrote rulebook entry for Queen Nest
+  * Tweaked a number of cards' descriptions to better fit the game
+* ⚖️ Balancing
+  * Yang event now only removes 1 card of the relevant cards at random instead of both
+  * Funeral of the Dead Butterflies is no longer Rare
+  * Notes from a Crazed Researcher no longer has Volatile
+  * WhiteNight no longer heals taken damage
+  * Buffed Singing Machine's Health from 4 --> 8
+  * Buffed Void Dream Rooster's Health from 2 --> 3
+  * Rebalanced Funeral of the Dead Butterflies to be (3,3) stats, 3 Blood, Double Strike
+  * Changed The Dreaming Current from (3,2) stats, 2 Blood cost, Rampager --> (4,2) stats, 3 Blood cost, Rampager and Waterborne
+  * Nerfed Silent Orchestra's stats from (3,6) --> (1,5)
+  * Increased Worker Bee's cost from FREE --> 1 Bone
+* ➕ Additions
+  * Added custom encounters for each region
+  * Added starter deck Lonely Friends
+    * Scorched Girl, Laetitia, Child of the Galaxy
+  * Added starter deck Blood Machines
+    * We Can Change Anything, All-Around Helper, Singing Machine
+  * Added config option Abnormal Bosses
+  * Added config option Abnormal Encounters
+  * Added config option Better Rare Chances
+  * Added config option Miracle Worker
+  * Added challenge Abnormal Bosses
+  * Added challenge Abnormal Encounters
+  * Added challenge Abnormal Encounters
+  * Added challenge Miracle Worker
+  * Added cheat Better Rare Chances
+  * Added 10 death cards
+  * Added opponent-only cards: Guardian Apostle, Moleman Apostle, Rudolta (mule version), Skeleton Shrimp, Crumpled Can
+
 ### v1.1.1 - Broken Shovel patch (8/26/2022)
 * 🧱 General
   * Fixed ReadMe's description of Sapling showing the wrong Power

@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 Resources.nodeAbnormalityCardChoice3,
                 Resources.nodeAbnormalityCardChoice4
             };
-            NodeHelper.CreateNode("wstlModCardChoiceNode", typeof(WstlModCardChoicesSequencer), animationFrames, GenerationType.SpecialCardChoice, extraGenType: ConfigUtils.Instance.BoxStart ? GenerationType.RegionStart : GenerationType.None);
+            NodeHelper.CreateNode("wstlModCardChoiceNode", typeof(WstlModCardChoicesSequencer), animationFrames, GenerationType.SpecialCardChoice, extraGenType: ConfigManager.Instance.BoxStart ? GenerationType.RegionStart : GenerationType.None);
         }
     }
     // Pulled wholesale from CardSingleChoicesSequencer and CardChoiceSequencer
@@ -71,14 +71,13 @@ namespace WhistleWindLobotomyMod
             base.StartCoroutine(modDeckPile.SpawnCards(SaveManager.SaveFile.CurrentDeck.Cards.Count));
 
             // First-time dialogue for the node
-            if (!WstlSaveManager.AbnormalityCardChoice)
+            if (!SaveFile.IsAscension && !WstlSaveManager.AbnormalityCardChoice)
             {
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default);
                 yield return new WaitForSeconds(0.4f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The trees pull away from you as you enter a strange clearing.");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Three black metal poles jut from the ashen ground and into the sky. Suspended in the air on each is a black container.");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The boxes lower to the ground. The clink of intricate machinery fills the air as each box shudders and opens, revealing their contents.");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]3[c:] strange creatures stand before you. Powerful, mysterious...");
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("You enter a clearing surrounded by dark, twisting trees.");
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The moon leers down at you as the trees claw at the sky.");
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]3[c:] creatures emerge from the shadows before you. Powerful, mysterious...");
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]abnormal[c:].");
                 yield return new WaitForSeconds(0.25f);
             }
@@ -111,6 +110,8 @@ namespace WhistleWindLobotomyMod
                     yield return new WaitForSeconds(1f);
                     yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("ChallengeNoClover", TextDisplayer.MessageAdvanceMode.Input);
                 }
+
+                ChallengeActivationUI.TryShowActivation(BetterRareChances.Id);
             }
 
             chosenReward = null;
@@ -170,7 +171,9 @@ namespace WhistleWindLobotomyMod
             {
                 CardChoice cardChoice = new();
                 string risk = GetRiskLevel(randomSeed++, regionTier);
-                float mult = SaveFile.IsAscension ? 0.02f : 0.04f;
+
+                // Default : 4% P1 ; 2% KCM | Cheat/Config : 7% P1 ; 5% KCM
+                float mult = SaveFile.IsAscension ? (AscensionSaveData.Data.ChallengeIsActive(BetterRareChances.Id) ? 0.1f : 0.02f) : (ConfigManager.Instance.BetterRareChances ? 0.15f : 0.04f);
                 bool rareChoice = !gotRare && !(SeededRandom.Value(randomSeed++) >= regionTier * mult);
                 CardInfo card = ModCardLoader.GetRandomChoosableModCard(randomSeed++, risk);
                 if (rareChoice)
@@ -233,7 +236,7 @@ namespace WhistleWindLobotomyMod
             {
                 Singleton<TextDisplayer>.Instance.Clear();
                 yield return new WaitForSeconds(0.15f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The creature joins your caravan as the other boxes close themselves.", 0f, 0.4f, Emotion.Neutral, TextDisplayer.LetterAnimation.WavyJitter);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The creature joins your caravan as the others step back into the inky black.", 0f, 0.4f, Emotion.Neutral, TextDisplayer.LetterAnimation.WavyJitter);
             }
         }
         private void AddChosenCardToDeck()
@@ -296,7 +299,7 @@ namespace WhistleWindLobotomyMod
                 {
                     WstlSaveManager.AbnormalityCardChoice = true;
                     yield return new WaitForSeconds(0.25f);
-                    Singleton<TextDisplayer>.Instance.ShowMessage("You may choose [c:bR]1[c:] to join you. The others will remain here, sealed in their tombs.");
+                    Singleton<TextDisplayer>.Instance.ShowMessage("You may choose [c:bR]1[c:] to join you. The others will remain here.");
                 }
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             }

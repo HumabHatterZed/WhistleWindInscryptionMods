@@ -98,4 +98,45 @@ namespace WhistleWindLobotomyMod
 			return list;
 		}
 	}
+
+	// Triggers card with Fungal Infector before other cards
+	[HarmonyPatch(typeof(GlobalTriggerHandler))]
+	public static class GlobalTriggerHandlerPatches
+    {
+		[HarmonyPostfix, HarmonyPatch(nameof(GlobalTriggerHandler.TriggerCardsOnBoard))]
+		public static IEnumerator ChangeSporePriority(IEnumerator enumerator, GlobalTriggerHandler __instance, Trigger trigger, bool triggerFacedown, params object[] otherArgs)
+        {
+			if (trigger == Trigger.TurnEnd)
+            {
+				List<PlayableCard> list = new List<PlayableCard>(Singleton<BoardManager>.Instance.CardsOnBoard);
+				if (list.Where(item => item.HasAbility(Spores.ability)).Count() > 0)
+                {
+					WstlPlugin.Log.LogDebug("Triggering Fungal Infector before other cards.");
+					yield return __instance.TriggerNonCardReceivers(beforeCards: true, trigger, otherArgs);
+
+					// Trigger remaining Spore cards
+					foreach (PlayableCard item in list)
+					{
+						if (item != null && item.HasAbility(Spores.ability) && (!item.FaceDown || triggerFacedown) && item.TriggerHandler.RespondsToTrigger(trigger, otherArgs))
+						{
+							yield return item.TriggerHandler.OnTrigger(trigger, otherArgs);
+						}
+					}
+
+					// Trigger remaining cards
+					foreach (PlayableCard item in list)
+					{
+						if (item != null && item.LacksAbility(Spores.ability) && (!item.FaceDown || triggerFacedown) && item.TriggerHandler.RespondsToTrigger(trigger, otherArgs))
+						{
+							yield return item.TriggerHandler.OnTrigger(trigger, otherArgs);
+						}
+					}
+
+					yield return __instance.TriggerNonCardReceivers(beforeCards: false, trigger, otherArgs);
+					yield break;
+				}
+            }
+			yield return enumerator;
+		}
+	}
 }

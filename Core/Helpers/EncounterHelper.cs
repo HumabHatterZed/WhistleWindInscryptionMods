@@ -12,16 +12,29 @@ namespace WhistleWindLobotomyMod
     public static class EncounterHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         public static EncounterBlueprintData.CardBlueprint CreateCardBlueprint(
-            string cardName, int minDifficulty = 0, int maxDifficulty = 0, string replacement = "wstl_trainingDummy", int replacementChance = 0)
+            string cardName, int replacementChance = 25)
         {
             return new()
             {
                 card = CardLoader.GetCardByName(cardName),
-                minDifficulty = minDifficulty,
-                maxDifficulty = maxDifficulty,
-                replacement = CardLoader.GetCardByName(replacement),
                 randomReplaceChance = replacementChance
             };
+        }
+        
+        public static EncounterBlueprintData BuildBlueprint(
+            string name, List<Tribe> tribes, int min, int max,
+            List<CardInfo> randomCards, List<Ability> redundantAbilities,
+            List<List<EncounterBlueprintData.CardBlueprint>> turns)
+        {
+            EncounterBlueprintData encounterData = ScriptableObject.CreateInstance<EncounterBlueprintData>();
+            encounterData.name = name;
+            encounterData.dominantTribes = tribes;
+            encounterData.SetDifficulty(min, max);
+            encounterData.randomReplacementCards = randomCards;
+            encounterData.redundantAbilities = redundantAbilities;
+            encounterData.regionSpecific = true;
+            encounterData.turns = turns;
+            return encounterData;
         }
     }
 }

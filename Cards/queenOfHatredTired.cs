@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                SpecialAbilityFledgling.specialAbility,
+                CustomFledgling.specialAbility,
                 MagicalGirlHeart.specialAbility
             };
             List<Tribe> tribes = new()

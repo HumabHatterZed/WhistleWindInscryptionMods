@@ -37,6 +37,7 @@ namespace WhistleWindLobotomyMod
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.HealDamage(1);
             base.Card.OnStatsChanged();
+            yield return new WaitForSeconds(0.2f);
             base.Card.Anim.StrongNegationEffect();
             yield return base.LearnAbility(0.4f);
         }
@@ -86,7 +87,10 @@ namespace WhistleWindLobotomyMod
             {
                 // Adds merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                cardModificationInfo.fromCardMerge = true;
+                if (cardModificationInfo.healthAdjustment > 0)
+                {
+                    cardModificationInfo.healthAdjustment = 0;
+                }
                 minion.Mods.Add(cardModificationInfo);
             }
             foreach (Tribe item in card.Info.tribes.FindAll((Tribe x) => x != Tribe.NUM_TRIBES))

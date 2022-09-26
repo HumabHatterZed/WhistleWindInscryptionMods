@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Time Machine";
             const string rulebookDescription = "End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck at random based on their power level.";
-            const string dialogue = "Close your eyes, and count to ten.";
+            const string dialogue = "Close your eyes and count to ten.";
 
             TimeMachine.ability = AbilityHelper.CreateActivatedAbility<TimeMachine>(
                 Resources.sigilTimeMachine, Resources.sigilTimeMachine_pixel,
@@ -40,14 +40,21 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator Activate()
         {
             WstlSaveManager.HasUsedBackwardClock = true;
-            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Have I backed you into a corner? Or am I simply boring you?", -0.65f, 0.4f);
+            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Have I backed you into a corner? Or am I simply boring you?", -0.65f, 0.4f, Emotion.Anger);
             yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("I suppose it doesn't matter. I will honour your request.", -0.65f, 0.4f);
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             AudioController.Instance.PlaySound2D("antigravity_elevator_down");
             base.Card.Anim.LightNegationEffect();
             RandomEmission();
             yield return new WaitForSeconds(0.4f);
-            yield return base.LearnAbility();
+            if (!base.HasLearned)
+            {
+                yield return base.LearnAbility();
+            }
+            else
+            {
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Close your eyes and count to ten.", -0.65f, 0.4f);
+            }
             yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("When you open them, you will be standing at the exact moment you wish to be in.", -0.65f, 0.4f);
             // Gets a list of all cards in the player's deck, minus Backward Clock
             List<CardInfo> deckInfo = new(RunState.DeckList);

@@ -37,11 +37,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToResolveOnBoard()
         {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
-            {
-                return true;
-            }
-            return false;
+            return Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null).Count() > 0;
         }
         public override IEnumerator OnResolveOnBoard()
         {
@@ -54,12 +50,9 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
+            if (Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null).Count() > 0)
             {
-                if (slot.Card == otherCard)
-                {
-                    return true;
-                }
+                return Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Contains(otherCard.Slot);
             }
             return false;
         }
@@ -71,7 +64,19 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator ApplyEffect(PlayableCard card)
         {
-            if (card.HasAbility(Ability.TailOnHit) || card.HasAbility(Ability.Submerge) || card.Status.hiddenAbilities.Contains(Ability.TailOnHit))
+            if (card.Health == 1)
+            {
+                card.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.4f);
+                if (!WstlSaveManager.HasSeenCrumblingArmourFail)
+                {
+                    WstlSaveManager.HasSeenCrumblingArmourFail = true;
+                    yield return new WaitForSeconds(0.25f);
+                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(buffFail, -0.65f, 0.4f);
+                }
+                yield break;
+            }
+            if (card.HasAnyOfAbilities(Ability.TailOnHit, Ability.Submerge, Ability.SubmergeSquid) || card.Status.hiddenAbilities.Contains(Ability.TailOnHit))
             {
                 if (IsArmour)
                 {
@@ -91,19 +96,6 @@ namespace WhistleWindLobotomyMod
                     yield return new WaitForSeconds(0.25f);
                     yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(buffRefuse, -0.65f, 0.4f);
                     yield return new WaitForSeconds(0.25f);
-                }
-                yield break;
-            }
-
-            if (card.Health == 1)
-            {
-                card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.4f);
-                if (!WstlSaveManager.HasSeenCrumblingArmourFail)
-                {
-                    WstlSaveManager.HasSeenCrumblingArmourFail = true;
-                    yield return new WaitForSeconds(0.25f);
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(buffFail, -0.65f, 0.4f);
                 }
                 yield break;
             }

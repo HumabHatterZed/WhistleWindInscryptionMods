@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.SplitStrike
+                Ability.DoubleStrike
             };
 
             List<Tribe> tribes = new()
@@ -23,11 +23,11 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_funeralOfButterflies", "Funeral of the Dead Butterflies",
                 "The coffin is a tribute to the fallen. A memorial to those who can't return home.",
-                2, 2, 2, 0,
+                3, 3, 3, 0,
                 Resources.funeralOfButterflies, Resources.funeralOfButterflies_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isRare: true, riskLevel: 3);
+                isChoice: true, riskLevel: 3);
         }
     }
 }

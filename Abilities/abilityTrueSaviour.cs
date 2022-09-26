@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_TrueSaviour()
         {
             const string rulebookName = "True Saviour";
-            string rulebookDescription = ConfigUtils.Instance.RevealWhiteNight ? "Cannot die. Transforms non-Terrain and non-Pelt cards into Apostles." : "My story is nowhere, unknown to all.";
+            string rulebookDescription = ConfigManager.Instance.RevealWhiteNight ? "Cannot die. Transforms non-Terrain and non-Pelt cards into Apostles." : "My story is nowhere, unknown to all.";
             const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
 
             TrueSaviour.ability = AbilityHelper.CreateAbility<TrueSaviour>(
@@ -74,20 +74,6 @@ namespace WhistleWindLobotomyMod
         {
             yield return base.PreSuccessfulTriggerSequence();
             yield return base.ConvertToApostle(otherCard);
-        }
-
-        public override bool RespondsToTakeDamage(PlayableCard source)
-        {
-            if (source != null)
-            {
-                return source.Info.name != "wstl_apostleHeretic";
-            }
-            return false;
-        }
-        public override IEnumerator OnTakeDamage(PlayableCard source)
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-            base.Card.HealDamage(base.Card.MaxHealth - base.Card.Health);
         }
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)

@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
 
             CardHelper.CreateCard(
                 "wstl_dontTouchMe", "Don't Touch Me",
-                "What happens when you press it?",
+                "Don't touch it.",
                 0, 1, 0, 2,
                 Resources.dontTouchMe, Resources.dontTouchMe_emission,
                 abilities: abilities, specialAbilities: new(),

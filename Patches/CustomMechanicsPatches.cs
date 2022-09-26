@@ -39,17 +39,18 @@ namespace WhistleWindLobotomyMod
         [HarmonyPostfix, HarmonyPatch(nameof(BoardManager.CleanUp))]
         private static void ResetBlessings(ref BoardManager __instance)
         {
-            if (__instance.AllSlotsCopy.FindAll((CardSlot s) => s.Card != null && s.Card.Info.name == "wstl_whiteNight").Count > 0)
+            if (ConfigManager.Instance.NumOfBlessings > 11)
             {
-                ConfigUtils.Instance.UpdateBlessings(-ConfigUtils.Instance.NumOfBlessings);
                 WstlPlugin.Log.LogDebug($"Resetting the clock to [0].");
+                ConfigManager.Instance.SetBlessings(0);
+                LeshyAnimationController.Instance.ResetEyesTexture();
             }
         }
     }
     [HarmonyPatch(typeof(Opponent))]
     public class OpponentPatch
     {
-        // Adds Nothing There to the deck when chosen in a card choice (Trader, Boss Box, etc.)
+        // Resets the board effects of Apocalypse Bird
         [HarmonyPostfix, HarmonyPatch(nameof(Opponent.OutroSequence))]
         public static IEnumerator ResetEffects(IEnumerator enumerator)
         {

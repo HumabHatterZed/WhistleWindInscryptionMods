@@ -2,100 +2,95 @@
 
 ### Face the Fear. Make the Future.
 
-Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.
-
-The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
+Inspired by KingSlime's own mod of this topic, this is my own take on translating Lobotomy Corp's abnormalities into Inscryption.  The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
 This mod currently adds all abnormalities from Lobotomy Corp. Broken down, this means:
 * **```84```** obtainable cards
 * **```41```** obtainable abilities
-* **```4```** starter decks for Kaycee's Mod
+* **```6```** starter decks for Kaycee's Mod
+* **```3```** challenges and **```1```** cheat
 * **```1```** custom node
 * Plus a few combat events!
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1901
-* API_dev-API v2.4.0+
+* API_dev-API v2.4.1
 
-## ‼️ IMPORTANT NOTICE REGARDING v1.1.0 CONFIGURATION FILE ‼️
+## ‼️ IMPORTANT NOTICE FOR ANYONE UPDATING TO v1.1.0 OR ABOVE ‼️
 The mod's configuration file has been renamed to **```wstl.inscryption.lobotomycorp.cfg```**.
 
 Any changes made in the old config file will **NOT** carry over and must be changed in the new config file after loading the game at least once.
 
-The order of the configuration options has also changed, so simply copy-pasting the old config into the new *may* not work.
-
 The old config can be safely deleted at your convenience.
 
 ## 🩹 Known Bugs and Issues
-### Hard to tell!
-Because of the way Thunderstore works I can't (as far as I know) update this section of the ReadMe without updating the entire mod.
+### Curses Mod Challenge Incompatibility
+The Boss Revenge challenge from Infiniscryption's Curses mod will override the Abnormal Boss challenge if both are activate at once.
 
-Chances are that if there are any game-breaking bugs I'll release a patch as soon as I become aware of it.
+The Abnormal Boss challenge will still work for Royal since Boss Revenge does not affect him.
 
-If you encounter any issues or bugs please report them to me asap by contacting me on the modding Discord or by opening an issue on the GitHub.
+### PackManager dependency error
+If you don't have Infiniscryption's Pack Management API installed you will get an error in the console when this mod is loaded.
+
+YOU CAN IGNORE IT. With 1.2.0 I've added custom pack art for anyone using the Pack API, but it is NOT required for this mod to work properly.
+
+--------------------------
+
+If you encounter any other issues or bugs, please report them to me asap by contacting me on the modding Discord or by opening an issue on the GitHub.
 
 Feel free to contact me with any other feedback you have too!
 
 ## 💌 Credits
-Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference back to and ~~steal~~borrow code from.
+Shoutout to Arackulele, divisionbyz0rro, and julien-perge for having public GitHubs for me to reference and ~~steal~~borrow code from.
 
 Special mention to James Veug's ReadmeMaker mod for providing the cost sprites I use; you're a lifesaver!
 
 Big thanks to Rengar, yam the nokia, Orochi Umbra, and everyone else on the modding Discord that reported bugs to me!
 
 ## ⚖️ Changelog
-For the full list of updates, please refer to the .md file included in the mod package.
+For a list of previous updates and a full description of the current update, refer to the FULL_CHANGELOG included in the mod package.
 
 <details>
-<summary>Latest Update - v1.1.1</summary>
+<summary>Latest Update - v1.2.0</summary>
 
-### v1.1.1 - Broken Shovel patch (8/26/2022)
+### v1.2.0 - Close Encounters of the Abnormal Kind (9/18/2022)
 * 🧱 General
+  * Adjusted the descriptions for some configurations to reflect new changes/be clearer.
   * Fixed inaccurate information in the ReadMe
-  * Adjusted the Obtainable Cards section of the ReadMe
+  * Added PackManager compatibility
 * 🩹 Bug fixes
-  * Fixed Gardener not activating at all
-  * Fixed Magical Girl S and Army in Pink's special abilities activating whilst in hand
-  * Fixed Omni Strike not attacking Giant cards properly
+  * Fixed visual bugs with Regenerator, Fungal Infector, and Cursed abilities
+  * Fixed Magical Girl Heart's ability not working
+  * Fixed 1.76 MHz's cost being wrong
+  * Fixed First Brother, Second Brother, Fourth Brother incorrect stats
+  * Fixed Fungal Infector not affecting cards that were affected in previous battles
+  * Fixed Singing Machine not having an emission
+  * Fixed Queen of Hatred and Magical Girl D not functioning as intended
+  * Fixed PLague Doctor special ability not activating when on the opponent's side of the board
+  * Fixed placeholder descriptions for Grave of Cherry Blossoms, The Little Prince still being present
+  * Fixed Witness ability's Rulebook entry displaying an incorrect cost
 * 🔧 Tweaks
-  * Changed emissions of Parasite Tree, Sapling, and The Little Prince to not obscure their cost
-  * Tweaked Army in Pink's special ability
+  * Reworked Conductor ability to give passive buffs
+  * Nettles Clothes ability now shows added abilities
+  * The Naked Nest and The Naked Worm are now part of the Insect tribe
+  * Tweaked Broodmother, Queen Nest, Serpent's Nest abilities to have drawn cards inherit merged sigils
+  * Broodmother, Gift Giver, Queen Nest, Serpent's Nest, Corrector abilities now have opponent support
+  * Tweaked sigil icons for Team Leader, Group Healer, Conductor
+  * Tweaked a number of cards' descriptions to better fit the game
 * ⚖️ Balancing
-  * Buffed Apocalypse Bird, Army in Black, Void Dream
-  * Increased Spider Brood's cost to 1 Blood
-
-### v1.1.0 - First Major Update(tm) (8/22/2022)
-* 🧱 General
-  * Changed file name for config file (see above for more information on this)
-  * Added opponent AI and sigil stacking compatibility for Sniper and Marksman abilities
-  * Omni Strike now attacks the opposing slot when possessed by a non-Giant card
-  * Fixed inaccurate information in the ReadMe
-* 🩹 Bug fixes
-  * Fixed custom death cards not being properly added to the game
-  * Fixed Martyr, Quick Draw, Woodcutter, Gardener, Ruler of Frost abilities causing the game to freeze
-  * Fixed unintended ability behaviour for Gardener, Cursed, Flag Bearer, Regenerator abilities
-  * Fixed the Mirror of Adjustment not properly displaying the Mirror stat icon
-  * Fixed Nothing There and Express Train to Hell being selectable hosts/sacrifices at card merge and campfire nodes
-* 🔧 Tweaks
-  * Assimilator, Queen Nest, Cursed, Regenerator, Reflector, Grinder abilities are now modular
-  * Made a number of abilities stackable (see Abilities section for more information)
-  * Snow White's Apple now kills survivors at the Campfire
-  * Made minor changes to various card and ability descriptions
-  * Cards killed by certain event cards no longer activate triggers
-* ⚖️ Balancing
-  * Queen Nest ability no longer creates a Worker Bee when played
-  * Made of Slime ability now gives created cards 1 Power, no longer affects cards with 1 Health
-  * Cursed ability no longer affects card with the Uncuttable or Giant traits or the Made of Stone ability
-  * Buffed CENSORED, Queen Bee, Snow Queen, Scarecrow Searching for Wisdom, Luminous Bracelet, Opened Can of WellCheers, We Can Change Anything, Parasite Tree, 1.76 MHz
-  * Rebalanced Express Train to Hell and The Train ability, Blue Star, Flesh Idol, Crumbling Armour, Army in Pink and special ability, Army in Black, Bloodbath
+  * Yang event now only removes 1 card of the relevant cards at random instead of both
+  * Funeral of the Dead Butterflies is no longer Rare
+  * Notes from a Crazed Researcher no longer has Volatile
+  * WhiteNight no longer heals taken damage
+  * Rebalanced The Dreaming Current, Silent Orchestra, Chairs, Funeral of the Dead Butterflies
+  * Buffed Void Dream Rooster, Singing Machine Health
+  * Nerfed Silent Orchestra stats
 * ➕ Additions
-  * Added 4 starter decks
-  * Added card choice node
-  * Added 2 configuration options
-  * Added 2 combat events
-  * Added 13 cards
-  * Added 6 abilities
-  * Added 2 special abilities
+  * Added custom encounters
+  * Added 3 Challenges and 1 Cheat
+  * Added new config options
+  * Added 2 new starter decks
+  * Added 10 death cards
 </details>
 
 ## 🛠️ Configuration Options
@@ -103,11 +98,15 @@ For the full list of updates, please refer to the .md file included in the mod p
 |NAME|DEFAULT|DESCRIPTION|
 |:-|:-|:-|
 |Enable Mod|True|Enables this mod's content.|
-|No Donators|True|Replicates the original Lobotomy Corp's 'No Donator' option, removing: Backward Clock...Honoured Monk.|
-|Custom Node at Start|False|Adds the custom choice node to the start of every region|
+|No Donators|False|Prevents 7 abnormalities from being obtainable in-game (Backward Clock through Honoured Monk on the ReadMe)|
+|Card Choice at Start|False|Adds an Abnormality choice node to the start of every region.|
 |All Modular|False|Makes all non-special abilities modular.|
+|Abnormal Bosses|False|Part 1 Only - Bosses will only play Abnormality cards.|
+|Abnormal Encounters|False|Part 1 Only - All regular battles will only use Abnormality cards.|
+|Miracle Worker|False|Part 1 Only - Leshy will play Plague Doctor during regular battles. Beware the Clock.|
+|Better Rare Chances|False|Part 1 Only - Raises the chance of getting a Rare card from the abnormal choice node.|
 |Special Abilities in Rulebook|False|Adds Rulebook entries for each special ability.|
-|Reveal Select Descriptions|Changes the Rulebook entries of certain abilities to properly describe their effect.|
+|Reveal Select Descriptions|False|Changes the Rulebook entries of certain abilities to properly describe their effect.|
 
 ## ⚜️ Special/Hidden Abilities
 A number of cards added by this mod possess special abilities that are not found in the Rulebook.
@@ -160,7 +159,7 @@ You'll need to play with the cards in order to figure out their special ability 
 |Aggravating|While this card is on the board, all opposing cards gain 1 Power.|||
 |Team Leader|While this card is on the board, all other ally cards gain 1 Power.|||
 |Idol|While this card is on the board, all opposing cards lose 1 Power.|||
-|Conductor|When this card is played, create an Ensemble in your hand. Create an additional Ensemble in your hand at the start of your next 2 turns. An Ensemble is defined as: 0 Power, 2 Health, Leader.|||
+|Conductor|While this card is on the board, adjacent cards gain 1 Power. After 1 turn on the board, all ally cards gain 1 Power instead. After 2 turns, also reduce the opposing card's Power by 1. After 3 turns, also gain Power equal to the number of cards on this side of the board.|||
 |Woodcutter|When a card moves into the space opposing this card, deal damage equal to this card's Power to it.|||
 |Frozen Heart|When this card dies, the killer gains 1 Health.|||
 |Ruler of Frost|When this card is played, create a Block of Ice in each opposing space to the left and right of this card. If either slot is occupied by a card with 1 Health, kill it and create a Frozen Heart in its place.|||
@@ -168,7 +167,7 @@ You'll need to play with the cards in order to figure out their special ability 
 |Broodmother|When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health, Fledgling.|Yes||
 |Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.|Yes||
 |Healer|This card will heal a selected ally for 2 Health.|||
-|Queen Nest|When a card dies while a card bearing this sigil is on the board, a Worker Bee is created in your hand. A Worker Bee is defined as: 1 Power, 1 Health.|Yes||
+|Queen Nest|While this card is on the board, create a Worker Bee in your hand when a card dies. A Worker Bee is defined as: 1 Power, 1 Health.|Yes||
 |Bitter Enemies|A card bearing this sigil gains 1 Power when another card on this board also bears this sigil.|Yes|Yes|
 |Courageous|If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Stat changes persist until battle's end.|||
 |Serpent's Nest|When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.|Yes||
@@ -230,9 +229,8 @@ You'll need to play with the cards in order to figure out their special ability 
 |The Lady Facing the Wall|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Punisher|||
 |Nothing There|**X**/**X**|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">||Rare||
 |1.76 MHz|0/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Leader<br>Annoying|||
-|Singing Machine|0/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Team Leader<br>Aggravating|||
-|The Silent Orchestra|2/6|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Conductor|Rare||
-|⤷ Chairs|0/2||Leader|||
+|Singing Machine|0/8|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Team Leader<br>Aggravating|||
+|The Silent Orchestra|1/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Conductor|Rare||
 |Warm-Hearted Woodsman|2/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Woodcutter|||
 |The Snow Queen|1/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/r1Q62Ck.png">|Frost Ruler|||
 |⤷ Block of Ice|0/1|||||
@@ -249,9 +247,9 @@ You'll need to play with the cards in order to figure out their special ability 
 |Don't Touch Me|0/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Punisher<br>Guardian|||
 |Rudolta of the Sleigh|2/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Sprinter<br>Gift Giver||Hooved|
 |Queen Bee|0/6|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Queen Nest||Insect|
-|⤷ Worker Bee|1/1||||Insect|
+|⤷ Worker Bee|1/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|||Insect|
 |Bloodbath|**S**/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||Goat||
-|Opened Can of WellCheers|1/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sprinter<br>Waterborne|||
+|Opened Can of WellCheers|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sprinter<br>Waterborne|||
 |Alriune|4/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Sprinter||Hooved|
 |Forsaken Murderer|4/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/cEvPoTk.png">||||
 |Child of the Galaxy|1/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Flag Bearer<br>Bone Digger|||
@@ -269,12 +267,12 @@ You'll need to play with the cards in order to figure out their special ability 
 |⤷ Spore Mold Creature|**X**/**X**|**X**|**X**|||
 |Laetitia|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Gift Giver|||
 |⤷ Laetitia's Friend|2/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|||Insect|
-|Funeral of the Dead Butterflies|2/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Bifurcated Strike|Rare||
+|Funeral of the Dead Butterflies|3/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Double Strike|||
 |Dream of a Black Swan|2/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Clothes Made of Nettles|Rare|Avian|
 |⤷ First Brother|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Double Strike|||
-|⤷ Second Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||||
+|⤷ Second Brother|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||||
 |⤷ Third Brother|0/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Reflector|||
-|⤷ Fourth Brother|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Touch of Death|||
+|⤷ Fourth Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Touch of Death|||
 |⤷ Fifth Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sharp Quills|||
 |⤷ Sixth Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Stinky|||
 |The Dreaming Current|3/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Rampager|||
@@ -309,8 +307,8 @@ You'll need to play with the cards in order to figure out their special ability 
 |Behaviour Adjustment|0/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Corrector|||
 |Old Faith and Promise|0/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Alchemist|||
 |Porccubus|1/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Touch of Death|Poisonous||
-|Void Dream|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Fledgling<br>Flying||Hooved|
-|⤷ Void Dream|2/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Stinky<br>Flying||Hooved<br>Avian|
+|Void Dream|1/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Fledgling<br>Flying||Hooved|
+|⤷ Void Dream|2/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Stinky||Hooved<br>Avian|
 |Grave of Cherry Blossoms|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sharp Quills<br>Bloodfiend||
 |The Firebird|1/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Burning<br>Flying||Avian|
 |Yin|0/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Regenerator|Singleton||
@@ -334,9 +332,19 @@ You'll need to play with the cards in order to figure out their special ability 
 |Starter Deck|Cards|Level|
 |:-|:-|:-:|
 |First Day|One Sin and Hundreds of Good Deeds<br>Fairy Festival<br>Old Lady|0|
+|Lonely Friends|Scorched Girl<br>Laetitia<br>Child of the Galaxy|2|
 |Road to Oz|Wolf Cub<br>Scarecrow Searching for Wisdom<br>Warm-Hearted Woodsman|3|
+|Blood Machines|We Can Do Anything<br>All-Around Helper<br>Singing Machine|4|
 |Magical Girls!|Magical Girl H<br>Magical Girl D<br>Magical Girl S|8|
 |Twilight|Punishing Bird<br>Big Bird<br>Judgement Bird|13|
+
+## 💀 Challenges and Cheats
+|Challenge|Description|Points|
+|:-|:-|:-:|
+|Abnormal Bosses|Bosses will only play abnormality cards.|30|
+|Abnormal Encounters|All regular battles will only use abnormality cards.|20|
+|Miracle Worker|Leshy will play Plague Doctor during regular battles. Beware the Clock.|20|
+|Better Rare Chances|Raises the chance of getting a Rare card from the abnormal choice node.|-15|
 
 ## Custom Card Choice Node
 This special node can be found randomly as a card choice after battles and draws exclusively from this mod's pool of cards (including Rares!).
@@ -354,13 +362,12 @@ The chances of cards with a certain 'Risk level' appearing as a choice change as
 _*This percentage is halved in Kaycee's Mod._
 
 ## 🕓 Closing Notes
-Hello all! Thanks for all the support!! I hope you've been enjoying the mod, and I hope you enjoy this update!
+Another update! This one took longer than I expected. I didn't realise how complicated the bosses could be, but it was a fun experience! It was good practice for the future...
 
-There were some things I decided not to include in this update due to time restraints, so expect another update or two with these features sometime in the future!!
+Anyhow, this will likely be the last update for a while as I return to college. The next update I have planned is also pretty large in scope, so that'll lengthen things.
 
-Below is a list of currently planned updates that may or may not happen, depending on how things go.
+Hope to see you then, and thanks for playing my mod! <3
 
-* Further balancing, tweaking, bug fixes, and general refinement of what's currently available (feedback is welcomed and encouraged!).
-* Custom encounters, abnormality battle node
-* Challenges and Anti-Challenges
+Quick list of planned updates:
+* Further balancing, tweaking, bug fixes, and general refinement of what's currently added (feedback is welcomed and encouraged!).
 * Expansion pack of Library of Ruina abnormalities

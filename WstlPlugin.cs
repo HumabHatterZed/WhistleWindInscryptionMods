@@ -1,69 +1,73 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using BepInEx.Bootstrap;
 using System;
 using System.Reflection;
 using HarmonyLib;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using DiskCardGame;
 using UnityEngine;
 using InscryptionAPI;
-using InscryptionAPI.Card;
-using InscryptionAPI.Saves;
-using InscryptionAPI.Helpers;
 using InscryptionAPI.Regions;
-using InscryptionAPI.Ascension;
 using InscryptionAPI.Encounters;
 using System.Linq;
 using Sirenix.Utilities;
+using Infiniscryption.PackManagement;
+
+using static WhistleWindLobotomyMod.AbnormalEncounterData;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
     [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
 
     public partial class WstlPlugin : BaseUnityPlugin
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.1.1";
+        private const string pluginVersion = "1.2.0";
 
         internal static ManualLogSource Log;
         private static Harmony harmony;
-        public static string Directory;
+        //public static string Directory;
 
         private void Awake()
         {
             WstlPlugin.Log = base.Logger;
             harmony = Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), pluginGuid);
-            ConfigUtils.Instance.BindConfig();
+            ConfigManager.Instance.BindConfig();
 
-            if (!ConfigUtils.Instance.ModEnabled)
+            if (!ConfigManager.Instance.ModEnabled)
             {
-                Logger.LogWarning($"{pluginName} is loaded but is disabled in the configuration.");
+                Logger.LogWarning($"{pluginName} is disabled in the configuration, some things might break.");
             }
             else
             {
-                if (ConfigUtils.Instance.NumOfBlessings > 11)
+                if (ConfigManager.Instance.NumOfBlessings > 11)
                 {
-                    ConfigUtils.Instance.SetBlessings(11);
+                    ConfigManager.Instance.SetBlessings(11);
                 }
+                Log.LogDebug("Loading challenges...");
+                AddChallenges();
+                Log.LogDebug("Loading abilities...");
                 AddAbilities();
                 AddSpecialAbilities();
+                Log.LogDebug("Loading cards...");
                 AddAppearances();
                 AddCards();
-                AddNodes();
-                //AddEncounters();
                 AddStarterDecks();
-                Logger.LogInfo($"The clock is at [{ConfigUtils.Instance.NumOfBlessings}].");
+                Log.LogDebug("Loading nodes...");
+                AddNodes();
+                Log.LogDebug("Loading encounters...");
+                AddEncounters();
+                if (PackAPI.Enabled)
+                    PackAPI.CreateCardPack();
+
+
+                Logger.LogInfo($"The clock is at [{ConfigManager.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }
-        }
-        private void AddNodes()
-        {
-            Node_ModCardChoice();
         }
         private void AddAppearances()
         {
@@ -73,39 +77,49 @@ namespace WhistleWindLobotomyMod
         {
             AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
         }
-        private static void AddEncounters()
+        private void AddNodes()
         {
-            var encounterData = ScriptableObject.CreateInstance<EncounterBlueprintData>();
-            var squirrelBp = EncounterHelper.CreateCardBlueprint("Squirrel");
-            encounterData.name = "wstl_debug";
-            encounterData.turns = new List<List<EncounterBlueprintData.CardBlueprint>>
-            {
-                new List<EncounterBlueprintData.CardBlueprint> { EncounterHelper.CreateCardBlueprint("!GIANTCARD_MOON") }
-            };
-            RegionProgression.Instance.regions[0].encounters.Clear();
-            RegionProgression.Instance.regions[0].AddEncounters(encounterData);
+            Node_ModCardChoice();
+        }
+        private void AddChallenges()
+        {
+            MiracleWorker.Register(harmony);
+            AbnormalBosses.Register(harmony);
+            AbnormalEncounters.Register(harmony);
+            BetterRareChances.Register(harmony);
         }
         private static void AddStarterDecks()
         {
+            /*StarterDeckHelper.AddStartDeck("Debug", Resources.starterDeckControl, new()
+            {
+                CardLoader.GetCardByName("wstl_testingDummy"),
+                CardLoader.GetCardByName("wstl_testingDummy"),
+                CardLoader.GetCardByName("wstl_testingDummy")
+            }, 0);*/
             StarterDeckHelper.AddStartDeck("First Day", Resources.starterDeckControl, new()
             {
                 CardLoader.GetCardByName("wstl_oneSin"),
                 CardLoader.GetCardByName("wstl_fairyFestival"),
                 CardLoader.GetCardByName("wstl_oldLady")
             }, 0);
+            StarterDeckHelper.AddStartDeck("Lonely Friends", Resources.starterDeckChildren, new()
+            {
+                CardLoader.GetCardByName("wstl_scorchedGirl"),
+                CardLoader.GetCardByName("wstl_laetitia"),
+                CardLoader.GetCardByName("wstl_childOfTheGalaxy")
+            }, 2);
             StarterDeckHelper.AddStartDeck("Road to Oz", Resources.starterDeckFairyTale, new()
             {
                 CardLoader.GetCardByName("WolfCub"),
                 CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
                 CardLoader.GetCardByName("wstl_wisdomScarecrow")
-
             }, 3);
-            /*StarterDeckHelper.AddStartDeck("Blood Machines", Resources.starterDeckBloodMachines, new()
+            StarterDeckHelper.AddStartDeck("Blood Machines", Resources.starterDeckBloodMachines, new()
             {
-                CardLoader.GetCardByName("wstl_allAroundHelper"),
                 CardLoader.GetCardByName("wstl_weCanChangeAnything"),
-                CardLoader.GetCardByName("wstl_youMustBeHappy")
-            }, 4);*/
+                CardLoader.GetCardByName("wstl_allAroundHelper"),
+                CardLoader.GetCardByName("wstl_singingMachine")
+            }, 4);
             StarterDeckHelper.AddStartDeck("Magical Girls!", Resources.starterDeckMagicalGirls, new()
             {
                 CardLoader.GetCardByName("wstl_magicalGirlHeart"),
@@ -119,8 +133,29 @@ namespace WhistleWindLobotomyMod
                 CardLoader.GetCardByName("wstl_judgementBird")
             }, 13);
         }
+        private void AddEncounters()
+        {
+            EncounterManager.Add(StrangePack);
+            EncounterManager.Add(BitterPack);
+            EncounterManager.Add(StrangeFlock);
+            EncounterManager.Add(HelperJuggernaut);
+            EncounterManager.Add(StrangeBees);
+            EncounterManager.Add(StrangeCreatures1);
+            EncounterManager.Add(WormsNest);
+            EncounterManager.Add(StrangeCreatures2);
+            EncounterManager.Add(StrangeFish);
+            EncounterManager.Add(StrangeHerd);
+            EncounterManager.Add(AlriuneJuggernaut);
+            EncounterManager.Add(SpidersNest);
+            EncounterManager.Add(SwanJuggernaut);
+            RegionProgression.Instance.regions[0].AddEncounters(StrangePack, BitterPack, StrangeFlock, HelperJuggernaut);
+            RegionProgression.Instance.regions[1].AddEncounters(StrangeBees, StrangeCreatures1, WormsNest, StrangeCreatures2, StrangeFish);
+            RegionProgression.Instance.regions[2].AddEncounters(StrangeHerd, AlriuneJuggernaut, SpidersNest, SwanJuggernaut);
+        }
         private void AddAbilities()
         {
+            //Ability_Test();
+
             Ability_Punisher();
             Ability_Bloodfiend();
             Ability_Martyr();
@@ -167,15 +202,16 @@ namespace WhistleWindLobotomyMod
             Ability_TrueSaviour();
             Ability_Confession();
 
-            if (ConfigUtils.Instance.RevealSpecials)
+            if (ConfigManager.Instance.RevealSpecials)
             {
-                Log.LogDebug("Adding special ability rulebook entries.");
+                Log.LogDebug("Adding rulebook entries for special abilities.");
                 AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("Rulebook")).ForEach(mi => mi.Invoke(this, null));
             }
         }
         private void AddCards()
         {
             TestingDummy_XXXXX();
+
             TrainingDummy_00000();
             ScorchedGirl_F0102();
             OneSin_O0303();
@@ -239,9 +275,6 @@ namespace WhistleWindLobotomyMod
             CrumblingArmour_O0561();
             JudgementBird_O0262();
             ApocalypseBird_O0263();
-            //  BigEyes_O0263();
-            //  SmallBeak_O0263();
-            //  LongArms_O0263();
             MagicalGirlDiamond_O0164();
             KingOfGreed_O0164();
             TheLittlePrince_O0466();
@@ -302,6 +335,11 @@ namespace WhistleWindLobotomyMod
             Yang_O07103();
             YinYangHead_O07103();
             YinYangBody_O07103();
+
+            if (ConfigManager.Instance.NoDonators)
+            {
+                Log.LogDebug("No Donators is set to true. Certain cards have been removed from the pool of obtainable cards.");
+            }
             BackwardClock_D09104();
             DellaLuna_D01105();
             ArmyInPink_D01106();
@@ -314,6 +352,42 @@ namespace WhistleWindLobotomyMod
             MeltingLoveMinion_D03109();
             HonouredMonk_D01110();
             CloudedMonk_D01110();
+
+            // Opponent only cards
+            Rudolta_Mule();
+            ApostleGuardian_T0346();
+            ApostleGuardianDown_T0346();
+            ApostleMoleman_T0346();
+            ApostleMolemanDown_T0346();
+            SkeletonShrimp_F0552();
+            Crumpled_Can();
+            //  BigEyes_O0263();
+            //  SmallBeak_O0263();
+            //  LongArms_O0263();
+        }
+
+        public static class PackAPI
+        {
+            private static bool? _enabled;
+            public static bool Enabled
+            {
+                get
+                {
+                    if (_enabled == null)
+                        _enabled = Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
+                    return (bool)_enabled;
+                }
+            }
+
+            public static void CreateCardPack()
+            {
+                Log.LogDebug("PackManager installed, creating card pack...");
+                PackInfo pack = PackManager.GetPackInfo("wstl");
+                pack.Title = "WhistleWind's Lobotomy Mod";
+                pack.SetTexture(WstlTextureHelper.LoadTextureFromResource(Resources.wstl_pack));
+                pack.Description = "This card pack adds 84 obtainable cards based on abnormalities.";
+                pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+            }
         }
     }
 }

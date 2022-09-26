@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod
             info.flipYIfOpponent = flipY;
 
             List<AbilityMetaCategory> list = new() { AbilityMetaCategory.Part1Rulebook };
-            if ((addModular || ConfigUtils.Instance.AllModular) && !overrideModular) { list.Add(AbilityMetaCategory.Part1Modular); }
+            if ((addModular || ConfigManager.Instance.AllModular) && !overrideModular) { list.Add(AbilityMetaCategory.Part1Modular); }
             info.metaCategories = list;
 
             return AbilityManager.Add(pluginGuid, info, typeof(T), WstlTextureHelper.LoadTextureFromResource(texture));

@@ -4,14 +4,10 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AssemblyName>WhistleWindLobotomyMod</AssemblyName>
 		<Description>A mod for Inscryption adding cards and sigils based on Lobotomy Corp's abnormalities.</Description>
-		<Version>1.1.1</Version>
+		<Version>1.2.0</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<LangVersion>9.0</LangVersion>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <Compile Remove="Patches\DebugPatches.cs" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
@@ -24,6 +20,10 @@
 	<ItemGroup>
 		<Reference Include="InscryptionAPI">
 			<HintPath>lib\InscryptionAPI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Infiniscryption.PackManager">
+			<HintPath>lib\Infiniscryption.PackManager.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>

@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            if (!card.Info.HasAnyOfTraits(traits: new() { Trait.Giant, Trait.Pelt, Trait.Terrain, Trait.Uncuttable }))
+            if (!card.Info.HasAnyOfTraits(Trait.Giant, Trait.Pelt, Trait.Terrain, Trait.Uncuttable))
             {
                 yield return PreSuccessfulTriggerSequence();
                 base.Card.Anim.StrongNegationEffect();

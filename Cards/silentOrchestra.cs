@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_silentOrchestra", "The Silent Orchestra",
                 "A conductor of the apocalypse.",
-                3, 6, 3, 0,
+                1, 5, 3, 0,
                 Resources.silentOrchestra, Resources.silentOrchestra_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

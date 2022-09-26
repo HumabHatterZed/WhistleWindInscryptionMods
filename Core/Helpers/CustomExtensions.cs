@@ -12,6 +12,65 @@ namespace WhistleWindLobotomyMod
 {
     public static class CustomExtensions
     {
+        /// <summary>
+        /// Checks the Card for any of the given abilities.
+        /// </summary>
+        /// <param name="abilities">Abilities to check for.</param>
+        /// <returns>True if any of the given abilities are present and aren't negated.</returns>
+        public static bool HasAnyOfAbilities(this PlayableCard card, params Ability[] abilities)
+        {
+            foreach (Ability item in abilities)
+                if (card.Info.HasAbility(item) || card.temporaryMods.Exists((CardModificationInfo x) => x.abilities.Contains(item)))
+                    if (!card.temporaryMods.Exists((CardModificationInfo x) => x.negateAbilities.Contains(item)))
+                        return true;
+            return false;
+        }
+        /// <summary>
+        /// Checks the CardInfo for all of the given traits.
+        /// </summary>
+        /// <param name="traits">Traits to check for.</param>
+        /// <returns>True if all of the given traits are present.</returns>
+        public static bool HasAllOfTraits(this CardInfo info, params Trait[] traits)
+        {
+            foreach (Trait item in traits)
+                if (!info.traits.Contains(item))
+                    return false;
+            return true;
+        }
+        /// <summary>
+        /// Checks the CardInfo for any of the given traits.
+        /// </summary>
+        /// <param name="traits">Traits to check for.</param>
+        /// <returns>True if any of the given traits are present.</returns>
+        public static bool HasAnyOfTraits(this CardInfo info, params Trait[] traits)
+        {
+            foreach (Trait item in traits)
+                if (info.traits.Contains(item))
+                    return true;
+            return false;
+        }
+        /// <summary>
+        /// Removes this card from the board.
+        /// </summary>
+        /// <param name="removeFromDeck">Whether to also remove from the player's deck. Does not affect opponent cards.</param>
+        public static void RemoveFromBoard(this PlayableCard item, bool removeFromDeck = false)
+        {
+            // Remove from deck if this card is owned by the player
+            if (removeFromDeck && !item.OpponentCard && !item.OriginatedFromQueue)
+            {
+                RunState.Run.playerDeck.RemoveCard(item.Info);
+            }
+            item.UnassignFromSlot();
+            SpecialCardBehaviour[] components = item.GetComponents<SpecialCardBehaviour>();
+            for (int i = 0; i < components.Length; i++)
+            {
+                components[i].OnCleanUp();
+            }
+            item.ExitBoard(0.3f, Vector3.zero);
+        }
+        /// <summary>
+        /// Kills this card without triggering OnDie or OnOtherCardDie. Triggers OnDie if it has the PackMule special ability.
+        /// </summary>
         public static IEnumerator DieTriggerless(this PlayableCard card)
         {
             if (!card.Dead)
@@ -37,7 +96,7 @@ namespace WhistleWindLobotomyMod
                 {
                     yield return Singleton<ResourcesManager>.Instance.AddBones(1, slotBeforeDeath);
                 }
-                if (card.Info.HasTrait(Trait.Uncuttable) && card.TriggerHandler.RespondsToTrigger(Trigger.Die, false, null))
+                if (card.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule) && card.TriggerHandler.RespondsToTrigger(Trigger.Die, false, null))
                 {
                     yield return card.TriggerHandler.OnTrigger(Trigger.Die, false, null);
                 }
@@ -45,44 +104,22 @@ namespace WhistleWindLobotomyMod
                 card.StartCoroutine(card.DestroyWhenStackIsClear());
             }
         }
-
-        public static void RemoveFromBoard(this PlayableCard item, bool removeFromDeck = false)
+        /// <summary>
+        /// Replaces the current blueprint with a custom blueprint.
+        /// </summary>
+        /// <param name="encounter">Blueprint to add.</param>
+        /// <param name="removeLockedCards">Removes locks cards.</param>
+        public static IEnumerator ReplaceWithCustomBlueprint(this Opponent opponent, EncounterBlueprintData encounter, bool removeLockedCards = false)
         {
-            if (removeFromDeck)
+            opponent.Blueprint = encounter;
+            int difficulty = 0;
+            if (Singleton<TurnManager>.Instance.BattleNodeData != null)
             {
-                RunState.Run.playerDeck.RemoveCard(item.Info);
+                difficulty = Singleton<TurnManager>.Instance.BattleNodeData.difficulty + RunState.Run.DifficultyModifier;
             }
-            item.UnassignFromSlot();
-            SpecialCardBehaviour[] components = item.GetComponents<SpecialCardBehaviour>();
-            for (int i = 0; i < components.Length; i++)
-            {
-                components[i].OnCleanUp();
-            }
-            item.ExitBoard(0.3f, Vector3.zero);
-        }
-
-        public static bool HasAllOfTraits(this CardInfo info, List<Trait> traits)
-        {
-            foreach (Trait item in traits)
-            {
-                if (!info.traits.Contains(item))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public static bool HasAnyOfTraits(this CardInfo info, List<Trait> traits)
-        {
-            foreach (Trait item in traits)
-            {
-                if (info.traits.Contains(item))
-                {
-                    return true;
-                }
-            }
-            return false;
+            List<List<CardInfo>> plan = DiskCardGame.EncounterBuilder.BuildOpponentTurnPlan(opponent.Blueprint, difficulty, removeLockedCards);
+            opponent.ReplaceAndAppendTurnPlan(plan);
+            yield return opponent.QueueNewCards();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
             };
             CardHelper.CreateCard(
                 "wstl_spiderBud", "Spider Bud",
-                "Grotesque mother of spiders.",
+                "A grotesque mother of spiders. Its children are small but grow quickly.",
                 0, 2, 0, 4,
                 Resources.spiderBud, Resources.spiderBud_emission,
                 abilities: abilities, specialAbilities: new(),

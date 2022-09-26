@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 Resources.canOfWellCheers, Resources.canOfWellCheers_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 1);
+                isChoice: true, iceCubeName: "wstl_SKELETON_SHRIMP", riskLevel: 1);
         }
     }
 }

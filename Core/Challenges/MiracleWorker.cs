@@ -1,75 +1,77 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
+using InscryptionAPI.Ascension;
+using InscryptionAPI.Encounters;
+using InscryptionAPI.Regions;
 using DiskCardGame;
+using HarmonyLib;
+using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using static WhistleWindLobotomyMod.AbnormalEncounterData;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public static class MiracleWorker
     {
-        private void SpecialAbility_Doctor()
+        public static AscensionChallenge Id { get; private set; }
+
+        private static Texture2D portrait = null;
+        private static Texture2D emissive = null;
+
+        // Creates the challenge then calls the relevant patches
+        public static void Register(Harmony harmony)
         {
-            const string rulebookName = "Doctor";
-            const string rulebookDescription = "Changes appearances.";
-            PlagueDoctor.specialAbility = AbilityHelper.CreateSpecialAbility<PlagueDoctor>(rulebookName, rulebookDescription).Id;
+            Id = ChallengeManager.Add(
+                WstlPlugin.pluginGuid,
+                "Miracle Worker",
+                "Leshy will play Plague Doctor during regular battles. Beware the Clock.",
+                20,
+                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionMiracleWorker),
+                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionMiracleWorker_activated)
+                ).Challenge.challengeType;
+
+            harmony.PatchAll(typeof(MiracleWorker));
         }
-    }
-    public class PlagueDoctor : SpecialCardBehaviour
-    {
-        public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static SpecialTriggeredAbility specialAbility;
+        private static readonly Opponent.Type[] SUPPORTED_OPPONENTS = new Opponent.Type[] {
+            Opponent.Type.ProspectorBoss,
+            Opponent.Type.AnglerBoss,
+            Opponent.Type.TrapperTraderBoss,
+            Opponent.Type.LeshyBoss,
+            Opponent.Type.PirateSkullBoss
+        };
 
-		public override bool RespondsToDrawn()
-		{
-			return true;
-		}
-		public override IEnumerator OnDrawn()
-		{
-			this.DisguiseInBattle();
-			yield break;
-		}
-		public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
-		{
-			this.DisguiseOutOfBattle();
-			yield break;
-		}
-		public override IEnumerator OnSelectedForDeckTrial()
-		{
-			this.DisguiseOutOfBattle();
-			yield break;
-		}
-		public override void OnShownInDeckReview()
-		{
-			this.DisguiseOutOfBattle();
-		}
-		public override void OnShownForCardChoiceNode()
-		{
-			this.DisguiseAsCardChoice();
-		}
-		private void DisguiseInBattle()
-		{
-			this.UpdatePortrait();
-			base.PlayableCard.AddPermanentBehaviour<PlagueDoctor>();
-		}
-		private void DisguiseOutOfBattle()
-		{
-			this.UpdatePortrait();
-		}
-
-		private void DisguiseAsCardChoice()
-		{
-			this.UpdatePortrait();
-		}
-        private void UpdatePortrait()
+        [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]
+        [HarmonyPostfix]
+        public static void AddPlagueDoctor(EncounterData encounterData, ref Opponent __result)
         {
-            Texture2D portrait;
-            Texture2D emissive;
-
-            switch (ConfigUtils.Instance.NumOfBlessings)
+            if (AscensionSaveData.Data.ChallengeIsActive(Id) || (!SaveFile.IsAscension && ConfigManager.Instance.MiracleWorker))
+            {
+                if (!SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
+                    ChallengeActivationUI.TryShowActivation(Id);
+                List<List<CardInfo>> turnPlan = __result.TurnPlan;
+                CardInfo info = CardLoader.GetCardByName("wstl_plagueDoctor");
+                UpdatePortrait();
+                info.SetPortrait(portrait, emissive);
+                for (int i = 0; i < turnPlan.Count(); i++)
+                {
+                    if (turnPlan[i].Count() > 0 && turnPlan[i].Count() < 4)
+                    {
+                        turnPlan[i].Add(info);
+                        break;
+                    }
+                }
+                WstlPlugin.Log.LogDebug($"start5");
+                __result.TurnPlan = turnPlan;
+            }
+        }
+        private static void UpdatePortrait()
+        {
+            switch (ConfigManager.Instance.NumOfBlessings)
             {
                 case 0:
                     portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor);
@@ -120,8 +122,6 @@ namespace WhistleWindLobotomyMod
                     emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor11_emission);
                     break;
             }
-            base.Card.ClearAppearanceBehaviours();
-            base.Card.Info.SetPortrait(portrait, emissive);
         }
     }
 }

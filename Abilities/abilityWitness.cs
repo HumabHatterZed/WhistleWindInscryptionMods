@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Witness()
         {
             const string rulebookName = "Witness";
-            const string rulebookDescription = "Activate: Pay 3 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.";
+            const string rulebookDescription = "Activate: Pay 2 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.";
             const string dialogue = "The truth will set you free.";
 
             Witness.ability = AbilityHelper.CreateActivatedAbility<Witness>(

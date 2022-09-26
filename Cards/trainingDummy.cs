@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             CardHelper.CreateCard(
                 "wstl_trainingDummy", "Standard Training-Dummy Rabbit",
-                "A creature in the shape of a training dummy. Perhaps the safest of these strange beasts.",
+                "A beast in the shape of a training dummy. The safest of these abnormal creatures.",
                 0, 1, 0, 1,
                 Resources.trainingDummy, Resources.trainingDummy_emission,
                 abilities: new(), specialAbilities: new(),

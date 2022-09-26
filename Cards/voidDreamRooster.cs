@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_voidDreamRooster", "Void Dream",
                 "Quite the chimera.",
-                2, 2, 2, 0,
+                2, 3, 2, 0,
                 Resources.voidDreamRooster, Resources.voidDreamRooster_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());

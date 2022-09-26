@@ -112,12 +112,6 @@ namespace WhistleWindLobotomyMod
                 "wstl_dreamOfABlackSwanBrother5" => mod5,
                 _ => mod6
             };
-
-            // reference the ability of the Brother to determine what ability to flag as hidden
-            if (otherCard.Info.Abilities.Count != 0)
-            {
-                base.Card.Status.hiddenAbilities.Add(otherCard.Info.Abilities[0]);
-            }
             base.Card.AddTemporaryMod(cardMod);
             yield break;
         }
