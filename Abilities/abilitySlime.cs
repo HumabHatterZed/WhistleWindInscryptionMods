@@ -149,10 +149,9 @@ namespace WhistleWindLobotomyMod
             cardInfo.gemsCost = otherInfo.GemsCost;
 
             // Health - 1, Power 1
-            int newPower = 1;
             int newHealth = otherInfo.baseHealth - 1;
 
-            cardInfo.Mods.Add(new(newPower, newHealth));
+            cardInfo.Mods.Add(new(1, newHealth));
 
             foreach (CardModificationInfo item in otherInfo.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {

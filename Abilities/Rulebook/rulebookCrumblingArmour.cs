@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Rulebook_CrumblingArmour()
         {
             const string rulebookName = "Crumbling Armour";
-            const string rulebookDescription = "Kills adjacent cards if they possess the Waterborne or Loose Tail ability.";
+            const string rulebookDescription = "Kills adjacent cards if they possess the Waterborne or Loose Tail sigils.";
             const string dialogue = "femboy";
             EntryCrumblingArmour.ability = AbilityHelper.CreateAbility<EntryCrumblingArmour>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,

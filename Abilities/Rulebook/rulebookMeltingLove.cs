@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Rulebook_MeltingLove()
         {
             const string rulebookName = "Melting Love";
-            const string rulebookDescription = "When Health is 1, kills adjacent Slimes and absorb their Health until Health is equal or above its maximum.";
+            const string rulebookDescription = "When Health is 1, kills adjacent Slimes and absorbs their Health until Health is equal or above its maximum.";
             const string dialogue = "femboy";
             EntryMeltingLove.ability = AbilityHelper.CreateAbility<EntryMeltingLove>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,

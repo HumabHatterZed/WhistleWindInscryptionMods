@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Rulebook_GiantTreeSap()
         {
             const string rulebookName = "Giant Tree Sap";
-            const string rulebookDescription = "Has a chance to cause the sacrificed card to explode when sacrificed.";
+            const string rulebookDescription = "When sacrificed, has a chance to cause the sacrificing card to explode.";
             const string dialogue = "femboy";
             EntryGiantTreeSap.ability = AbilityHelper.CreateAbility<EntryGiantTreeSap>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,

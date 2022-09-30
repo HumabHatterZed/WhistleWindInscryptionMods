@@ -4,20 +4,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SpecialAbility_Hate()
+        private void SpecialAbility_LoveAndHate()
         {
-            const string rulebookName = "Hate";
-            const string rulebookDescription = "Transforms when the balance has shifted too far. Enters a weakened forme every other turn.";
-            MagicalGirlHeart.specialAbility = AbilityHelper.CreateSpecialAbility<MagicalGirlHeart>(rulebookName, rulebookDescription).Id;
+            const string rulebookName = "Love and Hate";
+            const string rulebookDescription = "Transforms when the 2 more allied cards than opponent cards have died, or vice versa. Transforms on upkeep.";
+            LoveAndHate.specialAbility = AbilityHelper.CreateSpecialAbility<LoveAndHate>(rulebookName, rulebookDescription).Id;
         }
     }
-    public class MagicalGirlHeart : SpecialCardBehaviour
+    public class LoveAndHate : SpecialCardBehaviour
     {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -112,7 +111,7 @@ namespace WhistleWindLobotomyMod
                     List<CardSlot> queuedSlots = Singleton<TurnManager>.Instance.Opponent.QueuedSlots;
 
                     // if the opposing slot is empty, move over to it
-                    if (base.PlayableCard.Slot.opposingSlot.Card == null)
+                    if (opposingSlot.Card == null)
                     {
                         WstlPlugin.Log.LogDebug("Moving Queen of Hatred to opposing slot.");
                         yield return MoveToSlot(true, opposingSlot);
@@ -123,14 +122,7 @@ namespace WhistleWindLobotomyMod
                         WstlPlugin.Log.LogDebug("Adding Queen of Hatred to queue.");
                         base.PlayableCard.RemoveFromBoard();
                         yield return new WaitForSeconds(0.5f);
-                        foreach (CardSlot slot in Singleton<BoardManager>.Instance.OpponentSlotsCopy)
-                        {
-                            if (!Singleton<TurnManager>.Instance.Opponent.QueuedSlots.Contains(slot))
-                            {
-                                yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(evolution, slot, doTween: false, changeView: false, setStartPosition: false);
-                                break;
-                            }
-                        }
+                        CustomMethods.QueueCreatedCard(evolution);
                     }
                     yield return new WaitForSeconds(0.25f);
                 }
@@ -180,19 +172,21 @@ namespace WhistleWindLobotomyMod
         {
             bool Greed = false;
             bool Despair = false;
+            //bool Wrath = false;
             CardSlot greedSlot = null;
             CardSlot despairSlot = null;
+            //CardSlot wrathSlot = null;
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(!base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 if (slot != base.PlayableCard.Slot)
                 {
                     string slotName = slot.Card.Info.name;
-                    if (slotName == "wstl_magicalGirlD" || slotName == "wstl_kingOfGreed")
+                    if (slotName == "wstl_magicalGirlDiamond" || slotName == "wstl_kingOfGreed")
                     {
                         Greed = true;
-                        despairSlot = slot;
+                        greedSlot = slot;
                     }
-                    if (slotName == "wstl_magicalGirlS" || slotName == "wstl_knightOfDespair")
+                    if (slotName == "wstl_magicalGirlSpade" || slotName == "wstl_knightOfDespair")
                     {
                         Despair = true;
                         despairSlot = slot;

@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                TodaysShyLook.specialAbility
+                TodaysExpression.specialAbility
             };
             CardHelper.CreateCard(
                 "wstl_todaysShyLookNeutral", "Today's Shy Look",

@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                NothingThere.specialAbility
+                Mimicry.specialAbility
             };
             List<Trait> traits = new()
             {

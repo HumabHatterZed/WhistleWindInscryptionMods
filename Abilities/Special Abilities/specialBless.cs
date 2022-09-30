@@ -10,14 +10,14 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SpecialAbility_Doctor()
+        private void SpecialAbility_Bless()
         {
-            const string rulebookName = "Doctor";
-            const string rulebookDescription = "Changes appearances.";
-            PlagueDoctor.specialAbility = AbilityHelper.CreateSpecialAbility<PlagueDoctor>(rulebookName, rulebookDescription).Id;
+            const string rulebookName = "Bless";
+            const string rulebookDescription = "Changes appearances based on the number of times its ability has successfully activated. Will heal opposing cards if no allies exist.";
+            Bless.specialAbility = AbilityHelper.CreateSpecialAbility<Bless>(rulebookName, rulebookDescription).Id;
         }
     }
-    public class PlagueDoctor : SpecialCardBehaviour
+    public class Bless : SpecialCardBehaviour
     {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -53,7 +53,7 @@ namespace WhistleWindLobotomyMod
 		private void DisguiseInBattle()
 		{
 			this.UpdatePortrait();
-			base.PlayableCard.AddPermanentBehaviour<PlagueDoctor>();
+			base.PlayableCard.AddPermanentBehaviour<Bless>();
             base.PlayableCard.ApplyAppearanceBehaviours(new() { ForcedWhite.appearance });
 		}
         private void UpdatePortrait()

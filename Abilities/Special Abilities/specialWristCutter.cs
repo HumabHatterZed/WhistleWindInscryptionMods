@@ -1,23 +1,24 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SpecialAbility_Bath()
+        private void SpecialAbility_WristCutter()
         {
-            const string rulebookName = "Bloodbath";
-            const string rulebookDescription = "Reacts to other cards being sacrificed.";
-            BloodBath.specialAbility = AbilityHelper.CreateSpecialAbility<BloodBath>(rulebookName, rulebookDescription).Id;
+            const string rulebookName = "Wrist Cutter";
+            const string rulebookDescription = "Transforms whenever another card is sacrificed, up to 3 times.";
+            WristCutter.specialAbility = AbilityHelper.CreateSpecialAbility<WristCutter>(rulebookName, rulebookDescription).Id;
         }
     }
 
-    public class BloodBath : SpecialCardBehaviour
+    public class WristCutter : SpecialCardBehaviour
     {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 

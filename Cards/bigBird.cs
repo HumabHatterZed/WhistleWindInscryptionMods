@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                BigBird.specialAbility
+                ThreeBirds.specialAbility
             };
             CardHelper.CreateCard(
                 "wstl_bigBird", "Big Bird",

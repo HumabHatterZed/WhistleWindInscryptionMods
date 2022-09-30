@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Rulebook_PlagueDoctor()
         {
             const string rulebookName = "Plague Doctor";
-            const string rulebookDescription = "Changes appearance upon healing cards. Will heal opposing cards if no allies can be healed.";
+            const string rulebookDescription = "Changes appearances based on the number of times its ability has successfully activated. Will heal opposing cards if no allies exist.";
             const string dialogue = "femboy";
             EntryPlagueDoctor.ability = AbilityHelper.CreateAbility<EntryPlagueDoctor>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,

@@ -72,7 +72,7 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                PlagueDoctor.specialAbility
+                Bless.specialAbility
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {

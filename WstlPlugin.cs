@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.2.0";
+        private const string pluginVersion = "1.2.1";
 
         internal static ManualLogSource Log;
         private static Harmony harmony;

@@ -2,8 +2,10 @@
 using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,11 +14,11 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_Sap()
         {
             const string rulebookName = "Sap";
-            const string rulebookDescription = "May react to being sacrificed.";
-            GiantTreeSap.specialAbility = AbilityHelper.CreateSpecialAbility<GiantTreeSap>(rulebookName, rulebookDescription).Id;
+            const string rulebookDescription = "When sacrificed, has a chance to cause the sacrificing card to explode.";
+            Sap.specialAbility = AbilityHelper.CreateSpecialAbility<Sap>(rulebookName, rulebookDescription).Id;
         }
     }
-    public class GiantTreeSap : SpecialCardBehaviour
+    public class Sap : SpecialCardBehaviour
     {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -35,6 +37,10 @@ namespace WhistleWindLobotomyMod
             {
                 sacrificeCount = 0;
                 PlayableCard card = Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard;
+
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Curious);
+                yield return new WaitForSeconds(0.25f);
+
                 if (!card.HasAbility(Volatile.ability))
                 {
                     card.FlipInHand(AddVolatile);
@@ -46,8 +52,6 @@ namespace WhistleWindLobotomyMod
                     yield return new WaitForSeconds(0.4f);
                 }
                 yield return card.Info.SetExtendedProperty("wstl:Sap", true);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Curious);
-                yield return new WaitForSeconds(0.25f);
             }
             else
             {

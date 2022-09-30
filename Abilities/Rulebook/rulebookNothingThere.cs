@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Rulebook_NothingThere()
         {
             const string rulebookName = "Nothing There";
-            const string rulebookDescription = "Disguises as past challengers. Reveals itself on death.";
+            const string rulebookDescription = "Changes forme when killed. Changes forme on upkeep.";
             const string dialogue = "femboy";
             EntryNothingThere.ability = AbilityHelper.CreateAbility<EntryNothingThere>(
                 Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,

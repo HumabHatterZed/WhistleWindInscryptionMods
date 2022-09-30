@@ -1,6 +1,8 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -8,10 +10,10 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SpecialAbility_Evolve()
+        private void SpecialAbility_CustomFledgling()
         {
-            const string rulebookName = "SpecialAbilityFledgling";
-            const string rulebookDescription = "Special ability version of Fledgling for certain cards.";
+            const string rulebookName = "CustomFledgling";
+            const string rulebookDescription = "Internal tool. You shouldn't see this.";
             CustomFledgling.specialAbility = AbilityHelper.CreateSpecialAbility<CustomFledgling>(rulebookName, rulebookDescription).Id;
         }
     }

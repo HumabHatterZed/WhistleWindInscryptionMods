@@ -1,10 +1,10 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_Spore()
         {
             const string rulebookName = "Spore";
-            const string rulebookDescription = "At the end of the owner's turn take damage equal to this.";
+            const string rulebookDescription = "At the end of the owner's turn take damage equal to the amount of Spore they have.";
             SporeDamage.specialAbility = AbilityHelper.CreateSpecialAbility<SporeDamage>(rulebookName, rulebookDescription).Id;
         }
     }
