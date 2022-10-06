@@ -11,6 +11,12 @@ namespace WhistleWindLobotomyMod
 {
     public class AbnormalEncounterData
     {
+        public static List<EncounterBlueprintData> ModEncounters = new()
+        {
+            StrangePack, BitterPack, StrangeFlock, HelperJuggernaut,
+            StrangeBees, StrangeCreatures1, WormsNest, StrangeCreatures2, StrangeFish,
+            StrangeHerd, AlriuneJuggernaut, SpidersNest, SwanJuggernaut
+        };
         // Forest encounters
         public static EncounterBlueprintData StrangePack
         {

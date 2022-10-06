@@ -13,6 +13,19 @@ namespace WhistleWindLobotomyMod
     public static class CustomExtensions
     {
         /// <summary>
+        /// Checks the Card for the number of stacks of the given ability it has.
+        /// </summary>
+        /// <param name="ability">Ability to check for.</param>
+        /// <returns>Number of stacks of the given ability.</returns>
+        public static int GetAbilityStacks(this PlayableCard card, Ability ability)
+        {
+            int num = 0;
+            foreach (Ability item in card.Info.Abilities)
+                if (item == ability)
+                    num++;
+            return num;
+        }
+        /// <summary>
         /// Checks the Card for any of the given abilities.
         /// </summary>
         /// <param name="abilities">Abilities to check for.</param>
@@ -48,6 +61,14 @@ namespace WhistleWindLobotomyMod
                 if (info.traits.Contains(item))
                     return true;
             return false;
+        }
+        /// <summary>
+        /// Grabs the Card in the opposing slot.
+        /// </summary>
+        /// <returns>The opposing Card object.</returns>
+        public static PlayableCard OpposingCard(this PlayableCard card)
+        {
+            return card.Slot.opposingSlot.Card;
         }
         /// <summary>
         /// Removes this card from the board.

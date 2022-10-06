@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void Theresia_T0909()
+        private void Card_Theresia_T0909()
         {
             List<Ability> abilities = new()
             {

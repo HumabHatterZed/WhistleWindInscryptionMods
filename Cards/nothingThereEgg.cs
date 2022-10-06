@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void NothingThereEgg_O0620()
+        private void Card_NothingThereEgg_O0620()
         {
             List<Ability> abilities = new()
             {

@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void HonouredMonk_D01110()
+        private void Card_HonouredMonk_D01110()
         {
             List<Ability> abilities = new()
             {

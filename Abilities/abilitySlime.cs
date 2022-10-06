@@ -77,8 +77,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.2f);
                 if (!WstlSaveManager.HasSeenMeltingHeal)
                 {
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(absorbDialogue);
-                    yield return new WaitForSeconds(0.1f);
+                    yield return CustomMethods.PlayAlternateDialogue(dialogue: absorbDialogue);
                 }
                 if (leftValid)
                 {

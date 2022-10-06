@@ -7,49 +7,41 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+using Infiniscryption.Spells.Patchers;
 namespace WhistleWindLobotomyMod
 {
     [HarmonyPatch(typeof(CardMergeSequencer))]
     public static class CardMergePatches
     {
-        // Removes cards from valid pool of hosts for card merges
-        [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForHost))]
-        public static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
-        {
-            __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(Mimicry.specialAbility)
-            || x.Abilities.Contains(TheTrain.ability)
-            || x.Abilities.Contains(TimeMachine.ability));
-        }
-        // Removes cards from valid pool of sacrifices for card merges
+        // Prevents cards from being sacrificed / transferring their sigils
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
         public static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(Mimicry.specialAbility)
-            || x.Abilities.Contains(TheTrain.ability)
-            || x.Abilities.Contains(TimeMachine.ability)
-            || x.name == "wstl_apocalypseBird");
+            __result.RemoveAll((CardInfo x) => x.metaCategories.Any((CardMetaCategory mc) => mc == CardHelper.CANNOT_GIVE_SIGILS)
+            || x.SpecialAbilities.Any((SpecialTriggeredAbility sa) => sa == Mimicry.specialAbility)
+            || x.Abilities.Any((Ability ab) => ab == TheTrain.ability || ab == TimeMachine.ability || ab == Scrambler.ability || ab == TargetGainStats.ability || ab == TargetGainSigils.ability || ab == TargetGainStatsSigils.ability));
         }
-        /*
-        [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.ModifyHostCard))]
-        public static void Postfix(ref CardInfo hostCardInfo)
+
+        // Prevents card from being merged / gaining sigils
+        [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForHost))]
+        public static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
         {
-            CardModificationInfo info = new(Ability.Sharp);
-            info.singletonId = "wstl_test";
-            RunState.Run.playerDeck.ModifyCard(hostCardInfo, info);
+            __result.RemoveAll((CardInfo x) => x.metaCategories.Any((CardMetaCategory mc) => mc == CardHelper.CANNOT_GAIN_SIGILS)
+            || x.SpecialAbilities.Any((SpecialTriggeredAbility sa) => sa == Mimicry.specialAbility)
+            || x.Abilities.Any((Ability ab) => ab == TheTrain.ability || ab == TimeMachine.ability || ab == Scrambler.ability || ab == TargetGainStats.ability));
         }
-        */
     }
 
     [HarmonyPatch(typeof(CardStatBoostSequencer))]
     public static class StatBoostPatch
     {
-        // Removes cards from valid pool of hosts for stat boosts
+        // Prevents cards from having their stats boostable
         [HarmonyPostfix, HarmonyPatch(nameof(CardStatBoostSequencer.GetValidCards))]
         public static void RemoveFromValidCardsForStatBoost(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((CardInfo x) => x.SpecialAbilities.Contains(Mimicry.specialAbility)
-            || x.Abilities.Contains(TheTrain.ability)
-            || x.Abilities.Contains(TimeMachine.ability));
+            __result.RemoveAll((CardInfo x) => x.metaCategories.Any((CardMetaCategory mc) => mc == CardHelper.CANNOT_BUFF_STATS)
+            || x.SpecialAbilities.Any((SpecialTriggeredAbility sa) => sa == Mimicry.specialAbility)
+            || x.Abilities.Any((Ability ab) => ab == TheTrain.ability || ab == TimeMachine.ability || ab == TargetGainSigils.ability));
         }
     }
     /*
@@ -101,12 +93,13 @@ namespace WhistleWindLobotomyMod
     [HarmonyPatch(typeof(CopyCardSequencer))]
     public static class CopyCardPatch
     {
-        // Removes cards from valid pool of hosts for stat boosts
+        // Prevents card from being copied by Goo (onePerDeck cards are removed automatically)
         [HarmonyPostfix, HarmonyPatch(nameof(CopyCardSequencer.GetValidCards))]
         public static void RemoveFromValidCardsForCopyCard(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((CardInfo x) => x.Abilities.Contains(TheTrain.ability)
-            || x.Abilities.Contains(TimeMachine.ability));
+            __result.RemoveAll((CardInfo x) => x.metaCategories.Any((CardMetaCategory mc) => mc == CardHelper.CANNOT_COPY_CARD)
+           || x.SpecialAbilities.Any((SpecialTriggeredAbility sa) => sa == Mimicry.specialAbility)
+           || x.Abilities.Any((Ability ab) => ab == TheTrain.ability || ab == TimeMachine.ability || ab == Scrambler.ability || ab == TargetGainStats.ability || ab == TargetGainSigils.ability || ab == TargetGainStatsSigils.ability));
         }
     }
 }

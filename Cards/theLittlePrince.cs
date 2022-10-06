@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void TheLittlePrince_O0466()
+        private void Card_TheLittlePrince_O0466()
         {
             List<Ability> abilities = new()
             {

@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void ParasiteTreeSapling_D04108()
+        private void Card_ParasiteTreeSapling_D04108()
         {
             CardHelper.CreateCard(
                 "wstl_parasiteTreeSapling", "Sapling",

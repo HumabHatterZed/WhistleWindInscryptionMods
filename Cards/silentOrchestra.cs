@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SilentOrchestra_T0131()
+        private void Card_SilentOrchestra_T0131()
         {
             List<Ability> abilities = new()
             {

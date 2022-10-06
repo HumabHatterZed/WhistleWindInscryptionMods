@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SecondBrother_F0270()
+        private void Card_SecondBrother_F0270()
         {
             CardHelper.CreateCard(
                 "wstl_dreamOfABlackSwanBrother2", "Second Brother",

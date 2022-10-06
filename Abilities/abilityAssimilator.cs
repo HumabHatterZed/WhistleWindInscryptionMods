@@ -61,7 +61,7 @@ namespace WhistleWindLobotomyMod
                     if (!WstlSaveManager.HasSeenMountainGrow)
                     {
                         WstlSaveManager.HasSeenMountainGrow = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(growDialogue, -0.65f, 0.4f);
+                        yield return CustomMethods.PlayAlternateDialogue(dialogue: growDialogue);
                     }
                 }
             }
@@ -90,7 +90,7 @@ namespace WhistleWindLobotomyMod
             if (!WstlSaveManager.HasSeenMountainShrink)
             {
                 WstlSaveManager.HasSeenMountainShrink = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dieDialogue, -0.65f, 0.4f);
+                yield return CustomMethods.PlayAlternateDialogue(dialogue: dieDialogue);
             }
         }
     }

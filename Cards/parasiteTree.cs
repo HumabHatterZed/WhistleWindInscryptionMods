@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void ParasiteTree_D04108()
+        private void Card_ParasiteTree_D04108()
         {
             List<Ability> abilities = new()
             {

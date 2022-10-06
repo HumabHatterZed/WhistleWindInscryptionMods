@@ -66,7 +66,7 @@ namespace WhistleWindLobotomyMod
                         if (!WstlSaveManager.HasSeenSnowQueenFreeze)
                         {
                             WstlSaveManager.HasSeenSnowQueenFreeze = true;
-                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
+                            yield return CustomMethods.PlayAlternateDialogue(dialogue: kissDialogue);
                         }
                     }
                 }
@@ -93,7 +93,7 @@ namespace WhistleWindLobotomyMod
                         if (!WstlSaveManager.HasSeenSnowQueenFreeze)
                         {
                             WstlSaveManager.HasSeenSnowQueenFreeze = true;
-                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(kissDialogue, -0.65f, 0.4f);
+                            yield return CustomMethods.PlayAlternateDialogue(dialogue: kissDialogue);
                         }
                     }
                 }
@@ -109,7 +109,7 @@ namespace WhistleWindLobotomyMod
                 if (!WstlSaveManager.HasSeenSnowQueenFail)
                 {
                     WstlSaveManager.HasSeenSnowQueenFail = true;
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(failDialogue, -0.65f, 0.4f);
+                    yield return CustomMethods.PlayAlternateDialogue(dialogue: failDialogue);
                 }
             }
         }

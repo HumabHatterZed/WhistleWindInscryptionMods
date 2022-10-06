@@ -8,11 +8,18 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void BackwardClock_D09104()
+        private void Card_BackwardClock_D09104()
         {
             List<Ability> abilities = new()
             {
                 TimeMachine.ability
+            };
+            List<CardMetaCategory> metaCategories = new()
+            {
+                CardHelper.CANNOT_GIVE_SIGILS,
+                CardHelper.CANNOT_GAIN_SIGILS,
+                CardHelper.CANNOT_BUFF_STATS,
+                CardHelper.CANNOT_COPY_CARD
             };
             List<Trait> traits = new()
             {
@@ -24,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 0, 1, 0, 4,
                 Resources.backwardClock, Resources.backwardClock_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
+                metaCategories: metaCategories, tribes: new(), traits: traits,
                 isTerrain: true, isRare: true, onePerDeck: true, isDonator: true, riskLevel: 4);
         }
     }

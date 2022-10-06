@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void DellaLuna_D01105()
+        private void Card_DellaLuna_D01105()
         {
             List<Ability> abilities = new()
             {

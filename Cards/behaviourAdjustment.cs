@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void BehaviourAdjustment_O0996()
+        private void Card_BehaviourAdjustment_O0996()
         {
             List<Ability> abilities = new()
             {

@@ -8,11 +8,11 @@ using UnityEngine;
 
 namespace WhistleWindLobotomyMod
 {
-    public abstract class BaseDoctor : AbilityBehaviour
+    public abstract class PlagueDoctorBase : SniperSelectSlot
     {
-        public bool HasHeretic = new List<PlayableCard>(Singleton<PlayerHand>.Instance.CardsInHand).FindAll((PlayableCard card) => card.Info.name == "wstl_apostleHeretic").Count != 0
-            || new List<CardSlot>(Singleton<BoardManager>.Instance.AllSlotsCopy
-                .Where(slot => slot.Card != null && slot.Card.Info.name == "wstl_apostleHeretic")).Count != 0;
+        public bool HasHeretic =
+            new List<PlayableCard>(Singleton<PlayerHand>.Instance.CardsInHand).FindAll((PlayableCard c) => c.Info.name == "wstl_apostleHeretic").Count != 0
+            || new List<CardSlot>(Singleton<BoardManager>.Instance.AllSlotsCopy.Where((CardSlot s) => s.Card != null && s.Card.Info.name == "wstl_apostleHeretic")).Count != 0;
 
         private readonly string hereticDialogue = "[c:bR]Have I not chosen you, the Twelve? Yet one of you is [c:][c:bG]a devil[c:][c:bR].[c:]";
 
@@ -64,8 +64,7 @@ namespace WhistleWindLobotomyMod
                 if (HasHeretic && !WstlSaveManager.ApostleHeretic)
                 {
                     WstlSaveManager.ApostleHeretic = true;
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hereticDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
-                    yield return new WaitForSeconds(0.2f);
+                    yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Bonelord, dialogue: hereticDialogue);
                 }
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
                 yield return new WaitForSeconds(0.2f);

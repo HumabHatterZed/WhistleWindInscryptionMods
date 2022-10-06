@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void DimensionalRefraction_O0388()
+        private void Card_DimensionalRefraction_O0388()
         {
             List<Ability> abilities = new()
             {

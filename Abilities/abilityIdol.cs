@@ -50,12 +50,9 @@ namespace WhistleWindLobotomyMod
         }
         public bool ActivateOnPlay()
         {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(!base.Card.Slot.IsPlayerSlot))
+            if (base.Card.Slot != null)
             {
-                if (slot.Card != null && slot.Card.Attack > 0)
-                {
-                    return true;
-                }
+                return Singleton<BoardManager>.Instance.GetSlots(base.Card.OpponentCard).Where(s => s.Card != null).Count() > 0;
             }
             return false;
         }

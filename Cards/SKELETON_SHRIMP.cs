@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SkeletonShrimp_F0552()
+        private void Card_SkeletonShrimp_F0552()
         {
             List<Ability> abilities = new()
             {

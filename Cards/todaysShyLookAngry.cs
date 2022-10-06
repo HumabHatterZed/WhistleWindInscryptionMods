@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void TodaysShyLookAngry_O0192()
+        private void Card_TodaysShyLookAngry_O0192()
         {
             List<SpecialTriggeredAbility> specialAbilities = new()
             {

@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void MeatLantern_O0484()
+        private void Card_MeatLantern_O0484()
         {
             List<Ability> abilities = new()
             {

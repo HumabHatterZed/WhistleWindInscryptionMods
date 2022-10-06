@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void GraveOfBlossoms_O04100()
+        private void Card_GraveOfBlossoms_O04100()
         {
             List<Ability> abilities = new()
             {

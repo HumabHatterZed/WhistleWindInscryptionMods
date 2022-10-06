@@ -10,6 +10,18 @@ namespace WhistleWindLobotomyMod
 {
     public static class CustomMethods
     {
+        public static IEnumerator PlayAlternateDialogue(
+            Emotion emotion = Emotion.Neutral,
+            DialogueEvent.Speaker speaker = DialogueEvent.Speaker.Leshy, float delay = 0.2f,
+            params string[] dialogue)
+        {
+            yield return new WaitForSeconds(delay);
+            foreach (string s in dialogue)
+            {
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(s, emotion: emotion, speaker: speaker);
+            }
+            yield return new WaitForSeconds(delay);
+        }
         public static IEnumerator QueueCreatedCard(CardInfo cardToQueue)
         {
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();

@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void ApostleScythe_T0346()
+        private void Card_ApostleScythe_T0346()
         {
             List<Ability> abilities = new()
             {

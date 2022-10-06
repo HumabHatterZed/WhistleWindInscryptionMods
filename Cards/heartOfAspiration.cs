@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void HeartOfAspiration_O0977()
+        private void Card_HeartOfAspiration_O0977()
         {
             List<Ability> abilities = new()
             {

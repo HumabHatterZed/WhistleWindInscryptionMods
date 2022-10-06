@@ -72,7 +72,7 @@ namespace WhistleWindLobotomyMod
                 {
                     WstlSaveManager.HasSeenCrumblingArmourFail = true;
                     yield return new WaitForSeconds(0.25f);
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(buffFail, -0.65f, 0.4f);
+                    yield return CustomMethods.PlayAlternateDialogue(dialogue: buffFail);
                 }
                 yield break;
             }
@@ -86,16 +86,14 @@ namespace WhistleWindLobotomyMod
                     if (!WstlSaveManager.HasSeenCrumblingArmourKill)
                     {
                         WstlSaveManager.HasSeenCrumblingArmourKill = true;
-                        yield return new WaitForSeconds(0.5f);
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(cowardKill, -0.65f, 0.4f);
+                        yield return new WaitForSeconds(0.2f);
+                        yield return CustomMethods.PlayAlternateDialogue(dialogue: cowardKill);
                     }
                 }
                 else if (!WstlSaveManager.HasSeenCrumblingArmourRefuse)
                 {
                     WstlSaveManager.HasSeenCrumblingArmourRefuse = true;
-                    yield return new WaitForSeconds(0.25f);
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(buffRefuse, -0.65f, 0.4f);
-                    yield return new WaitForSeconds(0.25f);
+                    yield return CustomMethods.PlayAlternateDialogue(dialogue: buffRefuse);
                 }
                 yield break;
             }

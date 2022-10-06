@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void ForsakenMurderer_T0154()
+        private void Card_ForsakenMurderer_T0154()
         {
             CardHelper.CreateCard(
                 "wstl_forsakenMurderer", "Forsaken Murderer",

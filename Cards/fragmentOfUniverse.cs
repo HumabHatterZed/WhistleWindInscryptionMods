@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void FragmentOfUniverse_O0360()
+        private void Card_FragmentOfUniverse_O0360()
         {
             List<Ability> abilities = new()
             {

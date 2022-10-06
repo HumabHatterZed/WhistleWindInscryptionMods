@@ -75,8 +75,8 @@ namespace WhistleWindLobotomyMod
                 }
                 else
                 {
-                    yield return new WaitForSeconds(0.4f);
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("You've exhausted your available cards.", -0.65f, 0.4f);
+                    yield return new WaitForSeconds(0.2f);
+                    yield return CustomMethods.PlayAlternateDialogue(dialogue: "You've exhausted your available cards.");
                     break;
                 }
             }

@@ -71,15 +71,15 @@ namespace WhistleWindLobotomyMod
             base.StartCoroutine(modDeckPile.SpawnCards(SaveManager.SaveFile.CurrentDeck.Cards.Count));
 
             // First-time dialogue for the node
-            if (!SaveFile.IsAscension && !WstlSaveManager.AbnormalityCardChoice)
+            if (!SaveFile.IsAscension && !WstlSaveManager.AbnormalityChoiceIntro)
             {
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default);
                 yield return new WaitForSeconds(0.4f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("You enter a clearing surrounded by dark, twisting trees.");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The moon leers down at you as the trees claw at the sky.");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]3[c:] creatures emerge from the shadows before you. Powerful, mysterious...");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]abnormal[c:].");
-                yield return new WaitForSeconds(0.25f);
+                yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f,
+                    "You enter a clearing surrounded by dark, twisting trees.",
+                    "The moon leers down at you as the trees claw at the sky.",
+                    "[c:bR]3[c:] creatures emerge from the shadows before you. Powerful, mysterious...",
+                    "[c:bR]abnormal[c:].");
             }
 
             Singleton<ViewManager>.Instance.SwitchToView(this.choicesView, immediate: false, lockAfter: true);
@@ -164,27 +164,23 @@ namespace WhistleWindLobotomyMod
         }
         private List<CardChoice> GenerateRiskChoices(int randomSeed)
         {
-            bool gotRare = false;
             List<CardChoice> listOfChoices = new();
             int regionTier = RunState.CurrentRegionTier;
             while (listOfChoices.Count < 3)
             {
                 CardChoice cardChoice = new();
-                string risk = GetRiskLevel(randomSeed++, regionTier);
+                string riskLevel = GetRiskLevel(randomSeed++, regionTier);
+                bool selectARareCard = !(SeededRandom.Value(randomSeed++) >= RareChoiceChance(regionTier));
 
-                // Default : 4% P1 ; 2% KCM | Cheat/Config : 15% P1 ; 10% KCM
-                float mult = SaveFile.IsAscension ? (AscensionSaveData.Data.ChallengeIsActive(BetterRareChances.Id) ? 0.1f : 0.02f) : (ConfigManager.Instance.BetterRareChances ? 0.15f : 0.04f);
-                bool rareChoice = !gotRare && !(SeededRandom.Value(randomSeed++) >= regionTier * mult);
-                CardInfo card = ModCardLoader.GetRandomChoosableModCard(randomSeed++, risk);
-                if (rareChoice)
+                CardInfo card = ModCardLoader.GetRandomChoosableModCard(randomSeed++, riskLevel);
+                if (selectARareCard)
                 {
-                    gotRare = true;
                     card = ModCardLoader.GetRandomRareModCard(randomSeed++);
                 }
                 while (listOfChoices.Exists((CardChoice x) => x.CardInfo.name == card.name))
                 {
-                    string risk2 = GetRiskLevel(randomSeed++, regionTier);
-                    card = rareChoice ? ModCardLoader.GetRandomRareModCard(randomSeed++) : ModCardLoader.GetRandomChoosableModCard(randomSeed++, risk2);
+                    string riskLevel2 = GetRiskLevel(randomSeed++, regionTier);
+                    card = selectARareCard ? ModCardLoader.GetRandomRareModCard(randomSeed++) : ModCardLoader.GetRandomChoosableModCard(randomSeed++, riskLevel2);
                 }
                 cardChoice.CardInfo = card;
                 listOfChoices.Add(cardChoice);
@@ -211,12 +207,26 @@ namespace WhistleWindLobotomyMod
             }
             return "Zayin";
         }
+        private float RareChoiceChance(int regionTier)
+        {
+            // # || PT 1 | SPEC || #
+            // 0 || 0.00 | 0.02 || 1
+            // 1 || 0.02 | 0.05 || 2
+            // 2 || 0.05 | 0.10 || 3
+
+            int regionMultiplier = regionTier;
+
+            if ((!SaveFile.IsAscension && ConfigManager.Instance.BetterRareChances) || (SaveFile.IsAscension && AscensionSaveData.Data.ChallengeIsActive(BetterRareChances.Id)))
+                regionMultiplier++;
+
+            return regionMultiplier switch { 1 => 0.02f, 2 => 0.05f, 3 => 0.10f, _ => 0f };
+        }
         private IEnumerator AddCardToDeckAndCleanUp(SelectableCard card)
         {
             CleanUpRerollItem();
             Singleton<RuleBookController>.Instance.SetShown(shown: false);
             yield return RewardChosenSequence(card);
-            ProgressionData.SetMechanicLearned(MechanicsConcept.CardChoice);
+            WstlSaveManager.AbnormalityChoiceIntro = true;
             AddChosenCardToDeck();
             Singleton<TextDisplayer>.Instance.Clear();
             yield return new WaitForSeconds(0.1f);
@@ -226,13 +236,13 @@ namespace WhistleWindLobotomyMod
         {
             card.OnCardAddedToDeck();
             float num = 0f;
-            if (!ProgressionData.LearnedMechanic(MechanicsConcept.CardChoice))
+            if (!WstlSaveManager.AbnormalityChoiceIntro)
             {
                 num = 0.5f;
             }
             base.deckPile.MoveCardToPile(card, flipFaceDown: true, num);
             yield return new WaitForSeconds(num);
-            if (!ProgressionData.LearnedMechanic(MechanicsConcept.CardChoice))
+            if (!WstlSaveManager.AbnormalityChoiceIntro)
             {
                 Singleton<TextDisplayer>.Instance.Clear();
                 yield return new WaitForSeconds(0.15f);
@@ -255,7 +265,7 @@ namespace WhistleWindLobotomyMod
         }
         private void OnRewardChosen(SelectableCard card)
         {
-            if (!ProgressionData.LearnedMechanic(MechanicsConcept.CardChoice) && !this.AllCardsFlippedUp())
+            if (!WstlSaveManager.AbnormalityChoiceIntro && !this.AllCardsFlippedUp())
             {
                 HintsHandler.OnClickCardChoiceWhileOtherFlipped();
             }
@@ -295,9 +305,8 @@ namespace WhistleWindLobotomyMod
                 Singleton<RuleBookController>.Instance.SetShown(shown: false);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(card.Info.description);
                 ProgressionData.SetCardIntroduced(card.Info);
-                if (!WstlSaveManager.AbnormalityCardChoice && this.AllCardsFlippedUp())
+                if (!WstlSaveManager.AbnormalityChoiceIntro && this.AllCardsFlippedUp())
                 {
-                    WstlSaveManager.AbnormalityCardChoice = true;
                     yield return new WaitForSeconds(0.25f);
                     Singleton<TextDisplayer>.Instance.ShowMessage("You may choose [c:bR]1[c:] to join you. The others will remain here.");
                 }

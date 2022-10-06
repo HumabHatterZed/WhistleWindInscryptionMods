@@ -60,8 +60,6 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            WstlPlugin.Log.LogDebug($"Opponent: {opponentDeaths}");
-            WstlPlugin.Log.LogDebug($"Player: {allyDeaths}");
             // 2 more player cards have died than opponent cards
             if (allyDeaths > opponentDeaths + 1)
             {
@@ -145,14 +143,13 @@ namespace WhistleWindLobotomyMod
             if (!WstlSaveManager.HasSeenHatredTransformation)
             {
                 WstlSaveManager.HasSeenHatredTransformation = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f);
-                yield return new WaitForSeconds(0.5f);
+                yield return CustomMethods.PlayAlternateDialogue(dialogue: dialogue);
             }
             else
             {
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue, -0.65f, 0.4f);
-                yield return new WaitForSeconds(0.5f);
+                yield return CustomMethods.PlayAlternateDialogue(dialogue: altDialogue);
             }
+            yield return new WaitForSeconds(0.2f);
         }
         private IEnumerator PerformTransformation(CardInfo evolution)
         {
@@ -195,11 +192,10 @@ namespace WhistleWindLobotomyMod
             }
             if (Greed && Despair)
             {
-                if (!WstlSaveManager.HasSeenPlaceholder)
+                if (!WstlSaveManager.HasSeenMagicalGirls)
                 {
-                    WstlSaveManager.HasSeenPlaceholder = true;
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The absence of [c:bB]the fourth[c:] has rendered their purpose null.", -0.65f, 0.4f);
-                    yield return new WaitForSeconds(0.5f);
+                    WstlSaveManager.HasSeenMagicalGirls = true;
+                    yield return CustomMethods.PlayAlternateDialogue(dialogue: "The absence of [c:bB]the fourth[c:] has rendered their purpose null.");
                 }
             }
             else

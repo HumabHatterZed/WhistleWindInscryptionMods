@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SkinProphecy_T0990()
+        private void Card_SkinProphecy_T0990()
         {
             List<Ability> abilities = new()
             {

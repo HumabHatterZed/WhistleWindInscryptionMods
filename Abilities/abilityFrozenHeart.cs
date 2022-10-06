@@ -44,7 +44,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.2f);
                 if (!base.HasLearned)
                 {
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue, -0.65f, 0.4f);
+                    yield return CustomMethods.PlayAlternateDialogue(dialogue: altDialogue);
                 }
                 yield return new WaitForSeconds(0.25f);
             }

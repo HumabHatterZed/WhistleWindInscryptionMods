@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void KnightOfDespair_O0173()
+        private void Card_KnightOfDespair_O0173()
         {
             List<Ability> abilities = new()
             {
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_knightOfDespair", "The Knight of Despair",
                 "",
-                2, 4, 2, 0,
+                2, 4, 1, 0,
                 Resources.knightOfDespair, Resources.knightOfDespair_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void TheLittlePrinceMinion_O0466()
+        private void Card_TheLittlePrinceMinion_O0466()
         {
             CardHelper.CreateCard(
                 "wstl_theLittlePrinceMinion", "Spore Mold Creature",

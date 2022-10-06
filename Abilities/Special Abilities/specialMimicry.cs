@@ -55,7 +55,7 @@ namespace WhistleWindLobotomyMod
 			if (!WstlSaveManager.HasSeenNothingTransformation)
 			{
 				WstlSaveManager.HasSeenNothingTransformation = true;
-				yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Surprise);
+				yield return CustomMethods.PlayAlternateDialogue(Emotion.Surprise, dialogue: dialogue);
 			}
 			yield return new WaitForSeconds(0.25f);
 		}

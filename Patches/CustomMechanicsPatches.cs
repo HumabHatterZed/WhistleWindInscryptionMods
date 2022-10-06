@@ -32,12 +32,14 @@ namespace WhistleWindLobotomyMod
             yield return enumerator;
         }
     }
-    [HarmonyPatch(typeof(BoardManager))]
-    public static class BoardManagerPatch
+
+    [HarmonyPatch(typeof(Opponent))]
+    public class OpponentPatch
     {
-        // Resets NumOfBlessings when the event ends with WhiteNight on the board
-        [HarmonyPostfix, HarmonyPatch(nameof(BoardManager.CleanUp))]
-        private static void ResetBlessings(ref BoardManager __instance)
+        // Resets the board effects of Apocalypse Bird
+        // and the clock for WhiteNight
+        [HarmonyPostfix, HarmonyPatch(nameof(Opponent.OutroSequence))]
+        public static IEnumerator ResetEffects(IEnumerator enumerator)
         {
             if (ConfigManager.Instance.NumOfBlessings > 11)
             {
@@ -45,15 +47,6 @@ namespace WhistleWindLobotomyMod
                 ConfigManager.Instance.SetBlessings(0);
                 LeshyAnimationController.Instance.ResetEyesTexture();
             }
-        }
-    }
-    [HarmonyPatch(typeof(Opponent))]
-    public class OpponentPatch
-    {
-        // Resets the board effects of Apocalypse Bird
-        [HarmonyPostfix, HarmonyPatch(nameof(Opponent.OutroSequence))]
-        public static IEnumerator ResetEffects(IEnumerator enumerator)
-        {
             if (WstlSaveManager.HasSeenApocalypseEffects)
             {
                 WstlSaveManager.HasSeenApocalypseEffects = false;

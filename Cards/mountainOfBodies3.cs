@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void MountainOfBodies3_T0175()
+        private void Card_MountainOfBodies3_T0175()
         {
             List<Ability> abilities = new()
             {

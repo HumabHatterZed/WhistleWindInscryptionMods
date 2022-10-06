@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void ChildOfTheGalaxy_O0155()
+        private void Card_ChildOfTheGalaxy_O0155()
         {
             List<Ability> abilities = new()
             {

@@ -60,7 +60,7 @@ namespace WhistleWindLobotomyMod
                 if (!WstlSaveManager.ApostleDowned && !SpecialApostle)
                 {
                     WstlSaveManager.ApostleDowned = true;
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(downedDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
+                    yield return CustomMethods.PlayAlternateDialogue(Emotion.Anger, DialogueEvent.Speaker.Bonelord, dialogue: downedDialogue);
                 }
                 yield break;
             }
@@ -83,7 +83,7 @@ namespace WhistleWindLobotomyMod
             if (!WstlSaveManager.ApostleKilled)
             {
                 WstlSaveManager.ApostleKilled = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hammeredDialogue, -0.65f, 0.4f, Emotion.Laughter, speaker: DialogueEvent.Speaker.Bonelord);
+                yield return CustomMethods.PlayAlternateDialogue(Emotion.Laughter, DialogueEvent.Speaker.Bonelord, dialogue: hammeredDialogue);
             }
         }
 

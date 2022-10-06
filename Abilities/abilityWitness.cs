@@ -78,9 +78,7 @@ namespace WhistleWindLobotomyMod
                         }
                     }
                     base.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.25f);
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(invalidDialogue, -0.65f, 0.4f);
-                    yield return new WaitForSeconds(0.25f);
+                    yield return CustomMethods.PlayAlternateDialogue(dialogue: invalidDialogue);
 
                     CombatPhaseManagerPatch.Instance.VisualizeClearSniperAbility();
                     yield return PlayerChooseTarget();

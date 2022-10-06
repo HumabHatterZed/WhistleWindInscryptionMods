@@ -1,5 +1,66 @@
 ﻿## FULL CHANGELOG
 
+### v2.0.0 - The One, Perfect Book (?/?/202?)
+* 🧱 General
+  * Added Spell Card Toolkit mod as a dependency
+  * Replaced placeholder save value for Magical Girls with a properly named value
+  * Added pauses before and after most alternate dialogue
+  * Fixed inaccurate informatin in the ReadMe (again)
+* 🩹 Bug fixes
+  * Fixed Nothing There being copyable by Goo Mage
+  * Fixed abnormality choice node not playing/clear text properly
+* 🔧 Tweaks / Changes
+  * Replaced Wolf Cub --> The Way Home in starter deck "Road to Oz"
+  * Replace Magical Girl S --> Magical Girl C in starter deck "Magical Girls!"
+  * Shelter from the 27th of March is now a Targeted Spell, has Imbue Target ability
+  * You Must Be Happy is now a Targeted Spell card
+  * Scrambler ability is now a Spell ability
+* ⚖️ Balancing
+  * Changed the probabilities of getting Rare cards from the abnormality choice node
+    * Probabilities are now (0%, 2%, 5%) for both Part 1 and Kaycee's Mod
+    * Probabilities with Better Rare Chances are now (2%, 5%, 10%) for both Part 1 and Kaycee's Mod
+  * Abnormality choice node can now offer multiple Rare cards as choices (this doesn't change the overall chance of finding a Rare)
+  * Increased point amount of Better Rare Chances from -15 --> -10
+  * Express Train to Hell cost reduced from x6 --> x2
+  * The Train ability cost increased from x6 --> x10
+  * Changed Lady Facing the Wall to be 1/1 stats
+  * Increased Apocalypse Bird's Health from 8 --> 12
+  * Rebalanced Magical Girls
+    * Magical Girl H is now 1/2, One-Sided Strike
+    * Magical Girl D is now 1 Blood
+    * King of Greed is now 2/5, 1 Blood
+    * Magical Girl S is now 1/4, 1 Blood
+    * Knight of Despair is now 1 Blood
+
+
+* ➕ Additions
+  * Added the following cards
+    * Magical Girl C
+    * Servant of Wrath
+    * Price of Silence
+    * Pinocchio
+    * Nosferatu
+    * The Way Home
+    * Scaredy Cat
+    * Ozma
+    * Pumpkin Jack
+    * Silent Girl
+    * The Adult Who Tells Lies
+    * Jester of Nihil
+    * Silent Girl
+  * Added the following abilities
+    * Thick Skin
+    * One-Sided Strike
+    * Copycat
+    * Cat Lover
+    * Cowardly
+    * Neutered
+    * Neutered Latch
+    * Imbue Target
+    * Strengthen Target
+    * Empower Target
+    * Passing Time (stat icon)
+
 ### v1.2.1 - Minor patch (9/26/2022)
 * 🧱 General
   * Fixed inaccurate information in the ReadMe

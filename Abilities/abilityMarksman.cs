@@ -77,10 +77,8 @@ namespace WhistleWindLobotomyMod
             if (!WstlSaveManager.HasSeenDerFreischutzSeventh)
             {
                 WstlSaveManager.HasSeenDerFreischutzSeventh = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue, -0.65f, 0.4f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue2, -0.65f, 0.4f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(freischutzDialogue3, -0.65f, 0.4f);
-                yield return new WaitForSeconds(0.5f);
+                yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f, freischutzDialogue, freischutzDialogue2, freischutzDialogue3);
+                yield return new WaitForSeconds(0.3f);
             }
 
             foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(slot => slot.Card != base.Card))

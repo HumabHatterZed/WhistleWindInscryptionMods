@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void DreamingCurrent_T0271()
+        private void Card_DreamingCurrent_T0271()
         {
             List<Ability> abilities = new()
             {

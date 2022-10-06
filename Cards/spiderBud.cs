@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SpiderBud_O0243()
+        private void Card_SpiderBud_O0243()
         {
             List<Ability> abilities = new()
             {

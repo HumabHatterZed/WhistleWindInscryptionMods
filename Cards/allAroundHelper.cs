@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void AllAroundHelper_T0541()
+        private void Card_AllAroundHelper_T0541()
         {
             List<Ability> abilities = new()
             {

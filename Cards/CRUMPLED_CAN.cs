@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void Crumpled_Can()
+        private void Card_Crumpled_Can()
         {
             CardHelper.CreateCard(
                 "wstl_CRUMPLED_CAN", "Crumpled Can of WellCheers",

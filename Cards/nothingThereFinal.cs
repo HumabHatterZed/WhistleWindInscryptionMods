@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void NothingThereFinal_O0620()
+        private void Card_NothingThereFinal_O0620()
         {
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {

@@ -40,7 +40,7 @@ namespace WhistleWindLobotomyMod
             {
                 if (slot.Card == target)
                 {
-                    return amount > 0;
+                    return true;
                 }
             }
             return false;
@@ -48,7 +48,6 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            yield return target.Status.damageTaken--;
             base.Card.Anim.StrongNegationEffect();
             if (!IsDespair)
             {
@@ -57,8 +56,7 @@ namespace WhistleWindLobotomyMod
             else if (!WstlSaveManager.HasSeenDespairProtect)
             {
                 WstlSaveManager.HasSeenDespairProtect = true;
-                yield return new WaitForSeconds(0.4f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(protectDialogue, -0.65f, 0.4f);
+                yield return CustomMethods.PlayAlternateDialogue(dialogue: protectDialogue);
             }
         }
 
@@ -95,7 +93,7 @@ namespace WhistleWindLobotomyMod
                 if (!WstlSaveManager.HasSeenDespairTransformation)
                 {
                     WstlSaveManager.HasSeenDespairTransformation = true;
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(despairDialogue, -0.65f, 0.4f);
+                    yield return CustomMethods.PlayAlternateDialogue(dialogue: despairDialogue);
                 }
                 yield return new WaitForSeconds(0.25f);
                 yield break;
@@ -114,7 +112,7 @@ namespace WhistleWindLobotomyMod
                 if (!WstlSaveManager.HasSeenArmyBlacked)
                 {
                     WstlSaveManager.HasSeenArmyBlacked = true;
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(blackDialogue, -0.65f, 0.4f);
+                    yield return CustomMethods.PlayAlternateDialogue(dialogue: blackDialogue);
                 }
                 yield return new WaitForSeconds(0.25f);
                 yield break;

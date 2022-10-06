@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void WorldPortrait_O0991()
+        private void Card_WorldPortrait_O0991()
         {
             List<Ability> abilities = new()
             {

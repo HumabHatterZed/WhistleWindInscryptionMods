@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void GiantTreeSap_T0980()
+        private void Card_GiantTreeSap_T0980()
         {
             List<Ability> abilities = new()
             {

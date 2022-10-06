@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SnowQueenIceBlock_F0137()
+        private void Card_SnowQueenIceBlock_F0137()
         {
             CardHelper.CreateCard(
                 "wstl_snowQueenIceBlock", "Block of Ice",

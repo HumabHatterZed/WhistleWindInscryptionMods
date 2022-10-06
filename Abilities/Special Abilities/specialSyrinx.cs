@@ -39,8 +39,8 @@ namespace WhistleWindLobotomyMod
             {
                 yield return new WaitForSeconds(0.25f);
                 CardInfo cardByName = CardLoader.GetCardByName("wstl_namelessFetusAwake");
-                yield return base.PlayableCard.TransformIntoCard(cardByName);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Laughter);
+                yield return base.PlayableCard.TransformIntoCard(cardByName);
                 yield return new WaitForSeconds(0.5f);
             }
         }

@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void DontTouchMe_O0547()
+        private void Card_DontTouchMe_O0547()
         {
             List<Ability> abilities = new()
             {
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 Resources.dontTouchMe, Resources.dontTouchMe_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 1);
+                isChoice: true, isTerrain: true, riskLevel: 1);
         }
     }
 }

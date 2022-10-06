@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void MHz176_T0727()
+        private void Card_MHz176_T0727()
         {
             List<Ability> abilities = new()
             {

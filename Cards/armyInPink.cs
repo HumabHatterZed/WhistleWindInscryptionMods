@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void ArmyInPink_D01106()
+        private void Card_ArmyInPink_D01106()
         {
             List<Ability> abilities = new()
             {

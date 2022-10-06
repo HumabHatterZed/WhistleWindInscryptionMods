@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void OldFaithAndPromise_T0997()
+        private void Card_OldFaithAndPromise_T0997()
         {
             List<Ability> abilities = new()
             {

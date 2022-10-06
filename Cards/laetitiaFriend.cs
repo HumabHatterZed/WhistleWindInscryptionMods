@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void LaetitiaFriend_O0167()
+        private void Card_LaetitiaFriend_O0167()
         {
             List<Tribe> tribes = new()
             {

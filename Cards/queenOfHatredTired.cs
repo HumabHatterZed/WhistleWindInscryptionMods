@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void QueenOfHatredTired_O0104()
+        private void Card_QueenOfHatredTired_O0104()
         {
             List<SpecialTriggeredAbility> specialAbilities = new()
             {

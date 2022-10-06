@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 overrideModular: true).Id;
         }
     }
-    public class TrueSaviour : BaseDoctor
+    public class TrueSaviour : PlagueDoctorBase
     {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -127,8 +127,7 @@ namespace WhistleWindLobotomyMod
             if (!WstlSaveManager.WhiteNightKilled)
             {
                 WstlSaveManager.WhiteNightKilled = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(killedDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
-                yield return new WaitForSeconds(0.2f);
+                yield return CustomMethods.PlayAlternateDialogue(Emotion.Anger, DialogueEvent.Speaker.Bonelord, dialogue: killedDialogue);
             }
             yield return killer.DieTriggerless();
         }
@@ -137,10 +136,8 @@ namespace WhistleWindLobotomyMod
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
             if (!WstlSaveManager.WhiteNightHammer)
             {
-                yield return new WaitForSeconds(0.2f);
                 WstlSaveManager.WhiteNightHammer = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hammerDialogue, -0.65f, 0.4f, speaker: DialogueEvent.Speaker.Bonelord);
-                yield return new WaitForSeconds(0.2f);
+                yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Bonelord, dialogue: hammerDialogue);
 
             }
             yield return new WaitForSeconds(0.2f);

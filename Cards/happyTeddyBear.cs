@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void HappyTeddyBear_T0406()
+        private void Card_HappyTeddyBear_T0406()
         {
             List<Ability> abilities = new()
             {

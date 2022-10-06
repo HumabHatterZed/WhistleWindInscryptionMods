@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void CloudedMonk_D01110()
+        private void Card_CloudedMonk_D01110()
         {
             CardHelper.CreateCard(
                 "wstl_cloudedMonk", "Clouded Monk",

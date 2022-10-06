@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void FuneralOfButterflies_T0168()
+        private void Card_FuneralOfButterflies_T0168()
         {
             List<Ability> abilities = new()
             {

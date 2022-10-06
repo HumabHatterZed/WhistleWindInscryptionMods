@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void MirrorOfAdjustment_O0981()
+        private void Card_MirrorOfAdjustment_O0981()
         {
             List<Ability> abilities = new()
             {

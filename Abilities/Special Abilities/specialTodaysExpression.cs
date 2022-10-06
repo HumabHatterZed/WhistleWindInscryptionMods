@@ -38,21 +38,21 @@ namespace WhistleWindLobotomyMod
                     if (!WstlSaveManager.HasSeenShyLookAngry)
                     {
                         WstlSaveManager.HasSeenShyLookAngry = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Some days you don't feel like smiling.", -0.65f, 0.4f);
+                        yield return CustomMethods.PlayAlternateDialogue(dialogue: "Some days you don't feel like smiling.");
                     }
                     break;
                 case "wstl_todaysshylookhappy":
                     if (!WstlSaveManager.HasSeenShyLookHappy)
                     {
                         WstlSaveManager.HasSeenShyLookHappy = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("There was no place for frowns in the City.", -0.65f, 0.4f);
+                        yield return CustomMethods.PlayAlternateDialogue(dialogue: "There was no place for frowns in the city.");
                     }
                     break;
                 case "wstl_todaysshylookneutral":
                     if (!WstlSaveManager.HasSeenShyLookNeutral)
                     {
                         WstlSaveManager.HasSeenShyLookNeutral = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Unable to decide what face to wear, she became shy again.", -0.65f, 0.4f);
+                        yield return CustomMethods.PlayAlternateDialogue(dialogue: "Unable to decide what face to wear, she became shy again.");
                     }
                     break;
             }

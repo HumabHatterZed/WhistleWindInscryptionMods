@@ -40,21 +40,16 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator Activate()
         {
             WstlSaveManager.HasUsedBackwardClock = true;
-            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Have I backed you into a corner? Or am I simply boring you?", -0.65f, 0.4f, Emotion.Anger);
-            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("I suppose it doesn't matter. I will honour your request.", -0.65f, 0.4f);
+            yield return CustomMethods.PlayAlternateDialogue(Emotion.Anger, DialogueEvent.Speaker.Leshy, 0.2f, "Have I backed you into a corner? Or am I simply boring you?", "I suppose it doesn't matter. I will honour your request.");
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             AudioController.Instance.PlaySound2D("antigravity_elevator_down");
             base.Card.Anim.LightNegationEffect();
             RandomEmission();
             yield return new WaitForSeconds(0.4f);
             if (!base.HasLearned)
-            {
                 yield return base.LearnAbility();
-            }
             else
-            {
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Close your eyes and count to ten.", -0.65f, 0.4f);
-            }
             yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("When you open them, you will be standing at the exact moment you wish to be in.", -0.65f, 0.4f);
             // Gets a list of all cards in the player's deck, minus Backward Clock
             List<CardInfo> deckInfo = new(RunState.DeckList);

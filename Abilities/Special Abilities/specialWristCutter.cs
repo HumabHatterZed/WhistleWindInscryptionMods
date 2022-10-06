@@ -70,21 +70,21 @@ namespace WhistleWindLobotomyMod
                     if (!WstlSaveManager.HasSeenBloodbathHand)
                     {
                         WstlSaveManager.HasSeenBloodbathHand = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("A hand rises from the sanguine pool.", -0.65f, 0.4f);
+                        yield return CustomMethods.PlayAlternateDialogue(dialogue: "A hand rises from the scarlet pool.");
                     }
                     break;
                 case "wstl_bloodBath2":
                     if (!WstlSaveManager.HasSeenBloodbathHand1)
                     {
                         WstlSaveManager.HasSeenBloodbathHand1 = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Another pale hand emerges.", -0.65f, 0.4f);
+                        yield return CustomMethods.PlayAlternateDialogue(dialogue: "Another pale hand emerges.");
                     }
                     break;
                 case "wstl_bloodBath3":
                     if (!WstlSaveManager.HasSeenBloodbathHand2)
                     {
                         WstlSaveManager.HasSeenBloodbathHand2 = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("A third hand reaches out, as if asking for help.", -0.65f, 0.4f);
+                        yield return CustomMethods.PlayAlternateDialogue(dialogue: "A third hand reaches out, as if asking for help.");
                     }
                     break;
             }

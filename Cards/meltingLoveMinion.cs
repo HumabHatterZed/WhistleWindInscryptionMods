@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void MeltingLoveMinion_D03109()
+        private void Card_MeltingLoveMinion_D03109()
         {
             List<Ability> abilities = new()
             {

@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void YouMustBeHappy_T0994()
+        private void Card_YouMustBeHappy_T0994()
         {
             List<Ability> abilities = new()
             {
@@ -17,11 +17,11 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_youMustBeHappy", "You Must be Happy",
                 "Those that undergo the procedure find themselves rested and healthy again.",
-                0, 1, 0, 2,
+                0, 2, 0, 2,
                 Resources.youMustBeHappy, Resources.youMustBeHappy_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 1);
+                isChoice: true, spellType: CardHelper.SpellType.TargetedStats, riskLevel: 1);
         }
     }
 }

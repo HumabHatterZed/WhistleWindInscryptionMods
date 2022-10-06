@@ -32,9 +32,9 @@ namespace WhistleWindLobotomyMod
         // Used for LearnAbility dialogue
         public override bool RespondsToResolveOnBoard()
         {
-            if (Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(x => x.Card != null && x.Card != base.Card).Count() > 0)
+            if (base.Card.Slot != null)
             {
-                return true;
+                return Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(s => s.Card != null).Count() > 0;
             }
             return false;
         }

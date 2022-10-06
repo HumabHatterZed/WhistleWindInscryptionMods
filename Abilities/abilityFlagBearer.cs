@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_FlagBearer()
         {
             const string rulebookName = "Flag Bearer";
-            const string rulebookDescription = "Adjacent cards gain 2 Health.";
+            const string rulebookDescription = "While this card is on the board, adjacent cards gain 2 Health.";
             const string dialogue = "Morale runs high.";
 
             FlagBearer.ability = AbilityHelper.CreateAbility<FlagBearer>(

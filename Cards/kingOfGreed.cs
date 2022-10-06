@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void KingOfGreed_O0164()
+        private void Card_KingOfGreed_O0164()
         {
             List<Ability> abilities = new()
             {
@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_kingOfGreed", "The King of Greed",
                 "",
-                4, 5, 2, 0,
+                2, 5, 1, 0,
                 Resources.kingOfGreed, Resources.kingOfGreed_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new());

@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void ApocalypseBird_O0263()
+        private void Card_ApocalypseBird_O0263()
         {
             List<Ability> abilities = new()
             {
@@ -18,6 +18,10 @@ namespace WhistleWindLobotomyMod
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 ThreeBirds.specialAbility
+            };
+            List<CardMetaCategory> metaCategories = new()
+            {
+                CardHelper.CANNOT_GIVE_SIGILS
             };
             List<Tribe> tribes = new()
             {
@@ -32,10 +36,10 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_apocalypseBird", "Apocalypse Bird",
                 "There was no moon, no stars. Just a bird, alone in the Black Forest.",
-                3, 8, 4, 0,
+                3, 12, 4, 0,
                 Resources.apocalypseBird, Resources.apocalypseBird_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new(),
+                metaCategories: metaCategories, tribes: tribes, traits: new(),
                 appearances: appearances, onePerDeck: true);
         }
     }

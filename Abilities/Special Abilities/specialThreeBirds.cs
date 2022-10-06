@@ -115,10 +115,11 @@ namespace WhistleWindLobotomyMod
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default, false, true);
                 yield return new WaitForSeconds(0.5f);
 
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Once upon a time, [c:bR]three birds[c:] lived happily in the lush Forest with their fellow animals.");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("One day a stranger arrived at the Forest. He proclaimed that the Forest would soon be ensared in a bitter conflict.");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("One that would only end when everything was devoured by a [c:bR]terrible Beast[c:].");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The birds, frightened by this doomsay, sought to prevent conflict from ever breaking out.");
+                yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f,
+                    "Once upon a time, [c:bR]three birds[c:] lived happily in the lush Forest with their fellow animals.",
+                    "One day a stranger arrived at the Forest.He proclaimed that the Forest would soon be ensared in a bitter conflict.",
+                    "One that would only end when everything was devoured by a[c: bR]terrible Beast[c:].",
+                    "The birds, frightened by this doomsay, sought to prevent conflict from ever breaking out.");
                 
                 // Look down at the board
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board);
@@ -133,9 +134,11 @@ namespace WhistleWindLobotomyMod
                 base.PlayableCard.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("With his many eyes, [c:bG]Big Bird[c:] kept constant watch over the entire Forest.");
-                
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Fights began to break out. More and more creatures left the Forest, no matter how hard the birds worked.");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("They decided to combine their powers. This way, they could better protect their home. This way, they could better return the peace.");
+
+                yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f,
+                    "Fights began to break out. More and more creatures left the Forest, no matter how hard the birds worked.",
+                    "They decided to combine their powers. This way, they could better their home.",
+                    "This way they could better return the peace.");
             }
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
@@ -177,9 +180,9 @@ namespace WhistleWindLobotomyMod
             if (!WstlSaveManager.HasSeenApocalypse)
             {
                 WstlSaveManager.HasSeenApocalypse = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The three birds, [c:bR]now one[c:] looked around for [c:bR]the Beast[c:]. But there was nothing.");
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("No creatures. No beast. No sun or moon or stars. Only a single bird, alone in an empty forest. ");
-                yield return new WaitForSeconds(0.15f);
+                yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f,
+                    "The three birds, [c:bR]now one[c:] looked around for [c:bR]the Beast[c:]. But there was nothing.",
+                    "No creatures. No beast. No sun or moon or stars. Only a single bird, alone in an empty forest.");
             }
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }

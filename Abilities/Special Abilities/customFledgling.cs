@@ -43,7 +43,7 @@ namespace WhistleWindLobotomyMod
                     if (!WstlSaveManager.HasSeenGreedTransformation)
                     {
                         WstlSaveManager.HasSeenGreedTransformation = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(greedDialogue, -0.65f, 0.4f);
+                        yield return CustomMethods.PlayAlternateDialogue(dialogue: greedDialogue);
                     }
                     break;
                 case "wstl_nothingThereTrue":
@@ -52,7 +52,7 @@ namespace WhistleWindLobotomyMod
                     if (!WstlSaveManager.HasSeenNothingTransformationTrue)
                     {
                         WstlSaveManager.HasSeenNothingTransformationTrue = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(nothingTrueDialogue, -0.65f, 0.4f);
+                        yield return CustomMethods.PlayAlternateDialogue(dialogue: nothingTrueDialogue);
                     }
                     break;
                 case "wstl_nothingThereEgg":
@@ -72,7 +72,7 @@ namespace WhistleWindLobotomyMod
                     if (!WstlSaveManager.HasSeenNothingTransformationEgg)
                     {
                         WstlSaveManager.HasSeenNothingTransformationEgg = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(nothingEggDialogue, -0.65f, 0.4f, Emotion.Curious);
+                        yield return CustomMethods.PlayAlternateDialogue(Emotion.Curious, dialogue: nothingEggDialogue);
                     }
                     yield return new WaitForSeconds(0.25f);
                     break;
@@ -103,9 +103,8 @@ namespace WhistleWindLobotomyMod
                     if (!WstlSaveManager.HasSeenHatredTireOut)
                     {
                         WstlSaveManager.HasSeenHatredTireOut = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hateADialogue, -0.65f, 0.4f);
+                        yield return CustomMethods.PlayAlternateDialogue(dialogue: hateADialogue);
                     }
-                    yield return new WaitForSeconds(0.25f);
                     break;
                 case "wstl_queenOfHatredTired":
                     CardInfo evolution1 = CardLoader.GetCardByName("wstl_queenOfHatred");
@@ -122,9 +121,8 @@ namespace WhistleWindLobotomyMod
                     if (!WstlSaveManager.HasSeenHatredRecover)
                     {
                         WstlSaveManager.HasSeenHatredRecover = true;
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(hateBDialogue, -0.65f, 0.4f);
+                        yield return CustomMethods.PlayAlternateDialogue(dialogue: hateBDialogue);
                     }
-                    yield return new WaitForSeconds(0.25f);
                     break;
                 default:
                     yield break;

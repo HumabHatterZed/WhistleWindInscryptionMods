@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void MagicalGirlSpade_O0173()
+        private void Card_MagicalGirlSpade_O0173()
         {
             List<Ability> abilities = new()
             {
@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_magicalGirlSpade", "Magical Girl",
                 "A loyal knight fighting to protect those close to her.",
-                2, 4, 2, 0,
+                1, 4, 1, 0,
                 Resources.magicalGirlSpade, Resources.magicalGirlSpade_emission, gbcTexture: Resources.magicalGirlSpade_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

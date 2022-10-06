@@ -46,7 +46,7 @@ namespace WhistleWindLobotomyMod
             if (!WstlSaveManager.HasSeenBeautyTransform && killer.Slot.IsPlayerSlot)
             {
                 WstlSaveManager.HasSeenBeautyTransform = true;
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Did you think you were immune?", -0.65f, 0.4f, Emotion.Laughter);
+                yield return CustomMethods.PlayAlternateDialogue(Emotion.Laughter, dialogue: "The lie falls apart, revealing your pitiful true self.");
             }
             yield return LearnAbility();
         }

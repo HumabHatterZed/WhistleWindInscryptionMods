@@ -60,13 +60,11 @@ namespace WhistleWindLobotomyMod
                 if (!WstlSaveManager.HasSeenSwanFail)
                 {
                     WstlSaveManager.HasSeenSwanFail = true;
-                    yield return new WaitForSeconds(0.25f);
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue, -0.65f, 0.4f);
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue2, -0.65f, 0.4f);
+                    yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f, altDialogue, altDialogue2);
                 }
                 else
                 {
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue3, -0.65f, 0.4f);
+                    yield return CustomMethods.PlayAlternateDialogue(dialogue: altDialogue3);
                 }
                 yield break;
             }
@@ -139,9 +137,7 @@ namespace WhistleWindLobotomyMod
             if (!WstlSaveManager.HasSeenSwanFail)
             {
                 WstlSaveManager.HasSeenSwanFail = true;
-                yield return new WaitForSeconds(0.25f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue, -0.65f, 0.4f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(altDialogue2, -0.65f, 0.4f);
+                yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f, altDialogue, altDialogue2);
             }
             yield return base.Card.TakeDamage(1, null);
         }

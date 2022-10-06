@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void CENSOREDMinion_O0389()
+        private void Card_CENSOREDMinion_O0389()
         {
             CardHelper.CreateCard(
                 "wstl_censoredMinion", "CENSORED",

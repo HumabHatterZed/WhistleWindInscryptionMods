@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void CENSORED_O0389()
+        private void Card_CENSORED_O0389()
         {
             List<Ability> abilities = new()
             {

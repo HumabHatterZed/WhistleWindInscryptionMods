@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void YinYangBody_O07103()
+        private void Card_YinYangBody_O07103()
         {
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {

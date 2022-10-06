@@ -39,7 +39,7 @@ namespace WhistleWindLobotomyMod
                 PlayableCard card = Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard;
 
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(dialogue, -0.65f, 0.4f, Emotion.Curious);
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.2f);
 
                 if (!card.HasAbility(Volatile.ability))
                 {

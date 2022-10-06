@@ -38,7 +38,7 @@ namespace WhistleWindLobotomyMod
             yield return PreSuccessfulTriggerSequence();
             Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
             base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.2f);
             yield return base.Card.Slot.opposingSlot.Card.TakeDamage(1, null);
             yield return new WaitForSeconds(0.4f);
             yield return base.LearnAbility();

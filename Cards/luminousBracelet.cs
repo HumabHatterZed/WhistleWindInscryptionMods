@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void LuminousBracelet_O0995()
+        private void Card_LuminousBracelet_O0995()
         {
             List<Ability> abilities = new()
             {

@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void YinYangHead_O07103()
+        private void Card_YinYangHead_O07103()
         {
             List<SpecialTriggeredAbility> specialAbilities = new()
             {

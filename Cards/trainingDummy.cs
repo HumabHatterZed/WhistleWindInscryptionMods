@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void TrainingDummy_00000()
+        private void Card_TrainingDummy_00000()
         {
             CardHelper.CreateCard(
                 "wstl_trainingDummy", "Standard Training-Dummy Rabbit",

@@ -6,14 +6,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Infiniscryption.Spells.Patchers;
+using Infiniscryption.Spells.Sigils;
+using System;
 
 namespace WhistleWindLobotomyMod
 {
-    [HarmonyPatch(typeof(Deathtouch))]
+	[HarmonyPatch(typeof(Deathtouch))]
     public static class DeathtouchPatch
     {
-        // Makes WhiteNight, its Apostles, and Hundreds of Good Deeds immune to Touch of Death
-        // Effectively gives them Made of Stone but without the whole 'they're not made of stone' thing
+        // Makes WhiteNight and Hundred Deeds immune to Deathtouch
         [HarmonyPrefix, HarmonyPatch(nameof(Deathtouch.RespondsToDealDamage))]
         public static bool ImmunetoDeathTouch(ref int amount, ref PlayableCard target)
         {
@@ -28,15 +30,22 @@ namespace WhistleWindLobotomyMod
 	[HarmonyPatch(typeof(PlayableCard))]
 	public static class PlayableCardPatches
 	{
-		// Increases damage taken by amount of Prudence a card has
+		// Adds in logic for Prudence, Protector, Thick Skin
 		[HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
-		public static void TakePrudenceDamage(PlayableCard __instance, ref int damage)
+		public static void ModifyTakenDamage(PlayableCard __instance, ref int damage)
 		{
+			// Count number of adjacent cards with Protector
+			int protector = Singleton<BoardManager>.Instance.GetAdjacentSlots(__instance.Slot).Where((CardSlot s) => s.Card != null && s.Card.HasAbility(Protector.ability)).Count();
+
+			// Count number of stacks of Thick Skin
+			int skin = __instance.GetAbilityStacks(ThickSkin.ability);
+
+			// Count amount of Prudence this card has
 			int prudence = !(__instance.Info.GetExtendedPropertyAsInt("wstl:Prudence") != null) ? 0 : (int)__instance.Info.GetExtendedPropertyAsInt("wstl:Prudence");
-			if (prudence > 0)
-			{
-				damage += prudence;
-			}
+
+			damage += prudence - (protector + skin);
+			if (damage < 0)
+				damage = 0;
 		}
 		// Fixes All Strike to attack the opposing space instead of just slot[0] for non-giant player cards
 		// Also re-adds Moon Strike functionality for Blue Star cards
@@ -45,8 +54,8 @@ namespace WhistleWindLobotomyMod
 		{
 			if (__instance.HasAbility(Ability.AllStrike) && !__instance.HasTrait(Trait.Giant))
 			{
-				// reset list (may not work, but eh)
-				list = new List<CardSlot>();
+                // reset list (may not work, but eh)
+                list = new();
 				ProgressionData.SetAbilityLearned(Ability.AllStrike);
 				List<CardSlot> list2 = Singleton<BoardManager>.Instance.OpponentSlotsCopy;
 				if (list2.Exists((CardSlot x) => x.Card != null && !__instance.CanAttackDirectly(x)))

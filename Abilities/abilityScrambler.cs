@@ -12,37 +12,50 @@ namespace WhistleWindLobotomyMod
         private void Ability_Scrambler()
         {
             const string rulebookName = "Scrambler";
-            const string rulebookDescription = "When this card is sacrificed, add its stats to the card it was sacrificed to, then scramble that card's stats.";
+            const string rulebookDescription = "Targeted Spell: Give the target this card's stats then scramble its stats.";
             const string dialogue = "Do you love your city?";
 
             Scrambler.ability = AbilityHelper.CreateAbility<Scrambler>(
                 Resources.sigilScrambler, Resources.sigilScrambler_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                addModular: true, opponent: false, canStack: false, isPassive: false).Id;
+                addModular: false, opponent: false, canStack: false, isPassive: false,
+                overrideModular: true).Id;
         }
     }
-    public class Scrambler : AbilityBehaviour
+    public class Scrambler : TargetedSpell
     {
         public static Ability ability;
         public override Ability Ability => ability;
+        public override bool TargetAlly => true;
 
-        public override bool RespondsToSacrifice()
+        private CardSlot targetSlot;
+        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
-            return true;
+            targetSlot = slot;
+            yield break;
         }
-        public override IEnumerator OnSacrifice()
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
+        {
+            return targetSlot != null;
+        }
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return base.PreSuccessfulTriggerSequence();
 
-            var demandingCard = Singleton<BoardManager>.Instance.currentSacrificeDemandingCard;
-            CardModificationInfo mod = new(base.Card.Attack, base.Card.MaxHealth);
+            yield return new WaitForSeconds(0.75f);
 
-            demandingCard.AddTemporaryMod(mod);
-            demandingCard.Anim.StrongNegationEffect();
+            CardModificationInfo info = new(base.Card.Attack, base.Card.Health);
+            targetSlot.Card.AddTemporaryMod(info);
+
+            targetSlot.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
-            yield return demandingCard.Anim.FlipInAir();
-            ScrambleStats(demandingCard);
-            yield return base.LearnAbility(0.5f);
+
+            targetSlot.Card.Anim.PlayTransformAnimation();
+            ScrambleStats(targetSlot.Card);
+            yield return new WaitForSeconds(0.5f);
+
+            yield return base.LearnAbility();
+            yield return SwitchCardView(View.Default, start: 0.5f);
         }
 
         private void ScrambleStats(PlayableCard card)

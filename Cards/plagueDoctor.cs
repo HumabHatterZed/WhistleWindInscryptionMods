@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void PlagueDoctor_O0145()
+        private void Card_PlagueDoctor_O0145()
         {
             byte[] portrait;
             byte[] emissive;
