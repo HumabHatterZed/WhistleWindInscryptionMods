@@ -20,27 +20,25 @@ namespace WhistleWindLobotomyMod
         public static CardMetaCategory CANNOT_BUFF_STATS = GuidManager.GetEnumValue<CardMetaCategory>(WstlPlugin.pluginGuid, "CANNOT_BUFF_STATS");
         public static CardMetaCategory CANNOT_COPY_CARD = GuidManager.GetEnumValue<CardMetaCategory>(WstlPlugin.pluginGuid, "CANNOT_COPY_CARD");
 
-        public enum CardType
+        public enum ChoiceType
         {
-            None,
-            Common,
-            Rare,
-            RareNonChoice
+            None,   // Is not obtainable
+            Common, // Is common
+            Rare    // Is rare
+        }
+        
+        public enum MetaType
+        {
+            None,       // No special meta
+            Event       // Remove from pool, restrict nodes
+            NonChoice,  // Remove from pool
         }
         public enum TerrainType
         {
             None,
             Terrain,
+            TerrainRare,
             TerrainAttack
-        }
-        public enum SpellType
-        {
-            None,
-            Global,
-            Targeted,
-            TargetedStats,
-            TargetedSigils,
-            TargetedStatsSigils
         }
         public enum RiskLevel
         {
@@ -51,13 +49,22 @@ namespace WhistleWindLobotomyMod
             Waw,
             Aleph
         }
+        public enum SpellType
+        {
+            None,
+            Global,
+            Targeted,
+            TargetedStats,
+            TargetedSigils,
+            TargetedStatsSigils
+        }
+        
         // Cards
         public static void CreateCard(
             string name, string displayName,
             string description,
             int baseAttack, int baseHealth,
             int bloodCost, int bonesCost,
-            CardType cardType,
             byte[] defaultTexture, byte[] emissionTexture,
             byte[] gbcTexture = null,
             byte[] altTexture = null, byte[] emissionAltTexture = null,
@@ -69,11 +76,13 @@ namespace WhistleWindLobotomyMod
             List<Trait> traits = null,
             List<CardAppearanceBehaviour.Appearance> appearances = null,
             List<Texture> decals = null,
-            bool isDonator = false,
             SpecialStatIcon statIcon = SpecialStatIcon.None,
+            ChoiceType cardType = ChoiceType.None,
+            MetaType metaType = MetaType.None,
             TerrainType terrainType = TerrainType.None,
-            SpellType spellType = SpellType.None,
             RiskLevel riskLevel = RiskLevel.None,
+            SpellType spellType = SpellType.None,
+            bool isDonator = false,
             string iceCubeName = null,
             string evolveName = null,
             int numTurns = 1,
@@ -100,8 +109,6 @@ namespace WhistleWindLobotomyMod
             Texture2D gbcTex = gbcTexture != null ? WstlTextureHelper.LoadTextureFromResource(gbcTexture) : null;
             Texture2D tailTex = tailTexture != null ? WstlTextureHelper.LoadTextureFromResource(titleTexture) : null;
             Texture titleTex = titleTexture != null ? WstlTextureHelper.LoadTextureFromResource(titleTexture) : null;
-
-            bool disableDonator = isDonator && ConfigManager.Instance.NoDonators;
 
             string risk = riskLevel switch
             {
@@ -166,34 +173,31 @@ namespace WhistleWindLobotomyMod
             if (tailName != null && tailTex != null)
                 cardInfo.SetTail(tailName, tailTex);
 
+            bool disableDonator = isDonator && ConfigManager.Instance.NoDonators;
+            bool noneChoice = metaType == MetaType.NonChoice || metaType == MetaType.Event;
             // Sets the card type (meta categories, appearances, etc.)
-            switch (cardType)
+            if (cardType != CardType.None)
             {
-                case CardType.Common:
+                if (cardType == CardType.Rare)
+                {
+                    cardInfo.SetRare();
+                    if (disableDonator || noneChoice)
+                        cardInfo.metaCategories.Remove(CardMetaCategory.Rare);
+                }
+                else
+                {
                     if (!disableDonator)
                         cardInfo.SetDefaultPart1Card();
-                    break;
-
-                case CardType.Rare:
-                    if (!disableDonator)
-                    {
-                        cardInfo.SetRare();
-                        break;
-                    }
-                    cardInfo.cardComplexity = CardComplexity.Intermediate;
-                    cardInfo.AddAppearances(CardAppearanceBehaviour.Appearance.RareCardBackground);
-                    break;
-
-                case CardType.RareNonChoice:
-                    cardInfo.cardComplexity = CardComplexity.Intermediate;
-                    cardInfo.AddAppearances(CardAppearanceBehaviour.Appearance.RareCardBackground);
-                    break;
+                }   
             }
-
-            // Sets a card to terrain (removes layout if specified
+            
+            // Set terrain
             if (terrainType != TerrainType.None)
             {
                 cardInfo.SetTerrain();
+                if (terrainType == TerrainType.TerrainRare)
+                    cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainCardBackground);
+
                 if (terrainType == TerrainType.TerrainAttack)
                     cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainLayout);
             }
@@ -203,6 +207,20 @@ namespace WhistleWindLobotomyMod
                 cardInfo.AddTraits(Trait.KillsSurvivors);
 
             if (spellType != SpellType.None)
+            {
+                if (spellType == SpellType.Global)
+                {
+                        cardInfo.SetGlobalSpell();
+                }
+                else
+                {
+                    cardInfo.SetTargetedSpell();
+                    switch (spellType)
+                    {
+                            case SpellType.TargetedStats
+                    }
+                }
+            }
                 switch (spellType)
                 {
                     case SpellType.Global:
