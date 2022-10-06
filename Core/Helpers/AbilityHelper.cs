@@ -75,14 +75,17 @@ namespace WhistleWindLobotomyMod
         }
         // Stat Icons
         public static StatIconManager.FullStatIcon CreateStatIcon<T>(
-            string name, string description, byte[] texture, byte[] pixelTexture, bool attack = true, bool health = false)
+            string name, string description, byte[] texture, byte[] pixelTexture, bool attack, bool health)
             where T : VariableStatBehaviour
         {
-            StatIconInfo statIconInfo = StatIconManager.New(pluginGuid, name, description, typeof(T)).SetDefaultPart1Ability();
-            statIconInfo.iconGraphic = WstlTextureHelper.LoadTextureFromResource(texture);
-            statIconInfo.SetPixelIcon(WstlTextureHelper.LoadTextureFromResource(pixelTexture));
+            StatIconInfo statIconInfo = ScriptableObject.CreateInstance<StatIconInfo>();
+            statIconInfo.rulebookName = name;
+            statIconInfo.rulebookDescription = description;
             statIconInfo.appliesToAttack = attack;
             statIconInfo.appliesToHealth = health;
+            statIconInfo.iconGraphic = WstlTextureHelper.LoadTextureFromResource(texture);
+            statIconInfo.SetPixelIcon(WstlTextureHelper.LoadTextureFromResource(pixelTexture));
+            statIconInfo.SetDefaultPart1Ability();
 
             return StatIconManager.Add(pluginGuid, statIconInfo, typeof(T));
         }
