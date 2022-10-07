@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: appearances,
-                onePerDeck: true, isChoice: true, riskLevel: 4);
+                onePerDeck: true, riskLevel: 4);
         }
     }
 }
