@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,11 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_magicalGirlClover", "Magical Girl",
                 "Blind protector of another world.",
                 1, 2, 1, 0,
-                Artwork.magicalGirlClover, Artwork.magicalGirlClover_emission,
+                Resources.magicalGirlClover, Resources.magicalGirlClover_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                onePerDeck: true,
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
+                isChoice: true, onePerDeck: true, riskLevel: 4);
         }
     }
 }

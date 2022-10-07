@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,10 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_theRoadHome", "The Road Home",
                 "A young girl on a quest to return home with her feline friend.",
                 1, 1, 1, 0,
-                Artwork.theRoadHome, Artwork.theRoadHome_emission, pixelTexture: Artwork.theRoadHome_pixel,
+                Resources.theRoadHome, Resources.theRoadHome_emission, gbcTexture: Resources.theRoadHome_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.He);
+                isChoice: true, riskLevel: 3);
         }
     }
 }

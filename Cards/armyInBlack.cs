@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -16,15 +16,19 @@ namespace WhistleWindLobotomyMod
                 Ability.Brittle
             };
 
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                CardAppearanceBehaviour.Appearance.RareCardBackground
+            };
+
             CardHelper.CreateCard(
                 "wstl_armyInBlack", "Army in Black",
                 "Duty-bound.",
                 2, 1, 0, 0,
-                Artwork.armyInBlack, Artwork.armyInBlack_emission,
+                Resources.armyInBlack, Resources.armyInBlack_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new(),
-                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.NonChoice);
+                appearances: appearances);
         }
     }
 }

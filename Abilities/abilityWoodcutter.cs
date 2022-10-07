@@ -1,12 +1,8 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "No matter how many trees fall, the forest remains dense.";
 
             Woodcutter.ability = AbilityHelper.CreateAbility<Woodcutter>(
-                Artwork.sigilWoodcutter, Artwork.sigilWoodcutter_pixel,
+                Resources.sigilWoodcutter, Resources.sigilWoodcutter_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 addModular: false, opponent: true, canStack: false, isPassive: false).Id;
         }

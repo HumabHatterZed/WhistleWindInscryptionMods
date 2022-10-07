@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,15 +14,14 @@ namespace WhistleWindLobotomyMod
             {
 
             };
-
             CardHelper.CreateCard(
                 "wstl_ozma", "Ozma",
                 "The former ruler of a far away land, now reduced to this.",
                 2, 2, 2, 0,
-                Artwork.ozma, Artwork.ozma_emission,
+                Resources.skeleton_can, Resources.skeleton_can_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
+                isChoice: true, riskLevel: 4);
         }
     }
 }

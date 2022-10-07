@@ -1,12 +1,9 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Your beast shields its ally against the blow.";
 
             Protector.ability = AbilityHelper.CreateAbility<Protector>(
-                Artwork.sigilProtector, Artwork.sigilProtector_pixel,
+                Resources.sigilProtector, Resources.sigilProtector_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }

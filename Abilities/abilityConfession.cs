@@ -4,9 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "[c:bG]Keep faith with unwavering resolve.[c:]";
 
             Confession.ability = AbilityHelper.CreateActivatedAbility<Confession>(
-                Artwork.sigilConfession, Artwork.sigilConfession_pixel,
+                Resources.sigilConfession, Resources.sigilConfession_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3).Id;
         }
     }

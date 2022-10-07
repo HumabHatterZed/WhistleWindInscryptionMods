@@ -33,17 +33,17 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<Compile Update="Properties\Artwork.Designer.cs">
+		<Compile Update="Properties\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
-			<DependentUpon>Artwork.resx</DependentUpon>
+			<DependentUpon>Resources.resx</DependentUpon>
 		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="Properties\Artwork.resx">
+		<EmbeddedResource Update="Properties\Resources.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Artwork.Designer.cs</LastGenOutput>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 	</ItemGroup>
 	

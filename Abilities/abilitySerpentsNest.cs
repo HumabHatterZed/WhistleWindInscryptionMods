@@ -1,12 +1,9 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The infection spreads.";
 
             SerpentsNest.ability = AbilityHelper.CreateAbility<SerpentsNest>(
-                Artwork.sigilSerpentsNest, Artwork.sigilSerpentsNest_pixel,
+                Resources.sigilSerpentsNest, Resources.sigilSerpentsNest_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 addModular: true, opponent: true, canStack: false, isPassive: false).Id;
         }

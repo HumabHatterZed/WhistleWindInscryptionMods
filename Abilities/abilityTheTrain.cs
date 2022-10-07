@@ -1,13 +1,11 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
 using DiskCardGame;
+using HarmonyLib;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The train boards those that don't step away from the tracks.";
 
             TheTrain.ability = AbilityHelper.CreateActivatedAbility<TheTrain>(
-                Artwork.sigilTheTrain, Artwork.sigilTheTrain_pixel,
+                Resources.sigilTheTrain, Resources.sigilTheTrain_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }

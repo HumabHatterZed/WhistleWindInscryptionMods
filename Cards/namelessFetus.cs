@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -23,15 +23,14 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.Goat
             };
-
             CardHelper.CreateCard(
                 "wstl_namelessFetus", "Nameless Fetus",
                 "A neverending supply a blood. Just don't wake it.",
                 0, 1, 0, 5,
-                Artwork.namelessFetus, Artwork.namelessFetus_emission,
+                Resources.namelessFetus, Resources.namelessFetus_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.He);
+                isChoice: true, riskLevel: 3);
         }
     }
 }

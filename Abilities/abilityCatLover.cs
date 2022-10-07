@@ -4,9 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,11 +13,11 @@ namespace WhistleWindLobotomyMod
         private void Ability_CatLover()
         {
             const string rulebookName = "Cat Lover";
-            const string rulebookDescription = "When a card bearing this sigil is played, add a random cat-related card to your hand with the Cowardly sigil.";
+            const string rulebookDescription = "When a card bearing this sigil is played, add a random cat card to your hand.";
             const string dialogue = "Pretty kitty.";
 
             CatLover.ability = AbilityHelper.CreateAbility<CatLover>(
-                Artwork.sigilCatLover, Artwork.sigilCatLover_pixel,
+                Resources.sigilCatLover, Resources.sigilCatLover_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
@@ -39,11 +37,9 @@ namespace WhistleWindLobotomyMod
                     cardByName.Mods.AddRange(base.GetNonDefaultModsFromSelf(this.Ability));
                     return cardByName;
                 }
-                List<CardInfo> list = ScriptableObjectLoader<CardInfo>.AllData.FindAll((CardInfo x) => x.name.ToLowerInvariant().Contains("cat"));
+                List<CardInfo> list = ScriptableObjectLoader<CardInfo>.AllData.FindAll((CardInfo x) => x.name.Contains("Cat"));
                 list.RemoveAll((CardInfo y) => y.name.StartsWith("wstl"));
-                CardInfo drawnCard = list[SeededRandom.Range(0, list.Count, base.GetRandomSeed())];
-                drawnCard.Mods.Add(new(Cowardly.ability) { fromCardMerge = true} );
-                return drawnCard;
+                return list[SeededRandom.Range(0, list.Count, base.GetRandomSeed())];
             }
         }
 

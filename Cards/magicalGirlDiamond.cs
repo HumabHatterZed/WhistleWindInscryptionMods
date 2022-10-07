@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -23,11 +23,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_magicalGirlDiamond", "Magical Girl",
                 "A girl encased in hardened amber. Happiness trapped by greed.",
                 0, 2, 1, 0,
-                Artwork.magicalGirlDiamond, Artwork.magicalGirlDiamond_emission, pixelTexture: Artwork.magicalGirlDiamond_pixel,
+                Resources.magicalGirlDiamond, Resources.magicalGirlDiamond_emission, gbcTexture: Resources.magicalGirlDiamond_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                onePerDeck: true,
-                choiceType: CardHelper.ChoiceType.Common, evolveName: "wstl_kingOfGreed", riskLevel: CardHelper.RiskLevel.Waw);
+                isChoice: true, evolveName: "wstl_kingOfGreed", onePerDeck: true, riskLevel: 4);
         }
     }
 }

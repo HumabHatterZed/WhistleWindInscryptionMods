@@ -1,12 +1,9 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.";
             const string dialogue = "From the many, one.";
             Assimilator.ability = AbilityHelper.CreateAbility<Assimilator>(
-                Artwork.sigilAssimilator, Artwork.sigilAssimilator_pixel,
+                Resources.sigilAssimilator, Resources.sigilAssimilator_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 addModular: true, opponent: false, canStack: true, isPassive: false).Id;
         }

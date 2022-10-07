@@ -5,9 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "An explosive finish.";
 
             Volatile.ability = AbilityHelper.CreateAbility<Volatile>(
-                Artwork.sigilVolatile, Artwork.sigilVolatile_pixel,
+                Resources.sigilVolatile, Resources.sigilVolatile_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 addModular: true, opponent: true, canStack: false, isPassive: false,
                 flipY: true).Id;

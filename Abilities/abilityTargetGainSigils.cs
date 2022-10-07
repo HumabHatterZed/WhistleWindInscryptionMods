@@ -2,11 +2,8 @@
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Spells only: The affected card gains this card's sigils.";
             const string dialogue = "Your beast is imbued with powerful energies.";
             TargetGainSigils.ability = AbilityHelper.CreateAbility<TargetGainSigils>(
-                Artwork.sigilTargetGainSigils, Artwork.sigilTargetGainSigils_pixel,
+                Resources.sigilTargetGainSigils, Resources.sigilTargetGainSigils_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 addModular: false, opponent: false, canStack: false, isPassive: false,
                 overrideModular: true).Id;

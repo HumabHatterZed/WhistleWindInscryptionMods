@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,10 +14,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_snowQueenIceBlock", "Block of Ice",
                 "The palace was cold and lonely.",
                 0, 1, 0, 0,
-                Artwork.snowQueenIceBlock, Artwork.snowQueenIceBlock_emission,
+                Resources.snowQueenIceBlock, Resources.snowQueenIceBlock_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                terrainType: CardHelper.TerrainType.Terrain);
+                isTerrain: true);
         }
     }
 }

@@ -2,11 +2,8 @@
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "This card gains the stats of the card sacrificed to play it.";
             const string dialogue = "Now everything will be just fine.";
             Grinder.ability = AbilityHelper.CreateAbility<Grinder>(
-                Artwork.sigilGrinder, Artwork.sigilGrinder_pixel,
+                Resources.sigilGrinder, Resources.sigilGrinder_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }

@@ -2,12 +2,8 @@
 using InscryptionAPI.Triggers;
 using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "A card bearing this sigil has their Power reduced to 0. This sigil is lost on upkeep.";
             const string dialogue = "femboy";
             Neutered.ability = AbilityHelper.CreateAbility<Neutered>(
-                Artwork.sigilNeutered, Artwork.sigilNeutered_pixel,
+                Resources.sigilNeutered, Resources.sigilNeutered_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }

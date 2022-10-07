@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,10 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_theLittlePrince", "The Little Prince",
                 "A giant mushroom chunk. A mist of spores surrounds it.",
                 1, 4, 2, 0,
-                Artwork.theLittlePrince, Artwork.theLittlePrince_emission,
+                Resources.theLittlePrince, Resources.theLittlePrince_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
+                isChoice: true, riskLevel: 4);
         }
     }
 }

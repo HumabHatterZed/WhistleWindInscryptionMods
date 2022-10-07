@@ -1,15 +1,14 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Ascension;
+using InscryptionAPI.Encounters;
+using InscryptionAPI.Regions;
 using DiskCardGame;
 using HarmonyLib;
 using System;
 using System.Linq;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,8 +24,8 @@ namespace WhistleWindLobotomyMod
                 "Better Rare Chances",
                 "Raises the chance of getting a Rare card from the abnormal choice node.",
                 -10,
-                WstlTextureHelper.LoadTextureFromResource(Artwork.ascensionBetterRareChances),
-                WstlTextureHelper.LoadTextureFromResource(Artwork.ascensionBetterRareChances_activated)
+                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionBetterRareChances),
+                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionBetterRareChances_activated)
                 ).Challenge.challengeType;
         }
     }

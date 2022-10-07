@@ -1,12 +1,9 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "A selfless death to cleanse your beasts of evil.";
 
             Martyr.ability = AbilityHelper.CreateAbility<Martyr>(
-                Artwork.sigilMartyr, Artwork.sigilMartyr_pixel,
+                Resources.sigilMartyr, Resources.sigilMartyr_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }

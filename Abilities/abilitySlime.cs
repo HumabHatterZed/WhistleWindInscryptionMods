@@ -4,9 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Its army grows everyday.";
 
             Slime.ability = AbilityHelper.CreateAbility<Slime>(
-                Artwork.sigilSlime, Artwork.sigilSlime_pixel,
+                Resources.sigilSlime, Resources.sigilSlime_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }

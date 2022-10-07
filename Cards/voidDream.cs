@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -23,11 +23,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_voidDream", "Void Dream",
                 "A sleeping goat. Or is it a sheep?",
                 1, 1, 1, 0,
-                Artwork.voidDream, Artwork.voidDream_emission,
+                Resources.voidDream, Resources.voidDream_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Teth,
-                evolveName: "wstl_voidDreamRooster");
+                isChoice: true, evolveName: "wstl_voidDreamRooster", riskLevel: 2);
         }
     }
 }

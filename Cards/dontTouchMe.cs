@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,11 +20,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_dontTouchMe", "Don't Touch Me",
                 "Don't touch it.",
                 0, 1, 0, 2,
-                Artwork.dontTouchMe, Artwork.dontTouchMe_emission,
+                Resources.dontTouchMe, Resources.dontTouchMe_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.ChoiceType.Common,
-                terrainType: CardHelper.TerrainType.Terrain, riskLevel: CardHelper.RiskLevel.Zayin);
+                isChoice: true, isTerrain: true, riskLevel: 1);
         }
     }
 }

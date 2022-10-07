@@ -1,12 +1,9 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Do you love your city?";
 
             Scrambler.ability = AbilityHelper.CreateAbility<Scrambler>(
-                Artwork.sigilScrambler, Artwork.sigilScrambler_pixel,
+                Resources.sigilScrambler, Resources.sigilScrambler_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: false, opponent: false, canStack: false, isPassive: false,
                 overrideModular: true).Id;

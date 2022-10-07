@@ -1,13 +1,12 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Morale runs high.";
 
             FlagBearer.ability = AbilityHelper.CreateAbility<FlagBearer>(
-                Artwork.sigilFlagBearer, Artwork.sigilFlagBearer_pixel,
+                Resources.sigilFlagBearer, Resources.sigilFlagBearer_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: false, opponent: false, canStack: true, isPassive: false).Id;
         }

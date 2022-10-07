@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,12 +18,11 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedRed.appearance
             };
-
             CardHelper.CreateCard(
                 "wstl_spiderBrood", "Spider Brood",
                 "Big and mean.",
                 1, 3, 1, 0,
-                Artwork.spiderBrood, Artwork.spiderBrood_emission,
+                Resources.spiderBrood, Resources.spiderBrood_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);

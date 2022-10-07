@@ -1,13 +1,12 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "A bitter grudge laid bare.";
 
             BitterEnemies.ability = AbilityHelper.CreateAbility<BitterEnemies>(
-                Artwork.sigilBitterEnemies, Artwork.sigilBitterEnemies_pixel,
+                Resources.sigilBitterEnemies, Resources.sigilBitterEnemies_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true, opponent: true, canStack: true, isPassive: false).Id;
         }

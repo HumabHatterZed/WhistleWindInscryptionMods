@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,12 +15,11 @@ namespace WhistleWindLobotomyMod
                 Aggravating.ability,
                 Ability.PreventAttack
             };
-
             CardHelper.CreateCard(
                 "wstl_namelessFetusAwake", "Nameless Fetus",
                 "Only a sacrifice will stop its piercing wails.",
                 0, 1, 0, 5,
-                Artwork.namelessFetusAwake, Artwork.namelessFetusAwake,
+                Resources.namelessFetusAwake, Resources.namelessFetusAwake,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new());
         }

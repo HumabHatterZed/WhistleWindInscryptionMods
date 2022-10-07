@@ -6,8 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +19,7 @@ namespace WhistleWindLobotomyMod
             List<Texture2D> nodeAnimation = new();
             if (animationFrames.Count != 4)
             {
-                Texture2D defaultTexture = WstlTextureHelper.LoadTextureFromResource(Artwork.sigilAbnormality);
+                Texture2D defaultTexture = WstlTextureHelper.LoadTextureFromResource(Resources.sigilAbnormality);
                 for (int i = 0; i < 4; i++)
                 {
                     nodeAnimation.Add(defaultTexture);

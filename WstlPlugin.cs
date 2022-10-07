@@ -12,10 +12,10 @@ using InscryptionAPI.Encounters;
 using System.Linq;
 using Sirenix.Utilities;
 using Infiniscryption.PackManagement;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Opponents.AbnormalEncounterData;
+using Infiniscryption.Spells;
+
+using static WhistleWindLobotomyMod.AbnormalEncounterData;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -177,43 +177,43 @@ namespace WhistleWindLobotomyMod
         }
         private static void AddStarterDecks()
         {
-            /*StarterDeckHelper.AddStartDeck("Debug", Artwork.starterDeckControl, new()
+            /*StarterDeckHelper.AddStartDeck("Debug", Resources.starterDeckControl, new()
             {
                 CardLoader.GetCardByName("wstl_testingDummy"),
                 CardLoader.GetCardByName("wstl_testingDummy"),
                 CardLoader.GetCardByName("wstl_testingDummy")
             }, 0);*/
-            StarterDeckHelper.AddStartDeck("First Day", Artwork.starterDeckControl, new()
+            StarterDeckHelper.AddStartDeck("First Day", Resources.starterDeckControl, new()
             {
                 CardLoader.GetCardByName("wstl_oneSin"),
                 CardLoader.GetCardByName("wstl_fairyFestival"),
                 CardLoader.GetCardByName("wstl_oldLady")
             }, 0);
-            StarterDeckHelper.AddStartDeck("Lonely Friends", Artwork.starterDeckChildren, new()
+            StarterDeckHelper.AddStartDeck("Lonely Friends", Resources.starterDeckChildren, new()
             {
                 CardLoader.GetCardByName("wstl_scorchedGirl"),
                 CardLoader.GetCardByName("wstl_laetitia"),
                 CardLoader.GetCardByName("wstl_childOfTheGalaxy")
             }, 2);
-            StarterDeckHelper.AddStartDeck("Road to Oz", Artwork.starterDeckFairyTale, new()
+            StarterDeckHelper.AddStartDeck("Road to Oz", Resources.starterDeckFairyTale, new()
             {
                 CardLoader.GetCardByName("wstl_theRoadHome"),
                 CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
                 CardLoader.GetCardByName("wstl_wisdomScarecrow")
             }, 3);
-            StarterDeckHelper.AddStartDeck("Blood Machines", Artwork.starterDeckBloodMachines, new()
+            StarterDeckHelper.AddStartDeck("Blood Machines", Resources.starterDeckBloodMachines, new()
             {
                 CardLoader.GetCardByName("wstl_weCanChangeAnything"),
                 CardLoader.GetCardByName("wstl_allAroundHelper"),
                 CardLoader.GetCardByName("wstl_singingMachine")
             }, 4);
-            StarterDeckHelper.AddStartDeck("Magical Girls!", Artwork.starterDeckMagicalGirls, new()
+            StarterDeckHelper.AddStartDeck("Magical Girls!", Resources.starterDeckMagicalGirls, new()
             {
                 CardLoader.GetCardByName("wstl_magicalGirlHeart"),
                 CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
                 CardLoader.GetCardByName("wstl_magicalGirlSpade")
             }, 8);
-            StarterDeckHelper.AddStartDeck("Twilight", Artwork.starterDeckBlackForest, new()
+            StarterDeckHelper.AddStartDeck("Twilight", Resources.starterDeckBlackForest, new()
             {
                 CardLoader.GetCardByName("wstl_punishingBird"),
                 CardLoader.GetCardByName("wstl_bigBird"),
@@ -248,7 +248,7 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("PackManager installed, creating card pack...");
                 PackInfo pack = PackManager.GetPackInfo("wstl");
                 pack.Title = "WhistleWind's Lobotomy Mod";
-                pack.SetTexture(WstlTextureHelper.LoadTextureFromResource(Artwork.wstl_pack));
+                pack.SetTexture(WstlTextureHelper.LoadTextureFromResource(Resources.wstl_pack));
                 pack.Description = "This card pack adds 91 obtainable cards based on abnormalities.";
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             }

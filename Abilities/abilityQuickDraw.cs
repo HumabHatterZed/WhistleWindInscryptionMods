@@ -1,12 +1,9 @@
-﻿using InscryptionAPI;
-using DiskCardGame;
+﻿using DiskCardGame;
+using InscryptionAPI;
+using InscryptionAPI.Triggers;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The early bird gets the worm.";
 
             QuickDraw.ability = AbilityHelper.CreateAbility<QuickDraw>(
-                Artwork.sigilQuickDraw, Artwork.sigilQuickDraw_pixel,
+                Resources.sigilQuickDraw, Resources.sigilQuickDraw_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: false, opponent: false, canStack: true, isPassive: false).Id;
         }

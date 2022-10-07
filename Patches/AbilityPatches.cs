@@ -6,8 +6,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
+using Infiniscryption.Spells.Patchers;
+using Infiniscryption.Spells.Sigils;
+using System;
 
 namespace WhistleWindLobotomyMod
 {

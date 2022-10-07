@@ -1,12 +1,10 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Your beast strikes with precision.";
 
             Marksman.ability = AbilityHelper.CreateAbility<Marksman>(
-                Artwork.sigilMarksman, Artwork.sigilMarksman_pixel,
+                Resources.sigilMarksman, Resources.sigilMarksman_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }

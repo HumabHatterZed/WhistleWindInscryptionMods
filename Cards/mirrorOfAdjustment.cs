@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -30,12 +30,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_mirrorOfAdjustment", "The Mirror of Adjustment",
                 "A mirror that reflects nothing on its surface.",
                 0, 1, 1, 0,
-                Artwork.mirrorOfAdjustment, Artwork.mirrorOfAdjustment_emission,
+                Resources.mirrorOfAdjustment, Resources.mirrorOfAdjustment_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, statIcon: SpecialStatIcon.Mirror,
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Zayin,
-                terrainType: CardHelper.TerrainType.TerrainAttack);
+                metaCategories: new(), tribes: new(), traits: traits, appearances: appearances,
+                statIcon: SpecialStatIcon.Mirror, isChoice: true, riskLevel: 1);
         }
     }
 }

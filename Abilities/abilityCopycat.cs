@@ -2,11 +2,8 @@
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil is played, become a copy of the opposing card if it exists. There is a chance that the copy will be imperfect.";
             const string dialogue = "A near perfect impersonation.";
             Copycat.ability = AbilityHelper.CreateAbility<Copycat>(
-                Artwork.sigilCopycat, Artwork.sigilCopycat_pixel,
+                Resources.sigilCopycat, Resources.sigilCopycat_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true, opponent: true, canStack: false, isPassive: false).Id;
         }

@@ -2,11 +2,8 @@
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Accursed fiend.";
 
             Bloodfiend.ability = AbilityHelper.CreateAbility<Bloodfiend>(
-                Artwork.sigilBloodfiend, Artwork.sigilBloodfiend_pixel,
+                Resources.sigilBloodfiend, Resources.sigilBloodfiend_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: true, opponent: true, canStack: true, isPassive: false).Id;
         }

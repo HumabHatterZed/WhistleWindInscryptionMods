@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod.Core
+namespace WhistleWindLobotomyMod
 {
     public static class CustomExtensions
     {

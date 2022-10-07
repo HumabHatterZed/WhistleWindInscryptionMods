@@ -1,12 +1,8 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When this card is played, create a Block of Ice in each opposing space to the left and right of this card. If either slot is occupied by a card with 1 Health, kill it and create a Frozen Heart in its place.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
             FrostRuler.ability = AbilityHelper.CreateAbility<FrostRuler>(
-                Artwork.sigilFrostRuler, Artwork.sigilFrostRuler_pixel,
+                Resources.sigilFrostRuler, Resources.sigilFrostRuler_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
                 addModular: false, opponent: false, canStack: false, isPassive: false,
                 flipY: true).Id;

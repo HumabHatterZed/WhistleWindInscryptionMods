@@ -1,12 +1,9 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:bR]";
 
             Apostle.ability = AbilityHelper.CreateAbility<Apostle>(
-                Artwork.sigilApostle, Artwork.sigilApostle_pixel,
+                Resources.sigilApostle, Resources.sigilApostle_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 addModular: false, opponent: false, canStack: false, isPassive: false,
                 overrideModular: true).Id;

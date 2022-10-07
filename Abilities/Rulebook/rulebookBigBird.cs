@@ -2,8 +2,7 @@
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Transforms when Punishing Bird and Judgement Bird are played on the same side of the board.";
             const string dialogue = "femboy";
             EntryBigBird.ability = AbilityHelper.CreateAbility<EntryBigBird>(
-                Artwork.sigilAbnormality, Artwork.sigilAbnormality_pixel,
+                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 addModular: false, opponent: false, canStack: false, isPassive: true,
                 overrideModular: true).Id;

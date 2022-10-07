@@ -1,13 +1,13 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using HarmonyLib;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Infiniscryption.Spells.Patchers;
 using Infiniscryption.Spells.Sigils;
-using WhistleWindLobotomyMod.Core;
-
 namespace WhistleWindLobotomyMod
 {
 	[HarmonyPatch(typeof(VariableStatBehaviour))]

@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,16 +14,22 @@ namespace WhistleWindLobotomyMod
             {
                 Time.specialAbility
             };
-
+            List<Trait> traits = new()
+            {
+                Trait.Terrain
+            };
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                CardAppearanceBehaviour.Appearance.TerrainBackground
+            };
             CardHelper.CreateCard(
                 "wstl_priceOfSilence", "Price of Silence",
                 "The unflinching hand of time cuts down man and beast alike.",
                 0, 1, 1, 0,
-                Artwork.priceOfSilence, Artwork.priceOfSilence_emission,
+                Resources.priceOfSilence, Resources.priceOfSilence_emission,
                 abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(), appearances: new(),
-                statIcon: Time.icon, choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.He,
-                terrainType: CardHelper.TerrainType.TerrainAttack);
+                metaCategories: new(), tribes: new(), traits: traits, appearances: appearances,
+                statIcon: Time.icon, isChoice: true, riskLevel: 3);
         }
     }
 }

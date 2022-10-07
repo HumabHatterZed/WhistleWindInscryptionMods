@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -22,16 +22,14 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.DeathcardCreationNonOption
             };
-
             CardHelper.CreateCard(
                 "wstl_nothingThere", "Yumi",
                 "I don't remember this challenger...",
                 1, 1, 2, 0,
-                Artwork.nothingThere, Artwork.nothingThere_emission,
+                Resources.nothingThere, Resources.nothingThere_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,
-                onePerDeck: true,
-                choiceType: CardHelper.ChoiceType.Rare, riskLevel: CardHelper.RiskLevel.Aleph);
+                isRare: true, onePerDeck: true, riskLevel: 5);
         }
     }
 }

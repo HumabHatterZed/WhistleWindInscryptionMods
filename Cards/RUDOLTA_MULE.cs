@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -26,14 +26,14 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.Uncuttable
             };
-
             CardHelper.CreateCard(
                 "wstl_RUDOLTA_MULE", "Rudolta of the Sleigh",
                 "A grotesque effigy of a reindeer. With its infinite hate, it bequeaths gifts onto you.",
                 2, 3, 2, 0,
-                Artwork.rudoltaSleigh, Artwork.rudoltaSleigh_emission,
+                Resources.rudoltaSleigh, Resources.rudoltaSleigh_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: traits);
+                metaCategories: new(), tribes: tribes, traits: traits,
+                isChoice: false);
         }
     }
 }

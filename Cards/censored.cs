@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,10 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_censored", "CENSORED",
                 "It's best you never learn what it looks like.",
                 6, 3, 4, 0,
-                Artwork.censored, Artwork.censored_emission,
+                Resources.censored, Resources.censored_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.ChoiceType.Rare, riskLevel: CardHelper.RiskLevel.Aleph);
+                isRare: true, riskLevel: 5);
         }
     }
 }

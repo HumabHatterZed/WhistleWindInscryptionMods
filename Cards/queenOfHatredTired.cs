@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,12 +19,11 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Reptile
             };
-
             CardHelper.CreateCard(
                 "wstl_queenOfHatredTired", "The Queen of Hatred",
                 "Exhaustion: the cost of an all-out attack.",
                 0, 2, 1, 0,
-                Artwork.queenOfHatredTired, Artwork.queenOfHatredTired_emission,
+                Resources.queenOfHatredTired, Resources.queenOfHatredTired_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new());
         }

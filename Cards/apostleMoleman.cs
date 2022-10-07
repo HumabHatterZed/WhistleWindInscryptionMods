@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,24 +20,19 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.Uncuttable
             };
-            List<CardMetaCategory> metaCategories = new()
-            {
-                CardHelper.CANNOT_BE_SACRIFICED
-            };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance
+                ForcedWhite.appearance,
+                CardAppearanceBehaviour.Appearance.RareCardBackground
             };
-
             CardHelper.CreateCard(
                 "wstl_apostleMoleman", "Moleman Apostle",
                 "The time has come.",
                 1, 8, 0, 0,
-                Artwork.apostleMoleman, Artwork.apostleMoleman_emission,
+                Resources.apostleMoleman, Resources.apostleMoleman_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: metaCategories, tribes: new(), traits: traits,
-                appearances: appearances,
-                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.NonChoice);
+                metaCategories: new(), tribes: new(), traits: traits,
+                appearances: appearances);
         }
     }
 }

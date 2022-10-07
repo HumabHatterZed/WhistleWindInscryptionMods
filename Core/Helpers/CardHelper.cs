@@ -9,17 +9,16 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using Infiniscryption.Spells.Sigils;
-using static WhistleWindLobotomyMod.WstlPlugin;
+using Infiniscryption.Spells.Patchers;
 
-namespace WhistleWindLobotomyMod.Core.Helpers
+namespace WhistleWindLobotomyMod
 {
     public static class CardHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
-        public static CardMetaCategory CANNOT_BE_SACRIFICED = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_BE_SACRIFICED");
-        public static CardMetaCategory CANNOT_GIVE_SIGILS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_GIVE_SIGILS");
-        public static CardMetaCategory CANNOT_GAIN_SIGILS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_GAIN_SIGILS");
-        public static CardMetaCategory CANNOT_BUFF_STATS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_BUFF_STATS");
-        public static CardMetaCategory CANNOT_COPY_CARD = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_COPY_CARD");
+        public static CardMetaCategory CANNOT_GIVE_SIGILS = GuidManager.GetEnumValue<CardMetaCategory>(WstlPlugin.pluginGuid, "CANNOT_GIVE_SIGILS");
+        public static CardMetaCategory CANNOT_GAIN_SIGILS = GuidManager.GetEnumValue<CardMetaCategory>(WstlPlugin.pluginGuid, "CANNOT_GAIN_SIGILS");
+        public static CardMetaCategory CANNOT_BUFF_STATS = GuidManager.GetEnumValue<CardMetaCategory>(WstlPlugin.pluginGuid, "CANNOT_BUFF_STATS");
+        public static CardMetaCategory CANNOT_COPY_CARD = GuidManager.GetEnumValue<CardMetaCategory>(WstlPlugin.pluginGuid, "CANNOT_COPY_CARD");
 
         public enum ChoiceType
         {
@@ -31,16 +30,15 @@ namespace WhistleWindLobotomyMod.Core.Helpers
         public enum MetaType
         {
             None,       // No special meta
-            Event,      // Remove from pool, restrict nodes
+            Event       // Remove from pool, restrict nodes
             NonChoice,  // Remove from pool
-            OutOfJail   // Restrict all nodes
         }
         public enum TerrainType
         {
             None,
-            Terrain,        // Basic terain
-            TerrainRare,    // Remove TerrainBackground
-            TerrainAttack   // Remove TerrainLayout
+            Terrain,
+            TerrainRare,
+            TerrainAttack
         }
         public enum RiskLevel
         {
@@ -60,14 +58,15 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             TargetedSigils,
             TargetedStatsSigils
         }
-
+        
         // Cards
         public static void CreateCard(
             string name, string displayName,
             string description,
-            int attack, int health,
+            int baseAttack, int baseHealth,
             int bloodCost, int bonesCost,
-            byte[] portrait, byte[] emission, byte[] pixelTexture = null,
+            byte[] defaultTexture, byte[] emissionTexture,
+            byte[] gbcTexture = null,
             byte[] altTexture = null, byte[] emissionAltTexture = null,
             byte[] titleTexture = null,
             List<Ability> abilities = null,
@@ -77,20 +76,20 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             List<Trait> traits = null,
             List<CardAppearanceBehaviour.Appearance> appearances = null,
             List<Texture> decals = null,
-            bool onePerDeck = false,
-            bool hideStats = false,
-            bool isDonator = false,
             SpecialStatIcon statIcon = SpecialStatIcon.None,
-            ChoiceType choiceType = ChoiceType.None,
-            RiskLevel riskLevel = RiskLevel.None,
-            TerrainType terrainType = TerrainType.None,
+            ChoiceType cardType = ChoiceType.None,
             MetaType metaType = MetaType.None,
+            TerrainType terrainType = TerrainType.None,
+            RiskLevel riskLevel = RiskLevel.None,
             SpellType spellType = SpellType.None,
+            bool isDonator = false,
             string iceCubeName = null,
             string evolveName = null,
             int numTurns = 1,
             string tailName = null,
-            byte[] tailTexture = null
+            byte[] tailTexture = null,
+            bool onePerDeck = false,
+            bool hideStats = false
             )
         {
             // Create empty lists if any of them are null
@@ -103,11 +102,11 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             decals ??= new();
 
             // Load textures
-            Texture2D texture = WstlTextureHelper.LoadTextureFromResource(portrait);
-            Texture2D emissionTex = emission != null ? WstlTextureHelper.LoadTextureFromResource(emission) : null;
+            Texture2D texture = WstlTextureHelper.LoadTextureFromResource(defaultTexture);
+            Texture2D emissionTex = emissionTexture != null ? WstlTextureHelper.LoadTextureFromResource(emissionTexture) : null;
             Texture2D altTex = altTexture != null ? WstlTextureHelper.LoadTextureFromResource(altTexture) : null;
             Texture2D emissionAltTex = emissionAltTexture != null ? WstlTextureHelper.LoadTextureFromResource(emissionAltTexture) : null;
-            Texture2D pixelTex = pixelTexture != null ? WstlTextureHelper.LoadTextureFromResource(pixelTexture) : null;
+            Texture2D gbcTex = gbcTexture != null ? WstlTextureHelper.LoadTextureFromResource(gbcTexture) : null;
             Texture2D tailTex = tailTexture != null ? WstlTextureHelper.LoadTextureFromResource(titleTexture) : null;
             Texture titleTex = titleTexture != null ? WstlTextureHelper.LoadTextureFromResource(titleTexture) : null;
 
@@ -125,13 +124,13 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             CardInfo cardInfo = ScriptableObject.CreateInstance<CardInfo>();
 
             cardInfo.name = name;
-            cardInfo.SetBasic(displayName, attack, health, description);
+            cardInfo.SetBasic(displayName, baseAttack, baseHealth, description);
             cardInfo.SetBloodCost(bloodCost);
             cardInfo.SetBonesCost(bonesCost);
             cardInfo.SetPortrait(texture, emissionTex);
 
-            if (pixelTexture != null)
-                cardInfo.SetPixelPortrait(pixelTex);
+            if (gbcTexture != null)
+                cardInfo.SetPixelPortrait(gbcTex);
 
             if (altTex != null)
                 cardInfo.SetAltPortrait(altTex);
@@ -153,12 +152,6 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             cardInfo.metaCategories = metaCategories;
             cardInfo.tribes = tribes;
             cardInfo.traits = traits;
-            // Add KillsSurvivors trait to cards with Deathtouch or Punisher
-            if (abilities.Exists((Ability ab) => ab == Punisher.ability || ab == Ability.Deathtouch))
-                cardInfo.AddTraits(Trait.KillsSurvivors);
-            if (metaCategories.Contains(CANNOT_BE_SACRIFICED))
-                cardInfo.AddTraits(Trait.Terrain);
-
             cardInfo.SetExtendedProperty("wstl:RiskLevel", risk);
 
             // Misc
@@ -181,15 +174,14 @@ namespace WhistleWindLobotomyMod.Core.Helpers
                 cardInfo.SetTail(tailName, tailTex);
 
             bool disableDonator = isDonator && ConfigManager.Instance.NoDonators;
-            bool nonChoice = metaType == MetaType.NonChoice || metaType == MetaType.Event;
-
+            bool noneChoice = metaType == MetaType.NonChoice || metaType == MetaType.Event;
             // Sets the card type (meta categories, appearances, etc.)
-            if (choiceType != ChoiceType.None)
+            if (cardType != CardType.None)
             {
-                if (choiceType == ChoiceType.Rare)
+                if (cardType == CardType.Rare)
                 {
                     cardInfo.SetRare();
-                    if (disableDonator || nonChoice)
+                    if (disableDonator || noneChoice)
                         cardInfo.metaCategories.Remove(CardMetaCategory.Rare);
                 }
                 else
@@ -203,60 +195,80 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             if (terrainType != TerrainType.None)
             {
                 cardInfo.SetTerrain();
-
-                // here it's assumed that the card is also rare, meaning it'll have the rare card background; we don't want it to be overridden
                 if (terrainType == TerrainType.TerrainRare)
-                    cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainBackground);
+                    cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainCardBackground);
 
-                // removes terrain layout so the attack number will be rendered
                 if (terrainType == TerrainType.TerrainAttack)
                     cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainLayout);
             }
+
+            // Add KillsSurvivors trait to cards with Deathtouch or Punisher
+            if (abilities.Exists((Ability ab) => ab == Punisher.ability || ab == Ability.Deathtouch) && !traits.Contains(Trait.KillsSurvivors))
+                cardInfo.AddTraits(Trait.KillsSurvivors);
 
             if (spellType != SpellType.None)
             {
                 if (spellType == SpellType.Global)
                 {
-                    cardInfo.SetGlobalSpell();
-                    cardInfo.SetNodeRestrictions(true, true, true, true);
+                        cardInfo.SetGlobalSpell();
                 }
                 else
                 {
                     cardInfo.SetTargetedSpell();
                     switch (spellType)
                     {
-                        case SpellType.Targeted:
-                            cardInfo.SetNodeRestrictions(true, true, true, true);
-                            break;
-                        case SpellType.TargetedStats:
-                            cardInfo.SetNodeRestrictions(true, true, false, true);
-                            break;
-                        case SpellType.TargetedSigils:
-                            cardInfo.SetNodeRestrictions(true, false, true, true);
-                            break;
-                        case SpellType.TargetedStatsSigils:
-                            cardInfo.SetNodeRestrictions(true, false, false, false);
-                            break;
+                            case SpellType.TargetedStats
                     }
                 }
             }
-
-            // cannot give sigils
-            if (metaType == MetaType.Event)
-                cardInfo.SetNodeRestrictions(true, false, false, false);
-
-            // cannot be used at any node
-            if (metaType == MetaType.OutOfJail)
-                cardInfo.SetNodeRestrictions(true, true, true, true);
+                switch (spellType)
+                {
+                    case SpellType.Global:
+                        cardInfo.SetGlobalSpell();
+                        cardInfo.SetNodeRestrictions(true, true, true, true);
+                        break;
+                    case SpellType.Targeted:
+                        cardInfo.SetTargetedSpell();
+                        cardInfo.SetNodeRestrictions(true, true, true, true);
+                        break;
+                    case SpellType.TargetedStats:
+                        cardInfo.SetTargetedShowStats();
+                        cardInfo.SetNodeRestrictions(true, true, false, true);
+                        break;
+                    case SpellType.TargetedSigils:
+                        cardInfo.SetTargetedSpell();
+                        cardInfo.SetNodeRestrictions(true, false, true, true);
+                        break;
+                    case SpellType.TargetedStatsSigils:
+                        cardInfo.SetTargetedShowStats();
+                        cardInfo.SetNodeRestrictions(true, false, false, false);
+                        break;
+                };
 
             CardManager.Add("wstl", cardInfo);
         }
         public static CardAppearanceBehaviourManager.FullCardAppearanceBehaviour CreateAppearance<T>(string name) where T : CardAppearanceBehaviour
         {
-            return CardAppearanceBehaviourManager.Add(pluginGuid, name, typeof(T));
+            return CardAppearanceBehaviourManager.Add(WstlPlugin.pluginGuid, name, typeof(T));
+        }
+        public static CardInfo SetTargetedShowStats(this CardInfo card)
+        {
+            card.AddSpecialAbilities(TargetedSpellAbility.ID);
+            card.specialStatIcon = TargetedSpellAbility.Icon;
+            if (card.metaCategories.Contains(CardMetaCategory.Rare))
+            {
+                card.AddAppearances(SpellBehavior.RareSpellBackgroundAppearance.ID);
+                card.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.RareCardBackground);
+            }
+            else
+            {
+                card.AddAppearances(SpellBehavior.SpellBackgroundAppearance.ID);
+            }
+            card.hideAttackAndHealth = false;
+            return card;
         }
 
-        private static CardInfo SetNodeRestrictions(this CardInfo card, bool give, bool gain, bool buff, bool copy)
+        public static CardInfo SetNodeRestrictions(this CardInfo card, bool give, bool gain, bool buff, bool copy)
         {
             if (give)
                 card.AddMetaCategories(CANNOT_GIVE_SIGILS);

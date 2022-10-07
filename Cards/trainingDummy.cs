@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,10 +14,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_trainingDummy", "Standard Training-Dummy Rabbit",
                 "A beast in the shape of a training dummy. The safest of these abnormal creatures.",
                 0, 1, 0, 1,
-                Artwork.trainingDummy, Artwork.trainingDummy_emission,
+                Resources.trainingDummy, Resources.trainingDummy_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Zayin);
+                isChoice: true, riskLevel: 1);
         }
     }
 }

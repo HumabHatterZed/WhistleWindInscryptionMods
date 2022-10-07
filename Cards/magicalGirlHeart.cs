@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
+using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -23,11 +23,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_magicalGirlHeart", "Magical Girl",
                 "A hero of love and justice. She will aid you on your journey.",
                 1, 2, 1, 0,
-                Artwork.magicalGirlHeart, Artwork.magicalGirlHeart_emission, pixelTexture: Artwork.magicalGirlHeart_pixel,
+                Resources.magicalGirlHeart, Resources.magicalGirlHeart_emission, gbcTexture: Resources.magicalGirlHeart_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                onePerDeck: true,
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
+                isChoice: true, onePerDeck: true, riskLevel: 4);
         }
     }
 }

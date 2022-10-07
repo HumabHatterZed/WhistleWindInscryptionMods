@@ -6,10 +6,10 @@ using DiskCardGame;
 using System.Collections;
 using System.IO;
 using UnityEngine;
-using WhistleWindLobotomyMod.Properties;
 using static WhistleWindLobotomyMod.WstlPlugin;
+using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
-namespace WhistleWindLobotomyMod.Core
+namespace WhistleWindLobotomyMod
 {
     public class ConfigManager // Taken from GrimoraMod
     {
