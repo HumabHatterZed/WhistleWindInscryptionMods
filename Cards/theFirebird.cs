@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,14 +19,15 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Bird
             };
+
             CardHelper.CreateCard(
                 "wstl_theFirebird", "The Firebird",
                 "A bird that longs for the thrill of being hunted.",
-                1, 3, 2, 0,
-                Resources.theFirebird, Resources.theFirebird_emission,
+                2, 3, 2, 0,
+                Artwork.theFirebird, Artwork.theFirebird_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, riskLevel: 4);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
         }
     }
 }

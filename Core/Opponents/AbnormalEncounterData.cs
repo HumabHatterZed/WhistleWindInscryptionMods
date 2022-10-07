@@ -1,13 +1,12 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Encounters;
-using InscryptionAPI.Regions;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static WhistleWindLobotomyMod.EncounterHelper;
 
-namespace WhistleWindLobotomyMod
+using static WhistleWindLobotomyMod.Core.Helpers.EncounterHelper;
+
+namespace WhistleWindLobotomyMod.Core.Opponents
 {
     public class AbnormalEncounterData
     {

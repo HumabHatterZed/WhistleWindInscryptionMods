@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,10 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_fairyFestival", "Fairy Festival",
                 "Everything will be peaceful while you're under the fairies' care.",
                 1, 1, 1, 0,
-                Resources.fairyFestival, Resources.fairyFestival_emission, gbcTexture: Resources.fairyFestival_pixel,
+                Artwork.fairyFestival, Artwork.fairyFestival_emission, pixelTexture: Artwork.fairyFestival_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 1);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Zayin);
         }
     }
 }

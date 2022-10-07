@@ -1,9 +1,12 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When an ally card dies, create a Sapling in their place. A Sapling is defined as: 0 Power, 2 Health.";
             const string dialogue = "They proliferate and become whole. Can you feel it?";
             Gardener.ability = AbilityHelper.CreateAbility<Gardener>(
-                Resources.sigilGardener, Resources.sigilGardener_pixel,
+                Artwork.sigilGardener, Artwork.sigilGardener_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }

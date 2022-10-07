@@ -2,8 +2,11 @@
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil is played, create a random Brother in all empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.";
             const string dialogue = "If she gave her brothers the nettle clothing, their happy days would be restored.";
             Nettles.ability = AbilityHelper.CreateAbility<Nettles>(
-                Resources.sigilNettles, Resources.sigilNettles_pixel,
+                Artwork.sigilNettles, Artwork.sigilNettles_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }

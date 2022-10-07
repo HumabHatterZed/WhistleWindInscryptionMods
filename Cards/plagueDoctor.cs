@@ -1,8 +1,9 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,52 +18,52 @@ namespace WhistleWindLobotomyMod
             switch (ConfigManager.Instance.NumOfBlessings)
             {
                 case 0:
-                    portrait = Resources.plagueDoctor;
-                    emissive = Resources.plagueDoctor_emission;
+                    portrait = Artwork.plagueDoctor;
+                    emissive = Artwork.plagueDoctor_emission;
                     break;
                 case 1:
-                    portrait = Resources.plagueDoctor1;
-                    emissive = Resources.plagueDoctor1_emission;
+                    portrait = Artwork.plagueDoctor1;
+                    emissive = Artwork.plagueDoctor1_emission;
                     break;
                 case 2:
-                    portrait = Resources.plagueDoctor2;
-                    emissive = Resources.plagueDoctor2_emission;
+                    portrait = Artwork.plagueDoctor2;
+                    emissive = Artwork.plagueDoctor2_emission;
                     break;
                 case 3:
-                    portrait = Resources.plagueDoctor3;
-                    emissive = Resources.plagueDoctor3_emission;
+                    portrait = Artwork.plagueDoctor3;
+                    emissive = Artwork.plagueDoctor3_emission;
                     break;
                 case 4:
-                    portrait = Resources.plagueDoctor4;
-                    emissive = Resources.plagueDoctor4_emission;
+                    portrait = Artwork.plagueDoctor4;
+                    emissive = Artwork.plagueDoctor4_emission;
                     break;
                 case 5:
-                    portrait = Resources.plagueDoctor5;
-                    emissive = Resources.plagueDoctor5_emission;
+                    portrait = Artwork.plagueDoctor5;
+                    emissive = Artwork.plagueDoctor5_emission;
                     break;
                 case 6:
-                    portrait = Resources.plagueDoctor6;
-                    emissive = Resources.plagueDoctor6_emission;
+                    portrait = Artwork.plagueDoctor6;
+                    emissive = Artwork.plagueDoctor6_emission;
                     break;
                 case 7:
-                    portrait = Resources.plagueDoctor7;
-                    emissive = Resources.plagueDoctor7_emission;
+                    portrait = Artwork.plagueDoctor7;
+                    emissive = Artwork.plagueDoctor7_emission;
                     break;
                 case 8:
-                    portrait = Resources.plagueDoctor8;
-                    emissive = Resources.plagueDoctor8_emission;
+                    portrait = Artwork.plagueDoctor8;
+                    emissive = Artwork.plagueDoctor8_emission;
                     break;
                 case 9:
-                    portrait = Resources.plagueDoctor9;
-                    emissive = Resources.plagueDoctor9_emission;
+                    portrait = Artwork.plagueDoctor9;
+                    emissive = Artwork.plagueDoctor9_emission;
                     break;
                 case 10:
-                    portrait = Resources.plagueDoctor10;
-                    emissive = Resources.plagueDoctor10_emission;
+                    portrait = Artwork.plagueDoctor10;
+                    emissive = Artwork.plagueDoctor10_emission;
                     break;
                 default:
-                    portrait = Resources.plagueDoctor11;
-                    emissive = Resources.plagueDoctor11_emission;
+                    portrait = Artwork.plagueDoctor11;
+                    emissive = Artwork.plagueDoctor11_emission;
                     break;
             }
             List<Ability> abilities = new()
@@ -85,7 +86,8 @@ namespace WhistleWindLobotomyMod
                 portrait, emissive,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, onePerDeck: true, riskLevel: 1);
+                appearances: appearances, onePerDeck: true,
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Zayin);
         }
     }
 }

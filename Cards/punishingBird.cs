@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,18 +19,15 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Bird
             };
-            List<Trait> traits = new()
-            {
-                Trait.KillsSurvivors
-            };
+
             CardHelper.CreateCard(
                 "wstl_punishingBird", "Punishing Bird",
                 "A small bird on a mission to punish evildoers.",
                 1, 1, 1, 0,
-                Resources.punishingBird, Resources.punishingBird_emission, gbcTexture: Resources.punishingBird_pixel,
+                Artwork.punishingBird, Artwork.punishingBird_emission, pixelTexture: Artwork.punishingBird_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                isChoice: true, onePerDeck: true, riskLevel: 2);
+                metaCategories: new(), tribes: tribes, traits: new(),
+                choiceType: CardHelper.ChoiceType.Common, onePerDeck: true, riskLevel: CardHelper.RiskLevel.Teth);
         }
     }
 }

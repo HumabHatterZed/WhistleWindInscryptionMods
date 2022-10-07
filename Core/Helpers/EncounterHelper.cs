@@ -5,9 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using UnityRandom = UnityEngine.Random;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Helpers
 {
     public static class EncounterHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {

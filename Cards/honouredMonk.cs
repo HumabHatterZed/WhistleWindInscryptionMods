@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,10 +19,12 @@ namespace WhistleWindLobotomyMod
                 "wstl_honouredMonk", "Honoured Monk",
                 "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...",
                 2, 1, 2, 0,
-                Resources.honouredMonk, Resources.honouredMonk_emission,
+                Artwork.honouredMonk, Artwork.honouredMonk_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, evolveName: "wstl_cloudedMonk", isDonator: true, riskLevel: 4);
+                isDonator: true,
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw,
+                evolveName: "wstl_cloudedMonk");
         }
     }
 }

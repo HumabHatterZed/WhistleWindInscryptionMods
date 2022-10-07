@@ -1,11 +1,13 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
 using DiskCardGame;
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "A card bearing this sigil has its stats randomly changed according to its cost.";
             const string dialogue = "How balanced.";
             Corrector.ability = AbilityHelper.CreateAbility<Corrector>(
-                Resources.sigilCorrector, Resources.sigilCorrector_pixel,
+                Artwork.sigilCorrector, Artwork.sigilCorrector_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true, opponent: true, canStack: false, isPassive: false).Id;
         }

@@ -1,12 +1,13 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
 using DiskCardGame;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "This card will heal a selected ally for 2 Health.";
             const string dialogue = "Never underestimate the importance of a healer.";
             Healer.ability = AbilityHelper.CreateAbility<Healer>(
-                Resources.sigilHealer, Resources.sigilHealer_pixel,
+                Artwork.sigilHealer, Artwork.sigilHealer_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
@@ -131,7 +132,7 @@ namespace WhistleWindLobotomyMod
             base.Card.Status.hiddenAbilities.Add(Ability.Flying);
             base.Card.AddTemporaryMod(new CardModificationInfo(Ability.Flying));
             yield return new WaitForSeconds(0.5f);
-            CardLoader.GetCardByName("wstl_plagueDoctor").SetPortrait(WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor), WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor_emission));
+            CardLoader.GetCardByName("wstl_plagueDoctor").SetPortrait(WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor), WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor_emission));
             // Create dialogue depending on whether this is the first time this has happened this run
             if (!WstlSaveManager.ClockThisRun)
             {
@@ -227,52 +228,52 @@ namespace WhistleWindLobotomyMod
             switch (ConfigManager.Instance.NumOfBlessings)
             {
                 case 0:
-                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor);
-                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor_emission);
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor_emission);
                     break;
                 case 1:
-                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor1);
-                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor1_emission);
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor1);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor1_emission);
                     break;
                 case 2:
-                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor2);
-                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor2_emission);
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor2);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor2_emission);
                     break;
                 case 3:
-                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor3);
-                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor3_emission);
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor3);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor3_emission);
                     break;
                 case 4:
-                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor4);
-                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor4_emission);
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor4);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor4_emission);
                     break;
                 case 5:
-                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor5);
-                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor5_emission);
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor5);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor5_emission);
                     break;
                 case 6:
-                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor6);
-                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor6_emission);
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor6);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor6_emission);
                     break;
                 case 7:
-                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor7);
-                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor7_emission);
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor7);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor7_emission);
                     break;
                 case 8:
-                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor8);
-                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor8_emission);
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor8);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor8_emission);
                     break;
                 case 9:
-                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor9);
-                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor9_emission);
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor9);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor9_emission);
                     break;
                 case 10:
-                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor10);
-                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor10_emission);
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor10);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor10_emission);
                     break;
                 default:
-                    portrait = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor11);
-                    emissive = WstlTextureHelper.LoadTextureFromResource(Resources.plagueDoctor11_emission);
+                    portrait = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor11);
+                    emissive = WstlTextureHelper.LoadTextureFromResource(Artwork.plagueDoctor11_emission);
                     force = true;
                     break;
             }

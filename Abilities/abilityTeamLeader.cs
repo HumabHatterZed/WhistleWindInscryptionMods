@@ -5,7 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +20,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Your beast emboldens its allies.";
 
             TeamLeader.ability = AbilityHelper.CreateAbility<TeamLeader>(
-                Resources.sigilTeamLeader, Resources.sigilTeamLeader_pixel,
+                Artwork.sigilTeamLeader, Artwork.sigilTeamLeader_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
                 addModular: false, opponent: true, canStack: false, isPassive: false).Id;
         }

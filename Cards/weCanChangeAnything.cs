@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,14 +14,15 @@ namespace WhistleWindLobotomyMod
             {
                 Grinder.ability
             };
+
             CardHelper.CreateCard(
                 "wstl_weCanChangeAnything", "We Can Change Anything",
                 "Whatever you're dissatisfied with, this machine will fix it. You just have to step inside.",
                 1, 2, 1, 0,
-                Resources.weCanChangeAnything, Resources.weCanChangeAnything_emission, gbcTexture: Resources.weCanChangeAnything_pixel,
+                Artwork.weCanChangeAnything, Artwork.weCanChangeAnything_emission, pixelTexture: Artwork.weCanChangeAnything_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 1);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Zayin);
         }
     }
 }

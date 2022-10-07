@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,16 +18,17 @@ namespace WhistleWindLobotomyMod
             {
                 BlackFish.appearance
             };
+
             CardHelper.CreateCard(
                 "wstl_yang", "Yang",
                 "A white pendant that heals those nearby.",
                 0, 3, 1, 0,
-                Resources.yang, Resources.yang_emission,
-                altTexture: Resources.yangAlt, emissionAltTexture: Resources.yangAlt_emission,
+                Artwork.yang, Artwork.yang_emission,
+                altTexture: Artwork.yangAlt, emissionAltTexture: Artwork.yangAlt_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances,
-                onePerDeck: true, riskLevel: 4);
+                appearances: appearances, onePerDeck: true,
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
         }
     }
 }

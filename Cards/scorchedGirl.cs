@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,14 +14,15 @@ namespace WhistleWindLobotomyMod
             {
                 Volatile.ability
             };
+
             CardHelper.CreateCard(
                 "wstl_scorchedGirl", "Scorched Girl",
                 "Though there's nothing left to burn, the fire won't go out.",
                 1, 1, 0, 3,
-                Resources.scorchedGirl, Resources.scorchedGirl_emission, gbcTexture: Resources.scorchedGirl_pixel,
+                Artwork.scorchedGirl, Artwork.scorchedGirl_emission, pixelTexture: Artwork.scorchedGirl_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 2);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Teth);
         }
     }
 }

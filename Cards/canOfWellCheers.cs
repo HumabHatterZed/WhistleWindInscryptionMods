@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,10 +20,11 @@ namespace WhistleWindLobotomyMod
                 "wstl_canOfWellCheers", "Opened Can of WellCheers",
                 "A vending machine dispensing ocean soda.",
                 1, 2, 1, 0,
-                Resources.canOfWellCheers, Resources.canOfWellCheers_emission,
+                Artwork.canOfWellCheers, Artwork.canOfWellCheers_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, iceCubeName: "wstl_SKELETON_SHRIMP", riskLevel: 1);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Zayin,
+                iceCubeName: "wstl_SKELETON_SHRIMP");
         }
     }
 }

@@ -1,8 +1,12 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "The value represented by this sigil will be equal to the number of turns that have passed since this card resolved on the board.";
             Time.specialAbility = AbilityHelper.CreateSpecialAbility<Time>(rulebookName, rulebookDescription).Id;
             Time.icon = AbilityHelper.CreateStatIcon<Time>(
-                rulebookName, rulebookDescription, Resources.sigilTime, Resources.sigilTime_pixel,
+                rulebookName, rulebookDescription, Artwork.sigilTime, Artwork.sigilTime_pixel,
                 true, true).Id;
         }
     }

@@ -1,9 +1,12 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -16,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Your beast runs mine through.";
 
             Piercing.ability = AbilityHelper.CreateAbility<Piercing>(
-                Resources.sigilPiercing, Resources.sigilPiercing_pixel,
+                Artwork.sigilPiercing, Artwork.sigilPiercing_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true, opponent: false, canStack: true, isPassive: false).Id;
         }
@@ -28,7 +31,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target)
         {
-            return base.Card.Slot.IsPlayerSlot;
+            return !base.Card.OpponentCard;
         }
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {

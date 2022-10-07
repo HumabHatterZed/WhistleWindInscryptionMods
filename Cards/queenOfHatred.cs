@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -23,11 +23,12 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Reptile
             };
+
             CardHelper.CreateCard(
                 "wstl_queenOfHatred", "The Queen of Hatred",
                 "Heroes exist to fight evil. In its absence, they must create it.",
                 7, 2, 1, 0,
-                Resources.queenOfHatred, Resources.queenOfHatred_emission,
+                Artwork.queenOfHatred, Artwork.queenOfHatred_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new());
         }

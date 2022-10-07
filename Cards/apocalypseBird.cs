@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,28 +19,24 @@ namespace WhistleWindLobotomyMod
             {
                 ThreeBirds.specialAbility
             };
-            List<CardMetaCategory> metaCategories = new()
-            {
-                CardHelper.CANNOT_GIVE_SIGILS
-            };
             List<Tribe> tribes = new()
             {
                 Tribe.Bird
             };
             List <CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance,
-                CardAppearanceBehaviour.Appearance.RareCardBackground
+                ForcedWhite.appearance
             };
 
             CardHelper.CreateCard(
                 "wstl_apocalypseBird", "Apocalypse Bird",
                 "There was no moon, no stars. Just a bird, alone in the Black Forest.",
                 3, 12, 4, 0,
-                Resources.apocalypseBird, Resources.apocalypseBird_emission,
+                Artwork.apocalypseBird, Artwork.apocalypseBird_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: metaCategories, tribes: tribes, traits: new(),
-                appearances: appearances, onePerDeck: true);
+                metaCategories: new(), tribes: tribes, traits: new(),
+                appearances: appearances, onePerDeck: true,
+                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.Event);
         }
     }
 }

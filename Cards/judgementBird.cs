@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,14 +18,16 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Bird
             };
+
             CardHelper.CreateCard(
                 "wstl_judgementBird", "Judgement Bird",
                 "A long bird that judges sinners with swift efficiency. Only it is above consequences.",
                 1, 1, 2, 0,
-                Resources.judgementBird, Resources.judgementBird_emission, gbcTexture: Resources.judgementBird_pixel,
+                Artwork.judgementBird, Artwork.judgementBird_emission, pixelTexture: Artwork.judgementBird_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isRare: false, onePerDeck: true, riskLevel: 4);
+                onePerDeck: true,
+                riskLevel: CardHelper.RiskLevel.Waw);
         }
     }
 }

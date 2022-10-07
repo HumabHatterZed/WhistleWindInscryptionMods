@@ -1,8 +1,12 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health, Fledgling.";
             const string dialogue = "A small spider takes refuge in your hand.";
             BroodMother.ability = AbilityHelper.CreateAbility<BroodMother>(
-                Resources.sigilBroodMother, Resources.sigilBroodMother_pixel,
+                Artwork.sigilBroodMother, Artwork.sigilBroodMother_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }

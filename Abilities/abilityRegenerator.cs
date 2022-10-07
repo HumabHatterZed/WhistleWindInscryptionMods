@@ -1,9 +1,12 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -16,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Wounds heal, but the scars remain.";
 
             Regenerator.ability = AbilityHelper.CreateAbility<Regenerator>(
-                Resources.sigilRegenerator, Resources.sigilRegenerator_pixel,
+                Artwork.sigilRegenerator, Artwork.sigilRegenerator_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }

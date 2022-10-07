@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,14 +18,15 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Insect
             };
+
             CardHelper.CreateCard(
                 "wstl_spiderBud", "Spider Bud",
                 "A grotesque mother of spiders. Its children are small but grow quickly.",
                 0, 2, 0, 4,
-                Resources.spiderBud, Resources.spiderBud_emission,
+                Artwork.spiderBud, Artwork.spiderBud_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, riskLevel: 2);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Teth);
         }
     }
 }

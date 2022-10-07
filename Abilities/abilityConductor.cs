@@ -5,7 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +20,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "From break and ruin, the most beautiful performance begins.";
 
             Conductor.ability = AbilityHelper.CreateAbility<Conductor>(
-                Resources.sigilConductor, Resources.sigilConductor_pixel,
+                Artwork.sigilConductor, Artwork.sigilConductor_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
                 addModular: false, opponent: true, canStack: true, isPassive: false).Id;
         }

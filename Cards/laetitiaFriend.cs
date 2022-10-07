@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_laetitiaFriend", "Little Witch's Friend",
                 "She brought her friends along.",
                 2, 2, 0, 4,
-                Resources.laetitiaFriend, Resources.laetitiaFriend_emission,
+                Artwork.laetitiaFriend, Artwork.laetitiaFriend_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());
         }

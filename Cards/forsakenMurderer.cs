@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,10 +14,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_forsakenMurderer", "Forsaken Murderer",
                 "Experimented on then forgotten. What was anger has become abhorrence.",
                 4, 1, 0, 8,
-                Resources.forsakenMurderer, Resources.forsakenMurderer_emission,
+                Artwork.forsakenMurderer, Artwork.forsakenMurderer_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 2);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Teth);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,14 +18,16 @@ namespace WhistleWindLobotomyMod
             {
                 ThreeBirds.specialAbility
             };
+
             CardHelper.CreateCard(
                 "wstl_bigBird", "Big Bird",
                 "Its eyes light up the darkness like stars.",
                 2, 4, 2, 0,
-                Resources.bigBird, Resources.bigBird_emission, gbcTexture: Resources.bigBird_pixel,
+                Artwork.bigBird, Artwork.bigBird_emission, pixelTexture: Artwork.bigBird_pixel,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, onePerDeck: true, riskLevel: 4);
+                onePerDeck: true,
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
         }
     }
 }

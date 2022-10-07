@@ -4,7 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "A gift for you.";
 
             GiftGiver.ability = AbilityHelper.CreateAbility<GiftGiver>(
-                Resources.sigilGiftGiver, Resources.sigilGiftGiver_pixel,
+                Artwork.sigilGiftGiver, Artwork.sigilGiftGiver_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }

@@ -1,8 +1,12 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil dies, the killer transforms into this card.";
             const string dialogue = "The curse continues unabated.";
             Cursed.ability = AbilityHelper.CreateAbility<Cursed>(
-                Resources.sigilCursed, Resources.sigilCursed_pixel,
+                Artwork.sigilCursed, Artwork.sigilCursed_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }

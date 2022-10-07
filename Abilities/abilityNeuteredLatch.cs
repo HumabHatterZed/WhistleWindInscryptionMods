@@ -1,11 +1,12 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Triggers;
 using DiskCardGame;
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Pay 6 Bones to choose a creature to gain the Neutered sigil. This can only be used once per turn.";
             const string dialogue = "The will to fight has been lost.";
             NeuteredLatch.ability = AbilityHelper.CreateActivatedAbility<NeuteredLatch>(
-                Resources.sigilNeuteredLatch, Resources.sigilNeuteredLatch_pixel,
+                Artwork.sigilNeuteredLatch, Artwork.sigilNeuteredLatch_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
         }
     }

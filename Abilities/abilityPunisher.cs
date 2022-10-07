@@ -1,8 +1,12 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil is struck, the striker is killed.";
             const string dialogue = "Retaliation is swift, but death is slow.";
             Punisher.ability = AbilityHelper.CreateAbility<Punisher>(
-                Resources.sigilPunisher, Resources.sigilPunisher_pixel,
+                Artwork.sigilPunisher, Artwork.sigilPunisher_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 addModular: true, opponent: true, canStack: false, isPassive: false).Id;
         }

@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +14,6 @@ namespace WhistleWindLobotomyMod
             {
                 WristCutter.specialAbility,
             };
-
             List<Trait> traits = new()
             {
                 Trait.Goat
@@ -24,10 +23,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_bloodBath", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
                 0, 1, 1, 0,
-                Resources.bloodBath, Resources.bloodBath_emission,
+                Artwork.bloodBath, Artwork.bloodBath_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,
-                isChoice: true, riskLevel: 2);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Teth);
         }
     }
 }

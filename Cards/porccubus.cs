@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,18 +14,15 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Deathtouch
             };
-            List<Trait> traits = new()
-            {
-                Trait.KillsSurvivors
-            };
+
             CardHelper.CreateCard(
                 "wstl_porccubus", "Porccubus",
                 "A prick from one of its quills creates a deadly euphoria.",
                 1, 2, 0, 5,
-                Resources.porccubus, Resources.porccubus_emission,
+                Artwork.porccubus, Artwork.porccubus_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                isChoice: true, riskLevel: 3);
+                metaCategories: new(), tribes: new(), traits: new(),
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.He);
         }
     }
 }
