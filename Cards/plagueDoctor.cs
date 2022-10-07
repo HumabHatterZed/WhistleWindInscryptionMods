@@ -85,7 +85,7 @@ namespace WhistleWindLobotomyMod
                 portrait, emissive,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, onePerDeck: true, riskLevel: 1);
+                appearances: appearances, onePerDeck: true, isChoice: true, riskLevel: 1);
         }
     }
 }

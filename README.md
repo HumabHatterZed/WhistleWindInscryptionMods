@@ -45,8 +45,21 @@ Special thanks to Orochi Umbra for being my play tester and providing feedback d
 ## ⚖️ Changelog
 For a list of previous updates and a full description of the current update, refer to the FULL_CHANGELOG included in the mod package.
 
+See Closing Notes for info on future updates.
+
 <details>
-<summary>Latest Update - v1.2.1</summary>
+<summary>Latest Update - v1.2.2</summary>
+
+### v1.2.2 - The 'Who Let Me Code' patch (10/6/2022)
+* 🩹 Bug fixes
+  * Fixed the following cards not being obtainable as card choices
+    * Judgement Bird
+    * One Sin and Hundreds of Good Deeds
+    * Plague Doctor
+    * Yang
+    * Yin
+    * You're Bald...
+  * Fixed ReadMe displaying incorrect cost for Theresia
 
 ### v1.2.1 - Minor patch (9/26/2022)
 * 🧱 General
@@ -226,7 +239,7 @@ You'll need to play with the cards in order to figure out their special ability 
 |⤷ The Queen of Hatred|7/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Airborne|Singleton||
 |Happy Teddy Bear|3/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/cEvPoTk.png">|Stinky|||
 |Red Shoes|0/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sharp Quills<br>Guardian|||
-|Theresia|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Healer|||
+|Theresia|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Healer|||
 |Old Lady|1/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Stinky|||
 |Nameless Fetus|0/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Worthy Sacrifice<br>Undying|Goat||
 |The Lady Facing the Wall|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Punisher|||
@@ -365,11 +378,11 @@ The chances of cards with a certain 'Risk level' appearing as a choice change as
 _*This percentage is halved in Kaycee's Mod._
 
 ## 🕓 Closing Notes
-Surprise patch! Nothing new here outside of some internal optimisation.
+Turns out I suck as a programmer >.<  But seriously, I don't know how I missed these cards not being obtainable, especially considering how important a few of them are for events.
 
-The next major update (1.3 or 2.0, whichever I decide best fits) won't come out for...a long time. I have a lot of things I want to add (not just new cards ;>) and a lot to learn.
+In other news, work on the next major content update has started. There are some pretty substantial changes to a few existing cards, mostly to add a bit more variety in the gameplay (I had to add a new dependency to make it work, but it'll be worth it). No ETA on when it'll be done though :(.
 
-See you next time, and thanks for playing my mod! <3
+That's all for now. As always, thanks for playing my mod! <3
 
 Current plans:
 * Further balancing, tweaking, bug fixes, and general refinement of what's currently added (feedback is welcomed and encouraged!).
