@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 onePerDeck: true,
-                riskLevel: CardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
         }
     }
 }
