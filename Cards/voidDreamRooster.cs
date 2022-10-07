@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_voidDreamRooster", "Void Dream",
                 "Quite the chimera.",
                 2, 3, 2, 0,
-                Resources.voidDreamRooster, Resources.voidDreamRooster_emission,
+                Artwork.voidDreamRooster, Artwork.voidDreamRooster_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());
         }

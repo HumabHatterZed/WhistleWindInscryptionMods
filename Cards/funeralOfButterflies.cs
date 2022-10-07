@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +14,6 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.DoubleStrike
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Insect
@@ -24,10 +23,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_funeralOfButterflies", "Funeral of the Dead Butterflies",
                 "The coffin is a tribute to the fallen. A memorial to those who can't return home.",
                 3, 3, 3, 0,
-                Resources.funeralOfButterflies, Resources.funeralOfButterflies_emission,
+                Artwork.funeralOfButterflies, Artwork.funeralOfButterflies_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, riskLevel: 3);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.He);
         }
     }
 }

@@ -2,8 +2,11 @@
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Spells only: The affected card gains this card's stats.";
             const string dialogue = "Your beast's strength grows.";
             TargetGainStats.ability = AbilityHelper.CreateAbility<TargetGainStats>(
-                Resources.sigilTargetGainStats, Resources.sigilTargetGainStats_pixel,
+                Artwork.sigilTargetGainStats, Artwork.sigilTargetGainStats_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 addModular: false, opponent: false, canStack: false, isPassive: false,
                 overrideModular: true).Id;

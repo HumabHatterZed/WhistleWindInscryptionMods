@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,22 +14,15 @@ namespace WhistleWindLobotomyMod
             {
                 SpecialTriggeredAbility.Mirror
             };
-            List<Trait> traits = new()
-            {
-                Trait.Terrain
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.TerrainBackground
-            };
+
             CardHelper.CreateCard(
                 "wstl_ozmaPumpkinJack", "Jack",
                 "A child borne of an orange gourd.",
                 1, 3, 1, 0,
-                Resources.ozmaPumpkinJack, Resources.ozmaPumpkinJack_emission,
+                Artwork.ozmaPumpkinJack, Artwork.ozmaPumpkinJack_emission,
                 abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: traits, appearances: appearances,
-                statIcon: SpecialStatIcon.Mirror, isChoice: false);
+                metaCategories: new(), tribes: new(), traits: new(), appearances: new(),
+                statIcon: SpecialStatIcon.Mirror, terrainType: CardHelper.TerrainType.TerrainAttack);
         }
     }
 }

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using UnityEngine;
-using static WhistleWindLobotomyMod.WstlPlugin;
 
 namespace WhistleWindLobotomyMod
 {

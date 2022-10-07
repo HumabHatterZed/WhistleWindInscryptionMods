@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,18 +18,17 @@ namespace WhistleWindLobotomyMod
             {
                 CustomFledgling.specialAbility
             };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.RareCardBackground
-            };
+
             CardHelper.CreateCard(
                 "wstl_nothingThereEgg", "An Egg",
                 "What is it doing?",
                 0, 3, 3, 0,
-                Resources.nothingThereEgg, Resources.nothingThereEgg_emission,
+                Artwork.nothingThereEgg, Artwork.nothingThereEgg_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, evolveName: "wstl_nothingThereFinal");
+                appearances: new(), onePerDeck: true,
+                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.NonChoice,
+                evolveName: "wstl_nothingThereFinal");
         }
     }
 }

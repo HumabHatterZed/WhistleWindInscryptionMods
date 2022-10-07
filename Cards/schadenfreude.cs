@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,14 +15,15 @@ namespace WhistleWindLobotomyMod
                 QuickDraw.ability,
                 Ability.Deathtouch
             };
+
             CardHelper.CreateCard(
                 "wstl_schadenfreude", "SchadenFreude",
                 "A strange machine. You can feel someone's persistent gaze through the keyhole.",
                 0, 1, 0, 4,
-                Resources.schadenfreude, Resources.schadenfreude_emission,
+                Artwork.schadenfreude, Artwork.schadenfreude_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 3);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.He);
         }
     }
 }

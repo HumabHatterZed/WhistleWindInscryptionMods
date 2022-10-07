@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,14 +18,15 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.KillsSurvivors
             };
+
             CardHelper.CreateCard(
                 "wstl_meltingLove", "Melting Love",
                 "Don't let your beasts get too close now.",
                 4, 2, 3, 0,
-                Resources.meltingLove, Resources.meltingLove_emission,
+                Artwork.meltingLove, Artwork.meltingLove_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                isRare: true, isDonator: true, riskLevel: 5);
+                choiceType: CardHelper.ChoiceType.Rare, isDonator: true, riskLevel: CardHelper.RiskLevel.Aleph);
         }
     }
 }

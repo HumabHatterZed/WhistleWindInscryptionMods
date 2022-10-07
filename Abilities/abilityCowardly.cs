@@ -2,9 +2,12 @@
 using InscryptionAPI.Triggers;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,7 +20,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Through love, your beast finds its inner courage.";
 
             Cowardly.ability = AbilityHelper.CreateAbility<Cowardly>(
-                Resources.sigilCowardly, Resources.sigilCowardly_pixel,
+                Artwork.sigilCowardly, Artwork.sigilCowardly_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 1,
                 addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }

@@ -1,5 +1,4 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using InscryptionAPI.Ascension;
 using DiskCardGame;
 using HarmonyLib;
@@ -8,7 +7,9 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -24,8 +25,8 @@ namespace WhistleWindLobotomyMod
                 "Abnormal Bosses",
                 "Bosses will only play abnormality cards.",
                 30,
-                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionAbnormalBosses),
-                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionAbnormalBosses_activated)
+                WstlTextureHelper.LoadTextureFromResource(Artwork.ascensionAbnormalBosses),
+                WstlTextureHelper.LoadTextureFromResource(Artwork.ascensionAbnormalBosses_activated)
                 ).Challenge.challengeType;
 
             // Do later?

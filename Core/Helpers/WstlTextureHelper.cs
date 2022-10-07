@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Helpers
 {
     public static class WstlTextureHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {

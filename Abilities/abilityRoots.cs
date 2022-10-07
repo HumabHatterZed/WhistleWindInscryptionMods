@@ -1,8 +1,12 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When this card is played, create Thorny Vines on adjacent empty spaces. A Thorny Vine is defined as: 0 Power, 1 Health.";
             const string dialogue = "Resentment bursts forth like a weed.";
             Roots.ability = AbilityHelper.CreateAbility<Roots>(
-                Resources.sigilRoots, Resources.sigilRoots_pixel,
+                Artwork.sigilRoots, Artwork.sigilRoots_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 addModular: true, opponent: false, canStack: false, isPassive: false).Id;
         }

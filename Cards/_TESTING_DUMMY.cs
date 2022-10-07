@@ -1,9 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
-using InscryptionAPI.Guid;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -28,14 +27,14 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Squirrel
             };
+
             CardHelper.CreateCard(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
                 5, 10, 0, 0,
-                Resources.testingDummy, Resources.blueStar_emission,
+                Artwork.testingDummy, Artwork.blueStar_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new(),
-                appearances: appearances);
+                metaCategories: new(), tribes: tribes, traits: new(), appearances: appearances);
         }
     }
 }

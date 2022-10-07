@@ -1,9 +1,12 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "While this card is on the board, all allies whose Health is below their maximum regain 1 Health on upkeep.";
             const string dialogue = "You only delay the inevitable.";
             GroupHealer.ability = AbilityHelper.CreateAbility<GroupHealer>(
-                Resources.sigilGroupHealer, Resources.sigilGroupHealer_pixel,
+                Artwork.sigilGroupHealer, Artwork.sigilGroupHealer_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }

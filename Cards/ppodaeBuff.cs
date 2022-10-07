@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,16 +14,16 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.DebuffEnemy
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Canine
             };
+
             CardHelper.CreateCard(
                 "wstl_ppodaeBuff", "Ppodae",
                 "",
                 3, 2, 0, 8,
-                Resources.ppodaeBuff, Resources.ppodaeBuff_emission,
+                Artwork.ppodaeBuff, Artwork.ppodaeBuff_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());
         }

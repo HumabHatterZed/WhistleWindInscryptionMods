@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -24,18 +24,17 @@ namespace WhistleWindLobotomyMod
                 Tribe.Hooved,
                 Tribe.Reptile
             };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.RareCardBackground
-            };
+
             CardHelper.CreateCard(
                 "wstl_nothingThereTrue", "Nothing There",
                 "What is that?",
                 3, 3, 2, 0,
-                Resources.nothingThereTrue, Resources.nothingThereTrue_emission,
+                Artwork.nothingThereTrue, Artwork.nothingThereTrue_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
-                appearances: appearances, evolveName: "wstl_nothingThereEgg");
+                appearances: new(),
+                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.NonChoice,
+                evolveName: "wstl_nothingThereEgg");
         }
     }
 }

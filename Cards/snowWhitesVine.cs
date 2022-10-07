@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,13 +14,15 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Sharp
             };
+
             CardHelper.CreateCard(
                 "wstl_snowWhitesVine", "Thorny Vines",
                 "A vine.",
                 0, 1, 0, 0,
-                Resources.snowWhitesVine, Resources.snowWhitesVine_emission,
+                Artwork.snowWhitesVine, Artwork.snowWhitesVine_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: new(), traits: new(),
+                terrainType: CardHelper.TerrainType.Terrain);
         }
     }
 }

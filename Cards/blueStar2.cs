@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,17 +17,18 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                Forced.appearance,
-                CardAppearanceBehaviour.Appearance.RareCardBackground
+                Forced.appearance
             };
+
             CardHelper.CreateCard(
                 "wstl_blueStar2", "Blue Star",
                 "When this is over, let's meet again as stars.",
                 2, 6, 4, 0,
-                Resources.blueStar, Resources.blueStar_emission,
+                Artwork.blueStar, Artwork.blueStar_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances);
+                appearances: appearances,
+                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.NonChoice);
         }
     }
 }

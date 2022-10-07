@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,18 +15,26 @@ namespace WhistleWindLobotomyMod
                 Ability.Reach,
                 Ability.Evolve
             };
+            List<Trait> traits = new()
+            {
+                Trait.Uncuttable
+            };
+            List<CardMetaCategory> metaCategories = new()
+            {
+                CardHelper.CANNOT_BE_SACRIFICED
+            };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance,
-                CardAppearanceBehaviour.Appearance.RareCardBackground
+                ForcedWhite.appearance
             };
+
             CardHelper.CreateCard(
                 "wstl_apostleMolemanDown", "Moleman Apostle",
                 "The time has come.",
                 0, 2, 0, 0,
-                Resources.apostleMolemanDown, Resources.apostleMolemanDown_emission,
+                Artwork.apostleMolemanDown, Artwork.apostleMolemanDown_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: metaCategories, tribes: new(), traits: traits,
                 appearances: appearances, evolveName: "wstl_apostleMoleman", numTurns: 2);
         }
     }

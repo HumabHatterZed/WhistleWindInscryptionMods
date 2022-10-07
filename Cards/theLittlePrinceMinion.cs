@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_theLittlePrinceMinion", "Spore Mold Creature",
                 "A creature consumed by cruel, kind fungus.",
                 0, 0, 0, 0,
-                Resources.theLittlePrinceMinion, Resources.theLittlePrinceMinion_emission,
+                Artwork.theLittlePrinceMinion, Artwork.theLittlePrinceMinion_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(), decals: new());
         }

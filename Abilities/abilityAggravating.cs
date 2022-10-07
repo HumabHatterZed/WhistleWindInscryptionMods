@@ -1,12 +1,13 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +20,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The presence of your creature drives my beasts to bloodlust.";
 
             Aggravating.ability = AbilityHelper.CreateAbility<Aggravating>(
-                Resources.sigilAggravating, Resources.sigilAggravating_pixel,
+                Artwork.sigilAggravating, Artwork.sigilAggravating_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }

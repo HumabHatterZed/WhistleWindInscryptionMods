@@ -1,11 +1,13 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
-using InscryptionAPI.Triggers;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "At the end of the owner's turn, adjacent cards gain 1 Spore. Cards with Spore take damage equal to their Spore at turn's end and create a Spore Mold Creature in their slot on death. A Spore Mold Creature is defined as: [ Spore ] Power, [ Spore ] Health.";
             const string dialogue = "Even if this turns out to be a curse, they will love this curse like a blessing.";
             Spores.ability = AbilityHelper.CreateAbility<Spores>(
-                Resources.sigilSpores, Resources.sigilSpores_pixel,
+                Artwork.sigilSpores, Artwork.sigilSpores_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }

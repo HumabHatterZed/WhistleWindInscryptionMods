@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,17 +14,22 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Evolve
             };
+            List<CardMetaCategory> metaCategories = new()
+            {
+                CardHelper.CANNOT_BE_SACRIFICED
+            };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 ForcedWhite.appearance
             };
+
             CardHelper.CreateCard(
                 "wstl_apostleGuardianDown", "Guardian Apostle",
                 "The time has come.",
                 0, 2, 0, 0,
-                Resources.apostleGuardianDown, Resources.apostleGuardianDown_emission,
+                Artwork.apostleGuardianDown, Artwork.apostleGuardianDown_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: metaCategories, tribes: new(), traits: new(),
                 appearances: appearances, evolveName: "wstl_apostleGuardian");
         }
     }

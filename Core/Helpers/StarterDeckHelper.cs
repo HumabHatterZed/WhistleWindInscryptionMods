@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Helpers
 {
     public static class StarterDeckHelper // Methods specific to getting modded cards
     {

@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,14 +14,15 @@ namespace WhistleWindLobotomyMod
             {
                 Piercing.ability
             };
+
             CardHelper.CreateCard(
                 "wstl_fragmentOfUniverse", "Fragment of the Universe",
                 "You see a song in front of you. It's approaching, becoming more colourful by the second.",
                 1, 2, 1, 0,
-                Resources.fragmentOfUniverse, Resources.fragmentOfUniverse_emission,
+                Artwork.fragmentOfUniverse, Artwork.fragmentOfUniverse_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 2);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Teth);
         }
     }
 }

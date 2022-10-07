@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,10 +20,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_meatLantern", "Meat Lantern",
                 "A beautiful flower attached to a mysterious creature.",
                 1, 2, 2, 0,
-                Resources.meatLantern, Resources.meatLantern_emission,
+                Artwork.meatLantern, Artwork.meatLantern_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 2);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Teth);
         }
     }
 }

@@ -2,8 +2,11 @@
 using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -16,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Your creature's hide absorbs the blow.";
 
             ThickSkin.ability = AbilityHelper.CreateAbility<ThickSkin>(
-                Resources.sigilThickSkin, Resources.sigilThickSkin_pixel,
+                Artwork.sigilThickSkin, Artwork.sigilThickSkin_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 1,
                 addModular: true, opponent: true, canStack: true, isPassive: false).Id;
         }

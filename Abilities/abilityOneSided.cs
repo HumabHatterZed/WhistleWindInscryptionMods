@@ -1,8 +1,12 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When a card bearing this sigil strikes a card, deal 1 additional damage if the struck card cannot attack this card.";
             const string dialogue = "Catch them unawares.";
             OneSided.ability = AbilityHelper.CreateAbility<OneSided>(
-                Resources.sigilOneSided, Resources.sigilOneSided_pixel,
+                Artwork.sigilOneSided, Artwork.sigilOneSided_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 addModular: true, opponent: true, canStack: true, isPassive: false).Id;
         }

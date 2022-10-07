@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,10 +14,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_ozmaPumpkin", "Pumpkin",
                 "An orange gourd.",
                 0, 1, 0, 0,
-                Resources.ozmaPumpkin, Resources.ozmaPumpkin_emission,
+                Artwork.ozmaPumpkin, Artwork.ozmaPumpkin_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isTerrain: true, isChoice: false,
+                terrainType: CardHelper.TerrainType.Terrain,
                 evolveName: "wstl_ozmaPumpkinJack");
         }
     }

@@ -10,7 +10,7 @@ using System.Reflection;
 using UnityEngine;
 using static WhistleWindLobotomyMod.WstlPlugin;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Helpers
 {
     public static class AbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {

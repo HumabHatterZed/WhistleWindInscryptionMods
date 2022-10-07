@@ -1,15 +1,17 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Ascension;
-using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
 using DiskCardGame;
 using HarmonyLib;
 using System;
 using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
-using static WhistleWindLobotomyMod.AbnormalEncounterData;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Opponents.AbnormalEncounterData;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,8 +27,8 @@ namespace WhistleWindLobotomyMod
                 "Abnormal Encounters",
                 "All regular battles will only use abnormality cards.",
                 20,
-                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionAbnormalEncounters),
-                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionAbnormalEncounters_activated)
+                WstlTextureHelper.LoadTextureFromResource(Artwork.ascensionAbnormalEncounters),
+                WstlTextureHelper.LoadTextureFromResource(Artwork.ascensionAbnormalEncounters_activated)
                 ).Challenge.challengeType;
 
             harmony.PatchAll(typeof(AbnormalEncounters));

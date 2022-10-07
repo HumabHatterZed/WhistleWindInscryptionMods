@@ -1,8 +1,12 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When this card dies, the killer gains 1 Health.";
             const string dialogue = "Spring arrives with blossoming roses.";
             FrozenHeart.ability = AbilityHelper.CreateAbility<FrozenHeart>(
-                Resources.sigilFrozenHeart, Resources.sigilFrozenHeart_pixel,
+                Artwork.sigilFrozenHeart, Artwork.sigilFrozenHeart_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: -1,
                 addModular: false, opponent: false, canStack: false, isPassive: false).Id;
         }

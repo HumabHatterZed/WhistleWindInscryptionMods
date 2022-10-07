@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,11 +14,12 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Insect
             };
+
             CardHelper.CreateCard(
                 "wstl_theNakedWorm", "Naked Worm",
                 "It can enter your body through any aperture.",
                 1, 1, 0, 0,
-                Resources.theNakedWorm, Resources.theNakedWorm_emission,
+                Artwork.theNakedWorm, Artwork.theNakedWorm_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());
         }
