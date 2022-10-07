@@ -20,7 +20,8 @@ namespace WhistleWindLobotomyMod
                 0, 1, 0, 2,
                 Resources.oneSin, Resources.oneSin_emission, gbcTexture: Resources.oneSin_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 1);
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true, riskLevel: 1);
         }
     }
 }

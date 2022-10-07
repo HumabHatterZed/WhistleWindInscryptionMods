@@ -46,7 +46,17 @@ Special thanks to Orochi Umbra for being my play tester and providing feedback d
 For a list of previous updates and a full description of the current update, refer to the FULL_CHANGELOG included in the mod package.
 
 <details>
-<summary>Latest Update - v1.2.1</summary>
+<summary>Latest Update - v1.2.2</summary>
+
+### v1.2.2 - The 'Who Let Me Code' patch (10/6/2022)
+* 🩹 Bug fixes
+  * Fixed the following cards not being obtainable as card choices
+    * You're Bald...
+    * Plague Doctor
+    * Yin
+    * Yang
+    * Judgement Bird
+    * One Sin and Hundreds of Good Deeds
 
 ### v1.2.1 - Minor patch (9/26/2022)
 * 🧱 General

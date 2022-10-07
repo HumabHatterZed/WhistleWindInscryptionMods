@@ -20,7 +20,8 @@ namespace WhistleWindLobotomyMod
                 1, 1, 0, 3,
                 Resources.youreBald, Resources.youreBald_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), riskLevel: 1);
+                metaCategories: new(), tribes: new(), traits: new(),
+                isChoice: true, riskLevel: 1);
         }
     }
 }
