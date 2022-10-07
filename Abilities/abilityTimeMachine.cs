@@ -1,12 +1,13 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
 using DiskCardGame;
-using HarmonyLib;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +20,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "Close your eyes and count to ten.";
 
             TimeMachine.ability = AbilityHelper.CreateActivatedAbility<TimeMachine>(
-                Resources.sigilTimeMachine, Resources.sigilTimeMachine_pixel,
+                Artwork.sigilTimeMachine, Artwork.sigilTimeMachine_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }
@@ -131,10 +132,10 @@ namespace WhistleWindLobotomyMod
             int rand = new System.Random().Next(4);
             byte[] resource = rand switch
             {
-                0 => Resources.backwardClock_emission,
-                1 => Resources.backwardClock_emission_1,
-                2 => Resources.backwardClock_emission_2,
-                _ => Resources.backwardClock_emission_3
+                0 => Artwork.backwardClock_emission,
+                1 => Artwork.backwardClock_emission_1,
+                2 => Artwork.backwardClock_emission_2,
+                _ => Artwork.backwardClock_emission_3
             };
             base.Card.ClearAppearanceBehaviours();
             base.Card.ApplyAppearanceBehaviours(new() { CardAppearanceBehaviour.Appearance.RareCardBackground });

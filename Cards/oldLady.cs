@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,14 +14,15 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.DebuffEnemy
             };
+
             CardHelper.CreateCard(
                 "wstl_oldLady", "Old Lady",
                 "An aged storyteller. She can tell you any tale, even those that can't exist.",
                 1, 2, 0, 2,
-                Resources.oldLady, Resources.oldLady_emission, gbcTexture: Resources.oldLady_pixel,
+                Artwork.oldLady, Artwork.oldLady_emission, pixelTexture: Artwork.oldLady_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 2);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Teth);
         }
     }
 }

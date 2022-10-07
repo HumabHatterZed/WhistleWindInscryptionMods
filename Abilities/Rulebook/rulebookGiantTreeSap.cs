@@ -2,7 +2,8 @@
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "When sacrificed, has a chance to cause the sacrificing card to explode.";
             const string dialogue = "femboy";
             EntryGiantTreeSap.ability = AbilityHelper.CreateAbility<EntryGiantTreeSap>(
-                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                Artwork.sigilAbnormality, Artwork.sigilAbnormality_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 addModular: false, opponent: false, canStack: false, isPassive: true,
                 overrideModular: true).Id;

@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,21 +14,19 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Strafe
             };
-
             List<Tribe> tribes = new()
             {
                 Tribe.Hooved
             };
 
-
             CardHelper.CreateCard(
                 "wstl_alriune", "Alriune",
                 "A doll yearning to be a human. A human yearning to be a doll.",
                 4, 5, 3, 0,
-                Resources.alriune, Resources.alriune_emission,
+                Artwork.alriune, Artwork.alriune_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, riskLevel: 4);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
         }
     }
 }

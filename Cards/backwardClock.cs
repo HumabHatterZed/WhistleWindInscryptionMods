@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,25 +14,21 @@ namespace WhistleWindLobotomyMod
             {
                 TimeMachine.ability
             };
-            List<CardMetaCategory> metaCategories = new()
-            {
-                CardHelper.CANNOT_GIVE_SIGILS,
-                CardHelper.CANNOT_GAIN_SIGILS,
-                CardHelper.CANNOT_BUFF_STATS,
-                CardHelper.CANNOT_COPY_CARD
-            };
             List<Trait> traits = new()
             {
                 Trait.DeathcardCreationNonOption
             };
+
             CardHelper.CreateCard(
                 "wstl_backwardClock", "Backward Clock",
                 "A clock to rewind your wasted time. A blatant cheat.",
                 0, 1, 0, 4,
-                Resources.backwardClock, Resources.backwardClock_emission,
+                Artwork.backwardClock, Artwork.backwardClock_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: metaCategories, tribes: new(), traits: traits,
-                isTerrain: true, isRare: true, onePerDeck: true, isDonator: true, riskLevel: 4);
+                metaCategories: new(), tribes: new(), traits: traits,
+                onePerDeck: true, isDonator: true,
+                choiceType: CardHelper.ChoiceType.Rare, riskLevel: CardHelper.RiskLevel.Waw,
+                terrainType: CardHelper.TerrainType.TerrainRare, metaType: CardHelper.MetaType.OutOfJail);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,10 +19,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_happyTeddyBear", "Happy Teddy Bear",
                 "Its memories began with a warm hug.",
                 3, 2, 0, 8,
-                Resources.happyTeddyBear, Resources.happyTeddyBear_emission,
+                Artwork.happyTeddyBear, Artwork.happyTeddyBear_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 3);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.He);
         }
     }
 }

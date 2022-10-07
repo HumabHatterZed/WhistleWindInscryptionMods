@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,13 +14,19 @@ namespace WhistleWindLobotomyMod
             {
                 Reflector.ability
             };
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                CardAppearanceBehaviour.Appearance.TerrainLayout
+            };
+
             CardHelper.CreateCard(
                 "wstl_dreamOfABlackSwanBrother3", "Third Brother",
                 "What happens when the black swan wakes up from dreaming of a white swan?",
                 0, 3, 1, 0,
-                Resources.dreamOfABlackSwanBrother3, Resources.dreamOfABlackSwanBrother3_emission,
+                Artwork.dreamOfABlackSwanBrother3, Artwork.dreamOfABlackSwanBrother3_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: new(), traits: new(),
+                appearances: appearances);
         }
     }
 }

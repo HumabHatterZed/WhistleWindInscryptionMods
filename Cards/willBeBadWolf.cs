@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,14 +18,15 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Canine
             };
+
             CardHelper.CreateCard(
                 "wstl_willBeBadWolf", "Big and Will be Bad Wolf",
                 "It is no coincidence that wolves are the villains of so many tales.",
                 3, 2, 2, 0,
-                Resources.willBeBadWolf, Resources.willBeBadWolf_emission,
+                Artwork.willBeBadWolf, Artwork.willBeBadWolf_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, riskLevel: 4);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
         }
     }
 }

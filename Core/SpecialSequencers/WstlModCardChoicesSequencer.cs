@@ -1,13 +1,15 @@
-﻿using BepInEx;
-using InscryptionAPI;
+﻿using InscryptionAPI;
 using InscryptionAPI.Nodes;
 using DiskCardGame;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pixelplacement;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,10 +19,10 @@ namespace WhistleWindLobotomyMod
         {
             List<byte[]> animationFrames = new()
             {
-                Resources.nodeAbnormalityCardChoice1,
-                Resources.nodeAbnormalityCardChoice2,
-                Resources.nodeAbnormalityCardChoice3,
-                Resources.nodeAbnormalityCardChoice4
+                Artwork.nodeAbnormalityCardChoice1,
+                Artwork.nodeAbnormalityCardChoice2,
+                Artwork.nodeAbnormalityCardChoice3,
+                Artwork.nodeAbnormalityCardChoice4
             };
             NodeHelper.CreateNode("wstlModCardChoiceNode", typeof(WstlModCardChoicesSequencer), animationFrames, GenerationType.SpecialCardChoice, extraGenType: ConfigManager.Instance.BoxStart ? GenerationType.RegionStart : GenerationType.None);
         }

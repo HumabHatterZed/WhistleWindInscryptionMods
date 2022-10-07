@@ -2,7 +2,8 @@
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "Instantly kills the targeted card. This card is not affected by the target's abilities.";
             const string dialogue = "femboy";
             EntryJudgementBird.ability = AbilityHelper.CreateAbility<EntryJudgementBird>(
-                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                Artwork.sigilAbnormality, Artwork.sigilAbnormality_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 addModular: false, opponent: false, canStack: false, isPassive: true,
                 overrideModular: true).Id;

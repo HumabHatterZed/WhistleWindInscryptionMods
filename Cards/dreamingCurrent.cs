@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,10 +20,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_dreamingCurrent", "The Dreaming Current",
                 "A sickly child. Everyday it was fed candy that let it see the ocean.",
                 4, 2, 3, 0,
-                Resources.dreamingCurrent, Resources.dreamingCurrent_emission,
+                Artwork.dreamingCurrent, Artwork.dreamingCurrent_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 4);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_censoredMinion", "CENSORED",
                 "I think it's best you don't know what it looks like.",
                 0, 0, 0, 0,
-                Resources.censoredMinion, Resources.censoredMinion_emission,
+                Artwork.censoredMinion, Artwork.censoredMinion_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new());
         }

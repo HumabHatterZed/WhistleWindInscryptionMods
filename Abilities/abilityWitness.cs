@@ -1,12 +1,13 @@
 ﻿using InscryptionAPI;
 using InscryptionAPI.Card;
 using DiskCardGame;
-using HarmonyLib;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +20,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "The truth will set you free.";
 
             Witness.ability = AbilityHelper.CreateActivatedAbility<Witness>(
-                Resources.sigilWitness, Resources.sigilWitness_pixel,
+                Artwork.sigilWitness, Artwork.sigilWitness_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2).Id;
         }
     }

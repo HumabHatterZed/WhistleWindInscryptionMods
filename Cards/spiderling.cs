@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -22,11 +22,12 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedRed.appearance
             };
+
             CardHelper.CreateCard(
                 "wstl_spiderling", "Spiderling",
                 "Small and defenceless.",
                 0, 1, 0, 0,
-                Resources.spiderling, Resources.spiderling_emission,
+                Artwork.spiderling, Artwork.spiderling_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances, evolveName: "wstl_spiderBrood");

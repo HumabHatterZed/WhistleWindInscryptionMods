@@ -1,11 +1,12 @@
 ﻿using InscryptionAPI;
 using DiskCardGame;
-using HarmonyLib;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
 
             TrueSaviour.ability = AbilityHelper.CreateAbility<TrueSaviour>(
-                Resources.sigilTrueSaviour, Resources.sigilTrueSaviour_pixel,
+                Artwork.sigilTrueSaviour, Artwork.sigilTrueSaviour_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 addModular: false, opponent: false, canStack: false, isPassive: false,
                 overrideModular: true).Id;

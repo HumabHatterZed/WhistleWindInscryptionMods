@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,10 +18,10 @@ namespace WhistleWindLobotomyMod
                 "wstl_worldPortrait", "Portrait of Another World",
                 "This portrait captures a moment, one we're destined to lose.",
                 0, 4, 1, 0,
-                Resources.worldPortrait, Resources.worldPortrait_emission,
+                Artwork.worldPortrait, Artwork.worldPortrait_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 3);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.He);
         }
     }
 }

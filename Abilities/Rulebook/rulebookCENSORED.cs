@@ -2,7 +2,8 @@
 using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "On killing a card, <CENSORED> them and add the resulting minion to your hand. The minion is defined as: X Power, 1 Health.";
             const string dialogue = "femboy";
             EntryCENSORED.ability = AbilityHelper.CreateAbility<EntryCENSORED>(
-                Resources.sigilAbnormality, Resources.sigilAbnormality_pixel,
+                Artwork.sigilAbnormality, Artwork.sigilAbnormality_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 addModular: false, opponent: false, canStack: false, isPassive: true,
                 overrideModular: true).Id;

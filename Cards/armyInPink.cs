@@ -1,8 +1,8 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,10 +20,11 @@ namespace WhistleWindLobotomyMod
                 "wstl_armyInPink", "Army in Pink",
                 "A friendly soldier the colour of the human heart. It will protect you wherever you go.",
                 3, 3, 2, 0,
-                Resources.armyInPink, Resources.armyInPink_emission,
+                Artwork.armyInPink, Artwork.armyInPink_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true, isDonator: true, riskLevel: 5);
+                isDonator: true,
+                choiceType: CardHelper.ChoiceType.Rare, riskLevel: CardHelper.RiskLevel.Aleph);
         }
     }
 }

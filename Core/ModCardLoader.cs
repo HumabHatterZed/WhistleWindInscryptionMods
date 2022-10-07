@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core
 {
     public static class ModCardLoader // Methods specific to getting modded cards
     {
