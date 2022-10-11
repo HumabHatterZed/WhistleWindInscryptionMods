@@ -10,6 +10,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_NothingThereFinal_O0620()
         {
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.NonChoice
+            };
+
             CardHelper.CreateCard(
                 "wstl_nothingThereFinal", "Nothing There",
                 "A grotesque attempt at mimicry. Pray it does not improve its disguise.",
@@ -18,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(),
-                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.NonChoice);
+                choiceType: CardHelper.ChoiceType.Rare, metaTypes: metaTypes);
         }
     }
 }

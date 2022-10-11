@@ -16,14 +16,14 @@ namespace WhistleWindLobotomyMod
         private void Ability_Volatile()
         {
             const string rulebookName = "Volatile";
-            const string rulebookDescription = "When this card dies, adjacent and opposing cards are dealt 10 damage.";
+            const string rulebookDescription = "When [creature] dies, adjacent and opposing cards are dealt 10 damage.";
             const string dialogue = "An explosive finish.";
 
             Volatile.ability = AbilityHelper.CreateAbility<Volatile>(
                 Artwork.sigilVolatile, Artwork.sigilVolatile_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 addModular: true, opponent: true, canStack: false, isPassive: false,
-                flipY: true).Id;
+                flipTexture: Artwork.sigilVolatile_flipped).Id;
         }
     }
     public class Volatile : AbilityBehaviour

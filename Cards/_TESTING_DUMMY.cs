@@ -12,8 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.TripleBlood,
-                Ability.PreventAttack
+                Ability.TripleBlood
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -21,7 +20,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-
+                RareEventBackground.appearance
             };
             List<Tribe> tribes = new()
             {
@@ -31,7 +30,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                5, 10, 0, 0,
+                3, 10, 0, 0,
                 Artwork.testingDummy, Artwork.blueStar_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(), appearances: appearances);

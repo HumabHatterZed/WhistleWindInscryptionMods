@@ -18,6 +18,11 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.DeathcardCreationNonOption
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.DonatorClass,
+                CardHelper.MetaType.RestrictAll
+            };
 
             CardHelper.CreateCard(
                 "wstl_backwardClock", "Backward Clock",
@@ -26,9 +31,9 @@ namespace WhistleWindLobotomyMod
                 Artwork.backwardClock, Artwork.backwardClock_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                onePerDeck: true, isDonator: true,
+                onePerDeck: true,
                 choiceType: CardHelper.ChoiceType.Rare, riskLevel: CardHelper.RiskLevel.Waw,
-                terrainType: CardHelper.TerrainType.TerrainRare, metaType: CardHelper.MetaType.OutOfJail);
+                terrainType: CardHelper.TerrainType.TerrainRare, metaTypes: metaTypes);
         }
     }
 }

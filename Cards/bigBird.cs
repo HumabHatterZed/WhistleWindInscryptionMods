@@ -10,6 +10,10 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_BigBird_O0240()
         {
+            List<Ability> abilities = new()
+            {
+                NeuteredLatch.ability
+            };
             List<Tribe> tribes = new()
             {
                 Tribe.Bird
@@ -24,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 "Its eyes light up the darkness like stars.",
                 2, 4, 2, 0,
                 Artwork.bigBird, Artwork.bigBird_emission, pixelTexture: Artwork.bigBird_pixel,
-                abilities: new(), specialAbilities: specialAbilities,
+                abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 onePerDeck: true,
                 choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);

@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
         }
     }
-    public class NeuteredLatch : ActivatedLatchBehaviour
+    public class NeuteredLatch : ActivatedSelectSlotBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -24,6 +24,10 @@ namespace WhistleWindLobotomyMod
                 Tribe.Hooved,
                 Tribe.Reptile
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.NonChoice
+            };
 
             CardHelper.CreateCard(
                 "wstl_nothingThereTrue", "Nothing There",
@@ -33,7 +37,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: new(),
-                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.NonChoice,
+                choiceType: CardHelper.ChoiceType.Rare, metaTypes: metaTypes,
                 evolveName: "wstl_nothingThereEgg");
         }
     }

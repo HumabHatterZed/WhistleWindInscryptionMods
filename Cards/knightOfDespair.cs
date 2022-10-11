@@ -15,6 +15,10 @@ namespace WhistleWindLobotomyMod
                 Ability.SplitStrike,
                 Piercing.ability
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.NonChoice
+            };
 
             CardHelper.CreateCard(
                 "wstl_knightOfDespair", "The Knight of Despair",
@@ -24,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(), onePerDeck: true,
-                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.NonChoice);
+                choiceType: CardHelper.ChoiceType.Rare, metaTypes: metaTypes);
         }
     }
 }

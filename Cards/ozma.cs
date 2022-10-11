@@ -12,7 +12,11 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-
+                RightfulHeir.ability
+            };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.RuinaCard
             };
 
             CardHelper.CreateCard(
@@ -22,7 +26,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.ozma, Artwork.ozma_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw,
+                metaTypes: metaTypes);
         }
     }
 }

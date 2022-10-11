@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Healer()
         {
             const string rulebookName = "Healer";
-            const string rulebookDescription = "This card will heal a selected ally for 2 Health.";
+            const string rulebookDescription = "On turn's end, heal a selected ally for 2 Health.";
             const string dialogue = "Never underestimate the importance of a healer.";
             Healer.ability = AbilityHelper.CreateAbility<Healer>(
                 Artwork.sigilHealer, Artwork.sigilHealer_pixel,

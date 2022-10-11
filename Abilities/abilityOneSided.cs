@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_OneSided()
         {
             const string rulebookName = "One-Sided Strike";
-            const string rulebookDescription = "When a card bearing this sigil strikes a card, deal 1 additional damage if the struck card cannot attack this card.";
+            const string rulebookDescription = "When [creature] strikes a card, deal 1 additional damage if the struck card cannot attack this card.";
             const string dialogue = "Catch them unawares.";
             OneSided.ability = AbilityHelper.CreateAbility<OneSided>(
                 Artwork.sigilOneSided, Artwork.sigilOneSided_pixel,
@@ -49,6 +49,10 @@ namespace WhistleWindLobotomyMod
         }
         private bool CheckValid(PlayableCard target)
         {
+            // if this card can submerge, return true by default
+            if (base.Card.HasAnyOfAbilities(Ability.Submerge, Ability.SubmergeSquid))
+                return true;
+
             // if this card doesn't have Sniper or Marksman
             if (!base.Card.HasAnyOfAbilities(Ability.Sniper, Marksman.ability))
             {

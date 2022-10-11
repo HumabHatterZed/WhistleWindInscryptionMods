@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Corrector()
         {
             const string rulebookName = "Corrector";
-            const string rulebookDescription = "A card bearing this sigil has its stats randomly changed according to its cost.";
+            const string rulebookDescription = "[creature] has its stats randomly changed according to its cost.";
             const string dialogue = "How balanced.";
             Corrector.ability = AbilityHelper.CreateAbility<Corrector>(
                 Artwork.sigilCorrector, Artwork.sigilCorrector_pixel,

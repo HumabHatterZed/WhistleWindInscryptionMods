@@ -14,13 +14,13 @@ namespace WhistleWindLobotomyMod
             {
                 TheTrain.ability
             };
-            List<CardMetaCategory> metaCategories = new()
-            {
-                CardHelper.CANNOT_BE_SACRIFICED
-            };
             List<Trait> traits = new()
             {
                 Trait.DeathcardCreationNonOption
+            };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.RestrictAll
             };
 
             CardHelper.CreateCard(
@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod
                 metaCategories: new(), tribes: new(), traits: traits,
                 onePerDeck: true,
                 choiceType: CardHelper.ChoiceType.Rare, riskLevel: CardHelper.RiskLevel.Waw,
-                terrainType: CardHelper.TerrainType.Terrain, metaType: CardHelper.MetaType.OutOfJail);
+                terrainType: CardHelper.TerrainType.Terrain, metaTypes: metaTypes);
         }
     }
 }

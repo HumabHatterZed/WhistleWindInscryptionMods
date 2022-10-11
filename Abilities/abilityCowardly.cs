@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Cowardly()
         {
             const string rulebookName = "Cowardly";
-            const string rulebookDescription = "A card bearing this sigil gains 1 Power if an ally has the Cat Lover sigil. Otherwise lose 1 Power.";
+            const string rulebookDescription = "[creature] gains 1 Power if an ally has the Cat Lover sigil. Otherwise lose 1 Power.";
             const string dialogue = "Through love, your beast finds its inner courage.";
 
             Cowardly.ability = AbilityHelper.CreateAbility<Cowardly>(

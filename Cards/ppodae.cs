@@ -19,6 +19,10 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Canine
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.DonatorClass
+            };
 
             CardHelper.CreateCard(
                 "wstl_ppodae", "Ppodae",
@@ -27,9 +31,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.ppodae, Artwork.ppodae_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isDonator: true,
                 choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Teth,
-                evolveName: "wstl_ppodaeBuff");
+                metaTypes: metaTypes, evolveName: "wstl_ppodaeBuff");
         }
     }
 }

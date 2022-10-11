@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Cursed()
         {
             const string rulebookName = "Cursed";
-            const string rulebookDescription = "When a card bearing this sigil dies, the killer transforms into this card.";
+            const string rulebookDescription = "When [creature] dies, the killer transforms into this card.";
             const string dialogue = "The curse continues unabated.";
             Cursed.ability = AbilityHelper.CreateAbility<Cursed>(
                 Artwork.sigilCursed, Artwork.sigilCursed_pixel,

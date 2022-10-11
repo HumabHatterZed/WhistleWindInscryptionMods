@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Grinder()
         {
             const string rulebookName = "Grinder";
-            const string rulebookDescription = "This card gains the stats of the card sacrificed to play it.";
+            const string rulebookDescription = "[creature] gains the stats of the card sacrificed to play it.";
             const string dialogue = "Now everything will be just fine.";
             Grinder.ability = AbilityHelper.CreateAbility<Grinder>(
                 Artwork.sigilGrinder, Artwork.sigilGrinder_pixel,

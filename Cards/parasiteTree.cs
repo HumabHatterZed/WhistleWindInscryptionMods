@@ -14,6 +14,10 @@ namespace WhistleWindLobotomyMod
             {
                 Gardener.ability
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.DonatorClass
+            };
 
             CardHelper.CreateCard(
                 "wstl_parasiteTree", "Parasite Tree",
@@ -22,8 +26,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.parasiteTree, Artwork.parasiteTree_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isDonator: true,
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw,
+                metaTypes: metaTypes);
         }
     }
 }

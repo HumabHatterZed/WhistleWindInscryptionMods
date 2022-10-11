@@ -18,6 +18,10 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.KillsSurvivors
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.DonatorClass
+            };
 
             CardHelper.CreateCard(
                 "wstl_meltingLove", "Melting Love",
@@ -26,7 +30,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.meltingLove, Artwork.meltingLove_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                choiceType: CardHelper.ChoiceType.Rare, isDonator: true, riskLevel: CardHelper.RiskLevel.Aleph);
+                choiceType: CardHelper.ChoiceType.Rare, riskLevel: CardHelper.RiskLevel.Aleph,
+                metaTypes: metaTypes);
         }
     }
 }

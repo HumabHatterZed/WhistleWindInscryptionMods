@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_GiftGiver()
         {
             const string rulebookName = "Gift Giver";
-            const string rulebookDescription = "When this card is played, create a random card in your hand.";
+            const string rulebookDescription = "When [creature] is played, create a random card in your hand.";
             const string dialogue = "A gift for you.";
 
             GiftGiver.ability = AbilityHelper.CreateAbility<GiftGiver>(

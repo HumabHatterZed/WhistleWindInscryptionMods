@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_CatLover()
         {
             const string rulebookName = "Cat Lover";
-            const string rulebookDescription = "When a card bearing this sigil is played, add a random cat-related card to your hand with the Cowardly sigil.";
+            const string rulebookDescription = "When [creature] is played, add a random cat-related card to your hand with the Cowardly sigil.";
             const string dialogue = "Pretty kitty.";
 
             CatLover.ability = AbilityHelper.CreateAbility<CatLover>(

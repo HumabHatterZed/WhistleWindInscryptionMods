@@ -19,6 +19,10 @@ namespace WhistleWindLobotomyMod
             {
                 Forced.appearance
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.NonChoice
+            };
 
             CardHelper.CreateCard(
                 "wstl_blueStar2", "Blue Star",
@@ -28,7 +32,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: appearances,
-                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.NonChoice);
+                choiceType: CardHelper.ChoiceType.Rare, metaTypes: metaTypes);
         }
     }
 }

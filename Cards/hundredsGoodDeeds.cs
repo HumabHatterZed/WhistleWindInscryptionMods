@@ -16,11 +16,8 @@ namespace WhistleWindLobotomyMod
             };
             List<Trait> traits = new()
             {
-                Trait.Uncuttable
-            };
-            List<CardMetaCategory> metaCategories = new()
-            {
-                CardHelper.CANNOT_BE_SACRIFICED
+                Trait.Uncuttable,
+                Trait.Terrain
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
@@ -33,7 +30,7 @@ namespace WhistleWindLobotomyMod
                 0, 777, 0, 0,
                 Artwork.hundredsGoodDeeds, Artwork.hundredsGoodDeeds_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: metaCategories, tribes: new(), traits: traits,
+                metaCategories: new(), tribes: new(), traits: traits,
                 appearances: appearances);
         }
     }

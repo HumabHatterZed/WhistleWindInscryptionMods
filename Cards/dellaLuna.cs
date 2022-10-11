@@ -14,6 +14,10 @@ namespace WhistleWindLobotomyMod
             {
                 GroupHealer.ability
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.DonatorClass
+            };
 
             CardHelper.CreateCard(
                 "wstl_dellaLuna", "Il Pianto della Luna",
@@ -22,8 +26,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.dellaLuna, Artwork.dellaLuna_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isDonator: true,
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Waw,
+                metaTypes: metaTypes);
         }
     }
 }

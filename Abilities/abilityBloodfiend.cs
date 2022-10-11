@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Bloodfiend()
         {
             const string rulebookName = "Bloodfiend";
-            const string rulebookDescription = "When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.";
+            const string rulebookDescription = "When [creature] deals damage to an opposing card, it gains 1 Health.";
             const string dialogue = "Accursed fiend.";
 
             Bloodfiend.ability = AbilityHelper.CreateAbility<Bloodfiend>(
@@ -40,8 +40,6 @@ namespace WhistleWindLobotomyMod
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.HealDamage(1);
             base.Card.OnStatsChanged();
-            yield return new WaitForSeconds(0.2f);
-            base.Card.Anim.StrongNegationEffect();
             yield return base.LearnAbility(0.4f);
         }
 

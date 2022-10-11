@@ -12,17 +12,19 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Regenerator.ability
+                GreedyHealing.ability,
+                TargetGainSigils.ability
             };
 
             CardHelper.CreateCard(
                 "wstl_luminousBracelet", "Luminous Bracelet",
                 "A bracelet that will heal those nearby. It does not forgive the greedy.",
-                0, 2, 0, 3,
+                0, 0, 0, 3,
                 Artwork.luminousBracelet, Artwork.luminousBracelet_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Teth);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.Teth,
+                spellType: CardHelper.SpellType.TargetedSigils);
         }
     }
 }

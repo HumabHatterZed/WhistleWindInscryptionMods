@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_magicalGirlHeart", "Magical Girl",
                 "A hero of love and justice. She will aid you on your journey.",
-                1, 2, 1, 0,
+                2, 2, 1, 0,
                 Artwork.magicalGirlHeart, Artwork.magicalGirlHeart_emission, pixelTexture: Artwork.magicalGirlHeart_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),

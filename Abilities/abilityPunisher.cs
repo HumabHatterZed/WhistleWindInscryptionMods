@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Punisher()
         {
             const string rulebookName = "Punisher";
-            const string rulebookDescription = "When a card bearing this sigil is struck, the striker is killed.";
+            const string rulebookDescription = "When [creature] is struck, the striker is killed.";
             const string dialogue = "Retaliation is swift, but death is slow.";
             Punisher.ability = AbilityHelper.CreateAbility<Punisher>(
                 Artwork.sigilPunisher, Artwork.sigilPunisher_pixel,

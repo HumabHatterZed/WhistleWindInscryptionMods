@@ -77,9 +77,7 @@ namespace WhistleWindLobotomyMod
         private void AddSpecialAbilities()
         {
             AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
-            //StatIcon_TargetGainsStats();
-            //StatIcon_TargetGainsSigils();
-            //StatIcon_TargetGainsStatsSigils();
+
             StatIcon_Time();
         }
         private void AddNodes()
@@ -148,12 +146,17 @@ namespace WhistleWindLobotomyMod
             Ability_Cowardly();
             Ability_Neutered();
             Ability_NeuteredLatch();
-
+            Ability_RightfulHeir();
+            Ability_GreedyHealing();
+            // Spells
             Ability_TargetGainStats();
             Ability_TargetGainSigils();
             Ability_TargetGainStatsSigils();
 
             // special
+            Ability_FalseThrone();
+            Ability_Nihil();
+
             Ability_Apostle();
             Ability_TrueSaviour();
             Ability_Confession();
@@ -195,24 +198,36 @@ namespace WhistleWindLobotomyMod
                 CardLoader.GetCardByName("wstl_laetitia"),
                 CardLoader.GetCardByName("wstl_childOfTheGalaxy")
             }, 2);
-            StarterDeckHelper.AddStartDeck("Road to Oz", Artwork.starterDeckFairyTale, new()
+            /*StarterDeckHelper.AddStartDeck("Lonely Friends", Artwork.starterDeckChildren, new()
             {
-                CardLoader.GetCardByName("wstl_theRoadHome"),
-                CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
-                CardLoader.GetCardByName("wstl_wisdomScarecrow")
-            }, 3);
+                CardLoader.GetCardByName("wstl_scorchedGirl"),
+                CardLoader.GetCardByName("wstl_laetitia"),
+                CardLoader.GetCardByName("wstl_childOfTheGalaxy")
+            }, 3);*/
             StarterDeckHelper.AddStartDeck("Blood Machines", Artwork.starterDeckBloodMachines, new()
             {
                 CardLoader.GetCardByName("wstl_weCanChangeAnything"),
                 CardLoader.GetCardByName("wstl_allAroundHelper"),
                 CardLoader.GetCardByName("wstl_singingMachine")
             }, 4);
+            /*StarterDeckHelper.AddStartDeck("Lonely Friends", Artwork.starterDeckChildren, new()
+            {
+                CardLoader.GetCardByName("wstl_scorchedGirl"),
+                CardLoader.GetCardByName("wstl_laetitia"),
+                CardLoader.GetCardByName("wstl_childOfTheGalaxy")
+            }, 6);*/
+            StarterDeckHelper.AddStartDeck("Road to Oz", Artwork.starterDeckFairyTale, new()
+            {
+                CardLoader.GetCardByName("wstl_theRoadHome"),
+                CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
+                CardLoader.GetCardByName("wstl_wisdomScarecrow")
+            }, 8);
             StarterDeckHelper.AddStartDeck("Magical Girls!", Artwork.starterDeckMagicalGirls, new()
             {
-                CardLoader.GetCardByName("wstl_magicalGirlHeart"),
                 CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
-                CardLoader.GetCardByName("wstl_magicalGirlSpade")
-            }, 8);
+                CardLoader.GetCardByName("wstl_magicalGirlHeart"),
+                CardLoader.GetCardByName("wstl_magicalGirlClover")
+            }, 10);
             StarterDeckHelper.AddStartDeck("Twilight", Artwork.starterDeckBlackForest, new()
             {
                 CardLoader.GetCardByName("wstl_punishingBird"),

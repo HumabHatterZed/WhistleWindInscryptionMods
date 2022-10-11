@@ -27,6 +27,10 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedWhite.appearance
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.EventCard
+            };
 
             CardHelper.CreateCard(
                 "wstl_apocalypseBird", "Apocalypse Bird",
@@ -36,7 +40,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances, onePerDeck: true,
-                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.Event);
+                choiceType: CardHelper.ChoiceType.Rare, metaTypes: metaTypes);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Assimilator()
         {
             const string rulebookName = "Assimilator";
-            const string rulebookDescription = "When a card bearing this sigil attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.";
+            const string rulebookDescription = "When [creature] attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.";
             const string dialogue = "From the many, one.";
             Assimilator.ability = AbilityHelper.CreateAbility<Assimilator>(
                 Artwork.sigilAssimilator, Artwork.sigilAssimilator_pixel,

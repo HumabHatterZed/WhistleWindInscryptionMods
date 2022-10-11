@@ -5,48 +5,49 @@
   * Added Spell Card Toolkit mod as a dependency
   * Replaced placeholder save value for Magical Girls with a properly named value
   * Added pauses before and after most alternate dialogue
-  * Fixed inaccurate informatiOn in the ReadMe
-  * Large amounts of internal code rewrites
+  * Fixed inaccurate information in the ReadMe (thoroughly this time)
 * 🩹 Bug fixes
-  * Fixed certain cards not being obtainable in-game:
-    * You're Bald...
-    * Yin
-    * Yang
-    * Plague Doctor
   * Fixed Nothing There being copyable by Goo Mage
   * Fixed abnormality choice node not playing/clear text properly
 * 🔧 Tweaks / Changes
   * Replaced Wolf Cub --> The Way Home in starter deck "Road to Oz"
-  * Replace Magical Girl S --> Magical Girl C in starter deck "Magical Girls!"
-  * Shelter from the 27th of March is now a Targeted Spell, has Imbue Target ability
-  * You Must Be Happy is now a Targeted Spell card
-  * Scrambler ability is now a Spell ability
-  * Singing Machine no longer looks like a Terrain card to prevent confusion
-  * Reduced Health of Dragon Head and Dragon Body to 0 because...why not
+  * Replaced Magical Girl S --> Magical Girl C in starter deck "Magical Girls!"
+  * Changed Shelter from the 27th of March into a Spell card with Repulsive, Aggravating, Imbue Target
+  * Changed Luminous Bracelet into a Spell card with Greedy Healing, Imbue Target
+  * Changed You Must Be Happy into a Spell card with Scrambler
+  * Changed Scrambler to be used by Spell cards exclusively
+  * Singing Machine no longer looks like a Terrain card
+  * Brother cards no longer show their Power (except the 2nd Brother)
+  * Changed Health of Dragon Body and Head to 0
+  * Volatile ability now uses a proper flipped sigil for opponent cards
+  * Config option 'All Modular' now affects activated abilities
 * ⚖️ Balancing
   * Changed the probabilities of getting Rare cards from the abnormality choice node
     * Probabilities are now (0%, 2%, 5%) for both Part 1 and Kaycee's Mod
     * Probabilities with Better Rare Chances are now (2%, 5%, 10%) for both Part 1 and Kaycee's Mod
   * Abnormality choice node can now offer multiple Rare cards as choices (this doesn't change the overall chance of finding a Rare)
   * Increased point amount of Better Rare Chances from -15 --> -10
+  * Increased Challenge requirement for Road to Oz from 3 --> 8
+  * Increased Challenge requirement for Magical Girls! from 8 --> 10
+  * Buffed Apocalypse Bird's Health from 8 --> 12
+  * Buffed The Firebird's Power from 1 --> 2
+  * Buffed Brother 2's Power from 0 --> 1
+  * Gave Big Bird the Neutered Latch ability
+  * Reduced Magical Girl D's cost from 2 Blood --> 1 Blood
+  * Reduced Knight of Despair's cost from 2 Blood --> 1 Blood
+  * Rebalanced Lady Facing the Wall to be 0/3 stats, 5 Bones
+  * Rebalanced Magical Girl H to be 1/2 stats, One-Sided Strike
+  * Rebalanced King of Greed to be 2/5 stats, 1 Blood
+  * Rebalanced Magical Girl S to be 1/4, 1 Blood
+  * Nerfed Spider Brood Health from 3 --> 2
   * Express Train to Hell cost reduced from x6 --> x2
   * The Train ability cost increased from x6 --> x10
-  * Changed Lady Facing the Wall to be 1/1 stats
-  * Increased Apocalypse Bird's Health from 8 --> 12
-  * Increased The Firebird's Power from 1 --> 2
-  * Rebalanced Magical Girls
-    * Magical Girl H is now 1/2, One-Sided Strike
-    * Magical Girl D is now 1 Blood
-    * King of Greed is now 2/5, 1 Blood
-    * Magical Girl S is now 1/4, 1 Blood
-    * Knight of Despair is now 1 Blood
-  * Snow White's Vines are now Terrain
-  * Frozen Heart is no longer Terrain
-  * Notes From a Crazed Researcher is now considered Terrain rather than just looking like it was
-
-
+  * Thorny Vines are now conidered Terrain
+  * Notes From a Crazed Researcher is now considered Terrain
+  * Frozen Heart is no longer considered Terrain
 * ➕ Additions
-  * Added the following cards
+  * Added config 'No Ruina'
+  * Added the following cards:
     * Magical Girl C
     * Servant of Wrath
     * Price of Silence
@@ -59,8 +60,7 @@
     * Silent Girl
     * The Adult Who Tells Lies
     * Jester of Nihil
-    * Silent Girl
-  * Added the following abilities
+  * Added the following abilities:
     * Thick Skin
     * One-Sided Strike
     * Copycat
@@ -68,10 +68,23 @@
     * Cowardly
     * Neutered
     * Neutered Latch
+    * Rightful Heir
+    * Greedy Healing
+    * False Throne
     * Imbue Target
     * Strengthen Target
     * Empower Target
-    * Passing Time (stat icon)
+    * Passing Time - stat icon
+
+### v1.2.2 - The 'Who Let Me Code' patch (10/6/2022)
+* 🩹 Bug fixes
+  * Fixed the following cards not being obtainable as card choices
+    * Judgement Bird
+    * One Sin and Hundreds of Good Deeds
+    * Plague Doctor
+    * Yang
+    * Yin
+    * You're Bald...
 
 ### v1.2.1 - Minor patch (9/26/2022)
 * 🧱 General

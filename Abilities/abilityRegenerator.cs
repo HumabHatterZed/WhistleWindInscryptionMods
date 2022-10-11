@@ -29,7 +29,6 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private readonly string dialogue = "You got greedy with your beast's [c:bR]Health[c:].";
         private readonly string dragonDialogue = "Now you become the sky, and I the land.";
         private readonly string dragonDialogue2 = "When the end became the beginning, [c:bR]the dragon[c:] soared through the sky toward the unknown.";
         public override bool RespondsToUpkeep(bool playerUpkeep)
@@ -44,35 +43,15 @@ namespace WhistleWindLobotomyMod
 
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot).Where(slot => slot.Card != null))
             {
-                if (!slot.Card.FaceDown)
-                {
-                    slot.Card.Anim.LightNegationEffect();
-                }
-                // If the target card is overhealed by 2, trigger death sequence
-                if (slot.Card.Health >= slot.Card.MaxHealth + 2)
+                if (slot.Card.Health < slot.Card.MaxHealth)
                 {
                     if (slot.Card.FaceDown)
                     {
                         slot.Card.SetFaceDown(false);
                         slot.Card.UpdateFaceUpOnBoardEffects();
+                        yield return new WaitForSeconds(0.55f);
                     }
-                    yield return new WaitForSeconds(0.55f);
-                    // Take negative damage to simulate excessive regeneration, then die
-                    for (int i = 0; i < 4; i++)
-                    {
-                        yield return slot.Card.TakeDamage(-i - 1, null);
-                        yield return new WaitForSeconds(0.2f);
-                    }
-                    yield return slot.Card.Die(false, slot.Card);
-                    yield return new WaitForSeconds(0.25f);
-                    if (!WstlSaveManager.HasSeenRegeneratorExplode)
-                    {
-                        WstlSaveManager.HasSeenRegeneratorExplode = true;
-                        yield return CustomMethods.PlayAlternateDialogue(dialogue: dialogue);
-                    }
-                }
-                else
-                {
+                    slot.Card.Anim.LightNegationEffect();
                     slot.Card.HealDamage(1);
                     yield return new WaitForSeconds(0.3f);
                     yield return LearnAbility();
@@ -84,9 +63,7 @@ namespace WhistleWindLobotomyMod
         public override bool RespondsToResolveOnBoard()
         {
             if (base.Card.Info.name == "wstl_yang")
-            {
                 return true;
-            }
             return false;
         }
         public override IEnumerator OnResolveOnBoard()
@@ -103,9 +80,7 @@ namespace WhistleWindLobotomyMod
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard)
         {
             if (base.Card.Info.name == "wstl_yang")
-            {
                 return otherCard.Info.name == "wstl_yin";
-            }
             return false;
         }
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)

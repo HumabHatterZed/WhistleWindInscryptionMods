@@ -17,23 +17,22 @@ namespace WhistleWindLobotomyMod
             };
             List<Trait> traits = new()
             {
-                Trait.Uncuttable
-            };
-            List<CardMetaCategory> metaCategories = new()
-            {
-                CardHelper.CANNOT_BE_SACRIFICED
+                Trait.Uncuttable,
+                Trait.Terrain
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance
+                ForcedWhite.appearance,
+                EventBackground.appearance
             };
+
             CardHelper.CreateCard(
                 "wstl_whiteNight", "WhiteNight",
                 "The time has come.",
                 0, 666, 0, 0,
                 Artwork.whiteNight, Artwork.whiteNight_emission, titleTexture: Artwork.whiteNight_title,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: metaCategories, tribes: new(), traits: traits,
+                metaCategories: new(), tribes: new(), traits: traits,
                 appearances: appearances, onePerDeck: true);
         }
     }

@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Copycat()
         {
             const string rulebookName = "Copycat";
-            const string rulebookDescription = "When a card bearing this sigil is played, become a copy of the opposing card if it exists. There is a chance that the copy will be imperfect.";
+            const string rulebookDescription = "When [creature] is played, become a copy of the opposing card if it exists. There is a chance that the copy will be imperfect.";
             const string dialogue = "A near perfect impersonation.";
             Copycat.ability = AbilityHelper.CreateAbility<Copycat>(
                 Artwork.sigilCopycat, Artwork.sigilCopycat_pixel,

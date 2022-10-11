@@ -10,92 +10,33 @@ using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public abstract class ActivatedLatchBehaviour : ActivatedAbilityBehaviour
+    // Logic for abilities that have the player select a slot to be targeted
+    // Defaults to the logic for Latch but can be overridden as needed
+    public abstract class ActivatedSelectSlotBehaviour : ActivatedAbilityBehaviour
     {
         public CardSlot selectedSlot = null;
+        // Required override field - set to Ability.None if you don't want to latch anything
+        // also override OnValidTarget to not do the latch logic
         public abstract Ability LatchAbility { get; }
         public virtual bool TargetAll => true;
         public virtual bool TargetAllies => false;
         public virtual string NoAlliesDialogue => "No allies.";
-        public virtual string NullTargetDialogue => "You can't target the air.";
-        public virtual string SelfTargetDialogue => "You must choose one of your other cards.";
+
+        public virtual string InvalidTargetDialogue => "It's already latched...";
 
         private bool ActivatedThisTurn;
 
-        public override bool RespondsToUpkeep(bool playerUpkeep)
-        {
-            return base.Card.OpponentCard != playerUpkeep;
-        }
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
-            ActivatedThisTurn = false;
-            base.Card.Anim.LightNegationEffect();
-            yield return new WaitForSeconds(0.2f);
-        }
-
-        public override bool CanActivate()
-        {
-            if (!ActivatedThisTurn)
-            {
-                List<CardSlot> validTargets = Singleton<BoardManager>.Instance.AllSlotsCopy;
-                validTargets.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || this.CardHasLatchMod(x.Card) || x.Card == base.Card);
-                return validTargets.Count > 0;
-            }
-            return false;
-        }
-        public override IEnumerator Activate()
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-
-            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
-
-            base.Card.Anim.LightNegationEffect();
-            yield return new WaitForSeconds(0.2f);
-
-            // if no targetable allies
-            if (!ValidTargets())
-            {
-                base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.2f);
-
-                yield return OnNoValidAllies();
-                yield break;
-            }
-
-            if (base.Card.OpponentCard)
-            {
-                yield return OpponentSelectTarget();
-                yield break;
-            }
-
-            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
-
-            yield return PlayerSelectTarget();
-
-            yield return OnValidTargetSelected(selectedSlot);
-
-            CombatPhaseManagerPatch.Instance.VisualizeClearSniperAbility();
-
-            yield return new WaitForSeconds(0.2f);
-            yield return base.LearnAbility();
-
-            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
-            Singleton<ViewManager>.Instance.SwitchToView(View.Default, false, false);
-
-            yield return OnPostValidTargetSelected();
-        }
-
         public virtual IEnumerator OnNoValidAllies()
         {
+            // Play NoAlliesDialogue by default
             yield return CustomMethods.PlayAlternateDialogue(dialogue: NoAlliesDialogue);
         }
         public virtual IEnumerator OnValidTargetSelected(CardSlot slot)
         {
+            // Add LatchAbility by default
             if (slot != null && slot.Card != null)
             {
-                CardModificationInfo cardModificationInfo = new(this.LatchAbility) { fromTotem = true, singletonId = "wstl:ActivatedLatch"};
+                CardModificationInfo cardModificationInfo = new(this.LatchAbility) { fromTotem = true, singletonId = "wstl:ActivatedLatch" };
 
                 slot.Card.Anim.LightNegationEffect();
                 slot.Card.AddTemporaryMod(cardModificationInfo);
@@ -105,14 +46,115 @@ namespace WhistleWindLobotomyMod
         }
         public virtual IEnumerator OnPostValidTargetSelected()
         {
+            // Set ActivatedThisTurn to true by default
             ActivatedThisTurn = true;
             yield break;
         }
-
-        public IEnumerator OpponentSelectTarget()
+        public virtual bool CardIsNotValid(PlayableCard card)
         {
-            List<CardSlot> validTargets = PossibleTargets();
-            validTargets.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || this.CardHasLatchMod(x.Card) || x.Card == base.Card);
+            // By default returns whether the card is latched
+            return card.TemporaryMods.Exists((CardModificationInfo m) => m.fromLatch || m.singletonId == "wstl:ActivatedLatch");
+        }
+
+        public override bool RespondsToUpkeep(bool playerUpkeep)
+        {
+            return base.Card.OpponentCard != playerUpkeep;
+        }
+        public override IEnumerator OnUpkeep(bool playerUpkeep)
+        {
+            // By default reset ActivatedThisTurn
+            ActivatedThisTurn = false;
+            base.Card.Anim.LightNegationEffect();
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        public override bool CanActivate()
+        {
+            // Can only once per turn by default
+            if (!ActivatedThisTurn)
+                return ValidTargets();
+
+            return false;
+        }
+        public override IEnumerator Activate()
+        {
+            yield return base.PreSuccessfulTriggerSequence();
+
+            // Lock the view so players can't mess it up
+            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
+
+            base.Card.Anim.LightNegationEffect();
+            yield return new WaitForSeconds(0.2f);
+
+            // If there are no valid targets, break
+            if (!ValidTargets())
+            {
+                base.Card.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.2f);
+                // Call ienumerator OnNoValidAllies()
+                yield return OnNoValidAllies();
+                yield break;
+            }
+
+            // Run opponent logic then break
+            if (base.Card.OpponentCard)
+            {
+                yield return OpponentSelectTarget();
+                yield break;
+            }
+
+            // Run player logic
+            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+
+            yield return PlayerSelectTarget();
+
+            yield return OnValidTargetSelected(selectedSlot);
+
+            CombatPhaseManagerPatch.Instance.VisualizeClearSniperAbility();
+
+            yield return base.LearnAbility(0.4f);
+
+            yield return new WaitForSeconds(0.2f);
+            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
+
+            yield return OnPostValidTargetSelected();
+        }
+        private IEnumerator PlayerSelectTarget()
+        {
+            CombatPhaseManagerPatch.Instance.VisualizeStartSniperAbility(base.Card.Slot);
+
+            List<CardSlot> allSlotsCopy = Singleton<BoardManager>.Instance.AllSlotsCopy;
+            allSlotsCopy.Remove(base.Card.Slot);
+
+            List<CardSlot> targetSlots = GetInitialTargets();
+            targetSlots.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card);
+
+            CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
+
+            if (cardSlot != null && targetSlots.Contains(cardSlot))
+            {
+                CombatPhaseManagerPatch.Instance.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
+            }
+            selectedSlot = null;
+
+            yield return Singleton<BoardManager>.Instance.ChooseTarget(allSlotsCopy, targetSlots, delegate (CardSlot s)
+            {
+                selectedSlot = s;
+                CombatPhaseManagerPatch.Instance.VisualizeConfirmSniperAbility(s, false);
+            }, OnInvalidTarget, delegate (CardSlot s)
+            {
+                if (s.Card != null)
+                {
+                    CombatPhaseManagerPatch.Instance.VisualizeAimSniperAbility(base.Card.Slot, s);
+                }
+            }, () => false, CursorType.Target);
+        }
+        private IEnumerator OpponentSelectTarget()
+        {
+            List<CardSlot> validTargets = GetInitialTargets();
+            validTargets.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card);
             yield return new WaitForSeconds(0.3f);
             yield return this.AISelectTarget(validTargets, delegate (CardSlot s)
             {
@@ -135,38 +177,13 @@ namespace WhistleWindLobotomyMod
 
             yield return OnPostValidTargetSelected();
         }
-
-        public IEnumerator PlayerSelectTarget()
+        private void OnInvalidTarget(CardSlot slot)
         {
-            CombatPhaseManagerPatch.Instance.VisualizeStartSniperAbility(base.Card.Slot);
-
-            List<CardSlot> allSlotsCopy = Singleton<BoardManager>.Instance.AllSlotsCopy;
-            allSlotsCopy.Remove(base.Card.Slot);
-
-            List<CardSlot> targetSlots = PossibleTargets();
-            targetSlots.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || this.CardHasLatchMod(x.Card) || x.Card == base.Card);
-
-            CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
-
-            if (cardSlot != null && targetSlots.Contains(cardSlot))
+            if (slot.Card != null && this.CardIsNotValid(slot.Card) && !Singleton<TextDisplayer>.Instance.Displaying)
             {
-                CombatPhaseManagerPatch.Instance.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
+                base.StartCoroutine(Singleton<TextDisplayer>.Instance.ShowThenClear(InvalidTargetDialogue, 2.5f, 0f, Emotion.Anger));
             }
-            selectedSlot = null;
-
-            yield return Singleton<BoardManager>.Instance.ChooseTarget(allSlotsCopy, targetSlots, delegate (CardSlot s)
-            {
-                selectedSlot = s;
-                CombatPhaseManagerPatch.Instance.VisualizeConfirmSniperAbility(s, false);
-            }, OnInvalidTarget, delegate (CardSlot s)
-            {
-                if (s.Card != null)
-                {
-                    CombatPhaseManagerPatch.Instance.VisualizeAimSniperAbility(base.Card.Slot, s);
-                }
-            }, () => false, CursorType.Target);
         }
-
         private IEnumerator AISelectTarget(List<CardSlot> validTargets, Action<CardSlot> chosenCallback)
         {
             if (validTargets.Count > 0)
@@ -196,28 +213,13 @@ namespace WhistleWindLobotomyMod
             }
             return num;
         }
-
         private bool ValidTargets()
         {
-            List<CardSlot> validSlots = PossibleTargets();
-            validSlots.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || this.CardHasLatchMod(x.Card) || x.Card == base.Card);
+            List<CardSlot> validSlots = GetInitialTargets();
+            validSlots.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card);
             return validSlots.Count() > 0;
         }
-
-        private void OnInvalidTarget(CardSlot slot)
-        {
-            if (slot.Card != null && this.CardHasLatchMod(slot.Card) && !Singleton<TextDisplayer>.Instance.Displaying)
-            {
-                base.StartCoroutine(Singleton<TextDisplayer>.Instance.ShowThenClear("It's already latched...", 2.5f, 0f, Emotion.Anger));
-            }
-        }
-
-        private bool CardHasLatchMod(PlayableCard card)
-        {
-            return card.TemporaryMods.Exists((CardModificationInfo m) => m.fromLatch || m.singletonId == "wstl:ActivatedLatch");
-        }
-
-        private List<CardSlot> PossibleTargets()
+        private List<CardSlot> GetInitialTargets()
         {
             if (TargetAll)
                 return Singleton<BoardManager>.Instance.AllSlotsCopy;

@@ -2,12 +2,13 @@
 
 ### Face the Fear. Make the Future.
 
-Inspired by KingSlime's mod, this is my own take on adding Lobotomy Corp's abnormalities into Inscryption.  The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
+Inspired by KingSlime's mod of the same subject, this mod is my own take on translating the abnormalities of Lobotomy Corporation into Inscryption.
+The cards in this mods are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay while still being 'balanced'
 
 Features:
 * **```91```** obtainable cards
 * **```51```** obtainable abilities
-* **```8```** starter decks for Kaycee's Mod
+* **```7```** starter decks for Kaycee's Mod
 * **```7```** challenges and **```1```** cheat
 * **```1```** custom node
 * **```4```** custom bosses
@@ -64,7 +65,8 @@ COPY OVER FROM FULL_CHANGELOG
 |NAME|DEFAULT|DESCRIPTION|
 |:-|:-|:-|
 |Enable Mod|True|Enables this mod's content.|
-|No Donators|False|Prevents 7 abnormalities from being obtainable in-game (Backward Clock through Honoured Monk on the ReadMe)|
+|No Donators|False|Prevents 7 abnormalities from being obtainable in-game (Backward Clock through Honoured Monk on the ReadMe).|
+|No Ruina|False|Prevents Ruina abnormalities from being obtainable in-game.|
 |Card Choice at Start|False|Adds an Abnormality choice node to the start of every region.|
 |All Modular|False|Makes all non-special abilities modular.|
 |Abnormal Bosses|False|Part 1 Only - Bosses will only play Abnormality cards.|
@@ -74,10 +76,11 @@ COPY OVER FROM FULL_CHANGELOG
 |Special Abilities in Rulebook|False|Adds Rulebook entries for each special ability.|
 |Reveal Select Descriptions|False|Changes the Rulebook entries of certain abilities to properly describe their effect.|
 
-# Stat Icons
+## Stat Icons
 |CARD|DESCRIPTION|
 |:-|:-|
 |Passing Time|The value represented by this sigil will be equal to the number of turns that have passed since this card resolved on the board.|
+
 ## ⚜️ Special/Hidden Abilities
 A number of cards added by this mod possess special abilities that are not found in the Rulebook.
 
@@ -178,6 +181,7 @@ You'll need to play with the cards in order to figure out their special ability 
 |Imbue Target|Spells only: The affected card gains this card's sigils.|||
 |Enhance Target|Spells only: The affected card gains this card's stats and sigils.|||
 |False Throne|Once per turn, choose a creature to gain the Neutered sigil. Create a copy of the selected card in your hand with its cost reduced to 0.|||
+|Nihil|While this card is on the board, gain 1 Power for each empty board slot. On turn's end, deal damage to all other cards on the board equal to this card's Power.|||
 |Apostle|*Thou wilt abandon flesh and be born again.*|||
 |True Saviour|*My story is nowhere, unknown to all.*|||
 |Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||
@@ -223,7 +227,7 @@ You'll need to play with the cards in order to figure out their special ability 
 |Big Bird|2/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Neutered Latch|Singleton|Avian|
 |All-Around Helper|1/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Sprinter, Bifurcated Strike|||
 |Snow White's Apple|1/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Roots|Toxic||
-|⤷ Thorny Vines|0/1||X<br>Sharp Quills|Terrain||
+|⤷ Thorny Vines|0/1||Sharp Quills|Terrain||
 |Spider Bud|0/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Broodmother||Insect|
 |⤷ Spiderling|0/1||Fledgling||Insect|
 |  ⤷ Spider Brood|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|||Insect|
@@ -308,12 +312,20 @@ You'll need to play with the cards in order to figure out their special ability 
 |Parasite Tree|0/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Gardener|||
 |⤷ Sapling|0/2||X|||
 |Melting Love|4/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Made of Slime|Rare, Toxic||
-|⤷ Slime|1/X-1|X|X<br>Made of Slime|||
+|⤷ Slime|1/X-1|X|Made of Slime|||
 |Honoured Monk|2/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fledgling|||
 |⤷ Clouded Monk|4/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">||||
 |Magical Girl C|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Burning|Singleton||
 |⤷ Servant of Wrath|1/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Double Strike, Burning x2|Singleton|Reptile|
 |Price of Silence|T/T+1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||||
+|Pinocchio|0/0|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Copycat|||
+|Nosferatu|2/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Bloodfiend x2|||
+|The Road Home|1/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Cat Lover|||
+|Scaredy Cat|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Cowardly|||
+|Ozma|2/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Rightful Heir|||
+|⤷ Pumpkin|0/1|||Terrain||
+|  ⤷ Jack|1/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||Terrain||
+|Silent Girl|2/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Trifurcated Strike|||
 </details>
 
 ## 🗃️ Starter Decks
@@ -340,9 +352,11 @@ You'll need to play with the cards in order to figure out their special ability 
 ## 🎰 Abnormality Card Choice Node
 This special node can be found randomly after battles, and draws exclusively from this mod's pool of cards.
 
-All obtainable cards in this mod have an internal Risk Level (Zayin, Teth, He, Waw, Aleph) based on their relative power level.  For each card choice, the game chooses a random Risk Level (based on the below probabilities) then selects a random card that has that Risk Level.
+All obtainable cards in this mod have an internal Risk Level (Zayin, Teth, He, Waw, Aleph) based on their relative power level.
+For each card choice, the game chooses a random Risk Level (based on the below probabilities) then selects a random card that has that Risk Level.
 
-There's a low chance that instead of a regular card, you'll instead be offered a Rare card.  This is a separate probability roll that occurs after the initial roll, and it doesn't take Risk Level into account when determining which card to offer.
+There's a low chance that instead of a regular card, you'll instead be offered a Rare card.
+This is a separate probability roll that occurs after the initial roll, and it doesn't take Risk Level into account when determining which card to offer.
 
 |Map #|Zayin|Teth|He|Waw|**Rare**|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -353,12 +367,16 @@ There's a low chance that instead of a regular card, you'll instead be offered a
 * Probability with the Better Rare Chances cheat enabled
 
 ## 🕓 Closing Notes
-Surprise patch! Nothing new here outside of some internal optimisation.
+IT'S FINALLY OUT!!
+This was a massive undertaking, but I'm very proud of how it's turned out!
+My favourite part of this update were the custom bosses.
+I tried to recreate their original boss fights, so they'll play a little differently than usual Inscryption bosses do.
+Nevertheless, I hope you find them enjoyable to fight!
 
-The next major update (1.3 or 2.0, whichever I decide best fits) won't come out for...a long time. I have a lot of things I want to add (not just new cards ;>) and a lot to learn.
+The next (and most likely final) content update will be adding the abnormalities from WonderLab.
+This will only consist of new cards, so it won't be super major.
 
 See you next time, and thanks for playing my mod! <3
 
 Current plans:
 * Further balancing, tweaking, bug fixes, and general refinement of what's currently added (feedback is welcomed and encouraged!).
-* Expansion pack of Library of Ruina abnormalities

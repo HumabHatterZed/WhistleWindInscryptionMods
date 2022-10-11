@@ -15,6 +15,10 @@ namespace WhistleWindLobotomyMod
                 Protector.ability,
                 Ability.MoveBeside
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.DonatorClass
+            };
 
             CardHelper.CreateCard(
                 "wstl_armyInPink", "Army in Pink",
@@ -23,8 +27,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.armyInPink, Artwork.armyInPink_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isDonator: true,
-                choiceType: CardHelper.ChoiceType.Rare, riskLevel: CardHelper.RiskLevel.Aleph);
+                choiceType: CardHelper.ChoiceType.Rare, riskLevel: CardHelper.RiskLevel.Aleph,
+                metaTypes: metaTypes);
         }
     }
 }

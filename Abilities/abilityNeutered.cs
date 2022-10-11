@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_Neutered()
         {
             const string rulebookName = "Neutered";
-            const string rulebookDescription = "A card bearing this sigil has their Power reduced to 0. This sigil is lost on upkeep.";
+            const string rulebookDescription = "[creature] has their Power reduced to 0. This sigil is lost on upkeep.";
             const string dialogue = "femboy";
             Neutered.ability = AbilityHelper.CreateAbility<Neutered>(
                 Artwork.sigilNeutered, Artwork.sigilNeutered_pixel,

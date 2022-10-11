@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_BitterEnemies()
         {
             const string rulebookName = "Bitter Enemies";
-            const string rulebookDescription = "A card bearing this sigil gains 1 Power when another card on this board also has this sigil.";
+            const string rulebookDescription = "[creature] gains 1 Power when another card on this board also has this sigil.";
             const string dialogue = "A bitter grudge laid bare.";
 
             BitterEnemies.ability = AbilityHelper.CreateAbility<BitterEnemies>(

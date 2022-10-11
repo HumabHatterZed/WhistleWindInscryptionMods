@@ -14,6 +14,10 @@ namespace WhistleWindLobotomyMod
             {
                 Time.specialAbility
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.RuinaCard
+            };
 
             CardHelper.CreateCard(
                 "wstl_priceOfSilence", "Price of Silence",
@@ -23,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(), appearances: new(),
                 statIcon: Time.icon, choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.He,
-                terrainType: CardHelper.TerrainType.TerrainAttack);
+                terrainType: CardHelper.TerrainType.TerrainAttack, metaTypes: metaTypes);
         }
     }
 }

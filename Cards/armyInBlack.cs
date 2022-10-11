@@ -15,6 +15,10 @@ namespace WhistleWindLobotomyMod
                 Volatile.ability,
                 Ability.Brittle
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.NonChoice
+            };
 
             CardHelper.CreateCard(
                 "wstl_armyInBlack", "Army in Black",
@@ -24,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(),
-                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.NonChoice);
+                choiceType: CardHelper.ChoiceType.Rare, metaTypes: metaTypes);
         }
     }
 }

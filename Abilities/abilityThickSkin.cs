@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_ThickSkin()
         {
             const string rulebookName = "Thick Skin";
-            const string rulebookDescription = "A card bearing this sigil takes 1 less damage from attacks.";
+            const string rulebookDescription = "[creature] takes 1 less damage from attacks.";
             const string dialogue = "Your creature's hide absorbs the blow.";
 
             ThickSkin.ability = AbilityHelper.CreateAbility<ThickSkin>(

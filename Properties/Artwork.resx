@@ -427,6 +427,12 @@
   <data name="dreamOfABlackSwan_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\dreamOfABlackSwan_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="eventCardBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\eventCardBackground.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="eventCardBackgroundRare" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\eventCardBackgroundRare.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="expressHellTrain" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\expressHellTrain.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -502,6 +508,15 @@
   <data name="hundredsGoodDeeds_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\hundredsGoodDeeds_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="jesterOfNihil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\jesterOfNihil.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="jesterOfNihil_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\jesterOfNihil_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="jesterOfNihil_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\jesterOfNihil_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="judgementBird" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\judgementBird.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -544,11 +559,23 @@
   <data name="luminousBracelet_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\luminousBracelet_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="lyingAdult" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\lyingAdult.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lyingAdult_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\lyingAdult_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lyingAdult_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\lyingAdult_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="magicalGirlClover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\magicalGirlClover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="magicalGirlClover_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\magicalGirlClover_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="magicalGirlClover_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\magicalGirlClover_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="magicalGirlDiamond" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\magicalGirlDiamond.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -649,6 +676,12 @@
   <data name="nodeAbnormalityCardChoice4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\nodeAbnormalityCardChoice4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="nosferatu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\nosferatu.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="nosferatu_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\nosferatu_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="notesFromResearcher" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\notesFromResearcher.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -738,9 +771,6 @@
   </data>
   <data name="pinocchio_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\pinocchio_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pinocchio_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\pinocchio_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="plagueDoctor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\plagueDoctor.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1066,6 +1096,12 @@
   <data name="sigilGiftGiver_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilGiftGiver_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="sigilGreedyHealing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilGreedyHealing.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilGreedyHealing_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilGreedyHealing_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="sigilGrinder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilGrinder.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1119,6 +1155,12 @@
   </data>
   <data name="sigilNeutered_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilNeutered_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilNihil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilNihil.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilNihil_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilNihil_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="sigilOneSided" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilOneSided.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1284,6 +1326,12 @@
   </data>
   <data name="silentEnsemble_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\silentEnsemble_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="silentGirl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\silentGirl.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="silentGirl_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\silentGirl_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="silentOrchestra" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\silentOrchestra.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

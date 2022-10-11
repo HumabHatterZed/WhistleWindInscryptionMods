@@ -17,15 +17,13 @@ namespace WhistleWindLobotomyMod
             };
             List<Trait> traits = new()
             {
-                Trait.Uncuttable
-            };
-            List<CardMetaCategory> metaCategories = new()
-            {
-                CardHelper.CANNOT_BE_SACRIFICED
+                Trait.Uncuttable,
+                Trait.Terrain
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance
+                ForcedWhite.appearance,
+                RareEventBackground.appearance
             };
 
             CardHelper.CreateCard(
@@ -34,7 +32,7 @@ namespace WhistleWindLobotomyMod
                 0, 2, 0, 0,
                 Artwork.apostleMolemanDown, Artwork.apostleMolemanDown_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: metaCategories, tribes: new(), traits: traits,
+                metaCategories: new(), tribes: new(), traits: traits,
                 appearances: appearances, evolveName: "wstl_apostleMoleman", numTurns: 2);
         }
     }

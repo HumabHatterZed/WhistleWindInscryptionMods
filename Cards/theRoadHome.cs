@@ -14,6 +14,10 @@ namespace WhistleWindLobotomyMod
             {
                 CatLover.ability
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.RuinaCard
+            };
 
             CardHelper.CreateCard(
                 "wstl_theRoadHome", "The Road Home",
@@ -22,7 +26,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.theRoadHome, Artwork.theRoadHome_emission, pixelTexture: Artwork.theRoadHome_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.He);
+                choiceType: CardHelper.ChoiceType.Common, riskLevel: CardHelper.RiskLevel.He,
+                metaTypes: metaTypes);
         }
     }
 }

@@ -14,13 +14,14 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Evolve
             };
-            List<CardMetaCategory> metaCategories = new()
+            List<Trait> traits = new()
             {
-                CardHelper.CANNOT_BE_SACRIFICED
+                Trait.Terrain
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance
+                ForcedWhite.appearance,
+                EventBackground.appearance
             };
 
             CardHelper.CreateCard(
@@ -29,7 +30,7 @@ namespace WhistleWindLobotomyMod
                 0, 2, 0, 0,
                 Artwork.apostleGuardianDown, Artwork.apostleGuardianDown_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: metaCategories, tribes: new(), traits: new(),
+                metaCategories: new(), tribes: new(), traits: traits,
                 appearances: appearances, evolveName: "wstl_apostleGuardian");
         }
     }

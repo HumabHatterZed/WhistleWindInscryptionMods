@@ -18,6 +18,10 @@ namespace WhistleWindLobotomyMod
             {
                 CustomFledgling.specialAbility
             };
+            List<CardHelper.MetaType> metaTypes = new()
+            {
+                CardHelper.MetaType.NonChoice
+            };
 
             CardHelper.CreateCard(
                 "wstl_nothingThereEgg", "An Egg",
@@ -27,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(), onePerDeck: true,
-                choiceType: CardHelper.ChoiceType.Rare, metaType: CardHelper.MetaType.NonChoice,
+                choiceType: CardHelper.ChoiceType.Rare, metaTypes: metaTypes,
                 evolveName: "wstl_nothingThereFinal");
         }
     }

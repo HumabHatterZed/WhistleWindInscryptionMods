@@ -18,17 +18,18 @@ namespace WhistleWindLobotomyMod.Core
 
         private readonly ConfigFile WstlConfigFile = new(
             Path.Combine(Paths.ConfigPath, "wstl.inscryption.lobotomycorp.cfg"), true);
-        /* May move dialogue bools to separate config eventually, idk
-        private readonly ConfigFile WstlValuesFile = new(
-            Path.Combine(Paths.ConfigPath, "Wstl.LobotomyCorpModValues.cfg"), true);
-        */
+
         private ConfigEntry<bool> Config_ModEnabled;
         public bool ModEnabled => Config_ModEnabled.Value;
 
-        // Special
+        // Disable cards
         private ConfigEntry<bool> Config_NoDonators;
         public bool NoDonators => Config_NoDonators.Value;
 
+        private ConfigEntry<bool> Config_NoRuina;
+        public bool NoRuina => Config_NoRuina.Value;
+
+        // Special
         private ConfigEntry<bool> Config_BoxStart;
         public bool BoxStart => Config_BoxStart.Value;
 
@@ -69,7 +70,11 @@ namespace WhistleWindLobotomyMod.Core
 
             Config_NoDonators = WstlConfigFile.Bind(
                 pluginName, "NO DONATORS", false,
-                new ConfigDescription("Prevents 7 abnormalities from being obtainable in-game (Backward Clock through Honoured Monk on the ReadMe)"));
+                new ConfigDescription("Prevents 7 abnormalities from being obtainable in-game (Backward Clock through Honoured Monk on the ReadMe)."));
+
+            Config_NoRuina = WstlConfigFile.Bind(
+                pluginName, "NO RUINA", false,
+                new ConfigDescription("Prevents Library of Ruina abnormalities from being obtainable in-game.)"));
 
             Config_BoxStart = WstlConfigFile.Bind(
                     pluginName, "CARD CHOICE AT START", false,

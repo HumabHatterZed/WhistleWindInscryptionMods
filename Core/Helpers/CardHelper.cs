@@ -15,7 +15,6 @@ namespace WhistleWindLobotomyMod.Core.Helpers
 {
     public static class CardHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
-        public static CardMetaCategory CANNOT_BE_SACRIFICED = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_BE_SACRIFICED");
         public static CardMetaCategory CANNOT_GIVE_SIGILS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_GIVE_SIGILS");
         public static CardMetaCategory CANNOT_GAIN_SIGILS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_GAIN_SIGILS");
         public static CardMetaCategory CANNOT_BUFF_STATS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_BUFF_STATS");
@@ -30,10 +29,12 @@ namespace WhistleWindLobotomyMod.Core.Helpers
         
         public enum MetaType
         {
-            None,       // No special meta
-            Event,      // Remove from pool, restrict nodes
-            NonChoice,  // Remove from pool
-            OutOfJail   // Restrict all nodes
+            None,
+            NonChoice,      // Remove from pool
+            RestrictAll,    // Restrict all nodes
+            DonatorClass,   // Is donator
+            EventCard,      // Is event
+            RuinaCard       // Is Ruina
         }
         public enum TerrainType
         {
@@ -79,12 +80,11 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             List<Texture> decals = null,
             bool onePerDeck = false,
             bool hideStats = false,
-            bool isDonator = false,
             SpecialStatIcon statIcon = SpecialStatIcon.None,
             ChoiceType choiceType = ChoiceType.None,
             RiskLevel riskLevel = RiskLevel.None,
+            List<MetaType> metaTypes = null,
             TerrainType terrainType = TerrainType.None,
-            MetaType metaType = MetaType.None,
             SpellType spellType = SpellType.None,
             string iceCubeName = null,
             string evolveName = null,
@@ -101,6 +101,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             traits ??= new();
             appearances ??= new();
             decals ??= new();
+            metaTypes ??= new();
 
             // Load textures
             Texture2D texture = WstlTextureHelper.LoadTextureFromResource(portrait);
@@ -153,11 +154,10 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             cardInfo.metaCategories = metaCategories;
             cardInfo.tribes = tribes;
             cardInfo.traits = traits;
+
             // Add KillsSurvivors trait to cards with Deathtouch or Punisher
             if (abilities.Exists((Ability ab) => ab == Punisher.ability || ab == Ability.Deathtouch))
                 cardInfo.AddTraits(Trait.KillsSurvivors);
-            if (metaCategories.Contains(CANNOT_BE_SACRIFICED))
-                cardInfo.AddTraits(Trait.Terrain);
 
             cardInfo.SetExtendedProperty("wstl:RiskLevel", risk);
 
@@ -180,21 +180,22 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             if (tailName != null && tailTex != null)
                 cardInfo.SetTail(tailName, tailTex);
 
-            bool disableDonator = isDonator && ConfigManager.Instance.NoDonators;
-            bool nonChoice = metaType == MetaType.NonChoice || metaType == MetaType.Event;
+            bool disableDonator = metaTypes.Contains(MetaType.DonatorClass) && ConfigManager.Instance.NoDonators;
+            bool disableRuina = metaTypes.Contains(MetaType.RuinaCard) && ConfigManager.Instance.NoRuina;
+            bool nonChoice = metaTypes.Exists((MetaType mt) => mt == MetaType.NonChoice || mt == MetaType.EventCard);
 
-            // Sets the card type (meta categories, appearances, etc.)
+            // Sets the choice type (meta categories, appearances, etc.)
             if (choiceType != ChoiceType.None)
             {
                 if (choiceType == ChoiceType.Rare)
                 {
                     cardInfo.SetRare();
-                    if (disableDonator || nonChoice)
+                    if (disableDonator || nonChoice || disableRuina)
                         cardInfo.metaCategories.Remove(CardMetaCategory.Rare);
                 }
                 else
                 {
-                    if (!disableDonator)
+                    if (!disableDonator && !disableRuina)
                         cardInfo.SetDefaultPart1Card();
                 }   
             }
@@ -242,11 +243,22 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             }
 
             // cannot give sigils
-            if (metaType == MetaType.Event)
-                cardInfo.SetNodeRestrictions(true, false, false, false);
+            if (metaTypes.Contains(MetaType.EventCard))
+            {
+                if (choiceType == ChoiceType.Rare)
+                {
+                    cardInfo.SetNodeRestrictions(true, false, false, false);
+                    cardInfo.AddAppearances(RareEventBackground.appearance);
+                    cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.RareCardBackground);
+                }
+                else
+                {
+                    cardInfo.AddAppearances(EventBackground.appearance);
+                }
+            }
 
             // cannot be used at any node
-            if (metaType == MetaType.OutOfJail)
+            if (metaTypes.Contains(MetaType.RestrictAll))
                 cardInfo.SetNodeRestrictions(true, true, true, true);
 
             CardManager.Add("wstl", cardInfo);
