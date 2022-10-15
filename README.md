@@ -3,40 +3,30 @@
 ### Face the Fear. Make the Future.
 
 Inspired by KingSlime's mod of the same subject, this mod is my own take on translating the abnormalities of Lobotomy Corporation into Inscryption.
-The cards in this mods are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay while still being 'balanced'
+The cards in this mods are designed to be as faithful to their original counterparts as possible while still being 'balanced'.
 
-Features:
-* **```91```** obtainable cards
-* **```51```** obtainable abilities
-* **```7```** starter decks for Kaycee's Mod
-* **```7```** challenges and **```1```** cheat
-* **```1```** custom node
-* **```4```** custom bosses
-* Plus a few combat events!
+Current Features:
+* 94 obtainable cards
+* 51 obtainable abilities
+* 6 starter decks for Kaycee's Mod
+* 8 challenges/cheats
+* 1 custom choice node
+* 4 custom bosses
+* And a few combat events!
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1902
 * API_dev-API v2.4.1
 * Infiniscryption-Spell_Card_Toolkit-2.0.0
 
-## ‼️ IMPORTANT NOTICES ‼️
-The mod's configuration file has been renamed to **```wstl.inscryption.lobotomycorp.cfg```**.
-
-Any changes made in the old config file will **NOT** carry over and must be changed in the new config file after loading the game at least once.
-
-The old config can be safely deleted at your convenience.
-
-<br>
-
-**THIS MOD NOW REQUIRES INFINISCRYPTION'S SPELL CARD TOOLKIT IN ORDER TO FUNCTION!!**
+## ‼️ IMPORTANT NOTICE ‼️
+**THIS MOD NOW REQUIRES `INFINISCRYPTION'S SPELL CARD TOOLKIT` IN ORDER TO FUNCTION!!**
 
 Please make sure you have Spell Card Toolkit installed before playing!
 
 ## 🩹 Known Bugs and Issues
-### Curses Mod Challenge Incompatibility
-The Boss Revenge challenge from Infiniscryption's Curses mod will override the Abnormal Boss challenge if both are activate at once (you'll stll be able to play the run).
-
-The Abnormal Boss challenge will still work for Royal since Boss Revenge does not affect him.
+### Custom Boss Challenges
+Any challenge that changes the vanilla bosses or replaces them with custom bosses is incompatibible with this mod's challenges that do the same (Abnormal Bosses, Apocalypse, etc.).
 
 --------------------------
 
@@ -51,14 +41,10 @@ Thank you to Rengar, yam the nokia, and everyone on the modding Discord that's r
 
 Special thanks to Orochi Umbra for being my play tester and providing feedback during testing. I appreciate it!
 
-## ⚖️ Changelog
-For a list of previous updates and a full description of the current update, refer to the FULL_CHANGELOG included in the mod package.
+## ⚖️ Changelog -- Latest Update - v2.0.0; "The One, Perfect Book" (?/??/202?)
+To see the details of the current update, please see the FULL_CHANGELOG (included with the mod file when you download it)
 
-<details>
-<summary>Latest Update - v2.0.0</summary>
-
-COPY OVER FROM FULL_CHANGELOG
-</details>
+Alternatively, you can check out the wiki on GitHub!
 
 ## 🛠️ Configuration Options
 
@@ -76,20 +62,13 @@ COPY OVER FROM FULL_CHANGELOG
 |Special Abilities in Rulebook|False|Adds Rulebook entries for each special ability.|
 |Reveal Select Descriptions|False|Changes the Rulebook entries of certain abilities to properly describe their effect.|
 
-## Stat Icons
-|CARD|DESCRIPTION|
-|:-|:-|
-|Passing Time|The value represented by this sigil will be equal to the number of turns that have passed since this card resolved on the board.|
-
 ## ⚜️ Special/Hidden Abilities
 A number of cards added by this mod possess special abilities that are not found in the Rulebook.
 
 In the spirit of the original game, I won't detail the abilities, only which cards possess one and what triggers it.
 
 You'll need to play with the cards in order to figure out their special ability does 🙃.
-<details>
-<summary>View specials</summary>
- 
+
 |CARD|TRIGGER|
 |:-|:-|
 |Nameless Fetus|Reacts to being sacrificed.|
@@ -111,7 +90,6 @@ You'll need to play with the cards in order to figure out their special ability 
 |Plague Doctor|Reacts to ability activation.|
 |Blue Star|Reacts to combat phase.|
 |Magical Girl C|Reacts to adjacent cards.|
- </details>
  
 ## ✨ Abilities
 
@@ -125,66 +103,66 @@ You'll need to play with the cards in order to figure out their special ability 
 * **Stacks** means the ability can stack with itself, activating once for every instance of the ability.
 <br>
 
-|NAME|DESCRIPTION|TOTEM|STACKS|
+|NAME|DESCRIPTION|TOTEM|
 |:-|:-|:-:|:-:|
-|Punisher|When a card bearing this sigil is struck, the striker is killed.|✔||
-|Bloodfiend|When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.|✔|✔|
-|Martyr|When a card bearing this sigil dies, all allied creatures gain 2 Health.|✔|✔|
-|Aggravating|While this card is on the board, all opposing cards gain 1 Power.|||
-|Team Leader|While this card is on the board, all other ally cards gain 1 Power.|||
-|Idol|While this card is on the board, all opposing cards lose 1 Power.|||
-|Conductor|While this card is on the board, adjacent cards gain 1 Power. After 1 turn on the board, all ally cards gain 1 Power instead. After 2 turns, also reduce the opposing card's Power by 1. After 3 turns, also gain Power equal to the number of cards on this side of the board.|||
-|Woodcutter|When a card moves into the space opposing this card, deal damage equal to this card's Power to it.|||
-|Frozen Heart|When this card dies the killer gains 1 Health.|||
-|Ruler of Frost|When this card is played, create a Block of Ice in each opposing space to the left and right of this card. If either slot is occupied by a card with 1 Health, kill it and create a Frozen Heart in its place.|||
-|Root|When this card is played, Vines are created on adjacent empty spaces. A Vine is defined as: 1 Power, 1 Health.|✔||
-|Broodmother|When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health, Fledgling.|✔||
-|Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.|✔||
-|Healer|On turn's end, heal a selected ally for 2 Health.|||
-|Queen Nest|While this card is on the board, create a Worker Bee in your hand whenever another card dies. A Worker Bee is defined as: 1 Power, 1 Health.|✔||
-|Bitter Enemies|A card bearing this sigil gains 1 Power when another card on this board also bears this sigil.|✔|✔|
-|Courageous|If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Stat changes persist until battle's end.|||
-|Serpent's Nest|When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.|✔||
-|Assimilator|When a card bearing this sigil attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.|✔|✔|
-|Group Healer|While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.|||
-|Reflector|When this card is struck, the striker is dealt damage equal to the striker's Power.|✔||
-|Flag Bearer|While this card is on the board, adjacent cards gain 2 Health.||✔|
-|Grinder|A card bearing this sigil gains the stats of the cards sacrificed to play it.|✔||
-|The Train|Activate: Pay 10 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.|||
-|Cowardly|The opposing card takes 1 damage at the end of their owner's turn.|✔|✔|
-|Regenerator|Adjacent cards gain 1 Health at the end of the opponent's turn.|✔||
-|Volatile|When a card bearing this sigil dies, adjacent and opposing cards are dealt 10 damage.|✔||
-|Gift Giver|When a card bearing this sigil is played, create a random card in your hand.|||
-|Piercing|When this card strikes a card, deal 1 overkill damage if applicable.|✔|✔|
-|Scrambler|Targeted Spell: Give the target this card's stats then scramble its stats.|||
-|Gardener|When an ally card dies, create a Sapling in their place. A Sapling is defined as: 0 Power, 2 Health.|||
-|Made of Slime|Adjacent cards with greater than 1 Health are turned into Slimes at the start of the owner's turn. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.|||
-|Marksman|You may choose which opposing space a card bearing this sigil strikes.|||
-|Protector|Adjacent cards take 1 less damage from attacks.|||
-|Quick Draw|When a creature moves into the space opposite this card, they take 1 damage.||✔|
-|Alchemist|Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.|||
-|Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on their power level.|||
-|Nettle Clothes|When a card bearing this sigil is played, create a random Brother in all empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.|||
-|Fungal Infector|At the end of the owner's turn, adjacent cards gain 1 Spore. Cards with Spore take damage equal to their Spore at turn's end and create a Spore Mold Creature in their slot on death. A Spore Mold Creature is defined as: [ Spore ] Power, [ Spore ] Health.|||
-|Witness|Activate: Pay 2 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.|||
-|Corrector|A card bearing this sigil has its stats randomly changed according to its cost.|✔||
-|Thick Skin|A card bearing this sigil takes 1 less damage from attacks.|✔|✔|
-|One-Sided Strike|When a card bearing this sigil strikes a card, deal 1 additional damage if the struck card cannot attack this card.|✔|✔|
-|Copycat|When a card bearing this sigil is played, become a copy of the opposing card if it exists. There is a chance that the copy will be imperfect.|✔||
-|Cat Lover|When a card bearing this sigil is played, add a random cat card to your hand.|✔||
-|Cowardly|A card bearing this sigil gains 1 Power if an ally has the Cat Lover sigil. Otherwise lose 1 Power.|||
-|Neutered|A card bearing this sigil has their Power reduced to 0. This sigil is lost on upkeep.|||
-|Neutered Latch|Activate: Pay 6 Bones to choose a creature to gain the Neutered sigil. This can only be used once per turn.|||
-|Rightful Heir|Activate: Pay 5 Bones to choose a creature to be transformed into a Pumpkin. Give the transformed card the Fledgling sigil if it is an ally.|||
-|Greedy Healing|A card bearing this sigil gains 2 Health at the end of its turn. If 2 turns pass without this card taking damage, this card will perish.|✔||
-|Strengthen Target|Spells only: The affected card gains this card's stats.|||
-|Imbue Target|Spells only: The affected card gains this card's sigils.|||
-|Enhance Target|Spells only: The affected card gains this card's stats and sigils.|||
-|False Throne|Once per turn, choose a creature to gain the Neutered sigil. Create a copy of the selected card in your hand with its cost reduced to 0.|||
-|Nihil|While this card is on the board, gain 1 Power for each empty board slot. On turn's end, deal damage to all other cards on the board equal to this card's Power.|||
-|Apostle|*Thou wilt abandon flesh and be born again.*|||
-|True Saviour|*My story is nowhere, unknown to all.*|||
-|Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|||
+|Punisher|When a card bearing this sigil is struck, the striker is killed.|✔|
+|Bloodfiend|When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.|✔|
+|Martyr|When a card bearing this sigil dies, all allied creatures gain 2 Health.|✔|
+|Aggravating|While this card is on the board, all opposing cards gain 1 Power.||
+|Team Leader|While this card is on the board, all other ally cards gain 1 Power.||
+|Idol|While this card is on the board, all opposing cards lose 1 Power.||
+|Conductor|While this card is on the board, adjacent cards gain 1 Power. After 1 turn on the board, all ally cards gain 1 Power instead. After 2 turns, also reduce the opposing card's Power by 1. After 3 turns, also gain Power equal to the number of cards on this side of the board.||
+|Woodcutter|When a card moves into the space opposing this card, deal damage equal to this card's Power to it.||
+|Frozen Heart|When this card dies the killer gains 1 Health.||
+|Ruler of Frost|When this card is played, create a Block of Ice in each opposing space to the left and right of this card. If either slot is occupied by a card with 1 Health, kill it and create a Frozen Heart in its place.||
+|Root|When this card is played, Vines are created on adjacent empty spaces. A Vine is defined as: 1 Power, 1 Health.|✔|
+|Broodmother|When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health, Fledgling.|✔|
+|Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.|✔|
+|Healer|On turn's end, heal a selected ally for 2 Health.||
+|Queen Nest|While this card is on the board, create a Worker Bee in your hand whenever another card dies. A Worker Bee is defined as: 1 Power, 1 Health.|✔|
+|Bitter Enemies|A card bearing this sigil gains 1 Power when another card on this board also bears this sigil.|✔|
+|Courageous|If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Stat changes persist until battle's end.||
+|Serpent's Nest|When a card bearing this sigil is struck, a Worm is created in your hand and the striker is dealt 1 damage. A worm is defined as: 1 Power, 1 Health.|✔|
+|Assimilator|When a card bearing this sigil attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.|✔|
+|Group Healer|While this card is on the board, all allies whose Health is below its maximum regain 1 Health at the end of the opponent's turn.||
+|Reflector|When this card is struck, the striker is dealt damage equal to the striker's Power.|✔|
+|Flag Bearer|While this card is on the board, adjacent cards gain 2 Health.||
+|Grinder|A card bearing this sigil gains the stats of the cards sacrificed to play it.|✔|
+|The Train|Activate: Pay 10 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.||
+|Cowardly|The opposing card takes 1 damage at the end of their owner's turn.|✔|
+|Regenerator|Adjacent cards gain 1 Health at the end of the opponent's turn.|✔|
+|Volatile|When a card bearing this sigil dies, adjacent and opposing cards are dealt 10 damage.|✔|
+|Gift Giver|When a card bearing this sigil is played, create a random card in your hand.||
+|Piercing|When this card strikes a card, deal 1 overkill damage if applicable.|✔|
+|Scrambler|Targeted Spell: Give the target this card's stats then scramble its stats.||
+|Gardener|When an ally card dies, create a Sapling in their place. A Sapling is defined as: 0 Power, 2 Health.||
+|Made of Slime|Adjacent cards with greater than 1 Health are turned into Slimes at the start of the owner's turn. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.||
+|Marksman|You may choose which opposing space a card bearing this sigil strikes.||
+|Protector|Adjacent cards take 1 less damage from attacks.||
+|Quick Draw|When a creature moves into the space opposite this card, they take 1 damage.||
+|Alchemist|Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.||
+|Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on their power level.||
+|Nettle Clothes|When a card bearing this sigil is played, create a random Brother in all empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.||
+|Fungal Infector|At the end of the owner's turn, adjacent cards gain 1 Spore. Cards with Spore take damage equal to their Spore at turn's end and create a Spore Mold Creature in their slot on death. A Spore Mold Creature is defined as: [ Spore ] Power, [ Spore ] Health.||
+|Witness|Activate: Pay 2 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.||
+|Corrector|A card bearing this sigil has its stats randomly changed according to its cost.|✔|
+|Thick Skin|A card bearing this sigil takes 1 less damage from attacks.|✔|
+|One-Sided Strike|When a card bearing this sigil strikes a card, deal 1 additional damage if the struck card cannot attack this card.|✔|
+|Copycat|When a card bearing this sigil is played, become a copy of the opposing card if it exists. There is a chance that the copy will be imperfect.|✔|
+|Cat Lover|When a card bearing this sigil is played, add a random cat card to your hand.|✔|
+|Cowardly|A card bearing this sigil gains 1 Power if an ally has the Cat Lover sigil. Otherwise lose 1 Power.||
+|Neutered|A card bearing this sigil has their Power reduced to 0. This sigil is lost on upkeep.||
+|Neutered Latch|Activate: Pay 6 Bones to choose a creature to gain the Neutered sigil. This can only be used once per turn.||
+|Rightful Heir|Activate: Pay 5 Bones to choose a creature to be transformed into a Pumpkin. Give the transformed card the Fledgling sigil if it is an ally.||
+|Greedy Healing|A card bearing this sigil gains 2 Health at the end of its turn. If 2 turns pass without this card taking damage, this card will perish.|✔|
+|Strengthen Target|Spells only: The affected card gains this card's stats.||
+|Imbue Target|Spells only: The affected card gains this card's sigils.||
+|Enhance Target|Spells only: The affected card gains this card's stats and sigils.||
+|False Throne|Once per turn, choose a creature to gain the Neutered sigil. Create a copy of the selected card in your hand with its cost reduced to 0.||
+|Nihil|While this card is on the board, gain 1 Power for each empty board slot. On turn's end, deal damage to all other cards on the board equal to this card's Power.||
+|Apostle|*Thou wilt abandon flesh and be born again.*||
+|True Saviour|*My story is nowhere, unknown to all.*||
+|Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*||
 </details>
 
 ## 📜 Obtainable Cards
@@ -195,12 +173,13 @@ You'll need to play with the cards in order to figure out their special ability 
 <br>
 
 **KEY**
-* **Singleton** - Can only have one copy in your deck at a time.
-* **Toxic** - Kills survivors when eaten at the Campfire.
-* **Spell** - Can be played on top of other cards, dies upon play.
-* **X** - Variable, typically based on another card or status effect.
-* **M** - Mirror, gains Power equal to the opposing card's Power.
-* **T** - Passing Time, gains Power equal to the number of turns that have passed
+* Singleton - Can only have one copy in your deck at a time.
+* Toxic - Kills survivors when eaten at the Campfire.
+* Spell - Can be played on top of other cards, dies upon play.
+* Special - Can only be obtained through a unique method.
+* X - Varies
+* M - Mirror
+* T - Passing Time
 <br>
 
 |NAME|STATS|COST|SIGILS|TRAITS|TRIBES|
@@ -222,21 +201,15 @@ You'll need to play with the cards in order to figure out their special ability 
 |The Silent Orchestra|1/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Conductor|Rare||
 |Warm-Hearted Woodsman|2/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Woodcutter|||
 |The Snow Queen|1/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/r1Q62Ck.png">|Frost Ruler|||
-|⤷ Block of Ice|0/1|||Terrain||
-|⤷ Frozen Heart|0/1||Frozen Heart|||
 |Big Bird|2/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Neutered Latch|Singleton|Avian|
 |All-Around Helper|1/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Sprinter, Bifurcated Strike|||
 |Snow White's Apple|1/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Roots|Toxic||
-|⤷ Thorny Vines|0/1||Sharp Quills|Terrain||
 |Spider Bud|0/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Broodmother||Insect|
-|⤷ Spiderling|0/1||Fledgling||Insect|
-|  ⤷ Spider Brood|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|||Insect|
 |Beauty and the Beast|1/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Cursed||Hooved, Insect|
 |Plague Doctor|0/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Airborne, Healer|Singleton||
 |Don't Touch Me|0/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/czecyiH.png">|Punisher, Guardian|Toxic||
 |Rudolta of the Sleigh|2/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Sprinter, Gift Giver||Hooved|
 |Queen Bee|0/6|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Queen Nest||Insect|
-|⤷ Worker Bee|1/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">|||Insect|
 |Bloodbath|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||Goat||
 |Opened Can of WellCheers|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sprinter, Waterborne|||
 |Alriune|4/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Sprinter||Hooved|
@@ -249,28 +222,19 @@ You'll need to play with the cards in order to figure out their special ability 
 |Fragment of the Universe|1/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Piercing|||
 |Crumbling Armour|0/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Courageous|||
 |Judgement Bird|1/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Marksman|Singleton|Avian|
-|Apocalypse Bird|3/12|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Omni Strike, Bifurcated Strike|Rare, Singleton|Avian|
+|Apocalypse Bird|3/12|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Omni Strike, Bifurcated Strike|Special, Singleton|Avian|
 |Magical Girl D|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Fledgling|Singleton||
 |⤷ The King of Greed|2/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Hefty|Singleton||
 |The Little Prince|1/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Spores|||
-|⤷ Spore Mold Creature|X/X|X|X|||
 |Laetitia|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Gift Giver|||
-|⤷ Laetitia's Friend|2/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|||Insect|
 |Funeral of the Dead Butterflies|3/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Double Strike||Insect|
 |Der Freischütz|1/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Marksman, Bifurcated Strike|Rare||
 |Dream of a Black Swan|2/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Clothes Made of Nettles|Rare|Avian|
-|⤷ First Brother|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Double Strike|||
-|⤷ Second Brother|1/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||||
-|⤷ Third Brother|0/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Reflector|||
-|⤷ Fourth Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Touch of Death|||
-|⤷ Fifth Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Sharp Quills|||
-|⤷ Sixth Brother|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Stinky|||
 |The Dreaming Current|3/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Rampager|||
 |The Burrowing Heaven|0/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">|Burrower, Sharp Quills|||
 |Magical Girl S|1/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Protector|Rare, Singleton||
 |⤷ The Knight of Despair|2/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Bifurcated Strike, Piercing|Rare, Singleton||
 |The Naked Nest|0/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Serpent's Nest|Toxic||
-|⤷ Naked Worm|1/1|||||
 |Mountain of Smiling Bodies|2/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Assimilator|Rare||
 |Schadenfreude|0/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Quick Draw, Touch of Death|||
 |The Heart of Aspiration|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Leader|||
@@ -286,7 +250,6 @@ You'll need to play with the cards in order to figure out their special ability 
 |Scarecrow Searching for Wisdom|1/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Bloodfiend|||
 |Dimensional Refraction Variant|4/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Amorphous|||
 |CENSORED|6/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Bloodfiend|Rare||
-|⤷ CENSORED|X/1|X|X||X|
 |Skin Prophecy|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Witness|||
 |Portrait of Another World|0/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Reflector|||
 |Today's Shy Look|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||||
@@ -306,13 +269,10 @@ You'll need to play with the cards in order to figure out their special ability 
 |Backward Clock|0/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Time Machine|Rare, Singleton, Terrain||
 |Il Pianto della Luna|1/7|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Group Healer|||
 |Army in Pink|3/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Protector, Guardian|Rare||
-|Army in Black|2/1||Volatile, Brittle|Rare||
 |Ppodae|1/1|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">|Stinky, Fledgling||Canine|
 |⤷ Ppodae|3/2|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/cEvPoTk.png">|Stinky||Canine|
 |Parasite Tree|0/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Gardener|||
-|⤷ Sapling|0/2||X|||
 |Melting Love|4/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">|Made of Slime|Rare, Toxic||
-|⤷ Slime|1/X-1|X|Made of Slime|||
 |Honoured Monk|2/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Fledgling|||
 |⤷ Clouded Monk|4/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">||||
 |Magical Girl C|1/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Burning|Singleton||
@@ -323,9 +283,7 @@ You'll need to play with the cards in order to figure out their special ability 
 |The Road Home|1/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Cat Lover|||
 |Scaredy Cat|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Cowardly|||
 |Ozma|2/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Rightful Heir|||
-|⤷ Pumpkin|0/1|||Terrain||
-|  ⤷ Jack|1/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">||Terrain||
-|Silent Girl|2/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Trifurcated Strike|||
+|Silent Girl|2/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Trifurcated Strike|Rare||
 </details>
 
 ## 🗃️ Starter Decks
@@ -334,9 +292,7 @@ You'll need to play with the cards in order to figure out their special ability 
 |:-|:-|:-:|
 |First Day|One Sin and Hundreds of Good Deeds<br>Fairy Festival<br>Old Lady|0|
 |Lonely Friends|Scorched Girl<br>Laetitia<br>Child of the Galaxy|2|
-|PLACEHOLDER|PLACEHOLDER|3|
 |Blood Machines|We Can Do Anything<br>All-Around Helper<br>Singing Machine|4|
-|PLACEHOLDER|PLACEHOLDER|6|
 |Road to Oz|The Road Home<br>Scarecrow Searching for Wisdom<br>Warm-Hearted Woodsman|8|
 |Magical Girls!|Magical Girl D<br>Magical Girl H<br>Magical Girl C|10|
 |Twilight|Punishing Bird<br>Big Bird<br>Judgement Bird|13|
