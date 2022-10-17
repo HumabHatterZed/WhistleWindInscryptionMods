@@ -42,13 +42,21 @@ namespace WhistleWindLobotomyMod
             if (slots.Count() < 1)
                 yield break;
 
+            int damage = base.Card.Attack;
+
             yield return base.PreSuccessfulTriggerSequence();
+            yield return new WaitForSeconds(0.2f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
+            yield return new WaitForSeconds(0.2f);
+
             foreach (CardSlot slot in slots)
             {
-                yield return slot.Card.TakeDamage(base.Card.Attack, base.Card);
+                yield return slot.Card.TakeDamage(damage, base.Card);
                 yield return new WaitForSeconds(0.2f);
             }
             yield return base.LearnAbility(0.2f);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
         public int GetPassiveAttackBuff(PlayableCard target)
         {

@@ -17,7 +17,6 @@ namespace WhistleWindLobotomyMod
             };
             List<Trait> traits = new()
             {
-                Trait.Uncuttable,
                 Trait.Terrain
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()

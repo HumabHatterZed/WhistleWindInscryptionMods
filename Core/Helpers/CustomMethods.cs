@@ -22,6 +22,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             }
             yield return new WaitForSeconds(delay);
         }
+
         public static IEnumerator QueueCreatedCard(CardInfo cardToQueue)
         {
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
@@ -41,6 +42,11 @@ namespace WhistleWindLobotomyMod.Core.Helpers
                 yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(cardToQueue, index);
             }
             yield return new WaitForSeconds(0.45f);
+        }
+
+        public static List<CardSlot> GetBoardSlotsCopy(bool isOpponentCard)
+        {
+            return isOpponentCard ? Singleton<BoardManager>.Instance.OpponentSlotsCopy : Singleton<BoardManager>.Instance.PlayerSlotsCopy;
         }
     }
 }

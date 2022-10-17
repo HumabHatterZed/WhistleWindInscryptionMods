@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleGuardianDown, Artwork.apostleGuardianDown_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, evolveName: "wstl_apostleGuardian");
+                appearances: appearances, evolveName: "wstl_apostleGuardian", numTurns: 2);
         }
     }
 }

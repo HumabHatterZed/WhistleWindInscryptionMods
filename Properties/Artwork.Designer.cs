@@ -1383,16 +1383,6 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] jesterOfNihil_pixel {
-            get {
-                object obj = ResourceManager.GetObject("jesterOfNihil_pixel", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] judgementBird {
             get {
                 object obj = ResourceManager.GetObject("judgementBird", resourceCulture);
@@ -1546,16 +1536,6 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] lyingAdult_emission {
             get {
                 object obj = ResourceManager.GetObject("lyingAdult_emission", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] lyingAdult_pixel {
-            get {
-                object obj = ResourceManager.GetObject("lyingAdult_pixel", resourceCulture);
                 return ((byte[])(obj));
             }
         }

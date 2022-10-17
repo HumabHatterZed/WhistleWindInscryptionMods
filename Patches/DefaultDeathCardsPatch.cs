@@ -113,7 +113,7 @@ namespace WhistleWindLobotomyMod
             {
                 nameReplacement = "Ttungsil",
                 singletonId = "wstl_ttungsilDeathCard",
-                abilities = { Ability.Evolve, BitterEnemies.ability },
+                abilities = { BitterEnemies.ability },
                 bonesCostAdjustment = 2,
                 deathCardInfo = new DeathCardInfo(CompositeFigurine.FigurineType.SettlerMan, 4, 4)
             });

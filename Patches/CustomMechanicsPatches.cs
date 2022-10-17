@@ -53,6 +53,12 @@ namespace WhistleWindLobotomyMod
                 WstlSaveManager.HasSeenApocalypseEffects = false;
                 Singleton<TableVisualEffectsManager>.Instance.ResetTableColors();
             }
+            if (WstlSaveManager.HasSeenJesterEffects)
+            {
+                WstlSaveManager.HasSeenJesterEffects = false;
+                Singleton<TableVisualEffectsManager>.Instance.ResetTableColors();
+            }
+
             yield return enumerator;
         }
     }

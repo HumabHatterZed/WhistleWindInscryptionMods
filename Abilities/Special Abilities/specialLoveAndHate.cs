@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
-            yield return CheckSum();
+            yield return CheckForMagicGirls();
         }
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
@@ -167,43 +167,152 @@ namespace WhistleWindLobotomyMod
             base.PlayableCard.transform.eulerAngles += new Vector3(0f, 0f, -180f);
             yield return Singleton<BoardManager>.Instance.AssignCardToSlot(base.PlayableCard, slot, 0.25f);
         }
-        private IEnumerator CheckSum()
+
+        private IEnumerator CheckForMagicGirls()
         {
-            bool Greed = false;
-            bool Despair = false;
-            //bool Wrath = false;
+            // Break if already have Jester
+            if (WstlSaveManager.HasJester)
+            {
+                WstlPlugin.Log.LogDebug("Player already has Jester of Nihil.");
+                yield break;
+            }
+
             CardSlot greedSlot = null;
             CardSlot despairSlot = null;
-            //CardSlot wrathSlot = null;
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(!base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+            CardSlot wrathSlot = null;
+            foreach (CardSlot slot in CustomMethods.GetBoardSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 if (slot != base.PlayableCard.Slot)
                 {
                     string slotName = slot.Card.Info.name;
                     if (slotName == "wstl_magicalGirlDiamond" || slotName == "wstl_kingOfGreed")
                     {
-                        Greed = true;
+                        WstlPlugin.Log.LogDebug("Player has Diamond.");
                         greedSlot = slot;
                     }
                     if (slotName == "wstl_magicalGirlSpade" || slotName == "wstl_knightOfDespair")
                     {
-                        Despair = true;
+                        WstlPlugin.Log.LogDebug("Player has Spade.");
                         despairSlot = slot;
+                    }
+                    if (slotName == "wstl_magicalGirlClover" || slotName == "wstl_servantOfWrath")
+                    {
+                        WstlPlugin.Log.LogDebug("Player has Clover.");
+                        wrathSlot = slot;
                     }
                 }
             }
-            if (Greed && Despair)
+            if (greedSlot != null && despairSlot != null && wrathSlot != null)
+                yield return Entropy(greedSlot, despairSlot, wrathSlot);
+
+            yield break;
+        }
+
+        private IEnumerator Entropy(CardSlot greed, CardSlot despair, CardSlot wrath)
+        {
+            yield return new WaitForSeconds(0.2f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
+            yield return new WaitForSeconds(0.2f);
+
+            greed.Card.Anim.StrongNegationEffect();
+            despair.Card.Anim.StrongNegationEffect();
+            wrath.Card.Anim.StrongNegationEffect();
+            base.PlayableCard.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.5f);
+
+            if (!WstlSaveManager.HasSeenJester)
             {
-                if (!WstlSaveManager.HasSeenMagicalGirls)
-                {
-                    WstlSaveManager.HasSeenMagicalGirls = true;
-                    yield return CustomMethods.PlayAlternateDialogue(dialogue: "The absence of [c:bB]the fourth[c:] has rendered their purpose null.");
-                }
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Watch them carefully.");
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("They're calling - no, praying for something.");
+            }
+
+            // turn out the lights, activate table effects, remove magic girls
+            Singleton<ExplorableAreaManager>.Instance.HangingLight.gameObject.SetActive(value: false);
+            Singleton<ExplorableAreaManager>.Instance.HandLight.gameObject.SetActive(value: false);
+            yield return TableEffects();
+            RemoveMagic(greed, despair, wrath);
+
+            yield return new WaitForSeconds(0.4f);
+
+            // switch to default view while the lights are off
+            Singleton<ViewManager>.Instance.SwitchToView(View.Default, true);
+
+            yield return new WaitForSeconds(0.4f);
+
+            if (!WstlSaveManager.HasSeenJester)
+            {
+                yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f,
+                    "[c:gray]The jester[c:] retraced the steps of a path everyone would've taken.",
+                    "No matter what it did, the jester always found itself at the end of that road.");
+                yield return new WaitForSeconds(0.2f);
             }
             else
+                yield return new WaitForSeconds(0.4f);
+
+            if (Singleton<VideoCameraRig>.Instance != null)
+                Singleton<VideoCameraRig>.Instance.PlayCameraAnim("refocus_quick");
+
+            Singleton<ExplorableAreaManager>.Instance.HangingLight.gameObject.SetActive(value: true);
+            Singleton<ExplorableAreaManager>.Instance.HandLight.gameObject.SetActive(value: true);
+
+            // Show hand so player can see the jester
+            yield return new WaitForSeconds(0.4f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
+            yield return new WaitForSeconds(0.2f);
+
+            // add jester to deck and hand
+            CardInfo info = CardLoader.GetCardByName("wstl_jesterOfNihil");
+            RunState.Run.playerDeck.AddCard(info);
+
+            // set cost to 0 for this fight (can play immediately that way)
+            info.cost = 0;
+            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0f, null);
+            WstlSaveManager.HasJester = true;
+            yield return new WaitForSeconds(0.2f);
+
+            if (!WstlSaveManager.HasSeenJester)
             {
-                yield break;
+                WstlSaveManager.HasSeenJester = true;
+                yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f,
+                    "There was no way to know if they had gathered to become the jester,",
+                    "or if the jester had come to resemble them.");
             }
+
+            yield return new WaitForSeconds(0.2f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+            yield return new WaitForSeconds(0.15f);
+
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+        }
+
+        private void RemoveMagic(CardSlot greed, CardSlot despair, CardSlot wrath)
+        {
+            // Remove cards
+            greed.Card.RemoveFromBoard(true, 0f);
+            despair.Card.RemoveFromBoard(true, 0f);
+            wrath.Card.RemoveFromBoard(true, 0f);
+            base.PlayableCard.RemoveFromBoard(true, 0f);
+        }
+
+        private IEnumerator TableEffects()
+        {
+            WstlSaveManager.HasSeenJesterEffects = true;
+
+            Color glowRed = GameColors.Instance.lightGray;
+            Color darkRed = GameColors.Instance.lightGray;
+            darkRed.a = 0.5f;
+            Color gray = GameColors.Instance.gray;
+            gray.a = 0.5f;
+
+            Singleton<TableVisualEffectsManager>.Instance.ChangeTableColors(GameColors.Instance.nearBlack, GameColors.Instance.lightGray, GameColors.Instance.gray, darkRed, darkRed, glowRed, glowRed, glowRed, glowRed);
+
+            AudioController.Instance.PlaySound2D($"grimoravoice_laughing#1");
+
+            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
+            yield return new WaitForSeconds(0.166f);
+            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
+            yield return new WaitForSeconds(1.418f);
         }
     }
 }

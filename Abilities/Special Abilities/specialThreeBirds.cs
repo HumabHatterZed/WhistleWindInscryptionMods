@@ -25,10 +25,6 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-        private bool Punishing;
-        private bool Judgement;
-        private CardSlot punishSlot;
-        private CardSlot judgeSlot;
         public override bool RespondsToResolveOnBoard()
         {
             return true;
@@ -41,8 +37,9 @@ namespace WhistleWindLobotomyMod
                 yield return TableEffects();
                 yield break;
             }
-            yield return CheckSum();
+            yield return CheckForOtherCards();
         }
+
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
             if (base.PlayableCard.Info.name != "wstl_apocalypseBird")
@@ -53,9 +50,10 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
-            yield return CheckSum();
+            yield return CheckForOtherCards();
         }
-        private IEnumerator CheckSum()
+
+        private IEnumerator CheckForOtherCards()
         {
             // Break if already have Apocalypse Bird
             if (WstlSaveManager.HasApocalypse)
@@ -63,42 +61,36 @@ namespace WhistleWindLobotomyMod
                 WstlPlugin.Log.LogDebug("Player already has Apocalypse Bird.");
                 yield break;
             }
-            Punishing = false;
-            Judgement = false;
-            punishSlot = null;
-            judgeSlot = null;
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(!base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+
+            CardSlot punishSlot = null;
+            CardSlot judgeSlot = null;
+
+            foreach (CardSlot slot in CustomMethods.GetBoardSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 if (slot != base.PlayableCard.Slot)
                 {
                     if (slot.Card.Info.name == "wstl_punishingBird")
                     {
                         WstlPlugin.Log.LogDebug("Player has Punishing Bird.");
-                        Punishing = true;
                         punishSlot = slot;
                     }
                     if (slot.Card.Info.name == "wstl_judgementBird")
                     {
                         WstlPlugin.Log.LogDebug("Player has Judgement Bird.");
-                        Judgement = true;
                         judgeSlot = slot;
                     }
                 }
             }
-            if (Punishing && Judgement)
-            {
+
+            if (punishSlot != null && judgeSlot != null)
                 yield return Apocalypse(punishSlot, judgeSlot);
-            }
-            else
-            {
-                yield break;
-            }
+
+            yield break;
         }
 
         private IEnumerator Apocalypse(CardSlot smallSlot, CardSlot longSlot)
         {
-
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(1f);
 
             // Exposit story of the Black Forest
             if (!WstlSaveManager.HasSeenApocalypse)
@@ -138,27 +130,27 @@ namespace WhistleWindLobotomyMod
 
                 yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f,
                     "Fights began to break out. More and more creatures left the Forest, no matter how hard the birds worked.",
-                    "They decided to combine their powers. This way, they could better their home.",
+                    "They decided to combine their powers. This way, they could better protect their home.",
                     "This way they could better return the peace.");
             }
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
             yield return new WaitForSeconds(0.2f);
+
             // Remove cards
-            RemoveCard(smallSlot.Card);
+            smallSlot.Card.RemoveFromBoard(true);
             yield return new WaitForSeconds(0.2f);
-            RemoveCard(longSlot.Card);
+            longSlot.Card.RemoveFromBoard(true);
             yield return new WaitForSeconds(0.2f);
-            RemoveCard(base.PlayableCard);
+            base.PlayableCard.RemoveFromBoard(true);
             yield return new WaitForSeconds(0.5f);
 
             yield return TableEffects();
 
             // More text
             if (!WstlSaveManager.HasSeenApocalypse)
-            {
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Darkness fell upon the forest. Mayhem ran amok as creatures screamed in terror at the towering bird.");
-            }
 
             // Give player Apocalypse in their deck and their hand
             Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
@@ -187,17 +179,7 @@ namespace WhistleWindLobotomyMod
             }
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
-        private void RemoveCard(PlayableCard item)
-        {
-            RunState.Run.playerDeck.RemoveCard(item.Info);
-            item.UnassignFromSlot();
-            SpecialCardBehaviour[] components = item.GetComponents<SpecialCardBehaviour>();
-            for (int i = 0; i < components.Length; i++)
-            {
-                components[i].OnCleanUp();
-            }
-            item.ExitBoard(0.3f, Vector3.zero);
-        }
+
         private IEnumerator TableEffects()
         {
             WstlSaveManager.HasSeenApocalypseEffects = true;

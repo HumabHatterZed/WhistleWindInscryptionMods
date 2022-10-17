@@ -214,10 +214,20 @@ namespace WhistleWindLobotomyMod
             get => GetBool("TransformedIntoDespair");
             set => SetBool("TransformedIntoDespair", value);
         }
-        public static bool HasSeenMagicalGirls
+        public static bool HasSeenJester
         {
-            get => GetBool("MagicalGirlsFour");
-            set => SetBool("MagicalGirlsFour", value);
+            get => GetBool("MagicalGirlsStory");
+            set => SetBool("MagicalGirlsStory", value);
+        }
+        public static bool HasSeenJesterEffects
+        {
+            get => GetBool("MagicalGirlsEffects");
+            set => SetBool("MagicalGirlsEffects", value);
+        }
+        public static bool HasJester
+        {
+            get => GetBool("HasJesterOfNihil");
+            set => SetBool("HasJesterOfNihil", value);
         }
         public static bool HasUsedBackwardClock
         {

@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_lyingAdult", "The Adult Who Tells Lies",
                 "",
                 1, 6, 2, 0,
-                Artwork.lyingAdult, Artwork.lyingAdult_emission, pixelTexture: Artwork.lyingAdult_pixel,
+                Artwork.lyingAdult, Artwork.lyingAdult_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.ChoiceType.Rare, metaTypes: metaTypes);

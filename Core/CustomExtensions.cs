@@ -74,7 +74,8 @@ namespace WhistleWindLobotomyMod.Core
         /// Removes this card from the board.
         /// </summary>
         /// <param name="removeFromDeck">Whether to also remove from the player's deck. Does not affect opponent cards.</param>
-        public static void RemoveFromBoard(this PlayableCard item, bool removeFromDeck = false)
+        /// <param name="tweenLength">How long the ExitBoard animation should take to play.</param>
+        public static void RemoveFromBoard(this PlayableCard item, bool removeFromDeck = false, float tweenLength = 0.3f)
         {
             // Remove from deck if this card is owned by the player
             if (removeFromDeck && !item.OpponentCard && !item.OriginatedFromQueue)
@@ -87,7 +88,7 @@ namespace WhistleWindLobotomyMod.Core
             {
                 components[i].OnCleanUp();
             }
-            item.ExitBoard(0.3f, Vector3.zero);
+            item.ExitBoard(tweenLength, Vector3.zero);
         }
         /// <summary>
         /// Kills this card without triggering OnDie or OnOtherCardDie. Triggers OnDie if it has the PackMule special ability.

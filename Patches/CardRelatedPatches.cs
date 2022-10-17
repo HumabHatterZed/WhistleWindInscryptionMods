@@ -26,6 +26,10 @@ namespace WhistleWindLobotomyMod
                 __result.RemoveAll((CardInfo x) => x.name == "wstl_punishingBird"
                 || x.name == "wstl_bigBird" || x.name == "wstl_judgementBird");
             }
+            if (WstlSaveManager.HasJester)
+            {
+                __result.RemoveAll((CardInfo x) => x.name.Contains("wstl_magicalGirl"));
+            }
         }
     }
     [HarmonyPatch(typeof(DeckInfo))]

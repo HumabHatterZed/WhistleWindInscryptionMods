@@ -514,9 +514,6 @@
   <data name="jesterOfNihil_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\jesterOfNihil_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="jesterOfNihil_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\jesterOfNihil_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="judgementBird" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\judgementBird.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -564,9 +561,6 @@
   </data>
   <data name="lyingAdult_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\lyingAdult_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lyingAdult_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\lyingAdult_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="magicalGirlClover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\magicalGirlClover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

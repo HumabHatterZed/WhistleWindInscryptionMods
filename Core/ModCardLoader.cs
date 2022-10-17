@@ -20,6 +20,17 @@ namespace WhistleWindLobotomyMod.Core
         public static CardInfo GetRandomChoosableModCard(int randomSeed, string riskLevel, CardTemple temple = CardTemple.Nature)
         {
             List<CardInfo> unlockedCards = ModCardLoader.GetUnlockedModCards(CardMetaCategory.ChoiceNode, temple).FindAll((CardInfo x) => x.GetExtendedProperty("wstl:RiskLevel") == riskLevel);
+            
+            if (WstlSaveManager.HasApocalypse)
+            {
+                unlockedCards.RemoveAll((CardInfo x) => x.name == "wstl_punishingBird"
+                || x.name == "wstl_bigBird" || x.name == "wstl_judgementBird");
+            }
+            if (WstlSaveManager.HasJester)
+            {
+                unlockedCards.RemoveAll((CardInfo x) => x.name.Contains("wstl_magicalGirl"));
+            }
+
             return CardLoader.Clone(unlockedCards[SeededRandom.Range(0, unlockedCards.Count, randomSeed)]);
         }
         public static CardInfo GetRandomRareModCard(int randomSeed)
@@ -28,6 +39,10 @@ namespace WhistleWindLobotomyMod.Core
             if (WstlSaveManager.HasUsedBackwardClock)
             {
                 unlockedCards.RemoveAll((CardInfo x) => x.name == "wstl_backwardClock");
+            }
+            if (WstlSaveManager.HasJester)
+            {
+                unlockedCards.RemoveAll((CardInfo x) => x.name == "wstl_magicalGirlSpade");
             }
             return CardLoader.Clone(unlockedCards[SeededRandom.Range(0, unlockedCards.Count, randomSeed)]);
         }

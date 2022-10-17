@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
 				CardBattleNodeData battle = new();
 				TradePeltsNodeData trader = new();
 				nodes.nodeRows.Add(new() { start });
-				nodes.nodeRows.Add(new() { merge });
+				//nodes.nodeRows.Add(new() { merge });
 				nodes.nodeRows.Add(new() { battle });
 				//nodes.nodeRows.Add(new() { trader });
 				__instance.PredefinedNodes = nodes;

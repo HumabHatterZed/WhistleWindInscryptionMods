@@ -14,6 +14,10 @@ namespace WhistleWindLobotomyMod
             {
                 Nihil.ability
             };
+            List<SpecialTriggeredAbility> specialAbilities = new()
+            {
+                EventCard.specialAbility
+            };
             List<CardHelper.MetaType> metaTypes = new()
             {
                 CardHelper.MetaType.RuinaCard,
@@ -24,8 +28,8 @@ namespace WhistleWindLobotomyMod
                 "wstl_jesterOfNihil", "The Jester of Nihil",
                 "",
                 0, 15, 4, 0,
-                Artwork.jesterOfNihil, Artwork.jesterOfNihil_emission, pixelTexture: Artwork.jesterOfNihil_pixel,
-                abilities: abilities, specialAbilities: new(),
+                Artwork.jesterOfNihil, Artwork.jesterOfNihil_emission,
+                abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.ChoiceType.Rare, metaTypes: metaTypes);
         }

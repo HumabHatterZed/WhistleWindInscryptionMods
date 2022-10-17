@@ -9,6 +9,8 @@
 * 🩹 Bug fixes
   * Fixed Nothing There being copyable by Goo Mage
   * Fixed abnormality choice node not playing/clear text properly
+  * Fixed Downed Guardian Apostle reviving immediately
+  * Fixed certain singleton cards being reobtainable after certain events
 * 🔧 Tweaks / Changes
   * Replaced Wolf Cub --> The Way Home in starter deck "Road to Oz"
   * Replaced Magical Girl S --> Magical Girl C in starter deck "Magical Girls!"
@@ -42,6 +44,8 @@
   * Nerfed Spider Brood Health from 3 --> 2
   * Express Train to Hell cost reduced from x6 --> x2
   * The Train ability cost increased from x6 --> x10
+  * Ttungsil no longer has Fledgling ability
+  * Downed Moleman Apostle no longer has Uncuttable trait
   * Thorny Vines are now conidered Terrain
   * Notes From a Crazed Researcher is now considered Terrain
   * Frozen Heart is no longer considered Terrain
@@ -107,7 +111,7 @@
   * Fixed 1.76 MHz's cost being 3 bones instead of 2 bones
   * Fixed First Brother's Health being 2 not 1
   * Fixed Second Brother's Health being 2 not 1
-  * Fixed Fourth Brother's Heakth being 1 not 2
+  * Fixed Fourth Brother's Health being 1 not 2
   * Fixed Fungal Infector not affecting cards that were affected in previous battles
   * Fixed Singing Machine not having an emission
   * Fixed Queen of Hatred not switching back from Tired forme
@@ -173,7 +177,7 @@
   * Buffed Void Dream's Power from 0 --> 1
   * Increased Spider Brood's cost from FREE --> 1 Blood
 
-### v1.1.0 - First Major Update(tm) (8/22/2022)
+### v1.1.0 - First Major Update™ (8/22/2022)
 * 🧱 General
   * Changed file name for config file (see above for more information on this)
   * Rearranged the order of the configs in the config file
