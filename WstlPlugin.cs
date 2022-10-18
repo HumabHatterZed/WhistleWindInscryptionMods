@@ -237,7 +237,7 @@ namespace WhistleWindLobotomyMod
         }
         private void AddEncounters()
         {
-            /*
+            
             foreach (EncounterBlueprintData i in ModEncounters)
             {
                 EncounterManager.Add(i);
@@ -245,9 +245,10 @@ namespace WhistleWindLobotomyMod
             RegionProgression.Instance.regions[0].AddEncounters(StrangePack, BitterPack, StrangeFlock, HelperJuggernaut);
             RegionProgression.Instance.regions[1].AddEncounters(StrangeBees, StrangeCreatures1, WormsNest, StrangeCreatures2, StrangeFish);
             RegionProgression.Instance.regions[2].AddEncounters(StrangeHerd, AlriuneJuggernaut, SpidersNest, SwanJuggernaut);
-            */
+            /*
             RegionProgression.Instance.regions[0].encounters.Clear();
             RegionProgression.Instance.regions[0].AddEncounters(ModDebugEncounter);
+            */
         }
 
         public static class PackAPI

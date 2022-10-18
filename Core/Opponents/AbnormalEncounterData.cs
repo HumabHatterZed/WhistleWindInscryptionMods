@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod.Core.Opponents
                 List<Ability> redundant = null;
                 List<List<EncounterBlueprintData.CardBlueprint>> turns = new()
                 {
-                    new() { CreateCardBlueprint("Mule") },
+                    new() { },
                     new() { },
                     new() { }
                 };
