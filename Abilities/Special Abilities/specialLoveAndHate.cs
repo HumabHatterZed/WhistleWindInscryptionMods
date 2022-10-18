@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_LoveAndHate()
         {
             const string rulebookName = "Love and Hate";
-            const string rulebookDescription = "Transforms when the 2 more allied cards than opponent cards have died, or vice versa. Transforms on upkeep.";
+            const string rulebookDescription = "Transforms when the 2 more allied cards than opponent cards have died, or vice versa. Transforms on upkeep. Activates when the other 3 Magical Girls are on the same side of the board.";
             LoveAndHate.specialAbility = AbilityHelper.CreateSpecialAbility<LoveAndHate>(rulebookName, rulebookDescription).Id;
         }
     }
@@ -30,6 +30,14 @@ namespace WhistleWindLobotomyMod
         private readonly string dialogue = "The balance must be maintained. Good cannot exist without evil.";
         private readonly string altDialogue = "Good cannot exist without evil.";
 
+        public override bool RespondsToResolveOnBoard()
+        {
+            return true;
+        }
+        public override IEnumerator OnResolveOnBoard()
+        {
+            yield return CheckForMagicGirls();
+        }
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
             return otherCard.OpponentCard == base.PlayableCard.OpponentCard;
@@ -189,16 +197,19 @@ namespace WhistleWindLobotomyMod
                     {
                         WstlPlugin.Log.LogDebug("Player has Diamond.");
                         greedSlot = slot;
+                        continue;
                     }
                     if (slotName == "wstl_magicalGirlSpade" || slotName == "wstl_knightOfDespair")
                     {
                         WstlPlugin.Log.LogDebug("Player has Spade.");
                         despairSlot = slot;
+                        continue;
                     }
                     if (slotName == "wstl_magicalGirlClover" || slotName == "wstl_servantOfWrath")
                     {
                         WstlPlugin.Log.LogDebug("Player has Clover.");
                         wrathSlot = slot;
+                        continue;
                     }
                 }
             }

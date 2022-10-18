@@ -16,6 +16,23 @@ namespace WhistleWindLobotomyMod.Core.Opponents
             StrangeBees, StrangeCreatures1, WormsNest, StrangeCreatures2, StrangeFish,
             StrangeHerd, AlriuneJuggernaut, SpidersNest, SwanJuggernaut
         };
+        public static EncounterBlueprintData ModDebugEncounter
+        {
+            get
+            {
+                string name = "DebugEncounter";
+                List<Tribe> tribes = new() { Tribe.Canine };
+                List<CardInfo> replacements = new();
+                List<Ability> redundant = null;
+                List<List<EncounterBlueprintData.CardBlueprint>> turns = new()
+                {
+                    new() { CreateCardBlueprint("Mule") },
+                    new() { },
+                    new() { }
+                };
+                return BuildBlueprint(name, tribes, 0, 20, replacements, redundant, turns);
+            }
+        }
         // Forest encounters
         public static EncounterBlueprintData StrangePack
         {

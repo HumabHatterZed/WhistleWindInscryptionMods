@@ -33,10 +33,7 @@ namespace WhistleWindLobotomyMod
         private int lastShotTurn = -1;
 
         private PlayableCard lastShotCard;
-        private PlayableCard queuedCard;
         private int NumShots => Mathf.Max(base.Card.Info.Abilities.FindAll((Ability x) => x == this.Ability).Count, 1);
-
-        private bool antiLock = false;
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
@@ -54,28 +51,12 @@ namespace WhistleWindLobotomyMod
         {
             yield return FireAtOpposingSlot(otherCard);
         }
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
-        {
-            // Only respond if we're in an antiLock situation
-            if (antiLock && queuedCard != null)
-            {
-                return base.Card.OpponentCard != playerTurnEnd && RespondsToTrigger(queuedCard);
-            }
-            return false;
-        }
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
-            WstlPlugin.Log.LogDebug("Killing queued card.");
-            yield return FireAtOpposingSlot(queuedCard);
-            antiLock = false;
-            queuedCard = null;
-        }
 
         private bool RespondsToTrigger(PlayableCard otherCard)
         {
             if (!base.Card.Dead && !otherCard.Dead)
             {
-                return otherCard.Slot == base.Card.Slot.opposingSlot;
+                return base.Card.Attack > 0 && otherCard.Slot == base.Card.Slot.opposingSlot;
             }
             return false;
         }
@@ -88,22 +69,14 @@ namespace WhistleWindLobotomyMod
                 yield break;
             }
 
-            // If the Pack Mule just resolved on the board, queue it then break
-            if (otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule)
-                && otherCard.TurnPlayed == 0)
-            {
-                WstlPlugin.Log.LogDebug("Enemy is a Pack Mule.");
-                yield return QueueKill(otherCard);
-                yield break;
-            }
-            if (otherCard.Info.HasAbility(Ability.TailOnHit)
+/*            if (otherCard.Info.HasAbility(Ability.TailOnHit)
                 && otherCard.TurnPlayed != 0
                 && !otherCard.Status.hiddenAbilities.Contains(Ability.TailOnHit))
             {
                 WstlPlugin.Log.LogDebug("Enemy has Loose tail.");
                 yield return QueueKill(otherCard);
                 yield break;
-            }
+            }*/
 
             this.lastShotCard = otherCard;
             this.lastShotTurn = Singleton<TurnManager>.Instance.TurnNumber;
@@ -128,14 +101,6 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.25f);
             yield return base.LearnAbility();
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
-        }
-        private IEnumerator QueueKill(PlayableCard otherCard)
-        {
-            WstlPlugin.Log.LogDebug("Enemy was played this turn.");
-            antiLock = true;
-            queuedCard = otherCard;
-            base.Card.Anim.LightNegationEffect();
-            yield return CustomMethods.PlayAlternateDialogue(dialogue: $"Your [c:bR]{base.Card.Info.DisplayedNameLocalized}[c:] waits for an opportunity to strike.");
         }
     }
 }

@@ -11,15 +11,15 @@ namespace WhistleWindLobotomyMod
 {
     public partial class WstlPlugin
     {
-        private void SpecialAbility_Bird()
+        private void SpecialAbility_YellowBrick()
         {
-            const string rulebookName = "Three Birds";
-            const string rulebookDescription = "Activates when Punishing Bird and Judgement Bird are played on the same side of the board.";
-            ThreeBirds.specialAbility = AbilityHelper.CreateSpecialAbility<ThreeBirds>(rulebookName, rulebookDescription).Id;
+            const string rulebookName = "Yellow Brick Road";
+            const string rulebookDescription = "Activates when Scarecrow Searching for Wisdom, Warm-Hearted Woodsman, and Scaredy Cat are played on the same side of the board.";
+            YellowBrick.specialAbility = AbilityHelper.CreateSpecialAbility<YellowBrick>(rulebookName, rulebookDescription).Id;
         }
     }
 
-    public class ThreeBirds : SpecialCardBehaviour
+    public class YellowBrick : SpecialCardBehaviour
     {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -45,44 +45,51 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator CheckForOtherCards()
         {
-            // Break if already have Apocalypse Bird
-            if (WstlSaveManager.HasApocalypse)
+            // Break if already have Adult
+            if (WstlSaveManager.HasAdult)
             {
-                WstlPlugin.Log.LogDebug("Player already has Apocalypse Bird.");
+                WstlPlugin.Log.LogDebug("Player already has Adult Who Tells Lies.");
                 yield break;
             }
 
-            CardSlot punishSlot = null;
-            CardSlot judgeSlot = null;
+            CardSlot scarecrowSlot = null;
+            CardSlot woodsmanSlot = null;
+            CardSlot scaredySlot = null;
 
             foreach (CardSlot slot in CustomMethods.GetBoardSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 if (slot != base.PlayableCard.Slot)
                 {
-                    if (slot.Card.Info.name == "wstl_punishingBird")
+                    if (slot.Card.Info.name == "wstl_wisdomScarecrow")
                     {
-                        WstlPlugin.Log.LogDebug("Player has Punishing Bird.");
-                        punishSlot = slot;
+                        WstlPlugin.Log.LogDebug("Player has Scarecrow Searching for Wisdom.");
+                        scarecrowSlot = slot;
                         continue;
                     }
-                    if (slot.Card.Info.name == "wstl_judgementBird")
+                    if (slot.Card.Info.name == "wstl_warmHeartedWoodsman")
                     {
-                        WstlPlugin.Log.LogDebug("Player has Judgement Bird.");
-                        judgeSlot = slot;
+                        WstlPlugin.Log.LogDebug("Player has Warm-Hearted Woodsman.");
+                        woodsmanSlot = slot;
+                        continue;
+                    }
+                    if (slot.Card.Info.name == "wstl_scaredyCat" || slot.Card.Info.name == "wstl_scaredyCatStrong")
+                    {
+                        WstlPlugin.Log.LogDebug("Player has Scaredy Cat.");
+                        scaredySlot = slot;
                         continue;
                     }
                 }
             }
 
-            if (punishSlot != null && judgeSlot != null)
-                yield return Apocalypse(punishSlot, judgeSlot);
+            if (scarecrowSlot != null && woodsmanSlot != null && scaredySlot != null)
+                yield return Emerald(scarecrowSlot, woodsmanSlot, scaredySlot);
 
             yield break;
         }
 
-        private IEnumerator Apocalypse(CardSlot smallSlot, CardSlot longSlot)
+        private IEnumerator Emerald(CardSlot scarecrow, CardSlot woodsman, CardSlot scaredy)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
 
             // Exposit story of the Black Forest
             if (!WstlSaveManager.HasSeenApocalypse)
@@ -110,10 +117,10 @@ namespace WhistleWindLobotomyMod
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board);
                 yield return new WaitForSeconds(0.25f);
 
-                smallSlot.Card.Anim.StrongNegationEffect();
+                //smallSlot.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]Small Bird[c:] punished wrongdoers with his beak.");
-                longSlot.Card.Anim.StrongNegationEffect();
+                //longSlot.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bB]Long Bird[c:] weighed the sins of all creatures in the forest with his scales.");
                 base.PlayableCard.Anim.StrongNegationEffect();
@@ -131,9 +138,9 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.2f);
 
             // Remove cards
-            smallSlot.Card.RemoveFromBoard(true);
+            //smallSlot.Card.RemoveFromBoard(true);
             yield return new WaitForSeconds(0.2f);
-            longSlot.Card.RemoveFromBoard(true);
+            //longSlot.Card.RemoveFromBoard(true);
             yield return new WaitForSeconds(0.2f);
             base.PlayableCard.RemoveFromBoard(true);
             yield return new WaitForSeconds(0.5f);
@@ -147,13 +154,13 @@ namespace WhistleWindLobotomyMod
             // Give player Apocalypse in their deck and their hand
             Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
 
-            CardInfo info = CardLoader.GetCardByName("wstl_apocalypseBird");
+            CardInfo info = CardLoader.GetCardByName("wstl_lyingAdult");
             RunState.Run.playerDeck.AddCard(info);
             
             // set cost to 0 for this fight (can play immediately that way)
             info.cost = 0;
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0.25f, null);
-            WstlSaveManager.HasApocalypse = true;
+            WstlSaveManager.HasAdult = true;
             yield return new WaitForSeconds(0.2f);
 
             // Li'l text blurb
@@ -162,9 +169,9 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.2f);
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             yield return new WaitForSeconds(0.15f);
-            if (!WstlSaveManager.HasSeenApocalypse)
+            if (!WstlSaveManager.HasSeenAdult)
             {
-                WstlSaveManager.HasSeenApocalypse = true;
+                WstlSaveManager.HasSeenAdult = true;
                 yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f,
                     "The three birds, [c:bR]now one[c:] looked around for [c:bR]the Beast[c:]. But there was nothing.",
                     "No creatures. No beast. No sun or moon or stars. Only a single bird, alone in an empty forest.");
@@ -174,7 +181,7 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator TableEffects()
         {
-            WstlSaveManager.HasSeenApocalypseEffects = true;
+            WstlSaveManager.HasSeenAdultEffects = true;
 
             Color glowRed = GameColors.Instance.glowRed;
             Color darkRed = GameColors.Instance.darkRed;

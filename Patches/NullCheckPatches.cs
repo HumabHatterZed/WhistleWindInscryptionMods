@@ -1,17 +1,20 @@
 ﻿using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using HarmonyLib;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Pixelplacement;
+using Pixelplacement.TweenSystem;
 
 namespace WhistleWindLobotomyMod
 {
     [HarmonyPatch(typeof(CardGainAbility))]
     public static class CardGainAbilityPatch
     {
+        // Fixes a softlock that occurs when the opponent has a totem and a card dies via sentry
+        // 
         // Adds a check for whether the card is dead or not
         [HarmonyPrefix, HarmonyPatch(nameof(CardGainAbility.RespondsToOtherCardAssignedToSlot))]
         public static bool RespondsToOtherCardAssignedToSlotNullCheck(ref PlayableCard otherCard)

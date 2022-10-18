@@ -176,7 +176,7 @@ You'll need to play with the cards in order to figure out their special ability 
 * Singleton - Can only have one copy in your deck at a time.
 * Toxic - Kills survivors when eaten at the Campfire.
 * Spell - Can be played on top of other cards, dies upon play.
-* Special - Can only be obtained through a unique method.
+* Special - Can only be obtained once per run through a unique method.
 * X - Varies
 * M - Mirror
 * T - Passing Time
@@ -222,7 +222,7 @@ You'll need to play with the cards in order to figure out their special ability 
 |Fragment of the Universe|1/3|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Piercing|||
 |Crumbling Armour|0/3|<img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">|Courageous|||
 |Judgement Bird|1/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Marksman|Singleton|Avian|
-|Apocalypse Bird|3/12|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Omni Strike, Bifurcated Strike|Special, Singleton|Avian|
+|Apocalypse Bird|3/12|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Omni Strike, Bifurcated Strike|Special|Avian|
 |Magical Girl D|0/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Fledgling|Singleton||
 |⤷ The King of Greed|2/5|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Hefty|Singleton||
 |The Little Prince|1/4|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Spores|||
@@ -284,6 +284,8 @@ You'll need to play with the cards in order to figure out their special ability 
 |Scaredy Cat|0/1|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/UENa3ep.png">|Cowardly|||
 |Ozma|2/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Rightful Heir|||
 |Silent Girl|2/2|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|Trifurcated Strike|Rare||
+|The Adult Who Tells Lies|1/6|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">|False Throne|Special||
+|The Jester of Nihil|0/15|<img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">|Nihil|Special||
 </details>
 
 ## 🗃️ Starter Decks

@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Appearance_EventBackground()
         {
-            EventBackground.appearance = CardHelper.CreateAppearance<RareEventBackground>("EventCardBackground").Id;
+            EventBackground.appearance = CardHelper.CreateAppearance<EventBackground>("EventCardBackground").Id;
         }
     }
     public class EventBackground : CardAppearanceBehaviour

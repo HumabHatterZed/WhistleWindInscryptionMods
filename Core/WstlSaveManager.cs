@@ -264,5 +264,20 @@ namespace WhistleWindLobotomyMod
             get => GetBool("GrownPumpkinJack");
             set => SetBool("GrownPumpkinJack", value);
         }
+        public static bool HasAdult
+        {
+            get => GetBool("HasWizardOz");
+            set => SetBool("HasWizardOz", value);
+        }
+        public static bool HasSeenAdult
+        {
+            get => GetBool("HasSeenWizardStory");
+            set => SetBool("HasSeenWizardStory", value);
+        }
+        public static bool HasSeenAdultEffects
+        {
+            get => GetBool("WizardOzEffects");
+            set => SetBool("WizardOzEffects", value);
+        }
     }
 }
