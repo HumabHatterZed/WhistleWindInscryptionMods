@@ -49,7 +49,7 @@ namespace WhistleWindLobotomyMod
 		// Fixes All Strike to attack the opposing space instead of just slot[0] for non-giant player cards
 		// Also re-adds Moon Strike functionality for Blue Star cards
 		[HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.GetOpposingSlots))]
-		public static List<CardSlot> AllStrikeFix(List<CardSlot> list, PlayableCard __instance)
+		public static List<CardSlot> AllStrikeFix(ref List<CardSlot> list, PlayableCard __instance)
 		{
 			if (__instance.HasAbility(Ability.AllStrike) && !__instance.HasTrait(Trait.Giant))
 			{

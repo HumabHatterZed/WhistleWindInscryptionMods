@@ -257,7 +257,7 @@ namespace WhistleWindLobotomyMod
             {
 				if (sniperIconPrefab == null)
 				{
-					sniperIconPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/SniperTargetIcon");
+					sniperIconPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CannonTargetIcon");
 				}
 				GameObject gameObject = Object.Instantiate(sniperIconPrefab, targetSlot.transform);
 				gameObject.transform.localPosition = new Vector3(0f, 0.25f, 0f);

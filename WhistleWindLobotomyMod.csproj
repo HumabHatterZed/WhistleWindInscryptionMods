@@ -51,7 +51,6 @@
 		<Message Text="Executing CopyDLLs task" Importance="High" />
 
 		<Copy Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Inscryption\')" SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Inscryption\BepInEx\plugins\" />
-		<Copy Condition="Exists('C:\Users\Me\Desktop\Mods\CardMod\WhistleWindLobotomyMod')" SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Users\Me\Desktop\Mods\CardMod\WhistleWindLobotomyMod" />
 		
 		<Message Text="Copied build files" Importance="High" />
 	</Target>

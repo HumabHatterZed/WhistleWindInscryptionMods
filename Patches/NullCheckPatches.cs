@@ -10,7 +10,7 @@ using Pixelplacement.TweenSystem;
 
 namespace WhistleWindLobotomyMod
 {
-    [HarmonyPatch(typeof(CardGainAbility))]
+/*    [HarmonyPatch(typeof(CardGainAbility))]
     public static class CardGainAbilityPatch
     {
         // Fixes a softlock that occurs when the opponent has a totem and a card dies via sentry
@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
             }
             return false;
         }
-    }
+    }*/
     [HarmonyPatch(typeof(Strafe))]
     public static class StrafePatch
     {
@@ -48,9 +48,8 @@ namespace WhistleWindLobotomyMod
         public static IEnumerator PreSuccessfulTriggerSequenceNullCheck(IEnumerator enumerator, AbilityBehaviour __instance)
         {
             if (!(__instance != null))
-            {
                 yield break;
-            }
+
             yield return enumerator;
         }
         // Adds a check for whether the ability behaviour instance is null or not
@@ -58,9 +57,8 @@ namespace WhistleWindLobotomyMod
         public static IEnumerator LearnAbilityNullCheck(IEnumerator enumerator, AbilityBehaviour __instance)
         {
             if (!(__instance != null))
-            {
                 yield break;
-            }
+
             yield return enumerator;
         }
     }

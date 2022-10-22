@@ -12,7 +12,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.TripleBlood
+                Ability.TripleBlood,
+                Ability.Sentry
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -20,7 +21,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                EventBackground.appearance
+                //  EventBackground.appearance
             };
             List<Tribe> tribes = new()
             {
