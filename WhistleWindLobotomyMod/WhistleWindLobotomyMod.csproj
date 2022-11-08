@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AssemblyName>WhistleWindLobotomyMod</AssemblyName>
+		<Description>A mod for Inscryption adding cards and sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina.</Description>
+		<Version>2.0.0</Version>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>9.0</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+		<PackageReference Include="BepInEx.Core" Version="5.4.19" />
+		<PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
+		<PackageReference Include="Inscryption.GameLibs" Version="1.9.0-r.0" />
+		<PackageReference Include="UnityEngine.Modules" Version="2019.4.24" IncludeAssets="compile" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\WhistleWind.AbnormalSigils\WhistleWind.AbnormalSigils.csproj" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="InscryptionAPI" Private="false">
+      <HintPath>..\lib\InscryptionAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="Infiniscryption.Spells" Private="false">
+      <HintPath>..\lib\Infiniscryption.Spells.dll</HintPath>
+    </Reference>
+    <Reference Include="Infiniscryption.PackManager" Private="false">
+      <HintPath>..\lib\Infiniscryption.PackManager.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+	
+	<Target Name="CopyDLLs" AfterTargets="Build">
+		<Message Text="Copying WhistleWindLobotomyMod DLL file" Importance="High" />
+
+		<Copy Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Inscryption\')" SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Inscryption\BepInEx\plugins\" />
+    
+		<Message Text="Copied WhistleWindLobotomyMod build file" Importance="High" />
+	</Target>
+	
+	<ItemGroup>
+	  <Compile Update="Properties\Artwork.Designer.cs">
+	    <DependentUpon>Artwork.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Artwork.resx">
+	    <SubType>Designer</SubType>
+	    <LastGenOutput>Artwork.Designer.cs</LastGenOutput>
+	    <Generator>ResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

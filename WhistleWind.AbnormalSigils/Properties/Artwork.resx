@@ -1,0 +1,580 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="dreamOfABlackSwanBrother1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother1_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother1_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother2_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother2_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother3_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother3_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother4_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother4_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother5_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother5_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother6_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother6_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="meltingLoveMinion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\meltingLoveMinion.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="meltingLoveMinion_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\meltingLoveMinion_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ozmaPumpkin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ozmaPumpkin.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ozmaPumpkinJack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ozmaPumpkinJack.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ozmaPumpkinJack_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ozmaPumpkinJack_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ozmaPumpkin_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ozmaPumpkin_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="parasiteTreeSapling" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\parasiteTreeSapling.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="parasiteTreeSapling_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\parasiteTreeSapling_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="queenBeeWorker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\queenBeeWorker.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="queenBeeWorker_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\queenBeeWorker_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="scaredyCat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\scaredyCat.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="scaredyCatStrong" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\scaredyCatStrong.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="scaredyCatStrong_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\scaredyCatStrong_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="scaredyCat_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\scaredyCat_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilAbnormality" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilAbnormality.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilAbnormality_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilAbnormality_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilAggravating" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilAggravating.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilAggravating_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilAggravating_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilAlchemist" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilAlchemist.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilAlchemist_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilAlchemist_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilAssimilator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilAssimilator.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilAssimilator_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilAssimilator_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilBitterEnemies" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilBitterEnemies.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilBitterEnemies_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilBitterEnemies_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilBloodfiend" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilBloodfiend.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilBloodfiend_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilBloodfiend_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilBroodMother" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilBroodMother.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilBroodMother_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilBroodMother_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilBurning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilBurning.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilBurning_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilBurning_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilCatLover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilCatLover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilCatLover_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilCatLover_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilConductor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilConductor.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilConductor_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilConductor_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilCopycat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilCopycat.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilCopycat_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilCopycat_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilCorrector" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilCorrector.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilCorrector_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilCorrector_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilCourageous" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilCourageous.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilCourageous_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilCourageous_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilCowardly" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilCowardly.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilCowardly_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilCowardly_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilCursed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilCursed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilCursed_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilCursed_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilFalseThrone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilFalseThrone.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilFalseThrone_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilFalseThrone_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilFlagBearer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilFlagBearer.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilFlagBearer_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilFlagBearer_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilFrostRuler" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilFrostRuler.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilFrostRuler_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilFrostRuler_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilFrozenHeart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilFrozenHeart.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilFrozenHeart_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilFrozenHeart_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilGardener" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilGardener.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilGardener_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilGardener_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilGiftGiver" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilGiftGiver.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilGiftGiver_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilGiftGiver_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilGreedyHealing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilGreedyHealing.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilGreedyHealing_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilGreedyHealing_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilGrinder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilGrinder.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilGrinder_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilGrinder_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilGroupHealer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilGroupHealer.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilGroupHealer_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilGroupHealer_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilHealer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilHealer.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilHealer_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilHealer_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilIdol" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilIdol.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilIdol_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilIdol_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilMarksman" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilMarksman.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilMarksman_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilMarksman_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilMartyr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilMartyr.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilMartyr_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilMartyr_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilNettles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilNettles.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilNettles_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilNettles_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilNeutered" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilNeutered.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilNeuteredLatch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilNeuteredLatch.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilNeuteredLatch_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilNeuteredLatch_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilNeutered_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilNeutered_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilNihil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilNihil.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilNihil_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilNihil_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilOneSided" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilOneSided.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilOneSided_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilOneSided_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilPiercing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilPiercing.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilPiercing_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilPiercing_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilProtector" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilProtector.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilProtector_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilProtector_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilPunisher" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilPunisher.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilPunisher_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilPunisher_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilQueenNest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilQueenNest.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilQueenNest_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilQueenNest_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilQuickDraw" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilQuickDraw.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilQuickDraw_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilQuickDraw_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilReflector" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilReflector.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilReflector_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilReflector_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilRegenerator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilRegenerator.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilRegenerator_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilRegenerator_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilRightfulHeir" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilRightfulHeir.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilRightfulHeir_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilRightfulHeir_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilRoots" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilRoots.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilRoots_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilRoots_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilScrambler" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilScrambler.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilScrambler_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilScrambler_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilSerpentsNest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilSerpentsNest.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilSerpentsNest_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilSerpentsNest_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilSlime" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilSlime.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilSlime_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilSlime_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilSpores" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilSpores.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilSpores_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilSpores_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTargetGainSigils" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilTargetGainSigils.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTargetGainSigils_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilTargetGainSigils_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTargetGainStats" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilTargetGainStats.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTargetGainStatsSigils" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilTargetGainStatsSigils.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTargetGainStatsSigils_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilTargetGainStatsSigils_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTargetGainStats_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilTargetGainStats_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTeamLeader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilTeamLeader.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTeamLeader_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilTeamLeader_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTheTrain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilTheTrain.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTheTrain_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilTheTrain_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilThickSkin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilThickSkin.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilThickSkin_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilThickSkin_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTime" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilTime.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilTime_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilTime_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilVolatile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilVolatile.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilVolatile_flipped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilVolatile_flipped.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilVolatile_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilVolatile_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilWitness" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilWitness.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilWitness_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilWitness_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilWoodcutter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilWoodcutter.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilWoodcutter_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilWoodcutter_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="snowQueenIceBlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\snowQueenIceBlock.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="snowQueenIceBlock_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\snowQueenIceBlock_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="snowQueenIceHeart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\snowQueenIceHeart.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="snowQueenIceHeart_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\snowQueenIceHeart_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="snowWhitesVine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\snowWhitesVine.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="snowWhitesVine_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\snowWhitesVine_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="spiderBrood" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\spiderBrood.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="spiderBrood_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\spiderBrood_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="spiderling" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\spiderling.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="spiderling_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\spiderling_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="theLittlePrinceMinion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\theLittlePrinceMinion.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="theLittlePrinceMinion_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\theLittlePrinceMinion_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="theNakedWorm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\theNakedWorm.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="theNakedWorm_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\theNakedWorm_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

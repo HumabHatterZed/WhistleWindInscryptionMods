@@ -1,0 +1,28 @@
+﻿using DiskCardGame;
+using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
+
+namespace WhistleWindLobotomyMod
+{
+    public partial class LobotomyPlugin
+    {
+        private void Card_WorldPortrait_O0991()
+        {
+            List<Ability> abilities = new()
+            {
+               Reflector.ability
+            };
+            CardHelper.CreateCard(
+                "wstl_worldPortrait", "Portrait of Another World",
+                "This portrait captures a moment, one we're destined to lose.",
+                atk: 0, hp: 4,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.worldPortrait, Artwork.worldPortrait_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.He);
+        }
+    }
+}

@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AssemblyName>WhistleWind.AbnormalSigils</AssemblyName>
+		<Description>A mod for Inscryption adding sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina.</Description>
+		<Version>1.0.0</Version>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>9.0</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+		<PackageReference Include="BepInEx.Core" Version="5.4.19" />
+		<PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
+		<PackageReference Include="Inscryption.GameLibs" Version="1.9.0-r.0" />
+		<PackageReference Include="UnityEngine.Modules" Version="2019.4.24" IncludeAssets="compile" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="InscryptionAPI" Private="false">
+			<HintPath>..\lib\InscryptionAPI.dll</HintPath>
+		</Reference>
+    <Reference Include="InscryptionCommunityPatch" Private="false">
+      <HintPath>..\lib\InscryptionCommunityPatch.dll</HintPath>
+    </Reference>
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Compile Update="Properties\Artwork.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Artwork.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Artwork.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Artwork.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+  
+  <Target Name="CopyDLLs" AfterTargets="Build">
+    <Message Text="Copying AbnormalSigils DLL file" Importance="High" />
+
+    <Copy Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Inscryption\')" SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Inscryption\BepInEx\plugins\" />
+
+    <Message Text="Copied AbnormalSigils build file" Importance="High" />
+  </Target>
+  
+</Project>
