@@ -1,12 +1,13 @@
 # WhistleWind's Abnormal Sigils
 
-### Face the Fear. Make the Future.
-
-Tired of regular abilities? Looking to use abilities with incredibly specific usa
+A library of [number] sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina. A required dependency for the 2.0 version of my Lobotomy Corporation Mod.
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1902
-* API_dev-API v2.6.0
+* API_dev-API v2.7.1
+
+## ⚙️ Compatibility
+If you have Infiniscryption's Spell API installed, several
 
 ## 💌 Credits/Acknowledgements
 
