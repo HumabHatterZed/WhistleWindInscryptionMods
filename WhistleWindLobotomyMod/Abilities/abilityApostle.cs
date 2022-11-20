@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private bool SpecialApostle => base.Card.Info.name.Contains("apostleGuardian") || base.Card.Info.name.Contains("apostleMoleman");
+        private bool SpecialApostle => base.Card.Info.name.Contains("apostleGuardian") || base.Card.Info.name.Contains("Moleman"); // just check for Moleman as a secret l'il secret
         private int downCount = 0;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
@@ -42,7 +42,12 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            if (killer != null)
+
+            // clear the slot if it's filled
+            if (base.Card.Slot.Card != null)
+                yield return base.Card.Slot.Card.DieTriggerless();
+
+            if (killer != null || SpecialApostle)
             {
                 // Create the downed forme of the Apostle in its slot
                 CardInfo downedInfo = base.Card.Info.name switch
@@ -61,11 +66,6 @@ namespace WhistleWindLobotomyMod
             }
 
             // if killer == null, create a new copy of this card in the same slot
-
-            // clear the slot if it's filled
-            if (base.Card.Slot.Card != null)
-                yield return base.Card.Slot.Card.DieTriggerless();
-
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f, false);
             yield return new WaitForSeconds(0.2f);
             yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightApostleKilledByNull");
@@ -74,7 +74,7 @@ namespace WhistleWindLobotomyMod
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
             // don't trigger on upkeep if a special Apostle or isn't a downed Apostle
-            if (SpecialApostle || !base.Card.Info.name.Contains("Downed"))
+            if (SpecialApostle || !base.Card.Info.name.Contains("Down"))
                 return false;
 
             return base.Card.OpponentCard != playerUpkeep;
@@ -89,8 +89,8 @@ namespace WhistleWindLobotomyMod
                 downCount = 0;
                 CardInfo risenInfo = base.Card.Info.name switch
                 {
-                    "wstl_apostleSpear" => CardLoader.GetCardByName("wstl_apostleSpear"),
-                    "wstl_apostleStaff" => CardLoader.GetCardByName("wstl_apostleStaff"),
+                    "wstl_apostleSpearDown" => CardLoader.GetCardByName("wstl_apostleSpear"),
+                    "wstl_apostleStaffDown" => CardLoader.GetCardByName("wstl_apostleStaff"),
                     _ => CardLoader.GetCardByName("wstl_apostleScythe")
                 };
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
