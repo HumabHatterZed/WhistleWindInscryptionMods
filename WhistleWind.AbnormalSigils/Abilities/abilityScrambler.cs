@@ -10,9 +10,9 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Ability_Scrambler()
         {
-            string rulebookDescription = "When [creature] is sacrificed, give its stats to the sacrificing card then randomly scramble the result.";
+            string rulebookDescription = "When [creature] is sacrificed, give its stats to the sacrificing card then scramble its new stats.";
             if (SpellAPI.Enabled)
-                rulebookDescription = "For spells: Activate upon selecting a target.\n\n" + rulebookDescription;
+                rulebookDescription = "For spells: Activate upon selecting a target.\n" + rulebookDescription;
 
             const string rulebookName = "Scrambler";
             const string dialogue = "Do you love your city?";
@@ -33,19 +33,17 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnSacrifice()
         {
             PlayableCard card = Singleton<BoardManager>.Instance.currentSacrificeDemandingCard;
+            CardModificationInfo info = new(base.Card.Attack, base.Card.Health);
+
             yield return base.PreSuccessfulTriggerSequence();
 
-            CardModificationInfo info = new(base.Card.Attack, base.Card.Health);
+            card.Anim.LightNegationEffect();
             card.AddTemporaryMod(info);
-
-            card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.4f);
-
-            ScrambleStats(card);
+            yield return ScrambleStats(card);
 
             yield return base.LearnAbility();
         }
-        public override IEnumerator EffectOnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
             targetSlot = slot;
             yield break;
@@ -54,11 +52,11 @@ namespace WhistleWind.AbnormalSigils
         {
             return targetSlot != null;
         }
-        public override IEnumerator EffectOnDie(bool wasSacrifice, PlayableCard killer)
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return base.PreSuccessfulTriggerSequence();
 
-            yield return SwitchCardView(View.Board, start: 0.75f);
+            yield return AbnormalMethods.ChangeCurrentView(View.Board, endDelay: 0.75f);
 
             CardModificationInfo info = new(base.Card.Attack, base.Card.Health);
             targetSlot.Card.AddTemporaryMod(info);
@@ -66,22 +64,25 @@ namespace WhistleWind.AbnormalSigils
             targetSlot.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
 
-            ScrambleStats(targetSlot.Card);
+            yield return ScrambleStats(targetSlot.Card);
 
             yield return base.LearnAbility();
-            yield return SwitchCardView(View.Default, start: 0.5f);
+            yield return AbnormalMethods.ChangeCurrentView(View.Board, startDelay: 0.5f);
         }
 
-        private IEnumerator ScrambleStats(PlayableCard card)
+        private IEnumerator ScrambleStats(PlayableCard card, bool inHand = false)
         {
-            int totalStats = Mathf.Max(card.Attack + card.MaxHealth, 2);
+            int randomSeed = base.GetRandomSeed();
+            int totalStats = card.Attack + card.MaxHealth;
 
-            int newHp = 1 + SeededRandom.Range(0, totalStats, GetRandomSeed());
+            int newHp = 1 + SeededRandom.Range(0, totalStats, randomSeed++);
             int newAtk = totalStats - newHp;
 
             CardModificationInfo newStats = new(-card.Attack + newAtk, -card.MaxHealth + newHp);
 
-            card.Anim.PlayTransformAnimation();
+            if (!inHand)
+                card.Anim.PlayTransformAnimation();
+
             card.AddTemporaryMod(newStats);
             card.OnStatsChanged();
             yield return new WaitForSeconds(0.5f);

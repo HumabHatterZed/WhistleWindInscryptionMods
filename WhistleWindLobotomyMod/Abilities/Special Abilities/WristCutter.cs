@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod
                     nameOfEvo = "wstl_bloodBath3";
                     break;
             }
-            CardInfo evolution = AbnormalCustomMethods.GetInfoWithMods(base.PlayableCard, nameOfEvo);
+            CardInfo evolution = AbnormalMethods.GetInfoWithMods(base.PlayableCard, nameOfEvo);
 
             if (base.PlayableCard.InHand && Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard != base.PlayableCard)
             {
@@ -63,8 +63,8 @@ namespace WhistleWindLobotomyMod
                     yield return DialogueEventsManager.PlayDialogueEvent("Bloodbath3");
                     break;
             }
-
-            yield return new WaitForSeconds(base.PlayableCard.InHand ? 0.5f : 0.25f);
+            if (base.PlayableCard.InHand && Singleton<BoardManager>.Instance.currentSacrificeDemandingCard != base.PlayableCard)
+                yield return new WaitForSeconds(0.5f);
 
             if (Singleton<ViewManager>.Instance.CurrentView != view)
                 Singleton<ViewManager>.Instance.SwitchToView(view);
@@ -79,11 +79,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_WristCutter()
         {
-            RulebookEntryWristCutter.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryWristCutter>(WristCutter.rName, WristCutter.rDesc).Id;
+            RulebookEntryWristCutter.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryWristCutter>(WristCutter.rName, WristCutter.rDesc).Id;
         }
         private void SpecialAbility_WristCutter()
         {
-            WristCutter.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<WristCutter>(WristCutter.rName).Id;
+            WristCutter.specialAbility = AbilityHelper.CreateSpecialAbility<WristCutter>(WristCutter.rName).Id;
         }
     }
 }

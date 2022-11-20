@@ -11,19 +11,18 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Grinder()
         {
             const string rulebookName = "Grinder";
-            const string rulebookDescription = "[creature] gains the stats of the card sacrificed to play it.";
+            const string rulebookDescription = "Pay 1 Health and gain an Energy Cell.\n[creature] gains the stats of the cards sacrificed to play it.";
             const string dialogue = "Now everything will be just fine.";
-            Grinder.ability = AbnormalAbilityHelper.CreateAbility<Grinder>(
+            Grinder.ability = AbnormalAbilityHelper.CreateActivatedAbility<Grinder>(
                 Artwork.sigilGrinder, Artwork.sigilGrinder_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: true, opponent: false, canStack: false, isPassive: false).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
-    public class Grinder : AbilityBehaviour
+    public class Grinder : BetterActivatedAbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
+        public override int StartingHealthCost => 1;
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             return !fromCombat && Singleton<BoardManager>.Instance.currentSacrificeDemandingCard == base.Card;
@@ -36,6 +35,17 @@ namespace WhistleWind.AbnormalSigils
             base.Card.OnStatsChanged();
             yield return new WaitForSeconds(0.25f);
             yield return base.LearnAbility(0.4f);
+        }
+
+        public override IEnumerator Activate()
+        {
+            View view = Singleton<ViewManager>.Instance.CurrentView;
+            yield return base.PreSuccessfulTriggerSequence();
+            yield return AbnormalMethods.ChangeCurrentView(View.Default);
+            yield return Singleton<ResourcesManager>.Instance.AddMaxEnergy(1);
+            yield return Singleton<ResourcesManager>.Instance.AddEnergy(1);
+            yield return base.LearnAbility(0.2f);
+            yield return AbnormalMethods.ChangeCurrentView(view);
         }
     }
 }

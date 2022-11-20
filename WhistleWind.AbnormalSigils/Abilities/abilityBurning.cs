@@ -35,7 +35,7 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
             yield return PreSuccessfulTriggerSequence();
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
+            yield return AbnormalMethods.ChangeCurrentView(View.Board);
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.2f);
             yield return base.Card.Slot.opposingSlot.Card.TakeDamage(1, null);

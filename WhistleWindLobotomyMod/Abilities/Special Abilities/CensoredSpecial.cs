@@ -79,7 +79,7 @@ namespace WhistleWindLobotomyMod
             }
             else
             {
-                AbnormalCustomMethods.QueueCreatedCard(minion);
+                AbnormalMethods.QueueCreatedCard(minion);
             }
             yield return DialogueEventsManager.PlayDialogueEvent("CENSOREDKilledCard");
             yield return new WaitForSeconds(0.25f);
@@ -94,11 +94,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_CensoredSpecial()
         {
-            RulebookEntryCensoredSpecial.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCensoredSpecial>(CensoredSpecial.rName, CensoredSpecial.rDesc).Id;
+            RulebookEntryCensoredSpecial.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryCensoredSpecial>(CensoredSpecial.rName, CensoredSpecial.rDesc).Id;
         }
         private void SpecialAbility_CensoredSpecial()
         {
-            CensoredSpecial.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<CensoredSpecial>(CensoredSpecial.rName).Id;
+            CensoredSpecial.specialAbility = AbilityHelper.CreateSpecialAbility<CensoredSpecial>(CensoredSpecial.rName).Id;
         }
     }
 }

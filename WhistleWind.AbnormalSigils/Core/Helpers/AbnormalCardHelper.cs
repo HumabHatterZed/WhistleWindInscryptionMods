@@ -35,9 +35,9 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             metaTypes ??= new();
 
             // Load textures
-            Texture2D portraitTex = TextureLoader.LoadTextureFromBytes(portrait);
-            Texture2D emissionTex = emission != null ? TextureLoader.LoadTextureFromBytes(emission) : null;
-            Texture2D pixelTex = pixelTexture != null ? TextureLoader.LoadTextureFromBytes(pixelTexture) : null;
+            Texture2D portraitTex = AbnormalTextureLoader.LoadTextureFromBytes(portrait);
+            Texture2D emissionTex = emission != null ? AbnormalTextureLoader.LoadTextureFromBytes(emission) : null;
+            Texture2D pixelTex = pixelTexture != null ? AbnormalTextureLoader.LoadTextureFromBytes(pixelTexture) : null;
 
             // Create initial card info
             CardInfo cardInfo = ScriptableObject.CreateInstance<CardInfo>();

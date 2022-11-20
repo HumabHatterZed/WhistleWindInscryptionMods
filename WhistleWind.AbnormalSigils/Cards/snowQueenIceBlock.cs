@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils
                 "wstl_snowQueenIceBlock", "Block of Ice",
                 "The palace was cold and lonely.",
                 0, 1, 0, 0,
-                Artwork.snowQueenIceBlock, Artwork.snowQueenIceBlock_emission,
+                Artwork.snowQueenIceBlock,
                 abilities: new(),
                 metaCategories: new(), tribes: new(), traits: new());
         }

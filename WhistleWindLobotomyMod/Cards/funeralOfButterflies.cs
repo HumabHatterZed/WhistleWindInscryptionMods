@@ -20,8 +20,8 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_funeralOfButterflies", "Funeral of the Dead Butterflies",
                 "The coffin is a tribute to the fallen. A memorial to those who can't return home.",
-                atk: 3, hp: 3,
-                blood: 3, bones: 0, energy: 0,
+                atk: 1, hp: 3,
+                blood: 2, bones: 0, energy: 0,
                 Artwork.funeralOfButterflies, Artwork.funeralOfButterflies_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),

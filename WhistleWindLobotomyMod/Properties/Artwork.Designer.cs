@@ -63,6 +63,26 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] abnormalRewardBack {
+            get {
+                object obj = ResourceManager.GetObject("abnormalRewardBack", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] abnormalRewardBackRare {
+            get {
+                object obj = ResourceManager.GetObject("abnormalRewardBackRare", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] allAroundHelper {
             get {
                 object obj = ResourceManager.GetObject("allAroundHelper", resourceCulture);
@@ -1763,6 +1783,46 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] nodeSefirotCardChoice1 {
+            get {
+                object obj = ResourceManager.GetObject("nodeSefirotCardChoice1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] nodeSefirotCardChoice2 {
+            get {
+                object obj = ResourceManager.GetObject("nodeSefirotCardChoice2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] nodeSefirotCardChoice3 {
+            get {
+                object obj = ResourceManager.GetObject("nodeSefirotCardChoice3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] nodeSefirotCardChoice4 {
+            get {
+                object obj = ResourceManager.GetObject("nodeSefirotCardChoice4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] nosferatu {
             get {
                 object obj = ResourceManager.GetObject("nosferatu", resourceCulture);
@@ -2543,6 +2603,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] sefirotRewardBack {
+            get {
+                object obj = ResourceManager.GetObject("sefirotRewardBack", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] servantOfWrath {
             get {
                 object obj = ResourceManager.GetObject("servantOfWrath", resourceCulture);
@@ -2946,6 +3016,336 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] starterDeckMagicalGirls {
             get {
                 object obj = ResourceManager.GetObject("starterDeckMagicalGirls", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_eyes_emission1 {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_eyes_emission1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_eyes_emission2 {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_eyes_emission2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_eyes1_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_eyes1_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_eyes2_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_eyes2_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_eyes2_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_eyes2_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_eyes3_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_eyes3_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_eyes4_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_eyes4_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_eyes4_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_eyes4_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_eyes5_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_eyes5_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_eyes5_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_eyes5_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_eyes6_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_eyes6_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_eyes6_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_eyes6_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_mouth1_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_mouth1_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_mouth2_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_mouth2_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_mouth2_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_mouth2_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_mouth3_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_mouth3_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_mouth3_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_mouth3_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_mouth4_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_mouth4_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_mouth4_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_mouth4_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_mouth6_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_mouth6_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardHod_mouth6_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardHod_mouth6_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardYesod_eyes_emission {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardYesod_eyes_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardYesod_eyes1_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardYesod_eyes1_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardYesod_eyes1_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardYesod_eyes1_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardYesod_eyes2_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardYesod_eyes2_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardYesod_eyes2_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardYesod_eyes2_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardYesod_eyes3_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardYesod_eyes3_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardYesod_eyes3_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardYesod_eyes3_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardYesod_mouth1_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardYesod_mouth1_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardYesod_mouth1_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardYesod_mouth1_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardYesod_mouth2_closed {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardYesod_mouth2_closed", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardYesod_mouth2_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardYesod_mouth2_open", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TalkingCardYesod_mouth3_open {
+            get {
+                object obj = ResourceManager.GetObject("TalkingCardYesod_mouth3_open", resourceCulture);
                 return ((byte[])(obj));
             }
         }

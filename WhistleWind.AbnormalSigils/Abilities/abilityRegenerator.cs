@@ -32,7 +32,7 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             bool faceDown = false;
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            yield return AbnormalMethods.ChangeCurrentView(View.Board);
             yield return PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
 

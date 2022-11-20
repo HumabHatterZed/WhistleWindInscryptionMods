@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod
             CardSlot woodsmanSlot = null;
             CardSlot scaredySlot = null;
 
-            foreach (CardSlot slot in AbnormalCustomMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+            foreach (CardSlot slot in AbnormalMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 if (slot != base.PlayableCard.Slot)
                 {
@@ -167,11 +167,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_YellowBrick()
         {
-            RulebookEntryYellowBrick.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryYellowBrick>(YellowBrick.rName, YellowBrick.rDesc).Id;
+            RulebookEntryYellowBrick.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryYellowBrick>(YellowBrick.rName, YellowBrick.rDesc).Id;
         }
         private void SpecialAbility_YellowBrick()
         {
-            YellowBrick.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<YellowBrick>(YellowBrick.rName).Id;
+            YellowBrick.specialAbility = AbilityHelper.CreateSpecialAbility<YellowBrick>(YellowBrick.rName).Id;
         }
     }
 }

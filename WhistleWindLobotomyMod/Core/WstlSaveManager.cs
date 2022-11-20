@@ -6,8 +6,13 @@ namespace WhistleWindLobotomyMod.Core
     {
         public static bool LearnedAbnormalChoice
         {
-            get => GetBool("LearnedAbnormalChoice");
-            set => SetBool("LearnedAbnormalChoice", value);
+            get => GetSaveBool("LearnedAbnormalChoice");
+            set => SetSaveBool("LearnedAbnormalChoice", value);
+        }
+        public static bool LearnedSefirotChoice
+        {
+            get => GetSaveBool("LearnedSefirotChoice");
+            set => SetSaveBool("LearnedSefirotChoice", value);
         }
         public static bool TriggeredWhiteNightThisRun
         {
@@ -50,8 +55,15 @@ namespace WhistleWindLobotomyMod.Core
             get => GetBool("BoardEffectsEntropy");
             set => SetBool("BoardEffectsEntropy", value);
         }
+        public static bool HasGottenAngelaOnce
+        {
+            get => GetSaveBool("HasGottenAngelaOnce");
+            set => SetSaveBool("HasGottenAngelaOnce", value);
+        }
 
         private static bool GetBool(string id) => ModdedSaveManager.RunState.GetValueAsBoolean(LobotomyPlugin.pluginGuid, id);
         private static void SetBool(string id, object value) => ModdedSaveManager.RunState.SetValue(LobotomyPlugin.pluginGuid, id, value);
+        private static bool GetSaveBool(string id) => ModdedSaveManager.SaveData.GetValueAsBoolean(LobotomyPlugin.pluginGuid, id);
+        private static void SetSaveBool(string id, object value) => ModdedSaveManager.SaveData.SetValue(LobotomyPlugin.pluginGuid, id, value);
     }
 }

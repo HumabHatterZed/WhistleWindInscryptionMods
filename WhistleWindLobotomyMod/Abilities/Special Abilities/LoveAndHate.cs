@@ -108,7 +108,7 @@ namespace WhistleWindLobotomyMod
                         LobotomyPlugin.Log.LogDebug("Adding Queen of Hatred to queue.");
                         base.PlayableCard.RemoveFromBoard();
                         yield return new WaitForSeconds(0.5f);
-                        AbnormalCustomMethods.QueueCreatedCard(evolution);
+                        AbnormalMethods.QueueCreatedCard(evolution);
                     }
                     yield return new WaitForSeconds(0.25f);
                 }
@@ -163,7 +163,7 @@ namespace WhistleWindLobotomyMod
             CardSlot greedSlot = null;
             CardSlot despairSlot = null;
             CardSlot wrathSlot = null;
-            foreach (CardSlot slot in AbnormalCustomMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+            foreach (CardSlot slot in AbnormalMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 if (slot != base.PlayableCard.Slot)
                 {
@@ -275,11 +275,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_LoveAndHate()
         {
-            RulebookEntryLoveAndHate.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryLoveAndHate>(LoveAndHate.rName, LoveAndHate.rDesc).Id;
+            RulebookEntryLoveAndHate.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryLoveAndHate>(LoveAndHate.rName, LoveAndHate.rDesc).Id;
         }
         private void SpecialAbility_LoveAndHate()
         {
-            LoveAndHate.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<LoveAndHate>(LoveAndHate.rName).Id;
+            LoveAndHate.specialAbility = AbilityHelper.CreateSpecialAbility<LoveAndHate>(LoveAndHate.rName).Id;
         }
     }
 }

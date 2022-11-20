@@ -24,7 +24,6 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
         public int GetPassiveAttackBuff(PlayableCard target)
         {
             if (this.Card.OnBoard && target == base.Card)
@@ -38,12 +37,14 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
             yield return base.PreSuccessfulTriggerSequence();
+            yield return AbnormalMethods.ChangeCurrentView(View.Board);
             base.Card.Anim.StrongNegationEffect();
             for (CardModificationInfo temporaryEvolveMod = this.GetTemporaryEvolveMod(); temporaryEvolveMod != null; temporaryEvolveMod = this.GetTemporaryEvolveMod())
             {
                 base.Card.RemoveTemporaryMod(temporaryEvolveMod);
             }
             yield return new WaitForSeconds(0.4f);
+            yield return AbnormalMethods.ChangeCurrentView(View.Default);
         }
         private CardModificationInfo GetTemporaryEvolveMod()
         {

@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils
             // Queue card if opponent, otherwise draw card to hand
             if (base.Card.OpponentCard)
             {
-                yield return AbnormalCustomMethods.QueueCreatedCard(CardToDraw);
+                yield return AbnormalMethods.QueueCreatedCard(CardToDraw);
             }
             else
             {

@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using System;
 
 namespace WhistleWind.AbnormalSigils.Patches
 {
@@ -29,17 +30,20 @@ namespace WhistleWind.AbnormalSigils.Patches
             // if a spell that displays stats, show when in hand or on board
             if (__instance.PlayableCard.HasAnyOfAbilities(TargetGainStats.ability, TargetGainStatsSigils.ability, Scrambler.ability))
             {
+                bool handOrBoard = __instance.PlayableCard.InHand || __instance.PlayableCard.OnBoard;
                 int[] array = new int[2];
-                if (__instance.PlayableCard.InHand || __instance.PlayableCard.OnBoard)
+                if (handOrBoard)
                 {
                     array = __instance.GetStatValues();
                     __instance.statsMod.attackAdjustment = array[0];
                     __instance.statsMod.healthAdjustment = array[1];
                 }
-                __instance.PlayableCard.RenderInfo.showSpecialStats = __instance.PlayableCard.InHand || __instance.PlayableCard.OnBoard;
-                if (!__instance.StatValuesEqual(__instance.prevStatValues, array) || __instance.prevOnBoard != __instance.PlayableCard.OnBoard)
+                // call this every 1 second to minimise lag
+                if (__instance.prevOnBoard != __instance.PlayableCard.OnBoard || (handOrBoard && Environment.TickCount % 100 == 0))
+                {
+                    __instance.PlayableCard.RenderInfo.showSpecialStats = handOrBoard;
                     __instance.PlayableCard.OnStatsChanged();
-
+                }
                 __instance.prevStatValues = array;
                 __instance.prevOnBoard = __instance.PlayableCard.OnBoard;
                 return false;

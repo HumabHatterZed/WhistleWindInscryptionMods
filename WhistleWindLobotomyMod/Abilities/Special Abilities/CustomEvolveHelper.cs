@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
                     yield return DialogueEventsManager.PlayDialogueEvent("NothingThereTransformTrue");
                     break;
                 case "wstl_nothingThereEgg":
-                    CardInfo evolution = AbnormalCustomMethods.GetInfoWithMods(base.PlayableCard, "wstl_nothingThereFinal");
+                    CardInfo evolution = AbnormalMethods.GetInfoWithMods(base.PlayableCard, "wstl_nothingThereFinal");
                     yield return base.PlayableCard.TransformIntoCard(evolution);
                     yield return new WaitForSeconds(0.5f);
                     yield return DialogueEventsManager.PlayDialogueEvent("NothingThereTransformEgg");
@@ -46,13 +46,13 @@ namespace WhistleWindLobotomyMod
             switch (base.PlayableCard.Info.name)
             {
                 case "wstl_queenOfHatred":
-                    CardInfo evolutionTired = AbnormalCustomMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatredTired");
+                    CardInfo evolutionTired = AbnormalMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatredTired");
                     yield return base.PlayableCard.TransformIntoCard(evolutionTired);
                     yield return new WaitForSeconds(0.5f);
                     yield return DialogueEventsManager.PlayDialogueEvent("QueenOfHatredExhaust");
                     break;
                 case "wstl_queenOfHatredTired":
-                    CardInfo evolutionRecovered = AbnormalCustomMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatred");
+                    CardInfo evolutionRecovered = AbnormalMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatred");
                     yield return base.PlayableCard.TransformIntoCard(evolutionRecovered);
                     yield return new WaitForSeconds(0.5f);
                     yield return DialogueEventsManager.PlayDialogueEvent("QueenOfHatredRecover");
@@ -82,7 +82,7 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_CustomFledgling()
         {
             const string rulebookName = "CustomEvolveHelper";
-            CustomEvolveHelper.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<CustomEvolveHelper>(rulebookName).Id;
+            CustomEvolveHelper.specialAbility = AbilityHelper.CreateSpecialAbility<CustomEvolveHelper>(rulebookName).Id;
         }
     }
 }

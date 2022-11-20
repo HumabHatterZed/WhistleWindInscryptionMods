@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod
             CardSlot punishSlot = null;
             CardSlot judgeSlot = null;
 
-            foreach (CardSlot slot in AbnormalCustomMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+            foreach (CardSlot slot in AbnormalMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 if (slot != base.PlayableCard.Slot)
                 {
@@ -142,11 +142,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_ThreeBirds()
         {
-            RulebookEntryThreeBirds.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryThreeBirds>(ThreeBirds.rName, ThreeBirds.rDesc).Id;
+            RulebookEntryThreeBirds.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryThreeBirds>(ThreeBirds.rName, ThreeBirds.rDesc).Id;
         }
         private void SpecialAbility_ThreeBirds()
         {
-            ThreeBirds.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<ThreeBirds>(ThreeBirds.rName).Id;
+            ThreeBirds.specialAbility = AbilityHelper.CreateSpecialAbility<ThreeBirds>(ThreeBirds.rName).Id;
         }
     }
 }

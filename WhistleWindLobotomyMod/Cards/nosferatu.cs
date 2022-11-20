@@ -13,18 +13,18 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new()
             {
                 Bloodfiend.ability,
-                Bloodfiend.ability
+                Ability.Evolve
             };
             CardHelper.CreateCard(
                 "wstl_nosferatu", "Nosferatu",
                 "A creature of the night, noble and regal. Will you help sate its thirst?",
-                atk: 2, hp: 1,
+                atk: 1, hp: 2,
                 blood: 2, bones: 0, energy: 0,
                 Artwork.nosferatu, Artwork.nosferatu_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.Waw,
-                metaTypes: CardHelper.MetaType.Ruina);
+                metaTypes: CardHelper.MetaType.Ruina, evolveName: "wstl_nosferatuBeast");
         }
     }
 }

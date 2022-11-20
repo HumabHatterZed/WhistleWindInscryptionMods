@@ -38,12 +38,7 @@ namespace WhistleWind.AbnormalSigils
                 slot.Card.Anim.LightNegationEffect();
                 slot.Card.AddTemporaryMod(cardModificationInfo);
                 yield return new WaitForSeconds(0.75f);
-                if (Singleton<ViewManager>.Instance.CurrentView != View.Default)
-                {
-                    yield return new WaitForSeconds(0.2f);
-                    Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-                    yield return new WaitForSeconds(0.2f);
-                }
+                yield return AbnormalMethods.ChangeCurrentView(View.Default);
                 yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null);
                 yield return new WaitForSeconds(0.45f);
                 yield return base.LearnAbility(0.1f);

@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Alchemist()
         {
             const string rulebookName = "Alchemist";
-            const string rulebookDescription = "Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.";
+            const string rulebookDescription = "Pay 2 Energy to discard your current hand and draw cards equal to the amount discarded.";
             const string dialogue = "The unending faith of countless promises.";
 
             Alchemist.ability = AbnormalAbilityHelper.CreateActivatedAbility<Alchemist>(
@@ -20,12 +20,11 @@ namespace WhistleWind.AbnormalSigils
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
-    public class Alchemist : ActivatedAbilityBehaviour
+    public class Alchemist : BetterActivatedAbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
-        public override int BonesCost => 3;
+        public override int StartingEnergyCost => 2;
 
         public override bool CanActivate()
         {
@@ -44,7 +43,7 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator Activate()
         {
             yield return base.PreSuccessfulTriggerSequence();
-            Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
+            yield return AbnormalMethods.ChangeCurrentView(View.Hand);
 
             List<PlayableCard> cardsInHand = new(Singleton<PlayerHand>.Instance.CardsInHand);
             int count = 0;
@@ -72,12 +71,12 @@ namespace WhistleWind.AbnormalSigils
                 }
                 else
                 {
-                    yield return AbnormalCustomMethods.PlayAlternateDialogue(dialogue: "You've exhausted your available cards.");
+                    yield return AbnormalMethods.PlayAlternateDialogue(dialogue: "You've exhausted your available cards.");
                     break;
                 }
             }
             yield return base.LearnAbility(0.2f);
-            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.DefaultView);
+            yield return AbnormalMethods.ChangeCurrentView(View.Default);
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace WhistleWind.AbnormalSigils.Core.Helpers
 {
-    public static class AbnormalCustomMethods
+    public static class AbnormalMethods
     {
         public static List<CardSlot> GetSlotsCopy(bool isOpponentCard)
         {
@@ -21,6 +21,15 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
                 cardByName.Mods.Add(cardModificationInfo);
             }
             return cardByName;
+        }
+        public static IEnumerator ChangeCurrentView(View view, float startDelay = 0.2f, float endDelay = 0.2f)
+        {
+            if (Singleton<ViewManager>.Instance.CurrentView != view)
+            {
+                yield return new WaitForSeconds(startDelay);
+                Singleton<ViewManager>.Instance.SwitchToView(view);
+                yield return new WaitForSeconds(endDelay);
+            }
         }
         public static IEnumerator PlayAlternateDialogue(
             Emotion emotion = Emotion.Neutral,

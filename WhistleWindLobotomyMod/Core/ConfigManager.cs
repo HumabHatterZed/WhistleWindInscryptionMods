@@ -28,6 +28,9 @@ namespace WhistleWindLobotomyMod.Core
         private ConfigEntry<bool> Config_BoxStart;
         public bool BoxStart => Config_BoxStart.Value;
 
+        private ConfigEntry<bool> Config_SefirotChoiceAtStart;
+        public bool SefirotChoiceAtStart => Config_SefirotChoiceAtStart.Value;
+
         // Challenge equivalents
         private ConfigEntry<bool> Config_AbnormalBosses;
         public bool AbnormalBosses => Config_AbnormalBosses.Value;
@@ -61,11 +64,13 @@ namespace WhistleWindLobotomyMod.Core
 
             Config_NoDonators = WstlConfigFile.Bind(
                 "Settings.Cards", "NO DONATORS", false,
-                new ConfigDescription("Removes the following abnormalities from the pool of obtainable cards.\nBackward Clock, Honoured Monk."));
+                new ConfigDescription("Removes the following abnormalities from the pool of obtainable cards:" +
+                "\nBackward Clock, Il Pianto della Luna, Army in Pink, Ppodae, Parasite Tree, Melting Love, Honoured Monk."));
 
             Config_NoRuina = WstlConfigFile.Bind(
                 "Settings.Cards", "NO RUINA", false,
-                new ConfigDescription("Removes Library of Ruina cards from the pool of obtainable cards."));
+                new ConfigDescription("Removes the following abnormalities from the pool of obtainable cards:" +
+                "\nMagical Girl C, Price of Silence, Nosferatu, The Road Home, Ozma, Silent Girl."));
 
             Config_AbnormalBosses = WstlConfigFile.Bind(
                 "Challenges", "ABNORMAL BOSSES", false,
@@ -84,8 +89,12 @@ namespace WhistleWindLobotomyMod.Core
                 new ConfigDescription("PART 1 ONLY - Raises the chance of getting a Rare card from the abnormal choice node."));
 
             Config_BoxStart = WstlConfigFile.Bind(
-                "Gameplay", "CARD CHOICE AT START", false,
+                "Gameplay", "ABNORMAL CHOICE AT START", false,
                 new ConfigDescription("Each new region will have an abnormal choice node at its start."));
+
+            Config_SefirotChoiceAtStart = WstlConfigFile.Bind(
+                "Gameplay", "SEFIROT CHOICE AT START", false,
+                new ConfigDescription("Each new region will have a sephirah choice node at its start."));
 
             Config_Blessings = WstlConfigFile.Bind(
                 "Gameplay", "NUMBER OF BLESSINGS", 0);

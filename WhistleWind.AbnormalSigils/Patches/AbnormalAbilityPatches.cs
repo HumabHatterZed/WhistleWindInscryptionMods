@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +14,37 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardPatches
     {
-        // Adds in logic for Prudence, Protector, Thick Skin
+        // Adds in logic for Piercing, Prudence, Protector, Thick Skin
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
-        private static void ModifyTakenDamage(PlayableCard __instance, ref int damage)
+        private static void ModifyTakenDamage(PlayableCard __instance, ref int damage, PlayableCard attacker)
         {
-            // Count number of adjacent cards with Protector
-            int protector = Singleton<BoardManager>.Instance.GetAdjacentSlots(__instance.Slot).Where((s) => s.Card != null && s.Card.HasAbility(Protector.ability)).Count();
+            // if attacker doesn't have Piercing
+            if ((bool)attacker?.HasAbility(Piercing.ability))
+            {
+                if (__instance.HasShield())
+                {
+                    __instance.Status.lostShield = true;
+                    __instance.Anim.StrongNegationEffect();
+                    if (__instance.Info.name == "MudTurtle")
+                        __instance.SwitchToAlternatePortrait();
 
-            // Count number of stacks of Thick Skin
-            int skin = __instance.GetAbilityStacks(ThickSkin.ability);
+                    __instance.UpdateFaceUpOnBoardEffects();
+                }
+            }
+            else
+            {
+                // Count number of adjacent cards with Protector
+                int protector = __instance.Slot.GetAdjacentCards().FindAll(x => x.HasAbility(Protector.ability)).Count;
 
-            // Count amount of Prudence this card has
-            int prudence = __instance.Info.GetExtendedPropertyAsInt("wstl:Prudence") ?? 0;
+                // Count number of stacks of Thick Skin
+                int skin = __instance.GetAbilityStacks(ThickSkin.ability);
 
-            // Set damage equal to new value or to 0 if the new value is negative
-            damage = Mathf.Max(damage + prudence - (protector + skin), 0);
+                // Count amount of Prudence this card has
+                int prudence = __instance.Info.GetExtendedPropertyAsInt("wstl:Prudence") ?? 0;
+
+                // Set damage equal to new value or to 0 if the new value is negative
+                damage = Mathf.Max(damage + prudence - (protector + skin), 0);
+            }
         }
 
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.GetOpposingSlots))]
@@ -38,7 +55,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             if (__instance.Info.name.StartsWith("wstl_blueStar") && __instance.HasAbility(Ability.AllStrike))
             {
                 ProgressionData.SetAbilityLearned(Ability.AllStrike);
-                List<CardSlot> list2 = AbnormalCustomMethods.GetSlotsCopy(!__instance.OpponentCard);
+                List<CardSlot> list2 = AbnormalMethods.GetSlotsCopy(!__instance.OpponentCard);
 
                 // if there's an attackable card, return original list
                 if (list2.Exists((x) => x.Card != null && !__instance.CanAttackDirectly(x)))

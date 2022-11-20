@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Confession and Pentinence";
             const string dialogue = "[c:bG]Keep faith with unwavering resolve.[c:]";
 
-            Confession.ability = LobotomyAbilityHelper.CreateActivatedAbility<Confession>(
+            Confession.ability = AbilityHelper.CreateActivatedAbility<Confession>(
                 Artwork.sigilConfession, Artwork.sigilConfession_pixel,
                 rulebookName, ConfessionHiddenDescription, dialogue, powerLevel: -3).Id;
         }
@@ -27,10 +28,8 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool CanActivate()
-        {
-            return base.Card.Info.name != "wstl_hundredsGoodDeeds";
-        }
+        public override bool CanActivate() => base.Card.Info.name != "wstl_hundredsGoodDeeds";
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => base.Card.Info.name != "wstl_hundredsGoodDeeds";
         public override IEnumerator Activate()
         {
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
@@ -49,9 +48,7 @@ namespace WhistleWindLobotomyMod
                 if (slot.Card.Info.name == "wstl_whiteNight" || slot.Card.Info.name.Contains("wstl_apostle"))
                 {
                     if (slot.Card != base.Card)
-                    {
                         slot.Card.Anim.SetShaking(true);
-                    }
                 }
             }
             yield return new WaitForSeconds(0.8f);
@@ -100,25 +97,17 @@ namespace WhistleWindLobotomyMod
             RunState.Run.currency += excessDamage;
 
             if (Singleton<TurnManager>.Instance.Opponent.NumLives > 1)
-            {
                 yield return thisSlot.Card.Die(false, thisSlot.Card);
-            }
+
             // Resets Blessings
             LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
             ConfigManager.Instance.SetBlessings(0);
-        }
-
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
-        {
-            return base.Card.Info.name != "wstl_hundredsGoodDeeds";
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return base.PreSuccessfulTriggerSequence();
             if (killer != base.Card)
-            {
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
-            }
         }
     }
 }

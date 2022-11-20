@@ -32,8 +32,7 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-            yield return new WaitForSeconds(0.25f);
+            yield return AbnormalMethods.ChangeCurrentView(View.Board);
 
             int count = 0;
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(slot => slot.Card != base.Card))

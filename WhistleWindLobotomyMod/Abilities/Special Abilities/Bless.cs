@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod
 
             // If blessings are in the negatives (aka someone altered tge config value), wag a finger and go 'nuh-uh-uh!'
             if (ConfigManager.Instance.NumOfBlessings < 0)
-                yield return AbnormalCustomMethods.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou cannot stop my ascension. Even the [c:]tutelary[c:bR] bows to my authority.[c:]");
+                yield return AbnormalMethods.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou cannot stop my ascension. Even the [c:]tutelary[c:bR] bows to my authority.[c:]");
 
             // Change Leshy's eyes to red
             LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
@@ -287,11 +287,11 @@ namespace WhistleWindLobotomyMod
                 default:
                     portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor11);
                     emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor11_emission);
-                    base.PlayableCard.ApplyAppearanceBehaviours(new() { ForcedWhite.appearance });
+                    base.Card.ApplyAppearanceBehaviours(new() { ForcedWhite.appearance });
                     break;
             }
-            base.PlayableCard.ClearAppearanceBehaviours();
-            base.PlayableCard.Info.SetPortrait(portrait, emissive);
+            base.Card.ClearAppearanceBehaviours();
+            base.Card.Info.SetPortrait(portrait, emissive);
         }
     }
     public class RulebookEntryBless : AbilityBehaviour
@@ -303,11 +303,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_Bless()
         {
-            RulebookEntryBless.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryBless>(Bless.rName, Bless.rDesc).Id;
+            RulebookEntryBless.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryBless>(Bless.rName, Bless.rDesc).Id;
         }
         private void SpecialAbility_Bless()
         {
-            Bless.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Bless>(Bless.rName).Id;
+            Bless.specialAbility = AbilityHelper.CreateSpecialAbility<Bless>(Bless.rName).Id;
         }
     }
 }

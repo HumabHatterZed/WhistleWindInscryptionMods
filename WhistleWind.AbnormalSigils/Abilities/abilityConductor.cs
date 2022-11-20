@@ -48,14 +48,10 @@ namespace WhistleWind.AbnormalSigils
         {
             turnCount++;
             yield return base.PreSuccessfulTriggerSequence();
-            if (Singleton<ViewManager>.Instance.CurrentView != View.Board)
-            {
-                yield return new WaitForSeconds(0.2f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-                yield return new WaitForSeconds(0.2f);
-            }
+            yield return AbnormalMethods.ChangeCurrentView(View.Board);
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
+            yield return AbnormalMethods.ChangeCurrentView(View.Default);
         }
 
         public int GetPassiveAttackBuff(PlayableCard target)

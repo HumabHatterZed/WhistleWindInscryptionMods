@@ -80,12 +80,12 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.5f);
 
                 if (isNegative)
-                    yield return AbnormalCustomMethods.PlayAlternateDialogue(dialogue: "The end at the beginning.");
+                    yield return AbnormalMethods.PlayAlternateDialogue(dialogue: "The end at the beginning.");
                 else
-                    yield return AbnormalCustomMethods.PlayAlternateDialogue(dialogue: "The beginning at the end.");
+                    yield return AbnormalMethods.PlayAlternateDialogue(dialogue: "The beginning at the end.");
             }
             else
-                yield return AbnormalCustomMethods.PlayAlternateDialogue(dialogue: "Everything is equal. Everything is as it should be.");
+                yield return AbnormalMethods.PlayAlternateDialogue(dialogue: "Everything is equal. Everything is as it should be.");
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
@@ -99,11 +99,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_Concord()
         {
-            RulebookEntryConcord.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryConcord>(Concord.rName, Concord.rDesc).Id;
+            RulebookEntryConcord.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryConcord>(Concord.rName, Concord.rDesc).Id;
         }
         private void SpecialAbility_Concord()
         {
-            Concord.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Concord>(Concord.rName).Id;
+            Concord.specialAbility = AbilityHelper.CreateSpecialAbility<Concord>(Concord.rName).Id;
         }
     }
 }

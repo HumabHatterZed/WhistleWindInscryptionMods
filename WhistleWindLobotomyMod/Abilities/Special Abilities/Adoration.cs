@@ -81,11 +81,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_Adoration()
         {
-            RulebookEntryAdoration.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryAdoration>(Adoration.rName, Adoration.rDesc).Id;
+            RulebookEntryAdoration.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryAdoration>(Adoration.rName, Adoration.rDesc).Id;
         }
         private void SpecialAbility_Adoration()
         {
-            Adoration.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Adoration>(Adoration.rName).Id;
+            Adoration.specialAbility = AbilityHelper.CreateSpecialAbility<Adoration>(Adoration.rName).Id;
         }
     }
 }

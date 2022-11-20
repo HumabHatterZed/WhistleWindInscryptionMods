@@ -11,7 +11,7 @@ using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core.Helpers
 {
-    public static class LobotomyAbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
+    public static class AbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         public static AbilityManager.FullAbility CreateAbility<T>(
             byte[] texture, byte[] gbcTexture,
@@ -116,6 +116,8 @@ namespace WhistleWindLobotomyMod.Core.Helpers
 
         public static SpecialTriggeredAbilityManager.FullSpecialTriggeredAbility CreateSpecialAbility<T>(string rulebookName)
             where T : SpecialCardBehaviour => SpecialTriggeredAbilityManager.Add(pluginGuid, rulebookName, typeof(T));
+        public static SpecialTriggeredAbilityManager.FullSpecialTriggeredAbility CreatePaperTalkingCard<T>(string rulebookName)
+            where T : PaperTalkingCard => SpecialTriggeredAbilityManager.Add(pluginGuid, rulebookName, typeof(T));
 
         private static AbilityInfo SetBasicInfo(this AbilityInfo info, string name, string desc, string dialogue, int powerLevel)
         {

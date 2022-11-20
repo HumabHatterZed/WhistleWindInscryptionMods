@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck at random based on their power level.";
             const string dialogue = "Close your eyes and count to ten.";
 
-            TimeMachine.ability = LobotomyAbilityHelper.CreateActivatedAbility<TimeMachine>(
+            TimeMachine.ability = AbilityHelper.CreateActivatedAbility<TimeMachine>(
                 Artwork.sigilTimeMachine, Artwork.sigilTimeMachine_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator Activate()
         {
             if (!base.HasLearned)
-                yield return AbnormalCustomMethods.PlayAlternateDialogue(Emotion.Anger, DialogueEvent.Speaker.Leshy, 0.2f, "Have I backed you into a corner? Or am I simply boring you?", "I suppose it doesn't matter. I will honour your request.");
+                yield return AbnormalMethods.PlayAlternateDialogue(Emotion.Anger, DialogueEvent.Speaker.Leshy, 0.2f, "Have I backed you into a corner? Or am I simply boring you?", "I suppose it doesn't matter. I will honour your request.");
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             AudioController.Instance.PlaySound2D("antigravity_elevator_down");
             base.Card.Anim.LightNegationEffect();

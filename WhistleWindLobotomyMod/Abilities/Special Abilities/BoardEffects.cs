@@ -81,7 +81,7 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_BoardEffects()
         {
             const string rulebookName = "BoardEffects";
-            BoardEffects.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<BoardEffects>(rulebookName).Id;
+            BoardEffects.specialAbility = AbilityHelper.CreateSpecialAbility<BoardEffects>(rulebookName).Id;
         }
     }
 }

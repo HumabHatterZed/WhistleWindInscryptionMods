@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils
                 "wstl_ozmaPumpkin", "Pumpkin",
                 "An orange gourd.",
                 0, 1, 0, 0,
-                Artwork.ozmaPumpkin, Artwork.ozmaPumpkin_emission,
+                Artwork.ozmaPumpkin,
                 abilities: new() { TargetGainSigils.ability },
                 metaCategories: new(), tribes: new(), traits: new(),
                 evolveName: "wstl_ozmaPumpkinJack");

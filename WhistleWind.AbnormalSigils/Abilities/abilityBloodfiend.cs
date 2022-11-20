@@ -27,7 +27,7 @@ namespace WhistleWind.AbnormalSigils
 
         public override bool RespondsToDealDamage(int amount, PlayableCard target)
         {
-            return amount > 0 && !base.Card.Dead;
+            return amount > 0 && !base.Card.Dead && base.Card.Health != 0;
         }
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {

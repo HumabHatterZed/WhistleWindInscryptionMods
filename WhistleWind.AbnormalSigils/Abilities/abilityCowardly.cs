@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
 
             Cowardly.ability = AbnormalAbilityHelper.CreateAbility<Cowardly>(
                 Artwork.sigilCowardly, Artwork.sigilCowardly_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 1,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
                 modular: true, opponent: false, canStack: false, isPassive: false).Id;
         }
     }

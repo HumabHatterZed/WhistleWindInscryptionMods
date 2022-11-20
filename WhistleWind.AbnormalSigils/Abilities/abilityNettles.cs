@@ -39,7 +39,7 @@ namespace WhistleWind.AbnormalSigils
         }
         public override IEnumerator OnResolveOnBoard()
         {
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            yield return AbnormalMethods.ChangeCurrentView(View.Board);
             List<CardSlot> validSlots = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).FindAll((CardSlot slot) => !(slot.Card != null) && slot.Card != base.Card);
 
             if (validSlots.Count == 0)

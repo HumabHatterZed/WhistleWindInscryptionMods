@@ -43,9 +43,7 @@ namespace WhistleWind.AbnormalSigils
             AbnormalPlugin.Log.LogDebug($"Card {base.PlayableCard.Info.name} has {spores} Spore.");
 
             if (spores == 0 || base.PlayableCard.Slot == null)
-            {
                 yield break;
-            }
 
             CardInfo minion = CardLoader.GetCardByName("wstl_theLittlePrinceMinion");
 
@@ -55,7 +53,7 @@ namespace WhistleWind.AbnormalSigils
             minion.energyCost = base.PlayableCard.Info.EnergyCost;
             minion.gemsCost = base.PlayableCard.Info.GemsCost;
 
-            foreach (CardModificationInfo item in base.PlayableCard.Info.Mods.FindAll((CardModificationInfo x) => x.fromCardMerge))
+            foreach (CardModificationInfo item in base.PlayableCard.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
                 // Adds merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
@@ -65,7 +63,6 @@ namespace WhistleWind.AbnormalSigils
                 if (cardModificationInfo.attackAdjustment > 0)
                     cardModificationInfo.attackAdjustment = 0;
 
-                // cardModificationInfo.fromCardMerge = true;
                 minion.Mods.Add(cardModificationInfo);
             }
             foreach (Ability item in base.PlayableCard.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))

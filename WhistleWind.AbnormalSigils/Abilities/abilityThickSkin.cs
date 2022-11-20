@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
 
             ThickSkin.ability = AbnormalAbilityHelper.CreateAbility<ThickSkin>(
                 Artwork.sigilThickSkin, Artwork.sigilThickSkin_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 1,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: true, opponent: true, canStack: true, isPassive: false).Id;
         }
     }

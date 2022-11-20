@@ -40,7 +40,7 @@ namespace WhistleWind.AbnormalSigils
 
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            yield return AbnormalMethods.ChangeCurrentView(View.Board);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
             yield return new WaitForSeconds(0.2f);
 

@@ -38,14 +38,14 @@ namespace WhistleWindLobotomyMod
 
             if (KnightOfDespair)
             {
-                CardInfo cardByName = AbnormalCustomMethods.GetInfoWithMods(base.PlayableCard, "wstl_knightOfDespair");
+                CardInfo cardByName = AbnormalMethods.GetInfoWithMods(base.PlayableCard, "wstl_knightOfDespair");
                 yield return base.PlayableCard.TransformIntoCard(cardByName);
                 yield return new WaitForSeconds(0.5f);
                 yield return DialogueEventsManager.PlayDialogueEvent("KnightOfDespairTransform");
             }
             else
             {
-                CardInfo cardByName = AbnormalCustomMethods.GetInfoWithMods(base.PlayableCard, "wstl_armyInBlack");
+                CardInfo cardByName = AbnormalMethods.GetInfoWithMods(base.PlayableCard, "wstl_armyInBlack");
 
                 // reset damage taken since the evolution has less base Health
                 yield return base.PlayableCard.TransformIntoCard(cardByName, preTransformCallback: ResetDamage);
@@ -80,11 +80,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_PinkTears()
         {
-            RulebookEntryPinkTears.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryPinkTears>(PinkTears.rName, PinkTears.rDesc).Id;
+            RulebookEntryPinkTears.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryPinkTears>(PinkTears.rName, PinkTears.rDesc).Id;
         }
         private void SpecialAbility_PinkTears()
         {
-            PinkTears.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<PinkTears>(PinkTears.rName).Id;
+            PinkTears.specialAbility = AbilityHelper.CreateSpecialAbility<PinkTears>(PinkTears.rName).Id;
         }
     }
 }

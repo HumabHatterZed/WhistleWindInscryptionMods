@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
         {
             StarterDeckInfo starterDeckInfo = ScriptableObject.CreateInstance<StarterDeckInfo>();
             starterDeckInfo.title = title;
-            starterDeckInfo.iconSprite = TextureLoader.LoadSpriteFromBytes(icon, true);
+            starterDeckInfo.iconSprite = TextureLoader.LoadSpriteFromBytes(icon);
             starterDeckInfo.cards = cards;
             return StarterDeckManager.Add(pluginPrefix, starterDeckInfo, unlockLevel);
         }

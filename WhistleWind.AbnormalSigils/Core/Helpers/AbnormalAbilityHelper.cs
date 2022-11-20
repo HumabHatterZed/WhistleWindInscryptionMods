@@ -27,7 +27,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             AbilityClass disableModular = (AbilityClass)AbnormalConfigManager.Instance.DisableModular;
 
             info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, powerLevel);
-            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(gbcTexture));
+            info.SetPixelAbilityIcon(AbnormalTextureLoader.LoadTextureFromBytes(gbcTexture));
 
             info.opponentUsable = opponent;
             info.canStack = canStack;
@@ -58,10 +58,10 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
                 }
             }
 
-            AbilityManager.FullAbility ability = AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(texture));
+            AbilityManager.FullAbility ability = AbilityManager.Add(pluginGuid, info, typeof(T), AbnormalTextureLoader.LoadTextureFromBytes(texture));
 
             if (flipTexture != null)
-                ability.SetCustomFlippedTexture(TextureLoader.LoadTextureFromBytes(flipTexture));
+                ability.SetCustomFlippedTexture(AbnormalTextureLoader.LoadTextureFromBytes(flipTexture));
 
             return ability;
         }
@@ -69,7 +69,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             byte[] texture, byte[] gbcTexture,
             string rulebookName, string rulebookDescription, string dialogue, int powerLevel = 0,
             bool special = false, bool unobtainable = false)
-            where T : ActivatedAbilityBehaviour
+            where T : BetterActivatedAbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
@@ -77,7 +77,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             AbilityClass disableModular = (AbilityClass)AbnormalConfigManager.Instance.DisableModular;
 
             info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, powerLevel);
-            info.pixelIcon = TextureLoader.LoadTextureFromBytes(gbcTexture).ConvertTexture();
+            info.pixelIcon = AbnormalTextureLoader.LoadTextureFromBytes(gbcTexture).ConvertTexture();
 
             info.activated = true;
 
@@ -104,7 +104,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
                 }
             }
 
-            return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(texture));
+            return AbilityManager.Add(pluginGuid, info, typeof(T), AbnormalTextureLoader.LoadTextureFromBytes(texture));
         }
         public static AbilityManager.FullAbility CreateRulebookAbility<T>(string rulebookName, string rulebookDescription)
             where T : AbilityBehaviour
@@ -112,9 +112,9 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
             info.SetBasicInfo(rulebookName, rulebookDescription, "", 0);
-            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality_pixel));
+            info.SetPixelAbilityIcon(AbnormalTextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality_pixel));
 
-            return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality));
+            return AbilityManager.Add(pluginGuid, info, typeof(T), AbnormalTextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality));
         }
         public static StatIconManager.FullStatIcon CreateStatIcon<T>(
             string name, string description,
@@ -127,8 +127,8 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             statIconInfo.gbcDescription = description;
             statIconInfo.appliesToAttack = attack;
             statIconInfo.appliesToHealth = health;
-            statIconInfo.iconGraphic = TextureLoader.LoadTextureFromBytes(texture);
-            statIconInfo.SetPixelIcon(TextureLoader.LoadTextureFromBytes(pixelTexture));
+            statIconInfo.iconGraphic = AbnormalTextureLoader.LoadTextureFromBytes(texture);
+            statIconInfo.SetPixelIcon(AbnormalTextureLoader.LoadTextureFromBytes(pixelTexture));
             statIconInfo.SetDefaultPart1Ability();
 
             return StatIconManager.Add(pluginGuid, statIconInfo, typeof(T));

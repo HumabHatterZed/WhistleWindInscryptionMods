@@ -36,8 +36,7 @@ namespace WhistleWind.AbnormalSigils
             turnCount++;
 
             yield return PreSuccessfulTriggerSequence();
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-            yield return new WaitForSeconds(0.2f);
+            yield return AbnormalMethods.ChangeCurrentView(View.Board);
 
             if (base.Card.FaceDown)
             {

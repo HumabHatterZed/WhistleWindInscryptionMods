@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,25 +16,25 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FrostRuler()
         {
             const string rulebookName = "Ruler of Frost";
-            const string rulebookDescription = "Once per turn, pay 4 Bones to create a Block of Ice in an empty opposing slot. If there is an opposing card with 1 Health you may instead select it to kill it and create a Frozen Heart in its place.";
+            const string rulebookDescription = "Once per turn, pay 3 Bones create a Block of Ice in a chosen empty slot or turn a chosen card whose Health is less than or equal to this card's Power into a Frozen Heart.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
             FrostRuler.ability = AbnormalAbilityHelper.CreateActivatedAbility<FrostRuler>(
                 Artwork.sigilFrostRuler, Artwork.sigilFrostRuler_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
         }
     }
     public class FrostRuler : ActivatedSelectSlotBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override Ability LatchAbility => Ability.None;
-        public override bool TargetAll => false;
+        public override bool TargetAll => true;
         public override string NoTargetsDialogue => "The enemy is immune to the cold.";
         public override string InvalidTargetDialogue => "Frost cannot penetrate this one. Choose another.";
-        public override int BonesCost => 4;
-
+        public override int StartingBonesCost => 3;
+        public override int TurnDelay => 1;
         public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {
+            yield return AbnormalMethods.ChangeCurrentView(View.Board);
             if (slot.Card != null)
             {
                 slot.Card.Anim.LightNegationEffect();
@@ -58,17 +59,15 @@ namespace WhistleWind.AbnormalSigils
             yield return base.LearnAbility();
         }
 
-        public override bool ValidTargets()
+        public override Predicate<CardSlot> InvalidTargets()
         {
-            // can attack empty slots and valid cards
-            List<CardSlot> validSlots = base.GetInitialTargets();
-            validSlots.RemoveAll((CardSlot x) => x.Card != null ? (x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card) : x == null);
-            return validSlots.Count() > 0;
+            return (CardSlot x) => x.Card != null && (x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card);
         }
         public override bool CardIsNotValid(PlayableCard card)
         {
             // not valid if Health > 1 or has Burning or is uncuttable and isn't a mule card
-            return card.Health > 1 || card.HasAbility(Burning.ability) || (card.LacksSpecialAbility(SpecialTriggeredAbility.PackMule) && card.HasTrait(Trait.Uncuttable));
+            return card.Health > base.Card.Attack || card.HasAbility(Burning.ability) ||
+                (card.LacksSpecialAbility(SpecialTriggeredAbility.PackMule) && card.HasTrait(Trait.Uncuttable));
         }
 
         private IEnumerator SpawnCard(CardSlot slot, string name)

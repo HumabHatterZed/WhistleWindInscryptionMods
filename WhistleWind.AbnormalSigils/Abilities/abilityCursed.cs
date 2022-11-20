@@ -37,7 +37,7 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return PreSuccessfulTriggerSequence();
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board, immediate: false);
+            yield return AbnormalMethods.ChangeCurrentView(View.Board);
             yield return new WaitForSeconds(0.2f);
             killer.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);

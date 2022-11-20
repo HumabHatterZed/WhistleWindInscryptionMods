@@ -62,11 +62,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_Sap()
         {
-            RulebookEntrySap.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySap>(Sap.rName, Sap.rDesc).Id;
+            RulebookEntrySap.ability = AbilityHelper.CreateRulebookAbility<RulebookEntrySap>(Sap.rName, Sap.rDesc).Id;
         }
         private void SpecialAbility_Sap()
         {
-            Sap.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Sap>(Sap.rName).Id;
+            Sap.specialAbility = AbilityHelper.CreateSpecialAbility<Sap>(Sap.rName).Id;
         }
     }
 }

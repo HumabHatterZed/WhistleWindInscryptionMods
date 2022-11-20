@@ -22,8 +22,7 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override int BonesCost => 5;
-        public override Ability LatchAbility => Ability.None;
+        public override int StartingBonesCost => 5;
         public override string InvalidTargetDialogue => "That card is fine as it is.";
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {

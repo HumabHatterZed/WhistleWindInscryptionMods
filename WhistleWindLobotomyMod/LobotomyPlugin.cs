@@ -7,8 +7,11 @@ using Infiniscryption.PackManagement;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
 using Sirenix.Utilities;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using Unity.Audio;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
@@ -34,9 +37,17 @@ namespace WhistleWindLobotomyMod
         internal static ManualLogSource Log;
         private static Harmony HarmonyInstance = new(pluginGuid);
 
+        public static AssetBundle sephirahBundle;
+        public static AssetBundle LoadBundle(string path)
+        {
+            using (Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream(path.Replace("\\", ".").Replace("/", ".")))
+                return AssetBundle.LoadFromStream(s);
+        }
+
         private void OnDisable()
         {
             HarmonyInstance.UnpatchSelf();
+            sephirahBundle.Unload(true);
         }
 
         private void Awake()
@@ -55,16 +66,21 @@ namespace WhistleWindLobotomyMod
                 if (ConfigManager.Instance.NumOfBlessings > 11)
                     ConfigManager.Instance.SetBlessings(11);
 
-                DialogueEventsManager.GenerateDialogueEvents();
                 Log.LogDebug("Loading challenges...");
                 AddChallenges();
                 Log.LogDebug("Loading abilities...");
                 AddAbilities();
                 AddSpecialAbilities();
                 Log.LogDebug("Loading cards...");
+                
                 TestingDummy_XXXXX();
+
                 AddAppearances();
                 AddCards();
+
+                Log.LogDebug("Waking up the Sephirah...");
+                InitSephirahAndDialogue();
+
                 AddStarterDecks();
                 Log.LogDebug("Loading nodes...");
                 AddNodes();
@@ -78,12 +94,16 @@ namespace WhistleWindLobotomyMod
             }
         }
         private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
-
         private void AddSpecialAbilities() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
-
-        private void AddNodes()
+        private void AddNodes() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Node")).ForEach(mi => mi.Invoke(this, null));
+        private void InitSephirahAndDialogue()
         {
-            Node_ModCardChoice();
+            sephirahBundle = LoadBundle("WhistleWindLobotomyMod/AssetBundles/talkingcardssephirah");
+
+            SephirahHod.Init();
+            SephirahYesod.Init();
+
+            DialogueEventsManager.GenerateDialogueEvents();
         }
         private void AddCards()
         {
@@ -91,6 +111,9 @@ namespace WhistleWindLobotomyMod
 
             if (ConfigManager.Instance.NoDonators)
                 Log.LogDebug("'No Donators' is set to true. Certain cards have been removed from the pool of obtainable cards.");
+
+            if (ConfigManager.Instance.NoRuina)
+                Log.LogDebug("'No Ruina' is set to true. Certain cards have been removed from the pool of obtainable cards.");
         }
         private void AddAbilities()
         {

@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         {
             string rulebookDescription = "When [creature] is sacrificed, give its stats and sigils to the sacrificing card.";
             if (SpellAPI.Enabled)
-                rulebookDescription = "For spells: Activate upon selecting a target.\n\n" + rulebookDescription;
+                rulebookDescription = "For spells: Activate upon selecting a target.\n" + rulebookDescription;
 
             const string rulebookName = "Enhance Target";
             const string dialogue = "Your beast is empowered.";
@@ -29,22 +29,41 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
         public override bool TargetAlly => true;
 
+        public override IEnumerator OnSacrifice()
+        {
+            PlayableCard card = Singleton<BoardManager>.Instance.currentSacrificeDemandingCard;
+            CardModificationInfo mod = GetCardMod();
+
+            yield return base.PreSuccessfulTriggerSequence();
+            card.Anim.LightNegationEffect();
+            card.AddTemporaryMod(mod);
+            yield return new WaitForSeconds(0.2f);
+            yield return base.LearnAbility();
+
+        }
         public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
-            List<Ability> abilities = base.Card.Info.Abilities;
-            abilities.RemoveAll(item => item == TargetGainSigils.ability || item == TargetGainStats.ability || item == TargetGainStatsSigils.ability || item == Scrambler.ability);
+            CardModificationInfo mod = GetCardMod();
 
+            slot.Card.Anim.PlayTransformAnimation();
+            slot.Card.AddTemporaryMod(mod);
+            yield return new WaitForSeconds(0.5f);
+            yield return base.LearnAbility();
+        }
+        private CardModificationInfo GetCardMod()
+        {
             CardModificationInfo mod = new(base.Card.Attack, base.Card.Health);
+
+            List<Ability> abilities = base.Card.Info.Abilities;
+            abilities.RemoveAll(item => item == TargetGainSigils.ability ||
+            item == TargetGainStats.ability || item == TargetGainStatsSigils.ability || item == Scrambler.ability);
 
             foreach (Ability item in abilities)
             {
                 mod.abilities.Add(item);
             }
 
-            slot.Card.Anim.PlayTransformAnimation();
-            slot.Card.AddTemporaryMod(mod);
-            yield return new WaitForSeconds(0.5f);
-            yield return base.LearnAbility();
+            return mod;
         }
     }
 }

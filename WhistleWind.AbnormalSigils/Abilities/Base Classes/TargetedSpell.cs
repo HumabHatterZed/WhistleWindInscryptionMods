@@ -14,39 +14,21 @@ namespace WhistleWind.AbnormalSigils
         public virtual bool ConditionForOnDie(bool wasSacrifice, PlayableCard killer) => true;
         public virtual bool ConditionForOnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) => true;
 
-        // use these overrides for controlling onTrigger logic/effects
-        public virtual IEnumerator EffectOnSacrifice()
-        {
-            yield break;
-        }
-        public virtual IEnumerator EffectOnPlayFromHand()
-        {
-            yield break;
-        }
-        public virtual IEnumerator EffectOnDie(bool wasSacrifice, PlayableCard killer)
-        {
-            yield break;
-        }
-        public virtual IEnumerator EffectOnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
-        {
-            yield break;
-        }
-
         public override IEnumerator OnSacrifice()
         {
-            yield return EffectOnSacrifice();
+            yield break;
         }
         public override IEnumerator OnPlayFromHand()
         {
-            yield return EffectOnPlayFromHand();
+            yield break;
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            yield return EffectOnDie(wasSacrifice, killer);
+            yield break;
         }
         public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
-            yield return EffectOnSlotTargetedForAttack(slot, attacker);
+            yield break;
         }
 
         public override bool RespondsToSacrifice() => true;
@@ -58,16 +40,6 @@ namespace WhistleWind.AbnormalSigils
                 return TargetAlly ? !slot.Card.OpponentCard : slot.Card.OpponentCard;
 
             return false;
-        }
-
-        public IEnumerator SwitchCardView(View view, float start = 0.2f, float end = 0.2f)
-        {
-            if (Singleton<ViewManager>.Instance.CurrentView != view)
-            {
-                yield return new WaitForSeconds(start);
-                Singleton<ViewManager>.Instance.SwitchToView(view);
-                yield return new WaitForSeconds(end);
-            }
         }
     }
 }

@@ -11,8 +11,8 @@ using WhistleWind.AbnormalSigils.Patches;
 namespace WhistleWind.AbnormalSigils
 {
     // Logic for abilities that have the player select a slot to be targeted
-    // Defaults to the logic for Latch but can be overridden as needed
-    public abstract class ActivatedSelectSlotBehaviour : ActivatedAbilityBehaviour
+    // By default acts like Latch but can be overriden as needed
+    public abstract class ActivatedSelectSlotBehaviour : BetterActivatedAbilityBehaviour
     {
         // store claw prefab here
         private static GameObject _clawPrefab;
@@ -32,25 +32,27 @@ namespace WhistleWind.AbnormalSigils
 
         public CardSlot selectedSlot = null;
 
-        // Required override field - set to Ability.None if you don't want to latch anything
-        // also override OnValidTarget to not do the latch logic
-        public abstract Ability LatchAbility { get; }
+        // Latches nothing by default
+        public virtual Ability LatchAbility => Ability.None;
         public virtual bool TargetAll => true;
         public virtual bool TargetAllies => false;
+        // see if we can target empty card slots (does GetValidTargets allow empty slots?)
+        private bool CanTargetNull => GetValidTargets().Exists((CardSlot s) => s.Card == null);
         public virtual string NoTargetsDialogue => "There are no cards you can choose.";
         public virtual string InvalidTargetDialogue => "It's already latched...";
 
-        private bool ActivatedThisTurn;
-
+        // by default, can always activate
+        public virtual int TurnDelay => -1;
+        private int turnDelay = 0;
         public virtual IEnumerator OnNoValidTargets()
         {
-            // Play NoAlliesDialogue by default
-            yield return AbnormalCustomMethods.PlayAlternateDialogue(dialogue: NoTargetsDialogue);
+            yield break;
         }
         public virtual IEnumerator OnValidTargetSelected(CardSlot slot)
         {
-            // Add LatchAbility by default
-            if (slot != null && slot.Card != null)
+            // Perform latch logic by default
+            // Though since LatchABility is None by default, nothing will actually happen
+            if (LatchAbility != Ability.None && slot != null && slot.Card != null)
             {
                 CardModificationInfo cardModificationInfo = new(this.LatchAbility) { fromTotem = true, fromLatch = true };
 
@@ -62,8 +64,6 @@ namespace WhistleWind.AbnormalSigils
         }
         public virtual IEnumerator OnPostValidTargetSelected()
         {
-            // Set ActivatedThisTurn to true by default
-            ActivatedThisTurn = true;
             yield break;
         }
         public virtual bool CardIsNotValid(PlayableCard card)
@@ -71,17 +71,22 @@ namespace WhistleWind.AbnormalSigils
             // By default returns whether the card is latched
             return card.TemporaryMods.Exists((CardModificationInfo m) => m.fromLatch);
         }
-
+        private bool CardSlotIsNotValid(CardSlot slot)
+        {
+            if (slot.Card != null)
+                return CardIsNotValid(slot.Card);
+            return CanTargetNull;
+        }
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
             return base.Card.OpponentCard != playerUpkeep;
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            // By default reset ActivatedThisTurn
-            if (ActivatedThisTurn)
+            // if turnDelay is above 0, reduce it by 1
+            if (turnDelay > 0)
             {
-                ActivatedThisTurn = false;
+                turnDelay--;
                 base.Card.Anim.LightNegationEffect();
                 yield return new WaitForSeconds(0.2f);
             }
@@ -89,11 +94,11 @@ namespace WhistleWind.AbnormalSigils
 
         public override bool CanActivate()
         {
-            // Can only once per turn by default
-            if (!ActivatedThisTurn)
-                return ValidTargets();
+            // If turnDelay is negative, can always activate
+            if (turnDelay < 0)
+                return true;
 
-            return false;
+            return ValidTargetsExist();
         }
         public override IEnumerator Activate()
         {
@@ -107,12 +112,15 @@ namespace WhistleWind.AbnormalSigils
             yield return new WaitForSeconds(0.2f);
 
             // If there are no valid targets, break
-            if (!ValidTargets())
+            if (!ValidTargetsExist())
             {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.2f);
-                // Call ienumerator OnNoValidAllies()
+
+                yield return AbnormalMethods.PlayAlternateDialogue(dialogue: NoTargetsDialogue);
                 yield return OnNoValidTargets();
+                Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+                Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
                 yield break;
             }
 
@@ -177,13 +185,14 @@ namespace WhistleWind.AbnormalSigils
                 yield return PlayerSelectTarget(latchParent, instance, visualiser);
             }
 
-            // once a target is selected, run logic
-            yield return OnValidTargetSelected(selectedSlot);
-
-            // clear sniper icon and perform claw animation
+            // clear the sniper icons here so they disappear before the claw does its thing
             instance.VisualizeClearSniperAbility();
             visualiser?.VisualizeClearSniperAbility();
 
+            // once a target is selected, run logic
+            yield return OnValidTargetSelected(selectedSlot);
+
+            // claw thing
             claw.SetActive(true);
 
             CustomCoroutine.FlickerSequence(
@@ -196,11 +205,18 @@ namespace WhistleWind.AbnormalSigils
             );
 
             yield return base.LearnAbility(0.4f);
-
-            yield return new WaitForSeconds(0.2f);
             Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            yield return new WaitForSeconds(0.2f);
+
+            // reset the turn delay
+            if (turnDelay == 0)
+                turnDelay = TurnDelay;
 
             yield return OnPostValidTargetSelected();
+
+            if (!base.Card.OpponentCard)
+                yield return AbnormalMethods.ChangeCurrentView(View.Default);
         }
         private IEnumerator PlayerSelectTarget(Transform latchParent, CombatPhaseManager instance, WstlPart1SniperVisualiser visualiser)
         {
@@ -209,11 +225,10 @@ namespace WhistleWind.AbnormalSigils
             instance.VisualizeStartSniperAbility(base.Card.Slot);
             visualiser?.VisualizeStartSniperAbility(base.Card.Slot);
 
-            List<CardSlot> allSlotsCopy = Singleton<BoardManager>.Instance.AllSlotsCopy;
-            allSlotsCopy.Remove(base.Card.Slot);
+            List<CardSlot> possibleTargets = GetInitialTargets();
+            possibleTargets.Remove(base.Card.Slot);
 
-            List<CardSlot> targetSlots = GetInitialTargets();
-            targetSlots.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card);
+            List<CardSlot> targetSlots = GetValidTargets();
 
             CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
 
@@ -224,14 +239,14 @@ namespace WhistleWind.AbnormalSigils
             }
             selectedSlot = null;
 
-            yield return Singleton<BoardManager>.Instance.ChooseTarget(allSlotsCopy, targetSlots, delegate (CardSlot s)
+            yield return Singleton<BoardManager>.Instance.ChooseTarget(possibleTargets, targetSlots, delegate (CardSlot s)
             {
                 selectedSlot = s;
                 instance.VisualizeConfirmSniperAbility(s);
                 visualiser?.VisualizeConfirmSniperAbility(s);
             }, OnInvalidTarget, delegate (CardSlot s)
             {
-                if (s.Card != null)
+                if (CanTargetNull || s.Card != null)
                 {
                     instance.VisualizeAimSniperAbility(base.Card.Slot, s);
                     visualiser?.VisualizeAimSniperAbility(base.Card.Slot, s);
@@ -241,7 +256,7 @@ namespace WhistleWind.AbnormalSigils
         }
         private IEnumerator OpponentSelectTarget(CombatPhaseManager instance, WstlPart1SniperVisualiser visualiser)
         {
-            List<CardSlot> validTargets = GetInitialTargets();
+            List<CardSlot> validTargets = GetValidTargets();
             validTargets.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card);
             yield return new WaitForSeconds(0.3f);
             yield return this.AISelectTarget(validTargets, delegate (CardSlot s)
@@ -261,7 +276,7 @@ namespace WhistleWind.AbnormalSigils
         }
         private void OnInvalidTarget(CardSlot slot)
         {
-            if (slot.Card != null && this.CardIsNotValid(slot.Card) && !Singleton<TextDisplayer>.Instance.Displaying)
+            if (CardSlotIsNotValid(slot) && !Singleton<TextDisplayer>.Instance.Displaying)
             {
                 base.StartCoroutine(Singleton<TextDisplayer>.Instance.ShowThenClear(InvalidTargetDialogue, 2.5f, 0f, Emotion.Anger));
             }
@@ -296,16 +311,26 @@ namespace WhistleWind.AbnormalSigils
             }
             return num;
         }
-        public virtual bool ValidTargets()
+        public bool ValidTargetsExist()
+        {
+            return GetValidTargets().Count > 0;
+        }
+        public virtual Predicate<CardSlot> InvalidTargets()
+        {
+            // by default remove empty slots, dead cards, invalid cards, or this card
+            return (CardSlot x) => x.Card == null || x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card;
+        }
+        private List<CardSlot> GetValidTargets()
         {
             List<CardSlot> validSlots = GetInitialTargets();
-            validSlots.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card);
-            return validSlots.Count() > 0;
+            validSlots.RemoveAll(InvalidTargets());
+            return validSlots;
         }
         public List<CardSlot> GetInitialTargets()
         {
             if (TargetAll)
                 return Singleton<BoardManager>.Instance.AllSlotsCopy;
+
             if (TargetAllies)
                 return base.Card.OpponentCard ? Singleton<BoardManager>.Instance.OpponentSlotsCopy : Singleton<BoardManager>.Instance.PlayerSlotsCopy;
 

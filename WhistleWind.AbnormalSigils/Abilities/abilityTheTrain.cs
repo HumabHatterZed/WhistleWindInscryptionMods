@@ -21,12 +21,12 @@ namespace WhistleWind.AbnormalSigils
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }
-    public class TheTrain : ActivatedAbilityBehaviour
+    public class TheTrain : BetterActivatedAbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override int BonesCost => 10;
+        public override int StartingBonesCost => 10;
 
         public override bool CanActivate()
         {

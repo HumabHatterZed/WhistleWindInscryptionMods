@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "Never underestimate the importance of a healer.";
             Healer.ability = AbnormalAbilityHelper.CreateAbility<Healer>(
                 Artwork.sigilHealer, Artwork.sigilHealer_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: false, canStack: false, isPassive: false).Id;
         }
     }
@@ -66,10 +66,10 @@ namespace WhistleWind.AbnormalSigils
             // if not Plague Doctor, simply play dialogue
             if (!IsDoctor)
             {
-                yield return AbnormalCustomMethods.PlayAlternateDialogue(dialogue: NoAlliesDialogue);
+                yield return AbnormalMethods.PlayAlternateDialogue(dialogue: NoAlliesDialogue);
                 yield break;
             }
-            yield return AbnormalCustomMethods.PlayAlternateDialogue(dialogue: failAsDoctorDialogue);
+            yield return AbnormalMethods.PlayAlternateDialogue(dialogue: failAsDoctorDialogue);
 
             CardSlot randSlot;
             List<CardSlot> opposingSlots = base.Card.OpponentCard ? Singleton<BoardManager>.Instance.PlayerSlotsCopy : Singleton<BoardManager>.Instance.OpponentSlotsCopy;
@@ -103,7 +103,7 @@ namespace WhistleWind.AbnormalSigils
             {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return AbnormalCustomMethods.PlayAlternateDialogue(Emotion.Anger, dialogue: failExtraHardDialogue);
+                yield return AbnormalMethods.PlayAlternateDialogue(Emotion.Anger, dialogue: failExtraHardDialogue);
                 yield break;
             }
 

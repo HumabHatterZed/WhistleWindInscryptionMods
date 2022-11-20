@@ -62,11 +62,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_Smile()
         {
-            RulebookEntrySmile.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySmile>(Smile.rName, Smile.rDesc).Id;
+            RulebookEntrySmile.ability = AbilityHelper.CreateRulebookAbility<RulebookEntrySmile>(Smile.rName, Smile.rDesc).Id;
         }
         private void SpecialAbility_Smile()
         {
-            Smile.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Smile>(Smile.rName).Id;
+            Smile.specialAbility = AbilityHelper.CreateSpecialAbility<Smile>(Smile.rName).Id;
         }
     }
 }

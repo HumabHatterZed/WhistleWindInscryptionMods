@@ -22,7 +22,7 @@ namespace WhistleWind.AbnormalSigils
                 "wstl_dreamOfABlackSwanBrother4", "Fourth Brother",
                 "What happens when the black swan wakes up from dreaming of a white swan?",
                 0, 2, 1, 0,
-                Artwork.dreamOfABlackSwanBrother4, Artwork.dreamOfABlackSwanBrother4_emission,
+                Artwork.dreamOfABlackSwanBrother4,
                 abilities: abilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: appearances);

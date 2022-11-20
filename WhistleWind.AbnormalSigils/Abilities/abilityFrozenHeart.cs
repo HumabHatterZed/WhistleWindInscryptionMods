@@ -44,7 +44,7 @@ namespace WhistleWind.AbnormalSigils
                 yield return new WaitForSeconds(0.2f);
                 if (!base.HasLearned)
                 {
-                    yield return AbnormalCustomMethods.PlayAlternateDialogue(dialogue: altDialogue);
+                    yield return AbnormalMethods.PlayAlternateDialogue(dialogue: altDialogue);
                 }
                 yield return new WaitForSeconds(0.25f);
             }

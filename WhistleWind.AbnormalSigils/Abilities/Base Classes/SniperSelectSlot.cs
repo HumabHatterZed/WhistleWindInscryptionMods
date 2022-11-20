@@ -63,9 +63,9 @@ namespace WhistleWind.AbnormalSigils
                 yield return new WaitForSeconds(0.2f);
 
                 if (selectedSlot == base.Card.Slot)
-                    yield return AbnormalCustomMethods.PlayAlternateDialogue(delay: 0f, dialogue: SelfTargetDialogue);
+                    yield return AbnormalMethods.PlayAlternateDialogue(delay: 0f, dialogue: SelfTargetDialogue);
                 else
-                    yield return AbnormalCustomMethods.PlayAlternateDialogue(delay: 0f, dialogue: NullTargetDialogue);
+                    yield return AbnormalMethods.PlayAlternateDialogue(delay: 0f, dialogue: NullTargetDialogue);
 
                 yield return PlayerSelectTarget(instance, visualiser);
             }
@@ -87,7 +87,7 @@ namespace WhistleWind.AbnormalSigils
 
         public virtual IEnumerator OnNoValidAllies()
         {
-            yield return AbnormalCustomMethods.PlayAlternateDialogue(dialogue: NoAlliesDialogue);
+            yield return AbnormalMethods.PlayAlternateDialogue(dialogue: NoAlliesDialogue);
         }
         public virtual IEnumerator OnValidTargetSelected(PlayableCard card)
         {

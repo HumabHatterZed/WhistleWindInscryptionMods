@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
                 "wstl_theNakedWorm", "Naked Worm",
                 "It can enter your body through any aperture.",
                 1, 1, 0, 0,
-                Artwork.theNakedWorm, Artwork.theNakedWorm_emission,
+                Artwork.theNakedWorm,
                 abilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());
         }

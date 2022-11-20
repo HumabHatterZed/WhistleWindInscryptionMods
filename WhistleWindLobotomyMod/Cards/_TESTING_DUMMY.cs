@@ -12,7 +12,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Nettles.ability
+                Ability.TripleBlood,
+                Piercing.ability
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -30,7 +31,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                atk: 2, hp: 10,
+                atk: 10, hp: 10,
                 blood: 0, bones: 0, energy: 0,
                 Artwork.trainingDummy, Artwork.trainingDummy_emission,
                 abilities: abilities, specialAbilities: specialAbilities,

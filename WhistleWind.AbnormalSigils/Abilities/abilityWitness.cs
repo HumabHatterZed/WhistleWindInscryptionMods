@@ -18,24 +18,23 @@ namespace WhistleWind.AbnormalSigils
 
             Witness.ability = AbnormalAbilityHelper.CreateActivatedAbility<Witness>(
                 Artwork.sigilWitness, Artwork.sigilWitness_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 1).Id;
         }
     }
     public class Witness : ActivatedSelectSlotBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override Ability LatchAbility => Ability.None;
         public override bool TargetAll => false;
         public override bool TargetAllies => true;
         public override string NoTargetsDialogue => "There's no one to hear your message.";
         public override string InvalidTargetDialogue => "You must choose one of your other cards to proselytise.";
-        public override int BonesCost => 2;
+        public override int StartingBonesCost => 2;
 
         public override bool CanActivate()
         {
             // Are there other cards to affect, are any of them valid targets, and is this card on the player's side
-            foreach (var slot in AbnormalCustomMethods.GetSlotsCopy(base.Card.OpponentCard).Where((CardSlot slot) => slot.Card != base.Card))
+            foreach (var slot in AbnormalMethods.GetSlotsCopy(base.Card.OpponentCard).Where((CardSlot slot) => slot.Card != base.Card))
             {
                 if (slot.Card != null)
                 {

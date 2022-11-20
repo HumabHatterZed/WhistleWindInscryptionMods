@@ -50,11 +50,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_MagicBullet()
         {
-            RulebookEntryMagicBullet.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMagicBullet>(MagicBullet.rName, MagicBullet.rDesc).Id;
+            RulebookEntryMagicBullet.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryMagicBullet>(MagicBullet.rName, MagicBullet.rDesc).Id;
         }
         private void SpecialAbility_MagicBullet()
         {
-            MagicBullet.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<MagicBullet>(MagicBullet.rName).Id;
+            MagicBullet.specialAbility = AbilityHelper.CreateSpecialAbility<MagicBullet>(MagicBullet.rName).Id;
         }
     }
 }

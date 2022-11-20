@@ -38,7 +38,8 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             string evolveName = null,
             int numTurns = 1,
             bool onePerDeck = false,
-            bool hideStats = false
+            bool hideStats = false,
+            GameObject face = null
             )
         {
             // Create empty lists if any of them are null
@@ -51,7 +52,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             decals ??= new();
 
             // Load textures
-            Texture2D portraitTex = TextureLoader.LoadTextureFromBytes(portrait);
+            Texture2D portraitTex = portrait != null ? TextureLoader.LoadTextureFromBytes(portrait) : null;
             Texture2D emissionTex = emission != null ? TextureLoader.LoadTextureFromBytes(emission) : null;
             Texture2D altTex = altTexture != null ? TextureLoader.LoadTextureFromBytes(altTexture) : null;
             Texture2D altEmissionTex = emissionAltTexture != null ? TextureLoader.LoadTextureFromBytes(emissionAltTexture) : null;
@@ -77,7 +78,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
 
             if (emissionTex != null)
                 cardInfo.SetPortrait(portraitTex, emissionTex);
-            else
+            else if (portraitTex != null)
                 cardInfo.SetPortrait(portraitTex);
 
             if (pixelTexture != null)
@@ -92,6 +93,8 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             if (titleTexture != null)
                 cardInfo.titleGraphic = titleTex;
 
+            if (face != null)
+                cardInfo.animatedPortrait = face;
             // Abilities
             cardInfo.abilities = abilities;
             cardInfo.specialAbilities = specialAbilities;
@@ -221,6 +224,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
         public static CardMetaCategory CANNOT_GAIN_SIGILS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_GAIN_SIGILS");
         public static CardMetaCategory CANNOT_BUFF_STATS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_BUFF_STATS");
         public static CardMetaCategory CANNOT_COPY_CARD = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_COPY_CARD");
+        public static CardMetaCategory SEPHIRAH_CARD = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "SEPHIRAH_CARD");
 
         public enum CardType
         {

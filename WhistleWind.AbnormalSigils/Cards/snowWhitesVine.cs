@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
                 "wstl_snowWhitesVine", "Thorny Vines",
                 "A vine.",
                 0, 1, 0, 0,
-                Artwork.snowWhitesVine, Artwork.snowWhitesVine_emission,
+                Artwork.snowWhitesVine,
                 abilities: abilities,
                 metaCategories: new(), tribes: new(), traits: new());
         }

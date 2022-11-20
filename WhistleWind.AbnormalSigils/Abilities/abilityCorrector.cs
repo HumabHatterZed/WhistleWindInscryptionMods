@@ -31,8 +31,7 @@ namespace WhistleWind.AbnormalSigils
         }
         public override IEnumerator OnResolveOnBoard()
         {
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-            yield return new WaitForSeconds(0.15f);
+            yield return AbnormalMethods.ChangeCurrentView(View.Board);
             base.Card.Anim.PlayTransformAnimation();
             yield return new WaitForSeconds(0.15f);
             ChangeStats();
@@ -59,33 +58,18 @@ namespace WhistleWind.AbnormalSigils
                 0 => 0,
                 1 => 4,
                 2 => 7,
-                3 => 13,
-                4 => 20,
-                _ => 27
+                3 => 11,
+                4 => 18,
+                _ => base.Card.Info.BloodCost * 7
             };
-            powerLevel += base.Card.Info.BonesCost > 0 ? base.Card.Info.BonesCost : 0;
-            powerLevel += base.Card.Info.EnergyCost switch
-            {
-                0 => 0,
-                1 => 0,
-                2 => 2,
-                3 => 4,
-                4 => 6,
-                5 => 8,
-                6 => 12,
-                _ => 16
-            };
-            powerLevel += base.Card.Info.GemsCost.Count switch
-            {
-                1 => 3,
-                2 => 6,
-                3 => 9,
-                _ => 0
-            };
+            powerLevel += base.Card.Info.BonesCost;
+            powerLevel += base.Card.Info.EnergyCost;
+            powerLevel += base.Card.Info.GemsCost.Count * 3;
+
             // LifeCost API compatibility
-            powerLevel += base.Card.Info.GetExtendedPropertyAsInt("LifeCost") != null ? (int)base.Card.Info.GetExtendedPropertyAsInt("LifeCost") : 0;
-            powerLevel += base.Card.Info.GetExtendedPropertyAsInt("MoneyCost") != null ? (int)base.Card.Info.GetExtendedPropertyAsInt("MoneyCost") : 0;
-            powerLevel += base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") != null ? ((int)base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") > 0 ? (int)base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") : 0) : 0;
+            powerLevel += base.Card.Info.GetExtendedPropertyAsInt("LifeCost") ?? 0;
+            powerLevel += base.Card.Info.GetExtendedPropertyAsInt("MoneyCost") ?? 0;
+            powerLevel += base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") ?? 0;
 
             int newPower = 0;
             int newHealth = 1;
@@ -96,7 +80,7 @@ namespace WhistleWind.AbnormalSigils
                 if (powerLevel - 2 >= 0)
                 {
                     // Roll for 1 Power
-                    if (SeededRandom.Range(0, 3, randomSeed) == 0)
+                    if (SeededRandom.Range(0, 3, randomSeed++) == 0)
                     {
                         newPower += 1;
                         powerLevel -= 2;

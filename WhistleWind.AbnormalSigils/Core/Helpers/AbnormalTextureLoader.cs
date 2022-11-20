@@ -2,10 +2,10 @@
 
 namespace WhistleWind.AbnormalSigils.Core.Helpers
 {
-    public static class TextureLoader // Base code taken from GrimoraMod and SigilADay_julienperge
+    public static class AbnormalTextureLoader // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         // Create Texture2D's from resource files
-        public static Texture2D LoadTextureFromBytes(byte[] resourceFile, bool part1 = true)
+        public static Texture2D LoadTextureFromBytes(byte[] resourceFile)
         {
             var texture = new Texture2D(2, 2);
             texture.LoadImage(resourceFile);

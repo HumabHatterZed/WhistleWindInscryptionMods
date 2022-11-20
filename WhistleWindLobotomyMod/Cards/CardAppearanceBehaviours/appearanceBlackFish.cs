@@ -12,17 +12,14 @@ namespace WhistleWindLobotomyMod
     }
     public class BlackFish : CardAppearanceBehaviour
     {
-        public static CardAppearanceBehaviour.Appearance appearance;
+        public static Appearance appearance;
         public override void ApplyAppearance()
         {
             if (base.Card is PlayableCard)
-            {
                 base.Card.RenderInfo.portraitOverride = base.Card.Info.alternatePortrait;
-            }
             else
-            {
                 base.Card.RenderInfo.portraitOverride = null;
-            }
+
         }
     }
 }
