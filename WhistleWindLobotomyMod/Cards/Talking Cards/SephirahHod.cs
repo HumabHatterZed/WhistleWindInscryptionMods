@@ -132,10 +132,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Hod()
         {
-            List<Ability> abilities = new()
-            {
-
-            };
+            List<Ability> abilities = new() { };
             List<SpecialTriggeredAbility> specialAbilities = new() { TalkingCardHod.specialAbility };
             List<CardMetaCategory> metaCategories = new() { CardHelper.SEPHIRAH_CARD };
             List<CardAppearanceBehaviour.Appearance> appearances = new()

@@ -22,6 +22,8 @@ Alternatively, you can check out the wiki on GitHub!
 |NAME|DEFAULT|DESCRIPTION|
 |:-|:-|:-|
 |Enable Mod|TRUE|Enables this mod's content.|
+|Disable Mod Abilities|0|Disables certain types of abilites, preventing them from being seen in the Rulebook or obtained as totem bases.|
+|Make Mod Abilities Modular|0|Makes certain types of abilites modular, making them obtainable as totem bases.|
 
 ## ✨ Abilities
 

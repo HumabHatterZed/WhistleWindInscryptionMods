@@ -10,11 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="AssetBundles\talkingcardssephirah" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Include="AssetBundles\talkingcardssephirah" />
+	  <EmbeddedResource Include="talkingcardssephirah" />
 	</ItemGroup>
 
 	<ItemGroup>

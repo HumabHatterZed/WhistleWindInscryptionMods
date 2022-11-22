@@ -173,7 +173,7 @@ namespace WhistleWindLobotomyMod
             if (sephirahCount == 9)
                 numOfChoices = 1;
             else if (sephirahCount < 9)
-                numOfChoices = Mathf.Min(9 - sephirahCount, 3);
+                numOfChoices = Mathf.Min(9 - sephirahCount, 1);
 
             while (listOfChoices.Count < numOfChoices)
             {

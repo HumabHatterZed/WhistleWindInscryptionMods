@@ -38,16 +38,12 @@ namespace WhistleWindLobotomyMod
         private static Harmony HarmonyInstance = new(pluginGuid);
 
         public static AssetBundle sephirahBundle;
-        public static AssetBundle LoadBundle(string path)
-        {
-            using (Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream(path.Replace("\\", ".").Replace("/", ".")))
-                return AssetBundle.LoadFromStream(s);
-        }
 
         private void OnDisable()
         {
+/*            if (sephirahBundle != null)
+                sephirahBundle.Unload(false);*/
             HarmonyInstance.UnpatchSelf();
-            sephirahBundle.Unload(true);
         }
 
         private void Awake()
@@ -56,11 +52,11 @@ namespace WhistleWindLobotomyMod
             ConfigManager.Instance.BindConfig();
 
             if (!ConfigManager.Instance.ModEnabled)
-            {
                 Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
-            }
             else
             {
+                sephirahBundle = LoadBundle("WhistleWindLobotomyMod/talkingcardssephirah");
+
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
                 if (ConfigManager.Instance.NumOfBlessings > 11)
@@ -68,18 +64,22 @@ namespace WhistleWindLobotomyMod
 
                 Log.LogDebug("Loading challenges...");
                 AddChallenges();
+
                 Log.LogDebug("Loading abilities...");
                 AddAbilities();
                 AddSpecialAbilities();
                 Log.LogDebug("Loading cards...");
-                
-                TestingDummy_XXXXX();
-
                 AddAppearances();
-                AddCards();
 
-                Log.LogDebug("Waking up the Sephirah...");
-                InitSephirahAndDialogue();
+                if (sephirahBundle != null)
+                    InitSephirahAndDialogue();
+                else
+                    Log.LogWarning("AssetBundle has not been loaded! The Sefirot will remain asleep.");
+
+                DialogueEventsManager.GenerateDialogueEvents();
+
+                AddCards();
+                TestingDummy_XXXXX();
 
                 AddStarterDecks();
                 Log.LogDebug("Loading nodes...");
@@ -89,21 +89,18 @@ namespace WhistleWindLobotomyMod
                 if (PackAPI.Enabled)
                     PackAPI.CreateCardPack();
 
-                Log.LogInfo($"The clock is at [{ConfigManager.Instance.NumOfBlessings}].");
                 Log.LogInfo($"Plugin loaded! Let's get to work manager!");
             }
         }
+        private void Start() => Log.LogInfo($"The clock is at [{ConfigManager.Instance.NumOfBlessings}].");
         private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
         private void AddSpecialAbilities() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
         private void AddNodes() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Node")).ForEach(mi => mi.Invoke(this, null));
         private void InitSephirahAndDialogue()
         {
-            sephirahBundle = LoadBundle("WhistleWindLobotomyMod/AssetBundles/talkingcardssephirah");
-
+            Log.LogDebug("Waking up the Sefirot...");
             SephirahHod.Init();
             SephirahYesod.Init();
-
-            DialogueEventsManager.GenerateDialogueEvents();
         }
         private void AddCards()
         {
@@ -184,11 +181,12 @@ namespace WhistleWindLobotomyMod
                 CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
                 CardLoader.GetCardByName("wstl_wisdomScarecrow")
             }, 8);
+            string thirdGirl = ConfigManager.Instance.NoRuina ? "wstl_magicalGirlSpade" : "wstl_magicalGirlClover";
             StarterDeckHelper.AddStartDeck("Magical Girls!", Artwork.starterDeckMagicalGirls, new()
             {
-                CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
                 CardLoader.GetCardByName("wstl_magicalGirlHeart"),
-                CardLoader.GetCardByName("wstl_magicalGirlClover")
+                CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
+                CardLoader.GetCardByName(thirdGirl)
             }, 10);
             StarterDeckHelper.AddStartDeck("Twilight", Artwork.starterDeckBlackForest, new()
             {
@@ -209,6 +207,11 @@ namespace WhistleWindLobotomyMod
 
         }
 
+        public static AssetBundle LoadBundle(string path)
+        {
+            using (Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream(path.Replace("\\", ".").Replace("/", ".")))
+                return AssetBundle.LoadFromStream(s);
+        }
         public static class PackAPI
         {
             private static bool? _enabled;

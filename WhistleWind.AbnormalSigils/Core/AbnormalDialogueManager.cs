@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace WhistleWind.AbnormalSigils.Core
 {
-    public static class AbnormalDialogueManager // Base code taken from GrimoraMod and SigilADay_julienperge
+    internal class AbnormalDialogueManager // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         /// <summary>
         /// Shorthand method for playing dialogue events.

@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils.Patches
         private static void ModifyTakenDamage(PlayableCard __instance, ref int damage, PlayableCard attacker)
         {
             // if attacker doesn't have Piercing
-            if ((bool)attacker?.HasAbility(Piercing.ability))
+            if (attacker != null && attacker.HasAbility(Piercing.ability))
             {
                 if (__instance.HasShield())
                 {
