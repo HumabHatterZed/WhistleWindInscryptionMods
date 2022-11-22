@@ -1,8 +1,5 @@
-﻿using InscryptionAPI;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -119,7 +116,7 @@ namespace WhistleWindLobotomyMod
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("One day a stranger arrived at the Forest. He proclaimed that the Forest would soon be ensared in a bitter conflict.");
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("One that would only end when everything was devoured by a [c:bR]terrible Beast[c:].");
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The birds, frightened by this doomsay, sought to prevent conflict from ever breaking out.");
-                
+
                 // Look down at the board
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board);
                 yield return new WaitForSeconds(0.25f);
@@ -133,7 +130,7 @@ namespace WhistleWindLobotomyMod
                 base.PlayableCard.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("With his many eyes, [c:bG]Big Bird[c:] kept constant watch over the entire Forest.");
-                
+
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Fights began to break out. More and more creatures left the Forest, no matter how hard the birds worked.");
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("They decided to combine their powers. This way, they could better protect their home. This way, they could better return the peace.");
             }
@@ -161,7 +158,7 @@ namespace WhistleWindLobotomyMod
 
             CardInfo info = CardLoader.GetCardByName("wstl_apocalypseBird");
             RunState.Run.playerDeck.AddCard(info);
-            
+
             // set cost to 0 for this fight (can play immediately that way)
             info.cost = 0;
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0.25f, null);

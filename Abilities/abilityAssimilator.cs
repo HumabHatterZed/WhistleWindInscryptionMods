@@ -1,7 +1,5 @@
-﻿using InscryptionAPI;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
@@ -39,7 +37,7 @@ namespace WhistleWindLobotomyMod
             yield return PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
             base.Card.AddTemporaryMod(mod);
-            
+
             if (!base.Card.Dead)
             {
                 base.Card.Anim.StrongNegationEffect();
@@ -75,6 +73,9 @@ namespace WhistleWindLobotomyMod
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
+            if (base.Card.Slot.Card != null)
+                yield break;
+
             yield return PreSuccessfulTriggerSequence();
 
             var cardName = base.Card.Info.name;

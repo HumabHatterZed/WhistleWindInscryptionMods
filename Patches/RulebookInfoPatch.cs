@@ -1,11 +1,5 @@
-﻿using InscryptionAPI;
-using InscryptionAPI.Card;
-using DiskCardGame;
+﻿using DiskCardGame;
 using HarmonyLib;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 namespace WhistleWindLobotomyMod
 {
@@ -13,7 +7,7 @@ namespace WhistleWindLobotomyMod
     public static class RuleBookInfoPatch
     {
         // Adds select Kaycee Mod sigils to the Part 1 rulebook
-        [HarmonyPostfix,HarmonyPatch(nameof(RuleBookInfo.AbilityShouldBeAdded))]
+        [HarmonyPostfix, HarmonyPatch(nameof(RuleBookInfo.AbilityShouldBeAdded))]
         private static void AddKayceeAbilities(ref int abilityIndex, ref AbilityMetaCategory rulebookCategory, ref bool __result)
         {
             AbilityInfo info = AbilitiesUtil.GetInfo((Ability)abilityIndex);

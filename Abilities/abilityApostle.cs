@@ -1,7 +1,5 @@
-﻿using InscryptionAPI;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
@@ -48,7 +46,7 @@ namespace WhistleWindLobotomyMod
             // clear the slot if it's filled
             if (base.Card.Slot.Card != null)
                 yield return base.Card.Slot.Card.DieTriggerless();
-                
+
             // Special Apostles always go down when killed
             if (killer != null || SpecialApostle)
             {

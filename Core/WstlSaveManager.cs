@@ -1,14 +1,4 @@
-﻿using BepInEx;
-using BepInEx.Configuration;
-using BepInEx.Logging;
-using InscryptionAPI;
-using InscryptionAPI.Saves;
-using DiskCardGame;
-using HarmonyLib;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using InscryptionAPI.Saves;
 
 namespace WhistleWindLobotomyMod
 {

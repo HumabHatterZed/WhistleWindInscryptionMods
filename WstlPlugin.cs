@@ -1,18 +1,14 @@
 ﻿using BepInEx;
-using BepInEx.Logging;
 using BepInEx.Bootstrap;
-using System;
-using System.Reflection;
-using HarmonyLib;
+using BepInEx.Logging;
 using DiskCardGame;
-using UnityEngine;
-using InscryptionAPI;
-using InscryptionAPI.Regions;
-using InscryptionAPI.Encounters;
-using System.Linq;
-using Sirenix.Utilities;
+using HarmonyLib;
 using Infiniscryption.PackManagement;
-
+using InscryptionAPI.Encounters;
+using InscryptionAPI.Regions;
+using Sirenix.Utilities;
+using System.Linq;
+using System.Reflection;
 using static WhistleWindLobotomyMod.AbnormalEncounterData;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
@@ -21,21 +17,26 @@ namespace WhistleWindLobotomyMod
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
     [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("whistlewind.inscryption.abnormalsigils", BepInDependency.DependencyFlags.SoftDependency)]
 
     public partial class WstlPlugin : BaseUnityPlugin
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.2.2";
+        private const string pluginVersion = "1.2.3";
 
         internal static ManualLogSource Log;
-        private static Harmony harmony;
-        //public static string Directory;
+        private static Harmony harmony = new(pluginGuid);
+        
+        private void OnDisable()
+        {
+            harmony.UnpatchSelf();
+        }
 
         private void Awake()
         {
             WstlPlugin.Log = base.Logger;
-            harmony = Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), pluginGuid);
+            harmony.PatchAll();
             ConfigManager.Instance.BindConfig();
 
             if (!ConfigManager.Instance.ModEnabled)
@@ -51,7 +52,10 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("Loading challenges...");
                 AddChallenges();
                 Log.LogDebug("Loading abilities...");
-                AddAbilities();
+                if (!AbnormalSigils.Enabled)
+                    AddAbilities();
+                else
+                    Log.LogWarning("Abnormal Sigils is installed! Skipping abilities...");
                 AddSpecialAbilities();
                 Log.LogDebug("Loading cards...");
                 AddAppearances();
@@ -210,7 +214,7 @@ namespace WhistleWindLobotomyMod
         }
         private void AddCards()
         {
-            TestingDummy_XXXXX();
+            // TestingDummy_XXXXX();
 
             TrainingDummy_00000();
             ScorchedGirl_F0102();
@@ -387,6 +391,20 @@ namespace WhistleWindLobotomyMod
                 pack.SetTexture(WstlTextureHelper.LoadTextureFromResource(Resources.wstl_pack));
                 pack.Description = "This card pack adds 84 obtainable cards based on abnormalities.";
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+            }
+        }
+
+        public static class AbnormalSigils
+        {
+            private static bool? _enabled;
+            public static bool Enabled
+            {
+                get
+                {
+                    if (_enabled == null)
+                        _enabled = Chainloader.PluginInfos.ContainsKey("whistlewind.inscryption.abnormalsigils");
+                    return (bool)_enabled;
+                }
             }
         }
     }

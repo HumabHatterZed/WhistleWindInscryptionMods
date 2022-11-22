@@ -13,8 +13,8 @@ Features:
 * Plus a few combat events!
 
 ## ⚙️ Dependencies
-* BepInEx-BepInExPack_Inscryption v5.4.1901
-* API_dev-API v2.4.1
+* BepInEx-BepInExPack_Inscryption v5.4.1902
+* API_dev-API v2.7.1
 
 ## ‼️ IMPORTANT NOTICE FOR ANYONE UPDATING TO v1.1.0 OR ABOVE ‼️
 The mod's configuration file has been renamed to **```wstl.inscryption.lobotomycorp.cfg```**.
@@ -48,7 +48,20 @@ For a list of previous updates and a full description of the current update, ref
 See Closing Notes for info on future updates.
 
 <details>
-<summary>Latest Update - v1.2.2</summary>
+<summary>Latest Update - v1.2.3</summary>
+
+### v1.2.3 - Bodies of Apostles patch (11/21/2022)
+* 🧱 General
+  * Mod now unpatches itself OnDisable
+* 🩹 Bug fixes
+  * Fixed downed Apostles not evolving into their correct forme
+  * Mountain of Smiling Bodies now checks if card slot is null when killed after evolving
+* 🔧 Tweaks
+  * Rewrote Woodcutter ability to use logic from API's Sentry fix
+  * Quick Draw now inherits from Sentry
+* 💣 Removals
+  * Removed some debugging items
+  * Removed unnecessary patches
 
 ### v1.2.2 - The 'Who Let Me Code' patch (10/6/2022)
 * 🩹 Bug fixes
@@ -70,44 +83,6 @@ See Closing Notes for info on future updates.
 * 🔧 Tweaks
   * Improved rulebook entry descriptions for special abilities
 
-### v1.2.0 - Close Encounters of the Abnormal Kind (9/18/2022)
-* 🧱 General
-  * Adjusted the descriptions for some configurations to reflect new changes/be clearer.
-  * Fixed inaccurate information in the ReadMe
-  * Added PackManager compatibility
-* 🩹 Bug fixes
-  * Fixed visual bugs with Regenerator, Fungal Infector, and Cursed abilities
-  * Fixed Magical Girl Heart's ability not working
-  * Fixed 1.76 MHz's cost being wrong
-  * Fixed First Brother, Second Brother, Fourth Brother incorrect stats
-  * Fixed Fungal Infector not affecting cards that were affected in previous battles
-  * Fixed Singing Machine not having an emission
-  * Fixed Queen of Hatred and Magical Girl D not functioning as intended
-  * Fixed PLague Doctor special ability not activating when on the opponent's side of the board
-  * Fixed placeholder descriptions for Grave of Cherry Blossoms, The Little Prince still being present
-  * Fixed Witness ability's Rulebook entry displaying an incorrect cost
-* 🔧 Tweaks
-  * Reworked Conductor ability to give passive buffs
-  * Nettles Clothes ability now shows added abilities
-  * The Naked Nest and The Naked Worm are now part of the Insect tribe
-  * Tweaked Broodmother, Queen Nest, Serpent's Nest abilities to have drawn cards inherit merged sigils
-  * Broodmother, Gift Giver, Queen Nest, Serpent's Nest, Corrector abilities now have opponent support
-  * Tweaked sigil icons for Team Leader, Group Healer, Conductor
-  * Tweaked a number of cards' descriptions to better fit the game
-* ⚖️ Balancing
-  * Yang event now only removes 1 card of the relevant cards at random instead of both
-  * Funeral of the Dead Butterflies is no longer Rare
-  * Notes from a Crazed Researcher no longer has Volatile
-  * WhiteNight no longer heals taken damage
-  * Rebalanced The Dreaming Current, Silent Orchestra, Chairs, Funeral of the Dead Butterflies
-  * Buffed Void Dream Rooster, Singing Machine Health
-  * Nerfed Silent Orchestra stats
-* ➕ Additions
-  * Added custom encounters
-  * Added 3 Challenges and 1 Cheat
-  * Added new config options
-  * Added 2 new starter decks
-  * Added 10 death cards
 </details>
 
 ## 🛠️ Configuration Options

@@ -1,12 +1,10 @@
-﻿using BepInEx;
-using InscryptionAPI;
+﻿using DiskCardGame;
 using InscryptionAPI.Nodes;
-using DiskCardGame;
+using Pixelplacement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pixelplacement;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -193,9 +191,9 @@ namespace WhistleWindLobotomyMod
         }
         private string GetRiskLevel(int randomSeed, int regionTier)
         {
-            float riskW = regionTier switch { 2 => 0.25f, 1 => 0.20f, _ => 0.10f};
-            float riskH = regionTier switch { 2 => 0.25f, _ => 0.20f};
-            float riskT = regionTier switch { 2 => 0.25f, _ => 0.30f};
+            float riskW = regionTier switch { 2 => 0.25f, 1 => 0.20f, _ => 0.10f };
+            float riskH = regionTier switch { 2 => 0.25f, _ => 0.20f };
+            float riskT = regionTier switch { 2 => 0.25f, _ => 0.30f };
             float value = SeededRandom.Value(randomSeed);
             if (value <= riskW)
             {

@@ -1,6 +1,4 @@
-﻿using InscryptionAPI;
-using InscryptionAPI.Card;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
@@ -23,7 +21,7 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Bird
             };
-            List <CardAppearanceBehaviour.Appearance> appearances = new()
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 ForcedWhite.appearance,
                 CardAppearanceBehaviour.Appearance.RareCardBackground

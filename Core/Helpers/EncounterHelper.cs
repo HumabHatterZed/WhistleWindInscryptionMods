@@ -1,11 +1,7 @@
-﻿using InscryptionAPI;
+﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
-using DiskCardGame;
-using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using UnityRandom = UnityEngine.Random;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 randomReplaceChance = replacementChance
             };
         }
-        
+
         public static EncounterBlueprintData BuildBlueprint(
             string name, List<Tribe> tribes, int min, int max,
             List<CardInfo> randomCards, List<Ability> redundantAbilities,

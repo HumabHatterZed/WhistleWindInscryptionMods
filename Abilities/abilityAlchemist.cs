@@ -1,7 +1,4 @@
-﻿using InscryptionAPI;
-using InscryptionAPI.Card;
-using DiskCardGame;
-using HarmonyLib;
+﻿using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,7 +1,5 @@
-﻿using InscryptionAPI;
+﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using DiskCardGame;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -135,7 +133,7 @@ namespace WhistleWindLobotomyMod
             yield return PlayerChooseTarget();
 
             bool valid = targetedSlot != null && (targetedSlot.Card != null && targetedSlot.Card != base.Card && targetedSlot.Index != base.Card.Slot.Index);
-            
+
             // If the chosen target is invalid, loop until one of the valid targets is chosen
             if (!valid)
             {

@@ -1,28 +1,9 @@
-﻿using InscryptionAPI;
-using InscryptionAPI.Card;
-using DiskCardGame;
+﻿using DiskCardGame;
 using HarmonyLib;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 namespace WhistleWindLobotomyMod
 {
-    [HarmonyPatch(typeof(CardGainAbility))]
-    public static class CardGainAbilityPatch
-    {
-        // Adds a check for whether the card is dead or not
-        [HarmonyPrefix, HarmonyPatch(nameof(CardGainAbility.RespondsToOtherCardAssignedToSlot))]
-        public static bool RespondsToOtherCardAssignedToSlotNullCheck(ref PlayableCard otherCard)
-        {
-            if (!otherCard.Dead && otherCard.Slot.IsPlayerSlot && Singleton<CardGainAbility>.Instance.RespondsToOtherCardDrawn(otherCard) && !otherCard.HasAbility(Singleton<TotemTriggerReceiver>.Instance.Data.bottom.effectParams.ability))
-            {
-                return !otherCard.Info.Mods.Exists((CardModificationInfo x) => x.fromEvolve);
-            }
-            return false;
-        }
-    }
     [HarmonyPatch(typeof(Strafe))]
     public static class StrafePatch
     {

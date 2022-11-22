@@ -1,5 +1,5 @@
-﻿using InscryptionAPI;
-using DiskCardGame;
+﻿using DiskCardGame;
+using Infiniscryption.PackManagement;
 using System.Collections;
 using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
@@ -50,22 +50,6 @@ namespace WhistleWindLobotomyMod
         {
             yield return FireAtOpposingSlot(otherCard);
         }
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
-        {
-            // Only respond if we're in an antiLock situation
-            if (antiLock && queuedCard != null)
-            {
-                return base.Card.OpponentCard != playerTurnEnd && RespondsToTrigger(queuedCard);
-            }
-            return false;
-        }
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
-            WstlPlugin.Log.LogDebug("Killing queued card.");
-            yield return FireAtOpposingSlot(queuedCard);
-            antiLock = false;
-            queuedCard = null;
-        }
 
         private bool RespondsToTrigger(PlayableCard otherCard)
         {
@@ -78,60 +62,110 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator FireAtOpposingSlot(PlayableCard otherCard)
         {
-            // If this is the same as the last shot card and is the same turn, don't fire again
-            if (!(otherCard != this.lastShotCard) && Singleton<TurnManager>.Instance.TurnNumber == this.lastShotTurn)
-            {
-                yield break;
-            }
+            // Copy otherCard so we can change it later
+            PlayableCard opposingCard = otherCard;
 
-            // If the Pack Mule just resolved on the board, queue it then break
-            if (otherCard.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule)
-                && otherCard.TurnPlayed == 0)
-            {
-                WstlPlugin.Log.LogDebug("Enemy is a Pack Mule.");
-                yield return QueueKill(otherCard);
+            if (!(opposingCard != lastShotCard) && Singleton<TurnManager>.Instance.TurnNumber == lastShotTurn)
                 yield break;
-            }
-            if (otherCard.Info.HasAbility(Ability.TailOnHit)
-                && otherCard.TurnPlayed != 0
-                && !otherCard.Status.hiddenAbilities.Contains(Ability.TailOnHit))
-            {
-                WstlPlugin.Log.LogDebug("Enemy has Loose tail.");
-                yield return QueueKill(otherCard);
-                yield break;
-            }
 
-            this.lastShotCard = otherCard;
-            this.lastShotTurn = Singleton<TurnManager>.Instance.TurnNumber;
+            bool midCombat = false;
+            lastShotCard = opposingCard;
+            lastShotTurn = Singleton<TurnManager>.Instance.TurnNumber;
+
             Singleton<ViewManager>.Instance.SwitchToView(View.Board, immediate: false, lockAfter: true);
             yield return new WaitForSeconds(0.25f);
-            for (int i = 0; i < this.NumShots; i++)
+            for (int i = 0; i < NumShots; i++)
             {
-                if (otherCard != null && !otherCard.Dead && base.Card.Attack > 0)
+                if (opposingCard != null && !opposingCard.Dead)
                 {
                     yield return base.PreSuccessfulTriggerSequence();
-                    base.Card.Anim.LightNegationEffect();
-                    yield return new WaitForSeconds(0.4f);
-                    bool impactFrameReached = false;
-                    base.Card.Anim.PlayAttackAnimation(base.Card.IsFlyingAttackingReach(), otherCard.Slot, delegate
+
+                    // Check if the animation is paused then unpause it
+                    if (base.Card.Anim.Anim.speed == 0f)
                     {
-                        impactFrameReached = true;
-                    });
-                    yield return new WaitUntil(() => impactFrameReached);
-                    yield return otherCard.TakeDamage(base.Card.Attack, base.Card);
+                        // indicates that we need to restart the attack animation at the end of the sequence
+                        midCombat = true;
+
+                        ShowPart3Turret(base.Card, opposingCard);
+
+                        // Unpause the animation then wait for it to stop
+                        base.Card.Anim.Anim.speed = 1f;
+                        yield return new WaitUntil(() => !base.Card.Anim.DoingAttackAnimation);
+                    }
+                    else
+                    {
+                        // vanilla sentry code
+                        base.Card.Anim.LightNegationEffect();
+                        yield return new WaitForSeconds(0.5f);
+
+                        ShowPart3Turret(base.Card, opposingCard);
+
+                        // Expand the attack animation to include a part for triggering CardGettingAttacked
+
+                        base.Card.Anim.PlayAttackAnimation(base.Card.IsFlyingAttackingReach(), opposingCard.Slot, null);
+                        yield return new WaitForSeconds(0.07f);
+                        base.Card.Anim.SetAnimationPaused(paused: true);
+
+                        PlayableCard attackingCard = base.Card;
+                        yield return Singleton<GlobalTriggerHandler>.Instance.TriggerCardsOnBoard(Trigger.CardGettingAttacked, false, opposingCard);
+
+                        opposingCard = UpdateOpposingCard(base.Card, opposingCard);
+
+                        if (attackingCard != null && attackingCard.Slot != null)
+                        {
+                            CardSlot attackingSlot = attackingCard.Slot;
+
+                            if (opposingCard != null)
+                            {
+                                if (attackingSlot.Card.IsFlyingAttackingReach())
+                                {
+                                    opposingCard.Anim.PlayJumpAnimation();
+                                    yield return new WaitForSeconds(0.3f);
+                                    attackingSlot.Card.Anim.PlayAttackInAirAnimation();
+                                }
+                                attackingSlot.Card.Anim.SetAnimationPaused(paused: false);
+                                yield return new WaitForSeconds(0.05f);
+                            }
+                        }
+                    }
+
+                    if (opposingCard != null)
+                        yield return opposingCard.TakeDamage(1, base.Card);
                 }
             }
-            yield return new WaitForSeconds(0.25f);
-            yield return base.LearnAbility();
+            yield return base.LearnAbility(0.5f);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+
+            // If otherCard isn't dead, restart the attack animation for when regular combat resumes
+            if (midCombat && !otherCard.Dead)
+            {
+                base.Card.Anim.PlayAttackAnimation(base.Card.IsFlyingAttackingReach(), otherCard.Slot, null);
+                yield return new WaitForSeconds(0.07f);
+                base.Card.Anim.SetAnimationPaused(paused: true);
+            }
         }
-        private IEnumerator QueueKill(PlayableCard otherCard)
+        private static void ShowPart3Turret(PlayableCard card, PlayableCard otherCard)
         {
-            WstlPlugin.Log.LogDebug("Enemy was played this turn.");
-            antiLock = true;
-            queuedCard = otherCard;
-            base.Card.Anim.LightNegationEffect();
-            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput($"Your [c:bR]{base.Card.Info.DisplayedNameLocalized}[c:] waits for an opportunity to strike.");
+            // putting this code here because the main code's overwhelming enough to look at as is
+            if (card.Anim is DiskCardAnimationController)
+            {
+                (card.Anim as DiskCardAnimationController).SetWeaponMesh(DiskCardWeapon.Turret);
+                (card.Anim as DiskCardAnimationController).AimWeaponAnim(otherCard.Slot.transform.position);
+                (card.Anim as DiskCardAnimationController).ShowWeaponAnim();
+            }
+        }
+        private static PlayableCard UpdateOpposingCard(PlayableCard source, PlayableCard target)
+        {
+            // putting this code here because the main code's overwhelming enough to look at as is
+            CardSlot opposingSlot = source.Slot.opposingSlot;
+            if (opposingSlot.Card != null)
+            {
+                if (opposingSlot.Card != target)
+                    return opposingSlot.Card;
+
+                return target;
+            }
+            return null;
         }
     }
 }

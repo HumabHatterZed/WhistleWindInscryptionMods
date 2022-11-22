@@ -1,5 +1,4 @@
-﻿using InscryptionAPI;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -140,7 +139,7 @@ namespace WhistleWindLobotomyMod
                 {
                     yield return slot.Card.DieTriggerless();
                 }
-                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_yinYangHead"),slot);
+                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_yinYangHead"), slot);
             }
             yield return new WaitForSeconds(0.4f);
             if (!WstlSaveManager.HasSeenDragon)

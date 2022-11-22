@@ -1,5 +1,4 @@
-﻿using InscryptionAPI;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
@@ -113,7 +112,7 @@ namespace WhistleWindLobotomyMod
                 }
             }
         }
-        private IEnumerator SpawnCard(CardSlot slot,string name)
+        private IEnumerator SpawnCard(CardSlot slot, string name)
         {
             CardInfo cardByName = CardLoader.GetCardByName(name);
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(cardByName, slot, 0.15f);

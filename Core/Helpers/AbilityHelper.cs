@@ -1,12 +1,7 @@
-﻿using InscryptionAPI;
+﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers;
-using DiskCardGame;
-using System;
-using System.IO;
-using System.Text;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using static WhistleWindLobotomyMod.WstlPlugin;
 
@@ -33,7 +28,7 @@ namespace WhistleWindLobotomyMod
             info.rulebookDescription = rulebookDescription;
             info.powerLevel = powerLevel;
             info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
-            
+
             info.opponentUsable = opponent;
             info.canStack = canStack;
             info.passive = isPassive;
