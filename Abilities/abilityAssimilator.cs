@@ -73,9 +73,6 @@ namespace WhistleWindLobotomyMod
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            if (base.Card.Slot.Card != null)
-                yield break;
-
             yield return PreSuccessfulTriggerSequence();
 
             var cardName = base.Card.Info.name;

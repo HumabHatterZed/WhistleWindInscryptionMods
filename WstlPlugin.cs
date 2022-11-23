@@ -220,20 +220,26 @@ namespace WhistleWindLobotomyMod
             ScorchedGirl_F0102();
             OneSin_O0303();
             HundredsGoodDeeds_O0303();
-            MagicalGirlHeart_O0104();
+
             QueenOfHatred_O0104();
             QueenOfHatredTired_O0104();
+            MagicalGirlHeart_O0104();
+
             HappyTeddyBear_T0406();
             RedShoes_O0408();
             Theresia_T0909();
             OldLady_O0112();
-            NamelessFetus_O0115();
+
             NamelessFetusAwake_O0115();
+            NamelessFetus_O0115();
+
             WallLady_F0118();
-            NothingThere_O0620();
-            NothingThereTrue_O0620();
-            NothingThereEgg_O0620();
+
             NothingThereFinal_O0620();
+            NothingThereEgg_O0620();
+            NothingThereTrue_O0620();
+            NothingThere_O0620();
+
             MHz176_T0727();
             SingingMachine_O0530();
             SilentOrchestra_T0131();
@@ -247,8 +253,10 @@ namespace WhistleWindLobotomyMod
             SnowWhitesApple_F0442();
             SnowWhitesVine_F0442();
             SpiderBud_O0243();
-            Spiderling_O0243();
+
             SpiderBrood_O0243();
+            Spiderling_O0243();
+
             BeautyAndBeast_O0244();
             PlagueDoctor_O0145();
             WhiteNight_T0346();
@@ -263,10 +271,12 @@ namespace WhistleWindLobotomyMod
             RudoltaSleigh_F0249();
             QueenBee_T0450();
             QueenBeeWorker_T0450();
-            BloodBath_T0551();
-            BloodBath1_T0551();
-            BloodBath2_T0551();
+
             BloodBath3_T0551();
+            BloodBath2_T0551();
+            BloodBath1_T0551();
+            BloodBath_T0551();
+
             CanOfWellCheers_F0552();
             Alriune_T0453();
             ForsakenMurderer_T0154();
@@ -331,8 +341,10 @@ namespace WhistleWindLobotomyMod
             BehaviourAdjustment_O0996();
             OldFaithAndPromise_T0997();
             Porccubus_O0298();
-            VoidDream_T0299();
+
             VoidDreamRooster_T0299();
+            VoidDream_T0299();
+
             GraveOfBlossoms_O04100();
             TheFirebird_O02101();
             Yin_O05102();
@@ -346,16 +358,22 @@ namespace WhistleWindLobotomyMod
             }
             BackwardClock_D09104();
             DellaLuna_D01105();
-            ArmyInPink_D01106();
+
             ArmyInBlack_D01106();
-            Ppodae_D02107();
+            ArmyInPink_D01106();
+
+
             PpodaeBuff_D02107();
+            Ppodae_D02107();
+
             ParasiteTree_D04108();
             ParasiteTreeSapling_D04108();
             MeltingLove_D03109();
             MeltingLoveMinion_D03109();
-            HonouredMonk_D01110();
+
             CloudedMonk_D01110();
+            HonouredMonk_D01110();
+
 
             // Opponent only cards
             Rudolta_Mule();
