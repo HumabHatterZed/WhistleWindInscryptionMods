@@ -1,5 +1,23 @@
 ﻿## FULL CHANGELOG
 
+### v1.2.4 - Big Boy patch (11/22/2022)
+* 🩹 Bug fixes
+  * Fixed cards with custom evolutions evolving into the wrong forme when played by Leshy
+  * Reverted prior change to Mountain of Smiling Bodies
+
+### v1.2.3 - Bodies of Apostles patch (11/21/2022)
+* 🧱 General
+  * Mod now unpatches itself OnDisable
+* 🩹 Bug fixes
+  * Fixed downed Apostles not evolving into their correct forme
+  * Mountain of Smiling Bodies now checks if card slot is null when killed after evolving
+* 🔧 Tweaks
+  * Rewrote Woodcutter ability to use logic from API's Sentry fix
+  * Quick Draw now inherits from Sentry
+* 💣 Removals
+  * Removed some debugging items
+  * Removed unnecessary patches
+
 ### v1.2.2 - The 'Who Let Me Code' patch (10/6/2022)
 * 🩹 Bug fixes
   * Fixed the following cards not being obtainable as card choices

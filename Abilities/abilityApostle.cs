@@ -1,7 +1,5 @@
-﻿using InscryptionAPI;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
@@ -30,7 +28,7 @@ namespace WhistleWindLobotomyMod
         private readonly string downedDialogue = "[c:bR]None of you can leave my side until I permit you.[c:]";
         private readonly string hammeredDialogue = "[c:bR]Be at ease. No calamity shall be able to trouble you.[c:]";
 
-        private bool SpecialApostle => base.Card.Info.name.Contains("Guardian") || base.Card.Info.name.Contains("Moleman");
+        private bool SpecialApostle => base.Card.Info.name.Contains("apostleGuardian") || base.Card.Info.name.Contains("Moleman");
         private int downCount = 0;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
@@ -44,7 +42,13 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            if (killer != null)
+
+            // clear the slot if it's filled
+            if (base.Card.Slot.Card != null)
+                yield return base.Card.Slot.Card.DieTriggerless();
+
+            // Special Apostles always go down when killed
+            if (killer != null || SpecialApostle)
             {
                 // Create the downed forme of the Apostle in its slot
                 CardInfo downedInfo = base.Card.Info.name switch
@@ -64,19 +68,6 @@ namespace WhistleWindLobotomyMod
                 }
                 yield break;
             }
-            if (SpecialApostle)
-            {
-                // Create the downed forme if Guardian or Moleman (to account for Royal's cannonballs)
-                CardInfo downedInfo = base.Card.Info.name switch
-                {
-                    "wstl_apostleGuardian" => CardLoader.GetCardByName("wstl_apostleGuardianDown"),
-                    "wstl_apostleMoleman" => CardLoader.GetCardByName("wstl_apostleMolemanDown"),
-                    _ => CardLoader.GetCardByName("wstl_trainingDummy")
-                };
-                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(downedInfo, base.Card.Slot, 0.15f);
-                yield return new WaitForSeconds(0.2f);
-                yield break;
-            }
             // Recreate this card in the same slot
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
             yield return new WaitForSeconds(0.2f);
@@ -89,11 +80,11 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
-            if (base.Card.Info.name == "wstl_apostleScytheDown" || base.Card.Info.name == "wstl_apostleSpearDown" || base.Card.Info.name == "wstl_apostleStaffDown")
-            {
-                return playerUpkeep;
-            }
-            return false;
+            // don't trigger on upkeep if a special Apostle or isn't a downed Apostle
+            if (SpecialApostle || !base.Card.Info.name.Contains("Down"))
+                return false;
+
+            return base.Card.OpponentCard != playerUpkeep;
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
@@ -105,8 +96,8 @@ namespace WhistleWindLobotomyMod
                 downCount = 0;
                 CardInfo risenInfo = base.Card.Info.name switch
                 {
-                    "wstl_apostleSpear" => CardLoader.GetCardByName("wstl_apostleSpear"),
-                    "wstl_apostleStaff" => CardLoader.GetCardByName("wstl_apostleStaff"),
+                    "wstl_apostleSpearDown" => CardLoader.GetCardByName("wstl_apostleSpear"),
+                    "wstl_apostleStaffDown" => CardLoader.GetCardByName("wstl_apostleStaff"),
                     _ => CardLoader.GetCardByName("wstl_apostleScythe")
                 };
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);

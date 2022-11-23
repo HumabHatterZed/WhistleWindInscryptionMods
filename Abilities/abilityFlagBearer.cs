@@ -1,11 +1,7 @@
-﻿using InscryptionAPI;
-using InscryptionAPI.Card;
+﻿using DiskCardGame;
 using InscryptionAPI.Triggers;
-using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
 namespace WhistleWindLobotomyMod
@@ -40,7 +36,7 @@ namespace WhistleWindLobotomyMod
         {
             yield return base.LearnAbility(0.4f);
         }
-        
+
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))

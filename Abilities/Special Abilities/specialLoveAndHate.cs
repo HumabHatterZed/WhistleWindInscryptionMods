@@ -1,5 +1,4 @@
-﻿using InscryptionAPI;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +52,7 @@ namespace WhistleWindLobotomyMod
             }
             yield break;
         }
-        
+
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
             return IsMagical && base.PlayableCard.OnBoard && base.PlayableCard.OpponentCard != playerUpkeep;

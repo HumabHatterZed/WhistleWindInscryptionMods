@@ -1,8 +1,4 @@
-﻿using InscryptionAPI;
-using DiskCardGame;
-using System.Collections;
-using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+﻿using DiskCardGame;
 
 namespace WhistleWindLobotomyMod
 {

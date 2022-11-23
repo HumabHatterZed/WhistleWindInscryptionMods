@@ -1,5 +1,4 @@
-﻿using InscryptionAPI;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +30,7 @@ namespace WhistleWindLobotomyMod
 
         // 1 mode for each brother
         private readonly CardModificationInfo mod1 = new(Ability.DoubleStrike);
-        private readonly CardModificationInfo mod2 = new(1,0);
+        private readonly CardModificationInfo mod2 = new(1, 0);
         private readonly CardModificationInfo mod3 = new(Reflector.ability);
         private readonly CardModificationInfo mod4 = new(Ability.Deathtouch);
         private readonly CardModificationInfo mod5 = new(Ability.Sharp);

@@ -1,10 +1,5 @@
-using InscryptionAPI;
-using InscryptionAPI.Card;
 using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,8 +10,8 @@ namespace WhistleWindLobotomyMod
             // Queue card if opponent, otherwise draw card to hand
             if (base.Card.OpponentCard)
             {
-	    	yield return CustomMethods.QueueCreatedCard(CardToDraw);
-	    }
+                yield return CustomMethods.QueueCreatedCard(CardToDraw);
+            }
             else
             {
                 yield return base.CreateDrawnCard();

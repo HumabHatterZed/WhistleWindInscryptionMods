@@ -1,6 +1,4 @@
-﻿using InscryptionAPI;
-using InscryptionAPI.Card;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 

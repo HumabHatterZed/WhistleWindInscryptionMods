@@ -1,10 +1,5 @@
-﻿using InscryptionAPI;
-using InscryptionAPI.Encounters;
-using InscryptionAPI.Regions;
-using DiskCardGame;
-using System.Collections;
+﻿using DiskCardGame;
 using System.Collections.Generic;
-using UnityEngine;
 using static WhistleWindLobotomyMod.EncounterHelper;
 
 namespace WhistleWindLobotomyMod

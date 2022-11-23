@@ -1,8 +1,6 @@
-﻿using InscryptionAPI;
+﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using DiskCardGame;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
@@ -23,39 +21,39 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-		public override bool RespondsToDrawn()
-		{
-			return true;
-		}
-		public override IEnumerator OnDrawn()
-		{
-			this.DisguiseInBattle();
-			yield break;
-		}
-		public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
-		{
+        public override bool RespondsToDrawn()
+        {
+            return true;
+        }
+        public override IEnumerator OnDrawn()
+        {
+            this.DisguiseInBattle();
+            yield break;
+        }
+        public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
+        {
             this.UpdatePortrait();
             yield break;
-		}
-		public override IEnumerator OnSelectedForDeckTrial()
-		{
+        }
+        public override IEnumerator OnSelectedForDeckTrial()
+        {
             this.UpdatePortrait();
             yield break;
-		}
-		public override void OnShownInDeckReview()
-		{
+        }
+        public override void OnShownInDeckReview()
+        {
             this.UpdatePortrait();
         }
-		public override void OnShownForCardChoiceNode()
-		{
+        public override void OnShownForCardChoiceNode()
+        {
             this.UpdatePortrait();
         }
-		private void DisguiseInBattle()
-		{
-			this.UpdatePortrait();
-			base.PlayableCard.AddPermanentBehaviour<Bless>();
+        private void DisguiseInBattle()
+        {
+            this.UpdatePortrait();
+            base.PlayableCard.AddPermanentBehaviour<Bless>();
             base.PlayableCard.ApplyAppearanceBehaviours(new() { ForcedWhite.appearance });
-		}
+        }
         private void UpdatePortrait()
         {
             Texture2D portrait;

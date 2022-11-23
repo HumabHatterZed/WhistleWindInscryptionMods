@@ -1,18 +1,14 @@
 ﻿using BepInEx;
-using BepInEx.Logging;
 using BepInEx.Bootstrap;
-using System;
-using System.Reflection;
-using HarmonyLib;
+using BepInEx.Logging;
 using DiskCardGame;
-using UnityEngine;
-using InscryptionAPI;
-using InscryptionAPI.Regions;
-using InscryptionAPI.Encounters;
-using System.Linq;
-using Sirenix.Utilities;
+using HarmonyLib;
 using Infiniscryption.PackManagement;
-
+using InscryptionAPI.Encounters;
+using InscryptionAPI.Regions;
+using Sirenix.Utilities;
+using System.Linq;
+using System.Reflection;
 using static WhistleWindLobotomyMod.AbnormalEncounterData;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
 
@@ -21,21 +17,26 @@ namespace WhistleWindLobotomyMod
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
     [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("whistlewind.inscryption.abnormalsigils", BepInDependency.DependencyFlags.SoftDependency)]
 
     public partial class WstlPlugin : BaseUnityPlugin
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.2.2";
+        private const string pluginVersion = "1.2.4";
 
         internal static ManualLogSource Log;
-        private static Harmony harmony;
-        //public static string Directory;
+        private static Harmony harmony = new(pluginGuid);
+        
+        private void OnDisable()
+        {
+            harmony.UnpatchSelf();
+        }
 
         private void Awake()
         {
             WstlPlugin.Log = base.Logger;
-            harmony = Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), pluginGuid);
+            harmony.PatchAll();
             ConfigManager.Instance.BindConfig();
 
             if (!ConfigManager.Instance.ModEnabled)
@@ -154,49 +155,52 @@ namespace WhistleWindLobotomyMod
         }
         private void AddAbilities()
         {
-            //Ability_Test();
-
-            Ability_Punisher();
-            Ability_Bloodfiend();
-            Ability_Martyr();
-            Ability_Aggravating();
-            Ability_TeamLeader();
-            Ability_Idol();
-            Ability_Conductor();
-            Ability_Woodcutter();
-            Ability_FrozenHeart();
-            Ability_FrostRuler();
-            Ability_Roots();
-            Ability_BroodMother();
-            Ability_Cursed();
-            Ability_Healer();
-            Ability_QueenNest();
-            Ability_BitterEnemies();
-            Ability_Courageous();
-            Ability_SerpentsNest();
-            Ability_Assimilator();
-            Ability_GroupHealer();
-            Ability_Reflector();
-            Ability_FlagBearer();
-            Ability_Grinder();
-            Ability_TheTrain();
-            Ability_Burning();
-            Ability_Regenerator();
-            Ability_Volatile();
-            Ability_GiftGiver();
-            Ability_Piercing();
-            Ability_Scrambler();
-            Ability_Gardener();
-            Ability_Slime();
-            Ability_Marksman();
-            Ability_Protector();
-            Ability_QuickDraw();
-            Ability_Alchemist();
-            Ability_TimeMachine();
-            Ability_Nettles();
-            Ability_Spores();
-            Ability_Witness();
-            Ability_Corrector();
+            if (!AbnormalSigils.Enabled)
+            {
+                Ability_Punisher();
+                Ability_Bloodfiend();
+                Ability_Martyr();
+                Ability_Aggravating();
+                Ability_TeamLeader();
+                Ability_Idol();
+                Ability_Conductor();
+                Ability_Woodcutter();
+                Ability_FrozenHeart();
+                Ability_FrostRuler();
+                Ability_Roots();
+                Ability_BroodMother();
+                Ability_Cursed();
+                Ability_Healer();
+                Ability_QueenNest();
+                Ability_BitterEnemies();
+                Ability_Courageous();
+                Ability_SerpentsNest();
+                Ability_Assimilator();
+                Ability_GroupHealer();
+                Ability_Reflector();
+                Ability_FlagBearer();
+                Ability_Grinder();
+                Ability_TheTrain();
+                Ability_Burning();
+                Ability_Regenerator();
+                Ability_Volatile();
+                Ability_GiftGiver();
+                Ability_Piercing();
+                Ability_Scrambler();
+                Ability_Gardener();
+                Ability_Slime();
+                Ability_Marksman();
+                Ability_Protector();
+                Ability_QuickDraw();
+                Ability_Alchemist();
+                Ability_TimeMachine();
+                Ability_Nettles();
+                Ability_Spores();
+                Ability_Witness();
+                Ability_Corrector();
+            }
+            else
+                Log.LogWarning("Abnormal Sigils is installed! Skipping abilities...");
 
             Ability_Apostle();
             Ability_TrueSaviour();
@@ -210,26 +214,32 @@ namespace WhistleWindLobotomyMod
         }
         private void AddCards()
         {
-            TestingDummy_XXXXX();
+            // TestingDummy_XXXXX();
 
             TrainingDummy_00000();
             ScorchedGirl_F0102();
             OneSin_O0303();
             HundredsGoodDeeds_O0303();
-            MagicalGirlHeart_O0104();
+
             QueenOfHatred_O0104();
             QueenOfHatredTired_O0104();
+            MagicalGirlHeart_O0104();
+
             HappyTeddyBear_T0406();
             RedShoes_O0408();
             Theresia_T0909();
             OldLady_O0112();
-            NamelessFetus_O0115();
+
             NamelessFetusAwake_O0115();
+            NamelessFetus_O0115();
+
             WallLady_F0118();
-            NothingThere_O0620();
-            NothingThereTrue_O0620();
-            NothingThereEgg_O0620();
+
             NothingThereFinal_O0620();
+            NothingThereEgg_O0620();
+            NothingThereTrue_O0620();
+            NothingThere_O0620();
+
             MHz176_T0727();
             SingingMachine_O0530();
             SilentOrchestra_T0131();
@@ -243,8 +253,10 @@ namespace WhistleWindLobotomyMod
             SnowWhitesApple_F0442();
             SnowWhitesVine_F0442();
             SpiderBud_O0243();
-            Spiderling_O0243();
+
             SpiderBrood_O0243();
+            Spiderling_O0243();
+
             BeautyAndBeast_O0244();
             PlagueDoctor_O0145();
             WhiteNight_T0346();
@@ -259,10 +271,12 @@ namespace WhistleWindLobotomyMod
             RudoltaSleigh_F0249();
             QueenBee_T0450();
             QueenBeeWorker_T0450();
-            BloodBath_T0551();
-            BloodBath1_T0551();
-            BloodBath2_T0551();
+
             BloodBath3_T0551();
+            BloodBath2_T0551();
+            BloodBath1_T0551();
+            BloodBath_T0551();
+
             CanOfWellCheers_F0552();
             Alriune_T0453();
             ForsakenMurderer_T0154();
@@ -327,8 +341,10 @@ namespace WhistleWindLobotomyMod
             BehaviourAdjustment_O0996();
             OldFaithAndPromise_T0997();
             Porccubus_O0298();
-            VoidDream_T0299();
+
             VoidDreamRooster_T0299();
+            VoidDream_T0299();
+
             GraveOfBlossoms_O04100();
             TheFirebird_O02101();
             Yin_O05102();
@@ -342,16 +358,22 @@ namespace WhistleWindLobotomyMod
             }
             BackwardClock_D09104();
             DellaLuna_D01105();
-            ArmyInPink_D01106();
+
             ArmyInBlack_D01106();
-            Ppodae_D02107();
+            ArmyInPink_D01106();
+
+
             PpodaeBuff_D02107();
+            Ppodae_D02107();
+
             ParasiteTree_D04108();
             ParasiteTreeSapling_D04108();
             MeltingLove_D03109();
             MeltingLoveMinion_D03109();
-            HonouredMonk_D01110();
+
             CloudedMonk_D01110();
+            HonouredMonk_D01110();
+
 
             // Opponent only cards
             Rudolta_Mule();
@@ -387,6 +409,20 @@ namespace WhistleWindLobotomyMod
                 pack.SetTexture(WstlTextureHelper.LoadTextureFromResource(Resources.wstl_pack));
                 pack.Description = "This card pack adds 84 obtainable cards based on abnormalities.";
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+            }
+        }
+
+        public static class AbnormalSigils
+        {
+            private static bool? _enabled;
+            public static bool Enabled
+            {
+                get
+                {
+                    if (_enabled == null)
+                        _enabled = Chainloader.PluginInfos.ContainsKey("whistlewind.inscryption.abnormalsigils");
+                    return (bool)_enabled;
+                }
             }
         }
     }

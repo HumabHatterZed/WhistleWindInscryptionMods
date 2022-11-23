@@ -1,17 +1,11 @@
-﻿using InscryptionAPI;
-using InscryptionAPI.Card;
-using InscryptionAPI.Ascension;
-using InscryptionAPI.Encounters;
-using InscryptionAPI.Regions;
-using DiskCardGame;
+﻿using DiskCardGame;
 using HarmonyLib;
-using System;
-using System.Linq;
-using System.Collections;
+using InscryptionAPI.Ascension;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Resources = WhistleWindLobotomyMod.Properties.Resources;
-using static WhistleWindLobotomyMod.AbnormalEncounterData;
 
 namespace WhistleWindLobotomyMod
 {

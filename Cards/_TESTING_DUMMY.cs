@@ -1,7 +1,4 @@
-﻿using InscryptionAPI;
-using InscryptionAPI.Card;
-using InscryptionAPI.Guid;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Properties;
 
@@ -13,7 +10,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Test.ability
+                Ability.TripleBlood
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -30,7 +27,7 @@ namespace WhistleWindLobotomyMod
             CardHelper.CreateCard(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
-                0, 10, 0, 0,
+                5, 10, 0, 0,
                 Resources.testingDummy, Resources.blueStar_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
