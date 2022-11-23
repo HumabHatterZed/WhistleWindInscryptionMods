@@ -48,7 +48,12 @@ For a list of previous updates and a full description of the current update, ref
 See Closing Notes for info on future updates.
 
 <details>
-<summary>Latest Update - v1.2.3</summary>
+<summary>Latest Update - v1.2.4</summary>
+
+### v1.2.4 - Big Boy patch (11/22/2022)
+* 🩹 Bug fixes
+  * Fixed cards with custom evolutions evolving into the wrong forme when played by Leshy
+  * Reverted prior change to Mountain of Smiling Bodies
 
 ### v1.2.3 - Bodies of Apostles patch (11/21/2022)
 * 🧱 General

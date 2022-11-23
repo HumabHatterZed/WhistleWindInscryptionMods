@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.2.3";
+        private const string pluginVersion = "1.2.4";
 
         internal static ManualLogSource Log;
         private static Harmony harmony = new(pluginGuid);
@@ -52,10 +52,7 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("Loading challenges...");
                 AddChallenges();
                 Log.LogDebug("Loading abilities...");
-                if (!AbnormalSigils.Enabled)
-                    AddAbilities();
-                else
-                    Log.LogWarning("Abnormal Sigils is installed! Skipping abilities...");
+                AddAbilities();
                 AddSpecialAbilities();
                 Log.LogDebug("Loading cards...");
                 AddAppearances();
@@ -158,49 +155,52 @@ namespace WhistleWindLobotomyMod
         }
         private void AddAbilities()
         {
-            //Ability_Test();
-
-            Ability_Punisher();
-            Ability_Bloodfiend();
-            Ability_Martyr();
-            Ability_Aggravating();
-            Ability_TeamLeader();
-            Ability_Idol();
-            Ability_Conductor();
-            Ability_Woodcutter();
-            Ability_FrozenHeart();
-            Ability_FrostRuler();
-            Ability_Roots();
-            Ability_BroodMother();
-            Ability_Cursed();
-            Ability_Healer();
-            Ability_QueenNest();
-            Ability_BitterEnemies();
-            Ability_Courageous();
-            Ability_SerpentsNest();
-            Ability_Assimilator();
-            Ability_GroupHealer();
-            Ability_Reflector();
-            Ability_FlagBearer();
-            Ability_Grinder();
-            Ability_TheTrain();
-            Ability_Burning();
-            Ability_Regenerator();
-            Ability_Volatile();
-            Ability_GiftGiver();
-            Ability_Piercing();
-            Ability_Scrambler();
-            Ability_Gardener();
-            Ability_Slime();
-            Ability_Marksman();
-            Ability_Protector();
-            Ability_QuickDraw();
-            Ability_Alchemist();
-            Ability_TimeMachine();
-            Ability_Nettles();
-            Ability_Spores();
-            Ability_Witness();
-            Ability_Corrector();
+            if (!AbnormalSigils.Enabled)
+            {
+                Ability_Punisher();
+                Ability_Bloodfiend();
+                Ability_Martyr();
+                Ability_Aggravating();
+                Ability_TeamLeader();
+                Ability_Idol();
+                Ability_Conductor();
+                Ability_Woodcutter();
+                Ability_FrozenHeart();
+                Ability_FrostRuler();
+                Ability_Roots();
+                Ability_BroodMother();
+                Ability_Cursed();
+                Ability_Healer();
+                Ability_QueenNest();
+                Ability_BitterEnemies();
+                Ability_Courageous();
+                Ability_SerpentsNest();
+                Ability_Assimilator();
+                Ability_GroupHealer();
+                Ability_Reflector();
+                Ability_FlagBearer();
+                Ability_Grinder();
+                Ability_TheTrain();
+                Ability_Burning();
+                Ability_Regenerator();
+                Ability_Volatile();
+                Ability_GiftGiver();
+                Ability_Piercing();
+                Ability_Scrambler();
+                Ability_Gardener();
+                Ability_Slime();
+                Ability_Marksman();
+                Ability_Protector();
+                Ability_QuickDraw();
+                Ability_Alchemist();
+                Ability_TimeMachine();
+                Ability_Nettles();
+                Ability_Spores();
+                Ability_Witness();
+                Ability_Corrector();
+            }
+            else
+                Log.LogWarning("Abnormal Sigils is installed! Skipping abilities...");
 
             Ability_Apostle();
             Ability_TrueSaviour();
