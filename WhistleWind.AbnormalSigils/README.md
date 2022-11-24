@@ -6,8 +6,14 @@ A library of [number] sigils based on the abnormalities from Lobotomy Corporatio
 * BepInEx-BepInExPack_Inscryption v5.4.1902
 * API_dev-API v2.7.1
 
-## ⚙️ Compatibility
-If you have Infiniscryption's Spell API installed, several
+## 🔗 Compatibility
+
+### Spell Card Toolkit
+If you have [Spell Card Toolkit](https://inscryption.thunderstore.io/package/Infiniscryption/Spell_Card_Toolkit/) installed,
+the abilities Scrambler, Target Gain Stats, Target Gain Sigils, and Target Gain Stats and Sigils will be altered to be compatible with Spell cards, and will function correctly when used on them.
+
+### Tribal Libary (sic)
+If you have [Tribal Libary](https://inscryption.thunderstore.io/package/Infiniscryption/Spell_Card_Toolkit/) installed, the few minion cards added by this mod will be altered to use Tribal's custom tribes in addition to whatever tribes they may already possess.
 
 ## 💌 Credits/Acknowledgements
 
@@ -19,6 +25,15 @@ Alternatively, you can check out the wiki on GitHub!
 
 ## 🛠️ Configuration Options
 
+### Enable Mod
+#### Default value: True
+Enables this mod's content.
+
+### Disable Mod Abilities
+#### Default Value: 0
+Disables this mod's abilities by group, preventing them from appearing in the Rulebook or in-game.
+Uses a flag system to determine groups:
+1 - 
 |NAME|DEFAULT|DESCRIPTION|
 |:-|:-|:-|
 |Enable Mod|TRUE|Enables this mod's content.|
@@ -30,7 +45,7 @@ Alternatively, you can check out the wiki on GitHub!
 **Totem** indicates the ability can be found on totem bases and on cards from den trials by default.
 
 |NAME|DESCRIPTION|TOTEM|
-|:-|:-|:-:|:-:|
+|:-|:-|:-:|
 |Punisher|When a card bearing this sigil is struck, the striker is killed.|✔|
 |Bloodfiend|When a card bearing this sigil deals damage to an opposing card, it gains 1 Health.|✔|
 |Martyr|When a card bearing this sigil dies, all allied creatures gain 2 Health.|✔|
