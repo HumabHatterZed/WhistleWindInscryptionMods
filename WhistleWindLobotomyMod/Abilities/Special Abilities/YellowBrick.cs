@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using System.Linq;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {

@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {

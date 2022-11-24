@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using InscryptionAPI.Card;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
 namespace WhistleWind.AbnormalSigils.Patches
@@ -33,6 +32,6 @@ namespace WhistleWind.AbnormalSigils.Patches
                 }
                 return true;
             }
-        } 
+        }
     }
 }

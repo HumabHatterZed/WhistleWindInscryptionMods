@@ -2,7 +2,6 @@
 using HarmonyLib;
 using InscryptionAPI.Ascension;
 using InscryptionAPI.Regions;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 using static WhistleWindLobotomyMod.Core.Opponents.AbnormalEncounterData;

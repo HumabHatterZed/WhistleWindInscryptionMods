@@ -10,9 +10,7 @@ using Sirenix.Utilities;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Unity.Audio;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
@@ -41,8 +39,8 @@ namespace WhistleWindLobotomyMod
 
         private void OnDisable()
         {
-/*            if (sephirahBundle != null)
-                sephirahBundle.Unload(false);*/
+            /*            if (sephirahBundle != null)
+                            sephirahBundle.Unload(false);*/
             HarmonyInstance.UnpatchSelf();
         }
 

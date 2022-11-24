@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
+﻿using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 

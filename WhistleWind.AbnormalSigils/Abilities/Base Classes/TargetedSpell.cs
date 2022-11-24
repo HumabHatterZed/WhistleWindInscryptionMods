@@ -1,6 +1,5 @@
 using DiskCardGame;
 using System.Collections;
-using UnityEngine;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
 namespace WhistleWind.AbnormalSigils

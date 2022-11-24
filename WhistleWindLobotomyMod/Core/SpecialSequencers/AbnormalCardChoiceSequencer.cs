@@ -5,7 +5,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
@@ -134,12 +133,12 @@ namespace WhistleWindLobotomyMod
                     {
                         components[j].OnShownForCardChoiceNode();
                     }
-                    
+
                     if (card.ChoiceInfo.CardInfo.metaCategories.Contains(CardMetaCategory.Rare))
                         card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBackRare));
                     else
                         card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBack));
-                    
+
                     card.SetFaceDown(faceDown: true, immediate: true);
                     Vector3 position = card.transform.position;
                     card.transform.position = card.transform.position + Vector3.forward * 5f + new Vector3(-0.5f + UnityEngine.Random.value * 1f, 0f, 0f);

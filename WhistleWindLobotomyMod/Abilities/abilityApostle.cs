@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
