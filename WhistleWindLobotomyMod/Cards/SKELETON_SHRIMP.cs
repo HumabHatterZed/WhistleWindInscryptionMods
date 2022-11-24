@@ -16,6 +16,15 @@ namespace WhistleWindLobotomyMod
             };
 
             CardHelper.CreateCard(
+                "wstl_CRUMPLED_CAN", "Crumpled Can of WellCheers",
+                "Soda can can soda dota 2 electric boo.",
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.skeleton_can, Artwork.skeleton_can_emission,
+                abilities: new(), specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new());
+
+            CardHelper.CreateCard(
                 "wstl_SKELETON_SHRIMP", "Skeleton Shrimp",
                 "A dead shrimp man craving for a final drop of soda.",
                 atk: 2, hp: 1,

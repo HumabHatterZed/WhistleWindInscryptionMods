@@ -9,15 +9,20 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Ppodae_D02107()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.DebuffEnemy,
-                Ability.Evolve
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Canine
-            };
+            List<Ability> abilities = new() { Ability.DebuffEnemy };
+            List<Tribe> tribes = new() { Tribe.Canine };
+
+            CardHelper.CreateCard(
+                "wstl_ppodaeBuff", "Ppodae",
+                "",
+                atk: 3, hp: 2,
+                blood: 0, bones: 8, energy: 0,
+                Artwork.ppodaeBuff, Artwork.ppodaeBuff_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new());
+
+            abilities.Add(Ability.Evolve);
+
             CardHelper.CreateCard(
                 "wstl_ppodae", "Ppodae",
                 "An innocent little puppy.",

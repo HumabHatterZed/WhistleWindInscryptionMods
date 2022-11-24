@@ -152,5 +152,18 @@ namespace WhistleWind.AbnormalSigils
                 }
             }
         }
+
+        public static class LobMod
+        {
+            private static bool? _enabled;
+            public static bool Enabled
+            {
+                get
+                {
+                    _enabled ??= Chainloader.PluginInfos.ContainsKey("whistlewind.inscryption.lobotomycorp");
+                    return (bool)_enabled;
+                }
+            }
+        }
     }
 }

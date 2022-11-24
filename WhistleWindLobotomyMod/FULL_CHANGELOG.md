@@ -11,7 +11,7 @@
   * Fixed abnormality choice node not playing/clear text properly
   * Fixed Downed Guardian Apostle reviving immediately
   * Fixed certain singleton cards being reobtainable after certain events
-* 🔧 Tweaks / Changes
+* 🔧 Tweaks
   * Replaced Wolf Cub --> The Way Home in starter deck "Road to Oz"
   * Replaced Magical Girl S --> Magical Girl C in starter deck "Magical Girls!"
   * Changed Shelter from the 27th of March into a Spell card with Repulsive, Aggravating, Imbue Target
@@ -79,6 +79,11 @@
     * Strengthen Target
     * Empower Target
     * Passing Time - stat icon
+
+### v1.2.4 - Big Boy patch (11/22/2022)
+* 🩹 Bug fixes
+  * Fixed cards with custom evolutions evolving into the wrong forme when played by Leshy
+  * Reverted prior change to Mountain of Smiling Bodies
 
 ### v1.2.3 - Bodies of Apostles patch (11/21/2022)
 * 🧱 General

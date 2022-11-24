@@ -15,6 +15,15 @@ namespace WhistleWind.AbnormalSigils
             };
 
             AbnormalCardHelper.CreateCard(
+                "wstl_scaredyCatStrong", "Scaredy Cat",
+                "A pitiful little cat.",
+                2, 6, 3, 0,
+                Artwork.scaredyCatStrong, Artwork.scaredyCatStrong_emission,
+                abilities: abilities,
+                metaCategories: new(), tribes: new(), traits: new(),
+                evolveName: "wstl_scaredyCat");
+
+            AbnormalCardHelper.CreateCard(
                 "wstl_scaredyCat", "Scaredy Cat",
                 "A pitiful little cat.",
                 0, 1, 1, 0,

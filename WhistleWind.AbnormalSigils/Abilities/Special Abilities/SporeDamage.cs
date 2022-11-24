@@ -55,6 +55,9 @@ namespace WhistleWind.AbnormalSigils
 
             foreach (CardModificationInfo item in base.PlayableCard.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
+                if (item.abilities.Count == 0)
+                    continue;
+
                 // Adds merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
                 if (cardModificationInfo.healthAdjustment > 0)

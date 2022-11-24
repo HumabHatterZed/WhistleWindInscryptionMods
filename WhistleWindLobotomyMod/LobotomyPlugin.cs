@@ -115,7 +115,6 @@ namespace WhistleWindLobotomyMod
         private void AddAbilities()
         {
             Ability_TimeMachine();
-
             Ability_Apostle();
             Ability_TrueSaviour();
             Ability_Confession();
@@ -137,74 +136,32 @@ namespace WhistleWindLobotomyMod
             AbnormalEncounters.Register(HarmonyInstance);
             BetterRareChances.Register(HarmonyInstance);
         }
-        private static void AddStarterDecks()
+        private void AddStarterDecks()
         {
-            StarterDeckHelper.AddStartDeck("Debug", Artwork.starterDeckControl, new()
-            {
-                CardLoader.GetCardByName("wstl_testingDummy"),
-                CardLoader.GetCardByName("wstl_testingDummy"),
-                CardLoader.GetCardByName("wstl_testingDummy")
-            }, 0);
-            StarterDeckHelper.AddStartDeck("First Day", Artwork.starterDeckControl, new()
-            {
-                CardLoader.GetCardByName("wstl_oneSin"),
-                CardLoader.GetCardByName("wstl_fairyFestival"),
-                CardLoader.GetCardByName("wstl_oldLady")
-            }, 0);
-            StarterDeckHelper.AddStartDeck("Lonely Friends", Artwork.starterDeckChildren, new()
-            {
-                CardLoader.GetCardByName("wstl_scorchedGirl"),
-                CardLoader.GetCardByName("wstl_laetitia"),
-                CardLoader.GetCardByName("wstl_childOfTheGalaxy")
-            }, 2);
-            /*StarterDeckHelper.AddStartDeck("Lonely Friends", Artwork.starterDeckChildren, new()
-            {
-                CardLoader.GetCardByName("wstl_scorchedGirl"),
-                CardLoader.GetCardByName("wstl_laetitia"),
-                CardLoader.GetCardByName("wstl_childOfTheGalaxy")
-            }, 3);*/
-            StarterDeckHelper.AddStartDeck("Blood Machines", Artwork.starterDeckBloodMachines, new()
-            {
-                CardLoader.GetCardByName("wstl_weCanChangeAnything"),
-                CardLoader.GetCardByName("wstl_allAroundHelper"),
-                CardLoader.GetCardByName("wstl_singingMachine")
-            }, 4);
-            /*StarterDeckHelper.AddStartDeck("Lonely Friends", Artwork.starterDeckChildren, new()
-            {
-                CardLoader.GetCardByName("wstl_scorchedGirl"),
-                CardLoader.GetCardByName("wstl_laetitia"),
-                CardLoader.GetCardByName("wstl_childOfTheGalaxy")
-            }, 6);*/
-            StarterDeckHelper.AddStartDeck("Road to Oz", Artwork.starterDeckFairyTale, new()
-            {
-                CardLoader.GetCardByName("wstl_theRoadHome"),
-                CardLoader.GetCardByName("wstl_warmHeartedWoodsman"),
-                CardLoader.GetCardByName("wstl_wisdomScarecrow")
-            }, 8);
-            string thirdGirl = ConfigManager.Instance.NoRuina ? "wstl_magicalGirlSpade" : "wstl_magicalGirlClover";
-            StarterDeckHelper.AddStartDeck("Magical Girls!", Artwork.starterDeckMagicalGirls, new()
-            {
-                CardLoader.GetCardByName("wstl_magicalGirlHeart"),
-                CardLoader.GetCardByName("wstl_magicalGirlDiamond"),
-                CardLoader.GetCardByName(thirdGirl)
-            }, 10);
-            StarterDeckHelper.AddStartDeck("Twilight", Artwork.starterDeckBlackForest, new()
-            {
-                CardLoader.GetCardByName("wstl_punishingBird"),
-                CardLoader.GetCardByName("wstl_bigBird"),
-                CardLoader.GetCardByName("wstl_judgementBird")
-            }, 13);
+            StarterDeckHelper.AddStarterDeck("Debug", Artwork.starterDeckControl, 0,
+                "wstl_testingDummy", "wstl_testingDummy", "wstl_testingDummy");
+
+            StarterDeckHelper.AddStarterDeck("First Day", Artwork.starterDeckControl, 0,
+                "wstl_oneSin", "wstl_fairyFestival", "wstl_oldLady");
+            StarterDeckHelper.AddStarterDeck("Lonely Friends", Artwork.starterDeckChildren, 2,
+                "wstl_scorchedGirl", "wstl_laetitia", "wstl_childOfTheGalaxy");
+            StarterDeckHelper.AddStarterDeck("Blood Machines", Artwork.starterDeckBloodMachines, 4,
+                "wstl_weCanChangeAnything", "wstl_allAroundHelper", "wstl_singingMachine");
+            StarterDeckHelper.AddStarterDeck("Road to Oz", Artwork.starterDeckFairyTale, 8,
+                "wstl_theRoadHome", "wstl_warmHeartedWoodsman", "wstl_wisdomScarecrow");
+            StarterDeckHelper.AddStarterDeck("Magical Girls!", Artwork.starterDeckMagicalGirls, 10,
+                "wstl_magicalGirlHeart", "wstl_magicalGirlDiamond", ConfigManager.Instance.NoRuina ? "wstl_magicalGirlSpade" : "wstl_magicalGirlClover");
+            StarterDeckHelper.AddStarterDeck("Twilight", Artwork.starterDeckBlackForest, 13,
+                "wstl_punishingBird", "wstl_bigBird", "wstl_judgementBird");
         }
         private void AddEncounters()
         {
             foreach (EncounterBlueprintData i in ModEncounters)
-            {
                 EncounterManager.Add(i);
-            }
+
             RegionProgression.Instance.regions[0].AddEncounters(StrangePack, BitterPack, StrangeFlock, HelperJuggernaut);
             RegionProgression.Instance.regions[1].AddEncounters(StrangeBees, StrangeCreatures1, WormsNest, StrangeCreatures2, StrangeFish);
             RegionProgression.Instance.regions[2].AddEncounters(StrangeHerd, AlriuneJuggernaut, SpidersNest, SwanJuggernaut);
-
         }
 
         public static AssetBundle LoadBundle(string path)

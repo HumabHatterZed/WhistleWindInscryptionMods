@@ -30,6 +30,15 @@ namespace WhistleWindLobotomyMod
                 Artwork.queenOfHatred, Artwork.queenOfHatred_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new());
+
+            CardHelper.CreateCard(
+                "wstl_queenOfHatredTired", "The Queen of Hatred",
+                "Exhaustion: the cost of an all-out attack.",
+                atk: 0, hp: 2,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.queenOfHatredTired, Artwork.queenOfHatredTired_emission,
+                abilities: new(), specialAbilities: specialAbilities,
+                metaCategories: new(), tribes: tribes, traits: new());
         }
     }
 }

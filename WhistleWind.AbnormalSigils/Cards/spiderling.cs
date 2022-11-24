@@ -23,6 +23,15 @@ namespace WhistleWind.AbnormalSigils
             };
 
             AbnormalCardHelper.CreateCard(
+                "wstl_spiderBrood", "Spider Brood",
+                "Big and mean.",
+                1, 2, 1, 0,
+                Artwork.spiderBrood, Artwork.spiderBrood_emission,
+                abilities: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
+                appearances: appearances);
+
+            AbnormalCardHelper.CreateCard(
                 "wstl_spiderling", "Spiderling",
                 "Small and defenceless.",
                 0, 1, 0, 0,

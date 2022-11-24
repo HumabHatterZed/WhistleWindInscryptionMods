@@ -13,6 +13,16 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Evolve
             };
+
+            CardHelper.CreateCard(
+                "wstl_cloudedMonk", "Clouded Monk",
+                "A monk no more.",
+                atk: 4, hp: 2,
+                blood: 3, bones: 0, energy: 0,
+                Artwork.cloudedMonk, Artwork.cloudedMonk_emission,
+                abilities: new(), specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new());
+
             CardHelper.CreateCard(
                 "wstl_honouredMonk", "Honoured Monk",
                 "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...",
