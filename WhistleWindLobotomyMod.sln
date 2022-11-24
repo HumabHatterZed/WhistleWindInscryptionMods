@@ -6,6 +6,11 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhistleWindLobotomyMod", "WhistleWindLobotomyMod\WhistleWindLobotomyMod.csproj", "{5E26BABB-9E0C-482F-9CFE-8C2059C1767B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhistleWind.AbnormalSigils", "WhistleWind.AbnormalSigils\WhistleWind.AbnormalSigils.csproj", "{9BD4F738-D847-4A2E-82F0-2B1E16E65CD6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BCF77C72-83EE-4570-BAF6-2D5B81496295} = {BCF77C72-83EE-4570-BAF6-2D5B81496295}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{BCF77C72-83EE-4570-BAF6-2D5B81496295}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{9BD4F738-D847-4A2E-82F0-2B1E16E65CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BD4F738-D847-4A2E-82F0-2B1E16E65CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BD4F738-D847-4A2E-82F0-2B1E16E65CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCF77C72-83EE-4570-BAF6-2D5B81496295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCF77C72-83EE-4570-BAF6-2D5B81496295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCF77C72-83EE-4570-BAF6-2D5B81496295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCF77C72-83EE-4570-BAF6-2D5B81496295}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

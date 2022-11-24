@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using System.IO;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.Core
 {
@@ -15,32 +16,28 @@ namespace WhistleWind.AbnormalSigils.Core
         private ConfigEntry<bool> Config_EnableMod;
         public bool EnableMod => Config_EnableMod.Value;
 
-        private ConfigEntry<int> Config_DisableModular;
-        public int DisableModular => Config_DisableModular.Value;
+        private ConfigEntry<AbnormalAbilityHelper.AbilityGroup> Config_DisableModular;
+        public AbnormalAbilityHelper.AbilityGroup DisableModular => Config_DisableModular.Value;
 
-        private ConfigEntry<int> Config_MakeModular;
-        public int MakeModular => Config_MakeModular.Value;
+        private ConfigEntry<AbnormalAbilityHelper.AbilityGroup> Config_MakeModular;
+        public AbnormalAbilityHelper.AbilityGroup MakeModular => Config_MakeModular.Value;
 
         internal void BindConfig()
         {
             Config_EnableMod = WstlConfigFile.Bind(
-                    "Settings", "ENABLE MOD", true,
-                    new ConfigDescription("Enables the mod, allowing its content to be added to the game."));
+                    "Settings", "Enable Mod", true,
+                    new ConfigDescription("Enables the mod's content."));
 
             Config_DisableModular = WstlConfigFile.Bind(
-                    "Settings.Abilities", "DISABLE MOD ABILITIES", 0,
+                    "Settings.Abilities", "Disable Abilities", AbnormalAbilityHelper.AbilityGroup.None,
                     new ConfigDescription(
-                        "Disables certain types of abilites, preventing them from being seen in the Rulebook or obtained as totem bases.\n" +
-                        "This will override 'MAKE ABILITIES MODULAR' if both affect the same group(s).\n" +
-                        "For multiple types, set this to the sum of their respective values (eg, Normal + Activated = 3)\n" +
-                        "1 - Normal | 2 - Activated | 4 - Special"));
+                        "Disables abilities based on type group, preventing them from being seen in the Rulebook or obtained as totem bases.\n" +
+                        "This overrides any settings in Make Modular."));
 
             Config_MakeModular = WstlConfigFile.Bind(
-                    "Settings.Abilities", "MAKE MOD ABILITIES MODULAR", 0,
+                    "Settings.Abilities", "Make Modular", AbnormalAbilityHelper.AbilityGroup.None,
                     new ConfigDescription(
-                        "Makes certain types of abilites modular, making them obtainable as totem bases.\n" +
-                        "For multiple types, set this to the sum of their respective values (eg, Normal + Activated = 3)\n" +
-                        "1 - Normal | 2 - Activated | 4 - Special"));
+                        "Makes certain types of abilites modular, making them obtainable as totem bases."));
         }
     }
 }

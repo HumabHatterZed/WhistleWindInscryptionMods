@@ -1,11 +1,11 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWind.AbnormalSigils.Core.Helpers.AbnormalAbilityHelper;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core.Helpers
@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
             AbilityClass makeModular = (AbilityClass)AbnormalConfigManager.Instance.MakeModular;
-            AbilityClass disableModular = (AbilityClass)AbnormalConfigManager.Instance.DisableModular;
+            AbilityClass disableModular = 0;// (AbilityClass)AbnormalConfigManager.Instance.DisableModular;
 
             info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, powerLevel);
             info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(gbcTexture));
@@ -53,7 +53,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
             AbilityClass makeModular = (AbilityClass)AbnormalConfigManager.Instance.MakeModular;
-            AbilityClass disableModular = (AbilityClass)AbnormalConfigManager.Instance.DisableModular;
+            AbilityClass disableModular = 0;// (AbilityClass)AbnormalConfigManager.Instance.DisableModular;
 
             info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, powerLevel);
             info.pixelIcon = TextureLoader.LoadTextureFromBytes(gbcTexture).ConvertTexture();
@@ -125,15 +125,6 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
             info.powerLevel = powerLevel;
             return info;
-        }
-
-        [Flags]
-        private enum AbilityClass
-        {
-            None = 0,
-            Normal = 1,
-            Activated = 2,
-            Special = 4
         }
         private static DialogueEvent.LineSet SetAbilityInfoDialogue(string dialogue) => new DialogueEvent.LineSet(new List<DialogueEvent.Line>() { new() { text = dialogue } });
     }

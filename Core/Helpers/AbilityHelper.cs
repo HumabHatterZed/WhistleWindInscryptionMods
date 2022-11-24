@@ -4,13 +4,10 @@ using InscryptionAPI.Helpers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Properties;
-using WhistleWind.Core.Helpers;
-using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
-namespace WhistleWind.AbnormalSigils.Core.Helpers
+namespace WhistleWind.Core.Helpers
 {
-    public static class AbnormalAbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
+    public static class AbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         [Flags]
         public enum AbilityGroup
@@ -21,10 +18,12 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             Special = 4,
             All
         }
-        private static AbilityGroup ForceModular => AbnormalConfigManager.Instance.MakeModular;
-        private static AbilityGroup ForceDisable => AbnormalConfigManager.Instance.DisableModular;
+        public static AbilityGroup _forceModular;
+        public static AbilityGroup _forceDisable;
+        private static AbilityGroup ForceModular => _forceDisable;
+        private static AbilityGroup ForceDisable => _forceDisable;
         public static AbilityManager.FullAbility CreateAbility<T>(
-            byte[] texture, byte[] gbcTexture,
+            string pluginGuid, byte[] texture, byte[] gbcTexture,
             string rulebookName, string rulebookDescription,
             string dialogue, int powerLevel = 0,
             bool modular = false, bool special = false,
@@ -36,7 +35,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
             info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, powerLevel);
-            info.SetPixelAbilityIcon(AbnormalTextureLoader.LoadTextureFromBytes(gbcTexture));
+            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(gbcTexture));
 
             info.opponentUsable = opponent;
             info.canStack = canStack;
@@ -45,41 +44,40 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
 
             info.CheckModularity(unobtainable, special, modular, AbilityGroup.Normal);
 
-            AbilityManager.FullAbility ability = AbilityManager.Add(pluginGuid, info, typeof(T), AbnormalTextureLoader.LoadTextureFromBytes(texture));
+            AbilityManager.FullAbility ability = AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(texture));
 
             if (flipTexture != null)
-                ability.SetCustomFlippedTexture(AbnormalTextureLoader.LoadTextureFromBytes(flipTexture));
+                ability.SetCustomFlippedTexture(TextureLoader.LoadTextureFromBytes(flipTexture));
 
             return ability;
         }
         public static AbilityManager.FullAbility CreateActivatedAbility<T>(
-            byte[] texture, byte[] gbcTexture,
+            string pluginGuid, byte[] texture, byte[] gbcTexture,
             string rulebookName, string rulebookDescription, string dialogue, int powerLevel = 0,
             bool special = false, bool unobtainable = false)
-            where T : BetterActivatedAbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
             info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, powerLevel);
-            info.pixelIcon = AbnormalTextureLoader.LoadTextureFromBytes(gbcTexture).ConvertTexture();
+            info.pixelIcon = TextureLoader.LoadTextureFromBytes(gbcTexture).ConvertTexture();
             info.activated = true;
 
             info.CheckModularity(unobtainable, special, false, AbilityGroup.Activated);
 
             return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(texture));
         }
-        public static AbilityManager.FullAbility CreateRulebookAbility<T>(string rulebookName, string rulebookDescription)
+        public static AbilityManager.FullAbility CreateRulebookAbility<T>(string pluginGuid, string rulebookName, string rulebookDescription, byte[] defaultArt)
             where T : AbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
             info.SetBasicInfo(rulebookName, rulebookDescription, "", 0);
-            info.SetPixelAbilityIcon(AbnormalTextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality_pixel));
+            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(defaultArt));
 
-            return AbilityManager.Add(pluginGuid, info, typeof(T), AbnormalTextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality));
+            return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(defaultArt));
         }
         public static StatIconManager.FullStatIcon CreateStatIcon<T>(
-            string name, string description,
+            string pluginGuid, string name, string description,
             byte[] texture, byte[] pixelTexture, bool attack, bool health)
             where T : VariableStatBehaviour
         {
@@ -89,14 +87,14 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             statIconInfo.gbcDescription = description;
             statIconInfo.appliesToAttack = attack;
             statIconInfo.appliesToHealth = health;
-            statIconInfo.iconGraphic = AbnormalTextureLoader.LoadTextureFromBytes(texture);
-            statIconInfo.SetPixelIcon(AbnormalTextureLoader.LoadTextureFromBytes(pixelTexture));
+            statIconInfo.iconGraphic = TextureLoader.LoadTextureFromBytes(texture);
+            statIconInfo.SetPixelIcon(TextureLoader.LoadTextureFromBytes(pixelTexture));
             statIconInfo.SetDefaultPart1Ability();
 
             return StatIconManager.Add(pluginGuid, statIconInfo, typeof(T));
         }
 
-        public static SpecialTriggeredAbilityManager.FullSpecialTriggeredAbility CreateSpecialAbility<T>(string rulebookName)
+        public static SpecialTriggeredAbilityManager.FullSpecialTriggeredAbility CreateSpecialAbility<T>(string pluginGuid, string rulebookName)
             where T : SpecialCardBehaviour => SpecialTriggeredAbilityManager.Add(pluginGuid, rulebookName, typeof(T));
 
         private static AbilityInfo CheckModularity(this AbilityInfo info, bool unobtainable, bool special, bool makeModular, AbilityGroup defaultGroup)

@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<AssemblyName>WhistleWind.AbnormalSigils</AssemblyName>
+		<AssemblyName>WhistleWind.Core</AssemblyName>
 		<Description>A mod for Inscryption adding sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina.</Description>
 		<Version>1.0.0</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -18,24 +18,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Core\Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Reference Include="InscryptionAPI" Private="false">
 			<HintPath>..\lib\InscryptionAPI.dll</HintPath>
 		</Reference>
     <Reference Include="InscryptionCommunityPatch" Private="false">
       <HintPath>..\lib\InscryptionCommunityPatch.dll</HintPath>
     </Reference>
-	</ItemGroup>
-	
-	<ItemGroup>
-		<Compile Update="Properties\Artwork.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Artwork.resx</DependentUpon>
-		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -48,13 +36,5 @@
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>
-  
-  <Target Name="CopyDLLs" AfterTargets="Build">
-    <Message Text="Copying AbnormalSigils DLL file" Importance="High" />
-
-    <Copy Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Inscryption\')" SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Inscryption\BepInEx\plugins\" />
-
-    <Message Text="Copied AbnormalSigils build file" Importance="High" />
-  </Target>
   
 </Project>
