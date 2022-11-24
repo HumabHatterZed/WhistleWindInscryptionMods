@@ -48,7 +48,11 @@ For a list of previous updates and a full description of the current update, ref
 See Closing Notes for info on future updates.
 
 <details>
-<summary>Latest Update - v1.2.4</summary>
+<summary>Latest Update - v1.2.5</summary>
+
+### v1.2.5 - Bug fix (11/23/2022)
+* 🩹 Bug fixes
+  * Actually fixed Mountain of Smiling Bodies softlocking when dying
 
 ### v1.2.4 - Big Boy patch (11/22/2022)
 * 🩹 Bug fixes

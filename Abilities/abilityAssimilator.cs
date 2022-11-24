@@ -67,15 +67,19 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            var cardName = base.Card.Info.name;
-            return !wasSacrifice && (cardName.Equals("wstl_mountainOfBodies3") || cardName.Equals("wstl_mountainOfBodies2"));
+            if (!wasSacrifice)
+            {
+                if (base.Card != null && base.Card.OnBoard)
+                    return base.Card.Info.name.Contains("wstl_mountainOfBodies") && base.Card.Info.name != "wstl_mountainOfBodies";
+            }
+            return false;
         }
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return PreSuccessfulTriggerSequence();
 
-            var cardName = base.Card.Info.name;
+            string cardName = base.Card.Info.name;
             CardInfo previous = cardName.Equals("wstl_mountainOfBodies2") ? CardLoader.GetCardByName("wstl_mountainOfBodies") : CardLoader.GetCardByName("wstl_mountainOfBodies2");
             yield return new WaitForSeconds(0.25f);
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))

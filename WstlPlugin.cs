@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.2.4";
+        private const string pluginVersion = "1.2.5";
 
         internal static ManualLogSource Log;
         private static Harmony harmony = new(pluginGuid);
@@ -200,7 +200,11 @@ namespace WhistleWindLobotomyMod
                 Ability_Corrector();
             }
             else
+            {
                 Log.LogWarning("Abnormal Sigils is installed! Skipping abilities...");
+                Ability_TimeMachine();
+            }
+
 
             Ability_Apostle();
             Ability_TrueSaviour();

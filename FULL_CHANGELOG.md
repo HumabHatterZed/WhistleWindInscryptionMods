@@ -1,5 +1,9 @@
 ﻿## FULL CHANGELOG
 
+### v1.2.5 - Bug fix (11/23/2022)
+* 🩹 Bug fixes
+  * Actually fixed Mountain of Smiling Bodies softlocking when dying
+
 ### v1.2.4 - Big Boy patch (11/22/2022)
 * 🩹 Bug fixes
   * Fixed cards with custom evolutions evolving into the wrong forme when played by Leshy
