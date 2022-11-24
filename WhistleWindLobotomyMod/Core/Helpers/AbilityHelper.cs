@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWind.AbnormalSigils.Core.Helpers.AbnormalAbilityHelper;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core.Helpers
