@@ -368,7 +368,7 @@ obj/
 # lib is ignored. You have to supply your own game files 
 lib/
 
-compiled/
+dll/
 
 *.dll
 *.pdb

@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookDescription = "End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck at random based on their power level.";
             const string dialogue = "Close your eyes and count to ten.";
 
-            TimeMachine.ability = AbilityHelper.CreateActivatedAbility<TimeMachine>(
+            TimeMachine.ability = LobotomyAbilityHelper.CreateActivatedAbility<TimeMachine>(
                 Artwork.sigilTimeMachine, Artwork.sigilTimeMachine_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
@@ -139,7 +139,7 @@ namespace WhistleWindLobotomyMod
             };
             base.Card.ClearAppearanceBehaviours();
             base.Card.ApplyAppearanceBehaviours(new() { CardAppearanceBehaviour.Appearance.RareCardBackground });
-            base.Card.Info.SetEmissivePortrait(TextureLoader.LoadTextureFromBytes(resource));
+            base.Card.Info.SetEmissivePortrait(LobotomyTextureLoader.LoadTextureFromBytes(resource));
             base.Card.RenderInfo.forceEmissivePortrait = true;
             base.Card.UpdateStatsText();
         }

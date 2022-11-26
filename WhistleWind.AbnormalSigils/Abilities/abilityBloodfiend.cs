@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             Bloodfiend.ability = AbnormalAbilityHelper.CreateAbility<Bloodfiend>(
                 Artwork.sigilBloodfiend, Artwork.sigilBloodfiend_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: true, opponent: true, canStack: true, isPassive: false).Id;
+                modular: true, opponent: true, canStack: true).Id;
         }
     }
     public class Bloodfiend : AbilityBehaviour

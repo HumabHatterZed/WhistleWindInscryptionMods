@@ -2,7 +2,7 @@
 
 namespace WhistleWindLobotomyMod.Core.Helpers
 {
-    public static class TextureLoader // Base code taken from GrimoraMod and SigilADay_julienperge
+    public static class LobotomyTextureLoader // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         // Create Texture2D's from resource files
         public static Texture2D LoadTextureFromBytes(byte[] resourceFile)

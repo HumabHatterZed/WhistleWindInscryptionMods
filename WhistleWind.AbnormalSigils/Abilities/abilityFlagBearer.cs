@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             FlagBearer.ability = AbnormalAbilityHelper.CreateAbility<FlagBearer>(
                 Artwork.sigilFlagBearer, Artwork.sigilFlagBearer_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: false, opponent: false, canStack: true, isPassive: false).Id;
+                modular: false, opponent: false, canStack: true).Id;
         }
     }
     public class FlagBearer : AbilityBehaviour, IPassiveHealthBuff

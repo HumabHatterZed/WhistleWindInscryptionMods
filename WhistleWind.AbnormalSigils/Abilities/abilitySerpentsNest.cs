@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             SerpentsNest.ability = AbnormalAbilityHelper.CreateAbility<SerpentsNest>(
                 Artwork.sigilSerpentsNest, Artwork.sigilSerpentsNest_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                modular: true, opponent: true, canStack: false, isPassive: false).Id;
+                modular: true, opponent: true, canStack: false).Id;
         }
     }
     public class SerpentsNest : OpponentDrawCreatedCard

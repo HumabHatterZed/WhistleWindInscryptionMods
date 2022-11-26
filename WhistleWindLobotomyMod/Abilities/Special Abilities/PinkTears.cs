@@ -80,11 +80,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_PinkTears()
         {
-            RulebookEntryPinkTears.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryPinkTears>(PinkTears.rName, PinkTears.rDesc).Id;
+            RulebookEntryPinkTears.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryPinkTears>(PinkTears.rName, PinkTears.rDesc).Id;
         }
         private void SpecialAbility_PinkTears()
         {
-            PinkTears.specialAbility = AbilityHelper.CreateSpecialAbility<PinkTears>(PinkTears.rName).Id;
+            PinkTears.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<PinkTears>(PinkTears.rName).Id;
         }
     }
 }

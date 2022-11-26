@@ -28,8 +28,8 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 "Abnormal Bosses",
                 "Bosses will only play abnormality cards.",
                 30,
-                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalBosses),
-                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalBosses_activated)
+                LobotomyTextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalBosses),
+                LobotomyTextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalBosses_activated)
                 ).Challenge.challengeType;
 
             harmony.PatchAll(typeof(AbnormalBosses));

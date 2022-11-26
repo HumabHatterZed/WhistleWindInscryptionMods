@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             Spores.ability = AbnormalAbilityHelper.CreateAbility<Spores>(
                 Artwork.sigilSpores, Artwork.sigilSpores_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: false, opponent: false, canStack: false, isPassive: false).Id;
+                modular: false, opponent: false, canStack: false).Id;
         }
     }
     public class Spores : AbilityBehaviour

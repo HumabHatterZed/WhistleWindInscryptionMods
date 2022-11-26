@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             Woodcutter.ability = AbnormalAbilityHelper.CreateAbility<Woodcutter>(
                 Artwork.sigilWoodcutter, Artwork.sigilWoodcutter_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                modular: false, opponent: true, canStack: false, isPassive: false).Id;
+                modular: false, opponent: true, canStack: false).Id;
         }
     }
     // ripped from Sentry code

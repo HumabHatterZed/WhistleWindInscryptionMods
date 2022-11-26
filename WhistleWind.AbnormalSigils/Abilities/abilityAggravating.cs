@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             Aggravating.ability = AbnormalAbilityHelper.CreateAbility<Aggravating>(
                 Artwork.sigilAggravating, Artwork.sigilAggravating_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
-                modular: false, opponent: false, canStack: false, isPassive: false).Id;
+                modular: false, opponent: false, canStack: false).Id;
         }
     }
     public class Aggravating : AbilityBehaviour, IPassiveAttackBuff

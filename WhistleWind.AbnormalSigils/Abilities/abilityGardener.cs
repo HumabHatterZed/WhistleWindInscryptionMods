@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             Gardener.ability = AbnormalAbilityHelper.CreateAbility<Gardener>(
                 Artwork.sigilGardener, Artwork.sigilGardener_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                modular: false, opponent: false, canStack: false, isPassive: false).Id;
+                modular: false, opponent: false, canStack: false).Id;
         }
     }
     public class Gardener : AbilityBehaviour

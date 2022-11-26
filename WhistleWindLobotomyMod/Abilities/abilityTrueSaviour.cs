@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "True Saviour";
             const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
 
-            TrueSaviour.ability = AbilityHelper.CreateAbility<TrueSaviour>(
+            TrueSaviour.ability = LobotomyAbilityHelper.CreateAbility<TrueSaviour>(
                 Artwork.sigilTrueSaviour, Artwork.sigilTrueSaviour_pixel,
                 rulebookName, TrueSaviourHiddenDescription, dialogue, powerLevel: -3,
                 modular: false, opponent: false, canStack: false, isPassive: false,

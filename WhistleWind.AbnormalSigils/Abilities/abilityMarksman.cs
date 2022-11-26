@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
             Marksman.ability = AbnormalAbilityHelper.CreateAbility<Marksman>(
                 Artwork.sigilMarksman, Artwork.sigilMarksman_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: false, opponent: false, canStack: false, isPassive: false).Id;
+                modular: false, opponent: false, canStack: false).Id;
         }
     }
     public class Marksman : AbilityBehaviour

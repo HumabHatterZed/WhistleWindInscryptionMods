@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             Corrector.ability = AbnormalAbilityHelper.CreateAbility<Corrector>(
                 Artwork.sigilCorrector, Artwork.sigilCorrector_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: true, opponent: true, canStack: false, isPassive: false).Id;
+                modular: true, opponent: true, canStack: false).Id;
         }
     }
     public class Corrector : AbilityBehaviour

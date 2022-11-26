@@ -20,7 +20,7 @@ namespace WhistleWind.AbnormalSigils
             Scrambler.ability = AbnormalAbilityHelper.CreateAbility<Scrambler>(
                 Artwork.sigilScrambler, Artwork.sigilScrambler_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: false, opponent: false, canStack: false, isPassive: false).Id;
+                modular: false, opponent: false, canStack: false).Id;
         }
     }
     public class Scrambler : TargetedSpell

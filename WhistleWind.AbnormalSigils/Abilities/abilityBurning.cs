@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             Burning.ability = AbnormalAbilityHelper.CreateAbility<Burning>(
                 Artwork.sigilBurning, Artwork.sigilBurning_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: true, opponent: true, canStack: true, isPassive: false).Id;
+                modular: true, opponent: true, canStack: true).Id;
         }
     }
     public class Burning : AbilityBehaviour

@@ -135,9 +135,9 @@ namespace WhistleWindLobotomyMod
                     }
 
                     if (card.ChoiceInfo.CardInfo.metaCategories.Contains(CardMetaCategory.Rare))
-                        card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBackRare));
+                        card.SetCardback(LobotomyTextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBackRare));
                     else
-                        card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBack));
+                        card.SetCardback(LobotomyTextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBack));
 
                     card.SetFaceDown(faceDown: true, immediate: true);
                     Vector3 position = card.transform.position;

@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             Regenerator.ability = AbnormalAbilityHelper.CreateAbility<Regenerator>(
                 Artwork.sigilRegenerator, Artwork.sigilRegenerator_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: true, opponent: false, canStack: false, isPassive: false).Id;
+                modular: true, opponent: false, canStack: false).Id;
         }
     }
     public class Regenerator : AbilityBehaviour

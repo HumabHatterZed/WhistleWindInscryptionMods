@@ -51,12 +51,12 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             decals ??= new();
 
             // Load textures
-            Texture2D portraitTex = portrait != null ? TextureLoader.LoadTextureFromBytes(portrait) : null;
-            Texture2D emissionTex = emission != null ? TextureLoader.LoadTextureFromBytes(emission) : null;
-            Texture2D altTex = altTexture != null ? TextureLoader.LoadTextureFromBytes(altTexture) : null;
-            Texture2D altEmissionTex = emissionAltTexture != null ? TextureLoader.LoadTextureFromBytes(emissionAltTexture) : null;
-            Texture2D pixelTex = pixelTexture != null ? TextureLoader.LoadTextureFromBytes(pixelTexture) : null;
-            Texture titleTex = titleTexture != null ? TextureLoader.LoadTextureFromBytes(titleTexture) : null;
+            Texture2D portraitTex = portrait != null ? LobotomyTextureLoader.LoadTextureFromBytes(portrait) : null;
+            Texture2D emissionTex = emission != null ? LobotomyTextureLoader.LoadTextureFromBytes(emission) : null;
+            Texture2D altTex = altTexture != null ? LobotomyTextureLoader.LoadTextureFromBytes(altTexture) : null;
+            Texture2D altEmissionTex = emissionAltTexture != null ? LobotomyTextureLoader.LoadTextureFromBytes(emissionAltTexture) : null;
+            Texture2D pixelTex = pixelTexture != null ? LobotomyTextureLoader.LoadTextureFromBytes(pixelTexture) : null;
+            Texture titleTex = titleTexture != null ? LobotomyTextureLoader.LoadTextureFromBytes(titleTexture) : null;
 
             string risk = riskLevel switch
             {

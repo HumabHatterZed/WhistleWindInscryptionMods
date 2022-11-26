@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             List<Texture2D> nodeAnimation = new();
             if (animationFrames.Count != 4)
             {
-                Texture2D defaultTexture = TextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality);
+                Texture2D defaultTexture = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality);
                 for (int i = 0; i < 4; i++)
                 {
                     nodeAnimation.Add(defaultTexture);
@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    nodeAnimation.Add(TextureLoader.LoadTextureFromBytes(animationFrames[i]));
+                    nodeAnimation.Add(LobotomyTextureLoader.LoadTextureFromBytes(animationFrames[i]));
                 }
             }
             if (extraGenType == GenerationType.None)

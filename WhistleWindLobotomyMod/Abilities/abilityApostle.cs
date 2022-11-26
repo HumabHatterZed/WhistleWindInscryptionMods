@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Apostle";
             const string dialogue = "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:bR]";
 
-            Apostle.ability = AbilityHelper.CreateAbility<Apostle>(
+            Apostle.ability = LobotomyAbilityHelper.CreateAbility<Apostle>(
                 Artwork.sigilApostle, Artwork.sigilApostle_pixel,
                 rulebookName, ApostleHiddenDescription, dialogue, powerLevel: -3,
                 modular: false, opponent: false, canStack: false, isPassive: false,

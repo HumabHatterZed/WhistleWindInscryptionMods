@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             Assimilator.ability = AbnormalAbilityHelper.CreateAbility<Assimilator>(
                 Artwork.sigilAssimilator, Artwork.sigilAssimilator_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                modular: true, opponent: false, canStack: true, isPassive: false).Id;
+                modular: true, opponent: false, canStack: true).Id;
         }
     }
     public class Assimilator : AbilityBehaviour

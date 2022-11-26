@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rName = "Justitia";
             const string rDesc = "Cards targeted by Judgement Bird are killed regardless of Health. Judgement Bird is not affected by abilities like Sharp and Punisher.";
-            RulebookEntryJustitia.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryJustitia>(rName, rDesc).Id;
+            RulebookEntryJustitia.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryJustitia>(rName, rDesc).Id;
         }
     }
 }

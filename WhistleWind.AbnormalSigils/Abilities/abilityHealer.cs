@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             Healer.ability = AbnormalAbilityHelper.CreateAbility<Healer>(
                 Artwork.sigilHealer, Artwork.sigilHealer_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: false, opponent: false, canStack: false, isPassive: false).Id;
+                modular: false, opponent: false, canStack: false).Id;
         }
     }
     public class Healer : SniperSelectSlot

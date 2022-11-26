@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             }
             StarterDeckInfo starterDeckInfo = ScriptableObject.CreateInstance<StarterDeckInfo>();
             starterDeckInfo.title = title;
-            starterDeckInfo.iconSprite = TextureLoader.LoadSpriteFromBytes(icon);
+            starterDeckInfo.iconSprite = LobotomyTextureLoader.LoadSpriteFromBytes(icon);
             starterDeckInfo.cards = cards;
             StarterDeckManager.Add(pluginPrefix, starterDeckInfo, unlockLevel);
             return true;

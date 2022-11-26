@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             OneSided.ability = AbnormalAbilityHelper.CreateAbility<OneSided>(
                 Artwork.sigilOneSided, Artwork.sigilOneSided_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: true, opponent: true, canStack: true, isPassive: false).Id;
+                modular: true, opponent: true, canStack: true).Id;
         }
     }
     public class OneSided : AbilityBehaviour

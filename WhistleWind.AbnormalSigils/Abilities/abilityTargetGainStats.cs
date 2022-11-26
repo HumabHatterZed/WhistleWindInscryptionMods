@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
             TargetGainStats.ability = AbnormalAbilityHelper.CreateAbility<TargetGainStats>(
                 Artwork.sigilTargetGainStats, Artwork.sigilTargetGainStats_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
-                modular: false, opponent: false, canStack: false, isPassive: false).Id;
+                modular: false, opponent: false, canStack: false).Id;
         }
     }
     public class TargetGainStats : TargetedSpell

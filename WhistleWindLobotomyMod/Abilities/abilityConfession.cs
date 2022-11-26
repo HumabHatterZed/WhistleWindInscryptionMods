@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Confession and Pentinence";
             const string dialogue = "[c:bG]Keep faith with unwavering resolve.[c:]";
 
-            Confession.ability = AbilityHelper.CreateActivatedAbility<Confession>(
+            Confession.ability = LobotomyAbilityHelper.CreateActivatedAbility<Confession>(
                 Artwork.sigilConfession, Artwork.sigilConfession_pixel,
                 rulebookName, ConfessionHiddenDescription, dialogue, powerLevel: -3).Id;
         }

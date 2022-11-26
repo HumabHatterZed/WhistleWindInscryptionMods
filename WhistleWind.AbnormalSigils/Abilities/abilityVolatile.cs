@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
             Volatile.ability = AbnormalAbilityHelper.CreateAbility<Volatile>(
                 Artwork.sigilVolatile, Artwork.sigilVolatile_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
-                modular: true, opponent: true, canStack: false, isPassive: false,
+                modular: true, opponent: true, canStack: false,
                 flipTexture: Artwork.sigilVolatile_flipped).Id;
         }
     }

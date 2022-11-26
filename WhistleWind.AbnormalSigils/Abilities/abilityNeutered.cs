@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             Neutered.ability = AbnormalAbilityHelper.CreateAbility<Neutered>(
                 Artwork.sigilNeutered, Artwork.sigilNeutered_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
-                modular: false, opponent: false, canStack: false, isPassive: false).Id;
+                modular: false, opponent: false, canStack: false).Id;
         }
     }
     public class Neutered : AbilityBehaviour, IPassiveAttackBuff

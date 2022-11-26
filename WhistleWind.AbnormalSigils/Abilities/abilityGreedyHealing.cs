@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             GreedyHealing.ability = AbnormalAbilityHelper.CreateAbility<GreedyHealing>(
                 Artwork.sigilGreedyHealing, Artwork.sigilGreedyHealing_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: true, opponent: false, canStack: false, isPassive: false).Id;
+                modular: true, opponent: false, canStack: false).Id;
         }
     }
     public class GreedyHealing : AbilityBehaviour

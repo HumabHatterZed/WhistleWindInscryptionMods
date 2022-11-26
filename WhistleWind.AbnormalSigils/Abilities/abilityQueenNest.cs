@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             QueenNest.ability = AbnormalAbilityHelper.CreateAbility<QueenNest>(
                 Artwork.sigilQueenNest, Artwork.sigilQueenNest_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: true, opponent: true, canStack: false, isPassive: false).Id;
+                modular: true, opponent: true, canStack: false).Id;
         }
     }
     public class QueenNest : OpponentDrawCreatedCard

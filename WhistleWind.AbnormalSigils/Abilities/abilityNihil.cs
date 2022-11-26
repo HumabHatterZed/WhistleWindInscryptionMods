@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
             Nihil.ability = AbnormalAbilityHelper.CreateAbility<Nihil>(
                 Artwork.sigilNihil, Artwork.sigilNihil_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                modular: false, special: true, opponent: false, canStack: false, isPassive: false).Id;
+                modular: false, special: true, opponent: false, canStack: false).Id;
         }
     }
     public class Nihil : AbilityBehaviour, IPassiveAttackBuff

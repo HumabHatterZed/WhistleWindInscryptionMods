@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             Reflector.ability = AbnormalAbilityHelper.CreateAbility<Reflector>(
                 Artwork.sigilReflector, Artwork.sigilReflector_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: true, opponent: false, canStack: false, isPassive: false).Id;
+                modular: true, opponent: false, canStack: false).Id;
         }
     }
     public class Reflector : AbilityBehaviour

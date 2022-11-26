@@ -94,11 +94,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_CensoredSpecial()
         {
-            RulebookEntryCensoredSpecial.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryCensoredSpecial>(CensoredSpecial.rName, CensoredSpecial.rDesc).Id;
+            RulebookEntryCensoredSpecial.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCensoredSpecial>(CensoredSpecial.rName, CensoredSpecial.rDesc).Id;
         }
         private void SpecialAbility_CensoredSpecial()
         {
-            CensoredSpecial.specialAbility = AbilityHelper.CreateSpecialAbility<CensoredSpecial>(CensoredSpecial.rName).Id;
+            CensoredSpecial.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<CensoredSpecial>(CensoredSpecial.rName).Id;
         }
     }
 }

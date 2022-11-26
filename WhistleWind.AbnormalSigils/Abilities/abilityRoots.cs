@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
             Roots.ability = AbnormalAbilityHelper.CreateAbility<Roots>(
                 Artwork.sigilRoots, Artwork.sigilRoots_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: true, opponent: false, canStack: false, isPassive: false).Id;
+                modular: true, opponent: false, canStack: false).Id;
         }
     }
     public class Roots : CreateCardsAdjacent

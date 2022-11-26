@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             Punisher.ability = AbnormalAbilityHelper.CreateAbility<Punisher>(
                 Artwork.sigilPunisher, Artwork.sigilPunisher_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                modular: true, opponent: true, canStack: false, isPassive: false).Id;
+                modular: true, opponent: true, canStack: false).Id;
         }
     }
     public class Punisher : AbilityBehaviour

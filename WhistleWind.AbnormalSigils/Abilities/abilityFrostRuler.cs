@@ -14,13 +14,14 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FrostRuler()
         {
             const string rulebookName = "Ruler of Frost";
-            const string rulebookDescription = "Once per turn, pay 3 Bones create a Block of Ice in a chosen empty slot or turn a chosen card whose Health is less than or equal to this card's Power into a Frozen Heart.";
+            const string rulebookDescription = "Once per turn, pay 3 Bones to either create a Block of Ice in a chosen empty slot, or turn a chosen card whose Health is less than or equal to this card's Power into a Frozen Heart.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
             FrostRuler.ability = AbnormalAbilityHelper.CreateActivatedAbility<FrostRuler>(
                 Artwork.sigilFrostRuler, Artwork.sigilFrostRuler_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
         }
     }
+
     public class FrostRuler : ActivatedSelectSlotBehaviour
     {
         public static Ability ability;

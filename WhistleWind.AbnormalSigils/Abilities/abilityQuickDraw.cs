@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
             QuickDraw.ability = AbnormalAbilityHelper.CreateAbility<QuickDraw>(
                 Artwork.sigilQuickDraw, Artwork.sigilQuickDraw_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: false, opponent: false, canStack: true, isPassive: false).Id;
+                modular: false, opponent: false, canStack: true).Id;
         }
     }
 

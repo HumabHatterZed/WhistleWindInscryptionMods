@@ -20,8 +20,8 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 "Abnormal Encounters",
                 "All regular battles will only use abnormality cards.",
                 20,
-                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalEncounters),
-                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalEncounters_activated)
+                LobotomyTextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalEncounters),
+                LobotomyTextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalEncounters_activated)
                 ).Challenge.challengeType;
 
             // Do later?

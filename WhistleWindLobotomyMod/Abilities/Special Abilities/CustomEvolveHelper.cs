@@ -82,7 +82,7 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_CustomFledgling()
         {
             const string rulebookName = "CustomEvolveHelper";
-            CustomEvolveHelper.specialAbility = AbilityHelper.CreateSpecialAbility<CustomEvolveHelper>(rulebookName).Id;
+            CustomEvolveHelper.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<CustomEvolveHelper>(rulebookName).Id;
         }
     }
 }

@@ -27,60 +27,60 @@ namespace WhistleWindLobotomyMod
                     emotion = Emotion.Neutral,
                     face = face.face.sprite,
                     eyesOpen = face.eyes.GetComponent<SpriteRenderer>().sprite,
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes1_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth1_open, new(0.5f, 0f)),
+                    eyesClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes1_closed, new(0.5f, 0f)),
+                    eyesOpenEmission = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes_emission1, new(0.5f, 0f)),
+                    mouthOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth1_open, new(0.5f, 0f)),
                     mouthClosed = face.mouth.GetComponent<SpriteRenderer>().sprite
                 },
                 new CharacterFace.EmotionSprites()
                 {
                     emotion = Emotion.Surprise,
                     face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes2_open, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes2_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth2_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth2_closed, new(0.5f, 0f))
+                    eyesOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes2_open, new(0.5f, 0f)),
+                    eyesClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes2_closed, new(0.5f, 0f)),
+                    eyesOpenEmission = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes_emission1, new(0.5f, 0f)),
+                    mouthOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth2_open, new(0.5f, 0f)),
+                    mouthClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth2_closed, new(0.5f, 0f))
                 },
                 new CharacterFace.EmotionSprites()
                 {
                     emotion = Emotion.Laughter,
                     face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes3_open, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes1_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes_emission2, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth3_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth3_closed, new(0.5f, 0f)),
+                    eyesOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes3_open, new(0.5f, 0f)),
+                    eyesClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes1_closed, new(0.5f, 0f)),
+                    eyesOpenEmission = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes_emission2, new(0.5f, 0f)),
+                    mouthOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth3_open, new(0.5f, 0f)),
+                    mouthClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth3_closed, new(0.5f, 0f)),
                 },
                 new CharacterFace.EmotionSprites()
                 {
                     emotion = Emotion.Quiet,
                     face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes4_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth4_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes4_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth4_open, new(0.5f, 0f))
+                    eyesOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes4_open, new(0.5f, 0f)),
+                    mouthClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth4_closed, new(0.5f, 0f)),
+                    eyesClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes4_closed, new(0.5f, 0f)),
+                    eyesOpenEmission = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes_emission1, new(0.5f, 0f)),
+                    mouthOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth4_open, new(0.5f, 0f))
                 },
                 new CharacterFace.EmotionSprites()
                 {
                     emotion = Emotion.Curious,
                     face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes5_open, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes5_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth4_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth4_closed, new(0.5f, 0f))
+                    eyesOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes5_open, new(0.5f, 0f)),
+                    eyesClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes5_closed, new(0.5f, 0f)),
+                    eyesOpenEmission = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes_emission1, new(0.5f, 0f)),
+                    mouthOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth4_open, new(0.5f, 0f)),
+                    mouthClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth4_closed, new(0.5f, 0f))
                 },
                 new CharacterFace.EmotionSprites()
                 {
                     emotion = Emotion.Anger,
                     face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes6_open, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes6_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth6_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth6_closed, new(0.5f, 0f))
+                    eyesOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes6_open, new(0.5f, 0f)),
+                    eyesClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes6_closed, new(0.5f, 0f)),
+                    eyesOpenEmission = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_eyes_emission1, new(0.5f, 0f)),
+                    mouthOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth6_open, new(0.5f, 0f)),
+                    mouthClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHod_mouth6_closed, new(0.5f, 0f))
                 }
             };
 
@@ -148,6 +148,6 @@ namespace WhistleWindLobotomyMod
                 metaCategories: metaCategories, tribes: new(), traits: new(),
                 appearances: appearances, onePerDeck: true, face: SephirahHod.Face);
         }
-        private void SpecialAbility_Hod() => TalkingCardHod.specialAbility = AbilityHelper.CreatePaperTalkingCard<TalkingCardHod>("Hod").Id;
+        private void SpecialAbility_Hod() => TalkingCardHod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardHod>("Hod").Id;
     }
 }

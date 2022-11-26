@@ -142,11 +142,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_ThreeBirds()
         {
-            RulebookEntryThreeBirds.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryThreeBirds>(ThreeBirds.rName, ThreeBirds.rDesc).Id;
+            RulebookEntryThreeBirds.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryThreeBirds>(ThreeBirds.rName, ThreeBirds.rDesc).Id;
         }
         private void SpecialAbility_ThreeBirds()
         {
-            ThreeBirds.specialAbility = AbilityHelper.CreateSpecialAbility<ThreeBirds>(ThreeBirds.rName).Id;
+            ThreeBirds.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<ThreeBirds>(ThreeBirds.rName).Id;
         }
     }
 }

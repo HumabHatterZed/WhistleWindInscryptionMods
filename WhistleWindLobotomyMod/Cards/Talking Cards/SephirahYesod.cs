@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod
                 metaCategories: metaCategories, tribes: new(), traits: new(),
                 appearances: appearances, onePerDeck: true, face: SephirahYesod.Face);
         }
-        private void SpecialAbility_Yesod() => TalkingCardYesod.specialAbility = AbilityHelper.CreatePaperTalkingCard<TalkingCardYesod>("Yesod").Id;
+        private void SpecialAbility_Yesod() => TalkingCardYesod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardYesod>("Yesod").Id;
     }
     public class TalkingCardYesod : PaperTalkingCard
     {
@@ -86,40 +86,40 @@ namespace WhistleWindLobotomyMod
                     emotion = Emotion.Neutral,
                     face = face.face.sprite,
                     eyesOpen = face.eyes.GetComponent<SpriteRenderer>().sprite,
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes1_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes_emission, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth1_open, new(0.5f, 0f)),
+                    eyesClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes1_closed, new(0.5f, 0f)),
+                    eyesOpenEmission = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes_emission, new(0.5f, 0f)),
+                    mouthOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth1_open, new(0.5f, 0f)),
                     mouthClosed = face.mouth.GetComponent<SpriteRenderer>().sprite
                 },
                 new CharacterFace.EmotionSprites()
                 {
                     emotion = Emotion.Curious,
                     face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes2_open, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes2_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes_emission, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth2_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth1_closed, new(0.5f, 0f))
+                    eyesOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes2_open, new(0.5f, 0f)),
+                    eyesClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes2_closed, new(0.5f, 0f)),
+                    eyesOpenEmission = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes_emission, new(0.5f, 0f)),
+                    mouthOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth2_open, new(0.5f, 0f)),
+                    mouthClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth1_closed, new(0.5f, 0f))
                 },
                 new CharacterFace.EmotionSprites()
                 {
                     emotion = Emotion.Anger,
                     face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes3_open, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes3_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes_emission, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth2_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth1_closed, new(0.5f, 0f))
+                    eyesOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes3_open, new(0.5f, 0f)),
+                    eyesClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes3_closed, new(0.5f, 0f)),
+                    eyesOpenEmission = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes_emission, new(0.5f, 0f)),
+                    mouthOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth2_open, new(0.5f, 0f)),
+                    mouthClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth1_closed, new(0.5f, 0f))
                 },
                 new CharacterFace.EmotionSprites()
                 {
                     emotion = Emotion.Laughter,
                     face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes1_open, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes1_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes_emission, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth3_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth2_closed, new(0.5f, 0f))
+                    eyesOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes1_open, new(0.5f, 0f)),
+                    eyesClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes1_closed, new(0.5f, 0f)),
+                    eyesOpenEmission = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes_emission, new(0.5f, 0f)),
+                    mouthOpen = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth3_open, new(0.5f, 0f)),
+                    mouthClosed = LobotomyTextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth2_closed, new(0.5f, 0f))
                 }
             };
 

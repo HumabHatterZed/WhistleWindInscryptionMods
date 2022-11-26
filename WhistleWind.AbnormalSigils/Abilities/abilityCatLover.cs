@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             CatLover.ability = AbnormalAbilityHelper.CreateAbility<CatLover>(
                 Artwork.sigilCatLover, Artwork.sigilCatLover_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: true, opponent: false, canStack: false, isPassive: false).Id;
+                modular: true, opponent: false, canStack: false).Id;
         }
     }
     public class CatLover : OpponentDrawCreatedCard

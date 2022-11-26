@@ -105,11 +105,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_TodaysExpression()
         {
-            RulebookEntryTodaysExpression.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryTodaysExpression>(TodaysExpression.rName, TodaysExpression.rDesc).Id;
+            RulebookEntryTodaysExpression.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryTodaysExpression>(TodaysExpression.rName, TodaysExpression.rDesc).Id;
         }
         private void SpecialAbility_TodaysExpression()
         {
-            TodaysExpression.specialAbility = AbilityHelper.CreateSpecialAbility<TodaysExpression>(TodaysExpression.rName).Id;
+            TodaysExpression.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<TodaysExpression>(TodaysExpression.rName).Id;
         }
     }
 }

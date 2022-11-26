@@ -99,11 +99,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_Concord()
         {
-            RulebookEntryConcord.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryConcord>(Concord.rName, Concord.rDesc).Id;
+            RulebookEntryConcord.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryConcord>(Concord.rName, Concord.rDesc).Id;
         }
         private void SpecialAbility_Concord()
         {
-            Concord.specialAbility = AbilityHelper.CreateSpecialAbility<Concord>(Concord.rName).Id;
+            Concord.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Concord>(Concord.rName).Id;
         }
     }
 }

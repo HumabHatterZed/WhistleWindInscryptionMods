@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -90,7 +91,7 @@ namespace WhistleWind.AbnormalSigils
         }
         private void SpecialAbility_SporeDamage()
         {
-            SporeDamage.specialAbility = AbnormalAbilityHelper.CreateSpecialAbility<SporeDamage>(SporeDamage.rName).Id;
+            SporeDamage.specialAbility = AbilityBuilder.CreateSpecialAbility<SporeDamage>(pluginGuid, SporeDamage.rName).Id;
         }
     }
 }

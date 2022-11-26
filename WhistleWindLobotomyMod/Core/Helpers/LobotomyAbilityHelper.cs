@@ -4,12 +4,14 @@ using InscryptionAPI.Helpers;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWind.AbnormalSigils.Core.Helpers.AbnormalAbilityHelper;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core.Helpers
 {
-    public static class AbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
+    public static class LobotomyAbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         public static AbilityManager.FullAbility CreateAbility<T>(
             byte[] texture, byte[] gbcTexture,
@@ -23,11 +25,11 @@ namespace WhistleWindLobotomyMod.Core.Helpers
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
-            AbilityClass makeModular = (AbilityClass)AbnormalConfigManager.Instance.MakeModular;
-            AbilityClass disableModular = 0;// (AbilityClass)AbnormalConfigManager.Instance.DisableModular;
+            //AbilityGroup makeModular = (AbilityGroup)AbnormalConfigManager.Instance.MakeModular;
+            //AbilityGroup disableModular = 0;// (AbilityGroup)AbnormalConfigManager.Instance.DisableModular;
 
             info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, powerLevel);
-            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(gbcTexture));
+            info.SetPixelAbilityIcon(LobotomyTextureLoader.LoadTextureFromBytes(gbcTexture));
 
             info.opponentUsable = opponent;
             info.canStack = canStack;
@@ -39,7 +41,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             AbilityManager.FullAbility ability = AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(texture));
 
             if (flipTexture != null)
-                ability.SetCustomFlippedTexture(TextureLoader.LoadTextureFromBytes(flipTexture));
+                ability.SetCustomFlippedTexture(LobotomyTextureLoader.LoadTextureFromBytes(flipTexture));
 
             return ability;
         }
@@ -51,11 +53,11 @@ namespace WhistleWindLobotomyMod.Core.Helpers
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
-            AbilityClass makeModular = (AbilityClass)AbnormalConfigManager.Instance.MakeModular;
-            AbilityClass disableModular = 0;// (AbilityClass)AbnormalConfigManager.Instance.DisableModular;
+            AbilityGroup makeModular = (AbilityGroup)AbnormalConfigManager.Instance.MakeModular;
+            AbilityGroup disableModular = 0;// (AbilityGroup)AbnormalConfigManager.Instance.DisableModular;
 
             info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, powerLevel);
-            info.pixelIcon = TextureLoader.LoadTextureFromBytes(gbcTexture).ConvertTexture();
+            info.pixelIcon = LobotomyTextureLoader.LoadTextureFromBytes(gbcTexture).ConvertTexture();
 
             info.activated = true;
 
@@ -65,24 +67,24 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             {
                 if (special)
                 {
-                    if (!disableModular.HasFlag(AbilityClass.Special))
+                    if (!disableModular.HasFlag(AbilityGroup.Special))
                     {
                         info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
-                        if (makeModular.HasFlag(AbilityClass.Special))
+                        if (makeModular.HasFlag(AbilityGroup.Special))
                             info.AddMetaCategories(AbilityMetaCategory.Part1Modular);
                     }
                 }
-                else if (!disableModular.HasFlag(AbilityClass.Activated))
+                else if (!disableModular.HasFlag(AbilityGroup.Activated))
                 {
                     info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
-                    if (makeModular.HasFlag(AbilityClass.Activated))
+                    if (makeModular.HasFlag(AbilityGroup.Activated))
                         info.AddMetaCategories(AbilityMetaCategory.Part1Modular);
                 }
             }
 
-            return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(texture));
+            return AbilityManager.Add(pluginGuid, info, typeof(T), LobotomyTextureLoader.LoadTextureFromBytes(texture));
         }
         public static AbilityManager.FullAbility CreateRulebookAbility<T>(string rulebookName, string rulebookDescription)
             where T : AbilityBehaviour
@@ -90,9 +92,9 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
 
             info.SetBasicInfo(rulebookName, rulebookDescription, "", 0);
-            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality_pixel));
+            info.SetPixelAbilityIcon(LobotomyTextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality_pixel));
 
-            return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality));
+            return AbilityManager.Add(pluginGuid, info, typeof(T), LobotomyTextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality));
         }
         public static StatIconManager.FullStatIcon CreateStatIcon<T>(
             string name, string description,
@@ -105,8 +107,8 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             statIconInfo.gbcDescription = description;
             statIconInfo.appliesToAttack = attack;
             statIconInfo.appliesToHealth = health;
-            statIconInfo.iconGraphic = TextureLoader.LoadTextureFromBytes(texture);
-            statIconInfo.SetPixelIcon(TextureLoader.LoadTextureFromBytes(pixelTexture));
+            statIconInfo.iconGraphic = LobotomyTextureLoader.LoadTextureFromBytes(texture);
+            statIconInfo.SetPixelIcon(LobotomyTextureLoader.LoadTextureFromBytes(pixelTexture));
             statIconInfo.SetDefaultPart1Ability();
 
             return StatIconManager.Add(pluginGuid, statIconInfo, typeof(T));

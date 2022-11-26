@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             BroodMother.ability = AbnormalAbilityHelper.CreateAbility<BroodMother>(
                 Artwork.sigilBroodMother, Artwork.sigilBroodMother_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                modular: true, opponent: false, canStack: false, isPassive: false).Id;
+                modular: true, opponent: false, canStack: false).Id;
         }
     }
     public class BroodMother : OpponentDrawCreatedCard

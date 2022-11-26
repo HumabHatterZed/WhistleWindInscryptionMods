@@ -1,5 +1,5 @@
 ﻿using DiskCardGame;
-using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
     {
         private void SpecialAbility_ImmuneToInstaDeath()
         {
-            ImmuneToInstaDeath.specialAbility = AbnormalAbilityHelper.CreateSpecialAbility<ImmuneToInstaDeath>(ImmuneToInstaDeath.rName).Id;
+            ImmuneToInstaDeath.specialAbility = AbilityBuilder.CreateSpecialAbility<ImmuneToInstaDeath>(pluginGuid, ImmuneToInstaDeath.rName).Id;
         }
     }
 }

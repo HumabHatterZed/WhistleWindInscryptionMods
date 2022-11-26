@@ -275,11 +275,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_LoveAndHate()
         {
-            RulebookEntryLoveAndHate.ability = AbilityHelper.CreateRulebookAbility<RulebookEntryLoveAndHate>(LoveAndHate.rName, LoveAndHate.rDesc).Id;
+            RulebookEntryLoveAndHate.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryLoveAndHate>(LoveAndHate.rName, LoveAndHate.rDesc).Id;
         }
         private void SpecialAbility_LoveAndHate()
         {
-            LoveAndHate.specialAbility = AbilityHelper.CreateSpecialAbility<LoveAndHate>(LoveAndHate.rName).Id;
+            LoveAndHate.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<LoveAndHate>(LoveAndHate.rName).Id;
         }
     }
 }

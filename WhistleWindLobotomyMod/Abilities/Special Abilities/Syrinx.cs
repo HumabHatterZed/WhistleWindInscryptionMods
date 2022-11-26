@@ -41,11 +41,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Rulebook_Syrinx()
         {
-            RulebookEntrySyrinx.ability = AbilityHelper.CreateRulebookAbility<RulebookEntrySyrinx>(Syrinx.rName, Syrinx.rDesc).Id;
+            RulebookEntrySyrinx.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySyrinx>(Syrinx.rName, Syrinx.rDesc).Id;
         }
         private void SpecialAbility_Syrinx()
         {
-            Syrinx.specialAbility = AbilityHelper.CreateSpecialAbility<Syrinx>(Syrinx.rName).Id;
+            Syrinx.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Syrinx>(Syrinx.rName).Id;
         }
     }
 }

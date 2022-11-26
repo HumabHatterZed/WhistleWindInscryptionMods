@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             Nettles.ability = AbnormalAbilityHelper.CreateAbility<Nettles>(
                 Artwork.sigilNettles, Artwork.sigilNettles_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                modular: false, opponent: false, canStack: false, isPassive: false).Id;
+                modular: false, opponent: false, canStack: false).Id;
         }
     }
     public class Nettles : AbilityBehaviour

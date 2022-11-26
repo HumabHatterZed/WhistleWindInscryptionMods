@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             Slime.ability = AbnormalAbilityHelper.CreateAbility<Slime>(
                 Artwork.sigilSlime, Artwork.sigilSlime_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                modular: false, opponent: false, canStack: false, isPassive: false).Id;
+                modular: false, opponent: false, canStack: false).Id;
         }
     }
     public class Slime : AbilityBehaviour

@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
             Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(
                 Artwork.sigilConductor, Artwork.sigilConductor_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                modular: false, opponent: true, canStack: true, isPassive: false).Id;
+                modular: false, opponent: true, canStack: true).Id;
         }
     }
     public class Conductor : AbilityBehaviour, IPassiveAttackBuff
