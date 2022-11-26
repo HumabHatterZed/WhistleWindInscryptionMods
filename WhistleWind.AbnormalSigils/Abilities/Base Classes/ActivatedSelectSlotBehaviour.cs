@@ -5,8 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Patches;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -117,7 +117,7 @@ namespace WhistleWind.AbnormalSigils
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.2f);
 
-                yield return AbnormalMethods.PlayAlternateDialogue(dialogue: NoTargetsDialogue);
+                yield return HelperMethods.PlayAlternateDialogue(dialogue: NoTargetsDialogue);
                 yield return OnNoValidTargets();
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default);
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
@@ -216,7 +216,7 @@ namespace WhistleWind.AbnormalSigils
             yield return OnPostValidTargetSelected();
 
             if (!base.Card.OpponentCard)
-                yield return AbnormalMethods.ChangeCurrentView(View.Default);
+                yield return HelperMethods.ChangeCurrentView(View.Default);
         }
         private IEnumerator PlayerSelectTarget(Transform latchParent, CombatPhaseManager instance, WstlPart1SniperVisualiser visualiser)
         {

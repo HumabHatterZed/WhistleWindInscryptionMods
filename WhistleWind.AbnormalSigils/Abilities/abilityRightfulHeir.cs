@@ -24,10 +24,7 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
         public override int StartingBonesCost => 5;
         public override string InvalidTargetDialogue => "That card is fine as it is.";
-        public override bool RespondsToUpkeep(bool playerUpkeep)
-        {
-            return false;
-        }
+        public override bool RespondsToUpkeep(bool playerUpkeep) => false;
         public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {
             CardInfo info = CardLoader.GetCardByName("wstl_ozmaPumpkin");
@@ -43,9 +40,6 @@ namespace WhistleWind.AbnormalSigils
         {
             yield break;
         }
-        public override bool CardIsNotValid(PlayableCard card)
-        {
-            return card.Info.name.Contains("ozmaPumpkin");
-        }
+        public override bool CardIsNotValid(PlayableCard card) => card.Info.name.Contains("ozmaPumpkin");
     }
 }

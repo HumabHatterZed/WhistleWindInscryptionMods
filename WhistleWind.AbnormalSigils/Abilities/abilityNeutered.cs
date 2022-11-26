@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -37,14 +38,14 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            yield return AbnormalMethods.ChangeCurrentView(View.Board);
+            yield return HelperMethods.ChangeCurrentView(View.Board);
             base.Card.Anim.StrongNegationEffect();
             for (CardModificationInfo temporaryEvolveMod = this.GetTemporaryEvolveMod(); temporaryEvolveMod != null; temporaryEvolveMod = this.GetTemporaryEvolveMod())
             {
                 base.Card.RemoveTemporaryMod(temporaryEvolveMod);
             }
             yield return new WaitForSeconds(0.4f);
-            yield return AbnormalMethods.ChangeCurrentView(View.Default);
+            yield return HelperMethods.ChangeCurrentView(View.Default);
         }
         private CardModificationInfo GetTemporaryEvolveMod()
         {

@@ -27,9 +27,8 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
             if (source != null)
-            {
                 return source.Health > 0;
-            }
+
             return false;
         }
         public override IEnumerator OnTakeDamage(PlayableCard source)

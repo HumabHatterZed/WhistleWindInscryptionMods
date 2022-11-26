@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -36,17 +37,15 @@ namespace WhistleWind.AbnormalSigils
             if (slots.Count < 1)
                 yield break;
 
-            int damage = base.Card.Attack;
-
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
-            yield return AbnormalMethods.ChangeCurrentView(View.Board);
+            yield return HelperMethods.ChangeCurrentView(View.Board);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
             yield return new WaitForSeconds(0.2f);
 
             foreach (CardSlot slot in slots)
             {
-                yield return slot.Card.TakeDamage(damage, base.Card);
+                yield return slot.Card.TakeDamage(base.Card.Attack, base.Card);
                 yield return new WaitForSeconds(0.2f);
             }
             yield return base.LearnAbility(0.2f);

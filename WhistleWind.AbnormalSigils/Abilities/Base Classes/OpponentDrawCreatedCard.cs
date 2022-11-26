@@ -1,6 +1,7 @@
 using DiskCardGame;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -10,13 +11,9 @@ namespace WhistleWind.AbnormalSigils
         {
             // Queue card if opponent, otherwise draw card to hand
             if (base.Card.OpponentCard)
-            {
-                yield return AbnormalMethods.QueueCreatedCard(CardToDraw);
-            }
+                yield return HelperMethods.QueueCreatedCard(CardToDraw);
             else
-            {
                 yield return base.CreateDrawnCard();
-            }
         }
     }
 }

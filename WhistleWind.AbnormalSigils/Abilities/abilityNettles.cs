@@ -5,6 +5,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -33,13 +34,11 @@ namespace WhistleWind.AbnormalSigils
         private readonly CardModificationInfo mod4 = new(Ability.Deathtouch);
         private readonly CardModificationInfo mod5 = new(Ability.Sharp);
         private readonly CardModificationInfo mod6 = new(Ability.DebuffEnemy);
-        public override bool RespondsToResolveOnBoard()
-        {
-            return true;
-        }
+        public override bool RespondsToResolveOnBoard() => true;
+
         public override IEnumerator OnResolveOnBoard()
         {
-            yield return AbnormalMethods.ChangeCurrentView(View.Board);
+            yield return HelperMethods.ChangeCurrentView(View.Board);
             List<CardSlot> validSlots = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).FindAll((CardSlot slot) => !(slot.Card != null) && slot.Card != base.Card);
 
             if (validSlots.Count == 0)

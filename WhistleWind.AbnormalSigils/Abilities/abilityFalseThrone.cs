@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -38,7 +39,7 @@ namespace WhistleWind.AbnormalSigils
                 slot.Card.Anim.LightNegationEffect();
                 slot.Card.AddTemporaryMod(cardModificationInfo);
                 yield return new WaitForSeconds(0.75f);
-                yield return AbnormalMethods.ChangeCurrentView(View.Default);
+                yield return HelperMethods.ChangeCurrentView(View.Default);
                 yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardInfo, null);
                 yield return new WaitForSeconds(0.45f);
                 yield return base.LearnAbility(0.1f);

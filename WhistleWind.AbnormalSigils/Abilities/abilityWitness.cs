@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -34,7 +35,7 @@ namespace WhistleWind.AbnormalSigils
         public override bool CanActivate()
         {
             // Are there other cards to affect, are any of them valid targets, and is this card on the player's side
-            foreach (var slot in AbnormalMethods.GetSlotsCopy(base.Card.OpponentCard).Where((CardSlot slot) => slot.Card != base.Card))
+            foreach (var slot in HelperMethods.GetSlotsCopy(base.Card.OpponentCard).Where((CardSlot slot) => slot.Card != base.Card))
             {
                 if (slot.Card != null)
                 {
@@ -63,7 +64,12 @@ namespace WhistleWind.AbnormalSigils
 
         public override bool CardIsNotValid(PlayableCard card)
         {
-            return (!(card.Info.GetExtendedPropertyAsInt("wstl:Prudence") != null) ? 0 : (int)card.Info.GetExtendedPropertyAsInt("wstl:Prudence")) >= 3;
+            int prudence = card.Info.GetExtendedPropertyAsInt("wstl:Prudence") ?? -1;
+
+            if (prudence == -1)
+                return false;
+
+            return prudence >= 3;
         }
     }
 }

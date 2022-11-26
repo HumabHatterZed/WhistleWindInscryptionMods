@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -24,11 +25,7 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public CardModificationInfo mod = new(0, 1);
-        public CardModificationInfo mod2 = new(0, 2);
-
         private readonly string altDialogue = "The Woodcutter stuffs the melted heart into his chest.";
-
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
             return !wasSacrifice && killer != null;
@@ -40,17 +37,16 @@ namespace WhistleWind.AbnormalSigils
             killer.Anim.LightNegationEffect();
             if (killer.Info.name.ToLowerInvariant().Contains("warmheartedwoodsman"))
             {
-                killer.AddTemporaryMod(mod2);
+                killer.HealDamage(2);
                 yield return new WaitForSeconds(0.2f);
                 if (!base.HasLearned)
-                {
-                    yield return AbnormalMethods.PlayAlternateDialogue(dialogue: altDialogue);
-                }
+                    yield return HelperMethods.PlayAlternateDialogue(dialogue: altDialogue);
+
                 yield return new WaitForSeconds(0.25f);
             }
             else
             {
-                killer.AddTemporaryMod(mod);
+                killer.HealDamage(1);
                 yield return base.LearnAbility(0.4f);
             }
         }

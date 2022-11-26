@@ -30,7 +30,7 @@ namespace WhistleWind.AbnormalSigils
 
         public override bool RespondsToResolveOnBoard()
         {
-            return base.Card.Info.GetExtendedPropertyAsBool("wstl:Sap") != null && (bool)base.Card.Info.GetExtendedPropertyAsBool("wstl:Sap");
+            return base.Card.Info.GetExtendedPropertyAsBool("wstl:Sap") ?? false;
         }
         public override IEnumerator OnResolveOnBoard()
         {
@@ -39,10 +39,7 @@ namespace WhistleWind.AbnormalSigils
             yield return base.Card.Info.SetExtendedProperty("wstl:Sap", false);
             yield return base.Card.Die(false, null);
         }
-        public override bool RespondsToPreDeathAnimation(bool wasSacrifice)
-        {
-            return base.Card.OnBoard && !wasSacrifice;
-        }
+        public override bool RespondsToPreDeathAnimation(bool wasSacrifice) => base.Card.OnBoard && !wasSacrifice;
         public override IEnumerator OnPreDeathAnimation(bool wasSacrifice)
         {
             base.Card.Anim.LightNegationEffect();
@@ -57,19 +54,15 @@ namespace WhistleWind.AbnormalSigils
             if (adjacentSlots.Count > 0 && adjacentSlots[0].Index < slot.Index)
             {
                 if (adjacentSlots[0].Card != null && !adjacentSlots[0].Card.Dead)
-                {
                     yield return this.BombCard(adjacentSlots[0].Card, slot.Card);
-                }
+
                 adjacentSlots.RemoveAt(0);
             }
             if (slot.opposingSlot.Card != null && !slot.opposingSlot.Card.Dead)
-            {
                 yield return this.BombCard(slot.opposingSlot.Card, slot.Card);
-            }
+
             if (adjacentSlots.Count > 0 && adjacentSlots[0].Card != null && !adjacentSlots[0].Card.Dead)
-            {
                 yield return this.BombCard(adjacentSlots[0].Card, slot.Card);
-            }
         }
 
         private IEnumerator BombCard(PlayableCard target, PlayableCard attacker)

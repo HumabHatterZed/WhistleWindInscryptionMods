@@ -24,10 +24,7 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToTakeDamage(PlayableCard source)
-        {
-            return source != null;
-        }
+        public override bool RespondsToTakeDamage(PlayableCard source) => source != null;
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
             yield return base.PreSuccessfulTriggerSequence();

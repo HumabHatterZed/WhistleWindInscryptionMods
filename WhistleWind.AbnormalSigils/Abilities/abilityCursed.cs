@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -28,16 +29,15 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
             if (!wasSacrifice && killer != null && !killer.Dead && killer.Health != 0)
-            {
                 return killer.LacksAbility(Ability.MadeOfStone) && killer.LacksAllTraits(Trait.Giant, Trait.Uncuttable);
-            }
+
             return false;
         }
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return PreSuccessfulTriggerSequence();
-            yield return AbnormalMethods.ChangeCurrentView(View.Board);
+            yield return HelperMethods.ChangeCurrentView(View.Board);
             yield return new WaitForSeconds(0.2f);
             killer.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);

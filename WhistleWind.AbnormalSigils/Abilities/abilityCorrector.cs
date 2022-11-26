@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -25,23 +26,17 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToResolveOnBoard()
-        {
-            return base.Card.OpponentCard;
-        }
+        public override bool RespondsToResolveOnBoard() => base.Card.OpponentCard;
+        public override bool RespondsToDrawn() => true;
+
         public override IEnumerator OnResolveOnBoard()
         {
-            yield return AbnormalMethods.ChangeCurrentView(View.Board);
+            yield return HelperMethods.ChangeCurrentView(View.Board);
             base.Card.Anim.PlayTransformAnimation();
             yield return new WaitForSeconds(0.15f);
             ChangeStats();
             yield return new WaitForSeconds(0.45f);
             yield return base.LearnAbility();
-        }
-
-        public override bool RespondsToDrawn()
-        {
-            return true;
         }
         public override IEnumerator OnDrawn()
         {

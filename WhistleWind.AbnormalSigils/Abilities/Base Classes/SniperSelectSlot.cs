@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Patches;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -63,9 +63,9 @@ namespace WhistleWind.AbnormalSigils
                 yield return new WaitForSeconds(0.2f);
 
                 if (selectedSlot == base.Card.Slot)
-                    yield return AbnormalMethods.PlayAlternateDialogue(delay: 0f, dialogue: SelfTargetDialogue);
+                    yield return HelperMethods.PlayAlternateDialogue(delay: 0f, dialogue: SelfTargetDialogue);
                 else
-                    yield return AbnormalMethods.PlayAlternateDialogue(delay: 0f, dialogue: NullTargetDialogue);
+                    yield return HelperMethods.PlayAlternateDialogue(delay: 0f, dialogue: NullTargetDialogue);
 
                 yield return PlayerSelectTarget(instance, visualiser);
             }
@@ -87,7 +87,7 @@ namespace WhistleWind.AbnormalSigils
 
         public virtual IEnumerator OnNoValidAllies()
         {
-            yield return AbnormalMethods.PlayAlternateDialogue(dialogue: NoAlliesDialogue);
+            yield return HelperMethods.PlayAlternateDialogue(dialogue: NoAlliesDialogue);
         }
         public virtual IEnumerator OnValidTargetSelected(PlayableCard card)
         {

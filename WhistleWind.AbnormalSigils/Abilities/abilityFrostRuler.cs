@@ -6,6 +6,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -33,20 +34,12 @@ namespace WhistleWind.AbnormalSigils
         public override int TurnDelay => 1;
         public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {
-            yield return AbnormalMethods.ChangeCurrentView(View.Board);
+            yield return HelperMethods.ChangeCurrentView(View.Board);
             if (slot.Card != null)
             {
                 slot.Card.Anim.LightNegationEffect();
                 yield return new WaitForSeconds(0.15f);
-                yield return slot.Card.Die(false, base.Card);
-
-                // if another card gets played after killing the initial, play fail dialogue then break
-                if (slot.Card != null)
-                {
-                    yield return new WaitForSeconds(0.5f);
-                    yield return AbnormalDialogueManager.PlayDialogueEvent("FrostRulerFail");
-                    yield break;
-                }
+                yield return slot.Card.DieTriggerless();
 
                 yield return SpawnCard(slot, "wstl_snowQueenIceHeart");
                 yield return new WaitForSeconds(0.5f);

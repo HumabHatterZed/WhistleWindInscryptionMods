@@ -38,7 +38,7 @@ namespace WhistleWind.AbnormalSigils
                 List<CardInfo> list = ScriptableObjectLoader<CardInfo>.AllData.FindAll((CardInfo x) => x.name.ToLowerInvariant().Contains("cat"));
                 list.RemoveAll((CardInfo y) => y.name.StartsWith("wstl"));
                 CardInfo drawnCard = list[SeededRandom.Range(0, list.Count, base.GetRandomSeed())];
-                drawnCard.Mods.Add(new(Cowardly.ability) { fromCardMerge = true });
+                drawnCard.Mods.Add(new(Cowardly.ability) { fromCardMerge = SaveManager.SaveFile.IsPart1 });
                 return drawnCard;
             }
         }

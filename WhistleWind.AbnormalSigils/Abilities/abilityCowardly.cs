@@ -112,9 +112,8 @@ namespace WhistleWind.AbnormalSigils
         private CardInfo GetTransformCardInfo()
         {
             if (base.Card.Info.evolveParams == null)
-            {
                 return EvolveParams.GetDefaultEvolution(base.Card.Info);
-            }
+
             return base.Card.Info.evolveParams.evolution.Clone() as CardInfo;
         }
 

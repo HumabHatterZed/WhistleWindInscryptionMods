@@ -4,6 +4,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -27,16 +28,14 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
 
         private int turnCount = 0;
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
-        {
-            return base.Card.OpponentCard != playerTurnEnd;
-        }
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
+        public override bool RespondsToTakeDamage(PlayableCard source) => true;
+
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
             turnCount++;
-
             yield return PreSuccessfulTriggerSequence();
-            yield return AbnormalMethods.ChangeCurrentView(View.Board);
+            yield return HelperMethods.ChangeCurrentView(View.Board);
 
             if (base.Card.FaceDown)
             {
@@ -66,10 +65,6 @@ namespace WhistleWind.AbnormalSigils
             yield return AbnormalDialogueManager.PlayDialogueEvent("RegeneratorOverheal");
         }
 
-        public override bool RespondsToTakeDamage(PlayableCard source)
-        {
-            return true;
-        }
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
             // set to -1 to keep things consistent

@@ -5,6 +5,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Patches;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -66,10 +67,10 @@ namespace WhistleWind.AbnormalSigils
             // if not Plague Doctor, simply play dialogue
             if (!IsDoctor)
             {
-                yield return AbnormalMethods.PlayAlternateDialogue(dialogue: NoAlliesDialogue);
+                yield return HelperMethods.PlayAlternateDialogue(dialogue: NoAlliesDialogue);
                 yield break;
             }
-            yield return AbnormalMethods.PlayAlternateDialogue(dialogue: failAsDoctorDialogue);
+            yield return HelperMethods.PlayAlternateDialogue(dialogue: failAsDoctorDialogue);
 
             CardSlot randSlot;
             List<CardSlot> opposingSlots = base.Card.OpponentCard ? Singleton<BoardManager>.Instance.PlayerSlotsCopy : Singleton<BoardManager>.Instance.OpponentSlotsCopy;
@@ -103,7 +104,7 @@ namespace WhistleWind.AbnormalSigils
             {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return AbnormalMethods.PlayAlternateDialogue(Emotion.Anger, dialogue: failExtraHardDialogue);
+                yield return HelperMethods.PlayAlternateDialogue(Emotion.Anger, dialogue: failExtraHardDialogue);
                 yield break;
             }
 

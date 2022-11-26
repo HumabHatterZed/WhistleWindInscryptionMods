@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
@@ -26,43 +27,32 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToResolveOnBoard()
-        {
-            return ActivateOnPlay();
-        }
-        public override IEnumerator OnResolveOnBoard()
-        {
-            yield return base.LearnAbility(0.4f);
-        }
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
-        {
-            return ActivateOnPlay();
-        }
-        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
-        {
-            yield return base.LearnAbility(0.4f);
-        }
-        // Gives +1 Attack to all cards with Bitter Enemies when two or more exist on the board
+        public override bool RespondsToResolveOnBoard() => ActivateOnPlay();
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => ActivateOnPlay();
+        public override IEnumerator OnResolveOnBoard() => base.LearnAbility(0.4f);
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => base.LearnAbility(0.4f);
+
+        // Gives +1 Attack to all cards with Bitter Enemies when two or more exist on the board (including the base)
         public int GetPassiveAttackBuff(PlayableCard target)
         {
+            if (!this.Card.OnBoard || target == this.Card || target.Info.LacksAbility(BitterEnemies.ability))
+                return 0;
+
             int count = 0;
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot != base.Card.Slot))
             {
                 if (slot.Card != null && slot.Card.HasAbility(BitterEnemies.ability))
-                {
                     count++;
-                }
             }
-            return this.Card.OnBoard && target != this.Card && target.Info.HasAbility(BitterEnemies.ability) && count > 0 ? 1 : 0;
+
+            return count > 0 ? 1 : 0;
         }
         public bool ActivateOnPlay()
         {
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot != base.Card.Slot))
             {
                 if (slot.Card != null && slot.Card.HasAbility(BitterEnemies.ability))
-                {
                     return true;
-                }
             }
             return false;
         }

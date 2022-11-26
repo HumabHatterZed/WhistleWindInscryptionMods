@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -25,14 +26,11 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override bool RespondsToUpkeep(bool playerUpkeep)
-        {
-            return base.Card.OpponentCard != playerUpkeep;
-        }
+        public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             bool faceDown = false;
-            yield return AbnormalMethods.ChangeCurrentView(View.Board);
+            yield return HelperMethods.ChangeCurrentView(View.Board);
             yield return PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
 

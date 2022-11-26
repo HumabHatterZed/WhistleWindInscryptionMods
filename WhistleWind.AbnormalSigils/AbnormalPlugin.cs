@@ -153,14 +153,14 @@ namespace WhistleWind.AbnormalSigils
             }
         }
 
-        public static class LobMod
+        public static class TribalLibary
         {
             private static bool? _enabled;
             public static bool Enabled
             {
                 get
                 {
-                    _enabled ??= Chainloader.PluginInfos.ContainsKey("whistlewind.inscryption.lobotomycorp");
+                    _enabled ??= Chainloader.PluginInfos.ContainsKey("tribes.libary");
                     return (bool)_enabled;
                 }
             }

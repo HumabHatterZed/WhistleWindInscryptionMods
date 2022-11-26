@@ -25,9 +25,7 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
         public override int StartingBonesCost => 10;
-
         public override bool CanActivate()
         {
             var validCards = Singleton<BoardManager>.Instance.AllSlotsCopy.Where((CardSlot s) => s.Card != null).Count();
@@ -46,9 +44,7 @@ namespace WhistleWind.AbnormalSigils
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))
             {
                 if (slot.Card != base.Card)
-                {
                     slot.Card.Anim.SetShaking(true);
-                }
             }
             yield return new WaitForSeconds(0.55f);
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))

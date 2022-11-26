@@ -52,10 +52,10 @@ Uses a flag system to determine groups:
 |Aggravating|While this card is on the board, all opposing cards gain 1 Power.||
 |Team Leader|While this card is on the board, all other ally cards gain 1 Power.||
 |Idol|While this card is on the board, all opposing cards lose 1 Power.||
-|Conductor|While this card is on the board, adjacent cards gain 1 Power. After 1 turn on the board, all ally cards gain 1 Power instead. After 2 turns, also reduce the opposing card's Power by 1. After 3 turns, also gain Power equal to the number of cards on this side of the board.||
+|Conductor|While this card is on the board, gain Power equal to the number of cards affected by this sigil's effect. Over the next 3 turns: adjacent cards gain 1 Power, ally cards gain 1 Power, opposing cards gain 1 Power.||
 |Woodcutter|When a card moves into the space opposing this card, deal damage equal to this card's Power to it.||
 |Frozen Heart|When this card dies the killer gains 1 Health.||
-|Ruler of Frost|Once per turn, pay 4 Bones to create a Block of Ice in an empty opposing slot. If there is an opposing card with 1 Health you may instead select it to kill it and create a Frozen Heart in its place.||
+|Ruler of Frost|Once per turn, pay 3 Bones to either create a Block of Ice in a chosen empty slot, or turn a chosen card whose Health is less than or equal to this card's Power into a Frozen Heart.||
 |Root|When this card is played, Vines are created on adjacent empty spaces. A Vine is defined as: 1 Power, 1 Health.|✔|
 |Broodmother|When a card bearing this sigil is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health, Fledgling.|✔|
 |Cursed|When a card bearing this sigil dies, turn the killer into a copy of this card.|✔|
@@ -81,7 +81,7 @@ Uses a flag system to determine groups:
 |Marksman|You may choose which opposing space a card bearing this sigil strikes.||
 |Protector|Adjacent cards take 1 less damage from attacks.||
 |Quick Draw|When a creature moves into the space opposite this card, they take 1 damage.||
-|Alchemist|Activate: Pay 3 bones to discard your current hand and draw cards equal to the number of cards discarded.||
+|Alchemist|Activate: Pay 3 Bones to discard your current hand and draw cards equal to the amount discarded.||
 |Nettle Clothes|When a card bearing this sigil is played, create a random Brother in all empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.||
 |Fungal Infector|At the end of the owner's turn, adjacent cards gain 1 Spore. Cards with Spore take damage equal to their Spore at turn's end and create a Spore Mold Creature in their slot on death. A Spore Mold Creature is defined as: [ Spore ] Power, [ Spore ] Health.||
 |Witness|Activate: Pay 2 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.||

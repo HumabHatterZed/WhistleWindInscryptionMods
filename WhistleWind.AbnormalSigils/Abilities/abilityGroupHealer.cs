@@ -1,9 +1,12 @@
 ﻿using DiskCardGame;
+using EasyFeedback.APIs;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -25,28 +28,24 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToUpkeep(bool playerUpkeep)
-        {
-            return base.Card.OpponentCard != playerUpkeep;
-        }
+        public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            yield return AbnormalMethods.ChangeCurrentView(View.Board);
+            yield return HelperMethods.ChangeCurrentView(View.Board);
 
-            int count = 0;
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(slot => slot.Card != base.Card))
+            // remove cards that are the base card or whose health is greater than/equal to the max
+            List<CardSlot> allyCards = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(slot => slot.Card != null).ToList();
+            allyCards.RemoveAll(x => x.Card == base.Card || x.Card.MaxHealth <= x.Card.Health);
+
+            if (allyCards.Count > 0)
             {
-                if (slot.Card != null && slot.Card.Health < slot.Card.MaxHealth)
+                foreach (CardSlot slot in allyCards)
                 {
-                    count++;
                     slot.Card.Anim.LightNegationEffect();
                     slot.Card.HealDamage(1);
                     slot.Card.OnStatsChanged();
                 }
-            }
-            if (count != 0)
-            {
                 yield return base.LearnAbility(0.4f);
             }
             else

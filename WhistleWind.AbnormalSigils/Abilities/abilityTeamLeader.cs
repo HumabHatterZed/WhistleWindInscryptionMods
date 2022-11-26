@@ -31,25 +31,15 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToResolveOnBoard()
         {
             if (base.Card.Slot != null)
-            {
                 return Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(s => s.Card != null).Count() > 0;
-            }
+
             return false;
         }
-        public override IEnumerator OnResolveOnBoard()
-        {
-            yield return base.LearnAbility(0.4f);
-        }
+        public override IEnumerator OnResolveOnBoard() => base.LearnAbility(0.4f);
 
         // Respond to other card resolving if it and this card are on the player's side of the board and
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
-        {
-            return base.Card.OnBoard && !base.Card.OpponentCard && !otherCard.OpponentCard;
-        }
-        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
-        {
-            yield return base.LearnAbility(0.4f);
-        }
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => base.Card.OnBoard && !base.Card.OpponentCard;
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => base.LearnAbility(0.4f);
 
         // Gives +1 Power if on board and target card is on same side of the board
         public int GetPassiveAttackBuff(PlayableCard target)

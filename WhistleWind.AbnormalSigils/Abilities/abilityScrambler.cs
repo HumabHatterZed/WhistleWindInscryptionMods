@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -56,7 +57,7 @@ namespace WhistleWind.AbnormalSigils
         {
             yield return base.PreSuccessfulTriggerSequence();
 
-            yield return AbnormalMethods.ChangeCurrentView(View.Board, endDelay: 0.75f);
+            yield return HelperMethods.ChangeCurrentView(View.Board, endDelay: 0.75f);
 
             CardModificationInfo info = new(base.Card.Attack, base.Card.Health);
             targetSlot.Card.AddTemporaryMod(info);
@@ -67,7 +68,7 @@ namespace WhistleWind.AbnormalSigils
             yield return ScrambleStats(targetSlot.Card);
 
             yield return base.LearnAbility();
-            yield return AbnormalMethods.ChangeCurrentView(View.Board, startDelay: 0.5f);
+            yield return HelperMethods.ChangeCurrentView(View.Board, startDelay: 0.5f);
         }
 
         private IEnumerator ScrambleStats(PlayableCard card, bool inHand = false)

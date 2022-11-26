@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -12,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Alchemist()
         {
             const string rulebookName = "Alchemist";
-            const string rulebookDescription = "Pay 2 Energy to discard your current hand and draw cards equal to the amount discarded.";
+            const string rulebookDescription = "Pay 3 Bones to discard your current hand and draw cards equal to the amount discarded.";
             const string dialogue = "The unending faith of countless promises.";
 
             Alchemist.ability = AbnormalAbilityHelper.CreateActivatedAbility<Alchemist>(
@@ -24,16 +25,15 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override int StartingEnergyCost => 2;
+        public override int StartingBonesCost => 3;
 
         public override bool CanActivate()
         {
             if (Singleton<PlayerHand>.Instance.CardsInHand.Count() > 0)
             {
                 if (Singleton<CardDrawPiles3D>.Instance.Deck.Cards.Count == 0)
-                {
                     return Singleton<CardDrawPiles3D>.Instance.SideDeck.Cards.Count > 0;
-                }
+
                 return true;
             }
             return false;
@@ -43,7 +43,7 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator Activate()
         {
             yield return base.PreSuccessfulTriggerSequence();
-            yield return AbnormalMethods.ChangeCurrentView(View.Hand);
+            yield return HelperMethods.ChangeCurrentView(View.Hand);
 
             List<PlayableCard> cardsInHand = new(Singleton<PlayerHand>.Instance.CardsInHand);
             int count = 0;
@@ -71,12 +71,12 @@ namespace WhistleWind.AbnormalSigils
                 }
                 else
                 {
-                    yield return AbnormalMethods.PlayAlternateDialogue(dialogue: "You've exhausted your available cards.");
+                    yield return HelperMethods.PlayAlternateDialogue(dialogue: "You've exhausted all of your cards.");
                     break;
                 }
             }
             yield return base.LearnAbility(0.2f);
-            yield return AbnormalMethods.ChangeCurrentView(View.Default);
+            yield return HelperMethods.ChangeCurrentView(View.Default);
         }
     }
 }

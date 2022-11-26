@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace WhistleWind.AbnormalSigils.Core.Helpers
+namespace WhistleWind.Core.Helpers
 {
-    public static class AbnormalMethods
+    public static class HelperMethods
     {
         public static List<CardSlot> GetSlotsCopy(bool isOpponentCard)
         {

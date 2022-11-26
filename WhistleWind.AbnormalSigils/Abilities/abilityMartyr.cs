@@ -26,10 +26,7 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
-        {
-            return !wasSacrifice;
-        }
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice;
         // original code taken from SigilADay - julianperge
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
@@ -37,9 +34,8 @@ namespace WhistleWind.AbnormalSigils
 
             // if no other cards on the board except this card
             if (validCards.Count() == 0)
-            {
                 yield break;
-            }
+
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
             foreach (var slot in validCards)

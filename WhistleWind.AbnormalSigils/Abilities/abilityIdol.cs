@@ -25,32 +25,23 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override bool RespondsToResolveOnBoard()
-        {
-            return ActivateOnPlay();
-        }
-        public override IEnumerator OnResolveOnBoard()
-        {
-            yield return base.LearnAbility(0.5f);
-        }
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
-        {
-            return ActivateOnPlay();
-        }
-        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
-        {
-            yield return base.LearnAbility(0.5f);
-        }
+        public override bool RespondsToResolveOnBoard() => ActivateOnPlay();
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => ActivateOnPlay();
+
+        public override IEnumerator OnResolveOnBoard() => base.LearnAbility(0.5f);
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => base.LearnAbility(0.5f);
         public int GetPassiveAttackBuff(PlayableCard target)
         {
-            return this.Card.OnBoard && target.OpponentCard != this.Card.OpponentCard && target != base.Card ? -1 : 0;
+            if (this.Card.OnBoard && target.OpponentCard != base.Card.OpponentCard)
+                return -1;
+
+            return 0;
         }
         public bool ActivateOnPlay()
         {
             if (base.Card.Slot != null)
-            {
                 return Singleton<BoardManager>.Instance.GetSlots(base.Card.OpponentCard).Where(s => s.Card != null).Count() > 0;
-            }
+
             return false;
         }
     }

@@ -27,9 +27,8 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToDealDamage(int amount, PlayableCard target)
         {
             if (amount > 0 && target != null && !target.Dead)
-            {
                 return CheckValid(target);
-            }
+
             return false;
         }
 
@@ -38,9 +37,8 @@ namespace WhistleWind.AbnormalSigils
             yield return base.PreSuccessfulTriggerSequence();
             target.Status.damageTaken++;
             if (target.Health <= 0)
-            {
                 yield return target.Die(wasSacrifice: false, base.Card);
-            }
+
             yield return base.LearnAbility(0.4f);
         }
         private bool CheckValid(PlayableCard target)

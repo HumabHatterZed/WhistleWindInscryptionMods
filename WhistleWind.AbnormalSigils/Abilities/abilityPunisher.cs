@@ -27,9 +27,8 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
             if (source != null && !source.Dead)
-            {
                 return source.Health > 0 && !source.HasAbility(Ability.MadeOfStone) && !source.HasSpecialAbility(ImmuneToInstaDeath.specialAbility);
-            }
+
             return false;
         }
         public override IEnumerator OnTakeDamage(PlayableCard source)

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -41,11 +42,11 @@ namespace WhistleWind.AbnormalSigils
         {
             View view = Singleton<ViewManager>.Instance.CurrentView;
             yield return base.PreSuccessfulTriggerSequence();
-            yield return AbnormalMethods.ChangeCurrentView(View.Default);
+            yield return HelperMethods.ChangeCurrentView(View.Default);
             yield return Singleton<ResourcesManager>.Instance.AddMaxEnergy(1);
             yield return Singleton<ResourcesManager>.Instance.AddEnergy(1);
             yield return base.LearnAbility(0.2f);
-            yield return AbnormalMethods.ChangeCurrentView(view);
+            yield return HelperMethods.ChangeCurrentView(view);
         }
     }
 }

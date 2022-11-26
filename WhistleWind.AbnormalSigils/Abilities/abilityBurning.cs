@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -27,15 +28,14 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
             if (base.Card.Slot.opposingSlot.Card != null)
-            {
                 return base.Card.Slot.opposingSlot.Card.OpponentCard != playerTurnEnd;
-            }
+
             return false;
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
             yield return PreSuccessfulTriggerSequence();
-            yield return AbnormalMethods.ChangeCurrentView(View.Board);
+            yield return HelperMethods.ChangeCurrentView(View.Board);
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.2f);
             yield return base.Card.Slot.opposingSlot.Card.TakeDamage(1, null);

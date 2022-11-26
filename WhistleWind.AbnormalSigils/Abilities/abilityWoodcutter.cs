@@ -31,29 +31,16 @@ namespace WhistleWind.AbnormalSigils
         private PlayableCard lastShotCard;
         private int NumShots => Mathf.Max(base.Card.Info.Abilities.FindAll((Ability x) => x == this.Ability).Count, 1);
 
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
-        {
-            return RespondsToTrigger(otherCard);
-        }
-        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
-        {
-            yield return FireAtOpposingSlot(otherCard);
-        }
-        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard)
-        {
-            return RespondsToTrigger(otherCard);
-        }
-        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
-        {
-            yield return FireAtOpposingSlot(otherCard);
-        }
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => RespondsToTrigger(otherCard);
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => RespondsToTrigger(otherCard);
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => FireAtOpposingSlot(otherCard);
+        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) => FireAtOpposingSlot(otherCard);
 
         private bool RespondsToTrigger(PlayableCard otherCard)
         {
             if (!base.Card.Dead && !otherCard.Dead)
-            {
                 return base.Card.Attack > 0 && otherCard.Slot == base.Card.Slot.opposingSlot;
-            }
+
             return false;
         }
 

@@ -27,9 +27,8 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             if (fromCombat && card.OpponentCard == base.Card.OpponentCard && (deathSlot.Card == null || deathSlot.Card.Dead))
-            {
                 return base.Card.OnBoard && !card.Info.name.Equals("wstl_parasiteTreeSapling");
-            }
+
             return false;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)

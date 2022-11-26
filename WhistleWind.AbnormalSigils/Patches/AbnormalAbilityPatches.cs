@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches
@@ -54,7 +55,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             if (__instance.Info.name.StartsWith("wstl_blueStar") && __instance.HasAbility(Ability.AllStrike))
             {
                 ProgressionData.SetAbilityLearned(Ability.AllStrike);
-                List<CardSlot> list2 = AbnormalMethods.GetSlotsCopy(!__instance.OpponentCard);
+                List<CardSlot> list2 = HelperMethods.GetSlotsCopy(!__instance.OpponentCard);
 
                 // if there's an attackable card, return original list
                 if (list2.Exists((x) => x.Card != null && !__instance.CanAttackDirectly(x)))

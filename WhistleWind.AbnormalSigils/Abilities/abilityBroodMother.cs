@@ -32,10 +32,7 @@ namespace WhistleWind.AbnormalSigils
                 return cardByName;
             }
         }
-        public override bool RespondsToTakeDamage(PlayableCard source)
-        {
-            return true;
-        }
+        public override bool RespondsToTakeDamage(PlayableCard source) => true;
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
             yield return base.PreSuccessfulTriggerSequence();

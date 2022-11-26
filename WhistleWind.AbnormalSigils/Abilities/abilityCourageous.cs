@@ -47,9 +47,8 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
             if (Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null).Count() > 0)
-            {
                 return Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Contains(otherCard.Slot);
-            }
+
             return false;
         }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
