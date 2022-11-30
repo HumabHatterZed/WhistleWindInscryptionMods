@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -81,7 +81,7 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_BoardEffects()
         {
             const string rulebookName = "BoardEffects";
-            BoardEffects.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<BoardEffects>(rulebookName).Id;
+            BoardEffects.specialAbility = AbilityHelper.CreateSpecialAbility<BoardEffects>(pluginGuid, rulebookName).Id;
         }
     }
 }

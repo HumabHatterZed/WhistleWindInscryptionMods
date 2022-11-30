@@ -1,5 +1,5 @@
-﻿using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+﻿using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -7,10 +7,12 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_TheLittlePrinceMinion_O0466()
         {
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_theLittlePrinceMinion", "Spore Mold Creature",
                 "A creature consumed by cruel, kind fungus.",
-                0, 0, 0, 0,
+                atk: 0, hp: 0,
+                blood: 0, bones: 0, energy: 0,
                 Artwork.theLittlePrinceMinion, Artwork.theLittlePrinceMinion_emission,
                 abilities: new(),
                 metaCategories: new(), tribes: new(), traits: new());

@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,11 +13,12 @@ namespace WhistleWind.AbnormalSigils
             {
                 Ability.Sharp
             };
-
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_snowWhitesVine", "Thorny Vines",
                 "A vine.",
-                0, 1, 0, 0,
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 0,
                 Artwork.snowWhitesVine,
                 abilities: abilities,
                 metaCategories: new(), tribes: new(), traits: new());

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 FlagBearer.ability
             };
 
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_notesFromResearcher", "Notes from a Crazed Researcher",
                 "An insane garble of guilty confessions and incoherent gibberish.",
                 atk: 0, hp: 3,
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.notesFromResearcher, Artwork.notesFromResearcher_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(), appearances: new(),
-                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He);
         }
     }
 }

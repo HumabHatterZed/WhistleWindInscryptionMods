@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -13,7 +14,7 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.TriStrike
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_silentGirl", "Silent Girl",
                 "A girl wielding a hammer and nail.",
                 atk: 2, hp: 2,
@@ -21,8 +22,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.silentGirl, Artwork.silentGirl_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Rare, riskLevel: CardHelper.RiskLevel.Teth,
-                metaTypes: CardHelper.MetaType.Ruina);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
+                modTypes: LobotomyCardHelper.ModCardType.Ruina);
         }
     }
 }

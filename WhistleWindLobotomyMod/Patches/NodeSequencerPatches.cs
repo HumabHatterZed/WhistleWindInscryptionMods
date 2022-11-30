@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
         public static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((x) => x.metaCategories.Any((mc) => mc == CardHelper.CANNOT_GIVE_SIGILS)
+            __result.RemoveAll((x) => x.metaCategories.Any((mc) => mc == LobotomyCardHelper.CANNOT_GIVE_SIGILS)
             || x.SpecialAbilities.Any((sa) => sa == Mimicry.specialAbility)
             || x.Abilities.Any((ab) => ab == TheTrain.ability || ab == TimeMachine.ability || ab == Scrambler.ability || ab == TargetGainStats.ability || ab == TargetGainSigils.ability || ab == TargetGainStatsSigils.ability));
         }
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForHost))]
         public static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((x) => x.metaCategories.Any((mc) => mc == CardHelper.CANNOT_GAIN_SIGILS)
+            __result.RemoveAll((x) => x.metaCategories.Any((mc) => mc == LobotomyCardHelper.CANNOT_GAIN_SIGILS)
             || x.SpecialAbilities.Any((sa) => sa == Mimicry.specialAbility)
             || x.Abilities.Any((ab) => ab == TheTrain.ability || ab == TimeMachine.ability || ab == Scrambler.ability || ab == TargetGainStats.ability));
         }
@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CardStatBoostSequencer.GetValidCards))]
         public static void RemoveFromValidCardsForStatBoost(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((x) => x.metaCategories.Any((mc) => mc == CardHelper.CANNOT_BUFF_STATS)
+            __result.RemoveAll((x) => x.metaCategories.Any((mc) => mc == LobotomyCardHelper.CANNOT_BUFF_STATS)
             || x.SpecialAbilities.Any((sa) => sa == Mimicry.specialAbility)
             || x.Abilities.Any((ab) => ab == TheTrain.ability || ab == TimeMachine.ability || ab == TargetGainSigils.ability));
         }
@@ -48,7 +48,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CopyCardSequencer.GetValidCards))]
         public static void RemoveFromValidCardsForCopyCard(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((x) => x.metaCategories.Any((mc) => mc == CardHelper.CANNOT_COPY_CARD)
+            __result.RemoveAll((x) => x.metaCategories.Any((mc) => mc == LobotomyCardHelper.CANNOT_COPY_CARD)
            || x.SpecialAbilities.Any((sa) => sa == Mimicry.specialAbility)
            || x.Abilities.Any((ab) => ab == TheTrain.ability || ab == TimeMachine.ability || ab == Scrambler.ability || ab == TargetGainStats.ability || ab == TargetGainSigils.ability || ab == TargetGainStatsSigils.ability));
         }

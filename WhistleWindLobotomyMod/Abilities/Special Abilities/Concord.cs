@@ -5,6 +5,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -80,12 +81,12 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.5f);
 
                 if (isNegative)
-                    yield return AbnormalMethods.PlayAlternateDialogue(dialogue: "The end at the beginning.");
+                    yield return HelperMethods.PlayAlternateDialogue(dialogue: "The end at the beginning.");
                 else
-                    yield return AbnormalMethods.PlayAlternateDialogue(dialogue: "The beginning at the end.");
+                    yield return HelperMethods.PlayAlternateDialogue(dialogue: "The beginning at the end.");
             }
             else
-                yield return AbnormalMethods.PlayAlternateDialogue(dialogue: "Everything is equal. Everything is as it should be.");
+                yield return HelperMethods.PlayAlternateDialogue(dialogue: "Everything is equal. Everything is as it should be.");
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
@@ -103,7 +104,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_Concord()
         {
-            Concord.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Concord>(Concord.rName).Id;
+            Concord.specialAbility = AbilityHelper.CreateSpecialAbility<Concord>(pluginGuid, Concord.rName).Id;
         }
     }
 }

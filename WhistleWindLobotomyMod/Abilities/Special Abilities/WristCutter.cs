@@ -1,7 +1,7 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod
                     nameOfEvo = "wstl_bloodBath3";
                     break;
             }
-            CardInfo evolution = AbnormalMethods.GetInfoWithMods(base.PlayableCard, nameOfEvo);
+            CardInfo evolution = HelperMethods.GetInfoWithMods(base.PlayableCard, nameOfEvo);
 
             if (base.PlayableCard.InHand && Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard != base.PlayableCard)
             {
@@ -83,7 +83,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_WristCutter()
         {
-            WristCutter.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<WristCutter>(WristCutter.rName).Id;
+            WristCutter.specialAbility = AbilityHelper.CreateSpecialAbility<WristCutter>(pluginGuid, WristCutter.rName).Id;
         }
     }
 }

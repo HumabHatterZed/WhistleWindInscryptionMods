@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
@@ -66,7 +67,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_Sap()
         {
-            Sap.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Sap>(Sap.rName).Id;
+            Sap.specialAbility = AbilityHelper.CreateSpecialAbility<Sap>(pluginGuid, Sap.rName).Id;
         }
     }
 }

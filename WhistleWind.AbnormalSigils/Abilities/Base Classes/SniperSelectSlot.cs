@@ -1,10 +1,10 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Patches;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {

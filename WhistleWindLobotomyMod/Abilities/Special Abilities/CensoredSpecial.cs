@@ -1,8 +1,8 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
@@ -79,7 +79,7 @@ namespace WhistleWindLobotomyMod
             }
             else
             {
-                AbnormalMethods.QueueCreatedCard(minion);
+                HelperMethods.QueueCreatedCard(minion);
             }
             yield return DialogueEventsManager.PlayDialogueEvent("CENSOREDKilledCard");
             yield return new WaitForSeconds(0.25f);
@@ -98,7 +98,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_CensoredSpecial()
         {
-            CensoredSpecial.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<CensoredSpecial>(CensoredSpecial.rName).Id;
+            CensoredSpecial.specialAbility = AbilityHelper.CreateSpecialAbility<CensoredSpecial>(pluginGuid, CensoredSpecial.rName).Id;
         }
     }
 }

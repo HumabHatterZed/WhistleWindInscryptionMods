@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedWhite.appearance
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_yinYangBody", "",
                 "Now you become [c:bR]the sky[c:], and I the land.",
                 atk: 0, hp: 0,

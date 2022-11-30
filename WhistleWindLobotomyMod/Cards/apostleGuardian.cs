@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 ForcedWhite.appearance,
                 EventBackground.appearance
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_apostleGuardian", "Guardian Apostle",
                 "The time has come.",
                 atk: 4, hp: 6,

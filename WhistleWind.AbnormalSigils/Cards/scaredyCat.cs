@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -14,19 +14,23 @@ namespace WhistleWind.AbnormalSigils
                 Cowardly.ability
             };
 
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_scaredyCatStrong", "Scaredy Cat",
                 "A pitiful little cat.",
-                2, 6, 3, 0,
+                atk: 2, hp: 6,
+                blood: 3, bones: 0, energy: 0,
                 Artwork.scaredyCatStrong, Artwork.scaredyCatStrong_emission,
                 abilities: abilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 evolveName: "wstl_scaredyCat");
 
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_scaredyCat", "Scaredy Cat",
                 "A pitiful little cat.",
-                0, 1, 1, 0,
+                atk: 0, hp: 1,
+                blood: 1, bones: 0, energy: 0,
                 Artwork.scaredyCat, Artwork.scaredyCat_emission,
                 abilities: abilities,
                 metaCategories: new(), tribes: new(), traits: new(),

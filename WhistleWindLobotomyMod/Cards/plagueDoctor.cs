@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -75,7 +76,7 @@ namespace WhistleWindLobotomyMod
             {
                 Bless.specialAbility
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_plagueDoctor", "Plague Doctor",
                 "A worker of miracles. He humbly requests to join you.",
                 atk: 0, hp: 3,
@@ -84,7 +85,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(), onePerDeck: true,
-                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.Zayin);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin);
         }
     }
 }

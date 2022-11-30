@@ -1,12 +1,11 @@
 ﻿using BepInEx;
 using BepInEx.Bootstrap;
 using BepInEx.Logging;
+using WhistleWind.Core.Helpers;
 using DiskCardGame;
 using HarmonyLib;
 using Infiniscryption.PackManagement;
-using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
-using InscryptionAPI.Guid;
 using InscryptionAPI.Regions;
 using Sirenix.Utilities;
 using System.IO;
@@ -185,7 +184,7 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("PackManager is installed, creating card pack...");
                 PackInfo pack = PackManager.GetPackInfo("wstl");
                 pack.Title = "WhistleWind's Lobotomy Mod";
-                pack.SetTexture(LobotomyTextureLoader.LoadTextureFromBytes(Artwork.wstl_pack));
+                pack.SetTexture(TextureLoader.LoadTextureFromBytes(Artwork.wstl_pack));
                 pack.Description = "A set of [count] cards based on the abnormalities from Lobotomy Corporation and Library of Ruina.";
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             }

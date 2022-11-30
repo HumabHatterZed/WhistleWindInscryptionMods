@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System.Collections;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
@@ -109,7 +110,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_TodaysExpression()
         {
-            TodaysExpression.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<TodaysExpression>(TodaysExpression.rName).Id;
+            TodaysExpression.specialAbility = AbilityHelper.CreateSpecialAbility<TodaysExpression>(pluginGuid, TodaysExpression.rName).Id;
         }
     }
 }

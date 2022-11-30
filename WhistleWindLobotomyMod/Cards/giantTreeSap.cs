@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +19,7 @@ namespace WhistleWindLobotomyMod
             {
                 Sap.specialAbility
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_giantTreeSap", "Giant Tree Sap",
                 "Sap from a tree at the end of the world. It is a potent healing agent.",
                 atk: 0, hp: 2,
@@ -26,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.giantTreeSap, Artwork.giantTreeSap_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He);
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+﻿using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -7,18 +7,22 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_OzmaPumpkinJack_F04116()
         {
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_ozmaPumpkinJack", "Jack",
                 "A child borne of an orange gourd.",
-                1, 3, 1, 0,
+                atk: 1, hp: 3,
+                blood: 1, bones: 0, energy: 0,
                 Artwork.ozmaPumpkinJack, Artwork.ozmaPumpkinJack_emission,
                 abilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(), appearances: new());
 
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_ozmaPumpkin", "Pumpkin",
                 "An orange gourd.",
-                0, 1, 0, 0,
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 0,
                 Artwork.ozmaPumpkin,
                 abilities: new() { TargetGainSigils.ability },
                 metaCategories: new(), tribes: new(), traits: new(),

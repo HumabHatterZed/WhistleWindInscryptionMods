@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 ForcedWhite.appearance,
                 EventBackground.appearance
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_apostleScythe", "Scythe Apostle",
                 "The time has come.",
                 atk: 2, hp: 6,

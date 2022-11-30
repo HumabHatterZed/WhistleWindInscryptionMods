@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.Uncuttable
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_RUDOLTA_MULE", "Rudolta of the Sleigh",
                 "A grotesque effigy of a reindeer. With its infinite hate, it bequeaths gifts onto you.",
                 atk: 2, hp: 3,

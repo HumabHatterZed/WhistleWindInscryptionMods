@@ -1,9 +1,9 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -91,7 +91,7 @@ namespace WhistleWind.AbnormalSigils
         }
         private void SpecialAbility_SporeDamage()
         {
-            SporeDamage.specialAbility = AbilityBuilder.CreateSpecialAbility<SporeDamage>(pluginGuid, SporeDamage.rName).Id;
+            SporeDamage.specialAbility = AbilityHelper.CreateSpecialAbility<SporeDamage>(pluginGuid, SporeDamage.rName).Id;
         }
     }
 }

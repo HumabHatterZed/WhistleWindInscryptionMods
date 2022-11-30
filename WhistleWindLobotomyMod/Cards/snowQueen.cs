@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +15,7 @@ namespace WhistleWindLobotomyMod
             {
                 FrostRuler.ability
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_snowQueen", "The Snow Queen",
                 "A queen from far away. Those who enter her palace never leave.",
                 atk: 2, hp: 1,
@@ -22,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.snowQueen, Artwork.snowQueen_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He);
         }
     }
 }

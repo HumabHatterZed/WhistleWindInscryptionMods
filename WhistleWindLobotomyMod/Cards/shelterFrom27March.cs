@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -16,7 +17,7 @@ namespace WhistleWindLobotomyMod
                 Aggravating.ability,
                 TargetGainSigils.ability
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_shelterFrom27March", "Shelter From the 27th of March",
                 "It makes itself the safest place in the world by altering the reality around it.",
                 atk: 0, hp: 0,
@@ -24,8 +25,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.shelterFrom27March, Artwork.shelterFrom27March_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.He,
-                spellType: CardHelper.SpellType.TargetedStats);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
+                spellType: LobotomyCardHelper.SpellType.TargetedStats);
         }
     }
 }

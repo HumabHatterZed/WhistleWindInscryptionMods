@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod
                 ForcedWhite.appearance,
                 EventBackground.appearance
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_whiteNight", "WhiteNight",
                 "The time has come.",
                 atk: 0, hp: 666,

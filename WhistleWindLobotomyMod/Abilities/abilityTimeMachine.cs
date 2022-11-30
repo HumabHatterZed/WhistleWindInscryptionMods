@@ -1,10 +1,10 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator Activate()
         {
             if (!base.HasLearned)
-                yield return AbnormalMethods.PlayAlternateDialogue(Emotion.Anger, DialogueEvent.Speaker.Leshy, 0.2f, "Have I backed you into a corner? Or am I simply boring you?", "I suppose it doesn't matter. I will honour your request.");
+                yield return HelperMethods.PlayAlternateDialogue(Emotion.Anger, DialogueEvent.Speaker.Leshy, 0.2f, "Have I backed you into a corner? Or am I simply boring you?", "I suppose it doesn't matter. I will honour your request.");
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             AudioController.Instance.PlaySound2D("antigravity_elevator_down");
             base.Card.Anim.LightNegationEffect();
@@ -139,7 +139,7 @@ namespace WhistleWindLobotomyMod
             };
             base.Card.ClearAppearanceBehaviours();
             base.Card.ApplyAppearanceBehaviours(new() { CardAppearanceBehaviour.Appearance.RareCardBackground });
-            base.Card.Info.SetEmissivePortrait(LobotomyTextureLoader.LoadTextureFromBytes(resource));
+            base.Card.Info.SetEmissivePortrait(TextureLoader.LoadTextureFromBytes(resource));
             base.Card.RenderInfo.forceEmissivePortrait = true;
             base.Card.UpdateStatsText();
         }

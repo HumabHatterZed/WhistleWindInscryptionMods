@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,24 +19,17 @@ namespace WhistleWindLobotomyMod
             {
                 SpecialTriggeredAbility.Mirror
             };
-            List<Trait> traits = new()
-            {
-                Trait.Terrain
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.TerrainBackground
-            };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_mirrorOfAdjustment", "The Mirror of Adjustment",
                 "A mirror that reflects nothing on its surface.",
                 atk: 0, hp: 1,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.mirrorOfAdjustment, Artwork.mirrorOfAdjustment_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, statIcon: SpecialStatIcon.Mirror,
-                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.Zayin);
+                metaCategories: new(), tribes: new(), traits: new(),
+                appearances: new(), statIcon: SpecialStatIcon.Mirror,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
+                metaTypes: CardHelper.CardMetaType.NoTerrainLayout);
         }
     }
 }

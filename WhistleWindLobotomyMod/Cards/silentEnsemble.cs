@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
                 Ability.BuffNeighbours
             };
 
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_silentEnsemble", "Chairs",
                 "The conductor begins to direct the apocalypse.",
                 atk: 1, hp: 3,

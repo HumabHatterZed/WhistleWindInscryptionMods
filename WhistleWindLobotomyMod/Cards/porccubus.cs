@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -13,7 +14,7 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Deathtouch
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_porccubus", "Porccubus",
                 "A prick from one of its quills creates a deadly euphoria.",
                 atk: 1, hp: 2,
@@ -21,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.porccubus, Artwork.porccubus_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He);
         }
     }
 }

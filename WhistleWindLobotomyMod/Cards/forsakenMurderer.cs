@@ -1,5 +1,6 @@
 ﻿using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -7,7 +8,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ForsakenMurderer_T0154()
         {
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_forsakenMurderer", "Forsaken Murderer",
                 "Experimented on then forgotten. What was anger has become abhorrence.",
                 atk: 4, hp: 1,
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.forsakenMurderer, Artwork.forsakenMurderer_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.Teth);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth);
         }
     }
 }

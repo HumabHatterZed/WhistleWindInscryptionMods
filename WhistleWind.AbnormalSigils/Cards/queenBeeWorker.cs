@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -9,13 +9,14 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_QueenBeeWorker_T0450()
         {
-            // if Lobotomy Corp mod is enabled, 
             List<Ability> abilities = new() { Ability.Brittle };
             List<Tribe> tribes = new() { Tribe.Insect };
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_queenBeeWorker", "Worker Bee",
                 "A blind servant of the hive.",
-                1, 1, 0, 1,
+                atk: 1, hp: 1,
+                blood: 0, bones: 1, energy: 1,
                 Artwork.queenBeeWorker, Artwork.queenBeeWorker_emission,
                 abilities: abilities,
                 metaCategories: new(), tribes: tribes, traits: new());

@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System.Collections;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
@@ -66,7 +67,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_Smile()
         {
-            Smile.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Smile>(Smile.rName).Id;
+            Smile.specialAbility = AbilityHelper.CreateSpecialAbility<Smile>(pluginGuid, Smile.rName).Id;
         }
     }
 }

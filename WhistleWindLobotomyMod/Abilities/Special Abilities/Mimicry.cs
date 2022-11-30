@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -118,7 +119,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_Mimicry()
         {
-            Mimicry.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Mimicry>(Mimicry.rName).Id;
+            Mimicry.specialAbility = AbilityHelper.CreateSpecialAbility<Mimicry>(pluginGuid, Mimicry.rName).Id;
         }
     }
 }

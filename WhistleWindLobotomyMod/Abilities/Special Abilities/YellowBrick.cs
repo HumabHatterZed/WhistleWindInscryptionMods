@@ -1,7 +1,7 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System.Collections;
 using System.Linq;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod
             CardSlot woodsmanSlot = null;
             CardSlot scaredySlot = null;
 
-            foreach (CardSlot slot in AbnormalMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+            foreach (CardSlot slot in HelperMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 if (slot != base.PlayableCard.Slot)
                 {
@@ -171,7 +171,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_YellowBrick()
         {
-            YellowBrick.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<YellowBrick>(YellowBrick.rName).Id;
+            YellowBrick.specialAbility = AbilityHelper.CreateSpecialAbility<YellowBrick>(pluginGuid, YellowBrick.rName).Id;
         }
     }
 }

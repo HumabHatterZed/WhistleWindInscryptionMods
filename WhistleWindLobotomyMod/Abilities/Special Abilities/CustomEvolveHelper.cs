@@ -1,7 +1,7 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
                     yield return DialogueEventsManager.PlayDialogueEvent("NothingThereTransformTrue");
                     break;
                 case "wstl_nothingThereEgg":
-                    CardInfo evolution = AbnormalMethods.GetInfoWithMods(base.PlayableCard, "wstl_nothingThereFinal");
+                    CardInfo evolution = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_nothingThereFinal");
                     yield return base.PlayableCard.TransformIntoCard(evolution);
                     yield return new WaitForSeconds(0.5f);
                     yield return DialogueEventsManager.PlayDialogueEvent("NothingThereTransformEgg");
@@ -46,13 +46,13 @@ namespace WhistleWindLobotomyMod
             switch (base.PlayableCard.Info.name)
             {
                 case "wstl_queenOfHatred":
-                    CardInfo evolutionTired = AbnormalMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatredTired");
+                    CardInfo evolutionTired = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatredTired");
                     yield return base.PlayableCard.TransformIntoCard(evolutionTired);
                     yield return new WaitForSeconds(0.5f);
                     yield return DialogueEventsManager.PlayDialogueEvent("QueenOfHatredExhaust");
                     break;
                 case "wstl_queenOfHatredTired":
-                    CardInfo evolutionRecovered = AbnormalMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatred");
+                    CardInfo evolutionRecovered = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatred");
                     yield return base.PlayableCard.TransformIntoCard(evolutionRecovered);
                     yield return new WaitForSeconds(0.5f);
                     yield return DialogueEventsManager.PlayDialogueEvent("QueenOfHatredRecover");
@@ -82,7 +82,7 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_CustomFledgling()
         {
             const string rulebookName = "CustomEvolveHelper";
-            CustomEvolveHelper.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<CustomEvolveHelper>(rulebookName).Id;
+            CustomEvolveHelper.specialAbility = AbilityHelper.CreateSpecialAbility<CustomEvolveHelper>(pluginGuid, rulebookName).Id;
         }
     }
 }

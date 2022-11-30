@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using InscryptionAPI.Nodes;
 using Pixelplacement;
 using System;
@@ -135,9 +136,9 @@ namespace WhistleWindLobotomyMod
                     }
 
                     if (card.ChoiceInfo.CardInfo.metaCategories.Contains(CardMetaCategory.Rare))
-                        card.SetCardback(LobotomyTextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBackRare));
+                        card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBackRare));
                     else
-                        card.SetCardback(LobotomyTextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBack));
+                        card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBack));
 
                     card.SetFaceDown(faceDown: true, immediate: true);
                     Vector3 position = card.transform.position;

@@ -1,5 +1,5 @@
 ﻿using DiskCardGame;
-using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -7,7 +7,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Appearance_BlackFish()
         {
-            BlackFish.appearance = CardHelper.CreateAppearance<BlackFish>("BlackFish").Id;
+            BlackFish.appearance = CardHelper.CreateAppearance<BlackFish>(pluginGuid, "BlackFish").Id;
         }
     }
     public class BlackFish : CardAppearanceBehaviour

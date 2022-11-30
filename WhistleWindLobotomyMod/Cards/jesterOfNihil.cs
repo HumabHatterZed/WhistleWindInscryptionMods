@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.CardHelper;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             {
                 BoardEffects.specialAbility
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_jesterOfNihil", "The Jester of Nihil",
                 "",
                 atk: 0, hp: 15,
@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.jesterOfNihil, Artwork.jesterOfNihil_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Rare, metaTypes: MetaType.Ruina | MetaType.EventCard);
+                choiceType: CardHelper.CardChoiceType.Rare, modTypes: LobotomyCardHelper.ModCardType.Ruina | LobotomyCardHelper.ModCardType.EventCard);
         }
     }
 }

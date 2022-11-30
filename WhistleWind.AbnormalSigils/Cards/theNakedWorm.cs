@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,11 +13,12 @@ namespace WhistleWind.AbnormalSigils
             {
                 Tribe.Insect
             };
-
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_theNakedWorm", "Naked Worm",
                 "It can enter your body through any aperture.",
-                1, 1, 0, 0,
+                atk: 1, hp: 1,
+                blood: 0, bones: 0, energy: 0,
                 Artwork.theNakedWorm,
                 abilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());

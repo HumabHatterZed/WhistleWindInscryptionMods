@@ -12,13 +12,14 @@ namespace WhistleWind.Core.Helpers
             texture.filterMode = FilterMode.Point;
             return texture;
         }
-        public static Sprite LoadSpriteFromBytes(byte[] resourceFile, bool isStarter = false)
+        public static Sprite LoadSpriteFromBytes(byte[] resourceFile, Vector2? vector = null)
         {
-            var texture = LoadTextureFromBytes(resourceFile);
-            // Starter Deck icon or Challenge icon
-            Rect rect = isStarter ? new Rect(0f, 0f, 35f, 44f) : new Rect(0f, 0f, 49f, 49f);
-            Vector2 pivot = new(0.5f, 0.5f);
-            return Sprite.Create(texture, rect, pivot);
+            Texture2D texture = LoadTextureFromBytes(resourceFile);
+
+            Rect rect = new(0f, 0f, texture.width, texture.height);
+            Vector2 pivot = vector ?? new Vector2(0.5f, 0.5f);
+
+            return Sprite.Create(texture, rect, pivot, 100f);
         }
     }
 }

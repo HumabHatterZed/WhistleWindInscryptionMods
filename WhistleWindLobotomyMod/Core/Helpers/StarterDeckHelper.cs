@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using InscryptionAPI.Ascension;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             }
             StarterDeckInfo starterDeckInfo = ScriptableObject.CreateInstance<StarterDeckInfo>();
             starterDeckInfo.title = title;
-            starterDeckInfo.iconSprite = LobotomyTextureLoader.LoadSpriteFromBytes(icon);
+            starterDeckInfo.iconSprite = TextureLoader.LoadSpriteFromBytes(icon);
             starterDeckInfo.cards = cards;
             StarterDeckManager.Add(pluginPrefix, starterDeckInfo, unlockLevel);
             return true;

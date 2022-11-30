@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System.Collections;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
@@ -85,7 +86,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_Adoration()
         {
-            Adoration.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Adoration>(Adoration.rName).Id;
+            Adoration.specialAbility = AbilityHelper.CreateSpecialAbility<Adoration>(pluginGuid, Adoration.rName).Id;
         }
     }
 }

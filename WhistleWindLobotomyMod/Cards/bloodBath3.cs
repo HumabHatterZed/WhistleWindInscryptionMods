@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
                 Ability.TripleBlood,
                 Ability.QuadrupleBones
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_bloodBath3", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
                 atk: 1, hp: 3,

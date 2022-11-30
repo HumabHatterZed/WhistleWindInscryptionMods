@@ -1,5 +1,5 @@
-﻿using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+﻿using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -7,10 +7,12 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_SnowQueenIceBlock_F0137()
         {
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_snowQueenIceBlock", "Block of Ice",
                 "The palace was cold and lonely.",
-                0, 1, 0, 0,
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 0,
                 Artwork.snowQueenIceBlock,
                 abilities: new(),
                 metaCategories: new(), tribes: new(), traits: new());

@@ -7,15 +7,31 @@ using UnityEngine;
 
 namespace WhistleWind.Core.Helpers
 {
-    public static class AbilityBuilder // Base code taken from GrimoraMod and SigilADay_julienperge
+    public static class AbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
+        public static AbilityManager.FullAbility CreateAbility<T>(
+            string pluginGuid,
+            byte[] texture, byte[] gbcTexture,
+            string rulebookName, string rulebookDescription,
+            string dialogue, int powerLevel = 0,
+            bool opponent = false, bool canStack = false,
+            bool modular = false, bool foundInRulebook = true,
+            bool flipY = false, byte[] flipTexture = null)
+            where T : AbilityBehaviour
+        {
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+            return CreateAbility<T>(
+                info, pluginGuid, texture, gbcTexture,
+                rulebookName, rulebookDescription, dialogue, powerLevel,
+                opponent, canStack, modular, foundInRulebook, flipY, flipTexture);
+        }
         public static AbilityManager.FullAbility CreateAbility<T>(
             AbilityInfo info, string pluginGuid,
             byte[] texture, byte[] gbcTexture,
             string rulebookName, string rulebookDescription,
             string dialogue, int powerLevel = 0,
             bool opponent = false, bool canStack = false,
-            bool modular = false, bool noEntry = false,
+            bool modular = false, bool foundInRulebook = false,
             bool flipY = false, byte[] flipTexture = null)
             where T : AbilityBehaviour
         {
@@ -26,7 +42,7 @@ namespace WhistleWind.Core.Helpers
             info.canStack = canStack;
             info.flipYIfOpponent = flipY;
 
-            if (!noEntry)
+            if (foundInRulebook)
                 info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
             if (modular)
@@ -40,8 +56,16 @@ namespace WhistleWind.Core.Helpers
             return ability;
         }
         public static AbilityManager.FullAbility CreateActivatedAbility<T>(
-            AbilityInfo info, string pluginGuid,
-            byte[] texture, byte[] gbcTexture,
+            string pluginGuid, byte[] texture, byte[] gbcTexture,
+            string rulebookName, string rulebookDescription, string dialogue, int powerLevel = 0)
+        {
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+            return CreateActivatedAbility<T>(
+                info, pluginGuid, texture, gbcTexture,
+                rulebookName, rulebookDescription, dialogue, powerLevel);
+        }
+        public static AbilityManager.FullAbility CreateActivatedAbility<T>(
+            AbilityInfo info, string pluginGuid, byte[] texture, byte[] gbcTexture,
             string rulebookName, string rulebookDescription, string dialogue, int powerLevel = 0)
         {
             info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, powerLevel);
@@ -49,6 +73,16 @@ namespace WhistleWind.Core.Helpers
             info.activated = true;
 
             return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(texture));
+        }
+        public static AbilityManager.FullAbility CreateFillerAbility<T>(
+            string pluginGuid,
+            string rulebookName, string rulebookDescription,
+            byte[] fillerArtBytes, byte[] fillerPixelArtBytes)
+            where T : AbilityBehaviour
+        {
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+            return CreateFillerAbility<T>(
+                info, pluginGuid, rulebookName, rulebookDescription, fillerArtBytes, fillerPixelArtBytes);
         }
         public static AbilityManager.FullAbility CreateFillerAbility<T>(
             AbilityInfo info, string pluginGuid,

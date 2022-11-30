@@ -7,7 +7,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_CENSOREDMinion_O0389()
         {
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_censoredMinion", "CENSORED",
                 "I think it's best you don't know what it looks like.",
                 atk: 0, hp: 0,

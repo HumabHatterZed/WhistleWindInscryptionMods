@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.CardHelper;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 Volatile.ability,
                 Ability.Brittle
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_armyInBlack", "Army in Black",
                 "Duty-bound.",
                 atk: 2, hp: 1,
@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(),
-                cardType: CardHelper.CardType.Rare, metaTypes: MetaType.NonChoice);
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
         }
     }
 }

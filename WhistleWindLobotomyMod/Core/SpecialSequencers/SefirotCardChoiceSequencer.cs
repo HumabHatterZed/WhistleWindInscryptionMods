@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using InscryptionAPI.Nodes;
 using Pixelplacement;
 using System;
@@ -134,7 +135,7 @@ namespace WhistleWindLobotomyMod
                         components[j].OnShownForCardChoiceNode();
                     }
 
-                    card.SetCardback(LobotomyTextureLoader.LoadTextureFromBytes(Artwork.sefirotRewardBack));
+                    card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.sefirotRewardBack));
                     card.SetFaceDown(faceDown: true, immediate: true);
 
                     Vector3 position = card.transform.position;
@@ -165,7 +166,7 @@ namespace WhistleWindLobotomyMod
             List<CardChoice> listOfChoices = new();
 
             // find the number of Sephirah already owned, including Angela
-            int sephirahCount = RunState.DeckList.FindAll(x => x.metaCategories.Contains(CardHelper.SEPHIRAH_CARD)).Count;
+            int sephirahCount = RunState.DeckList.FindAll(x => x.metaCategories.Contains(LobotomyCardHelper.SEPHIRAH_CARD)).Count;
 
             // if all 9 Sephirah have been obtained, guaranteed to get Angela
             // otherwise if there are unobtained Sephirah, pick a max of 3 of them per node (if only 2 remain, show 2, etc.)

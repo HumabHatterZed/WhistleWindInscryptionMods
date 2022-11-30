@@ -1,8 +1,8 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
@@ -38,14 +38,14 @@ namespace WhistleWindLobotomyMod
 
             if (KnightOfDespair)
             {
-                CardInfo cardByName = AbnormalMethods.GetInfoWithMods(base.PlayableCard, "wstl_knightOfDespair");
+                CardInfo cardByName = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_knightOfDespair");
                 yield return base.PlayableCard.TransformIntoCard(cardByName);
                 yield return new WaitForSeconds(0.5f);
                 yield return DialogueEventsManager.PlayDialogueEvent("KnightOfDespairTransform");
             }
             else
             {
-                CardInfo cardByName = AbnormalMethods.GetInfoWithMods(base.PlayableCard, "wstl_armyInBlack");
+                CardInfo cardByName = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_armyInBlack");
 
                 // reset damage taken since the evolution has less base Health
                 yield return base.PlayableCard.TransformIntoCard(cardByName, preTransformCallback: ResetDamage);
@@ -84,7 +84,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_PinkTears()
         {
-            PinkTears.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<PinkTears>(PinkTears.rName).Id;
+            PinkTears.specialAbility = AbilityHelper.CreateSpecialAbility<PinkTears>(pluginGuid, PinkTears.rName).Id;
         }
     }
 }

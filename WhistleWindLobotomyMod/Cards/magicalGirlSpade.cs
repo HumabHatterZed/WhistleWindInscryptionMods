@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,16 +19,15 @@ namespace WhistleWindLobotomyMod
             {
                 PinkTears.specialAbility
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_magicalGirlSpade", "Magical Girl",
                 "A loyal knight fighting to protect those close to her.",
                 atk: 1, hp: 4,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.magicalGirlSpade, Artwork.magicalGirlSpade_emission, pixelTexture: Artwork.magicalGirlSpade_pixel,
                 abilities: abilities, specialAbilities: specialAbilties,
-                metaCategories: new(), tribes: new(), traits: new(),
-                onePerDeck: true,
-                cardType: CardHelper.CardType.Rare, riskLevel: CardHelper.RiskLevel.Waw);
+                metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
         }
     }
 }

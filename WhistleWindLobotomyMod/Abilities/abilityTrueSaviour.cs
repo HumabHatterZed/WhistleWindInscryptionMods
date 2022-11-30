@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
@@ -24,8 +25,7 @@ namespace WhistleWindLobotomyMod
             TrueSaviour.ability = LobotomyAbilityHelper.CreateAbility<TrueSaviour>(
                 Artwork.sigilTrueSaviour, Artwork.sigilTrueSaviour_pixel,
                 rulebookName, TrueSaviourHiddenDescription, dialogue, powerLevel: -3,
-                modular: false, opponent: false, canStack: false, isPassive: false,
-                unobtainable: true).Id;
+                canStack: false).Id;
         }
     }
     public class TrueSaviour : AbilityBehaviour

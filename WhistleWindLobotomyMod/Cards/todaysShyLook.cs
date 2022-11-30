@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -13,7 +14,7 @@ namespace WhistleWindLobotomyMod
             {
                 TodaysExpression.specialAbility
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_todaysShyLook", "Today's Shy Look",
                 "An indecisive creature. Her expression is different whenever you draw her.",
                 atk: 1, hp: 2,
@@ -21,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.todaysShyLook, Artwork.todaysShyLook_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.Teth);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth);
         }
     }
 }

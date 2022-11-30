@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +19,7 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Bird
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_dreamOfABlackSwan", "Dream of a Black Swan",
                 "The sister of six brothers. She worked tirelessly to protect them, all for naught.",
                 atk: 2, hp: 5,
@@ -26,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.dreamOfABlackSwan, Artwork.dreamOfABlackSwan_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                cardType: CardHelper.CardType.Rare, riskLevel: CardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
         }
     }
 }

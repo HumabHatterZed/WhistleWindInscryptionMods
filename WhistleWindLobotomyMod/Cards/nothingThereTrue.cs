@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 Tribe.Reptile
             };
 
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_nothingThereFinal", "Nothing There",
                 "A grotesque attempt at mimicry. Pray it does not improve its disguise.",
                 atk: 9, hp: 9,
@@ -27,9 +28,9 @@ namespace WhistleWindLobotomyMod
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(),
-                cardType: CardHelper.CardType.Rare, metaTypes: CardHelper.MetaType.NonChoice);
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
 
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_nothingThereEgg", "An Egg",
                 "What is it doing?",
                 atk: 0, hp: 3,
@@ -38,10 +39,10 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(), onePerDeck: true,
-                cardType: CardHelper.CardType.Rare, metaTypes: CardHelper.MetaType.NonChoice,
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
                 evolveName: "wstl_nothingThereFinal");
 
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_nothingThereTrue", "Nothing There",
                 "What is that?",
                 atk: 3, hp: 3,
@@ -50,7 +51,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: new(),
-                cardType: CardHelper.CardType.Rare, metaTypes: CardHelper.MetaType.NonChoice,
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
                 evolveName: "wstl_nothingThereEgg");
         }
     }

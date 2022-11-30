@@ -1,5 +1,5 @@
-﻿using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+﻿using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -7,10 +7,12 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_ParasiteTreeSapling_D04108()
         {
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_parasiteTreeSapling", "Sapling",
                 "They proliferate and become whole. Can you feel it?",
-                0, 2, 0, 0,
+                atk: 0, hp: 2,
+                blood: 0, bones: 0, energy: 0,
                 Artwork.parasiteTreeSapling, Artwork.parasiteTreeSapling_emission,
                 abilities: new(),
                 metaCategories: new(), tribes: new(), traits: new());

@@ -1,5 +1,5 @@
-﻿using DiskCardGame;
-using WhistleWind.AbnormalSigils.Core.Helpers;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -7,7 +7,7 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Appearance_RedEmission()
         {
-            ForcedRed.appearance = AbnormalCardHelper.CreateAppearance<ForcedRed>("ForcedRed").Id;
+            ForcedRed.appearance = CardHelper.CreateAppearance<ForcedRed>(pluginGuid, "ForcedRed").Id;
         }
     }
     public class ForcedRed : CardAppearanceBehaviour

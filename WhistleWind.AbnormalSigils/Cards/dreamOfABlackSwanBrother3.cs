@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -18,10 +18,12 @@ namespace WhistleWind.AbnormalSigils
                 CardAppearanceBehaviour.Appearance.TerrainLayout
             };
 
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_dreamOfABlackSwanBrother3", "Third Brother",
                 "What happens when the black swan wakes up from dreaming of a white swan?",
-                0, 3, 1, 0,
+                atk: 0, hp: 3,
+                blood: 1, bones: 0, energy: 0,
                 Artwork.dreamOfABlackSwanBrother3,
                 abilities: abilities,
                 metaCategories: new(), tribes: new(), traits: new(),

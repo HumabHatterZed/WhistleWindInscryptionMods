@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -10,6 +12,20 @@ namespace WhistleWindLobotomyMod
         private void Card_NamelessFetus_O0115()
         {
             List<Ability> abilities = new()
+            {
+                Aggravating.ability,
+                Ability.PreventAttack
+            };
+            LobotomyCardHelper.CreateCard(
+                "wstl_namelessFetusAwake", "Nameless Fetus",
+                "Only a sacrifice will stop its piercing wails.",
+                atk: 0, hp: 1,
+                blood: 0, bones: 4, energy: 0,
+                Artwork.namelessFetusAwake, Artwork.namelessFetusAwake,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new());
+
+            abilities = new()
             {
                 Ability.TripleBlood,
                 Ability.Sacrificial
@@ -22,7 +38,7 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.Goat
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_namelessFetus", "Nameless Fetus",
                 "A neverending supply a blood. Just don't wake it.",
                 atk: 0, hp: 1,
@@ -30,7 +46,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.namelessFetus, Artwork.namelessFetus_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,
-                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He);
         }
     }
 }

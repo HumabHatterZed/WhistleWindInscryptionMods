@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -14,10 +14,12 @@ namespace WhistleWind.AbnormalSigils
                 Slime.ability
             };
 
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_meltingLoveMinion", "Slime",
                 "Don't let your beasts get too close now.",
-                0, 0, 0, 0,
+                atk: 0, hp: 0,
+                blood: 0, bones: 0, energy: 0,
                 Artwork.meltingLoveMinion, Artwork.meltingLoveMinion_emission,
                 abilities: abilities,
                 metaCategories: new(), tribes: new(), traits: new());

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,7 +18,7 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.DeathcardCreationNonOption
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_backwardClock", "Backward Clock",
                 "A clock to rewind your wasted time. Will you pay the toll?",
                 atk: 0, hp: 1,
@@ -26,8 +27,8 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
                 onePerDeck: true,
-                cardType: CardHelper.CardType.Rare, riskLevel: CardHelper.RiskLevel.Waw,
-                 metaTypes: CardHelper.MetaType.Donator | CardHelper.MetaType.Restricted);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
+                modTypes: LobotomyCardHelper.ModCardType.Donator | LobotomyCardHelper.ModCardType.Restricted);
         }
     }
 }

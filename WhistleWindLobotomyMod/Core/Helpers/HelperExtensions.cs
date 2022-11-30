@@ -1,31 +1,11 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace WhistleWindLobotomyMod.Core.Helpers
 {
-    public static class HelperExtensions
+    public static class LobotomyHelperExtensions
     {
-        /// <summary>
-        /// Removes this card from the board.
-        /// </summary>
-        /// <param name="removeFromDeck">Whether to also remove from the player's deck. Does not affect opponent cards.</param>
-        /// <param name="tweenLength">How long the ExitBoard animation should take to play.</param>
-        public static void RemoveFromBoard(this PlayableCard item, bool removeFromDeck = false, float tweenLength = 0.3f)
-        {
-            // Remove from deck if this card is owned by the player
-            if (removeFromDeck && !item.OpponentCard && !item.OriginatedFromQueue)
-                RunState.Run.playerDeck.RemoveCard(item.Info);
-
-            item.UnassignFromSlot();
-            SpecialCardBehaviour[] components = item.GetComponents<SpecialCardBehaviour>();
-            for (int i = 0; i < components.Length; i++)
-            {
-                components[i].OnCleanUp();
-            }
-            item.ExitBoard(tweenLength, Vector3.zero);
-        }
         /// <summary>
         /// Replaces the current blueprint with a custom blueprint.
         /// </summary>

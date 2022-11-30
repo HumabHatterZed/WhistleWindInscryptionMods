@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -13,7 +14,7 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.RandomAbility
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_dimensionalRefraction", "Dimensional Refraction Variant",
                 "A strange phenomenon. Or rather, the creature is the phenomena in and of itself.",
                 atk: 4, hp: 4,
@@ -21,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.dimensionalRefraction, Artwork.dimensionalRefraction_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
         }
     }
 }

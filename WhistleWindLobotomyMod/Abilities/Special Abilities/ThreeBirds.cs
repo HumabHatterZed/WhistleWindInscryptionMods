@@ -1,8 +1,8 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod
             CardSlot punishSlot = null;
             CardSlot judgeSlot = null;
 
-            foreach (CardSlot slot in AbnormalMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+            foreach (CardSlot slot in HelperMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 if (slot != base.PlayableCard.Slot)
                 {
@@ -146,7 +146,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_ThreeBirds()
         {
-            ThreeBirds.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<ThreeBirds>(ThreeBirds.rName).Id;
+            ThreeBirds.specialAbility = AbilityHelper.CreateSpecialAbility<ThreeBirds>(pluginGuid, ThreeBirds.rName).Id;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Ascension;
 using System;
@@ -6,7 +7,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Opponents.Angler;
 using WhistleWindLobotomyMod.Core.Opponents.Leshy;
 using WhistleWindLobotomyMod.Core.Opponents.PirateSkull;
@@ -28,8 +28,8 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 "Abnormal Bosses",
                 "Bosses will only play abnormality cards.",
                 30,
-                LobotomyTextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalBosses),
-                LobotomyTextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalBosses_activated)
+                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalBosses),
+                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalBosses_activated)
                 ).Challenge.challengeType;
 
             harmony.PatchAll(typeof(AbnormalBosses));

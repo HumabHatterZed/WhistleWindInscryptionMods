@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +20,7 @@ namespace WhistleWindLobotomyMod
             {
                 MagicBullet.specialAbility
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_derFreischutz", "Der Freischütz",
                 "A friendly hunter to some, a cruel gunsman to others. His bullets always hit their mark.",
                 atk: 1, hp: 1,
@@ -27,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.derFreischutz, Artwork.derFreischutz_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Rare, riskLevel: CardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.He);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -54,7 +55,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_MagicBullet()
         {
-            MagicBullet.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<MagicBullet>(MagicBullet.rName).Id;
+            MagicBullet.specialAbility = AbilityHelper.CreateSpecialAbility<MagicBullet>(pluginGuid, MagicBullet.rName).Id;
         }
     }
 }

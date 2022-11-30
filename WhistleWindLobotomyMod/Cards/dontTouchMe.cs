@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 Punisher.ability,
                 Ability.WhackAMole
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_dontTouchMe", "Don't Touch Me",
                 "Don't touch it.",
                 atk: 0, hp: 1,
@@ -23,8 +24,9 @@ namespace WhistleWindLobotomyMod
                 Artwork.dontTouchMe, Artwork.dontTouchMe_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Basic,
-                riskLevel: CardHelper.RiskLevel.Zayin);
+                choiceType: CardHelper.CardChoiceType.Basic,
+                riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
+                metaTypes: CardHelper.CardMetaType.Terrain);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Ascension;
 using InscryptionAPI.Regions;
@@ -20,8 +21,8 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 "Abnormal Encounters",
                 "All regular battles will only use abnormality cards.",
                 20,
-                LobotomyTextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalEncounters),
-                LobotomyTextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalEncounters_activated)
+                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalEncounters),
+                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalEncounters_activated)
                 ).Challenge.challengeType;
 
             // Do later?

@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,10 +13,12 @@ namespace WhistleWind.AbnormalSigils
             {
                 Tribe.Insect
             };
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_laetitiaFriend", "Little Witch's Friend",
                 "She brought her friends along.",
-                2, 2, 0, 4,
+                atk: 2, hp: 2,
+                blood: 0, bones: 4, energy: 0,
                 Artwork.laetitiaFriend, Artwork.laetitiaFriend_emission,
                 abilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());

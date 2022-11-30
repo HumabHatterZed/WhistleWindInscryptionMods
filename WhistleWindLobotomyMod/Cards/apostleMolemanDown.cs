@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 ForcedWhite.appearance,
                 RareEventBackground.appearance
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_apostleMolemanDown", "Moleman Apostle",
                 "The time has come.",
                 atk: 0, hp: 1,

@@ -20,8 +20,7 @@ namespace WhistleWindLobotomyMod
             Apostle.ability = LobotomyAbilityHelper.CreateAbility<Apostle>(
                 Artwork.sigilApostle, Artwork.sigilApostle_pixel,
                 rulebookName, ApostleHiddenDescription, dialogue, powerLevel: -3,
-                modular: false, opponent: false, canStack: false, isPassive: false,
-                unobtainable: true).Id;
+                canStack: false).Id;
         }
     }
     public class Apostle : AbilityBehaviour

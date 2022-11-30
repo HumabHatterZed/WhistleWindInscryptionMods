@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -22,7 +23,7 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.KillsSurvivors
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_theNakedNest", "The Naked Nest",
                 "They can enter your body through any aperture.",
                 atk: 0, hp: 2,
@@ -30,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.theNakedNest, Artwork.theNakedNest_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: traits,
-                cardType: CardHelper.CardType.Basic, riskLevel: CardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
         }
     }
 }

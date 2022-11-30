@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             {
                 WristCutter.specialAbility
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_bloodBath1", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
                 atk: 0, hp: 1,

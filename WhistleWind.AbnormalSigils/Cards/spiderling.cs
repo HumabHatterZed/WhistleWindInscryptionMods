@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -21,20 +21,23 @@ namespace WhistleWind.AbnormalSigils
             {
                 ForcedRed.appearance
             };
-
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_spiderBrood", "Spider Brood",
                 "Big and mean.",
-                1, 2, 1, 0,
+                atk: 1, hp: 2,
+                blood: 0, bones: 3, energy: 0,
                 Artwork.spiderBrood, Artwork.spiderBrood_emission,
                 abilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);
 
-            AbnormalCardHelper.CreateCard(
+            CardHelper.CreateCard(
+                pluginPrefix,
                 "wstl_spiderling", "Spiderling",
                 "Small and defenceless.",
-                0, 1, 0, 0,
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 0,
                 Artwork.spiderling, Artwork.spiderling_emission,
                 abilities: abilities,
                 metaCategories: new(), tribes: tribes, traits: new(),

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.CardHelper;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             {
                 FalseThrone.ability
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_lyingAdult", "The Adult Who Tells Lies",
                 "",
                 atk: 1, hp: 6,
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.lyingAdult, Artwork.lyingAdult_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Rare, metaTypes: MetaType.Ruina | MetaType.EventCard);
+                choiceType: CardHelper.CardChoiceType.Rare, modTypes: LobotomyCardHelper.ModCardType.Ruina | LobotomyCardHelper.ModCardType.EventCard);
         }
     }
 }

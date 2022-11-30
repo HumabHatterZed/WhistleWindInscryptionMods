@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Reptile
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_magicalGirlClover", "Magical Girl",
                 "Blind protector of another world.",
                 atk: 2, hp: 4,

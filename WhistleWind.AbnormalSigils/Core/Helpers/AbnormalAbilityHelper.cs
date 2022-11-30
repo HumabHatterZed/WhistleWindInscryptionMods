@@ -1,16 +1,16 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Properties;
-using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
 namespace WhistleWind.AbnormalSigils.Core.Helpers
 {
-    public static class AbnormalAbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
+    public static class AbnormalAbilityHelper
     {
         [Flags]
         public enum AbilityGroup
@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             Normal = 1,
             Activated = 2,
             Special = 4,
-            All
+            All = 8
         }
         private static AbilityGroup ForceModular => AbnormalConfigManager.Instance.MakeModular;
         private static AbilityGroup ForceDisable => AbnormalConfigManager.Instance.DisableModular;
@@ -36,13 +36,10 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.CheckModularity(unobtainable, special, modular, AbilityGroup.Normal);
 
-            return AbilityBuilder.CreateAbility<T>(
-                info, pluginGuid,
-                texture, gbcTexture,
-                rulebookName, rulebookDescription,
-                dialogue, powerLevel, opponent,
-                canStack, false, false,
-                flipY, flipTexture);
+            return AbilityHelper.CreateAbility<T>(
+                info, pluginGuid, texture, gbcTexture,
+                rulebookName, rulebookDescription, dialogue, powerLevel,
+                opponent, canStack, false, false, flipY, flipTexture);
         }
         public static AbilityManager.FullAbility CreateActivatedAbility<T>(
             byte[] texture, byte[] gbcTexture,
@@ -53,25 +50,22 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.CheckModularity(unobtainable, special, false, AbilityGroup.Activated);
 
-            return AbilityBuilder.CreateActivatedAbility<T>(
-                info, pluginGuid,
-                texture, gbcTexture,
-                rulebookName, rulebookDescription,
-                dialogue, powerLevel);
+            return AbilityHelper.CreateActivatedAbility<T>(
+                info, pluginGuid, texture, gbcTexture,
+                rulebookName, rulebookDescription, dialogue, powerLevel);
         }
         public static AbilityManager.FullAbility CreateRulebookAbility<T>(string rulebookName, string rulebookDescription)
             where T : AbilityBehaviour
         {
-            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            return AbilityBuilder.CreateFillerAbility<T>(
-                info, pluginGuid,
-                rulebookName, rulebookDescription,
+            return AbilityHelper.CreateFillerAbility<T>(
+                pluginGuid, rulebookName, rulebookDescription,
                 Artwork.sigilAbnormality, Artwork.sigilAbnormality_pixel);
         }
 
         private static AbilityInfo CheckModularity(this AbilityInfo info, bool unobtainable, bool special, bool makeModular, AbilityGroup defaultGroup)
         {
-            if (ForceDisable.HasFlag(AbilityGroup.All))
+            if (ForceDisable.HasFlag(AbilityGroup.All) ||
+                ForceDisable.HasFlags(AbilityGroup.Normal, AbilityGroup.Activated, AbilityGroup.Special))
                 return info;
 
             if (unobtainable)
@@ -91,6 +85,15 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
                     info.AddMetaCategories(AbilityMetaCategory.Part1Modular);
             }
             return info;
+        }
+        private static bool HasFlags(this AbilityGroup config, params AbilityGroup[] flags)
+        {
+            foreach (AbilityGroup flag in flags)
+            {
+                if (!config.HasFlag(flag))
+                    return false;
+            }
+            return true;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +19,27 @@ namespace WhistleWindLobotomyMod
             {
                 Smile.specialAbility
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
+                "wstl_mountainOfBodies3", "The Mountain of Smiling Bodies",
+                "A mass grave, melted and congealed into one eternally hungry beast.",
+                atk: 5, hp: 1,
+                blood: 4, bones: 0, energy: 0,
+                Artwork.mountainOfBodies3, Artwork.mountainOfBodies3_emission,
+                abilities: abilities, specialAbilities: specialAbilities,
+                metaCategories: new(), tribes: new(), traits: new(),
+                appearances: new(),
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
+            LobotomyCardHelper.CreateCard(
+                "wstl_mountainOfBodies2", "The Mountain of Smiling Bodies",
+                "A mass grave, melted and congealed into one eternally hungry beast.",
+                atk: 3, hp: 1,
+                blood: 3, bones: 0, energy: 0,
+                Artwork.mountainOfBodies2, Artwork.mountainOfBodies2_emission,
+                abilities: abilities, specialAbilities: specialAbilities,
+                metaCategories: new(), tribes: new(), traits: new(),
+                appearances: new(),
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
+            LobotomyCardHelper.CreateCard(
                 "wstl_mountainOfBodies", "The Mountain of Smiling Bodies",
                 "A mass grave, melted and congealed into one eternally hungry beast.",
                 atk: 2, hp: 1,
@@ -26,7 +47,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.mountainOfBodies, Artwork.mountainOfBodies_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                cardType: CardHelper.CardType.Rare, riskLevel: CardHelper.RiskLevel.Aleph);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Aleph);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using DiskCardGame;
-using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -7,7 +7,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Appearance_ForcedEmission()
         {
-            Forced.appearance = CardHelper.CreateAppearance<Forced>("Forced").Id;
+            Forced.appearance = CardHelper.CreateAppearance<Forced>(pluginGuid, "Forced").Id;
         }
     }
     public class Forced : CardAppearanceBehaviour

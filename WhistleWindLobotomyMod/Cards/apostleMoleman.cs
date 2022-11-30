@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.CardHelper;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedWhite.appearance
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_apostleMoleman", "Moleman Apostle",
                 "The time has come.",
                 atk: 1, hp: 8,
@@ -34,7 +34,9 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
                 appearances: appearances,
-                cardType: CardHelper.CardType.Rare, metaTypes: MetaType.NonChoice | MetaType.EventCard);
+                choiceType: CardHelper.CardChoiceType.Rare,
+                metaTypes: CardHelper.CardMetaType.NonChoice,
+                modTypes: LobotomyCardHelper.ModCardType.EventCard);
         }
     }
 }

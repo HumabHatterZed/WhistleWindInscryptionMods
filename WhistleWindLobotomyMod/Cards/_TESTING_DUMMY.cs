@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 Tribe.Squirrel
             };
 
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_testingDummy", "Standard Testing-Dummy Rabbit",
                 "You shouldn't see this.",
                 atk: 10, hp: 10,

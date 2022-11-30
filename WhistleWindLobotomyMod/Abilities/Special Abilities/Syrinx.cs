@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using WhistleWind.Core.Helpers;
+using DiskCardGame;
 using System.Collections;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
@@ -45,7 +46,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_Syrinx()
         {
-            Syrinx.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Syrinx>(Syrinx.rName).Id;
+            Syrinx.specialAbility = AbilityHelper.CreateSpecialAbility<Syrinx>(pluginGuid, Syrinx.rName).Id;
         }
     }
 }

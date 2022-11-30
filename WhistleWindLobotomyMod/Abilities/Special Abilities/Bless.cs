@@ -9,6 +9,7 @@ using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -37,7 +38,7 @@ namespace WhistleWindLobotomyMod
 
             // If blessings are in the negatives (aka someone altered tge config value), wag a finger and go 'nuh-uh-uh!'
             if (ConfigManager.Instance.NumOfBlessings < 0)
-                yield return AbnormalMethods.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou cannot stop my ascension. Even the [c:]tutelary[c:bR] bows to my authority.[c:]");
+                yield return HelperMethods.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou cannot stop my ascension. Even the [c:]tutelary[c:bR] bows to my authority.[c:]");
 
             // Change Leshy's eyes to red
             LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
@@ -49,7 +50,7 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.5f);
 
             // reset the Doctor's sprites
-            CardLoader.GetCardByName("wstl_plagueDoctor").SetPortrait(LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor), LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor_emission));
+            CardLoader.GetCardByName("wstl_plagueDoctor").SetPortrait(TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor), TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor_emission));
 
             // Play dialogue depending on whether this is the first time this has happened this run
             if (!WstlSaveManager.TriggeredWhiteNightThisRun)
@@ -241,52 +242,52 @@ namespace WhistleWindLobotomyMod
             switch (ConfigManager.Instance.NumOfBlessings)
             {
                 case 0:
-                    portrait = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor);
-                    emissive = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor_emission);
+                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor);
+                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor_emission);
                     break;
                 case 1:
-                    portrait = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor1);
-                    emissive = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor1_emission);
+                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor1);
+                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor1_emission);
                     break;
                 case 2:
-                    portrait = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor2);
-                    emissive = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor2_emission);
+                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor2);
+                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor2_emission);
                     break;
                 case 3:
-                    portrait = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor3);
-                    emissive = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor3_emission);
+                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor3);
+                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor3_emission);
                     break;
                 case 4:
-                    portrait = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor4);
-                    emissive = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor4_emission);
+                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor4);
+                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor4_emission);
                     break;
                 case 5:
-                    portrait = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor5);
-                    emissive = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor5_emission);
+                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor5);
+                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor5_emission);
                     break;
                 case 6:
-                    portrait = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor6);
-                    emissive = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor6_emission);
+                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor6);
+                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor6_emission);
                     break;
                 case 7:
-                    portrait = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor7);
-                    emissive = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor7_emission);
+                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor7);
+                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor7_emission);
                     break;
                 case 8:
-                    portrait = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor8);
-                    emissive = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor8_emission);
+                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor8);
+                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor8_emission);
                     break;
                 case 9:
-                    portrait = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor9);
-                    emissive = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor9_emission);
+                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor9);
+                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor9_emission);
                     break;
                 case 10:
-                    portrait = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor10);
-                    emissive = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor10_emission);
+                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor10);
+                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor10_emission);
                     break;
                 default:
-                    portrait = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor11);
-                    emissive = LobotomyTextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor11_emission);
+                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor11);
+                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor11_emission);
                     base.Card.ApplyAppearanceBehaviours(new() { ForcedWhite.appearance });
                     break;
             }
@@ -307,7 +308,7 @@ namespace WhistleWindLobotomyMod
         }
         private void SpecialAbility_Bless()
         {
-            Bless.specialAbility = LobotomyAbilityHelper.CreateSpecialAbility<Bless>(Bless.rName).Id;
+            Bless.specialAbility = AbilityHelper.CreateSpecialAbility<Bless>(pluginGuid, Bless.rName).Id;
         }
     }
 }

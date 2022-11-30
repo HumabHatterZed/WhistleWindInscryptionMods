@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -26,7 +27,7 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedWhite.appearance
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_apocalypseBird", "Apocalypse Bird",
                 "There was no moon, no stars. Just a bird, alone in the Black Forest.",
                 atk: 3, hp: 12,
@@ -35,7 +36,9 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances, onePerDeck: true,
-                cardType: CardHelper.CardType.Rare, metaTypes: CardHelper.MetaType.EventCard | CardHelper.MetaType.NonChoice);
+                choiceType: CardHelper.CardChoiceType.Rare,
+                modTypes: LobotomyCardHelper.ModCardType.EventCard,
+                metaTypes: CardHelper.CardMetaType.NonChoice);
         }
     }
 }
