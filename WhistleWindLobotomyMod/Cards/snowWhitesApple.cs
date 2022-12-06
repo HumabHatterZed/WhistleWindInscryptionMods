@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             LobotomyCardHelper.CreateCard(
                 "wstl_snowWhitesApple", "Snow White's Apple",
                 "A poisoned apple brought to life, on a fruitless search for its own happily ever after.",
-                atk: 1, hp: 3,
+                atk: 1, hp: 1,
                 blood: 0, bones: 3, energy: 0,
                 Artwork.snowWhitesApple, Artwork.snowWhitesApple_emission,
                 abilities: abilities, specialAbilities: new(),

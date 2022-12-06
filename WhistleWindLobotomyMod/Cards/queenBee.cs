@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
             LobotomyCardHelper.CreateCard(
                 "wstl_queenBee", "Queen Bee",
                 "A monstrous amalgam of a hive and a bee.",
-                atk: 0, hp: 6,
+                atk: 0, hp: 4,
                 blood: 2, bones: 0, energy: 0,
                 Artwork.queenBee, Artwork.queenBee_emission,
                 abilities: abilities, specialAbilities: new(),

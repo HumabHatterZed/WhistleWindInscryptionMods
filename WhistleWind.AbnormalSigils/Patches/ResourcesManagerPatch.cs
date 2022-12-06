@@ -2,11 +2,12 @@
 using HarmonyLib;
 using InscryptionAPI.Card;
 using System.Collections;
+using WhistleWind.AbnormalSigils.Core;
 
 namespace WhistleWind.AbnormalSigils.Patches
 {
     [HarmonyPatch(typeof(ResourcesManager))]
-    public static class AbnormalResourcesManagerPatch
+    public static class ResourcesManagerPatch
     {
         // Prevents bones from dropping under certain conditions
         [HarmonyPostfix, HarmonyPatch(nameof(ResourcesManager.AddBones))]
@@ -14,13 +15,12 @@ namespace WhistleWind.AbnormalSigils.Patches
         {
             if (slot != null && slot.Card != null)
             {
-                bool train = slot.Card.Info.GetExtendedPropertyAsBool("wstl:KilledByTrain") ?? false;
-                bool noBones = slot.Card.Info.HasSpecialAbility(ImmuneToInstaDeath.specialAbility);
-                if (train || noBones)
-                {
-                    if (train)
-                        slot.Card.Info.SetExtendedProperty("wstl:KilledByTrain", false);
+                if (slot.Card.Info.HasTrait(AbnormalPlugin.Boneless))
+                    yield break;
 
+                if (slot.Card.Info.GetExtendedPropertyAsBool("wstl:KilledByTheTrainAbility") ?? false)
+                {
+                    slot.Card.Info.SetExtendedProperty("wstl:KilledByTheTrainAbility", false);
                     yield break;
                 }
             }

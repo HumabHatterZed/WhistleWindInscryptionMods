@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             LobotomyCardHelper.CreateCard(
                 "wstl_silentOrchestra", "The Silent Orchestra",
                 "A conductor of the apocalypse.",
-                atk: 0, hp: 5,
+                atk: 1, hp: 5,
                 blood: 3, bones: 0, energy: 0,
                 Artwork.silentOrchestra, Artwork.silentOrchestra_emission,
                 abilities: abilities, specialAbilities: new(),

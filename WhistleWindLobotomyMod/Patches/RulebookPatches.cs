@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod.Patches
                 return true;
             }
             [HarmonyPrefix, HarmonyPatch(nameof(RuleBookController.OpenToAbilityPage))]
-            public static bool OpenToAbilityPage(string abilityName, PlayableCard card, bool immediate)
+            public static bool OpenToAbilityPage(PlayableCard card)
             {
                 if (card != null && card.HasAnyOfAbilities(Apostle.ability, TrueSaviour.ability, Confession.ability))
                 {
@@ -38,15 +38,26 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
         private static void AddKayceeAbilities(ref int abilityIndex, ref bool __result)
         {
-            AbilityInfo info = AbilitiesUtil.GetInfo((Ability)abilityIndex);
-
-            if (!SaveFile.IsAscension && info.metaCategories.Contains(AbilityMetaCategory.AscensionUnlocked))
+            if (SaveManager.SaveFile.IsPart1)
             {
-                if (info.name.Equals("BoneDigger") || info.name.Equals("DeathShield") ||
-                    info.name.Equals("DoubleStrike") || //info.name.Equals("OpponentBones")
-                    info.name.Equals("StrafeSwap") || info.name.Equals("Morsel"))
+                AbilityInfo info = AbilitiesUtil.GetInfo((Ability)abilityIndex);
+
+                if (!SaveFile.IsAscension && info.metaCategories.Contains(AbilityMetaCategory.AscensionUnlocked))
                 {
-                    __result = true;
+                    if (info.name.Equals("BoneDigger") || info.name.Equals("DeathShield") ||
+                        info.name.Equals("DoubleStrike") || info.name.Equals("GainAttackOnKill") ||
+                        info.name.Equals("StrafeSwap") || info.name.Equals("Morsel"))
+                    {
+                        __result = true;
+                    }
+                }
+                if (SaveManager.SaveFile.IsPart1 && info.metaCategories.Contains(AbilityMetaCategory.Part3Rulebook))
+                {
+                    if (info.name.Equals("GainBattery") || info.name.Equals("LatchDeathShield") ||
+                        info.name.Equals("MoveBeside"))
+                    {
+                        __result = true;
+                    }
                 }
             }
         }

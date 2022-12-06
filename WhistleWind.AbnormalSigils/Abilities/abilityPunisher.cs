@@ -2,6 +2,7 @@
 using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
 
@@ -27,7 +28,7 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
             if (source != null && !source.Dead)
-                return source.Health > 0 && !source.HasAbility(Ability.MadeOfStone) && !source.HasSpecialAbility(ImmuneToInstaDeath.specialAbility);
+                return source.Health > 0 && !source.HasAbility(Ability.MadeOfStone) && !source.HasTrait(AbnormalPlugin.ImmuneToInstaDeath);
 
             return false;
         }

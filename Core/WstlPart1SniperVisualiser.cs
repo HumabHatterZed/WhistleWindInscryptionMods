@@ -3,7 +3,7 @@ using Pixelplacement;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WhistleWind.AbnormalSigils.Patches
+namespace WhistleWind.Core
 {
     public class WstlPart1SniperVisualiser : ManagedBehaviour
     {

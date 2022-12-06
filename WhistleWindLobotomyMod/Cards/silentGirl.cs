@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             LobotomyCardHelper.CreateCard(
                 "wstl_silentGirl", "Silent Girl",
                 "A girl wielding a hammer and nail.",
-                atk: 2, hp: 2,
+                atk: 2, hp: 1,
                 blood: 2, bones: 0, energy: 0,
                 Artwork.silentGirl, Artwork.silentGirl_emission,
                 abilities: abilities, specialAbilities: new(),

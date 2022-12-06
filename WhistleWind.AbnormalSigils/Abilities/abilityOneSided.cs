@@ -11,8 +11,8 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_OneSided()
         {
             const string rulebookName = "One-Sided Strike";
-            const string rulebookDescription = "When [creature] strikes a card, deal 1 additional damage if the struck card cannot attack this card.";
-            const string dialogue = "Catch them unawares.";
+            const string rulebookDescription = "When [creature] strikes a card, deal 2 additional damage if the struck card cannot strike this card.";
+            const string dialogue = "A cheap hit.";
             OneSided.ability = AbnormalAbilityHelper.CreateAbility<OneSided>(
                 Artwork.sigilOneSided, Artwork.sigilOneSided_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
@@ -24,6 +24,10 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
+        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+        {
+            return base.RespondsToSlotTargetedForAttack(slot, attacker);
+        }
         public override bool RespondsToDealDamage(int amount, PlayableCard target)
         {
             if (amount > 0 && target != null && !target.Dead)
@@ -35,19 +39,15 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            target.Status.damageTaken++;
-            if (target.Health <= 0)
-                yield return target.Die(wasSacrifice: false, base.Card);
-
             yield return base.LearnAbility(0.4f);
         }
         private bool CheckValid(PlayableCard target)
         {
-            // if this card can submerge, return true by default
-            if (base.Card.HasAnyOfAbilities(Ability.Submerge, Ability.SubmergeSquid))
+            // if target has no Power, if this card can submerge or is facedown (cannot be hit), return true by default
+            if (target.Attack == 0 || base.Card.HasAnyOfAbilities(Ability.Submerge, Ability.SubmergeSquid) || base.Card.FaceDown)
                 return true;
 
-            // if this card doesn't have Sniper or Marksman
+            // if this card doesn't have Sniper or Marksman (will attack opposing)
             if (base.Card.LacksAllAbilities(Ability.Sniper, Marksman.ability))
             {
                 // if this card has Bi or Tri Strike, check whether the opponent has it too
@@ -65,6 +65,7 @@ namespace WhistleWind.AbnormalSigils
             if (Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot.opposingSlot).Contains(target.Slot))
                 return target.LacksAbility(Ability.SplitStrike) || !target.HasTriStrike();
 
+            // otherwise return true
             return true;
         }
     }

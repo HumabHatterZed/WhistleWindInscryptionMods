@@ -3,21 +3,20 @@ using GBC;
 using System.Collections;
 using UnityEngine;
 
-namespace WhistleWind.AbnormalSigils
+namespace WhistleWind.Core.AbilityClasses
 {
-    // a version of ActivatedAbilityBehaviour
+    // a version of ActivatedAbilityBehaviour with adjustable start costs and support for Health costs
     public abstract class BetterActivatedAbilityBehaviour : AbilityBehaviour
     {
-        public int EnergyCost => StartingEnergyCost + energyCostMod;
-        public int BonesCost => StartingBonesCost + bonesCostMod;
-        public int HealthCost => StartingHealthCost + healthCostMod;
-        public virtual int StartingEnergyCost { get; }
-        public virtual int StartingBonesCost { get; }
-        public virtual int StartingHealthCost { get; }
-
         public int energyCostMod;
         public int bonesCostMod;
         public int healthCostMod;
+        public virtual int StartingEnergyCost { get; }
+        public virtual int StartingBonesCost { get; }
+        public virtual int StartingHealthCost { get; }
+        public int EnergyCost => StartingEnergyCost + energyCostMod;
+        public int BonesCost => StartingBonesCost + bonesCostMod;
+        public int HealthCost => StartingHealthCost + healthCostMod;
 
         public sealed override bool RespondsToResolveOnBoard() => SaveManager.SaveFile.IsPart2 && !ProgressionData.LearnedMechanic(MechanicsConcept.GBCActivatedAbilities);
         public sealed override IEnumerator OnResolveOnBoard()
@@ -71,7 +70,7 @@ namespace WhistleWind.AbnormalSigils
                 {
                     base.Card.Anim.LightNegationEffect();
                     base.Card.Status.damageTaken++;
-                    if (base.Card.Health == 0)
+                    if (base.Card.Health <= 0)
                         yield return base.Card.Die(false);
                 }
                 yield return new WaitForSeconds(0.1f);

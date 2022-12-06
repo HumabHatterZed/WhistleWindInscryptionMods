@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "Your beast's strength grows.";
             TargetGainStats.ability = AbnormalAbilityHelper.CreateAbility<TargetGainStats>(
                 Artwork.sigilTargetGainStats, Artwork.sigilTargetGainStats_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }

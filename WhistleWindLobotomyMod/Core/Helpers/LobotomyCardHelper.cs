@@ -40,11 +40,12 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             TargetedSigils,
             TargetedStatsSigils
         }
+
+        public static CardMetaCategory SEPHIRAH_CARD = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "SEPHIRAH_CARD");
         public static CardMetaCategory CANNOT_GIVE_SIGILS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_GIVE_SIGILS");
         public static CardMetaCategory CANNOT_GAIN_SIGILS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_GAIN_SIGILS");
         public static CardMetaCategory CANNOT_BUFF_STATS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_BUFF_STATS");
         public static CardMetaCategory CANNOT_COPY_CARD = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_COPY_CARD");
-        public static CardMetaCategory SEPHIRAH_CARD = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "SEPHIRAH_CARD");
 
         // Cards
         public static void CreateCard(

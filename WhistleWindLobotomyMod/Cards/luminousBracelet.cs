@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_luminousBracelet", "Luminous Bracelet",
                 "A bracelet that will heal those nearby. It does not forgive the greedy.",
                 atk: 0, hp: 0,
-                blood: 0, bones: 0, energy: 3,
+                blood: 0, bones: 0, energy: 2,
                 Artwork.luminousBracelet, Artwork.luminousBracelet_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

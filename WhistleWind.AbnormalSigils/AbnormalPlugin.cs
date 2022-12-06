@@ -1,7 +1,9 @@
 ﻿using BepInEx;
 using BepInEx.Bootstrap;
 using BepInEx.Logging;
+using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Guid;
 using Sirenix.Utilities;
 using System;
 using System.Linq;
@@ -24,6 +26,9 @@ namespace WhistleWind.AbnormalSigils
 
         internal static ManualLogSource Log;
         private static Harmony HarmonyInstance = new(pluginGuid);
+
+        public static Trait Boneless = GuidManager.GetEnumValue<Trait>(pluginGuid, "Boneless");
+        public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
 
         private void OnDisable()
         {

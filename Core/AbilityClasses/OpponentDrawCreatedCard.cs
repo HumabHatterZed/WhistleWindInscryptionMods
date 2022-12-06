@@ -1,9 +1,8 @@
 using WhistleWind.Core.Helpers;
 using DiskCardGame;
 using System.Collections;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 
-namespace WhistleWind.AbnormalSigils
+namespace WhistleWind.Core.AbilityClasses
 {
     public abstract class OpponentDrawCreatedCard : DrawCreatedCard
     {

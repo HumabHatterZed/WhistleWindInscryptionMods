@@ -78,7 +78,6 @@ namespace WhistleWindLobotomyMod
                 DialogueEventsManager.GenerateDialogueEvents();
 
                 AddCards();
-                TestingDummy_XXXXX();
 
                 AddStarterDecks();
                 Log.LogDebug("Loading nodes...");
@@ -137,9 +136,6 @@ namespace WhistleWindLobotomyMod
         }
         private void AddStarterDecks()
         {
-            StarterDeckHelper.AddStarterDeck("Debug", Artwork.starterDeckControl, 0,
-                "wstl_testingDummy", "wstl_testingDummy", "wstl_testingDummy");
-
             StarterDeckHelper.AddStarterDeck("First Day", Artwork.starterDeckControl, 0,
                 "wstl_oneSin", "wstl_fairyFestival", "wstl_oldLady");
             StarterDeckHelper.AddStarterDeck("Lonely Friends", Artwork.starterDeckChildren, 2,
@@ -147,9 +143,11 @@ namespace WhistleWindLobotomyMod
             StarterDeckHelper.AddStarterDeck("Blood Machines", Artwork.starterDeckBloodMachines, 4,
                 "wstl_weCanChangeAnything", "wstl_allAroundHelper", "wstl_singingMachine");
             StarterDeckHelper.AddStarterDeck("Road to Oz", Artwork.starterDeckFairyTale, 8,
-                "wstl_theRoadHome", "wstl_warmHeartedWoodsman", "wstl_wisdomScarecrow");
+                ConfigManager.Instance.NoRuina ? "WolfCub" : "wstl_theRoadHome",
+                "wstl_warmHeartedWoodsman", "wstl_wisdomScarecrow");
             StarterDeckHelper.AddStarterDeck("Magical Girls!", Artwork.starterDeckMagicalGirls, 10,
-                "wstl_magicalGirlHeart", "wstl_magicalGirlDiamond", ConfigManager.Instance.NoRuina ? "wstl_magicalGirlSpade" : "wstl_magicalGirlClover");
+                "wstl_magicalGirlHeart", "wstl_magicalGirlDiamond",
+                ConfigManager.Instance.NoRuina ? "wstl_magicalGirlSpade" : "wstl_magicalGirlClover");
             StarterDeckHelper.AddStarterDeck("Twilight", Artwork.starterDeckBlackForest, 13,
                 "wstl_punishingBird", "wstl_bigBird", "wstl_judgementBird");
         }

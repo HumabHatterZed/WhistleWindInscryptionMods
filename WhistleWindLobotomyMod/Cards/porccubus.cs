@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             LobotomyCardHelper.CreateCard(
                 "wstl_porccubus", "Porccubus",
                 "A prick from one of its quills creates a deadly euphoria.",
-                atk: 1, hp: 2,
+                atk: 1, hp: 1,
                 blood: 0, bones: 5, energy: 0,
                 Artwork.porccubus, Artwork.porccubus_emission,
                 abilities: abilities, specialAbilities: new(),

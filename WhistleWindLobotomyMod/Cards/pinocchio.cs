@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_pinocchio", "Pinocchio",
                 "A wooden doll that mimics the beasts it encounters. Can you see through its lie?",
                 atk: 0, hp: 0,
-                blood: 0, bones: 2, energy: 0,
+                blood: 0, bones: 1, energy: 0,
                 Artwork.pinocchio, Artwork.pinocchio_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

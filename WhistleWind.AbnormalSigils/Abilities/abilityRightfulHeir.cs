@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.AbilityClasses;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -11,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_RightfulHeir()
         {
             const string rulebookName = "Rightful Heir";
-            const string rulebookDescription = "Activate: Pay 5 Bones to choose a creature to be transformed into a Pumpkin. Give the transformed card the Fledgling sigil if it is an ally.";
+            const string rulebookDescription = "Activate: Pay 5 Bones to choose a creature to be transformed into a Pumpkin. A Pumpkin is defined as: 0 Power, 1 Health, Fledgling.";
             const string dialogue = "All she has left now are her children.";
             RightfulHeir.ability = AbnormalAbilityHelper.CreateActivatedAbility<RightfulHeir>(
                 Artwork.sigilRightfulHeir, Artwork.sigilRightfulHeir_pixel,
@@ -28,11 +29,6 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {
             CardInfo info = CardLoader.GetCardByName("wstl_ozmaPumpkin");
-            if (base.Card.OpponentCard != slot.IsPlayerSlot)
-            {
-                CardModificationInfo mod = new(Ability.Evolve) { fromEvolve = true };
-                info.Mods.Add(mod);
-            }
             yield return slot.Card.TransformIntoCard(info);
             yield return new WaitForSeconds(0.5f);
         }

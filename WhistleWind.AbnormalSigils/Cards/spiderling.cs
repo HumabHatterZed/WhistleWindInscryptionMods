@@ -25,7 +25,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginPrefix,
                 "wstl_spiderBrood", "Spider Brood",
                 "Big and mean.",
-                atk: 1, hp: 2,
+                atk: 1, hp: 3,
                 blood: 0, bones: 3, energy: 0,
                 Artwork.spiderBrood, Artwork.spiderBrood_emission,
                 abilities: new(),

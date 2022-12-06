@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             LobotomyCardHelper.CreateCard(
                 "wstl_censored", "CENSORED",
                 "It's best you never learn what it looks like.",
-                atk: 6, hp: 3,
+                atk: 7, hp: 4,
                 blood: 4, bones: 0, energy: 0,
                 Artwork.censored, Artwork.censored_emission,
                 abilities: abilities, specialAbilities: specialAbilities,

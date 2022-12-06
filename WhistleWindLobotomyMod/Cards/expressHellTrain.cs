@@ -13,11 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                TheTrain.ability
-            };
-            List<Trait> traits = new()
-            {
-                Trait.DeathcardCreationNonOption
+                GroupHealer.ability
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_expressHellTrain", "Express Train to Hell",
@@ -26,10 +22,20 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 4, energy: 0,
                 Artwork.expressHellTrain, Artwork.expressHellTrain_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
-                modTypes: LobotomyCardHelper.ModCardType.Restricted);
+                metaCategories: new(), tribes: new(), traits: new(),
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
+
+            abilities = new() { TheTrain.ability };
+            LobotomyCardHelper.CreateCard(
+                "wstl_item_ExpressHellTrain", "Express Train to Hell",
+                "When the time comes, the train will sound its mighty horn.",
+                atk: 0, hp: 1,
+                blood: 0, bones: 1, energy: 0,
+                Artwork.expressHellTrain, Artwork.expressHellTrain_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
+                spellType: LobotomyCardHelper.SpellType.Global);
         }
     }
 }

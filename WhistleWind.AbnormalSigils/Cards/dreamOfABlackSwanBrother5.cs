@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils
         {
             List<Ability> abilities = new()
             {
-                Ability.Sharp
+                Burning.ability
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {

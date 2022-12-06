@@ -58,7 +58,17 @@ namespace WhistleWind.AbnormalSigils
                 _ => base.Card.Info.BloodCost * 7
             };
             powerLevel += base.Card.Info.BonesCost;
-            powerLevel += base.Card.Info.EnergyCost;
+            powerLevel += base.Card.Info.EnergyCost switch
+            {
+                0 => 0,
+                1 => 1,
+                2 => 2,
+                3 => 4,
+                4 => 6,
+                5 => 8,
+                6 => 12,
+                _ => 12 + (base.Card.Info.EnergyCost - 6) * 4
+            };
             powerLevel += base.Card.Info.GemsCost.Count * 3;
 
             // LifeCost API compatibility
@@ -69,6 +79,7 @@ namespace WhistleWind.AbnormalSigils
             int newPower = 0;
             int newHealth = 1;
             int randomSeed = base.GetRandomSeed();
+            powerLevel = Mathf.Max(powerLevel - 1, 0);
             while (powerLevel > 0)
             {
                 // If can afford 1 Power

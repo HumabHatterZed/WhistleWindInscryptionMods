@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.Core;
 
 // custom version of the Sniper fix that adds Marksman compatibility and the special behaviour of Blue Star and Judgement Bird
 namespace WhistleWind.AbnormalSigils.Patches

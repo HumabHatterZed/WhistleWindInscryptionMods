@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
@@ -42,10 +43,6 @@ namespace WhistleWindLobotomyMod
         {
             yield return base.PreSuccessfulTriggerSequence();
 
-            // clear the slot if it's filled
-            if (base.Card.Slot.Card != null)
-                yield return base.Card.Slot.Card.DieTriggerless();
-
             if (killer != null || SpecialApostle)
             {
                 // Create the downed forme of the Apostle in its slot
@@ -55,7 +52,8 @@ namespace WhistleWindLobotomyMod
                     "wstl_apostleMoleman" => CardLoader.GetCardByName("wstl_apostleMolemanDown"),
                     "wstl_apostleSpear" => CardLoader.GetCardByName("wstl_apostleSpearDown"),
                     "wstl_apostleStaff" => CardLoader.GetCardByName("wstl_apostleStaffDown"),
-                    _ => CardLoader.GetCardByName("wstl_apostleScytheDown")
+                    "wstl_apostleScythe" => CardLoader.GetCardByName("wstl_apostleScytheDown"),
+                    _ => CardLoader.GetCardByName(base.Card.Info.name)
                 };
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(downedInfo, base.Card.Slot, 0.15f, false);
                 yield return new WaitForSeconds(0.2f);

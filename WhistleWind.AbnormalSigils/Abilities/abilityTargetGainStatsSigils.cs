@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "Your beast is empowered.";
             TargetGainStatsSigils.ability = AbnormalAbilityHelper.CreateAbility<TargetGainStatsSigils>(
                 Artwork.sigilTargetGainStatsSigils, Artwork.sigilTargetGainStatsSigils_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }

@@ -132,7 +132,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Hod()
         {
-            List<Ability> abilities = new() { };
+            List<Ability> abilities = new()
+            {
+                Ability.GainBattery,
+                Ability.BuffNeighbours
+            };
             List<SpecialTriggeredAbility> specialAbilities = new() { TalkingCardHod.specialAbility };
             List<CardMetaCategory> metaCategories = new() { LobotomyCardHelper.SEPHIRAH_CARD };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
@@ -142,7 +146,7 @@ namespace WhistleWindLobotomyMod
             LobotomyCardHelper.CreateCard(
                 "wstl_sephirahHod", "Hod",
                 "The head of the Training Department. She will assist you the best she can.",
-                atk: 1, hp: 1,
+                atk: 1, hp: 3,
                 blood: 1, bones: 0, energy: 0,
                 null, null,
                 abilities: abilities, specialAbilities: specialAbilities,

@@ -15,16 +15,16 @@ namespace WhistleWindLobotomyMod
             {
                 FlagBearer.ability
             };
-
             LobotomyCardHelper.CreateCard(
                 "wstl_notesFromResearcher", "Notes from a Crazed Researcher",
                 "An insane garble of guilty confessions and incoherent gibberish.",
-                atk: 0, hp: 3,
-                blood: 1, bones: 0, energy: 0,
+                atk: 0, hp: 2,
+                blood: 0, bones: 3, energy: 0,
                 Artwork.notesFromResearcher, Artwork.notesFromResearcher_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(), appearances: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
+                metaTypes: CardHelper.CardMetaType.Terrain);
         }
     }
 }

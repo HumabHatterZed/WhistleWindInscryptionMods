@@ -6,9 +6,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Patches;
 
-namespace WhistleWind.AbnormalSigils
+namespace WhistleWind.Core.AbilityClasses
 {
     // Logic for abilities that have the player select a slot to be targeted
     // By default acts like Latch but can be overriden as needed
@@ -134,9 +133,9 @@ namespace WhistleWind.AbnormalSigils
             {
                 name = "LatchParent",
                 transform =
-                {
-                    position = anim.transform.position
-                }
+            {
+                position = anim.transform.position
+            }
             };
             latchParentGameObject.transform.SetParent(anim.transform);
 

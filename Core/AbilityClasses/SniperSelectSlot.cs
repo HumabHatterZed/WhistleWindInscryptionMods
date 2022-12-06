@@ -4,9 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Patches;
 
-namespace WhistleWind.AbnormalSigils
+namespace WhistleWind.Core.AbilityClasses
 {
     // Stolen from Zerg mod with love <3
     public abstract class SniperSelectSlot : AbilityBehaviour

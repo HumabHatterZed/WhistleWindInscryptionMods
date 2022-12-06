@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.AbilityClasses;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -15,8 +16,8 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "For the hive.";
             QueenNest.ability = AbnormalAbilityHelper.CreateAbility<QueenNest>(
                 Artwork.sigilQueenNest, Artwork.sigilQueenNest_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: true, opponent: true, canStack: false).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                modular: false, opponent: true, canStack: false).Id;
         }
     }
     public class QueenNest : OpponentDrawCreatedCard

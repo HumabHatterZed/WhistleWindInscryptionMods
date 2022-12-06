@@ -1,4 +1,7 @@
-﻿using WhistleWind.AbnormalSigils.Properties;
+﻿using DiskCardGame;
+using EasyFeedback.APIs;
+using System.Collections.Generic;
+using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -17,6 +20,10 @@ namespace WhistleWind.AbnormalSigils
                 abilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(), appearances: new());
 
+            List<Ability> abilities = new()
+            {
+                Ability.Evolve
+            };
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_ozmaPumpkin", "Pumpkin",
@@ -24,7 +31,7 @@ namespace WhistleWind.AbnormalSigils
                 atk: 0, hp: 1,
                 blood: 0, bones: 0, energy: 0,
                 Artwork.ozmaPumpkin,
-                abilities: new() { TargetGainSigils.ability },
+                abilities: abilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 evolveName: "wstl_ozmaPumpkinJack");
         }

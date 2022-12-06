@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
@@ -15,14 +16,11 @@ namespace WhistleWindLobotomyMod
                 TrueSaviour.ability,
                 Idol.ability
             };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                ImmuneToInstaDeath.specialAbility
-            };
             List<Trait> traits = new()
             {
                 Trait.Uncuttable,
-                Trait.Terrain
+                Trait.Terrain,
+                AbnormalPlugin.ImmuneToInstaDeath
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
@@ -35,7 +33,7 @@ namespace WhistleWindLobotomyMod
                 atk: 0, hp: 666,
                 blood: 0, bones: 0, energy: 0,
                 Artwork.whiteNight, Artwork.whiteNight_emission, titleTexture: Artwork.whiteNight_title,
-                abilities: abilities, specialAbilities: specialAbilities,
+                abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
                 appearances: appearances, onePerDeck: true);
         }

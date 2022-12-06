@@ -20,7 +20,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "Your beast is imbued with powerful energies.";
             TargetGainSigils.ability = AbnormalAbilityHelper.CreateAbility<TargetGainSigils>(
                 Artwork.sigilTargetGainSigils, Artwork.sigilTargetGainSigils_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }

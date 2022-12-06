@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Properties;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using WhistleWind.Core.AbilityClasses;
 
 namespace WhistleWind.AbnormalSigils.Core.Helpers
 {

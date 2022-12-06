@@ -4,6 +4,8 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.AbilityClasses;
+using WhistleWind.Core;
 
 namespace WhistleWind.AbnormalSigils
 {

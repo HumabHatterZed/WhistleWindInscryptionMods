@@ -12,11 +12,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" GeneratePathProperty="true" IncludeAssets="none"/>
-    <PackageReference Include="BepInEx.Core" Version="5.4.19" GeneratePathProperty="true" IncludeAssets="none"/>
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" GeneratePathProperty="true" IncludeAssets="none"/>
-    <PackageReference Include="ILRepack" Version="2.0.18" GeneratePathProperty="true" IncludeAssets="none"/>
-    <PackageReference Include="UnityEngine.Modules" Version="2019.4.24" IncludeAssets="compile" GeneratePathProperty="true"/>
+    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" GeneratePathProperty="true" IncludeAssets="none" />
+    <PackageReference Include="BepInEx.Core" Version="5.4.19" GeneratePathProperty="true" IncludeAssets="none" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" GeneratePathProperty="true" IncludeAssets="none" />
+    <PackageReference Include="ILRepack" Version="2.0.18" GeneratePathProperty="true" IncludeAssets="none" />
+    <PackageReference Include="UnityEngine.Modules" Version="2019.4.24" IncludeAssets="compile" GeneratePathProperty="true" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">

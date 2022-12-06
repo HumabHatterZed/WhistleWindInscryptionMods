@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 using WhistleWind.Core.Helpers;
+using WhistleWind.AbnormalSigils;
 
 namespace WhistleWindLobotomyMod
 {
@@ -10,7 +11,41 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_BlueStar_O0393()
         {
-            List<Ability> abilities = new()
+            List<Ability> thirdFormeAbilities = new()
+            {
+                Ability.Evolve,
+                Ability.AllStrike
+            };
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                Forced.appearance
+            };
+            LobotomyCardHelper.CreateCard(
+                "wstl_blueStar3", "Blue Star", "",
+                atk: 6, hp: 4,
+                blood: 4, bones: 0, energy: 0,
+                Artwork.blueStar, Artwork.blueStar_emission,
+                abilities: thirdFormeAbilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                appearances: appearances,
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
+                evolveName: "wstl_blueStar");
+            List<Ability> secondFormeAbilities = new()
+            {
+                Ability.Evolve,
+                Idol.ability
+            };
+            LobotomyCardHelper.CreateCard(
+                "wstl_blueStar2", "Blue Star", "",
+                atk: 3, hp: 4,
+                blood: 2, bones: 0, energy: 0,
+                Artwork.blueStar, Artwork.blueStar_emission,
+                abilities: secondFormeAbilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                appearances: new(),
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
+                evolveName: "wstl_blueStar3");
+            List<Ability> baseAbility = new()
             {
                 Ability.Evolve
             };
@@ -18,12 +53,12 @@ namespace WhistleWindLobotomyMod
                 "wstl_blueStar", "Blue Star",
                 "When this is over, let's meet again as stars.",
                 atk: 0, hp: 4,
-                blood: 4, bones: 0, energy: 0,
+                blood: 2, bones: 0, energy: 0,
                 Artwork.blueStar, Artwork.blueStar_emission,
-                abilities: abilities, specialAbilities: new(),
+                abilities: baseAbility, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Aleph,
-                evolveName: "wstl_blueStar2", numTurns: 2);
+                evolveName: "wstl_blueStar2");
         }
     }
 }
