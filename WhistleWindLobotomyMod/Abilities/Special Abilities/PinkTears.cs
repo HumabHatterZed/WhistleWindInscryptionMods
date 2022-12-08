@@ -14,8 +14,7 @@ namespace WhistleWindLobotomyMod
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public static readonly string rName = "Pink Tears";
-        public static readonly string rDesc = "Army in Pink and Magical Girl S will transform when an adjacent card dies.";
-        private bool KnightOfDespair => base.PlayableCard.Info.name == "wstl_magicalGirlSpade";
+        public static readonly string rDesc = "Army in Pink, Magical Girl S, and Magical Girl C will transform when an adjacent card dies.";
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
@@ -36,22 +35,29 @@ namespace WhistleWindLobotomyMod
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
 
-            if (KnightOfDespair)
+            CardInfo cardByName;
+            switch (base.PlayableCard.Info.name)
             {
-                CardInfo cardByName = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_knightOfDespair");
-                yield return base.PlayableCard.TransformIntoCard(cardByName);
-                yield return new WaitForSeconds(0.5f);
-                yield return DialogueEventsManager.PlayDialogueEvent("KnightOfDespairTransform");
-            }
-            else
-            {
-                CardInfo cardByName = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_armyInBlack");
-
-                // reset damage taken since the evolution has less base Health
-                yield return base.PlayableCard.TransformIntoCard(cardByName, preTransformCallback: ResetDamage);
-                yield return new WaitForSeconds(0.5f);
-                yield return CreateArmyInHand();
-                yield return DialogueEventsManager.PlayDialogueEvent("ArmyInBlackTransform");
+                case "wstl_magicalGirlSpade":
+                    cardByName = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_knightOfDespair");
+                    yield return base.PlayableCard.TransformIntoCard(cardByName);
+                    yield return new WaitForSeconds(0.5f);
+                    yield return DialogueEventsManager.PlayDialogueEvent("KnightOfDespairTransform");
+                    break;
+                case "wstl_magicalGirlClover":
+                    cardByName = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_servantOfWrath");
+                    yield return base.PlayableCard.TransformIntoCard(cardByName);
+                    yield return new WaitForSeconds(0.5f);
+                    yield return DialogueEventsManager.PlayDialogueEvent("ServantOfWrathTransform");
+                    break;
+                case "wstl_armyInPink":
+                    cardByName = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_armyInBlack");
+                    // reset damage taken since the evolution has less base Health
+                    yield return base.PlayableCard.TransformIntoCard(cardByName, preTransformCallback: ResetDamage);
+                    yield return new WaitForSeconds(0.5f);
+                    yield return CreateArmyInHand();
+                    yield return DialogueEventsManager.PlayDialogueEvent("ArmyInBlackTransform");
+                    break;
             }
         }
         private IEnumerator CreateArmyInHand()

@@ -15,27 +15,30 @@ namespace WhistleWindLobotomyMod
             {
                 GroupHealer.ability
             };
+            List<SpecialTriggeredAbility> specialAbilities = new()
+            {
+                TicketTaker.specialAbility
+            };
             LobotomyCardHelper.CreateCard(
                 "wstl_expressHellTrain", "Express Train to Hell",
                 "When the time comes, the train will sound its mighty horn.",
                 atk: 0, hp: 4,
                 blood: 0, bones: 4, energy: 0,
                 Artwork.expressHellTrain, Artwork.expressHellTrain_emission,
-                abilities: abilities, specialAbilities: new(),
+                abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
 
             abilities = new() { TheTrain.ability };
             LobotomyCardHelper.CreateCard(
-                "wstl_item_ExpressHellTrain", "Express Train to Hell",
+                "wstl_BottledExpressHellTrain", "Express Train to Hell",
                 "When the time comes, the train will sound its mighty horn.",
                 atk: 0, hp: 1,
-                blood: 0, bones: 1, energy: 0,
+                blood: 1, bones: 0, energy: 0,
                 Artwork.expressHellTrain, Artwork.expressHellTrain_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
-                spellType: LobotomyCardHelper.SpellType.Global);
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
         }
     }
 }

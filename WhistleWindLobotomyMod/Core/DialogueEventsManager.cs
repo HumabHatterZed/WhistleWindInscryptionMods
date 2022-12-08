@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using EasyFeedback.APIs;
 using InscryptionAPI.Helpers;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,6 +45,7 @@ namespace WhistleWindLobotomyMod.Core
                 "The Devil proposed a childist contract.",
                 "The seventh bullet would pierce the heart of his most beloved.",
                 "On hearing this, the hunter sought and shot everyone he loved." }},
+            { "ExpressHellTrainWipe", new() { "The train sounds its mighty horn." }},
             { "GiantTreeSapExplode", new() { "A strange gurgling sound comes from your beast's stomach." }},
             #region Jester of Nihil
             { "JesterOfNihilIntro", new() {
@@ -280,6 +282,7 @@ namespace WhistleWindLobotomyMod.Core
                 DialogueWithEmotion("It seems to be a test of some kind.", Emotion.Curious),
                 DialogueWithEmotion("I hope you're prepared.", Emotion.Anger) }},
             #endregion
+            { "ServantOfWrathTransform", new() { "Abandoned and betrayed, she rages against her own failure." }},
             { "TodaysShyLookAngry", new() { "Some days you don't feel like smiling." }},
             { "TodaysShyLookHappy", new() { "There was no place for frowns in the City." }},
             { "TodaysShyLookNeutral", new() { "Unable to decide what face to wear, she became shy again." }},

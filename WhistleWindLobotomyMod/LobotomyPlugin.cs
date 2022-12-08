@@ -40,8 +40,6 @@ namespace WhistleWindLobotomyMod
 
         private void OnDisable()
         {
-            /*            if (sephirahBundle != null)
-                            sephirahBundle.Unload(false);*/
             HarmonyInstance.UnpatchSelf();
         }
 
@@ -80,6 +78,8 @@ namespace WhistleWindLobotomyMod
                 AddCards();
 
                 AddStarterDecks();
+                Log.LogDebug("Loading items...");
+                AddItems();
                 Log.LogDebug("Loading nodes...");
                 AddNodes();
                 Log.LogDebug("Loading encounters...");
@@ -133,6 +133,10 @@ namespace WhistleWindLobotomyMod
             AbnormalBosses.Register(HarmonyInstance);
             AbnormalEncounters.Register(HarmonyInstance);
             BetterRareChances.Register(HarmonyInstance);
+        }
+        private void AddItems()
+        {
+            AddBottleCards();
         }
         private void AddStarterDecks()
         {

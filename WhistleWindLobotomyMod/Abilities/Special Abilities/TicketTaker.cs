@@ -38,6 +38,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.55f);
                 Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
+                yield return DialogueEventsManager.PlayDialogueEvent("ExpressHellTrainWipe", 0f);
                 yield return new WaitForSeconds(0.4f);
                 AudioController.Instance.PlaySound2D("combatbell_vibrate");
                 foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot.Card != null))

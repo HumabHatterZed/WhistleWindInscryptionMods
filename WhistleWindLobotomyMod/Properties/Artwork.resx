@@ -478,6 +478,9 @@
   <data name="hundredsGoodDeeds_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\hundredsGoodDeeds_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="itemBottledTrain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\itemBottledTrain.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="jesterOfNihil" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\jesterOfNihil.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

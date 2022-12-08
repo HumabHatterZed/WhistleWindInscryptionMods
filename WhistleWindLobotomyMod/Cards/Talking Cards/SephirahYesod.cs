@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using WhistleWind.AbnormalSigils;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +15,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Ability.LatchDeathShield
+                Ability.Tutor,
+                Corrector.ability
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -31,8 +33,8 @@ namespace WhistleWindLobotomyMod
             LobotomyCardHelper.CreateCard(
                 "wstl_sephirahYesod", "Yesod",
                 "The head of the Information Department. Incompetence is not tolerated.",
-                atk: 1, hp: 1,
-                blood: 1, bones: 0, energy: 0,
+                atk: 0, hp: 1,
+                blood: 2, bones: 0, energy: 0,
                 null, null,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: metaCategories, tribes: new(), traits: new(),
