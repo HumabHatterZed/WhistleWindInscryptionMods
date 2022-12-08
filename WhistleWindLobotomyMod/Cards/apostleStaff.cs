@@ -9,6 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleStaff_T0346()
         {
+            string tribal = "divinebeast";
             List<Ability> abilities = new()
             {
                 Ability.Sniper,
@@ -21,8 +22,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance,
-                EventBackground.appearance
+                ForcedWhite.appearance
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_apostleStaff", "Staff Apostle",
@@ -32,7 +32,22 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleStaff, Artwork.apostleStaff_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances);
+                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, tribal: tribal);
+
+            abilities = new()
+            {
+                Ability.PreventAttack,
+                Apostle.ability
+            };
+            LobotomyCardHelper.CreateCard(
+                "wstl_apostleStaffDown", "Staff Apostle",
+                "The time has come.",
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.apostleStaffDown, Artwork.apostleStaffDown_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: traits,
+                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, tribal: tribal);
         }
     }
 }

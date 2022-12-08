@@ -65,8 +65,12 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("Loading abilities...");
                 AddAbilities();
                 AddSpecialAbilities();
+
                 Log.LogDebug("Loading cards...");
                 AddAppearances();
+
+                if (TribeAPI.Enabled)
+                    Log.LogDebug("Tribal Libary detected. Adding extra tribes to cards.");
 
                 if (sephirahBundle != null)
                     InitSephirahAndDialogue();
@@ -189,6 +193,18 @@ namespace WhistleWindLobotomyMod
                 pack.SetTexture(TextureLoader.LoadTextureFromBytes(Artwork.wstl_pack));
                 pack.Description = "A set of [count] cards based on the abnormalities from Lobotomy Corporation and Library of Ruina.";
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+            }
+        }
+        public static class TribeAPI
+        {
+            private static bool? _enabled;
+            public static bool Enabled
+            {
+                get
+                {
+                    _enabled ??= Chainloader.PluginInfos.ContainsKey("tribes.libary");
+                    return (bool)_enabled;
+                }
             }
         }
     }

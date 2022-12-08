@@ -20,8 +20,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance,
-                EventBackground.appearance
+                ForcedWhite.appearance
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_apostleHeretic", "Heretic",
@@ -31,7 +30,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleHeretic, Artwork.apostleHeretic_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances);
+                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard);
         }
     }
 }

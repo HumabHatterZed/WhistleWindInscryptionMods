@@ -9,6 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleScythe_T0346()
         {
+            string tribal = "divinebeast";
             List<Ability> abilities = new()
             {
                 Ability.DoubleStrike,
@@ -21,8 +22,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance,
-                EventBackground.appearance
+                ForcedWhite.appearance
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_apostleScythe", "Scythe Apostle",
@@ -32,7 +32,22 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleScythe, Artwork.apostleScythe_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances);
+                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, tribal: tribal);
+
+            abilities = new()
+            {
+                Ability.PreventAttack,
+                Apostle.ability
+            };
+            LobotomyCardHelper.CreateCard(
+                "wstl_apostleScytheDown", "Scythe Apostle",
+                "The time has come.",
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.apostleScytheDown, Artwork.apostleScytheDown_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: traits,
+                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, tribal: tribal);
         }
     }
 }

@@ -31,14 +31,27 @@ Challenges that change or replace the vanilla bosses are incompatibible with thi
 
 If you encounter any other issues or bugs, or you just want to give some feedback, you can @ me on the Inscryption Modding Discord.
 
+## 🔗 Compatibility
+
+### Tribal Libary (sic)
+If you have [Tribal Libary](https://inscryption.thunderstore.io/package/Infiniscryption/Spell_Card_Toolkit/) installed,
+cards added by this mod will gain an additional tribe taken from Tribal Libary.
+
+### Pack Management API
+If you have [Pack Management API](https://inscryption.thunderstore.io/package/Infiniscryption/Pack_Management_API/) installed,
+a custom card pack will be created representing this mod. That's all :).
+
 ## 💌 Credits/Acknowledgements
+Artwork and coding:
+- WhistleWind
+
+Testing:
+- Orochi Umbra, Rengar, yam the nokia
+
+ReadMe cost icons:
+- James Veug (ReadmeMaker)
+
 Special mentions for Arackulele, divsionbyz0rro, and julien-perge for having public GitHubs I can ~~steal~~borrow code from.
-
-Shoutout to James Veug's ReadmeMaker mod for providing the cost sprites I use in this ReadMe; you're a lifesaver!
-
-Thank you to Rengar, yam the nokia, and everyone on the modding Discord that's reported bugs to me!
-
-Special thanks to Orochi Umbra for being my play tester and providing feedback during testing. I appreciate it!
 
 ## ⚖️ Changelog -- Latest Update - v2.0.0; "The One, Perfect Book" (?/??/202?)
 To see the details of the current update, please see the FULL_CHANGELOG (included with the mod file when you download it)
@@ -74,7 +87,6 @@ You'll need to play with the cards in order to figure out their special ability 
 |Magical Girl H|Reacts to cards dying and to ally cards.|
 |Nothing There|Reacts to dying.|
 |Der Freiscütz|Reacts to dealing damage.|
-|Crumbling Armour|Reacts to adjacent cards.|
 |Magical Girl S|Reacts to adjacent cards.|
 |Mountain of Smiling Bodies|Reacts to killing cards.|
 |CENSORED|Reacts to killing cards.|

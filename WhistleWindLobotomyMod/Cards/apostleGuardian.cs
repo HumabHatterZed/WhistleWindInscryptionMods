@@ -9,6 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleGuardian_T0346()
         {
+            string tribal = "divinebeast";
             List<Ability> abilities = new()
             {
                 Apostle.ability
@@ -20,8 +21,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance,
-                EventBackground.appearance
+                ForcedWhite.appearance
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_apostleGuardian", "Guardian Apostle",
@@ -31,7 +31,27 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleGuardian, Artwork.apostleGuardian_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances);
+                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard,
+                tribal: tribal);
+
+            abilities = new()
+            {
+                Ability.Evolve
+            };
+            traits = new()
+            {
+                Trait.Terrain
+            };
+            LobotomyCardHelper.CreateCard(
+                "wstl_apostleGuardianDown", "Guardian Apostle",
+                "The time has come.",
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.apostleGuardianDown, Artwork.apostleGuardianDown_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: traits,
+                appearances: appearances, evolveName: "wstl_apostleGuardian", numTurns: 2,
+                modTypes: LobotomyCardHelper.ModCardType.EventCard, tribal: tribal);
         }
     }
 }

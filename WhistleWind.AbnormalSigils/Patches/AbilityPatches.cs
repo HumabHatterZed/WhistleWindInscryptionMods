@@ -80,27 +80,6 @@ namespace WhistleWind.AbnormalSigils.Patches
             // otherwise return true
             return true;
         }
-
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.GetOpposingSlots))]
-        private static List<CardSlot> BlueStarAbility(List<CardSlot> list, PlayableCard __instance)
-        {
-            // Blue Star gets old Omni Strike functionality
-            // Make sure we have AllStrike still (haven't lost it)
-            if (__instance.Info.name.StartsWith("wstl_blueStar") && __instance.HasAbility(Ability.AllStrike))
-            {
-                ProgressionData.SetAbilityLearned(Ability.AllStrike);
-                List<CardSlot> list2 = HelperMethods.GetSlotsCopy(!__instance.OpponentCard);
-
-                // if there's an attackable card, return original list
-                if (list2.Exists((x) => x.Card != null && !__instance.CanAttackDirectly(x)))
-                    return list;
-
-                // otherwise return the entire opposing side
-                list2.Sort((a, b) => a.Index - b.Index);
-                return list2;
-            }
-            return list;
-        }
     }
 
     [HarmonyPatch(typeof(GlobalTriggerHandler))]

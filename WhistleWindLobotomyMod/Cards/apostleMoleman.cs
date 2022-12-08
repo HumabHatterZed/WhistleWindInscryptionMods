@@ -10,6 +10,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleMoleman_T0346()
         {
+            string tribal = "divinebeast";
             List<Ability> abilities = new()
             {
                 Apostle.ability,
@@ -36,7 +37,27 @@ namespace WhistleWindLobotomyMod
                 appearances: appearances,
                 choiceType: CardHelper.CardChoiceType.Rare,
                 metaTypes: CardHelper.CardMetaType.NonChoice,
-                modTypes: LobotomyCardHelper.ModCardType.EventCard);
+                modTypes: LobotomyCardHelper.ModCardType.EventCard, tribal: tribal);
+
+            abilities = new()
+            {
+                Ability.Reach,
+                Ability.Evolve
+            };
+            traits = new()
+            {
+                Trait.Terrain
+            };
+            LobotomyCardHelper.CreateCard(
+                "wstl_apostleMolemanDown", "Moleman Apostle",
+                "The time has come.",
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.apostleMolemanDown, Artwork.apostleMolemanDown_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: traits,
+                appearances: appearances, evolveName: "wstl_apostleMoleman", numTurns: 2,
+                modTypes: LobotomyCardHelper.ModCardType.EventCard, tribal: tribal);
         }
     }
 }

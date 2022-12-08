@@ -11,6 +11,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_WhiteNight_T0346()
         {
+            string tribal = "divinebeast";
             List<Ability> abilities = new()
             {
                 TrueSaviour.ability,
@@ -24,8 +25,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance,
-                EventBackground.appearance
+                ForcedWhite.appearance
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_whiteNight", "WhiteNight",
@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.whiteNight, Artwork.whiteNight_emission, titleTexture: Artwork.whiteNight_title,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, onePerDeck: true);
+                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, onePerDeck: true, tribal: tribal);
         }
     }
 }

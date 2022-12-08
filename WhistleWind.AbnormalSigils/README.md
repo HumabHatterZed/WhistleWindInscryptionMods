@@ -13,7 +13,8 @@ If you have [Spell Card Toolkit](https://inscryption.thunderstore.io/package/Inf
 the abilities Scrambler, Target Gain Stats, Target Gain Sigils, and Target Gain Stats and Sigils will be altered to be compatible with Spell cards, and will function correctly when used on them.
 
 ### Tribal Libary (sic)
-If you have [Tribal Libary](https://inscryption.thunderstore.io/package/Infiniscryption/Spell_Card_Toolkit/) installed, the few minion cards added by this mod will be altered to use Tribal's custom tribes in addition to whatever tribes they may already possess.
+If you have [Tribal Libary](https://inscryption.thunderstore.io/package/Infiniscryption/Spell_Card_Toolkit/) installed,
+cards added by this mod will gain an additional tribe taken from Tribal Libary.
 
 ## 💌 Credits/Acknowledgements
 

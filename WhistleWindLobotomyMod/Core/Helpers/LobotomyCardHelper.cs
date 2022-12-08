@@ -8,6 +8,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 using WhistleWind.Core.Helpers;
+using TribalLibary;
 
 namespace WhistleWindLobotomyMod.Core.Helpers
 {
@@ -74,7 +75,8 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             int numTurns = 1,
             bool onePerDeck = false,
             bool hideStats = false,
-            GameObject face = null
+            GameObject face = null,
+            string tribal = ""
             )
         {
             string risk = riskLevel switch
@@ -112,6 +114,37 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             // Add KillsSurvivors trait to cards with Deathtouch or Punisher
             if (cardInfo.HasAnyOfAbilities(Punisher.ability, Ability.Deathtouch))
                 cardInfo.AddTraits(Trait.KillsSurvivors);
+
+            if (TribeAPI.Enabled)
+            {
+                Tribe tribalTribe = Tribe.None;
+                switch (tribal)
+                {
+                    case "abomination":
+                        tribalTribe = TribalLibary.Plugin.abominationTribe;
+                        break;
+                    case "divinebeast":
+                        tribalTribe = TribalLibary.Plugin.divinebeastTribe;
+                        break;
+                    case "humanoid":
+                        tribalTribe = TribalLibary.Plugin.humanoidTribe;
+                        break;
+                    case "machine":
+                        tribalTribe = TribalLibary.Plugin.machineTribe;
+                        break;
+                    case "plant":
+                        tribalTribe = TribalLibary.Plugin.plantTribe;
+                        break;
+                    case "vampire":
+                        tribalTribe = TribalLibary.Plugin.vampireTribe;
+                        break;
+                    default:
+                        break;
+                }
+
+                if (tribalTribe != Tribe.None)
+                    cardInfo.AddTribes(tribalTribe);
+            }
 
             if (risk != null)
                 cardInfo.SetExtendedProperty("wstl:RiskLevel", risk);
