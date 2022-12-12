@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleGuardian_T0346()
         {
-            string tribal = "divinebeast";
+            Tribe customTribe = TribeDivine;
             List<Ability> abilities = new()
             {
                 Apostle.ability
@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
                 appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard,
-                tribal: tribal);
+                customTribe: customTribe);
 
             abilities = new()
             {
@@ -51,7 +51,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
                 appearances: appearances, evolveName: "wstl_apostleGuardian", numTurns: 2,
-                modTypes: LobotomyCardHelper.ModCardType.EventCard, tribal: tribal);
+                modTypes: LobotomyCardHelper.ModCardType.EventCard, customTribe: customTribe);
         }
     }
 }

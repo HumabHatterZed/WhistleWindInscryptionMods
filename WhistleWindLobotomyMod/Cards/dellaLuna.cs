@@ -15,6 +15,10 @@ namespace WhistleWindLobotomyMod
             {
                 GroupHealer.ability
             };
+            List<Tribe> tribes = new()
+            {
+                Tribe.Bird
+            };
             LobotomyCardHelper.CreateCard(
                 "wstl_dellaLuna", "Il Pianto della Luna",
                 "In reality, man despairs at [c:bR]the moon[c:].",
@@ -22,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 blood: 3, bones: 0, energy: 0,
                 Artwork.dellaLuna, Artwork.dellaLuna_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
                 modTypes: LobotomyCardHelper.ModCardType.Donator);
         }

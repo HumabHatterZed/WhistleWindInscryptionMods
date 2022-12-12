@@ -40,7 +40,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.magicalGirlDiamond, Artwork.magicalGirlDiamond_emission, pixelTexture: Artwork.magicalGirlDiamond_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw, evolveName: "wstl_kingOfGreed");
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw, evolveName: "wstl_kingOfGreed",
+                customTribe: TribeFae);
         }
     }
 }

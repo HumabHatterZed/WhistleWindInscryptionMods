@@ -24,7 +24,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.mhz176, Artwork.mhz176_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
+                customTribe: TribeMachine);
         }
     }
 }

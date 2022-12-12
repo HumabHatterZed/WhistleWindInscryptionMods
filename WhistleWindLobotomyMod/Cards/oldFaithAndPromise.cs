@@ -15,7 +15,6 @@ namespace WhistleWindLobotomyMod
             {
                 Alchemist.ability
             };
-
             LobotomyCardHelper.CreateCard(
                 "wstl_oldFaithAndPromise", "Old Faith and Promise",
                 "A mysterious marble. Use it without desire or expectation, and you may be rewarded.",
@@ -24,7 +23,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.oldFaithAndPromise, Artwork.oldFaithAndPromise_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
+                customTribe: TribeMachine);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleSpear_T0346()
         {
-            string tribal = "divinebeast";
+            Tribe customTribe = TribeDivine;
             List<Ability> abilities = new()
             {
                 Piercing.ability,
@@ -33,7 +33,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleSpear, Artwork.apostleSpear_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, tribal: tribal);
+                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, customTribe: customTribe);
 
             abilities = new()
             {
@@ -48,7 +48,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleSpearDown, Artwork.apostleSpearDown_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, tribal: tribal);
+                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, customTribe: customTribe);
         }
     }
 }

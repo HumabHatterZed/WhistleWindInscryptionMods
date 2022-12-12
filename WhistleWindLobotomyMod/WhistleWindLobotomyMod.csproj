@@ -39,11 +39,11 @@
     <Reference Include="Infiniscryption.Spells" Private="false">
       <HintPath>..\lib\Infiniscryption.Spells.dll</HintPath>
     </Reference>
-    <Reference Include="Infiniscryption.PackManager" Private="false">
-      <HintPath>..\lib\Infiniscryption.PackManager.dll</HintPath>
-    </Reference>
     <Reference Include="TribeLibary" Private="false">
       <HintPath>..\lib\TribeLibary.dll</HintPath>
+    </Reference>
+    <Reference Include="Infiniscryption.PackManager" Private="false">
+      <HintPath>..\lib\Infiniscryption.PackManager.dll</HintPath>
     </Reference>
   </ItemGroup>
 	

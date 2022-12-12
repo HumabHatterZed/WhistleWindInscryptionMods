@@ -6,16 +6,19 @@ using HarmonyLib;
 using InscryptionAPI.Guid;
 using Sirenix.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Patches;
+using TribalLibary;
 
 namespace WhistleWind.AbnormalSigils
 {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
     [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.spells", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("tribes.libary", BepInDependency.DependencyFlags.SoftDependency)]
 
     public partial class AbnormalPlugin : BaseUnityPlugin
     {
@@ -158,7 +161,7 @@ namespace WhistleWind.AbnormalSigils
             }
         }
 
-        public static class TribalLibary
+        public static class TribalAPI
         {
             private static bool? _enabled;
             public static bool Enabled
@@ -168,6 +171,22 @@ namespace WhistleWind.AbnormalSigils
                     _enabled ??= Chainloader.PluginInfos.ContainsKey("tribes.libary");
                     return (bool)_enabled;
                 }
+            }
+            public static List<Tribe> AddTribalTribe(List<Tribe> list, string name)
+            {
+                Tribe tribeToAdd = name switch
+                {
+                    "divine" => Plugin.divinebeastTribe,
+                    "fae" => Plugin.fairyTribe,
+                    "humanoid" => Plugin.humanoidTribe,
+                    "machine" => Plugin.machineTribe,
+                    "plant" => Plugin.plantTribe,
+                    _ => Tribe.None
+                };
+                if (tribeToAdd != Tribe.None)
+                    list.Add(tribeToAdd);
+
+                return list;
             }
         }
     }

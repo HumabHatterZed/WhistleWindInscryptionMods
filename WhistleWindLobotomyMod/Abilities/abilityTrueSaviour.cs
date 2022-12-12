@@ -90,7 +90,7 @@ namespace WhistleWindLobotomyMod
                 // kill all Apostles
                 foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(x => x.Card != null && x.Card.Info.name.StartsWith("wstl_apostle")))
                 {
-                    yield return slot.Card.DieTriggerless();
+                    yield return slot.Card.Die(false, base.Card);
                 }
 
                 // Deal damage but more, because you somehow killed WhiteNight without the Heretic
@@ -187,7 +187,8 @@ namespace WhistleWindLobotomyMod
                 if (otherCard != null)
                     yield return otherCard.TransformIntoCard(randApostle);
 
-                yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightApostleHeretic");
+                if (HasHeretic)
+                    yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightApostleHeretic");
 
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
                 yield return new WaitForSeconds(0.2f);

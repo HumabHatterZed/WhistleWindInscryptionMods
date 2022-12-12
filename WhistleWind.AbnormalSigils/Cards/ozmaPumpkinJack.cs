@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
@@ -10,6 +9,15 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_OzmaPumpkinJack_F04116()
         {
+            List<Ability> abilities = new()
+            {
+                Ability.Evolve
+            };
+
+            List<Tribe> tribes = new();
+            if (TribalAPI.Enabled)
+                TribalAPI.AddTribalTribe(tribes, "plant");
+
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_ozmaPumpkinJack", "Jack",
@@ -18,12 +26,7 @@ namespace WhistleWind.AbnormalSigils
                 blood: 1, bones: 0, energy: 0,
                 Artwork.ozmaPumpkinJack, Artwork.ozmaPumpkinJack_emission,
                 abilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), appearances: new());
-
-            List<Ability> abilities = new()
-            {
-                Ability.Evolve
-            };
+                metaCategories: new(), tribes: tribes, traits: new(), appearances: new());
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_ozmaPumpkin", "Pumpkin",
@@ -32,7 +35,7 @@ namespace WhistleWind.AbnormalSigils
                 blood: 0, bones: 0, energy: 0,
                 Artwork.ozmaPumpkin,
                 abilities: abilities,
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 evolveName: "wstl_ozmaPumpkinJack");
         }
     }

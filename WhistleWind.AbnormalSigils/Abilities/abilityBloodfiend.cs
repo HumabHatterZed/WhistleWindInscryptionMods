@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -38,6 +39,7 @@ namespace WhistleWind.AbnormalSigils
             base.Card.OnStatsChanged();
             yield return new WaitForSeconds(0.2f);
             yield return base.LearnAbility(0.2f);
+            base.Card.Info.RemoveBaseAbilities(ability, Ability.Evolve);
         }
     }
 }

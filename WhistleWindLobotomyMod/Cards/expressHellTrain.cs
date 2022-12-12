@@ -27,7 +27,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.expressHellTrain, Artwork.expressHellTrain_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
+                customTribe: TribeMachine);
 
             abilities = new() { TheTrain.ability };
             LobotomyCardHelper.CreateCard(
@@ -37,8 +38,7 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.expressHellTrain, Artwork.expressHellTrain_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
+                metaCategories: new(), tribes: new(), traits: new());
         }
     }
 }

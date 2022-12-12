@@ -9,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleStaff_T0346()
         {
-            string tribal = "divinebeast";
+            Tribe customTribe = TribeDivine;
             List<Ability> abilities = new()
             {
                 Ability.Sniper,
@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleStaff, Artwork.apostleStaff_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, tribal: tribal);
+                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, customTribe: customTribe);
 
             abilities = new()
             {
@@ -47,7 +47,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleStaffDown, Artwork.apostleStaffDown_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, tribal: tribal);
+                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, customTribe: customTribe);
         }
     }
 }

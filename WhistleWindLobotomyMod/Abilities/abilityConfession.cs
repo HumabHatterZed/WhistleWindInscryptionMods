@@ -61,7 +61,7 @@ namespace WhistleWindLobotomyMod
                     while (slot.Card != null)
                     {
                         yield return slot.Card.TakeDamage(66, base.Card);
-                        yield return new WaitForSeconds(0.4f);
+                        yield return new WaitForSeconds(0.25f);
                     }
                     yield return new WaitForSeconds(0.5f);
                     break;

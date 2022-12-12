@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_RightfulHeir()
         {
             const string rulebookName = "Rightful Heir";
-            const string rulebookDescription = "Activate: Pay 5 Bones to choose a creature to be transformed into a Pumpkin. A Pumpkin is defined as: 0 Power, 1 Health, Fledgling.";
+            const string rulebookDescription = "Activate: Pay 5 Bones to choose a creature to be transformed into a Pumpkin. [define:wstl_ozmaPumpkin]";
             const string dialogue = "All she has left now are her children.";
             RightfulHeir.ability = AbnormalAbilityHelper.CreateActivatedAbility<RightfulHeir>(
                 Artwork.sigilRightfulHeir, Artwork.sigilRightfulHeir_pixel,

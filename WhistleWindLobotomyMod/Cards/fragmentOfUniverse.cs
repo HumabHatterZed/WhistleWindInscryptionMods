@@ -23,7 +23,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.fragmentOfUniverse, Artwork.fragmentOfUniverse_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
+                customTribe: TribeDivine);
         }
     }
 }

@@ -34,6 +34,9 @@
     <Reference Include="InscryptionCommunityPatch" Private="false">
       <HintPath>..\lib\InscryptionCommunityPatch.dll</HintPath>
     </Reference>
+    <Reference Include="TribeLibary" Private="false">
+      <HintPath>..\lib\TribeLibary.dll</HintPath>
+    </Reference>
 	</ItemGroup>
 	
 	<ItemGroup>

@@ -36,7 +36,8 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
-                modTypes: LobotomyCardHelper.ModCardType.Ruina, evolveName: "wstl_nosferatuBeast");
+                modTypes: LobotomyCardHelper.ModCardType.Ruina, evolveName: "wstl_nosferatuBeast",
+                customTribe: TribeHumanoid);
         }
     }
 }

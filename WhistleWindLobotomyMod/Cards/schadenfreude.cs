@@ -24,7 +24,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.schadenfreude, Artwork.schadenfreude_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
+                customTribe: TribeMachine);
         }
     }
 }

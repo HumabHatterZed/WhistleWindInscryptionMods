@@ -27,7 +27,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.jesterOfNihil, Artwork.jesterOfNihil_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, modTypes: LobotomyCardHelper.ModCardType.Ruina | LobotomyCardHelper.ModCardType.EventCard);
+                choiceType: CardHelper.CardChoiceType.Rare, modTypes: LobotomyCardHelper.ModCardType.Ruina | LobotomyCardHelper.ModCardType.EventCard,
+                customTribe: TribeFae);
         }
     }
 }

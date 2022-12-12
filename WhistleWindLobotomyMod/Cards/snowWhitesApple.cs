@@ -27,7 +27,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.snowWhitesApple, Artwork.snowWhitesApple_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
+                customTribe: TribePlant);
         }
     }
 }

@@ -23,7 +23,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.laetitia, Artwork.laetitia_emission, pixelTexture: Artwork.laetitia_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
+                customTribe: TribeFae);
         }
     }
 }

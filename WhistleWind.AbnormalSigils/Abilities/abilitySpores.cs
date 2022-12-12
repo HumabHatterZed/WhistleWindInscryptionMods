@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Spores()
         {
             const string rulebookName = "Fungal Infector";
-            const string rulebookDescription = "At the end of the owner's turn, adjacent cards gain 1 Spore. Cards with Spore take damage equal to their Spore at turn's end and create a Spore Mold Creature in their slot on death. A Spore Mold Creature is defined as: [ Spore ] Power, [ Spore ] Health.";
+            const string rulebookDescription = "At the end of the owner's turn, adjacent cards gain 1 Spore. Cards with Spore take damage equal to their Spore at turn's end and create a Spore Mold Creature in their slot on death. A Spore Mold Creature's Power and Health are equal to the killed card's Spores.";
             const string dialogue = "Even if this turns out to be a curse, they will love this curse like a blessing.";
             Spores.ability = AbnormalAbilityHelper.CreateAbility<Spores>(
                 Artwork.sigilSpores, Artwork.sigilSpores_pixel,

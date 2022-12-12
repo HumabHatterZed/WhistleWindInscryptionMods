@@ -26,7 +26,8 @@ namespace WhistleWindLobotomyMod
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic,
                 riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
-                metaTypes: CardHelper.CardMetaType.Terrain);
+                metaTypes: CardHelper.CardMetaType.Terrain,
+                customTribe: TribeMachine);
         }
     }
 }

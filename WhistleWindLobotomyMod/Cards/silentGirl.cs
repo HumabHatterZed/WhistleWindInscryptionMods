@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
-                modTypes: LobotomyCardHelper.ModCardType.Ruina);
+                modTypes: LobotomyCardHelper.ModCardType.Ruina, customTribe: TribeHumanoid);
         }
     }
 }

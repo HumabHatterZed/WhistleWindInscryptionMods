@@ -85,7 +85,8 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
+                customTribe: TribeDivine);
         }
     }
 }

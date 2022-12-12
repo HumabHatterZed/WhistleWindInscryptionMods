@@ -76,7 +76,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             bool onePerDeck = false,
             bool hideStats = false,
             GameObject face = null,
-            string tribal = ""
+            Tribe customTribe = Tribe.None
             )
         {
             string risk = riskLevel switch
@@ -115,36 +115,8 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             if (cardInfo.HasAnyOfAbilities(Punisher.ability, Ability.Deathtouch))
                 cardInfo.AddTraits(Trait.KillsSurvivors);
 
-            if (TribeAPI.Enabled)
-            {
-                Tribe tribalTribe = Tribe.None;
-                switch (tribal)
-                {
-                    case "abomination":
-                        tribalTribe = TribalLibary.Plugin.abominationTribe;
-                        break;
-                    case "divinebeast":
-                        tribalTribe = TribalLibary.Plugin.divinebeastTribe;
-                        break;
-                    case "humanoid":
-                        tribalTribe = TribalLibary.Plugin.humanoidTribe;
-                        break;
-                    case "machine":
-                        tribalTribe = TribalLibary.Plugin.machineTribe;
-                        break;
-                    case "plant":
-                        tribalTribe = TribalLibary.Plugin.plantTribe;
-                        break;
-                    case "vampire":
-                        tribalTribe = TribalLibary.Plugin.vampireTribe;
-                        break;
-                    default:
-                        break;
-                }
-
-                if (tribalTribe != Tribe.None)
-                    cardInfo.AddTribes(tribalTribe);
-            }
+            if (customTribe != Tribe.None)
+                cardInfo.AddTribes(customTribe);
 
             if (risk != null)
                 cardInfo.SetExtendedProperty("wstl:RiskLevel", risk);

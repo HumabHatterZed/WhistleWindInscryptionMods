@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_BroodMother()
         {
             const string rulebookName = "Broodmother";
-            const string rulebookDescription = "When [creature] is struck, create a Spiderling in your hand. A Spiderling is defined as: 0 Power, 1 Health, Fledgling.";
+            const string rulebookDescription = "When [creature] is struck, create a Spiderling in your hand. [define:wstl_spiderling]";
             const string dialogue = "A small spider takes refuge in your hand.";
             BroodMother.ability = AbnormalAbilityHelper.CreateAbility<BroodMother>(
                 Artwork.sigilBroodMother, Artwork.sigilBroodMother_pixel,

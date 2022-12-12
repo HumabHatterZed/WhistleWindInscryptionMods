@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Gardener()
         {
             const string rulebookName = "Gardener";
-            const string rulebookDescription = "When an ally card dies, create a Sapling in their place. A Sapling is defined as: 0 Power, 2 Health.";
+            const string rulebookDescription = "When an ally card is killed, create a Sapling in their place. [define:wstl_parasiteTreeSapling]";
             const string dialogue = "They proliferate and become whole. Can you feel it?";
             Gardener.ability = AbnormalAbilityHelper.CreateAbility<Gardener>(
                 Artwork.sigilGardener, Artwork.sigilGardener_pixel,

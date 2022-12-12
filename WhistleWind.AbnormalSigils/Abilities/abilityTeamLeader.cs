@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
@@ -38,7 +39,13 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnResolveOnBoard() => base.LearnAbility(0.4f);
 
         // Respond to other card resolving if it and this card are on the player's side of the board and
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => base.Card.OnBoard && !base.Card.OpponentCard;
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
+        {
+            if (base.Card.OnBoard)
+                return !base.Card.OpponentCard && base.Card.OpponentCard == otherCard.OpponentCard;
+
+            return false;
+        }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => base.LearnAbility(0.4f);
 
         // Gives +1 Power if on board and target card is on same side of the board

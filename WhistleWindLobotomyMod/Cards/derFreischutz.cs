@@ -28,7 +28,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.derFreischutz, Artwork.derFreischutz_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.He,
+                customTribe: TribeFae);
         }
     }
 }

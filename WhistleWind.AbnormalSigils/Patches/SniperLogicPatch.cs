@@ -73,7 +73,7 @@ namespace WhistleWind.AbnormalSigils.Patches
                 }
                 bool CardIsAlreadyDead(PlayableCard pc)
                 {
-                    return pc == null || pc.Dead || CanKillCard(pc, NumCardTargets(pc));
+                    return pc == null || pc.Dead || pc.HasAbility(Ability.PreventAttack) || CanKillCard(pc, NumCardTargets(pc));
                 }
                 bool DeathFromSpiky(PlayableCard pc)
                 {

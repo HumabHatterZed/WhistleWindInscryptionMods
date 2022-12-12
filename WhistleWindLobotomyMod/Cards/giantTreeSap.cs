@@ -27,7 +27,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.giantTreeSap, Artwork.giantTreeSap_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
+                customTribe: TribePlant);
         }
     }
 }

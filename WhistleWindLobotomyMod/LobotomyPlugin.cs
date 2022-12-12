@@ -17,6 +17,8 @@ using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 using static WhistleWindLobotomyMod.Core.Opponents.AbnormalEncounterData;
+using InscryptionAPI.Card;
+using System.Collections.Generic;
 
 namespace WhistleWindLobotomyMod
 {
@@ -37,6 +39,12 @@ namespace WhistleWindLobotomyMod
         private static Harmony HarmonyInstance = new(pluginGuid);
 
         public static AssetBundle sephirahBundle;
+
+        public static Tribe TribeDivine;
+        public static Tribe TribeFae;
+        public static Tribe TribeHumanoid;
+        public static Tribe TribeMachine;
+        public static Tribe TribePlant;
 
         private void OnDisable()
         {
@@ -69,8 +77,7 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("Loading cards...");
                 AddAppearances();
 
-                if (TribeAPI.Enabled)
-                    Log.LogDebug("Tribal Libary detected. Adding extra tribes to cards.");
+                AddTribes();
 
                 if (sephirahBundle != null)
                     InitSephirahAndDialogue();
@@ -104,8 +111,45 @@ namespace WhistleWindLobotomyMod
             SephirahHod.Init();
             SephirahYesod.Init();
         }
+        private void AddTribes()
+        {
+            Log.LogDebug("Loading tribes...");
+            if (TribeAPI.Enabled)
+                TribeAPI.ChangeTribesToTribal();
+            else
+            {
+                Texture2D divineIcon = TextureLoader.LoadTextureFromBytes(Artwork.tribeDivine);
+                Texture2D faeIcon = TextureLoader.LoadTextureFromBytes(Artwork.tribeFae);
+                Texture2D humanoidIcon = TextureLoader.LoadTextureFromBytes(Artwork.tribeHumanoid);
+                Texture2D machineIcon = TextureLoader.LoadTextureFromBytes(Artwork.tribeMachine);
+                Texture2D plantIcon = TextureLoader.LoadTextureFromBytes(Artwork.tribePlant);
+                TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", divineIcon, true, null);
+                TribeFae = TribeManager.Add(pluginGuid, "FaeTribe", faeIcon, true, null);
+                TribeHumanoid = TribeManager.Add(pluginGuid, "HumanoidTribe", humanoidIcon, true, null);
+                TribeMachine = TribeManager.Add(pluginGuid, "MachineTribe", machineIcon, true, null);
+                TribePlant = TribeManager.Add(pluginGuid, "PlantTribe", plantIcon, true, null);
+            }
+        }
         private void AddCards()
         {
+            // if Tribal Libary is installed, the correct tribes will have already been added
+            if (!TribeAPI.Enabled)
+            {
+                // modify cards added by AbnormalSigils to have custom tribes
+                CardManager.ModifyCardList += delegate (List<CardInfo> cards)
+                {
+                    foreach (CardInfo card in cards.Where(c => c.name.StartsWith("wstl")))
+                    {
+                        if (card.name.Contains("Brother"))
+                            card.AddTribes(TribeHumanoid);
+                        else if (card.name.Contains("Vine") || card.name.Contains("Pumpkin") || card.name.Contains("Sapling"))
+                            card.AddTribes(TribePlant);
+                    }
+
+                    return cards;
+                };
+            }
+
             AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
 
             if (ConfigManager.Instance.NoDonators)
@@ -205,6 +249,15 @@ namespace WhistleWindLobotomyMod
                     _enabled ??= Chainloader.PluginInfos.ContainsKey("tribes.libary");
                     return (bool)_enabled;
                 }
+            }
+            public static void ChangeTribesToTribal()
+            {
+                Log.LogDebug("Tribal Libary detected. Using its tribes instead.");
+                TribeDivine = TribalLibary.Plugin.divinebeastTribe;
+                TribeFae = TribalLibary.Plugin.fairyTribe;
+                TribeHumanoid = TribalLibary.Plugin.humanoidTribe;
+                TribeMachine = TribalLibary.Plugin.machineTribe;
+                TribePlant = TribalLibary.Plugin.plantTribe;
             }
         }
     }

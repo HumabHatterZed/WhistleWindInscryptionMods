@@ -26,7 +26,7 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
         public override bool RespondsToResolveOnBoard() => ActivateOnPlay();
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => ActivateOnPlay();
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => otherCard.OpponentCard != base.Card.OpponentCard;
 
         public override IEnumerator OnResolveOnBoard() => base.LearnAbility(0.5f);
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => base.LearnAbility(0.5f);
@@ -39,8 +39,9 @@ namespace WhistleWind.AbnormalSigils
         }
         public bool ActivateOnPlay()
         {
-            if (base.Card.Slot != null)
-                return Singleton<BoardManager>.Instance.GetSlots(base.Card.OpponentCard).Where(s => s.Card != null).Count() > 0;
+            if (base.Card.OnBoard)
+                return Singleton<BoardManager>.Instance.GetSlots(base.Card.OpponentCard)
+                    .Where(s => s.Card != null).Count() > 0;
 
             return false;
         }

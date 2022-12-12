@@ -1,4 +1,6 @@
-﻿using WhistleWind.AbnormalSigils.Properties;
+﻿using DiskCardGame;
+using System.Collections.Generic;
+using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -7,6 +9,10 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_ParasiteTreeSapling_D04108()
         {
+            List<Tribe> tribes = new();
+            if (TribalAPI.Enabled)
+                TribalAPI.AddTribalTribe(tribes, "plant");
+
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_parasiteTreeSapling", "Sapling",
@@ -15,7 +21,7 @@ namespace WhistleWind.AbnormalSigils
                 blood: 0, bones: 0, energy: 0,
                 Artwork.parasiteTreeSapling, Artwork.parasiteTreeSapling_emission,
                 abilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: tribes, traits: new());
         }
     }
 }

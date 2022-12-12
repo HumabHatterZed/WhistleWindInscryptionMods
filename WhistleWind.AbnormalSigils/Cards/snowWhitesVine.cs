@@ -13,6 +13,11 @@ namespace WhistleWind.AbnormalSigils
             {
                 Ability.Sharp
             };
+
+            List<Tribe> tribes = new();
+            if (TribalAPI.Enabled)
+                TribalAPI.AddTribalTribe(tribes, "plant");
+
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_snowWhitesVine", "Thorny Vines",
@@ -21,7 +26,7 @@ namespace WhistleWind.AbnormalSigils
                 blood: 0, bones: 0, energy: 0,
                 Artwork.snowWhitesVine,
                 abilities: abilities,
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: tribes, traits: new());
         }
     }
 }

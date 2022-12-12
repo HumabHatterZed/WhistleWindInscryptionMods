@@ -13,7 +13,6 @@ namespace WhistleWind.AbnormalSigils
             {
                 Slime.ability
             };
-
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_meltingLoveMinion", "Slime",

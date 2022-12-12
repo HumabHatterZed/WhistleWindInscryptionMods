@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Ability_Burning()
         {
-            const string rulebookName = "Fiery Aura";
+            const string rulebookName = "Scorching";
             const string rulebookDescription = "The opposing card takes 1 damage at the end of their owner's turn.";
             const string dialogue = "A slow and painful death.";
 

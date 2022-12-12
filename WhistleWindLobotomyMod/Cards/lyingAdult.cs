@@ -23,7 +23,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.lyingAdult, Artwork.lyingAdult_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, modTypes: LobotomyCardHelper.ModCardType.Ruina | LobotomyCardHelper.ModCardType.EventCard);
+                choiceType: CardHelper.CardChoiceType.Rare, modTypes: LobotomyCardHelper.ModCardType.Ruina | LobotomyCardHelper.ModCardType.EventCard,
+                customTribe: TribeFae);
         }
     }
 }

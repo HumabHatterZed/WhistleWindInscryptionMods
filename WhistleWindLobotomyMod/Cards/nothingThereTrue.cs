@@ -28,7 +28,8 @@ namespace WhistleWindLobotomyMod
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
+                customTribe: TribeHumanoid);
 
             LobotomyCardHelper.CreateCard(
                 "wstl_nothingThereEgg", "An Egg",

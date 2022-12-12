@@ -4,7 +4,7 @@ A library of [number] sigils based on the abnormalities from Lobotomy Corporatio
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1902
-* API_dev-API v2.7.1
+* API_dev-API v2.7.2
 
 ## 🔗 Compatibility
 
@@ -14,7 +14,7 @@ the abilities Scrambler, Target Gain Stats, Target Gain Sigils, and Target Gain 
 
 ### Tribal Libary (sic)
 If you have [Tribal Libary](https://inscryption.thunderstore.io/package/Infiniscryption/Spell_Card_Toolkit/) installed,
-cards added by this mod will gain an additional tribe taken from Tribal Libary.
+some cards added by this mod will gain an additional tribe taken from Tribal Libary.
 
 ## 💌 Credits/Acknowledgements
 
@@ -71,7 +71,7 @@ Uses a flag system to determine groups:
 |Flag Bearer|While this card is on the board, adjacent cards gain 2 Health.||
 |Grinder|A card bearing this sigil gains the stats of the cards sacrificed to play it.|✔|
 |The Train|Activate: Pay 10 bones to kill all cards on the board, including this card. Cards killed this way do not drop bones.||
-|Cowardly|The opposing card takes 1 damage at the end of their owner's turn.|✔|
+|Scorching|The opposing card takes 1 damage at the end of their owner's turn.|✔|
 |Regenerator|Adjacent cards gain 1 Health at the end of the opponent's turn.|✔|
 |Volatile|When a card bearing this sigil dies, adjacent and opposing cards are dealt 10 damage.|✔|
 |Gift Giver|When a card bearing this sigil is played, create a random card in your hand.||

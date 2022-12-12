@@ -38,8 +38,9 @@ namespace WhistleWind.Core.Helpers
             info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, powerLevel);
             info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(gbcTexture));
 
-            info.opponentUsable = opponent;
-            info.canStack = canStack;
+            info.SetOpponentUsable(opponent);
+            info.SetCanStack(canStack, canStack);
+
             info.flipYIfOpponent = flipY;
 
             if (foundInRulebook)
