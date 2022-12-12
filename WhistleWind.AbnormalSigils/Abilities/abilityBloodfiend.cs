@@ -39,7 +39,6 @@ namespace WhistleWind.AbnormalSigils
             base.Card.OnStatsChanged();
             yield return new WaitForSeconds(0.2f);
             yield return base.LearnAbility(0.2f);
-            base.Card.Info.RemoveBaseAbilities(ability, Ability.Evolve);
         }
     }
 }
