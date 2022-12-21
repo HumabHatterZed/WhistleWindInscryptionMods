@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 

@@ -1,12 +1,12 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
-using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core;
+using WhistleWind.Core.AbilityClasses;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -29,9 +29,7 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
 
         private bool IsDoctor => base.Card.Info.name == "wstl_plagueDoctor";
-        public override string NoAlliesDialogue => "No one to heal.";
-        public override string SelfTargetDialogue => "You must choose one of your other cards to heal.";
-        public override string NullTargetDialogue => "You can't heal the air.";
+        public override string NoTargetsDialogue => "No one to heal.";
 
         private readonly string failAsDoctorDialogue = "No allies to receive a blessing. [c:bR]An enemy[c:] will suffice instead.";
         private readonly string failExtraHardDialogue = "No enemies either. It seems no blessings will be given this turn.";
@@ -40,14 +38,13 @@ namespace WhistleWind.AbnormalSigils
         public bool TriggerClock;
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
-
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) => base.SelectionSequence();
 
-        public override IEnumerator OnValidTargetSelected(PlayableCard card)
+        public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {
-            card.HealDamage(2);
-            card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.2f);
+            slot.Card.Anim.LightNegationEffect();
+            slot.Card.HealDamage(2);
+            yield return new WaitForSeconds(0.1f);
         }
 
         public override IEnumerator OnPostValidTargetSelected()
@@ -63,15 +60,15 @@ namespace WhistleWind.AbnormalSigils
             yield break;
         }
 
-        public override IEnumerator OnNoValidAllies()
+        public override IEnumerator OnNoValidTargets()
         {
             // if not Plague Doctor, simply play dialogue
             if (!IsDoctor)
             {
-                yield return HelperMethods.PlayAlternateDialogue(dialogue: NoAlliesDialogue);
+                yield return HelperMethods.PlayAlternateDialogue(dialogue: NoTargetsDialogue);
                 yield break;
             }
-            yield return HelperMethods.PlayAlternateDialogue(dialogue: failAsDoctorDialogue);
+            yield return HelperMethods.PlayAlternateDialogue(emotion: Emotion.Anger, dialogue: failAsDoctorDialogue);
 
             CardSlot randSlot;
             List<CardSlot> opposingSlots = base.Card.OpponentCard ? Singleton<BoardManager>.Instance.PlayerSlotsCopy : Singleton<BoardManager>.Instance.OpponentSlotsCopy;

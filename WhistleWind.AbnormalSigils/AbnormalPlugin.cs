@@ -9,9 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TribalLibary;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Patches;
-using TribalLibary;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -128,8 +128,7 @@ namespace WhistleWind.AbnormalSigils
             Ability_ThickSkin();
             Ability_OneSided();
             Ability_Copycat();
-            Ability_CatLover();
-            Ability_Cowardly();
+            Ability_YellowBrickRoad();
             Ability_Neutered();
             Ability_NeuteredLatch();
             Ability_RightfulHeir();

@@ -1,8 +1,8 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
@@ -138,7 +138,7 @@ namespace WhistleWindLobotomyMod
                 Ability.BuffNeighbours
             };
             List<SpecialTriggeredAbility> specialAbilities = new() { TalkingCardHod.specialAbility };
-            List<CardMetaCategory> metaCategories = new() { LobotomyCardHelper.SEPHIRAH_CARD };
+            List<CardMetaCategory> metaCategories = new() { LobotomyCardHelper.SephirahCard };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 CardAppearanceBehaviour.Appearance.AnimatedPortrait

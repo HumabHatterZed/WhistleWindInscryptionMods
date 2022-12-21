@@ -1,9 +1,6 @@
-﻿using UnityEngine;
-using InscryptionAPI.Items;
-using InscryptionAPI.Items.Extensions;
+﻿using InscryptionAPI.Items;
+using UnityEngine;
 using WhistleWind.Core.Helpers;
-using DiskCardGame;
-using static InscryptionAPI.Items.ConsumableItemManager;
 
 namespace WhistleWindLobotomyMod.Core.Helpers
 {

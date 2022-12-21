@@ -2,29 +2,46 @@
 
 ## v2.0.0 - The One, Perfect Book (?/?/202?)
 ### 🧱 General
+    - Fixed inaccurate information in the ReadMe
     - Added Spell Card Toolkit mod as a dependency
-    - Split off most sigils into their own mod library
-    - Replaced placeholder save value for Magical Girls with a properly named value
+    - Added Abnormal Sigils mod as a dependency
+    - Reformatted configuration file (any custom values you set will not carry over)
+    - Hidden card abilities are now special abilities rather than being tied up in the code of custom sigils
     - Added pauses before and after most alternate dialogue
-    - Fixed inaccurate information in the ReadMe (thoroughly this time)
 ### 🩹 Bug fixes
     - Fixed Nothing There being copyable by Goo Mage
-    - Fixed abnormality choice node not playing/clear text properly
+    - Fixed abnormality choice node not playing/clearing text properly
+    - Fixed abnormality choice node visual bug relating to card deck
     - Fixed Downed Guardian Apostle reviving immediately
     - Fixed certain singleton cards being reobtainable after certain events
 ### 🔧 Tweaks
-    - Replaced Wolf Cub --> The Way Home in starter deck "Road to Oz"
-    - Replaced Magical Girl S --> Magical Girl C in starter deck "Magical Girls!"
+    - Starter Deck "Road to Oz" now includes The Road Home or Laetitia, replacing Wolf Cub
+    - Starter Deck "Magical Girl!" now includes Magical Girl C or Magical Girl S, depending on config
     - Changed Shelter from the 27th of March into a Spell card with Repulsive, Aggravating, Imbue Target
     - Changed Luminous Bracelet into a Spell card with Greedy Healing, Imbue Target
     - Changed You Must Be Happy into a Spell card with Scrambler
-    - Changed Scrambler to be used by Spell cards exclusively
     - Singing Machine no longer looks like a Terrain card
-    - Brother cards no longer show their Power (except the 2nd Brother)
     - Changed Health of Dragon Body and Head to 0
-    - Volatile ability now uses a proper flipped sigil for opponent cards
-    - Config option 'All Modular' now affects activated abilities
 ### ⚖️ Balancing
+#### Cards and Abilities
+    - Buffed Apocalypse Bird's Health from 8 --> 12
+    - Buffed The Firebird's Power from 1 --> 2
+    - Gave Big Bird the Neutered Latch ability
+    - Reduced Magical Girl D's cost from 2 Blood --> 1 Blood
+    - Reduced Knight of Despair's cost from 2 Blood --> 1 Blood
+    - Rebalanced Lady Facing the Wall to be 0/3, 5 Bones
+    - Rebalanced Magical Girl H to be 1/2, One-Sided Strike
+    - Rebalanced King of Greed to be 2/5, 1 Blood
+    - Rebalanced Magical Girl S to be 1/4, 1 Blood
+    - Rebalanced Express Train to Hell
+    - Rebalanced Blue Star
+    - Ttungsil no longer has Fledgling ability
+    - Reduced all downed Apostles' Health from 6 / 2 --> 1
+    - Reduced WhiteNight's Health from 666 -> 66
+    - Cards with Apostle ability are now unkillable only if WhiteNight is on their side of the board
+    - Downed Moleman Apostle no longer has Uncuttable trait
+    - Notes From a Crazed Researcher is now considered Terrain
+#### Other
     - Changed the probabilities of getting Rare cards from the abnormality choice node
         - Probabilities are now (0%, 2%, 5%) for both Part 1 and Kaycee's Mod
         - Probabilities with Better Rare Chances are now (2%, 5%, 10%) for both Part 1 and Kaycee's Mod
@@ -32,26 +49,13 @@
     - Increased point amount of Better Rare Chances from -15 --> -10
     - Increased Challenge requirement for Road to Oz from 3 --> 8
     - Increased Challenge requirement for Magical Girls! from 8 --> 10
-    - Buffed Apocalypse Bird's Health from 8 --> 12
-    - Buffed The Firebird's Power from 1 --> 2
-    - Buffed Brother 2's Power from 0 --> 1
-    - Gave Big Bird the Neutered Latch ability
-    - Reduced Magical Girl D's cost from 2 Blood --> 1 Blood
-    - Reduced Knight of Despair's cost from 2 Blood --> 1 Blood
-    - Rebalanced Lady Facing the Wall to be 0/3 stats, 5 Bones
-    - Rebalanced Magical Girl H to be 1/2 stats, One-Sided Strike
-    - Rebalanced King of Greed to be 2/5 stats, 1 Blood
-    - Rebalanced Magical Girl S to be 1/4, 1 Blood
-    - Nerfed Spider Brood Health from 3 --> 2
-    - Express Train to Hell cost reduced from x6 --> x2
-    - The Train ability cost increased from x6 --> x10
-    - Ttungsil no longer has Fledgling ability
-    - Downed Moleman Apostle no longer has Uncuttable trait
-    - Thorny Vines are now conidered Terrain
-    - Notes From a Crazed Researcher is now considered Terrain
-    - Frozen Heart is no longer considered Terrain
 ### ➕ Additions
-    - Added config 'No Ruina'
+    - Added more configuration options
+    - Added support for custom starter decks in Part 1
+    - Added the following tribes:
+        - Divine, Fae, Humanoid, Machine, Plant
+    - Added tribes to some cards that previously had none
+    - Added compatibility with Tribal Libary (sic)
     - Added the following cards:
         - Magical Girl C
         - Servant of Wrath
@@ -65,6 +69,66 @@
         - Silent Girl
         - The Adult Who Tells Lies
         - Jester of Nihil
+        - Malkuth
+        - Yesod
+        - Hod
+        - Netzach
+        - Tiphereth A & B
+        - Gebura
+        - Chesed
+        - Binah
+        - Hokma
+        - Angela
+        - Inochi
+        - Express Train to Hell (item version)
+    - Added more battle encounters
+    - Added the following starter decks:
+        - () : 
+        - Randomised Cards : 3 random mod cards
+    - Added the following challenges:
+        - Rapture
+        - Apocalypse
+        - Nihil
+        - Emerald
+    - Added the following items:
+        - Train in a Bottle
+        - Inochi in a Bottle
+        - Hod in a Bottle
+### 💣 Removals
+    - Removed most custom sigils, now available in separate Abnormal Sigils mod
+    - Removed some minion cards, moved to separate Abnormal Sigils mod
+
+## Abnormal Sigils - Initial release (?/?/202?)
+For convenience, I'm including the changelog for Abnormal Sigils. For future content updates, please check Abnormal Sigils's changelog instead.
+### 🔧 Tweaks
+    - Removed softlock prevention feature from Quick Draw and Woodcutter, no longer necessary
+    - Separated card-specific behaviour from abilities where possible
+    - Config option 'All Modular' now affects activated abilities
+    - Volatile ability now uses a custom flipped sigil for opponent cards
+    - Black Swan Brothers no longer display their Power if it's 0
+    - Some minion cards no longer have emissions
+    - Rewrote some rulebook entries to be clearer/have less text
+### ⚖️ Balancing
+    - Buffed Brother 2's Power from 0 --> 1
+    - Thorny Vines are now conidered Terrain
+    - Frozen Heart is no longer considered Terrain
+    - The Train is no longer an activated ability, triggers on resolve
+    - Redid Conductor ability
+    - Redid Ruler of Frost ability
+### ➕ Additions
+    - Added Neutered Latch
+    - Added Neutered
+    - Added Nihil
+    - Added False Throne
+    - Added Cat Lover
+    - Added Cowardly
+    - Added Rightful Heir
+    - Added One-Sided Strike
+    - Added Strengthen Target
+    - Added Imbue Target
+    - Added Enhance Target
+    - Added most abilities from WhistleWind Lobotomy Mod
+    - Added some minion cards from WhistleWind Lobotomy Mod
 
 ## v1.2.5 - Bug fix (11/23/2022)
 ### 🩹 Bug fixes

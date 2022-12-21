@@ -1,11 +1,11 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
+﻿using DiskCardGame;
 using InscryptionAPI.Nodes;
 using Pixelplacement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
@@ -24,7 +24,18 @@ namespace WhistleWindLobotomyMod
                 Artwork.nodeSefirotCardChoice3,
                 Artwork.nodeSefirotCardChoice4
             };
-            NodeHelper.CreateNode("wstlSefirotCardChoiceNode", typeof(SefirotCardChoiceSequencer), animationFrames, GenerationType.SpecialCardChoice, extraGenType: ConfigManager.Instance.SefirotChoiceAtStart ? GenerationType.RegionStart : GenerationType.None);
+
+            GenerationType main = GenerationType.SpecialCardChoice;
+            GenerationType extra = ConfigManager.Instance.SefirotChoiceAtStart ? GenerationType.RegionStart : GenerationType.None;
+
+            // don't generate node if it's disabled
+            if (ConfigManager.Instance.NoSefirot)
+            {
+                main = GenerationType.None;
+                extra = GenerationType.None;
+            }
+            NodeHelper.CreateNode("wstlSefirotCardChoiceNode", typeof(SefirotCardChoiceSequencer), animationFrames,
+                main, extraGenType: extra);
         }
     }
     // Pulled wholesale from CardSingleChoicesSequencer and CardChoiceSequencer
@@ -166,7 +177,7 @@ namespace WhistleWindLobotomyMod
             List<CardChoice> listOfChoices = new();
 
             // find the number of Sephirah already owned, including Angela
-            int sephirahCount = RunState.DeckList.FindAll(x => x.metaCategories.Contains(LobotomyCardHelper.SEPHIRAH_CARD)).Count;
+            int sephirahCount = RunState.DeckList.FindAll(x => x.metaCategories.Contains(LobotomyCardHelper.SephirahCard)).Count;
 
             // if all 9 Sephirah have been obtained, guaranteed to get Angela
             // otherwise if there are unobtained Sephirah, pick a max of 3 of them per node (if only 2 remain, show 2, etc.)

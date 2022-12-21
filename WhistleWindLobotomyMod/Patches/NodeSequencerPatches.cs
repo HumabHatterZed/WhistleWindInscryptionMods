@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using System.Collections.Generic;
-using System.Linq;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 
@@ -14,18 +13,18 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
         public static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((x) => x.metaCategories.Any((mc) => mc == LobotomyCardHelper.CANNOT_GIVE_SIGILS)
-            || x.SpecialAbilities.Any((sa) => sa == Mimicry.specialAbility)
-            || x.Abilities.Any((ab) => ab == TheTrain.ability || ab == TimeMachine.ability || ab == Scrambler.ability || ab == TargetGainStats.ability || ab == TargetGainSigils.ability || ab == TargetGainStatsSigils.ability));
+            __result.RemoveAll(x => x.metaCategories.Exists(mc => mc == LobotomyCardHelper.CannotGiveSigils)
+            || x.SpecialAbilities.Exists(sa => sa == Mimicry.specialAbility)
+            || x.Abilities.Exists(ab => ab == TheTrain.ability || ab == TimeMachine.ability || ab == Scrambler.ability || ab == TargetGainStats.ability || ab == TargetGainSigils.ability || ab == TargetGainStatsSigils.ability));
         }
 
         // Prevents card from being merged / gaining sigils
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForHost))]
         public static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((x) => x.metaCategories.Any((mc) => mc == LobotomyCardHelper.CANNOT_GAIN_SIGILS)
-            || x.SpecialAbilities.Any((sa) => sa == Mimicry.specialAbility)
-            || x.Abilities.Any((ab) => ab == TheTrain.ability || ab == TimeMachine.ability || ab == Scrambler.ability || ab == TargetGainStats.ability));
+            __result.RemoveAll(x => x.metaCategories.Exists(mc => mc == LobotomyCardHelper.CannotGainSigils) ||
+            x.SpecialAbilities.Exists(sa => sa == Mimicry.specialAbility) ||
+            x.Abilities.Exists(ab => ab == TheTrain.ability || ab == TimeMachine.ability || ab == Scrambler.ability || ab == TargetGainStats.ability));
         }
     }
 
@@ -36,9 +35,9 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CardStatBoostSequencer.GetValidCards))]
         public static void RemoveFromValidCardsForStatBoost(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((x) => x.metaCategories.Any((mc) => mc == LobotomyCardHelper.CANNOT_BUFF_STATS)
-            || x.SpecialAbilities.Any((sa) => sa == Mimicry.specialAbility)
-            || x.Abilities.Any((ab) => ab == TheTrain.ability || ab == TimeMachine.ability || ab == TargetGainSigils.ability));
+            __result.RemoveAll(x => x.metaCategories.Exists(mc => mc == LobotomyCardHelper.CannotBoostStats) ||
+            x.SpecialAbilities.Exists(sa => sa == Mimicry.specialAbility) ||
+            x.Abilities.Exists(ab => ab == TheTrain.ability || ab == TimeMachine.ability || ab == TargetGainSigils.ability));
         }
     }
     [HarmonyPatch(typeof(CopyCardSequencer))]
@@ -48,9 +47,9 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CopyCardSequencer.GetValidCards))]
         public static void RemoveFromValidCardsForCopyCard(ref List<CardInfo> __result)
         {
-            __result.RemoveAll((x) => x.metaCategories.Any((mc) => mc == LobotomyCardHelper.CANNOT_COPY_CARD)
-           || x.SpecialAbilities.Any((sa) => sa == Mimicry.specialAbility)
-           || x.Abilities.Any((ab) => ab == TheTrain.ability || ab == TimeMachine.ability || ab == Scrambler.ability || ab == TargetGainStats.ability || ab == TargetGainSigils.ability || ab == TargetGainStatsSigils.ability));
+            __result.RemoveAll(x => x.metaCategories.Exists(mc => mc == LobotomyCardHelper.CannotCopyCard) ||
+            x.SpecialAbilities.Exists(sa => sa == Mimicry.specialAbility) ||
+            x.Abilities.Exists(ab => ab == TheTrain.ability || ab == TimeMachine.ability || ab == Scrambler.ability || ab == TargetGainStats.ability || ab == TargetGainSigils.ability || ab == TargetGainStatsSigils.ability));
         }
     }
 }

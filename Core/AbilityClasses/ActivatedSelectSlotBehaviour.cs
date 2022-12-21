@@ -1,11 +1,11 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
+﻿using DiskCardGame;
 using Pixelplacement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.Core.AbilityClasses
 {
@@ -35,14 +35,19 @@ namespace WhistleWind.Core.AbilityClasses
         public virtual Ability LatchAbility => Ability.None;
         public virtual bool TargetAll => true;
         public virtual bool TargetAllies => false;
-        // see if we can target empty card slots (does GetValidTargets allow empty slots?)
-        private bool CanTargetNull => GetValidTargets().Exists((CardSlot s) => s.Card == null);
         public virtual string NoTargetsDialogue => "There are no cards you can choose.";
+        public virtual string NullTargetDialogue => "You can't target the air.";
+        public virtual string SelfTargetDialogue => "You must choose one of your other cards.";
         public virtual string InvalidTargetDialogue => "It's already latched...";
+
+        // see if we can target empty card slots (does GetValidTargets allow empty slots?)
+        private bool ShowLatch => LatchAbility != Ability.None;
+        private bool CanTargetNull => GetValidTargets().Exists((CardSlot s) => s.Card == null);
 
         // by default, can always activate
         public virtual int TurnDelay => -1;
         private int turnDelay = 0;
+
         public virtual IEnumerator OnNoValidTargets()
         {
             yield break;
@@ -74,7 +79,7 @@ namespace WhistleWind.Core.AbilityClasses
         {
             if (slot.Card != null)
                 return CardIsNotValid(slot.Card);
-            return CanTargetNull;
+            return !CanTargetNull;
         }
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
@@ -90,7 +95,6 @@ namespace WhistleWind.Core.AbilityClasses
                 yield return new WaitForSeconds(0.2f);
             }
         }
-
         public override bool CanActivate()
         {
             // If turnDelay is negative, can always activate
@@ -126,36 +130,36 @@ namespace WhistleWind.Core.AbilityClasses
             yield return new WaitForSeconds(0.1f);
 
             // get the animation controller
-            CardAnimationController anim = this.Card.Anim;
+            Transform latchParent = null;
+            GameObject claw = null;
+            if (ShowLatch)
+            {
+                CardAnimationController anim = this.Card.Anim;
 
-            // create a game object to connect the prefab to this card
-            GameObject latchParentGameObject = new GameObject
-            {
-                name = "LatchParent",
-                transform =
-            {
-                position = anim.transform.position
-            }
-            };
-            latchParentGameObject.transform.SetParent(anim.transform);
-
-            // create claw object using claw prefab and latchParent
-            Transform latchParent = latchParentGameObject.transform;
-            GameObject claw = UnityEngine.Object.Instantiate(ClawPrefab, latchParent);
-
-            // get the cannon material if possible, and set the render materials to it
-            Material cannonMat = null;
-            try
-            {
-                cannonMat = new Material(ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CannonTargetIcon").GetComponentInChildren<Renderer>().material);
-            }
-            catch { }
-            if (cannonMat != null)
-            {
-                Renderer[] renderers = claw.GetComponentsInChildren<Renderer>();
-                foreach (Renderer rend in renderers.Where(rend => rend))
+                // create a game object to connect the prefab to this card
+                GameObject latchParentGameObject = new()
                 {
-                    rend.material = cannonMat;
+                    name = "LatchParent",
+                    transform = { position = anim.transform.position }
+                };
+                latchParentGameObject.transform.SetParent(anim.transform);
+
+                // create claw object using claw prefab and latchParent
+                latchParent = latchParentGameObject.transform;
+                claw = UnityEngine.Object.Instantiate(ClawPrefab, latchParent);
+
+                // get the cannon material if possible, and set the render materials to it
+                Material cannonMat = null;
+                try
+                {
+                    cannonMat = new Material(ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CannonTargetIcon").GetComponentInChildren<Renderer>().material);
+                }
+                catch { }
+                if (cannonMat != null)
+                {
+                    Renderer[] renderers = claw.GetComponentsInChildren<Renderer>();
+                    foreach (Renderer rend in renderers.Where(rend => rend))
+                        rend.material = cannonMat;
                 }
             }
 
@@ -171,7 +175,8 @@ namespace WhistleWind.Core.AbilityClasses
                 yield return OpponentSelectTarget(instance, visualiser);
                 if (selectedSlot != null && selectedSlot.Card != null)
                 {
-                    AimWeaponAnim(latchParent.gameObject, selectedSlot.transform.position);
+                    if (ShowLatch)
+                        AimWeaponAnim(latchParent.gameObject, selectedSlot.transform.position);
                     yield return new WaitForSeconds(0.3f);
                 }
             }
@@ -181,7 +186,7 @@ namespace WhistleWind.Core.AbilityClasses
                 Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode);
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
 
-                yield return PlayerSelectTarget(latchParent, instance, visualiser);
+                yield return PlayerSelectTarget(instance, visualiser, latchParent);
             }
 
             // clear the sniper icons here so they disappear before the claw does its thing
@@ -192,16 +197,19 @@ namespace WhistleWind.Core.AbilityClasses
             yield return OnValidTargetSelected(selectedSlot);
 
             // claw thing
-            claw.SetActive(true);
+            if (ShowLatch)
+            {
+                claw.SetActive(true);
 
-            CustomCoroutine.FlickerSequence(
-                () => claw.SetActive(true),
-                () => claw.SetActive(false),
-                true,
-                false,
-                0.05f,
-                2
-            );
+                CustomCoroutine.FlickerSequence(
+                    () => claw.SetActive(true),
+                    () => claw.SetActive(false),
+                    true,
+                    false,
+                    0.05f,
+                    2
+                );
+            }
 
             yield return base.LearnAbility(0.4f);
             Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
@@ -217,7 +225,7 @@ namespace WhistleWind.Core.AbilityClasses
             if (!base.Card.OpponentCard)
                 yield return HelperMethods.ChangeCurrentView(View.Default);
         }
-        private IEnumerator PlayerSelectTarget(Transform latchParent, CombatPhaseManager instance, WstlPart1SniperVisualiser visualiser)
+        private IEnumerator PlayerSelectTarget(CombatPhaseManager instance, WstlPart1SniperVisualiser visualiser, Transform latchParent = null)
         {
             // call both together, because that's how it's done in the API
             // and I'm not going to mess with what ain't broke
@@ -225,7 +233,6 @@ namespace WhistleWind.Core.AbilityClasses
             visualiser?.VisualizeStartSniperAbility(base.Card.Slot);
 
             List<CardSlot> possibleTargets = GetInitialTargets();
-            possibleTargets.Remove(base.Card.Slot);
 
             List<CardSlot> targetSlots = GetValidTargets();
 
@@ -249,7 +256,8 @@ namespace WhistleWind.Core.AbilityClasses
                 {
                     instance.VisualizeAimSniperAbility(base.Card.Slot, s);
                     visualiser?.VisualizeAimSniperAbility(base.Card.Slot, s);
-                    AimWeaponAnim(latchParent.gameObject, s.transform.position);
+                    if (ShowLatch)
+                        AimWeaponAnim(latchParent.gameObject, s.transform.position);
                 }
             }, () => false, CursorType.Target);
         }
@@ -277,7 +285,16 @@ namespace WhistleWind.Core.AbilityClasses
         {
             if (CardSlotIsNotValid(slot) && !Singleton<TextDisplayer>.Instance.Displaying)
             {
-                base.StartCoroutine(Singleton<TextDisplayer>.Instance.ShowThenClear(InvalidTargetDialogue, 2.5f, 0f, Emotion.Anger));
+                string dialogue = InvalidTargetDialogue;
+                if (slot.Card != null)
+                {
+                    if (slot.Card == base.Card)
+                        dialogue = SelfTargetDialogue;
+                }
+                else
+                    dialogue = NullTargetDialogue;
+
+                base.StartCoroutine(Singleton<TextDisplayer>.Instance.ShowThenClear(dialogue, 2.5f, 0f, Emotion.Anger));
             }
         }
         private IEnumerator AISelectTarget(List<CardSlot> validTargets, Action<CardSlot> chosenCallback)
@@ -296,24 +313,22 @@ namespace WhistleWind.Core.AbilityClasses
                 yield return new WaitForSeconds(0.2f);
             }
         }
-
         private int AIEvaluateTarget(PlayableCard card, bool positiveEffect)
         {
+            if (card == null)
+            {
+                if (CanTargetNull)
+                    return UnityEngine.Random.Range(0, 5);
+                return -1000;
+            }
             int num = card.PowerLevel;
             if (card.Info.HasTrait(Trait.Terrain))
-            {
-                num = 10 * ((!positiveEffect) ? 1 : (-1));
-            }
+                num = 10 * (!positiveEffect ? 1 : -1);
             if (card.OpponentCard == positiveEffect)
-            {
                 num += 1000;
-            }
             return num;
         }
-        public bool ValidTargetsExist()
-        {
-            return GetValidTargets().Count > 0;
-        }
+        public bool ValidTargetsExist() => GetValidTargets().Count > 0;
         public virtual Predicate<CardSlot> InvalidTargets()
         {
             // by default remove empty slots, dead cards, invalid cards, or this card
@@ -329,10 +344,8 @@ namespace WhistleWind.Core.AbilityClasses
         {
             if (TargetAll)
                 return Singleton<BoardManager>.Instance.AllSlotsCopy;
-
             if (TargetAllies)
                 return base.Card.OpponentCard ? Singleton<BoardManager>.Instance.OpponentSlotsCopy : Singleton<BoardManager>.Instance.PlayerSlotsCopy;
-
             return base.Card.OpponentCard ? Singleton<BoardManager>.Instance.PlayerSlotsCopy : Singleton<BoardManager>.Instance.OpponentSlotsCopy;
         }
     }

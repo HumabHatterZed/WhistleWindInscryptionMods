@@ -1,9 +1,9 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
+﻿using DiskCardGame;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.Core.AbilityClasses
 {
@@ -13,82 +13,16 @@ namespace WhistleWind.Core.AbilityClasses
         public CardSlot selectedSlot = null;
         public virtual bool TargetAll => false;
         public virtual bool TargetAllies => true;
-        public virtual string NoAlliesDialogue => "No allies.";
+        public virtual string NoTargetsDialogue => "There are no cards you can choose.";
+        public virtual string InvalidTargetDialogue => "It's already latched...";
         public virtual string NullTargetDialogue => "You can't target the air.";
         public virtual string SelfTargetDialogue => "You must choose one of your other cards.";
-        public IEnumerator SelectionSequence()
+        private bool CanTargetNull => GetValidTargets().Exists((CardSlot s) => s.Card == null);
+        public virtual IEnumerator OnNoValidTargets()
         {
-            CombatPhaseManager instance = Singleton<CombatPhaseManager>.Instance;
-            WstlPart1SniperVisualiser visualiser = null;
-            if ((SaveManager.SaveFile?.IsPart1).GetValueOrDefault())
-            {
-                visualiser = instance.GetComponent<WstlPart1SniperVisualiser>() ?? instance.gameObject.AddComponent<WstlPart1SniperVisualiser>();
-            }
-            yield return base.PreSuccessfulTriggerSequence();
-
-            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
-
-            base.Card.Anim.LightNegationEffect();
-            yield return new WaitForSeconds(0.2f);
-
-            // if no targetable allies
-            if (!ValidTargets())
-            {
-                base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.2f);
-
-                yield return OnNoValidAllies();
-                yield break;
-            }
-
-            if (base.Card.OpponentCard)
-            {
-                yield return OpponentSelectTarget(instance, visualiser);
-                yield break;
-            }
-
-            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
-
-            yield return PlayerSelectTarget(instance, visualiser);
-
-            while (!ValidTarget(selectedSlot))
-            {
-                instance.VisualizeClearSniperAbility();
-                visualiser?.VisualizeClearSniperAbility();
-
-                base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.2f);
-
-                if (selectedSlot == base.Card.Slot)
-                    yield return HelperMethods.PlayAlternateDialogue(delay: 0f, dialogue: SelfTargetDialogue);
-                else
-                    yield return HelperMethods.PlayAlternateDialogue(delay: 0f, dialogue: NullTargetDialogue);
-
-                yield return PlayerSelectTarget(instance, visualiser);
-            }
-
-            // Put actual effect here
-            yield return OnValidTargetSelected(selectedSlot.Card);
-
-            instance.VisualizeClearSniperAbility();
-            visualiser?.VisualizeClearSniperAbility();
-
-            yield return new WaitForSeconds(0.2f);
-            yield return base.LearnAbility();
-
-            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
-            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
-
-            yield return OnPostValidTargetSelected();
+            yield break;
         }
-
-        public virtual IEnumerator OnNoValidAllies()
-        {
-            yield return HelperMethods.PlayAlternateDialogue(dialogue: NoAlliesDialogue);
-        }
-        public virtual IEnumerator OnValidTargetSelected(PlayableCard card)
+        public virtual IEnumerator OnValidTargetSelected(CardSlot slot)
         {
             yield break;
         }
@@ -96,37 +30,22 @@ namespace WhistleWind.Core.AbilityClasses
         {
             yield break;
         }
-
-        private IEnumerator OpponentSelectTarget(CombatPhaseManager instance, WstlPart1SniperVisualiser visualiser)
+        public virtual bool CardIsNotValid(PlayableCard card) => card == base.Card;
+        private bool CardSlotIsNotValid(CardSlot slot)
         {
-            List<CardSlot> targetSlots = PossibleTargets();
-            targetSlots.RemoveAll(s => s.Card != null && s.Card != base.Card);
-
-            int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber;
-
-            CardSlot randSlot = targetSlots[SeededRandom.Range(0, targetSlots.Count, randomSeed)];
-
-            instance.VisualizeConfirmSniperAbility(randSlot);
-            visualiser?.VisualizeConfirmSniperAbility(randSlot);
-
-            yield return new WaitForSeconds(0.25f);
-
-            yield return OnValidTargetSelected(randSlot.Card);
-
-            instance.VisualizeClearSniperAbility();
-            visualiser?.VisualizeClearSniperAbility();
-
-            yield return new WaitForSeconds(0.2f);
-
-            yield return OnPostValidTargetSelected();
+            if (slot.Card != null)
+                return CardIsNotValid(slot.Card);
+            return !CanTargetNull;
         }
-
         private IEnumerator PlayerSelectTarget(CombatPhaseManager instance, WstlPart1SniperVisualiser visualiser)
         {
             instance.VisualizeStartSniperAbility(base.Card.Slot);
             visualiser?.VisualizeStartSniperAbility(base.Card.Slot);
 
-            List<CardSlot> targetSlots = PossibleTargets();
+            List<CardSlot> possibleTargets = GetInitialTargets();
+
+            List<CardSlot> targetSlots = GetValidTargets();
+
             CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
 
             if (cardSlot != null && targetSlots.Contains(cardSlot))
@@ -134,41 +53,166 @@ namespace WhistleWind.Core.AbilityClasses
                 instance.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
                 visualiser?.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
             }
-
             selectedSlot = null;
 
-            yield return Singleton<BoardManager>.Instance.ChooseTarget(targetSlots, targetSlots, delegate (CardSlot s)
+            yield return Singleton<BoardManager>.Instance.ChooseTarget(possibleTargets, targetSlots, delegate (CardSlot s)
             {
                 selectedSlot = s;
                 instance.VisualizeConfirmSniperAbility(s);
                 visualiser?.VisualizeConfirmSniperAbility(s);
-            }, null, delegate (CardSlot s)
+            }, OnInvalidTarget, delegate (CardSlot s)
             {
-                instance.VisualizeAimSniperAbility(base.Card.Slot, s);
-                visualiser?.VisualizeAimSniperAbility(base.Card.Slot, s);
-
+                if (CanTargetNull || s.Card != null)
+                {
+                    instance.VisualizeAimSniperAbility(base.Card.Slot, s);
+                    visualiser?.VisualizeAimSniperAbility(base.Card.Slot, s);
+                }
             }, () => false, CursorType.Target);
         }
+        private IEnumerator OpponentSelectTarget(CombatPhaseManager instance, WstlPart1SniperVisualiser visualiser)
+        {
+            List<CardSlot> validTargets = GetValidTargets();
+            validTargets.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card);
+            yield return new WaitForSeconds(0.3f);
+            yield return this.AISelectTarget(validTargets, delegate (CardSlot s)
+            {
+                selectedSlot = s;
+            });
+            if (selectedSlot != null && selectedSlot.Card != null)
+            {
+                instance.VisualizeAimSniperAbility(base.Card.Slot, selectedSlot);
+                visualiser?.VisualizeAimSniperAbility(base.Card.Slot, selectedSlot);
+                yield return new WaitForSeconds(0.3f);
+            }
 
-        private bool ValidTargets()
-        {
-            List<CardSlot> validSlots = PossibleTargets();
-            validSlots.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || x.Card == base.Card);
-            return validSlots.Count() > 0;
+            instance.VisualizeConfirmSniperAbility(selectedSlot);
+            visualiser?.VisualizeConfirmSniperAbility(selectedSlot);
+            yield return new WaitForSeconds(0.25f);
         }
-        private bool ValidTarget(CardSlot targetedSlot)
+        private void OnInvalidTarget(CardSlot slot)
         {
-            return targetedSlot != null && targetedSlot.Card != null && targetedSlot.Card != base.Card && targetedSlot.Index != base.Card.Slot.Index;
+            if (CardSlotIsNotValid(slot) && !Singleton<TextDisplayer>.Instance.Displaying)
+            {
+                string dialogue = InvalidTargetDialogue;
+                if (slot.Card != null)
+                {
+                    if (slot.Card == base.Card)
+                        dialogue = SelfTargetDialogue;
+                }
+                else
+                    dialogue = NullTargetDialogue;
+
+                base.StartCoroutine(Singleton<TextDisplayer>.Instance.ShowThenClear(dialogue, 2.5f, 0f, Emotion.Anger));
+            }
         }
-        private List<CardSlot> PossibleTargets()
+        private IEnumerator AISelectTarget(List<CardSlot> validTargets, Action<CardSlot> chosenCallback)
+        {
+            if (validTargets.Count > 0)
+            {
+                validTargets.Sort((CardSlot a, CardSlot b) => this.AIEvaluateTarget(b.Card, TargetAllies) - this.AIEvaluateTarget(a.Card, TargetAllies));
+                chosenCallback(validTargets[0]);
+                yield return new WaitForSeconds(0.1f);
+            }
+            else
+            {
+                base.Card.Anim.LightNegationEffect();
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+        private int AIEvaluateTarget(PlayableCard card, bool positiveEffect)
+        {
+            if (card == null)
+            {
+                if (CanTargetNull)
+                    return UnityEngine.Random.Range(0, 5);
+                return -1000;
+            }
+            int num = card.PowerLevel;
+            if (card.Info.HasTrait(Trait.Terrain))
+                num = 10 * (!positiveEffect ? 1 : -1);
+            if (card.OpponentCard == positiveEffect)
+                num += 1000;
+            return num;
+        }
+        public bool ValidTargetsExist() => GetValidTargets().Count > 0;
+        public virtual Predicate<CardSlot> InvalidTargets()
+        {
+            return (CardSlot x) => x.Card == null || x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card;
+        }
+        private List<CardSlot> GetValidTargets()
+        {
+            List<CardSlot> validSlots = GetInitialTargets();
+            validSlots.RemoveAll(InvalidTargets());
+            return validSlots;
+        }
+        public List<CardSlot> GetInitialTargets()
         {
             if (TargetAll)
                 return Singleton<BoardManager>.Instance.AllSlotsCopy;
+
             if (TargetAllies)
-            {
                 return base.Card.OpponentCard ? Singleton<BoardManager>.Instance.OpponentSlotsCopy : Singleton<BoardManager>.Instance.PlayerSlotsCopy;
-            }
+
             return base.Card.OpponentCard ? Singleton<BoardManager>.Instance.PlayerSlotsCopy : Singleton<BoardManager>.Instance.OpponentSlotsCopy;
+        }
+        public IEnumerator SelectionSequence()
+        {
+            yield return base.PreSuccessfulTriggerSequence();
+
+            // Lock the view so players can't mess it up
+            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
+
+            base.Card.Anim.LightNegationEffect();
+            yield return new WaitForSeconds(0.2f);
+
+            // If there are no valid targets, break
+            if (!ValidTargetsExist())
+            {
+                base.Card.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.2f);
+
+                yield return HelperMethods.PlayAlternateDialogue(dialogue: NoTargetsDialogue);
+                yield return OnNoValidTargets();
+                Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+                Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+                yield break;
+            }
+
+            // set up the sniper visualiser
+            CombatPhaseManager instance = Singleton<CombatPhaseManager>.Instance;
+            WstlPart1SniperVisualiser visualiser = null;
+            if ((SaveManager.SaveFile?.IsPart1).GetValueOrDefault())
+                visualiser = instance.GetComponent<WstlPart1SniperVisualiser>() ?? instance.gameObject.AddComponent<WstlPart1SniperVisualiser>();
+
+            if (base.Card.OpponentCard)
+            {
+                yield return OpponentSelectTarget(instance, visualiser);
+                if (selectedSlot != null && selectedSlot.Card != null)
+                    yield return new WaitForSeconds(0.3f);
+            }
+            else
+            {
+                // Run player logic
+                Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode);
+                Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+
+                yield return PlayerSelectTarget(instance, visualiser);
+            }
+
+            // clear the sniper icons here so they disappear before the claw does its thing
+            instance.VisualizeClearSniperAbility();
+            visualiser?.VisualizeClearSniperAbility();
+
+            // once a target is selected, run logic
+            yield return OnValidTargetSelected(selectedSlot);
+
+            yield return base.LearnAbility(0.4f);
+            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            yield return new WaitForSeconds(0.2f);
+
+            yield return OnPostValidTargetSelected();
         }
     }
 }

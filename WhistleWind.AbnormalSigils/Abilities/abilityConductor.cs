@@ -1,6 +1,4 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
-using EasyFeedback.APIs;
+﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
@@ -9,6 +7,7 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -65,7 +64,7 @@ namespace WhistleWind.AbnormalSigils
                 // if turn 1, return number of valid adjacent cards
                 if (turnCount == 1)
                     return Singleton<BoardManager>.Instance.GetAdjacentSlots(target.Slot).Where(slot => slot.Card != null).Count();
-                
+
                 if (turnCount > 1)
                 {
                     // add all non-null ally cards minus this card

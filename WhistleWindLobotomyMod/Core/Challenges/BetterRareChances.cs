@@ -1,7 +1,7 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
+﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Ascension;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod.Core.Challenges

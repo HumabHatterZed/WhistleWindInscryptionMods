@@ -1,8 +1,8 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
@@ -15,8 +15,8 @@ namespace WhistleWindLobotomyMod
 
         public static readonly string rName = "Three Birds";
         public static readonly string rDesc = "Gain a special card when Punishing Bird, Judgement Bird, and Big Bird are on the same side of the board.";
-        public override bool RespondsToResolveOnBoard() => true;
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => otherCard.OpponentCard == base.PlayableCard.OpponentCard;
+        public override bool RespondsToResolveOnBoard() => !ConfigManager.Instance.NoEvents;
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !ConfigManager.Instance.NoEvents && otherCard.OpponentCard == base.PlayableCard.OpponentCard;
         public override IEnumerator OnResolveOnBoard() => CheckForOtherCards();
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => CheckForOtherCards();
 

@@ -1,11 +1,11 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
+﻿using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWind.AbnormalSigils;
 
 namespace WhistleWindLobotomyMod
 {
@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardMetaCategory> metaCategories = new()
             {
-                LobotomyCardHelper.SEPHIRAH_CARD
+                LobotomyCardHelper.SephirahCard
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {

@@ -1,8 +1,8 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
+﻿using DiskCardGame;
 using InscryptionAPI.Ascension;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core.Helpers
@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
         {
             if (cardNames.Length == 0)
             {
-                Log.LogError($"Failed to create new start deck: {title}. No cards specified.");
+                Log.LogError($"Failed to create new starter deck: {title}. No cards specified.");
                 return false;
             }
 

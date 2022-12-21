@@ -1,13 +1,11 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
+﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Properties;
-using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using WhistleWind.Core.AbilityClasses;
+using WhistleWind.Core.Helpers;
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
 namespace WhistleWind.AbnormalSigils.Core.Helpers
 {
@@ -86,15 +84,6 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
                     info.AddMetaCategories(AbilityMetaCategory.Part1Modular);
             }
             return info;
-        }
-        private static bool HasFlags(this AbilityGroup config, params AbilityGroup[] flags)
-        {
-            foreach (AbilityGroup flag in flags)
-            {
-                if (!config.HasFlag(flag))
-                    return false;
-            }
-            return true;
         }
     }
 }

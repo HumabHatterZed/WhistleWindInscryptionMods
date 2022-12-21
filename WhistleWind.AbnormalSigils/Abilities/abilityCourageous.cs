@@ -66,7 +66,7 @@ namespace WhistleWind.AbnormalSigils
                 yield return AbnormalDialogueManager.PlayDialogueEvent("CourageousFail");
                 yield break;
             }
-            if (card.HasAnyOfAbilities(Ability.TailOnHit, Ability.Submerge, Cowardly.ability, Ability.SubmergeSquid) || card.Status.hiddenAbilities.Contains(Ability.TailOnHit))
+            if (card.HasAnyOfAbilities(Ability.TailOnHit, Ability.Submerge, Ability.SubmergeSquid) || card.Status.hiddenAbilities.Contains(Ability.TailOnHit))
             {
                 yield return AbnormalDialogueManager.PlayDialogueEvent("CourageousRefuse");
                 yield break;

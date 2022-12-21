@@ -1,12 +1,11 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
-using EasyFeedback.APIs;
+﻿using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {

@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardMetaCategory> metaCategories = new()
             {
-                CardHelper.SEPHIRAH_CARD
+                CardHelper.SephirahCard
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {

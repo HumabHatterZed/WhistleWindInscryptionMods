@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
@@ -22,12 +22,14 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                LoveAndHate.specialAbility
+                LoveAndHate.specialAbility,
+                MagicalGirls.specialAbility
             };
             List<SpecialTriggeredAbility> specialAbilities2 = new()
             {
                 CustomEvolveHelper.specialAbility,
-                LoveAndHate.specialAbility
+                LoveAndHate.specialAbility,
+                MagicalGirls.specialAbility
             };
             List<Tribe> tribes = new()
             {

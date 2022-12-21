@@ -1,9 +1,8 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
+﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Ascension;
 using InscryptionAPI.Regions;
-using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 using static WhistleWindLobotomyMod.Core.Opponents.AbnormalEncounterData;
 

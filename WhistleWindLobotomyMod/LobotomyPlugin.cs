@@ -1,24 +1,25 @@
 ﻿using BepInEx;
 using BepInEx.Bootstrap;
 using BepInEx.Logging;
-using WhistleWind.Core.Helpers;
 using DiskCardGame;
 using HarmonyLib;
 using Infiniscryption.PackManagement;
+using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
 using Sirenix.Utilities;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardHelper;
 using static WhistleWindLobotomyMod.Core.Opponents.AbnormalEncounterData;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
 
 namespace WhistleWindLobotomyMod
 {
@@ -40,16 +41,26 @@ namespace WhistleWindLobotomyMod
 
         public static AssetBundle sephirahBundle;
 
+        public static List<CardInfo> LobotomyCards = new();
+        public static List<CardInfo> ObtainableLobotomyCards = new();
+
         public static Tribe TribeDivine;
         public static Tribe TribeFae;
         public static Tribe TribeHumanoid;
         public static Tribe TribeMachine;
         public static Tribe TribePlant;
 
-        private void OnDisable()
-        {
-            HarmonyInstance.UnpatchSelf();
-        }
+        private static bool _allCardsDisabled;
+        public static bool AllCardsDisabled => _allCardsDisabled;
+
+        private static bool _ruinaCardsDisabled;
+        public static bool RuinaCardsDisabled => _ruinaCardsDisabled;
+
+        private static bool _donatorCardsDisabled;
+        public static bool DonatorCardsDisabled => _donatorCardsDisabled;
+
+        private static RiskLevel _disabledRiskLevels;
+        public static RiskLevel DisabledRiskLevels => _disabledRiskLevels;
 
         private void Awake()
         {
@@ -60,6 +71,11 @@ namespace WhistleWindLobotomyMod
                 Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
             else
             {
+                _allCardsDisabled = ConfigManager.Instance.NoRisk.HasFlag(RiskLevel.All) || ConfigManager.Instance.NoRisk.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
+                _disabledRiskLevels = ConfigManager.Instance.NoRisk;
+                _donatorCardsDisabled = ConfigManager.Instance.NoDonators;
+                _ruinaCardsDisabled = ConfigManager.Instance.NoRuina;
+
                 sephirahBundle = LoadBundle("WhistleWindLobotomyMod/talkingcardssephirah");
 
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
@@ -101,7 +117,29 @@ namespace WhistleWindLobotomyMod
                 Log.LogInfo($"Plugin loaded! Let's get to work manager!");
             }
         }
-        private void Start() => Log.LogInfo($"The clock is at [{ConfigManager.Instance.NumOfBlessings}].");
+
+        private void Start()
+        {
+            if (ConfigManager.Instance.ModEnabled)
+            {
+                if (AllCardsDisabled)
+                    Log.LogWarning("Config DISABLE CARDS is set to [All]. All mod cards have been removed from the pool of obtainable cards");
+                else
+                {
+                    if (DisabledRiskLevels != RiskLevel.None)
+                        Log.LogWarning($"Config DISABLE CARDS is set to [{DisabledRiskLevels}]. Cards with the affected risk level(s) have been removed from the pool of obtainable cards.");
+
+                    if (DonatorCardsDisabled)
+                        Log.LogWarning("Config DISABLE DONATORS is set to true. Some cards have been removed from the pool of obtainable cards.");
+
+                    if (RuinaCardsDisabled)
+                        Log.LogWarning("Config DISABLE RUINA is set to true. Some cards have been removed from the pool of obtainable cards.");
+
+                    Log.LogInfo($"The Clock is at [{ConfigManager.Instance.NumOfBlessings}].");
+                }
+            }
+        }
+        private void OnDisable() => HarmonyInstance.UnpatchSelf();
         private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
         private void AddSpecialAbilities() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
         private void AddNodes() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Node")).ForEach(mi => mi.Invoke(this, null));
@@ -110,6 +148,15 @@ namespace WhistleWindLobotomyMod
             Log.LogDebug("Waking up the Sefirot...");
             SephirahHod.Init();
             SephirahYesod.Init();
+            // SephirahMalkuth.Init();
+            // SephirahNetzach.Init();
+            // SephirahTipherethA.Init();
+            // SephirahTipherethB.Init();
+            // SephirahGebura.Init();
+            // SephirahChesed.Init();
+            // SephirahHokma.Init();
+            // SephirahBinah.Init();
+            // Angela.Init();
         }
         private void AddTribes()
         {
@@ -118,27 +165,21 @@ namespace WhistleWindLobotomyMod
                 TribeAPI.ChangeTribesToTribal();
             else
             {
-                Texture2D divineIcon = TextureLoader.LoadTextureFromBytes(Artwork.tribeDivine);
-                Texture2D faeIcon = TextureLoader.LoadTextureFromBytes(Artwork.tribeFae);
-                Texture2D humanoidIcon = TextureLoader.LoadTextureFromBytes(Artwork.tribeHumanoid);
-                Texture2D machineIcon = TextureLoader.LoadTextureFromBytes(Artwork.tribeMachine);
-                Texture2D plantIcon = TextureLoader.LoadTextureFromBytes(Artwork.tribePlant);
-                TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", divineIcon, true, null);
-                TribeFae = TribeManager.Add(pluginGuid, "FaeTribe", faeIcon, true, null);
-                TribeHumanoid = TribeManager.Add(pluginGuid, "HumanoidTribe", humanoidIcon, true, null);
-                TribeMachine = TribeManager.Add(pluginGuid, "MachineTribe", machineIcon, true, null);
-                TribePlant = TribeManager.Add(pluginGuid, "PlantTribe", plantIcon, true, null);
+                TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeDivine), true, null);
+                TribeFae = TribeManager.Add(pluginGuid, "FaeTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeFae), true, null);
+                TribeHumanoid = TribeManager.Add(pluginGuid, "HumanoidTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeHumanoid), true, null);
+                TribeMachine = TribeManager.Add(pluginGuid, "MachineTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeMachine), true, null);
+                TribePlant = TribeManager.Add(pluginGuid, "PlantTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribePlant), true, null);
             }
         }
         private void AddCards()
         {
-            // if Tribal Libary is installed, the correct tribes will have already been added
-            if (!TribeAPI.Enabled)
+            CardManager.ModifyCardList += delegate (List<CardInfo> cards)
             {
-                // modify cards added by AbnormalSigils to have custom tribes
-                CardManager.ModifyCardList += delegate (List<CardInfo> cards)
+                foreach (CardInfo card in cards.Where(c => c.name.StartsWith("wstl")))
                 {
-                    foreach (CardInfo card in cards.Where(c => c.name.StartsWith("wstl")))
+                    // if TribeAPI isn't installed, add custom tribes to AbnormalSigil cards
+                    if (!TribeAPI.Enabled)
                     {
                         if (card.name.Contains("Brother"))
                             card.AddTribes(TribeHumanoid);
@@ -146,17 +187,14 @@ namespace WhistleWindLobotomyMod
                             card.AddTribes(TribePlant);
                     }
 
-                    return cards;
-                };
-            }
+                    // add AbnormalSigils cards to the list of cards added by this mod
+                    LobotomyCards.Add(card);
+                }
+
+                return cards;
+            };
 
             AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
-
-            if (ConfigManager.Instance.NoDonators)
-                Log.LogDebug("'No Donators' is set to true. Certain cards have been removed from the pool of obtainable cards.");
-
-            if (ConfigManager.Instance.NoRuina)
-                Log.LogDebug("'No Ruina' is set to true. Certain cards have been removed from the pool of obtainable cards.");
         }
         private void AddAbilities()
         {
@@ -188,18 +226,22 @@ namespace WhistleWindLobotomyMod
         }
         private void AddStarterDecks()
         {
+            StarterDeckHelper.AddStarterDeck("Randomised Cards", Artwork.starterDeckRandom, 0,
+                "wstl_RANDOM_PLACEHOLDER", "wstl_RANDOM_PLACEHOLDER", "wstl_RANDOM_PLACEHOLDER");
             StarterDeckHelper.AddStarterDeck("First Day", Artwork.starterDeckControl, 0,
                 "wstl_oneSin", "wstl_fairyFestival", "wstl_oldLady");
             StarterDeckHelper.AddStarterDeck("Lonely Friends", Artwork.starterDeckChildren, 2,
                 "wstl_scorchedGirl", "wstl_laetitia", "wstl_childOfTheGalaxy");
             StarterDeckHelper.AddStarterDeck("Blood Machines", Artwork.starterDeckBloodMachines, 4,
                 "wstl_weCanChangeAnything", "wstl_allAroundHelper", "wstl_singingMachine");
+            /*            StarterDeckHelper.AddStarterDeck("Lonely Friends", Artwork.starterDeckChildren, 6,
+                            "wstl_scorchedGirl", "wstl_laetitia", "wstl_childOfTheGalaxy");*/
             StarterDeckHelper.AddStarterDeck("Road to Oz", Artwork.starterDeckFairyTale, 8,
-                ConfigManager.Instance.NoRuina ? "WolfCub" : "wstl_theRoadHome",
+                RuinaCardsDisabled ? "wstl_laetitia" : "wstl_theRoadHome",
                 "wstl_warmHeartedWoodsman", "wstl_wisdomScarecrow");
             StarterDeckHelper.AddStarterDeck("Magical Girls!", Artwork.starterDeckMagicalGirls, 10,
                 "wstl_magicalGirlHeart", "wstl_magicalGirlDiamond",
-                ConfigManager.Instance.NoRuina ? "wstl_magicalGirlSpade" : "wstl_magicalGirlClover");
+                RuinaCardsDisabled ? "wstl_magicalGirlSpade" : "wstl_magicalGirlClover");
             StarterDeckHelper.AddStarterDeck("Twilight", Artwork.starterDeckBlackForest, 13,
                 "wstl_punishingBird", "wstl_bigBird", "wstl_judgementBird");
         }
@@ -218,38 +260,23 @@ namespace WhistleWindLobotomyMod
             using (Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream(path.Replace("\\", ".").Replace("/", ".")))
                 return AssetBundle.LoadFromStream(s);
         }
+
         public static class PackAPI
         {
-            private static bool? _enabled;
-            public static bool Enabled
-            {
-                get
-                {
-                    _enabled ??= Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
-                    return (bool)_enabled;
-                }
-            }
+            public static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
             public static void CreateCardPack()
             {
                 Log.LogDebug("PackManager is installed, creating card pack...");
                 PackInfo pack = PackManager.GetPackInfo("wstl");
                 pack.Title = "WhistleWind's Lobotomy Mod";
                 pack.SetTexture(TextureLoader.LoadTextureFromBytes(Artwork.wstl_pack));
-                pack.Description = "A set of [count] cards based on the abnormalities from Lobotomy Corporation and Library of Ruina.";
+                pack.Description = "A set of [count] abnormal cards originating from the bleak world of Lobotomy Corporation and Library of Ruina.";
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             }
         }
         public static class TribeAPI
         {
-            private static bool? _enabled;
-            public static bool Enabled
-            {
-                get
-                {
-                    _enabled ??= Chainloader.PluginInfos.ContainsKey("tribes.libary");
-                    return (bool)_enabled;
-                }
-            }
+            public static bool Enabled => Chainloader.PluginInfos.ContainsKey("tribes.libary");
             public static void ChangeTribesToTribal()
             {
                 Log.LogDebug("Tribal Libary detected. Using its tribes instead.");

@@ -850,6 +850,12 @@
   <data name="queenOfHatred_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\queenOfHatred_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="RANDOM_PLACEHOLDER" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\RANDOM_PLACEHOLDER.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="RANDOM_PLACEHOLDER_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\RANDOM_PLACEHOLDER_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="redHoodedMercenary" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\redHoodedMercenary.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -867,6 +873,18 @@
   </data>
   <data name="rudoltaSleigh_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\rudoltaSleigh_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="scaredyCat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\scaredyCat.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="scaredyCatStrong" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\scaredyCatStrong.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="scaredyCatStrong_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\scaredyCatStrong_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="scaredyCat_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\scaredyCat_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="schadenfreude" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\schadenfreude.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1008,6 +1026,9 @@
   </data>
   <data name="starterDeckMagicalGirls" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\starterDeckMagicalGirls.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="starterDeckRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\starterDeckRandom.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="TalkingCardHod_eyes1_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\TalkingCardHod_eyes1_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

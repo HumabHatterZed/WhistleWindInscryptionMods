@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace WhistleWind.Core.Helpers
@@ -57,6 +57,16 @@ namespace WhistleWind.Core.Helpers
                 card.UnassignFromSlot();
                 card.StartCoroutine(card.DestroyWhenStackIsClear());
             }
+        }
+
+        public static bool HasFlags(this Enum config, params Enum[] flags)
+        {
+            foreach (Enum flag in flags)
+            {
+                if (!config.HasFlag(flag))
+                    return false;
+            }
+            return true;
         }
     }
 }

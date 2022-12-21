@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
             List<Tribe> tribes = new();
             if (TribalAPI.Enabled)
                 TribalAPI.AddTribalTribe(tribes, "humanoid");
-            
+
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 CardAppearanceBehaviour.Appearance.TerrainLayout

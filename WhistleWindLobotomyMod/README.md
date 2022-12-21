@@ -7,21 +7,23 @@ The cards in this mod are designed to be as faithful to their original counterpa
 
 Current Features:
 * 94 obtainable cards
-* 6 starter decks for Kaycee's Mod
+* 8 starter decks for Kaycee's Mod
 * 8 challenges/cheats
-* 1 custom choice node
+* 2 custom choice nodes
 * 4 custom bosses
 * And a few combat events!
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1902
-* API_dev-API v2.7.1
+* API_dev-API v2.7.4
 * Infiniscryption-Spell_Card_Toolkit-2.0.0
 * WhistleWind-WhistleWind_Abnormal_Sigils-1.0.0
 
-## ‼️ IMPORTANT NOTICE ‼️
+## ‼️ IMPORTANT 2.0 NOTICES ‼️
 With the 2.0 release, this mod's abilities have been split off into their own mod which you will need to download as well.
 This mod now also requires Infiniscryption's Spell Card Toolkit, so be sure to get both!
+
+The config file has also been reformatted, so any changes you've made to it will need to be carried over.
 
 ## 🩹 Known Bugs and Issues
 ### Custom Boss Challenges
@@ -42,6 +44,9 @@ If you have [Pack Management API](https://inscryption.thunderstore.io/package/In
 a custom card pack will be created representing this mod. That's all :).
 
 ## 💌 Credits/Acknowledgements
+Concept/Inspiration/First to make a mod based on Lobotomy Corporation
+- KingSlime
+
 Artwork and coding:
 - WhistleWind
 
@@ -51,7 +56,7 @@ Testing:
 ReadMe cost icons:
 - James Veug (ReadmeMaker)
 
-Special mentions for Arackulele, divsionbyz0rro, and julien-perge for having public GitHubs I can ~~steal~~borrow code from.
+Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public GitHubs I could ~~steal~~borrow code from.
 
 ## ⚖️ Changelog -- Latest Update - v2.0.0; "The One, Perfect Book" (?/??/202?)
 To see the details of the current update, please see the FULL_CHANGELOG (included with the mod file when you download it)

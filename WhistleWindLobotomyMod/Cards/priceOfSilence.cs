@@ -1,7 +1,7 @@
 ﻿using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {

@@ -6,9 +6,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using static WhistleWindLobotomyMod.LobotomyPlugin;
 using WhistleWind.Core.Helpers;
-using TribalLibary;
+using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core.Helpers
 {
@@ -23,14 +22,17 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             Restricted = 4,     // Can't be used at any modification nodes
             Ruina = 8           // From Ruina expansion
         }
+
+        [Flags]
         public enum RiskLevel
         {
-            None,
-            Zayin,
-            Teth,
-            He,
-            Waw,
-            Aleph
+            None = 0,
+            Zayin = 1,
+            Teth = 2,
+            He = 4,
+            Waw = 8,
+            Aleph = 16,
+            All = 32
         }
         public enum SpellType
         {
@@ -42,11 +44,11 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             TargetedStatsSigils
         }
 
-        public static CardMetaCategory SEPHIRAH_CARD = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "SEPHIRAH_CARD");
-        public static CardMetaCategory CANNOT_GIVE_SIGILS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_GIVE_SIGILS");
-        public static CardMetaCategory CANNOT_GAIN_SIGILS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_GAIN_SIGILS");
-        public static CardMetaCategory CANNOT_BUFF_STATS = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_BUFF_STATS");
-        public static CardMetaCategory CANNOT_COPY_CARD = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CANNOT_COPY_CARD");
+        public static CardMetaCategory SephirahCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "SephirahCard");
+        public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
+        public static CardMetaCategory CannotGainSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGainSigils");
+        public static CardMetaCategory CannotBoostStats = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotBoostStats");
+        public static CardMetaCategory CannotCopyCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotCopyCard");
 
         // Cards
         public static void CreateCard(
@@ -79,35 +81,29 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             Tribe customTribe = Tribe.None
             )
         {
-            string risk = riskLevel switch
-            {
-                RiskLevel.Zayin => "Zayin",
-                RiskLevel.Teth => "Teth",
-                RiskLevel.He => "He",
-                RiskLevel.Waw => "Waw",
-                RiskLevel.Aleph => "Aleph",
-                _ => null
-            };
-
+            // if this is an event card
             bool eventCard = modTypes.HasFlag(ModCardType.EventCard);
+            bool riskDisabled = riskLevel != RiskLevel.None && DisabledRiskLevels.HasFlag(riskLevel);
+            bool donatorDisabled = DonatorCardsDisabled && modTypes.HasFlag(ModCardType.Donator);
+            bool ruinaDisabled = RuinaCardsDisabled && modTypes.HasFlag(ModCardType.Ruina);
 
-            bool disableDonators = ConfigManager.Instance.NoDonators && modTypes.HasFlag(ModCardType.Donator);
-            bool disableRuina = ConfigManager.Instance.NoRuina && modTypes.HasFlag(ModCardType.Ruina);
-
-            if (eventCard || disableDonators || disableRuina)
+            // mark disabled and event cards has non-choices (don't show up in card choices)
+            if (AllCardsDisabled || riskDisabled || eventCard || donatorDisabled || ruinaDisabled)
             {
                 if (!metaTypes.HasFlag(CardHelper.CardMetaType.NonChoice))
                     metaTypes++;
             }
 
             // Create initial card info
-            CardInfo cardInfo = CardHelper.CreateCardInfo
-                (name, displayName, description,
+            CardInfo cardInfo = CardHelper.CreateCardInfo(
+                name, displayName, description,
                 atk, hp, blood, bones, energy,
                 portrait, emission, pixelTexture, altTexture, emissionAltTexture, titleTexture,
                 abilities, specialAbilities, metaCategories, tribes, traits, appearances, decals, statIcon,
-                choiceType, metaTypes, iceCubeName, evolveName, numTurns, onePerDeck, hideStats);
+                choiceType, metaTypes, iceCubeName, evolveName, numTurns, onePerDeck, hideStats
+                );
 
+            // for animated cards
             if (face != null)
                 cardInfo.animatedPortrait = face;
 
@@ -118,10 +114,11 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             if (customTribe != Tribe.None)
                 cardInfo.AddTribes(customTribe);
 
-            if (risk != null)
-                cardInfo.SetExtendedProperty("wstl:RiskLevel", risk);
+            // set risk level
+            if (!AllCardsDisabled && !riskDisabled)
+                cardInfo.SetExtendedProperty("wstl:RiskLevel", riskLevel.ToString());
 
-            // since event cards can't be obtained normally, set 
+            // add the event card background
             if (eventCard)
             {
                 if (choiceType == CardHelper.CardChoiceType.Rare)
@@ -130,6 +127,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
                     cardInfo.AddAppearances(EventBackground.appearance);
             }
 
+            // set spells
             if (spellType == SpellType.Global)
             {
                 cardInfo.SetGlobalSpell();
@@ -161,19 +159,23 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             if (modTypes.HasFlag(ModCardType.Restricted))
                 cardInfo.SetNodeRestrictions(true, true, true, true);
 
+            LobotomyCards.Add(cardInfo);
+            if (cardInfo.metaCategories.Exists(mc => mc == CardMetaCategory.ChoiceNode || mc == CardMetaCategory.Rare || mc == SephirahCard))
+                ObtainableLobotomyCards.Add(cardInfo);
+
             CardManager.Add(pluginPrefix, cardInfo);
         }
 
         private static CardInfo SetNodeRestrictions(this CardInfo card, bool give, bool gain, bool buff, bool copy)
         {
             if (give)
-                card.AddMetaCategories(CANNOT_GIVE_SIGILS);
+                card.AddMetaCategories(CannotGiveSigils);
             if (gain)
-                card.AddMetaCategories(CANNOT_GAIN_SIGILS);
+                card.AddMetaCategories(CannotGainSigils);
             if (buff)
-                card.AddMetaCategories(CANNOT_BUFF_STATS);
+                card.AddMetaCategories(CannotBoostStats);
             if (copy)
-                card.AddMetaCategories(CANNOT_COPY_CARD);
+                card.AddMetaCategories(CannotCopyCard);
             return card;
         }
     }

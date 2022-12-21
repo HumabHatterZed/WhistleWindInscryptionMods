@@ -1,12 +1,10 @@
-﻿using WhistleWind.Core.Helpers;
-using DiskCardGame;
-using InscryptionAPI.Card;
+﻿using DiskCardGame;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using System.Linq;
 
 namespace WhistleWindLobotomyMod
 {

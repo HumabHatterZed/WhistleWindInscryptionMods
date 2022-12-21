@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Helpers;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,8 +12,9 @@ namespace WhistleWindLobotomyMod.Core
         {
             { "AbnormalChoiceNodeIntro", new() {
                 "You enter a clearing surrounded by dark, twisting trees.",
-                "The moon leers down at you as the trees claw at the sky.",
-                "[c:bR]3[c:] creatures emerge from the shadows before you. Powerful, mysterious...",
+                "Their branches claw at the leering moon as you approach the well at the clearing's centre.",
+                "Unearthly voices arise from the its inky depths, pleading, screaming, wishing and wanting.",
+                "There are things in the well, waiting to be drawn up. Powerful, mysterious,",
                 "[c:bR]abnormal[c:]." }},
             #region Apocalypse Bird
             { "ApocalypseBirdIntro", new() { "Let me tell you a story. The story of the [c:bR]Black Forest[c:]." }},
