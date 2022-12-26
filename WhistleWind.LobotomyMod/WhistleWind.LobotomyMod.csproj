@@ -29,10 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="talkingcardssephirah" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <Reference Include="InscryptionAPI" Private="false">
       <HintPath>..\lib\InscryptionAPI.dll</HintPath>
     </Reference>
@@ -45,6 +41,10 @@
     <Reference Include="Infiniscryption.PackManager" Private="false">
       <HintPath>..\lib\Infiniscryption.PackManager.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="talkingcardssephirah" />
   </ItemGroup>
 	
 	<ItemGroup>

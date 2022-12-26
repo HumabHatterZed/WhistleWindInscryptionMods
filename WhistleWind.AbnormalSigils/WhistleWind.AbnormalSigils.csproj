@@ -27,17 +27,17 @@
 	  <ProjectReference Include="..\Core\Core.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Reference Include="InscryptionAPI" Private="false">
-			<HintPath>..\lib\InscryptionAPI.dll</HintPath>
-		</Reference>
+  <ItemGroup>
+    <Reference Include="InscryptionAPI" Private="false">
+      <HintPath>..\lib\InscryptionAPI.dll</HintPath>
+    </Reference>
     <Reference Include="InscryptionCommunityPatch" Private="false">
       <HintPath>..\lib\InscryptionCommunityPatch.dll</HintPath>
     </Reference>
     <Reference Include="TribeLibary" Private="false">
       <HintPath>..\lib\TribeLibary.dll</HintPath>
     </Reference>
-	</ItemGroup>
+  </ItemGroup>
 	
 	<ItemGroup>
 		<Compile Update="Properties\Artwork.Designer.cs">

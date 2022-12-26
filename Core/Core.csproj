@@ -16,15 +16,15 @@
 		<PackageReference Include="Inscryption.GameLibs" Version="1.9.0-r.0" />
 		<PackageReference Include="UnityEngine.Modules" Version="2019.4.24" IncludeAssets="compile" />
 	</ItemGroup>
-  
-	<ItemGroup>
-		<Reference Include="InscryptionAPI" Private="false">
-			<HintPath>..\lib\InscryptionAPI.dll</HintPath>
-		</Reference>
+
+  <ItemGroup>
+    <Reference Include="InscryptionAPI" Private="false">
+      <HintPath>..\lib\InscryptionAPI.dll</HintPath>
+    </Reference>
     <Reference Include="InscryptionCommunityPatch" Private="false">
       <HintPath>..\lib\InscryptionCommunityPatch.dll</HintPath>
     </Reference>
-	</ItemGroup>
+  </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
