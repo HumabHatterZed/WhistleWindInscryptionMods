@@ -1,10 +1,10 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using System.IO;
-using WhistleWindLobotomyMod.Core.Helpers;
-using static WhistleWindLobotomyMod.LobotomyPlugin;
+using WhistleWind.LobotomyMod.Core.Helpers;
+using static WhistleWind.LobotomyMod.LobotomyPlugin;
 
-namespace WhistleWindLobotomyMod.Core
+namespace WhistleWind.LobotomyMod.Core
 {
     public class LobotomyConfigManager // Taken from GrimoraMod
     {
@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod.Core
         public static LobotomyConfigManager Instance => wstl_Instance ??= new LobotomyConfigManager();
 
         private readonly ConfigFile WstlConfigFile = new(
-            Path.Combine(Paths.ConfigPath, "wstl.inscryption.lobotomycorp.cfg"), true);
+            Path.Combine(Paths.ConfigPath, "whistlewind.inscryption.lobotomymod.cfg"), true);
 
         #region Config
 

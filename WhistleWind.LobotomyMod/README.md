@@ -48,6 +48,9 @@ Inspiration/First-to-make-a-mod-based-on-Lobotomy-Corporation
 Artwork and coding:
 - WhistleWind
 
+Consultation/Fellow Collaborator:
+- Orochi Umbra
+
 Testing:
 - Orochi Umbra, Rengar, yam the nokia
 

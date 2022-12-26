@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using System.Collections;
-using WhistleWindLobotomyMod.Core;
+using WhistleWind.LobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod.Patches
+namespace WhistleWind.LobotomyMod.Patches
 {
     [HarmonyPatch(typeof(Opponent))]
     public class OpponentPatch

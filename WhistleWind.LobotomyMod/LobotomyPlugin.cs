@@ -6,6 +6,7 @@ using HarmonyLib;
 using Infiniscryption.PackManagement;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
+using InscryptionAPI.Helpers;
 using InscryptionAPI.Regions;
 using Sirenix.Utilities;
 using System.Collections.Generic;
@@ -14,14 +15,14 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Challenges;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardHelper;
-using static WhistleWindLobotomyMod.Core.Opponents.AbnormalEncounterData;
+using WhistleWind.LobotomyMod.Core;
+using WhistleWind.LobotomyMod.Core.Challenges;
+using WhistleWind.LobotomyMod.Core.Helpers;
+using WhistleWind.LobotomyMod.Properties;
+using static WhistleWind.LobotomyMod.Core.Helpers.LobotomyCardHelper;
+using static WhistleWind.LobotomyMod.Core.Opponents.AbnormalEncounterData;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.LobotomyMod
 {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
     [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
@@ -31,7 +32,7 @@ namespace WhistleWindLobotomyMod
 
     public partial class LobotomyPlugin : BaseUnityPlugin
     {
-        public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
+        public const string pluginGuid = "whistlewind.inscryption.lobotomymod";
         public const string pluginPrefix = "wstl";
         public const string pluginName = "WhistleWind Lobotomy Mod";
         private const string pluginVersion = "2.0.0";
@@ -76,8 +77,8 @@ namespace WhistleWindLobotomyMod
                 _donatorCardsDisabled = LobotomyConfigManager.Instance.NoDonators;
                 _ruinaCardsDisabled = LobotomyConfigManager.Instance.NoRuina;
 
-                sephirahBundle = LoadBundle("WhistleWindLobotomyMod/talkingcardssephirah");
-
+                sephirahBundle = LoadBundle("WhistleWind.LobotomyMod/talkingcardssephirah");
+                
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
                 if (LobotomyConfigManager.Instance.NumOfBlessings > 11)

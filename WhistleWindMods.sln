@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModDebuggingMod", "ModDebug
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhistleWind.LobotomyMod", "WhistleWind.LobotomyMod\WhistleWind.LobotomyMod.csproj", "{4EE9915A-BE35-4E9E-BF0A-BFE3ACB430BA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhistleWindLobotomyMod", "WhistleWindLobotomyMod\WhistleWindLobotomyMod.csproj", "{8E75EDC1-379E-4574-9961-8CB082862BDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{4EE9915A-BE35-4E9E-BF0A-BFE3ACB430BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EE9915A-BE35-4E9E-BF0A-BFE3ACB430BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EE9915A-BE35-4E9E-BF0A-BFE3ACB430BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E75EDC1-379E-4574-9961-8CB082862BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E75EDC1-379E-4574-9961-8CB082862BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E75EDC1-379E-4574-9961-8CB082862BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E75EDC1-379E-4574-9961-8CB082862BDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

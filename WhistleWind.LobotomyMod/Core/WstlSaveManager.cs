@@ -1,6 +1,6 @@
 ﻿using InscryptionAPI.Saves;
 
-namespace WhistleWindLobotomyMod.Core
+namespace WhistleWind.LobotomyMod.Core
 {
     public static partial class WstlSaveManager
     {

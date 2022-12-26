@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.LobotomyMod.Core.Helpers;
+using WhistleWind.LobotomyMod.Properties;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.LobotomyMod
 {
     public partial class LobotomyPlugin
     {

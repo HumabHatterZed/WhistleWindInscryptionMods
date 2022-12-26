@@ -3,9 +3,9 @@ using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core.Opponents.TrapperTrader;
+using WhistleWind.LobotomyMod.Core.Opponents.TrapperTrader;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Leshy
+namespace WhistleWind.LobotomyMod.Core.Opponents.Leshy
 {
     public class LeshyAbnormalBossOpponent : LeshyBossOpponent
     {

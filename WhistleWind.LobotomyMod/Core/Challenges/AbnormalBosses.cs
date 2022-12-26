@@ -7,14 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Opponents.Angler;
-using WhistleWindLobotomyMod.Core.Opponents.Leshy;
-using WhistleWindLobotomyMod.Core.Opponents.PirateSkull;
-using WhistleWindLobotomyMod.Core.Opponents.Prospector;
-using WhistleWindLobotomyMod.Core.Opponents.TrapperTrader;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.LobotomyMod.Core.Opponents.Angler;
+using WhistleWind.LobotomyMod.Core.Opponents.Leshy;
+using WhistleWind.LobotomyMod.Core.Opponents.PirateSkull;
+using WhistleWind.LobotomyMod.Core.Opponents.Prospector;
+using WhistleWind.LobotomyMod.Core.Opponents.TrapperTrader;
+using WhistleWind.LobotomyMod.Properties;
 
-namespace WhistleWindLobotomyMod.Core.Challenges
+namespace WhistleWind.LobotomyMod.Core.Challenges
 {
     public static class AbnormalBosses // taken from infiniscryption
     {

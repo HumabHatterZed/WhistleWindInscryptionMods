@@ -6,12 +6,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Challenges;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.LobotomyMod.Core;
+using WhistleWind.LobotomyMod.Core.Challenges;
+using WhistleWind.LobotomyMod.Core.Helpers;
+using WhistleWind.LobotomyMod.Properties;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.LobotomyMod
 {
     public partial class LobotomyPlugin
     {

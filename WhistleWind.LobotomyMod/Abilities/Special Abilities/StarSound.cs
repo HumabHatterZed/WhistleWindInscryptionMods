@@ -2,9 +2,9 @@
 using InscryptionAPI.Triggers;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.LobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.LobotomyMod
 {
     public class StarSound : SpecialCardBehaviour, IGetOpposingSlots
     {

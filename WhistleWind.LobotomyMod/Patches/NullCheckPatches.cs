@@ -2,7 +2,7 @@
 using HarmonyLib;
 using System.Collections;
 
-namespace WhistleWindLobotomyMod.Patches
+namespace WhistleWind.LobotomyMod.Patches
 {
     [HarmonyPatch(typeof(Strafe))]
     public static class StrafePatch

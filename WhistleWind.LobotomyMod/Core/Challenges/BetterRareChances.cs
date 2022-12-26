@@ -2,9 +2,9 @@
 using HarmonyLib;
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.LobotomyMod.Properties;
 
-namespace WhistleWindLobotomyMod.Core.Challenges
+namespace WhistleWind.LobotomyMod.Core.Challenges
 {
     public static class BetterRareChances
     {

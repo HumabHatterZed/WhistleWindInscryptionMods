@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using static WhistleWindLobotomyMod.LobotomyPlugin;
+using static WhistleWind.LobotomyMod.LobotomyPlugin;
 
-namespace WhistleWindLobotomyMod.Core.Helpers
+namespace WhistleWind.LobotomyMod.Core.Helpers
 {
     public static class LobotomyCardHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {

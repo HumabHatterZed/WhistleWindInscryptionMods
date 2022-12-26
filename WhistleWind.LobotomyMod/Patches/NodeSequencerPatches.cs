@@ -2,9 +2,9 @@
 using HarmonyLib;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.LobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Patches
+namespace WhistleWind.LobotomyMod.Patches
 {
     [HarmonyPatch(typeof(CardMergeSequencer))]
     public static class CardMergePatches

@@ -3,7 +3,7 @@ using HarmonyLib;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 
-namespace WhistleWindLobotomyMod.Patches
+namespace WhistleWind.LobotomyMod.Patches
 {
     [HarmonyPatch(typeof(DefaultDeathCards))]
     public static class DefaultDeathCardsPatch

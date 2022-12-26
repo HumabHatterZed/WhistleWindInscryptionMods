@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.LobotomyMod.Core;
+using WhistleWind.LobotomyMod.Core.Helpers;
+using WhistleWind.LobotomyMod.Properties;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.LobotomyMod
 {
     public partial class LobotomyPlugin
     {

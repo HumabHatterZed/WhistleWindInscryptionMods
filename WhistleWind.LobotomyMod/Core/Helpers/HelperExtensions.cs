@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace WhistleWindLobotomyMod.Core.Helpers
+namespace WhistleWind.LobotomyMod.Core.Helpers
 {
     public static class LobotomyHelperExtensions
     {

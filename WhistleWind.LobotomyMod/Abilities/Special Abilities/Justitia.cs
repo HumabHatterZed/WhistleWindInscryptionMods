@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
-using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.LobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.LobotomyMod
 {
     public class RulebookEntryJustitia : AbilityBehaviour
     {

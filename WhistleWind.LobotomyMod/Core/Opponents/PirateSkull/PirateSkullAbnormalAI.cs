@@ -2,7 +2,7 @@
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.PirateSkull
+namespace WhistleWind.LobotomyMod.Core.Opponents.PirateSkull
 {
     public class PirateSkullAbnormalAI : AI
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WhistleWindLobotomyMod.Properties {
+namespace WhistleWind.LobotomyMod.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WhistleWindLobotomyMod.Properties.Artwork", typeof(Artwork).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WhistleWind.LobotomyMod.Properties.Artwork", typeof(Artwork).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

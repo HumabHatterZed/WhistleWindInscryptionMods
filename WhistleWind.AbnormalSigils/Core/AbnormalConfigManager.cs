@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils.Core
         public static AbnormalConfigManager Instance => wstl_Instance ??= new AbnormalConfigManager();
 
         private readonly ConfigFile WstlConfigFile = new(
-            Path.Combine(Paths.ConfigPath, "wstl.inscryption.abnormalsigils.cfg"), true);
+            Path.Combine(Paths.ConfigPath, "whistlewind.inscryption.abnormalsigils.cfg"), true);
 
         private ConfigEntry<bool> Config_EnableMod;
         public bool EnableMod => Config_EnableMod.Value;

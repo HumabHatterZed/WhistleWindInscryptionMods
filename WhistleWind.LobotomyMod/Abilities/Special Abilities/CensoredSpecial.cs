@@ -3,10 +3,10 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.LobotomyMod.Core;
+using WhistleWind.LobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.LobotomyMod
 {
     public class CensoredSpecial : SpecialCardBehaviour
     {

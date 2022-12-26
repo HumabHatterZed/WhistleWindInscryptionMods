@@ -3,10 +3,10 @@ using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.LobotomyMod.Core;
+using WhistleWind.LobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Patches
+namespace WhistleWind.LobotomyMod.Patches
 {
     [HarmonyPatch(typeof(AscensionSaveData))]
     internal static class AscensionSaveDataPatch

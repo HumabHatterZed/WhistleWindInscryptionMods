@@ -2,7 +2,7 @@
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Prospector
+namespace WhistleWind.LobotomyMod.Core.Opponents.Prospector
 {
     public class ProspectorAbnormalAI : ProspectorAI
     {

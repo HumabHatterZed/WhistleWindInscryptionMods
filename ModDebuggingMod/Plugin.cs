@@ -90,7 +90,7 @@ namespace ModDebuggingMod
                         {
                             print(item.name);
                         }*/
-            ModifyCardList("Squirrel", Debug.ability);
+            ModifyCardList("Squirrel");
             Logger.LogInfo($"{pluginName} loaded.");
         }
 

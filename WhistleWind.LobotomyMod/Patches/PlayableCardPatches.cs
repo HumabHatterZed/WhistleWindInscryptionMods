@@ -4,7 +4,7 @@ using System.Collections;
 using WhistleWind.Core.Helpers;
 
 // Patches to make abilities function properly
-namespace WhistleWindLobotomyMod.Patches
+namespace WhistleWind.LobotomyMod.Patches
 {
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardPatches

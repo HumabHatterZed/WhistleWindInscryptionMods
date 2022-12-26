@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Prospector
+namespace WhistleWind.LobotomyMod.Core.Opponents.Prospector
 {
     public class ProspectorAbnormalBattleSequencer : ProspectorBattleSequencer
     {

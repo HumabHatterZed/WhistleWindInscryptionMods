@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
-using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.LobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Core
+namespace WhistleWind.LobotomyMod.Core
 {
     public static class ModCardLoader // Methods specific to getting modded cards
     {

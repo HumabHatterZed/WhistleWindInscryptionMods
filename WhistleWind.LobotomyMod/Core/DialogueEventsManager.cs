@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod.Core
+namespace WhistleWind.LobotomyMod.Core
 {
     public static class DialogueEventsManager // Base code taken from GrimoraMod and SigilADay_julienperge
     {

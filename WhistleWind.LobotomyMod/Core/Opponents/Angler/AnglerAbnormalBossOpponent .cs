@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Core.SpecialSequencers;
+using WhistleWind.LobotomyMod.Core.Helpers;
+using WhistleWind.LobotomyMod.Core.SpecialSequencers;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Angler
+namespace WhistleWind.LobotomyMod.Core.Opponents.Angler
 {
     public class AnglerAbnormalBossOpponent : AnglerBossOpponent
     {

@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using System.Collections.Generic;
-using WhistleWindLobotomyMod.Core;
+using WhistleWind.LobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod.Patches
+namespace WhistleWind.LobotomyMod.Patches
 {
     [HarmonyPatch(typeof(CardLoader))]
     public static class CardLoaderPatch

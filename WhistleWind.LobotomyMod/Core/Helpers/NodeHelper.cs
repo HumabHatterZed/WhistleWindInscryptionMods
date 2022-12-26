@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.LobotomyPlugin;
+using WhistleWind.LobotomyMod.Properties;
+using static WhistleWind.LobotomyMod.LobotomyPlugin;
 
-namespace WhistleWindLobotomyMod.Core.Helpers
+namespace WhistleWind.LobotomyMod.Core.Helpers
 {
     public static class NodeHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {

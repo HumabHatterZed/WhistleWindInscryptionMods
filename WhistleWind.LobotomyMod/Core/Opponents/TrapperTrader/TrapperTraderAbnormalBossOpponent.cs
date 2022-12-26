@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core.SpecialSequencers;
+using WhistleWind.LobotomyMod.Core.SpecialSequencers;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.TrapperTrader
+namespace WhistleWind.LobotomyMod.Core.Opponents.TrapperTrader
 {
     public class TrapperTraderAbnormalBossOpponent : TrapperTraderBossOpponent
     {

@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Core.SpecialSequencers;
+using WhistleWind.LobotomyMod.Core.Helpers;
+using WhistleWind.LobotomyMod.Core.SpecialSequencers;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Prospector
+namespace WhistleWind.LobotomyMod.Core.Opponents.Prospector
 {
     public class ProspectorAbnormalBossOpponent : ProspectorBossOpponent
     {

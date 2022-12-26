@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using static WhistleWindLobotomyMod.Core.Helpers.EncounterHelper;
+using static WhistleWind.LobotomyMod.Core.Helpers.EncounterHelper;
 
-namespace WhistleWindLobotomyMod.Core.Opponents
+namespace WhistleWind.LobotomyMod.Core.Opponents
 {
     public class AbnormalEncounterData
     {

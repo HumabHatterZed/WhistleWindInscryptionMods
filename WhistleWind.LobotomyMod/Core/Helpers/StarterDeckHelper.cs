@@ -3,9 +3,9 @@ using InscryptionAPI.Ascension;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using static WhistleWindLobotomyMod.LobotomyPlugin;
+using static WhistleWind.LobotomyMod.LobotomyPlugin;
 
-namespace WhistleWindLobotomyMod.Core.Helpers
+namespace WhistleWind.LobotomyMod.Core.Helpers
 {
     public static class StarterDeckHelper // Methods specific to getting modded cards
     {

@@ -2,9 +2,9 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
+using WhistleWind.LobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.LobotomyMod
 {
     public class CustomEvolveHelper : SpecialCardBehaviour
     {

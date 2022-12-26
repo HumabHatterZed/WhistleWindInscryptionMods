@@ -2,7 +2,7 @@
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Core.Helpers
+namespace WhistleWind.LobotomyMod.Core.Helpers
 {
     public static class LobotomyItemHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {

@@ -2,7 +2,7 @@
 using HarmonyLib;
 using InscryptionAPI.Card;
 
-namespace WhistleWindLobotomyMod.Patches
+namespace WhistleWind.LobotomyMod.Patches
 {
     [HarmonyPatch]
     internal class RulebookPatches

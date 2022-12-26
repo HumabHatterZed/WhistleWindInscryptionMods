@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.LobotomyMod
 {
     public partial class LobotomyPlugin
     {

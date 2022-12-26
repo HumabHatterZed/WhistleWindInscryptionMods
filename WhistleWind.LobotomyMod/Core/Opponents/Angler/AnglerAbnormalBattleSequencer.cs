@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Angler
+namespace WhistleWind.LobotomyMod.Core.Opponents.Angler
 {
     public class AnglerAbnormalBattleSequencer : AnglerBattleSequencer
     {

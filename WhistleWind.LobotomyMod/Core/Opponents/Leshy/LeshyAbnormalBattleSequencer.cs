@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Leshy
+namespace WhistleWind.LobotomyMod.Core.Opponents.Leshy
 {
     public class LeshyAbnormalBattleSequencer : LeshyBattleSequencer
     {

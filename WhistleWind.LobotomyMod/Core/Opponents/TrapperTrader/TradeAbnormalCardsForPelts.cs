@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.TrapperTrader
+namespace WhistleWind.LobotomyMod.Core.Opponents.TrapperTrader
 {
     public class TradeAbnormalCardsForPelts : TradeCardsForPelts
     {
