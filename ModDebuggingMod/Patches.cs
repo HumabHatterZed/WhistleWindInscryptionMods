@@ -16,9 +16,9 @@ namespace ModDebuggingMod
             {
                 PredefinedNodes nodes = ScriptableObject.CreateInstance<PredefinedNodes>();
                 nodes.nodeRows.Add(new() { StartNode });
-                nodes.nodeRows.Add(new() { BattleNode });
-                nodes.nodeRows.Add(new() { ItemNode });
-                nodes.nodeRows.Add(new() { ItemNode });
+                nodes.nodeRows.Add(new() { BattleNode, MergeNode });
+                nodes.nodeRows.Add(new() { ItemNode, BattleNode });
+                nodes.nodeRows.Add(new() { ItemNode, BattleNode });
                 //nodes.nodeRows.Add(new() { ItemNode, MergeNode, BattleNode });
                 //nodes.nodeRows.Add(new() { TraderNode });
                 __instance.PredefinedNodes = nodes;

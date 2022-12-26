@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_parasiteTreeSapling", "Sapling",
-                "They proliferate and become whole. Can you feel it?",
+                "",
                 atk: 0, hp: 2,
                 blood: 0, bones: 0, energy: 0,
                 Artwork.parasiteTreeSapling, Artwork.parasiteTreeSapling_emission,

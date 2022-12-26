@@ -25,29 +25,34 @@ namespace WhistleWindLobotomyMod
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.2.5";
+        private const string pluginVersion = "1.3.0";
 
         internal static ManualLogSource Log;
         private static Harmony harmony = new(pluginGuid);
         
-        private void OnDisable()
+        private void OnDisable() => harmony.UnpatchSelf();
+        private void Start()
         {
-            harmony.UnpatchSelf();
-        }
+            if (NewVersion.Enabled)
+                Log.LogError("A NEW VERSION OF THIS MOD IS ALSO INSTALLED!" +
+                    "\nIf you have just updated, please remove both this DLL from your plugins folder, as well as the old config file ending in 'lobotomycorp'." +
+                    "\nIf you are trying to play the pre-2.0 version, please remove or otherwise disable the 2.0 version.");
+            else
+            {
+                if (ConfigManager.Instance.NoDonators)
+                    Log.LogInfo("No Donators is set to true. Certain cards have been removed from the pool of obtainable cards.");
 
-        private void Start() =>
-            Log.LogError("A NEW VERSION OF THIS MOD IS ALSO INSTALLED!" +
-                "\nIf you have just updated, please remove this DLL from your plugins folder as well as the old config file (new config ends in 'lobotomymod'." +
-                "\nIf you are trying to play the pre-2.0 version, please remove or otherwise disable the 2.0 version.");
+                Logger.LogInfo($"The clock is at [{ConfigManager.Instance.NumOfBlessings}].");
+            }
+        }
         private void Awake()
         {
             WstlPlugin.Log = base.Logger;
 
+            ConfigManager.Instance.BindConfig();
+
             if (NewVersion.Enabled)
                 return;
-
-            harmony.PatchAll();
-            ConfigManager.Instance.BindConfig();
 
             if (!ConfigManager.Instance.ModEnabled)
             {
@@ -55,6 +60,8 @@ namespace WhistleWindLobotomyMod
             }
             else
             {
+                harmony.PatchAll();
+
                 if (ConfigManager.Instance.NumOfBlessings > 11)
                 {
                     ConfigManager.Instance.SetBlessings(11);
@@ -75,23 +82,18 @@ namespace WhistleWindLobotomyMod
                 if (PackAPI.Enabled)
                     PackAPI.CreateCardPack();
 
-
-                Logger.LogInfo($"The clock is at [{ConfigManager.Instance.NumOfBlessings}].");
                 Logger.LogInfo($"{pluginName} loaded! Let's get to work manager!");
             }
         }
-        private void AddAppearances()
-        {
-            AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
-        }
-        private void AddSpecialAbilities()
-        {
-            AccessTools.GetDeclaredMethods(typeof(WstlPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
-        }
-        private void AddNodes()
-        {
-            Node_ModCardChoice();
-        }
+        private void AddAppearances() =>
+            AccessTools.GetDeclaredMethods(typeof(WstlPlugin))
+            .Where(mi => mi.Name.StartsWith("Appearance"))
+            .ForEach(mi => mi.Invoke(this, null));
+        private void AddSpecialAbilities() =>
+            AccessTools.GetDeclaredMethods(typeof(WstlPlugin))
+            .Where(mi => mi.Name.StartsWith("SpecialAbility"))
+            .ForEach(mi => mi.Invoke(this, null));
+        private void AddNodes() => Node_ModCardChoice();
         private void AddChallenges()
         {
             MiracleWorker.Register(harmony);
@@ -101,12 +103,6 @@ namespace WhistleWindLobotomyMod
         }
         private static void AddStarterDecks()
         {
-            /*StarterDeckHelper.AddStartDeck("Debug", Resources.starterDeckControl, new()
-            {
-                CardLoader.GetCardByName("wstl_testingDummy"),
-                CardLoader.GetCardByName("wstl_testingDummy"),
-                CardLoader.GetCardByName("wstl_testingDummy")
-            }, 0);*/
             StarterDeckHelper.AddStartDeck("First Day", Resources.starterDeckControl, new()
             {
                 CardLoader.GetCardByName("wstl_oneSin"),
@@ -165,57 +161,52 @@ namespace WhistleWindLobotomyMod
         }
         private void AddAbilities()
         {
-            if (!AbnormalSigils.Enabled)
+            if (AbnormalSigils.Enabled)
             {
-                Ability_Punisher();
-                Ability_Bloodfiend();
-                Ability_Martyr();
-                Ability_Aggravating();
-                Ability_TeamLeader();
-                Ability_Idol();
-                Ability_Conductor();
-                Ability_Woodcutter();
-                Ability_FrozenHeart();
-                Ability_FrostRuler();
-                Ability_Roots();
-                Ability_BroodMother();
-                Ability_Cursed();
-                Ability_Healer();
-                Ability_QueenNest();
-                Ability_BitterEnemies();
-                Ability_Courageous();
-                Ability_SerpentsNest();
-                Ability_Assimilator();
-                Ability_GroupHealer();
-                Ability_Reflector();
-                Ability_FlagBearer();
-                Ability_Grinder();
-                Ability_TheTrain();
-                Ability_Burning();
-                Ability_Regenerator();
-                Ability_Volatile();
-                Ability_GiftGiver();
-                Ability_Piercing();
-                Ability_Scrambler();
-                Ability_Gardener();
-                Ability_Slime();
-                Ability_Marksman();
-                Ability_Protector();
-                Ability_QuickDraw();
-                Ability_Alchemist();
-                Ability_TimeMachine();
-                Ability_Nettles();
-                Ability_Spores();
-                Ability_Witness();
-                Ability_Corrector();
+                Log.LogWarning("Abnormal Sigils is installed! There may be conflicts!");
             }
-            else
-            {
-                Log.LogWarning("Abnormal Sigils is installed! Skipping abilities...");
-                Ability_TimeMachine();
-            }
+            Ability_Punisher();
+            Ability_Bloodfiend();
+            Ability_Martyr();
+            Ability_Aggravating();
+            Ability_TeamLeader();
+            Ability_Idol();
+            Ability_Conductor();
+            Ability_Woodcutter();
+            Ability_FrozenHeart();
+            Ability_FrostRuler();
+            Ability_Roots();
+            Ability_BroodMother();
+            Ability_Cursed();
+            Ability_Healer();
+            Ability_QueenNest();
+            Ability_BitterEnemies();
+            Ability_Courageous();
+            Ability_SerpentsNest();
+            Ability_Assimilator();
+            Ability_GroupHealer();
+            Ability_Reflector();
+            Ability_FlagBearer();
+            Ability_Grinder();
+            Ability_TheTrain();
+            Ability_Burning();
+            Ability_Regenerator();
+            Ability_Volatile();
+            Ability_GiftGiver();
+            Ability_Piercing();
+            Ability_Scrambler();
+            Ability_Gardener();
+            Ability_Slime();
+            Ability_Marksman();
+            Ability_Protector();
+            Ability_QuickDraw();
+            Ability_Alchemist();
+            Ability_Nettles();
+            Ability_Spores();
+            Ability_Witness();
+            Ability_Corrector();
 
-
+            Ability_TimeMachine();
             Ability_Apostle();
             Ability_TrueSaviour();
             Ability_Confession();
@@ -366,16 +357,11 @@ namespace WhistleWindLobotomyMod
             YinYangHead_O07103();
             YinYangBody_O07103();
 
-            if (ConfigManager.Instance.NoDonators)
-            {
-                Log.LogDebug("No Donators is set to true. Certain cards have been removed from the pool of obtainable cards.");
-            }
             BackwardClock_D09104();
             DellaLuna_D01105();
 
             ArmyInBlack_D01106();
             ArmyInPink_D01106();
-
 
             PpodaeBuff_D02107();
             Ppodae_D02107();
@@ -397,9 +383,6 @@ namespace WhistleWindLobotomyMod
             ApostleMolemanDown_T0346();
             SkeletonShrimp_F0552();
             Crumpled_Can();
-            //  BigEyes_O0263();
-            //  SmallBeak_O0263();
-            //  LongArms_O0263();
         }
 
         public static class PackAPI
@@ -407,11 +390,11 @@ namespace WhistleWindLobotomyMod
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
             public static void CreateCardPack()
             {
-                Log.LogDebug("PackManager installed, creating card pack...");
+                Log.LogDebug("PackManager is installed, creating card pack...");
                 PackInfo pack = PackManager.GetPackInfo("wstl");
                 pack.Title = "WhistleWind's Lobotomy Mod";
                 pack.SetTexture(WstlTextureHelper.LoadTextureFromResource(Resources.wstl_pack));
-                pack.Description = "This card pack adds 84 obtainable cards based on abnormalities.";
+                pack.Description = "A set of [count] abnormal cards originating from the bleak and intriguing world of Lobotomy Corporation.";
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             }
         }

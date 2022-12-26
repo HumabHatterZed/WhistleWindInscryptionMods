@@ -10,12 +10,13 @@ namespace WhistleWind.AbnormalSigils
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_snowQueenIceBlock", "Block of Ice",
-                "The palace was cold and lonely.",
+                "",
                 atk: 0, hp: 1,
                 blood: 0, bones: 0, energy: 0,
                 Artwork.snowQueenIceBlock,
                 abilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: new(), traits: new(),
+                metaTypes: CardHelper.CardMetaType.Terrain);
         }
     }
 }

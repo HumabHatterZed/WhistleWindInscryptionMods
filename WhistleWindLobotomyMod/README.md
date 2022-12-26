@@ -16,8 +16,14 @@ Features:
 * BepInEx-BepInExPack_Inscryption v5.4.1902
 * API_dev-API v2.8.0
 
-## ‼️‼️ THIS VERSION IS DEPRECATED ‼️‼️
-A newer version of this mod is now available. If you're using Thunderstore Manager, it should have updated automatically.
+## ‼️ IMPORTANT ‼️
+This will be the final 1.0 version I will release as I focus on the upcoming 2.0 release.
+Since the 2.0 version includes some _very_ major changes, I wanted to get this update out there so that y'all won't be completely blind-sided by it.
+
+Important changes for you to know about the 2.0 release once it's out:
+- the DLL will have a different name, meaning you'll need to remove this version's DLL from the plugins folder (this update adds some measures to prevent conflicts between the two versions)
+- the config file has a different name, meaning you'll need to re-set any configs you've currently set
+- it will include 2 more mod dependencies: Spells API and Abnormal Sigils (will be released concurrently with 2.0)
 
 ## 🩹 Known Bugs and Issues
 ### Curses Mod Challenge Incompatibility
@@ -53,49 +59,7 @@ For a list of previous updates and a full description of the current update, ref
 See Closing Notes for info on future updates.
 
 <details>
-<summary>Latest Update - v1.2.5</summary>
-
-### v1.2.5 - Bug fix (11/23/2022)
-* 🩹 Bug fixes
-  * Actually fixed Mountain of Smiling Bodies softlocking when dying
-
-### v1.2.4 - Big Boy patch (11/22/2022)
-* 🩹 Bug fixes
-  * Fixed cards with custom evolutions evolving into the wrong forme when played by Leshy
-  * Reverted prior change to Mountain of Smiling Bodies
-
-### v1.2.3 - Bodies of Apostles patch (11/21/2022)
-* 🧱 General
-  * Mod now unpatches itself OnDisable
-* 🩹 Bug fixes
-  * Fixed downed Apostles not evolving into their correct forme
-  * Mountain of Smiling Bodies now checks if card slot is null when killed after evolving
-* 🔧 Tweaks
-  * Rewrote Woodcutter ability to use logic from API's Sentry fix
-  * Quick Draw now inherits from Sentry
-* 💣 Removals
-  * Removed some debugging items
-  * Removed unnecessary patches
-
-### v1.2.2 - The 'Who Let Me Code' patch (10/6/2022)
-* 🩹 Bug fixes
-  * Fixed the following cards not being obtainable as card choices
-    * Judgement Bird
-    * One Sin and Hundreds of Good Deeds
-    * Plague Doctor
-    * Yang
-    * Yin
-    * You're Bald...
-  * Fixed ReadMe displaying incorrect cost for Theresia
-
-### v1.2.1 - Minor patch (9/26/2022)
-* 🧱 General
-  * Fixed inaccurate information in the ReadMe
-  * CENSORED's ability now has opponent compatibility
-* 🩹 Bug fixes
-  * Fixed Hatred special not properly checking for other Magical Girls
-* 🔧 Tweaks
-  * Improved rulebook entry descriptions for special abilities
+<summary>Latest Update - v1.3.0</summary>
 
 </details>
 
@@ -365,14 +329,3 @@ The chances of cards with a certain 'Risk level' appearing as a choice change as
 |3|25%|25%|25%|25%|_8%*_|
 
 _*This percentage is halved in Kaycee's Mod._
-
-## 🕓 Closing Notes
-Turns out I suck as a programmer >.<  But seriously, I don't know how I missed these cards not being obtainable, especially considering how important a few of them are for events.
-
-In other news, work on the next major content update has started. There are some pretty substantial changes to a few existing cards, mostly to add a bit more variety in the gameplay (I had to add a new dependency to make it work, but it'll be worth it). No ETA on when it'll be done though :(.
-
-That's all for now. As always, thanks for playing my mod! <3
-
-Current plans:
-* Further balancing, tweaking, bug fixes, and general refinement of what's currently added (feedback is welcomed and encouraged!).
-* Expansion pack of Library of Ruina abnormalities

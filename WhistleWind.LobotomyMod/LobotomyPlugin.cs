@@ -320,7 +320,7 @@ namespace WhistleWind.LobotomyMod
                 PackInfo pack = PackManager.GetPackInfo("wstl");
                 pack.Title = "WhistleWind's Lobotomy Mod";
                 pack.SetTexture(TextureLoader.LoadTextureFromBytes(Artwork.wstl_pack));
-                pack.Description = "A set of [count] abnormal cards originating from the bleak world of Lobotomy Corporation and Library of Ruina.";
+                pack.Description = "A set of [count] abnormal cards originating from the bleak and intriguing world of Lobotomy Corporation and Library of Ruina.";
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             }
         }

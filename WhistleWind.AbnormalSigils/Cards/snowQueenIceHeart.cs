@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_snowQueenIceHeart", "Frozen Heart",
-                "The palace was cold and lonely.",
+                "",
                 atk: 0, hp: 1,
                 blood: 0, bones: 0, energy: 0,
                 Artwork.snowQueenIceHeart, Artwork.snowQueenIceHeart_emission,

@@ -1,5 +1,13 @@
 ﻿## FULL CHANGELOG
 
+### v1.3.0 - End of Service (?/?/202?)
+* 🧱 General
+  * Added warning when playing this version with the new version installed
+  * Added compatibility with Abnormal Sigils
+  * Refactored some internal systems
+* 🩹 Bug fixes
+  * Fixed Plague Doctor's portrait not correctly updating mid-battle
+
 ### v1.2.5 - Bug fix (11/23/2022)
 * 🩹 Bug fixes
   * Actually fixed Mountain of Smiling Bodies softlocking when dying

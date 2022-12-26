@@ -81,7 +81,7 @@ namespace ModDebuggingMod
             Log.LogDebug("Starter deck");
             AddStartDeck("DEBUG HUG", Properties.Resources.starterDeckMagicalGirls, new()
             {
-                CardLoader.GetCardByName("wstlcard"),
+                CardLoader.GetCardByName("Squirrel"),
                 CardLoader.GetCardByName("wstlcard"),
                 CardLoader.GetCardByName("wstlcard")
             }, 0);

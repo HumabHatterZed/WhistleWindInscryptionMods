@@ -233,8 +233,8 @@ namespace WhistleWind.LobotomyMod
         {
             Texture2D portrait;
             Texture2D emissive;
-
             CardInfo newInfo = (CardInfo)base.Card?.Info.Clone();
+            
             switch (LobotomyConfigManager.Instance.NumOfBlessings)
             {
                 case 0:

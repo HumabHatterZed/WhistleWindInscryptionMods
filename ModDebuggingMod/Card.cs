@@ -2,6 +2,7 @@
 using WhistleWind.Core.Helpers;
 using ModDebuggingMod.Properties;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
 
 namespace ModDebuggingMod
 {
@@ -11,7 +12,8 @@ namespace ModDebuggingMod
         {
             List<Ability> abilities = new()
             {
-                Debug.ability
+                Debug.ability,
+                FrostRuler.ability
                 //Ability.LatchExplodeOnDeath
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
