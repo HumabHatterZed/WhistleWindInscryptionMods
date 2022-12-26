@@ -108,7 +108,7 @@ namespace WhistleWindLobotomyMod
 
                 // Resets Blessings
                 LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
-                ConfigManager.Instance.SetBlessings(0);
+                LobotomyConfigManager.Instance.SetBlessings(0);
             }
             yield break;
         }

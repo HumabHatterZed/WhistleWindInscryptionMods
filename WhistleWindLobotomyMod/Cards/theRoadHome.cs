@@ -17,7 +17,8 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                TheHomingInstinct.specialAbility
+                TheHomingInstinct.specialAbility,
+                YellowBrick.specialAbility
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_theRoadHome", "The Road Home",

@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod
         public static readonly string rName = "Magical Girls";
         public static readonly string rDesc = "Gain a special card when all 4 Magical Girls or their evolutions are on the same side of the board.";
 
-        public override bool RespondsToResolveOnBoard() => !ConfigManager.Instance.NoEvents;
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !ConfigManager.Instance.NoEvents && otherCard.OpponentCard == base.PlayableCard.OpponentCard;
+        public override bool RespondsToResolveOnBoard() => !LobotomyConfigManager.Instance.NoEvents;
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !LobotomyConfigManager.Instance.NoEvents && otherCard.OpponentCard == base.PlayableCard.OpponentCard;
         public override IEnumerator OnResolveOnBoard() => CheckForMagicGirls();
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => CheckForMagicGirls();
 

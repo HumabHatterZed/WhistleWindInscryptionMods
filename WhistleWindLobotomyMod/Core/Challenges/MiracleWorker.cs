@@ -44,7 +44,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         [HarmonyPostfix]
         public static void AddPlagueDoctor(EncounterData encounterData, ref Opponent __result)
         {
-            if (AscensionSaveData.Data.ChallengeIsActive(Id) || !SaveFile.IsAscension && ConfigManager.Instance.MiracleWorker)
+            if (AscensionSaveData.Data.ChallengeIsActive(Id) || !SaveFile.IsAscension && LobotomyConfigManager.Instance.MiracleWorker)
             {
                 if (!SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
                     ChallengeActivationUI.TryShowActivation(Id);
@@ -66,7 +66,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         }
         private static void UpdatePortrait()
         {
-            switch (ConfigManager.Instance.NumOfBlessings)
+            switch (LobotomyConfigManager.Instance.NumOfBlessings)
             {
                 case 0:
                     portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor);

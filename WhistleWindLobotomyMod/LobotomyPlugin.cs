@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod
 
         public static AssetBundle sephirahBundle;
 
-        public static List<CardInfo> LobotomyCards = new();
+        public static List<CardInfo> AllLobotomyCards = new();
         public static List<CardInfo> ObtainableLobotomyCards = new();
 
         public static Tribe TribeDivine;
@@ -65,23 +65,23 @@ namespace WhistleWindLobotomyMod
         private void Awake()
         {
             Log = base.Logger;
-            ConfigManager.Instance.BindConfig();
+            LobotomyConfigManager.Instance.BindConfig();
 
-            if (!ConfigManager.Instance.ModEnabled)
+            if (!LobotomyConfigManager.Instance.ModEnabled)
                 Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
             else
             {
-                _allCardsDisabled = ConfigManager.Instance.NoRisk.HasFlag(RiskLevel.All) || ConfigManager.Instance.NoRisk.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
-                _disabledRiskLevels = ConfigManager.Instance.NoRisk;
-                _donatorCardsDisabled = ConfigManager.Instance.NoDonators;
-                _ruinaCardsDisabled = ConfigManager.Instance.NoRuina;
+                _allCardsDisabled = LobotomyConfigManager.Instance.NoRisk.HasFlag(RiskLevel.All) || LobotomyConfigManager.Instance.NoRisk.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
+                _disabledRiskLevels = LobotomyConfigManager.Instance.NoRisk;
+                _donatorCardsDisabled = LobotomyConfigManager.Instance.NoDonators;
+                _ruinaCardsDisabled = LobotomyConfigManager.Instance.NoRuina;
 
                 sephirahBundle = LoadBundle("WhistleWindLobotomyMod/talkingcardssephirah");
 
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
-                if (ConfigManager.Instance.NumOfBlessings > 11)
-                    ConfigManager.Instance.SetBlessings(11);
+                if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
+                    LobotomyConfigManager.Instance.SetBlessings(11);
 
                 Log.LogDebug("Loading challenges...");
                 AddChallenges();
@@ -98,7 +98,7 @@ namespace WhistleWindLobotomyMod
                 if (sephirahBundle != null)
                     InitSephirahAndDialogue();
                 else
-                    Log.LogWarning("AssetBundle has not been loaded! The Sefirot will remain asleep.");
+                    Log.LogWarning("AssetBundle has not been loaded! .");
 
                 DialogueEventsManager.GenerateDialogueEvents();
 
@@ -120,23 +120,24 @@ namespace WhistleWindLobotomyMod
 
         private void Start()
         {
-            if (ConfigManager.Instance.ModEnabled)
+            if (LobotomyConfigManager.Instance.ModEnabled)
             {
                 if (AllCardsDisabled)
-                    Log.LogWarning("Config DISABLE CARDS is set to [All]. All mod cards have been removed from the pool of obtainable cards");
+                    Log.LogWarning("Disable Cards is set to [All]. All mod cards have been removed from the pool of obtainable cards");
                 else
                 {
                     if (DisabledRiskLevels != RiskLevel.None)
-                        Log.LogWarning($"Config DISABLE CARDS is set to [{DisabledRiskLevels}]. Cards with the affected risk level(s) have been removed from the pool of obtainable cards.");
+                        Log.LogWarning($"Disable Cards is set to [{DisabledRiskLevels}]. Cards with the affected risk level(s) have been removed from the pool of obtainable cards.");
 
                     if (DonatorCardsDisabled)
-                        Log.LogWarning("Config DISABLE DONATORS is set to true. Some cards have been removed from the pool of obtainable cards.");
+                        Log.LogWarning("Disable Donators is set to true. Some cards have been removed from the pool of obtainable cards.");
 
                     if (RuinaCardsDisabled)
-                        Log.LogWarning("Config DISABLE RUINA is set to true. Some cards have been removed from the pool of obtainable cards.");
+                        Log.LogWarning("Disable Ruina is set to true. Some cards have been removed from the pool of obtainable cards.");
 
-                    Log.LogInfo($"The Clock is at [{ConfigManager.Instance.NumOfBlessings}].");
+                    Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
                 }
+                Log.LogInfo($"The Clock is at [{LobotomyConfigManager.Instance.NumOfBlessings}].");
             }
         }
         private void OnDisable() => HarmonyInstance.UnpatchSelf();
@@ -148,14 +149,14 @@ namespace WhistleWindLobotomyMod
             Log.LogDebug("Waking up the Sefirot...");
             SephirahHod.Init();
             SephirahYesod.Init();
-            // SephirahMalkuth.Init();
             // SephirahNetzach.Init();
-            // SephirahTipherethA.Init();
-            // SephirahTipherethB.Init();
-            // SephirahGebura.Init();
+            // SephirahMalkuth.Init();
             // SephirahChesed.Init();
-            // SephirahHokma.Init();
+            // SephirahGebura.Init();
+            // SephirahTipherethB.Init();
+            // SephirahTipherethA.Init();
             // SephirahBinah.Init();
+            // SephirahHokma.Init();
             // Angela.Init();
         }
         private void AddTribes()
@@ -188,13 +189,17 @@ namespace WhistleWindLobotomyMod
                     }
 
                     // add AbnormalSigils cards to the list of cards added by this mod
-                    LobotomyCards.Add(card);
+                    AllLobotomyCards.Add(card);
                 }
 
                 return cards;
             };
 
             AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
+
+            // add Beauty and the Beast as a fallback card
+            if (AllCardsDisabled)
+                ObtainableLobotomyCards.Add(CardLoader.GetCardByName("wstl_beautyAndBeast"));
         }
         private void AddAbilities()
         {
@@ -203,7 +208,7 @@ namespace WhistleWindLobotomyMod
             Ability_TrueSaviour();
             Ability_Confession();
 
-            if (ConfigManager.Instance.RevealSpecials)
+            if (LobotomyConfigManager.Instance.RevealSpecials)
             {
                 Log.LogDebug("Adding rulebook entries for special abilities.");
                 AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Rulebook")).ForEach(mi => mi.Invoke(this, null));
@@ -226,24 +231,68 @@ namespace WhistleWindLobotomyMod
         }
         private void AddStarterDecks()
         {
-            StarterDeckHelper.AddStarterDeck("Randomised Cards", Artwork.starterDeckRandom, 0,
-                "wstl_RANDOM_PLACEHOLDER", "wstl_RANDOM_PLACEHOLDER", "wstl_RANDOM_PLACEHOLDER");
+            string[] randomCards = { "wstl_RANDOM_PLACEHOLDER", "wstl_RANDOM_PLACEHOLDER", "wstl_RANDOM_PLACEHOLDER"};
+            if (LobotomyConfigManager.Instance.StarterDeckSize > 0)
+            {
+                for (int i = 0; i < LobotomyConfigManager.Instance.StarterDeckSize; i++)
+                    randomCards.AddToArray("wstl_RANDOM_PLACEHOLDER");
+            }
+
+            StarterDeckHelper.AddStarterDeck("Random Mod Cards", Artwork.starterDeckRandom, 0, randomCards);
+
             StarterDeckHelper.AddStarterDeck("First Day", Artwork.starterDeckControl, 0,
-                "wstl_oneSin", "wstl_fairyFestival", "wstl_oldLady");
+                "wstl_oneSin",
+                "wstl_fairyFestival",
+                "wstl_oldLady");
+
             StarterDeckHelper.AddStarterDeck("Lonely Friends", Artwork.starterDeckChildren, 2,
-                "wstl_scorchedGirl", "wstl_laetitia", "wstl_childOfTheGalaxy");
+                "wstl_scorchedGirl",
+                "wstl_laetitia",
+                "wstl_childOfTheGalaxy");
+
             StarterDeckHelper.AddStarterDeck("Blood Machines", Artwork.starterDeckBloodMachines, 4,
-                "wstl_weCanChangeAnything", "wstl_allAroundHelper", "wstl_singingMachine");
-            /*            StarterDeckHelper.AddStarterDeck("Lonely Friends", Artwork.starterDeckChildren, 6,
-                            "wstl_scorchedGirl", "wstl_laetitia", "wstl_childOfTheGalaxy");*/
-            StarterDeckHelper.AddStarterDeck("Road to Oz", Artwork.starterDeckFairyTale, 8,
+                "wstl_weCanChangeAnything",
+                "wstl_allAroundHelper",
+                "wstl_singingMachine");
+
+            StarterDeckHelper.AddStarterDeck("People Pleasers", Artwork.starterDeckPeoplePleasers, 5,
+                "wstl_todaysShyLook",
+                RuinaCardsDisabled ? "wstl_mirrorOfAdjustment" : "wstl_pinocchio",
+                "wstl_behaviourAdjustment");
+
+            StarterDeckHelper.AddStarterDeck("Freak Show", Artwork.starterDeckFreakShow, 6,
+                "wstl_beautyAndBeast",
+                "wstl_voidDream",
+                "wstl_queenBee");
+
+            StarterDeckHelper.AddStarterDeck("Apocrypha", Artwork.starterDeckApocrypha, 7,
+                "wstl_fragmentOfUniverse",
+                "wstl_skinProphecy",
+                "wstl_plagueDoctor");
+
+            StarterDeckHelper.AddStarterDeck("Keter", Artwork.starterDeckKeter, 8,
+                "wstl_bloodBath",
+                "wstl_burrowingHeaven",
+                "wstl_snowQueen");
+
+            #region Event Decks
+            StarterDeckHelper.AddStarterDeck("Road to Oz", Artwork.starterDeckFairyTale, 13,
                 RuinaCardsDisabled ? "wstl_laetitia" : "wstl_theRoadHome",
-                "wstl_warmHeartedWoodsman", "wstl_wisdomScarecrow");
-            StarterDeckHelper.AddStarterDeck("Magical Girls!", Artwork.starterDeckMagicalGirls, 10,
-                "wstl_magicalGirlHeart", "wstl_magicalGirlDiamond",
-                RuinaCardsDisabled ? "wstl_magicalGirlSpade" : "wstl_magicalGirlClover");
+                "wstl_warmHeartedWoodsman",
+                "wstl_wisdomScarecrow",
+                RuinaCardsDisabled ? "wstl_snowWhitesApple" : "wstl_ozma");
+
+            StarterDeckHelper.AddStarterDeck("Magical Girls!", Artwork.starterDeckMagicalGirls, 13,
+                "wstl_magicalGirlSpade",
+                "wstl_magicalGirlHeart",
+                "wstl_magicalGirlDiamond",
+                RuinaCardsDisabled ? "wstl_voidDream" : "wstl_magicalGirlClover");
+            
             StarterDeckHelper.AddStarterDeck("Twilight", Artwork.starterDeckBlackForest, 13,
-                "wstl_punishingBird", "wstl_bigBird", "wstl_judgementBird");
+                "wstl_punishingBird",
+                "wstl_bigBird",
+                "wstl_judgementBird");
+            #endregion
         }
         private void AddEncounters()
         {

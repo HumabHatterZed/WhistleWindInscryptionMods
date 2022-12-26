@@ -991,6 +991,9 @@
   <data name="skinProphecy_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\skinProphecy_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="slotPavedRoad" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\slotPavedRoad.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="snowQueen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\snowQueen.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1009,6 +1012,9 @@
   <data name="spiderBud_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\spiderBud_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="starterDeckApocrypha" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\starterDeckApocrypha.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="starterDeckBlackForest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\starterDeckBlackForest.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1024,8 +1030,17 @@
   <data name="starterDeckFairyTale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\starterDeckFairyTale.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="starterDeckFreakShow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\starterDeckFreakShow.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="starterDeckKeter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\starterDeckKeter.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="starterDeckMagicalGirls" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\starterDeckMagicalGirls.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="starterDeckPeoplePleasers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\starterDeckPeoplePleasers.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="starterDeckRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\starterDeckRandom.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

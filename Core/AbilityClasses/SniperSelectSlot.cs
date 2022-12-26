@@ -153,6 +153,7 @@ namespace WhistleWind.Core.AbilityClasses
             if (TargetAllies)
                 return base.Card.OpponentCard ? Singleton<BoardManager>.Instance.OpponentSlotsCopy : Singleton<BoardManager>.Instance.PlayerSlotsCopy;
 
+            // default to the opposing card slots
             return base.Card.OpponentCard ? Singleton<BoardManager>.Instance.PlayerSlotsCopy : Singleton<BoardManager>.Instance.OpponentSlotsCopy;
         }
         public IEnumerator SelectionSequence()

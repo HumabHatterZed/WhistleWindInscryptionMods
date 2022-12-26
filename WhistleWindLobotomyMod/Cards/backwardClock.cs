@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_backwardClock", "Backward Clock",
                 "A clock to rewind your wasted time. Will you pay the toll?",
                 atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 6,
+                blood: 0, bones: 0, energy: 2,
                 Artwork.backwardClock, Artwork.backwardClock_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,

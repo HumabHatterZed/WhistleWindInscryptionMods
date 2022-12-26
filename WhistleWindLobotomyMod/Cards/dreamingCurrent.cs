@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
@@ -13,7 +14,7 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new()
             {
                 Ability.Submerge,
-                Ability.StrafeSwap
+                Barreler.ability
             };
 
             LobotomyCardHelper.CreateCard(

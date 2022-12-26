@@ -26,8 +26,8 @@ namespace WhistleWindLobotomyMod
             LobotomyCardHelper.CreateCard(
                 "wstl_theNakedNest", "The Naked Nest",
                 "They can enter your body through any aperture.",
-                atk: 0, hp: 2,
-                blood: 0, bones: 4, energy: 0,
+                atk: 0, hp: 3,
+                blood: 0, bones: 5, energy: 0,
                 Artwork.theNakedNest, Artwork.theNakedNest_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: traits,

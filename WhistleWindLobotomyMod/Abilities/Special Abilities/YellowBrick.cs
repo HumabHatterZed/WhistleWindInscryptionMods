@@ -1,5 +1,7 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Triggers;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
@@ -7,7 +9,7 @@ using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public class YellowBrick : SpecialCardBehaviour
+    public class YellowBrick : SpecialCardBehaviour, IOnOtherCardResolveInHand
     {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
@@ -15,12 +17,13 @@ namespace WhistleWindLobotomyMod
         public static readonly string rName = "Yellow Brick Road";
         public static readonly string rDesc = "Gain a special card when Ozma, The Road Home, Warm-Hearted Woodsman, and Scarecrow Searching for Wisdom are all on the same side of the board.";
 
-        public override bool RespondsToResolveOnBoard() => !ConfigManager.Instance.NoEvents;
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !ConfigManager.Instance.NoEvents && otherCard.OpponentCard == base.PlayableCard.OpponentCard;
+        public override bool RespondsToResolveOnBoard() => !LobotomyConfigManager.Instance.NoEvents;
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !LobotomyConfigManager.Instance.NoEvents && otherCard.OpponentCard == base.PlayableCard.OpponentCard;
+        public bool RespondsToOtherCardResolveInHand(PlayableCard card) => !LobotomyConfigManager.Instance.NoEvents && card.OpponentCard == base.PlayableCard.OpponentCard;
 
         public override IEnumerator OnResolveOnBoard() => CheckForOtherCards();
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => CheckForOtherCards();
-
+        public IEnumerator OnOtherCardResolveInHand(PlayableCard card) => CheckForOtherCards();
         private IEnumerator CheckForOtherCards()
         {
             // Break if already have Adult
@@ -30,42 +33,69 @@ namespace WhistleWindLobotomyMod
                 yield break;
             }
 
-            CardSlot scarecrowSlot = null;
-            CardSlot woodsmanSlot = null;
-            CardSlot scaredySlot = null;
-
-            foreach (CardSlot slot in HelperMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+            List<CardSlot> cardSlots = new()
             {
-                if (slot != base.PlayableCard.Slot)
+                null,
+                null,
+                null,
+                null,
+                null
+            };
+
+            // check cards on the board first
+            foreach (CardSlot slot in HelperMethods.GetSlotsCopy(base.PlayableCard.OpponentCard)
+                .Where((CardSlot s) => s.Card != null))
+            {
+                string cardName = slot.Card.Info.name;
+                if (slot == base.PlayableCard?.Slot)
                 {
-                    if (slot.Card.Info.name == "wstl_wisdomScarecrow")
+                    LobotomyPlugin.Log.LogDebug("Player has [The Road Home] on the board.");
+                    cardSlots[0] ??= slot;
+                }
+                else if (cardName == "wstl_scaredyCat" || cardName == "wstl_scaredyCatStrong")
+                {
+                    LobotomyPlugin.Log.LogDebug("Player has [Scaredy Cat] on the board.");
+                    cardSlots[1] ??= slot;
+                }
+                else if (cardName == "wstl_wisdomScarecrow")
+                {
+                    LobotomyPlugin.Log.LogDebug("Player has [Scarecrow Searching for Wisdom] on the board.");
+                    cardSlots[2] ??= slot;
+                }
+                else if (cardName == "wstl_warmHeartedWoodsman")
+                {
+                    LobotomyPlugin.Log.LogDebug("Player has [Warm-Hearted Woodsman] on the board.");
+                    cardSlots[3] ??= slot;
+                }
+                else if (cardName == "wstl_ozma")
+                {
+                    LobotomyPlugin.Log.LogDebug("Player has [Ozma] on the board.");
+                    cardSlots[4] ??= slot;
+                }
+            }
+
+            // if 4/5 of the requisite cards are on the board
+            if (cardSlots.FindAll(x => x == null).Count == 1)
+            {
+                // check our hand for the missing member of the quintuplet
+                foreach (PlayableCard card in PlayerHand.Instance.CardsInHand)
+                {
+                    string cardName = card.Info.name;
+                    if (cardName == "wstl_theRoadHome" || cardName == "wstl_scaredyCat" || cardName == "wstl_scaredyCatStrong" ||
+                        cardName == "wstl_wisdomScarecrow" || cardName == "wstl_warmHeartedWoodsman" ||
+                        cardName == "wstl_ozma")
                     {
-                        LobotomyPlugin.Log.LogDebug("Player has Scarecrow Searching for Wisdom.");
-                        scarecrowSlot = slot;
-                        continue;
-                    }
-                    if (slot.Card.Info.name == "wstl_warmHeartedWoodsman")
-                    {
-                        LobotomyPlugin.Log.LogDebug("Player has Warm-Hearted Woodsman.");
-                        woodsmanSlot = slot;
-                        continue;
-                    }
-                    if (slot.Card.Info.name == "wstl_ozma")
-                    {
-                        LobotomyPlugin.Log.LogDebug("Player has Ozma.");
-                        scaredySlot = slot;
-                        continue;
+                        LobotomyPlugin.Log.LogDebug($"Player has [{card.Info.displayedName}] in their hand.");
+                        yield return Emerald(cardSlots, card);
+                        break;
                     }
                 }
             }
 
-            if (scarecrowSlot != null && woodsmanSlot != null && scaredySlot != null)
-                yield return Emerald(scarecrowSlot, woodsmanSlot, scaredySlot);
-
             yield break;
         }
 
-        private IEnumerator Emerald(CardSlot scarecrow, CardSlot woodsman, CardSlot scaredy)
+        private IEnumerator Emerald(List<CardSlot> boardSlots, PlayableCard handCard)
         {
             yield break;
             /*            yield return new WaitForSeconds(1f);

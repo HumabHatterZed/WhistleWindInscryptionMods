@@ -6,10 +6,10 @@ using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core
 {
-    public class ConfigManager // Taken from GrimoraMod
+    public class LobotomyConfigManager // Taken from GrimoraMod
     {
-        private static ConfigManager wstl_Instance;
-        public static ConfigManager Instance => wstl_Instance ??= new ConfigManager();
+        private static LobotomyConfigManager wstl_Instance;
+        public static LobotomyConfigManager Instance => wstl_Instance ??= new LobotomyConfigManager();
 
         private readonly ConfigFile WstlConfigFile = new(
             Path.Combine(Paths.ConfigPath, "wstl.inscryption.lobotomycorp.cfg"), true);
@@ -41,6 +41,9 @@ namespace WhistleWindLobotomyMod.Core
 
         private ConfigEntry<int> Config_StarterDeck;
         public int StarterDeck => Config_StarterDeck.Value;
+
+        private ConfigEntry<int> Config_StarterDeckSize;
+        public int StarterDeckSize => Config_StarterDeckSize.Value;
 
         #region Gameplay.Challenges
 
@@ -95,19 +98,19 @@ namespace WhistleWindLobotomyMod.Core
         internal void BindConfig()
         {
             Config_ModEnabled = WstlConfigFile.Bind(
-                "Config", "ENABLE MOD", true,
-                new ConfigDescription("Allows this mod's content to be loaded."));
+                "Config", "Enable", true,
+                new ConfigDescription("Enables this mod's content."));
 
             Config_SpecialsInRulebook = WstlConfigFile.Bind(
-                "Config", "SPECIALS IN RULEBOOK", false,
-                new ConfigDescription("Adds Rulebook entries for special abilities describing their behaviour and what cards possess them."));
+                "Config", "Special Abilities in Rulebook", false,
+                new ConfigDescription("Adds Rulebook entries for hidden abilities, describing their effect and what card possesses it."));
 
             Config_NoRisk = WstlConfigFile.Bind(
-                "Config.Cards", "DISABLE CARDS", LobotomyCardHelper.RiskLevel.None,
+                "Config.Cards", "Disable Cards", LobotomyCardHelper.RiskLevel.None,
                 new ConfigDescription("Removes cards of the specified risk level from the pool of obtainable cards."));
 
             Config_NoDonators = WstlConfigFile.Bind(
-                "Config.Cards", "DISABLE DONATORS", false,
+                "Config.Cards", "Disable Donators", false,
                 new ConfigDescription("Removes the following abnormalities from the pool of obtainable cards:" +
                 "\nBackward Clock, Il Pianto della Luna, Army in Pink, Ppodae, Parasite Tree, Melting Love, Honoured Monk."));
 
@@ -117,60 +120,67 @@ namespace WhistleWindLobotomyMod.Core
                 "\nMagical Girl C, Price of Silence, Nosferatu, The Road Home, Ozma, Silent Girl."));
 
             Config_StarterDeck = WstlConfigFile.Bind(
-                "Gameplay", "STARTER DECK", 0,
+                "Gameplay", "Starter Deck", 0,
                 new ConfigDescription("PART 1 ONLY - Replaces your starting cards with one of this mod's custom decks." +
-                "\n0 - Default Vanilla Deck" +
-                "\n1 - One Sin, Fairy Festival, Old Lady" +
-                "\n2 - Scorched Girl, Laetitia, Child of the Galaxy" +
-                "\n3 - We Can Change Anything, All-Around Helper, Singing Machine" +
-                "\n4 - Squirrel" +
-                "\n5 - The Road Home / Laetitia, Warm-Hearted-Woodsman, Wisdom Scarecrow" +
-                "\n6 - Magical Girl H, Magical D, Magical Girl C / Magical Girl S" +
-                "\n7 - Punishing Bird, Big Bird, Judgement Bird" +
-                "\n8 - 3 Random Mod Cards" +
-                "\n9 - Random Mod Deck"));
+                "\n0 - Default Deck" +
+                "\n1 - Random Mod Deck" +
+                "\n2 - 3 Random Mod Cards" +
+                "\n3 - One Sin, Fairy Festival, Old Lady" +
+                "\n4 - Scorched Girl, Laetitia, Child of the Galaxy" +
+                "\n5 - We Can Change Anything, All-Around Helper, Singing Machine" +
+                "\n6 - Today's Shy Look, Pinocchio/Mirror of Adjustment, Behaviour Adjustment" +
+                "\n7 - Beauty and the Beast, Void Dream, Queen Bee" +
+                "\n8 - Fragment of the Universe, Skin Prophecy, Plague Doctor" +
+                "\n9 - Bloodbath, Burrowing Heaven, The Snow Queen" +
+                "\n10 - The Road Home/Laetitia, Warm-Hearted-Woodsman, Wisdom Scarecrow, Ozma/Snow White's Apple" +
+                "\n11 - Magical Girl S, Magical Girl H, Magical D, Magical Girl C/Void Dream" +
+                "\n12 - Punishing Bird, Big Bird, Judgement Bird"));
+
+            Config_StarterDeckSize = WstlConfigFile.Bind(
+                "Gameplay", "Extra Random Cards", 0,
+                new ConfigDescription("Adds more cards to the 3 Random Mod Cards starter decks in Part 1 and Kaycee's Mod."));
 
             Config_AbnormalBosses = WstlConfigFile.Bind(
-                "Gameplay.Challenges", "ABNORMAL BOSSES", false,
+                "Gameplay.Challenges", "Abnormal Bosses", false,
                 new ConfigDescription("PART 1 ONLY - Bosses will only use Abnormality cards."));
 
             Config_AbnormalBattles = WstlConfigFile.Bind(
-                "Gameplay.Challenges", "ABNORMAL ENCOUNTERS", false,
+                "Gameplay.Challenges", "Abnormal Encounters", false,
                 new ConfigDescription("PART 1 ONLY - All regular battles will only use Abnormality cards."));
 
             Config_MiracleWorker = WstlConfigFile.Bind(
-                "Gameplay.Challenges", "MIRACLE WORKER", false,
+                "Gameplay.Challenges", "Miracle Worker", false,
                 new ConfigDescription("PART 1 ONLY - Leshy will play Plague Doctor during regular battles. Beware the Clock."));
 
             Config_BetterRareChances = WstlConfigFile.Bind(
-                "Gameplay.Cheats", "BETTER RARE CHANCES", false,
+                "Gameplay.Cheats", "Better Rare Chances", false,
                 new ConfigDescription("PART 1 ONLY - Raises the chance of getting a Rare card from the abnormal choice node."));
 
             Config_NoEvents = WstlConfigFile.Bind(
-                "Gameplay.Other", "DISABLE EVENTS", false,
+                "Gameplay", "Disable Events", false,
                 new ConfigDescription("Disables special in-game events added by this mod."));
 
             Config_NoBox = WstlConfigFile.Bind(
-                "Gameplay.Other", "DISABLE ABNORMAL NODE", false,
+                "Gameplay.Nodes", "Disable Choice Node", false,
                 new ConfigDescription("Prevents the abnormal card choice node from appearing."));
 
             Config_NoSefirot = WstlConfigFile.Bind(
-                "Gameplay.Other", "DISABLE SEFIROT NODE", false,
+                "Gameplay.Nodes", "Disable Sefirot Node", false,
                 new ConfigDescription("Prevents the sefirot card choice node from appearing."));
 
             Config_BoxStart = WstlConfigFile.Bind(
-                "Gameplay.Other", "ABNORMAL NODE AT START", false,
+                "Gameplay.Nodes", "Choice Node at Start", false,
                 new ConfigDescription("Each new region will have an abnormal choice node at its start."));
 
             Config_SefirotChoiceAtStart = WstlConfigFile.Bind(
-                "Gameplay.Other", "SEFIROT NODE AT START", false,
+                "Gameplay.Nodes", "Sefirot Node at Start", false,
                 new ConfigDescription("Each new region will have a sephirah choice node at its start."));
 
             Config_Blessings = WstlConfigFile.Bind(
-                "Secrets", "BLESSINGS", 0);
+                "Gameplay.Other", "Blessings", 0);
 
             Config_EventFlags = WstlConfigFile.Bind(
-                "Secrets", "EVENTS", 0);
+                "Gameplay.Other", "Events", 0);
         }
         public void UpdateBlessings(int value)
         {

@@ -133,10 +133,13 @@ namespace WhistleWind.AbnormalSigils
             Ability_NeuteredLatch();
             Ability_RightfulHeir();
             Ability_GreedyHealing();
+            Ability_Cycler();
+            Ability_Barreler();
 
             // Spells
-            if (!SpellAPI.Enabled)
-                Log.LogDebug("Spells API is not installed, changing ability behaviours.");
+            if (SpellAPI.Enabled)
+                Log.LogDebug($"Spells API is installed, changing ability behaviour for " +
+                    $"[Scrambler, Strengthen Target, Imbue Target, Enhance Target].");
 
             Ability_TargetGainStats();
             Ability_TargetGainSigils();
@@ -149,28 +152,12 @@ namespace WhistleWind.AbnormalSigils
 
         public static class SpellAPI
         {
-            private static bool? _enabled;
-            public static bool Enabled
-            {
-                get
-                {
-                    _enabled ??= Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.spells");
-                    return (bool)_enabled;
-                }
-            }
+            public static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.spells");
         }
 
         public static class TribalAPI
         {
-            private static bool? _enabled;
-            public static bool Enabled
-            {
-                get
-                {
-                    _enabled ??= Chainloader.PluginInfos.ContainsKey("tribes.libary");
-                    return (bool)_enabled;
-                }
-            }
+            public static bool Enabled => Chainloader.PluginInfos.ContainsKey("tribes.libary");
             public static List<Tribe> AddTribalTribe(List<Tribe> list, string name)
             {
                 Tribe tribeToAdd = name switch

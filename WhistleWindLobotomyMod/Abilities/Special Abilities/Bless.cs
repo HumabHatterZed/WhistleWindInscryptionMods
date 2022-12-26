@@ -12,7 +12,7 @@ using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public class Bless : SpecialCardBehaviour
+    public class Bless : PlagueDoctorClass
     {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
@@ -27,16 +27,29 @@ namespace WhistleWindLobotomyMod
         private readonly string eventIntro3 = "[c:bR]Rise, my servants. Rise and serve me.[c:]";
         private readonly string eventIntroRepeat = "[c:bR]The time has come again. I will be thy guide.[c:]";
 
+        public override IEnumerator TriggerBlessing()
+        {
+            if (LobotomyConfigManager.Instance.NoEvents)
+                yield break;
+
+            base.PlayableCard.Anim.LightNegationEffect();
+            LobotomyConfigManager.Instance.UpdateBlessings(1);
+            UpdatePortrait();
+            yield return new WaitForSeconds(0.2f);
+        }
+        public override IEnumerator TriggerClock() => CheckTheClock();
+
         private IEnumerator CheckTheClock()
         {
-            // If Blessings are between (0,11), break
-            if (0 < ConfigManager.Instance.NumOfBlessings && ConfigManager.Instance.NumOfBlessings < 12)
+            // If No Events or Blessings are between (0,11), break
+            if (LobotomyConfigManager.Instance.NoEvents ||
+                (0 <= LobotomyConfigManager.Instance.NumOfBlessings && LobotomyConfigManager.Instance.NumOfBlessings < 12))
                 yield break;
 
             yield return new WaitForSeconds(0.5f);
 
             // If blessings are in the negatives (aka someone altered tge config value), wag a finger and go 'nuh-uh-uh!'
-            if (ConfigManager.Instance.NumOfBlessings < 0)
+            if (LobotomyConfigManager.Instance.NumOfBlessings < 0)
                 yield return HelperMethods.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou cannot stop my ascension. Even the [c:]tutelary[c:bR] bows to my authority.[c:]");
 
             // Change Leshy's eyes to red
@@ -136,23 +149,6 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.2f);
         }
 
-        // check that blessing and/or clock is being triggered
-        public override bool RespondsToAttackEnded() => base.PlayableCard.GetComponent<Healer>().TriggerBless || base.PlayableCard.GetComponent<Healer>().TriggerClock;
-
-        public override IEnumerator OnAttackEnded()
-        {
-            // Trigger increasing blessing and clock if applicable
-            if (base.PlayableCard.GetComponent<Healer>().TriggerBless)
-            {
-                base.PlayableCard.Anim.LightNegationEffect();
-                ConfigManager.Instance.UpdateBlessings(1);
-                UpdatePortrait();
-                yield return new WaitForSeconds(0.2f);
-            }
-            if (base.PlayableCard.GetComponent<Healer>().TriggerClock)
-                yield return CheckTheClock();
-        }
-
         public override bool RespondsToDrawn() => true;
         public override IEnumerator OnDrawn()
         {
@@ -162,7 +158,7 @@ namespace WhistleWindLobotomyMod
         private void DisguiseInBattle()
         {
             this.UpdatePortrait();
-            if (ConfigManager.Instance.NumOfBlessings >= 11)
+            if (LobotomyConfigManager.Instance.NumOfBlessings >= 11)
                 base.PlayableCard.ApplyAppearanceBehaviours(new() { ForcedWhite.appearance });
         }
 
@@ -238,7 +234,8 @@ namespace WhistleWindLobotomyMod
             Texture2D portrait;
             Texture2D emissive;
 
-            switch (ConfigManager.Instance.NumOfBlessings)
+            CardInfo newInfo = (CardInfo)base.Card?.Info.Clone();
+            switch (LobotomyConfigManager.Instance.NumOfBlessings)
             {
                 case 0:
                     portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor);
@@ -287,11 +284,11 @@ namespace WhistleWindLobotomyMod
                 default:
                     portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor11);
                     emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor11_emission);
-                    base.Card.ApplyAppearanceBehaviours(new() { ForcedWhite.appearance });
+                    newInfo.AddAppearances(ForcedWhite.appearance);
                     break;
             }
-            base.Card.ClearAppearanceBehaviours();
-            base.Card.Info.SetPortrait(portrait, emissive);
+            newInfo.SetPortrait(portrait, emissive);
+            base.Card?.SetInfo(newInfo);
         }
     }
     public class RulebookEntryBless : AbilityBehaviour

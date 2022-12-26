@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             byte[] emissive;
 
             // Update portrait and emission on loadup
-            switch (ConfigManager.Instance.NumOfBlessings)
+            switch (LobotomyConfigManager.Instance.NumOfBlessings)
             {
                 case 0:
                     portrait = Artwork.plagueDoctor;

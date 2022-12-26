@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,14 +29,11 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private bool IsDoctor => base.Card.Info.name == "wstl_plagueDoctor";
+        private bool IsDoctor => base.Card.GetComponent<PlagueDoctorClass>() != null;
         public override string NoTargetsDialogue => "No one to heal.";
 
         private readonly string failAsDoctorDialogue = "No allies to receive a blessing. [c:bR]An enemy[c:] will suffice instead.";
         private readonly string failExtraHardDialogue = "No enemies either. It seems no blessings will be given this turn.";
-
-        public bool TriggerBless;
-        public bool TriggerClock;
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) => base.SelectionSequence();
@@ -49,13 +47,10 @@ namespace WhistleWind.AbnormalSigils
 
         public override IEnumerator OnPostValidTargetSelected()
         {
-            if (IsDoctor && base.Card.TriggerHandler.RespondsToTrigger(Trigger.AttackEnded))
+            if (IsDoctor)
             {
-                TriggerBless = true;
-                TriggerClock = true;
-                yield return base.Card.TriggerHandler.OnTrigger(Trigger.AttackEnded);
-                TriggerBless = false;
-                TriggerClock = false;
+                yield return base.Card.GetComponent<PlagueDoctorClass>().TriggerBlessing();
+                yield return base.Card.GetComponent<PlagueDoctorClass>().TriggerClock();
             }
             yield break;
         }
@@ -93,9 +88,9 @@ namespace WhistleWind.AbnormalSigils
                 randSlot.Card.Anim.StrongNegationEffect();
                 instance.VisualizeClearSniperAbility();
                 visualiser?.VisualizeClearSniperAbility();
-                TriggerBless = true;
-                yield return base.Card.TriggerHandler.OnTrigger(Trigger.AttackEnded);
-                TriggerBless = false;
+
+                yield return base.Card.GetComponent<PlagueDoctorClass>().TriggerBlessing();
+
                 yield return new WaitForSeconds(0.2f);
             }
             else
@@ -112,9 +107,7 @@ namespace WhistleWind.AbnormalSigils
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
 
             // Call the Clock if an opponent is healed
-            TriggerClock = true;
-            yield return base.Card.TriggerHandler.OnTrigger(Trigger.AttackEnded);
-            TriggerClock = false;
+            yield return base.Card.GetComponent<PlagueDoctorClass>().TriggerClock();
         }
     }
 }

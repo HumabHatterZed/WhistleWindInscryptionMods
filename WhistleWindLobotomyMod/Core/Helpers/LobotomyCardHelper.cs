@@ -159,8 +159,8 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             if (modTypes.HasFlag(ModCardType.Restricted))
                 cardInfo.SetNodeRestrictions(true, true, true, true);
 
-            LobotomyCards.Add(cardInfo);
-            if (cardInfo.metaCategories.Exists(mc => mc == CardMetaCategory.ChoiceNode || mc == CardMetaCategory.Rare || mc == SephirahCard))
+            AllLobotomyCards.Add(cardInfo);
+            if (cardInfo.metaCategories.Exists(mc => mc == CardMetaCategory.ChoiceNode || mc == CardMetaCategory.Rare))
                 ObtainableLobotomyCards.Add(cardInfo);
 
             CardManager.Add(pluginPrefix, cardInfo);

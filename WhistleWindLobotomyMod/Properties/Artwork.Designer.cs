@@ -2973,6 +2973,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] slotPavedRoad {
+            get {
+                object obj = ResourceManager.GetObject("slotPavedRoad", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] snowQueen {
             get {
                 object obj = ResourceManager.GetObject("snowQueen", resourceCulture);
@@ -3033,6 +3043,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] starterDeckApocrypha {
+            get {
+                object obj = ResourceManager.GetObject("starterDeckApocrypha", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] starterDeckBlackForest {
             get {
                 object obj = ResourceManager.GetObject("starterDeckBlackForest", resourceCulture);
@@ -3083,9 +3103,39 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] starterDeckFreakShow {
+            get {
+                object obj = ResourceManager.GetObject("starterDeckFreakShow", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] starterDeckKeter {
+            get {
+                object obj = ResourceManager.GetObject("starterDeckKeter", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] starterDeckMagicalGirls {
             get {
                 object obj = ResourceManager.GetObject("starterDeckMagicalGirls", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] starterDeckPeoplePleasers {
+            get {
+                object obj = ResourceManager.GetObject("starterDeckPeoplePleasers", resourceCulture);
                 return ((byte[])(obj));
             }
         }

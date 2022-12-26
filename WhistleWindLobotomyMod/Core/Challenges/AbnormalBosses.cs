@@ -57,7 +57,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         public static bool ReplaceBossEncounter(EncounterData encounterData, ref Opponent __result)
         {
             // breaks if challenge is not active or if opponent is not supported
-            if (!AscensionSaveData.Data.ChallengeIsActive(Id) || !SaveFile.IsAscension && !ConfigManager.Instance.AbnormalBosses)
+            if (!AscensionSaveData.Data.ChallengeIsActive(Id) || !SaveFile.IsAscension && !LobotomyConfigManager.Instance.AbnormalBosses)
                 return true;
 
             if (!SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
@@ -106,7 +106,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         public static bool ReplaceSequencers(string specialBattleId, ref TurnManager __instance)
         {
             // if challenge not active and 
-            if (!AscensionSaveData.Data.ChallengeIsActive(Id) || !SaveFile.IsAscension && !ConfigManager.Instance.AbnormalBosses)
+            if (!AscensionSaveData.Data.ChallengeIsActive(Id) || !SaveFile.IsAscension && !LobotomyConfigManager.Instance.AbnormalBosses)
             {
                 return true;
             }

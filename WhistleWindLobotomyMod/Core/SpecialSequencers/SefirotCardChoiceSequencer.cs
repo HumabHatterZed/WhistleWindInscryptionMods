@@ -26,10 +26,10 @@ namespace WhistleWindLobotomyMod
             };
 
             GenerationType main = GenerationType.SpecialCardChoice;
-            GenerationType extra = ConfigManager.Instance.SefirotChoiceAtStart ? GenerationType.RegionStart : GenerationType.None;
+            GenerationType extra = LobotomyConfigManager.Instance.SefirotChoiceAtStart ? GenerationType.RegionStart : GenerationType.None;
 
             // don't generate node if it's disabled
-            if (ConfigManager.Instance.NoSefirot)
+            if (LobotomyConfigManager.Instance.NoSefirot)
             {
                 main = GenerationType.None;
                 extra = GenerationType.None;

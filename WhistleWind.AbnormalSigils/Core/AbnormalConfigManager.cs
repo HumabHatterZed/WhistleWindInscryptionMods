@@ -37,7 +37,7 @@ namespace WhistleWind.AbnormalSigils.Core
             Config_MakeModular = WstlConfigFile.Bind(
                     "Settings.Abilities", "Make Modular", AbnormalAbilityHelper.AbilityGroup.None,
                     new ConfigDescription(
-                        "Makes certain types of abilites modular, making them obtainable as totem bases."));
+                        "Forces abilities to be modular based on type group, meaning they can be found on totem bases."));
         }
     }
 }

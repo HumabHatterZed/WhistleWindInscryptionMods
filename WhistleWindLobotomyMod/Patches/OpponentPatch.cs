@@ -13,16 +13,16 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(Opponent.OutroSequence))]
         public static IEnumerator ResetEffects(IEnumerator enumerator)
         {
-            if (ConfigManager.Instance.NumOfBlessings > 11)
+            if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
             {
                 if (WstlSaveManager.TriggeredWhiteNightThisRun)
                 {
                     LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
-                    ConfigManager.Instance.SetBlessings(0);
+                    LobotomyConfigManager.Instance.SetBlessings(0);
                     LeshyAnimationController.Instance.ResetEyesTexture();
                 }
                 else
-                    ConfigManager.Instance.SetBlessings(11);
+                    LobotomyConfigManager.Instance.SetBlessings(11);
             }
             if (WstlSaveManager.BoardEffectsApocalypse)
             {

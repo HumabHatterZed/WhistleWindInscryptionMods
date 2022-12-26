@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
+using InscryptionCommunityPatch;
+using InscryptionCommunityPatch.Card;
 
 namespace WhistleWind.Core.AbilityClasses
 {
@@ -21,6 +23,11 @@ namespace WhistleWind.Core.AbilityClasses
         {
             get
             {
+                // use the Latch Fix's claw prefab if it's not null
+                if (Act1LatchAbilityFix._clawPrefab != null)
+                    return Act1LatchAbilityFix._clawPrefab;
+
+                // otherwise use the default
                 if (_clawPrefab == null)
                     _clawPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/LatchClaw");
 

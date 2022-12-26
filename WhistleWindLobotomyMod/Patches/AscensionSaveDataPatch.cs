@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod.Patches
         public static void ModStarterDecks(AscensionSaveData __instance, ref List<CardInfo> starterDeck)
         {
             // if all cards are disabled and this starter deck has mod cards in it, replace it with a deck of mod death cards
-            if (LobotomyPlugin.AllCardsDisabled && starterDeck.Exists(x => LobotomyPlugin.LobotomyCards.Contains(x)))
+            if (LobotomyPlugin.AllCardsDisabled && starterDeck.Exists(x => LobotomyPlugin.AllLobotomyCards.Contains(x)))
             {
                 int tickCount = Environment.TickCount;
                 starterDeck = new()

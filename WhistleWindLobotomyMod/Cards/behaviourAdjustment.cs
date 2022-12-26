@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_behaviourAdjustment", "Behaviour Adjustment",
-                "A strange device made to 'fix' errant beasts. A disagreeable sentiment.",
+                "A strange device made to 'fix' errant beasts. I do not see the point.",
                 atk: 0, hp: 1,
                 blood: 0, bones: 0, energy: 3,
                 Artwork.behaviourAdjustment, Artwork.behaviourAdjustment_emission,

@@ -100,7 +100,7 @@ namespace WhistleWindLobotomyMod
 
             // Resets Blessings
             LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
-            ConfigManager.Instance.SetBlessings(0);
+            LobotomyConfigManager.Instance.SetBlessings(0);
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {

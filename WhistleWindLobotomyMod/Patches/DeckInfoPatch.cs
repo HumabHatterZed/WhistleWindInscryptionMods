@@ -19,29 +19,89 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPrefix, HarmonyPatch(nameof(DeckInfo.InitializeAsPlayerDeck))]
         private static bool ModStarterDecks(ref DeckInfo __instance)
         {
-            if (ConfigManager.Instance.StarterDeck <= 0 || ConfigManager.Instance.StarterDeck > 9)
+            if (LobotomyConfigManager.Instance.StarterDeck <= 0 || LobotomyConfigManager.Instance.StarterDeck > 12)
                 return true;
 
-            int deckIdx = ConfigManager.Instance.StarterDeck;
-            if (deckIdx == 9)
-                deckIdx = UnityEngine.Random.Range(1, 8);
+            int deckIdx = LobotomyConfigManager.Instance.StarterDeck;
+            if (deckIdx == 1)
+                deckIdx = UnityEngine.Random.Range(3, 10);
 
             List<string> cardsToAdd = deckIdx switch
             {
-                1 => new() { "wstl_oneSin", "wstl_fairyFestival", "wstl_oldLady" },
-                2 => new() { "wstl_scorchedGirl", "wstl_laetitia", "wstl_childOfTheGalaxy" },
-                3 => new() { "wstl_weCanChangeAnything", "wstl_allAroundHelper", "wstl_singingMachine" },
-                4 => new() { "Squirrel" },
-                5 => new() { LobotomyPlugin.RuinaCardsDisabled ? "wstl_laetitia" : "wstl_theRoadHome", "wstl_warmHeartedWoodsman", "wstl_wisdomScarecrow" },
-                6 => new() { "wstl_magicalGirlHeart", "wstl_magicalGirlDiamond", LobotomyPlugin.RuinaCardsDisabled ? "wstl_magicalGirlSpade" : "wstl_magicalGirlClover" },
-                7 => new() { "wstl_punishingBird", "wstl_bigBird", "wstl_judgementBird" },
-                _ => new()
+                2 => new(),
+                3 => new()
+                {
+                    "wstl_oneSin",
+                    "wstl_fairyFestival",
+                    "wstl_oldLady"
+                },
+                4 => new()
+                {
+                    "wstl_scorchedGirl",
+                    "wstl_laetitia",
+                    "wstl_childOfTheGalaxy"
+                },
+                5 => new()
+                {
+                    "wstl_weCanChangeAnything",
+                    "wstl_allAroundHelper",
+                    "wstl_singingMachine"
+                },
+                6 => new()
+                {
+                    "wstl_todaysShyLook",
+                    LobotomyPlugin.RuinaCardsDisabled ? "wstl_mirrorOfAdjustment" : "wstl_pinocchio",
+                    "wstl_behaviourAdjustment"
+                },
+                7 => new()
+                {
+                    "wstl_beautyAndBeast",
+                    "wstl_voidDream",
+                    "wstl_queenBee"
+                },
+                8 => new()
+                {
+                    "wstl_fragmentOfUniverse",
+                    "wstl_skinProphecy",
+                    "wstl_plagueDoctor"
+                },
+                9 => new()
+                {
+                    "wstl_bloodBath",
+                    "wstl_burrowingHeaven",
+                    "wstl_snowQueen"
+                },
+                10 => new()
+                {
+                    LobotomyPlugin.RuinaCardsDisabled ? "wstl_laetitia" : "wstl_theRoadHome",
+                    "wstl_warmHeartedWoodsman",
+                    "wstl_wisdomScarecrow",
+                    LobotomyPlugin.RuinaCardsDisabled ? "wstl_snowWhitesApple" : "wstl_ozma"
+                },
+                11 => new()
+                {
+                    "wstl_magicalGirlSpade",
+                    "wstl_magicalGirlHeart",
+                    "wstl_magicalGirlDiamond",
+                    LobotomyPlugin.RuinaCardsDisabled ? "wstl_voidDream" : "wstl_magicalGirlClover"
+                },
+                12 => new()
+                {
+                    "wstl_punishingBird",
+                    "wstl_bigBird",
+                    "wstl_judgementBird"
+                },
+                _ => null
             };
+
+            // return vanilla deck
+            if (cardsToAdd == null)
+                return true;
 
             // if random mod cards is chosen, choose three random cards from this mod to act as a starter deck
             if (cardsToAdd.Count == 0)
             {
-                while (cardsToAdd.Count < 3)
+                while (cardsToAdd.Count < 3 + LobotomyConfigManager.Instance.StarterDeckSize)
                 {
                     int randomIdx = UnityEngine.Random.Range(0, LobotomyPlugin.ObtainableLobotomyCards.Count);
                     cardsToAdd.Add(LobotomyPlugin.ObtainableLobotomyCards[randomIdx].name);

@@ -42,7 +42,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         [HarmonyPostfix]
         public static void ClearVanillaEncounters(ref GameFlowManager __instance)
         {
-            if (__instance != null && (AscensionSaveData.Data.ChallengeIsActive(Id) || !SaveFile.IsAscension && ConfigManager.Instance.AbnormalBattles))
+            if (__instance != null && (AscensionSaveData.Data.ChallengeIsActive(Id) || !SaveFile.IsAscension && LobotomyConfigManager.Instance.AbnormalBattles))
             {
                 ChallengeActivationUI.TryShowActivation(Id);
                 RegionProgression.Instance.regions[0].encounters.Clear();
