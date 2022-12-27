@@ -2923,16 +2923,6 @@ namespace WhistleWind.LobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] skeleton_can_emission {
-            get {
-                object obj = ResourceManager.GetObject("skeleton_can_emission", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] skeleton_shrimp {
             get {
                 object obj = ResourceManager.GetObject("skeleton_shrimp", resourceCulture);
