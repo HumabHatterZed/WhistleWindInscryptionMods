@@ -27,7 +27,7 @@ namespace WhistleWind.LobotomyMod
         private IEnumerator CheckForOtherCards()
         {
             // Break if already have Adult
-            if (WstlSaveManager.OwnsLyingAdult)
+            if (LobotomySaveManager.OwnsLyingAdult)
             {
                 LobotomyPlugin.Log.LogDebug("Player already has Adult Who Tells Lies.");
                 yield break;

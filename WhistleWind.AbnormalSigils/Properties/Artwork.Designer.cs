@@ -1113,6 +1113,16 @@ namespace WhistleWind.AbnormalSigils.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] sigilSigilPower_pixel {
+            get {
+                object obj = ResourceManager.GetObject("sigilSigilPower_pixel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] sigilSlime {
             get {
                 object obj = ResourceManager.GetObject("sigilSlime", resourceCulture);

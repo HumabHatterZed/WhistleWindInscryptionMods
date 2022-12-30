@@ -23,7 +23,7 @@ namespace WhistleWind.LobotomyMod
         private IEnumerator CheckForOtherCards()
         {
             // Break if already have Apocalypse Bird
-            if (WstlSaveManager.OwnsApocalypseBird)
+            if (LobotomySaveManager.OwnsApocalypseBird)
             {
                 LobotomyPlugin.Log.LogDebug("Player already has Apocalypse Bird.");
                 yield break;
@@ -119,7 +119,7 @@ namespace WhistleWind.LobotomyMod
             // set cost to 0 for this fight (can play immediately that way)
             info.cost = 0;
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0.25f, null);
-            WstlSaveManager.OwnsApocalypseBird = true;
+            LobotomySaveManager.OwnsApocalypseBird = true;
             yield return new WaitForSeconds(0.2f);
 
             // Li'l text blurb

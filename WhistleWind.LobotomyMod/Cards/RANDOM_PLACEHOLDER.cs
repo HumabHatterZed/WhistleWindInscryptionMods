@@ -1,4 +1,5 @@
-﻿using WhistleWind.LobotomyMod.Core.Helpers;
+﻿using WhistleWind.AbnormalSigils;
+using WhistleWind.LobotomyMod.Core.Helpers;
 using WhistleWind.LobotomyMod.Properties;
 
 namespace WhistleWind.LobotomyMod
@@ -14,7 +15,7 @@ namespace WhistleWind.LobotomyMod
                 blood: 0, bones: 0, energy: 0,
                 Artwork.RANDOM_PLACEHOLDER, pixelTexture: Artwork.RANDOM_PLACEHOLDER_pixel,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: new(), traits: new(), statIcon: SigilPower.icon);
         }
     }
 }

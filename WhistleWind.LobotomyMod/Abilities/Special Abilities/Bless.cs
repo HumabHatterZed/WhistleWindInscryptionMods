@@ -20,10 +20,6 @@ namespace WhistleWind.LobotomyMod
         public static readonly string rName = "Bless";
         public static readonly string rDesc = "Upon successfully healing a card using the Healer ability, Plague Doctor changes its appearance.";
 
-        private bool HasHeretic =
-            new List<PlayableCard>(Singleton<PlayerHand>.Instance.CardsInHand).FindAll((PlayableCard c) => c.Info.name == "wstl_apostleHeretic").Count != 0
-            || new List<CardSlot>(Singleton<BoardManager>.Instance.AllSlotsCopy.Where((CardSlot s) => s.Card != null && s.Card.Info.name == "wstl_apostleHeretic")).Count != 0;
-
         private readonly string eventIntro3 = "[c:bR]Rise, my servants. Rise and serve me.[c:]";
         private readonly string eventIntroRepeat = "[c:bR]The time has come again. I will be thy guide.[c:]";
 
@@ -65,9 +61,9 @@ namespace WhistleWind.LobotomyMod
             CardLoader.GetCardByName("wstl_plagueDoctor").SetPortrait(TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor), TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor_emission));
 
             // Play dialogue depending on whether this is the first time this has happened this run
-            if (!WstlSaveManager.TriggeredWhiteNightThisRun)
+            if (!LobotomySaveManager.TriggeredWhiteNightThisRun)
             {
-                WstlSaveManager.TriggeredWhiteNightThisRun = true;
+                LobotomySaveManager.TriggeredWhiteNightThisRun = true;
                 yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightEventIntro");
             }
             else
@@ -78,12 +74,16 @@ namespace WhistleWind.LobotomyMod
 
             // Determine whether a Heretic is needed by seeing if One Sin exists in the player's deck
             bool sinful = new List<CardInfo>(RunState.DeckList).FindAll((CardInfo info) => info.name == "wstl_oneSin").Count() > 0;
-
+            bool HasHeretic = new List<PlayableCard>(Singleton<PlayerHand>.Instance.CardsInHand)
+                .FindAll((PlayableCard c) => c.Info.name == "wstl_apostleHeretic").Count != 0 ||
+                new List<CardSlot>(Singleton<BoardManager>.Instance.AllSlotsCopy
+                .Where((CardSlot s) => s.Card != null && s.Card.Info.name == "wstl_apostleHeretic")).Count != 0;
+            
             // Kill non-living/Mule card(s) and transform the rest (excluding One Sin) into Apostles
             foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(!base.PlayableCard.OpponentCard).Where(slot => slot.Card != base.Card))
             {
                 if (slot.Card != null && slot.Card.Info.name != "wstl_oneSin")
-                    yield return ConvertToApostle(slot.Card, sinful);
+                    yield return ConvertToApostle(slot.Card, HasHeretic, sinful);
             }
             // If the player has One Sin
             if (sinful)
@@ -181,14 +181,14 @@ namespace WhistleWind.LobotomyMod
             this.UpdatePortrait();
         }
 
-        public IEnumerator ConvertToApostle(PlayableCard otherCard, bool HasOneSin = false)
+        public IEnumerator ConvertToApostle(PlayableCard otherCard, bool HasHeretic, bool HasOneSin = false)
         {
             bool isOpponent = otherCard.OpponentCard;
             // null check should be done elsewhere
             if (otherCard.HasAnyOfTraits(Trait.Pelt, Trait.Terrain) || otherCard.HasSpecialAbility(SpecialTriggeredAbility.PackMule))
             {
-                yield return otherCard.DieTriggerless();
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+                yield return otherCard.DieTriggerless();
             }
             else
             {
@@ -231,63 +231,12 @@ namespace WhistleWind.LobotomyMod
         }
         private void UpdatePortrait()
         {
-            Texture2D portrait;
-            Texture2D emissive;
             CardInfo newInfo = (CardInfo)base.Card?.Info.Clone();
-            
-            switch (LobotomyConfigManager.Instance.NumOfBlessings)
-            {
-                case 0:
-                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor);
-                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor_emission);
-                    break;
-                case 1:
-                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor1);
-                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor1_emission);
-                    break;
-                case 2:
-                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor2);
-                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor2_emission);
-                    break;
-                case 3:
-                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor3);
-                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor3_emission);
-                    break;
-                case 4:
-                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor4);
-                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor4_emission);
-                    break;
-                case 5:
-                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor5);
-                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor5_emission);
-                    break;
-                case 6:
-                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor6);
-                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor6_emission);
-                    break;
-                case 7:
-                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor7);
-                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor7_emission);
-                    break;
-                case 8:
-                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor8);
-                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor8_emission);
-                    break;
-                case 9:
-                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor9);
-                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor9_emission);
-                    break;
-                case 10:
-                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor10);
-                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor10_emission);
-                    break;
-                default:
-                    portrait = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor11);
-                    emissive = TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor11_emission);
-                    newInfo.AddAppearances(ForcedWhite.appearance);
-                    break;
-            }
-            newInfo.SetPortrait(portrait, emissive);
+            byte[][] portraits = LobotomyPlugin.UpdatePlagueSprites();
+
+            newInfo.SetPortrait(
+                TextureLoader.LoadTextureFromBytes(portraits[0]), TextureLoader.LoadTextureFromBytes(portraits[1])
+                ).SetPixelPortrait(TextureLoader.LoadTextureFromBytes(portraits[2]));
             base.Card?.SetInfo(newInfo);
         }
     }

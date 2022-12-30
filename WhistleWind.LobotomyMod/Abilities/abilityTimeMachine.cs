@@ -34,7 +34,7 @@ namespace WhistleWind.LobotomyMod
         // Failsafe that prevents ability from being used multiple times per run
         public override bool CanActivate()
         {
-            return !WstlSaveManager.UsedBackwardClock;
+            return !LobotomySaveManager.UsedBackwardClock;
         }
 
         // Ends the battle
@@ -124,7 +124,7 @@ namespace WhistleWind.LobotomyMod
             int damage = Singleton<LifeManager>.Instance.DamageUntilPlayerWin;
             yield return Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = damage;
             yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
-            WstlSaveManager.UsedBackwardClock = true;
+            LobotomySaveManager.UsedBackwardClock = true;
         }
 
         private void RandomEmission()

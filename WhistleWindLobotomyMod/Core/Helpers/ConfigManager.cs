@@ -49,8 +49,11 @@ namespace WhistleWindLobotomyMod
         private ConfigEntry<bool> Config_WhiteNightInRulebook;
         public bool RevealWhiteNight => Config_WhiteNightInRulebook.Value;
 
-        //private ConfigEntry<bool> Config_NoRuina;
-        //public bool NoRuina => Config_NoRuina.Value;
+        private ConfigEntry<int> Config_StarterDeck;
+        public int StarterDeck => Config_StarterDeck.Value;
+
+        private ConfigEntry<int> Config_StarterDeckSize;
+        public int StarterDeckSize => Config_StarterDeckSize.Value;
 
         private ConfigEntry<int> Config_Blessings;
         public int NumOfBlessings => Config_Blessings.Value;
@@ -97,9 +100,22 @@ namespace WhistleWindLobotomyMod
                     pluginName, "REVEAL DESCRIPTIONS", false,
                     new ConfigDescription("Changes the descriptions of the abilities Apostle, True Saviour, and Confession and Pentinence."));
 
-            //Config_NoDonators = WstlConfigFile.Bind(
-            //    pluginName, "NO RUINA", false,
-            //    new ConfigDescription("Prevents abnormalities from the Library of Ruina expansion from being obtainable in-game."));
+            Config_StarterDeck = WstlConfigFile.Bind(
+                    pluginName, "STARTER DECK", 0,
+                    new ConfigDescription("PART 1 ONLY - Replaces your starting cards with one of this mod's custom decks." +
+                    "\n0 - Default Deck" +
+                    "\n1 - Random Mod Deck" +
+                    "\n2 - 3 Random Mod Cards" +
+                    "\n3 - One Sin, Fairy Festival, Old Lady" +
+                    "\n4 - Scorched Girl, Laetitia, Child of the Galaxy" +
+                    "\n5 - We Can Change Anything, All-Around Helper, Singing Machine" +
+                    "\n6 - Wolf Cub, Warm-Hearted-Woodsman, Wisdom Scarecrow" +
+                    "\n7 - Magical Girl S, Magical Girl H, Magical D" +
+                    "\n8 - Punishing Bird, Big Bird, Judgement Bird"));
+
+            Config_StarterDeckSize = WstlConfigFile.Bind(
+                    pluginName, "EXTRA RANDOM CARDS", 0,
+                    new ConfigDescription("Adds more cards to the 3 Random Mod Cards starter decks in Part 1 and Kaycee's Mod."));
 
             Config_Blessings = WstlConfigFile.Bind(
                     pluginName, "NUMBER OF BLESSINGS", 0);

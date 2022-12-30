@@ -14,13 +14,13 @@ namespace WhistleWind.LobotomyMod
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard()
         {
-            if (base.PlayableCard.Info.name == "wstl_apocalypseBird" && !WstlSaveManager.BoardEffectsApocalypse)
+            if (base.PlayableCard.Info.name == "wstl_apocalypseBird" && !LobotomySaveManager.BoardEffectsApocalypse)
                 yield return ApocalypseTableEffects();
 
-            if (base.PlayableCard.Info.name == "wstl_jesterOfNihil" && !WstlSaveManager.BoardEffectsEntropy)
+            if (base.PlayableCard.Info.name == "wstl_jesterOfNihil" && !LobotomySaveManager.BoardEffectsEntropy)
                 yield return EntropyTableEffects();
 
-            if (base.PlayableCard.Info.name == "wstl_lyingAdult" && !WstlSaveManager.BoardEffectsEmerald)
+            if (base.PlayableCard.Info.name == "wstl_lyingAdult" && !LobotomySaveManager.BoardEffectsEmerald)
                 yield return EmeraldTableEffects();
 
             yield break;
@@ -36,7 +36,7 @@ namespace WhistleWind.LobotomyMod
             AudioController.Instance.StopLoop(1);
             AudioController.Instance.SetLoopVolume((Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.25f);
 
-            WstlSaveManager.BoardEffectsApocalypse = true;
+            LobotomySaveManager.BoardEffectsApocalypse = true;
         }
         public static IEnumerator EntropyTableEffects()
         {
@@ -48,7 +48,7 @@ namespace WhistleWind.LobotomyMod
 
             yield return ThumpTable();
 
-            WstlSaveManager.BoardEffectsEntropy = true;
+            LobotomySaveManager.BoardEffectsEntropy = true;
         }
         public static IEnumerator EmeraldTableEffects()
         {
@@ -60,7 +60,7 @@ namespace WhistleWind.LobotomyMod
 
             yield return ThumpTable();
 
-            WstlSaveManager.BoardEffectsEmerald = true;
+            LobotomySaveManager.BoardEffectsEmerald = true;
         }
 
         private static void ChangeTableColours(Color mainLight, Color cardLight, Color interactableLight, Color slotColour, Color slotGlow)

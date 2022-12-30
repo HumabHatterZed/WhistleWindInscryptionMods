@@ -15,7 +15,7 @@ namespace WhistleWind.LobotomyMod.Patches
         {
             if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
             {
-                if (WstlSaveManager.TriggeredWhiteNightThisRun)
+                if (LobotomySaveManager.TriggeredWhiteNightThisRun)
                 {
                     LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
                     LobotomyConfigManager.Instance.SetBlessings(0);
@@ -24,19 +24,19 @@ namespace WhistleWind.LobotomyMod.Patches
                 else
                     LobotomyConfigManager.Instance.SetBlessings(11);
             }
-            if (WstlSaveManager.BoardEffectsApocalypse)
+            if (LobotomySaveManager.BoardEffectsApocalypse)
             {
-                WstlSaveManager.BoardEffectsApocalypse = false;
+                LobotomySaveManager.BoardEffectsApocalypse = false;
                 Singleton<TableVisualEffectsManager>.Instance.ResetTableColors();
             }
-            if (WstlSaveManager.BoardEffectsEntropy)
+            if (LobotomySaveManager.BoardEffectsEntropy)
             {
-                WstlSaveManager.BoardEffectsEntropy = false;
+                LobotomySaveManager.BoardEffectsEntropy = false;
                 Singleton<TableVisualEffectsManager>.Instance.ResetTableColors();
             }
-            if (WstlSaveManager.BoardEffectsEntropy)
+            if (LobotomySaveManager.BoardEffectsEntropy)
             {
-                WstlSaveManager.BoardEffectsEntropy = false;
+                LobotomySaveManager.BoardEffectsEntropy = false;
                 Singleton<TableVisualEffectsManager>.Instance.ResetTableColors();
             }
 

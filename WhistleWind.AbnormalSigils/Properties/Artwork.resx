@@ -433,6 +433,9 @@
   <data name="sigilSerpentsNest_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilSerpentsNest_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="sigilSigilPower_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilSigilPower_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="sigilSlime" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilSlime.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

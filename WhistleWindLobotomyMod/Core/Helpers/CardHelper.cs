@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
             string name, string displayName,
             string description,
             int baseAttack, int baseHealth, int bloodCost, int bonesCost,
-            byte[] defaultTexture, byte[] emissionTexture,
+            byte[] defaultTexture, byte[] emissionTexture = null,
             byte[] gbcTexture = null,
             byte[] altTexture = null, byte[] emissionAltTexture = null,
             byte[] titleTexture = null,
@@ -64,7 +64,10 @@ namespace WhistleWindLobotomyMod
                 _ => null
             };
             CardInfo cardInfo = ScriptableObject.CreateInstance<CardInfo>();
-            cardInfo.SetPortrait(texture, emissionTex);
+            cardInfo.SetPortrait(texture);
+            if (emissionAltTex != null)
+                cardInfo.SetEmissivePortrait(emissionTex);
+
             cardInfo.name = name;
             cardInfo.displayedName = displayName;
             cardInfo.description = description;
@@ -119,6 +122,9 @@ namespace WhistleWindLobotomyMod
             if (tailName != null && tailTex != null) { cardInfo.SetTail(tailName, tailTex); }
 
             CardManager.Add("wstl", cardInfo);
+            WstlPlugin.AllLobotomyCards.Add(cardInfo);
+            if (cardInfo.metaCategories.Exists(x => x == CardMetaCategory.ChoiceNode || x == CardMetaCategory.TraderOffer || x == CardMetaCategory.Rare))
+                WstlPlugin.ObtainableLobotomyCards.Add(cardInfo);
         }
 
         public static CardAppearanceBehaviourManager.FullCardAppearanceBehaviour CreateAppearance<T>(string name) where T : CardAppearanceBehaviour

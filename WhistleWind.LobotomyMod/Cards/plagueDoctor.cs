@@ -12,61 +12,8 @@ namespace WhistleWind.LobotomyMod
     {
         private void Card_PlagueDoctor_O0145()
         {
-            byte[] portrait;
-            byte[] emissive;
+            byte[][] portraits = UpdatePlagueSprites();
 
-            // Update portrait and emission on loadup
-            switch (LobotomyConfigManager.Instance.NumOfBlessings)
-            {
-                case 0:
-                    portrait = Artwork.plagueDoctor;
-                    emissive = Artwork.plagueDoctor_emission;
-                    break;
-                case 1:
-                    portrait = Artwork.plagueDoctor1;
-                    emissive = Artwork.plagueDoctor1_emission;
-                    break;
-                case 2:
-                    portrait = Artwork.plagueDoctor2;
-                    emissive = Artwork.plagueDoctor2_emission;
-                    break;
-                case 3:
-                    portrait = Artwork.plagueDoctor3;
-                    emissive = Artwork.plagueDoctor3_emission;
-                    break;
-                case 4:
-                    portrait = Artwork.plagueDoctor4;
-                    emissive = Artwork.plagueDoctor4_emission;
-                    break;
-                case 5:
-                    portrait = Artwork.plagueDoctor5;
-                    emissive = Artwork.plagueDoctor5_emission;
-                    break;
-                case 6:
-                    portrait = Artwork.plagueDoctor6;
-                    emissive = Artwork.plagueDoctor6_emission;
-                    break;
-                case 7:
-                    portrait = Artwork.plagueDoctor7;
-                    emissive = Artwork.plagueDoctor7_emission;
-                    break;
-                case 8:
-                    portrait = Artwork.plagueDoctor8;
-                    emissive = Artwork.plagueDoctor8_emission;
-                    break;
-                case 9:
-                    portrait = Artwork.plagueDoctor9;
-                    emissive = Artwork.plagueDoctor9_emission;
-                    break;
-                case 10:
-                    portrait = Artwork.plagueDoctor10;
-                    emissive = Artwork.plagueDoctor10_emission;
-                    break;
-                default:
-                    portrait = Artwork.plagueDoctor11;
-                    emissive = Artwork.plagueDoctor11_emission;
-                    break;
-            }
             List<Ability> abilities = new()
             {
                 Ability.Flying,
@@ -81,12 +28,81 @@ namespace WhistleWind.LobotomyMod
                 "A worker of miracles. He humbly requests to join you.",
                 atk: 0, hp: 3,
                 blood: 0, bones: 3, energy: 0,
-                portrait, emissive,
+                portraits[0], portraits[1], pixelTexture: portraits[2],
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(), onePerDeck: true,
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
                 customTribe: TribeDivine);
+        }
+        public static byte[][] UpdatePlagueSprites()
+        {
+            byte[][] resources = { null, null, null };
+            // Update portrait and emission on loadup
+            switch (LobotomyConfigManager.Instance.NumOfBlessings)
+            {
+                case 0:
+                    resources[0] = Artwork.plagueDoctor;
+                    resources[1] = Artwork.plagueDoctor_emission;
+                    resources[2] = Artwork.allAroundHelper_pixel;
+                    break;
+                case 1:
+                    resources[0] = Artwork.plagueDoctor1;
+                    resources[1] = Artwork.plagueDoctor1_emission;
+                    resources[2] = Artwork.allAroundHelper_pixel;
+                    break;
+                case 2:
+                    resources[0] = Artwork.plagueDoctor2;
+                    resources[1] = Artwork.plagueDoctor2_emission;
+                    resources[2] = Artwork.allAroundHelper_pixel;
+                    break;
+                case 3:
+                    resources[0] = Artwork.plagueDoctor3;
+                    resources[1] = Artwork.plagueDoctor3_emission;
+                    resources[2] = Artwork.allAroundHelper_pixel;
+                    break;
+                case 4:
+                    resources[0] = Artwork.plagueDoctor4;
+                    resources[1] = Artwork.plagueDoctor4_emission;
+                    resources[2] = Artwork.allAroundHelper_pixel;
+                    break;
+                case 5:
+                    resources[0] = Artwork.plagueDoctor5;
+                    resources[1] = Artwork.plagueDoctor5_emission;
+                    resources[2] = Artwork.allAroundHelper_pixel;
+                    break;
+                case 6:
+                    resources[0] = Artwork.plagueDoctor6;
+                    resources[1] = Artwork.plagueDoctor6_emission;
+                    resources[2] = Artwork.allAroundHelper_pixel;
+                    break;
+                case 7:
+                    resources[0] = Artwork.plagueDoctor7;
+                    resources[1] = Artwork.plagueDoctor7_emission;
+                    resources[2] = Artwork.allAroundHelper_pixel;
+                    break;
+                case 8:
+                    resources[0] = Artwork.plagueDoctor8;
+                    resources[1] = Artwork.plagueDoctor8_emission;
+                    resources[2] = Artwork.allAroundHelper_pixel;
+                    break;
+                case 9:
+                    resources[0] = Artwork.plagueDoctor9;
+                    resources[1] = Artwork.plagueDoctor9_emission;
+                    resources[2] = Artwork.allAroundHelper_pixel;
+                    break;
+                case 10:
+                    resources[0] = Artwork.plagueDoctor10;
+                    resources[1] = Artwork.plagueDoctor10_emission;
+                    resources[2] = Artwork.allAroundHelper_pixel;
+                    break;
+                default:
+                    resources[0] = Artwork.plagueDoctor11;
+                    resources[1] = Artwork.plagueDoctor11_emission;
+                    resources[2] = Artwork.allAroundHelper_pixel;
+                    break;
+            }
+            return resources;
         }
     }
 }

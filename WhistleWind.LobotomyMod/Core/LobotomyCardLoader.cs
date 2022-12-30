@@ -5,15 +5,15 @@ using WhistleWind.LobotomyMod.Core.Helpers;
 
 namespace WhistleWind.LobotomyMod.Core
 {
-    public static class ModCardLoader // Methods specific to getting modded cards
+    public static class LobotomyCardLoader // Methods specific to getting modded cards
     {
         public static CardInfo GetRandomRareModCard(int randomSeed)
         {
             List<CardInfo> unlockedCards = GetUnlockedModCards(CardMetaCategory.Rare, CardTemple.Nature);
-            if (WstlSaveManager.UsedBackwardClock)
+            if (LobotomySaveManager.UsedBackwardClock)
                 unlockedCards.RemoveAll((x) => x.name == "wstl_backwardClock");
 
-            if (WstlSaveManager.OwnsJesterOfNihil)
+            if (LobotomySaveManager.OwnsJesterOfNihil)
                 unlockedCards.RemoveAll((x) => x.name.Equals("wstl_magicalGirlSpade"));
 
             return CardLoader.Clone(unlockedCards[SeededRandom.Range(0, unlockedCards.Count, randomSeed)]);
@@ -22,14 +22,14 @@ namespace WhistleWind.LobotomyMod.Core
         {
             List<CardInfo> unlockedCards = GetUnlockedModCards(CardMetaCategory.ChoiceNode, temple).FindAll((x) => x.GetExtendedProperty("wstl:RiskLevel") == riskLevel);
 
-            if (WstlSaveManager.OwnsApocalypseBird)
+            if (LobotomySaveManager.OwnsApocalypseBird)
                 unlockedCards.RemoveAll((x) => x.name.Equals("wstl_punishingBird") || x.name.Equals("wstl_bigBird")
                 || x.name.Equals("wstl_judgementBird"));
 
-            if (WstlSaveManager.OwnsJesterOfNihil)
+            if (LobotomySaveManager.OwnsJesterOfNihil)
                 unlockedCards.RemoveAll((x) => x.name.Contains("wstl_magicalGirl"));
 
-            if (WstlSaveManager.OwnsLyingAdult)
+            if (LobotomySaveManager.OwnsLyingAdult)
                 unlockedCards.RemoveAll((x) => x.name.Equals("wstl_theRoadHome") || x.name.Equals("wstl_ozma")
                 || x.name.Equals("wstl_wisdomScarecrow") || x.name.Equals("wstl_warmHeartedWoodsman"));
 
@@ -38,7 +38,7 @@ namespace WhistleWind.LobotomyMod.Core
         public static CardInfo GetRandomSephirahCard(int randomSeed)
         {
             List<CardInfo> sephirahCards = GetSephirahCards();
-            bool hasGottenAngelaBefore = WstlSaveManager.HasGottenAngelaOnce;
+            bool hasGottenAngelaBefore = LobotomySaveManager.HasGottenAngelaOnce;
 
             // if the player has obtained all Sefirot + Angela, get a random modded death card
             if (sephirahCards.Count == 0)

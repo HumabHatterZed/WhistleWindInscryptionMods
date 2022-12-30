@@ -11,9 +11,7 @@
 ### 🩹 Bug fixes
     - Fixed Nothing There being copyable by Goo Mage
     - Fixed abnormality choice node not playing/clearing text properly
-    - Fixed abnormality choice node visual bug relating to card deck
     - Fixed Downed Guardian Apostle reviving immediately
-    - Fixed certain singleton cards being reobtainable after certain events
 ### 🔧 Tweaks
     - Starter Deck "Road to Oz" now includes The Road Home or Laetitia, replacing Wolf Cub
     - Starter Deck "Magical Girl!" now includes Magical Girl C or Magical Girl S, depending on config

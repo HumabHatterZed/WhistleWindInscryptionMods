@@ -190,11 +190,11 @@ namespace WhistleWind.LobotomyMod
             {
                 CardChoice cardChoice = new();
 
-                CardInfo card = ModCardLoader.GetRandomSephirahCard(randomSeed);
+                CardInfo card = LobotomyCardLoader.GetRandomSephirahCard(randomSeed);
 
                 while (listOfChoices.Exists((CardChoice x) => x.CardInfo.name == card.name))
                 {
-                    card = ModCardLoader.GetRandomSephirahCard(randomSeed++);
+                    card = LobotomyCardLoader.GetRandomSephirahCard(randomSeed++);
                 }
                 cardChoice.CardInfo = card;
                 listOfChoices.Add(cardChoice);
@@ -206,7 +206,7 @@ namespace WhistleWind.LobotomyMod
             CleanUpRerollItem();
             Singleton<RuleBookController>.Instance.SetShown(shown: false);
             yield return RewardChosenSequence(card);
-            WstlSaveManager.LearnedSefirotChoice = true;
+            LobotomySaveManager.LearnedSefirotChoice = true;
             AddChosenCardToDeck();
             Singleton<TextDisplayer>.Instance.Clear();
             yield return new WaitForSeconds(0.1f);
@@ -214,11 +214,11 @@ namespace WhistleWind.LobotomyMod
         private IEnumerator RewardChosenSequence(SelectableCard card)
         {
             card.OnCardAddedToDeck();
-            float num = !WstlSaveManager.LearnedSefirotChoice ? 0.5f : 0f;
+            float num = !LobotomySaveManager.LearnedSefirotChoice ? 0.5f : 0f;
 
             modDeckPile.MoveCardToPile(card, flipFaceDown: true, num);
             yield return new WaitForSeconds(num);
-            if (!WstlSaveManager.LearnedSefirotChoice)
+            if (!LobotomySaveManager.LearnedSefirotChoice)
             {
                 Singleton<TextDisplayer>.Instance.Clear();
                 yield return new WaitForSeconds(0.15f);
@@ -242,7 +242,7 @@ namespace WhistleWind.LobotomyMod
         }
         private void OnRewardChosen(SelectableCard card)
         {
-            if (!WstlSaveManager.LearnedAbnormalChoice && !this.AllCardsFlippedUp())
+            if (!LobotomySaveManager.LearnedAbnormalChoice && !this.AllCardsFlippedUp())
                 HintsHandler.OnClickCardChoiceWhileOtherFlipped();
 
             else if (chosenReward == null)
@@ -280,7 +280,7 @@ namespace WhistleWind.LobotomyMod
                 Singleton<RuleBookController>.Instance.SetShown(shown: false);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(card.Info.description);
                 ProgressionData.SetCardIntroduced(card.Info);
-                if (!WstlSaveManager.LearnedAbnormalChoice && this.AllCardsFlippedUp())
+                if (!LobotomySaveManager.LearnedAbnormalChoice && this.AllCardsFlippedUp())
                 {
                     yield return new WaitForSeconds(0.25f);
                     Singleton<TextDisplayer>.Instance.ShowMessage("You may ask [c:bR]1[c:] to join you. The others will continue on their own.");

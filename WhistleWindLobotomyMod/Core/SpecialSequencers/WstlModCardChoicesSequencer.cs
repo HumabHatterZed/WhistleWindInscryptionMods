@@ -218,7 +218,6 @@ namespace WhistleWindLobotomyMod
             AddChosenCardToDeck();
             Singleton<TextDisplayer>.Instance.Clear();
             yield return new WaitForSeconds(0.1f);
-            UnityEngine.Object.Destroy(card.gameObject, 0.5f);
         }
         private IEnumerator RewardChosenSequence(SelectableCard card)
         {
@@ -331,18 +330,6 @@ namespace WhistleWindLobotomyMod
                 }
             }
             base.selectableCards.Clear();
-        }
-        private Texture GetCardbackTexture(CardChoice choice)
-        {
-            if (choice.resourceType == ResourceType.Blood)
-            {
-                return ResourceBank.Get<Texture>("Art/Cards/RewardBacks/card_rewardback_" + choice.resourceAmount + "blood");
-            }
-            if (choice.resourceType == ResourceType.Bone)
-            {
-                return ResourceBank.Get<Texture>("Art/Cards/RewardBacks/card_rewardback_bones");
-            }
-            return ResourceBank.Get<Texture>("Art/Cards/RewardBacks/card_rewardback_" + choice.tribe.ToString().ToLowerInvariant());
         }
         private void OnRerollChoices()
         {

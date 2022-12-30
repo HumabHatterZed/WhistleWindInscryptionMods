@@ -13,6 +13,11 @@ namespace WhistleWindLobotomyMod
         public static CardInfo GetRandomChoosableModCard(int randomSeed, string riskLevel, CardTemple temple = CardTemple.Nature)
         {
             List<CardInfo> unlockedCards = ModCardLoader.GetUnlockedModCards(CardMetaCategory.ChoiceNode, temple).FindAll((CardInfo x) => x.GetExtendedProperty("wstl:RiskLevel") == riskLevel);
+
+            if (WstlSaveManager.HasApocalypse)
+                unlockedCards.RemoveAll((x) => x.name.Equals("wstl_punishingBird") || x.name.Equals("wstl_bigBird")
+                || x.name.Equals("wstl_judgementBird"));
+
             return CardLoader.Clone(unlockedCards[SeededRandom.Range(0, unlockedCards.Count, randomSeed)]);
         }
         public static CardInfo GetRandomRareModCard(int randomSeed)

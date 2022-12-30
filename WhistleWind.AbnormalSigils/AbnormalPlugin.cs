@@ -77,6 +77,7 @@ namespace WhistleWind.AbnormalSigils
             AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
 
             StatIcon_Time();
+            StatIcon_SigilPower();
         }
         private void AddCards() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
         private void AddAbilities()

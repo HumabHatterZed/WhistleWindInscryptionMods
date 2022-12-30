@@ -8,6 +8,7 @@ using Infiniscryption.PackManagement;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
 using Sirenix.Utilities;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using static WhistleWindLobotomyMod.AbnormalEncounterData;
@@ -29,43 +30,50 @@ namespace WhistleWindLobotomyMod
 
         internal static ManualLogSource Log;
         private static Harmony harmony = new(pluginGuid);
-        
+
+        public static List<CardInfo> AllLobotomyCards = new();
+        public static List<CardInfo> ObtainableLobotomyCards = new();
+
+        private static bool _donatorCardsDisabled;
+        public static bool DonatorCardsDisabled => _donatorCardsDisabled;
+
         private void OnDisable() => harmony.UnpatchSelf();
         private void Start()
         {
             if (NewVersion.Enabled)
-                Log.LogError("A NEW VERSION OF THIS MOD IS ALSO INSTALLED!" +
+                Log.LogWarning("A NEW VERSION OF THIS MOD IS ALSO INSTALLED!" +
                     "\nIf you have just updated, please remove both this DLL from your plugins folder, as well as the old config file ending in 'lobotomycorp'." +
-                    "\nIf you are trying to play the pre-2.0 version, please remove or otherwise disable the 2.0 version.");
-            else
+                    " If you are trying to play the pre-2.0 version, please remove or otherwise disable the 2.0 version.");
+            else if (ConfigManager.Instance.ModEnabled)
             {
-                if (ConfigManager.Instance.NoDonators)
+                if (DonatorCardsDisabled)
                     Log.LogInfo("No Donators is set to true. Certain cards have been removed from the pool of obtainable cards.");
 
-                Logger.LogInfo($"The clock is at [{ConfigManager.Instance.NumOfBlessings}].");
+                Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
+
+                Log.LogInfo($"The Clock is at [{ConfigManager.Instance.NumOfBlessings}].");
             }
         }
         private void Awake()
         {
             WstlPlugin.Log = base.Logger;
 
-            ConfigManager.Instance.BindConfig();
-
             if (NewVersion.Enabled)
                 return;
 
+            ConfigManager.Instance.BindConfig();
+
             if (!ConfigManager.Instance.ModEnabled)
-            {
                 Logger.LogWarning($"{pluginName} is disabled in the configuration, some things might break.");
-            }
             else
             {
+                _donatorCardsDisabled = ConfigManager.Instance.NoDonators;
+
                 harmony.PatchAll();
 
                 if (ConfigManager.Instance.NumOfBlessings > 11)
-                {
                     ConfigManager.Instance.SetBlessings(11);
-                }
+
                 Log.LogDebug("Loading challenges...");
                 AddChallenges();
                 Log.LogDebug("Loading abilities...");
@@ -103,6 +111,19 @@ namespace WhistleWindLobotomyMod
         }
         private static void AddStarterDecks()
         {
+            CardInfo rand = CardLoader.GetCardByName("wstl_RANDOM_PLACEHOLDER");
+            List<CardInfo> randomCards = new()
+            {
+                rand.Clone() as CardInfo,
+                rand.Clone() as CardInfo,
+                rand.Clone() as CardInfo };
+            if (ConfigManager.Instance.StarterDeckSize > 0)
+            {
+                for (int i = 0; i < ConfigManager.Instance.StarterDeckSize; i++)
+                    randomCards.Add(rand.Clone() as CardInfo);
+            }
+
+            StarterDeckHelper.AddStartDeck("Random Mod Cards", Resources.starterDeckRandom, randomCards, 0);
             StarterDeckHelper.AddStartDeck("First Day", Resources.starterDeckControl, new()
             {
                 CardLoader.GetCardByName("wstl_oneSin"),
@@ -383,6 +404,8 @@ namespace WhistleWindLobotomyMod
             ApostleMolemanDown_T0346();
             SkeletonShrimp_F0552();
             Crumpled_Can();
+
+            Card_RANDOM_PLACEHOLDER();
         }
 
         public static class PackAPI

@@ -1,12 +1,20 @@
 ﻿## FULL CHANGELOG
 
-### v1.3.0 - End of Service (?/?/202?)
+### v1.3.0 - End of Service (12/31/2022)
 * 🧱 General
   * Added warning when playing this version with the new version installed
   * Added compatibility with Abnormal Sigils
   * Refactored some internal systems
+  * Reformatted the shading of sprites to have different alpha values
+  * Tweaked a number of sprites
 * 🩹 Bug fixes
   * Fixed Plague Doctor's portrait not correctly updating mid-battle
+  * Fixed abnormality choice node visual bug relating to card deck
+  * Fixed certain singleton cards being reobtainable after certain events
+* ➕ Additions
+  * Added starter deck support for Part 1
+  * Added 1 new starter deck: Random Mod Cards
+  * Added new config 'EXTRA RANDOM CARDS' for adding extra mod cards to the Random Mod Cards starter deck (Part 1 and KCM)
 
 ### v1.2.5 - Bug fix (11/23/2022)
 * 🩹 Bug fixes

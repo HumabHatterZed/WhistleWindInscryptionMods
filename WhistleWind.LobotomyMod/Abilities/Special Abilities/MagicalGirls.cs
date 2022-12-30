@@ -24,7 +24,7 @@ namespace WhistleWind.LobotomyMod
         private IEnumerator CheckForMagicGirls()
         {
             // Break if already have Jester
-            if (WstlSaveManager.OwnsJesterOfNihil)
+            if (LobotomySaveManager.OwnsJesterOfNihil)
             {
                 LobotomyPlugin.Log.LogDebug("Player already has Jester of Nihil.");
                 yield break;
@@ -120,7 +120,7 @@ namespace WhistleWind.LobotomyMod
             // set cost to 0 for this fight (can play immediately that way)
             info.cost = 0;
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0f, null);
-            WstlSaveManager.OwnsJesterOfNihil = true;
+            LobotomySaveManager.OwnsJesterOfNihil = true;
             yield return new WaitForSeconds(0.2f);
 
             yield return DialogueEventsManager.PlayDialogueEvent("JesterOfNihilOutro");

@@ -832,6 +832,12 @@
   <data name="queenOfHatred_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\queenOfHatred_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="RANDOM_PLACEHOLDER" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RANDOM_PLACEHOLDER.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="RANDOM_PLACEHOLDER_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RANDOM_PLACEHOLDER_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="redHoodedMercenary" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\redHoodedMercenary.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1248,6 +1254,9 @@
   </data>
   <data name="starterDeckMagicalGirls" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\starterDeckMagicalGirls.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="starterDeckRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\starterDeckRandom.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="testingDummy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\testingDummy.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

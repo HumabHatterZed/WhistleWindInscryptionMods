@@ -108,8 +108,26 @@ namespace WhistleWind.Core.Helpers
             statIconInfo.gbcDescription = description;
             statIconInfo.appliesToAttack = attack;
             statIconInfo.appliesToHealth = health;
-            statIconInfo.iconGraphic = TextureLoader.LoadTextureFromBytes(texture);
+            statIconInfo.SetIcon(TextureLoader.LoadTextureFromBytes(texture));
             statIconInfo.SetPixelIcon(TextureLoader.LoadTextureFromBytes(pixelTexture));
+            statIconInfo.SetDefaultPart1Ability();
+
+            return StatIconManager.Add(pluginGuid, statIconInfo, typeof(T));
+        }
+        public static StatIconManager.FullStatIcon CreateStatIcon<T>(
+            string pluginGuid,
+            string name, string description,
+            Texture2D texture, Texture2D pixelTexture, bool attack, bool health)
+            where T : VariableStatBehaviour
+        {
+            StatIconInfo statIconInfo = ScriptableObject.CreateInstance<StatIconInfo>();
+            statIconInfo.rulebookName = name;
+            statIconInfo.rulebookDescription = description;
+            statIconInfo.gbcDescription = description;
+            statIconInfo.appliesToAttack = attack;
+            statIconInfo.appliesToHealth = health;
+            statIconInfo.SetIcon(texture);
+            statIconInfo.SetPixelIcon(pixelTexture);
             statIconInfo.SetDefaultPart1Ability();
 
             return StatIconManager.Add(pluginGuid, statIconInfo, typeof(T));

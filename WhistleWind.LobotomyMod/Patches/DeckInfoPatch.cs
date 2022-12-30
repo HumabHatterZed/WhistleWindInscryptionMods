@@ -10,21 +10,21 @@ namespace WhistleWind.LobotomyMod.Patches
     {
         // Adds Nothing There to the deck when chosen in a card choice (Trader, Boss Box, etc.)
         [HarmonyPrefix, HarmonyPatch(nameof(DeckInfo.AddCard))]
-        private static void AddNothingThere(ref CardInfo card)
+        private static void AddNothingThereToPlayerDeck(ref CardInfo card)
         {
             if (card.Mods.Exists((x) => x.singletonId == "wstl_nothingThere"))
                 card = CardLoader.GetCardByName("wstl_nothingThere");
         }
 
         [HarmonyPrefix, HarmonyPatch(nameof(DeckInfo.InitializeAsPlayerDeck))]
-        private static bool ModStarterDecks(ref DeckInfo __instance)
+        private static bool Part1StarterDecks(ref DeckInfo __instance)
         {
             if (LobotomyConfigManager.Instance.StarterDeck <= 0 || LobotomyConfigManager.Instance.StarterDeck > 12)
                 return true;
 
             int deckIdx = LobotomyConfigManager.Instance.StarterDeck;
             if (deckIdx == 1)
-                deckIdx = UnityEngine.Random.Range(3, 10);
+                deckIdx = UnityEngine.Random.Range(3, 13);
 
             List<string> cardsToAdd = deckIdx switch
             {

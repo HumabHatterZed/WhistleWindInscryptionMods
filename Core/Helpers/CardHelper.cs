@@ -110,20 +110,16 @@ namespace WhistleWind.Core.Helpers
             cardInfo.SetBasic(displayName, atk, hp, description);
             cardInfo.SetBloodCost(blood).SetBonesCost(bones).SetEnergyCost(energy);
 
-            if (emissionTex != null)
-                cardInfo.SetPortrait(portraitTex, emissionTex);
-            else if (portraitTex != null)
+            if (portraitTex != null)
                 cardInfo.SetPortrait(portraitTex);
-
+            if (emissionTex != null)
+                cardInfo.SetEmissivePortrait(emissionTex);
             if (pixelTexture != null)
                 cardInfo.SetPixelPortrait(pixelTex);
-
             if (altTex != null)
                 cardInfo.SetAltPortrait(altTex);
-
             if (altEmissionTex != null)
                 cardInfo.SetEmissiveAltPortrait(altEmissionTex);
-
             if (titleTexture != null)
                 cardInfo.titleGraphic = titleTex;
 

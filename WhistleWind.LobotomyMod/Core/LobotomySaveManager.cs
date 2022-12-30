@@ -2,7 +2,7 @@
 
 namespace WhistleWind.LobotomyMod.Core
 {
-    public static partial class WstlSaveManager
+    public static partial class LobotomySaveManager
     {
         public static bool LearnedAbnormalChoice
         {

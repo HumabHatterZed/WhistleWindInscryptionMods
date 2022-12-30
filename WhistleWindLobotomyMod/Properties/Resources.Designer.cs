@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -2443,6 +2443,26 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] RANDOM_PLACEHOLDER {
+            get {
+                object obj = ResourceManager.GetObject("RANDOM_PLACEHOLDER", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] RANDOM_PLACEHOLDER_pixel {
+            get {
+                object obj = ResourceManager.GetObject("RANDOM_PLACEHOLDER_pixel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] redHoodedMercenary {
             get {
                 object obj = ResourceManager.GetObject("redHoodedMercenary", resourceCulture);
@@ -3826,6 +3846,16 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] starterDeckMagicalGirls {
             get {
                 object obj = ResourceManager.GetObject("starterDeckMagicalGirls", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] starterDeckRandom {
+            get {
+                object obj = ResourceManager.GetObject("starterDeckRandom", resourceCulture);
                 return ((byte[])(obj));
             }
         }
