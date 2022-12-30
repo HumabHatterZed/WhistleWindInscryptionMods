@@ -91,7 +91,7 @@ namespace WhistleWind.LobotomyMod
                 AddAbilities();
                 AddSpecialAbilities();
 
-                Log.LogDebug("Loading cards...");
+                Log.LogDebug("Loading cards and tribes...");
                 AddAppearances();
 
                 AddTribes();
@@ -106,9 +106,8 @@ namespace WhistleWind.LobotomyMod
                 AddCards();
 
                 AddStarterDecks();
-                Log.LogDebug("Loading items...");
+                Log.LogDebug("Loading items and nodes...");
                 AddItems();
-                Log.LogDebug("Loading nodes...");
                 AddNodes();
                 Log.LogDebug("Loading encounters...");
                 AddEncounters();
@@ -127,6 +126,8 @@ namespace WhistleWind.LobotomyMod
                     Log.LogWarning("Disable Cards is set to [All]. All mod cards have been removed from the pool of obtainable cards");
                 else
                 {
+                    Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
+
                     if (DisabledRiskLevels != RiskLevel.None)
                         Log.LogWarning($"Disable Cards is set to [{DisabledRiskLevels}]. Cards with the affected risk level(s) have been removed from the pool of obtainable cards.");
 
@@ -135,8 +136,6 @@ namespace WhistleWind.LobotomyMod
 
                     if (RuinaCardsDisabled)
                         Log.LogWarning("Disable Ruina is set to true. Some cards have been removed from the pool of obtainable cards.");
-
-                    Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
                 }
                 Log.LogInfo($"The Clock is at [{LobotomyConfigManager.Instance.NumOfBlessings}].");
             }
@@ -147,7 +146,6 @@ namespace WhistleWind.LobotomyMod
         private void AddNodes() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Node")).ForEach(mi => mi.Invoke(this, null));
         private void InitSephirahAndDialogue()
         {
-            Log.LogDebug("Waking up the Sefirot...");
             SephirahHod.Init();
             SephirahYesod.Init();
             // SephirahNetzach.Init();
@@ -178,7 +176,7 @@ namespace WhistleWind.LobotomyMod
         {
             CardManager.ModifyCardList += delegate (List<CardInfo> cards)
             {
-                foreach (CardInfo card in cards.Where(c => c.name.StartsWith("wstl")))
+                foreach (CardInfo card in cards.Where(c => c.GetModTag() == "whistlewind.inscryption.abnormalsigils"))
                 {
                     // if TribeAPI isn't installed, add custom tribes to AbnormalSigil cards
                     if (!TribeAPI.Enabled)
@@ -198,9 +196,9 @@ namespace WhistleWind.LobotomyMod
 
             AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
 
-            // add Beauty and the Beast as a fallback card
+            // add Fairy Festival as a fallback card
             if (AllCardsDisabled)
-                ObtainableLobotomyCards.Add(CardLoader.GetCardByName("wstl_beautyAndBeast"));
+                ObtainableLobotomyCards.Add(CardLoader.GetCardByName("wstl_fairyFestival"));
         }
         private void AddAbilities()
         {

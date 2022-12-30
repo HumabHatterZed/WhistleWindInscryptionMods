@@ -5,9 +5,9 @@
 Inspired by KingSlime's mod, this is my own take on adding Lobotomy Corp's abnormalities into Inscryption.  The cards in this mod are designed to be as faithful to their original counterparts as possible within the framework of Inscryption's gameplay, while still being "balanced".
 
 Features:
-* **```84```** obtainable cards
+* **```83```** obtainable cards
 * **```41```** obtainable abilities
-* **```6```** starter decks for Kaycee's Mod
+* **```7```** starter decks for Kaycee's Mod
 * **```3```** challenges and **```1```** cheat
 * **```1```** custom node
 * Plus a few combat events!
@@ -61,6 +61,22 @@ See Closing Notes for info on future updates.
 <details>
 <summary>Latest Update - v1.3.0</summary>
 
+### v1.3.0 - 'I can't think of a name' Update (12/31/2022)
+* 🧱 General
+  * Added warning when playing this version with the new version installed
+  * Added compatibility with Abnormal Sigils
+  * Refactored some internal systems
+  * Reformatted the shading of sprites to have different alpha values
+  * Tweaked a number of sprites
+* 🩹 Bug fixes
+  * Fixed Plague Doctor's portrait not correctly updating mid-battle
+  * Fixed abnormality choice node visual bug relating to card deck
+  * Fixed certain singleton cards being reobtainable after certain events
+* ➕ Additions
+  * Added starter deck support for Part 1
+  * Added 1 new starter deck: Random Mod Cards
+  * Added new config 'EXTRA RANDOM CARDS' for adding extra mod cards to the Random Mod Cards starter deck (Part 1 and KCM)
+
 </details>
 
 ## 🛠️ Configuration Options
@@ -77,6 +93,8 @@ See Closing Notes for info on future updates.
 |Better Rare Chances|False|Part 1 Only - Raises the chance of getting a Rare card from the abnormal choice node.|
 |Special Abilities in Rulebook|False|Adds Rulebook entries for each special ability.|
 |Reveal Select Descriptions|False|Changes the Rulebook entries of certain abilities to properly describe their effect.|
+|Starter Deck|0|Part 1 Only - Changes your starting deck to one of this mod's decks.|
+|Extra Random Cards|0|Adds more cards to the 3 Random Mod Cards deck.|
 
 ## ⚜️ Special/Hidden Abilities
 A number of cards added by this mod possess special abilities that are not found in the Rulebook.

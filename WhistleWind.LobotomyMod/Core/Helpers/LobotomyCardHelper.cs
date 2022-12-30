@@ -160,7 +160,7 @@ namespace WhistleWind.LobotomyMod.Core.Helpers
                 cardInfo.SetNodeRestrictions(true, true, true, true);
 
             AllLobotomyCards.Add(cardInfo);
-            if (cardInfo.metaCategories.Exists(mc => mc == CardMetaCategory.ChoiceNode || mc == CardMetaCategory.Rare))
+            if (cardInfo.metaCategories.Exists(mc => mc == CardMetaCategory.ChoiceNode || mc == CardMetaCategory.TraderOffer || mc == CardMetaCategory.Rare))
                 ObtainableLobotomyCards.Add(cardInfo);
 
             CardManager.Add(pluginPrefix, cardInfo);

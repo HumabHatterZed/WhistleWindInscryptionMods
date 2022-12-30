@@ -13,8 +13,9 @@
     - Fixed abnormality choice node not playing/clearing text properly
     - Fixed Downed Guardian Apostle reviving immediately
 ### 🔧 Tweaks
-    - Starter Deck "Road to Oz" now includes The Road Home or Laetitia, replacing Wolf Cub
-    - Starter Deck "Magical Girl!" now includes Magical Girl C or Magical Girl S, depending on config
+    - Starter Deck "Road to Oz" now includes The Road Home (replacing Wolf Cub) and Ozma
+    - Starter Deck "Magical Girl!" now includes Magical Girl C
+    - Starter Decks with Ruina cards will have those cards replaced if Ruina cards are disabled in the config
     - Changed Shelter from the 27th of March into a Spell card with Repulsive, Aggravating, Imbue Target
     - Changed Luminous Bracelet into a Spell card with Greedy Healing, Imbue Target
     - Changed You Must Be Happy into a Spell card with Scrambler
@@ -49,7 +50,6 @@
     - Increased Challenge requirement for Magical Girls! from 8 --> 10
 ### ➕ Additions
     - Added more configuration options
-    - Added support for custom starter decks in Part 1
     - Added the following tribes:
         - Divine, Fae, Humanoid, Machine, Plant
     - Added tribes to some cards that previously had none
@@ -81,8 +81,22 @@
         - Express Train to Hell (item version)
     - Added more battle encounters
     - Added the following starter decks:
-        - () : 
-        - Randomised Cards : 3 random mod cards
+        - People Pleasers:
+            - Today's Shy Look
+            - Pinocchio
+            - Behaviour Adjustment
+        - Freak Show:
+            - Beauty and the Beast
+            - Void Dream
+            - Queen Bee
+        - Apocrypha:
+            - Fragment of the Universe
+            - Skin Prophecy
+            - Plague Doctor
+        - Keter:
+            - Bloodbath
+            - The Burrowing Heaven
+            - The Snow Queen
     - Added the following challenges:
         - Rapture
         - Apocalypse
@@ -127,6 +141,22 @@ For convenience, I'm including the changelog for Abnormal Sigils. For future con
     - Added Enhance Target
     - Added most abilities from WhistleWind Lobotomy Mod
     - Added some minion cards from WhistleWind Lobotomy Mod
+
+## v1.3.0 - 'I can't think of a name' Update (12/31/2022)
+### 🧱 General
+    - Added warning when playing this version with the new version installed
+    - Added compatibility with Abnormal Sigils
+    - Refactored some internal systems
+    - Reformatted the shading of sprites to have different alpha values
+    - Tweaked a number of sprites
+* 🩹 Bug fixes
+    - Fixed Plague Doctor's portrait not correctly updating mid-battle
+  * Fixed abnormality choice node visual bug relating to card deck
+  * Fixed certain singleton cards being reobtainable after certain events
+* ➕ Additions
+  * Added starter deck support for Part 1
+  * Added 1 new starter deck: Random Mod Cards
+  * Added new config 'EXTRA RANDOM CARDS' for adding extra mod cards to the Random Mod Cards starter deck (Part 1 and KCM)
 
 ## v1.2.5 - Bug fix (11/23/2022)
 ### 🩹 Bug fixes

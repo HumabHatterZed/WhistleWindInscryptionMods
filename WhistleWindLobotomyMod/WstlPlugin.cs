@@ -40,11 +40,7 @@ namespace WhistleWindLobotomyMod
         private void OnDisable() => harmony.UnpatchSelf();
         private void Start()
         {
-            if (NewVersion.Enabled)
-                Log.LogWarning("A NEW VERSION OF THIS MOD IS ALSO INSTALLED!" +
-                    "\nIf you have just updated, please remove both this DLL from your plugins folder, as well as the old config file ending in 'lobotomycorp'." +
-                    " If you are trying to play the pre-2.0 version, please remove or otherwise disable the 2.0 version.");
-            else if (ConfigManager.Instance.ModEnabled)
+            if (!NewVersion.Enabled && ConfigManager.Instance.ModEnabled)
             {
                 if (DonatorCardsDisabled)
                     Log.LogInfo("No Donators is set to true. Certain cards have been removed from the pool of obtainable cards.");
@@ -59,7 +55,10 @@ namespace WhistleWindLobotomyMod
             WstlPlugin.Log = base.Logger;
 
             if (NewVersion.Enabled)
+            {
+                Log.LogWarning("This version of the mod is outdated! Please remove it from your plugins folder.");
                 return;
+            }
 
             ConfigManager.Instance.BindConfig();
 
@@ -183,9 +182,8 @@ namespace WhistleWindLobotomyMod
         private void AddAbilities()
         {
             if (AbnormalSigils.Enabled)
-            {
                 Log.LogWarning("Abnormal Sigils is installed! There may be conflicts!");
-            }
+
             Ability_Punisher();
             Ability_Bloodfiend();
             Ability_Martyr();

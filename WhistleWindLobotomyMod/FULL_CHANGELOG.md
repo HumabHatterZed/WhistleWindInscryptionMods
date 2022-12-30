@@ -1,6 +1,6 @@
 ﻿## FULL CHANGELOG
 
-### v1.3.0 - End of Service (12/31/2022)
+### v1.3.0 - 'I can't think of a name' Update (12/31/2022)
 * 🧱 General
   * Added warning when playing this version with the new version installed
   * Added compatibility with Abnormal Sigils
