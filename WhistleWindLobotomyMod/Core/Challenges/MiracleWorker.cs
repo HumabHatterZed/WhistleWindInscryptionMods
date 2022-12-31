@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             Id = ChallengeManager.Add(
                 WstlPlugin.pluginGuid,
                 "Miracle Worker",
-                "Leshy will play Plague Doctor during regular battles. Beware the Clock.",
+                "Leshy will play Plague Doctor against you. Beware the Clock.",
                 20,
                 WstlTextureHelper.LoadTextureFromResource(Resources.ascensionMiracleWorker),
                 WstlTextureHelper.LoadTextureFromResource(Resources.ascensionMiracleWorker_activated)

@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             Id = ChallengeManager.Add(
                 WstlPlugin.pluginGuid,
                 "Better Rare Chances",
-                "Raises the chance of getting a Rare card from the abnormal choice node.",
+                "Rare cards are more likely to appear at abnormal choice nodes.",
                 -15,
                 WstlTextureHelper.LoadTextureFromResource(Resources.ascensionBetterRareChances),
                 WstlTextureHelper.LoadTextureFromResource(Resources.ascensionBetterRareChances_activated)

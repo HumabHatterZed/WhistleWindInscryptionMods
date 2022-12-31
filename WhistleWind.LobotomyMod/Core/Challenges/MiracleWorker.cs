@@ -23,7 +23,7 @@ namespace WhistleWind.LobotomyMod.Core.Challenges
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 "Miracle Worker",
-                "Leshy will play Plague Doctor during regular battles. Beware the Clock.",
+                "Leshy will play Plague Doctor against you. Beware the Clock.",
                 20,
                 TextureLoader.LoadTextureFromBytes(Artwork.ascensionMiracleWorker),
                 TextureLoader.LoadTextureFromBytes(Artwork.ascensionMiracleWorker_activated)

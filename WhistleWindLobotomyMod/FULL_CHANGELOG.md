@@ -1,12 +1,11 @@
 ﻿## FULL CHANGELOG
 
-### v1.3.0 - 'I can't think of a name' Update (12/31/2022)
+### v1.3.0 - Futureproofing Update (12/31/2022)
 * 🧱 General
-  * Added warning when playing this version with the new version installed
-  * Added compatibility with Abnormal Sigils
+  * Added compatibility features for upcoming 2.0 update
   * Refactored some internal systems
-  * Reformatted the shading of sprites to have different alpha values
-  * Tweaked a number of sprites
+  * Tweaked card sprites
+  * Adjusted descriptive text of challenges Miracler Worker and Better Rare Chances
 * 🩹 Bug fixes
   * Fixed Plague Doctor's portrait not correctly updating mid-battle
   * Fixed abnormality choice node visual bug relating to card deck

@@ -1,6 +1,6 @@
 ﻿# WHISTLEWIND LOBOTOMY MOD - FULL CHANGELOG
 
-## v2.0.0 - The One, Perfect Book (?/?/202?)
+## v2.0.0 - The One, Perfect Book (?/?/2023)
 ### 🧱 General
     - Fixed inaccurate information in the ReadMe
     - Added Spell Card Toolkit mod as a dependency
@@ -110,7 +110,7 @@
     - Removed most custom sigils, now available in separate Abnormal Sigils mod
     - Removed some minion cards, moved to separate Abnormal Sigils mod
 
-## Abnormal Sigils - Initial release (?/?/202?)
+## Abnormal Sigils - Initial release (?/?/2023)
 For convenience, I'm including the changelog for Abnormal Sigils. For future content updates, please check Abnormal Sigils's changelog instead.
 ### 🔧 Tweaks
     - Removed softlock prevention feature from Quick Draw and Woodcutter, no longer necessary
@@ -142,15 +142,14 @@ For convenience, I'm including the changelog for Abnormal Sigils. For future con
     - Added most abilities from WhistleWind Lobotomy Mod
     - Added some minion cards from WhistleWind Lobotomy Mod
 
-## v1.3.0 - 'I can't think of a name' Update (12/31/2022)
-### 🧱 General
-    - Added warning when playing this version with the new version installed
-    - Added compatibility with Abnormal Sigils
-    - Refactored some internal systems
-    - Reformatted the shading of sprites to have different alpha values
-    - Tweaked a number of sprites
+### v1.3.0 - Futureproofing Update (12/31/2022)
+* 🧱 General
+  * Added compatibility features for upcoming 2.0 update
+  * Refactored some internal systems
+  * Tweaked card sprites
+  * Adjusted descriptive text of challenges Miracler Worker and Better Rare Chances
 * 🩹 Bug fixes
-    - Fixed Plague Doctor's portrait not correctly updating mid-battle
+  * Fixed Plague Doctor's portrait not correctly updating mid-battle
   * Fixed abnormality choice node visual bug relating to card deck
   * Fixed certain singleton cards being reobtainable after certain events
 * ➕ Additions

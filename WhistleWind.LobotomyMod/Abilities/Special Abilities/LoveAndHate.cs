@@ -15,7 +15,7 @@ namespace WhistleWind.LobotomyMod
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public static readonly string rName = "Love and Hate";
-        public static readonly string rDesc = "Magical Girl H transforms on upkeep when 2 more ally cards than opponent cards have died or vice versa.";
+        public static readonly string rDesc = "On upkeep, if the difference between the number of killed ally cards and killed opposing cards is 2 or greater, Magical Girl H transforms and moves to the side of the board of whoever has lost more cards.";
 
         private int allyDeaths;
         private int opponentDeaths;

@@ -2,7 +2,7 @@
 	"name": "WhistleWind_Lobotomy_Mod",
 	"version_number": "1.3.0",
 	"website_url": "https://github.com/HumabHatterZed/WhistleWindLobotomyMod",
-	"description": "1.3.0 - 'end of service' patch in preparation for 2.0 update in a few days. A content mod for Inscryption that adds cards and abilities based on the abnormalities from the game Lobotomy Corporation.",
+	"description": "1.3.0 update - bug fixes, futureproofing. A content mod for Inscryption that adds cards and abilities based on the abnormalities from the game Lobotomy Corporation.",
 	"dependencies": [
 		"BepInEx-BepInExPack_Inscryption-5.4.1902",
 		"API_dev-API-2.8.0"
