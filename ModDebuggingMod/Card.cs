@@ -3,7 +3,7 @@ using WhistleWind.Core.Helpers;
 using ModDebuggingMod.Properties;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-
+using WhistleWind.LobotomyMod;
 namespace ModDebuggingMod
 {
     public partial class Plugin
@@ -22,7 +22,7 @@ namespace ModDebuggingMod
             };
             List<Tribe> tribes = new()
             {
-                DebugTribe
+                LobotomyPlugin.TribeDivine
             };
             List<Trait> traits = new()
             {

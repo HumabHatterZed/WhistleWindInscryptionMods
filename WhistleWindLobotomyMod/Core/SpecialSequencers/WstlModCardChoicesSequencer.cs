@@ -37,6 +37,7 @@ namespace WhistleWindLobotomyMod
         private SelectableCard chosenReward;
         private bool choicesRerolled;
         private Vector3 basePosition;
+
         private void Start()
         {
             // Sets up the clover and the basePosition,
@@ -56,15 +57,15 @@ namespace WhistleWindLobotomyMod
             }
             this.basePosition = base.transform.position;
         }
-        // The framework code, basically
-        // This is essentially ChooseCards from CardChoiceSequencer plus the code of deckpile.DestroyCards()
         public override IEnumerator DoCustomSequence(CustomSpecialNodeData choicesData)
         {
-            // Spawns the rulebook and deck before the dialogue starts
+            // The framework code, basically
+            // This is essentially ChooseCards from CardChoiceSequencer plus the code of deckpile.DestroyCards()
+
+            // Spawn the rulebook and card deck before the dialogue starts
             if (modGamepadGrid != null)
-            {
                 modGamepadGrid.enabled = true;
-            }
+
             Singleton<TableRuleBook>.Instance.SetOnBoard(onBoard: true);
             base.StartCoroutine(modDeckPile.SpawnCards(SaveManager.SaveFile.CurrentDeck.Cards.Count));
 
@@ -83,9 +84,8 @@ namespace WhistleWindLobotomyMod
             Singleton<ViewManager>.Instance.SwitchToView(this.choicesView, immediate: false, lockAfter: true);
             yield return this.CardSelectionSequence(choicesData);
             if (modGamepadGrid != null)
-            {
                 modGamepadGrid.enabled = false;
-            }
+
             yield return new WaitForSeconds(0.75f);
             yield return modDeckPile.DestroyCards();
         }
@@ -238,17 +238,9 @@ namespace WhistleWindLobotomyMod
         }
         private void AddChosenCardToDeck()
         {
-            base.deckPile.AddToPile(this.chosenReward.transform);
+            modDeckPile.AddToPile(this.chosenReward.transform);
             SaveManager.SaveFile.CurrentDeck.AddCard(this.chosenReward.Info);
             AnalyticsManager.SendCardPickedEvent(this.chosenReward.Info.name);
-            if (this.chosenReward.Info.name == "MantisGod")
-            {
-                AscensionStatsData.TryIncrementStat(AscensionStat.Type.MantisGodsPicked);
-                if (StoryEventsData.EventCompleted(StoryEvent.LeshyDefeated))
-                {
-                    VoiceOverPlayer.Instance.PlayVoiceOver("Yeah. Always pick Mantis God.", "VO_mantisgod", VoiceOverPlayer.VOCameraAnim.MediumRefocus, StoryEvent.LukeVOMantisGod);
-                }
-            }
         }
         private void OnRewardChosen(SelectableCard card)
         {
@@ -323,9 +315,8 @@ namespace WhistleWindLobotomyMod
                 if (selectableCard != this.chosenReward)
                 {
                     if (doTween)
-                    {
                         Tween.Position(selectableCard.transform, selectableCard.transform.position + Vector3.forward * 20f, 0.5f, 0f, Tween.EaseInOut);
-                    }
+
                     UnityEngine.Object.Destroy(selectableCard.gameObject, doTween ? 0.5f : 0f);
                 }
             }

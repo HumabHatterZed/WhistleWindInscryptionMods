@@ -115,7 +115,8 @@ namespace WhistleWindLobotomyMod
             {
                 rand.Clone() as CardInfo,
                 rand.Clone() as CardInfo,
-                rand.Clone() as CardInfo };
+                rand.Clone() as CardInfo
+            };
             if (ConfigManager.Instance.StarterDeckSize > 0)
             {
                 for (int i = 0; i < ConfigManager.Instance.StarterDeckSize; i++)

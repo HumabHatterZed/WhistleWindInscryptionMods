@@ -348,7 +348,6 @@ namespace WhistleWind.LobotomyMod
 
             if (card.Info != null)
                 base.StartCoroutine(RegularChoiceFlipped(card));
-
         }
         private IEnumerator RegularChoiceFlipped(SelectableCard card)
         {

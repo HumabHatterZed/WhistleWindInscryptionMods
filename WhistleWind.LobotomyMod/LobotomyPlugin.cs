@@ -6,7 +6,6 @@ using HarmonyLib;
 using Infiniscryption.PackManagement;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
-using InscryptionAPI.Helpers;
 using InscryptionAPI.Regions;
 using Sirenix.Utilities;
 using System.Collections.Generic;

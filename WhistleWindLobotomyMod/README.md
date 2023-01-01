@@ -16,8 +16,8 @@ Features:
 * BepInEx-BepInExPack_Inscryption v5.4.1902
 * API_dev-API v2.8.0
 
-## ‼️ IMPORTANT ‼️
-This will be the final 1.0 version I will release as I focus on the upcoming 2.0 release.
+## ‼️ Notice Regarding Future Update
+This will be the final 1.0 version I will release as I focus on the 2.0 content update.
 Since the 2.0 version includes some _very_ major changes, I wanted to get this update out there so that y'all won't be completely blind-sided by it.
 
 Important changes for you to know about the 2.0 release once it's out:
@@ -61,13 +61,12 @@ See Closing Notes for info on future updates.
 <details>
 <summary>Latest Update - v1.3.0</summary>
 
-### v1.3.0 - 'I can't think of a name' Update (12/31/2022)
+### v1.3.0 - Futureproofing Update (12/31/2022)
 * 🧱 General
-  * Added warning when playing this version with the new version installed
-  * Added compatibility with Abnormal Sigils
+  * Added compatibility features for upcoming 2.0 update
   * Refactored some internal systems
-  * Reformatted the shading of sprites to have different alpha values
-  * Tweaked a number of sprites
+  * Tweaked card sprites
+  * Adjusted descriptive text of challenges Miracler Worker and Better Rare Chances
 * 🩹 Bug fixes
   * Fixed Plague Doctor's portrait not correctly updating mid-battle
   * Fixed abnormality choice node visual bug relating to card deck

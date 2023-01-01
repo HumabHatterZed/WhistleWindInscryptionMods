@@ -8,7 +8,7 @@ namespace ModDebuggingMod
     [HarmonyPatch]
     public class DebugPatches
     {
-        private static readonly string lobGuid = "whistlewind.inscryption.lobotomycorp";
+        private static readonly string lobGuid = "whistlewind.inscryption.lobotomymod";
         [HarmonyPatch(typeof(PaperGameMap), "TryInitializeMapData")]
         public static void Prefix(ref PaperGameMap __instance)
         {
@@ -16,7 +16,7 @@ namespace ModDebuggingMod
             {
                 PredefinedNodes nodes = ScriptableObject.CreateInstance<PredefinedNodes>();
                 nodes.nodeRows.Add(new() { StartNode });
-                nodes.nodeRows.Add(new() { BattleNode, MergeNode });
+                nodes.nodeRows.Add(new() { TotemNode, BattleNode, TribeChoice });
                 nodes.nodeRows.Add(new() { ItemNode, BattleNode });
                 nodes.nodeRows.Add(new() { ItemNode, BattleNode });
                 //nodes.nodeRows.Add(new() { ItemNode, MergeNode, BattleNode });
@@ -50,5 +50,9 @@ namespace ModDebuggingMod
         private static TradePeltsNodeData TraderNode => new();
         private static GainConsumablesNodeData ItemNode => new();
         private static CardStatBoostNodeData StatNode => new();
+        private static CardChoicesNodeData ChoiceNode => new();
+        private static CardChoicesNodeData TribeChoice => new() { choicesType = CardChoicesType.Tribe };
+        private static CardChoicesNodeData CostChoice => new() { choicesType = CardChoicesType.Cost };
+        private static BuildTotemNodeData TotemNode => new();
     }
 }

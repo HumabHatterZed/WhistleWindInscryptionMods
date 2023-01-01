@@ -62,15 +62,10 @@ namespace ModDebuggingMod
             // InscryptionCommunityPatch.Card.Act1LatchAbilityFix._clawPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CannonTargetIcon");
             // AddChallenges();
 
-            Log.LogDebug("Tribe and item");
-            AddCustomTribeAndTotem();
             ItemDebug();
-
-            Log.LogDebug("Ability and card");
             Ability_Debug();
             CARD_DEBUG();
 
-            Log.LogDebug("Encounters");
             // clears regions and add debug encounter
             for (int i = 0; i < 3; i++)
             {
@@ -78,7 +73,6 @@ namespace ModDebuggingMod
                 RegionProgression.Instance.regions[i].AddEncounters(ModdingEncounter);
             }
 
-            Log.LogDebug("Starter deck");
             AddStartDeck("DEBUG HUG", Properties.Resources.starterDeckMagicalGirls, new()
             {
                 CardLoader.GetCardByName("Squirrel"),
@@ -108,11 +102,6 @@ namespace ModDebuggingMod
 
                 return cards;
             };
-        }
-        private static void AddCustomTribeAndTotem()
-        {
-            Texture2D icon = TextureLoader.LoadTextureFromBytes(Properties.Resources.tribeIcon_Debug);
-            DebugTribe = TribeManager.Add(pluginGuid, "DebugTribe", icon, true, null);
         }
 
         private static StarterDeckManager.FullStarterDeck AddStartDeck(string title, byte[] icon, List<CardInfo> cards, int unlockLevel = 0)
