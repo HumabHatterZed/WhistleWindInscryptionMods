@@ -1,0 +1,63 @@
+﻿# ABNORMALSIGILS - FULL CHANGELOG
+
+## v1.0.0 - Initial release (?/?/202?)
+### ➕ Additions
+    - Moved the following abilities from WhistleWind's Lobotomy Mod:
+        - Punisher
+        - Bloodfiend
+        - Martyr
+        - Aggravating
+        - Team Leader
+        - Idol
+        - Conductor
+        - Woodcutter
+        - Frozen Heart
+        - Ruler of Frost
+        - Roots
+        - Broodmother
+        - Cursed
+        - Healer
+        - Queen Nest
+        - Bitter Enemies
+        - Courageous
+        - Serpent's Nest
+        - Assimilator
+        - Group Healer
+        - Reflector
+        - Flag Bearer
+        - Grinder
+        - The Train
+        - Burning
+        - Regenerator
+        - Volatile
+        - Gift Giver
+        - Piercing
+        - Scrambler
+        - Gardener
+        - Made of Slime
+        - Marksman
+        - Protector
+        - Quick Draw
+        - Alchemist
+        - Nettle Clothes
+        - Fungal Infector
+        - Witness
+        - Corrector
+    - Added the following cards:
+        - Scaredy Cat
+        - Pumpkin Jack
+    - Added the following abilities:
+        - Thick Skin
+        - One-Sided Strike
+        - Copycat
+        - Cat Lover
+        - Cowardly
+        - Neutered
+        - Neutered Latch
+        - Rightful Heir
+        - Greedy Healing
+        - False Throne
+        - Imbue Target
+        - Strengthen Target
+        - Empower Target
+        - Passing Time - stat icon

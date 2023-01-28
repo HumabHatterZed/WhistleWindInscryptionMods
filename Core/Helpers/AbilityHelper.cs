@@ -3,101 +3,147 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Helpers;
 using System.Collections.Generic;
 using UnityEngine;
-using static WhistleWindLobotomyMod.WstlPlugin;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.Core.Helpers
 {
     public static class AbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
-        // Ability
         public static AbilityManager.FullAbility CreateAbility<T>(
+            string pluginGuid,
             byte[] texture, byte[] gbcTexture,
-            string rulebookName, string rulebookDescription, string dialogue, int powerLevel = 0,
-            bool addModular = false, bool opponent = false, bool canStack = false, bool isPassive = false,
-            bool flipY = false, byte[] customY = null,
-            bool overrideModular = false)
+            string rulebookName, string rulebookDescription,
+            string dialogue, int powerLevel = 0,
+            bool opponent = false, bool canStack = false,
+            bool modular = false, bool foundInRulebook = true,
+            bool flipY = false, byte[] flipTexture = null)
             where T : AbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+            return CreateAbility<T>(
+                info, pluginGuid, texture, gbcTexture,
+                rulebookName, rulebookDescription, dialogue, powerLevel,
+                opponent, canStack, modular, foundInRulebook, flipY, flipTexture);
+        }
+        public static AbilityManager.FullAbility CreateAbility<T>(
+            AbilityInfo info, string pluginGuid,
+            byte[] texture, byte[] gbcTexture,
+            string rulebookName, string rulebookDescription,
+            string dialogue, int powerLevel = 0,
+            bool opponent = false, bool canStack = false,
+            bool modular = false, bool foundInRulebook = false,
+            bool flipY = false, byte[] flipTexture = null)
+            where T : AbilityBehaviour
+        {
+            info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, powerLevel);
+            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(gbcTexture));
 
-            //Texture2D flippedTex = customY != null ? WstlTextureHelper.LoadTextureFromResource(customY) : null;
-
-            info.SetPixelAbilityIcon(WstlTextureHelper.LoadTextureFromResource(gbcTexture));
-
-            info.rulebookName = rulebookName;
-            info.rulebookDescription = rulebookDescription;
-            info.powerLevel = powerLevel;
-            info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
-
-            info.opponentUsable = opponent;
-            info.canStack = canStack;
-            info.passive = isPassive;
+            info.SetOpponentUsable(opponent);
+            info.SetCanStack(canStack, canStack);
 
             info.flipYIfOpponent = flipY;
 
-            List<AbilityMetaCategory> list = new() { AbilityMetaCategory.Part1Rulebook };
-            if ((addModular || ConfigManager.Instance.AllModular) && !overrideModular) { list.Add(AbilityMetaCategory.Part1Modular); }
-            info.metaCategories = list;
+            if (foundInRulebook)
+                info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
-            return AbilityManager.Add(pluginGuid, info, typeof(T), WstlTextureHelper.LoadTextureFromResource(texture));
+            if (modular)
+                info.AddMetaCategories(AbilityMetaCategory.Part1Modular);
+
+            AbilityManager.FullAbility ability = AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(texture));
+
+            if (flipTexture != null)
+                ability.SetCustomFlippedTexture(TextureLoader.LoadTextureFromBytes(flipTexture));
+
+            return ability;
         }
-        // Activated Ability
         public static AbilityManager.FullAbility CreateActivatedAbility<T>(
-            byte[] texture, byte[] gbcTexture,
+            string pluginGuid, byte[] texture, byte[] gbcTexture,
             string rulebookName, string rulebookDescription, string dialogue, int powerLevel = 0)
-            where T : ActivatedAbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-
-            Texture2D gbcTex = WstlTextureHelper.LoadTextureFromResource(gbcTexture);
-            info.pixelIcon = gbcTex.ConvertTexture();
-
-            info.rulebookName = rulebookName;
-            info.rulebookDescription = rulebookDescription;
-            info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
-            info.powerLevel = powerLevel;
-
-            info.activated = true;
-            info.passive = false;
-            info.canStack = false;
-            info.opponentUsable = false;
-            info.flipYIfOpponent = false;
-
-            Texture2D tex = WstlTextureHelper.LoadTextureFromResource(texture);
-            info.metaCategories = new() { AbilityMetaCategory.Part1Rulebook };
-
-            return AbilityManager.Add(pluginGuid, info, typeof(T), tex);
+            return CreateActivatedAbility<T>(
+                info, pluginGuid, texture, gbcTexture,
+                rulebookName, rulebookDescription, dialogue, powerLevel);
         }
-        // Stat Icons
+        public static AbilityManager.FullAbility CreateActivatedAbility<T>(
+            AbilityInfo info, string pluginGuid, byte[] texture, byte[] gbcTexture,
+            string rulebookName, string rulebookDescription, string dialogue, int powerLevel = 0)
+        {
+            info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, powerLevel);
+            info.pixelIcon = TextureLoader.LoadTextureFromBytes(gbcTexture).ConvertTexture();
+            info.activated = true;
+
+            return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(texture));
+        }
+        public static AbilityManager.FullAbility CreateFillerAbility<T>(
+            string pluginGuid,
+            string rulebookName, string rulebookDescription,
+            byte[] fillerArtBytes, byte[] fillerPixelArtBytes)
+            where T : AbilityBehaviour
+        {
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+            return CreateFillerAbility<T>(
+                info, pluginGuid, rulebookName, rulebookDescription, fillerArtBytes, fillerPixelArtBytes);
+        }
+        public static AbilityManager.FullAbility CreateFillerAbility<T>(
+            AbilityInfo info, string pluginGuid,
+            string rulebookName, string rulebookDescription,
+            byte[] fillerArtBytes, byte[] fillerPixelArtBytes)
+            where T : AbilityBehaviour
+        {
+            info.SetBasicInfo(rulebookName, rulebookDescription, "", 0);
+            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(fillerPixelArtBytes));
+            info.passive = true;
+
+            return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(fillerArtBytes));
+        }
         public static StatIconManager.FullStatIcon CreateStatIcon<T>(
-            string name, string description, byte[] texture, byte[] pixelTexture, bool attack = true, bool health = false)
+            string pluginGuid,
+            string name, string description,
+            byte[] texture, byte[] pixelTexture, bool attack, bool health)
             where T : VariableStatBehaviour
         {
-            StatIconInfo statIconInfo = StatIconManager.New(pluginGuid, name, description, typeof(T)).SetDefaultPart1Ability();
-            statIconInfo.iconGraphic = WstlTextureHelper.LoadTextureFromResource(texture);
-            statIconInfo.SetPixelIcon(WstlTextureHelper.LoadTextureFromResource(pixelTexture));
+            StatIconInfo statIconInfo = ScriptableObject.CreateInstance<StatIconInfo>();
+            statIconInfo.rulebookName = name;
+            statIconInfo.rulebookDescription = description;
+            statIconInfo.gbcDescription = description;
             statIconInfo.appliesToAttack = attack;
             statIconInfo.appliesToHealth = health;
+            statIconInfo.SetIcon(TextureLoader.LoadTextureFromBytes(texture));
+            statIconInfo.SetPixelIcon(TextureLoader.LoadTextureFromBytes(pixelTexture));
+            statIconInfo.SetDefaultPart1Ability();
 
             return StatIconManager.Add(pluginGuid, statIconInfo, typeof(T));
         }
-        // Special Abilities
-        public static SpecialTriggeredAbilityManager.FullSpecialTriggeredAbility CreateSpecialAbility<T>(string rulebookName, string rulebookDesc)
-            where T : SpecialCardBehaviour
+        public static StatIconManager.FullStatIcon CreateStatIcon<T>(
+            string pluginGuid,
+            string name, string description,
+            Texture2D texture, Texture2D pixelTexture, bool attack, bool health)
+            where T : VariableStatBehaviour
         {
-            return SpecialTriggeredAbilityManager.Add(pluginGuid, rulebookName, typeof(T));
+            StatIconInfo statIconInfo = ScriptableObject.CreateInstance<StatIconInfo>();
+            statIconInfo.rulebookName = name;
+            statIconInfo.rulebookDescription = description;
+            statIconInfo.gbcDescription = description;
+            statIconInfo.appliesToAttack = attack;
+            statIconInfo.appliesToHealth = health;
+            statIconInfo.SetIcon(texture);
+            statIconInfo.SetPixelIcon(pixelTexture);
+            statIconInfo.SetDefaultPart1Ability();
+
+            return StatIconManager.Add(pluginGuid, statIconInfo, typeof(T));
         }
-        // Adds AbilityInfo dialogue
-        public static DialogueEvent.LineSet SetAbilityInfoDialogue(string dialogue)
+
+        public static SpecialTriggeredAbilityManager.FullSpecialTriggeredAbility CreateSpecialAbility<T>(string pluginGuid, string rulebookName)
+            where T : SpecialCardBehaviour => SpecialTriggeredAbilityManager.Add(pluginGuid, rulebookName, typeof(T));
+
+        private static AbilityInfo SetBasicInfo(this AbilityInfo info, string name, string desc, string dialogue, int powerLevel)
         {
-            return new DialogueEvent.LineSet(new List<DialogueEvent.Line>()
-                {
-                    new()
-                    {
-                        text = dialogue
-                    }
-                }
-            );
+            info.rulebookName = name;
+            info.rulebookDescription = desc;
+            info.abilityLearnedDialogue = SetAbilityInfoDialogue(dialogue);
+            info.powerLevel = powerLevel;
+            return info;
         }
+        private static DialogueEvent.LineSet SetAbilityInfoDialogue(string dialogue) => new DialogueEvent.LineSet(new List<DialogueEvent.Line>() { new() { text = dialogue } });
     }
 }

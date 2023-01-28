@@ -361,4 +361,14 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/Patches/DebugPatches.cs
+
+bin/
+obj/
+
+# lib is ignored. You have to supply your own game files 
+lib/
+
+dll/
+
+*.dll
+*.pdb

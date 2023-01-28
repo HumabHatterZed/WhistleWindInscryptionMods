@@ -1,19 +1,33 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.Core.Helpers
 {
     public static class CardHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
-        // Cards
-        public static void CreateCard(
-            string name, string displayName,
-            string description,
-            int baseAttack, int baseHealth, int bloodCost, int bonesCost,
-            byte[] defaultTexture, byte[] emissionTexture,
-            byte[] gbcTexture = null,
+        [Flags]
+        public enum CardMetaType
+        {
+            None = 0,
+            NonChoice = 1,          // Remove as choice option
+            Terrain = 2,            // Terrain trait
+            NoTerrainLayout = 4     // No terrain layout
+        }
+        public enum CardChoiceType
+        {
+            None,
+            Basic,  // Default background, common choice
+            Rare    // Rare background, boss chest
+        }
+
+        public static CardInfo CreateCard(
+            string modPrefix, string name, string displayName,
+            string description, int atk, int hp,
+            int blood, int bones, int energy,
+            byte[] portrait, byte[] emission = null, byte[] pixelTexture = null,
             byte[] altTexture = null, byte[] emissionAltTexture = null,
             byte[] titleTexture = null,
             List<Ability> abilities = null,
@@ -21,23 +35,19 @@ namespace WhistleWindLobotomyMod
             List<CardMetaCategory> metaCategories = null,
             List<Tribe> tribes = null,
             List<Trait> traits = null,
-            SpecialStatIcon statIcon = SpecialStatIcon.None,
             List<CardAppearanceBehaviour.Appearance> appearances = null,
             List<Texture> decals = null,
+            SpecialStatIcon statIcon = SpecialStatIcon.None,
+            CardChoiceType cardType = CardChoiceType.None,
+            CardMetaType metaTypes = 0,
             string iceCubeName = null,
             string evolveName = null,
             int numTurns = 1,
-            string tailName = null,
-            byte[] tailTexture = null,
-            int riskLevel = 0,
-            bool isTerrain = false,
-            bool isChoice = false,
-            bool isRare = false,
             bool onePerDeck = false,
-            bool hideStats = false,
-            bool isDonator = false
+            bool hideStats = false
             )
         {
+            // Create empty lists if any of them are null
             abilities ??= new();
             specialAbilities ??= new();
             metaCategories ??= new();
@@ -46,84 +56,87 @@ namespace WhistleWindLobotomyMod
             appearances ??= new();
             decals ??= new();
 
-            Texture2D texture = WstlTextureHelper.LoadTextureFromResource(defaultTexture);
-            Texture2D emissionTex = emissionTexture != null ? WstlTextureHelper.LoadTextureFromResource(emissionTexture) : null;
-            Texture2D altTex = altTexture != null ? WstlTextureHelper.LoadTextureFromResource(altTexture) : null;
-            Texture2D emissionAltTex = emissionAltTexture != null ? WstlTextureHelper.LoadTextureFromResource(emissionAltTexture) : null;
-            Texture titleTex = titleTexture != null ? WstlTextureHelper.LoadTextureFromResource(titleTexture) : null;
-            Texture2D gbcTex = gbcTexture != null ? WstlTextureHelper.LoadTextureFromResource(gbcTexture) : null;
-            Texture2D tailTex = tailTexture != null ? WstlTextureHelper.LoadTextureFromResource(titleTexture) : null;
+            // Load textures
+            Texture2D portraitTex = portrait != null ? TextureLoader.LoadTextureFromBytes(portrait) : null;
+            Texture2D emissionTex = emission != null ? TextureLoader.LoadTextureFromBytes(emission) : null;
+            Texture2D altTex = altTexture != null ? TextureLoader.LoadTextureFromBytes(altTexture) : null;
+            Texture2D altEmissionTex = emissionAltTexture != null ? TextureLoader.LoadTextureFromBytes(emissionAltTexture) : null;
+            Texture2D pixelTex = pixelTexture != null ? TextureLoader.LoadTextureFromBytes(pixelTexture) : null;
+            Texture titleTex = titleTexture != null ? TextureLoader.LoadTextureFromBytes(titleTexture) : null;
 
-            string risk = riskLevel switch
-            {
-                1 => "Zayin",
-                2 => "Teth",
-                3 => "He",
-                4 => "Waw",
-                5 => "Aleph",
-                _ => null
-            };
-            CardInfo cardInfo = ScriptableObject.CreateInstance<CardInfo>();
-            cardInfo.SetPortrait(texture, emissionTex);
-            cardInfo.name = name;
-            cardInfo.displayedName = displayName;
-            cardInfo.description = description;
-            cardInfo.baseAttack = baseAttack;
-            cardInfo.baseHealth = baseHealth;
-            cardInfo.cost = bloodCost;
-            cardInfo.bonesCost = bonesCost;
+            bool nonChoice = metaTypes.HasFlag(CardMetaType.NonChoice);
+
+            CardInfo cardInfo = CardManager.New(modPrefix, name, displayName, atk, hp, description);
+
+            cardInfo.SetBloodCost(blood).SetBonesCost(bones).SetEnergyCost(energy);
+
+            if (portraitTex != null)
+                cardInfo.SetPortrait(portraitTex);
+            if (emissionTex != null)
+                cardInfo.SetEmissivePortrait(emissionTex);
+            if (pixelTexture != null)
+                cardInfo.SetPixelPortrait(pixelTex);
+            if (altTex != null)
+                cardInfo.SetAltPortrait(altTex);
+            if (altEmissionTex != null)
+                cardInfo.SetEmissiveAltPortrait(altEmissionTex);
+            if (titleTexture != null)
+                cardInfo.titleGraphic = titleTex;
+
+            // Abilities
             cardInfo.abilities = abilities;
             cardInfo.specialAbilities = specialAbilities;
+
+            if (statIcon != SpecialStatIcon.None)
+                cardInfo.SetStatIcon(statIcon);
+
+            // Internal values
             cardInfo.metaCategories = metaCategories;
             cardInfo.tribes = tribes;
             cardInfo.traits = traits;
-            cardInfo.appearanceBehaviour = appearances;
+
+            // Misc
             cardInfo.decals = decals;
-            cardInfo.cardComplexity = CardComplexity.Simple;
             cardInfo.temple = CardTemple.Nature;
+            cardInfo.cardComplexity = CardComplexity.Simple;
+            cardInfo.appearanceBehaviour = appearances;
             cardInfo.onePerDeck = onePerDeck;
-
-            cardInfo.SetExtendedProperty("wstl:RiskLevel", risk);
             cardInfo.hideAttackAndHealth = hideStats;
-            cardInfo.onePerDeck = onePerDeck;
-            if (gbcTexture != null) { cardInfo.SetPixelPortrait(gbcTex); }
-            if (altTex != null) { cardInfo.SetAltPortrait(altTex); }
-            if (emissionAltTex != null) { cardInfo.SetEmissiveAltPortrait(emissionAltTex); }
-            if (titleTexture != null) { cardInfo.titleGraphic = titleTex; }
-            if (statIcon != SpecialStatIcon.None) { cardInfo.SetStatIcon(statIcon); }
-            if (isTerrain) { cardInfo.SetTerrain(); }
-            if (isChoice)
-            {
-                if (isDonator && ConfigManager.Instance.NoDonators)
-                {
 
-                }
-                else
-                {
-                    cardInfo.SetDefaultPart1Card();
-                }
-            }
-            if (isRare)
+            // Sets the info for Ice Cube and Evolve, if present
+            if (iceCubeName != null)
+                cardInfo.SetIceCube(iceCubeName);
+
+            if (evolveName != null)
+                cardInfo.SetEvolve(evolveName, numTurns);
+
+            switch (cardType)
             {
-                if (isDonator && ConfigManager.Instance.NoDonators)
-                {
-                    cardInfo.AddAppearances(CardAppearanceBehaviour.Appearance.RareCardBackground);
-                }
-                else
-                {
+                case CardChoiceType.Basic:
+                    if (!nonChoice)
+                        cardInfo.SetDefaultPart1Card();
+                    break;
+                case CardChoiceType.Rare:
                     cardInfo.SetRare();
-                }
+                    if (nonChoice)
+                        cardInfo.metaCategories.Remove(CardMetaCategory.Rare);
+                    break;
             }
-            if (iceCubeName != null) { cardInfo.SetIceCube(iceCubeName); }
-            if (evolveName != null) { cardInfo.SetEvolve(evolveName, numTurns); }
-            if (tailName != null && tailTex != null) { cardInfo.SetTail(tailName, tailTex); }
 
-            CardManager.Add("wstl", cardInfo);
+            if (metaTypes.HasFlag(CardMetaType.Terrain))
+            {
+                cardInfo.SetTerrain();
+                if (metaTypes.HasFlag(CardMetaType.NoTerrainLayout))
+                    cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainLayout);
+                if (nonChoice || cardType == CardChoiceType.Rare)
+                    cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainBackground);
+            }
+            return cardInfo;
         }
 
-        public static CardAppearanceBehaviourManager.FullCardAppearanceBehaviour CreateAppearance<T>(string name) where T : CardAppearanceBehaviour
+        public static CardAppearanceBehaviourManager.FullCardAppearanceBehaviour CreateAppearance<T>(string pluginGuid, string name) where T : CardAppearanceBehaviour
         {
-            return CardAppearanceBehaviourManager.Add(WstlPlugin.pluginGuid, name, typeof(T));
+            return CardAppearanceBehaviourManager.Add(pluginGuid, name, typeof(T));
         }
     }
 }
