@@ -2,8 +2,13 @@
 using WhistleWind.Core.Helpers;
 using ModDebuggingMod.Properties;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
+using InscryptionAPI.Card;
+using InscryptionAPI.Pelts;
 using WhistleWind.LobotomyMod;
+using InscryptionAPI.Pelts.Extensions;
+using InscryptionAPI.Nodes;
+using System;
+
 namespace ModDebuggingMod
 {
     public partial class Plugin
@@ -12,9 +17,8 @@ namespace ModDebuggingMod
         {
             List<Ability> abilities = new()
             {
-                Debug.ability,
-                FrostRuler.ability
-                //Ability.LatchExplodeOnDeath
+                Ability.GainBattery,
+                Ability.DrawCopy
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -35,7 +39,7 @@ namespace ModDebuggingMod
             CardHelper.CreateCard(
                 "wstl", "wstlcard", "DEBUG CARD",
                 "You shouldn't see this.",
-                0, 10, 0, 0, 0,
+                0, 10, 1, 0, 0,
                 Resources.fairyFestival, Resources.fairyFestival_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: traits);

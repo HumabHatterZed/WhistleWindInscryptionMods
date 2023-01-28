@@ -95,8 +95,8 @@ namespace WhistleWind.LobotomyMod.Core.Helpers
             }
 
             // Create initial card info
-            CardInfo cardInfo = CardHelper.CreateCardInfo(
-                name, displayName, description,
+            CardInfo cardInfo = CardHelper.CreateCard(
+                pluginPrefix, name, displayName, description,
                 atk, hp, blood, bones, energy,
                 portrait, emission, pixelTexture, altTexture, emissionAltTexture, titleTexture,
                 abilities, specialAbilities, metaCategories, tribes, traits, appearances, decals, statIcon,
@@ -159,11 +159,10 @@ namespace WhistleWind.LobotomyMod.Core.Helpers
             if (modTypes.HasFlag(ModCardType.Restricted))
                 cardInfo.SetNodeRestrictions(true, true, true, true);
 
-            AllLobotomyCards.Add(cardInfo);
-            if (cardInfo.metaCategories.Exists(mc => mc == CardMetaCategory.ChoiceNode || mc == CardMetaCategory.TraderOffer || mc == CardMetaCategory.Rare))
+            if (cardInfo.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.TraderOffer, CardMetaCategory.Rare))
                 ObtainableLobotomyCards.Add(cardInfo);
 
-            CardManager.Add(pluginPrefix, cardInfo);
+            AllLobotomyCards.Add(cardInfo);
         }
 
         private static CardInfo SetNodeRestrictions(this CardInfo card, bool give, bool gain, bool buff, bool copy)

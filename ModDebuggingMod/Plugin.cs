@@ -5,12 +5,17 @@ using HarmonyLib;
 using InscryptionAPI.Ascension;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
+using InscryptionAPI.Helpers;
+using InscryptionAPI.Pelts;
 using InscryptionAPI.Regions;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
+using WhistleWind.LobotomyMod.Core.Helpers;
 
 namespace ModDebuggingMod
 {
@@ -26,8 +31,6 @@ namespace ModDebuggingMod
 
         internal static ManualLogSource Log;
         private static Harmony harmony;
-
-        public static Tribe DebugTribe;
         public static EncounterBlueprintData ModdingEncounter
         {
             get
@@ -38,7 +41,7 @@ namespace ModDebuggingMod
                 List<Ability> redundant = null;
                 List<List<EncounterBlueprintData.CardBlueprint>> turns = new()
                 {
-                    //new() { CreateCardBlueprint("Mole"), CreateCardBlueprint("Mole"), CreateCardBlueprint("Mole") },
+                    new() { CreateCardBlueprint("Squirrel") },//, CreateCardBlueprint("Mole"), CreateCardBlueprint("Mole") },
                     new()
                 };
                 return BuildBlueprint(name, tribes, 0, 20, replacements, redundant, turns);
@@ -57,9 +60,7 @@ namespace ModDebuggingMod
         {
             Plugin.Log = base.Logger;
             harmony = Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), pluginGuid);
-
-            // InscryptionCommunityPatch.Card.SacrificeTokensFix.amountOfNewTokens = 0;
-            // InscryptionCommunityPatch.Card.Act1LatchAbilityFix._clawPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CannonTargetIcon");
+            
             // AddChallenges();
 
             ItemDebug();
@@ -80,24 +81,18 @@ namespace ModDebuggingMod
                 CardLoader.GetCardByName("wstlcard")
             }, 0);
 
-            /*            foreach (var item in ConsumableItemManager.NewConsumableItemDatas)
-                        {
-                            print(item.name);
-                        }*/
-            ModifyCardList("Squirrel");
+            //ModifyCardList();
+
             Logger.LogInfo($"{pluginName} loaded.");
         }
 
-        private void ModifyCardList(string name = "", params Ability[] ability)
+        private void ModifyCardList()
         {
-            if (name == "" || ability.Length == 0)
-                return;
-
             CardManager.ModifyCardList += delegate (List<CardInfo> cards)
             {
-                foreach (CardInfo card in cards.Where(c => c.name == name))
+                foreach (CardInfo card in cards)
                 {
-                    card.AddAbilities(ability);
+                    //Log.LogInfo($"{card.HasCardMetaCategory(LobotomyCardHelper.CannotBoostStats)}");
                 }
 
                 return cards;

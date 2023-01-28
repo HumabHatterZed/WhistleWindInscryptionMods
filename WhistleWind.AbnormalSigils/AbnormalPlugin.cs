@@ -49,20 +49,6 @@ namespace WhistleWind.AbnormalSigils
             {
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
-                // If Spells API is installed, patch TargetedSpellAbility
-                if (SpellAPI.Enabled)
-                {
-                    Type classInstance = (from asm in AppDomain.CurrentDomain.GetAssemblies()
-                                          from type in asm.GetTypes()
-                                          where type.IsClass && type.Name == "TargetedSpellAbility"
-                                          select type).Single();
-
-                    var baseMethod = classInstance.GetMethod("GetStatValues");
-                    var patchMethod = typeof(SpellRelatedPatches).GetMethod(nameof(SpellRelatedPatches.ShowStatsForTargetedSpells));
-
-                    HarmonyInstance.Patch(baseMethod, postfix: new(patchMethod));
-                }
-
                 AbnormalDialogueManager.GenerateDialogueEvents();
 
                 AddAbilities();
@@ -136,11 +122,6 @@ namespace WhistleWind.AbnormalSigils
             Ability_GreedyHealing();
             Ability_Cycler();
             Ability_Barreler();
-
-            // Spells
-            if (SpellAPI.Enabled)
-                Log.LogDebug($"Spells API is installed, changing ability behaviour for " +
-                    $"[Scrambler, Strengthen Target, Imbue Target, Enhance Target].");
 
             Ability_TargetGainStats();
             Ability_TargetGainSigils();

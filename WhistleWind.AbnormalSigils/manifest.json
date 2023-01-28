@@ -1,10 +1,10 @@
 {
 	"name": "WhistleWind_Abnormal_Sigils",
 	"version_number": "1.0.0",
-	"website_url": "https://github.com/HumabHatterZed/WhistleWindLobotomyMod",
+	"website_url": "https://github.com/HumabHatterZed/WhistleWindInscryptionMods",
 	"description": "A collection of sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina.",
 	"dependencies": [
 		"BepInEx-BepInExPack_Inscryption-5.4.1902",
-		"API_dev-API-2.7.2"
+		"API_dev-API-2.10.0"
 	]
 }

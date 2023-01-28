@@ -12,7 +12,7 @@ namespace WhistleWind.LobotomyMod.Core
         public static LobotomyConfigManager Instance => wstl_Instance ??= new LobotomyConfigManager();
 
         private readonly ConfigFile WstlConfigFile = new(
-            Path.Combine(Paths.ConfigPath, "whistlewind.inscryption.lobotomymod.cfg"), true);
+            Path.Combine(Paths.ConfigPath, "whistlewind.inscryption.lobotomycorp.cfg"), true);
 
         #region Config
 

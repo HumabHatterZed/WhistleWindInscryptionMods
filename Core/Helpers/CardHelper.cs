@@ -23,46 +23,8 @@ namespace WhistleWind.Core.Helpers
             Rare    // Rare background, boss chest
         }
 
-        public static void CreateCard(
-            string pluginPrefix, string name, string displayName,
-            string description, int atk, int hp,
-            int blood, int bones, int energy,
-            byte[] portrait, byte[] emission = null, byte[] pixelTexture = null,
-            byte[] altTexture = null, byte[] emissionAltTexture = null,
-            byte[] titleTexture = null,
-            List<Ability> abilities = null,
-            List<SpecialTriggeredAbility> specialAbilities = null,
-            List<CardMetaCategory> metaCategories = null,
-            List<Tribe> tribes = null,
-            List<Trait> traits = null,
-            List<CardAppearanceBehaviour.Appearance> appearances = null,
-            List<Texture> decals = null,
-            SpecialStatIcon statIcon = SpecialStatIcon.None,
-            CardChoiceType cardType = CardChoiceType.None,
-            CardMetaType metaTypes = 0,
-            string iceCubeName = null,
-            string evolveName = null,
-            int numTurns = 1,
-            bool onePerDeck = false,
-            bool hideStats = false
-        )
-        {
-            CardInfo cardInfo = CreateCardInfo(
-                name, displayName, description,
-                atk, hp, blood, bones, energy,
-                portrait, emission, pixelTexture,
-                altTexture, emissionAltTexture, titleTexture,
-                abilities, specialAbilities, metaCategories,
-                tribes, traits, appearances, decals, statIcon,
-                cardType, metaTypes,
-                iceCubeName, evolveName, numTurns, onePerDeck, hideStats
-                );
-
-            CardManager.Add(pluginPrefix, cardInfo);
-        }
-        // Cards
-        public static CardInfo CreateCardInfo(
-            string name, string displayName,
+        public static CardInfo CreateCard(
+            string modPrefix, string name, string displayName,
             string description, int atk, int hp,
             int blood, int bones, int energy,
             byte[] portrait, byte[] emission = null, byte[] pixelTexture = null,
@@ -104,10 +66,8 @@ namespace WhistleWind.Core.Helpers
 
             bool nonChoice = metaTypes.HasFlag(CardMetaType.NonChoice);
 
-            CardInfo cardInfo = ScriptableObject.CreateInstance<CardInfo>();
+            CardInfo cardInfo = CardManager.New(modPrefix, name, displayName, atk, hp, description);
 
-            cardInfo.name = name;
-            cardInfo.SetBasic(displayName, atk, hp, description);
             cardInfo.SetBloodCost(blood).SetBonesCost(bones).SetEnergyCost(energy);
 
             if (portraitTex != null)
@@ -144,7 +104,6 @@ namespace WhistleWind.Core.Helpers
             cardInfo.hideAttackAndHealth = hideStats;
 
             // Sets the info for Ice Cube and Evolve, if present
-
             if (iceCubeName != null)
                 cardInfo.SetIceCube(iceCubeName);
 
@@ -174,6 +133,7 @@ namespace WhistleWind.Core.Helpers
             }
             return cardInfo;
         }
+
         public static CardAppearanceBehaviourManager.FullCardAppearanceBehaviour CreateAppearance<T>(string pluginGuid, string name) where T : CardAppearanceBehaviour
         {
             return CardAppearanceBehaviourManager.Add(pluginGuid, name, typeof(T));

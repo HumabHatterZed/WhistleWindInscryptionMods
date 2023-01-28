@@ -31,7 +31,7 @@ namespace WhistleWind.LobotomyMod
 
     public partial class LobotomyPlugin : BaseUnityPlugin
     {
-        public const string pluginGuid = "whistlewind.inscryption.lobotomymod";
+        public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginPrefix = "wstl";
         public const string pluginName = "WhistleWind Lobotomy Mod";
         private const string pluginVersion = "2.0.0";
@@ -83,14 +83,13 @@ namespace WhistleWind.LobotomyMod
                 if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
                     LobotomyConfigManager.Instance.SetBlessings(11);
 
-                Log.LogDebug("Loading challenges...");
                 AddChallenges();
 
                 Log.LogDebug("Loading abilities...");
                 AddAbilities();
                 AddSpecialAbilities();
 
-                Log.LogDebug("Loading cards and tribes...");
+                Log.LogDebug("Loading cards...");
                 AddAppearances();
 
                 AddTribes();
@@ -187,7 +186,8 @@ namespace WhistleWind.LobotomyMod
                     }
 
                     // add AbnormalSigils cards to the list of cards added by this mod
-                    AllLobotomyCards.Add(card);
+                    if (!AllLobotomyCards.Contains(card))
+                        AllLobotomyCards.Add(card);
                 }
 
                 return cards;
