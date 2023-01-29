@@ -1,4 +1,4 @@
-﻿# ABNORMALSIGILS - FULL CHANGELOG
+﻿# Plugin GUID: whistlewind.inscryption.abnormalsigils
 
 ## v1.0.0 - Initial release (?/?/202?)
 ### ➕ Additions

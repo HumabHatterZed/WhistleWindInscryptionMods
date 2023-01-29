@@ -1,4 +1,4 @@
-﻿# WHISTLEWIND LOBOTOMY MOD - FULL CHANGELOG
+﻿# Plugin GUID: whistlewind.inscryption.lobotomycorp
 
 ## v2.0.0 - The One, Perfect Book (?/?/2023)
 ### 🧱 General

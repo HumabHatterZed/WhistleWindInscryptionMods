@@ -1163,66 +1163,6 @@ namespace WhistleWind.AbnormalSigils.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] sigilTargetGainSigils {
-            get {
-                object obj = ResourceManager.GetObject("sigilTargetGainSigils", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] sigilTargetGainSigils_pixel {
-            get {
-                object obj = ResourceManager.GetObject("sigilTargetGainSigils_pixel", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] sigilTargetGainStats {
-            get {
-                object obj = ResourceManager.GetObject("sigilTargetGainStats", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] sigilTargetGainStats_pixel {
-            get {
-                object obj = ResourceManager.GetObject("sigilTargetGainStats_pixel", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] sigilTargetGainStatsSigils {
-            get {
-                object obj = ResourceManager.GetObject("sigilTargetGainStatsSigils", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] sigilTargetGainStatsSigils_pixel {
-            get {
-                object obj = ResourceManager.GetObject("sigilTargetGainStatsSigils_pixel", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] sigilTeamLeader {
             get {
                 object obj = ResourceManager.GetObject("sigilTeamLeader", resourceCulture);

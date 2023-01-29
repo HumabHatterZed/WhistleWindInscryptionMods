@@ -123,10 +123,6 @@ namespace WhistleWind.AbnormalSigils
             Ability_Cycler();
             Ability_Barreler();
 
-            Ability_TargetGainStats();
-            Ability_TargetGainSigils();
-            Ability_TargetGainStatsSigils();
-
             // Specials
             Ability_FalseThrone();
             Ability_Nihil();
