@@ -1,4 +1,4 @@
-﻿# Plugin GUID: whistlewind.inscryption.lobotomycorp
+# Plugin GUID: whistlewind.inscryption.lobotomycorp
 
 ## v2.0.0 - The One, Perfect Book (?/?/2023)
 ### 🧱 General
@@ -142,20 +142,26 @@ For convenience, I'm including the changelog for Abnormal Sigils. For future con
     - Added most abilities from WhistleWind Lobotomy Mod
     - Added some minion cards from WhistleWind Lobotomy Mod
 
-### v1.3.0 - Futureproofing Update (12/31/2022)
-* 🧱 General
-  * Added compatibility features for upcoming 2.0 update
-  * Refactored some internal systems
-  * Tweaked card sprites
-  * Adjusted descriptive text of challenges Miracler Worker and Better Rare Chances
-* 🩹 Bug fixes
-  * Fixed Plague Doctor's portrait not correctly updating mid-battle
-  * Fixed abnormality choice node visual bug relating to card deck
-  * Fixed certain singleton cards being reobtainable after certain events
-* ➕ Additions
-  * Added starter deck support for Part 1
-  * Added 1 new starter deck: Random Mod Cards
-  * Added new config 'EXTRA RANDOM CARDS' for adding extra mod cards to the Random Mod Cards starter deck (Part 1 and KCM)
+## v1.3.1 - Final Pre-2.0 Update (1/28/2023)
+### 🧱 General
+    - Adjusted sprite of All-Around Helper
+    - Changed artwork for Group Healer to be more distinct from Team Leader
+    - Minor optimisations
+
+## v1.3.0 - Futureproofing Update (12/31/2022)
+### 🧱 General
+    - Added compatibility features for upcoming 2.0 update
+    - Refactored some internal systems
+    - Tweaked card sprites
+    - Adjusted descriptive text of challenges Miracler Worker and Better Rare Chances
+### 🩹 Bug fixes
+    - Fixed Plague Doctor's portrait not correctly updating mid-battle
+    - Fixed abnormality choice node visual bug relating to card deck
+    - Fixed certain singleton cards being reobtainable after certain events
+### ➕ Additions
+    - Added starter deck support for Part 1
+    - Added 1 new starter deck: Random Mod Cards
+    - Added new config 'EXTRA RANDOM CARDS' for adding extra mod cards to the Random Mod Cards starter deck (Part 1 and KCM)
 
 ## v1.2.5 - Bug fix (11/23/2022)
 ### 🩹 Bug fixes
