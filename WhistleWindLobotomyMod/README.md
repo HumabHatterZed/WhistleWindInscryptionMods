@@ -14,7 +14,7 @@ Features:
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1902
-* API_dev-API v2.8.0
+* API_dev-API v2.10.0+
 
 ## ‼️ Notice Regarding Future Update
 This will be the final 1.0 version I will release as I focus on the 2.0 content update.
@@ -52,31 +52,6 @@ ReadMe cost icons:
 - James Veug (from ReadmeMaker)
 
 Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public GitHubs I could ~~steal~~borrow code from.
-
-## ⚖️ Changelog
-For a list of previous updates and a full description of the current update, refer to the FULL_CHANGELOG included in the mod package.
-
-See Closing Notes for info on future updates.
-
-<details>
-<summary>Latest Update - v1.3.0</summary>
-
-### v1.3.0 - Futureproofing Update (12/31/2022)
-* 🧱 General
-  * Added compatibility features for upcoming 2.0 update
-  * Refactored some internal systems
-  * Tweaked card sprites
-  * Adjusted descriptive text of challenges Miracler Worker and Better Rare Chances
-* 🩹 Bug fixes
-  * Fixed Plague Doctor's portrait not correctly updating mid-battle
-  * Fixed abnormality choice node visual bug relating to card deck
-  * Fixed certain singleton cards being reobtainable after certain events
-* ➕ Additions
-  * Added starter deck support for Part 1
-  * Added 1 new starter deck: Random Mod Cards
-  * Added new config 'EXTRA RANDOM CARDS' for adding extra mod cards to the Random Mod Cards starter deck (Part 1 and KCM)
-
-</details>
 
 ## 🛠️ Configuration Options
 

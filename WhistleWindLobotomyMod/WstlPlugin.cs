@@ -20,13 +20,12 @@ namespace WhistleWindLobotomyMod
     [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("whistlewind.inscryption.abnormalsigils", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInDependency("whistlewind.inscryption.lobotomymod", BepInDependency.DependencyFlags.SoftDependency)]
 
     public partial class WstlPlugin : BaseUnityPlugin
     {
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginName = "WhistleWind Lobotomy Corp";
-        private const string pluginVersion = "1.3.0";
+        private const string pluginVersion = "1.3.1";
 
         internal static ManualLogSource Log;
         private static Harmony harmony = new(pluginGuid);
@@ -40,7 +39,7 @@ namespace WhistleWindLobotomyMod
         private void OnDisable() => harmony.UnpatchSelf();
         private void Start()
         {
-            if (!NewVersion.Enabled && ConfigManager.Instance.ModEnabled)
+            if (ConfigManager.Instance.ModEnabled)
             {
                 if (DonatorCardsDisabled)
                     Log.LogInfo("No Donators is set to true. Certain cards have been removed from the pool of obtainable cards.");
@@ -53,12 +52,6 @@ namespace WhistleWindLobotomyMod
         private void Awake()
         {
             WstlPlugin.Log = base.Logger;
-
-            if (NewVersion.Enabled)
-            {
-                Log.LogWarning("This version of the mod is outdated! Please remove it from your plugins folder.");
-                return;
-            }
 
             ConfigManager.Instance.BindConfig();
 
@@ -424,10 +417,6 @@ namespace WhistleWindLobotomyMod
         public static class AbnormalSigils
         {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("whistlewind.inscryption.abnormalsigils");
-        }
-        public static class NewVersion
-        {
-            public static bool Enabled => Chainloader.PluginInfos.ContainsKey("whistlewind.inscryption.lobotomymod");
         }
     }
 }
