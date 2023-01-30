@@ -1,26 +1,28 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void YinYangHead_O07103()
+        private void Card_YinYangHead_O07103()
         {
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                CustomFledgling.specialAbility
+                CustomEvolveHelper.specialAbility
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 ForcedWhite.appearance
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_yinYangHead", "",
                 "Now you become [c:bR]the sky[c:], and I the land.",
-                0, 101, 0, 0,
-                Resources.yinYangHead, Resources.yinYangHead_emission,
+                atk: 0, hp: 0,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.yinYangHead, Artwork.yinYangHead_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: appearances, hideStats: true);

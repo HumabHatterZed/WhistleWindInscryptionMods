@@ -1,12 +1,14 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void NothingThere_O0620()
+        private void Card_NothingThere_O0620()
         {
             List<Ability> abilities = new()
             {
@@ -20,14 +22,16 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.DeathcardCreationNonOption
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_nothingThere", "Yumi",
                 "I don't remember this challenger...",
-                1, 1, 2, 0,
-                Resources.nothingThere, Resources.nothingThere_emission,
+                atk: 1, hp: 1,
+                blood: 2, bones: 0, energy: 0,
+                Artwork.nothingThere, Artwork.nothingThere_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,
-                isRare: true, onePerDeck: true, riskLevel: 5);
+                onePerDeck: true,
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Aleph);
         }
     }
 }

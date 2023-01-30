@@ -1,13 +1,16 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void ApostleMoleman_T0346()
+        private void Card_ApostleMoleman_T0346()
         {
+            Tribe customTribe = TribeDivine;
             List<Ability> abilities = new()
             {
                 Apostle.ability,
@@ -16,21 +19,45 @@ namespace WhistleWindLobotomyMod
             };
             List<Trait> traits = new()
             {
-                Trait.Uncuttable
+                Trait.Uncuttable,
+                Trait.Terrain
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance,
-                CardAppearanceBehaviour.Appearance.RareCardBackground
+                ForcedWhite.appearance
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_apostleMoleman", "Moleman Apostle",
                 "The time has come.",
-                1, 8, 0, 0,
-                Resources.apostleMoleman, Resources.apostleMoleman_emission,
+                atk: 1, hp: 8,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.apostleMoleman, Artwork.apostleMoleman_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances);
+                appearances: appearances,
+                choiceType: CardHelper.CardChoiceType.Rare,
+                metaTypes: CardHelper.CardMetaType.NonChoice,
+                modTypes: LobotomyCardHelper.ModCardType.EventCard, customTribe: customTribe);
+
+            abilities = new()
+            {
+                Ability.Reach,
+                Ability.Evolve
+            };
+            traits = new()
+            {
+                Trait.Terrain
+            };
+            LobotomyCardHelper.CreateCard(
+                "wstl_apostleMolemanDown", "Moleman Apostle",
+                "The time has come.",
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.apostleMolemanDown, Artwork.apostleMolemanDown_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: traits,
+                appearances: appearances, evolveName: "wstl_apostleMoleman", numTurns: 2,
+                modTypes: LobotomyCardHelper.ModCardType.EventCard, customTribe: customTribe);
         }
     }
 }

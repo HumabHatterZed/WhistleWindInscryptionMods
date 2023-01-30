@@ -1,26 +1,33 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void CENSORED_O0389()
+        private void Card_CENSORED_O0389()
         {
             List<Ability> abilities = new()
             {
                 Bloodfiend.ability
             };
-
-            CardHelper.CreateCard(
+            List<SpecialTriggeredAbility> specialAbilities = new()
+            {
+                CensoredSpecial.specialAbility
+            };
+            LobotomyCardHelper.CreateCard(
                 "wstl_censored", "CENSORED",
                 "It's best you never learn what it looks like.",
-                6, 3, 4, 0,
-                Resources.censored, Resources.censored_emission,
-                abilities: abilities, specialAbilities: new(),
+                atk: 7, hp: 4,
+                blood: 4, bones: 0, energy: 0,
+                Artwork.censored, Artwork.censored_emission,
+                abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true, riskLevel: 5);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Aleph);
         }
     }
 }

@@ -1,12 +1,14 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void MHz176_T0727()
+        private void Card_MHz176_T0727()
         {
             List<Ability> abilities = new()
             {
@@ -14,14 +16,16 @@ namespace WhistleWindLobotomyMod
                 Ability.BuffEnemy
             };
 
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_mhz176", "1.76 MHz",
                 "This is a record, a record of a day we must never forget.",
-                0, 3, 0, 2,
-                Resources.mhz176, Resources.mhz176_emission,
+                atk: 0, hp: 3,
+                blood: 0, bones: 0, energy: 3,
+                Artwork.mhz176, Artwork.mhz176_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 2);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
+                customTribe: TribeMachine);
         }
     }
 }

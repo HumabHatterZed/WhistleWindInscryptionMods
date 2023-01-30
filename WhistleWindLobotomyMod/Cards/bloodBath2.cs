@@ -1,31 +1,32 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void BloodBath2_T0551()
+        private void Card_BloodBath2_T0551()
         {
             List<Ability> abilities = new()
             {
-                Ability.TripleBlood
+                Ability.TripleBlood,
+                Ability.QuadrupleBones
             };
-
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                WristCutter.specialAbility,
-                SpecialTriggeredAbility.SacrificesThisTurn
+                WristCutter.specialAbility
             };
-
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_bloodBath2", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
-                0, 2, 2, 0,
-                Resources.bloodBath2, Resources.bloodBath2_emission,
-                abilities: abilities, specialAbilities: specialAbilities, statIcon: SpecialStatIcon.SacrificesThisTurn,
-                metaCategories: new(), tribes: new(), traits: new());
+                atk: 0, hp: 2,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.bloodBath2, Artwork.bloodBath2_emission,
+                abilities: abilities, specialAbilities: specialAbilities,
+                metaCategories: new(), tribes: new(), traits: new(),
+                statIcon: SpecialStatIcon.SacrificesThisTurn);
         }
     }
 }

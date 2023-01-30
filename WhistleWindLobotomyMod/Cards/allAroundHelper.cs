@@ -1,27 +1,30 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void AllAroundHelper_T0541()
+        private void Card_AllAroundHelper_T0541()
         {
             List<Ability> abilities = new()
             {
                 Ability.Strafe,
                 Ability.SplitStrike
             };
-
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_allAroundHelper", "All-Around Helper",
                 "A murderous machine originally built to do chores. It reminds me of someone I know.",
-                1, 3, 2, 0,
-                Resources.allAroundHelper, Resources.allAroundHelper_emission, gbcTexture: Resources.allAroundHelper_pixel,
+                atk: 1, hp: 2,
+                blood: 0, bones: 0, energy: 4,
+                Artwork.allAroundHelper, Artwork.allAroundHelper_emission, pixelTexture: Artwork.allAroundHelper_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 3);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
+                customTribe: TribeMachine);
         }
     }
 }

@@ -1,30 +1,48 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void MagicalGirlDiamond_O0164()
+        private void Card_MagicalGirlDiamond_O0164()
         {
             List<Ability> abilities = new()
+            {
+                Cycler.ability
+            };
+            LobotomyCardHelper.CreateCard(
+                "wstl_kingOfGreed", "The King of Greed",
+                "",
+                atk: 2, hp: 5,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.kingOfGreed, Artwork.kingOfGreed_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new(),
+                onePerDeck: true);
+
+            abilities = new()
             {
                 Ability.Evolve
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                CustomFledgling.specialAbility
+                CustomEvolveHelper.specialAbility
             };
-
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_magicalGirlDiamond", "Magical Girl",
                 "A girl encased in hardened amber. Happiness trapped by greed.",
-                0, 3, 2, 0,
-                Resources.magicalGirlDiamond, Resources.magicalGirlDiamond_emission, gbcTexture: Resources.magicalGirlDiamond_pixel,
+                atk: 0, hp: 2,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.magicalGirlDiamond, Artwork.magicalGirlDiamond_emission, pixelTexture: Artwork.magicalGirlDiamond_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, evolveName: "wstl_kingOfGreed", onePerDeck: true, riskLevel: 4);
+                metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw, evolveName: "wstl_kingOfGreed",
+                customTribe: TribeFae);
         }
     }
 }

@@ -3,7 +3,7 @@ using InscryptionAPI.Encounters;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Helpers
 {
     public static class EncounterHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {

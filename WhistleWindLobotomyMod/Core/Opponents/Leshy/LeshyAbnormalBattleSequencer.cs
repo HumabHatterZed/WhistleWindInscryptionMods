@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Opponents.Leshy
 {
     public class LeshyAbnormalBattleSequencer : LeshyBattleSequencer
     {
@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         {
             EncounterData encounterData = base.BuildCustomEncounter(nodeData);
             encounterData.Blueprint = AbnormalEncounterData.LeshyAbnormalBossP1;
-            int num = (SaveFile.IsAscension ? (-1) : 0);
+            int num = SaveFile.IsAscension ? -1 : 0;
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, nodeData.difficulty + RunState.Run.DifficultyModifier + num);
             encounterData.startConditions.Clear();
             EncounterData.StartCondition startCondition = new();
@@ -21,12 +21,12 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OpponentUpkeep()
         {
-            yield return this.Leshy.AdvanceMaskState();
-            if (!SaveFile.IsAscension && !this.playedStinkyMoonDialogue && Singleton<BoardManager>.Instance.GetSlots(getPlayerSlots: true).Exists((CardSlot x) => x.Card != null && x.Card.HasAbility(Ability.DebuffEnemy)) && Singleton<BoardManager>.Instance.GetSlots(getPlayerSlots: false).Exists((CardSlot x) => x.Card != null && x.Card.Info.HasTrait(Trait.Giant)))
+            yield return Leshy.AdvanceMaskState();
+            if (!SaveFile.IsAscension && !playedStinkyMoonDialogue && Singleton<BoardManager>.Instance.GetSlots(getPlayerSlots: true).Exists((x) => x.Card != null && x.Card.HasAbility(Ability.DebuffEnemy)) && Singleton<BoardManager>.Instance.GetSlots(getPlayerSlots: false).Exists((x) => x.Card != null && x.Card.Info.HasTrait(Trait.Giant)))
             {
                 yield return new WaitForSeconds(0.5f);
                 yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("LeshyBossStinkyMoon", TextDisplayer.MessageAdvanceMode.Input);
-                this.playedStinkyMoonDialogue = true;
+                playedStinkyMoonDialogue = true;
             }
         }
     }

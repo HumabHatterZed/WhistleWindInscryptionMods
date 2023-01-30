@@ -4,7 +4,7 @@ using ModDebuggingMod.Properties;
 using System.Collections.Generic;
 using InscryptionAPI.Card;
 using InscryptionAPI.Pelts;
-using WhistleWind.LobotomyMod;
+using WhistleWindLobotomyMod;
 using InscryptionAPI.Pelts.Extensions;
 using InscryptionAPI.Nodes;
 using System;

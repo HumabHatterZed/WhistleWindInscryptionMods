@@ -1,14 +1,31 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void NamelessFetus_O0115()
+        private void Card_NamelessFetus_O0115()
         {
             List<Ability> abilities = new()
+            {
+                Aggravating.ability,
+                Ability.PreventAttack
+            };
+            LobotomyCardHelper.CreateCard(
+                "wstl_namelessFetusAwake", "Nameless Fetus",
+                "Only a sacrifice will stop its piercing wails.",
+                atk: 0, hp: 1,
+                blood: 0, bones: 3, energy: 0,
+                Artwork.namelessFetusAwake, Artwork.namelessFetusAwake,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new());
+
+            abilities = new()
             {
                 Ability.TripleBlood,
                 Ability.Sacrificial
@@ -21,14 +38,15 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.Goat
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_namelessFetus", "Nameless Fetus",
                 "A neverending supply a blood. Just don't wake it.",
-                0, 1, 0, 5,
-                Resources.namelessFetus, Resources.namelessFetus_emission,
+                atk: 0, hp: 1,
+                blood: 0, bones: 3, energy: 0,
+                Artwork.namelessFetus, Artwork.namelessFetus_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,
-                isChoice: true, riskLevel: 3);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He);
         }
     }
 }

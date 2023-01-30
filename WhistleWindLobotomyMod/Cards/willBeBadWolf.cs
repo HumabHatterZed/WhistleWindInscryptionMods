@@ -1,12 +1,15 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void WillBeBadWolf_F0258()
+        private void Card_WillBeBadWolf_F0258()
         {
             List<Ability> abilities = new()
             {
@@ -16,14 +19,16 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Canine
             };
-            CardHelper.CreateCard(
+
+            LobotomyCardHelper.CreateCard(
                 "wstl_willBeBadWolf", "Big and Will be Bad Wolf",
                 "It is no coincidence that wolves are the villains of so many tales.",
-                3, 2, 2, 0,
-                Resources.willBeBadWolf, Resources.willBeBadWolf_emission,
+                atk: 3, hp: 2,
+                blood: 2, bones: 0, energy: 0,
+                Artwork.willBeBadWolf, Artwork.willBeBadWolf_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, riskLevel: 4);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
         }
     }
 }

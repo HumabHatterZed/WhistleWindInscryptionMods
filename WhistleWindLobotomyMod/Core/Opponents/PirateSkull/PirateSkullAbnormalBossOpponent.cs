@@ -3,8 +3,9 @@ using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Opponents.PirateSkull
 {
     public class PirateSkullAbnormalBossOpponent : PirateSkullBossOpponent
     {
@@ -13,14 +14,14 @@ namespace WhistleWindLobotomyMod
 
         public override IEnumerator StartNewPhaseSequence()
         {
-            base.TurnPlan.Clear();
-            switch (base.NumLives)
+            TurnPlan.Clear();
+            switch (NumLives)
             {
                 case 2:
-                    yield return this.StartPhase2();
+                    yield return StartPhase2();
                     break;
                 case 1:
-                    yield return this.StartGiantCardPhase();
+                    yield return StartGiantCardPhase();
                     break;
             }
         }
@@ -28,12 +29,12 @@ namespace WhistleWindLobotomyMod
         // Identical to vanilla but with the cards replaced
         private new IEnumerator StartPhase2()
         {
-            yield return base.ClearBoard();
-            yield return base.ClearQueue();
+            yield return ClearBoard();
+            yield return ClearQueue();
             yield return new WaitForSeconds(0.5f);
             Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue, immediate: false, lockAfter: true);
             yield return new WaitForSeconds(0.25f);
-            GameObject packObj = Object.Instantiate(ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CardPack"));
+            GameObject packObj = Instantiate(ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CardPack"));
             Vector3 vector = new(0.7f, 5.05f, 0.9f);
             Vector3 position = vector + Vector3.forward * 8f;
             packObj.transform.position = position;
@@ -44,13 +45,13 @@ namespace WhistleWindLobotomyMod
             List<CardInfo> list = new();
             for (int j = 0; j < 2; j++)
             {
-                CardInfo item = (CustomRandom.Bool() ? CardLoader.GetCardByName("Squirrel") : CardLoader.GetCardByName("Rabbit"));
+                CardInfo item = CustomRandom.Bool() ? CardLoader.GetCardByName("Squirrel") : CardLoader.GetCardByName("Rabbit");
                 list.Add(item);
             }
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
             for (int k = 0; k < 2; k++)
             {
-                CardInfo cardByName = CardLoader.GetCardByName(this.POSSIBLE_PACK_CARDS[SeededRandom.Range(0, this.POSSIBLE_PACK_CARDS.Length, randomSeed++)]);
+                CardInfo cardByName = CardLoader.GetCardByName(POSSIBLE_PACK_CARDS[SeededRandom.Range(0, POSSIBLE_PACK_CARDS.Length, randomSeed++)]);
                 list.Add(cardByName);
             }
             yield return PackMule.SpawnAndOpenPack(list, packObj.transform, packObj.transform.position);

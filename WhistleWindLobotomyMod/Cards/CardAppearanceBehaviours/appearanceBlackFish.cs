@@ -1,27 +1,25 @@
 ﻿using DiskCardGame;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
         private void Appearance_BlackFish()
         {
-            BlackFish.appearance = CardHelper.CreateAppearance<BlackFish>("BlackFish").Id;
+            BlackFish.appearance = CardHelper.CreateAppearance<BlackFish>(pluginGuid, "BlackFish").Id;
         }
     }
     public class BlackFish : CardAppearanceBehaviour
     {
-        public static CardAppearanceBehaviour.Appearance appearance;
+        public static Appearance appearance;
         public override void ApplyAppearance()
         {
             if (base.Card is PlayableCard)
-            {
                 base.Card.RenderInfo.portraitOverride = base.Card.Info.alternatePortrait;
-            }
             else
-            {
                 base.Card.RenderInfo.portraitOverride = null;
-            }
+
         }
     }
 }

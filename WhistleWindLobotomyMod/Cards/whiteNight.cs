@@ -1,12 +1,14 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void WhiteNight_T0346()
+        private void Card_WhiteNight_T0346()
         {
             List<Ability> abilities = new()
             {
@@ -16,20 +18,23 @@ namespace WhistleWindLobotomyMod
             List<Trait> traits = new()
             {
                 Trait.Uncuttable,
-                Trait.Terrain
+                Trait.Terrain,
+                AbnormalPlugin.ImmuneToInstaDeath
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 ForcedWhite.appearance
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_whiteNight", "WhiteNight",
                 "The time has come.",
-                0, 666, 0, 0,
-                Resources.whiteNight, Resources.whiteNight_emission, titleTexture: Resources.whiteNight_title,
+                atk: 0, hp: 66,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.whiteNight, Artwork.whiteNight_emission, titleTexture: Artwork.whiteNight_title,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, onePerDeck: true);
+                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, onePerDeck: true,
+                customTribe: TribeDivine);
         }
     }
 }

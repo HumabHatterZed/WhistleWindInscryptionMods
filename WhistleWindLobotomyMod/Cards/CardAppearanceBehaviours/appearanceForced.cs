@@ -1,12 +1,13 @@
 ﻿using DiskCardGame;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
         private void Appearance_ForcedEmission()
         {
-            Forced.appearance = CardHelper.CreateAppearance<Forced>("Forced").Id;
+            Forced.appearance = CardHelper.CreateAppearance<Forced>(pluginGuid, "Forced").Id;
         }
     }
     public class Forced : CardAppearanceBehaviour

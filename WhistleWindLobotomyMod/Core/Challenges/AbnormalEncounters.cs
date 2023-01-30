@@ -2,10 +2,11 @@
 using HarmonyLib;
 using InscryptionAPI.Ascension;
 using InscryptionAPI.Regions;
-using static WhistleWindLobotomyMod.AbnormalEncounterData;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Opponents.AbnormalEncounterData;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Challenges
 {
     public static class AbnormalEncounters // taken from infiniscryption
     {
@@ -15,13 +16,24 @@ namespace WhistleWindLobotomyMod
         public static void Register(Harmony harmony)
         {
             Id = ChallengeManager.Add(
-                WstlPlugin.pluginGuid,
+                LobotomyPlugin.pluginGuid,
                 "Abnormal Encounters",
                 "All regular battles will only use abnormality cards.",
                 20,
-                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionAbnormalEncounters),
-                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionAbnormalEncounters_activated)
+                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalEncounters),
+                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalEncounters_activated)
                 ).Challenge.challengeType;
+
+            // Do later?
+            /*CardManager.ModifyCardList += delegate (List<CardInfo> cards)
+            {
+                if (AscensionSaveData.Data.ChallengeIsActive(Id))
+                {
+                    cards.CardByName("Starvation").portraitTex = null;
+                }
+
+                return cards;
+            };*/
 
             harmony.PatchAll(typeof(AbnormalEncounters));
         }
@@ -30,7 +42,7 @@ namespace WhistleWindLobotomyMod
         [HarmonyPostfix]
         public static void ClearVanillaEncounters(ref GameFlowManager __instance)
         {
-            if (__instance != null && (AscensionSaveData.Data.ChallengeIsActive(Id) || (!SaveFile.IsAscension && ConfigManager.Instance.AbnormalBattles)))
+            if (__instance != null && (AscensionSaveData.Data.ChallengeIsActive(Id) || !SaveFile.IsAscension && LobotomyConfigManager.Instance.AbnormalBattles))
             {
                 ChallengeActivationUI.TryShowActivation(Id);
                 RegionProgression.Instance.regions[0].encounters.Clear();

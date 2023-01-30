@@ -1,12 +1,15 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void TheFirebird_O02101()
+        private void Card_TheFirebird_O02101()
         {
             List<Ability> abilities = new()
             {
@@ -17,14 +20,16 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Bird
             };
-            CardHelper.CreateCard(
+
+            LobotomyCardHelper.CreateCard(
                 "wstl_theFirebird", "The Firebird",
                 "A bird that longs for the thrill of being hunted.",
-                1, 3, 2, 0,
-                Resources.theFirebird, Resources.theFirebird_emission,
+                atk: 2, hp: 3,
+                blood: 2, bones: 0, energy: 0,
+                Artwork.theFirebird, Artwork.theFirebird_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, riskLevel: 4);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
         }
     }
 }

@@ -1,12 +1,15 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void TheNakedNest_O0274()
+        private void Card_TheNakedNest_O0274()
         {
             List<Ability> abilities = new()
             {
@@ -20,14 +23,15 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.KillsSurvivors
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_theNakedNest", "The Naked Nest",
                 "They can enter your body through any aperture.",
-                0, 2, 0, 4,
-                Resources.theNakedNest, Resources.theNakedNest_emission,
+                atk: 0, hp: 3,
+                blood: 0, bones: 5, energy: 0,
+                Artwork.theNakedNest, Artwork.theNakedNest_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: traits,
-                isChoice: true, riskLevel: 4);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void HundredsGoodDeeds_O0303()
+        private void Card_HundredsGoodDeeds_O0303()
         {
             List<Ability> abilities = new()
             {
@@ -21,11 +22,12 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedWhite.appearance
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_hundredsGoodDeeds", "One Sin and Hundreds of Good Deeds",
                 "Its hollow sockets see through you.",
-                0, 777, 0, 0,
-                Resources.hundredsGoodDeeds, Resources.hundredsGoodDeeds_emission,
+                atk: 0, hp: 777,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.hundredsGoodDeeds, Artwork.hundredsGoodDeeds_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
                 appearances: appearances);

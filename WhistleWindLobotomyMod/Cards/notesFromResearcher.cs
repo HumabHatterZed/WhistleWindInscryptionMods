@@ -1,30 +1,30 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void NotesFromResearcher_T0978()
+        private void Card_NotesFromResearcher_T0978()
         {
             List<Ability> abilities = new()
             {
                 FlagBearer.ability
             };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.TerrainBackground,
-                CardAppearanceBehaviour.Appearance.TerrainLayout
-            };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_notesFromResearcher", "Notes from a Crazed Researcher",
                 "An insane garble of guilty confessions and incoherent gibberish.",
-                0, 3, 1, 0,
-                Resources.notesFromResearcher, Resources.notesFromResearcher_emission,
+                atk: 0, hp: 2,
+                blood: 0, bones: 3, energy: 0,
+                Artwork.notesFromResearcher, Artwork.notesFromResearcher_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), appearances: appearances,
-                isChoice: true, riskLevel: 3);
+                metaCategories: new(), tribes: new(), traits: new(), appearances: new(),
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
+                metaTypes: CardHelper.CardMetaType.Terrain);
         }
     }
 }

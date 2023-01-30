@@ -1,25 +1,30 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void ParasiteTree_D04108()
+        private void Card_ParasiteTree_D04108()
         {
             List<Ability> abilities = new()
             {
                 Gardener.ability
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_parasiteTree", "Parasite Tree",
                 "A beautiful tree. It wants only to help you and your beasts.",
-                0, 3, 1, 0,
-                Resources.parasiteTree, Resources.parasiteTree_emission,
+                atk: 0, hp: 3,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.parasiteTree, Artwork.parasiteTree_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, isDonator: true, riskLevel: 4);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
+                modTypes: LobotomyCardHelper.ModCardType.Donator, customTribe: TribePlant);
         }
     }
 }

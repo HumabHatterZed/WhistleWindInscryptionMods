@@ -1,25 +1,30 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void FragmentOfUniverse_O0360()
+        private void Card_FragmentOfUniverse_O0360()
         {
             List<Ability> abilities = new()
             {
                 Piercing.ability
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_fragmentOfUniverse", "Fragment of the Universe",
                 "You see a song in front of you. It's approaching, becoming more colourful by the second.",
-                1, 2, 1, 0,
-                Resources.fragmentOfUniverse, Resources.fragmentOfUniverse_emission,
+                atk: 1, hp: 2,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.fragmentOfUniverse, Artwork.fragmentOfUniverse_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 2);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
+                customTribe: TribeDivine);
         }
     }
 }

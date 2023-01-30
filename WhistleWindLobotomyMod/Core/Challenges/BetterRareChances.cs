@@ -1,9 +1,10 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Ascension;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Challenges
 {
     public static class BetterRareChances
     {
@@ -13,12 +14,12 @@ namespace WhistleWindLobotomyMod
         public static void Register(Harmony harmony)
         {
             Id = ChallengeManager.Add(
-                WstlPlugin.pluginGuid,
+                LobotomyPlugin.pluginGuid,
                 "Better Rare Chances",
                 "Rare cards are more likely to appear at abnormal choice nodes.",
-                -15,
-                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionBetterRareChances),
-                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionBetterRareChances_activated)
+                -10,
+                TextureLoader.LoadTextureFromBytes(Artwork.ascensionBetterRareChances),
+                TextureLoader.LoadTextureFromBytes(Artwork.ascensionBetterRareChances_activated)
                 ).Challenge.challengeType;
         }
     }

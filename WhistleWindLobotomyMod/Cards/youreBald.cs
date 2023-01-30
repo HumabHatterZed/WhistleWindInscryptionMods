@@ -1,25 +1,28 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void YoureBald_BaldIsAwesome()
+        private void Card_YoureBald_BaldIsAwesome()
         {
             List<Ability> abilities = new()
             {
                 Ability.DrawCopy
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_youreBald", "You're Bald...",
                 "I've always wondered what it's like to be bald.",
-                1, 1, 0, 3,
-                Resources.youreBald, Resources.youreBald_emission,
+                atk: 1, hp: 1,
+                blood: 0, bones: 3, energy: 0,
+                Artwork.youreBald, Artwork.youreBald_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 1);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin);
         }
     }
 }

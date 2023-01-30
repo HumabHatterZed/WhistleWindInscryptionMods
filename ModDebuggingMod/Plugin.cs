@@ -15,7 +15,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWind.LobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace ModDebuggingMod
 {

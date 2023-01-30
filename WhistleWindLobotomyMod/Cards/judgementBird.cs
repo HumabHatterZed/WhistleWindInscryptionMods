@@ -1,12 +1,15 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void JudgementBird_O0262()
+        private void Card_JudgementBird_O0262()
         {
             List<Ability> abilities = new()
             {
@@ -16,14 +19,16 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Bird
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_judgementBird", "Judgement Bird",
-                "A long bird that judges sinners with swift efficiency. Only it is above consequences.",
-                1, 1, 2, 0,
-                Resources.judgementBird, Resources.judgementBird_emission, gbcTexture: Resources.judgementBird_pixel,
+                "A long bird that judges sinners with swift efficiency. It alone is above consequences.",
+                atk: 1, hp: 1,
+                blood: 2, bones: 0, energy: 0,
+                Artwork.judgementBird, Artwork.judgementBird_emission, pixelTexture: Artwork.judgementBird_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, onePerDeck: true, riskLevel: 4);
+                onePerDeck: true,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
         }
     }
 }

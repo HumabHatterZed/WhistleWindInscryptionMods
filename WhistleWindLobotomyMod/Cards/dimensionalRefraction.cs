@@ -1,26 +1,28 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void DimensionalRefraction_O0388()
+        private void Card_DimensionalRefraction_O0388()
         {
             List<Ability> abilities = new()
             {
                 Ability.RandomAbility
             };
-
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_dimensionalRefraction", "Dimensional Refraction Variant",
                 "A strange phenomenon. Or rather, the creature is the phenomena in and of itself.",
-                4, 4, 3, 0,
-                Resources.dimensionalRefraction, Resources.dimensionalRefraction_emission,
+                atk: 4, hp: 4,
+                blood: 3, bones: 0, energy: 0,
+                Artwork.dimensionalRefraction, Artwork.dimensionalRefraction_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 4);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
         }
     }
 }

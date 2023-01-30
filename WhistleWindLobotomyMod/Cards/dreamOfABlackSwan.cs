@@ -1,12 +1,15 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void DreamOfABlackSwan_F0270()
+        private void Card_DreamOfABlackSwan_F0270()
         {
             List<Ability> abilities = new()
             {
@@ -16,14 +19,15 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Bird
             };
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_dreamOfABlackSwan", "Dream of a Black Swan",
                 "The sister of six brothers. She worked tirelessly to protect them, all for naught.",
-                2, 5, 3, 0,
-                Resources.dreamOfABlackSwan, Resources.dreamOfABlackSwan_emission,
+                atk: 2, hp: 5,
+                blood: 3, bones: 0, energy: 0,
+                Artwork.dreamOfABlackSwan, Artwork.dreamOfABlackSwan_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                isRare: true, riskLevel: 4);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
         }
     }
 }

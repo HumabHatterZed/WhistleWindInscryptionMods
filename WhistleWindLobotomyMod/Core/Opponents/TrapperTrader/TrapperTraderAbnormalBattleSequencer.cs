@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Opponents.TrapperTrader
 {
     public class TrapperTraderAbnormalBattleSequencer : TrapperTraderBattleSequencer
     {

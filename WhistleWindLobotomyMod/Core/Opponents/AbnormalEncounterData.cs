@@ -1,11 +1,35 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using static WhistleWindLobotomyMod.EncounterHelper;
+using WhistleWind.AbnormalSigils;
+using static WhistleWindLobotomyMod.Core.Helpers.EncounterHelper;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Opponents
 {
     public class AbnormalEncounterData
     {
+        public static List<EncounterBlueprintData> ModEncounters = new()
+        {
+            StrangePack, BitterPack, StrangeFlock, HelperJuggernaut,
+            StrangeBees, StrangeCreatures1, WormsNest, StrangeCreatures2, StrangeFish,
+            StrangeHerd, AlriuneJuggernaut, SpidersNest, SwanJuggernaut
+        };
+        public static EncounterBlueprintData ModDebugEncounter
+        {
+            get
+            {
+                string name = "DebugEncounter";
+                List<Tribe> tribes = new() { Tribe.Canine };
+                List<CardInfo> replacements = new();
+                List<Ability> redundant = null;
+                List<List<EncounterBlueprintData.CardBlueprint>> turns = new()
+                {
+                    new() { CreateCardBlueprint("Mule") },
+                    new() { },
+                    new() { }
+                };
+                return BuildBlueprint(name, tribes, 0, 20, replacements, redundant, turns);
+            }
+        }
         // Forest encounters
         public static EncounterBlueprintData StrangePack
         {

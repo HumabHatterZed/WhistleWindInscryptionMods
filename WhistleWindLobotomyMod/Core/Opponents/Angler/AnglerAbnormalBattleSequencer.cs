@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Opponents.Angler
 {
     public class AnglerAbnormalBattleSequencer : AnglerBattleSequencer
     {
@@ -19,9 +19,9 @@ namespace WhistleWindLobotomyMod
             CardInfo cardByName = CardLoader.GetCardByName("wstl_dreamingCurrent");
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(cardByName, deathSlot);
             yield return new WaitForSeconds(0.25f);
-            if (!this.sharkDialoguePlayed)
+            if (!sharkDialoguePlayed)
             {
-                this.sharkDialoguePlayed = true;
+                sharkDialoguePlayed = true;
                 yield return new WaitForSeconds(0.5f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Go fish.", -0.65f, 0.4f);
             }

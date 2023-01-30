@@ -1,27 +1,31 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void DreamingCurrent_T0271()
+        private void Card_DreamingCurrent_T0271()
         {
             List<Ability> abilities = new()
             {
                 Ability.Submerge,
-                Ability.StrafeSwap
+                Barreler.ability
             };
 
-            CardHelper.CreateCard(
+            LobotomyCardHelper.CreateCard(
                 "wstl_dreamingCurrent", "The Dreaming Current",
                 "A sickly child. Everyday it was fed candy that let it see the ocean.",
-                4, 2, 3, 0,
-                Resources.dreamingCurrent, Resources.dreamingCurrent_emission,
+                atk: 4, hp: 2,
+                blood: 3, bones: 0, energy: 0,
+                Artwork.dreamingCurrent, Artwork.dreamingCurrent_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 4);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
         }
     }
 }

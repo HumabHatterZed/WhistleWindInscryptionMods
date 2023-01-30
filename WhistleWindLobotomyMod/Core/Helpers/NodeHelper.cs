@@ -3,9 +3,11 @@ using InscryptionAPI.Nodes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.LobotomyPlugin;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Helpers
 {
     public static class NodeHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
@@ -16,23 +18,23 @@ namespace WhistleWindLobotomyMod
             List<Texture2D> nodeAnimation = new();
             if (animationFrames.Count != 4)
             {
-                Texture2D defaultTexture = WstlTextureHelper.LoadTextureFromResource(Resources.sigilAbnormality);
+                Texture2D defaultTexture = TextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality);
                 for (int i = 0; i < 4; i++)
                 {
                     nodeAnimation.Add(defaultTexture);
                 }
-                WstlPlugin.Log.LogError("Node animation doesn't have the correct number of frames, using placeholder texture instead.");
+                Log.LogWarning("Node animation doesn't have the correct number of frames, using placeholder texture instead.");
             }
             else
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    nodeAnimation.Add(WstlTextureHelper.LoadTextureFromResource(animationFrames[i]));
+                    nodeAnimation.Add(TextureLoader.LoadTextureFromBytes(animationFrames[i]));
                 }
             }
             if (extraGenType == GenerationType.None)
             {
-                return NewNodeManager.New(WstlPlugin.pluginGuid, name, generationType, T, nodeAnimation);
+                return NewNodeManager.New(pluginGuid, name, generationType, T, nodeAnimation);
             }
             else
             {
@@ -40,7 +42,7 @@ namespace WhistleWindLobotomyMod
                 {
                     new NodeData.WithinRegionIndexRange(0, 2)
                 };
-                return NewNodeManager.New(WstlPlugin.pluginGuid, name, generationType | extraGenType, T, nodeAnimation).SetGenerationPrerequisites(data);
+                return NewNodeManager.New(pluginGuid, name, generationType | extraGenType, T, nodeAnimation).SetGenerationPrerequisites(data);
             }
         }
     }
