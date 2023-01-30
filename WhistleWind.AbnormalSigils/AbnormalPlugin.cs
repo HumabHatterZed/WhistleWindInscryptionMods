@@ -5,13 +5,11 @@ using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Guid;
 using Sirenix.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TribalLibary;
 using WhistleWind.AbnormalSigils.Core;
-using WhistleWind.AbnormalSigils.Patches;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -28,7 +26,7 @@ namespace WhistleWind.AbnormalSigils
         private const string pluginVersion = "1.0.0";
 
         internal static ManualLogSource Log;
-        private static Harmony HarmonyInstance = new(pluginGuid);
+        private static readonly Harmony HarmonyInstance = new(pluginGuid);
 
         public static Trait Boneless = GuidManager.GetEnumValue<Trait>(pluginGuid, "Boneless");
         public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");

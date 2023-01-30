@@ -1,23 +1,19 @@
 # WhistleWind's Abnormal Sigils
 
-A library of [number] sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina. A required dependency for the 2.0 version of my Lobotomy Corporation Mod.
+A library of 52 unique sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina.
 
 ## ⚙️ Dependencies
 * BepInEx-BepInExPack_Inscryption v5.4.1902
-* API_dev-API v2.8.0
+* API_dev-API v2.10.0
 
 ## 🔗 Compatibility
-
-### Spell Card Toolkit
-If you have [Spell Card Toolkit](https://inscryption.thunderstore.io/package/Infiniscryption/Spell_Card_Toolkit/) installed,
-the abilities Scrambler, Target Gain Stats, Target Gain Sigils, and Target Gain Stats and Sigils will be altered to be compatible with Spell cards, and will function correctly when used on them.
 
 ### Tribal Libary (sic)
 If you have [Tribal Libary](https://inscryption.thunderstore.io/package/Infiniscryption/Spell_Card_Toolkit/) installed,
 some cards added by this mod will gain an additional tribe taken from Tribal Libary.
 
 ## 💌 Credits/Acknowledgements
-
+Code/Artwork - WhistleWind
 
 ## ⚖️ Changelog -- Latest Update - v1.0.0; Initial release (?/??/202?)
 To see the details of the current update, please see the FULL_CHANGELOG (included with the mod file when you download it)

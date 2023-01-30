@@ -14,8 +14,8 @@ Current Features:
 
 ## ⚙️ Dependencies
 - BepInEx-BepInExPack_Inscryption v5.4.1902
-- API_dev-API v2.8.0
-- Infiniscryption-Spell_Card_Toolkit-2.0.0
+- API_dev-API v2.10.0
+- WhistleWind-New_Spell_Card_Toolkit-1.0.0
 - WhistleWind-WhistleWind_Abnormal_Sigils-1.0.0
 
 ## ‼️ IMPORTANT 2.0 NOTICES ‼️
