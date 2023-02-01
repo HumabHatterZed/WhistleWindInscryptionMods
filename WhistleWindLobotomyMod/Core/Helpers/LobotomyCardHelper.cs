@@ -135,22 +135,21 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             }
             else if (spellType != SpellType.None)
             {
-                cardInfo.SetTargetedSpell();
+                if (spellType == SpellType.Targeted)
+                    cardInfo.SetTargetedSpell();
+                else
+                    cardInfo.SetTargetedSpellStats();
+
                 switch (spellType)
                 {
                     case SpellType.Targeted:
-                        cardInfo.SetNodeRestrictions(true, true, true, true);
+                        cardInfo.SetNodeRestrictions(false, true, true, false);
                         break;
                     case SpellType.TargetedStats:
-                        cardInfo.hideAttackAndHealth = false;
-                        cardInfo.SetNodeRestrictions(true, true, false, true);
+                        cardInfo.SetNodeRestrictions(false, true, false, false);
                         break;
                     case SpellType.TargetedSigils:
-                        cardInfo.SetNodeRestrictions(true, false, true, true);
-                        break;
-                    case SpellType.TargetedStatsSigils:
-                        cardInfo.hideAttackAndHealth = false;
-                        cardInfo.SetNodeRestrictions(true, false, false, false);
+                        cardInfo.SetNodeRestrictions(false, false, true, false);
                         break;
                 }
             }
@@ -163,6 +162,8 @@ namespace WhistleWindLobotomyMod.Core.Helpers
                 ObtainableLobotomyCards.Add(cardInfo);
 
             AllLobotomyCards.Add(cardInfo);
+
+            Log.LogInfo($"{name:.16f} | {atk:.2f<}/{hp:.2f} | {blood}B :: x{bones} :: E{energy}");
         }
 
         private static CardInfo SetNodeRestrictions(this CardInfo card, bool give, bool gain, bool buff, bool copy)
