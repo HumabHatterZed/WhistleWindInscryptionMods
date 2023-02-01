@@ -243,9 +243,9 @@ This is a separate probability roll that occurs after the initial roll, and it d
 
 |Map #|Zayin|Teth|He|Waw|**Rare**|
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|1|40%|30%|20%|10%|**0%/2%***|
-|2|30%|30%|20%|20%|**2%/5%***|
-|3|25%|25%|25%|25%|**5%/10%***|
+|1|40%|30%|20%|10%|**0%/*2%***|
+|2|30%|30%|20%|20%|**2%/*5%***|
+|3|25%|25%|25%|25%|**5%/*10%***|
 
 * Probability with the Better Rare Chances cheat enabled
 
