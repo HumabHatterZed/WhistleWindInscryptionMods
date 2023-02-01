@@ -34,6 +34,7 @@ namespace WhistleWindLobotomyMod
                 Ability.Evolve
             };
             tribes.Remove(Tribe.Bird);
+
             LobotomyCardHelper.CreateCard(
                 "wstl_voidDream", "Void Dream",
                 "A sleeping goat. Or is it a sheep?",

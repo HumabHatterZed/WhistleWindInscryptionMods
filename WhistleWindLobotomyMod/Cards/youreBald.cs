@@ -17,8 +17,8 @@ namespace WhistleWindLobotomyMod
             LobotomyCardHelper.CreateCard(
                 "wstl_youreBald", "You're Bald...",
                 "I've always wondered what it's like to be bald.",
-                atk: 1, hp: 1,
-                blood: 0, bones: 3, energy: 0,
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 2,
                 Artwork.youreBald, Artwork.youreBald_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             LobotomyCardHelper.CreateCard(
                 "wstl_mhz176", "1.76 MHz",
                 "This is a record, a record of a day we must never forget.",
-                atk: 0, hp: 3,
+                atk: 2, hp: 1,
                 blood: 0, bones: 0, energy: 3,
                 Artwork.mhz176, Artwork.mhz176_emission,
                 abilities: abilities, specialAbilities: new(),

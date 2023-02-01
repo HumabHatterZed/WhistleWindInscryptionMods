@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_blueStar3", "Blue Star", "",
-                atk: 6, hp: 4,
+                atk: 4, hp: 4,
                 blood: 4, bones: 0, energy: 0,
                 Artwork.blueStar, Artwork.blueStar_emission,
                 abilities: thirdFormeAbilities, specialAbilities: specialAbilities,

@@ -16,6 +16,7 @@ namespace WhistleWindLobotomyMod
             };
             List<Tribe> tribes = new()
             {
+                TribePlant,
                 Tribe.Hooved
             };
             LobotomyCardHelper.CreateCard(

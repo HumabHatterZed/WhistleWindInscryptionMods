@@ -14,6 +14,7 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new()
             {
                 Bloodfiend.ability,
+                Bloodfiend.ability
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_nosferatuBeast", "Nosferatu",
@@ -25,6 +26,7 @@ namespace WhistleWindLobotomyMod
                 metaCategories: new(), tribes: new(), traits: new(),
                 modTypes: LobotomyCardHelper.ModCardType.Ruina);
 
+            abilities.Remove(Bloodfiend.ability);
             abilities.Add(Ability.Evolve);
 
             LobotomyCardHelper.CreateCard(

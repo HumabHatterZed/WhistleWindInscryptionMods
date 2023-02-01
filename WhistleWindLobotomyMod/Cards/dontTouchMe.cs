@@ -13,14 +13,13 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Punisher.ability,
-                Ability.WhackAMole
+                Punisher.ability
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_dontTouchMe", "Don't Touch Me",
                 "Don't touch it.",
                 atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 5,
+                blood: 0, bones: 0, energy: 2,
                 Artwork.dontTouchMe, Artwork.dontTouchMe_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

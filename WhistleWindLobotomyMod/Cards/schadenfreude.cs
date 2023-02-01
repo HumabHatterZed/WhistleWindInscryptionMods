@@ -13,13 +13,12 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                QuickDraw.ability,
-                Ability.Deathtouch
+                QuickDraw.ability
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_schadenfreude", "SchadenFreude",
                 "A strange machine. You can feel someone's persistent gaze through the keyhole.",
-                atk: 0, hp: 1,
+                atk: 1, hp: 1,
                 blood: 0, bones: 0, energy: 4,
                 Artwork.schadenfreude, Artwork.schadenfreude_emission,
                 abilities: abilities, specialAbilities: new(),

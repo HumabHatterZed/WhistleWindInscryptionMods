@@ -15,17 +15,13 @@ namespace WhistleWindLobotomyMod
             {
                 Woodcutter.ability
             };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                SpecialTriggeredAbility.Mirror
-            };
             LobotomyCardHelper.CreateCard(
                 "wstl_mirrorOfAdjustment", "The Mirror of Adjustment",
                 "A mirror that reflects nothing on its surface.",
                 atk: 0, hp: 1,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.mirrorOfAdjustment, Artwork.mirrorOfAdjustment_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
+                abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(), statIcon: SpecialStatIcon.Mirror,
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin,

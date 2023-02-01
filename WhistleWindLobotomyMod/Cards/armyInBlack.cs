@@ -13,19 +13,19 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Volatile.ability,
-                Ability.Brittle
+                Volatile.ability
             };
             LobotomyCardHelper.CreateCard(
                 "wstl_armyInBlack", "Army in Black",
                 "Duty-bound.",
-                atk: 2, hp: 1,
+                atk: 0, hp: 0,
                 blood: 0, bones: 0, energy: 0,
                 Artwork.armyInBlack, Artwork.armyInBlack_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
+                spellType: LobotomyCardHelper.SpellType.Targeted);
         }
     }
 }
