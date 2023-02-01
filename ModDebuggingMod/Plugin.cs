@@ -41,7 +41,7 @@ namespace ModDebuggingMod
                 List<Ability> redundant = null;
                 List<List<EncounterBlueprintData.CardBlueprint>> turns = new()
                 {
-                    new() { CreateCardBlueprint("Squirrel") },//, CreateCardBlueprint("Mole"), CreateCardBlueprint("Mole") },
+                    new() { CreateCardBlueprint("Stoat") },//, CreateCardBlueprint("Mole"), CreateCardBlueprint("Mole") },
                     new()
                 };
                 return BuildBlueprint(name, tribes, 0, 20, replacements, redundant, turns);
@@ -50,11 +50,6 @@ namespace ModDebuggingMod
 
         private void Start()
         {
-            /*            foreach (var i in AbilityManager.AllAbilityInfos.Where(x => x.canStack))
-                        {
-                            Log.LogInfo($"{i.rulebookName}");
-                            Log.LogInfo($"Works? {i.GetTriggersOncePerStack()}");
-                        }*/
         }
         private void Awake()
         {

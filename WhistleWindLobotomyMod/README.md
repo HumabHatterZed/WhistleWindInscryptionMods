@@ -176,8 +176,8 @@ You'll need to play with the cards in order to figure out their special ability 
  
 ## ✨ Abilities
 
-<br>
-|:-|:-|
+|NAME|DESCRIPTION|
+|:---|:----------|
 |Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on their power level.||
 |Apostle|*Thou wilt abandon flesh and be born again.*||
 |True Saviour|*My story is nowhere, unknown to all.*||
@@ -185,41 +185,20 @@ You'll need to play with the cards in order to figure out their special ability 
 
 ## 📜 Obtainable Cards
 
+<details>
+<summary>View Cards</summary>
+
 **KEY**
-* Singleton - Can only have one copy in your deck at a time.
-* Toxic - Kills survivors when eaten at the Campfire.
-* Spell - Can be played on top of other cards, dies upon play.
-* Special - Can only be obtained once per run through a unique method.
-* X - Varies
-* M - Mirror
-* T - Passing Time
+- Toxic - Kills survivors when eaten at the Campfire.
+- Spell - Can be played on top of other cards, dies upon play.
+- Special - Can only be obtained once per run through a unique method.
+- Singleton - Can only have one copy in your deck at a time.
+- X - Varies
+- M - Mirror
+- S - Sacrifice
+- T - Passing Time
 
 <br>
-
-<!--
-
-1B - <img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/3L8GdcW.png"><img align="center" src="https://i.imgur.com/czecyiH.png">
-2B - <img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/3L8GdcW.png"><img align="center" src="https://i.imgur.com/vIrzRRC.png">
-3B - <img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/3L8GdcW.png"><img align="center" src="https://i.imgur.com/nR7Ce9J.png">
-4B - <img align="center" src="https://i.imgur.com/H6vESv7.png"><img align="center" src="https://i.imgur.com/3L8GdcW.png"><img align="center" src="https://i.imgur.com/1c6PTpq.png">
-
-x1 - <img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/UMfuFFS.png"><img align="center" src="https://i.imgur.com/g6cUUvP.png">
-x2 - <img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/UMfuFFS.png"><img align="center" src="https://i.imgur.com/czecyiH.png">
-x3 - <img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/UMfuFFS.png"><img align="center" src="https://i.imgur.com/jnK5NEz.png">
-x4 - <img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/UMfuFFS.png"><img align="center" src="https://i.imgur.com/iJN52Ow.png">
-x5 - <img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/UMfuFFS.png"><img align="center" src="https://i.imgur.com/o1qsSmA.png">
-x6 - <img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/UMfuFFS.png"><img align="center" src="https://i.imgur.com/r1Q62Ck.png">
-x7 - <img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/UMfuFFS.png"><img align="center" src="https://i.imgur.com/mKxovtH.png">
-x8 - <img align="center" src="https://i.imgur.com/GeMgIce.png"><img align="center" src="https://i.imgur.com/UMfuFFS.png"><img align="center" src="https://i.imgur.com/cEvPoTk.png">
-
-E1 - <img align="center" src="https://i.imgur.com/C22peXt.png"><img align="center" src="https://i.imgur.com/hox8zlk.png"><img align="center" src="https://i.imgur.com/NcdGqIZ.png">
-E2 - <img align="center" src="https://i.imgur.com/C22peXt.png"><img align="center" src="https://i.imgur.com/hox8zlk.png"><img align="center" src="https://i.imgur.com/3ngvEdK.png">
-E3 - <img align="center" src="https://i.imgur.com/C22peXt.png"><img align="center" src="https://i.imgur.com/hox8zlk.png"><img align="center" src="https://i.imgur.com/Aem0MCG.png">
-E4 - <img align="center" src="https://i.imgur.com/C22peXt.png"><img align="center" src="https://i.imgur.com/hox8zlk.png"><img align="center" src="https://i.imgur.com/P1yr67p.png">
-E5 - <img align="center" src="https://i.imgur.com/C22peXt.png"><img align="center" src="https://i.imgur.com/hox8zlk.png"><img align="center" src="https://i.imgur.com/qeakSS4.png">
-E6 - <img align="center" src="https://i.imgur.com/C22peXt.png"><img align="center" src="https://i.imgur.com/hox8zlk.png"><img align="center" src="https://i.imgur.com/lgHEMp9.png">
-
--->
 
 |NAME|STATS|COST|SIGILS|TRAITS|TRIBES|
 |:---|:---:|:--:|:----:|:----:|:----:|

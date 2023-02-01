@@ -29,26 +29,23 @@ namespace ModDebuggingMod
         [HarmonyPatch(typeof(SaveFile), nameof(SaveFile.ResetPart1Run))]
         public static void Postfix(SaveFile __instance)
         {
-            __instance.currentRun.consumables = new();
-            for (int i = 0; i < 3; i++)
+            __instance.currentRun.consumables = new()
             {
-                __instance.currentRun.consumables.Add(LobGuid + "_" + "BottledTrain");
-            }
-        }
-        [HarmonyPatch(typeof(SaveManager), nameof(SaveManager.LoadFromFile))]
-        public static void Postfix()
-        {
-            Plugin.Log.LogInfo("LoadFromFile");
+                LobGuid + "_" + "BottledTrain",
+                LobGuid + "_" + "BottledTrain",
+                LobGuid + "_" + "BottledTrain"
+            };
         }
 
         [HarmonyPatch(typeof(AscensionSaveData), nameof(AscensionSaveData.NewRun))]
         public static void Postfix(AscensionSaveData __instance)
         {
-            __instance.currentRun.consumables = new();
-            for (int i = 0; i < 3; i++)
+/*            __instance.currentRun.consumables = new()
             {
-                //__instance.currentRun.consumables.Add("wstl_DebugItem");
-            }
+                LobGuid + "_" + "BottledTrain",
+                LobGuid + "_" + "BottledTrain",
+                LobGuid + "_" + "BottledTrain"
+            };*/
         }
 
         private static NodeData StartNode => new();

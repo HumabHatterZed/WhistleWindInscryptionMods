@@ -17,7 +17,7 @@ namespace ModDebuggingMod
         {
             List<Ability> abilities = new()
             {
-                Ability.GainBattery
+                Ability.CreateBells
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -36,9 +36,9 @@ namespace ModDebuggingMod
 
             };
             CardHelper.CreateCard(
-                "wstl", "wstlcard", "DEBUG CARD",
+                "wstl", "wstlcard", "DC",
                 "You shouldn't see this.",
-                1, 10, 1, 0, 0,
+                1, 10, 0, 0, 0,
                 null, null,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: traits);
