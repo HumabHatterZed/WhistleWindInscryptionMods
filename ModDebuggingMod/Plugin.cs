@@ -64,7 +64,6 @@ namespace ModDebuggingMod
             // AddChallenges();
 
             ItemDebug();
-            Ability_Debug();
             CARD_DEBUG();
 
             // clears regions and add debug encounter

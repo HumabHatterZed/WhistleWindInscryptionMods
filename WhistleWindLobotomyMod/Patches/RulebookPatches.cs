@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod.Patches
     internal class RulebookPatches
     {
         [HarmonyPatch(typeof(RuleBookController))]
-        public static class OpenToAbilityPage_patch
+        private static class OpenToAbilityPage_patch
         {
             // Reset the descriptions of WhiteNight-related abilities
             [HarmonyPrefix, HarmonyPatch(nameof(RuleBookController.SetShown))]
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod.Patches
                 return true;
             }
             [HarmonyPrefix, HarmonyPatch(nameof(RuleBookController.OpenToAbilityPage))]
-            public static bool OpenToAbilityPage(PlayableCard card)
+            private static bool OpenToAbilityPage(PlayableCard card)
             {
                 if (card != null && card.HasAnyOfAbilities(Apostle.ability, TrueSaviour.ability, Confession.ability))
                 {
@@ -56,6 +56,8 @@ namespace WhistleWindLobotomyMod.Patches
                     if (info.name.Equals("GainBattery") || info.name.Equals("LatchDeathShield") ||
                         info.name.Equals("MoveBeside"))
                     {
+                        if (info.name.Equals("LatchDeathShield"))
+                            info.rulebookDescription = "When this card perishes, give a card the Armoured sigil.";
                         __result = true;
                     }
                 }

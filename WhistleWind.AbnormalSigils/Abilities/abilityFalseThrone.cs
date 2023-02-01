@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FalseThrone()
         {
             const string rulebookName = "False Throne";
-            const string rulebookDescription = "Once per turn, choose a creature to gain the Neutered sigil. Create a costless copy of the selected card in your hand.";
+            const string rulebookDescription = "Once per turn, pay 2 Health to choose a creature to gain the Neutered sigil. Create a costless copy of the selected card in your hand.";
             const string dialogue = "The will to fight has been lost.";
             FalseThrone.ability = AbnormalAbilityHelper.CreateActivatedAbility<FalseThrone>(
                 Artwork.sigilFalseThrone, Artwork.sigilFalseThrone_pixel,
@@ -25,6 +25,7 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
         public override Ability LatchAbility => Neutered.ability;
+        public override int StartingHealthCost => 2;
         public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {
             if (slot != null && slot.Card != null)

@@ -222,7 +222,7 @@ E6 - <img align="center" src="https://i.imgur.com/C22peXt.png"><img align="cente
 -->
 
 |NAME|STATS|COST|SIGILS|TRAITS|TRIBES|
-|:-|:-:|:-:|:-:|:-:|:-:|
+|:---|:---:|:--:|:----:|:----:|:----:|
 
 </details>
 

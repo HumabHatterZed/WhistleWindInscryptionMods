@@ -1,5 +1,6 @@
 using DiskCardGame;
 using GBC;
+using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 
@@ -66,17 +67,22 @@ namespace WhistleWind.Core.AbilityClasses
                 {
                     yield return Singleton<ResourcesManager>.Instance.SpendBones(BonesCost);
                 }
+
                 if (HealthCost > 0)
                 {
                     base.Card.Anim.LightNegationEffect();
                     base.Card.Status.damageTaken++;
-                    if (base.Card.Health <= 0)
-                        yield return base.Card.Die(false);
                 }
                 yield return new WaitForSeconds(0.1f);
                 yield return base.PreSuccessfulTriggerSequence();
                 yield return this.Activate();
                 ProgressionData.SetMechanicLearned(MechanicsConcept.GBCActivatedAbilities);
+
+                if (HealthCost > 0) // card still exists and has 0 Health
+                {
+                    if (base.Card != null && base.Card.NotDead() && base.Card.Health == 0)
+                        yield return base.Card.Die(false);
+                }
             }
             else
             {

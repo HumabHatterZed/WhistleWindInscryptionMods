@@ -8,7 +8,8 @@ namespace ModDebuggingMod
     [HarmonyPatch]
     public class DebugPatches
     {
-        private static readonly string lobGuid = "whistlewind.inscryption.lobotomymod";
+        private static string LobGuid => WhistleWindLobotomyMod.LobotomyPlugin.pluginGuid;
+
         [HarmonyPatch(typeof(PaperGameMap), "TryInitializeMapData")]
         public static void Prefix(ref PaperGameMap __instance)
         {
@@ -31,9 +32,15 @@ namespace ModDebuggingMod
             __instance.currentRun.consumables = new();
             for (int i = 0; i < 3; i++)
             {
-                __instance.currentRun.consumables.Add(lobGuid + "_" + "BottledTrain");
+                __instance.currentRun.consumables.Add(LobGuid + "_" + "BottledTrain");
             }
         }
+        [HarmonyPatch(typeof(SaveManager), nameof(SaveManager.LoadFromFile))]
+        public static void Postfix()
+        {
+            Plugin.Log.LogInfo("LoadFromFile");
+        }
+
         [HarmonyPatch(typeof(AscensionSaveData), nameof(AscensionSaveData.NewRun))]
         public static void Postfix(AscensionSaveData __instance)
         {

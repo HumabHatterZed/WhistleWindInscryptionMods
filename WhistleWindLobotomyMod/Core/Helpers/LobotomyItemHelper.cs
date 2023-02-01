@@ -1,4 +1,5 @@
-﻿using InscryptionAPI.Items;
+﻿using DiskCardGame;
+using InscryptionAPI.Items;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
@@ -23,11 +24,11 @@ namespace WhistleWindLobotomyMod.Core.Helpers
                 LobotomyPlugin.pluginGuid, internalName, rulebookName, rulebookDescription, rulebookIcon,
                 nodeDialogue, prefab, powerLevel, regionSpecific, notRandom);
         }
-        public static void CreateBottleItem(
+        public static ConsumableItemData CreateBottleItem(
             byte[] rulebookIcon, string internalName, string cardByName,
             string nodeDialogue, int powerLevel = 1, string rulebookName = null)
         {
-            ItemHelper.CreateBottleItem(LobotomyPlugin.pluginGuid, internalName, cardByName, rulebookIcon, nodeDialogue, powerLevel, rulebookName);
+            return ItemHelper.CreateBottleItem(LobotomyPlugin.pluginGuid, internalName, cardByName, rulebookIcon, nodeDialogue, powerLevel, rulebookName);
         }
     }
 }
