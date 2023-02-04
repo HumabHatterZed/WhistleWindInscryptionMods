@@ -1,5 +1,14 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
+## 1.1.0 (2/4/2023)
+- Added opponent support for spell cards and all built-in sigils
+- Added Global Spell support for ability 'Gain Control'
+- Fixed Targeted Spells always being playable if they have the ability Brittle
+- Fixed Targeted Spells double targeting the left adjacent slot while possessing Split Strike
+- Fixed Targeted Spells that cost Blood softlocking due to no valid targets existing after sacrifices
+- Reduced how long 'Gain Control' takes to finish moving a card
+- 'Attack Down' can no longer be used on cards with 0 Power
+
 ## 1.0.0 (1/28/2023)
 - Added 3 new sigils: Give Stats, Give Sigils, Give Stats and Sigils
 - Added 4 new cards: Soul Without a Body, Body Without a Soul, Desire, Hope

@@ -14,28 +14,33 @@ namespace Infiniscryption.Spells.Sigils
         public override Ability Ability => AbilityID;
         public static Ability AbilityID { get; private set; }
 
-        public static void Register()
+        private bool OpponentTargetsPlayerSlots
         {
-            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            info.rulebookName = "Give Sigils";
-            info.rulebookDescription = "Gives this card's sigils to the target.";
-            info.canStack = false;
-            info.powerLevel = 4;
-            info.opponentUsable = false;
-            info.passive = false;
-            info.metaCategories = new List<AbilityMetaCategory>() { AbilityMetaCategory.Part1Rulebook };
-            info.SetPixelAbilityIcon(AssetHelper.LoadTexture("give_sigils_pixel"));
+            get
+            {
+                int powerLevel = 0;
+                foreach (Ability ab in base.Card.AllAbilities())
+                    powerLevel += AbilitiesUtil.GetInfo(ab).powerLevel;
 
-            GiveSigils.AbilityID = AbilityManager.Add(
-                InfiniscryptionSpellsPlugin.OriginalPluginGuid,
-                info,
-                typeof(GiveSigils),
-                AssetHelper.LoadTexture("ability_give_sigils")
-            ).Id;
+                return powerLevel < 0;
+            }
         }
 
         public override bool RespondsToSacrifice() => true;
-        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) => slot.IsPlayerSlot && slot.Card != null;
+        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+        {
+            if (slot.Card != null)
+            {
+                bool validTarget = base.Card.OpponentCard == slot.Card.OpponentCard;
+
+                if (base.Card.OpponentCard && OpponentTargetsPlayerSlots)
+                    validTarget = base.Card.OpponentCard != slot.Card.OpponentCard;
+
+                return validTarget;
+            }
+
+            return false;
+        }
         public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();
 
         public override IEnumerator OnSacrifice()
@@ -56,7 +61,7 @@ namespace Infiniscryption.Spells.Sigils
         }
         public override IEnumerator OnResolveOnBoard()
         {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(true))
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.IsPlayerCard()))
             {
                 if (slot.Card != null)
                     Effect(slot.Card);
@@ -134,6 +139,26 @@ namespace Infiniscryption.Spells.Sigils
                 };
                 card.SetInfo(info);
             }
+        }
+
+        public static void Register()
+        {
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+            info.rulebookName = "Give Sigils";
+            info.rulebookDescription = "Gives this card's sigils to the target.";
+            info.canStack = false;
+            info.powerLevel = 4;
+            info.opponentUsable = false;
+            info.passive = false;
+            info.metaCategories = new List<AbilityMetaCategory>() { AbilityMetaCategory.Part1Rulebook };
+            info.SetPixelAbilityIcon(AssetHelper.LoadTexture("give_sigils_pixel"));
+
+            GiveSigils.AbilityID = AbilityManager.Add(
+                InfiniscryptionSpellsPlugin.OriginalPluginGuid,
+                info,
+                typeof(GiveSigils),
+                AssetHelper.LoadTexture("ability_give_sigils")
+            ).Id;
         }
     }
 }

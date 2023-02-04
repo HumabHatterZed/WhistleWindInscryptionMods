@@ -1,18 +1,24 @@
 using DiskCardGame;
+using EasyFeedback.APIs;
 using HarmonyLib;
 using Infiniscryption.Core.Helpers;
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
+using Pixelplacement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Infiniscryption.Spells.InfiniscryptionSpellsPlugin;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Infiniscryption.Spells.Patchers
 {
     public static class SpellBehavior
     {
+        #region CardAppearanceBehaviours
         public class SpellBackgroundAppearance : CardAppearanceBehaviour
         {
             public static Appearance ID = CardAppearanceBehaviourManager.Add(InfiniscryptionSpellsPlugin.OriginalPluginGuid, "SpellBackground", typeof(SpellBackgroundAppearance)).Id;
@@ -31,22 +37,26 @@ namespace Infiniscryption.Spells.Patchers
                 base.Card.RenderInfo.baseTextureOverride = _emptySpell;
             }
         }
+        #endregion
 
+        #region Spell Helpers
         public static bool IsGlobalSpell(this CardInfo card) => card.HasSpecialAbility(GlobalSpellAbility.ID);
         public static bool IsTargetedSpell(this CardInfo card) => card.HasSpecialAbility(TargetedSpellAbility.ID);
         public static bool IsSpell(this CardInfo card) => card.IsTargetedSpell() || card.IsGlobalSpell();
+        #endregion
 
+        #region Target Validators
         public static List<CardSlot> GetAffectedSlots(this CardSlot slot, PlayableCard card)
         {
             if (card.HasAbility(Ability.AllStrike))
-                return slot.IsPlayerSlot ? Singleton<BoardManager>.Instance.PlayerSlotsCopy : Singleton<BoardManager>.Instance.OpponentSlotsCopy;
+                return Singleton<BoardManager>.Instance.AllSlotsCopy.FindAll(s => s.IsValidTarget(card));
 
             List<CardSlot> retval = new();
 
-            if (card.HasAbility(Ability.SplitStrike) || card.HasAbility(Ability.TriStrike))
+            if (card.HasAnyOfAbilities(Ability.SplitStrike, Ability.TriStrike))
             {
                 CardSlot leftSlot = Singleton<BoardManager>.Instance.GetAdjacent(slot, true);
-                CardSlot rightSlot = Singleton<BoardManager>.Instance.GetAdjacent(slot, true);
+                CardSlot rightSlot = Singleton<BoardManager>.Instance.GetAdjacent(slot, false);
 
                 if (leftSlot != null)
                     retval.Add(leftSlot);
@@ -62,16 +72,17 @@ namespace Infiniscryption.Spells.Patchers
                 retval.Add(slot);
             }
 
+            retval.Sort((CardSlot a, CardSlot b) => a.Index - b.Index);
             return retval;
         }
-        public static bool IsValidTarget(this CardSlot slot, PlayableCard card, bool singleSlotOverride = false)
+        public static bool IsValidTarget(this CardSlot slot, PlayableCard card, bool checkSingleSlot = false)
         {
-            if (singleSlotOverride)
+            if (checkSingleSlot)
             {
-                if (slot.IsPlayerSlot && card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard, Array.Empty<object>()))
+                if (card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard, Array.Empty<object>()))
                     return true;
 
-                if (card.TriggerHandler.RespondsToTrigger(Trigger.SlotTargetedForAttack, new object[] { slot, card }))
+                if (card.TriggerHandler.CustomRespondsToTrigger(Trigger.SlotTargetedForAttack, new object[] { slot, card }))
                     return true;
 
                 return false;
@@ -79,11 +90,7 @@ namespace Infiniscryption.Spells.Patchers
             else
             {
                 // We need to test all possible slots
-                foreach (CardSlot subSlot in slot.GetAffectedSlots(card))
-                    if (subSlot.IsValidTarget(card, true))
-                        return true;
-
-                return false;
+                return slot.GetAffectedSlots(card).Exists(subSlot => subSlot.IsValidTarget(card, true));
             }
         }
         public static bool HasValidTarget(this PlayableCard card)
@@ -98,33 +105,9 @@ namespace Infiniscryption.Spells.Patchers
             // If we got this far without finding a slot that the card responds to, then...no good
             return false;
         }
+        #endregion
 
-        // First: we don't need room on board
-        [HarmonyPatch(typeof(BoardManager), "SacrificesCreateRoomForCard")]
-        [HarmonyPrefix]
-        public static bool SpellsDoNotNeedSpace(PlayableCard card, ref bool __result)
-        {
-            if (card != null && card.Info.IsSpell())
-            {
-                __result = true;
-                return false;
-            }
-            return true;
-        }
-
-        // Next, there has to be at least one slot (for targeted spells)
-        // that the spell targets
-        [HarmonyPatch(typeof(PlayableCard), "CanPlay")]
-        [HarmonyPostfix]
-        public static void TargetSpellsMustHaveValidTarget(ref bool __result, ref PlayableCard __instance)
-        {
-            if (!__result) // Don't do anything if the result's already false
-                return;
-
-            if (__instance.Info.IsTargetedSpell() && !__instance.HasValidTarget())
-                __result = false;
-        }
-
+        #region Hint Patches
         [HarmonyPatch(typeof(DialogueDataUtil), "ReadDialogueData")]
         [HarmonyPostfix]
         public static void SpellHints()
@@ -149,7 +132,9 @@ namespace Infiniscryption.Spells.Patchers
             }
             return true;
         }
+        #endregion
 
+        #region Stat Spell Patches
         // this allows the card's stats to be displayed as-is in-battle
         [HarmonyPatch(typeof(VariableStatBehaviour), nameof(VariableStatBehaviour.UpdateStats))]
         [HarmonyPrefix]
@@ -191,14 +176,58 @@ namespace Infiniscryption.Spells.Patchers
                 __result.AddRange(deckList);
             }
         }
+        #endregion
+        
+        #region Main Spell Patches
+        // First: we don't need room on board
+        [HarmonyPatch(typeof(BoardManager), "SacrificesCreateRoomForCard")]
+        [HarmonyPrefix]
+        public static bool SpellsDoNotNeedSpace(PlayableCard card, BoardManager __instance, List<CardSlot> sacrifices, ref bool __result)
+        {
+            if (card != null && card.Info.IsSpell())
+            {
+                if (card.Info.BloodCost > 0)
+                {
+                    // iterate through each slot that hasn't been selected for sacrifice
+                    // to determine if there will still be valid targets afterwards
+                    foreach (CardSlot slot in __instance.AllSlotsCopy
+                        .Where(asc => (asc.Card != null && asc.Card.HasAbility(Ability.Sacrificial)) || !sacrifices.Contains(asc)))
+                    {
+                        if (slot.IsValidTarget(card))
+                        {
+                            __result = true;
+                            break;
+                        }
+                    }
+                }
+                else
+                    __result = true;
 
-        // Next: we don't resolve normally
+                return false;
+            }
+            return true;
+        }
+
+        // Next, there has to be at least one slot (for targeted spells)
+        // that the spell targets
+        [HarmonyPatch(typeof(PlayableCard), "CanPlay")]
+        [HarmonyPostfix]
+        public static void TargetSpellsMustHaveValidTarget(ref bool __result, ref PlayableCard __instance)
+        {
+            if (!__result) // Don't do anything if the result's already false
+                return;
+
+            if (__instance.Info.IsTargetedSpell() && !__instance.HasValidTarget())
+                __result = false;
+        }
+
+        // Spells don't resolve normally
         // It's way easier to copy-paste this and only keep the stuff we need
         [HarmonyPatch(typeof(PlayerHand), "SelectSlotForCard")]
         [HarmonyPostfix]
         public static IEnumerator SpellsResolveDifferently(IEnumerator sequenceResult, PlayableCard card)
         {
-            // If this isn't a spell ability, behave like normal
+            // If this isn't a spell card and we're lacking Give Sigils/S&S, behave normally
             if (card != null && !card.Info.IsSpell())
             {
                 while (sequenceResult.MoveNext())
@@ -208,7 +237,6 @@ namespace Infiniscryption.Spells.Patchers
             }
 
             // The rest of this comes from the original code in PlayerHand.SelectSlotForCard
-
             Singleton<PlayerHand>.Instance.CardsInHand.ForEach(delegate (PlayableCard x)
             {
                 x.SetEnabled(enabled: false);
@@ -282,12 +310,11 @@ namespace Infiniscryption.Spells.Patchers
 
                         Singleton<PlayerHand>.Instance.RemoveCardFromHand(card);
 
-                        // Activate triggers
                         // PlayFromHand
                         if (card.TriggerHandler.RespondsToTrigger(Trigger.PlayFromHand, Array.Empty<object>()))
                             yield return card.TriggerHandler.OnTrigger(Trigger.PlayFromHand, Array.Empty<object>());
 
-                        // Recreate the OnResolve behaviour
+                        // ResolveOnBoard - recreates full behaviour
                         if (card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard, Array.Empty<object>()))
                         {
                             List<CardSlot> resolveSlots;
@@ -303,8 +330,7 @@ namespace Infiniscryption.Spells.Patchers
                                 IEnumerator resolveTrigger = card.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard, Array.Empty<object>());
                                 for (bool active = true; active;)
                                 {
-                                    // Catch exceptions only on executing/resuming the iterator function
-                                    try
+                                    try // Catch exceptions only on executing/resuming the iterator function
                                     {
                                         active = resolveTrigger.MoveNext();
                                     }
@@ -313,8 +339,7 @@ namespace Infiniscryption.Spells.Patchers
                                         Debug.Log("IteratorFunction() threw exception: " + ex);
                                     }
 
-                                    // Yielding and other loop logic is moved outside of the try-catch
-                                    if (active)
+                                    if (active) // Yielding and other loop logic is moved outside of the try-catch
                                         yield return resolveTrigger.Current;
                                 }
 
@@ -322,7 +347,7 @@ namespace Infiniscryption.Spells.Patchers
                             }
                         }
 
-                        // If this is targeted, fire the targets
+                        // SlotTargetedForAttack (targeted spells only)
                         if (card.Info.IsTargetedSpell())
                         {
                             foreach (CardSlot targetSlot in Singleton<BoardManager>.Instance.LastSelectedSlot.GetAffectedSlots(card))
@@ -335,6 +360,7 @@ namespace Infiniscryption.Spells.Patchers
                         card.Dead = true;
                         card.Anim.PlayDeathAnimation(false);
 
+                        // Die
                         object[] diedArgs = new object[] { true, null };
                         if (card.TriggerHandler.RespondsToTrigger(Trigger.Die, diedArgs))
                             yield return card.TriggerHandler.OnTrigger(Trigger.Die, diedArgs);
@@ -374,5 +400,249 @@ namespace Infiniscryption.Spells.Patchers
 
             yield break;
         }
+        #endregion
+
+        #region Opponent Spell Patches
+        // Change how opponent spells behave
+        [HarmonyPatch(typeof(BoardManager), nameof(BoardManager.ResolveCardOnBoard))]
+        [HarmonyPostfix]
+        public static IEnumerator OpponentSpellsResolveDifferently(IEnumerator enumerator, PlayableCard card, CardSlot slot)
+        {
+            if (card != null && card.OpponentCard && card.Info.IsSpell())
+            {
+                CombatPhaseManager instance = Singleton<CombatPhaseManager>.Instance;
+                SpellSniperVisualiser visualiser = null;
+                if ((SaveManager.SaveFile?.IsPart1).GetValueOrDefault())
+                    visualiser = instance.GetComponent<SpellSniperVisualiser>() ?? instance.gameObject.AddComponent<SpellSniperVisualiser>();
+
+                // determine which slot will be initially targeted (if targeted spell)
+                // also used to determine where the card moves to
+                CardSlot targetSlot = null;
+                if (card.Info.IsTargetedSpell())
+                    targetSlot = OpponentGetTargetSlot(Singleton<BoardManager>.Instance.AllSlotsCopy.FindAll(s => s.IsValidTarget(card)));
+
+                bool targetPlayer = card.Info.IsGlobalSpell() || (targetSlot != null && card.OpponentCard == targetSlot.IsPlayerSlot);
+
+                Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue);
+                yield return new WaitForSeconds(0.3f);
+                
+                // move card to position above board corresponding to the side it's targeting
+                Tween.LocalPosition(card.transform, new(0.65f, 6.2f, targetPlayer ? 0f : 1f),
+                    0.1f, 0f, Tween.EaseOut, Tween.LoopType.None, delegate
+                    {
+                        if (targetPlayer)
+                            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+
+                    }, delegate
+                    {
+                        card.Anim.PlayRiffleSound();
+                        Tween.Rotation(card.transform, slot.transform.GetChild(0).rotation, 0.1f, 0f, Tween.EaseOut);
+                    });
+
+                yield return new WaitForSeconds(0.4f);
+
+                if (card.TriggerHandler.RespondsToTrigger(Trigger.PlayFromHand, Array.Empty<object>()))
+                    yield return card.TriggerHandler.OnTrigger(Trigger.PlayFromHand, Array.Empty<object>());
+
+                // ResolveOnBoard
+                if (card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard, Array.Empty<object>()))
+                {
+                    List<CardSlot> resolveSlots;
+                    if (card.Info.IsTargetedSpell())
+                        resolveSlots = slot.GetAffectedSlots(card);
+                    else
+                        resolveSlots = new List<CardSlot>() { null }; // For global spells, just resolve once, globally
+
+                    if (!card.Info.IsGlobalSpell())
+                    {
+                        foreach (CardSlot resolveTarget in resolveSlots)
+                        {
+                            instance.VisualizeAimSniperAbility(card.Slot, resolveTarget);
+                            visualiser?.VisualizeAimSniperAbility(card.Slot, resolveTarget);
+                            instance.VisualizeConfirmSniperAbility(resolveTarget);
+                            visualiser?.VisualizeConfirmSniperAbility(resolveTarget);
+                            yield return new WaitForSeconds(0.1f);
+                        }
+                        yield return new WaitForSeconds(0.2f);
+                    }
+
+                    for (int i = 0; i < resolveSlots.Count; i++)
+                    {
+                        card.Slot = resolveSlots[i];
+                        IEnumerator resolveTrigger = card.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard, Array.Empty<object>());
+
+                        if (visualiser?.sniperIcons.Count > i && visualiser?.sniperIcons[i] != null)
+                            visualiser?.CleanUpTargetIcon(visualiser?.sniperIcons[i]);
+                        
+                        for (bool active = true; active;)
+                        {
+                            try // Catch exceptions only on executing/resuming the iterator function
+                            {
+                                active = resolveTrigger.MoveNext();
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.Log("IteratorFunction() threw exception: " + ex);
+                            }
+
+                            if (active) // Yielding and other loop logic is moved outside of the try-catch
+                                yield return resolveTrigger.Current;
+                        }
+
+                        card.Slot = null;
+                    }
+
+                    yield return new WaitForSeconds(0.2f);
+                    instance.VisualizeClearSniperAbility();
+                    visualiser?.VisualizeClearSniperAbility();
+                }
+
+                // SlotTargetedForAttack (targeted spells only)
+                if (card.Info.IsTargetedSpell())
+                {
+                    if (targetSlot != null)
+                    {
+                        // get a list of all slots that will be affected by sigils
+                        List<CardSlot> targetSlots = targetSlot.GetAffectedSlots(card);
+                        targetSlots.RemoveAll(s => !card.TriggerHandler.CustomRespondsToTrigger(Trigger.SlotTargetedForAttack, new object[] { s, card }));
+
+                        foreach (CardSlot target in targetSlots)
+                        {
+                            instance.VisualizeAimSniperAbility(card.Slot, target);
+                            visualiser?.VisualizeAimSniperAbility(card.Slot, target);
+                            instance.VisualizeConfirmSniperAbility(target);
+                            visualiser?.VisualizeConfirmSniperAbility(target);
+                            yield return new WaitForSeconds(0.1f);
+                        }
+                        yield return new WaitForSeconds(0.2f);
+
+                        for (int i = 0; i < targetSlots.Count; i++)
+                        {
+                            if (visualiser?.sniperIcons.Count > i && visualiser?.sniperIcons[i] != null)
+                                visualiser?.CleanUpTargetIcon(visualiser?.sniperIcons[i]);
+                            yield return card.TriggerHandler.OnTrigger(Trigger.SlotTargetedForAttack, new object[] { targetSlots[i], card });
+                        }
+
+                        yield return new WaitForSeconds(0.2f);
+                        instance.VisualizeClearSniperAbility();
+                        visualiser?.VisualizeClearSniperAbility();
+                    }
+                }
+
+                card.Dead = true;
+                card.Anim.PlayDeathAnimation(false);
+
+                // Die
+                object[] diedArgs = new object[] { true, null };
+                if (card.TriggerHandler.RespondsToTrigger(Trigger.Die, diedArgs))
+                    yield return card.TriggerHandler.OnTrigger(Trigger.Die, diedArgs);
+
+                yield return new WaitUntil(() => Singleton<GlobalTriggerHandler>.Instance.StackSize == 0);
+                yield break;
+            }
+            yield return enumerator;
+        }
+
+        [HarmonyPatch(typeof(Opponent), nameof(Opponent.PlayCardsInQueue))]
+        [HarmonyPostfix]
+        public static IEnumerator QueuedSpellsGoLast(IEnumerator enumerator, Opponent __instance, float tweenLength)
+        {
+            if (__instance.Queue.Count <= 0)
+                yield break;
+
+            if (__instance.Queue.Any(x => x.Info.IsSpell()))
+            {
+                List<PlayableCard> queuedCards = new(__instance.Queue);
+
+                yield return __instance.VisualizePrePlayQueuedCards();
+                List<PlayableCard> playedCards = new();
+
+                queuedCards.Sort((PlayableCard a, PlayableCard b) => a.QueuedSlot.Index - b.QueuedSlot.Index);
+
+                // play non-spell cards first - this is just the vanilla code
+                foreach (PlayableCard queuedCard in queuedCards.Where(qc => !qc.Info.IsSpell()))
+                {
+                    if (!__instance.QueuedCardIsBlocked(queuedCard))
+                    {
+                        CardSlot queuedSlot = queuedCard.QueuedSlot;
+                        queuedCard.QueuedSlot = null;
+                        if (queuedCard != null)
+                            queuedCard.OnPlayedFromOpponentQueue();
+
+                        yield return Singleton<BoardManager>.Instance.ResolveCardOnBoard(queuedCard, queuedSlot, tweenLength);
+                        playedCards.Add(queuedCard);
+                    }
+                }
+                foreach (PlayableCard queuedCard in queuedCards.Where(qc => qc.Info.IsSpell()))
+                {
+                    // spell cards don't need space to be played
+                    CardSlot queuedSlot = queuedCard.QueuedSlot;
+                    queuedCard.QueuedSlot = null;
+                    if (queuedCard != null)
+                        queuedCard.OnPlayedFromOpponentQueue();
+
+                    yield return Singleton<BoardManager>.Instance.ResolveCardOnBoard(queuedCard, queuedSlot, tweenLength);
+                    playedCards.Add(queuedCard);
+                }
+                __instance.Queue.RemoveAll((PlayableCard x) => playedCards.Contains(x));
+                yield return new WaitForSeconds(0.5f);
+                yield break;
+            }
+            else
+                yield return enumerator;
+        }
+        public static CardSlot OpponentGetTargetSlot(List<CardSlot> validTargets)
+        {
+            CardSlot selectedSlot = null;
+
+            if (validTargets.Count > 0)
+            {
+                validTargets.Sort((CardSlot a, CardSlot b) => AIEvaluateTarget(b.Card) - AIEvaluateTarget(a.Card));
+                selectedSlot = validTargets[0];
+            }
+
+            return selectedSlot;
+        }
+        private static int AIEvaluateTarget(PlayableCard card)
+        {
+            if (card == null)
+                return UnityEngine.Random.Range(0, 5);
+
+            int num = card.PowerLevel;
+            if (card.Info.HasTrait(Trait.Terrain))
+                num = 10 * (!card.OpponentCard ? -1 : 1);
+
+            return num;
+        }
+        #endregion
+
+        #region Trigger Helpers
+        private static bool CustomRespondsToTrigger(this CardTriggerHandler handler, Trigger trigger, params object[] otherArgs)
+        {
+            foreach (TriggerReceiver allReceiver in GetAllReceivers(handler))
+            {
+                if (GlobalTriggerHandler.ReceiverRespondsToTrigger(trigger, allReceiver, otherArgs))
+                    return true;
+            }
+            return false;
+        }
+        private static List<TriggerReceiver> GetAllReceivers(CardTriggerHandler handler)
+        {
+            List<TriggerReceiver> list = new();
+            
+            foreach (Tuple<SpecialTriggeredAbility, SpecialCardBehaviour> specialAbility in handler.specialAbilities)
+                list.Add(specialAbility.Item2);
+
+            foreach (Tuple<Ability, AbilityBehaviour> triggeredAbility in handler.triggeredAbilities)
+            {
+                if (triggeredAbility.Item1 != Ability.Brittle)
+                    list.Add(triggeredAbility.Item2);
+            }
+
+            list.AddRange(handler.permanentlyAttachedBehaviours);
+            list.Sort((TriggerReceiver a, TriggerReceiver b) => b.Priority.CompareTo(a.Priority));
+            return list;
+        }
+        #endregion
     }
 }

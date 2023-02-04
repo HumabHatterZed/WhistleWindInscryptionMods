@@ -1,5 +1,6 @@
 using DiskCardGame;
 using Infiniscryption.Core.Helpers;
+using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
@@ -12,6 +13,32 @@ namespace Infiniscryption.Spells.Sigils
     {
         public override Ability Ability => AbilityID;
         public static Ability AbilityID { get; private set; }
+
+        public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();
+        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+        {
+            if (slot.Card != null)
+                return base.Card.OpponentCard != slot.Card.OpponentCard;
+
+            return false;
+        }
+        public override IEnumerator OnResolveOnBoard()
+        {
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            yield return new WaitForSeconds(0.2f);
+
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.IsPlayerCard()))
+            {
+                if (slot.Card != null)
+                    yield return slot.Card.TakeDamage(1, base.Card);
+            }
+            yield return base.LearnAbility(0.5f);
+        }
+        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+        {
+            yield return slot.Card.TakeDamage(1, attacker);
+            yield return base.LearnAbility(0.5f);
+        }
 
         public static void Register()
         {
@@ -30,17 +57,6 @@ namespace Infiniscryption.Spells.Sigils
                 typeof(DirectDamage),
                 AssetHelper.LoadTexture("ability_damage")
             ).Id;
-        }
-
-        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
-        {
-            return slot.Card != null && slot.IsOpponentSlot();
-        }
-
-        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
-        {
-            yield return slot.Card.TakeDamage(1, attacker);
-            yield return base.LearnAbility(0.5f);
         }
     }
 }
