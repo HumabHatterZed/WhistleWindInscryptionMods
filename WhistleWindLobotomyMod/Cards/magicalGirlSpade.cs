@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,7 +26,7 @@ namespace WhistleWindLobotomyMod
             {
                 PinkTears.specialAbility
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_knightOfDespair", "The Knight of Despair",
                 "",
                 atk: 2, hp: 4,
@@ -36,7 +37,7 @@ namespace WhistleWindLobotomyMod
                 appearances: new(), onePerDeck: true,
                 choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
                 customTribe: customTribe);
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_magicalGirlSpade", "Magical Girl",
                 "A loyal knight fighting to protect those close to her.",
                 atk: 1, hp: 4,
@@ -44,7 +45,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.magicalGirlSpade, Artwork.magicalGirlSpade_emission, pixelTexture: Artwork.magicalGirlSpade_pixel,
                 abilities: abilities2, specialAbilities: specialAbilties,
                 metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Waw,
                 customTribe: customTribe);
         }
     }

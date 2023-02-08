@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -13,7 +14,7 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new() { Ability.DebuffEnemy };
             List<Tribe> tribes = new() { Tribe.Canine };
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_ppodaeBuff", "Ppodae",
                 "",
                 atk: 3, hp: 2,
@@ -24,7 +25,7 @@ namespace WhistleWindLobotomyMod
 
             abilities.Add(Ability.Evolve);
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_ppodae", "Ppodae",
                 "An innocent little puppy.",
                 atk: 1, hp: 1,
@@ -32,8 +33,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.ppodae, Artwork.ppodae_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
-                modTypes: LobotomyCardHelper.ModCardType.Donator, evolveName: "wstl_ppodaeBuff");
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
+                modTypes: ModCardType.Donator, evolveName: "wstl_ppodaeBuff");
         }
     }
 }

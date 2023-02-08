@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 QuickDraw.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_schadenfreude", "SchadenFreude",
                 "A strange machine. You can feel someone's persistent gaze through the keyhole.",
                 atk: 1, hp: 1,
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.schadenfreude, Artwork.schadenfreude_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
                 customTribe: TribeMachine);
         }
     }

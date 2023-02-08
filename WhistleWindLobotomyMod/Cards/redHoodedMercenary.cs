@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -16,7 +17,7 @@ namespace WhistleWindLobotomyMod
                 Marksman.ability,
                 BitterEnemies.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_redHoodedMercenary", "Little Red Riding Hooded Mercenary",
                 "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.",
                 atk: 2, hp: 5,
@@ -24,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.redHoodedMercenary, Artwork.redHoodedMercenary_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
                 customTribe: TribeHumanoid);
         }
     }

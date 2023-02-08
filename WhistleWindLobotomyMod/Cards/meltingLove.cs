@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.KillsSurvivors
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_meltingLove", "Melting Love",
                 "Don't let your beasts get too close now.",
                 atk: 4, hp: 2,
@@ -31,8 +32,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.meltingLove, Artwork.meltingLove_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Aleph,
-                modTypes: LobotomyCardHelper.ModCardType.Donator);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph,
+                modTypes: ModCardType.Donator);
         }
     }
 }

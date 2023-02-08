@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 Gardener.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_parasiteTree", "Parasite Tree",
                 "A beautiful tree. It wants only to help you and your beasts.",
                 atk: 0, hp: 3,
@@ -23,8 +24,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.parasiteTree, Artwork.parasiteTree_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
-                modTypes: LobotomyCardHelper.ModCardType.Donator, customTribe: TribePlant);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
+                modTypes: ModCardType.Donator, customTribe: TribePlant);
         }
     }
 }

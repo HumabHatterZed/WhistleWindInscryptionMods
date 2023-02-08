@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Sigils;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,19 +14,19 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Volatile.ability,
+                Ability.Brittle,
                 GiveStatsSigils.AbilityID
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_notesFromResearcher", "Notes from a Crazed Researcher",
                 "An insane garble of guilty confessions and incoherent gibberish.",
-                atk: 0, hp: 3,
+                atk: 2, hp: 0,
                 blood: 0, bones: 2, energy: 0,
                 Artwork.notesFromResearcher, Artwork.notesFromResearcher_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(), appearances: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
-                metaTypes: CardHelper.CardMetaType.Terrain, spellType: LobotomyCardHelper.SpellType.TargetedStatsSigils);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
+                spellType: SpellType.TargetedStatsSigils);
         }
     }
 }

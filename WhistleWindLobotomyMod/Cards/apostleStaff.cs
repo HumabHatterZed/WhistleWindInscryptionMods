@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -24,7 +25,7 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedWhite.appearance
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_apostleStaff", "Staff Apostle",
                 "The time has come.",
                 atk: 3, hp: 6,
@@ -32,14 +33,14 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleStaff, Artwork.apostleStaff_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, customTribe: customTribe);
+                appearances: appearances, modTypes: ModCardType.EventCard, customTribe: customTribe);
 
             abilities = new()
             {
                 Ability.PreventAttack,
                 Apostle.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_apostleStaffDown", "Staff Apostle",
                 "The time has come.",
                 atk: 0, hp: 1,
@@ -47,7 +48,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleStaffDown, Artwork.apostleStaffDown_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, customTribe: customTribe);
+                appearances: appearances, modTypes: ModCardType.EventCard, customTribe: customTribe);
         }
     }
 }

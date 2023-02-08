@@ -67,7 +67,7 @@ namespace WhistleWindLobotomyMod.Core.Opponents.PirateSkull
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_apostleMoleman"), openSlots[index], 0.2f);
                 openSlots.RemoveAt(index);
             }
-            yield return this.ReplaceWithCustomBlueprint(AbnormalEncounterData.PirateSkullAbnormalBossP2);
+            yield return this.ReplaceWithCustomBlueprint(LobotomyEncounterManager.PirateSkullAbnormalBossP2);
             Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
         }
     }

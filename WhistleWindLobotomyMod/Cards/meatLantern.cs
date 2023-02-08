@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 Ability.Sharp,
                 Ability.Reach
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_meatLantern", "Meat Lantern",
                 "A beautiful flower attached to a mysterious creature.",
                 atk: 2, hp: 1,
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.meatLantern, Artwork.meatLantern_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
         }
     }
 }

@@ -18,8 +18,8 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardHelper;
-using static WhistleWindLobotomyMod.Core.Opponents.AbnormalEncounterData;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyEncounterManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -40,15 +40,6 @@ namespace WhistleWindLobotomyMod
         private static Harmony HarmonyInstance = new(pluginGuid);
 
         public static AssetBundle sephirahBundle;
-
-        public static List<CardInfo> AllLobotomyCards = new();
-        public static List<CardInfo> ObtainableLobotomyCards = new();
-
-        public static Tribe TribeDivine;
-        public static Tribe TribeFae;
-        public static Tribe TribeHumanoid;
-        public static Tribe TribeMachine;
-        public static Tribe TribePlant;
 
         private static bool _allCardsDisabled;
         public static bool AllCardsDisabled => _allCardsDisabled;
@@ -91,7 +82,6 @@ namespace WhistleWindLobotomyMod
 
                 Log.LogDebug("Loading cards...");
                 AddAppearances();
-
                 AddTribes();
 
                 if (sephirahBundle != null)
@@ -294,12 +284,14 @@ namespace WhistleWindLobotomyMod
         }
         private void AddEncounters()
         {
-            foreach (EncounterBlueprintData i in ModEncounters)
-                EncounterManager.Add(i);
+            BuildEncounters();
 
-            RegionProgression.Instance.regions[0].AddEncounters(StrangePack, BitterPack, StrangeFlock, HelperJuggernaut);
-            RegionProgression.Instance.regions[1].AddEncounters(StrangeBees, StrangeCreatures1, WormsNest, StrangeCreatures2, StrangeFish);
-            RegionProgression.Instance.regions[2].AddEncounters(StrangeHerd, AlriuneJuggernaut, SpidersNest, SwanJuggernaut);
+            RegionProgression.Instance.regions[0].encounters.Clear();
+            RegionProgression.Instance.regions[1].encounters.Clear();
+            RegionProgression.Instance.regions[2].encounters.Clear();
+            RegionProgression.Instance.regions[0].AddEncounters(ModEncounters[0].ToArray());
+            RegionProgression.Instance.regions[1].AddEncounters(ModEncounters[1].ToArray());
+            RegionProgression.Instance.regions[2].AddEncounters(ModEncounters[2].ToArray());
         }
 
         public static AssetBundle LoadBundle(string path)

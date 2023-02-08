@@ -2,6 +2,7 @@
 using HarmonyLib;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod.Patches
 {
@@ -103,8 +104,8 @@ namespace WhistleWindLobotomyMod.Patches
             {
                 while (cardsToAdd.Count < 3 + LobotomyConfigManager.Instance.StarterDeckSize)
                 {
-                    int randomIdx = UnityEngine.Random.Range(0, LobotomyPlugin.ObtainableLobotomyCards.Count);
-                    cardsToAdd.Add(LobotomyPlugin.ObtainableLobotomyCards[randomIdx].name);
+                    int randomIdx = UnityEngine.Random.Range(0, ObtainableLobotomyCards.Count);
+                    cardsToAdd.Add(ObtainableLobotomyCards[randomIdx].name);
                 }
             }
 

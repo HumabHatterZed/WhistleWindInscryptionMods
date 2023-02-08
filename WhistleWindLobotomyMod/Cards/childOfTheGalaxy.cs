@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -16,7 +17,7 @@ namespace WhistleWindLobotomyMod
                 FlagBearer.ability,
                 Ability.BoneDigger
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_childOfTheGalaxy", "Child of the Galaxy",
                 "A small child longing for a friend. Will you be his?",
                 atk: 1, hp: 4,
@@ -24,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.childOfTheGalaxy, Artwork.childOfTheGalaxy_emission, pixelTexture: Artwork.childOfTheGalaxy_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
                 customTribe: TribeHumanoid);
         }
     }

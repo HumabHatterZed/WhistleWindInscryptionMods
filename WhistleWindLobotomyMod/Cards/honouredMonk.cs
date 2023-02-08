@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -16,7 +17,7 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Evolve
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_cloudedMonk", "Clouded Monk",
                 "A monk no more.",
                 atk: 4, hp: 2,
@@ -25,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 customTribe: customTribe);
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_honouredMonk", "Honoured Monk",
                 "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...",
                 atk: 2, hp: 1,
@@ -33,8 +34,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.honouredMonk, Artwork.honouredMonk_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
-                modTypes: LobotomyCardHelper.ModCardType.Donator, evolveName: "wstl_cloudedMonk",
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
+                modTypes: ModCardType.Donator, evolveName: "wstl_cloudedMonk",
                 customTribe: customTribe);
         }
     }

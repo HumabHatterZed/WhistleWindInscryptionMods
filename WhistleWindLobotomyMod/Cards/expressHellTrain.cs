@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +20,7 @@ namespace WhistleWindLobotomyMod
             {
                 TicketTaker.specialAbility
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_expressHellTrain", "Express Train to Hell",
                 "When the time comes, the train will sound its mighty horn.",
                 atk: 0, hp: 4,
@@ -27,11 +28,11 @@ namespace WhistleWindLobotomyMod
                 Artwork.expressHellTrain, Artwork.expressHellTrain_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Waw,
                 customTribe: TribeMachine);
 
             abilities = new() { TheTrain.ability };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_BottledExpressHellTrain", "Express Train to Hell",
                 "When the time comes, the train will sound its mighty horn.",
                 atk: 0, hp: 1,

@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 Copycat.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_pinocchio", "Pinocchio",
                 "A wooden doll that mimics the beasts it encounters. Can you see through its lie?",
                 atk: 0, hp: 0,
@@ -23,8 +24,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.pinocchio, Artwork.pinocchio_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
-                 modTypes: LobotomyCardHelper.ModCardType.Ruina, customTribe: TribeHumanoid);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
+                 modTypes: ModCardType.Ruina, customTribe: TribeHumanoid);
         }
     }
 }

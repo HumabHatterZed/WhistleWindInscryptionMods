@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 BlackFish.appearance
             };
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_yin", "Yin",
                 "A black pendant in search of its missing half.",
                 atk: 2, hp: 3,
@@ -30,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: appearances, onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }
 }

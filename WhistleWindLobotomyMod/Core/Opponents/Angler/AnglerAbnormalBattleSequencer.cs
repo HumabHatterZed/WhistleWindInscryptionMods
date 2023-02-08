@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Core.Opponents.Angler
 {
@@ -9,7 +10,7 @@ namespace WhistleWindLobotomyMod.Core.Opponents.Angler
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData)
         {
             EncounterData encounterData = base.BuildCustomEncounter(nodeData);
-            encounterData.Blueprint = AbnormalEncounterData.AnglerAbnormalBossP1;
+            encounterData.Blueprint = LobotomyEncounterManager.AnglerAbnormalBossP1;
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, nodeData.difficulty + RunState.Run.DifficultyModifier);
             return encounterData;
         }

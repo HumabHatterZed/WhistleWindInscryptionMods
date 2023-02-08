@@ -1,5 +1,6 @@
 ﻿using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -7,7 +8,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_CENSOREDMinion_O0389()
         {
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_censoredMinion", "CENSORED",
                 "I think it's best you don't know what it looks like.",
                 atk: 0, hp: 0,

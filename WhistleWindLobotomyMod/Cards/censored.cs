@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +20,7 @@ namespace WhistleWindLobotomyMod
             {
                 CensoredSpecial.specialAbility
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_censored", "CENSORED",
                 "It's best you never learn what it looks like.",
                 atk: 7, hp: 4,
@@ -27,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.censored, Artwork.censored_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Aleph);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph);
         }
     }
 }

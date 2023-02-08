@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -16,7 +17,7 @@ namespace WhistleWindLobotomyMod
                 Grinder.ability
             };
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_weCanChangeAnything", "We Can Change Anything",
                 "Whatever you're dissatisfied with, this machine will fix it. You just have to step inside.",
                 atk: 0, hp: 3,
@@ -24,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.weCanChangeAnything, Artwork.weCanChangeAnything_emission, pixelTexture: Artwork.weCanChangeAnything_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
                 customTribe: TribeMachine);
         }
     }

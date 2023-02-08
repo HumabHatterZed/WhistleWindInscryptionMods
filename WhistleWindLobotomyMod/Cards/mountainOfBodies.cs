@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +20,7 @@ namespace WhistleWindLobotomyMod
             {
                 Smile.specialAbility
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_mountainOfBodies3", "The Mountain of Smiling Bodies",
                 "A mass grave, melted and congealed into one eternally hungry beast.",
                 atk: 5, hp: 1,
@@ -29,7 +30,7 @@ namespace WhistleWindLobotomyMod
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_mountainOfBodies2", "The Mountain of Smiling Bodies",
                 "A mass grave, melted and congealed into one eternally hungry beast.",
                 atk: 3, hp: 1,
@@ -39,7 +40,7 @@ namespace WhistleWindLobotomyMod
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_mountainOfBodies", "The Mountain of Smiling Bodies",
                 "A mass grave, melted and congealed into one eternally hungry beast.",
                 atk: 2, hp: 1,
@@ -47,7 +48,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.mountainOfBodies, Artwork.mountainOfBodies_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Aleph);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph);
         }
     }
 }

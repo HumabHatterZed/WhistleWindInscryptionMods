@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
             {
                 ThreeBirds.specialAbility
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_bigBird", "Big Bird",
                 "Its eyes light up the darkness like stars.",
                 atk: 2, hp: 4,
@@ -31,7 +32,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.bigBird, Artwork.bigBird_emission, pixelTexture: Artwork.bigBird_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }
 }

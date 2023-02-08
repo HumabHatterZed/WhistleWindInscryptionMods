@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 Woodcutter.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_warmHeartedWoodsman", "Warm-Hearted Woodsman",
                 "A tin woodsman on the search for a heart. Perhaps you can give him yours.",
                 atk: 2, hp: 3,
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.warmHeartedWoodsman, Artwork.warmHeartedWoodsman_emission, pixelTexture: Artwork.warmHeartedWoodsman_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
                 customTribe: TribeMachine);
         }
     }

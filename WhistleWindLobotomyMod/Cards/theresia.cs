@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 Healer.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_theresia", "Theresia",
                 "An old music box. It plays a familiar melody.",
                 atk: 0, hp: 2,
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.theresia, Artwork.theresia_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
                 customTribe: TribeMachine);
         }
     }

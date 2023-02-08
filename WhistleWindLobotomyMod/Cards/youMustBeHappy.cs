@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 Scrambler.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_youMustBeHappy", "You Must be Happy",
                 "Those that undergo the procedure find themselves rested and healthy again.",
                 atk: 0, hp: 2,
@@ -23,8 +24,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.youMustBeHappy, Artwork.youMustBeHappy_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
-                spellType: LobotomyCardHelper.SpellType.TargetedStats, customTribe: TribeMachine);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
+                spellType: SpellType.TargetedStats, customTribe: TribeMachine);
         }
     }
 }

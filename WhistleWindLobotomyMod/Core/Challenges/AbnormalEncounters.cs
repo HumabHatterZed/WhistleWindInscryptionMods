@@ -4,7 +4,7 @@ using InscryptionAPI.Ascension;
 using InscryptionAPI.Regions;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Opponents.AbnormalEncounterData;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyEncounterManager;
 
 namespace WhistleWindLobotomyMod.Core.Challenges
 {
@@ -48,9 +48,9 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 RegionProgression.Instance.regions[0].encounters.Clear();
                 RegionProgression.Instance.regions[1].encounters.Clear();
                 RegionProgression.Instance.regions[2].encounters.Clear();
-                RegionProgression.Instance.regions[0].AddEncounters(StrangePack, BitterPack, StrangeFlock, HelperJuggernaut);
-                RegionProgression.Instance.regions[1].AddEncounters(StrangeBees, StrangeCreatures1, WormsNest, StrangeCreatures2, StrangeFish);
-                RegionProgression.Instance.regions[2].AddEncounters(StrangeHerd, AlriuneJuggernaut, SpidersNest, SwanJuggernaut);
+                RegionProgression.Instance.regions[0].AddEncounters(ModEncounters[0].ToArray());
+                RegionProgression.Instance.regions[1].AddEncounters(ModEncounters[1].ToArray());
+                RegionProgression.Instance.regions[2].AddEncounters(ModEncounters[2].ToArray());
             }
         }
     }

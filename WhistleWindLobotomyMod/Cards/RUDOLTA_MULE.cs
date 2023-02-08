@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,7 +26,7 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.Uncuttable
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_RUDOLTA_MULE", "Rudolta of the Sleigh",
                 "A grotesque effigy of a reindeer. With its infinite hate, it bequeaths gifts onto you.",
                 atk: 2, hp: 3,

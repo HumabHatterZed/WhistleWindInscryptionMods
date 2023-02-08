@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -22,7 +23,7 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedWhite.appearance
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_hundredsGoodDeeds", "One Sin and Hundreds of Good Deeds",
                 "Its hollow sockets see through you.",
                 atk: 0, hp: 777,

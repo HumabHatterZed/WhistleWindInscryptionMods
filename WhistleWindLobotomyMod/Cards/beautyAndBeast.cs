@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 Tribe.Hooved,
                 Tribe.Insect
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_beautyAndBeast", "Beauty and the Beast",
                 "A pitiable creature. Death would be a mercy for it.",
                 atk: 1, hp: 1,
@@ -28,7 +29,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.beautyAndBeast, Artwork.beautyAndBeast_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
         }
     }
 }

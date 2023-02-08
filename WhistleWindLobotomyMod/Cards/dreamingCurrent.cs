@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,7 +18,7 @@ namespace WhistleWindLobotomyMod
                 Barreler.ability
             };
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_dreamingCurrent", "The Dreaming Current",
                 "A sickly child. Everyday it was fed candy that let it see the ocean.",
                 atk: 4, hp: 2,
@@ -25,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.dreamingCurrent, Artwork.dreamingCurrent_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }
 }

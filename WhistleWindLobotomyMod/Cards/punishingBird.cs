@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +21,7 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Bird
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_punishingBird", "Punishing Bird",
                 "A small bird on a mission to punish evildoers.",
                 atk: 1, hp: 1,
@@ -28,7 +29,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.punishingBird, Artwork.punishingBird_emission, pixelTexture: Artwork.punishingBird_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, onePerDeck: true, riskLevel: LobotomyCardHelper.RiskLevel.Teth);
+                choiceType: CardHelper.CardChoiceType.Basic, onePerDeck: true, riskLevel: RiskLevel.Teth);
         }
     }
 }

@@ -11,7 +11,7 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardHelper;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod

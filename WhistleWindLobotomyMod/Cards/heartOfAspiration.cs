@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 Ability.BuffNeighbours
             };
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_heartOfAspiration", "The Heart of Aspiration",
                 "A heart without an owner. It emboldens those nearby.",
                 atk: 1, hp: 2,
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.heartOfAspiration, Artwork.heartOfAspiration_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
         }
     }
 }

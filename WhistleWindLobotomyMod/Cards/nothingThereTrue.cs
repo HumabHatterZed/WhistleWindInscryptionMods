@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 Tribe.Reptile
             };
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_nothingThereFinal", "Nothing There",
                 "A grotesque attempt at mimicry. Pray it does not improve its disguise.",
                 atk: 9, hp: 9,
@@ -31,7 +32,7 @@ namespace WhistleWindLobotomyMod
                 choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
                 customTribe: TribeHumanoid);
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_nothingThereEgg", "An Egg",
                 "What is it doing?",
                 atk: 0, hp: 3,
@@ -43,7 +44,7 @@ namespace WhistleWindLobotomyMod
                 choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
                 evolveName: "wstl_nothingThereFinal");
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_nothingThereTrue", "Nothing There",
                 "What is that?",
                 atk: 3, hp: 3,

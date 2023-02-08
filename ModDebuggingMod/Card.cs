@@ -8,6 +8,7 @@ using WhistleWindLobotomyMod;
 using InscryptionAPI.Pelts.Extensions;
 using InscryptionAPI.Nodes;
 using System;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace ModDebuggingMod
 {
@@ -17,7 +18,7 @@ namespace ModDebuggingMod
         {
             List<Ability> abilities = new()
             {
-                Ability.CreateBells
+                Ability.Sacrificial
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -25,7 +26,7 @@ namespace ModDebuggingMod
             };
             List<Tribe> tribes = new()
             {
-                LobotomyPlugin.TribeDivine
+                LobotomyCardManager.TribeDivine
             };
             List<Trait> traits = new()
             {
@@ -36,9 +37,9 @@ namespace ModDebuggingMod
 
             };
             CardHelper.CreateCard(
-                "wstl", "wstlcard", "DC",
+                "wstl", "wstlcard", "Debug",
                 "You shouldn't see this.",
-                1, 10, 0, 0, 0,
+                0, 10, 0, 0, 0,
                 null, null,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: traits);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +15,7 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.DebuffEnemy
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_oldLady", "Old Lady",
                 "An aged storyteller. She can tell you any tale, even those that can't exist.",
                 atk: 1, hp: 2,
@@ -22,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.oldLady, Artwork.oldLady_emission, pixelTexture: Artwork.oldLady_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
                 customTribe: TribeHumanoid);
         }
     }

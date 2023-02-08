@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -34,7 +35,7 @@ namespace WhistleWindLobotomyMod
             {
                 Forced.appearance
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_blueStar3", "Blue Star", "",
                 atk: 4, hp: 4,
                 blood: 4, bones: 0, energy: 0,
@@ -44,7 +45,7 @@ namespace WhistleWindLobotomyMod
                 appearances: appearances,
                 choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
                 evolveName: "wstl_blueStar", customTribe: customTribe);
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_blueStar2", "Blue Star", "",
                 atk: 0, hp: 4,
                 blood: 3, bones: 0, energy: 0,
@@ -54,7 +55,7 @@ namespace WhistleWindLobotomyMod
                 appearances: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
                 evolveName: "wstl_blueStar3", customTribe: customTribe);
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_blueStar", "Blue Star",
                 "When this is over, let's meet again as stars.",
                 atk: 0, hp: 4,
@@ -62,7 +63,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.blueStar, Artwork.blueStar_emission,
                 abilities: baseAbility, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Aleph,
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph,
                 evolveName: "wstl_blueStar2", customTribe: customTribe);
         }
     }

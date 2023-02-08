@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod.Core.Opponents.Prospector
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
             yield return StrikeGoldSequence();
             yield return ClearQueue();
-            yield return this.ReplaceWithCustomBlueprint(AbnormalEncounterData.ProspectorAbnormalBossP2, removeLockedCards: true);
+            yield return this.ReplaceWithCustomBlueprint(LobotomyEncounterManager.ProspectorAbnormalBossP2, removeLockedCards: true);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
         public override void ModifyQueuedCard(PlayableCard card)

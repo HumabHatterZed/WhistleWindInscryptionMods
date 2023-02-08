@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,7 +26,7 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedWhite.appearance
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_whiteNight", "WhiteNight",
                 "The time has come.",
                 atk: 0, hp: 66,
@@ -33,7 +34,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.whiteNight, Artwork.whiteNight_emission, titleTexture: Artwork.whiteNight_title,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, onePerDeck: true,
+                appearances: appearances, modTypes: ModCardType.EventCard, onePerDeck: true,
                 customTribe: TribeDivine);
         }
     }

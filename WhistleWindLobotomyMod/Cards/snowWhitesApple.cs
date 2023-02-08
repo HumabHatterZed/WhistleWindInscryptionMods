@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +20,7 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.KillsSurvivors
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_snowWhitesApple", "Snow White's Apple",
                 "A poisoned apple brought to life, on a fruitless search for its own happily ever after.",
                 atk: 1, hp: 1,
@@ -27,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.snowWhitesApple, Artwork.snowWhitesApple_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
                 customTribe: TribePlant);
         }
     }

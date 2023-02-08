@@ -1,6 +1,7 @@
 ﻿using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -8,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_TrainingDummy_00000()
         {
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_trainingDummy", "Standard Training-Dummy Rabbit",
                 "A beast in the shape of a training dummy. The safest of these abnormal creatures.",
                 atk: 0, hp: 2,
@@ -16,7 +17,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.trainingDummy, Artwork.trainingDummy_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin);
         }
     }
 }

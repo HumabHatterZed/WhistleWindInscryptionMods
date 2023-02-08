@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +15,7 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.Sharp
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_wallLady", "The Lady Facing the Wall",
                 "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.",
                 atk: 1, hp: 2,
@@ -22,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.wallLady, Artwork.wallLady_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
                 customTribe: TribeHumanoid);
         }
     }

@@ -1,12 +1,15 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static DiskCardGame.EncounterBlueprintData;
 
 namespace ModDebuggingMod
 {
     // Adds predefined nodes for testing
     [HarmonyPatch]
-    public class DebugPatches
+    public static class DebugPatches
     {
         private static string LobGuid => WhistleWindLobotomyMod.LobotomyPlugin.pluginGuid;
 

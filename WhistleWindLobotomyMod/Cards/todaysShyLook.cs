@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +19,7 @@ namespace WhistleWindLobotomyMod
             {
                 TodaysExpression.specialAbility
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_todaysShyLook", "Today's Shy Look",
                 "An indecisive creature. Her expression is different whenever you draw her.",
                 atk: 1, hp: 2,
@@ -26,8 +27,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.todaysShyLook, Artwork.todaysShyLook_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth);
-            LobotomyCardHelper.CreateCard(
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
+            CreateCard(
                 "wstl_todaysShyLookNeutral", "Today's Shy Look",
                 "An indecisive creature. Her expression is different whenever you draw her.",
                 atk: 1, hp: 2,
@@ -35,7 +36,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.todaysShyLook, Artwork.todaysShyLook_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new());
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_todaysShyLookHappy", "Today's Happy Look",
                 "An indecisive creature. Her expression is different whenever you draw her.",
                 atk: 1, hp: 3,
@@ -43,7 +44,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.todaysShyLookHappy, Artwork.todaysShyLookHappy_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new());
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_todaysShyLookAngry", "Today's Angry Look",
                 "An indecisive creature. Her expression is different whenever you draw her.",
                 atk: 2, hp: 1,

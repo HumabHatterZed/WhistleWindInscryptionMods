@@ -6,7 +6,7 @@
 	"dependencies": [
 		"BepInEx-BepInExPack_Inscryption-5.4.1902",
 		"API_dev-API-2.10.0",
-		"WhistleWind-WhistleWind_Abnormal_Sigils-1.0.0",
-		"WhistleWind-New_Spell_Card_Toolkit-1.0.0"
+		"WhistleWind-New_Spell_Card_Toolkit-1.1.0",
+		"WhistleWind-WhistleWind_Abnormal_Sigils-1.0.0"
 	]
 }

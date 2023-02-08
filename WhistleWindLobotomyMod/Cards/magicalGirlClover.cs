@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -29,7 +30,7 @@ namespace WhistleWindLobotomyMod
             {
 
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_servantOfWrath", "Servant of Wrath",
                 "",
                 atk: 2, hp: 4,
@@ -38,7 +39,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 onePerDeck: true);
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_magicalGirlClover", "Magical Girl",
                 "Blind protector of another world.",
                 atk: 1, hp: 2,
@@ -46,8 +47,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.magicalGirlClover, Artwork.magicalGirlClover_emission, pixelTexture: Artwork.magicalGirlClover_pixel,
                 abilities: abilities2, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
-                modTypes: LobotomyCardHelper.ModCardType.Ruina, customTribe: TribeFae);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
+                modTypes: ModCardType.Ruina, customTribe: TribeFae);
         }
     }
 }

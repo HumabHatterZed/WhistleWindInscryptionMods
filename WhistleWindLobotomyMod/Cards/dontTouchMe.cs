@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 Punisher.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_dontTouchMe", "Don't Touch Me",
                 "Don't touch it.",
                 atk: 0, hp: 1,
@@ -24,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic,
-                riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
+                riskLevel: RiskLevel.Zayin,
                 metaTypes: CardHelper.CardMetaType.Terrain,
                 customTribe: TribeMachine);
         }

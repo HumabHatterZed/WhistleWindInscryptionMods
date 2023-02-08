@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 Courageous.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_crumblingArmour", "Crumbling Armour",
                 "A suit of armour that rewards the brave and punishes the cowardly.",
                 atk: 0, hp: 3,
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.crumblingArmour, Artwork.crumblingArmour_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
         }
     }
 }

@@ -2,6 +2,7 @@
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -9,7 +10,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_PriceOfSilence_O0565()
         {
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_priceOfSilence", "Price of Silence",
                 "The unflinching hand of time cuts down man and beast alike.",
                 atk: 0, hp: 1,
@@ -17,8 +18,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.priceOfSilence, Artwork.priceOfSilence_emission,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(), appearances: new(),
-                statIcon: Time.icon, choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
-                modTypes: LobotomyCardHelper.ModCardType.Ruina);
+                statIcon: Time.icon, choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
+                modTypes: ModCardType.Ruina);
         }
     }
 }

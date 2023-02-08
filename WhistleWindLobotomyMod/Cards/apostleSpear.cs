@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,7 +26,7 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedWhite.appearance
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_apostleSpear", "Spear Apostle",
                 "The time has come.",
                 atk: 3, hp: 6,
@@ -33,14 +34,14 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleSpear, Artwork.apostleSpear_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, customTribe: customTribe);
+                appearances: appearances, modTypes: ModCardType.EventCard, customTribe: customTribe);
 
             abilities = new()
             {
                 Ability.PreventAttack,
                 Apostle.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_apostleSpearDown", "Spear Apostle",
                 "The time has come.",
                 atk: 0, hp: 1,
@@ -48,7 +49,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleSpearDown, Artwork.apostleSpearDown_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard, customTribe: customTribe);
+                appearances: appearances, modTypes: ModCardType.EventCard, customTribe: customTribe);
         }
     }
 }

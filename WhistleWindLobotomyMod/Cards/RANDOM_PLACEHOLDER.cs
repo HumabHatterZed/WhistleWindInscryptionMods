@@ -1,6 +1,7 @@
 ﻿using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -8,7 +9,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_RANDOM_PLACEHOLDER()
         {
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_RANDOM_PLACEHOLDER", "",
                 "",
                 atk: 0, hp: 0,

@@ -177,7 +177,7 @@ namespace WhistleWindLobotomyMod
             List<CardChoice> listOfChoices = new();
 
             // find the number of Sephirah already owned, including Angela
-            int sephirahCount = RunState.DeckList.FindAll(x => x.metaCategories.Contains(LobotomyCardHelper.SephirahCard)).Count;
+            int sephirahCount = RunState.DeckList.FindAll(x => x.metaCategories.Contains(LobotomyCardManager.SephirahCard)).Count;
 
             // if all 9 Sephirah have been obtained, guaranteed to get Angela
             // otherwise if there are unobtained Sephirah, pick a max of 3 of them per node (if only 2 remain, show 2, etc.)

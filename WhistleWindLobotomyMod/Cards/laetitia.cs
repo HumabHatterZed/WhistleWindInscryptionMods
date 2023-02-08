@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 GiftGiver.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_laetitia", "Laetitia",
                 "A little witch carrying a heart-shaped gift.",
                 atk: 1, hp: 2,
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.laetitia, Artwork.laetitia_emission, pixelTexture: Artwork.laetitia_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
                 customTribe: TribeFae);
         }
     }

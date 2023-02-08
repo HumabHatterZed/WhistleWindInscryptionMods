@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 TribePlant,
                 Tribe.Hooved
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_alriune", "Alriune",
                 "A doll yearning to be a human. A human yearning to be a doll.",
                 atk: 4, hp: 5,
@@ -27,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.alriune, Artwork.alriune_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }
 }

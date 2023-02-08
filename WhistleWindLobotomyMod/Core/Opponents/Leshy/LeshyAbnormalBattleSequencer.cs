@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Core.Opponents.Leshy
 {
@@ -10,7 +11,7 @@ namespace WhistleWindLobotomyMod.Core.Opponents.Leshy
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData)
         {
             EncounterData encounterData = base.BuildCustomEncounter(nodeData);
-            encounterData.Blueprint = AbnormalEncounterData.LeshyAbnormalBossP1;
+            encounterData.Blueprint = LobotomyEncounterManager.LeshyAbnormalBossP1;
             int num = SaveFile.IsAscension ? -1 : 0;
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, nodeData.difficulty + RunState.Run.DifficultyModifier + num);
             encounterData.startConditions.Clear();

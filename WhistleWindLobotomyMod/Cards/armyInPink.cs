@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +21,7 @@ namespace WhistleWindLobotomyMod
             {
                 PinkTears.specialAbility
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_armyInPink", "Army in Pink",
                 "A friendly soldier the colour of the human heart. It will protect you wherever you go.",
                 atk: 3, hp: 3,
@@ -28,8 +29,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.armyInPink, Artwork.armyInPink_emission,
                 abilities: abilities, specialAbilities: specialAbilties,
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Aleph,
-                modTypes: LobotomyCardHelper.ModCardType.Donator);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph,
+                modTypes: ModCardType.Donator);
         }
     }
 }

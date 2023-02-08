@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -14,7 +15,7 @@ namespace WhistleWindLobotomyMod
             {
                 Ability.DebuffEnemy
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_happyTeddyBear", "Happy Teddy Bear",
                 "Its memories began with a warm hug.",
                 atk: 2, hp: 3,
@@ -22,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.happyTeddyBear, Artwork.happyTeddyBear_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
         }
     }
 }

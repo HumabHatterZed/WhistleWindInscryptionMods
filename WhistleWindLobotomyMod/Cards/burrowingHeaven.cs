@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 Ability.Sharp,
                 Ability.WhackAMole
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_burrowingHeaven", "The Burrowing Heaven",
                 "Don't look away. Contain it in your sight.",
                 atk: 0, hp: 2,
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.burrowingHeaven, Artwork.burrowingHeaven_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
                 customTribe: TribeDivine);
         }
     }

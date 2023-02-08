@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -21,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 Tribe.Bird
             };
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_theFirebird", "The Firebird",
                 "A bird that longs for the thrill of being hunted.",
                 atk: 2, hp: 3,
@@ -29,7 +30,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.theFirebird, Artwork.theFirebird_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }
 }

@@ -78,7 +78,7 @@ namespace WhistleWindLobotomyMod.Core
             return CardLoader.Clone(deathCards[SeededRandom.Range(0, deathCards.Count, randomSeed)]);
         }
         private static List<CardInfo> GetSephirahCards() =>
-            GetUnlockedModCards(LobotomyCardHelper.SephirahCard, CardTemple.Nature);
+            GetUnlockedModCards(LobotomyCardManager.SephirahCard, CardTemple.Nature);
         private static List<CardInfo> GetUnlockedModCards(CardMetaCategory category, CardTemple temple) =>
             CardLoader.GetUnlockedCards(category, temple).FindAll((x) => x.name.StartsWith("wstl"));
     }

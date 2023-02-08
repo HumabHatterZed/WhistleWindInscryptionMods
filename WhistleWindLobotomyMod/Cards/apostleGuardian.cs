@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedWhite.appearance
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_apostleGuardian", "Guardian Apostle",
                 "The time has come.",
                 atk: 4, hp: 6,
@@ -31,7 +32,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleGuardian, Artwork.apostleGuardian_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard,
+                appearances: appearances, modTypes: ModCardType.EventCard,
                 customTribe: customTribe);
 
             abilities = new()
@@ -42,7 +43,7 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.Terrain
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_apostleGuardianDown", "Guardian Apostle",
                 "The time has come.",
                 atk: 0, hp: 1,
@@ -51,7 +52,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
                 appearances: appearances, evolveName: "wstl_apostleGuardian", numTurns: 2,
-                modTypes: LobotomyCardHelper.ModCardType.EventCard, customTribe: customTribe);
+                modTypes: ModCardType.EventCard, customTribe: customTribe);
         }
     }
 }

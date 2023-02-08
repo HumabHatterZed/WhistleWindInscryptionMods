@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -22,7 +23,7 @@ namespace WhistleWindLobotomyMod
             {
                 ForcedWhite.appearance
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_apostleHeretic", "Heretic",
                 "The time has come.",
                 atk: 0, hp: 7,
@@ -30,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.apostleHeretic, Artwork.apostleHeretic_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: LobotomyCardHelper.ModCardType.EventCard);
+                appearances: appearances, modTypes: ModCardType.EventCard);
         }
     }
 }

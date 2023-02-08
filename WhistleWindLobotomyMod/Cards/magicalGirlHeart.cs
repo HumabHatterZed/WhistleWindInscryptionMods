@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -26,7 +27,7 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Reptile
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_queenOfHatred", "The Queen of Hatred",
                 "Heroes exist to fight evil. In its absence, they must create it.",
                 atk: 8, hp: 2,
@@ -34,7 +35,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.queenOfHatred, Artwork.queenOfHatred_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new());
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_queenOfHatredTired", "The Queen of Hatred",
                 "Exhaustion: the cost of an all-out attack.",
                 atk: 0, hp: 2,
@@ -46,7 +47,7 @@ namespace WhistleWindLobotomyMod
             abilities.Remove(Piercing.ability);
             specialAbilities.Remove(CustomEvolveHelper.specialAbility);
             
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_magicalGirlHeart", "Magical Girl",
                 "A hero of love and justice. She will aid you on your journey.",
                 atk: 1, hp: 2,
@@ -54,7 +55,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.magicalGirlHeart, Artwork.magicalGirlHeart_emission, pixelTexture: Artwork.magicalGirlHeart_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
                 customTribe: TribeFae);
         }
     }

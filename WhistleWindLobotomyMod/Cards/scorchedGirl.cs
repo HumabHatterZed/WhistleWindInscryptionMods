@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 Volatile.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_scorchedGirl", "Scorched Girl",
                 "Though there's nothing left to burn, the fire won't go out.",
                 atk: 1, hp: 1,
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.scorchedGirl, Artwork.scorchedGirl_emission, pixelTexture: Artwork.scorchedGirl_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
                 customTribe: TribeHumanoid);
         }
     }

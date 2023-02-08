@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 Woodcutter.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_mirrorOfAdjustment", "The Mirror of Adjustment",
                 "A mirror that reflects nothing on its surface.",
                 atk: 0, hp: 1,
@@ -24,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(), statIcon: SpecialStatIcon.Mirror,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
                 metaTypes: CardHelper.CardMetaType.NoTerrainLayout);
         }
     }

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
     public partial class LobotomyPlugin
     {
-        private void Card_BloodBath_T0551()
+        private void Card_Bloodbath_T0551()
         {
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -18,7 +19,7 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.Goat
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_bloodBath", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
                 atk: 0, hp: 1,
@@ -26,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.bloodBath, Artwork.bloodBath_emission,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
         }
     }
 }

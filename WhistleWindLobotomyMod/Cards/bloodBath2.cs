@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
     public partial class LobotomyPlugin
     {
-        private void Card_BloodBath2_T0551()
+        private void Card_Bloodbath2_T0551()
         {
             List<Ability> abilities = new()
             {
@@ -18,7 +19,7 @@ namespace WhistleWindLobotomyMod
             {
                 WristCutter.specialAbility
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_bloodBath2", "Bloodbath",
                 "A tub of blood. The hands of people you once loved wait inside.",
                 atk: 0, hp: 2,

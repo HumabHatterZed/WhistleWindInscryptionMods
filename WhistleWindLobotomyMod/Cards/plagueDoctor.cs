@@ -5,6 +5,7 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
             {
                 Bless.specialAbility
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_plagueDoctor", "Plague Doctor",
                 "A worker of miracles. He humbly requests to join you.",
                 atk: 0, hp: 3,
@@ -32,7 +33,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
                 customTribe: TribeDivine);
         }
         public static byte[][] UpdatePlagueSprites()

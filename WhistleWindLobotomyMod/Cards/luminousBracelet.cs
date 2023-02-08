@@ -5,6 +5,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 GiveSigils.AbilityID
             };
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_luminousBracelet", "Luminous Bracelet",
                 "A bracelet that will heal those nearby. It does not forgive the greedy.",
                 atk: 0, hp: 0,
@@ -26,8 +27,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.luminousBracelet, Artwork.luminousBracelet_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
-                spellType: LobotomyCardHelper.SpellType.TargetedSigils);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
+                spellType: SpellType.TargetedSigils);
         }
     }
 }

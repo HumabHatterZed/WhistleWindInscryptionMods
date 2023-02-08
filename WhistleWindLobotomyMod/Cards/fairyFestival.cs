@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 Bloodfiend.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_fairyFestival", "Fairy Festival",
                 "Everything will be peaceful while you're under the fairies' care.",
                 atk: 1, hp: 2,
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.fairyFestival, Artwork.fairyFestival_emission, pixelTexture: Artwork.fairyFestival_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
                 customTribe: TribeFae);
         }
     }

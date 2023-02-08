@@ -138,12 +138,12 @@ namespace WhistleWindLobotomyMod
                 Ability.BuffNeighbours
             };
             List<SpecialTriggeredAbility> specialAbilities = new() { TalkingCardHod.specialAbility };
-            List<CardMetaCategory> metaCategories = new() { LobotomyCardHelper.SephirahCard };
+            List<CardMetaCategory> metaCategories = new() { LobotomyCardManager.SephirahCard };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 CardAppearanceBehaviour.Appearance.AnimatedPortrait
             };
-            LobotomyCardHelper.CreateCard(
+            LobotomyCardManager.CreateCard(
                 "wstl_sephirahHod", "Hod",
                 "The head of the Training Department. She will assist you the best she can.",
                 atk: 1, hp: 3,

@@ -24,8 +24,8 @@ namespace WhistleWindLobotomyMod.Core
 
         #region Config.Cards
 
-        private ConfigEntry<LobotomyCardHelper.RiskLevel> Config_NoRisk;
-        public LobotomyCardHelper.RiskLevel NoRisk => Config_NoRisk.Value;
+        private ConfigEntry<LobotomyCardManager.RiskLevel> Config_NoRisk;
+        public LobotomyCardManager.RiskLevel NoRisk => Config_NoRisk.Value;
 
         private ConfigEntry<bool> Config_NoDonators;
         public bool NoDonators => Config_NoDonators.Value;
@@ -106,7 +106,7 @@ namespace WhistleWindLobotomyMod.Core
                 new ConfigDescription("Adds Rulebook entries for hidden abilities, describing their effect and what card possesses it."));
 
             Config_NoRisk = WstlConfigFile.Bind(
-                "Config.Cards", "Disable Cards", LobotomyCardHelper.RiskLevel.None,
+                "Config.Cards", "Disable Cards", LobotomyCardManager.RiskLevel.None,
                 new ConfigDescription("Removes cards of the specified risk level from the pool of obtainable cards."));
 
             Config_NoDonators = WstlConfigFile.Bind(

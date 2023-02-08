@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -10,7 +11,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_CanOfWellCheers_F0552()
         {
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_CRUMPLED_CAN", "Crumpled Can of WellCheers",
                 "Soda can can soda dota 2 electric boo.",
                 atk: 0, hp: 1,
@@ -24,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 Ability.Brittle,
                 Ability.IceCube
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_SKELETON_SHRIMP", "Skeleton Shrimp",
                 "A dead shrimp man craving for a final drop of soda.",
                 atk: 2, hp: 1,
@@ -39,7 +40,7 @@ namespace WhistleWindLobotomyMod
                 Ability.Strafe,
                 Ability.Submerge
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_canOfWellCheers", "Opened Can of WellCheers",
                 "A vending machine dispensing ocean soda.",
                 atk: 1, hp: 2,
@@ -47,7 +48,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.canOfWellCheers, Artwork.canOfWellCheers_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Zayin,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
                 iceCubeName: "wstl_SKELETON_SHRIMP");
         }
     }

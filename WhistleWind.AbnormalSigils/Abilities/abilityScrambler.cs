@@ -1,5 +1,7 @@
 ﻿using DiskCardGame;
+using Infiniscryption.Spells.Patchers;
 using System.Collections;
+using TribalLibary;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
@@ -24,13 +26,27 @@ namespace WhistleWind.AbnormalSigils
                 modular: false, opponent: false, canStack: false).Id;
         }
     }
-    public class Scrambler : TargetedSpell
+    public class Scrambler : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override bool TargetAlly => true;
 
-        private CardSlot targetSlot;
+        public override bool RespondsToSacrifice() => true;
+        public override bool RespondsToResolveOnBoard()
+        {
+            if (AbnormalPlugin.SpellAPI.Enabled)
+                return base.Card.Info.IsGlobalSpell();
+
+            return false;
+        }
+        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+        {
+            if (AbnormalPlugin.SpellAPI.Enabled && slot.Card != null)
+                return base.Card.OpponentCard == slot.Card.OpponentCard;
+
+            return false;
+        }
+
         public override IEnumerator OnSacrifice()
         {
             PlayableCard card = Singleton<BoardManager>.Instance.currentSacrificeDemandingCard;
@@ -46,26 +62,17 @@ namespace WhistleWind.AbnormalSigils
         }
         public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
-            targetSlot = slot;
-            yield break;
-        }
-        public override bool ConditionForOnDie(bool wasSacrifice, PlayableCard killer)
-        {
-            return targetSlot != null;
-        }
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
             yield return base.PreSuccessfulTriggerSequence();
 
             yield return HelperMethods.ChangeCurrentView(View.Board, endDelay: 0.75f);
 
             CardModificationInfo info = new(base.Card.Attack, base.Card.Health);
-            targetSlot.Card.AddTemporaryMod(info);
+            slot.Card.AddTemporaryMod(info);
 
-            targetSlot.Card.Anim.StrongNegationEffect();
+            slot.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
 
-            yield return ScrambleStats(targetSlot.Card);
+            yield return ScrambleStats(slot.Card);
 
             yield return base.LearnAbility();
             yield return HelperMethods.ChangeCurrentView(View.Board, startDelay: 0.5f);

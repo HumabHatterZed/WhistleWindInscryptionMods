@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
             {
                 BlackFish.appearance
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_yang", "Yang",
                 "A white pendant that heals those nearby.",
                 atk: 0, hp: 3,
@@ -33,7 +34,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: appearances, onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }
 }

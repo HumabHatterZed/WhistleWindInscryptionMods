@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod.Core.Opponents.Angler
                 yield return new WaitForSeconds(0.5f);
             }
             yield return PlaceBaitSequence();
-            yield return this.ReplaceWithCustomBlueprint(AbnormalEncounterData.AnglerAbnormalBossP2, removeLockedCards: true);
+            yield return this.ReplaceWithCustomBlueprint(LobotomyEncounterManager.AnglerAbnormalBossP2, removeLockedCards: true);
         }
     }
 }

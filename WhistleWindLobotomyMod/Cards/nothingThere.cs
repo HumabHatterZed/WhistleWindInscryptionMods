@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -22,7 +23,7 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.DeathcardCreationNonOption
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_nothingThere", "Yumi",
                 "I don't remember this challenger...",
                 atk: 1, hp: 1,
@@ -31,7 +32,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: traits,
                 onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: LobotomyCardHelper.RiskLevel.Aleph);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph);
         }
     }
 }

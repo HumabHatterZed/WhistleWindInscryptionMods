@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -9,7 +10,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_SilentEnsemble_T0131()
         {
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_silentEnsemble", "Chairs",
                 "",
                 atk: 1, hp: 3,

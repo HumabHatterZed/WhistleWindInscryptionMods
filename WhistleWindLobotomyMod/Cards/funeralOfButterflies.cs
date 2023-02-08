@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +19,7 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Insect
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_funeralOfButterflies", "Funeral of the Dead Butterflies",
                 "The coffin is a tribute to the fallen. A memorial to those who can't return home.",
                 atk: 1, hp: 3,
@@ -26,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.funeralOfButterflies, Artwork.funeralOfButterflies_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
         }
     }
 }

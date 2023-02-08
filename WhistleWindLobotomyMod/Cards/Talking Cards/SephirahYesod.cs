@@ -24,13 +24,13 @@ namespace WhistleWindLobotomyMod
             };
             List<CardMetaCategory> metaCategories = new()
             {
-                LobotomyCardHelper.SephirahCard
+                LobotomyCardManager.SephirahCard
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 CardAppearanceBehaviour.Appearance.AnimatedPortrait
             };
-            LobotomyCardHelper.CreateCard(
+            LobotomyCardManager.CreateCard(
                 "wstl_sephirahYesod", "Yesod",
                 "The head of the Information Department. Incompetence is not tolerated.",
                 atk: 0, hp: 1,

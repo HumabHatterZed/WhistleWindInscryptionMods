@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 Tribe.Insect
             };
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_queenBee", "Queen Bee",
                 "A monstrous amalgam of a hive and a bee.",
                 atk: 0, hp: 4,
@@ -28,7 +29,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.queenBee, Artwork.queenBee_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }
 }

@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 Cycler.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_kingOfGreed", "The King of Greed",
                 "",
                 atk: 2, hp: 5,
@@ -33,7 +34,7 @@ namespace WhistleWindLobotomyMod
             {
                 CustomEvolveHelper.specialAbility
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_magicalGirlDiamond", "Magical Girl",
                 "A girl encased in hardened amber. Happiness trapped by greed.",
                 atk: 0, hp: 2,
@@ -41,7 +42,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.magicalGirlDiamond, Artwork.magicalGirlDiamond_emission, pixelTexture: Artwork.magicalGirlDiamond_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw, evolveName: "wstl_kingOfGreed",
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw, evolveName: "wstl_kingOfGreed",
                 customTribe: TribeFae);
         }
     }

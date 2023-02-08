@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 RightfulHeir.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_ozma", "Ozma",
                 "The former ruler of a far away land, now reduced to this.",
                 atk: 1, hp: 1,
@@ -23,8 +24,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.ozma, Artwork.ozma_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
-                modTypes: LobotomyCardHelper.ModCardType.Ruina, customTribe: TribeFae);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
+                modTypes: ModCardType.Ruina, customTribe: TribeFae);
         }
     }
 }

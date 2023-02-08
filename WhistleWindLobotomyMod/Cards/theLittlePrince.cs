@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
             {
                 Spores.ability
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_theLittlePrince", "The Little Prince",
                 "A giant mushroom chunk. A mist of spores surrounds it.",
                 atk: 1, hp: 4,
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.theLittlePrince, Artwork.theLittlePrince_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }
 }

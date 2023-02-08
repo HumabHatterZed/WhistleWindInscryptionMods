@@ -4,6 +4,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -16,7 +17,7 @@ namespace WhistleWindLobotomyMod
                 GroupHealer.ability,
                 Ability.BuffEnemy
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_fleshIdol", "Flesh Idol",
                 "Prayer inevitably ends with the worshipper's despair.",
                 atk: 0, hp: 2,
@@ -24,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.fleshIdol, Artwork.fleshIdol_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Waw,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
                 customTribe: TribeDivine);
         }
     }

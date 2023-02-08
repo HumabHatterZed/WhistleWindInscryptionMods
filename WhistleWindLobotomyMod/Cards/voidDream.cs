@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -19,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 Tribe.Hooved,
                 Tribe.Bird
             };
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_voidDreamRooster", "Void Dream",
                 "Quite the chimera.",
                 atk: 2, hp: 3,
@@ -35,7 +36,7 @@ namespace WhistleWindLobotomyMod
             };
             tribes.Remove(Tribe.Bird);
 
-            LobotomyCardHelper.CreateCard(
+            CreateCard(
                 "wstl_voidDream", "Void Dream",
                 "A sleeping goat. Or is it a sheep?",
                 atk: 1, hp: 1,
@@ -43,7 +44,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.voidDream, Artwork.voidDream_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: LobotomyCardHelper.RiskLevel.Teth,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
                 evolveName: "wstl_voidDreamRooster");
         }
     }

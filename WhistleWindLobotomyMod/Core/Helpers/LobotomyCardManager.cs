@@ -11,7 +11,7 @@ using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core.Helpers
 {
-    public static class LobotomyCardHelper // Base code taken from GrimoraMod and SigilADay_julienperge
+    public static class LobotomyCardManager // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         [Flags]
         public enum ModCardType
@@ -44,11 +44,20 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             TargetedStatsSigils
         }
 
+        public static List<CardInfo> AllLobotomyCards = new();
+        public static List<CardInfo> ObtainableLobotomyCards = new();
+
         public static CardMetaCategory SephirahCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "SephirahCard");
         public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
         public static CardMetaCategory CannotGainSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGainSigils");
         public static CardMetaCategory CannotBoostStats = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotBoostStats");
         public static CardMetaCategory CannotCopyCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotCopyCard");
+
+        public static Tribe TribeDivine;
+        public static Tribe TribeFae;
+        public static Tribe TribeHumanoid;
+        public static Tribe TribeMachine;
+        public static Tribe TribePlant;
 
         // Cards
         public static void CreateCard(
@@ -163,7 +172,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
 
             AllLobotomyCards.Add(cardInfo);
 
-            Log.LogInfo($"{name:.16f} | {atk:.2f<}/{hp:.2f} | {blood}B :: x{bones} :: E{energy}");
+            //Log.LogInfo($"{name:.16f} | {atk:.2f<}/{hp:.2f} | {blood}B :: x{bones} :: E{energy}");
         }
 
         private static CardInfo SetNodeRestrictions(this CardInfo card, bool give, bool gain, bool buff, bool copy)
