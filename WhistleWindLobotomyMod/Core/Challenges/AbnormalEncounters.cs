@@ -42,15 +42,15 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         [HarmonyPostfix]
         public static void ClearVanillaEncounters(ref GameFlowManager __instance)
         {
-            if (__instance != null && (AscensionSaveData.Data.ChallengeIsActive(Id) || !SaveFile.IsAscension && LobotomyConfigManager.Instance.AbnormalBattles))
+            if (__instance != null)
             {
-                ChallengeActivationUI.TryShowActivation(Id);
-                RegionProgression.Instance.regions[0].encounters.Clear();
-                RegionProgression.Instance.regions[1].encounters.Clear();
-                RegionProgression.Instance.regions[2].encounters.Clear();
-                RegionProgression.Instance.regions[0].AddEncounters(ModEncounters[0].ToArray());
-                RegionProgression.Instance.regions[1].AddEncounters(ModEncounters[1].ToArray());
-                RegionProgression.Instance.regions[2].AddEncounters(ModEncounters[2].ToArray());
+                if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id)
+                    : LobotomyConfigManager.Instance.AbnormalBattles)
+                {
+                    ChallengeActivationUI.TryShowActivation(Id);
+                    for (int i = 0; i < 3; i++)
+                        RegionProgression.Instance.regions[i].encounters.RemoveAll(e => !ModEncounters[i].Contains(e));
+                }
             }
         }
     }

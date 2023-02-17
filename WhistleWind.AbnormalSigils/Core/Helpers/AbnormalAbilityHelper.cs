@@ -44,7 +44,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             byte[] texture, byte[] gbcTexture,
             string rulebookName, string rulebookDescription, string dialogue, int powerLevel = 0,
             bool special = false, bool unobtainable = false)
-            where T : BetterActivatedAbilityBehaviour
+            where T : ExtendedActivatedAbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.CheckModularity(unobtainable, special, false, AbilityGroup.Activated);

@@ -15,6 +15,8 @@ some cards added by this mod will gain an additional tribe taken from Tribal Lib
 ## 💌 Credits/Acknowledgements
 Code/Artwork - WhistleWind
 
+Advising/Testing - Orochi Umbra
+
 ## ⚖️ Changelog -- Latest Update - v1.0.0; Initial release (?/??/202?)
 To see the details of the current update, please see the FULL_CHANGELOG (included with the mod file when you download it)
 

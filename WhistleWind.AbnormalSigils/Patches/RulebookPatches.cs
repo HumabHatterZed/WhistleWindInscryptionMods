@@ -1,5 +1,8 @@
-﻿using DiskCardGame;
+﻿/*using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Card;
+using System.Linq;
+using WhistleWind.Core.AbilityClasses;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
 namespace WhistleWind.AbnormalSigils.Patches
@@ -15,24 +18,32 @@ namespace WhistleWind.AbnormalSigils.Patches
             {
                 if (!shown)
                 {
-                    AbilitiesUtil.GetInfo(NeuteredLatch.ability).rulebookDescription = NeuteredLatchStart + "2" + NeuteredLatchEnd;
-                    AbilitiesUtil.GetInfo(RightfulHeir.ability).rulebookDescription = RightfulHeirStart + "3" + RightfulHeirEnd;
+                    foreach (AbilityManager.FullAbility ab in AbilityManager.AllAbilities.Where(a => a.AbilityBehavior != null))
+                    {
+                        if (ab.AbilityBehavior.IsAssignableFrom(typeof(BetterActivatedAbilityBehaviour)))
+                        {
+                            Log.LogInfo($"trigger");
+                            AbilitiesUtil.GetInfo(ab.Id).rulebookDescription = ab.Info.rulebookDescription;
+                        }
+                    }
                 }
-
                 return true;
             }
             [HarmonyPrefix, HarmonyPatch(nameof(RuleBookController.OpenToAbilityPage))]
             public static bool OpenToAbilityPage(PlayableCard card)
             {
-                if (card != null)
+                Log.LogInfo($"has activate : {card.GetComponent<BetterActivatedAbilityBehaviour>() != null}");
+                if (card != null && card.GetComponent<BetterActivatedAbilityBehaviour>() != null)
                 {
+                    foreach (AbilityManager.FullAbility ab in AbilityManager.AllAbilities.Where(a => a.AbilityBehavior != null))
                     if (card.HasAbility(NeuteredLatch.ability))
                         AbilitiesUtil.GetInfo(NeuteredLatch.ability).rulebookDescription = NeuteredLatchStart + card.GetComponent<NeuteredLatch>().BonesCost.ToString() + NeuteredLatchEnd;
                     else if (card.HasAbility(RightfulHeir.ability))
-                        AbilitiesUtil.GetInfo(NeuteredLatch.ability).rulebookDescription = RightfulHeirStart + card.GetComponent<RightfulHeir>().BonesCost.ToString() + RightfulHeirEnd;
+                        AbilitiesUtil.GetInfo(RightfulHeir.ability).rulebookDescription = RightfulHeirStart + card.GetComponent<RightfulHeir>().BonesCost.ToString() + RightfulHeirEnd;
                 }
                 return true;
             }
         }
     }
 }
+*/

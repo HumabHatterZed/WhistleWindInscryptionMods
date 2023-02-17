@@ -285,13 +285,8 @@ namespace WhistleWindLobotomyMod
         private void AddEncounters()
         {
             BuildEncounters();
-
-            RegionProgression.Instance.regions[0].encounters.Clear();
-            RegionProgression.Instance.regions[1].encounters.Clear();
-            RegionProgression.Instance.regions[2].encounters.Clear();
-            RegionProgression.Instance.regions[0].AddEncounters(ModEncounters[0].ToArray());
-            RegionProgression.Instance.regions[1].AddEncounters(ModEncounters[1].ToArray());
-            RegionProgression.Instance.regions[2].AddEncounters(ModEncounters[2].ToArray());
+            for (int i = 0; i < 3; i++)
+                RegionProgression.Instance.regions[i].AddEncounters(ModEncounters[i].ToArray());
         }
 
         public static AssetBundle LoadBundle(string path)

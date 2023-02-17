@@ -35,11 +35,12 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_BottledExpressHellTrain", "Express Train to Hell",
                 "When the time comes, the train will sound its mighty horn.",
-                atk: 0, hp: 1,
+                atk: 0, hp: 0,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.expressHellTrain, Artwork.expressHellTrain_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: new(), traits: new(),
+                spellType: SpellType.Global);
         }
     }
 }

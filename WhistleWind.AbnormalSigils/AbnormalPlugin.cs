@@ -105,8 +105,11 @@ namespace WhistleWind.AbnormalSigils
             // v1.1
             Ability_Alchemist();
             Ability_Nettles();
-            Ability_Spores();
+
             Ability_SporeDamage();
+            Ability_FungalInfector();
+            Rulebook_Spore();
+
             Ability_Witness();
             Ability_Corrector();
             // v2.0

@@ -26,6 +26,9 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
         public override Ability LatchAbility => Neutered.ability;
         public override int StartingHealthCost => 2;
+
+        public override bool CardSlotCanBeTargeted(CardSlot slot) => slot.Card != null && slot.Card != base.Card;
+
         public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {
             if (slot != null && slot.Card != null)

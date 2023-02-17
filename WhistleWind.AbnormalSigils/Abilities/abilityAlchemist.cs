@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace WhistleWind.AbnormalSigils
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
-    public class Alchemist : BetterActivatedAbilityBehaviour
+    public class Alchemist : ExtendedActivatedAbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -7,19 +7,6 @@ using WhistleWind.AbnormalSigils.Properties;
 
 namespace WhistleWind.AbnormalSigils
 {
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Spores()
-        {
-            const string rulebookName = "Fungal Infector";
-            const string rulebookDescription = "At the end of the owner's turn, adjacent cards gain 1 Spore. Cards with Spore take damage equal to their Spore at turn's end and create a Spore Mold Creature in their slot on death. A Spore Mold Creature's Power and Health are equal to the killed card's Spores.";
-            const string dialogue = "Even if this turns out to be a curse, they will love this curse like a blessing.";
-            Spores.ability = AbnormalAbilityHelper.CreateAbility<Spores>(
-                Artwork.sigilSpores, Artwork.sigilSpores_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: false, opponent: false, canStack: false).Id;
-        }
-    }
     public class Spores : AbilityBehaviour
     {
         public static Ability ability;
@@ -52,6 +39,31 @@ namespace WhistleWind.AbnormalSigils
             }
             if (gaveSpore)
                 base.LearnAbility(0.4f);
+        }
+    }
+    public class RulebookEntrySpore : AbilityBehaviour
+    {
+        public static Ability ability;
+        public override Ability Ability => ability;
+    }
+
+    public partial class AbnormalPlugin
+    {
+        private void Ability_FungalInfector()
+        {
+            const string rulebookName = "Fungal Infector";
+            const string rulebookDescription = "At the end of the owner's turn, adjacent cards gain 1 Spore.";
+            const string dialogue = "Even if this turns out to be a curse, they will love this curse like a blessing.";
+            Spores.ability = AbnormalAbilityHelper.CreateAbility<Spores>(
+                Artwork.sigilSpores, Artwork.sigilSpores_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                modular: false, opponent: false, canStack: false).Id;
+        }
+        private void Rulebook_Spore()
+        {
+            const string rulebookName = "Spore";
+            const string rulebookDescription = "At the end of the owner's turn, [creature] will take [spore:X] damage. When this card dies, create a Spore Mold Creature in its place with [spore:X] Power and Health.";
+            RulebookEntrySpore.ability = AbnormalAbilityHelper.CreateRulebookAbility<RulebookEntrySpore>(rulebookName, rulebookDescription).Id;
         }
     }
 }

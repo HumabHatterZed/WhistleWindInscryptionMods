@@ -8,12 +8,10 @@ namespace WhistleWind.AbnormalSigils
 {
     public partial class AbnormalPlugin
     {
-        public const string NeuteredLatchStart = "Once per turn, pay ";
-        public const string NeuteredLatchEnd = " Bones to choose a creature to gain the Neutered sigil, then increase this sigil's activation cost by 2 Bones.";
         private void Ability_NeuteredLatch()
         {
             const string rulebookName = "Neutered Latch";
-            const string rulebookDescription = NeuteredLatchStart + "2" + NeuteredLatchEnd;
+            const string rulebookDescription = "Once per turn, pay [sigilcost:2 Bones] to choose a creature to gain the Neutered sigil, then increase this sigil's activation cost by 2 Bones.";
             const string dialogue = "The will to fight has been lost.";
             NeuteredLatch.ability = AbnormalAbilityHelper.CreateActivatedAbility<NeuteredLatch>(
                 Artwork.sigilNeuteredLatch, Artwork.sigilNeuteredLatch_pixel,
@@ -26,11 +24,8 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
         public override Ability LatchAbility => Neutered.ability;
         public override int StartingBonesCost => 2;
+        public override int OnActivateBonesCostMod => 2;
 
-        public override IEnumerator OnPostValidTargetSelected()
-        {
-            base.bonesCostMod += 2;
-            yield break;
-        }
+        public override bool CardSlotCanBeTargeted(CardSlot slot) => slot.Card != null && slot.Card != base.Card;
     }
 }

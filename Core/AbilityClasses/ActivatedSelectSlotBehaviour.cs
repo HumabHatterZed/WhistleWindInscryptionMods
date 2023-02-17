@@ -8,27 +8,23 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using InscryptionCommunityPatch;
 using InscryptionCommunityPatch.Card;
+using InscryptionAPI.Card;
 
 namespace WhistleWind.Core.AbilityClasses
 {
     // Logic for abilities that have the player select a slot to be targeted
     // By default acts like Latch but can be overriden as needed
-    public abstract class ActivatedSelectSlotBehaviour : BetterActivatedAbilityBehaviour
+    public abstract class ActivatedSelectSlotBehaviour : ExtendedActivatedAbilityBehaviour
     {
-        // store claw prefab here
-        private static GameObject _clawPrefab;
-
-        // claw prefab we'll be referencing
-        private static GameObject ClawPrefab
+        private static GameObject _clawPrefab; // store claw prefab here
+        private static GameObject ClawPrefab // claw prefab we'll be referencing
         {
             get
             {
-                // use the Latch Fix's claw prefab if it's not null
-                if (Act1LatchAbilityFix._clawPrefab != null)
+                if (Act1LatchAbilityFix._clawPrefab != null) // use the Latch Fix's claw prefab if it's not null
                     return Act1LatchAbilityFix._clawPrefab;
 
-                // otherwise use the default
-                if (_clawPrefab == null)
+                if (_clawPrefab == null) // otherwise use the default
                     _clawPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/LatchClaw");
 
                 return _clawPrefab;
@@ -37,19 +33,37 @@ namespace WhistleWind.Core.AbilityClasses
         private static void AimWeaponAnim(GameObject tweenObj, Vector3 target) => Tween.LookAt(tweenObj.transform, target, Vector3.up, 0.075f, 0.0f, Tween.EaseInOut);
 
         public CardSlot selectedSlot = null;
+        public List<CardSlot> AllTargets
+        {
+            get
+            {
+                List<CardSlot> allSlots = Singleton<BoardManager>.Instance.AllSlotsCopy;
+                allSlots.RemoveAll(x => !CardSlotCanBeTargeted(x));
+                return allSlots;
+            }
+        }
+        public List<CardSlot> ValidTargets
+        {
+            get
+            {
+                List<CardSlot> allTargets = new(AllTargets);
+                allTargets.RemoveAll(InvalidTargets());
+                return allTargets;
+            }
+        }
 
-        // Latches nothing by default
-        public virtual Ability LatchAbility => Ability.None;
-        public virtual bool TargetAll => true;
-        public virtual bool TargetAllies => false;
+        // determines what cards can be interacted with when selecting a target, NOT what targets are actually valid
+        public abstract bool CardSlotCanBeTargeted(CardSlot slot);
+
         public virtual string NoTargetsDialogue => "There are no cards you can choose.";
         public virtual string NullTargetDialogue => "You can't target the air.";
         public virtual string SelfTargetDialogue => "You must choose one of your other cards.";
         public virtual string InvalidTargetDialogue => "It's already latched...";
 
+        public virtual Ability LatchAbility => Ability.None; // Latches nothing by default
         // see if we can target empty card slots (does GetValidTargets allow empty slots?)
         private bool ShowLatch => LatchAbility != Ability.None;
-        private bool CanTargetNull => GetValidTargets().Exists((CardSlot s) => s.Card == null);
+        private bool CanTargetNull => ValidTargets.Exists((CardSlot s) => s.Card == null);
 
         // by default, can always activate
         public virtual int TurnDelay => -1;
@@ -77,29 +91,29 @@ namespace WhistleWind.Core.AbilityClasses
         {
             yield break;
         }
-        public virtual bool CardIsNotValid(PlayableCard card)
+        public virtual bool CardIsNotValid(PlayableCard card) // By default returns whether the card is latched
         {
-            // By default returns whether the card is latched
             return card.TemporaryMods.Exists((CardModificationInfo m) => m.fromLatch);
         }
         private bool CardSlotIsNotValid(CardSlot slot)
         {
             if (slot.Card != null)
                 return CardIsNotValid(slot.Card);
+
             return !CanTargetNull;
         }
-        public override bool RespondsToUpkeep(bool playerUpkeep)
-        {
-            return base.Card.OpponentCard != playerUpkeep;
-        }
+        public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             // if turnDelay is above 0, reduce it by 1
             if (turnDelay > 0)
             {
                 turnDelay--;
-                base.Card.Anim.LightNegationEffect();
-                yield return new WaitForSeconds(0.2f);
+                if (turnDelay == 0)
+                {
+                    base.Card.Anim.LightNegationEffect();
+                    yield return new WaitForSeconds(0.2f);
+                }
             }
         }
         public override bool CanActivate()
@@ -239,9 +253,7 @@ namespace WhistleWind.Core.AbilityClasses
             instance.VisualizeStartSniperAbility(base.Card.Slot);
             visualiser?.VisualizeStartSniperAbility(base.Card.Slot);
 
-            List<CardSlot> possibleTargets = GetInitialTargets();
-
-            List<CardSlot> targetSlots = GetValidTargets();
+            List<CardSlot> targetSlots = ValidTargets;
 
             CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
 
@@ -252,7 +264,7 @@ namespace WhistleWind.Core.AbilityClasses
             }
             selectedSlot = null;
 
-            yield return Singleton<BoardManager>.Instance.ChooseTarget(possibleTargets, targetSlots, delegate (CardSlot s)
+            yield return Singleton<BoardManager>.Instance.ChooseTarget(ValidTargets, targetSlots, delegate (CardSlot s)
             {
                 selectedSlot = s;
                 instance.VisualizeConfirmSniperAbility(s);
@@ -270,8 +282,8 @@ namespace WhistleWind.Core.AbilityClasses
         }
         private IEnumerator OpponentSelectTarget(CombatPhaseManager instance, WstlPart1SniperVisualiser visualiser)
         {
-            List<CardSlot> validTargets = GetValidTargets();
-            validTargets.RemoveAll((CardSlot x) => x.Card == null || x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card);
+            List<CardSlot> validTargets = ValidTargets;
+
             yield return new WaitForSeconds(0.3f);
             yield return this.AISelectTarget(validTargets, delegate (CardSlot s)
             {
@@ -309,7 +321,7 @@ namespace WhistleWind.Core.AbilityClasses
             if (validTargets.Count > 0)
             {
                 // if latch isn't None return default bool, other return whether we're targeting allies or not
-                bool positiveAbility = this.LatchAbility != Ability.None ? AbilitiesUtil.GetInfo(this.LatchAbility).PositiveEffect : TargetAllies;
+                bool positiveAbility = this.LatchAbility != Ability.None ? AbilitiesUtil.GetInfo(this.LatchAbility).PositiveEffect : ValidTargets.Any(x => x.IsPlayerSlot == base.Card.Slot.IsPlayerSlot);
                 validTargets.Sort((CardSlot a, CardSlot b) => this.AIEvaluateTarget(b.Card, positiveAbility) - this.AIEvaluateTarget(a.Card, positiveAbility));
                 chosenCallback(validTargets[0]);
                 yield return new WaitForSeconds(0.1f);
@@ -335,25 +347,11 @@ namespace WhistleWind.Core.AbilityClasses
                 num += 1000;
             return num;
         }
-        public bool ValidTargetsExist() => GetValidTargets().Count > 0;
+        public bool ValidTargetsExist() => ValidTargets.Count > 0;
         public virtual Predicate<CardSlot> InvalidTargets()
         {
             // by default remove empty slots, dead cards, invalid cards, or this card
-            return (CardSlot x) => x.Card == null || x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card;
-        }
-        private List<CardSlot> GetValidTargets()
-        {
-            List<CardSlot> validSlots = GetInitialTargets();
-            validSlots.RemoveAll(InvalidTargets());
-            return validSlots;
-        }
-        public List<CardSlot> GetInitialTargets()
-        {
-            if (TargetAll)
-                return Singleton<BoardManager>.Instance.AllSlotsCopy;
-            if (TargetAllies)
-                return base.Card.OpponentCard ? Singleton<BoardManager>.Instance.OpponentSlotsCopy : Singleton<BoardManager>.Instance.PlayerSlotsCopy;
-            return base.Card.OpponentCard ? Singleton<BoardManager>.Instance.PlayerSlotsCopy : Singleton<BoardManager>.Instance.OpponentSlotsCopy;
+            return (CardSlot x) => x.Card == null || x.Card.Dead || CardIsNotValid(x.Card) || x.Card == base.Card;
         }
     }
 }

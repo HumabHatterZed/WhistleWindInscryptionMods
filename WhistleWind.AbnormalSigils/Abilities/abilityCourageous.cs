@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Courageous()
         {
             const string rulebookName = "Courageous";
-            const string rulebookDescription = "If an adjacent card has more than 1 Health, it loses 1 Health and gains 1 Power. This effect can activate twice for a maximum of -2 Health and +2 Power. Stat changes persist until battle's end.";
+            const string rulebookDescription = "Adjacent creatures lose up to 2 Health. For each point of Heath lost this way, the affected creature gains 1 Power. This effect cannot kill cards.";
             const string dialogue = "Life is only given to those who don't fear death.";
 
             Courageous.ability = AbnormalAbilityHelper.CreateAbility<Courageous>(

@@ -9,6 +9,7 @@ using InscryptionAPI.Pelts.Extensions;
 using InscryptionAPI.Nodes;
 using System;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.AbnormalSigils;
 
 namespace ModDebuggingMod
 {
@@ -18,7 +19,7 @@ namespace ModDebuggingMod
         {
             List<Ability> abilities = new()
             {
-                Ability.Sacrificial
+                RightfulHeir.ability
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -39,7 +40,7 @@ namespace ModDebuggingMod
             CardHelper.CreateCard(
                 "wstl", "wstlcard", "Debug",
                 "You shouldn't see this.",
-                0, 10, 0, 0, 0,
+                5, 10, 0, 0, 0,
                 null, null,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: traits);

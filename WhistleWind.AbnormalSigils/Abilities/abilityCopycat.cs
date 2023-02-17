@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Copycat()
         {
             const string rulebookName = "Copycat";
-            const string rulebookDescription = "When [creature] is played, become a copy of the opposing card if it exists. There is a chance that the copy will be imperfect.";
+            const string rulebookDescription = "When [creature] is played, become a copy of the opposing card if it exists. The copy may be imperfect.";
             const string dialogue = "A near perfect impersonation.";
             Copycat.ability = AbnormalAbilityHelper.CreateAbility<Copycat>(
                 Artwork.sigilCopycat, Artwork.sigilCopycat_pixel,
@@ -28,10 +28,7 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToResolveOnBoard()
-        {
-            return true;
-        }
+        public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard()
         {
             yield return base.PreSuccessfulTriggerSequence();
@@ -43,12 +40,7 @@ namespace WhistleWind.AbnormalSigils
                 yield return new WaitForSeconds(0.4f);
                 if (base.Card.Health < 1)
                 {
-                    // prevent potential softlock situations
-                    if (base.Card.HasAbility(Ability.CorpseEater) && base.Card.HasAnyOfAbilities(Ability.DrawCopy, Ability.DrawCopyOnDeath))
-                        yield return base.Card.DieTriggerless();
-                    else
-                        yield return base.Card.Die(false);
-
+                    yield return base.Card.Die(true);
                     yield return new WaitForSeconds(0.4f);
                 }
                 yield return AbnormalDialogueManager.PlayDialogueEvent("CopycatFail");

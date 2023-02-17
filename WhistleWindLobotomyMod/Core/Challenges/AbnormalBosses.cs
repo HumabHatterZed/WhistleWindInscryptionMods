@@ -57,14 +57,16 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         public static bool ReplaceBossEncounter(EncounterData encounterData, ref Opponent __result)
         {
             // breaks if challenge is not active or if opponent is not supported
-            if (!AscensionSaveData.Data.ChallengeIsActive(Id) || !SaveFile.IsAscension && !LobotomyConfigManager.Instance.AbnormalBosses)
+            if (SaveFile.IsAscension ? !AscensionSaveData.Data.ChallengeIsActive(Id) : !LobotomyConfigManager.Instance.AbnormalBosses)
                 return true;
 
             if (!SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
                 return true;
 
-            GameObject gameObject = new();
-            gameObject.name = "Opponent";
+            GameObject gameObject = new()
+            {
+                name = "Opponent"
+            };
             Opponent.Type opponentType = encounterData.opponentType;
             LobotomyPlugin.Log.LogDebug($"Replacing opponent: {opponentType}");
             Opponent opponent = opponentType switch
@@ -106,14 +108,12 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         public static bool ReplaceSequencers(string specialBattleId, ref TurnManager __instance)
         {
             // if challenge not active and 
-            if (!AscensionSaveData.Data.ChallengeIsActive(Id) || !SaveFile.IsAscension && !LobotomyConfigManager.Instance.AbnormalBosses)
-            {
+            if (SaveFile.IsAscension ? !AscensionSaveData.Data.ChallengeIsActive(Id) : !LobotomyConfigManager.Instance.AbnormalBosses)
                 return true;
-            }
+
             if (!OPPONENT_IDS.Contains(specialBattleId))
-            {
                 return true;
-            }
+
             LobotomyPlugin.Log.LogDebug($"Replacing special ID: {specialBattleId}");
             if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.ProspectorBoss))
             {

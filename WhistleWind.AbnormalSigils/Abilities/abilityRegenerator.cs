@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Regenerator()
         {
             const string rulebookName = "Regenerator";
-            const string rulebookDescription = "Adjacent cards gain 1 Health on upkeep.";
+            const string rulebookDescription = "Adjacent cards gain 1 Health at the start of the owner's turn.";
             const string dialogue = "Wounds heal, but the scars remain.";
 
             Regenerator.ability = AbnormalAbilityHelper.CreateAbility<Regenerator>(

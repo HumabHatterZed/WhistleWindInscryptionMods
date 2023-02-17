@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_SerpentsNest()
         {
             const string rulebookName = "Serpent's Nest";
-            const string rulebookDescription = "When [creature] is struck, a Worm is created in your hand and the striker is dealt 1 damage. [define:wstl_theNakedWorm]";
+            const string rulebookDescription = "When [creature] is struck, the striker is dealt 1 damage and a Worm is created in your hand. [define:wstl_theNakedWorm]";
             const string dialogue = "The infection spreads.";
 
             SerpentsNest.ability = AbnormalAbilityHelper.CreateAbility<SerpentsNest>(
