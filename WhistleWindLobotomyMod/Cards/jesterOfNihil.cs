@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Nihil.ability
+                ReturnToNihil.ability
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, modTypes: ModCardType.Ruina | ModCardType.EventCard,
-                customTribe: TribeFae);
+                statIcon: Nihil.Icon, customTribe: TribeFae);
         }
     }
 }

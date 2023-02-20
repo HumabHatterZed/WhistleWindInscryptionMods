@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
         private static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result)
         {
-            __result.RemoveAll(x => x.HasCardMetaCategory(LobotomyCardManager.CannotGiveSigils)
+            __result.RemoveAll(x => x.HasCardMetaCategory(AbnormalPlugin.CannotGiveSigils)
             || x.HasSpecialAbility(Mimicry.specialAbility)
             || x.HasAnyOfAbilities(TheTrain.ability, TimeMachine.ability));
         }
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForHost))]
         private static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
         {
-            __result.RemoveAll(x => x.HasCardMetaCategory(LobotomyCardManager.CannotGainSigils) ||
+            __result.RemoveAll(x => x.HasCardMetaCategory(AbnormalPlugin.CannotGainSigils) ||
             x.HasSpecialAbility(Mimicry.specialAbility) ||
             x.HasAnyOfAbilities(TheTrain.ability, TimeMachine.ability));
         }
@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CardStatBoostSequencer.GetValidCards))]
         private static void RemoveFromValidCardsForStatBoost(ref List<CardInfo> __result)
         {
-            __result.RemoveAll(x => x.HasCardMetaCategory(LobotomyCardManager.CannotBoostStats) ||
+            __result.RemoveAll(x => x.HasCardMetaCategory(AbnormalPlugin.CannotBoostStats) ||
             x.HasSpecialAbility(Mimicry.specialAbility) ||
             x.HasAnyOfAbilities(TheTrain.ability, TimeMachine.ability));
         }
@@ -44,11 +44,10 @@ namespace WhistleWindLobotomyMod.Patches
     [HarmonyPatch(typeof(CopyCardSequencer))]
     internal class CopyCardPatch
     {
-        // Prevents card from being copied by Goo (onePerDeck cards are removed automatically)
         [HarmonyPostfix, HarmonyPatch(nameof(CopyCardSequencer.GetValidCards))]
         private static void RemoveFromValidCardsForCopyCard(ref List<CardInfo> __result)
         {
-            __result.RemoveAll(x => x.HasCardMetaCategory(LobotomyCardManager.CannotCopyCard) ||
+            __result.RemoveAll(x => x.HasCardMetaCategory(AbnormalPlugin.CannotCopyCard) ||
             x.HasSpecialAbility(Mimicry.specialAbility) ||
             x.HasAnyOfAbilities(TheTrain.ability, TimeMachine.ability));
         }

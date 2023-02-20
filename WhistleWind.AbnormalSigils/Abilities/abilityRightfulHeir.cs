@@ -7,6 +7,26 @@ using WhistleWind.Core.AbilityClasses;
 
 namespace WhistleWind.AbnormalSigils
 {
+    public class RightfulHeir : ActivatedSelectSlotBehaviour
+    {
+        public static Ability ability;
+        public override Ability Ability => ability;
+
+        public override string InvalidTargetDialogue => "That card is fine as it is.";
+        public override int TurnDelay => 1;
+        public override int StartingBonesCost => 3;
+        public override int OnActivateBonesCostMod => 1;
+        public override bool CardSlotCanBeTargeted(CardSlot slot) => slot.Card != base.Card;
+        public override bool CardIsNotValid(PlayableCard card) => card.Info.name.Contains("ozmaPumpkin");
+
+        public override bool RespondsToUpkeep(bool playerUpkeep) => false;
+        public override IEnumerator OnValidTargetSelected(CardSlot slot)
+        {
+            CardInfo info = CardLoader.GetCardByName("wstl_ozmaPumpkin");
+            yield return slot.Card.TransformIntoCard(info);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
     public partial class AbnormalPlugin
     {
         private void Ability_RightfulHeir()
@@ -18,25 +38,5 @@ namespace WhistleWind.AbnormalSigils
                 Artwork.sigilRightfulHeir, Artwork.sigilRightfulHeir_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
-    }
-    public class RightfulHeir : ActivatedSelectSlotBehaviour
-    {
-        public static Ability ability;
-        public override Ability Ability => ability;
-
-        public override string InvalidTargetDialogue => "That card is fine as it is.";
-        public override int TurnDelay => 1;
-        public override int StartingBonesCost => 3;
-        public override int OnActivateBonesCostMod => 1;
-        public override bool CardSlotCanBeTargeted(CardSlot slot) => slot.Card != base.Card;
-        
-        public override bool RespondsToUpkeep(bool playerUpkeep) => false;
-        public override IEnumerator OnValidTargetSelected(CardSlot slot)
-        {
-            CardInfo info = CardLoader.GetCardByName("wstl_ozmaPumpkin");
-            yield return slot.Card.TransformIntoCard(info);
-            yield return new WaitForSeconds(0.5f);
-        }
-        public override bool CardIsNotValid(PlayableCard card) => card.Info.name.Contains("ozmaPumpkin");
     }
 }

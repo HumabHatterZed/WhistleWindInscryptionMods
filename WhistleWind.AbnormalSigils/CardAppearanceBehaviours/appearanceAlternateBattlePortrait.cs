@@ -1,16 +1,16 @@
 ﻿using DiskCardGame;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.AbnormalSigils
 {
-    public partial class LobotomyPlugin
+    public partial class AbnormalPlugin
     {
         private void Appearance_BlackFish()
         {
-            BlackFish.appearance = CardHelper.CreateAppearance<BlackFish>(pluginGuid, "BlackFish").Id;
+            AlternateBattlePortrait.appearance = CardHelper.CreateAppearance<AlternateBattlePortrait>(pluginGuid, "AlternateBattlePortrait").Id;
         }
     }
-    public class BlackFish : CardAppearanceBehaviour
+    public class AlternateBattlePortrait : CardAppearanceBehaviour
     {
         public static Appearance appearance;
         public override void ApplyAppearance()

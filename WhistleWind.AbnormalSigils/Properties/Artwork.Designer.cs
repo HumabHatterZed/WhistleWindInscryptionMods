@@ -63,6 +63,116 @@ namespace WhistleWind.AbnormalSigils.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] costSpores {
+            get {
+                object obj = ResourceManager.GetObject("costSpores", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] costSpores_10 {
+            get {
+                object obj = ResourceManager.GetObject("costSpores_10", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] costSpores_2 {
+            get {
+                object obj = ResourceManager.GetObject("costSpores_2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] costSpores_3 {
+            get {
+                object obj = ResourceManager.GetObject("costSpores_3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] costSpores_4 {
+            get {
+                object obj = ResourceManager.GetObject("costSpores_4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] costSpores_5 {
+            get {
+                object obj = ResourceManager.GetObject("costSpores_5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] costSpores_6 {
+            get {
+                object obj = ResourceManager.GetObject("costSpores_6", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] costSpores_7 {
+            get {
+                object obj = ResourceManager.GetObject("costSpores_7", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] costSpores_8 {
+            get {
+                object obj = ResourceManager.GetObject("costSpores_8", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] costSpores_9 {
+            get {
+                object obj = ResourceManager.GetObject("costSpores_9", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] costSpores_pixel {
+            get {
+                object obj = ResourceManager.GetObject("costSpores_pixel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] dreamOfABlackSwanBrother1 {
             get {
                 object obj = ResourceManager.GetObject("dreamOfABlackSwanBrother1", resourceCulture);
@@ -1033,6 +1143,26 @@ namespace WhistleWind.AbnormalSigils.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] sigilReturnToNihil {
+            get {
+                object obj = ResourceManager.GetObject("sigilReturnToNihil", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sigilReturnToNihil_pixel {
+            get {
+                object obj = ResourceManager.GetObject("sigilReturnToNihil_pixel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] sigilRightfulHeir {
             get {
                 object obj = ResourceManager.GetObject("sigilRightfulHeir", resourceCulture);
@@ -1166,6 +1296,26 @@ namespace WhistleWind.AbnormalSigils.Properties {
         internal static byte[] sigilSpores_pixel {
             get {
                 object obj = ResourceManager.GetObject("sigilSpores_pixel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sigilSporogenic {
+            get {
+                object obj = ResourceManager.GetObject("sigilSporogenic", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sigilSporogenic_pixel {
+            get {
+                object obj = ResourceManager.GetObject("sigilSporogenic_pixel", resourceCulture);
                 return ((byte[])(obj));
             }
         }

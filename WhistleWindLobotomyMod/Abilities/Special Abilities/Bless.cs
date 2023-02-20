@@ -159,7 +159,7 @@ namespace WhistleWindLobotomyMod
         {
             this.UpdatePortrait();
             if (LobotomyConfigManager.Instance.NumOfBlessings >= 11)
-                base.PlayableCard.ApplyAppearanceBehaviours(new() { ForcedWhite.appearance });
+                base.PlayableCard.ApplyAppearanceBehaviours(new() { ForcedWhiteEmission.appearance });
         }
 
         public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)

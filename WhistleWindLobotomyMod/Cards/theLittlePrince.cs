@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Spores.ability
+                Sporogenic.ability
             };
             CreateCard(
                 "wstl_theLittlePrince", "The Little Prince",

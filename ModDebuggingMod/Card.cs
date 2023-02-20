@@ -19,7 +19,7 @@ namespace ModDebuggingMod
         {
             List<Ability> abilities = new()
             {
-                RightfulHeir.ability
+                Sporogenic.ability
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -40,7 +40,7 @@ namespace ModDebuggingMod
             CardHelper.CreateCard(
                 "wstl", "wstlcard", "Debug",
                 "You shouldn't see this.",
-                5, 10, 0, 0, 0,
+                0, 10, 0, 0, 0,
                 null, null,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: traits);

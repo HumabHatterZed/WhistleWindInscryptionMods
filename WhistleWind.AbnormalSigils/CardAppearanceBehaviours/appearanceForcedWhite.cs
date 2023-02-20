@@ -1,18 +1,18 @@
 ﻿using DiskCardGame;
 using WhistleWind.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.AbnormalSigils
 {
-    public partial class LobotomyPlugin
+    public partial class AbnormalPlugin
     {
         private void Appearance_WhiteEmission()
         {
-            ForcedWhite.appearance = CardHelper.CreateAppearance<ForcedWhite>(pluginGuid, "ForcedWhite").Id;
+            ForcedWhiteEmission.appearance = CardHelper.CreateAppearance<ForcedWhiteEmission>(pluginGuid, "ForcedWhiteEmission").Id;
         }
     }
-    public class ForcedWhite : CardAppearanceBehaviour
+    public class ForcedWhiteEmission : CardAppearanceBehaviour
     {
-        public static CardAppearanceBehaviour.Appearance appearance;
+        public static Appearance appearance;
         public override void ApplyAppearance()
         {
             base.Card.RenderInfo.forceEmissivePortrait = true;

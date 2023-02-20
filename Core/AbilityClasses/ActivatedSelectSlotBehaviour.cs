@@ -105,8 +105,7 @@ namespace WhistleWind.Core.AbilityClasses
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            // if turnDelay is above 0, reduce it by 1
-            if (turnDelay > 0)
+            if (turnDelay > 0) // if turnDelay is above 0, reduce it by 1
             {
                 turnDelay--;
                 if (turnDelay == 0)
@@ -116,14 +115,7 @@ namespace WhistleWind.Core.AbilityClasses
                 }
             }
         }
-        public override bool CanActivate()
-        {
-            // If turnDelay is negative, can always activate
-            if (turnDelay < 0)
-                return true;
-
-            return ValidTargetsExist();
-        }
+        public override bool CanActivate() => turnDelay <= 0;
         public override IEnumerator Activate()
         {
             yield return base.PreSuccessfulTriggerSequence();

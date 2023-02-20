@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Properties;
 using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance
+                ForcedWhiteEmission.appearance
             };
             CreateCard(
                 "wstl_hundredsGoodDeeds", "One Sin and Hundreds of Good Deeds",
@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.hundredsGoodDeeds, Artwork.hundredsGoodDeeds_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances);
+                appearances: appearances, modTypes: ModCardType.EventCard);
         }
     }
 }

@@ -48,10 +48,6 @@ namespace WhistleWindLobotomyMod.Core.Helpers
         public static List<CardInfo> ObtainableLobotomyCards = new();
 
         public static CardMetaCategory SephirahCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "SephirahCard");
-        public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
-        public static CardMetaCategory CannotGainSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGainSigils");
-        public static CardMetaCategory CannotBoostStats = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotBoostStats");
-        public static CardMetaCategory CannotCopyCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotCopyCard");
 
         public static Tribe TribeDivine;
         public static Tribe TribeFae;
@@ -172,19 +168,19 @@ namespace WhistleWindLobotomyMod.Core.Helpers
 
             AllLobotomyCards.Add(cardInfo);
 
-            //Log.LogInfo($"{name:.16f} | {atk:.2f<}/{hp:.2f} | {blood}B :: x{bones} :: E{energy}");
+            Log.LogInfo($"{name:.16f} | {atk:.2f<}/{hp:.2f} | {blood}B :: x{bones} :: E{energy}");
         }
 
         private static CardInfo SetNodeRestrictions(this CardInfo card, bool give, bool gain, bool buff, bool copy)
         {
             if (give)
-                card.AddMetaCategories(CannotGiveSigils);
+                card.AddMetaCategories(AbnormalPlugin.CannotGiveSigils);
             if (gain)
-                card.AddMetaCategories(CannotGainSigils);
+                card.AddMetaCategories(AbnormalPlugin.CannotGainSigils);
             if (buff)
-                card.AddMetaCategories(CannotBoostStats);
+                card.AddMetaCategories(AbnormalPlugin.CannotBoostStats);
             if (copy)
-                card.AddMetaCategories(CannotCopyCard);
+                card.AddMetaCategories(AbnormalPlugin.CannotCopyCard);
             return card;
         }
     }

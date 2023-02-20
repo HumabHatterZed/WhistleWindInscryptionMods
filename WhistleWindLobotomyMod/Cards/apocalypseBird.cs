@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
@@ -26,7 +27,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance
+                ForcedWhiteEmission.appearance
             };
             CreateCard(
                 "wstl_apocalypseBird", "Apocalypse Bird",

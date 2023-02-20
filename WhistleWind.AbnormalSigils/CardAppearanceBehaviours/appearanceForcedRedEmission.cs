@@ -7,12 +7,12 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Appearance_RedEmission()
         {
-            ForcedRed.appearance = CardHelper.CreateAppearance<ForcedRed>(pluginGuid, "ForcedRed").Id;
+            ForcedRedEmission.appearance = CardHelper.CreateAppearance<ForcedRedEmission>(pluginGuid, "ForcedRedEmission").Id;
         }
     }
-    public class ForcedRed : CardAppearanceBehaviour
+    public class ForcedRedEmission : CardAppearanceBehaviour
     {
-        public static CardAppearanceBehaviour.Appearance appearance;
+        public static Appearance appearance;
         public override void ApplyAppearance()
         {
             base.Card.RenderInfo.forceEmissivePortrait = true;

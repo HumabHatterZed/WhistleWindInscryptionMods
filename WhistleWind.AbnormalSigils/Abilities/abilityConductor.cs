@@ -11,20 +11,6 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Conductor()
-        {
-            const string rulebookName = "Conductor";
-            const string rulebookDescription = "While this card is on the board, gain Power equal to the number of cards affected by this sigil's effect. Over the next 3 turns: adjacent cards gain 1 Power, ally cards gain 1 Power, opposing cards gain 1 Power.";
-            const string dialogue = "From break and ruin, the most beautiful performance begins.";
-
-            Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(
-                Artwork.sigilConductor, Artwork.sigilConductor_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                modular: false, opponent: true, canStack: false).Id;
-        }
-    }
     public class Conductor : AbilityBehaviour, IPassiveAttackBuff
     {
         public static Ability ability;
@@ -59,26 +45,20 @@ namespace WhistleWind.AbnormalSigils
 
             if (target == this.Card)
             {
-                int powerToSelf = 0;
-
                 // if turn 1, return number of valid adjacent cards
                 if (turnCount == 1)
-                    return Singleton<BoardManager>.Instance.GetAdjacentSlots(target.Slot).Where(slot => slot.Card != null).Count();
+                    return Singleton<BoardManager>.Instance.GetAdjacentSlots(target.Slot).FindAll(slot => slot.Card != null).Count;
 
-                if (turnCount > 1)
+                // get number of valid ally cards
+                int powerToSelf = HelperMethods.GetSlotsCopy(base.Card.OpponentCard)
+                    .FindAll(x => x.Card != base.Card && x.Card != null && x.Card.LacksAbility(Neutered.ability)).Count;
+
+                if (turnCount == 3)
                 {
-                    // add all non-null ally cards minus this card
-                    powerToSelf += HelperMethods.GetSlotsCopy(base.Card.OpponentCard).Where(slot2 => slot2.Card != null).Count() - 1;
-                    if (turnCount == 3)
-                    {
-                        // if the opposing card's a Giant, only add 1 ; else add number of non-null
-                        List<CardSlot> opposingSlots = HelperMethods.GetSlotsCopy(!base.Card.OpponentCard).Where(slot3 => slot3.Card != null).ToList();
-                        if (opposingSlots.Exists(slot4 => slot4.Card.HasTrait(Trait.Giant)))
-                            powerToSelf += 1;
-                        else
-                            powerToSelf += HelperMethods.GetSlotsCopy(!base.Card.OpponentCard).Where(slot3 => slot3.Card != null).Count();
-                    }
+                    List<CardSlot> opposingSlots = HelperMethods.GetSlotsCopy(!base.Card.OpponentCard).FindAll(x => x.Card != null);
+                    powerToSelf += opposingSlots.Exists(s => s.Card.HasTrait(Trait.Giant)) ? 1 : opposingSlots.Count;
                 }
+
                 return powerToSelf;
             }
 
@@ -86,7 +66,7 @@ namespace WhistleWind.AbnormalSigils
 
             // turn 1, only give power to adjacent
             if (Singleton<BoardManager>.Instance.GetAdjacentSlots(target.Slot).Exists(slot => slot.Card == base.Card))
-                return turnCount == 1 ? 1 : 2;
+                return turnCount == 1 ? 1 : 0;
 
             if (turnCount > 1)
             {
@@ -101,6 +81,20 @@ namespace WhistleWind.AbnormalSigils
 
             AbnormalPlugin.Log.LogError("Conductor ability is not working properly! Who's the idiot who coded it?");
             return 0;
+        }
+    }
+    public partial class AbnormalPlugin
+    {
+        private void Ability_Conductor()
+        {
+            const string rulebookName = "Conductor";
+            const string rulebookDescription = "While this card is on the board, reduce all other card's Power by the number of turns this card has been on the board, up to 3.";
+            const string dialogue = "From break and ruin, the most beautiful performance begins.";
+
+            Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(
+                Artwork.sigilConductor, Artwork.sigilConductor_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                modular: false, opponent: true, canStack: false).Id;
         }
     }
 }

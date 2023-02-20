@@ -92,7 +92,8 @@ namespace WhistleWind.Core.Helpers
         {
             info.SetBasicInfo(rulebookName, rulebookDescription, "", 0);
             info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(fillerPixelArtBytes));
-            info.passive = true;
+            info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
+            info.SetPassive();
 
             return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromBytes(fillerArtBytes));
         }

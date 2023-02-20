@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
         public override int[] GetStatValues()
         {
             List<AbilityInfo> infos = AbilityManager.AllAbilityInfos
-                .FindAll(x => x.ability != Ability.RandomAbility && base.PlayableCard.AllAbilities().Contains(x.ability));
+                .FindAll(x => base.PlayableCard.AllAbilities().Contains(x.ability) && x.ability != Ability.RandomAbility);
 
             infos.Sort((AbilityInfo a, AbilityInfo b) => b.powerLevel - a.powerLevel);
 
@@ -30,7 +30,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatIcon_SigilPower()
         {
             const string rulebookName = "Sigil Power";
-            const string rulebookDescription = "The value represented by this sigil will be equal to the powerlevel of this card's strongest sigil.";
+            const string rulebookDescription = "The value represented with this sigil will be equal to the power level of this card's strongest sigil.";
             SigilPower.icon = AbilityHelper.CreateStatIcon<SigilPower>(
                 pluginGuid, rulebookName, rulebookDescription,
                 TextureLoader.LoadTextureFromBytes(Artwork.sigilSigilPower),

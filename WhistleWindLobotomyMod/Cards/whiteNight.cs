@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance
+                ForcedWhiteEmission.appearance
             };
             CreateCard(
                 "wstl_whiteNight", "WhiteNight",

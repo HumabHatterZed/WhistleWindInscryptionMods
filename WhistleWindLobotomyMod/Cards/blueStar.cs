@@ -33,7 +33,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                Forced.appearance
+                ForcedEmission.appearance
             };
             CreateCard(
                 "wstl_blueStar3", "Blue Star", "",

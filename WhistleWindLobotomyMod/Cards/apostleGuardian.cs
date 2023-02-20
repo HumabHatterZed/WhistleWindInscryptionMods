@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
@@ -22,7 +23,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance
+                ForcedWhiteEmission.appearance
             };
             CreateCard(
                 "wstl_apostleGuardian", "Guardian Apostle",

@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                BlackFish.appearance
+                AlternateBattlePortrait.appearance
             };
             CreateCard(
                 "wstl_yang", "Yang",

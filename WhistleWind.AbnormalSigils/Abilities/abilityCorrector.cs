@@ -71,10 +71,11 @@ namespace WhistleWind.AbnormalSigils
             };
             powerLevel += base.Card.Info.GemsCost.Count * 3;
 
-            // LifeCost API compatibility
+            // LifeCost, Forbidden Mox compatibility
             powerLevel += base.Card.Info.GetExtendedPropertyAsInt("LifeCost") ?? 0;
             powerLevel += base.Card.Info.GetExtendedPropertyAsInt("MoneyCost") ?? 0;
             powerLevel += base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") ?? 0;
+            powerLevel += base.Card.Info.GetExtendedProperty("ForbiddenMoxCost") != null ? 3 : 0;
 
             int[] stats = new[] { 0, 1 }; 
             int randomSeed = base.GetRandomSeed();
