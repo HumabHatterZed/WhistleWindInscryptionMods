@@ -1,27 +1,36 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void DerFreischutz_F0169()
+        private void Card_DerFreischutz_F0169()
         {
             List<Ability> abilities = new()
             {
                 Marksman.ability,
                 Ability.SplitStrike
             };
-
-            CardHelper.CreateCard(
+            List<SpecialTriggeredAbility> specialAbilities = new()
+            {
+                MagicBullet.specialAbility
+            };
+            CreateCard(
                 "wstl_derFreischutz", "Der Freischütz",
                 "A friendly hunter to some, a cruel gunsman to others. His bullets always hit their mark.",
-                1, 1, 2, 0,
-                Resources.derFreischutz, Resources.derFreischutz_emission,
-                abilities: abilities, specialAbilities: new(),
+                atk: 1, hp: 1,
+                blood: 2, bones: 0, energy: 0,
+                Artwork.derFreischutz, Artwork.derFreischutz_emission,
+                abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                isRare: true, riskLevel: 3);
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.He,
+                customTribe: TribeFae);
         }
     }
 }

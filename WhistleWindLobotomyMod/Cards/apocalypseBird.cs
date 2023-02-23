@@ -1,12 +1,16 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void ApocalypseBird_O0263()
+        private void Card_ApocalypseBird_O0263()
         {
             List<Ability> abilities = new()
             {
@@ -15,7 +19,7 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                ThreeBirds.specialAbility
+                BoardEffects.specialAbility
             };
             List<Tribe> tribes = new()
             {
@@ -23,18 +27,20 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance,
-                CardAppearanceBehaviour.Appearance.RareCardBackground
+                ForcedWhiteEmission.appearance
             };
-
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_apocalypseBird", "Apocalypse Bird",
                 "There was no moon, no stars. Just a bird, alone in the Black Forest.",
-                3, 8, 4, 0,
-                Resources.apocalypseBird, Resources.apocalypseBird_emission,
+                atk: 3, hp: 12,
+                blood: 4, bones: 0, energy: 0,
+                Artwork.apocalypseBird, Artwork.apocalypseBird_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
-                appearances: appearances, onePerDeck: true);
+                appearances: appearances, onePerDeck: true,
+                choiceType: CardHelper.CardChoiceType.Rare,
+                modTypes: ModCardType.EventCard,
+                metaTypes: CardHelper.CardMetaType.NonChoice);
         }
     }
 }

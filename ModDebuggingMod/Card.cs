@@ -4,10 +4,12 @@ using ModDebuggingMod.Properties;
 using System.Collections.Generic;
 using InscryptionAPI.Card;
 using InscryptionAPI.Pelts;
-using WhistleWind.LobotomyMod;
+using WhistleWindLobotomyMod;
 using InscryptionAPI.Pelts.Extensions;
 using InscryptionAPI.Nodes;
 using System;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWind.AbnormalSigils;
 
 namespace ModDebuggingMod
 {
@@ -17,8 +19,7 @@ namespace ModDebuggingMod
         {
             List<Ability> abilities = new()
             {
-                Ability.GainBattery,
-                Ability.DrawCopy
+                Sporogenic.ability
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -26,7 +27,7 @@ namespace ModDebuggingMod
             };
             List<Tribe> tribes = new()
             {
-                LobotomyPlugin.TribeDivine
+                LobotomyCardManager.TribeDivine
             };
             List<Trait> traits = new()
             {
@@ -37,10 +38,10 @@ namespace ModDebuggingMod
 
             };
             CardHelper.CreateCard(
-                "wstl", "wstlcard", "DEBUG CARD",
+                "wstl", "wstlcard", "Debug",
                 "You shouldn't see this.",
-                0, 10, 1, 0, 0,
-                Resources.fairyFestival, Resources.fairyFestival_emission,
+                0, 10, 0, 0, 0,
+                null, null,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: traits);
         }

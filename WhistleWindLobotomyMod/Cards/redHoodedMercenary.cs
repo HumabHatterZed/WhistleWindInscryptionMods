@@ -1,26 +1,32 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void RedHoodedMercenary_F0157()
+        private void Card_RedHoodedMercenary_F0157()
         {
             List<Ability> abilities = new()
             {
                 Marksman.ability,
                 BitterEnemies.ability
             };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_redHoodedMercenary", "Little Red Riding Hooded Mercenary",
                 "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.",
-                2, 3, 2, 0,
-                Resources.redHoodedMercenary, Resources.redHoodedMercenary_emission,
+                atk: 2, hp: 5,
+                blood: 3, bones: 0, energy: 0,
+                Artwork.redHoodedMercenary, Artwork.redHoodedMercenary_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 4);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
+                customTribe: TribeHumanoid);
         }
     }
 }

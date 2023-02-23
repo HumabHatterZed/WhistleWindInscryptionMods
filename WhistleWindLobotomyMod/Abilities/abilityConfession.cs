@@ -2,21 +2,24 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
+        public const string ConfessionHiddenDescription = "Keep faith with unwavering resolve.";
+        public const string ConfessionRevealedDescription = "Kill this card and summon One Sin and Hundreds of Good Deeds. Kill WhiteNight and all Apostles on the board then deal 33 direct damage.";
         private void Ability_Confession()
         {
             const string rulebookName = "Confession and Pentinence";
-            string rulebookDescription = ConfigManager.Instance.RevealWhiteNight ? "Kills the Heretic and summons One Sin. Kills WhiteNight and his Apostles then deals 33 direct damage." : "Activate: Keep faith with unwavering resolve.";
             const string dialogue = "[c:bG]Keep faith with unwavering resolve.[c:]";
 
-            Confession.ability = AbilityHelper.CreateActivatedAbility<Confession>(
-                Resources.sigilConfession, Resources.sigilConfession_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: -3).Id;
+            Confession.ability = LobotomyAbilityHelper.CreateActivatedAbility<Confession>(
+                Artwork.sigilConfession, Artwork.sigilConfession_pixel,
+                rulebookName, ConfessionHiddenDescription, dialogue, powerLevel: -3).Id;
         }
     }
     public class Confession : ActivatedAbilityBehaviour
@@ -24,10 +27,8 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool CanActivate()
-        {
-            return base.Card.Info.name != "wstl_hundredsGoodDeeds";
-        }
+        public override bool CanActivate() => base.Card.Info.name != "wstl_hundredsGoodDeeds";
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => base.Card.Info.name != "wstl_hundredsGoodDeeds";
         public override IEnumerator Activate()
         {
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
@@ -46,9 +47,7 @@ namespace WhistleWindLobotomyMod
                 if (slot.Card.Info.name == "wstl_whiteNight" || slot.Card.Info.name.Contains("wstl_apostle"))
                 {
                     if (slot.Card != base.Card)
-                    {
                         slot.Card.Anim.SetShaking(true);
-                    }
                 }
             }
             yield return new WaitForSeconds(0.8f);
@@ -62,7 +61,7 @@ namespace WhistleWindLobotomyMod
                     while (slot.Card != null)
                     {
                         yield return slot.Card.TakeDamage(66, base.Card);
-                        yield return new WaitForSeconds(0.4f);
+                        yield return new WaitForSeconds(0.25f);
                     }
                     yield return new WaitForSeconds(0.5f);
                     break;
@@ -97,25 +96,17 @@ namespace WhistleWindLobotomyMod
             RunState.Run.currency += excessDamage;
 
             if (Singleton<TurnManager>.Instance.Opponent.NumLives > 1)
-            {
                 yield return thisSlot.Card.Die(false, thisSlot.Card);
-            }
-            // Resets Blessings
-            ConfigManager.Instance.SetBlessings(0);
-            WstlPlugin.Log.LogDebug($"Resetting the clock to [0].");
-        }
 
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
-        {
-            return base.Card.Info.name != "wstl_hundredsGoodDeeds";
+            // Resets Blessings
+            LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
+            LobotomyConfigManager.Instance.SetBlessings(0);
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             yield return base.PreSuccessfulTriggerSequence();
             if (killer != base.Card)
-            {
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
-            }
         }
     }
 }

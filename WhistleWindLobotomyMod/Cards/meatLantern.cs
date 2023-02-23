@@ -1,27 +1,30 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void MeatLantern_O0484()
+        private void Card_MeatLantern_O0484()
         {
             List<Ability> abilities = new()
             {
-                Punisher.ability,
+                Ability.Sharp,
                 Ability.Reach
             };
-
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_meatLantern", "Meat Lantern",
                 "A beautiful flower attached to a mysterious creature.",
-                1, 2, 2, 0,
-                Resources.meatLantern, Resources.meatLantern_emission,
+                atk: 2, hp: 1,
+                blood: 2, bones: 0, energy: 0,
+                Artwork.meatLantern, Artwork.meatLantern_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 2);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
         }
     }
 }

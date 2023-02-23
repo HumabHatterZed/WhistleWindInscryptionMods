@@ -1,22 +1,23 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core.SpecialSequencers;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Opponents.TrapperTrader
 {
     public class TrapperTraderAbnormalBossOpponent : TrapperTraderBossOpponent
     {
         public override IEnumerator StartNewPhaseSequence()
         {
-            if (base.HasGrizzlyGlitchPhase(1))
+            if (HasGrizzlyGlitchPhase(1))
             {
                 yield return AbnormalGrizzlySequence.ApostleGlitchSequence(this);
                 yield break;
             }
-            base.sceneryObject.GetComponent<Animation>().Play("knives_table_exit");
+            sceneryObject.GetComponent<Animation>().Play("knives_table_exit");
             yield return new WaitForSeconds(0.25f);
-            base.TurnPlan.Clear();
-            yield return this.ClearBoardAndReturnPlayedPelts();
+            TurnPlan.Clear();
+            yield return ClearBoardAndReturnPlayedPelts();
             yield return new WaitForSeconds(0.5f);
             yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("TrapperTraderPrePhase2", TextDisplayer.MessageAdvanceMode.Input);
             LeshyAnimationController.Instance.FlipMask(LeshyAnimationController.Mask.Trader);
@@ -26,11 +27,11 @@ namespace WhistleWindLobotomyMod
             yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("TrapperTraderPhase2", TextDisplayer.MessageAdvanceMode.Input);
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
-            base.DestroyScenery();
-            base.SpawnScenery("CratesTableEffects");
-            this.tradeForPelts = base.InstantiateBossBehaviour<TradeAbnormalCardsForPelts>();
+            DestroyScenery();
+            SpawnScenery("CratesTableEffects");
+            tradeForPelts = InstantiateBossBehaviour<TradeAbnormalCardsForPelts>();
             yield return new WaitForSeconds(1.5f);
-            yield return this.tradeForPelts.TradePhase(4, 4, RunState.Run.regionTier + 1, RunState.Run.regionTier);
+            yield return tradeForPelts.TradePhase(4, 4, RunState.Run.regionTier + 1, RunState.Run.regionTier);
         }
     }
 }

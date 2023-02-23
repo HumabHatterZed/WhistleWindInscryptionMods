@@ -14,6 +14,33 @@ namespace Infiniscryption.Spells.Sigils
         public override Ability Ability => AbilityID;
         public static Ability AbilityID { get; private set; }
 
+        public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();
+        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+        {
+            if (slot.Card != null && slot.Card.Attack > 0)
+                return base.Card.OpponentCard != slot.Card.OpponentCard;
+
+            return false;
+        }
+
+        public override IEnumerator OnResolveOnBoard()
+        {
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            yield return new WaitForSeconds(0.2f);
+
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.OpponentCard))
+            {
+                if (slot.Card != null)
+                    slot.Card.AddTemporaryMod(new(-1, 0));
+            }
+            yield return base.LearnAbility(0.5f);
+        }
+        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+        {
+            slot.Card.AddTemporaryMod(new(-1, 0));
+            yield return base.LearnAbility(0.5f);
+        }
+
         public static void Register()
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
@@ -32,24 +59,6 @@ namespace Infiniscryption.Spells.Sigils
                 typeof(AttackNerf),
                 AssetHelper.LoadTexture("ability_attack_down")
             ).Id;
-        }
-
-        public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();
-        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) => slot.Card != null && slot.IsOpponentSlot();
-
-        public override IEnumerator OnResolveOnBoard()
-        {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(false))
-            {
-                if (slot.Card != null)
-                    slot.Card.AddTemporaryMod(new(-1, 0));
-            }
-            yield return base.LearnAbility(0.5f);
-        }
-        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
-        {
-            slot.Card.AddTemporaryMod(new(-1, 0));
-            yield return base.LearnAbility(0.5f);
         }
     }
 }

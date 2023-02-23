@@ -1,12 +1,15 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void GiantTreeSap_T0980()
+        private void Card_GiantTreeSap_T0980()
         {
             List<Ability> abilities = new()
             {
@@ -17,14 +20,16 @@ namespace WhistleWindLobotomyMod
             {
                 Sap.specialAbility
             };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_giantTreeSap", "Giant Tree Sap",
                 "Sap from a tree at the end of the world. It is a potent healing agent.",
-                0, 3, 0, 4,
-                Resources.giantTreeSap, Resources.giantTreeSap_emission,
+                atk: 0, hp: 2,
+                blood: 0, bones: 4, energy: 0,
+                Artwork.giantTreeSap, Artwork.giantTreeSap_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 3);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
+                customTribe: TribePlant);
         }
     }
 }

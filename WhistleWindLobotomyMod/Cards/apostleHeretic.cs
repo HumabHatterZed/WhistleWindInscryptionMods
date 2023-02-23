@@ -1,12 +1,14 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void ApostleHeretic_T0346()
+        private void Card_ApostleHeretic_T0346()
         {
             List<Ability> abilities = new()
             {
@@ -19,16 +21,17 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance
+                ForcedWhiteEmission.appearance
             };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_apostleHeretic", "Heretic",
                 "The time has come.",
-                0, 7, 0, 0,
-                Resources.apostleHeretic, Resources.apostleHeretic_emission,
+                atk: 0, hp: 7,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.apostleHeretic, Artwork.apostleHeretic_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances);
+                appearances: appearances, modTypes: ModCardType.EventCard);
         }
     }
 }

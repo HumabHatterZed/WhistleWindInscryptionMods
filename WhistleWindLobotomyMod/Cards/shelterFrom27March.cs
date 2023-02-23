@@ -1,26 +1,34 @@
 ﻿using DiskCardGame;
+using Infiniscryption.Spells.Sigils;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void ShelterFrom27March_T0982()
+        private void Card_ShelterFrom27March_T0982()
         {
             List<Ability> abilities = new()
             {
                 Ability.PreventAttack,
-                Aggravating.ability
+                Aggravating.ability,
+                GiveSigils.AbilityID
             };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_shelterFrom27March", "Shelter From the 27th of March",
                 "It makes itself the safest place in the world by altering the reality around it.",
-                0, 1, 0, 3,
-                Resources.shelterFrom27March, Resources.shelterFrom27March_emission,
+                atk: 0, hp: 0,
+                blood: 0, bones: 0, energy: 2,
+                Artwork.shelterFrom27March, Artwork.shelterFrom27March_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 3);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
+                spellType: SpellType.TargetedStats);
         }
     }
 }

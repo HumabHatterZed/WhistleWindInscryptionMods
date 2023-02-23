@@ -14,8 +14,8 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Nettles()
         {
             const string rulebookName = "Nettle Clothes";
-            const string rulebookDescription = "When [creature] is played, create a random Brother in all empty slots on the owner's side of the board. This card gains special abilities depending on what Brothers are on the board.";
-            const string dialogue = "If she gave her brothers the nettle clothing, their happy days would be restored.";
+            const string rulebookDescription = "When this card is played, fill all empty spaces on the owner's side of the board with random Brothers. This card gains new abilities based on ally Brothers.";
+            const string dialogue = "These clothes will surely restore our happy days.";
             Nettles.ability = AbnormalAbilityHelper.CreateAbility<Nettles>(
                 Artwork.sigilNettles, Artwork.sigilNettles_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,

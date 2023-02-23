@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Corrector()
         {
             const string rulebookName = "Corrector";
-            const string rulebookDescription = "[creature] has its stats randomly changed according to its cost.";
+            const string rulebookDescription = "[creature] has its stats randomly changed according to its cost. Higher costs yield higher stats totals.";
             const string dialogue = "How balanced.";
             Corrector.ability = AbnormalAbilityHelper.CreateAbility<Corrector>(
                 Artwork.sigilCorrector, Artwork.sigilCorrector_pixel,
@@ -48,7 +48,8 @@ namespace WhistleWind.AbnormalSigils
 
         private void ChangeStats()
         {
-            int powerLevel = base.Card.Info.BloodCost switch
+            int powerLevel = base.Card.Info.BonesCost - 1; // to account for initial 1 Health
+            powerLevel += base.Card.Info.BloodCost switch
             {
                 0 => 0,
                 1 => 4,
@@ -57,7 +58,6 @@ namespace WhistleWind.AbnormalSigils
                 4 => 18,
                 _ => base.Card.Info.BloodCost * 7
             };
-            powerLevel += base.Card.Info.BonesCost;
             powerLevel += base.Card.Info.EnergyCost switch
             {
                 0 => 0,
@@ -71,15 +71,14 @@ namespace WhistleWind.AbnormalSigils
             };
             powerLevel += base.Card.Info.GemsCost.Count * 3;
 
-            // LifeCost API compatibility
+            // LifeCost, Forbidden Mox compatibility
             powerLevel += base.Card.Info.GetExtendedPropertyAsInt("LifeCost") ?? 0;
             powerLevel += base.Card.Info.GetExtendedPropertyAsInt("MoneyCost") ?? 0;
             powerLevel += base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") ?? 0;
+            powerLevel += base.Card.Info.GetExtendedProperty("ForbiddenMoxCost") != null ? 3 : 0;
 
-            int newPower = 0;
-            int newHealth = 1;
+            int[] stats = new[] { 0, 1 }; 
             int randomSeed = base.GetRandomSeed();
-            powerLevel = Mathf.Max(powerLevel - 1, 0);
             while (powerLevel > 0)
             {
                 // If can afford 1 Power
@@ -88,17 +87,15 @@ namespace WhistleWind.AbnormalSigils
                     // Roll for 1 Power
                     if (SeededRandom.Range(0, 3, randomSeed++) == 0)
                     {
-                        newPower += 1;
+                        stats[0]++;
                         powerLevel -= 2;
-                        randomSeed++;
                         continue;
                     }
                 }
-                newHealth += 1;
-                powerLevel -= 1;
-                randomSeed++;
+                stats[1]++;
+                powerLevel--;
             }
-            base.Card.AddTemporaryMod(new(newPower - base.Card.Attack, newHealth - base.Card.Health));
+            base.Card.AddTemporaryMod(new(stats[0] - base.Card.Attack, stats[1] - base.Card.Health));
         }
     }
 }

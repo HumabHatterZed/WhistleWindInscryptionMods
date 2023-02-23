@@ -1,25 +1,31 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void SnowQueen_F0137()
+        private void Card_SnowQueen_F0137()
         {
             List<Ability> abilities = new()
             {
                 FrostRuler.ability
             };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_snowQueen", "The Snow Queen",
                 "A queen from far away. Those who enter her palace never leave.",
-                1, 3, 0, 6,
-                Resources.snowQueen, Resources.snowQueen_emission,
+                atk: 1, hp: 2,
+                blood: 0, bones: 6, energy: 0,
+                Artwork.snowQueen, Artwork.snowQueen_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 3);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
+                customTribe: TribeFae);
         }
     }
 }

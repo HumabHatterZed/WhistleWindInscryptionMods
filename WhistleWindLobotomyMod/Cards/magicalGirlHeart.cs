@@ -1,26 +1,62 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void MagicalGirlHeart_O0104()
+        private void Card_MagicalGirlHeart_O0104()
         {
+            List<Ability> abilities = new()
+            {
+                OneSided.ability,
+                Piercing.ability
+            };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                LoveAndHate.specialAbility
+                CustomEvolveHelper.specialAbility,
+                LoveAndHate.specialAbility,
+                MagicalGirls.specialAbility
             };
+            List<Tribe> tribes = new()
+            {
+                Tribe.Reptile
+            };
+            CreateCard(
+                "wstl_queenOfHatred", "The Queen of Hatred",
+                "Heroes exist to fight evil. In its absence, they must create it.",
+                atk: 8, hp: 2,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.queenOfHatred, Artwork.queenOfHatred_emission,
+                abilities: abilities, specialAbilities: specialAbilities,
+                metaCategories: new(), tribes: tribes, traits: new());
+            CreateCard(
+                "wstl_queenOfHatredTired", "The Queen of Hatred",
+                "Exhaustion: the cost of an all-out attack.",
+                atk: 0, hp: 2,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.queenOfHatredTired, Artwork.queenOfHatredTired_emission,
+                abilities: new(), specialAbilities: specialAbilities,
+                metaCategories: new(), tribes: tribes, traits: new());
 
-            CardHelper.CreateCard(
+            abilities.Remove(Piercing.ability);
+            specialAbilities.Remove(CustomEvolveHelper.specialAbility);
+            
+            CreateCard(
                 "wstl_magicalGirlHeart", "Magical Girl",
                 "A hero of love and justice. She will aid you on your journey.",
-                2, 2, 1, 0,
-                Resources.magicalGirlHeart, Resources.magicalGirlHeart_emission, gbcTexture: Resources.magicalGirlHeart_pixel,
-                abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, onePerDeck: true, riskLevel: 4);
+                atk: 1, hp: 2,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.magicalGirlHeart, Artwork.magicalGirlHeart_emission, pixelTexture: Artwork.magicalGirlHeart_pixel,
+                abilities: abilities, specialAbilities: specialAbilities,
+                metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
+                customTribe: TribeFae);
         }
     }
 }

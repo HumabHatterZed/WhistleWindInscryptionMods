@@ -543,26 +543,6 @@ namespace ModDebuggingMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] fairyFestival {
-            get {
-                object obj = ResourceManager.GetObject("fairyFestival", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] fairyFestival_emission {
-            get {
-                object obj = ResourceManager.GetObject("fairyFestival_emission", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] itemRulebookIcon {
             get {
                 object obj = ResourceManager.GetObject("itemRulebookIcon", resourceCulture);
@@ -573,39 +553,9 @@ namespace ModDebuggingMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] sigilDebug {
-            get {
-                object obj = ResourceManager.GetObject("sigilDebug", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] sigilDebugP {
-            get {
-                object obj = ResourceManager.GetObject("sigilDebugP", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] starterDeckMagicalGirls {
             get {
                 object obj = ResourceManager.GetObject("starterDeckMagicalGirls", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] tribeIcon_Debug {
-            get {
-                object obj = ResourceManager.GetObject("tribeIcon_Debug", resourceCulture);
                 return ((byte[])(obj));
             }
         }

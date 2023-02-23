@@ -31,10 +31,12 @@ namespace WhistleWind.Core.Helpers
             itemData.SetExamineSoundId("stone_object_hit");
             itemData.SetComponentType(typeof(T));
             itemData.SetPowerLevel(powerLevel);
-
+            
             ConsumableItemManager.Add(pluginGuid, itemData);
 
-            // since ConsumableItemManager uses the rulebookName when setting the prefab ID, we need to set it to the proper name after calling Add
+            // ConsumableItemManager uses the rulebook name for the prefab id,
+            // so I set the rulebook name to the internal name first
+            // and then set it to the actual rulebook name after
             itemData.SetRulebookName(rulebookName);
         }
         public static void CreateItemWithPrefab<T>(
@@ -53,7 +55,7 @@ namespace WhistleWind.Core.Helpers
                 pluginGuid, internalName, rulebookName, rulebookDescription, rulebookIcon,
                 nodeDialogue, modelType, powerLevel, regionSpecific, notRandom, outsideBattle);
         }
-        public static void CreateBottleItem(
+        public static ConsumableItemData CreateBottleItem(
             string pluginGuid, string internalName, string cardByName, byte[] rulebookIcon,
             string nodeDialogue = "", int powerLevel = 1, string rulebookName = null, bool outsideBattle = false)
         {
@@ -105,6 +107,8 @@ namespace WhistleWind.Core.Helpers
             ConsumableItemManager.Add(pluginGuid, itemData);
 
             itemData.SetRulebookName(rulebookName_);
+
+            return itemData;
         }
 
         private static bool NameStartsWithVowel(string name)

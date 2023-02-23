@@ -1,26 +1,30 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void HeartOfAspiration_O0977()
+        private void Card_HeartOfAspiration_O0977()
         {
             List<Ability> abilities = new()
             {
                 Ability.BuffNeighbours
             };
 
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_heartOfAspiration", "The Heart of Aspiration",
                 "A heart without an owner. It emboldens those nearby.",
-                1, 2, 1, 0,
-                Resources.heartOfAspiration, Resources.heartOfAspiration_emission,
+                atk: 1, hp: 2,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.heartOfAspiration, Artwork.heartOfAspiration_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 2);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
         }
     }
 }

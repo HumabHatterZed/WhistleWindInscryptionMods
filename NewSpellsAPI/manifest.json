@@ -1,8 +1,8 @@
 {
   "name": "New_Spell_Card_Toolkit",
-  "version_number": "1.0.0",
+  "version_number": "1.1.0",
   "website_url": "https://github.com/HumabHatterZed/WhistleWindInscryptionMods",
-  "description": "An updated version of Infiniscryption's Spell Card Toolkit with new features and general improvements.",
+  "description": "v1.1.0 - Added opponent support. An updated version of Infiniscryption's Spell Card Toolkit with new features and general improvements.",
   "dependencies": [
     "BepInEx-BepInExPack_Inscryption-5.4.1902",
     "API_dev-API-2.10.0"

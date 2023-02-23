@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.SpecialSequencers
 {
     public class AbnormalGrizzlySequence : SpecialBattleSequencer
     {

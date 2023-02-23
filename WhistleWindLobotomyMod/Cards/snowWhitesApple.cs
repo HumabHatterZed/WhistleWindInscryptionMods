@@ -1,12 +1,16 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void SnowWhitesApple_F0442()
+        private void Card_SnowWhitesApple_F0442()
         {
             List<Ability> abilities = new()
             {
@@ -16,14 +20,16 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.KillsSurvivors
             };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_snowWhitesApple", "Snow White's Apple",
                 "A poisoned apple brought to life, on a fruitless search for its own happily ever after.",
-                1, 3, 0, 3,
-                Resources.snowWhitesApple, Resources.snowWhitesApple_emission,
+                atk: 1, hp: 1,
+                blood: 0, bones: 3, energy: 0,
+                Artwork.snowWhitesApple, Artwork.snowWhitesApple_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                isChoice: true, riskLevel: 4);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
+                customTribe: TribePlant);
         }
     }
 }

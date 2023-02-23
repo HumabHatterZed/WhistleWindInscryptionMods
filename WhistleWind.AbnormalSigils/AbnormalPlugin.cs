@@ -5,13 +5,11 @@ using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Guid;
 using Sirenix.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TribalLibary;
 using WhistleWind.AbnormalSigils.Core;
-using WhistleWind.AbnormalSigils.Patches;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -28,10 +26,14 @@ namespace WhistleWind.AbnormalSigils
         private const string pluginVersion = "1.0.0";
 
         internal static ManualLogSource Log;
-        private static Harmony HarmonyInstance = new(pluginGuid);
+        private static readonly Harmony HarmonyInstance = new(pluginGuid);
 
         public static Trait Boneless = GuidManager.GetEnumValue<Trait>(pluginGuid, "Boneless");
         public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
+        public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
+        public static CardMetaCategory CannotGainSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGainSigils");
+        public static CardMetaCategory CannotBoostStats = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotBoostStats");
+        public static CardMetaCategory CannotCopyCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotCopyCard");
 
         private void OnDisable()
         {
@@ -64,6 +66,7 @@ namespace WhistleWind.AbnormalSigils
 
             StatIcon_Time();
             StatIcon_SigilPower();
+            StatIcon_Nihil();
         }
         private void AddCards() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
         private void AddAbilities()
@@ -107,8 +110,11 @@ namespace WhistleWind.AbnormalSigils
             // v1.1
             Ability_Alchemist();
             Ability_Nettles();
-            Ability_Spores();
-            Ability_SporeDamage();
+
+            //RenderCost_Spores();
+            Ability_Sporogenic();
+            Rulebook_Spores();
+
             Ability_Witness();
             Ability_Corrector();
             // v2.0
@@ -123,13 +129,9 @@ namespace WhistleWind.AbnormalSigils
             Ability_Cycler();
             Ability_Barreler();
 
-            Ability_TargetGainStats();
-            Ability_TargetGainSigils();
-            Ability_TargetGainStatsSigils();
-
             // Specials
             Ability_FalseThrone();
-            Ability_Nihil();
+            Ability_ReturnToNihil();
         }
 
         public static class SpellAPI

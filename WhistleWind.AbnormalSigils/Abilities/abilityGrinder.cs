@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -20,7 +21,7 @@ namespace WhistleWind.AbnormalSigils
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
-    public class Grinder : BetterActivatedAbilityBehaviour
+    public class Grinder : ExtendedActivatedAbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;

@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FrostRuler()
         {
             const string rulebookName = "Ruler of Frost";
-            const string rulebookDescription = "Once per turn, pay 3 Bones to either create a Block of Ice in a chosen empty slot, or turn a chosen card whose Health is less than or equal to this card's Power into a Frozen Heart.";
+            const string rulebookDescription = "Once per turn, pay 3 Bones to choose a space on the board. Create a Block of Ice if it is empty, or transform the chosen card into a Frozen Heart if this card can kill it.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
             FrostRuler.ability = AbnormalAbilityHelper.CreateActivatedAbility<FrostRuler>(
                 Artwork.sigilFrostRuler, Artwork.sigilFrostRuler_pixel,
@@ -28,11 +28,13 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override bool TargetAll => true;
         public override string NoTargetsDialogue => "The enemy is immune to the cold.";
         public override string InvalidTargetDialogue => "Frost cannot penetrate this one. Choose another.";
         public override int StartingBonesCost => 3;
         public override int TurnDelay => 1;
+
+        public override bool CardSlotCanBeTargeted(CardSlot slot) => slot != base.Card.Slot;
+
         public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {
             yield return HelperMethods.ChangeCurrentView(View.Board);

@@ -1,24 +1,31 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void OneSin_O0303()
+        private void Card_OneSin_O0303()
         {
             List<Ability> abilities = new()
             {
                 Martyr.ability
             };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_oneSin", "One Sin and Hundreds of Good Deeds",
                 "A floating skull. Its hollow sockets see through you.",
-                0, 1, 0, 2,
-                Resources.oneSin, Resources.oneSin_emission, gbcTexture: Resources.oneSin_pixel,
+                atk: 0, hp: 1,
+                blood: 0, bones: 2, energy: 0,
+                Artwork.oneSin, Artwork.oneSin_emission, pixelTexture: Artwork.oneSin_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), isChoice: true, riskLevel: 1);
+                metaCategories: new(), tribes: new(), traits: new(),
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
+                customTribe: TribeDivine);
         }
     }
 }

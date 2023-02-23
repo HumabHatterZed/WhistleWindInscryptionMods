@@ -118,6 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="costSpores" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\costSpores.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="costSpores_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\costSpores_10.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="costSpores_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\costSpores_2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="costSpores_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\costSpores_3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="costSpores_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\costSpores_4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="costSpores_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\costSpores_5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="costSpores_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\costSpores_6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="costSpores_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\costSpores_7.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="costSpores_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\costSpores_8.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="costSpores_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\costSpores_9.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="costSpores_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\costSpores_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="dreamOfABlackSwanBrother1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\dreamOfABlackSwanBrother1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -409,6 +442,12 @@
   <data name="sigilRegenerator_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilRegenerator_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="sigilReturnToNihil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilReturnToNihil.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilReturnToNihil_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilReturnToNihil_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="sigilRightfulHeir" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilRightfulHeir.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -433,6 +472,9 @@
   <data name="sigilSerpentsNest_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilSerpentsNest_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="sigilSigilPower" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilSigilPower.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="sigilSigilPower_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilSigilPower_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -448,23 +490,11 @@
   <data name="sigilSpores_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilSpores_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="sigilTargetGainSigils" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\sigilTargetGainSigils.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="sigilSporogenic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilSporogenic.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="sigilTargetGainSigils_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\sigilTargetGainSigils_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="sigilTargetGainStats" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\sigilTargetGainStats.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="sigilTargetGainStatsSigils" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\sigilTargetGainStatsSigils.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="sigilTargetGainStatsSigils_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\sigilTargetGainStatsSigils_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="sigilTargetGainStats_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\sigilTargetGainStats_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="sigilSporogenic_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilSporogenic_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="sigilTeamLeader" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilTeamLeader.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

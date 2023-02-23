@@ -1,26 +1,31 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void FairyFestival_F0483()
+        private void Card_FairyFestival_F0483()
         {
             List<Ability> abilities = new()
             {
                 Bloodfiend.ability
             };
-
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_fairyFestival", "Fairy Festival",
                 "Everything will be peaceful while you're under the fairies' care.",
-                1, 1, 1, 0,
-                Resources.fairyFestival, Resources.fairyFestival_emission, gbcTexture: Resources.fairyFestival_pixel,
+                atk: 1, hp: 2,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.fairyFestival, Artwork.fairyFestival_emission, pixelTexture: Artwork.fairyFestival_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 1);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
+                customTribe: TribeFae);
         }
     }
 }

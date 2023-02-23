@@ -27,7 +27,7 @@ namespace WhistleWind.Core.Helpers
             string modPrefix, string name, string displayName,
             string description, int atk, int hp,
             int blood, int bones, int energy,
-            byte[] portrait, byte[] emission = null, byte[] pixelTexture = null,
+            byte[] portrait = null, byte[] emission = null, byte[] pixelTexture = null,
             byte[] altTexture = null, byte[] emissionAltTexture = null,
             byte[] titleTexture = null,
             List<Ability> abilities = null,

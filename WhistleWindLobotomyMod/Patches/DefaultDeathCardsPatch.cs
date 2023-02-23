@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Patches
 {
     [HarmonyPatch(typeof(DefaultDeathCards))]
     public static class DefaultDeathCardsPatch
@@ -108,7 +109,7 @@ namespace WhistleWindLobotomyMod
             {
                 nameReplacement = "Ttungsil",
                 singletonId = "wstl_ttungsilDeathCard",
-                abilities = { Ability.Evolve, BitterEnemies.ability },
+                abilities = { BitterEnemies.ability },
                 bonesCostAdjustment = 2,
                 deathCardInfo = new DeathCardInfo(CompositeFigurine.FigurineType.SettlerMan, 4, 4)
             });

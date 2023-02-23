@@ -1,13 +1,21 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void BigBird_O0240()
+        private void Card_BigBird_O0240()
         {
+            List<Ability> abilities = new()
+            {
+                Cycler.ability
+            };
             List<Tribe> tribes = new()
             {
                 Tribe.Bird
@@ -16,14 +24,15 @@ namespace WhistleWindLobotomyMod
             {
                 ThreeBirds.specialAbility
             };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_bigBird", "Big Bird",
                 "Its eyes light up the darkness like stars.",
-                2, 4, 2, 0,
-                Resources.bigBird, Resources.bigBird_emission, gbcTexture: Resources.bigBird_pixel,
-                abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new(),
-                isChoice: true, onePerDeck: true, riskLevel: 4);
+                atk: 2, hp: 4,
+                blood: 2, bones: 0, energy: 0,
+                Artwork.bigBird, Artwork.bigBird_emission, pixelTexture: Artwork.bigBird_pixel,
+                abilities: abilities, specialAbilities: specialAbilities,
+                metaCategories: new(), tribes: tribes, traits: new(), onePerDeck: true,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }
 }

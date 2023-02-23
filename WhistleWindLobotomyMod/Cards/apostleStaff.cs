@@ -1,13 +1,16 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void ApostleStaff_T0346()
+        private void Card_ApostleStaff_T0346()
         {
+            Tribe customTribe = TribeDivine;
             List<Ability> abilities = new()
             {
                 Ability.Sniper,
@@ -20,16 +23,32 @@ namespace WhistleWindLobotomyMod
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedWhite.appearance
+                ForcedWhiteEmission.appearance
             };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_apostleStaff", "Staff Apostle",
                 "The time has come.",
-                3, 6, 0, 0,
-                Resources.apostleStaff, Resources.apostleStaff_emission,
+                atk: 3, hp: 6,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.apostleStaff, Artwork.apostleStaff_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances);
+                appearances: appearances, modTypes: ModCardType.EventCard, customTribe: customTribe);
+
+            abilities = new()
+            {
+                Ability.PreventAttack,
+                Apostle.ability
+            };
+            CreateCard(
+                "wstl_apostleStaffDown", "Staff Apostle",
+                "The time has come.",
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 0,
+                Artwork.apostleStaffDown, Artwork.apostleStaffDown_emission,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: traits,
+                appearances: appearances, modTypes: ModCardType.EventCard, customTribe: customTribe);
         }
     }
 }

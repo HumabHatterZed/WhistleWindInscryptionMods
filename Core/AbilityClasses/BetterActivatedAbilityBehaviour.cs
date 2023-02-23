@@ -1,5 +1,6 @@
 using DiskCardGame;
 using GBC;
+using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 
@@ -14,9 +15,12 @@ namespace WhistleWind.Core.AbilityClasses
         public virtual int StartingEnergyCost { get; }
         public virtual int StartingBonesCost { get; }
         public virtual int StartingHealthCost { get; }
-        public int EnergyCost => StartingEnergyCost + energyCostMod;
-        public int BonesCost => StartingBonesCost + bonesCostMod;
-        public int HealthCost => StartingHealthCost + healthCostMod;
+        public int EnergyCostMod { get; internal set; }
+        public int BonesCostMod { get; internal set; }
+        public int HealthCostMod { get; internal set; }
+        public int EnergyCost => StartingEnergyCost + EnergyCostMod;
+        public int BonesCost => StartingBonesCost + BonesCostMod;
+        public int HealthCost => StartingHealthCost + HealthCostMod;
 
         public sealed override bool RespondsToResolveOnBoard() => SaveManager.SaveFile.IsPart2 && !ProgressionData.LearnedMechanic(MechanicsConcept.GBCActivatedAbilities);
         public sealed override IEnumerator OnResolveOnBoard()
@@ -61,22 +65,31 @@ namespace WhistleWind.Core.AbilityClasses
                             }
                         }
                     }
+                    EnergyCostMod += energyCostMod;
+
                 }
                 if (BonesCost > 0)
                 {
                     yield return Singleton<ResourcesManager>.Instance.SpendBones(BonesCost);
+                    BonesCostMod += bonesCostMod;
                 }
+
                 if (HealthCost > 0)
                 {
                     base.Card.Anim.LightNegationEffect();
                     base.Card.Status.damageTaken++;
-                    if (base.Card.Health <= 0)
-                        yield return base.Card.Die(false);
+                    HealthCostMod += healthCostMod;
                 }
                 yield return new WaitForSeconds(0.1f);
                 yield return base.PreSuccessfulTriggerSequence();
                 yield return this.Activate();
                 ProgressionData.SetMechanicLearned(MechanicsConcept.GBCActivatedAbilities);
+
+                if (HealthCost > 0) // card still exists and has 0 Health
+                {
+                    if (base.Card != null && base.Card.NotDead() && base.Card.Health == 0)
+                        yield return base.Card.Die(false);
+                }
             }
             else
             {
@@ -98,9 +111,8 @@ namespace WhistleWind.Core.AbilityClasses
             if (base.Card.Health >= HealthCost)
             {
                 if (Singleton<ResourcesManager>.Instance.PlayerEnergy >= EnergyCost)
-                {
                     return Singleton<ResourcesManager>.Instance.PlayerBones >= BonesCost;
-                }
+
             }
             return false;
         }

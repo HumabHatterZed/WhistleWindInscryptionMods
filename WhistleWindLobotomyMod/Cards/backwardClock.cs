@@ -1,12 +1,15 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void BackwardClock_D09104()
+        private void Card_BackwardClock_D09104()
         {
             List<Ability> abilities = new()
             {
@@ -16,14 +19,17 @@ namespace WhistleWindLobotomyMod
             {
                 Trait.DeathcardCreationNonOption
             };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_backwardClock", "Backward Clock",
-                "A clock to rewind your wasted time. A blatant cheat.",
-                0, 1, 0, 4,
-                Resources.backwardClock, Resources.backwardClock_emission,
+                "A clock to rewind your wasted time. Will you pay the toll?",
+                atk: 0, hp: 1,
+                blood: 0, bones: 0, energy: 2,
+                Artwork.backwardClock, Artwork.backwardClock_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                isTerrain: true, isRare: true, onePerDeck: true, isDonator: true, riskLevel: 4);
+                onePerDeck: true,
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Waw,
+                modTypes: ModCardType.Donator | ModCardType.Restricted);
         }
     }
 }

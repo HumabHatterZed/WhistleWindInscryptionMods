@@ -8,7 +8,7 @@ namespace Infiniscryption.Spells.Patchers
 {
     public static class SpellCards
     {
-        internal static void RegisterCustomCards(Harmony harmony)
+        internal static void RegisterCustomCards()
         {
             CardManager.New(InfiniscryptionSpellsPlugin.CardPrefix,
                     "Spell_Kettle_of_Avarice",

@@ -1,13 +1,14 @@
 ﻿using DiskCardGame;
+using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Opponents.TrapperTrader
 {
     public class TrapperTraderAbnormalBattleSequencer : TrapperTraderBattleSequencer
     {
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData)
         {
             EncounterData encounterData = base.BuildCustomEncounter(nodeData);
-            encounterData.Blueprint = AbnormalEncounterData.TrapperTraderAbnormalBossP1;
+            encounterData.Blueprint = LobotomyEncounterManager.TrapperTraderAbnormalBossP1;
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, nodeData.difficulty + RunState.Run.DifficultyModifier);
             EncounterData.StartCondition startCondition = new();
             startCondition.cardsInOpponentSlots[0] = CardLoader.GetCardByName("TrapFrog");

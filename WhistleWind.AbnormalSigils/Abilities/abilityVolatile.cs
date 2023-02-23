@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace WhistleWind.AbnormalSigils
             Volatile.ability = AbnormalAbilityHelper.CreateAbility<Volatile>(
                 Artwork.sigilVolatile, Artwork.sigilVolatile_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 0,
-                modular: true, opponent: true, canStack: false,
+                modular: false, opponent: true, canStack: false,
                 flipTexture: Artwork.sigilVolatile_flipped).Id;
         }
     }
@@ -30,6 +31,9 @@ namespace WhistleWind.AbnormalSigils
 
         public override bool RespondsToResolveOnBoard()
         {
+            if (AbnormalPlugin.SpellAPI.Enabled && base.Card.Info.IsTargetedSpell())
+                return true;
+
             return base.Card.Info.GetExtendedPropertyAsBool("wstl:Sap") ?? false;
         }
         public override IEnumerator OnResolveOnBoard()

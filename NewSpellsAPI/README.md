@@ -1,13 +1,12 @@
 # Spell Cards
-
 This is an updated version of DivisionByZ0rro's original [Spell Card Toolkit](https://inscryption.thunderstore.io/package/Infiniscryption/Spell_Card_Toolkit/).
 This mod seeks to improve upon what was left behind through bug fixes and minor content additions.
 
 New additions and features include:
-- Bug fix allowing you to cancel playing spell cards once you've selected one
-- Tweaks to some of the built-in sigils, allowing them to work when they're on non-spell cards and global-spell cards
-  - Attack Up, Direct Healing, Give Stats, Give Sigils, Give Stats and Sigils can now trigger their effects when sacrificed
-- The ability to make spell cards display their stats during battle
+- Opponent support for Leshy playing spell cards
+- The ability to cancel playing a spell card once you've selected it
+- The ability to create spell cards that display their stats during battle
+- Non- and global spell cards support for built-in sigils, allowing them to work properly on these kinds of cards
 - 3 new sigils: Give Stats, Give Sigils, Give Stats and Sigils
 - 4 new cards: Soul Without a Body, Body Without a Soul, Another's Desire, Hope
 
@@ -37,7 +36,6 @@ With this new version, you can also make spell cards display their stats.
 By default, these kinds of cards can have their stats boosted at the campfire; you can disable this in the config.
 
 ## Credits
-
 Original mod by DivisionByZ0rro.
 
 This mod would not be possible without signifcant contributions from the Inscryption Modding discord channel.
@@ -45,7 +43,6 @@ This mod would not be possible without signifcant contributions from the Inscryp
 Pixel icons were contributed by [Arakulele](https://inscryption.thunderstore.io/package/Arackulele/).
 
 ## Does this pack add any cards?
-
 It can, but it doesn't by default. If you want my example cards added to the card pool, go to the config file 'zorro.infiniscryption.sigils.cfg' and set 'AddCards' to true.
 
 This will add the following cards:
@@ -66,13 +63,11 @@ This will add the following cards:
 These cards are not meant to be balanced, but rather to demonstrate how the mod works (hence why they are not added by default).
 
 ## Requirements
-
 As with most mods, you need [BepInEx](https://inscryption.thunderstore.io/package/BepInEx/BepInExPack_Inscryption/) installed. 
 
 You will also need the [API](https://inscryption.thunderstore.io/package/API_dev/API/) installed.
 
 ## I want to make a spell - how does this work?
-
 When a spell is played, it will fire either three or four triggers (depending upon the type of spell) in this specific order.
 
 1. PlayFromHand
@@ -85,15 +80,13 @@ As a card developer, it is up to you to put sigils (either existing or custom) o
 <!---->
 
 ## Target selection for targeted cards
-
 When it comes time to select a target for a targeted card, the game will ask the card if it responds to being targeted at that card slot using the 'RespondsToSlotTargetedForAttack' override. It will only allow you to target a spell at a slot if the card says it will respond to being pointed at that slot. Additionally, if the card responds to 'ResolveOnBoard,' the game will allow you to target *any* of the player's four slots.
 
 The sigils included in this pack are built so that the ones that do harm will respond 'false' when pointed at a player card and 'true' when pointed at an opposing card (and vice versa for sigils that are beneficial). Note that this means if you combine a positive and negative effect on the same card (for example, a spell that increases attack by one but also damages the card for one), that card will be able to target both friendly and enemy cards.
 
-If you are adding sigils that are intended to be used on targeted spells, you need to make sure that the 'RespondsToSlotTargetedForAttack' correctly identifies if this sigil should be applied to that slot.
+If you are adding sigils that are intended to be used on targeted spells, you need to make sure that the override bool 'RespondsToSlotTargetedForAttack' correctly identifies what slots should be targetable.
 
 ## What sigils are in this pack?
-
 So far we have the following:
 
 - **Draw Twice ("zorro.infiniscryption.sigils.Draw Twice")**: Draw the top card of your main deck and the top card of your side deck when this card dies.
@@ -107,20 +100,19 @@ So far we have the following:
 - **Give Sigils ("zorro.infiniscryption.sigils.Give Sigils")**: Gives the spell card's sigils (excluding this sigil) to the targeted creature for the rest of the battle.
 - **Give Stats and Sigils ("zorro.infiniscryption.sigils.Give Stats and Sigils")**: A combination of Give Stats and Give Sigils. Does not stack with either of them.
 
-## Split-, Tri-, and AllStrike
+## Split-, Tri-, and Omni Strike
 These sigils do **nothing** for global spells, but behave as you would expect for targeted spells. Be careful when putting Split Strike on a targeted spell, as it will behave exactly as expected, which is not necessarily intuitive. Rather than affecting the targeted space, it will affect the spaces on either side.
 
 The spell will trigger once for each targeted slot, **but only the SlotTargetedForAttack and ResolveOnBoard triggers will fire multiple times**. The PlayFromHand and Die triggers will only happen once.
 
 So, for example:
-- A spell with All Strike and Create Dams will attempt to put a beaver dam in every space on the boad.
+- A spell with Omni Strike and Create Dams will attempt to put a Dam in every space on the board.
 - A spell with Tri Strike and Direct Damage will deal one damage to the targeted space and both adjacent spaces.
 - A spell with Split Strike and Explode On Death will only explode once.
 
 Note that abilities that modify the way cards attack (custom "strike" sigils) are not supported - only Split-, Tri-, and AllStrike.
 
 ## Adding a spell through the API
-
 The best way to add a spell using the API is to also create a reference to this mod's DLL in your project and use the custom extension method helpers "SetGlobalSpell()" or "SetTargetedSpell()" to turn a card into a spell:
 
 ```c#
@@ -147,7 +139,6 @@ With the new version, you can use "SetTargetedSpellStats()" and "SetGlobalSpellS
 Additionally, if you want to make sure your card can NEVER be buffed, you can use "SetNeverBoostStats()" to mark your card as always being ineligible for stat buffing.
 
 ## Adding a spell through JSON Loader
-
 To add a spell using JSON loader, you simply need to add either the global spell or the targeted spell special ability to the card:
 
 ```json
@@ -172,7 +163,6 @@ To create a spell card that can never be buffed at the campfire, you need to add
 Don't worry about adding the Stat Icon to your card; the mod will do it for you.
 
 ## A Personal Message from DivisionByZ0rro (7/18/2022)
-
 It's been a while since you've heard from me. Life changes quickly. I got a bad case of Covid, I had family members get seriously injured, and was just generally unavailable for a while. 
 
 Working on this and other Inscryption mods has been an amazing collaborative journey over the past months. Ever since I completed Inscryption for the first time in the fall of 2021, I spent all of my spare time (and then some) working on modding this game and being a part of an incredible community. But unfortunately, things change, and I cannot keep this up moving forward. I simply don't have the same amount of spare time that I used to, and it's time for me to move on.

@@ -4,6 +4,7 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
@@ -85,27 +86,27 @@ namespace WhistleWind.AbnormalSigils.Patches
     {
         // Triggers card with Fungal Infector before other cards
         [HarmonyPostfix, HarmonyPatch(nameof(GlobalTriggerHandler.TriggerCardsOnBoard))]
-        private static IEnumerator TriggerFungalInfectorFirst(IEnumerator enumerator, GlobalTriggerHandler __instance, Trigger trigger, bool triggerFacedown, params object[] otherArgs)
+        private static IEnumerator TriggerSporogenicFirst(IEnumerator enumerator, GlobalTriggerHandler __instance, Trigger trigger, bool triggerFacedown, params object[] otherArgs)
         {
             if (trigger == Trigger.TurnEnd)
             {
-                List<PlayableCard> list = new List<PlayableCard>(Singleton<BoardManager>.Instance.CardsOnBoard);
-                if (list.Exists(item => item.HasAbility(Spores.ability)))
+                List<PlayableCard> list = Singleton<BoardManager>.Instance.CardsOnBoard;
+
+                if (list.Exists(x => x.HasAbility(Sporogenic.ability)))
                 {
-                    AbnormalPlugin.Log.LogDebug("Triggering Fungal Infector before other cards.");
                     yield return __instance.TriggerNonCardReceivers(beforeCards: true, trigger, otherArgs);
 
-                    // Trigger remaining Spore cards
-                    foreach (PlayableCard item in list)
+                    // Trigger Sporogenic cards
+                    foreach (PlayableCard item in list.Where(x => x.HasAbility(Sporogenic.ability)))
                     {
-                        if (item != null && item.HasAbility(Spores.ability) && (!item.FaceDown || triggerFacedown) && item.TriggerHandler.RespondsToTrigger(trigger, otherArgs))
+                        if ((!item.FaceDown || triggerFacedown) && item.TriggerHandler.RespondsToTrigger(trigger, otherArgs))
                             yield return item.TriggerHandler.OnTrigger(trigger, otherArgs);
                     }
 
                     // Trigger remaining cards
-                    foreach (PlayableCard item in list)
+                    foreach (PlayableCard item in list.Where(x => x.LacksAbility(Sporogenic.ability)))
                     {
-                        if (item != null && item.LacksAbility(Spores.ability) && (!item.FaceDown || triggerFacedown) && item.TriggerHandler.RespondsToTrigger(trigger, otherArgs))
+                        if ((!item.FaceDown || triggerFacedown) && item.TriggerHandler.RespondsToTrigger(trigger, otherArgs))
                             yield return item.TriggerHandler.OnTrigger(trigger, otherArgs);
                     }
 

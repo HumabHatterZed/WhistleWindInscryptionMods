@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_YellowBrickRoad()
         {
             const string rulebookName = "Follow the Leader";
-            const string rulebookDescription = "At the end of the owner's turn, this card moves in the sigil's direction, looping around the board upon reaching one of its ends. Ally cards move in the sigil's direction towards this card as far as possible.";
+            const string rulebookDescription = "At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Ally cards follow, moving towards this card as far as possible.";
             const string dialogue = "Let's go, together.";
             YellowBrickRoad.ability = AbnormalAbilityHelper.CreateAbility<YellowBrickRoad>(
                 Artwork.sigilYellowBrickRoad, Artwork.sigilYellowBrickRoad_pixel,

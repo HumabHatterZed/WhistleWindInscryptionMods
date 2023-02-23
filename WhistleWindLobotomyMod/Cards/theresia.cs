@@ -1,25 +1,31 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void Theresia_T0909()
+        private void Card_Theresia_T0909()
         {
             List<Ability> abilities = new()
             {
                 Healer.ability
             };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_theresia", "Theresia",
                 "An old music box. It plays a familiar melody.",
-                0, 2, 1, 0,
-                Resources.theresia, Resources.theresia_emission,
+                atk: 0, hp: 2,
+                blood: 0, bones: 0, energy: 2,
+                Artwork.theresia, Artwork.theresia_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 2);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
+                customTribe: TribeMachine);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Infiniscryption.Spells
 
         internal const string PluginGuid = "zorro.inscryption.infiniscryption.spells";
         internal const string PluginName = "New Infiniscryption Spells";
-        internal const string PluginVersion = "1.0.0";
+        internal const string PluginVersion = "1.1.0";
         internal const string CardPrefix = "ZSPL";
 
         internal static ManualLogSource Log;
@@ -65,7 +65,7 @@ namespace Infiniscryption.Spells
             GiveStatsSigils.Register();
 
             if (AddCards)
-                SpellCards.RegisterCustomCards(harmony);
+                SpellCards.RegisterCustomCards();
 
             // This makes sure that all cards with the spell ability are properly given all of the various components of a spell
             CardManager.ModifyCardList += delegate (List<CardInfo> cards)

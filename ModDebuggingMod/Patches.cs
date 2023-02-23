@@ -1,14 +1,18 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static DiskCardGame.EncounterBlueprintData;
 
 namespace ModDebuggingMod
 {
     // Adds predefined nodes for testing
     [HarmonyPatch]
-    public class DebugPatches
+    public static class DebugPatches
     {
-        private static readonly string lobGuid = "whistlewind.inscryption.lobotomymod";
+        private static string LobGuid => WhistleWindLobotomyMod.LobotomyPlugin.pluginGuid;
+
         [HarmonyPatch(typeof(PaperGameMap), "TryInitializeMapData")]
         public static void Prefix(ref PaperGameMap __instance)
         {
@@ -28,20 +32,23 @@ namespace ModDebuggingMod
         [HarmonyPatch(typeof(SaveFile), nameof(SaveFile.ResetPart1Run))]
         public static void Postfix(SaveFile __instance)
         {
-            __instance.currentRun.consumables = new();
-            for (int i = 0; i < 3; i++)
+            __instance.currentRun.consumables = new()
             {
-                __instance.currentRun.consumables.Add(lobGuid + "_" + "BottledTrain");
-            }
+                LobGuid + "_" + "BottledTrain",
+                LobGuid + "_" + "BottledTrain",
+                LobGuid + "_" + "BottledTrain"
+            };
         }
+
         [HarmonyPatch(typeof(AscensionSaveData), nameof(AscensionSaveData.NewRun))]
         public static void Postfix(AscensionSaveData __instance)
         {
-            __instance.currentRun.consumables = new();
-            for (int i = 0; i < 3; i++)
+/*            __instance.currentRun.consumables = new()
             {
-                //__instance.currentRun.consumables.Add("wstl_DebugItem");
-            }
+                LobGuid + "_" + "BottledTrain",
+                LobGuid + "_" + "BottledTrain",
+                LobGuid + "_" + "BottledTrain"
+            };*/
         }
 
         private static NodeData StartNode => new();

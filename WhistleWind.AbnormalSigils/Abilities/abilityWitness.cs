@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Witness()
         {
             const string rulebookName = "Witness";
-            const string rulebookDescription = "Activate: Pay 2 bones to increase a selected card's Health by 2 and increase their taken damage by 1. This effect stacks up to 3 times per card.";
+            const string rulebookDescription = "Activate: Pay 2 bones to increase the chosen card's Health by 2 and their taken damage by 1. This effect stacks up to 3 times per card.";
             const string dialogue = "The truth will set you free.";
 
             Witness.ability = AbnormalAbilityHelper.CreateActivatedAbility<Witness>(
@@ -27,11 +27,10 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override bool TargetAll => false;
-        public override bool TargetAllies => true;
         public override string NoTargetsDialogue => "There's no one to hear your message.";
         public override string InvalidTargetDialogue => "You must choose one of your other cards to proselytise.";
         public override int StartingBonesCost => 2;
+        public override bool CardSlotCanBeTargeted(CardSlot slot) => slot.IsPlayerSlot != base.Card.OpponentCard && slot != null;
 
         public override bool CanActivate()
         {
@@ -49,10 +48,6 @@ namespace WhistleWind.AbnormalSigils
             return false;
         }
 
-        public override IEnumerator OnPostValidTargetSelected()
-        {
-            yield break;
-        }
         public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {
             int prudence = !(slot.Card.Info.GetExtendedPropertyAsInt("wstl:Prudence") != null) ? 0 : (int)slot.Card.Info.GetExtendedPropertyAsInt("wstl:Prudence");

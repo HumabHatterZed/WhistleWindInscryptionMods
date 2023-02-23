@@ -4,6 +4,7 @@ using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Infiniscryption.Spells.Sigils
@@ -35,7 +36,44 @@ namespace Infiniscryption.Spells.Sigils
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => base.Card.Info.IsSpell();
 
         public override IEnumerator OnResolveOnBoard() => Effect();
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) => Effect();
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
+        {
+            if (base.Card.OpponentCard)
+            {
+                int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
+                List<CardInfo> possibleCards = new();
+
+                // go through the turn plan and get all cards that Leshy will/has play/ed
+                foreach (List<CardInfo> turn in Singleton<TurnManager>.Instance.Opponent.TurnPlan)
+                {
+                    foreach (CardInfo info in turn)
+                    {
+                        if (base.Card.Info != info)
+                            possibleCards.Add(info);
+                    }
+                }
+
+                // create 2 cards in queue
+                for (int i = 0; i < 2; i++)
+                {
+                    List<CardSlot> openSlots = Singleton<BoardManager>.Instance.OpponentSlotsCopy.Where(s => !Singleton<TurnManager>.Instance.Opponent.QueuedSlots.Contains(s)).ToList();
+
+                    if (openSlots.Count() > 0)
+                    {
+
+                        CardSlot index = openSlots[SeededRandom.Range(0, openSlots.Count, randomSeed++)];
+                        CardInfo cardToQueue = possibleCards[SeededRandom.Range(0, possibleCards.Count, randomSeed++)];
+                        yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(cardToQueue, index);
+                        possibleCards.Remove(cardToQueue);
+                    }
+                }
+                yield return new WaitForSeconds(0.45f);
+            }
+            else
+            {
+                yield return Effect();
+            }
+        }
 
         private IEnumerator Effect()
         {

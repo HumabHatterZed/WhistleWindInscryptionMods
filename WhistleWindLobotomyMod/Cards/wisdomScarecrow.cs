@@ -1,25 +1,30 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void WisdomScarecrow_F0187()
+        private void Card_WisdomScarecrow_F0187()
         {
             List<Ability> abilities = new()
             {
                 Bloodfiend.ability
             };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_wisdomScarecrow", "Scarecrow Searching for Wisdom",
                 "A hollow-headed scarecrow. Blood soaks its straw limbs.",
-                1, 3, 0, 5,
-                Resources.wisdomScarecrow, Resources.wisdomScarecrow_emission, gbcTexture: Resources.wisdomScarecrow_pixel,
+                atk: 1, hp: 3,
+                blood: 0, bones: 5, energy: 0,
+                Artwork.wisdomScarecrow, Artwork.wisdomScarecrow_emission, pixelTexture: Artwork.wisdomScarecrow_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                isChoice: true, riskLevel: 3);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He); ;
         }
     }
 }

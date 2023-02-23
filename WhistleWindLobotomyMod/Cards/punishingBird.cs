@@ -1,12 +1,16 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class WstlPlugin
+    public partial class LobotomyPlugin
     {
-        private void PunishingBird_O0256()
+        private void Card_PunishingBird_O0256()
         {
             List<Ability> abilities = new()
             {
@@ -17,18 +21,15 @@ namespace WhistleWindLobotomyMod
             {
                 Tribe.Bird
             };
-            List<Trait> traits = new()
-            {
-                Trait.KillsSurvivors
-            };
-            CardHelper.CreateCard(
+            CreateCard(
                 "wstl_punishingBird", "Punishing Bird",
                 "A small bird on a mission to punish evildoers.",
-                1, 1, 1, 0,
-                Resources.punishingBird, Resources.punishingBird_emission, gbcTexture: Resources.punishingBird_pixel,
+                atk: 1, hp: 1,
+                blood: 1, bones: 0, energy: 0,
+                Artwork.punishingBird, Artwork.punishingBird_emission, pixelTexture: Artwork.punishingBird_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                isChoice: true, onePerDeck: true, riskLevel: 2);
+                metaCategories: new(), tribes: tribes, traits: new(),
+                choiceType: CardHelper.CardChoiceType.Basic, onePerDeck: true, riskLevel: RiskLevel.Teth);
         }
     }
 }

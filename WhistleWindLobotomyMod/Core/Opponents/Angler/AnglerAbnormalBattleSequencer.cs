@@ -1,15 +1,16 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Opponents.Angler
 {
     public class AnglerAbnormalBattleSequencer : AnglerBattleSequencer
     {
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData)
         {
             EncounterData encounterData = base.BuildCustomEncounter(nodeData);
-            encounterData.Blueprint = AbnormalEncounterData.AnglerAbnormalBossP1;
+            encounterData.Blueprint = LobotomyEncounterManager.AnglerAbnormalBossP1;
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, nodeData.difficulty + RunState.Run.DifficultyModifier);
             return encounterData;
         }
@@ -19,9 +20,9 @@ namespace WhistleWindLobotomyMod
             CardInfo cardByName = CardLoader.GetCardByName("wstl_dreamingCurrent");
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(cardByName, deathSlot);
             yield return new WaitForSeconds(0.25f);
-            if (!this.sharkDialoguePlayed)
+            if (!sharkDialoguePlayed)
             {
-                this.sharkDialoguePlayed = true;
+                sharkDialoguePlayed = true;
                 yield return new WaitForSeconds(0.5f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Go fish.", -0.65f, 0.4f);
             }

@@ -6,9 +6,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Resources = WhistleWindLobotomyMod.Properties.Resources;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Opponents.Angler;
+using WhistleWindLobotomyMod.Core.Opponents.Leshy;
+using WhistleWindLobotomyMod.Core.Opponents.PirateSkull;
+using WhistleWindLobotomyMod.Core.Opponents.Prospector;
+using WhistleWindLobotomyMod.Core.Opponents.TrapperTrader;
+using WhistleWindLobotomyMod.Properties;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Core.Challenges
 {
     public static class AbnormalBosses // taken from infiniscryption
     {
@@ -18,24 +24,13 @@ namespace WhistleWindLobotomyMod
         public static void Register(Harmony harmony)
         {
             Id = ChallengeManager.Add(
-                WstlPlugin.pluginGuid,
+                LobotomyPlugin.pluginGuid,
                 "Abnormal Bosses",
                 "Bosses will only play abnormality cards.",
                 30,
-                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionAbnormalBosses),
-                WstlTextureHelper.LoadTextureFromResource(Resources.ascensionAbnormalBosses_activated)
+                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalBosses),
+                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalBosses_activated)
                 ).Challenge.challengeType;
-
-            // Do later?
-            /*CardManager.ModifyCardList += delegate (List<CardInfo> cards)
-            {
-                if (AscensionSaveData.Data.ChallengeIsActive(Id))
-                {
-                    cards.CardByName("Starvation").portraitTex = null;
-                }
-
-                return cards;
-            };*/
 
             harmony.PatchAll(typeof(AbnormalBosses));
         }
@@ -62,16 +57,18 @@ namespace WhistleWindLobotomyMod
         public static bool ReplaceBossEncounter(EncounterData encounterData, ref Opponent __result)
         {
             // breaks if challenge is not active or if opponent is not supported
-            if (!AscensionSaveData.Data.ChallengeIsActive(Id) || (!SaveFile.IsAscension && !ConfigManager.Instance.AbnormalBosses))
+            if (SaveFile.IsAscension ? !AscensionSaveData.Data.ChallengeIsActive(Id) : !LobotomyConfigManager.Instance.AbnormalBosses)
                 return true;
 
             if (!SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
                 return true;
 
-            GameObject gameObject = new();
-            gameObject.name = "Opponent";
+            GameObject gameObject = new()
+            {
+                name = "Opponent"
+            };
             Opponent.Type opponentType = encounterData.opponentType;
-            WstlPlugin.Log.LogDebug($"Replacing opponent: {opponentType}");
+            LobotomyPlugin.Log.LogDebug($"Replacing opponent: {opponentType}");
             Opponent opponent = opponentType switch
             {
                 Opponent.Type.ProspectorBoss => gameObject.AddComponent<ProspectorAbnormalBossOpponent>(),
@@ -86,7 +83,7 @@ namespace WhistleWindLobotomyMod
             {
                 text = "AI";
             }
-            opponent.AI = (Activator.CreateInstance(CustomType.GetType("DiskCardGame", text)) as AI);
+            opponent.AI = Activator.CreateInstance(CustomType.GetType("DiskCardGame", text)) as AI;
             opponent.NumLives = opponent.StartingLives;
             opponent.OpponentType = opponentType;
             opponent.TurnPlan = opponent.ModifyTurnPlan(encounterData.opponentTurnPlan);
@@ -99,7 +96,7 @@ namespace WhistleWindLobotomyMod
 
         private static void AddBossSequencer<T>(TurnManager manager) where T : SpecialBattleSequencer
         {
-            GameObject.Destroy(manager.SpecialSequencer);
+            UnityEngine.Object.Destroy(manager.SpecialSequencer);
             SpecialBattleSequencer sequencer = manager.gameObject.AddComponent<T>();
             Traverse trav = Traverse.Create(manager);
             trav.Property("SpecialSequencer").SetValue(sequencer);
@@ -111,15 +108,13 @@ namespace WhistleWindLobotomyMod
         public static bool ReplaceSequencers(string specialBattleId, ref TurnManager __instance)
         {
             // if challenge not active and 
-            if (!AscensionSaveData.Data.ChallengeIsActive(Id) || (!SaveFile.IsAscension && !ConfigManager.Instance.AbnormalBosses))
-            {
+            if (SaveFile.IsAscension ? !AscensionSaveData.Data.ChallengeIsActive(Id) : !LobotomyConfigManager.Instance.AbnormalBosses)
                 return true;
-            }
+
             if (!OPPONENT_IDS.Contains(specialBattleId))
-            {
                 return true;
-            }
-            WstlPlugin.Log.LogDebug($"Replacing special ID: {specialBattleId}");
+
+            LobotomyPlugin.Log.LogDebug($"Replacing special ID: {specialBattleId}");
             if (specialBattleId == BossBattleSequencer.GetSequencerIdForBoss(Opponent.Type.ProspectorBoss))
             {
                 ChallengeActivationUI.TryShowActivation(Id);
@@ -164,7 +159,7 @@ namespace WhistleWindLobotomyMod
                 for (int i = 0; i < numSkeles; i++)
                 {
                     List<CardSlot> validSlots = Singleton<BoardManager>.Instance.PlayerSlotsCopy;
-                    validSlots.RemoveAll((CardSlot x) => x.Card != null);
+                    validSlots.RemoveAll((x) => x.Card != null);
                     if (validSlots.Count > 0)
                     {
                         Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue, immediate: false, lockAfter: true);

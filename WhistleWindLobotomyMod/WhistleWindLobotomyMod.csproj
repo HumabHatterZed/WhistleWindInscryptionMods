@@ -3,45 +3,69 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AssemblyName>WhistleWindLobotomyMod</AssemblyName>
-		<Description>A mod for Inscryption adding cards and sigils based on Lobotomy Corp's abnormalities.</Description>
-		<Version>1.3.0</Version>
+		<Description>A mod for Inscryption adding cards and sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina.</Description>
+		<Version>2.0.0</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<LangVersion>9.0</LangVersion>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
-		<PackageReference Include="BepInEx.Core" Version="5.4.19" />
-		<PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
-		<PackageReference Include="Inscryption.GameLibs" Version="1.9.0-r.0" />
-		<PackageReference Include="UnityEngine.Modules" Version="2019.4.24" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" GeneratePathProperty="true" IncludeAssets="none" />
+    <PackageReference Include="BepInEx.Core" Version="5.4.19" GeneratePathProperty="true" IncludeAssets="none" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" GeneratePathProperty="true" IncludeAssets="none" />
+    <PackageReference Include="ILRepack" Version="2.0.18" GeneratePathProperty="true" IncludeAssets="none" />
+    <PackageReference Include="UnityEngine.Modules" Version="2019.4.24" IncludeAssets="compile" GeneratePathProperty="true" />
 	</ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\WhistleWind.AbnormalSigils\WhistleWind.AbnormalSigils.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="InscryptionAPI" Private="false">
       <HintPath>..\lib\InscryptionAPI.dll</HintPath>
     </Reference>
+    <Reference Include="Infiniscryption.Spells" Private="false">
+      <HintPath>..\lib\Infiniscryption.Spells.dll</HintPath>
+    </Reference>
+    <Reference Include="TribeLibary" Private="false">
+      <HintPath>..\lib\TribeLibary.dll</HintPath>
+    </Reference>
     <Reference Include="Infiniscryption.PackManager" Private="false">
       <HintPath>..\lib\Infiniscryption.PackManager.dll</HintPath>
     </Reference>
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <EmbeddedResource Include="talkingcardssephirah" />
+  </ItemGroup>
+	
 	<ItemGroup>
-		<Compile Update="Properties\Resources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Resources.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
+	  <Compile Update="Properties\Artwork.Designer.cs">
+	    <DependentUpon>Artwork.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
 	</ItemGroup>
 	
-	<ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Artwork.resx">
+	    <SubType>Designer</SubType>
+	    <LastGenOutput>Artwork.Designer.cs</LastGenOutput>
+	    <Generator>ResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /Y $(ProjectDir)\..\lib\*.dll $(TargetDir)" />
+    <Exec Command="$(PkgILRepack)\tools\ILRepack /out:..\Compiled\$(AssemblyName).dll $(TargetPath) ../Compiled/WhistleWind.Core.dll /lib:$(TargetDir)" />
+    <Copy Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Inscryption\')" SourceFiles="..\Compiled\$(AssemblyName).dll" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Inscryption\BepInEx\plugins\" />
+  </Target>
 </Project>

@@ -262,25 +262,10 @@
   <data name="challenge9__2_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\challenge9 (2).png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="fairyFestival" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fairyFestival.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fairyFestival_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fairyFestival_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="itemRulebookIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\itemRulebookIcon.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="sigilDebug" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sigilDebug.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="sigilDebugP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sigilDebugP.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="starterDeckMagicalGirls" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\starterDeckMagicalGirls.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tribeIcon_Debug" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tribeIcon_Debug.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
