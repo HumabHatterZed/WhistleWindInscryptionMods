@@ -8,21 +8,6 @@ namespace WhistleWind.Core.Helpers
 {
     public static class CardHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
-        [Flags]
-        public enum CardMetaType
-        {
-            None = 0,
-            NonChoice = 1,          // Remove as choice option
-            Terrain = 2,            // Terrain trait
-            NoTerrainLayout = 4     // No terrain layout
-        }
-        public enum CardChoiceType
-        {
-            None,
-            Basic,  // Default background, common choice
-            Rare    // Rare background, boss chest
-        }
-
         public static CardInfo CreateCard(
             string modPrefix, string name, string displayName,
             string description, int atk, int hp,
@@ -57,12 +42,12 @@ namespace WhistleWind.Core.Helpers
             decals ??= new();
 
             // Load textures
-            Texture2D portraitTex = portrait != null ? TextureLoader.LoadTextureFromBytes(portrait) : null;
-            Texture2D emissionTex = emission != null ? TextureLoader.LoadTextureFromBytes(emission) : null;
-            Texture2D altTex = altTexture != null ? TextureLoader.LoadTextureFromBytes(altTexture) : null;
-            Texture2D altEmissionTex = emissionAltTexture != null ? TextureLoader.LoadTextureFromBytes(emissionAltTexture) : null;
-            Texture2D pixelTex = pixelTexture != null ? TextureLoader.LoadTextureFromBytes(pixelTexture) : null;
-            Texture titleTex = titleTexture != null ? TextureLoader.LoadTextureFromBytes(titleTexture) : null;
+            Texture2D portraitTex = TextureLoader.LoadTextureFromBytes(portrait);
+            Texture2D emissionTex = TextureLoader.LoadTextureFromBytes(emission);
+            Texture2D altTex = TextureLoader.LoadTextureFromBytes(altTexture);
+            Texture2D altEmissionTex = TextureLoader.LoadTextureFromBytes(emissionAltTexture);
+            Texture2D pixelTex = TextureLoader.LoadTextureFromBytes(pixelTexture);
+            Texture titleTex = TextureLoader.LoadTextureFromBytes(titleTexture);
 
             bool nonChoice = metaTypes.HasFlag(CardMetaType.NonChoice);
 
@@ -100,15 +85,21 @@ namespace WhistleWind.Core.Helpers
             cardInfo.temple = CardTemple.Nature;
             cardInfo.cardComplexity = CardComplexity.Simple;
             cardInfo.appearanceBehaviour = appearances;
-            cardInfo.onePerDeck = onePerDeck;
-            cardInfo.hideAttackAndHealth = hideStats;
+            cardInfo.SetOnePerDeck(onePerDeck).SetHideStats(hideStats);
 
             // Sets the info for Ice Cube and Evolve, if present
             if (iceCubeName != null)
                 cardInfo.SetIceCube(iceCubeName);
 
             if (evolveName != null)
-                cardInfo.SetEvolve(evolveName, numTurns);
+            {
+                if (evolveName.Contains("{0}"))                    
+                    cardInfo.defaultEvolutionName = string.Format(Localization.Translate(evolveName), cardInfo.DisplayedNameLocalized);
+                else if (evolveName.Contains("[name]"))
+                    cardInfo.defaultEvolutionName = Localization.Translate(evolveName.Replace("[name]", ""));
+                else
+                    cardInfo.SetEvolve(evolveName, numTurns);
+            }
 
             switch (cardType)
             {
@@ -123,20 +114,44 @@ namespace WhistleWind.Core.Helpers
                     break;
             }
 
-            if (metaTypes.HasFlag(CardMetaType.Terrain))
+            if (metaTypes.HasFlags(CardMetaType.Terrain, CardMetaType.Pelt))
             {
-                cardInfo.SetTerrain();
+                if (metaTypes.HasFlag(CardMetaType.Pelt))
+                    cardInfo.SetPelt(!metaTypes.HasFlag(CardMetaType.NoLice));
+
+                if (metaTypes.HasFlag(CardMetaType.Terrain))
+                    cardInfo.SetTerrain();
+
                 if (metaTypes.HasFlag(CardMetaType.NoTerrainLayout))
                     cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainLayout);
+                
                 if (nonChoice || cardType == CardChoiceType.Rare)
                     cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainBackground);
             }
+
             return cardInfo;
         }
 
         public static CardAppearanceBehaviourManager.FullCardAppearanceBehaviour CreateAppearance<T>(string pluginGuid, string name) where T : CardAppearanceBehaviour
         {
             return CardAppearanceBehaviourManager.Add(pluginGuid, name, typeof(T));
+        }
+
+        [Flags]
+        public enum CardMetaType
+        {
+            None = 0,
+            NonChoice = 1,          // Remove as choice option
+            Terrain = 2,            // Terrain trait
+            NoTerrainLayout = 4,    // No terrain layout
+            Pelt = 8,               // Pelt trait
+            NoLice = 16             // No Lice
+        }
+        public enum CardChoiceType
+        {
+            None,
+            Basic,  // Default background, common choice
+            Rare    // Rare background, boss chest
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Core.Opponents.Prospector
 {
@@ -13,7 +12,7 @@ namespace WhistleWindLobotomyMod.Core.Opponents.Prospector
             EncounterData encounterData = base.BuildCustomEncounter(nodeData);
             encounterData.Blueprint = LobotomyEncounterManager.ProspectorAbnormalBossP1;
             int num = !StoryEventsData.EventCompleted(StoryEvent.TutorialRunCompleted) ? 1 : 0;
-            encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, nodeData.difficulty + RunState.Run.DifficultyModifier + num);
+            encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, nodeData.difficulty + RunState.Run.DifficultyModifier + num, false);
             encounterData.aiId = ProspectorAbnormalAI.ID;
             return encounterData;
         }

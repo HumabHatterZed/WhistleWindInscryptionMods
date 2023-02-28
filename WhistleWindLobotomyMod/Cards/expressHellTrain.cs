@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -29,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Waw,
-                customTribe: TribeMachine);
+                evolveName: "[name]Express Train to Turbo Hell", customTribe: TribeMachine);
 
             abilities = new() { TheTrain.ability };
             CreateCard(
@@ -40,7 +39,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.expressHellTrain, Artwork.expressHellTrain_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                spellType: SpellType.Global);
+                evolveName: "[name]Express Train to Turbo Hell", spellType: SpellType.Global);
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,8 +17,7 @@ namespace WhistleWindLobotomyMod
             };
             List<Trait> traits = new()
             {
-                Trait.Uncuttable,
-                Trait.Terrain
+                TraitApostle
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
@@ -36,14 +34,6 @@ namespace WhistleWindLobotomyMod
                 appearances: appearances, modTypes: ModCardType.EventCard,
                 customTribe: customTribe);
 
-            abilities = new()
-            {
-                Ability.Evolve
-            };
-            traits = new()
-            {
-                Trait.Terrain
-            };
             CreateCard(
                 "wstl_apostleGuardianDown", "Guardian Apostle",
                 "The time has come.",

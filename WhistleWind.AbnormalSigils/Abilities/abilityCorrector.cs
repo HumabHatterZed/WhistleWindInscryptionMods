@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Corrector()
         {
             const string rulebookName = "Corrector";
-            const string rulebookDescription = "[creature] has its stats randomly changed according to its cost. Higher costs yield higher stats totals.";
+            const string rulebookDescription = "When [creature] is drawn, randomly change its stats according to its play cost.";
             const string dialogue = "How balanced.";
             Corrector.ability = AbnormalAbilityHelper.CreateAbility<Corrector>(
                 Artwork.sigilCorrector, Artwork.sigilCorrector_pixel,
@@ -71,26 +71,24 @@ namespace WhistleWind.AbnormalSigils
             };
             powerLevel += base.Card.Info.GemsCost.Count * 3;
 
-            // LifeCost, Forbidden Mox compatibility
-            powerLevel += base.Card.Info.GetExtendedPropertyAsInt("LifeCost") ?? 0;
+            // Life Cost, Forbidden Mox compatibility
+            powerLevel += (base.Card.Info.GetExtendedPropertyAsInt("LifeCost") ?? 0) * 2;
             powerLevel += base.Card.Info.GetExtendedPropertyAsInt("MoneyCost") ?? 0;
-            powerLevel += base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") ?? 0;
+            powerLevel += (base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") ?? 0) * 3;
             powerLevel += base.Card.Info.GetExtendedProperty("ForbiddenMoxCost") != null ? 3 : 0;
 
-            int[] stats = new[] { 0, 1 }; 
+            int[] stats = new[] { 0, 1 };
             int randomSeed = base.GetRandomSeed();
+
             while (powerLevel > 0)
             {
-                // If can afford 1 Power
-                if (powerLevel - 2 >= 0)
+                float num = SeededRandom.Value(randomSeed++);
+
+                if (num < 0.33f && powerLevel >= 2)
                 {
-                    // Roll for 1 Power
-                    if (SeededRandom.Range(0, 3, randomSeed++) == 0)
-                    {
-                        stats[0]++;
-                        powerLevel -= 2;
-                        continue;
-                    }
+                    stats[0]++;
+                    powerLevel -= 2;
+                    continue;
                 }
                 stats[1]++;
                 powerLevel--;

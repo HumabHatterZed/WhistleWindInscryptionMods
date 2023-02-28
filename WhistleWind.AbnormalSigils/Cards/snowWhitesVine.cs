@@ -24,7 +24,7 @@ namespace WhistleWind.AbnormalSigils
                 "A vine.",
                 atk: 0, hp: 1,
                 blood: 0, bones: 0, energy: 0,
-                Artwork.snowWhitesVine,
+                Artwork.snowWhitesVine, pixelTexture: Artwork.snowWhitesVine_pixel,
                 abilities: abilities,
                 metaCategories: new(), tribes: tribes, traits: new());
         }

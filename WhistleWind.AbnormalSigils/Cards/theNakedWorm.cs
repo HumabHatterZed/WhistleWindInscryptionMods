@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
                 "It can enter your body through any aperture.",
                 atk: 1, hp: 1,
                 blood: 0, bones: 0, energy: 0,
-                Artwork.theNakedWorm,
+                Artwork.theNakedWorm, pixelTexture: Artwork.theNakedWorm_pixel,
                 abilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());
         }

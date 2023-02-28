@@ -97,7 +97,7 @@ namespace ModDebuggingMod
 /*            for (int i = 0; i < 3; i++)
             {
                 RegionProgression.Instance.regions[i].encounters.Clear();
-                RegionProgression.Instance.regions[i].AddEncounters(LobotomyEncounterManager.BitterPack);
+                RegionProgression.Instance.regions[i].AddEncounters(LobotomyEncounterManager.HelperJuggernaut);
             }*/
 
 

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -32,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 "Heroes exist to fight evil. In its absence, they must create it.",
                 atk: 8, hp: 2,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.queenOfHatred, Artwork.queenOfHatred_emission,
+                Artwork.queenOfHatred, Artwork.queenOfHatred_emission, Artwork.queenOfHatred_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new());
             CreateCard(
@@ -40,7 +39,7 @@ namespace WhistleWindLobotomyMod
                 "Exhaustion: the cost of an all-out attack.",
                 atk: 0, hp: 2,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.queenOfHatredTired, Artwork.queenOfHatredTired_emission,
+                Artwork.queenOfHatredTired, Artwork.queenOfHatredTired_emission, Artwork.queenOfHatredTired_pixel,
                 abilities: new(), specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new());
 

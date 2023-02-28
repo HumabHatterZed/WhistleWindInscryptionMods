@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -29,8 +28,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.theRoadHome, Artwork.theRoadHome_emission, pixelTexture: Artwork.theRoadHome_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                modTypes: ModCardType.Ruina, customTribe: TribeHumanoid);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He, modTypes: ModCardType.Ruina,
+                evolveName: "[name]The Long Road Home", customTribe: TribeHumanoid);
         }
     }
 }

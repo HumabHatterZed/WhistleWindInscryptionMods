@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -26,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 "A pitiable creature. Death would be a mercy for it.",
                 atk: 1, hp: 1,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.beautyAndBeast, Artwork.beautyAndBeast_emission,
+                Artwork.beautyAndBeast, Artwork.beautyAndBeast_emission, Artwork.beautyAndBeast_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);

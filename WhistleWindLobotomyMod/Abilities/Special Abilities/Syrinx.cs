@@ -41,12 +41,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_Syrinx()
-        {
-            RulebookEntrySyrinx.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySyrinx>(Syrinx.rName, Syrinx.rDesc).Id;
-        }
+            => RulebookEntrySyrinx.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySyrinx>(Syrinx.rName, Syrinx.rDesc).Id;
         private void SpecialAbility_Syrinx()
-        {
-            Syrinx.specialAbility = AbilityHelper.CreateSpecialAbility<Syrinx>(pluginGuid, Syrinx.rName).Id;
-        }
+            => Syrinx.specialAbility = AbilityHelper.CreateSpecialAbility<Syrinx>(pluginGuid, Syrinx.rName).Id;
     }
 }

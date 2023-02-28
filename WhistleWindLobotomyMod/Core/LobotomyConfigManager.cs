@@ -1,7 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using System.IO;
-using WhistleWindLobotomyMod.Core.Helpers;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core
@@ -18,6 +17,9 @@ namespace WhistleWindLobotomyMod.Core
 
         private ConfigEntry<bool> Config_ModEnabled;
         public bool ModEnabled => Config_ModEnabled.Value;
+
+        private ConfigEntry<bool> Config_FoundInGBC;
+        public bool GBCPacks => Config_FoundInGBC.Value;
 
         private ConfigEntry<bool> Config_SpecialsInRulebook;
         public bool RevealSpecials => Config_SpecialsInRulebook.Value;
@@ -100,6 +102,10 @@ namespace WhistleWindLobotomyMod.Core
             Config_ModEnabled = WstlConfigFile.Bind(
                 "Config", "Enable", true,
                 new ConfigDescription("Enables this mod's content."));
+
+            Config_FoundInGBC = WstlConfigFile.Bind(
+                "Config", "GBC Packs", true,
+                new ConfigDescription("Allows some cards to be obtainable in Act 2 card packs."));
 
             Config_SpecialsInRulebook = WstlConfigFile.Bind(
                 "Config", "Special Abilities in Rulebook", false,

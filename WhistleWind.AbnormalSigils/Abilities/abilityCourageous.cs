@@ -28,9 +28,6 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public static CardModificationInfo courageMod = new(1, -1);
-        public static CardModificationInfo courageMod2 = new(1, -1);
-
         public override bool RespondsToResolveOnBoard()
         {
             return Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Exists(slot => slot.Card != null);
@@ -46,10 +43,7 @@ namespace WhistleWind.AbnormalSigils
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
-            if (Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Exists(slot => slot.Card != null))
-                return Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Contains(otherCard.Slot);
-
-            return false;
+            return Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Contains(otherCard.Slot);
         }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
@@ -59,7 +53,7 @@ namespace WhistleWind.AbnormalSigils
 
         private IEnumerator ApplyEffect(PlayableCard card)
         {
-            if (card.Health == 1)
+            if (card.Health <= 1)
             {
                 card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
@@ -68,21 +62,33 @@ namespace WhistleWind.AbnormalSigils
             }
             if (card.HasAnyOfAbilities(Ability.TailOnHit, Ability.Submerge, Ability.SubmergeSquid) || card.Status.hiddenAbilities.Contains(Ability.TailOnHit))
             {
+                card.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.4f);
                 yield return AbnormalDialogueManager.PlayDialogueEvent("CourageousRefuse");
                 yield break;
             }
 
-            if (!card.TemporaryMods.Contains(courageMod))
+            if (!card.TemporaryMods.Exists(x => x.singletonId == "wstl:Courageous1"))
             {
-                card.AddTemporaryMod(courageMod);
-                card.OnStatsChanged();
+                CardModificationInfo mod = new(1, -1)
+                {
+                    singletonId = "wstl:Courageous1"
+                };
+                card.AddTemporaryMod(mod);
             }
-            if (!card.TemporaryMods.Contains(courageMod2) && card.Health > 1)
+            if (!card.TemporaryMods.Exists(x => x.singletonId == "wstl:Courageous2"))
             {
-                card.AddTemporaryMod(courageMod2);
-                card.OnStatsChanged();
+                if (card.Health > 1)
+                {
+                    CardModificationInfo mod = new(1, -1)
+                    {
+                        singletonId = "wstl:Courageous2"
+                    };
+                    card.AddTemporaryMod(mod);
+                }
             }
 
+            card.OnStatsChanged();
             card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
             yield return base.LearnAbility();

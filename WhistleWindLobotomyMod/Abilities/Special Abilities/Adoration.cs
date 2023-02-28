@@ -81,12 +81,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_Adoration()
-        {
-            RulebookEntryAdoration.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryAdoration>(Adoration.rName, Adoration.rDesc).Id;
-        }
+            => RulebookEntryAdoration.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryAdoration>(Adoration.rName, Adoration.rDesc).Id;
         private void SpecialAbility_Adoration()
-        {
-            Adoration.specialAbility = AbilityHelper.CreateSpecialAbility<Adoration>(pluginGuid, Adoration.rName).Id;
-        }
+            => Adoration.specialAbility = AbilityHelper.CreateSpecialAbility<Adoration>(pluginGuid, Adoration.rName).Id;
     }
 }

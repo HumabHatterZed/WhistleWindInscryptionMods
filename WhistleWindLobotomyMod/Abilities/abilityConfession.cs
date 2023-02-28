@@ -10,8 +10,6 @@ namespace WhistleWindLobotomyMod
 {
     public partial class LobotomyPlugin
     {
-        public const string ConfessionHiddenDescription = "Keep faith with unwavering resolve.";
-        public const string ConfessionRevealedDescription = "Kill this card and summon One Sin and Hundreds of Good Deeds. Kill WhiteNight and all Apostles on the board then deal 33 direct damage.";
         private void Ability_Confession()
         {
             const string rulebookName = "Confession and Pentinence";
@@ -19,7 +17,7 @@ namespace WhistleWindLobotomyMod
 
             Confession.ability = LobotomyAbilityHelper.CreateActivatedAbility<Confession>(
                 Artwork.sigilConfession, Artwork.sigilConfession_pixel,
-                rulebookName, ConfessionHiddenDescription, dialogue, powerLevel: -3).Id;
+                rulebookName, "Keep faith with unwavering resolve.", dialogue, powerLevel: -3).Id;
         }
     }
     public class Confession : ActivatedAbilityBehaviour
@@ -60,7 +58,7 @@ namespace WhistleWindLobotomyMod
                 {
                     while (slot.Card != null)
                     {
-                        yield return slot.Card.TakeDamage(66, base.Card);
+                        yield return slot.Card.TakeDamage(11, base.Card);
                         yield return new WaitForSeconds(0.25f);
                     }
                     yield return new WaitForSeconds(0.5f);
@@ -73,34 +71,15 @@ namespace WhistleWindLobotomyMod
                 {
                     while (slot.Card != null)
                     {
-                        yield return slot.Card.TakeDamage(66, base.Card);
+                        yield return slot.Card.TakeDamage(3, base.Card);
                         yield return new WaitForSeconds(0.2f);
                     }
                 }
             }
             yield return new WaitForSeconds(0.5f);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
-
-            SpecialBattleSequencer specialSequence = null;
-            var combatManager = Singleton<CombatPhaseManager>.Instance;
-
-            yield return combatManager.DamageDealtThisPhase += 33;
-            //yield return combatManager.VisualizeDamageMovingToScales(true);
-
-            int excessDamage = Singleton<LifeManager>.Instance.Balance + combatManager.DamageDealtThisPhase - 5;
-            int damage = combatManager.DamageDealtThisPhase - excessDamage;
-
-            yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
-
-            yield return combatManager.VisualizeExcessLethalDamage(excessDamage, specialSequence);
-            RunState.Run.currency += excessDamage;
 
             if (Singleton<TurnManager>.Instance.Opponent.NumLives > 1)
                 yield return thisSlot.Card.Die(false, thisSlot.Card);
-
-            // Resets Blessings
-            LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
-            LobotomyConfigManager.Instance.SetBlessings(0);
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {

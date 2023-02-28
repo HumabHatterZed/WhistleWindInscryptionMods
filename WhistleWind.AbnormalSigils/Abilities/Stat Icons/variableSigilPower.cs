@@ -4,6 +4,7 @@ using InscryptionAPI.Helpers;
 using InscryptionCommunityPatch.Card;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
 
@@ -21,7 +22,7 @@ namespace WhistleWind.AbnormalSigils
 
             infos.Sort((AbilityInfo a, AbilityInfo b) => b.powerLevel - a.powerLevel);
 
-            return new int[2] { infos[0].powerLevel, 0 };
+            return new int[2] { infos[0].powerLevel, Mathf.Max(1, infos[0].powerLevel) };
         }
     }
 
@@ -34,7 +35,7 @@ namespace WhistleWind.AbnormalSigils
             SigilPower.icon = AbilityHelper.CreateStatIcon<SigilPower>(
                 pluginGuid, rulebookName, rulebookDescription,
                 TextureLoader.LoadTextureFromBytes(Artwork.sigilSigilPower),
-                TextureLoader.LoadTextureFromBytes(Artwork.sigilSigilPower_pixel), true, false).Id;
+                TextureLoader.LoadTextureFromBytes(Artwork.sigilSigilPower_pixel), true, true).Id;
         }
     }
 }

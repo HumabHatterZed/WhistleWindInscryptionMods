@@ -62,12 +62,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_Smile()
-        {
-            RulebookEntrySmile.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySmile>(Smile.rName, Smile.rDesc).Id;
-        }
+            => RulebookEntrySmile.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySmile>(Smile.rName, Smile.rDesc).Id;
         private void SpecialAbility_Smile()
-        {
-            Smile.specialAbility = AbilityHelper.CreateSpecialAbility<Smile>(pluginGuid, Smile.rName).Id;
-        }
+            => Smile.specialAbility = AbilityHelper.CreateSpecialAbility<Smile>(pluginGuid, Smile.rName).Id;
     }
 }

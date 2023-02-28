@@ -1,5 +1,7 @@
 ﻿using DiskCardGame;
+using EasyFeedback.APIs;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -29,32 +31,21 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            bool faceDown = false;
             yield return HelperMethods.ChangeCurrentView(View.Board);
             yield return PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
 
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot).Where(slot => slot.Card != null))
+            List<CardSlot> adjacentSlots = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).FindAll(s => s.Card != null);
+            foreach (CardSlot slot in adjacentSlots)
             {
                 if (slot.Card.Health < slot.Card.MaxHealth)
                 {
-                    if (slot.Card.FaceDown)
-                    {
-                        faceDown = true;
-                        slot.Card.SetFaceDown(false);
-                        slot.Card.UpdateFaceUpOnBoardEffects();
-                        yield return new WaitForSeconds(0.55f);
-                    }
+                    bool faceDown = slot.Card.FaceDown;
+                    yield return slot.Card.FlipFaceUp(faceDown, 0.4f);
                     slot.Card.Anim.LightNegationEffect();
                     slot.Card.HealDamage(1);
-                    if (faceDown)
-                    {
-                        faceDown = false;
-                        yield return new WaitForSeconds(0.2f);
-                        slot.Card.SetFaceDown(false);
-                        slot.Card.UpdateFaceUpOnBoardEffects();
-                        yield return new WaitForSeconds(0.2f);
-                    }
+                    yield return new WaitForSeconds(0.2f);
+                    yield return slot.Card.FlipFaceDown(faceDown);
                 }
             }
             yield return new WaitForSeconds(0.2f);

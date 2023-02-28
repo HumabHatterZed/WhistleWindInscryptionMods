@@ -141,12 +141,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_ThreeBirds()
-        {
-            RulebookEntryThreeBirds.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryThreeBirds>(ThreeBirds.rName, ThreeBirds.rDesc).Id;
-        }
+            => RulebookEntryThreeBirds.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryThreeBirds>(ThreeBirds.rName, ThreeBirds.rDesc).Id;
         private void SpecialAbility_ThreeBirds()
-        {
-            ThreeBirds.specialAbility = AbilityHelper.CreateSpecialAbility<ThreeBirds>(pluginGuid, ThreeBirds.rName).Id;
-        }
+            => ThreeBirds.specialAbility = AbilityHelper.CreateSpecialAbility<ThreeBirds>(pluginGuid, ThreeBirds.rName).Id;
     }
 }

@@ -105,12 +105,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_TodaysExpression()
-        {
-            RulebookEntryTodaysExpression.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryTodaysExpression>(TodaysExpression.rName, TodaysExpression.rDesc).Id;
-        }
+            => RulebookEntryTodaysExpression.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryTodaysExpression>(TodaysExpression.rName, TodaysExpression.rDesc).Id;
         private void SpecialAbility_TodaysExpression()
-        {
-            TodaysExpression.specialAbility = AbilityHelper.CreateSpecialAbility<TodaysExpression>(pluginGuid, TodaysExpression.rName).Id;
-        }
+            => TodaysExpression.specialAbility = AbilityHelper.CreateSpecialAbility<TodaysExpression>(pluginGuid, TodaysExpression.rName).Id;
     }
 }

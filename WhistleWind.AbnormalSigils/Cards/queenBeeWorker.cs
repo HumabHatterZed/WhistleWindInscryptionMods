@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
                 "A blind servant of the hive.",
                 atk: 1, hp: 1,
                 blood: 0, bones: 1, energy: 0,
-                Artwork.queenBeeWorker, Artwork.queenBeeWorker_emission,
+                Artwork.queenBeeWorker, Artwork.queenBeeWorker_emission, Artwork.queenBeeWorker_pixel,
                 abilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());
         }

@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         {
             const string rulebookName = "Piercing";
             const string rulebookDescription = "Damage dealt by this card cannot be negated or reduced. If there is another card behind the struck card, deal 1 damage to it.";
-            const string dialogue = "Your beast runs mine through.";
+            const string dialogue = "You've run my beast through.";
 
             Piercing.ability = AbnormalAbilityHelper.CreateAbility<Piercing>(
                 Artwork.sigilPiercing, Artwork.sigilPiercing_pixel,

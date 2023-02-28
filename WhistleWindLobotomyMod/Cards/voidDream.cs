@@ -1,9 +1,8 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 "Quite the chimera.",
                 atk: 2, hp: 3,
                 blood: 2, bones: 0, energy: 0,
-                Artwork.voidDreamRooster, Artwork.voidDreamRooster_emission,
+                Artwork.voidDreamRooster, Artwork.voidDreamRooster_emission, Artwork.voidDreamRooster_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());
 
@@ -41,7 +40,7 @@ namespace WhistleWindLobotomyMod
                 "A sleeping goat. Or is it a sheep?",
                 atk: 1, hp: 1,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.voidDream, Artwork.voidDream_emission,
+                Artwork.voidDream, Artwork.voidDream_emission, Artwork.voidDream_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,

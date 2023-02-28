@@ -15,12 +15,13 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private bool CheckValid(CardSlot slot) => slot.Card.Info.name != "wstl_theLittlePrinceMinion" && slot.Card.LacksSpecialAbility(Spores.specialAbility);
+        private bool CheckValid(CardSlot slot) => slot.Card.Info.name != "wstl_theLittlePrinceMinion" && !slot.Card.Info.Mods.Exists(x => x.singletonId == "spore_status");
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            List<CardSlot> adjacentSlots = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).FindAll(s => s.Card != null && CheckValid(s));
+            List<CardSlot> adjacentSlots = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot)
+                .FindAll(s => s.Card != null && CheckValid(s));
 
             if (adjacentSlots.Count > 0)
             {
@@ -28,8 +29,18 @@ namespace WhistleWind.AbnormalSigils
                 yield return HelperMethods.ChangeCurrentView(View.Board);
                 foreach (CardSlot slot in adjacentSlots)
                 {
+                    CardModificationInfo decal = new()
+                    {
+                        singletonId = "spore_status",
+                        DecalIds = { "wstl_spore_0" },
+                        nonCopyable = true,
+                    };
+
+                    CardInfo copy = slot.Card.Info.Clone() as CardInfo;
+                    copy.Mods = new(slot.Card.Info.Mods) { decal };
+
+                    slot.Card.SetInfo(copy);
                     slot.Card.AddPermanentBehaviour<Spores>();
-                    slot.Card.ApplyAppearanceBehaviours();
                 }
                 base.LearnAbility(0.4f);
             }

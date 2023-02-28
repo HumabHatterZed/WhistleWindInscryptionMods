@@ -2,9 +2,8 @@
 using Infiniscryption.Spells.Sigils;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -26,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(), appearances: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                spellType: SpellType.TargetedStatsSigils);
+                evolveName: "Frantic {0}", spellType: SpellType.TargetedStatsSigils);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using DiskCardGame;
+using EasyFeedback.APIs;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
@@ -142,11 +144,17 @@ namespace WhistleWindLobotomyMod
         }
         private void RemoveMagic(CardSlot greed, CardSlot despair, CardSlot wrath)
         {
-            // Remove cards
-            greed.Card.RemoveFromBoard(true, 0f);
-            despair.Card.RemoveFromBoard(true, 0f);
-            wrath.Card.RemoveFromBoard(true, 0f);
-            base.PlayableCard.RemoveFromBoard(true, 0f);
+            RunState.Run.playerDeck.RemoveCardByName("wstl_magicalGirlDiamond");
+            greed.Card.RemoveFromBoard(false, 0f);
+
+            RunState.Run.playerDeck.RemoveCardByName("wstl_magicalGirlSpade");
+            despair.Card.RemoveFromBoard(false, 0f);
+
+            RunState.Run.playerDeck.RemoveCardByName("wstl_magicalGirlClover");
+            wrath.Card.RemoveFromBoard(false, 0f);
+
+            RunState.Run.playerDeck.RemoveCardByName("wstl_magicalGirlHeart");
+            base.PlayableCard.RemoveFromBoard(false, 0f);
         }
     }
     public class RulebookEntryMagicalGirls : AbilityBehaviour
@@ -157,12 +165,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_MagicalGirls()
-        {
-            RulebookEntryMagicalGirls.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMagicalGirls>(MagicalGirls.rName, MagicalGirls.rDesc).Id;
-        }
+            => RulebookEntryMagicalGirls.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMagicalGirls>(MagicalGirls.rName, MagicalGirls.rDesc).Id;
         private void SpecialAbility_MagicalGirls()
-        {
-            MagicalGirls.specialAbility = AbilityHelper.CreateSpecialAbility<MagicalGirls>(pluginGuid, MagicalGirls.rName).Id;
-        }
+            => MagicalGirls.specialAbility = AbilityHelper.CreateSpecialAbility<MagicalGirls>(pluginGuid, MagicalGirls.rName).Id;
     }
 }

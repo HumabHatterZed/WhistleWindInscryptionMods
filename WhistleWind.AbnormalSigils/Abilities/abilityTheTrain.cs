@@ -33,15 +33,14 @@ namespace WhistleWind.AbnormalSigils
             yield return new WaitForSeconds(0.55f);
             foreach (CardSlot slot in affectedSlots.Where(slot => slot.Card != base.Card))
             {
-                yield return slot.Card.Info.SetExtendedProperty("wstl:KilledByTheTrainAbility", true);
+                yield return slot.Card.Info.SetExtendedProperty("wstl:NoBones", true);
                 yield return slot.Card.Die(false, null);
                 yield return new WaitForSeconds(0.1f);
             }
             yield return new WaitForSeconds(0.55f);
+
             if (base.Card.Slot != null)
                 yield return base.Card.Die(false, null);
-            else
-                yield return base.Card.DieTriggerless();
 
             yield return new WaitForSeconds(0.4f);
             yield return base.LearnAbility();

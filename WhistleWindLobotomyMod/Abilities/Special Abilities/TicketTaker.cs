@@ -73,12 +73,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_TicketTaker()
-        {
-            RulebookEntryTicketTaker.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryTicketTaker>(TicketTaker.rName, TicketTaker.rDesc).Id;
-        }
+            => RulebookEntryTicketTaker.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryTicketTaker>(TicketTaker.rName, TicketTaker.rDesc).Id;
         private void SpecialAbility_TicketTaker()
-        {
-            TicketTaker.specialAbility = AbilityHelper.CreateSpecialAbility<TicketTaker>(pluginGuid, TicketTaker.rName).Id;
-        }
+            => TicketTaker.specialAbility = AbilityHelper.CreateSpecialAbility<TicketTaker>(pluginGuid, TicketTaker.rName).Id;
     }
 }

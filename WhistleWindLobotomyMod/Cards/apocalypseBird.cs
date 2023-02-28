@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -39,8 +38,8 @@ namespace WhistleWindLobotomyMod
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances, onePerDeck: true,
                 choiceType: CardHelper.CardChoiceType.Rare,
-                modTypes: ModCardType.EventCard,
-                metaTypes: CardHelper.CardMetaType.NonChoice);
+                modTypes: ModCardType.EventCard, metaTypes: CardHelper.CardMetaType.NonChoice,
+                evolveName: "Greater {0}");
         }
     }
 }

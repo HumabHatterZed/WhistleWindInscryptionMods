@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -21,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 Tribe.Canine
             };
             CreateCard(
-                "wstl_willBeBadWolf", "Big and Will be Bad Wolf",
+                "wstl_willBeBadWolf", "Big and Will Be Bad Wolf",
                 "It is no coincidence that wolves are the villains of so many tales.",
                 atk: 3, hp: 2,
                 blood: 2, bones: 0, energy: 0,

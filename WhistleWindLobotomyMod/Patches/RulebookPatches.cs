@@ -16,9 +16,12 @@ namespace WhistleWindLobotomyMod.Patches
             {
                 if (!shown)
                 {
-                    AbilitiesUtil.GetInfo(Apostle.ability).rulebookDescription = LobotomyPlugin.ApostleHiddenDescription;
-                    AbilitiesUtil.GetInfo(TrueSaviour.ability).rulebookDescription = LobotomyPlugin.TrueSaviourHiddenDescription;
-                    AbilitiesUtil.GetInfo(Confession.ability).rulebookDescription = LobotomyPlugin.ConfessionHiddenDescription;
+                    AbilityManager.FullAbility apostle = AbilityManager.AllAbilities.Find(x => x.Id == Apostle.ability);
+                    AbilityManager.FullAbility saviour = AbilityManager.AllAbilities.Find(x => x.Id == TrueSaviour.ability);
+                    AbilityManager.FullAbility confession = AbilityManager.AllAbilities.Find(x => x.Id == Confession.ability);
+                    AbilitiesUtil.GetInfo(Apostle.ability).rulebookDescription = apostle.BaseRulebookDescription;
+                    AbilitiesUtil.GetInfo(TrueSaviour.ability).rulebookDescription = saviour.BaseRulebookDescription;
+                    AbilitiesUtil.GetInfo(Confession.ability).rulebookDescription = confession.BaseRulebookDescription;
                 }
                 return true;
             }
@@ -27,9 +30,9 @@ namespace WhistleWindLobotomyMod.Patches
             {
                 if (card != null && card.HasAnyOfAbilities(Apostle.ability, TrueSaviour.ability, Confession.ability))
                 {
-                    AbilitiesUtil.GetInfo(Apostle.ability).rulebookDescription = LobotomyPlugin.ApostleRevealedDescription;
-                    AbilitiesUtil.GetInfo(TrueSaviour.ability).rulebookDescription = LobotomyPlugin.TrueSaviourRevealedDescription;
-                    AbilitiesUtil.GetInfo(Confession.ability).rulebookDescription = LobotomyPlugin.ConfessionRevealedDescription;
+                    AbilitiesUtil.GetInfo(Apostle.ability).rulebookDescription = "[creature] will enter a downed state instead of dying. Downed creatures are invulnerable under special conditions.";
+                    AbilitiesUtil.GetInfo(TrueSaviour.ability).rulebookDescription = $"While {card.Info.DisplayedNameLocalized} is on the board, remove ally Terrain and Pelt cards and transform the rest into random Apostles.";
+                    AbilitiesUtil.GetInfo(Confession.ability).rulebookDescription = "Kill WhiteNight and all Apostles on the board then deal 33 direct damage.";
                 }
                 return true;
             }
@@ -58,6 +61,7 @@ namespace WhistleWindLobotomyMod.Patches
                     {
                         if (info.name.Equals("LatchDeathShield"))
                             info.rulebookDescription = "When this card perishes, give a card the Armoured sigil.";
+                        
                         __result = true;
                     }
                 }

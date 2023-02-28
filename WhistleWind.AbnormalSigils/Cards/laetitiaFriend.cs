@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
                 "She brought her friends along.",
                 atk: 2, hp: 2,
                 blood: 0, bones: 4, energy: 0,
-                Artwork.laetitiaFriend, Artwork.laetitiaFriend_emission,
+                Artwork.laetitiaFriend, Artwork.laetitiaFriend_emission, Artwork.laetitiaFriend_pixel,
                 abilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());
         }

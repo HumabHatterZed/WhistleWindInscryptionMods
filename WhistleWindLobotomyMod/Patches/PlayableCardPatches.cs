@@ -1,7 +1,9 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Card;
 using System.Collections;
 using WhistleWind.Core.Helpers;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 // Patches to make abilities function properly
 namespace WhistleWindLobotomyMod.Patches
@@ -9,17 +11,25 @@ namespace WhistleWindLobotomyMod.Patches
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardPatches
     {
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
-        private static void ModifyTakenDamage(PlayableCard __instance, ref int damage, PlayableCard attacker)
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.CanBeSacrificed), MethodType.Getter)]
+        private static void CannotSacrificeApostles(PlayableCard __instance, ref bool __result)
         {
-            // damage from non-null sources is negated for downed apostles
-            if (attacker != null && __instance.HasAbility(Apostle.ability) && __instance.Info.name.Contains("Down"))
+            if (__instance.HasTrait(TraitApostle))
+                __result = false;
+        }
+
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
+        private static void DownedTrueApostlesAreImmortal(PlayableCard __instance, ref int damage)
+        {
+            if (__instance != null && __instance.HasAbility(Apostle.ability))
             {
-                // only be immune to damage if WhiteNight's on the card's side
-                if (HelperMethods.GetSlotsCopy(__instance.OpponentCard).Exists(x => x.name == "wstl_whiteNight"))
+                // Downed Apostles don't take damage if WhiteNight exists as an ally
+                bool saviour = HelperMethods.GetSlotsCopy(__instance.OpponentCard).Exists(x => x.Card != null && x.Card.HasAbility(TrueSaviour.ability));
+
+                if (__instance.Info.name.Contains("Down") && saviour)
                 {
+                    __instance.Anim.StrongNegationEffect();
                     damage = 0;
-                    __instance.Anim.LightNegationEffect();
                 }
             }
         }
@@ -29,16 +39,25 @@ namespace WhistleWindLobotomyMod.Patches
         {
             if (__instance.HasAbility(Apostle.ability))
             {
-                // if apostle is killed by Heretic or WhiteNight, do standard Die
-                if (killer != null && (killer.Info.name == "wstl_apostleHeretic" || killer.Info.name == "wstl_whiteNight"))
+                // if killed by WhiteNight or One Sin, die normally
+                if (killer != null && killer.HasAnyOfAbilities(Confession.ability, TrueSaviour.ability))
                     return true;
 
-                // if WhiteNight exists on the apostle's side
-                if (HelperMethods.GetSlotsCopy(__instance.OpponentCard).Exists(x => x.name == "wstl_whiteNight"))
+                bool saviour = HelperMethods.GetSlotsCopy(__instance.OpponentCard).Exists(x => x.Card != null && x.Card.HasAbility(TrueSaviour.ability));
+
+                // Downed Apostles can't die if WhiteNight is an ally
+                // Active Apostles will always be downed
+                if (__instance.Info.name.Contains("Down"))
                 {
-                    __result = ApostleDie(__instance, wasSacrifice, killer);
-                    return false;
+                    if (saviour)
+                        __result = ApostleDie(__instance, wasSacrifice, killer);
+                    else
+                        return true;
                 }
+                else
+                    __result = ApostleDie(__instance, wasSacrifice, killer);
+
+                return false;
             }
             return true;
         }
@@ -49,9 +68,8 @@ namespace WhistleWindLobotomyMod.Patches
             instance.Anim.SetShielded(shielded: false);
             yield return instance.Anim.ClearLatchAbility();
             if (instance.TriggerHandler.RespondsToTrigger(Trigger.Die, wasSacrifice, killer))
-            {
                 yield return instance.TriggerHandler.OnTrigger(Trigger.Die, wasSacrifice, killer);
-            }
+
             yield break;
         }
     }

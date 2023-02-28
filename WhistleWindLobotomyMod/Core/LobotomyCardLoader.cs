@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Core
 {
@@ -77,8 +76,7 @@ namespace WhistleWindLobotomyMod.Core
             List<CardInfo> deathCards = CreateUniqueModDeathcards();
             return CardLoader.Clone(deathCards[SeededRandom.Range(0, deathCards.Count, randomSeed)]);
         }
-        private static List<CardInfo> GetSephirahCards() =>
-            GetUnlockedModCards(LobotomyCardManager.SephirahCard, CardTemple.Nature);
+        private static List<CardInfo> GetSephirahCards() => CardManager.AllCardsCopy.FindAll(x => x.HasTrait(LobotomyCardManager.TraitSephirah));
         private static List<CardInfo> GetUnlockedModCards(CardMetaCategory category, CardTemple temple) =>
             CardLoader.GetUnlockedCards(category, temple).FindAll((x) => x.name.StartsWith("wstl"));
     }

@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Copycat()
         {
             const string rulebookName = "Copycat";
-            const string rulebookDescription = "When [creature] is played, become a copy of the opposing card if it exists. The copy may be imperfect.";
+            const string rulebookDescription = "When [creature] is played, become an imperfect copy of the opposing card if it exists.";
             const string dialogue = "A near perfect impersonation.";
             Copycat.ability = AbnormalAbilityHelper.CreateAbility<Copycat>(
                 Artwork.sigilCopycat, Artwork.sigilCopycat_pixel,
@@ -38,11 +38,6 @@ namespace WhistleWind.AbnormalSigils
             {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                if (base.Card.Health < 1)
-                {
-                    yield return base.Card.Die(true);
-                    yield return new WaitForSeconds(0.4f);
-                }
                 yield return AbnormalDialogueManager.PlayDialogueEvent("CopycatFail");
                 yield break;
             }
@@ -51,42 +46,52 @@ namespace WhistleWind.AbnormalSigils
         }
         private CardInfo CopyOpposingCard(CardInfo cardToCopy)
         {
-            CardInfo cardByName = CardLoader.GetCardByName(cardToCopy.name);
+            CardInfo baseInfo = base.Card.Info;
+            CardInfo transformation = CardLoader.GetCardByName(cardToCopy.name);
 
-            cardByName.portraitTex = base.Card.Info.portraitTex;
-            cardByName.alternatePortrait = base.Card.Info.alternatePortrait;
-            cardByName.pixelPortrait = base.Card.Info.pixelPortrait;
-            cardByName.animatedPortrait = base.Card.Info.animatedPortrait;
-            cardByName.displayedName = base.Card.Info.displayedName;
+            transformation.displayedName = baseInfo.displayedName;
+            transformation.SetPortrait(baseInfo.portraitTex);
+            transformation.SetPixelPortrait(baseInfo.pixelPortrait);
 
-            foreach (CardModificationInfo item2 in cardToCopy.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
-            {
-                CardModificationInfo item = (CardModificationInfo)item2.Clone();
-                cardByName.Mods.Add(item);
-            }
-            CardModificationInfo cardModificationInfo = new();
-            cardByName.Mods.Add(cardModificationInfo);
-            CardModificationInfo cardModificationInfo2 = new();
+            foreach (CardModificationInfo mod in cardToCopy.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+                transformation.Mods.Add((CardModificationInfo)mod.Clone());
+
+            foreach (CardModificationInfo mod2 in baseInfo.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+                transformation.Mods.Add((CardModificationInfo)mod2.Clone());
+
+            CardModificationInfo imperfectMod = new();
+            
             int currentRandomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
             float num = SeededRandom.Value(currentRandomSeed++);
-            if (num < 0.33f && cardByName.Mods.Exists((CardModificationInfo x) => x.abilities.Count > 0))
+
+            // add random sigil
+            if (num < 0.33f && transformation.Mods.Exists((CardModificationInfo x) => x.abilities.Count > 0))
             {
-                List<CardModificationInfo> list = new() { new(Ability.Sharp) { fromCardMerge = true } };
-                if (cardByName.Mods.Exists((CardModificationInfo x) => x.abilities.Count > 0))
-                    list = cardByName.Mods.FindAll((CardModificationInfo x) => x.abilities.Count > 0);
+                List<CardModificationInfo> list = new()
+                {
+                    new(Ability.Sharp)
+                    {
+                        fromCardMerge = true
+                    }
+                };
+
+                if (transformation.Mods.Exists((CardModificationInfo x) => x.abilities.Count > 0))
+                    list = transformation.Mods.FindAll((CardModificationInfo x) => x.abilities.Count > 0);
+                
                 list[SeededRandom.Range(0, list.Count, currentRandomSeed++)].abilities[0] = AbilitiesUtil.GetRandomLearnedAbility(currentRandomSeed++);
             }
-            else if (num < 0.66f && cardByName.Attack > 0)
+            else if (num < 0.66f && transformation.Attack > 0) // add -1/2 stats
+                imperfectMod.attackAdjustment = SeededRandom.Range(-1, 2, currentRandomSeed++);
+
+            else if (transformation.Health > 1) // add 1/-2 stats
             {
-                cardModificationInfo2.attackAdjustment = SeededRandom.Range(-1, 2, currentRandomSeed++);
+                int num2 = Mathf.Min(2, transformation.Health - 1);
+                imperfectMod.healthAdjustment = SeededRandom.Range(-num2, 3, currentRandomSeed++);
             }
-            else if (cardByName.Health > 1)
-            {
-                int num2 = Mathf.Min(2, cardByName.Health - 1);
-                cardModificationInfo2.healthAdjustment = SeededRandom.Range(-num2, 3, currentRandomSeed++);
-            }
-            cardByName.Mods.Add(cardModificationInfo2);
-            return cardByName;
+
+            transformation.Mods.Add(imperfectMod);
+
+            return transformation;
         }
     }
 }

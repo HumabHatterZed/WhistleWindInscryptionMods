@@ -8,6 +8,23 @@ namespace WhistleWind.Core.Helpers
 {
     public static class HelperMethods
     {
+        public static IEnumerator FlipFaceUp(this PlayableCard card, bool faceDown, float wait = 0.3f)
+        {
+            if (!faceDown) yield break;
+
+            card.SetFaceDown(false);
+            card.UpdateFaceUpOnBoardEffects();
+            yield return new WaitForSeconds(wait);
+        }
+        public static IEnumerator FlipFaceDown(this PlayableCard card, bool faceDown, float wait = 0.3f)
+        {
+            if (!faceDown) yield break;
+
+            card.SetCardbackSubmerged();
+            card.SetFaceDown(true);
+            yield return new WaitForSeconds(wait);
+        }
+
         public static List<CardSlot> GetSlotsCopy(bool isOpponentCard)
         {
             return isOpponentCard ? Singleton<BoardManager>.Instance.OpponentSlotsCopy : Singleton<BoardManager>.Instance.PlayerSlotsCopy;

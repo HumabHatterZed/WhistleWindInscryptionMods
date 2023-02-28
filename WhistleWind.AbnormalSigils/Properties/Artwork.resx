@@ -118,56 +118,50 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="costSpores" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\costSpores.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="decalSpore_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\decalSpore_0.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="costSpores_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\costSpores_10.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="decalSpore_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\decalSpore_1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="costSpores_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\costSpores_2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="costSpores_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\costSpores_3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="costSpores_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\costSpores_4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="costSpores_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\costSpores_5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="costSpores_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\costSpores_6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="costSpores_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\costSpores_7.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="costSpores_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\costSpores_8.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="costSpores_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\costSpores_9.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="costSpores_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\costSpores_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="decalSpore_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\decalSpore_2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="dreamOfABlackSwanBrother1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\dreamOfABlackSwanBrother1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="dreamOfABlackSwanBrother1_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother1_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="dreamOfABlackSwanBrother2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\dreamOfABlackSwanBrother2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother2_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother2_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="dreamOfABlackSwanBrother3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\dreamOfABlackSwanBrother3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="dreamOfABlackSwanBrother3_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother3_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="dreamOfABlackSwanBrother4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\dreamOfABlackSwanBrother4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother4_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother4_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="dreamOfABlackSwanBrother5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\dreamOfABlackSwanBrother5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="dreamOfABlackSwanBrother5_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother5_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="dreamOfABlackSwanBrother6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\dreamOfABlackSwanBrother6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dreamOfABlackSwanBrother6_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dreamOfABlackSwanBrother6_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="laetitiaFriend" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\laetitiaFriend.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -175,11 +169,17 @@
   <data name="laetitiaFriend_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\laetitiaFriend_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="laetitiaFriend_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\laetitiaFriend_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="meltingLoveMinion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\meltingLoveMinion.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="meltingLoveMinion_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\meltingLoveMinion_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="meltingLoveMinion_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\meltingLoveMinion_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ozmaPumpkin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\ozmaPumpkin.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -190,17 +190,23 @@
   <data name="ozmaPumpkinJack_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\ozmaPumpkinJack_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ozmaPumpkin_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ozmaPumpkin_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="parasiteTreeSapling" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\parasiteTreeSapling.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="parasiteTreeSapling_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\parasiteTreeSapling_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="parasiteTreeSapling_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\parasiteTreeSapling_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="queenBeeWorker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\queenBeeWorker.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="queenBeeWorker_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\queenBeeWorker_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="queenBeeWorker_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\queenBeeWorker_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="sigilAbnormality" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilAbnormality.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -550,14 +556,23 @@
   <data name="snowQueenIceBlock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\snowQueenIceBlock.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="snowQueenIceBlock_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\snowQueenIceBlock_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="snowQueenIceHeart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\snowQueenIceHeart.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="snowQueenIceHeart_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\snowQueenIceHeart_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="snowQueenIceHeart_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\snowQueenIceHeart_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="snowWhitesVine" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\snowWhitesVine.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="snowWhitesVine_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\snowWhitesVine_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="spiderBrood" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\spiderBrood.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -565,11 +580,17 @@
   <data name="spiderBrood_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\spiderBrood_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="spiderBrood_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\spiderBrood_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="spiderling" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\spiderling.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="spiderling_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\spiderling_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="spiderling_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\spiderling_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="theLittlePrinceMinion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\theLittlePrinceMinion.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -579,5 +600,8 @@
   </data>
   <data name="theNakedWorm" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\theNakedWorm.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="theNakedWorm_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\theNakedWorm_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

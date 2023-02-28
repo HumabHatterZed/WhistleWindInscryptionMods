@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,8 +20,7 @@ namespace WhistleWindLobotomyMod
             };
             List<Trait> traits = new()
             {
-                Trait.Uncuttable,
-                Trait.Terrain
+                TraitApostle
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
@@ -40,15 +39,6 @@ namespace WhistleWindLobotomyMod
                 metaTypes: CardHelper.CardMetaType.NonChoice,
                 modTypes: ModCardType.EventCard, customTribe: customTribe);
 
-            abilities = new()
-            {
-                Ability.Reach,
-                Ability.Evolve
-            };
-            traits = new()
-            {
-                Trait.Terrain
-            };
             CreateCard(
                 "wstl_apostleMolemanDown", "Moleman Apostle",
                 "The time has come.",

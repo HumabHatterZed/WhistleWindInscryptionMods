@@ -1,11 +1,12 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod.Patches
 {
@@ -32,21 +33,30 @@ namespace WhistleWindLobotomyMod.Patches
             if (starterDeck.Exists(x => x.name == "wstl_RANDOM_PLACEHOLDER"))
             {
                 List<CardInfo> starterDeck2 = new();
-                bool isRare;
+                bool addRare = SeededRandom.Value(tickCount++) <= 0.05f;
                 while (starterDeck2.Count < starterDeck.Count)
                 {
-                    isRare = SeededRandom.Bool(tickCount++);
-                    int randomIdx = UnityEngine.Random.Range(0, ObtainableLobotomyCards.Count);
-                    CardInfo cardToAdd = isRare ? LobotomyCardLoader.GetRandomRareModCard(tickCount++) : ObtainableLobotomyCards[randomIdx];
+                    List<CardInfo> validCards = ObtainableLobotomyCards.FindAll(x => x.LacksCardMetaCategory(CardMetaCategory.Rare));
+
+                    if (addRare) validCards = ObtainableLobotomyCards.FindAll(x => x.HasCardMetaCategory(CardMetaCategory.Rare));
+
+                    validCards.RemoveAll(x => x.HasTrait(TraitSephirah));
+
+                    int randomIdx = UnityEngine.Random.Range(0, validCards.Count);
+                    CardInfo cardToAdd = validCards[randomIdx];
 
                     // starting deck cannot have rare (if non-Aleph cards can be pulled) or sefirot cards
-                    while (!isRare && cardToAdd.metaCategories.Contains(CardMetaCategory.Rare))
+                    while (!addRare && cardToAdd.metaCategories.Contains(CardMetaCategory.Rare))
                     {
                         randomIdx = UnityEngine.Random.Range(0, ObtainableLobotomyCards.Count);
                         cardToAdd = ObtainableLobotomyCards[randomIdx];
                     }
+
+                    if (addRare) addRare = false;
+
                     starterDeck2.Add(cardToAdd);
                 }
+                starterDeck = starterDeck2;
             }
         }
     }

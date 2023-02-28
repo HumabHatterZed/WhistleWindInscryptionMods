@@ -8,8 +8,8 @@ using WhistleWindLobotomyMod;
 using InscryptionAPI.Pelts.Extensions;
 using InscryptionAPI.Nodes;
 using System;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWind.AbnormalSigils;
+using WhistleWindLobotomyMod.Core;
 
 namespace ModDebuggingMod
 {
@@ -19,7 +19,7 @@ namespace ModDebuggingMod
         {
             List<Ability> abilities = new()
             {
-                Sporogenic.ability
+                //Ability.Evolve
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -40,10 +40,11 @@ namespace ModDebuggingMod
             CardHelper.CreateCard(
                 "wstl", "wstlcard", "Debug",
                 "You shouldn't see this.",
-                0, 10, 0, 0, 0,
+                0, 99, 0, 0, 0,
                 null, null,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: traits);
+                metaCategories: new(), tribes: tribes, traits: traits,
+                evolveName: "Buggy {0}");
         }
     }
 }

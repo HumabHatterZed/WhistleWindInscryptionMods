@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers;
 using InscryptionCommunityPatch.Card;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
 using UnityEngine;
+using UnityEngine.Assertions;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
@@ -21,8 +23,7 @@ namespace WhistleWind.AbnormalSigils
         public static readonly string rName = "Spore";
         public static readonly string rDesc = "This card takes damage at the end of its owner's turn equal to its Spore. When this perishes, create a Spore Mold Creature with stats equal to its Spore.";
 
-        private int spore;
-
+        public int spore;
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
             if (base.PlayableCard != null)
@@ -32,46 +33,37 @@ namespace WhistleWind.AbnormalSigils
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            int newToAdd = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot)
+            int num = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot)
                 .FindAll(s => s.Card != null && s.Card.HasAbility(Sporogenic.ability)).Count;
 
-            spore += newToAdd;
+            spore += num;
 
             if (spore <= 0)
                 yield break;
 
-            if (newToAdd > 0)
+            if (num > 0)
             {
-                CardInfo copyInfo = CardLoader.GetCardByName(base.PlayableCard.Info.name);
-                List<CardModificationInfo> tempMods = new();
-
-                foreach (CardModificationInfo info in base.PlayableCard.Info.Mods)
-                {
-                    if (info.singletonId != "wstl:SporeStatus")
-                        tempMods.Add(info);
-                }
-
-                foreach (CardModificationInfo info in base.PlayableCard.Info.Mods)
-                    copyInfo.Mods.Add(info);
-
-                base.PlayableCard.SetInfo(copyInfo);
-
-                CardModificationInfo statusMod = new()
-                {
-                    singletonId = "wstl:SporeStatus"
-                };
+                yield return HelperMethods.ChangeCurrentView(View.Board);
                 base.PlayableCard.Anim.LightNegationEffect();
-                base.PlayableCard.Info.TempDecals.Add(TextureLoader.LoadTextureFromBytes(Artwork.costSpores_10));
-                //base.PlayableCard.RenderCard();
+                if (spore <= 3)
+                {
+                    CardModificationInfo cardModificationInfo = new()
+                    {
+                        singletonId = "spore_status",
+                        DecalIds = { "wstl_spore_" + (spore - 1).ToString() },
+                        nonCopyable = true,
+                    };
+                    base.PlayableCard.Info.Mods.RemoveAll(x => x.singletonId == "spore_status");
+                    base.PlayableCard.Info.Mods.Add(cardModificationInfo);
+                }
                 yield return new WaitForSeconds(0.2f);
             }
-            
-            AbnormalPlugin.Log.LogDebug($"Card {base.PlayableCard.Info.name} has {spore} Spore.");
-            
+
             if (spore > 0)
             {
                 yield return new WaitForSeconds(0.2f);
                 yield return base.PlayableCard.TakeDamage(spore, null);
+                yield return new WaitForSeconds(0.4f);
             }
         }
 
@@ -80,8 +72,6 @@ namespace WhistleWind.AbnormalSigils
         {
             if (spore <= 0 || base.PlayableCard.Slot == null)
                 yield break;
-
-            AbnormalPlugin.Log.LogDebug($"Die");
 
             CardInfo minion = CardLoader.GetCardByName("wstl_theLittlePrinceMinion");
 
@@ -107,9 +97,15 @@ namespace WhistleWind.AbnormalSigils
                 minion.Mods.Add(cardModificationInfo);
             }
             foreach (Ability item in base.PlayableCard.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
-            {
                 minion.Mods.Add(new CardModificationInfo(item)); // Add base sigils
-            }
+
+            CardModificationInfo cardModificationInfo2 = new()
+            {
+                singletonId = "spore_status",
+                DecalIds = { "wstl_spore_" + ((Mathf.Min(3, spore)) - 1).ToString() },
+                nonCopyable = true,
+            };
+            minion.Mods.Add(cardModificationInfo2);
 
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(minion, base.PlayableCard.Slot, 0.15f);
         }
@@ -121,46 +117,9 @@ namespace WhistleWind.AbnormalSigils
     }
     public partial class AbnormalPlugin
     {
-        private void RenderCost_Spores()
-        {
-            Part1CardCostRender.UpdateCardCost += delegate (CardInfo card, List<Texture2D> costs)
-            {
-                int spore = card.GetExtendedPropertyAsInt("wstl:SporeStatusEffect") ?? 0;
-                if (spore > 0)
-                {
-                    byte[] resource = spore switch
-                    {
-                        1 => Artwork.costSpores,
-                        2 => Artwork.costSpores_2,
-                        3 => Artwork.costSpores_3,
-                        4 => Artwork.costSpores_4,
-                        5 => Artwork.costSpores_5,
-                        6 => Artwork.costSpores_6,
-                        7 => Artwork.costSpores_7,
-                        8 => Artwork.costSpores_8,
-                        9 => Artwork.costSpores_9,
-                        _ => Artwork.costSpores_10
-                    };
-                    costs.Add(TextureLoader.LoadTextureFromBytes(resource));
-                }
-            };
-
-            Part2CardCostRender.UpdateCardCost += delegate (CardInfo card, List<Texture2D> costs)
-            {
-                int spore = card.GetExtendedPropertyAsInt("wstl:SporeStatusEffect") ?? 0;
-                if (spore > 0)
-                {
-                    byte[] resource = spore switch
-                    {
-                        _ => Artwork.costSpores_pixel
-                    };
-                    costs.Add(TextureLoader.LoadTextureFromBytes(resource));
-                }
-            };
-        }
         private void Rulebook_Spores()
         {
-            RulebookSpores.ability = AbnormalAbilityHelper.CreateRulebookAbility<RulebookSpores>(Spores.rName, Spores.rDesc).Id;
+            RulebookSpores.ability = AbnormalAbilityHelper.CreateAbility<RulebookSpores>(Artwork.sigilSpores, Artwork.sigilSpores_pixel, Spores.rName, Spores.rDesc, "", unobtainable: true).Id;
         }
         private void SpecialAbility_Spores()
         {

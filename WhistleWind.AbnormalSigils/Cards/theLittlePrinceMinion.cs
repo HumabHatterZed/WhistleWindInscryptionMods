@@ -1,4 +1,6 @@
-﻿using WhistleWind.AbnormalSigils.Properties;
+﻿using EasyFeedback.APIs;
+using System.Collections.Generic;
+using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils

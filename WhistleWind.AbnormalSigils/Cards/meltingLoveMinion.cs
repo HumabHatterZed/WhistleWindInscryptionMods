@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
                 "Don't let your beasts get too close now.",
                 atk: 0, hp: 0,
                 blood: 0, bones: 0, energy: 0,
-                Artwork.meltingLoveMinion, Artwork.meltingLoveMinion_emission,
+                Artwork.meltingLoveMinion, Artwork.meltingLoveMinion_emission, Artwork.meltingLoveMinion_pixel,
                 abilities: abilities,
                 metaCategories: new(), tribes: new(), traits: new());
         }

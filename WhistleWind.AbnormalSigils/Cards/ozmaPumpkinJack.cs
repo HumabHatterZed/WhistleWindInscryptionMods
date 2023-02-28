@@ -33,7 +33,7 @@ namespace WhistleWind.AbnormalSigils
                 "An orange gourd.",
                 atk: 0, hp: 1,
                 blood: 0, bones: 0, energy: 0,
-                Artwork.ozmaPumpkin,
+                Artwork.ozmaPumpkin, pixelTexture: Artwork.ozmaPumpkin_pixel,
                 abilities: abilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 evolveName: "wstl_ozmaPumpkinJack");

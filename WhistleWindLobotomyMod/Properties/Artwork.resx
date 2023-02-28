@@ -268,11 +268,17 @@
   <data name="beautyAndBeast_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\beautyAndBeast_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="beautyAndBeast_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\beautyAndBeast_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="behaviourAdjustment" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\behaviourAdjustment.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="behaviourAdjustment_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\behaviourAdjustment_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="behaviourAdjustment_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\behaviourAdjustment_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="bigBird" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\bigBird.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -385,6 +391,15 @@
   <data name="dontTouchMe_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\dontTouchMe_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="dragonBodyBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dragonBodyBackground.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dragonHeadBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dragonHeadBackground.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dragonHornsBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\dragonHornsBackground.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="dreamingCurrent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\dreamingCurrent.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -435,6 +450,9 @@
   </data>
   <data name="fragmentOfUniverse_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\fragmentOfUniverse_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="fragmentOfUniverse_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\fragmentOfUniverse_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="funeralOfButterflies" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\funeralOfButterflies.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -502,20 +520,20 @@
   <data name="kingOfGreed_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\kingOfGreed_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="kingOfGreed_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\kingOfGreed_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="knightOfDespair" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\knightOfDespair.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="knightOfDespair_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\knightOfDespair_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="knightOfDespair_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\knightOfDespair_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="laetitia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\laetitia.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="laetitiaFriend" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\laetitiaFriend.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="laetitiaFriend_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\laetitiaFriend_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="laetitia_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\laetitia_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -594,6 +612,9 @@
   </data>
   <data name="mirrorOfAdjustment_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\mirrorOfAdjustment_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mirrorOfAdjustment_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\mirrorOfAdjustment_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="mountainOfBodies" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\mountainOfBodies.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -727,6 +748,9 @@
   <data name="pinocchio_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\pinocchio_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="pinocchio_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\pinocchio_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="plagueDoctor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\plagueDoctor.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -823,6 +847,9 @@
   <data name="priceOfSilence_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\priceOfSilence_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="priceOfSilence_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\priceOfSilence_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="punishingBird" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\punishingBird.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -838,6 +865,9 @@
   <data name="queenBee_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\queenBee_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="queenBee_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\queenBee_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="queenOfHatred" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\queenOfHatred.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -847,8 +877,14 @@
   <data name="queenOfHatredTired_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\queenOfHatredTired_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="queenOfHatredTired_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\queenOfHatredTired_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="queenOfHatred_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\queenOfHatred_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="queenOfHatred_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\queenOfHatred_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="RANDOM_PLACEHOLDER" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\RANDOM_PLACEHOLDER.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -988,6 +1024,9 @@
   <data name="skinProphecy_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\skinProphecy_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="skinProphecy_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\skinProphecy_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="slotPavedRoad" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\slotPavedRoad.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1042,104 +1081,116 @@
   <data name="starterDeckRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\starterDeckRandom.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_eyes1_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_eyes1_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_eyes2_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_eyes2_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_eyes2_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_eyes2_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_eyes3_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_eyes3_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesClosed4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesClosed4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_eyes4_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_eyes4_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesClosed5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesClosed5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_eyes4_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_eyes4_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesClosed6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesClosed6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_eyes5_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_eyes5_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesEmission1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesEmission1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_eyes5_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_eyes5_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesEmission2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesEmission2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_eyes6_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_eyes6_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_eyes6_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_eyes6_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_eyes_emission1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_eyes_emission1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_eyes_emission2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_eyes_emission2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesOpen4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesOpen4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_mouth1_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_mouth1_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesOpen5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesOpen5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_mouth2_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_mouth2_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodEyesOpen6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEyesOpen6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_mouth2_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_mouth2_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodMouthClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodMouthClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_mouth3_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_mouth3_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodMouthClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodMouthClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_mouth3_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_mouth3_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodMouthClosed3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodMouthClosed3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_mouth4_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_mouth4_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodMouthClosed4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodMouthClosed4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_mouth4_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_mouth4_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodMouthClosed6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodMouthClosed6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_mouth6_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_mouth6_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodMouthOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodMouthOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardHod_mouth6_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardHod_mouth6_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodMouthOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodMouthOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardYesod_eyes1_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardYesod_eyes1_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodMouthOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodMouthOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardYesod_eyes1_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardYesod_eyes1_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodMouthOpen4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodMouthOpen4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardYesod_eyes2_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardYesod_eyes2_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingHodMouthOpen6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodMouthOpen6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardYesod_eyes2_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardYesod_eyes2_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingYesodBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardYesod_eyes3_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardYesod_eyes3_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingYesodEyesClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodEyesClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardYesod_eyes3_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardYesod_eyes3_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingYesodEyesClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodEyesClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardYesod_eyes_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardYesod_eyes_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingYesodEyesClosed3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodEyesClosed3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardYesod_mouth1_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardYesod_mouth1_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingYesodEyesEmission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodEyesEmission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardYesod_mouth1_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardYesod_mouth1_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingYesodEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardYesod_mouth2_closed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardYesod_mouth2_closed.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingYesodEyesOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodEyesOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardYesod_mouth2_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardYesod_mouth2_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingYesodEyesOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodEyesOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TalkingCardYesod_mouth3_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\TalkingCardYesod_mouth3_open.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="talkingYesodMouthClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodMouthClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingYesodMouthClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodMouthClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingYesodMouthOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodMouthOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingYesodMouthOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodMouthOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingYesodMouthOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingYesodMouthOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="theFirebird" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\theFirebird.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1183,14 +1234,23 @@
   <data name="todaysShyLookAngry_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\todaysShyLookAngry_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="todaysShyLookAngry_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\todaysShyLookAngry_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="todaysShyLookHappy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\todaysShyLookHappy.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="todaysShyLookHappy_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\todaysShyLookHappy_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="todaysShyLookHappy_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\todaysShyLookHappy_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="todaysShyLook_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\todaysShyLook_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="todaysShyLook_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\todaysShyLook_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="trainingDummy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\trainingDummy.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1222,8 +1282,14 @@
   <data name="voidDreamRooster_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\voidDreamRooster_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="voidDreamRooster_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\voidDreamRooster_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="voidDream_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\voidDream_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="voidDream_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\voidDream_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="wallLady" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\wallLady.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

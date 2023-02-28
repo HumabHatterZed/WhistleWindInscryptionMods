@@ -1,9 +1,8 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -23,7 +22,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.happyTeddyBear, Artwork.happyTeddyBear_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
+                evolveName: "Big, {0}");
         }
     }
 }

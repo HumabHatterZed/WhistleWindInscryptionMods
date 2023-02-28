@@ -78,12 +78,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_WristCutter()
-        {
-            RulebookEntryWristCutter.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryWristCutter>(WristCutter.rName, WristCutter.rDesc).Id;
-        }
+            => RulebookEntryWristCutter.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryWristCutter>(WristCutter.rName, WristCutter.rDesc).Id;
         private void SpecialAbility_WristCutter()
-        {
-            WristCutter.specialAbility = AbilityHelper.CreateSpecialAbility<WristCutter>(pluginGuid, WristCutter.rName).Id;
-        }
+            => WristCutter.specialAbility = AbilityHelper.CreateSpecialAbility<WristCutter>(pluginGuid, WristCutter.rName).Id;
     }
 }

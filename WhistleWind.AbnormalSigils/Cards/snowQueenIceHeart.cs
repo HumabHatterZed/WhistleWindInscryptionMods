@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
                 "",
                 atk: 0, hp: 1,
                 blood: 0, bones: 0, energy: 0,
-                Artwork.snowQueenIceHeart, Artwork.snowQueenIceHeart_emission,
+                Artwork.snowQueenIceHeart, Artwork.snowQueenIceHeart_emission, Artwork.snowQueenIceHeart_pixel,
                 abilities: abilities,
                 metaCategories: new(), tribes: new(), traits: new());
         }

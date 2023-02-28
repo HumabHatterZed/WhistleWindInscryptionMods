@@ -42,10 +42,6 @@
       <HintPath>..\lib\Infiniscryption.PackManager.dll</HintPath>
     </Reference>
   </ItemGroup>
-  
-  <ItemGroup>
-    <EmbeddedResource Include="talkingcardssephirah" />
-  </ItemGroup>
 	
 	<ItemGroup>
 	  <Compile Update="Properties\Artwork.Designer.cs">

@@ -42,6 +42,7 @@ namespace WhistleWind.AbnormalSigils
             killer.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);
             yield return killer.TransformIntoCard(this.Card.Info);
+            killer.Status.damageTaken = 0;
             yield return new WaitForSeconds(0.4f);
             yield return LearnAbility();
         }

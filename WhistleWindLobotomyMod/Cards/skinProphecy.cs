@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -21,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 "A holy book. Its believers wrapped it in skin to preserve its sanctity.",
                 atk: 0, hp: 2,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.skinProphecy, Artwork.skinProphecy_emission,
+                Artwork.skinProphecy, Artwork.skinProphecy_emission, Artwork.skinProphecy_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,

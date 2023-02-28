@@ -41,7 +41,7 @@ namespace WhistleWind.AbnormalSigils
         {
             if (base.Card.OnBoard)
                 return Singleton<BoardManager>.Instance.GetSlots(base.Card.OpponentCard)
-                    .Where(s => s.Card != null).Count() > 0;
+                    .Where(s => s.Card != null && s.Card.Info.Attack > 0).Count() > 0;
 
             return false;
         }

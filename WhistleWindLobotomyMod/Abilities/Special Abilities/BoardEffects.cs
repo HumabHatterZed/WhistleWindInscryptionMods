@@ -79,9 +79,6 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void SpecialAbility_BoardEffects()
-        {
-            const string rulebookName = "BoardEffects";
-            BoardEffects.specialAbility = AbilityHelper.CreateSpecialAbility<BoardEffects>(pluginGuid, rulebookName).Id;
-        }
+            => BoardEffects.specialAbility = AbilityHelper.CreateSpecialAbility<BoardEffects>(pluginGuid, "EventBoardEffects").Id;
     }
 }

@@ -4,12 +4,16 @@ using BepInEx.Logging;
 using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Guid;
+using InscryptionAPI.Resource;
 using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TribalLibary;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
+using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -30,16 +34,14 @@ namespace WhistleWind.AbnormalSigils
 
         public static Trait Boneless = GuidManager.GetEnumValue<Trait>(pluginGuid, "Boneless");
         public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
+        
         public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
         public static CardMetaCategory CannotGainSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGainSigils");
         public static CardMetaCategory CannotBoostStats = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotBoostStats");
         public static CardMetaCategory CannotCopyCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotCopyCard");
 
-        private void OnDisable()
-        {
-            HarmonyInstance.UnpatchSelf();
-        }
-
+        private void OnDisable() => HarmonyInstance.UnpatchSelf();
+        
         private void Awake()
         {
             AbnormalPlugin.Log = base.Logger;
@@ -51,13 +53,33 @@ namespace WhistleWind.AbnormalSigils
             {
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
-                AbnormalDialogueManager.GenerateDialogueEvents();
+                AddResources();
 
+                AbnormalDialogueManager.GenerateDialogueEvents();
+                
                 AddAbilities();
                 AddSpecialAbilities();
+                AddAppearances();
                 AddCards();
 
                 Logger.LogInfo($"{pluginName} loaded!");
+            }
+        }
+        private void AddResources()
+        {
+            List<byte[]> costs = new()
+            {
+                Artwork.decalSpore_0,
+                Artwork.decalSpore_1,
+                Artwork.decalSpore_2
+            };
+            for (int i = 0; i < costs.Count; i++)
+            {
+                ResourceBankManager.Add(pluginGuid, new ResourceBank.Resource()
+                {
+                    path = "Art/Cards/Decals/wstl_spore_" + i,
+                    asset = TextureLoader.LoadTextureFromBytes(costs[i])
+                });
             }
         }
         private void AddSpecialAbilities()
@@ -68,6 +90,7 @@ namespace WhistleWind.AbnormalSigils
             StatIcon_SigilPower();
             StatIcon_Nihil();
         }
+        private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
         private void AddCards() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
         private void AddAbilities()
         {
@@ -111,7 +134,6 @@ namespace WhistleWind.AbnormalSigils
             Ability_Alchemist();
             Ability_Nettles();
 
-            //RenderCost_Spores();
             Ability_Sporogenic();
             Rulebook_Spores();
 

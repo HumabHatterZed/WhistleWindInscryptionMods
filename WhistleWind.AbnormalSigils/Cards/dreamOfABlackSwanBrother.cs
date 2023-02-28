@@ -30,7 +30,7 @@ namespace WhistleWind.AbnormalSigils
                 "What happens when the black swan wakes up from dreaming of a white swan?",
                 atk: 0, hp: 1,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.dreamOfABlackSwanBrother1,
+                Artwork.dreamOfABlackSwanBrother1, pixelTexture: Artwork.dreamOfABlackSwanBrother1_pixel,
                 abilities: abilities1,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);
@@ -40,7 +40,7 @@ namespace WhistleWind.AbnormalSigils
                 "What happens when the black swan wakes up from dreaming of a white swan?",
                 atk: 0, hp: 1,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.dreamOfABlackSwanBrother2,
+                Artwork.dreamOfABlackSwanBrother2, pixelTexture: Artwork.dreamOfABlackSwanBrother2_pixel,
                 abilities: abilities2,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);
@@ -50,7 +50,7 @@ namespace WhistleWind.AbnormalSigils
                 "What happens when the black swan wakes up from dreaming of a white swan?",
                 atk: 0, hp: 2,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.dreamOfABlackSwanBrother3,
+                Artwork.dreamOfABlackSwanBrother3, pixelTexture: Artwork.dreamOfABlackSwanBrother3_pixel,
                 abilities: abilities3,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);
@@ -60,7 +60,7 @@ namespace WhistleWind.AbnormalSigils
                 "What happens when the black swan wakes up from dreaming of a white swan?",
                 atk: 0, hp: 1,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.dreamOfABlackSwanBrother4,
+                Artwork.dreamOfABlackSwanBrother4, pixelTexture: Artwork.dreamOfABlackSwanBrother4_pixel,
                 abilities: abilities4, metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);
             CardHelper.CreateCard(
@@ -69,7 +69,7 @@ namespace WhistleWind.AbnormalSigils
                 "What happens when the black swan wakes up from dreaming of a white swan?",
                 atk: 0, hp: 2,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.dreamOfABlackSwanBrother5,
+                Artwork.dreamOfABlackSwanBrother5, pixelTexture: Artwork.dreamOfABlackSwanBrother5_pixel,
                 abilities: abilities5,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);
@@ -79,7 +79,7 @@ namespace WhistleWind.AbnormalSigils
                 "What happens when the black swan wakes up from dreaming of a white swan?",
                 atk: 0, hp: 2,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.dreamOfABlackSwanBrother6,
+                Artwork.dreamOfABlackSwanBrother6, pixelTexture: Artwork.dreamOfABlackSwanBrother6_pixel,
                 abilities: abilities6,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);

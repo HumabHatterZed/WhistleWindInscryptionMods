@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Helpers;
+using GBC;
+using InscryptionAPI.Dialogue;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -420,11 +421,7 @@ namespace WhistleWindLobotomyMod.Core
 
         public static IEnumerator PlayDialogueEvent(string name, float waitFor = 0.2f)
         {
-            if (!DialogueEventsData.EventIsPlayed(name))
-            {
-                yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent(name, TextDisplayer.MessageAdvanceMode.Input);
-                yield return new WaitForSeconds(waitFor);
-            }
+            yield return WhistleWind.AbnormalSigils.Core.AbnormalDialogueManager.PlayDialogueEvent(name, waitFor);
         }
         public static void GenerateDialogueEvents()
         {
@@ -441,7 +438,7 @@ namespace WhistleWindLobotomyMod.Core
                 if (!RepeatEventNames.TryGetValue(dialogue.Key, out List<List<CustomLine>> repeatLines))
                     repeatLines = null;
 
-                DialogueEventGenerator.GenerateEvent(dialogue.Key, dialogue.Value, repeatLines, defaultSpeaker: speaker);
+                DialogueManager.GenerateEvent(LobotomyPlugin.pluginGuid, dialogue.Key, dialogue.Value, repeatLines, defaultSpeaker: speaker);
             }
         }
     }

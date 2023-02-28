@@ -37,19 +37,17 @@ namespace WhistleWind.AbnormalSigils
             yield return PreSuccessfulTriggerSequence();
             yield return HelperMethods.ChangeCurrentView(View.Board);
 
-            if (base.Card.FaceDown)
-            {
-                base.Card.SetFaceDown(false);
-                base.Card.UpdateFaceUpOnBoardEffects();
-                yield return new WaitForSeconds(0.55f);
-            }
+            bool faceDown = base.Card.FaceDown;
+
+            yield return base.Card.FlipFaceUp(faceDown);
 
             if (turnCount < 2)
             {
                 base.Card.Anim.LightNegationEffect();
                 base.Card.HealDamage(2);
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.3f);
                 yield return base.LearnAbility();
+                yield return base.Card.FlipFaceDown(faceDown);
                 yield break;
             }
 

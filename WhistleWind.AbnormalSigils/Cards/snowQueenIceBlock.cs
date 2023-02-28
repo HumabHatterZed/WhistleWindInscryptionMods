@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
                 "",
                 atk: 0, hp: 1,
                 blood: 0, bones: 0, energy: 0,
-                Artwork.snowQueenIceBlock,
+                Artwork.snowQueenIceBlock, pixelTexture: Artwork.snowQueenIceBlock_pixel,
                 abilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 metaTypes: CardHelper.CardMetaType.Terrain);

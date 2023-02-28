@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -26,12 +26,13 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_hundredsGoodDeeds", "One Sin and Hundreds of Good Deeds",
                 "Its hollow sockets see through you.",
-                atk: 0, hp: 777,
+                atk: 0, hp: 77,
                 blood: 0, bones: 0, energy: 0,
                 Artwork.hundredsGoodDeeds, Artwork.hundredsGoodDeeds_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard);
+                appearances: appearances, modTypes: ModCardType.EventCard,
+                hideStats: true);
         }
     }
 }

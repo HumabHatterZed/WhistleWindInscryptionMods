@@ -11,7 +11,6 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        private static CardInfo BodyInfo => CardLoader.GetCardByName("wstl_yinYangBody");
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.PlayableCard.OpponentCard != playerTurnEnd;
 
@@ -60,28 +59,10 @@ namespace WhistleWindLobotomyMod
                     yield break;
             }
         }
-
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
-        {
-            if (base.Card != null && base.PlayableCard.Info.name.Equals("wstl_yinYangHead"))
-                return otherCard != base.Card && otherCard.Info.name == "wstl_yinYangHead";
-
-            return false;
-        }
-        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
-        {
-            // change to Body when a Head is played
-            base.PlayableCard.SetInfo(BodyInfo);
-            base.PlayableCard.UpdateStatsText();
-            yield break;
-        }
     }
     public partial class LobotomyPlugin
     {
         private void SpecialAbility_CustomFledgling()
-        {
-            const string rulebookName = "CustomEvolveHelper";
-            CustomEvolveHelper.specialAbility = AbilityHelper.CreateSpecialAbility<CustomEvolveHelper>(pluginGuid, rulebookName).Id;
-        }
+            => CustomEvolveHelper.specialAbility = AbilityHelper.CreateSpecialAbility<CustomEvolveHelper>(pluginGuid, "CustomEvolveHelper").Id;
     }
 }

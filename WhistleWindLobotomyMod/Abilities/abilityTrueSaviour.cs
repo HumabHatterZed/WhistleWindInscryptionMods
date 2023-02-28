@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,6 @@ namespace WhistleWindLobotomyMod
 {
     public partial class LobotomyPlugin
     {
-        public const string TrueSaviourHiddenDescription = "My story is nowhere, unknown to all.";
-        public const string TrueSaviourRevealedDescription = "While [creature] is on the board, transform any non-Terrain and non-Pelt cards into a random Apostle.";
-
         private void Ability_TrueSaviour()
         {
             const string rulebookName = "True Saviour";
@@ -23,7 +21,7 @@ namespace WhistleWindLobotomyMod
 
             TrueSaviour.ability = LobotomyAbilityHelper.CreateAbility<TrueSaviour>(
                 Artwork.sigilTrueSaviour, Artwork.sigilTrueSaviour_pixel,
-                rulebookName, TrueSaviourHiddenDescription, dialogue, powerLevel: -3,
+                rulebookName, "My story is nowhere, unknown to all.", dialogue, powerLevel: -3,
                 canStack: false).Id;
         }
     }
@@ -84,33 +82,43 @@ namespace WhistleWindLobotomyMod
             Singleton<UIManager>.Instance.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 0.4f);
 
             // if not killed by Hundreds of Good Deeds
-            if (killer.Info.name != "wstl_hundredsGoodDeeds")
+            if (killer.LacksAbility(Confession.ability))
             {
                 // kill all Apostles
                 foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(x => x.Card != null && x.Card.Info.name.StartsWith("wstl_apostle")))
                 {
                     yield return slot.Card.Die(false, base.Card);
                 }
-
-                // Deal damage but more, because you somehow killed WhiteNight without the Heretic
-                SpecialBattleSequencer specialSequence = null;
-                var combatManager = Singleton<CombatPhaseManager>.Instance;
-
-                yield return combatManager.DamageDealtThisPhase += 66;
-
-                int excessDamage = Singleton<LifeManager>.Instance.Balance + combatManager.DamageDealtThisPhase - 5;
-                int damage = combatManager.DamageDealtThisPhase - excessDamage;
-
-                yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
-
-                yield return combatManager.VisualizeExcessLethalDamage(excessDamage, specialSequence);
-                RunState.Run.currency += excessDamage;
-
-                // Resets Blessings
-                LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
-                LobotomyConfigManager.Instance.SetBlessings(0);
             }
-            yield break;
+
+            yield return new WaitForSeconds(0.5f);
+
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+
+            SpecialBattleSequencer specialSequence = null;
+            var combatManager = Singleton<CombatPhaseManager>.Instance;
+
+            yield return combatManager.DamageDealtThisPhase += 33;
+
+            int excessDamage = Singleton<LifeManager>.Instance.Balance + combatManager.DamageDealtThisPhase - 5;
+            int damage = combatManager.DamageDealtThisPhase - excessDamage;
+
+            yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
+
+            yield return combatManager.VisualizeExcessLethalDamage(excessDamage, specialSequence);
+            RunState.Run.currency += excessDamage;
+
+            if (killer.LacksAbility(Confession.ability))
+            {
+                foreach (CardInfo card in RunState.Run.playerDeck.CardInfos)
+                {
+                    RunState.Run.playerDeck.ModifyCard(card, new(1, 2));
+                }
+            }
+
+            // Resets Blessings
+            LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
+            LobotomyConfigManager.Instance.SetBlessings(0);
         }
         private IEnumerator KilledByNull()
         {
@@ -146,52 +154,65 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator ConvertToApostle(PlayableCard otherCard)
         {
-            bool isOpponent = otherCard.OpponentCard;
-            // null check should be done elsewhere
-            if (otherCard.HasAnyOfTraits(Trait.Pelt, Trait.Terrain) || otherCard.HasSpecialAbility(SpecialTriggeredAbility.PackMule))
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+
+            if (otherCard.HasAnyOfTraits(Trait.Pelt, Trait.Terrain))
             {
                 yield return otherCard.DieTriggerless();
-                Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+                yield break;
             }
-            else
+
+            bool isOpponent = otherCard.OpponentCard;
+
+            if (otherCard.HasSpecialAbility(SpecialTriggeredAbility.PackMule))
             {
-                int randomSeed = base.GetRandomSeed();
-                CardInfo randApostle = SeededRandom.Range(0, 3, randomSeed++) switch
+                Tween.LocalPosition(otherCard.transform, Vector3.up * (Singleton<BoardManager>.Instance.SlotHeightOffset), 0.1f, 0.05f, Tween.EaseOut, Tween.LoopType.None);
+                Tween.Rotation(otherCard.transform, otherCard.Slot.transform.GetChild(0).rotation, 0.1f, 0f, Tween.EaseOut);
+
+                if (otherCard.TriggerHandler.RespondsToTrigger(Trigger.Die, false, null))
+                    yield return otherCard.TriggerHandler.OnTrigger(Trigger.Die, false, null);
+
+                Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            }
+
+            int randomSeed = base.GetRandomSeed();
+            CardInfo randApostle = SeededRandom.Range(0, 3, randomSeed++) switch
+            {
+                0 => CardLoader.GetCardByName("wstl_apostleScythe"),
+                1 => CardLoader.GetCardByName("wstl_apostleSpear"),
+                _ => CardLoader.GetCardByName("wstl_apostleStaff")
+            };
+            if (!HasHeretic)
+            {
+                if (new System.Random().Next(0, 12) == 0)
                 {
-                    0 => CardLoader.GetCardByName("wstl_apostleScythe"),
-                    1 => CardLoader.GetCardByName("wstl_apostleSpear"),
-                    _ => CardLoader.GetCardByName("wstl_apostleStaff")
-                };
-                if (!HasHeretic)
-                {
-                    if (new System.Random().Next(0, 12) == 0)
+                    HasHeretic = true;
+                    if (!isOpponent)
+                        randApostle = CardLoader.GetCardByName("wstl_apostleHeretic");
+                    else
                     {
-                        HasHeretic = true;
-                        if (!isOpponent)
-                            randApostle = CardLoader.GetCardByName("wstl_apostleHeretic");
-                        else
+                        otherCard.RemoveFromBoard();
+                        yield return new WaitForSeconds(0.5f);
+                        if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
                         {
-                            otherCard.RemoveFromBoard();
-                            yield return new WaitForSeconds(0.5f);
-                            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
-                            {
-                                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
-                                yield return new WaitForSeconds(0.2f);
-                            }
-                            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_apostleHeretic"), null, 0.25f, null);
-                            yield return new WaitForSeconds(0.45f);
+                            Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
+                            yield return new WaitForSeconds(0.2f);
                         }
+                        yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_apostleHeretic"), null, 0.25f, null);
+                        yield return new WaitForSeconds(0.45f);
                     }
                 }
-                if (otherCard != null)
-                    yield return otherCard.TransformIntoCard(randApostle);
-
-                if (HasHeretic)
-                    yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightApostleHeretic");
-
-                Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
-                yield return new WaitForSeconds(0.2f);
             }
+            if (otherCard != null)
+                yield return otherCard.TransformIntoCard(randApostle);
+
+            if (HasHeretic)
+                yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightApostleHeretic");
+
+            if (Singleton<ViewManager>.Instance.CurrentView == View.Hand)
+                Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
+
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }

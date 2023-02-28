@@ -78,12 +78,6 @@ namespace WhistleWind.Core.AbilityClasses
             {
                 selectedSlot = s;
             });
-            if (selectedSlot != null && selectedSlot.Card != null)
-            {
-                instance.VisualizeAimSniperAbility(base.Card.Slot, selectedSlot);
-                visualiser?.VisualizeAimSniperAbility(base.Card.Slot, selectedSlot);
-                yield return new WaitForSeconds(0.3f);
-            }
 
             instance.VisualizeConfirmSniperAbility(selectedSlot);
             visualiser?.VisualizeConfirmSniperAbility(selectedSlot);

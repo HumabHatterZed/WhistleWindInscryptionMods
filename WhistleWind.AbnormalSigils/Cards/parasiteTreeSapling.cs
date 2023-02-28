@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
                 "",
                 atk: 0, hp: 2,
                 blood: 0, bones: 0, energy: 0,
-                Artwork.parasiteTreeSapling, Artwork.parasiteTreeSapling_emission,
+                Artwork.parasiteTreeSapling, pixelTexture: Artwork.parasiteTreeSapling_pixel,
                 abilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new());
         }

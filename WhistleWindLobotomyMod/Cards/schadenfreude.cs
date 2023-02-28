@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,10 +16,10 @@ namespace WhistleWindLobotomyMod
                 QuickDraw.ability
             };
             CreateCard(
-                "wstl_schadenfreude", "SchadenFreude",
+                "wstl_schadenfreude", "Schadenfreude",
                 "A strange machine. You can feel someone's persistent gaze through the keyhole.",
                 atk: 1, hp: 1,
-                blood: 0, bones: 0, energy: 4,
+                blood: 0, bones: 0, energy: 2,
                 Artwork.schadenfreude, Artwork.schadenfreude_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

@@ -7,19 +7,21 @@ using Infiniscryption.PackManagement;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
+using InscryptionAPI.TalkingCards;
 using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.XR;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyEncounterManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -38,8 +40,6 @@ namespace WhistleWindLobotomyMod
 
         internal static ManualLogSource Log;
         private static Harmony HarmonyInstance = new(pluginGuid);
-
-        public static AssetBundle sephirahBundle;
 
         private static bool _allCardsDisabled;
         public static bool AllCardsDisabled => _allCardsDisabled;
@@ -67,12 +67,12 @@ namespace WhistleWindLobotomyMod
                 _donatorCardsDisabled = LobotomyConfigManager.Instance.NoDonators;
                 _ruinaCardsDisabled = LobotomyConfigManager.Instance.NoRuina;
 
-                sephirahBundle = LoadBundle("WhistleWindLobotomyMod/talkingcardssephirah");
-                
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
                 if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
                     LobotomyConfigManager.Instance.SetBlessings(11);
+
+                DialogueEventsManager.GenerateDialogueEvents();
 
                 AddChallenges();
 
@@ -84,21 +84,18 @@ namespace WhistleWindLobotomyMod
                 AddAppearances();
                 AddTribes();
 
-                if (sephirahBundle != null)
-                    InitSephirahAndDialogue();
-                else
-                    Log.LogWarning("AssetBundle has not been loaded! .");
-
-                DialogueEventsManager.GenerateDialogueEvents();
-
                 AddCards();
+                CreateTalkingCards();
 
                 AddStarterDecks();
+
                 Log.LogDebug("Loading items and nodes...");
                 AddItems();
                 AddNodes();
+                
                 Log.LogDebug("Loading encounters...");
                 AddEncounters();
+                
                 if (PackAPI.Enabled)
                     PackAPI.CreateCardPack();
 
@@ -114,7 +111,7 @@ namespace WhistleWindLobotomyMod
                     Log.LogWarning("Disable Cards is set to [All]. All mod cards have been removed from the pool of obtainable cards");
                 else
                 {
-                    Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
+                    DebugCardInfo();
 
                     if (DisabledRiskLevels != RiskLevel.None)
                         Log.LogWarning($"Disable Cards is set to [{DisabledRiskLevels}]. Cards with the affected risk level(s) have been removed from the pool of obtainable cards.");
@@ -124,6 +121,8 @@ namespace WhistleWindLobotomyMod
 
                     if (RuinaCardsDisabled)
                         Log.LogWarning("Disable Ruina is set to true. Some cards have been removed from the pool of obtainable cards.");
+
+                    Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
                 }
                 Log.LogInfo($"The Clock is at [{LobotomyConfigManager.Instance.NumOfBlessings}].");
             }
@@ -132,10 +131,10 @@ namespace WhistleWindLobotomyMod
         private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
         private void AddSpecialAbilities() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
         private void AddNodes() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Node")).ForEach(mi => mi.Invoke(this, null));
-        private void InitSephirahAndDialogue()
+        private void CreateTalkingCards()
         {
-            SephirahHod.Init();
-            SephirahYesod.Init();
+            TalkingCardManager.New<TalkingCardHod>();
+            TalkingCardManager.New<TalkingCardYesod>();
             // SephirahNetzach.Init();
             // SephirahMalkuth.Init();
             // SephirahChesed.Init();
@@ -185,9 +184,11 @@ namespace WhistleWindLobotomyMod
 
             AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
 
-            // add Fairy Festival as a fallback card
             if (AllCardsDisabled)
-                ObtainableLobotomyCards.Add(CardLoader.GetCardByName("wstl_fairyFestival"));
+            {
+                Log.LogInfo("All mod cards are disabled, adding Standard Training-Dummy Rabbit as a fallback card.");
+                ObtainableLobotomyCards.Add(CardLoader.GetCardByName("wstl_trainingDummy"));
+            }
         }
         private void AddAbilities()
         {
@@ -256,7 +257,7 @@ namespace WhistleWindLobotomyMod
             StarterDeckHelper.AddStarterDeck("Apocrypha", Artwork.starterDeckApocrypha, 7,
                 "wstl_fragmentOfUniverse",
                 "wstl_skinProphecy",
-                "wstl_plagueDoctor");
+                RuinaCardsDisabled ? "wstl_mhz176" : "wstl_priceOfSilence");
 
             StarterDeckHelper.AddStarterDeck("Keter", Artwork.starterDeckKeter, 8,
                 "wstl_bloodBath",
@@ -289,10 +290,12 @@ namespace WhistleWindLobotomyMod
                 RegionProgression.Instance.regions[i].AddEncounters(ModEncounters[i].ToArray());
         }
 
-        public static AssetBundle LoadBundle(string path)
+        private void DebugCardInfo()
         {
-            using (Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream(path.Replace("\\", ".").Replace("/", ".")))
-                return AssetBundle.LoadFromStream(s);
+            foreach (CardInfo card in AllLobotomyCards)
+            {
+                Log.LogInfo($"{card.name,-30} | {card.baseAttack,2}/{card.baseHealth,-2} | {card.cost,2}B :: x{card.bonesCost,-2} :: E{card.energyCost,-2}");
+            }
         }
 
         public static class PackAPI
@@ -302,9 +305,9 @@ namespace WhistleWindLobotomyMod
             {
                 Log.LogDebug("PackManager is installed, creating card pack...");
                 PackInfo pack = PackManager.GetPackInfo("wstl");
-                pack.Title = "WhistleWind's Lobotomy Mod";
+                pack.Title = "WhistleWind Lobotomy Mod";
                 pack.SetTexture(TextureLoader.LoadTextureFromBytes(Artwork.wstl_pack));
-                pack.Description = "A set of [count] abnormal cards originating from the bleak and intriguing world of Lobotomy Corporation and Library of Ruina.";
+                pack.Description = $"A set of {ObtainableLobotomyCards} abnormal cards hailing from the world of Lobotomy Corporation.";
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             }
         }

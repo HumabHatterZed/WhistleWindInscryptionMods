@@ -85,12 +85,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_PinkTears()
-        {
-            RulebookEntryPinkTears.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryPinkTears>(PinkTears.rName, PinkTears.rDesc).Id;
-        }
+            => RulebookEntryPinkTears.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryPinkTears>(PinkTears.rName, PinkTears.rDesc).Id;
         private void SpecialAbility_PinkTears()
-        {
-            PinkTears.specialAbility = AbilityHelper.CreateSpecialAbility<PinkTears>(pluginGuid, PinkTears.rName).Id;
-        }
+            => PinkTears.specialAbility = AbilityHelper.CreateSpecialAbility<PinkTears>(pluginGuid, PinkTears.rName).Id;
     }
 }

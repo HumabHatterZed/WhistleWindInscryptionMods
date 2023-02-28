@@ -1,9 +1,8 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,8 +17,8 @@ namespace WhistleWindLobotomyMod
             };
             List<Trait> traits = new()
             {
+                TraitApostle,
                 Trait.Uncuttable,
-                Trait.Terrain,
                 AbnormalPlugin.ImmuneToInstaDeath
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()

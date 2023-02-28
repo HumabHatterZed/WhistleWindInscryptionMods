@@ -2,7 +2,7 @@
 using HarmonyLib;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod.Patches
 {
@@ -17,6 +17,7 @@ namespace WhistleWindLobotomyMod.Patches
                 card = CardLoader.GetCardByName("wstl_nothingThere");
         }
 
+        // Act 1 starter decks
         [HarmonyPrefix, HarmonyPatch(nameof(DeckInfo.InitializeAsPlayerDeck))]
         private static bool Part1StarterDecks(ref DeckInfo __instance)
         {

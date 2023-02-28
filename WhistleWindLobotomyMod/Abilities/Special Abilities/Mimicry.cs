@@ -114,12 +114,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_Mimicry()
-        {
-            RulebookEntryMimicry.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMimicry>(Mimicry.rName, Mimicry.rDesc).Id;
-        }
+            => RulebookEntryMimicry.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMimicry>(Mimicry.rName, Mimicry.rDesc).Id;
         private void SpecialAbility_Mimicry()
-        {
-            Mimicry.specialAbility = AbilityHelper.CreateSpecialAbility<Mimicry>(pluginGuid, Mimicry.rName).Id;
-        }
+            => Mimicry.specialAbility = AbilityHelper.CreateSpecialAbility<Mimicry>(pluginGuid, Mimicry.rName).Id;
     }
 }
