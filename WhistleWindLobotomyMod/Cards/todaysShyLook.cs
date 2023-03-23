@@ -10,14 +10,10 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_TodaysShyLook_O0192()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.DrawCopyOnDeath
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                TodaysExpression.specialAbility
-            };
+            List<Ability> abilities = new() { Ability.DrawCopyOnDeath };
+            List<SpecialTriggeredAbility> specialAbilities = new() { TodaysExpression.specialAbility };
+            List<Tribe> tribes = new() { TribeAnthropoid };
+
             CreateCard(
                 "wstl_todaysShyLook", "Today's Shy Look",
                 "An indecisive creature. Her expression is different whenever you draw her.",
@@ -25,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.todaysShyLook, Artwork.todaysShyLook_emission, Artwork.todaysShyLook_pixel,
                 abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
                 evolveName: "[name]Tomorrow's Shy Look");
             CreateCard(
@@ -35,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.todaysShyLook, Artwork.todaysShyLook_emission, Artwork.todaysShyLook_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 evolveName: "[name]Tomorrow's Shy Look");
             CreateCard(
                 "wstl_todaysShyLookHappy", "Today's Happy Look",
@@ -44,7 +40,7 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.todaysShyLookHappy, Artwork.todaysShyLookHappy_emission, Artwork.todaysShyLookHappy_pixel,
                 abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 evolveName: "[name]Tomorrow's Happy Look");
             CreateCard(
                 "wstl_todaysShyLookAngry", "Today's Angry Look",
@@ -53,7 +49,7 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.todaysShyLookAngry, Artwork.todaysShyLookAngry_emission, Artwork.todaysShyLookAngry_pixel,
                 abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 evolveName: "[name]Tomorrow's Angry Look");
         }
     }

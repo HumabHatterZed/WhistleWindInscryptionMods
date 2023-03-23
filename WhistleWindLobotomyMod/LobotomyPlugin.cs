@@ -149,14 +149,16 @@ namespace WhistleWindLobotomyMod
         {
             Log.LogDebug("Loading tribes...");
             if (TribeAPI.Enabled)
+            {
                 TribeAPI.ChangeTribesToTribal();
+            }
             else
             {
                 TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeDivine), true, null);
-                TribeFae = TribeManager.Add(pluginGuid, "FaeTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeFae), true, null);
-                TribeHumanoid = TribeManager.Add(pluginGuid, "HumanoidTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeHumanoid), true, null);
-                TribeMachine = TribeManager.Add(pluginGuid, "MachineTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeMachine), true, null);
-                TribePlant = TribeManager.Add(pluginGuid, "PlantTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribePlant), true, null);
+                TribeFae = TribeManager.Add(pluginGuid, "FaerieTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeFae), true, null);
+                TribeAnthropoid = TribeManager.Add(pluginGuid, "AnthropoidTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeHumanoid), true, null);
+                TribeMechanical = TribeManager.Add(pluginGuid, "MechanicalTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeMachine), true, null);
+                TribeBotanic = TribeManager.Add(pluginGuid, "BotanicalTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribePlant), true, null);
             }
         }
         private void AddCards()
@@ -169,9 +171,9 @@ namespace WhistleWindLobotomyMod
                     if (!TribeAPI.Enabled)
                     {
                         if (card.name.Contains("Brother"))
-                            card.AddTribes(TribeHumanoid);
+                            card.SetTribes(TribeAnthropoid);
                         else if (card.name.Contains("Vine") || card.name.Contains("Pumpkin") || card.name.Contains("Sapling"))
-                            card.AddTribes(TribePlant);
+                            card.SetTribes(TribeBotanic);
                     }
 
                     // add AbnormalSigils cards to the list of cards added by this mod
@@ -319,9 +321,9 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("Tribal Libary detected. Using its tribes instead.");
                 TribeDivine = TribalLibary.Plugin.divinebeastTribe;
                 TribeFae = TribalLibary.Plugin.fairyTribe;
-                TribeHumanoid = TribalLibary.Plugin.humanoidTribe;
-                TribeMachine = TribalLibary.Plugin.machineTribe;
-                TribePlant = TribalLibary.Plugin.plantTribe;
+                TribeAnthropoid = TribalLibary.Plugin.humanoidTribe;
+                TribeMechanical = TribalLibary.Plugin.machineTribe;
+                TribeBotanic = TribalLibary.Plugin.plantTribe;
             }
         }
     }

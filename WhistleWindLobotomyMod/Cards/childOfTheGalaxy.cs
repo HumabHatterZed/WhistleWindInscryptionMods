@@ -16,6 +16,8 @@ namespace WhistleWindLobotomyMod
                 FlagBearer.ability,
                 Ability.BoneDigger
             };
+            List<Tribe> tribes = new() { TribeAnthropoid };
+
             CreateCard(
                 "wstl_childOfTheGalaxy", "Child of the Galaxy",
                 "A small child longing for a friend. Will you be his?",
@@ -23,9 +25,9 @@ namespace WhistleWindLobotomyMod
                 blood: 2, bones: 0, energy: 0,
                 Artwork.childOfTheGalaxy, Artwork.childOfTheGalaxy_emission, pixelTexture: Artwork.childOfTheGalaxy_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                evolveName: "[name]Teen of the Galaxy", customTribe: TribeHumanoid);
+                evolveName: "[name]Teen of the Galaxy");
         }
     }
 }

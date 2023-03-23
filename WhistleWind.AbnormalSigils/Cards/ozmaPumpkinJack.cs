@@ -9,34 +9,29 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_OzmaPumpkinJack_F04116()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Evolve
-            };
-
             List<Tribe> tribes = new();
             if (TribalAPI.Enabled)
-                TribalAPI.AddTribalTribe(tribes, "plant");
+                tribes.Add(TribalAPI.AddTribal("botanic"));
 
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_ozmaPumpkinJack", "Jack",
                 "A child borne of an orange gourd.",
-                atk: 1, hp: 3,
+                atk: 2, hp: 2,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.ozmaPumpkinJack, Artwork.ozmaPumpkinJack_emission,
-                abilities: new(),
+                Artwork.ozmaPumpkinJack, Artwork.ozmaPumpkinJack_emission, Artwork.ozmaPumpkinJack_pixel,
+                abilities: new() { Cursed.ability },
                 metaCategories: new(), tribes: tribes, traits: new(), appearances: new());
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_ozmaPumpkin", "Pumpkin",
                 "An orange gourd.",
-                atk: 0, hp: 1,
+                atk: 0, hp: 4,
                 blood: 0, bones: 0, energy: 0,
                 Artwork.ozmaPumpkin, pixelTexture: Artwork.ozmaPumpkin_pixel,
-                abilities: abilities,
+                abilities: new() { Ability.Evolve },
                 metaCategories: new(), tribes: tribes, traits: new(),
-                evolveName: "wstl_ozmaPumpkinJack");
+                evolveName: "wstl_ozmaPumpkinJack", numTurns: 2);
         }
     }
 }

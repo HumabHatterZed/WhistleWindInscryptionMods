@@ -10,10 +10,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_YoureBald_BaldIsAwesome()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.DrawCopy
-            };
+            List<Ability> abilities = new() { Ability.DrawCopy };
+            
             CreateCard(
                 "wstl_youreBald", "You're Bald...",
                 "I've always wondered what it's like to be bald.",

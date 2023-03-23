@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
@@ -27,28 +28,25 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
-        public override bool RespondsToResolveOnBoard() =>
-            Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Exists(slot => slot.Card != null);
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) =>
-            Singleton<BoardManager>.Instance.GetAdjacentSlots(otherCard.Slot).Exists(slot => slot.Card == base.Card);
+        public override bool RespondsToResolveOnBoard() => base.Card.Slot.GetAdjacentCards().Count > 0;
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => otherCard.Slot.GetAdjacentCards().Contains(base.Card);
 
-        public override IEnumerator OnResolveOnBoard() => base.LearnAbility(0.4f);
-        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => base.LearnAbility(0.4f);
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
+            foreach (PlayableCard card in base.Card.Slot.GetAdjacentCards())
             {
-                if (slot.Card.Health < 3)
-                    slot.Card.HealDamage(2);
+                if (card.Health <= 2)
+                    card.HealDamage(2);
             }
             yield break;
         }
+        public override IEnumerator OnResolveOnBoard() => base.LearnAbility(0.4f);
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => base.LearnAbility(0.4f);
 
         public int GetPassiveHealthBuff(PlayableCard target)
         {
             if (this.Card.OnBoard)
-                return Singleton<BoardManager>.Instance.GetAdjacentSlots(target.Slot)
-                    .Where(slot => slot.Card != null && slot.Card.HasAbility(ability)).Count() > 0 ? 2 : 0;
+                return target.Slot.GetAdjacentCards().Exists(x => x.HasAbility(ability)) ? 2 : 0;
 
             return 0;
         }

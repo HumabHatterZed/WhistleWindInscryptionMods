@@ -10,17 +10,13 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleScythe_T0346()
         {
-            Tribe customTribe = TribeDivine;
             List<Ability> abilities = new()
             {
                 Ability.DoubleStrike,
                 Apostle.ability
             };
-            List<Trait> traits = new()
-            {
-                Trait.Uncuttable,
-                Trait.Terrain
-            };
+            List<Tribe> tribes = new() { TribeDivine };
+            List<Trait> traits = new() { TraitApostle };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 ForcedWhiteEmission.appearance
@@ -32,8 +28,8 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 0, energy: 0,
                 Artwork.apostleScythe, Artwork.apostleScythe_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard, customTribe: customTribe);
+                metaCategories: new(), tribes: tribes, traits: traits,
+                appearances: appearances, modTypes: ModCardType.EventCard);
 
             abilities = new()
             {
@@ -47,8 +43,8 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 0, energy: 0,
                 Artwork.apostleScytheDown, Artwork.apostleScytheDown_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard, customTribe: customTribe);
+                metaCategories: new(), tribes: tribes, traits: traits,
+                appearances: appearances, modTypes: ModCardType.EventCard);
         }
     }
 }

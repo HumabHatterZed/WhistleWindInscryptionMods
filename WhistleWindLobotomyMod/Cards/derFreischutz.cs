@@ -20,6 +20,8 @@ namespace WhistleWindLobotomyMod
             {
                 MagicBullet.specialAbility
             };
+            List<Tribe> tribes = new() { TribeFae };
+
             CreateCard(
                 "wstl_derFreischutz", "Der Freischütz",
                 "A friendly hunter to some, a cruel gunsman to others. His bullets always hit their mark.",
@@ -27,9 +29,9 @@ namespace WhistleWindLobotomyMod
                 blood: 2, bones: 0, energy: 0,
                 Artwork.derFreischutz, Artwork.derFreischutz_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.He,
-                evolveName: "[name]Der Ältere Freischütz", customTribe: TribeFae);
+                evolveName: "[name]Der Ältere Freischütz");
         }
     }
 }

@@ -16,6 +16,8 @@ namespace WhistleWindLobotomyMod
                 Protector.ability,
                 Ability.MoveBeside
             };
+            List<Tribe> tribes = new() { TribeAnthropoid };
+
             List<SpecialTriggeredAbility> specialAbilties = new()
             {
                 PinkTears.specialAbility
@@ -27,7 +29,7 @@ namespace WhistleWindLobotomyMod
                 blood: 2, bones: 0, energy: 0,
                 Artwork.armyInPink, Artwork.armyInPink_emission,
                 abilities: abilities, specialAbilities: specialAbilties,
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph,
                 modTypes: ModCardType.Donator);
         }

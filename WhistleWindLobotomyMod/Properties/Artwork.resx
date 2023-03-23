@@ -298,11 +298,17 @@
   <data name="bloodBath1_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\bloodBath1_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="bloodBath1_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\bloodBath1_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="bloodBath2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\bloodBath2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="bloodBath2_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\bloodBath2_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="bloodBath2_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\bloodBath2_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="bloodBath3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\bloodBath3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -310,8 +316,14 @@
   <data name="bloodBath3_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\bloodBath3_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="bloodBath3_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\bloodBath3_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="bloodBath_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\bloodBath_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="bloodBath_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\bloodBath_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="blueStar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\blueStar.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -327,6 +339,9 @@
   </data>
   <data name="burrowingHeaven_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\burrowingHeaven_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="burrowingHeaven_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\burrowingHeaven_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="canOfWellCheers" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\canOfWellCheers.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -607,6 +622,9 @@
   <data name="mhz176_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\mhz176_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="mhz176_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\mhz176_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="mirrorOfAdjustment" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\mirrorOfAdjustment.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -673,6 +691,12 @@
   <data name="nosferatu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\nosferatu.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="nosferatuBeast" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\nosferatuBeast.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="nosferatuBeast_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\nosferatuBeast_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="nosferatu_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\nosferatu_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -735,6 +759,9 @@
   </data>
   <data name="ozma_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\ozma_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ozma_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ozma_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="parasiteTree" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\parasiteTree.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1036,11 +1063,17 @@
   <data name="snowQueen_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\snowQueen_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="snowQueen_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\snowQueen_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="snowWhitesApple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\snowWhitesApple.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="snowWhitesApple_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\snowWhitesApple_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="snowWhitesApple_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\snowWhitesApple_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="spiderBud" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\spiderBud.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

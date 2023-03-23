@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_MagicalGirlDiamond_O0164()
         {
-            List<Ability> abilities = new()
-            {
-                Cycler.ability
-            };
+            List<Ability> abilities = new() { Cycler.ability };
+            List<Tribe> tribes = new() { TribeFae };
+
             CreateCard(
                 "wstl_kingOfGreed", "The King of Greed",
                 "",
@@ -25,10 +24,8 @@ namespace WhistleWindLobotomyMod
                 metaCategories: new(), tribes: new(), traits: new(),
                 onePerDeck: true);
 
-            abilities = new()
-            {
-                Ability.Evolve
-            };
+            abilities = new() { Ability.Evolve };
+            
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 CustomEvolveHelper.specialAbility
@@ -40,9 +37,8 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.magicalGirlDiamond, Artwork.magicalGirlDiamond_emission, pixelTexture: Artwork.magicalGirlDiamond_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw, evolveName: "wstl_kingOfGreed",
-                customTribe: TribeFae);
+                metaCategories: new(), tribes: tribes, traits: new(), onePerDeck: true,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw, evolveName: "wstl_kingOfGreed");
         }
     }
 }

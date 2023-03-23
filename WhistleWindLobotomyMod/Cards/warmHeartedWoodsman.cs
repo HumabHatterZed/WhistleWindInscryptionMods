@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_WarmHeartedWoodsman_F0532()
         {
-            List<Ability> abilities = new()
-            {
-                Woodcutter.ability
-            };
+            List<Ability> abilities = new() { Woodcutter.ability };
+            List<Tribe> tribes = new() { TribeMechanical };
+
             CreateCard(
                 "wstl_warmHeartedWoodsman", "Warm-Hearted Woodsman",
                 "A tin woodsman on the search for a heart. Perhaps you can give him yours.",
@@ -22,9 +21,8 @@ namespace WhistleWindLobotomyMod
                 blood: 2, bones: 0, energy: 0,
                 Artwork.warmHeartedWoodsman, Artwork.warmHeartedWoodsman_emission, pixelTexture: Artwork.warmHeartedWoodsman_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                customTribe: TribeMachine);
+                metaCategories: new(), tribes: tribes, traits: new(),
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
         }
     }
 }

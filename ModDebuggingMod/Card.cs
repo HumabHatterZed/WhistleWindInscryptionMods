@@ -19,11 +19,12 @@ namespace ModDebuggingMod
         {
             List<Ability> abilities = new()
             {
-                //Ability.Evolve
+                Ability.TripleBlood,
+                SerpentsNest.ability
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-
+                StarSound.specialAbility
             };
             List<Tribe> tribes = new()
             {

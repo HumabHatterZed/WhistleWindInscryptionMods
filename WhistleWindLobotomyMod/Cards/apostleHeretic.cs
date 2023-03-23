@@ -10,14 +10,12 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleHeretic_T0346()
         {
-            List<Ability> abilities = new()
-            {
-                Confession.ability
-            };
+            List<Ability> abilities = new() { Confession.ability };
+
             List<Trait> traits = new()
             {
                 Trait.Uncuttable,
-                Trait.Terrain
+                TraitApostle
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {

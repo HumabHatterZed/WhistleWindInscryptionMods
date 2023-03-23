@@ -11,14 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_DreamOfABlackSwan_F0270()
         {
-            List<Ability> abilities = new()
-            {
-                Nettles.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Bird
-            };
+            List<Ability> abilities = new() { Nettles.ability };
+            List<Tribe> tribes = new() { Tribe.Bird };
+
             CreateCard(
                 "wstl_dreamOfABlackSwan", "Dream of a Black Swan",
                 "The sister of six brothers. She worked tirelessly to protect them, all for naught.",

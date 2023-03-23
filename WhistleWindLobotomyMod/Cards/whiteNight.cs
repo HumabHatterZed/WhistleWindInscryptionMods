@@ -15,6 +15,8 @@ namespace WhistleWindLobotomyMod
                 TrueSaviour.ability,
                 Idol.ability
             };
+            List<Tribe> tribes = new() { TribeDivine };
+
             List<Trait> traits = new()
             {
                 TraitApostle,
@@ -32,9 +34,8 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 0, energy: 0,
                 Artwork.whiteNight, Artwork.whiteNight_emission, titleTexture: Artwork.whiteNight_title,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard, onePerDeck: true,
-                customTribe: TribeDivine);
+                metaCategories: new(), tribes: tribes, traits: traits,
+                appearances: appearances, modTypes: ModCardType.EventCard, onePerDeck: true);
         }
     }
 }

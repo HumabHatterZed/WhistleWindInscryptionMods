@@ -52,8 +52,8 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Sporogenic()
         {
             const string rulebookName = "Sporogenic";
-            const string rulebookDescription = "At the end of the owner's turn, adjacent cards gain 1 Spore. This sigil triggers before other sigils.";
-            const string dialogue = "Even if it's a curse, they will love it like a blessing.";
+            const string rulebookDescription = "At the end of its owner's turn, this card gives 1 Spores to adjacent cards. This sigil activates before other sigils.";
+            const string dialogue = "They will love this curse like a blessing.";
             Sporogenic.ability = AbnormalAbilityHelper.CreateAbility<Sporogenic>(
                 Artwork.sigilSporogenic, Artwork.sigilSporogenic_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,

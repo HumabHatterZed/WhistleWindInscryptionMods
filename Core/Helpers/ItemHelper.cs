@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using BepInEx.Logging;
+using DiskCardGame;
 using InscryptionAPI.Helpers;
 using InscryptionAPI.Items;
 using InscryptionAPI.Items.Extensions;
@@ -92,17 +93,18 @@ namespace WhistleWind.Core.Helpers
             }
             string rulebookDescription = $"{startingPreposition} " + cardInfo.displayedName + " is created in your hand. " + definition;
 
-            itemData.SetRulebookName(internalName);
-            itemData.SetLearnItemDescription(nodeDialogue);
-            itemData.SetRulebookDescription(rulebookDescription);
-            itemData.SetRulebookSprite(texture2D.ConvertTexture());
-            itemData.SetCardWithinBottle(cardByName);
-            itemData.SetRegionSpecific(regionSpecific: false);
-            itemData.SetCanActivateOutsideBattles(outsideBattle);
-            itemData.SetNotRandomlyGiven(notRandomlyGiven: false);
-            itemData.SetExtendedProperty("PrefabModelType", (int)ModelType.CardInABottle);
-            itemData.SetComponentType(typeof(CardBottleItem));
-            itemData.SetPowerLevel(powerLevel);
+            itemData
+                .SetRulebookName(internalName)
+                .SetLearnItemDescription(nodeDialogue)
+                .SetRulebookDescription(rulebookDescription)
+                .SetRulebookSprite(texture2D.ConvertTexture())
+                .SetCardWithinBottle(cardByName)
+                .SetRegionSpecific(regionSpecific: false)
+                .SetCanActivateOutsideBattles(outsideBattle)
+                .SetNotRandomlyGiven(notRandomlyGiven: false)
+                .SetExtendedProperty("PrefabModelType", (int)ModelType.CardInABottle)
+                .SetComponentType(typeof(CardBottleItem))
+                .SetPowerLevel(powerLevel);
 
             ConsumableItemManager.Add(pluginGuid, itemData);
 

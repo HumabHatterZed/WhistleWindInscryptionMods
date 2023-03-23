@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_SkinProphecy_T0990()
         {
-            List<Ability> abilities = new()
-            {
-                Witness.ability
-            };
+            List<Ability> abilities = new() { Witness.ability };
+            List<Tribe> tribes = new() { TribeDivine };
+
             CreateCard(
                 "wstl_skinProphecy", "Skin Prophecy",
                 "A holy book. Its believers wrapped it in skin to preserve its sanctity.",
@@ -22,9 +21,8 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.skinProphecy, Artwork.skinProphecy_emission, Artwork.skinProphecy_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                customTribe: TribeDivine);
+                metaCategories: new(), tribes: tribes, traits: new(),
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
         }
     }
 }

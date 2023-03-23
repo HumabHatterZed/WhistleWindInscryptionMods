@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_TheLittlePrince_O0466()
         {
-            List<Ability> abilities = new()
-            {
-                Sporogenic.ability
-            };
+            List<Ability> abilities = new() { Sporogenic.ability };
+            List<Tribe> tribes = new() { TribeBotanic };
+
             CreateCard(
                 "wstl_theLittlePrince", "The Little Prince",
                 "A giant mushroom chunk. A mist of spores surrounds it.",
@@ -22,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 blood: 2, bones: 0, energy: 0,
                 Artwork.theLittlePrince, Artwork.theLittlePrince_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
                 evolveName: "[name]The Little King");
         }

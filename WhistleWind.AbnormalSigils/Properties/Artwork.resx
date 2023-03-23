@@ -127,6 +127,15 @@
   <data name="decalSpore_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\decalSpore_2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="decalWorms_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\decalWorms_0.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="decalWorms_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\decalWorms_1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="decalWorms_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\decalWorms_2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="dreamOfABlackSwanBrother1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\dreamOfABlackSwanBrother1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -189,6 +198,9 @@
   </data>
   <data name="ozmaPumpkinJack_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\ozmaPumpkinJack_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ozmaPumpkinJack_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ozmaPumpkinJack_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ozmaPumpkin_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\ozmaPumpkin_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -546,6 +558,12 @@
   </data>
   <data name="sigilWoodcutter_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilWoodcutter_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilWorms" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilWorms.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilWorms_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilWorms_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="sigilYellowBrickRoad" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilYellowBrickRoad.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

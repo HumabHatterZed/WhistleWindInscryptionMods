@@ -10,12 +10,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_HonouredMonk_D01110()
         {
-            Tribe customTribe = TribeHumanoid;
+            List<Ability> abilities = new() { Ability.Evolve };
+            List<Tribe> tribes = new() { TribeAnthropoid };
 
-            List<Ability> abilities = new()
-            {
-                Ability.Evolve
-            };
             CreateCard(
                 "wstl_cloudedMonk", "Clouded Monk",
                 "A monk no more.",
@@ -23,8 +20,7 @@ namespace WhistleWindLobotomyMod
                 blood: 3, bones: 0, energy: 0,
                 Artwork.cloudedMonk, Artwork.cloudedMonk_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                customTribe: customTribe);
+                metaCategories: new(), tribes: tribes, traits: new());
             CreateCard(
                 "wstl_honouredMonk", "Honoured Monk",
                 "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...",
@@ -32,10 +28,9 @@ namespace WhistleWindLobotomyMod
                 blood: 2, bones: 0, energy: 0,
                 Artwork.honouredMonk, Artwork.honouredMonk_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                modTypes: ModCardType.Donator, evolveName: "wstl_cloudedMonk",
-                customTribe: customTribe);
+                modTypes: ModCardType.Donator, evolveName: "wstl_cloudedMonk");
         }
     }
 }

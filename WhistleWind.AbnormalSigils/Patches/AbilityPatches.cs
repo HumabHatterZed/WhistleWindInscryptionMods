@@ -14,42 +14,74 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardPatches
     {
-        // Adds in logic for Piercing, Prudence, Protector, Thick Skin
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
         private static void ModifyTakenDamage(ref PlayableCard __instance, ref int damage, PlayableCard attacker)
         {
-            int skin = __instance.GetAbilityStacks(ThickSkin.ability);  // Count number of stacks of Thick Skin
-            int protector = __instance.Slot.GetAdjacentCards().FindAll(x => x.HasAbility(Protector.ability)).Count; // Count num of adjacent cards with Protector
+            bool piercingAttacker = attacker != null && attacker.HasAbility(Piercing.ability);
 
-            int prudence = __instance.Info.GetExtendedPropertyAsInt("wstl:Prudence") ?? 0;  // Count amount of Prudence this card has
-            int oneSided = 0;
+            damage += __instance.Info.GetExtendedPropertyAsInt("wstl:Prudence") ?? 0;
+
+            if (!piercingAttacker)
+            {
+                damage -= __instance.GetAbilityStacks(ThickSkin.ability);
+                damage -= __instance.Slot.GetAdjacentCards().FindAll(x => x.HasAbility(Protector.ability)).Count;
+            }
+            else if (__instance.HasShield())
+            {
+                __instance.Status.lostShield = true;
+                __instance.Anim.StrongNegationEffect();
+                if (__instance.Info.name == "MudTurtle")
+                    __instance.SwitchToAlternatePortrait();
+
+                __instance.UpdateFaceUpOnBoardEffects();
+            }
 
             if (attacker != null)
             {
                 if (attacker.HasAbility(OneSided.ability) && CheckValidOneSided(attacker, __instance))
-                    oneSided = 2;
-
-                if (attacker.HasAbility(Piercing.ability))
-                {
-                    // negate damage reduction
-                    skin = 0;
-                    protector = 0;
-
-                    // Negate shield
-                    if (__instance.HasShield())
-                    {
-                        __instance.Status.lostShield = true;
-                        __instance.Anim.StrongNegationEffect();
-                        if (__instance.Info.name == "MudTurtle")
-                            __instance.SwitchToAlternatePortrait();
-
-                        __instance.UpdateFaceUpOnBoardEffects();
-                    }
-                }
+                    damage += attacker.GetAbilityStacks(OneSided.ability);
             }
 
-            // Set damage equal to new value or to 0 if the new value is negative
-            damage = Mathf.Max(damage + prudence + oneSided - (protector + skin), 0);
+            if (damage < 0)
+                damage = 0;
+        }
+
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.AttackIsBlocked))]
+        private static void PiercingNegatesRepulsive(PlayableCard __instance, CardSlot opposingSlot, ref bool __result)
+        {
+            if (!__result)
+                return;
+
+            if (__instance.HasAbility(Piercing.ability))
+            {
+                if (opposingSlot.Card != null && opposingSlot.Card.HasAbility(Ability.PreventAttack))
+                {
+                    if (__instance.LacksAbility(Ability.Flying) || opposingSlot.Card.HasAbility(Ability.Reach))
+                        __result = false;
+                }
+            }
+        }
+
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
+        private static void ModifyAttack(PlayableCard __instance, ref int __result)
+        {
+            if (!__instance.OnBoard)
+                return;
+
+            if (__instance.HasAbility(Neutered.ability))
+            {
+                __result = 0;
+                if (__instance.Info.Attack + __instance.GetAttackModifications() + __instance.GetPassiveAttackBuffs() > 0)
+                    __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
+                return;
+            }
+            List<CardSlot> slotsToCheck = Singleton<BoardManager>.Instance.AllSlotsCopy.FindAll(x => x.Card != null && x.Card != __instance);
+            if (slotsToCheck.Exists(x => x.Card.HasAbility(Conductor.ability)))
+            {
+                __result = 1;
+                if (__instance.Info.Attack + __instance.GetAttackModifications() + __instance.GetPassiveAttackBuffs() != 1)
+                    __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
+            }
         }
 
         private static bool CheckValidOneSided(PlayableCard attacker, PlayableCard target)

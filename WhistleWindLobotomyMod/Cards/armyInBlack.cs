@@ -11,10 +11,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ArmyInBlack_D01106()
         {
-            List<Ability> abilities = new()
-            {
-                Volatile.ability
-            };
+            List<Ability> abilities = new() { Volatile.ability };
+
             CreateCard(
                 "wstl_armyInBlack", "Army in Black",
                 "Duty-bound.",

@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FrozenHeart()
         {
             const string rulebookName = "Frozen Heart";
-            const string rulebookDescription = "When this card dies the killer gains 1 Health.";
+            const string rulebookDescription = "When [creature] dies, the killer gains 2 Health.";
             const string dialogue = "Spring arrives with blossoming roses.";
             FrozenHeart.ability = AbnormalAbilityHelper.CreateAbility<FrozenHeart>(
                 Artwork.sigilFrozenHeart, Artwork.sigilFrozenHeart_pixel,
@@ -37,7 +37,7 @@ namespace WhistleWind.AbnormalSigils
             killer.Anim.LightNegationEffect();
             if (killer.Info.name.ToLowerInvariant().Contains("warmheartedwoodsman"))
             {
-                killer.HealDamage(2);
+                killer.HealDamage(4);
                 yield return new WaitForSeconds(0.2f);
                 if (!base.HasLearned)
                     yield return HelperMethods.PlayAlternateDialogue(dialogue: altDialogue);
@@ -46,7 +46,7 @@ namespace WhistleWind.AbnormalSigils
             }
             else
             {
-                killer.HealDamage(1);
+                killer.HealDamage(2);
                 yield return base.LearnAbility(0.4f);
             }
         }

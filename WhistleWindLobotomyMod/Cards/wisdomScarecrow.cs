@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_WisdomScarecrow_F0187()
         {
-            List<Ability> abilities = new()
-            {
-                Bloodfiend.ability
-            };
+            List<Ability> abilities = new() { Bloodfiend.ability };
+            List<Tribe> tribes = new() { TribeBotanic };
+
             CreateCard(
                 "wstl_wisdomScarecrow", "Scarecrow Searching for Wisdom",
                 "A hollow-headed scarecrow. Blood soaks its straw limbs.",
@@ -22,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 5, energy: 0,
                 Artwork.wisdomScarecrow, Artwork.wisdomScarecrow_emission, pixelTexture: Artwork.wisdomScarecrow_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He); ;
         }
     }

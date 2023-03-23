@@ -10,10 +10,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Porccubus_O0298()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Deathtouch
-            };
+            List<Ability> abilities = new() { Ability.Deathtouch };
+            List<Tribe> tribes = new() { TribeBotanic };
+
             CreateCard(
                 "wstl_porccubus", "Porccubus",
                 "A prick from one of its quills creates a deadly euphoria.",
@@ -21,9 +20,8 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 5, energy: 0,
                 Artwork.porccubus, Artwork.porccubus_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                customTribe: TribePlant);
+                metaCategories: new(), tribes: tribes, traits: new(),
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
         }
     }
 }

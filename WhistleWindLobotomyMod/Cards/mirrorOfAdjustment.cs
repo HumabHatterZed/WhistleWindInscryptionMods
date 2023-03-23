@@ -11,10 +11,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_MirrorOfAdjustment_O0981()
         {
-            List<Ability> abilities = new()
-            {
-                Woodcutter.ability
-            };
+            List<Ability> abilities = new() { Woodcutter.ability };
+
             CreateCard(
                 "wstl_mirrorOfAdjustment", "The Mirror of Adjustment",
                 "A mirror that reflects nothing on its surface.",

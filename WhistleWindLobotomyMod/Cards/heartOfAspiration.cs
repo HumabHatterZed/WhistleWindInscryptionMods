@@ -10,10 +10,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_HeartOfAspiration_O0977()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.BuffNeighbours
-            };
+            List<Ability> abilities = new() { Ability.BuffNeighbours };
 
             CreateCard(
                 "wstl_heartOfAspiration", "The Heart of Aspiration",

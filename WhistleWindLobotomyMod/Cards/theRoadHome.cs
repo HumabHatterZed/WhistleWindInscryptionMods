@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_TheRoadHome_F01114()
         {
-            List<Ability> abilities = new()
-            {
-                YellowBrickRoad.ability
-            };
+            List<Ability> abilities = new() { YellowBrickRoad.ability };
+            List<Tribe> tribes = new() { TribeFae };
+           
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 TheHomingInstinct.specialAbility,
@@ -27,9 +26,9 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.theRoadHome, Artwork.theRoadHome_emission, pixelTexture: Artwork.theRoadHome_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He, modTypes: ModCardType.Ruina,
-                evolveName: "[name]The Long Road Home", customTribe: TribeHumanoid);
+                evolveName: "[name]The Long Road Home");
         }
     }
 }

@@ -10,13 +10,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Alriune_T0453()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Strafe
-            };
+            List<Ability> abilities = new() { Ability.Strafe };
+
             List<Tribe> tribes = new()
             {
-                TribePlant,
+                TribeBotanic,
                 Tribe.Hooved
             };
             CreateCard(

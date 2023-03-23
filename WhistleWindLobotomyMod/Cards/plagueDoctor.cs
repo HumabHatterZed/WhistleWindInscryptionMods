@@ -19,6 +19,8 @@ namespace WhistleWindLobotomyMod
                 Ability.Flying,
                 Healer.ability
             };
+            List<Tribe> tribes = new() { TribeDivine };
+
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 Bless.specialAbility
@@ -30,10 +32,9 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 3, energy: 0,
                 portraits[0], portraits[1], pixelTexture: portraits[2],
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
-                customTribe: TribeDivine);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin);
         }
         public static byte[][] UpdatePlagueSprites()
         {

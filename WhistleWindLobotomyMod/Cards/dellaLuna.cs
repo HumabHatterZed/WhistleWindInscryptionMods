@@ -11,14 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_DellaLuna_D01105()
         {
-            List<Ability> abilities = new()
-            {
-                GroupHealer.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Bird
-            };
+            List<Ability> abilities = new() { GroupHealer.ability };
+            List<Tribe> tribes = new() { Tribe.Bird };
+
             CreateCard(
                 "wstl_dellaLuna", "Il Pianto della Luna",
                 "In reality, man despairs at [c:bR]the moon[c:].",

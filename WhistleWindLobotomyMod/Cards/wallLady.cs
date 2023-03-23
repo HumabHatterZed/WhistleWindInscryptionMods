@@ -10,10 +10,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_WallLady_F0118()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Sharp
-            };
+            List<Ability> abilities = new() { Ability.Sharp };
+            List<Tribe> tribes = new() { TribeAnthropoid };
+
             CreateCard(
                 "wstl_wallLady", "The Lady Facing the Wall",
                 "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.",
@@ -21,9 +20,9 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 4, energy: 0,
                 Artwork.wallLady, Artwork.wallLady_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                evolveName: "[name]The Elder Lady Facing the Wall", customTribe: TribeHumanoid);
+                evolveName: "[name]The Elder Lady Facing the Wall");
         }
     }
 }

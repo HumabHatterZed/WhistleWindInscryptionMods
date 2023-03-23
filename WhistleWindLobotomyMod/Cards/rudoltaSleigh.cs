@@ -9,17 +9,20 @@ namespace WhistleWindLobotomyMod
 {
     public partial class LobotomyPlugin
     {
-        private void Card_RudoltaSleigh_F0249()
+        private void Card_Rudolta_F0249()
         {
             List<Ability> abilities = new()
             {
                 Ability.Strafe,
                 GiftGiver.ability
             };
-            List<Tribe> tribes = new()
+            List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                Tribe.Hooved
+                SpecialTriggeredAbility.PackMule
             };
+            List<Tribe> tribes = new() { Tribe.Hooved };
+            List<Trait> traits = new() { Trait.Uncuttable };
+
             CreateCard(
                 "wstl_rudoltaSleigh", "Rudolta of the Sleigh",
                 "A grotesque effigy of a reindeer. With its infinite hate, it bequeaths gifts onto you.",
@@ -29,6 +32,15 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
+
+            CreateCard(
+                "wstl_RUDOLTA_MULE", "Rudolta of the Sleigh",
+                "",
+                atk: 2, hp: 3,
+                blood: 2, bones: 0, energy: 0,
+                Artwork.rudoltaSleigh, Artwork.rudoltaSleigh_emission,
+                abilities: abilities, specialAbilities: specialAbilities,
+                metaCategories: new(), tribes: tribes, traits: traits);
         }
     }
 }

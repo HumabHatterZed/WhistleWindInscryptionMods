@@ -11,10 +11,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_SilentOrchestra_T0131()
         {
-            List<Ability> abilities = new()
-            {
-                Conductor.ability
-            };
+            List<Ability> abilities = new() { Conductor.ability };
+            List<Tribe> tribes = new() { TribeAnthropoid };
 
             CreateCard(
                 "wstl_silentOrchestra", "The Silent Orchestra",
@@ -23,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 blood: 3, bones: 0, energy: 0,
                 Artwork.silentOrchestra, Artwork.silentOrchestra_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph,
                 evolveName: "[name]The Grand Silent Orchestra");
         }

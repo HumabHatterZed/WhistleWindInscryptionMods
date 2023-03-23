@@ -11,10 +11,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_MountainOfBodies_T0175()
         {
-            List<Ability> abilities = new()
-            {
-                Assimilator.ability
-            };
+            List<Ability> abilities = new() { Assimilator.ability };
+            
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 Smile.specialAbility

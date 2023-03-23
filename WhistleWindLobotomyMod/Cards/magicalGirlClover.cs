@@ -17,14 +17,8 @@ namespace WhistleWindLobotomyMod
                 Burning.ability,
                 Burning.ability
             };
-            List<Ability> abilities2 = new()
-            {
-                Burning.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Reptile
-            };
+            List<Tribe> tribes = new() { TribeFae, Tribe.Reptile };
+            
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
 
@@ -38,16 +32,20 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 onePerDeck: true);
+
+            abilities = new() { Burning.ability };
+            tribes = new() { TribeFae };
+
             CreateCard(
                 "wstl_magicalGirlClover", "Magical Girl",
                 "Blind protector of another world.",
                 atk: 1, hp: 2,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.magicalGirlClover, Artwork.magicalGirlClover_emission, pixelTexture: Artwork.magicalGirlClover_pixel,
-                abilities: abilities2, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
+                abilities: abilities, specialAbilities: specialAbilities,
+                metaCategories: new(), tribes: tribes, traits: new(), onePerDeck: true,
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                modTypes: ModCardType.Ruina, customTribe: TribeFae);
+                modTypes: ModCardType.Ruina);
         }
     }
 }

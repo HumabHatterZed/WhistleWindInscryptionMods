@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Ozma_F04116()
         {
-            List<Ability> abilities = new()
-            {
-                RightfulHeir.ability
-            };
+            List<Ability> abilities = new() { RightfulHeir.ability };
+            List<Tribe> tribes = new() { TribeFae };
+
             CreateCard(
                 "wstl_ozma", "Ozma",
                 "The former ruler of a far away land, now reduced to this.",
@@ -22,9 +21,9 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.ozma, Artwork.ozma_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                modTypes: ModCardType.Ruina, customTribe: TribeFae);
+                modTypes: ModCardType.Ruina);
         }
     }
 }

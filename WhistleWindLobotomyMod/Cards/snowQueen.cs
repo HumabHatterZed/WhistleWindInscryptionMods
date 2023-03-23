@@ -11,20 +11,19 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_SnowQueen_F0137()
         {
-            List<Ability> abilities = new()
-            {
-                FrostRuler.ability
-            };
+            List<Ability> abilities = new() { FrostRuler.ability };
+            List<Tribe> tribes = new() { TribeFae };
+
             CreateCard(
                 "wstl_snowQueen", "The Snow Queen",
                 "A queen from far away. Those who enter her palace never leave.",
                 atk: 1, hp: 2,
-                blood: 0, bones: 6, energy: 0,
+                blood: 0, bones: 5, energy: 0,
                 Artwork.snowQueen, Artwork.snowQueen_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                evolveName: "[name]The Snow Empress", customTribe: TribeFae);
+                evolveName: "[name]The Snow Empress");
         }
     }
 }

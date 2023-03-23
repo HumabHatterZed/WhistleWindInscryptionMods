@@ -42,16 +42,11 @@ If you have [Pack Management API](https://inscryption.thunderstore.io/package/In
 a custom card pack will be created representing this mod. That's all :).
 
 ## 💌 Credits/Acknowledgements
-Inspiration/First-to-make-a-mod-based-on-Lobotomy-Corporation
-- KingSlime
 
 Artwork and coding:
 - WhistleWind
 
-Consultation/Fellow Collaborator:
-- Orochi Umbra
-
-Testing:
+Testing and Feedback:
 - Orochi Umbra, Rengar, yam the nokia
 
 ReadMe cost icons:

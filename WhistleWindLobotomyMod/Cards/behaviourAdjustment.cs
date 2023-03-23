@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_BehaviourAdjustment_O0996()
         {
-            List<Ability> abilities = new()
-            {
-                Corrector.ability
-            };
+            List<Ability> abilities = new() { Corrector.ability };
+            List<Tribe> tribes = new() { TribeMechanical };
+
             CreateCard(
                 "wstl_behaviourAdjustment", "Behaviour Adjustment",
                 "A strange device made to 'fix' errant beasts. I do not see the point.",
@@ -22,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 0, energy: 3,
                 Artwork.behaviourAdjustment, Artwork.behaviourAdjustment_emission, Artwork.behaviourAdjustment_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -10,15 +11,13 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_HappyTeddyBear_T0406()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.DebuffEnemy
-            };
+            List<Ability> abilities = new() { Woodcutter.ability };
+            
             CreateCard(
                 "wstl_happyTeddyBear", "Happy Teddy Bear",
                 "Its memories began with a warm hug.",
-                atk: 2, hp: 3,
-                blood: 0, bones: 8, energy: 0,
+                atk: 2, hp: 1,
+                blood: 0, bones: 6, energy: 0,
                 Artwork.happyTeddyBear, Artwork.happyTeddyBear_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

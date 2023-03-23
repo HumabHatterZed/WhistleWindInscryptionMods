@@ -7,18 +7,12 @@ namespace WhistleWind.AbnormalSigils
 {
     public partial class AbnormalPlugin
     {
-        private void Card_FirstBrother_F0270()
+        private void Card_SwanBrothers_F0270()
         {
-            List<Ability> abilities1 = new() { Ability.DoubleStrike };
-            List<Ability> abilities2 = new() { Piercing.ability };
-            List<Ability> abilities3 = new() { Reflector.ability };
-            List<Ability> abilities4 = new() { Ability.Deathtouch };
-            List<Ability> abilities5 = new() { Burning.ability };
-            List<Ability> abilities6 = new() { ThickSkin.ability };
-
             List<Tribe> tribes = new();
+
             if (TribalAPI.Enabled)
-                TribalAPI.AddTribalTribe(tribes, "humanoid");
+                tribes.Add(TribalAPI.AddTribal("anthropoid"));
 
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
@@ -31,7 +25,7 @@ namespace WhistleWind.AbnormalSigils
                 atk: 0, hp: 1,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.dreamOfABlackSwanBrother1, pixelTexture: Artwork.dreamOfABlackSwanBrother1_pixel,
-                abilities: abilities1,
+                abilities: new() { Ability.DoubleStrike },
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);
             CardHelper.CreateCard(
@@ -41,7 +35,7 @@ namespace WhistleWind.AbnormalSigils
                 atk: 0, hp: 1,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.dreamOfABlackSwanBrother2, pixelTexture: Artwork.dreamOfABlackSwanBrother2_pixel,
-                abilities: abilities2,
+                abilities: new() { Piercing.ability },
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);
             CardHelper.CreateCard(
@@ -51,7 +45,7 @@ namespace WhistleWind.AbnormalSigils
                 atk: 0, hp: 2,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.dreamOfABlackSwanBrother3, pixelTexture: Artwork.dreamOfABlackSwanBrother3_pixel,
-                abilities: abilities3,
+                abilities: new() { Reflector.ability },
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);
             CardHelper.CreateCard(
@@ -61,7 +55,7 @@ namespace WhistleWind.AbnormalSigils
                 atk: 0, hp: 1,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.dreamOfABlackSwanBrother4, pixelTexture: Artwork.dreamOfABlackSwanBrother4_pixel,
-                abilities: abilities4, metaCategories: new(), tribes: tribes, traits: new(),
+                abilities: new() { Ability.Deathtouch }, metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);
             CardHelper.CreateCard(
                 pluginPrefix,
@@ -70,7 +64,7 @@ namespace WhistleWind.AbnormalSigils
                 atk: 0, hp: 2,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.dreamOfABlackSwanBrother5, pixelTexture: Artwork.dreamOfABlackSwanBrother5_pixel,
-                abilities: abilities5,
+                abilities: new() { Burning.ability },
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);
             CardHelper.CreateCard(
@@ -80,7 +74,7 @@ namespace WhistleWind.AbnormalSigils
                 atk: 0, hp: 2,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.dreamOfABlackSwanBrother6, pixelTexture: Artwork.dreamOfABlackSwanBrother6_pixel,
-                abilities: abilities6,
+                abilities: new() { ThickSkin.ability },
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances);
         }

@@ -16,6 +16,8 @@ namespace WhistleWindLobotomyMod
                 GroupHealer.ability,
                 Ability.BuffEnemy
             };
+            List<Tribe> tribes = new() { TribeDivine };
+
             CreateCard(
                 "wstl_fleshIdol", "Flesh Idol",
                 "Prayer inevitably ends with the worshipper's despair.",
@@ -23,9 +25,8 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 3, energy: 0,
                 Artwork.fleshIdol, Artwork.fleshIdol_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                customTribe: TribeDivine);
+                metaCategories: new(), tribes: tribes, traits: new(),
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }
 }

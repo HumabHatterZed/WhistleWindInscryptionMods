@@ -9,7 +9,7 @@ using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TribalLibary;
+//using TribalLibary;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Properties;
@@ -33,6 +33,7 @@ namespace WhistleWind.AbnormalSigils
         private static readonly Harmony HarmonyInstance = new(pluginGuid);
 
         public static Trait Boneless = GuidManager.GetEnumValue<Trait>(pluginGuid, "Boneless");
+        public static Trait NakedSerpent= GuidManager.GetEnumValue<Trait>(pluginGuid, "NakedSerpent");
         public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
         
         public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
@@ -67,19 +68,29 @@ namespace WhistleWind.AbnormalSigils
         }
         private void AddResources()
         {
-            List<byte[]> costs = new()
+            Dictionary<string, List<byte[]>> decals = new()
             {
-                Artwork.decalSpore_0,
-                Artwork.decalSpore_1,
-                Artwork.decalSpore_2
+                { "wstl_spore", new() {
+                    Artwork.decalSpore_0,
+                    Artwork.decalSpore_1,
+                    Artwork.decalSpore_2
+                }},
+                { "wstl_worms", new() {
+                    Artwork.decalWorms_0,
+                    Artwork.decalWorms_1,
+                    Artwork.decalWorms_2
+                }}
             };
-            for (int i = 0; i < costs.Count; i++)
+            foreach (KeyValuePair<string, List<byte[]>> resources in decals)
             {
-                ResourceBankManager.Add(pluginGuid, new ResourceBank.Resource()
+                for (int i = 0; i < resources.Value.Count; i++)
                 {
-                    path = "Art/Cards/Decals/wstl_spore_" + i,
-                    asset = TextureLoader.LoadTextureFromBytes(costs[i])
-                });
+                    ResourceBankManager.Add(pluginGuid, new ResourceBank.Resource()
+                    {
+                        path = $"Art/Cards/Decals/{resources.Key}_{i}",
+                        asset = TextureLoader.LoadTextureFromBytes(resources.Value[i])
+                    });
+                }
             }
         }
         private void AddSpecialAbilities()
@@ -112,7 +123,10 @@ namespace WhistleWind.AbnormalSigils
             Ability_QueenNest();
             Ability_BitterEnemies();
             Ability_Courageous();
+            
             Ability_SerpentsNest();
+            Rulebook_Worms();
+
             Ability_Assimilator();
             Ability_GroupHealer();
             Ability_Reflector();
@@ -164,22 +178,25 @@ namespace WhistleWind.AbnormalSigils
         public static class TribalAPI
         {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("tribes.libary");
-            public static List<Tribe> AddTribalTribe(List<Tribe> list, string name)
+            public static Tribe AddTribal(string tribe)
             {
-                Tribe tribeToAdd = name switch
+                switch (tribe)
                 {
-                    "divine" => Plugin.divinebeastTribe,
-                    "fae" => Plugin.fairyTribe,
-                    "humanoid" => Plugin.humanoidTribe,
-                    "machine" => Plugin.machineTribe,
-                    "plant" => Plugin.plantTribe,
-                    _ => Tribe.None
-                };
-                if (tribeToAdd != Tribe.None)
-                    list.Add(tribeToAdd);
-
-                return list;
+                    case "anthropoid":
+                        return TribalLibary.Plugin.humanoidTribe;
+                    case "divine":
+                        return TribalLibary.Plugin.divinebeastTribe;
+                    case "faerie":
+                        return TribalLibary.Plugin.fairyTribe;
+                    case "mechanical":
+                        return TribalLibary.Plugin.machineTribe;
+                    case "botanic":
+                        return TribalLibary.Plugin.plantTribe;
+                    default:
+                        return Tribe.Insect;
+                }
             }
+
         }
     }
 }

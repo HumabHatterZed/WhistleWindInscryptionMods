@@ -15,6 +15,8 @@ namespace WhistleWindLobotomyMod
                 Ability.Sharp,
                 Ability.WhackAMole
             };
+            List<Tribe> tribes = new() { TribeDivine };
+
             CreateCard(
                 "wstl_burrowingHeaven", "The Burrowing Heaven",
                 "Don't look away. Contain it in your sight.",
@@ -22,9 +24,9 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.burrowingHeaven, Artwork.burrowingHeaven_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                evolveName: "The Elder Burrowing Heaven", customTribe: TribeDivine);
+                evolveName: "The Elder Burrowing Heaven");
         }
     }
 }

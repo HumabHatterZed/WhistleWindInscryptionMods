@@ -11,10 +11,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_BeautyAndBeast_O0244()
         {
-            List<Ability> abilities = new()
-            {
-                Cursed.ability
-            };
+            List<Ability> abilities = new() { Cursed.ability };
+
             List<Tribe> tribes = new()
             {
                 Tribe.Hooved,

@@ -18,13 +18,14 @@ namespace WhistleWindLobotomyMod
         public static readonly string rName = "Sap";
         public static readonly string rDesc = "Whenever Giant Tree Sap is sacrificed, there is an increasing chance the sacrificing card will explode.";
 
-        private int sacrificeCount;
+        private int sacrificeCount = 0;
 
         public override bool RespondsToSacrifice() => true;
         public override IEnumerator OnSacrifice()
         {
-            int percent = Mathf.Max(15 - sacrificeCount, 1);
-            if (SeededRandom.Range(0, percent, base.GetRandomSeed()) == 0)
+            float chanceToExplode = Mathf.Max(.6f, sacrificeCount / 10);
+
+            if (SeededRandom.Value(base.GetRandomSeed()) <= chanceToExplode)
             {
                 sacrificeCount = 0;
                 PlayableCard card = Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard;

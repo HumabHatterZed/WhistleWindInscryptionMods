@@ -11,10 +11,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_CrumblingArmour_O0561()
         {
-            List<Ability> abilities = new()
-            {
-                Courageous.ability
-            };
+            List<Ability> abilities = new() { Courageous.ability };
+
             CreateCard(
                 "wstl_crumblingArmour", "Crumbling Armour",
                 "A suit of armour that rewards the brave and punishes the cowardly.",

@@ -26,7 +26,8 @@ namespace WhistleWind.AbnormalSigils.Core
                 }
             },
             { "NettlesFail", new() { "The lake ripples gently. As if a number of swans just took flight." } },
-            { "RegeneratorOverheal", new() { "The punishment for greed is getting everything you wanted." } }
+            { "RegeneratorOverheal", new() { "The punishment for greed is getting everything you wanted." } },
+            { "SerpentsNestInfection", new() { "A new nest is born." } }
         };
 
         /// <summary>

@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Pinocchio_F01112()
         {
-            List<Ability> abilities = new()
-            {
-                Copycat.ability
-            };
+            List<Ability> abilities = new() { Copycat.ability };
+            List<Tribe> tribes = new() { TribeAnthropoid };
+
             CreateCard(
                 "wstl_pinocchio", "Pinocchio",
                 "A wooden doll that mimics the beasts it encounters. Can you see through its lie?",
@@ -22,9 +21,9 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 1, energy: 0,
                 Artwork.pinocchio, Artwork.pinocchio_emission, Artwork.pinocchio_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                 modTypes: ModCardType.Ruina, customTribe: TribeHumanoid);
+                modTypes: ModCardType.Ruina);
         }
     }
 }

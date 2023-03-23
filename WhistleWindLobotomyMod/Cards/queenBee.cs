@@ -11,14 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_QueenBee_T0450()
         {
-            List<Ability> abilities = new()
-            {
-                QueenNest.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Insect
-            };
+            List<Ability> abilities = new() { QueenNest.ability };
+            List<Tribe> tribes = new() { Tribe.Insect };
+            
             CreateCard(
                 "wstl_queenBee", "Queen Bee",
                 "A monstrous amalgam of a hive and a bee.",

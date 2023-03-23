@@ -58,7 +58,15 @@ namespace WhistleWind.Core.Helpers
                 card.StartCoroutine(card.DestroyWhenStackIsClear());
             }
         }
-
+        public static IEnumerator TakeDamageTriggerless(this PlayableCard card, int damage, PlayableCard attacker)
+        {
+            card.Status.damageTaken += damage;
+            card.UpdateStatsText();
+            if (card.Health > 0)
+                card.Anim.PlayHitAnimation();
+            if (card.Health <= 0)
+                yield return card.Die(false, attacker);
+        }
         public static bool HasFlags(this Enum config, params Enum[] flags)
         {
             foreach (Enum flag in flags)

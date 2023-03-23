@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Laetitia_O0167()
         {
-            List<Ability> abilities = new()
-            {
-                GiftGiver.ability
-            };
+            List<Ability> abilities = new() { GiftGiver.ability };
+            List<Tribe> tribes = new() { TribeFae };
+
             CreateCard(
                 "wstl_laetitia", "Laetitia",
                 "A little witch carrying a heart-shaped gift.",
@@ -22,9 +21,8 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.laetitia, Artwork.laetitia_emission, pixelTexture: Artwork.laetitia_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                customTribe: TribeFae);
+                metaCategories: new(), tribes: tribes, traits: new(),
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
         }
     }
 }

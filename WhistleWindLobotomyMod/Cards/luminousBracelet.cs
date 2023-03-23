@@ -17,7 +17,6 @@ namespace WhistleWindLobotomyMod
                 GreedyHealing.ability,
                 GiveSigils.AbilityID
             };
-
             CreateCard(
                 "wstl_luminousBracelet", "Luminous Bracelet",
                 "A bracelet that will heal those nearby. It does not forgive the greedy.",

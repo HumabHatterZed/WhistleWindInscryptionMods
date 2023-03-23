@@ -1,4 +1,6 @@
-﻿using WhistleWind.Core.Helpers;
+﻿using DiskCardGame;
+using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -8,6 +10,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ForsakenMurderer_T0154()
         {
+            List<Tribe> tribes = new() { TribeAnthropoid };
+
             CreateCard(
                 "wstl_forsakenMurderer", "Forsaken Murderer",
                 "Experimented on then forgotten. What was anger has become abhorrence.",
@@ -15,9 +19,8 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 8, energy: 0,
                 Artwork.forsakenMurderer, Artwork.forsakenMurderer_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                customTribe: TribeHumanoid);
+                metaCategories: new(), tribes: tribes, traits: new(),
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
         }
     }
 }

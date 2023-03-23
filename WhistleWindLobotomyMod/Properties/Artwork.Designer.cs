@@ -653,6 +653,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] bloodBath_pixel {
+            get {
+                object obj = ResourceManager.GetObject("bloodBath_pixel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] bloodBath1 {
             get {
                 object obj = ResourceManager.GetObject("bloodBath1", resourceCulture);
@@ -666,6 +676,16 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] bloodBath1_emission {
             get {
                 object obj = ResourceManager.GetObject("bloodBath1_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] bloodBath1_pixel {
+            get {
+                object obj = ResourceManager.GetObject("bloodBath1_pixel", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -693,6 +713,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] bloodBath2_pixel {
+            get {
+                object obj = ResourceManager.GetObject("bloodBath2_pixel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] bloodBath3 {
             get {
                 object obj = ResourceManager.GetObject("bloodBath3", resourceCulture);
@@ -706,6 +736,16 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] bloodBath3_emission {
             get {
                 object obj = ResourceManager.GetObject("bloodBath3_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] bloodBath3_pixel {
+            get {
+                object obj = ResourceManager.GetObject("bloodBath3_pixel", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -756,6 +796,16 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] burrowingHeaven_emission {
             get {
                 object obj = ResourceManager.GetObject("burrowingHeaven_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] burrowingHeaven_pixel {
+            get {
+                object obj = ResourceManager.GetObject("burrowingHeaven_pixel", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -1693,6 +1743,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] mhz176_pixel {
+            get {
+                object obj = ResourceManager.GetObject("mhz176_pixel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] mirrorOfAdjustment {
             get {
                 object obj = ResourceManager.GetObject("mirrorOfAdjustment", resourceCulture);
@@ -1923,6 +1983,26 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] nosferatuBeast {
+            get {
+                object obj = ResourceManager.GetObject("nosferatuBeast", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] nosferatuBeast_emission {
+            get {
+                object obj = ResourceManager.GetObject("nosferatuBeast_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] notesFromResearcher {
             get {
                 object obj = ResourceManager.GetObject("notesFromResearcher", resourceCulture);
@@ -2116,6 +2196,16 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] ozma_emission {
             get {
                 object obj = ResourceManager.GetObject("ozma_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ozma_pixel {
+            get {
+                object obj = ResourceManager.GetObject("ozma_pixel", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -3123,6 +3213,16 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] snowQueen_pixel {
+            get {
+                object obj = ResourceManager.GetObject("snowQueen_pixel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] snowWhitesApple {
             get {
                 object obj = ResourceManager.GetObject("snowWhitesApple", resourceCulture);
@@ -3136,6 +3236,16 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] snowWhitesApple_emission {
             get {
                 object obj = ResourceManager.GetObject("snowWhitesApple_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] snowWhitesApple_pixel {
+            get {
+                object obj = ResourceManager.GetObject("snowWhitesApple_pixel", resourceCulture);
                 return ((byte[])(obj));
             }
         }

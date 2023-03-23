@@ -16,10 +16,8 @@ namespace WhistleWindLobotomyMod
                 Ability.Flying,
                 Punisher.ability
             };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Bird
-            };
+            List<Tribe> tribes = new() { Tribe.Bird };
+
             CreateCard(
                 "wstl_punishingBird", "Punishing Bird",
                 "A small bird on a mission to punish evildoers.",

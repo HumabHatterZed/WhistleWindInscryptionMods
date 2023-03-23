@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_JesterOfNihil_O01118()
         {
-            List<Ability> abilities = new()
-            {
-                ReturnToNihil.ability
-            };
+            List<Ability> abilities = new() { ReturnToNihil.ability };
+            List<Tribe> tribes = new() { TribeFae };
+
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 BoardEffects.specialAbility
@@ -26,9 +25,9 @@ namespace WhistleWindLobotomyMod
                 blood: 4, bones: 0, energy: 0,
                 Artwork.jesterOfNihil, Artwork.jesterOfNihil_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, modTypes: ModCardType.Ruina | ModCardType.EventCard,
-                statIcon: Nihil.Icon, customTribe: TribeFae);
+                statIcon: Nihil.Icon);
         }
     }
 }

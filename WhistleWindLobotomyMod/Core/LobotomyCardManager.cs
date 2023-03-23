@@ -22,9 +22,9 @@ namespace WhistleWindLobotomyMod.Core
 
         public static Tribe TribeDivine;
         public static Tribe TribeFae;
-        public static Tribe TribeHumanoid;
-        public static Tribe TribeMachine;
-        public static Tribe TribePlant;
+        public static Tribe TribeBotanic;
+        public static Tribe TribeAnthropoid;
+        public static Tribe TribeMechanical;
 
         // Cards
         public static void CreateCard(
@@ -52,8 +52,7 @@ namespace WhistleWindLobotomyMod.Core
             string evolveName = null,
             int numTurns = 1,
             bool onePerDeck = false,
-            bool hideStats = false,
-            Tribe customTribe = Tribe.None
+            bool hideStats = false
             )
         {
             // if this is an event card
@@ -81,9 +80,6 @@ namespace WhistleWindLobotomyMod.Core
             // Add KillsSurvivors trait to cards with Deathtouch or Punisher
             if (cardInfo.HasAnyOfAbilities(Punisher.ability, Ability.Deathtouch))
                 cardInfo.AddTraits(Trait.KillsSurvivors);
-
-            if (customTribe != Tribe.None)
-                cardInfo.AddTribes(customTribe);
 
             // set risk level
             if (!AllCardsDisabled && !riskDisabled)
@@ -137,20 +133,18 @@ namespace WhistleWindLobotomyMod.Core
             if (modTypes.HasFlag(ModCardType.Restricted))
                 cardInfo.SetNodeRestrictions(true, true, true, true);
 
-            if (pixelTexture != null)
-            {
-                if (customTribe == TribeFae)
-                    cardInfo.temple = CardTemple.Wizard;
-                else if (customTribe == TribeMachine)
-                    cardInfo.temple = CardTemple.Tech;
-
-                metaCategories.Add(CardMetaCategory.GBCPlayable);
-            }
-
             if (cardInfo.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.TraderOffer, CardMetaCategory.Rare))
             {
                 if (pixelTexture != null && LobotomyConfigManager.Instance.GBCPacks)
-                    metaCategories.Add(CardMetaCategory.GBCPack);
+                {
+                    CardTemple temple = CardTemple.Nature;
+                    if (tribes.Contains(TribeFae))
+                        temple = CardTemple.Wizard;
+                    else if (tribes.Contains(TribeMechanical))
+                        temple = CardTemple.Tech;
+
+                    cardInfo.SetGBCPlayable(temple);
+                }
 
                 ObtainableLobotomyCards.Add(cardInfo);
             }

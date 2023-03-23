@@ -11,14 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Yang_O07103()
         {
-            List<Ability> abilities = new()
-            {
-                Regenerator.ability
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                Concord.specialAbility
-            };
+            List<Ability> abilities = new() { Regenerator.ability };
+            List<SpecialTriggeredAbility> specialAbilities = new() { Concord.specialAbility };
+            
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 AlternateBattlePortrait.appearance

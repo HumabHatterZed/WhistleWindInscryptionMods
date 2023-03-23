@@ -11,14 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_JudgementBird_O0262()
         {
-            List<Ability> abilities = new()
-            {
-                Marksman.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Bird
-            };
+            List<Ability> abilities = new() { Marksman.ability };
+            List<Tribe> tribes = new() { Tribe.Bird };
+            
             CreateCard(
                 "wstl_judgementBird", "Judgement Bird",
                 "A long bird that judges sinners with swift efficiency. It alone is above consequences.",

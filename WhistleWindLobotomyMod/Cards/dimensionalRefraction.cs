@@ -11,10 +11,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_DimensionalRefraction_O0388()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.RandomAbility
-            };
+            List<Ability> abilities = new() { Ability.RandomAbility };
+
             CreateCard(
                 "wstl_dimensionalRefraction", "Dimensional Refraction Variant",
                 "A strange phenomenon. Or rather, the creature is the phenomena in and of itself.",

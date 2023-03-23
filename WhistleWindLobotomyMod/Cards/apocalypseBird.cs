@@ -20,10 +20,8 @@ namespace WhistleWindLobotomyMod
             {
                 BoardEffects.specialAbility
             };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Bird
-            };
+            List<Tribe> tribes = new() { Tribe.Bird };
+
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 ForcedWhiteEmission.appearance

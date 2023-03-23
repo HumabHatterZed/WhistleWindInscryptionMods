@@ -10,14 +10,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_BackwardClock_D09104()
         {
-            List<Ability> abilities = new()
-            {
-                TimeMachine.ability
-            };
-            List<Trait> traits = new()
-            {
-                Trait.DeathcardCreationNonOption
-            };
+            List<Ability> abilities = new() { TimeMachine.ability };
+            List<Trait> traits = new() { Trait.DeathcardCreationNonOption };
+            
             CreateCard(
                 "wstl_backwardClock", "Backward Clock",
                 "A clock to rewind your wasted time. Will you pay the toll?",

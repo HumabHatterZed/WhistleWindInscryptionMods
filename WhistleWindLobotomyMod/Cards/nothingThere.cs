@@ -10,10 +10,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_NothingThere_O0620()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Reach
-            };
+            List<Ability> abilities = new() { Ability.Reach };
+            
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 Mimicry.specialAbility

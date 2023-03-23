@@ -20,7 +20,6 @@ namespace WhistleWindLobotomyMod
             {
                 AlternateBattlePortrait.appearance
             };
-
             CreateCard(
                 "wstl_yin", "Yin",
                 "A black pendant in search of its missing half.",

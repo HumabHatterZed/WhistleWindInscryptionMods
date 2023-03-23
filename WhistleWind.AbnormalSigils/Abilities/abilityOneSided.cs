@@ -10,8 +10,8 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Ability_OneSided()
         {
-            const string rulebookName = "One-Sided Strike";
-            const string rulebookDescription = "When [creature] strikes a card, deal 2 additional damage if the struck card cannot strike this card.";
+            const string rulebookName = "Opportunistic";
+            const string rulebookDescription = "[creature] deals 1 additional damage when striking a card that cannot attack it.";
             const string dialogue = "A cheap hit.";
             OneSided.ability = AbnormalAbilityHelper.CreateAbility<OneSided>(
                 Artwork.sigilOneSided, Artwork.sigilOneSided_pixel,
@@ -24,10 +24,6 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
-        {
-            return base.RespondsToSlotTargetedForAttack(slot, attacker);
-        }
         public override bool RespondsToDealDamage(int amount, PlayableCard target)
         {
             if (amount > 0 && target != null && !target.Dead)

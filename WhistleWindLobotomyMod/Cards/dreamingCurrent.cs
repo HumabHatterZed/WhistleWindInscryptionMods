@@ -16,7 +16,6 @@ namespace WhistleWindLobotomyMod
                 Ability.Submerge,
                 Barreler.ability
             };
-
             CreateCard(
                 "wstl_dreamingCurrent", "The Dreaming Current",
                 "A sickly child. Everyday it was fed candy that let it see the ocean.",

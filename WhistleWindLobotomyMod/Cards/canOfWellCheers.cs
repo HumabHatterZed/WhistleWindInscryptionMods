@@ -40,6 +40,8 @@ namespace WhistleWindLobotomyMod
                 Ability.Strafe,
                 Ability.Submerge
             };
+            List<Tribe> tribes = new() { TribeMechanical };
+
             CreateCard(
                 "wstl_canOfWellCheers", "Opened Can of WellCheers",
                 "A vending machine dispensing ocean soda.",
@@ -47,7 +49,7 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.canOfWellCheers, Artwork.canOfWellCheers_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
                 iceCubeName: "wstl_SKELETON_SHRIMP");
         }

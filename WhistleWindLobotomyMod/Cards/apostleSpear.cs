@@ -10,17 +10,14 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleSpear_T0346()
         {
-            Tribe customTribe = TribeDivine;
             List<Ability> abilities = new()
             {
                 Piercing.ability,
                 Apostle.ability
             };
-            List<Trait> traits = new()
-            {
-                Trait.Uncuttable,
-                Trait.Terrain
-            };
+            List<Tribe> tribes = new() { TribeDivine };
+            List<Trait> traits = new() { TraitApostle };
+            
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 ForcedWhiteEmission.appearance
@@ -28,12 +25,12 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_apostleSpear", "Spear Apostle",
                 "The time has come.",
-                atk: 3, hp: 6,
+                atk: 4, hp: 6,
                 blood: 0, bones: 0, energy: 0,
                 Artwork.apostleSpear, Artwork.apostleSpear_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard, customTribe: customTribe);
+                metaCategories: new(), tribes: tribes, traits: traits,
+                appearances: appearances, modTypes: ModCardType.EventCard);
 
             abilities = new()
             {
@@ -47,8 +44,8 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 0, energy: 0,
                 Artwork.apostleSpearDown, Artwork.apostleSpearDown_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard, customTribe: customTribe);
+                metaCategories: new(), tribes: tribes, traits: traits,
+                appearances: appearances, modTypes: ModCardType.EventCard);
         }
     }
 }

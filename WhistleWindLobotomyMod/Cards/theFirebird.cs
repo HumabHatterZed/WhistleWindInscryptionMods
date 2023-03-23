@@ -16,10 +16,7 @@ namespace WhistleWindLobotomyMod
                 Burning.ability,
                 Ability.Flying
             };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Bird
-            };
+            List<Tribe> tribes = new() { Tribe.Bird };
 
             CreateCard(
                 "wstl_theFirebird", "The Firebird",

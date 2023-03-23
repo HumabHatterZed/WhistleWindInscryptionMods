@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_YouMustBeHappy_T0994()
         {
-            List<Ability> abilities = new()
-            {
-                Scrambler.ability
-            };
+            List<Ability> abilities = new() { Scrambler.ability };
+            List<Tribe> tribes = new() { TribeMechanical };
+
             CreateCard(
                 "wstl_youMustBeHappy", "You Must be Happy",
                 "Those that undergo the procedure find themselves rested and healthy again.",
@@ -22,9 +21,9 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 0, energy: 2,
                 Artwork.youMustBeHappy, Artwork.youMustBeHappy_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
-                evolveName: "{0}", spellType: SpellType.TargetedStats, customTribe: TribeMachine);
+                evolveName: "{0}", spellType: SpellType.TargetedStats);
         }
     }
 }

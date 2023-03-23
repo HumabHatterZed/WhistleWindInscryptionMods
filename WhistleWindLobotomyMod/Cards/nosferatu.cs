@@ -16,18 +16,19 @@ namespace WhistleWindLobotomyMod
                 Bloodfiend.ability,
                 Bloodfiend.ability
             };
+            List<Tribe> tribes = new() { TribeFae };
+
             CreateCard(
                 "wstl_nosferatuBeast", "Nosferatu",
                 "A creature of the night, noble and regal. Will you help sate its thirst?",
                 atk: 3, hp: 2,
                 blood: 3, bones: 0, energy: 0,
-                Artwork.nosferatu, Artwork.nosferatu_emission,
+                Artwork.nosferatuBeast, Artwork.nosferatuBeast_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 modTypes: ModCardType.Ruina);
 
-            abilities.Remove(Bloodfiend.ability);
-            abilities.Add(Ability.Evolve);
+            abilities = new() { Bloodfiend.ability, Ability.Evolve};
 
             CreateCard(
                 "wstl_nosferatu", "Nosferatu",
@@ -36,10 +37,9 @@ namespace WhistleWindLobotomyMod
                 blood: 2, bones: 0, energy: 0,
                 Artwork.nosferatu, Artwork.nosferatu_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                modTypes: ModCardType.Ruina, evolveName: "wstl_nosferatuBeast",
-                customTribe: TribeHumanoid);
+                modTypes: ModCardType.Ruina, evolveName: "wstl_nosferatuBeast");
         }
     }
 }

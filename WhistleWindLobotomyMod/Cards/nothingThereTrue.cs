@@ -12,13 +12,13 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { Ability.Evolve };
             List<SpecialTriggeredAbility> specialAbilities = new() { CustomEvolveHelper.specialAbility };
+            
             List<Tribe> tribes = new()
             {
                 Tribe.Canine,
                 Tribe.Hooved,
                 Tribe.Reptile
             };
-
             CreateCard(
                 "wstl_nothingThereFinal", "Nothing There",
                 "A grotesque attempt at mimicry. Pray it does not improve its disguise.",
@@ -26,10 +26,9 @@ namespace WhistleWindLobotomyMod
                 blood: 4, bones: 0, energy: 0,
                 Artwork.nothingThereFinal, Artwork.nothingThereFinal_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: new() { TribeAnthropoid }, traits: new(),
                 appearances: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
-                customTribe: TribeHumanoid);
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
 
             CreateCard(
                 "wstl_nothingThereEgg", "An Egg",

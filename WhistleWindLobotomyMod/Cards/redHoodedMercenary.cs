@@ -16,6 +16,8 @@ namespace WhistleWindLobotomyMod
                 Marksman.ability,
                 BitterEnemies.ability
             };
+            List<Tribe> tribes = new() { TribeAnthropoid };
+
             CreateCard(
                 "wstl_redHoodedMercenary", "Little Red Riding Hooded Mercenary",
                 "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.",
@@ -23,9 +25,9 @@ namespace WhistleWindLobotomyMod
                 blood: 3, bones: 0, energy: 0,
                 Artwork.redHoodedMercenary, Artwork.redHoodedMercenary_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                evolveName: "[name]Red Riding Hooded Mercenary", customTribe: TribeHumanoid);
+                evolveName: "[name]Red Riding Hooded Mercenary");
         }
     }
 }

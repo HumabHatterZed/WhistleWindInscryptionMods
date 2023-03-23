@@ -21,20 +21,12 @@ namespace WhistleWind.AbnormalSigils
                 modular: false, opponent: false, canStack: false).Id;
         }
     }
-    public class Neutered : AbilityBehaviour, IPassiveAttackBuff
+    public class Neutered : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public int GetPassiveAttackBuff(PlayableCard target)
-        {
-            if (this.Card.OnBoard && target == base.Card)
-                return -9999;
-            return 0;
-        }
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
-        {
-            return base.Card.OpponentCard != playerTurnEnd;
-        }
+
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
             yield return base.PreSuccessfulTriggerSequence();
@@ -47,9 +39,6 @@ namespace WhistleWind.AbnormalSigils
             yield return new WaitForSeconds(0.4f);
             yield return HelperMethods.ChangeCurrentView(View.Default);
         }
-        private CardModificationInfo GetTemporaryEvolveMod()
-        {
-            return base.Card.TemporaryMods.Find((CardModificationInfo x) => x.abilities.Contains(Neutered.ability));
-        }
+        private CardModificationInfo GetTemporaryEvolveMod() => base.Card.TemporaryMods.Find((CardModificationInfo x) => x.abilities.Contains(ability));
     }
 }

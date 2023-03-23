@@ -11,10 +11,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_WeCanChangeAnything_T0985()
         {
-            List<Ability> abilities = new()
-            {
-                Grinder.ability
-            };
+            List<Ability> abilities = new() { Grinder.ability };
+            List<Tribe> tribes = new() { TribeMechanical };
 
             CreateCard(
                 "wstl_weCanChangeAnything", "We Can Change Anything",
@@ -23,9 +21,9 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.weCanChangeAnything, Artwork.weCanChangeAnything_emission, pixelTexture: Artwork.weCanChangeAnything_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
-                evolveName: "{0}", customTribe: TribeMachine);
+                evolveName: "{0} 2.0");
         }
     }
 }

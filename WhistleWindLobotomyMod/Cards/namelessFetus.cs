@@ -16,6 +16,8 @@ namespace WhistleWindLobotomyMod
                 Aggravating.ability,
                 Ability.PreventAttack
             };
+            List<Tribe> tribes = new() { TribeAnthropoid };
+
             CreateCard(
                 "wstl_namelessFetusAwake", "Nameless Fetus",
                 "Only a sacrifice will stop its piercing wails.",
@@ -23,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 3, energy: 0,
                 Artwork.namelessFetusAwake, Artwork.namelessFetusAwake,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: tribes, traits: new());
 
             abilities = new()
             {
@@ -34,10 +36,8 @@ namespace WhistleWindLobotomyMod
             {
                 Syrinx.specialAbility
             };
-            List<Trait> traits = new()
-            {
-                Trait.Goat
-            };
+            List<Trait> traits = new() { Trait.Goat };
+            
             CreateCard(
                 "wstl_namelessFetus", "Nameless Fetus",
                 "A neverending supply a blood. Just don't wake it.",
@@ -45,7 +45,7 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 3, energy: 0,
                 Artwork.namelessFetus, Artwork.namelessFetus_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: traits,
+                metaCategories: new(), tribes: tribes, traits: traits,
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
         }
     }

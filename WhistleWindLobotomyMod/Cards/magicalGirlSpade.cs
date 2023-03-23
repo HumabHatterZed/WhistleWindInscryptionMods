@@ -11,16 +11,13 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_MagicalGirlSpade_O0173()
         {
-            Tribe customTribe = TribeFae;
             List<Ability> abilities = new()
             {
                 Ability.SplitStrike,
                 Piercing.ability
             };
-            List<Ability> abilities2 = new()
-            {
-                Protector.ability
-            };
+            List<Tribe> tribes = new() { TribeFae };
+
             List<SpecialTriggeredAbility> specialAbilties = new()
             {
                 PinkTears.specialAbility
@@ -32,20 +29,21 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.knightOfDespair, Artwork.knightOfDespair_emission, Artwork.knightOfDespair_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
-                customTribe: customTribe);
+                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
+
+            abilities = new() { Protector.ability };
+
             CreateCard(
                 "wstl_magicalGirlSpade", "Magical Girl",
                 "A loyal knight fighting to protect those close to her.",
                 atk: 1, hp: 4,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.magicalGirlSpade, Artwork.magicalGirlSpade_emission, pixelTexture: Artwork.magicalGirlSpade_pixel,
-                abilities: abilities2, specialAbilities: specialAbilties,
-                metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Waw,
-                customTribe: customTribe);
+                abilities: abilities, specialAbilities: specialAbilties,
+                metaCategories: new(), tribes: tribes, traits: new(), onePerDeck: true,
+                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Waw);
         }
     }
 }

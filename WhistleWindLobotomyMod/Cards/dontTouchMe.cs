@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_DontTouchMe_O0547()
         {
-            List<Ability> abilities = new()
-            {
-                Punisher.ability
-            };
+            List<Ability> abilities = new() { Punisher.ability, Ability.GuardDog };
+            List<Tribe> tribes = new() { TribeMechanical };
+
             CreateCard(
                 "wstl_dontTouchMe", "Don't Touch Me",
                 "Don't touch it.",
@@ -22,10 +21,10 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 0, energy: 2,
                 Artwork.dontTouchMe, Artwork.dontTouchMe_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic,
                 riskLevel: RiskLevel.Zayin,
-                metaTypes: CardHelper.CardMetaType.Terrain, customTribe: TribeMachine,
+                metaTypes: CardHelper.CardMetaType.Terrain,
                 evolveName: "Please {0}");
         }
     }

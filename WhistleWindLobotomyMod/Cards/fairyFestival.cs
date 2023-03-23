@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_FairyFestival_F0483()
         {
-            List<Ability> abilities = new()
-            {
-                Bloodfiend.ability
-            };
+            List<Ability> abilities = new() { Bloodfiend.ability };
+            List<Tribe> tribes = new() { TribeFae };
+
             CreateCard(
                 "wstl_fairyFestival", "Fairy Festival",
                 "Everything will be peaceful while you're under the fairies' care.",
@@ -22,9 +21,8 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.fairyFestival, Artwork.fairyFestival_emission, pixelTexture: Artwork.fairyFestival_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
-                customTribe: TribeFae);
+                metaCategories: new(), tribes: tribes, traits: new(),
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin);
         }
     }
 }

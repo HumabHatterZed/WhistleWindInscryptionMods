@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_OneSin_O0303()
         {
-            List<Ability> abilities = new()
-            {
-                Martyr.ability
-            };
+            List<Ability> abilities = new() { Martyr.ability };
+            List<Tribe> tribes = new() { TribeDivine };
+
             CreateCard(
                 "wstl_oneSin", "One Sin and Hundreds of Good Deeds",
                 "A floating skull. Its hollow sockets see through you.",
@@ -22,9 +21,9 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 2, energy: 0,
                 Artwork.oneSin, Artwork.oneSin_emission, pixelTexture: Artwork.oneSin_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
-                evolveName: "{0}", customTribe: TribeDivine);
+                evolveName: "{0}");
         }
     }
 }

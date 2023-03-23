@@ -11,19 +11,14 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_SpiderBud_O0243()
         {
-            List<Ability> abilities = new()
-            {
-                BroodMother.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Insect
-            };
+            List<Ability> abilities = new() { BroodMother.ability };
+            List<Tribe> tribes = new() { Tribe.Insect };
+            
             CreateCard(
                 "wstl_spiderBud", "Spider Bud",
                 "A grotesque mother of spiders. Its children are small but grow quickly.",
                 atk: 0, hp: 2,
-                blood: 0, bones: 4, energy: 0,
+                blood: 0, bones: 3, energy: 0,
                 Artwork.spiderBud, Artwork.spiderBud_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),

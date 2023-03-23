@@ -11,10 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ScorchedGirl_F0102()
         {
-            List<Ability> abilities = new()
-            {
-                Volatile.ability
-            };
+            List<Ability> abilities = new() { Volatile.ability };
+            List<Tribe> tribes = new() { TribeAnthropoid };
+
             CreateCard(
                 "wstl_scorchedGirl", "Scorched Girl",
                 "Though there's nothing left to burn, the fire won't go out.",
@@ -22,9 +21,8 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 2, energy: 0,
                 Artwork.scorchedGirl, Artwork.scorchedGirl_emission, pixelTexture: Artwork.scorchedGirl_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                customTribe: TribeHumanoid);
+                metaCategories: new(), tribes: tribes, traits: new(),
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
         }
     }
 }

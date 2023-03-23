@@ -10,15 +10,10 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleGuardian_T0346()
         {
-            Tribe customTribe = TribeDivine;
-            List<Ability> abilities = new()
-            {
-                Apostle.ability
-            };
-            List<Trait> traits = new()
-            {
-                TraitApostle
-            };
+            List<Ability> abilities = new() { Apostle.ability };
+            List<Tribe> tribes = new() { TribeDivine };
+            List<Trait> traits = new() { TraitApostle };
+
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 ForcedWhiteEmission.appearance
@@ -30,9 +25,8 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 0, energy: 0,
                 Artwork.apostleGuardian, Artwork.apostleGuardian_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard,
-                customTribe: customTribe);
+                metaCategories: new(), tribes: tribes, traits: traits,
+                appearances: appearances, modTypes: ModCardType.EventCard);
 
             CreateCard(
                 "wstl_apostleGuardianDown", "Guardian Apostle",
@@ -41,9 +35,9 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 0, energy: 0,
                 Artwork.apostleGuardianDown, Artwork.apostleGuardianDown_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
+                metaCategories: new(), tribes: tribes, traits: traits,
                 appearances: appearances, evolveName: "wstl_apostleGuardian", numTurns: 2,
-                modTypes: ModCardType.EventCard, customTribe: customTribe);
+                modTypes: ModCardType.EventCard);
         }
     }
 }

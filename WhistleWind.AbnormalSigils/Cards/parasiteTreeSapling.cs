@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils
         {
             List<Tribe> tribes = new();
             if (TribalAPI.Enabled)
-                TribalAPI.AddTribalTribe(tribes, "plant");
+                tribes.Add(TribalAPI.AddTribal("botanic"));
 
             CardHelper.CreateCard(
                 pluginPrefix,

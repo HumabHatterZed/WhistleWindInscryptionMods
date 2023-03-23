@@ -11,14 +11,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_BigBird_O0240()
         {
-            List<Ability> abilities = new()
-            {
-                Cycler.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Bird
-            };
+            List<Ability> abilities = new() { Cycler.ability };
+            List<Tribe> tribes = new() { Tribe.Bird };
+            
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 ThreeBirds.specialAbility

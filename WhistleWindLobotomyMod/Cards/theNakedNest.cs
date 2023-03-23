@@ -11,18 +11,10 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_TheNakedNest_O0274()
         {
-            List<Ability> abilities = new()
-            {
-                SerpentsNest.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Insect
-            };
-            List<Trait> traits = new()
-            {
-                Trait.KillsSurvivors
-            };
+            List<Ability> abilities = new() { SerpentsNest.ability };
+            List<Tribe> tribes = new() { Tribe.Insect };
+            List<Trait> traits = new() { Trait.KillsSurvivors };
+            
             CreateCard(
                 "wstl_theNakedNest", "The Naked Nest",
                 "They can enter your body through any aperture.",

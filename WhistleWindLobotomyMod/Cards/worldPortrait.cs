@@ -11,10 +11,8 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_WorldPortrait_O0991()
         {
-            List<Ability> abilities = new()
-            {
-               Reflector.ability
-            };
+            List<Ability> abilities = new() { Reflector.ability };
+            
             CreateCard(
                 "wstl_worldPortrait", "Portrait of Another World",
                 "This portrait captures a moment, one we're destined to lose.",

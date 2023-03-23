@@ -10,14 +10,9 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_FuneralOfButterflies_T0168()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.DoubleStrike
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Insect
-            };
+            List<Ability> abilities = new() { Ability.DoubleStrike };
+            List<Tribe> tribes = new() { Tribe.Insect };
+
             CreateCard(
                 "wstl_funeralOfButterflies", "Funeral of the Dead Butterflies",
                 "The coffin is a tribute to the fallen. A memorial to those who can't return home.",

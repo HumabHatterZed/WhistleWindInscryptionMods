@@ -32,7 +32,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_RightfulHeir()
         {
             const string rulebookName = "Rightful Heir";
-            const string rulebookDescription = "Once per turn, pay [sigilcost:3 Bones] to choose a creature to be transformed into a Pumpkin, then increase this sigil's activation cost by 1 Bone. [define:wstl_ozmaPumpkin]";
+            const string rulebookDescription = "Once per turn, pay [sigilcost:3 Bones] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1 Bone until battle's end. [define:wstl_ozmaPumpkin]";
             const string dialogue = "All she has left now are her children.";
             RightfulHeir.ability = AbnormalAbilityHelper.CreateActivatedAbility<RightfulHeir>(
                 Artwork.sigilRightfulHeir, Artwork.sigilRightfulHeir_pixel,

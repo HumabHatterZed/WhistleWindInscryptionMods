@@ -22,10 +22,8 @@ namespace WhistleWindLobotomyMod
                 LoveAndHate.specialAbility,
                 MagicalGirls.specialAbility
             };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Reptile
-            };
+            List<Tribe> tribes = new() { TribeFae, Tribe.Reptile };
+
             CreateCard(
                 "wstl_queenOfHatred", "The Queen of Hatred",
                 "Heroes exist to fight evil. In its absence, they must create it.",
@@ -45,7 +43,8 @@ namespace WhistleWindLobotomyMod
 
             abilities.Remove(Piercing.ability);
             specialAbilities.Remove(CustomEvolveHelper.specialAbility);
-            
+            tribes = new() { TribeFae };
+
             CreateCard(
                 "wstl_magicalGirlHeart", "Magical Girl",
                 "A hero of love and justice. She will aid you on your journey.",
@@ -53,9 +52,8 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.magicalGirlHeart, Artwork.magicalGirlHeart_emission, pixelTexture: Artwork.magicalGirlHeart_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                customTribe: TribeFae);
+                metaCategories: new(), tribes: tribes, traits: new(), onePerDeck: true,
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }
 }
