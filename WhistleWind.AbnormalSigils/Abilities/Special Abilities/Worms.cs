@@ -26,8 +26,8 @@ namespace WhistleWind.AbnormalSigils
         public static readonly string rDesc = "At the start of combat, this card gains 1 Worms. At 3 or more Worms, target ally spaces instead of opposing ones, with a chance to give 1 Worms to struck cards.";
 
         public int wormSeverity = 0;
-        bool accountForInitialHit = true;
-
+        private bool accountForInitialHit = true;
+        private bool hasEvolved = false;
         public override bool RespondsToUpkeep(bool playerUpkeep) => playerUpkeep != base.PlayableCard.OpponentCard;
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && target != null;
 
@@ -51,10 +51,11 @@ namespace WhistleWind.AbnormalSigils
                 yield return new WaitForSeconds(0.2f);
             }
 
-            if (base.PlayableCard.Info.displayedName != "A Naked Nest")
+            if (wormSeverity >= 3)
             {
-                if (wormSeverity >= 3)
+                if (!hasEvolved)
                 {
+                    hasEvolved = true;
                     CardInfo copyOfInfo = base.PlayableCard.Info.Clone() as CardInfo;
                     copyOfInfo.displayedName = "Nested " + base.PlayableCard.Info.displayedName;
                     copyOfInfo.Mods = new(base.PlayableCard.Info.Mods);
