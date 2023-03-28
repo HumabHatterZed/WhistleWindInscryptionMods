@@ -103,10 +103,15 @@ namespace WhistleWindLobotomyMod.Patches
             // if random mod cards is chosen, choose three random cards from this mod to act as a starter deck
             if (cardsToAdd.Count == 0)
             {
+                List<CardInfo> validCards = new(ObtainableLobotomyCards);
                 while (cardsToAdd.Count < 3 + LobotomyConfigManager.Instance.StarterDeckSize)
                 {
-                    int randomIdx = UnityEngine.Random.Range(0, ObtainableLobotomyCards.Count);
-                    cardsToAdd.Add(ObtainableLobotomyCards[randomIdx].name);
+                    CardInfo cardToAdd = ObtainableLobotomyCards[UnityEngine.Random.Range(0, validCards.Count)];
+                    
+                    if (cardToAdd.onePerDeck)
+                        validCards.Remove(cardToAdd);
+
+                    cardsToAdd.Add(cardToAdd.name);
                 }
             }
 

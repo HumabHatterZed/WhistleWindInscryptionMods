@@ -32,15 +32,16 @@ namespace WhistleWindLobotomyMod.Patches
             // if the starter deck has a placeholder card in it
             if (starterDeck.Exists(x => x.name == "wstl_RANDOM_PLACEHOLDER"))
             {
-                List<CardInfo> starterDeck2 = new();
+                List<CardInfo> newStarterDeck = new();
                 bool addRare = SeededRandom.Value(tickCount++) <= 0.05f;
-                while (starterDeck2.Count < starterDeck.Count)
+                while (newStarterDeck.Count < starterDeck.Count)
                 {
                     List<CardInfo> validCards = ObtainableLobotomyCards.FindAll(x => x.LacksCardMetaCategory(CardMetaCategory.Rare));
 
                     if (addRare) validCards = ObtainableLobotomyCards.FindAll(x => x.HasCardMetaCategory(CardMetaCategory.Rare));
 
                     validCards.RemoveAll(x => x.HasTrait(TraitSephirah));
+                    validCards.RemoveAll(x => x.onePerDeck && newStarterDeck.Contains(x));
 
                     int randomIdx = UnityEngine.Random.Range(0, validCards.Count);
                     CardInfo cardToAdd = validCards[randomIdx];
@@ -54,9 +55,9 @@ namespace WhistleWindLobotomyMod.Patches
 
                     if (addRare) addRare = false;
 
-                    starterDeck2.Add(cardToAdd);
+                    newStarterDeck.Add(cardToAdd);
                 }
-                starterDeck = starterDeck2;
+                starterDeck = newStarterDeck;
             }
         }
     }
