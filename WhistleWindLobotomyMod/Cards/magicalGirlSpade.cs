@@ -26,12 +26,11 @@ namespace WhistleWindLobotomyMod
                 "wstl_knightOfDespair", "The Knight of Despair",
                 "",
                 atk: 2, hp: 4,
-                blood: 1, bones: 0, energy: 0,
+                blood: 2, bones: 0, energy: 0,
                 Artwork.knightOfDespair, Artwork.knightOfDespair_emission, Artwork.knightOfDespair_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
-                appearances: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
+                appearances: new(), onePerDeck: true);
 
             abilities = new() { Protector.ability };
 
@@ -39,11 +38,11 @@ namespace WhistleWindLobotomyMod
                 "wstl_magicalGirlSpade", "Magical Girl",
                 "A loyal knight fighting to protect those close to her.",
                 atk: 1, hp: 4,
-                blood: 1, bones: 0, energy: 0,
+                blood: 2, bones: 0, energy: 0,
                 Artwork.magicalGirlSpade, Artwork.magicalGirlSpade_emission, pixelTexture: Artwork.magicalGirlSpade_pixel,
                 abilities: abilities, specialAbilities: specialAbilties,
                 metaCategories: new(), tribes: tribes, traits: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Waw);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }
 }
