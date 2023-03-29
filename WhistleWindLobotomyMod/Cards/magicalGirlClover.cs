@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod

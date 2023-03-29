@@ -622,4 +622,19 @@
   <data name="theNakedWorm_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\theNakedWorm_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="tribeAnthropoid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\tribeAnthropoid.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tribeBotanic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\tribeBotanic.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tribeDivine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\tribeDivine.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tribeFae" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\tribeFae.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tribeMechanical" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\tribeMechanical.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

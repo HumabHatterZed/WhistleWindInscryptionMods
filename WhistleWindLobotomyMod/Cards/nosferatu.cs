@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -25,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 blood: 3, bones: 0, energy: 0,
                 Artwork.nosferatuBeast, Artwork.nosferatuBeast_emission,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new(),
                 modTypes: ModCardType.Ruina);
 
             abilities = new() { Bloodfiend.ability, Ability.Evolve};

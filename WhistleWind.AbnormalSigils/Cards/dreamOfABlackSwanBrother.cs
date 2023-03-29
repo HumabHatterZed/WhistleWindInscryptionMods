@@ -9,10 +9,7 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_SwanBrothers_F0270()
         {
-            List<Tribe> tribes = new();
-
-            if (TribalAPI.Enabled)
-                tribes.Add(TribalAPI.AddTribal("anthropoid"));
+            List<Tribe> tribes = new() { TribeAnthropoid };
 
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {

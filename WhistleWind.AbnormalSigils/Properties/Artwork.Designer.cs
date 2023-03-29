@@ -1739,5 +1739,55 @@ namespace WhistleWind.AbnormalSigils.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] tribeAnthropoid {
+            get {
+                object obj = ResourceManager.GetObject("tribeAnthropoid", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] tribeBotanic {
+            get {
+                object obj = ResourceManager.GetObject("tribeBotanic", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] tribeDivine {
+            get {
+                object obj = ResourceManager.GetObject("tribeDivine", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] tribeFae {
+            get {
+                object obj = ResourceManager.GetObject("tribeFae", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] tribeMechanical {
+            get {
+                object obj = ResourceManager.GetObject("tribeMechanical", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

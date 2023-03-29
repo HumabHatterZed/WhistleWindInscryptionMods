@@ -1291,21 +1291,6 @@
   <data name="trainingDummy_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\trainingDummy_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tribeDivine" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\tribeDivine.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tribeFae" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\tribeFae.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tribeHumanoid" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\tribeHumanoid.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tribeMachine" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\tribeMachine.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tribePlant" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\tribePlant.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="voidDream" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\voidDream.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

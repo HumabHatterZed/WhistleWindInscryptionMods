@@ -9,9 +9,7 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_OzmaPumpkinJack_F04116()
         {
-            List<Tribe> tribes = new();
-            if (TribalAPI.Enabled)
-                tribes.Add(TribalAPI.AddTribal("botanic"));
+            List<Tribe> tribes = new() { TribeBotanic };
 
             CardHelper.CreateCard(
                 pluginPrefix,

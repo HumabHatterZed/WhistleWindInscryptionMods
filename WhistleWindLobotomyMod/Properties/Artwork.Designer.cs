@@ -3973,56 +3973,6 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] tribeDivine {
-            get {
-                object obj = ResourceManager.GetObject("tribeDivine", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] tribeFae {
-            get {
-                object obj = ResourceManager.GetObject("tribeFae", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] tribeHumanoid {
-            get {
-                object obj = ResourceManager.GetObject("tribeHumanoid", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] tribeMachine {
-            get {
-                object obj = ResourceManager.GetObject("tribeMachine", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] tribePlant {
-            get {
-                object obj = ResourceManager.GetObject("tribePlant", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] voidDream {
             get {
                 object obj = ResourceManager.GetObject("voidDream", resourceCulture);

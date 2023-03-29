@@ -3,6 +3,7 @@ using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
 using InscryptionAPI.Resource;
 using Sirenix.Utilities;
@@ -14,6 +15,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -31,6 +33,12 @@ namespace WhistleWind.AbnormalSigils
 
         internal static ManualLogSource Log;
         private static readonly Harmony HarmonyInstance = new(pluginGuid);
+
+        public static Tribe TribeDivine;
+        public static Tribe TribeFae;
+        public static Tribe TribeBotanic;
+        public static Tribe TribeAnthropoid;
+        public static Tribe TribeMechanical;
 
         public static Trait Boneless = GuidManager.GetEnumValue<Trait>(pluginGuid, "Boneless");
         public static Trait NakedSerpent= GuidManager.GetEnumValue<Trait>(pluginGuid, "NakedSerpent");
@@ -57,15 +65,34 @@ namespace WhistleWind.AbnormalSigils
                 AddResources();
 
                 AbnormalDialogueManager.GenerateDialogueEvents();
-                
+
+                InitTribes();
                 AddAbilities();
                 AddSpecialAbilities();
                 AddAppearances();
+                
                 AddCards();
 
                 Logger.LogInfo($"{pluginName} loaded!");
             }
         }
+        private void InitTribes()
+        {
+            Log.LogDebug("Loading tribes...");
+            if (TribalAPI.Enabled)
+            {
+                TribalAPI.UseTribalTribes();
+            }
+            else
+            {
+                TribeAnthropoid = TribeManager.Add(pluginGuid, "AnthropoidTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeAnthropoid), true, null);
+                TribeBotanic = TribeManager.Add(pluginGuid, "BotanicalTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeBotanic), true, null);
+                TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeDivine), true, null);
+                TribeFae = TribeManager.Add(pluginGuid, "FaerieTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeFae), true, null);
+                TribeMechanical = TribeManager.Add(pluginGuid, "MechanicalTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeMechanical), true, null);
+            }
+        }
+
         private void AddResources()
         {
             Dictionary<string, List<byte[]>> decals = new()
@@ -153,6 +180,7 @@ namespace WhistleWind.AbnormalSigils
 
             Ability_Witness();
             Ability_Corrector();
+
             // v2.0
             Ability_ThickSkin();
             Ability_OneSided();
@@ -178,23 +206,14 @@ namespace WhistleWind.AbnormalSigils
         public static class TribalAPI
         {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("tribes.libary");
-            public static Tribe AddTribal(string tribe)
+            public static void UseTribalTribes()
             {
-                switch (tribe)
-                {
-                    case "anthropoid":
-                        return TribalLibary.Plugin.humanoidTribe;
-                    case "divine":
-                        return TribalLibary.Plugin.divinebeastTribe;
-                    case "faerie":
-                        return TribalLibary.Plugin.fairyTribe;
-                    case "mechanical":
-                        return TribalLibary.Plugin.machineTribe;
-                    case "botanic":
-                        return TribalLibary.Plugin.plantTribe;
-                    default:
-                        return Tribe.Insect;
-                }
+                Log.LogDebug("Tribal Libary detected. Using its tribes instead.");
+                TribeDivine = TribalLibary.Plugin.divinebeastTribe;
+                TribeFae = TribalLibary.Plugin.fairyTribe;
+                TribeAnthropoid = TribalLibary.Plugin.humanoidTribe;
+                TribeMechanical = TribalLibary.Plugin.machineTribe;
+                TribeBotanic = TribalLibary.Plugin.plantTribe;
             }
 
         }

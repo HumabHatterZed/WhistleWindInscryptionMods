@@ -64,7 +64,7 @@ namespace WhistleWindLobotomyMod.Core
                     ), 0);
             HelperJuggernaut = Build(New("HelperJuggernaut")
                 .SetDifficulty(1, 4)
-                .AddDominantTribes(LobotomyCardManager.TribeMechanical)
+                .AddDominantTribes(AbnormalPlugin.TribeMechanical)
                 .AddRandomReplacementCards("wstl_behaviourAdjustment", "wstl_dontTouchMe", "wstl_mhz176")
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_allAroundHelper")),
@@ -91,7 +91,7 @@ namespace WhistleWindLobotomyMod.Core
                     ), 1);
             StrangeCreatures1 = Build(New("StrangeCreatures1")
                 .SetDifficulty(5, 10)
-                .AddDominantTribes(LobotomyCardManager.TribeFae)
+                .AddDominantTribes(AbnormalPlugin.TribeFae)
                 .SetRedundantAbilities(Ability.Flying, Punisher.ability)
                 .AddRandomReplacementCards("wstl_voidDream", "wstl_heartOfAspiration")
                 .AddTurns(
@@ -116,7 +116,7 @@ namespace WhistleWindLobotomyMod.Core
                 ), 1);
             StrangeCreatures2 = Build(New("StrangeCreatures2")
                 .SetDifficulty(6, 10)
-                .AddDominantTribes(LobotomyCardManager.TribeBotanic)
+                .AddDominantTribes(AbnormalPlugin.TribeBotanic)
                 .AddRandomReplacementCards("wstl_oldLady", "wstl_allAroundHelper", "wstl_mhz176")
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_magicalGirlHeart")),
@@ -199,7 +199,7 @@ namespace WhistleWindLobotomyMod.Core
             #region Bosses
             ProspectorAbnormalBossP1 = Build(New("ProspectorAbnormalBossP1")
                 .SetDifficulty(4, 7)
-                .AddDominantTribes(LobotomyCardManager.TribeBotanic)
+                .AddDominantTribes(AbnormalPlugin.TribeBotanic)
                 .AddRandomReplacementCards("wstl_porccubus", "wstl_graveOfBlossoms")
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_RUDOLTA_MULE"), NewCardBlueprint("wstl_todaysShyLookAngry")),
@@ -212,7 +212,7 @@ namespace WhistleWindLobotomyMod.Core
                 ), 3);
             ProspectorAbnormalBossP2 = Build(New("ProspectorAbnormalBossP2")
                .SetDifficulty(4, 7)
-               .AddDominantTribes(LobotomyCardManager.TribeBotanic)
+               .AddDominantTribes(AbnormalPlugin.TribeBotanic)
                .AddRandomReplacementCards("wstl_ppodae", "wstl_porccubus")
                .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_willBeBadWolf")),
@@ -249,7 +249,7 @@ namespace WhistleWindLobotomyMod.Core
                 ), 3);
             TrapperTraderAbnormalBossP1 = Build(New("TrapperTraderAbnormalBossP1")
                .SetDifficulty(14, 16)
-               .AddDominantTribes(LobotomyCardManager.TribeMechanical)
+               .AddDominantTribes(AbnormalPlugin.TribeMechanical)
                .AddRandomReplacementCards("wstl_scorchedGirl", "wstl_bloodBath", "wstl_voidDreamRooster", "wst_porccubus")
                .AddTurns(
                     CreateTurn(NewCardBlueprint("TrapFrog")),
@@ -263,7 +263,7 @@ namespace WhistleWindLobotomyMod.Core
                 ), 3);
             LeshyAbnormalBossP1 = Build(New("LeshyAbnormalBossP1")
                .SetDifficulty(20, 20)
-               .AddDominantTribes(LobotomyCardManager.TribeFae)
+               .AddDominantTribes(AbnormalPlugin.TribeFae)
                .AddRandomReplacementCards("wstl_derFreischutz", "wstl_armyInPink")
                .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_magicalGirlSpade")),

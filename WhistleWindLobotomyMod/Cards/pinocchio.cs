@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -12,7 +13,7 @@ namespace WhistleWindLobotomyMod
         private void Card_Pinocchio_F01112()
         {
             List<Ability> abilities = new() { Copycat.ability };
-            List<Tribe> tribes = new() { TribeAnthropoid };
+            List<Tribe> tribes = new() { TribeAnthropoid, TribeBotanic };
 
             CreateCard(
                 "wstl_pinocchio", "Pinocchio",

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -16,7 +17,7 @@ namespace WhistleWindLobotomyMod
                 TeamLeader.ability,
                 Aggravating.ability
             };
-            List<Tribe> tribes = new() { TribeAnthropoid };
+            List<Tribe> tribes = new() { TribeMechanical };
 
             CreateCard(
                 "wstl_singingMachine", "Singing Machine",

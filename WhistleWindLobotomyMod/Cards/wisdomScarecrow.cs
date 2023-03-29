@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -12,7 +13,7 @@ namespace WhistleWindLobotomyMod
         private void Card_WisdomScarecrow_F0187()
         {
             List<Ability> abilities = new() { Bloodfiend.ability };
-            List<Tribe> tribes = new() { TribeBotanic };
+            List<Tribe> tribes = new() { TribeAnthropoid, TribeBotanic };
 
             CreateCard(
                 "wstl_wisdomScarecrow", "Scarecrow Searching for Wisdom",

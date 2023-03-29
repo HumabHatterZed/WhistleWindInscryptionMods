@@ -1,4 +1,5 @@
-﻿using EasyFeedback.APIs;
+﻿using DiskCardGame;
+using EasyFeedback.APIs;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
@@ -9,6 +10,8 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_TheLittlePrinceMinion_O0466()
         {
+            List<Tribe> tribes = new() { TribeBotanic };
+
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_theLittlePrinceMinion", "Spore Mold Creature",
@@ -17,7 +20,7 @@ namespace WhistleWind.AbnormalSigils
                 blood: 0, bones: 0, energy: 0,
                 Artwork.theLittlePrinceMinion, Artwork.theLittlePrinceMinion_emission,
                 abilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+                metaCategories: new(), tribes: tribes, traits: new());
         }
     }
 }

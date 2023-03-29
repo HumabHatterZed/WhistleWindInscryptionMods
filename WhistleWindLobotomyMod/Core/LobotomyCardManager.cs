@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
+
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core
@@ -19,12 +20,6 @@ namespace WhistleWindLobotomyMod.Core
 
         public static Trait TraitApostle = GuidManager.GetEnumValue<Trait>(pluginGuid, "ApostleTrait");
         public static Trait TraitSephirah = GuidManager.GetEnumValue<Trait>(pluginGuid, "SephirahTrait");
-
-        public static Tribe TribeDivine;
-        public static Tribe TribeFae;
-        public static Tribe TribeBotanic;
-        public static Tribe TribeAnthropoid;
-        public static Tribe TribeMechanical;
 
         // Cards
         public static void CreateCard(
@@ -133,20 +128,21 @@ namespace WhistleWindLobotomyMod.Core
             if (modTypes.HasFlag(ModCardType.Restricted))
                 cardInfo.SetNodeRestrictions(true, true, true, true);
 
-            if (cardInfo.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.TraderOffer, CardMetaCategory.Rare))
+            if (pixelTexture != null && LobotomyConfigManager.Instance.GBCPacks)
             {
-                if (pixelTexture != null && LobotomyConfigManager.Instance.GBCPacks)
-                {
-                    CardTemple temple = CardTemple.Nature;
-                    if (tribes.Contains(TribeFae))
-                        temple = CardTemple.Wizard;
-                    else if (tribes.Contains(TribeMechanical))
-                        temple = CardTemple.Tech;
+                CardTemple temple = CardTemple.Nature;
+                if (tribes.Contains(AbnormalPlugin.TribeFae))
+                    temple = CardTemple.Wizard;
+                else if (tribes.Contains(AbnormalPlugin.TribeMechanical))
+                    temple = CardTemple.Tech;
 
-                    cardInfo.SetGBCPlayable(temple);
-                }
+                cardInfo.SetGBCPlayable(temple);
+            }
 
-                ObtainableLobotomyCards.Add(cardInfo);
+            if (!metaTypes.HasFlag(CardHelper.CardMetaType.NonChoice))
+            {
+                if (cardInfo.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.TraderOffer, CardMetaCategory.Rare))
+                    ObtainableLobotomyCards.Add(cardInfo);
             }
 
             AllLobotomyCards.Add(cardInfo);

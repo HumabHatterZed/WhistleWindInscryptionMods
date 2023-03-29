@@ -111,7 +111,7 @@ namespace WhistleWindLobotomyMod
                     Log.LogWarning("Disable Cards is set to [All]. All mod cards have been removed from the pool of obtainable cards");
                 else
                 {
-                    DebugCardInfo();
+                    // DebugCardInfo();
 
                     if (DisabledRiskLevels != RiskLevel.None)
                         Log.LogWarning($"Disable Cards is set to [{DisabledRiskLevels}]. Cards with the affected risk level(s) have been removed from the pool of obtainable cards.");
@@ -147,19 +147,7 @@ namespace WhistleWindLobotomyMod
         }
         private void AddTribes()
         {
-            Log.LogDebug("Loading tribes...");
-            if (TribeAPI.Enabled)
-            {
-                TribeAPI.ChangeTribesToTribal();
-            }
-            else
-            {
-                TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeDivine), true, null);
-                TribeFae = TribeManager.Add(pluginGuid, "FaerieTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeFae), true, null);
-                TribeAnthropoid = TribeManager.Add(pluginGuid, "AnthropoidTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeHumanoid), true, null);
-                TribeMechanical = TribeManager.Add(pluginGuid, "MechanicalTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeMachine), true, null);
-                TribeBotanic = TribeManager.Add(pluginGuid, "BotanicalTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribePlant), true, null);
-            }
+
         }
         private void AddCards()
         {
@@ -167,15 +155,6 @@ namespace WhistleWindLobotomyMod
             {
                 foreach (CardInfo card in cards.Where(c => c.GetModTag() == "whistlewind.inscryption.abnormalsigils"))
                 {
-                    // if TribeAPI isn't installed, add custom tribes to AbnormalSigil cards
-                    if (!TribeAPI.Enabled)
-                    {
-                        if (card.name.Contains("Brother"))
-                            card.SetTribes(TribeAnthropoid);
-                        else if (card.name.Contains("Vine") || card.name.Contains("Pumpkin") || card.name.Contains("Sapling"))
-                            card.SetTribes(TribeBotanic);
-                    }
-
                     // add AbnormalSigils cards to the list of cards added by this mod
                     if (!AllLobotomyCards.Contains(card))
                         AllLobotomyCards.Add(card);
@@ -311,19 +290,6 @@ namespace WhistleWindLobotomyMod
                 pack.SetTexture(TextureLoader.LoadTextureFromBytes(Artwork.wstl_pack));
                 pack.Description = $"A set of {ObtainableLobotomyCards} abnormal cards hailing from the world of Lobotomy Corporation.";
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
-            }
-        }
-        public static class TribeAPI
-        {
-            public static bool Enabled => Chainloader.PluginInfos.ContainsKey("tribes.libary");
-            public static void ChangeTribesToTribal()
-            {
-                Log.LogDebug("Tribal Libary detected. Using its tribes instead.");
-                TribeDivine = TribalLibary.Plugin.divinebeastTribe;
-                TribeFae = TribalLibary.Plugin.fairyTribe;
-                TribeAnthropoid = TribalLibary.Plugin.humanoidTribe;
-                TribeMechanical = TribalLibary.Plugin.machineTribe;
-                TribeBotanic = TribalLibary.Plugin.plantTribe;
             }
         }
     }
