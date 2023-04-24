@@ -1,12 +1,10 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -15,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Copycat()
         {
             const string rulebookName = "Copycat";
-            const string rulebookDescription = "When [creature] is played, become an imperfect copy of the opposing card if it exists.";
+            const string rulebookDescription = "This gains the sigils and stats of the first card to be played in the opposing space.";
             const string dialogue = "A near perfect impersonation.";
             Copycat.ability = AbnormalAbilityHelper.CreateAbility<Copycat>(
                 Artwork.sigilCopycat, Artwork.sigilCopycat_pixel,
@@ -28,70 +26,49 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToResolveOnBoard() => true;
+        bool isACopy = false;
+        private CardInfo baseInfo;
+
+        private void Start() => baseInfo = base.Card.Info.Clone() as CardInfo;
+
+        public override bool RespondsToResolveOnBoard() => base.Card.OpposingCard() != null;
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard.Slot == base.Card.OpposingSlot() && !isACopy;
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && isACopy;
         public override IEnumerator OnResolveOnBoard()
         {
             yield return base.PreSuccessfulTriggerSequence();
-
-            // if the opposing card is null
-            if (!(base.Card.OpposingCard() != null))
-            {
-                base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.4f);
-                yield return AbnormalDialogueManager.PlayDialogueEvent("CopycatFail");
-                yield break;
-            }
-            yield return base.Card.TransformIntoCard(CopyOpposingCard(base.Card.OpposingCard().Info));
+            yield return base.Card.TransformIntoCard(CopyInfo(base.Card.OpposingCard().Info), NegateCopycat);
             yield return base.LearnAbility(0.5f);
         }
-        private CardInfo CopyOpposingCard(CardInfo cardToCopy)
+        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
         {
-            CardInfo baseInfo = base.Card.Info;
-            CardInfo transformation = CardLoader.GetCardByName(cardToCopy.name);
+            yield return base.PreSuccessfulTriggerSequence();
+            yield return base.Card.TransformIntoCard(CopyInfo(otherCard.Info), NegateCopycat);
+            yield return base.LearnAbility(0.5f);
+        }
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
+        {
+            base.Card.Anim.StrongNegationEffect();
+            base.Card.SetInfo(baseInfo);
+            yield return new WaitForSeconds(0.55f);
 
-            transformation.displayedName = baseInfo.displayedName;
-            transformation.SetPortrait(baseInfo.portraitTex);
-            transformation.SetPixelPortrait(baseInfo.pixelPortrait);
+            yield return AbnormalDialogueManager.PlayDialogueEvent("CopycatFail");
+        }
+        private CardInfo CopyInfo(CardInfo cardToCopy)
+        {
+            CardInfo newInfo = baseInfo.Clone() as CardInfo;
+            newInfo.baseAttack = cardToCopy.baseAttack;
+            newInfo.baseHealth = cardToCopy.baseHealth;
+            newInfo.Mods = new(base.Card.Info.Mods);
+            foreach (CardModificationInfo mod in cardToCopy.Mods.FindAll(x => !x.nonCopyable))
+                newInfo.Mods.Add(mod.Clone() as CardModificationInfo);
 
-            foreach (CardModificationInfo mod in cardToCopy.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
-                transformation.Mods.Add((CardModificationInfo)mod.Clone());
-
-            foreach (CardModificationInfo mod2 in baseInfo.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
-                transformation.Mods.Add((CardModificationInfo)mod2.Clone());
-
-            CardModificationInfo imperfectMod = new();
-            
-            int currentRandomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
-            float num = SeededRandom.Value(currentRandomSeed++);
-
-            // add random sigil
-            if (num < 0.33f && transformation.Mods.Exists((CardModificationInfo x) => x.abilities.Count > 0))
-            {
-                List<CardModificationInfo> list = new()
-                {
-                    new(Ability.Sharp)
-                    {
-                        fromCardMerge = true
-                    }
-                };
-
-                if (transformation.Mods.Exists((CardModificationInfo x) => x.abilities.Count > 0))
-                    list = transformation.Mods.FindAll((CardModificationInfo x) => x.abilities.Count > 0);
-                
-                list[SeededRandom.Range(0, list.Count, currentRandomSeed++)].abilities[0] = AbilitiesUtil.GetRandomLearnedAbility(currentRandomSeed++);
-            }
-            else if (num < 0.66f && transformation.Attack > 0) // add -1/2 stats
-                imperfectMod.attackAdjustment = SeededRandom.Range(-1, 2, currentRandomSeed++);
-
-            else if (transformation.Health > 1) // add 1/-2 stats
-            {
-                int num2 = Mathf.Min(2, transformation.Health - 1);
-                imperfectMod.healthAdjustment = SeededRandom.Range(-num2, 3, currentRandomSeed++);
-            }
-
-            transformation.Mods.Add(imperfectMod);
-
-            return transformation;
+            return newInfo;
+        }
+        private void NegateCopycat()
+        {
+            isACopy = true;
+            base.Card.AddTemporaryMod(new() { negateAbilities = new() { ability } });
         }
     }
 }

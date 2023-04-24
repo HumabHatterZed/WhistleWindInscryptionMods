@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "A small spider takes refuge in your hand.";
             BroodMother.ability = AbnormalAbilityHelper.CreateAbility<BroodMother>(
                 Artwork.sigilBroodMother, Artwork.sigilBroodMother_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: true, opponent: false, canStack: false).Id;
         }
     }

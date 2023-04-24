@@ -40,34 +40,13 @@ namespace WhistleWindLobotomyMod.Core
         #endregion
 
         #region Gameplay
-
-        private ConfigEntry<int> Config_StarterDeck;
-        public int StarterDeck => Config_StarterDeck.Value;
-
         private ConfigEntry<int> Config_StarterDeckSize;
         public int StarterDeckSize => Config_StarterDeckSize.Value;
 
-        #region Gameplay.Challenges
+        private ConfigEntry<bool> Config_EventFlags;
+        public bool EventFlags => Config_EventFlags.Value;
 
-        private ConfigEntry<bool> Config_AbnormalBosses;
-        public bool AbnormalBosses => Config_AbnormalBosses.Value;
-
-        private ConfigEntry<bool> Config_AbnormalBattles;
-        public bool AbnormalBattles => Config_AbnormalBattles.Value;
-
-        private ConfigEntry<bool> Config_MiracleWorker;
-        public bool MiracleWorker => Config_MiracleWorker.Value;
-
-        #endregion
-
-        #region Gameplay.Cheats
-
-        private ConfigEntry<bool> Config_BetterRareChances;
-        public bool BetterRareChances => Config_BetterRareChances.Value;
-
-        #endregion
-
-        #region Gameplay.Other
+        #region Gameplay.Nodes
         private ConfigEntry<bool> Config_BoxStart;
         public bool BoxStart => Config_BoxStart.Value;
 
@@ -85,15 +64,43 @@ namespace WhistleWindLobotomyMod.Core
 
         #endregion
 
+        #region Gameplay.Part1
+        private ConfigEntry<int> Config_StarterDeck;
+        public int StarterDeck => Config_StarterDeck.Value;
+
+        #region Gameplay.Part1.Challenges
+        private ConfigEntry<bool> Config_AbnormalBosses;
+        public bool AbnormalBosses => Config_AbnormalBosses.Value;
+
+        private ConfigEntry<bool> Config_AbnormalBattles;
+        public bool AbnormalBattles => Config_AbnormalBattles.Value;
+
+        private ConfigEntry<bool> Config_MiracleWorker;
+        public bool MiracleWorker => Config_MiracleWorker.Value;
+
         #endregion
 
-        #region Secrets
+        #region Gameplay.Part1.Cheats
+        private ConfigEntry<bool> Config_BetterRareChances;
+        public bool BetterRareChances => Config_BetterRareChances.Value;
+
+        private ConfigEntry<bool> Config_StartApocalypseBird;
+        public bool StartApocalypseBird => Config_StartApocalypseBird.Value;
+
+        private ConfigEntry<bool> Config_StartJesterOfNihil;
+        public bool StartJesterOfNihil => Config_StartJesterOfNihil.Value;
+
+        private ConfigEntry<bool> Config_StartLyingAdult;
+        public bool StartLyingAdult => Config_StartLyingAdult.Value;
+
+        #endregion
+        #endregion
+        #endregion
+
+        #region Gameplay.Other
 
         private ConfigEntry<int> Config_Blessings;
         public int NumOfBlessings => Config_Blessings.Value;
-
-        private ConfigEntry<int> Config_EventFlags;
-        public int EventFlags => Config_EventFlags.Value;
 
         #endregion
 
@@ -121,15 +128,27 @@ namespace WhistleWindLobotomyMod.Core
                 "\nBackward Clock, Il Pianto della Luna, Army in Pink, Ppodae, Parasite Tree, Melting Love, Honoured Monk."));
 
             Config_NoRuina = WstlConfigFile.Bind(
-                "Config.Cards", "DISABLE RUINA", false,
+                "Config.Cards", "Disable Ruina", false,
                 new ConfigDescription("Removes the following abnormalities from the pool of obtainable cards:" +
                 "\nMagical Girl C, Price of Silence, Nosferatu, The Road Home, Ozma, Silent Girl."));
 
+            Config_NoEvents = WstlConfigFile.Bind(
+                "Gameplay", "Disable Events", false,
+                new ConfigDescription("Disables special in-game events added by this mod."));
+
+            Config_StarterDeckSize = WstlConfigFile.Bind(
+                "Gameplay", "Extra Random Cards", 0,
+                new ConfigDescription("Adds more cards to the 3 Random Mod Cards starter decks in Part 1 and Kaycee's Mod."));
+
+            Config_EventFlags = WstlConfigFile.Bind(
+                "Gameplay", "Unlock All Events", false,
+                new ConfigDescription("Unlocks the event starter decks and challenges for Kaycee's Mod, regardless of whether you've met the requirements."));
+
             Config_StarterDeck = WstlConfigFile.Bind(
-                "Gameplay", "Starter Deck", 0,
-                new ConfigDescription("PART 1 ONLY - Replaces your starting cards with one of this mod's custom decks." +
+                "Gameplay.Part1", "Starter Deck", 0,
+                new ConfigDescription("Replaces your starting cards with one of this mod's custom decks." +
                 "\n0 - Default Deck" +
-                "\n1 - Random Mod Deck" +
+                "\n1 - Random Mod Deck (3-12)" +
                 "\n2 - 3 Random Mod Cards" +
                 "\n3 - One Sin, Fairy Festival, Old Lady" +
                 "\n4 - Scorched Girl, Laetitia, Child of the Galaxy" +
@@ -142,29 +161,33 @@ namespace WhistleWindLobotomyMod.Core
                 "\n11 - Magical Girl S, Magical Girl H, Magical D, Magical Girl C/Void Dream" +
                 "\n12 - Punishing Bird, Big Bird, Judgement Bird"));
 
-            Config_StarterDeckSize = WstlConfigFile.Bind(
-                "Gameplay", "Extra Random Cards", 0,
-                new ConfigDescription("Adds more cards to the 3 Random Mod Cards starter decks in Part 1 and Kaycee's Mod."));
-
             Config_AbnormalBosses = WstlConfigFile.Bind(
-                "Gameplay.Challenges", "Abnormal Bosses", false,
-                new ConfigDescription("PART 1 ONLY - Bosses will only use Abnormality cards."));
+                "Gameplay.Part1.Challenges", "Abnormal Bosses", false,
+                new ConfigDescription("Bosses will only use Abnormality cards."));
 
             Config_AbnormalBattles = WstlConfigFile.Bind(
-                "Gameplay.Challenges", "Abnormal Encounters", false,
-                new ConfigDescription("PART 1 ONLY - All regular battles will only use Abnormality cards."));
+                "Gameplay.Part1.Challenges", "Abnormal Encounters", false,
+                new ConfigDescription("All regular battles will only use Abnormality cards."));
 
             Config_MiracleWorker = WstlConfigFile.Bind(
-                "Gameplay.Challenges", "Miracle Worker", false,
-                new ConfigDescription("PART 1 ONLY - Leshy will play Plague Doctor during regular battles. Beware the Clock."));
+                "Gameplay.Part1.Challenges", "Miracle Worker", false,
+                new ConfigDescription("Leshy will play Plague Doctor during regular battles. Beware the Clock."));
 
             Config_BetterRareChances = WstlConfigFile.Bind(
-                "Gameplay.Cheats", "Better Rare Chances", false,
-                new ConfigDescription("PART 1 ONLY - Raises the chance of getting a Rare card from the abnormal choice node."));
+                "Gameplay.Part1.Cheats", "Better Rare Chances", false,
+                new ConfigDescription("Raises the chance of getting a Rare card from the abnormal choice node."));
 
-            Config_NoEvents = WstlConfigFile.Bind(
-                "Gameplay", "Disable Events", false,
-                new ConfigDescription("Disables special in-game events added by this mod."));
+            Config_StartApocalypseBird = WstlConfigFile.Bind(
+                "Gameplay.Part1.Cheats", "Start with a Beast", false,
+                new ConfigDescription("Start your run with Apocalypse Bird in your deck."));
+
+            Config_StartJesterOfNihil = WstlConfigFile.Bind(
+                "Gameplay.Part1.Cheats", "Start with a Fool", false,
+                new ConfigDescription("Start your run with Jester of Nihil in your deck."));
+
+            Config_StartLyingAdult = WstlConfigFile.Bind(
+                "Gameplay.Part1.Cheats", "Start with a Liar", false,
+                new ConfigDescription("Start your run with Adult Who Tells Lies in your deck."));
 
             Config_NoBox = WstlConfigFile.Bind(
                 "Gameplay.Nodes", "Disable Choice Node", false,
@@ -184,9 +207,6 @@ namespace WhistleWindLobotomyMod.Core
 
             Config_Blessings = WstlConfigFile.Bind(
                 "Gameplay.Other", "Blessings", 0);
-
-            Config_EventFlags = WstlConfigFile.Bind(
-                "Gameplay.Other", "Events", 0);
         }
         public void UpdateBlessings(int value)
         {

@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Card_VoidDream_T0299()
         {
             List<Ability> abilities = new() { Ability.DebuffEnemy };
-            
+
             List<Tribe> tribes = new()
             {
                 Tribe.Hooved,

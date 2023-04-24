@@ -268,12 +268,6 @@
   <data name="sigilBroodMother_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilBroodMother_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="sigilBurning" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\sigilBurning.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="sigilBurning_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\sigilBurning_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="sigilConductor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilConductor.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -478,6 +472,12 @@
   <data name="sigilRoots_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilRoots_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="sigilScorching" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilScorching.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sigilScorching_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\sigilScorching_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="sigilScrambler" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\sigilScrambler.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -615,12 +615,6 @@
   </data>
   <data name="theLittlePrinceMinion_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\theLittlePrinceMinion_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="theNakedWorm" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\theNakedWorm.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="theNakedWorm_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\theNakedWorm_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="tribeAnthropoid" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\tribeAnthropoid.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

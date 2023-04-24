@@ -38,17 +38,18 @@ namespace WhistleWind.AbnormalSigils
             if (killer.Info.name.ToLowerInvariant().Contains("warmheartedwoodsman"))
             {
                 killer.HealDamage(4);
-                yield return new WaitForSeconds(0.2f);
                 if (!base.HasLearned)
+                {
+                    base.SetLearned();
                     yield return HelperMethods.PlayAlternateDialogue(dialogue: altDialogue);
-
-                yield return new WaitForSeconds(0.25f);
+                }
             }
             else
             {
                 killer.HealDamage(2);
                 yield return base.LearnAbility(0.4f);
             }
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }

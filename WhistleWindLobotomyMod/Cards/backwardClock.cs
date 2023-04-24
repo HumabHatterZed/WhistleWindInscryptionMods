@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { TimeMachine.ability };
             List<Trait> traits = new() { Trait.DeathcardCreationNonOption };
-            
+
             CreateCard(
                 "wstl_backwardClock", "Backward Clock",
                 "A clock to rewind your wasted time. Will you pay the toll?",

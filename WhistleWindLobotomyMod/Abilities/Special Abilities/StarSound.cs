@@ -12,8 +12,8 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-        public static readonly string rName = "Sound of a Star";
-        public static readonly string rDesc = "If there are no cards on the opposing side that can be attacked, Blue Star strikes all slots directly.";
+        public const string rName = "Sound of a Star";
+        public const string rDesc = "If there are no cards on the opposing side that can be attacked, Blue Star strikes all slots directly.";
 
         public bool RemoveDefaultAttackSlot() => AttackAllOpposingSlots();
         public bool RespondsToGetOpposingSlots() => AttackAllOpposingSlots();

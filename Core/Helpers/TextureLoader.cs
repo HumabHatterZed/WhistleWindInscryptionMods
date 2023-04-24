@@ -33,7 +33,7 @@ namespace WhistleWind.Core.Helpers
             Texture2D openTex = LoadTextureFromBytes(openBytes);
             Rect rect = new(0f, 0f, openTex.width, openTex.height);
             Sprite openSprite = Sprite.Create(openTex, rect, new(0.5f, 0f), 100f);
-            
+
             if (closedBytes != null)
             {
                 Texture2D closedTex = LoadTextureFromBytes(closedBytes);

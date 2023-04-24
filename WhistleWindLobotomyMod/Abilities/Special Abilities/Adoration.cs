@@ -12,8 +12,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Adoration";
-        public static readonly string rDesc = "If Melting Love's Health is 1 on upkeep, absorb the Health of adjacent Slimes.";
+        public const string rName = "Adoration";
+        public const string rDesc = "If Melting Love's Health is 1 on upkeep, absorb the Health of adjacent Slimes.";
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
 

@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Woodcutter()
         {
             const string rulebookName = "Woodcutter";
-            const string rulebookDescription = "When a card moves into the space opposing this card, deal damage equal to this card's Power.";
+            const string rulebookDescription = "When a creature moves into the space opposite this card, they take damage equal to this card's Power.";
             const string dialogue = "No matter how many trees fall, the forest remains dense.";
 
             Woodcutter.ability = AbnormalAbilityHelper.CreateAbility<Woodcutter>(

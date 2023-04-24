@@ -1,16 +1,9 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
 using InscryptionAPI.Triggers;
-using InscryptionCommunityPatch.Card;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Resources;
-using System.Runtime.Serialization;
 using UnityEngine;
-using UnityEngine.Assertions;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
@@ -18,12 +11,12 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
-    public class Worms : SpecialCardBehaviour, IGetOpposingSlots
+    public class Worms : SpecialCardBehaviour, IGetOpposingSlots, IOnBellRung
     {
         public static SpecialTriggeredAbility specialAbility;
 
         public static readonly string rName = "Worms";
-        public static readonly string rDesc = "At the start of combat, this card gains 1 Worms. At 3 or more Worms, target ally spaces instead of opposing ones, with a chance to give 1 Worms to struck cards.";
+        public static readonly string rDesc = "At the start of combat, this card gains 1 Worms. At 3 or more Worms, this card will attack allied spaces with a chance to give 1 Worms to struck cards.";
 
         public int wormSeverity = 0;
         private bool accountForInitialHit = true;
@@ -71,7 +64,7 @@ namespace WhistleWind.AbnormalSigils
             {
                 if (target.LacksTrait(AbnormalPlugin.NakedSerpent))
                 {
-                    if (SeededRandom.Value(base.GetRandomSeed()) >= (wormSeverity - 2) * .1f)
+                    if (SeededRandom.Value(base.GetRandomSeed()) <= (wormSeverity - 2) * .1f)
                     {
                         if (!target.Info.Mods.Exists(x => x.singletonId == "wstl:serpentDummy"))
                             target.AddPermanentBehaviour<Worms>();
@@ -103,6 +96,16 @@ namespace WhistleWind.AbnormalSigils
                 allySlots = allySlots.FindAll(x => x.Card != null);
             }
             return new() { allySlots[SeededRandom.Range(0, allySlots.Count - 1, base.GetRandomSeed())] };
+        }
+
+        public bool RespondsToBellRung(bool playerCombatPhase)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IEnumerator OnBellRung(bool playerCombatPhase)
+        {
+            throw new System.NotImplementedException();
         }
     }
     public class RulebookWorms : AbilityBehaviour

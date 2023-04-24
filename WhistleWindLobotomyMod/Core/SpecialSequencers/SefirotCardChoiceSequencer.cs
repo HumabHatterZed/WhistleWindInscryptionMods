@@ -173,33 +173,19 @@ namespace WhistleWindLobotomyMod
         }
         private List<CardChoice> GenerateSephirahChoices(int randomSeed)
         {
-            int numOfChoices = 3;
             List<CardChoice> listOfChoices = new();
 
-            // find the number of Sephirah already owned, including Angela
-            int sephirahCount = RunState.DeckList.FindAll(x => x.HasTrait(LobotomyCardManager.TraitSephirah)).Count;
-
-            // if all 9 Sephirah have been obtained, guaranteed to get Angela
-            // otherwise if there are unobtained Sephirah, pick a max of 3 of them per node (if only 2 remain, show 2, etc.)
-            if (sephirahCount == 9)
-                numOfChoices = 1;
-            else if (sephirahCount < 9)
-                numOfChoices = Mathf.Min(9 - sephirahCount, 1);
-
-            while (listOfChoices.Count < numOfChoices)
+            while (listOfChoices.Count < 3)
             {
-                CardChoice cardChoice = new();
-
                 CardInfo card = LobotomyCardLoader.GetRandomSephirahCard(randomSeed);
 
-                while (listOfChoices.Exists((CardChoice x) => x.CardInfo.name == card.name))
-                {
+                while (listOfChoices.Exists(x => x.CardInfo.name == card.name))
                     card = LobotomyCardLoader.GetRandomSephirahCard(randomSeed++);
-                }
-                cardChoice.CardInfo = card;
+
+                CardChoice cardChoice = new() { CardInfo = card };
                 listOfChoices.Add(cardChoice);
             }
-            return new List<CardChoice>(listOfChoices.Randomize());
+            return new(listOfChoices.Randomize());
         }
         private IEnumerator AddCardToDeckAndCleanUp(SelectableCard card)
         {
@@ -231,14 +217,6 @@ namespace WhistleWindLobotomyMod
             modDeckPile.AddToPile(this.chosenReward.transform);
             SaveManager.SaveFile.CurrentDeck.AddCard(this.chosenReward.Info);
             AnalyticsManager.SendCardPickedEvent(this.chosenReward.Info.name);
-            if (this.chosenReward.Info.name == "MantisGod")
-            {
-                AscensionStatsData.TryIncrementStat(AscensionStat.Type.MantisGodsPicked);
-                if (StoryEventsData.EventCompleted(StoryEvent.LeshyDefeated))
-                {
-                    VoiceOverPlayer.Instance.PlayVoiceOver("Yeah. Always pick Mantis God.", "VO_mantisgod", VoiceOverPlayer.VOCameraAnim.MediumRefocus, StoryEvent.LukeVOMantisGod);
-                }
-            }
         }
         private void OnRewardChosen(SelectableCard card)
         {
@@ -255,9 +233,7 @@ namespace WhistleWindLobotomyMod
         {
             card.SetLocalPosition(Vector3.zero, 0f, immediate: true);
             if (Singleton<InteractionCursor>.Instance.CurrentInteractable == card)
-            {
                 base.OnCardInspected(card);
-            }
 
             if (card.Info != null)
                 base.StartCoroutine(RegularChoiceFlipped(card));
@@ -308,7 +284,7 @@ namespace WhistleWindLobotomyMod
                     if (doTween)
                         Tween.Position(selectableCard.transform, selectableCard.transform.position + Vector3.forward * 20f, 0.5f, 0f, Tween.EaseInOut);
 
-                    UnityEngine.Object.Destroy(selectableCard.gameObject, doTween ? 0.5f : 0f);
+                    Destroy(selectableCard.gameObject, doTween ? 0.5f : 0f);
                 }
             }
             base.selectableCards.Clear();

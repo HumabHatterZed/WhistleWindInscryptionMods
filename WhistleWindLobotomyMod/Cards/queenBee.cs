@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { QueenNest.ability };
             List<Tribe> tribes = new() { Tribe.Insect };
-            
+
             CreateCard(
                 "wstl_queenBee", "Queen Bee",
                 "A monstrous amalgam of a hive and a bee.",

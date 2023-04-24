@@ -13,8 +13,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Pink Tears";
-        public static readonly string rDesc = "Army in Pink, Magical Girl S, and Magical Girl C will transform when an adjacent card dies.";
+        public const string rName = "Pink Tears";
+        public const string rDesc = "Army in Pink, Magical Girl S, and Magical Girl C will transform when an adjacent card dies.";
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {

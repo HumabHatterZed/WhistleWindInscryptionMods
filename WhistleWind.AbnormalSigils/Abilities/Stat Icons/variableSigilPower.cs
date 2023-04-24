@@ -1,8 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
-using InscryptionCommunityPatch.Card;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Properties;
@@ -19,6 +16,9 @@ namespace WhistleWind.AbnormalSigils
         {
             List<AbilityInfo> infos = AbilityManager.AllAbilityInfos
                 .FindAll(x => base.PlayableCard.AllAbilities().Contains(x.ability) && x.ability != Ability.RandomAbility);
+
+            if (infos.Count == 0)
+                return new int[2] { 0, 0 };
 
             infos.Sort((AbilityInfo a, AbilityInfo b) => b.powerLevel - a.powerLevel);
 

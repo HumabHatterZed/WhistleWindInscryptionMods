@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { Regenerator.ability };
             List<SpecialTriggeredAbility> specialAbilities = new() { Concord.specialAbility };
-            
+
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 AlternateBattlePortrait.appearance

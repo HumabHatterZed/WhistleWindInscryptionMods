@@ -11,11 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 //using TribalLibary;
-using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
-using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -41,16 +39,17 @@ namespace WhistleWind.AbnormalSigils
         public static Tribe TribeMechanical;
 
         public static Trait Boneless = GuidManager.GetEnumValue<Trait>(pluginGuid, "Boneless");
-        public static Trait NakedSerpent= GuidManager.GetEnumValue<Trait>(pluginGuid, "NakedSerpent");
+        public static Trait SwanBrother = GuidManager.GetEnumValue<Trait>(pluginGuid, "SwanBrother");
+        public static Trait NakedSerpent = GuidManager.GetEnumValue<Trait>(pluginGuid, "NakedSerpent");
         public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
-        
+
         public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
         public static CardMetaCategory CannotGainSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGainSigils");
         public static CardMetaCategory CannotBoostStats = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotBoostStats");
         public static CardMetaCategory CannotCopyCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotCopyCard");
 
         private void OnDisable() => HarmonyInstance.UnpatchSelf();
-        
+
         private void Awake()
         {
             AbnormalPlugin.Log = base.Logger;
@@ -70,7 +69,7 @@ namespace WhistleWind.AbnormalSigils
                 AddAbilities();
                 AddSpecialAbilities();
                 AddAppearances();
-                
+
                 AddCards();
 
                 Logger.LogInfo($"{pluginName} loaded!");
@@ -150,7 +149,7 @@ namespace WhistleWind.AbnormalSigils
             Ability_QueenNest();
             Ability_BitterEnemies();
             Ability_Courageous();
-            
+
             Ability_SerpentsNest();
             Rulebook_Worms();
 
@@ -160,7 +159,7 @@ namespace WhistleWind.AbnormalSigils
             Ability_FlagBearer();
             Ability_Grinder();
             Ability_TheTrain();
-            Ability_Burning();
+            Ability_Scorching();
             Ability_Regenerator();
             Ability_Volatile();
             Ability_GiftGiver();

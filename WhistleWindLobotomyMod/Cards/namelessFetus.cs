@@ -38,7 +38,7 @@ namespace WhistleWindLobotomyMod
                 Syrinx.specialAbility
             };
             List<Trait> traits = new() { Trait.Goat };
-            
+
             CreateCard(
                 "wstl_namelessFetus", "Nameless Fetus",
                 "A neverending supply a blood. Just don't wake it.",

@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Volatile()
         {
             const string rulebookName = "Volatile";
-            const string rulebookDescription = "When [creature] dies, adjacent and opposing cards are dealt 10 damage.";
+            const string rulebookDescription = "When this card dies, adjacent and opposing cards are dealt 10 damage.";
             const string dialogue = "An explosive finish.";
 
             Volatile.ability = AbnormalAbilityHelper.CreateAbility<Volatile>(

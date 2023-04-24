@@ -61,7 +61,7 @@ namespace WhistleWindLobotomyMod.Patches
                     {
                         if (info.name.Equals("LatchDeathShield"))
                             info.rulebookDescription = "When this card perishes, give a card the Armoured sigil.";
-                        
+
                         __result = true;
                     }
                 }

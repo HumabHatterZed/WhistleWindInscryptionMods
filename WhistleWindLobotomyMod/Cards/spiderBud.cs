@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { BroodMother.ability };
             List<Tribe> tribes = new() { Tribe.Insect };
-            
+
             CreateCard(
                 "wstl_spiderBud", "Spider Bud",
                 "A grotesque mother of spiders. Its children are small but grow quickly.",

@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Courageous()
         {
             const string rulebookName = "Courageous";
-            const string rulebookDescription = "Adjacent creatures lose up to 2 Health. For each point of Heath lost this way, the affected creature gains 1 Power. This effect cannot kill cards.";
+            const string rulebookDescription = "Creatures adjacent to this card lose up to 2 Health. For each point of Heath lost, the affected creature gains 1 Power. This effect cannot kill cards.";
             const string dialogue = "Life is only given to those who don't fear death.";
 
             Courageous.ability = AbnormalAbilityHelper.CreateAbility<Courageous>(

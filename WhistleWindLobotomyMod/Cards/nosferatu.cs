@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod
                 metaCategories: new(), tribes: tribes, traits: new(),
                 modTypes: ModCardType.Ruina);
 
-            abilities = new() { Bloodfiend.ability, Ability.Evolve};
+            abilities = new() { Bloodfiend.ability, Ability.Evolve };
 
             CreateCard(
                 "wstl_nosferatu", "Nosferatu",

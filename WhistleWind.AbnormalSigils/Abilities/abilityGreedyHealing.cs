@@ -13,8 +13,8 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_GreedyHealing()
         {
             const string rulebookName = "Greedy Healing";
-            const string rulebookDescription = "[creature] gains 2 Health at the end of its turn. This card will perish when 2 turns pass without it taking damage.";
-            const string dialogue = "Your beast has health in excess.";
+            const string rulebookDescription = "At the end of its owner's turn, this card gains 2 Health. If 2 turns pass without this card taking damage, it will die.";
+            const string dialogue = "Your beast has Health in excess.";
 
             GreedyHealing.ability = AbnormalAbilityHelper.CreateAbility<GreedyHealing>(
                 Artwork.sigilGreedyHealing, Artwork.sigilGreedyHealing_pixel,

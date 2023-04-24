@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Idol()
         {
             const string rulebookName = "Idol";
-            const string rulebookDescription = "While this card is on the board, all opposing cards lose 1 Power.";
+            const string rulebookDescription = "While this card is on the board, all opposing creatures lose 1 Power.";
             const string dialogue = "My beasts defer to you.";
 
             Idol.ability = AbnormalAbilityHelper.CreateAbility<Idol>(

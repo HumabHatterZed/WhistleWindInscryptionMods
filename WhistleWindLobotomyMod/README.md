@@ -2,47 +2,45 @@
 
 ### Face the Fear. Make the Future.
 
-Inspired by KingSlime's mod of the same subject, this mod is my own take on translating the abnormalities of Lobotomy Corporation and Library of Ruina into Inscryption.
+Inspired by KingSlime's mod, this is my own take on translating the abnormalities of Lobotomy Corporation into Inscryption.
 The cards in this mod are designed to be as faithful to their original counterparts as possible while still being "balanced".
 
+Now featuring the abnormalities from Library of Ruina!
+
 Current Features:
-- 92 obtainable cards
-- 8 starter decks
-- 8 challenges/cheats
+- 90 obtainable cards
+- 11 starter decks
+- 11 challenges and cheats
 - 2 new choice nodes
-- 4 new bosses
 
-## ⚙️ Dependencies
-- BepInEx-BepInExPack_Inscryption v5.4.1902
-- API_dev-API v2.10.0
-- WhistleWind-New_Spell_Card_Toolkit-1.0.0
-- WhistleWind-WhistleWind_Abnormal_Sigils-1.0.0
+## ‼️ REGARDING 2.0 ‼️
+With the 2.0 release, a number of structural changes have been made you need to be aware of.
 
-## ‼️ IMPORTANT 2.0 NOTICES ‼️
-With the 2.0 release, this mod's abilities have been split off into their own mod which you will need to download as well.
-This mod now also requires Infiniscryption's Spell Card Toolkit, so be sure to get both!
+Firstly, this mod's abilities have been split off into their own mod which you will need to download as well.
+This mod now also requires [New Spell Card Toolkit](https://inscryption.thunderstore.io/package/WhistleWind/New_Spell_Card_Toolkit/), so be sure to get both!
 
-The config file has also been reformatted, so any changes you've made to it will need to be carried over.
+The config file has also been reformatted, so any changes you've made to it will need to be manually carried over. Sorry :(.
 
 ## 🩹 Known Bugs and Issues
 ### Custom Bosses
-Abnormal Bosses is not compatible with challenges that change the vanilla bosses (your game should run fine, but one challenge will override the other).
+Boss challenges Abnormal Bosses, Emerald, Nihil, Apocalypse, and Rapture will override/be overridden by other mods that replace vanilla bosses.
+Your game will still be functional.
+
 --------------------------
 
-If you encounter any other issues or bugs, or you just want to give some feedback, you can @ me on the Inscryption Modding Discord.
+If you encounter any issues or bugs, or you just want to give some feedback, you can find me on the Inscryption Modding Discord.
 
 ## 🔗 Compatibility
 
 ### Tribal Libary (sic)
-If you have [Tribal Libary](https://inscryption.thunderstore.io/package/Infiniscryption/Spell_Card_Toolkit/) installed,
-cards added by this mod will gain an additional tribe taken from Tribal Libary.
+If you have [Tribal Libary](https://inscryption.thunderstore.io/package/The_Unwanted_but_Useful_Libraries/Tribal_Libary/) installed,
+my custom Tribes will be replaced with equivalents from Tribal Libary.
 
 ### Pack Management API
 If you have [Pack Management API](https://inscryption.thunderstore.io/package/Infiniscryption/Pack_Management_API/) installed,
 a custom card pack will be created representing this mod. That's all :).
 
 ## 💌 Credits/Acknowledgements
-
 Artwork and coding:
 - WhistleWind
 
@@ -53,11 +51,6 @@ ReadMe cost icons:
 - James Veug (from ReadmeMaker)
 
 Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public GitHubs I could ~~steal~~borrow code from.
-
-## ⚖️ Changelog -- Latest Update - v2.0.0; "The One, Perfect Book" (?/??/202?)
-To see the details of the current update, please see the FULL_CHANGELOG (included with the mod file when you download it)
-
-Alternatively, you can check out the wiki on GitHub!
 
 ## 🛠️ Configuration Options
 
@@ -186,12 +179,13 @@ You'll need to play with the cards in order to figure out their special ability 
 **KEY**
 - Toxic - Kills survivors when eaten at the Campfire.
 - Spell - Can be played on top of other cards, dies upon play.
-- Special - Can only be obtained once per run through a unique method.
+- Special - Can only be obtained once per run, usually via a unique method.
 - Singleton - Can only have one copy in your deck at a time.
-- X - Varies
-- M - Mirror
-- S - Sacrifice
-- T - Passing Time
+- X - Stat varies
+- M - Mirror stat icon
+- S - Sacrifice stat icon
+- T - Passing Time stat icon
+- R - Sigil Power stat icon
 
 <br>
 

@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-        public static readonly string rName = "Ticket Taker";
-        public static readonly string rDesc = "When Express Train to Hell has been on the board for 4 turns, kill all cards on the board. Opponent cards will also drop bones.";
+        public const string rName = "Ticket Taker";
+        public const string rDesc = "When Express Train to Hell has been on the board for 4 turns, kill all cards on the board. Opponent cards will also drop bones.";
 
         private int turnCount;
 

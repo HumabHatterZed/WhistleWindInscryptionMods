@@ -1,8 +1,6 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
@@ -15,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Regenerator()
         {
             const string rulebookName = "Regenerator";
-            const string rulebookDescription = "Adjacent cards gain 1 Health at the start of the owner's turn.";
+            const string rulebookDescription = "At the start of its owner's turn, this card heals adjacent cards by 1 Health.";
             const string dialogue = "Wounds heal, but the scars remain.";
 
             Regenerator.ability = AbnormalAbilityHelper.CreateAbility<Regenerator>(

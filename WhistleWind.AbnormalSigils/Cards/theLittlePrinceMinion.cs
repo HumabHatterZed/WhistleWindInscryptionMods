@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;

@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.skeleton_can,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                evolveName:"[name]Crumpled Can of Aged WellCheers");
+                evolveName: "[name]Crumpled Can of Aged WellCheers");
 
             List<Ability> abilities = new()
             {

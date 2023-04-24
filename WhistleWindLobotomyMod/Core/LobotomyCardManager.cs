@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using GBC;
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
@@ -20,6 +19,9 @@ namespace WhistleWindLobotomyMod.Core
 
         public static Trait TraitApostle = GuidManager.GetEnumValue<Trait>(pluginGuid, "ApostleTrait");
         public static Trait TraitSephirah = GuidManager.GetEnumValue<Trait>(pluginGuid, "SephirahTrait");
+        public static Trait TraitBlackForest = GuidManager.GetEnumValue<Trait>(pluginGuid, "BlackForestTrait");
+        public static Trait TraitEmeraldCity = GuidManager.GetEnumValue<Trait>(pluginGuid, "EmeraldCityTrait");
+        public static Trait TraitMagicalGirl = GuidManager.GetEnumValue<Trait>(pluginGuid, "MagicalGirlTrait");
 
         // Cards
         public static void CreateCard(

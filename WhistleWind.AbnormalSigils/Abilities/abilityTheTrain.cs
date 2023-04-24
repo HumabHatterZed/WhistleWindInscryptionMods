@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,10 +6,23 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
+    public partial class AbnormalPlugin
+    {
+        private void Ability_TheTrain()
+        {
+            const string rulebookName = "The Train";
+            const string rulebookDescription = "When this card is played, kill all creatures on the board. Creatures killed this way do not drop bones.";
+            const string dialogue = "The train boards those that don't step away from the tracks.";
+
+            TheTrain.ability = AbnormalAbilityHelper.CreateAbility<TheTrain>(
+                Artwork.sigilTheTrain, Artwork.sigilTheTrain_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
+                special: true).Id;
+        }
+    }
     public class TheTrain : AbilityBehaviour
     {
         public static Ability ability;
@@ -46,20 +58,6 @@ namespace WhistleWind.AbnormalSigils
             yield return base.LearnAbility();
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.DefaultView);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
-        }
-    }
-    public partial class AbnormalPlugin
-    {
-        private void Ability_TheTrain()
-        {
-            const string rulebookName = "The Train";
-            const string rulebookDescription = "When [creature] is played, kill all cards on the board. Cards killed this way do not drop bones.";
-            const string dialogue = "The train boards those that don't step away from the tracks.";
-
-            TheTrain.ability = AbnormalAbilityHelper.CreateAbility<TheTrain>(
-                Artwork.sigilTheTrain, Artwork.sigilTheTrain_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                special: true).Id;
         }
     }
 }

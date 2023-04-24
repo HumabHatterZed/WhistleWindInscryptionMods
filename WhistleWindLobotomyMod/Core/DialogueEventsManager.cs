@@ -1,9 +1,7 @@
 ﻿using DiskCardGame;
-using GBC;
 using InscryptionAPI.Dialogue;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace WhistleWindLobotomyMod.Core
 {
@@ -21,7 +19,7 @@ namespace WhistleWindLobotomyMod.Core
             { "ApocalypseBirdIntro", new() { "Let me tell you a story. The story of the [c:bR]Black Forest[c:]." }},
             { "ApocalypseBirdOutro", new() {
                 "The three birds, [c:bR]now one[c:] looked around for [c:bR]the Beast[c:]. But there was nothing.",
-                "No creatures. No beast. No sun or moon or stars. Only a single bird, alone in an empty forest."}},
+                "No creatures. No beast. No sun or moon or stars. Only a single bird, alone in an empty forest." }},
             { "ApocalypseBirdStory1", new() {
                 "Once upon a time, [c:bR]three birds[c:] lived happily in the lush Forest with their fellow animals.",
                 "One day a stranger arrived at the Forest.He proclaimed that the Forest would soon be ensared in a bitter conflict.",
@@ -36,8 +34,8 @@ namespace WhistleWindLobotomyMod.Core
             { "ApocalypseBirdStoryBig", new() { "With his many eyes, [c:bG]Big Bird[c:] kept constant watch over the entire Forest." }},
             { "ApocalypseBirdStoryLong", new() { "[c:bSG]Long Bird[c:] weighed the sins of all creatures in the forest with his scales." }},
             { "ApocalypseBirdStorySmall", new() { "[c:bR]Small Bird[c:] punished wrongdoers with his beak." }},
-            { "ArmyInBlackTransform", new() { "The human heart is black, and must be cleaned." }},
             #endregion
+            { "ArmyInBlackTransform", new() { "The human heart is black, and must be cleaned." }},
             { "Bloodbath1", new() { "A hand rises from the scarlet pool." }},
             { "Bloodbath2", new() { "Another pale hand emerges." }},
             { "Bloodbath3", new() { "A third hand reaches out, as if asking for help." }},
@@ -61,6 +59,27 @@ namespace WhistleWindLobotomyMod.Core
             #endregion
             { "KingOfGreedTransform", new() { "Desire unfulfilled, the koi continues for Eden." }},
             { "KnightOfDespairTransform", new() { "Having failed to protect again, the knight fell once more to despair." }},
+            #region Lying Adult
+            { "LyingAdultIntro", new() {
+                "Long ago, there was a city made of shining emerald.",
+                "Ruled by the princess [c:bR]Ozma[c:], it was home to many otherworldly splendors." }},
+            { "LyingAdultIntro2", new() {
+                "One day, an adult named [c:g1]Oz[c:] arrived to the Emerald City.",
+                "Looking upon the brilliant city, she came up with a brilliant plan."}},
+            { "LyingAdultIntro3", new() { "Soon, [c:g1]Oz[c:] came to be known as a wizard by the people." }},
+            { "LyingAdultIntro4", new() { "Nothing is as deceptive as evident truth." }},
+            { "LyingAdultOutro", new() { "Unable to ever go back home, they began an endless journey." }},
+            { "LyingAdultOzma", new() { "[c:g1]I’ll make your wishes come true. What do you wish for?[c:]" }},
+            { "LyingAdultOzma2", new() { "Poor [c:bR]Ozma[c:] didn’t know that lying adults don’t approach others without reason." }},
+            { "LyingAdultRoadHome", new() { "[c:g1]Last of all, road that is lost. I will send you home.[c:]" }},
+            { "LyingAdultRoadHome2", new() { "[c:g1]What are you fighting for so fiercely when you have nowhere to go back to?[c:]" }},
+            { "LyingAdultScarecrow", new() { "[c:g1]Poor stuffing of straw. I'll give you the wisdom to ponder over anything.[c:]" }},
+            { "LyingAdultScarecrow2", new() { "[c:g1]Do you think jabbering away with your oh-so smart mouth is all that matters?[c:]" }},
+            { "LyingAdultScaredyCat", new() { "[c:g1]Cowardly kitten, I'll give you the courage to stand up to anything and everything.[c:]" }},
+            { "LyingAdultScaredyCat2", new() { "[c:g1]What are you even going to do when you lack the bravery to face anything head-on?[c:]" }},
+            { "LyingAdultWoodsman", new() { "[c:g1]Tin-cold woodsman. I'll give you the heart to forgive and love anyone.[c:]" }},
+            { "LyingAdultWoodsman2", new() { "[c:g1]Who do you possibly expect to understand with that ice-cold heart of yours?[c:]" }},
+            #endregion
             { "MagicalGirlHeartTransform", new() { "The balance must be maintained. Good cannot exist without evil." }},
             { "MeltingLoveAbsorb", new() { "They give themselves lovingly." }},
             { "MountainOfBodiesGrow", new() { "With each body added, its appetite grows." }},

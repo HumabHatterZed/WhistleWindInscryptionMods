@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Protector()
         {
             const string rulebookName = "Protector";
-            const string rulebookDescription = "Adjacent cards take 1 less damage from attacks.";
+            const string rulebookDescription = "Creatures adjacent to this card take 1 less damage when struck.";
             const string dialogue = "Your beast shields its ally against the blow.";
 
             Protector.ability = AbnormalAbilityHelper.CreateAbility<Protector>(

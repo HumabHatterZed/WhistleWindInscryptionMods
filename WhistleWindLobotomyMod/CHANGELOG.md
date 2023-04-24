@@ -12,6 +12,7 @@ In future updates, these changes will be restrained to that mod's changelog.
 ### 🩹 Bug fixes
     - Abnormality card choice now properly displays and clears dialogue
     - Fixed custom challenges not working properly in Act 1
+    - <<WhiteNight>> event no longer softlocks when there are multiple Plague Doctors in play
     - <<Nothing There>> is no longer copyable by Goo Mage
     - <<Guardian Apostle>> no longer revives immediately after being Downed
 ### 🔧 Tweaks
@@ -22,6 +23,13 @@ In future updates, these changes will be restrained to that mod's changelog.
     - Ability <<The Train>> changed to trigger on resolve rather than on activate
     - Starter Deck <<Road to Oz>> now includes The Road Home (replacing Wolf Cub) and Ozma
     - Starter Deck <<Magical Girls!>> now includes Magical Girl C
+    - Abnormality choice node probabilities are now consistent for both Part 1 and Kaycee's Mod
+        - Probabilities changed to (0%, 2%, 5%) and (2%, 5%, 10%) with Better Rare Chances cheat enabled
+    - Abnormality choice node can now offer multiple Rare cards as choices (this doesn't change the overall chance of finding a Rare)
+    - Increased point amount of Better Rare Chances from -15 --> -10
+    - Adjusted flow of some dialogue
+    - Changes to some card portraitss to make them cleaner/better
+    - Leshy can now trigger special events on his side of the board
 ### ➕ Additions
 #### Cards
     - Added the following cards:
@@ -36,7 +44,7 @@ In future updates, these changes will be restrained to that mod's changelog.
         - Apocrypha (Fragment of the Universe, Skin Prophecy, Price of Silence/1.76MHz*)
         - Keter (Bloodbath, The Burrowing Heaven, The Snow Queen)
     - Added pixel sprites to some cards
-    - Cards with pixel sprites are now usable in Act 2
+    - A limited number of cards are now usable in Act 2
 #### Abilities
     - Added the following abilities:
         - Neutered, Neutered Latch, Return to Nihil, False Throne, Rightful Heir, Opportunistic, Cycler, Follow the Leader
@@ -45,23 +53,16 @@ In future updates, these changes will be restrained to that mod's changelog.
     - Added the following special abilities:
         - Cowardly, The Homing Instinct, Ticket Taker
     - Added the following status effects:
-        - Spore, Worms
-    - Abilities can now be used in Act 2
+        - Spores, Worms
+    - Abilities can now be used by cards in Act 2
 #### Other
-    - Added pauses to make displayed dialogue fit better with game flow
-    - Abnormality choice node probabilities are now consistent for both Part 1 and Kaycee's Mod
-        - Probabilities changed to (0%, 2%, 5%) and (2%, 5%, 10%) with Better Rare Chances cheat enabled
-    - Abnormality choice node can now offer multiple Rare cards as choices (this doesn't change the overall chance of finding a Rare)
-    - Increased point amount of Better Rare Chances from -15 --> -10
-    - Increased Challenge requirement for Road to Oz from 3 --> 8
-    - Increased Challenge requirement for Magical Girls! from 8 --> 10
-    - Added new configuration options
-        - Can now use this mod's starter decks in Act 1
-    - Added [ X ] new encounters
-    - Added the following boss challenges:
-        - Rapture, Apocalypse, Nihil, Emerald
+    - Added new configuration options relating to Part 1 and events
+    - Added 6 new random encounters
     - Added the following items:
         Train in a Bottle, Hod in a Bottle, Inochi in a Bottle
+    - Added the following cheats:
+        - Start with a Beast, Start with a Jester, Start with a Liar
+    - Added Sefirot card choice node
 ### ⚖️ Gameplay Changes
 #### Cards
     - <<All-Around Helper>> cost changed from 2 Blood --> 4 Energy
@@ -95,15 +96,16 @@ In future updates, these changes will be restrained to that mod's changelog.
         - Item version: Global Spell, The Train, 2 Blood
     - <<Fairy Festival>> Health increased from 1 --> 2
     - <<Funeral of the Dead Butterflies>> rebalanced from 3/3, 3 Blood --> 1/3, 2 Blood
-    - <<Giant Tree Sap>> DO ME HARD AAAAA
+    - <<Giant Tree Sap>> Reworked from 0/3, 4 Bones; Morsel, Sacrificial --> 0/3, 3 Bones, Morsel, Rare
+        - Special ability changed to trigger less often, now adds Sacrifical as a hidden temporary mod
     - <<Happy Teddy Bear>> cost reduced from 8 Bones --> 6, Health reduced from 3 --> 1
     - <<King of Greed>> rebalanced from 4/5, Hefty, 2 Blood --> 2/5, Cycler, 1 Blood
     - <<Luminous Bracelet>> reworked into Targeted Spell with Greedy Healing, Give Sigils; 2 Energy
     - <<Magical Girl D>> cost reduced from 2 Blood --> 1, Health reduced from 3 --> 2
     - <<Magical Girl H>> Power reduced from 2 --> 1, gained Opportunistic ability
     - <<Queen of Hatred>> Power increased from 7 --> 8
-    - <<Magical Girl S>> Power reduced from 2 --> 1
-    - <<Knight of Despair>> cost reduced from 2 Blood --> 1
+    - <<Magical Girl S>> Power reduced from 2 --> 1, no longer Rare
+    - <<Melting Love>> Health increased from 2 --> 3
     - <<1.76 MHz>> reworked from 0/3; Annoying, Leader; 2 Bones --> 2/1, Annoying, 3 Energy
     - <<Mountain of Smiling Bodies 3>> Power increased from 4 --> 5
     - <<Nameless Fetus>> cost reduced from 5 Bones --> 3 Bones
@@ -112,17 +114,22 @@ In future updates, these changes will be restrained to that mod's changelog.
     - <<Porccubus>> Health reduced from 2 --> 1
     - <<Queen Bee>> Health reduced from 6 --> 4
     - <<Little Red Riding Hooded Mercenary>> cost increased from 2 Blood --> 3, Health increased from 3 --> 5
+    - <<Sapling>> reworked from 0/2 free --> 0/1, Bone Digger, 4 Bones, Terrain
+    - <<Scarecrow Searching for Wisdom>> rebalanced from 1/3, 5 Bones --> 1/2, 4 Bones
     - <<Schadenfreude>> rebalanced from 0/1; Quick Draw, Touch of Death; 4 Bones --> 1/1, Quick Draw, 2 Energy
     - <<Scorched Girl>> cost reduced from 3 Bones --> 2
     - <<Shelter from the 27th of March>> reworked into Targeted Spell with Repulsive, Aggravating, Give Sigils; 2 Energy
+    - <<Spider Buff>> cost reduced from 4 Bones --> 3 Bones
     - <<Chairs>> Power reduced from 1 --> 0
-    - <<Silent Orchestra>> SINCLAIR MY CHILD
+    - <<Silent Orchestra>> rebalanced from 1/5, 3 Blood --> 2/4, 2 Blood
     - <<Silent Machine>> rebalanced from 0/8, 2 Blood --> 0/3, 1 Blood
     - <<The Snow Queen>> cost reduced from 6 Bones --> 5, Health reduced from 3 --> 2
     - <<Snow White's Apple>> Health reduced from 3 --> 1
+    - <<Snow White's Vines>> gained the Terrain Trait
     - <<Spider Bud>> cost reduced from 4 Bones --> 3
     - <<The Firebird>> Power increased from 1 --> 2
-    - <<The Naked Nest>> UGH
+    - <<The Naked Nest>> now has the custom "Naked Serpent" Trait
+    - <<The Naked Worm>> now has the custom "Naked Serpent" Trait
     - <<Theresia>> cost changed from 1 Bone --> 2 Energy
     - <<Standard Training-Dummy Rabbit>> rebalanced from 0/1, 1 Bone --> 0/2, 1 Energy
     - <<The Lady Facing the Wall>> rebalanced from 0/2, Punisher --> 1/2, Sharp Quills
@@ -134,12 +141,26 @@ In future updates, these changes will be restrained to that mod's changelog.
     - <<You're Bald...>> cost changed from 3 Bones --> 2 Energy, Power reduced from 1 --> 0
     - <<Ttungsil>> no longer has Fledgling ability
 #### Abilities
-    - <<Fungal Infector>> renamed to <<Sporogenic>>
-        - Description changed to "At the end of its owner's turn, this card gives 1 Spores to adjacent cards. This sigil activates before other sigils."
-    - <<Serpent's Nest>> reworked with new behaviour
-        - Description changed to "When [creature] is struck, the striker gains 1 Worms.", no longer obtainable as totem bottom
-    - Reworked <<Conductor>>
-    - Reworked <<Ruler of Frost>>
+    - <<Bitter Enemies>> powerlevel reduced from 2 --> 1
+    - <<Broodmother>> powerlevel reduced from 4 --> 3
+    - <<Burning>> renamed to Scorching
+    - <<Nettle Clothes>> now uses custom Trait "Swan Brother" for effect, no longer deals damage to the base card upon Brother cards dying
+    - <<Corrector>> powerlevel reduced from 3 --> 2
+    - <<Frozen Heart>> now heals 2 Health instead of 1
+    - <<Fungal Infector>> renamed to Sporogenic, reworked to be:
+        - "Creatures adjacent to this card gain 1 Spores at the end of its owner's turn. This sigil activates before other sigils."
+    - <<Piercing>> reworked to be:
+        - "Damage dealt by this card cannot be negated or reduced by sigils such as Repulsive or Thick Skin."
+    - <<Serpent's Nest>> is no longer obtainable as a totem bottom, reworked to be:
+        - "When a card bearing this sigil is struck, the striker gains 1 Worms."
+    - <<Conductor>> reworked to be:
+        - "Affected cards gain Power equal to half this card's Power. Over the next 3 turns: affect adjacent -> allied -> all other cards and double the Power gained."
+    - <<Ruler of Frost>> reworked to be:
+        - "Activate: Once per turn, pay 3 Bones to choose a space on the board. If the space is occupied by a killable card, transform it into a Frozen Heart. Otherwise create a Block of Ice."
+    - 
+#### Other
+    - Starter decks <<Road to Oz>>, <<Magical Girls!>>, <<Twilight>> now require completing the respective in-game event before unlocking the deck
+        - This can be overriden in the config by-the-by
 ### 💣 Removals
     - Removed emission sprites from some cards
 

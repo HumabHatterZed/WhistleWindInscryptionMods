@@ -1,9 +1,7 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
@@ -11,12 +9,12 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
-    public class Conductor : AbilityBehaviour
+    public class Conductor : AbilityBehaviour, IPassiveAttackBuff
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private int turnCount = 0;
+        public int turnCount = 0;
 
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() => base.LearnAbility(0.4f);
@@ -25,6 +23,7 @@ namespace WhistleWind.AbnormalSigils
         {
             if (turnCount < 3)
                 return base.Card.OpponentCard != onPlayerUpkeep;
+
             return false;
         }
         public override IEnumerator OnUpkeep(bool onPlayerUpkeep)
@@ -36,6 +35,29 @@ namespace WhistleWind.AbnormalSigils
             yield return new WaitForSeconds(0.4f);
             yield return HelperMethods.ChangeCurrentView(View.Default);
         }
+
+        /*
+         * turn 0: n/a
+         * turn 1: adjacent cards +self / 2
+         * turn 2: allied cards +self / 2
+         * turn 3: other cards +self
+         */
+        public int GetPassiveAttackBuff(PlayableCard target)
+        {
+            if (!base.Card.OnBoard || turnCount < 1 || target == base.Card)
+                return 0;
+
+            if (turnCount > 2)
+                return base.Card.Attack;
+
+            if (base.Card.Slot.GetAdjacentCards().Contains(target))
+                return Mathf.FloorToInt(base.Card.Attack / 2);
+
+            if (turnCount > 1 && target.OpponentCard == base.Card.OpponentCard)
+                return Mathf.FloorToInt(base.Card.Attack / 2);
+
+            return 0;
+        }
     }
 
     public partial class AbnormalPlugin
@@ -43,7 +65,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Conductor()
         {
             const string rulebookName = "Conductor";
-            const string rulebookDescription = "While this card is on the board, reduce all other card's Power by the number of turns this card has been on the board, up to 3.";
+            const string rulebookDescription = "Affected cards gain Power equal to half this card's Power. Over the next 3 turns: affect adjacent -> allied -> all other cards and double the Power gained.";
             const string dialogue = "From break and ruin, the most beautiful performance begins.";
 
             Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(

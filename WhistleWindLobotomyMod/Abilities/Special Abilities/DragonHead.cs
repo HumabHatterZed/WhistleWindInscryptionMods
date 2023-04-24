@@ -1,8 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections;
-using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod
 {
@@ -13,7 +11,7 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) =>
             otherCard != base.PlayableCard;// && base.PlayableCard.Info.name != "wstl_yinYangBody";
-        
+
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
             if (otherCard.Info.name == "wstl_yinYangHead")

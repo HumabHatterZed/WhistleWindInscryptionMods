@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Corrector()
         {
             const string rulebookName = "Corrector";
-            const string rulebookDescription = "When [creature] is drawn, randomly change its stats according to its play cost.";
+            const string rulebookDescription = "When [creature] is drawn, randomly change its stats according to its play cost. A higher cost yields a higher stat total.";
             const string dialogue = "How balanced.";
             Corrector.ability = AbnormalAbilityHelper.CreateAbility<Corrector>(
                 Artwork.sigilCorrector, Artwork.sigilCorrector_pixel,
@@ -53,9 +53,9 @@ namespace WhistleWind.AbnormalSigils
             {
                 0 => 0,
                 1 => 4,
-                2 => 7,
-                3 => 11,
-                4 => 18,
+                2 => 8,
+                3 => 13,
+                4 => 20,
                 _ => base.Card.Info.BloodCost * 7
             };
             powerLevel += base.Card.Info.EnergyCost switch
@@ -77,21 +77,26 @@ namespace WhistleWind.AbnormalSigils
             powerLevel += (base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") ?? 0) * 3;
             powerLevel += base.Card.Info.GetExtendedProperty("ForbiddenMoxCost") != null ? 3 : 0;
 
+            if (base.Card.Info.appearanceBehaviour.Contains(CardAppearanceBehaviour.Appearance.RareCardBackground) || 
+                base.Card.Info.HasCardMetaCategory(CardMetaCategory.Rare))
+                powerLevel += 2;
+
             int[] stats = new[] { 0, 1 };
             int randomSeed = base.GetRandomSeed();
 
             while (powerLevel > 0)
             {
                 float num = SeededRandom.Value(randomSeed++);
-
-                if (num < 0.33f && powerLevel >= 2)
+                if (num <= 0.33f && powerLevel >= 2)
                 {
                     stats[0]++;
                     powerLevel -= 2;
-                    continue;
                 }
-                stats[1]++;
-                powerLevel--;
+                else
+                {
+                    stats[1]++;
+                    powerLevel--;
+                }
             }
             base.Card.AddTemporaryMod(new(stats[0] - base.Card.Attack, stats[1] - base.Card.Health));
         }

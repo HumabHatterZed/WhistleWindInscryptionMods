@@ -1,14 +1,7 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
-using InscryptionCommunityPatch.Card;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Resources;
 using UnityEngine;
-using UnityEngine.Assertions;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;

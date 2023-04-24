@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Cursed()
         {
             const string rulebookName = "Cursed";
-            const string rulebookDescription = "When [creature] dies, the killer transforms into this card.";
+            const string rulebookDescription = "When [creature] dies, the killer transforms into a copy of this card.";
             const string dialogue = "The curse continues unabated.";
             Cursed.ability = AbnormalAbilityHelper.CreateAbility<Cursed>(
                 Artwork.sigilCursed, Artwork.sigilCursed_pixel,

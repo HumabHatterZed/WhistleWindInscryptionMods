@@ -12,8 +12,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Syrinx";
-        public static readonly string rDesc = "Nameless Fetus transforms when sacrificed six times.";
+        public const string rName = "Syrinx";
+        public const string rDesc = "Nameless Fetus transforms when sacrificed six times.";
 
         private int sacrificeCount;
 

@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Mimicry";
-        public static readonly string rDesc = "Nothing There reveals itself on death.";
+        public const string rName = "Mimicry";
+        public const string rDesc = "Nothing There reveals itself on death.";
 
         public override bool RespondsToDrawn() => true;
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice;

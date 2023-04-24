@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private void Card_HappyTeddyBear_T0406()
         {
             List<Ability> abilities = new() { Woodcutter.ability };
-            
+
             CreateCard(
                 "wstl_happyTeddyBear", "Happy Teddy Bear",
                 "Its memories began with a warm hug.",

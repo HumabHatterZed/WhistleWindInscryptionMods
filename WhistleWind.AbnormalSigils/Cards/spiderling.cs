@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
-                ForcedRedEmission.appearance
+                CardAppearanceBehaviour.Appearance.RedEmission
             };
             CardHelper.CreateCard(
                 pluginPrefix,

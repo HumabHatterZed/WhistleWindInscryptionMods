@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new() { Roots.ability };
             List<Tribe> tribes = new() { TribeBotanic };
             List<Trait> traits = new() { Trait.KillsSurvivors };
-            
+
             CreateCard(
                 "wstl_snowWhitesApple", "Snow White's Apple",
                 "A poisoned apple brought to life, on a fruitless search for its own happily ever after.",

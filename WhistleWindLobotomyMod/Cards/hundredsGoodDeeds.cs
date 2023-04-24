@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Card_HundredsGoodDeeds_O0303()
         {
             List<Ability> abilities = new() { Confession.ability };
-            
+
             List<Trait> traits = new()
             {
                 Trait.Uncuttable,

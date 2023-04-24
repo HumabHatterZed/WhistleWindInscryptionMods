@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Items;
-using WhistleWind.Core.Helpers;
+using InscryptionAPI.Items.Extensions;
 using System.Collections;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Items.ConsumableItemManager;
-using InscryptionAPI.Items.Extensions;
 
 namespace ModDebuggingMod
 {

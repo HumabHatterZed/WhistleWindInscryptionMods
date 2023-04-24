@@ -1,7 +1,5 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +15,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Concord";
-        public static readonly string rDesc = "When Yang is adjacent to Yin, activate a special sequence.";
+        public const string rName = "Concord";
+        public const string rDesc = "When Yang is adjacent to Yin, activate a special sequence.";
         public override bool RespondsToResolveOnBoard() => true;
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard.Info.name == "wstl_yin";
         public override IEnumerator OnResolveOnBoard()
@@ -91,7 +89,7 @@ namespace WhistleWindLobotomyMod
             int damageToDeal = Mathf.Abs(balance);
 
             Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = damageToDeal;
-            
+
             if (damageToDeal > 0)
             {
                 bool isNegative = balance < 0;

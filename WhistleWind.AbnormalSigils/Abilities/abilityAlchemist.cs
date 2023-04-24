@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
-using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -15,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Alchemist()
         {
             const string rulebookName = "Alchemist";
-            const string rulebookDescription = "Pay 3 Bones to discard your current hand and draw cards equal to the amount discarded.";
+            const string rulebookDescription = "Pay 2 Energy to discard your current hand and draw cards equal to the amount you discarded.";
             const string dialogue = "The unending faith of countless promises.";
 
             Alchemist.ability = AbnormalAbilityHelper.CreateActivatedAbility<Alchemist>(
@@ -27,7 +26,7 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override int StartingBonesCost => 3;
+        public override int StartingEnergyCost => 2;
 
         public override bool CanActivate()
         {

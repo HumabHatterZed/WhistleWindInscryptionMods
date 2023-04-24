@@ -2,9 +2,11 @@
 using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_BitterEnemies()
         {
             const string rulebookName = "Bitter Enemies";
-            const string rulebookDescription = "[creature] gains 1 Power when another card on this board also has this sigil.";
+            const string rulebookDescription = "This card gains 1 Power for each other card on the board that also bears this sigil.";
             const string dialogue = "A bitter grudge laid bare.";
 
             BitterEnemies.ability = AbnormalAbilityHelper.CreateAbility<BitterEnemies>(
@@ -35,23 +37,20 @@ namespace WhistleWind.AbnormalSigils
         // Gives +1 Attack to all cards with Bitter Enemies when two or more exist on the board (including the base)
         public int GetPassiveAttackBuff(PlayableCard target)
         {
-            if (!this.Card.OnBoard || target == this.Card || target.Info.LacksAbility(BitterEnemies.ability))
+            if (!this.Card.OnBoard || target == base.Card || target.Info.LacksAbility(ability))
                 return 0;
 
-            int count = 0;
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot != base.Card.Slot))
-            {
-                if (slot.Card != null && slot.Card.HasAbility(BitterEnemies.ability))
-                    count++;
-            }
+            List<CardSlot> slotsToCount = HelperMethods.GetSlotsCopy(base.Card.OpponentCard).FindAll(x => x.Card != null && x.Card.HasAbility(ability));
+            slotsToCount.Remove(base.Card.Slot);
 
-            return count > 0 ? 1 : 0;
+            return slotsToCount.Count > 0 ? 1 : 0;
         }
+
         public bool ActivateOnPlay()
         {
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot != base.Card.Slot))
             {
-                if (slot.Card != null && slot.Card.HasAbility(BitterEnemies.ability))
+                if (slot.Card != null && slot.Card.HasAbility(ability))
                     return true;
             }
             return false;

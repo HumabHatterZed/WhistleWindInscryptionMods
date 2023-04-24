@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void Card_MHz176_T0727()
         {
             List<Ability> abilities = new() { Ability.BuffEnemy };
-            
+
             CreateCard(
                 "wstl_mhz176", "1.76 MHz",
                 "This is a record, a record of a day we must never forget.",

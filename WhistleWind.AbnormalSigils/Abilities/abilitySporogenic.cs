@@ -1,9 +1,6 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
-using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
@@ -52,7 +49,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Sporogenic()
         {
             const string rulebookName = "Sporogenic";
-            const string rulebookDescription = "At the end of its owner's turn, this card gives 1 Spores to adjacent cards. This sigil activates before other sigils.";
+            const string rulebookDescription = "Creatures adjacent to this card gain 1 Spores at the end of its owner's turn. This sigil activates before other sigils.";
             const string dialogue = "They will love this curse like a blessing.";
             Sporogenic.ability = AbnormalAbilityHelper.CreateAbility<Sporogenic>(
                 Artwork.sigilSporogenic, Artwork.sigilSporogenic_pixel,

@@ -3,7 +3,6 @@ using InscryptionAPI.Card;
 using System;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Properties;
-using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 

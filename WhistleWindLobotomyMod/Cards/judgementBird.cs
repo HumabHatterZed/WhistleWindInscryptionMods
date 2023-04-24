@@ -13,7 +13,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { Marksman.ability };
             List<Tribe> tribes = new() { Tribe.Bird };
-            
+            List<Trait> traits = new() { TraitBlackForest };
+
             CreateCard(
                 "wstl_judgementBird", "Judgement Bird",
                 "A long bird that judges sinners with swift efficiency. It alone is above consequences.",
@@ -21,8 +22,7 @@ namespace WhistleWindLobotomyMod
                 blood: 2, bones: 0, energy: 0,
                 Artwork.judgementBird, Artwork.judgementBird_emission, pixelTexture: Artwork.judgementBird_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                onePerDeck: true,
+                metaCategories: new(), tribes: tribes, traits: traits, onePerDeck: true,
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }

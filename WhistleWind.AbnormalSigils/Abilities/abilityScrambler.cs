@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Patchers;
 using System.Collections;
-using TribalLibary;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;

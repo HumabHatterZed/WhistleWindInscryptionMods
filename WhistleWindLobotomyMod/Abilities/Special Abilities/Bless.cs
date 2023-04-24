@@ -1,9 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
 using Pixelplacement;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
@@ -19,8 +17,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Bless";
-        public static readonly string rDesc = "Upon successfully healing a card using the Healer ability, Plague Doctor changes its appearance.";
+        public const string rName = "Bless";
+        public const string rDesc = "Upon successfully healing a card using the Healer ability, Plague Doctor changes its appearance.";
 
         private readonly string eventIntro3 = "[c:bR]Rise, my servants. Rise and serve me.[c:]";
         private readonly string eventIntroRepeat = "[c:bR]The time has come again. I will be thy guide.[c:]";
@@ -39,20 +37,28 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator CheckTheClock()
         {
-            LobotomyPlugin.Log.LogDebug("Start of CheckTheClock");
-            LobotomyPlugin.Log.LogDebug($"Card is: {base.PlayableCard.Info.name}");
+            LobotomyPlugin.Log.LogDebug("Checking the Clock");
 
-            // If No Events or Blessings are between (0,11), break
-            if (LobotomyConfigManager.Instance.NoEvents
-                || (0 <= LobotomyConfigManager.Instance.NumOfBlessings && LobotomyConfigManager.Instance.NumOfBlessings < 12)
-                || base.PlayableCard.Info.name != "wstl_plagueDoctor")
+            if (LobotomyConfigManager.Instance.NoEvents)
                 yield break;
 
-            LobotomyPlugin.Log.LogDebug("Continuing with CheckTheClock");
+            // if in range [0, 12)
+            if (0 <= LobotomyConfigManager.Instance.NumOfBlessings && LobotomyConfigManager.Instance.NumOfBlessings < 12)
+                yield break;
+
+            LobotomyPlugin.Log.LogDebug("Clock has struck twelve");
+
+            if (Singleton<BoardManager>.Instance.AllSlotsCopy.Exists(x => x.Card != null && x.Card.Info.name == "wstl_whiteNight"))
+            {
+                yield return base.PlayableCard.DieTriggerless();
+                yield return new WaitForSeconds(0.5f);
+                yield return HelperMethods.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]You shall have no other gods before me.[c:]");
+                yield break;
+            }
 
             yield return new WaitForSeconds(0.5f);
 
-            // If blessings are in the negatives (aka someone altered tge config value), wag a finger and go 'nuh-uh-uh!'
+            // If blessings are in the negatives (aka someone altered the config value), wag a finger and go 'nuh-uh-uh!'
             if (LobotomyConfigManager.Instance.NumOfBlessings < 0)
                 yield return HelperMethods.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou cannot stop my ascension. Even the [c:]tutelary[c:bR] bows to my authority.[c:]");
 
@@ -105,7 +111,7 @@ namespace WhistleWindLobotomyMod
             foreach (CardSlot slot in HelperMethods.GetSlotsCopy(isOpponent).Where(slot => slot.Card != null && slot != baseSlot))
             {
                 if (slot.Card.Info.name != "wstl_oneSin")
-                    yield return ConvertToApostle(slot.Card, HasHeretic, sinful);
+                    yield return ConvertToApostle(slot.Card, HasHeretic);
             }
             // If the player has One Sin
             if (sinful)
@@ -159,7 +165,7 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.2f);
         }
 
-        private IEnumerator ConvertToApostle(PlayableCard otherCard, bool HasHeretic, bool HasOneSin = false)
+        private IEnumerator ConvertToApostle(PlayableCard otherCard, bool HasHeretic)
         {
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
 
@@ -220,6 +226,7 @@ namespace WhistleWindLobotomyMod
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
 
             yield return new WaitForSeconds(0.2f);
+            LobotomySaveManager.UnlockedWhiteNight = true;
         }
 
 

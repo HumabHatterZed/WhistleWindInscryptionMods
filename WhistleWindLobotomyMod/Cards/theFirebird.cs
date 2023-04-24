@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Burning.ability,
+                Scorching.ability,
                 Ability.Flying
             };
             List<Tribe> tribes = new() { Tribe.Bird };

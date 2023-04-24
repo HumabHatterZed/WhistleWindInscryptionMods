@@ -1,13 +1,10 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -18,8 +15,8 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-        public static readonly string rName = "Cowardly";
-        public static readonly string rDesc = "While Scaredy Cat is on the board, if an ally card has at least 1 Power, Scaredy Cat transforms into a stronger forme.";
+        public const string rName = "Cowardly";
+        public const string rDesc = "Ff an ally card on the board has at least 1 Power, Scaredy Cat transforms into a stronger forme.";
 
         public bool RespondsToBellRung(bool playerCombatPhase) => base.PlayableCard.OpponentCard != playerCombatPhase;
         public override bool RespondsToResolveOnBoard() => true;

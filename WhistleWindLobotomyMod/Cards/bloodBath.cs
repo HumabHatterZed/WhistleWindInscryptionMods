@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { Ability.TripleBlood };
             List<Trait> traits = new() { Trait.Goat };
-            
+
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 WristCutter.specialAbility,

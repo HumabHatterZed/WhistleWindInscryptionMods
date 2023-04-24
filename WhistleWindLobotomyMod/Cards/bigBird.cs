@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { Cycler.ability };
             List<Tribe> tribes = new() { Tribe.Bird };
-            
+            List<Trait> traits = new() { TraitEmeraldCity };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 ThreeBirds.specialAbility
@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 blood: 2, bones: 0, energy: 0,
                 Artwork.bigBird, Artwork.bigBird_emission, pixelTexture: Artwork.bigBird_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new(), onePerDeck: true,
+                metaCategories: new(), tribes: tribes, traits: traits, onePerDeck: true,
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
                 evolveName: "[name]Bigger Bird");
         }

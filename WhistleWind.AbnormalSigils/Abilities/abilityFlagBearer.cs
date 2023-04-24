@@ -2,7 +2,6 @@
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
-using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
 
@@ -13,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FlagBearer()
         {
             const string rulebookName = "Flag Bearer";
-            const string rulebookDescription = "While this card is on the board, adjacent cards gain 2 Health.";
+            const string rulebookDescription = "While this card is on the board, adjacent creatures gain 2 Health.";
             const string dialogue = "Morale runs high.";
 
             FlagBearer.ability = AbnormalAbilityHelper.CreateAbility<FlagBearer>(

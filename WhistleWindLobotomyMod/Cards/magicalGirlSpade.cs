@@ -18,6 +18,7 @@ namespace WhistleWindLobotomyMod
                 Piercing.ability
             };
             List<Tribe> tribes = new() { TribeFae };
+            List<Trait> traits = new() { TraitMagicalGirl };
 
             List<SpecialTriggeredAbility> specialAbilties = new()
             {
@@ -30,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 blood: 2, bones: 0, energy: 0,
                 Artwork.knightOfDespair, Artwork.knightOfDespair_emission, Artwork.knightOfDespair_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
+                metaCategories: new(), tribes: tribes, traits: traits,
                 appearances: new(), onePerDeck: true);
 
             abilities = new() { Protector.ability };
@@ -42,7 +43,7 @@ namespace WhistleWindLobotomyMod
                 blood: 2, bones: 0, energy: 0,
                 Artwork.magicalGirlSpade, Artwork.magicalGirlSpade_emission, pixelTexture: Artwork.magicalGirlSpade_pixel,
                 abilities: abilities, specialAbilities: specialAbilties,
-                metaCategories: new(), tribes: tribes, traits: new(), onePerDeck: true,
+                metaCategories: new(), tribes: tribes, traits: traits, onePerDeck: true,
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }

@@ -2,7 +2,7 @@
 
 namespace WhistleWindLobotomyMod.Core
 {
-    public static partial class LobotomySaveManager
+    public static class LobotomySaveManager
     {
         public static bool LearnedAbnormalChoice
         {
@@ -14,21 +14,26 @@ namespace WhistleWindLobotomyMod.Core
             get => GetSaveBool("LearnedSefirotChoice");
             set => SetSaveBool("LearnedSefirotChoice", value);
         }
-        public static bool TriggeredWhiteNightThisRun
+        public static bool ShownAbnormalEncounters
         {
-            // Has the Clock struck twelve this run?
-            get => GetRunBool("TriggeredWhiteNightThisRun");
-            set => SetRunBool("TriggeredWhiteNightThisRun", value);
+            get => GetRunBool("ShownAbnormalEncounters");
+            set => SetRunBool("ShownAbnormalEncounters", value);
         }
         public static bool UsedBackwardClock
         {
             get => GetRunBool("UsedBackwardClock");
             set => SetRunBool("UsedBackwardClock", value);
         }
-        public static bool ShownAbnormalEncounters
+        public static bool TriggeredWhiteNightThisRun
         {
-            get => GetRunBool("ShownAbnormalEncounters");
-            set => SetRunBool("ShownAbnormalEncounters", value);
+            // Has the Clock struck twelve this run?
+            get => GetRunBool("TriggeredWhiteNightThisRun");
+            set => SetRunBool("TriggeredWhiteNightThisRun", value);
+        }
+        public static bool UnlockedWhiteNight
+        {
+            get => GetSaveBool("HasSeenWhiteNight");
+            set => SetSaveBool("HasSeenWhiteNight", value);
         }
         public static bool OwnsApocalypseBird
         {
@@ -60,10 +65,25 @@ namespace WhistleWindLobotomyMod.Core
             get => GetRunBool("BoardEffectsEntropy");
             set => SetRunBool("BoardEffectsEntropy", value);
         }
-        public static bool HasGottenAngelaOnce
+        public static bool UnlockedApocalypseBird
         {
-            get => GetSaveBool("HasGottenAngelaOnce");
-            set => SetSaveBool("HasGottenAngelaOnce", value);
+            get => GetSaveBool("UnlockedApocalypseBird");
+            set => SetSaveBool("UnlockedApocalypseBird", value);
+        }
+        public static bool UnlockedJesterOfNihil
+        {
+            get => GetSaveBool("UnlockedJesterOfNihil");
+            set => SetSaveBool("UnlockedJesterOfNihil", value);
+        }
+        public static bool UnlockedLyingAdult
+        {
+            get => GetSaveBool("UnlockedLyingAdult");
+            set => SetSaveBool("UnlockedLyingAdult", value);
+        }
+        public static bool UnlockedAngela
+        {
+            get => GetSaveBool("UnlockedAngela");
+            set => SetSaveBool("UnlockedAngela", value);
         }
 
         private static bool GetRunBool(string id) => ModdedSaveManager.RunState.GetValueAsBoolean(LobotomyPlugin.pluginGuid, id);

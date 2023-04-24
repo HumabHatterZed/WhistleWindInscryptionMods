@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using GBC;
 using HarmonyLib;
 using System.Collections;
 using WhistleWindLobotomyMod.Core;
@@ -8,10 +9,9 @@ namespace WhistleWindLobotomyMod.Patches
     [HarmonyPatch(typeof(Opponent))]
     public class OpponentPatch
     {
-        // Reset board effects for event cards
-        // and the Clock for WhiteNight
+        // Reset board effects for event cards and the Clock for WhiteNight
         [HarmonyPostfix, HarmonyPatch(nameof(Opponent.OutroSequence))]
-        public static IEnumerator ResetEffects(IEnumerator enumerator)
+        public static IEnumerator ResetEffects(IEnumerator enumerator, Opponent __instance)
         {
             if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
             {
@@ -24,21 +24,13 @@ namespace WhistleWindLobotomyMod.Patches
                 else
                     LobotomyConfigManager.Instance.SetBlessings(11);
             }
-            if (LobotomySaveManager.BoardEffectsApocalypse)
-            {
-                LobotomySaveManager.BoardEffectsApocalypse = false;
-                Singleton<TableVisualEffectsManager>.Instance.ResetTableColors();
-            }
-            if (LobotomySaveManager.BoardEffectsEntropy)
-            {
-                LobotomySaveManager.BoardEffectsEntropy = false;
-                Singleton<TableVisualEffectsManager>.Instance.ResetTableColors();
-            }
-            if (LobotomySaveManager.BoardEffectsEntropy)
-            {
-                LobotomySaveManager.BoardEffectsEntropy = false;
-                Singleton<TableVisualEffectsManager>.Instance.ResetTableColors();
-            }
+
+            LobotomySaveManager.BoardEffectsApocalypse = false;
+            LobotomySaveManager.BoardEffectsEmerald = false;
+            LobotomySaveManager.BoardEffectsEntropy = false;
+
+            if (__instance is not PixelOpponent)
+                Singleton<TableVisualEffectsManager>.Instance?.ResetTableColors();
 
             yield return enumerator;
         }

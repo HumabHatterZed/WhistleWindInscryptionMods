@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
 using Sirenix.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Healer()
         {
             const string rulebookName = "Healer";
-            const string rulebookDescription = "On turn's end, heal a selected ally for 2 Health.";
+            const string rulebookDescription = "At the end of your turn, you may select one of your cards to heal by 2 Health, excluding this card.";
             const string dialogue = "Never underestimate the importance of a healer.";
             Healer.ability = AbnormalAbilityHelper.CreateAbility<Healer>(
                 Artwork.sigilHealer, Artwork.sigilHealer_pixel,
@@ -54,8 +53,8 @@ namespace WhistleWind.AbnormalSigils
         {
             if (DoctorComponent != null)
             {
-                yield return DoctorComponent?.TriggerBlessing();
-                yield return DoctorComponent?.TriggerClock();
+                yield return DoctorComponent.TriggerBlessing();
+                yield return DoctorComponent.TriggerClock();
             }
             yield break;
         }

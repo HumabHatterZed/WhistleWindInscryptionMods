@@ -17,6 +17,7 @@ namespace WhistleWindLobotomyMod
                 Punisher.ability
             };
             List<Tribe> tribes = new() { Tribe.Bird };
+            List<Trait> traits = new() { TraitEmeraldCity };
 
             CreateCard(
                 "wstl_punishingBird", "Punishing Bird",
@@ -25,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.punishingBird, Artwork.punishingBird_emission, pixelTexture: Artwork.punishingBird_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
+                metaCategories: new(), tribes: tribes, traits: traits,
                 choiceType: CardHelper.CardChoiceType.Basic, onePerDeck: true, riskLevel: RiskLevel.Teth);
         }
     }

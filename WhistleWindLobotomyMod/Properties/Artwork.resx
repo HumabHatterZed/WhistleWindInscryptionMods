@@ -145,6 +145,9 @@
   <data name="apocalypseBird_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\apocalypseBird_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="apocalypseBird_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\apocalypseBird_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="apostleGuardian" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\apostleGuardian.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -235,11 +238,29 @@
   <data name="ascensionAbnormalEncounters_activated" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\ascensionAbnormalEncounters_activated.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ascensionBeastStart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ascensionBeastStart.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionBeastStart_activated" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ascensionBeastStart_activated.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="ascensionBetterRareChances" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\ascensionBetterRareChances.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ascensionBetterRareChances_activated" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\ascensionBetterRareChances_activated.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionJesterStart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ascensionJesterStart.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionJesterStart_activated" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ascensionJesterStart_activated.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionLiarStart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ascensionLiarStart.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ascensionLiarStart_activated" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\ascensionLiarStart_activated.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ascensionMiracleWorker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\ascensionMiracleWorker.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -520,6 +541,9 @@
   <data name="jesterOfNihil_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\jesterOfNihil_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="jesterOfNihil_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\jesterOfNihil_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="judgementBird" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\judgementBird.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -567,6 +591,9 @@
   </data>
   <data name="lyingAdult_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\lyingAdult_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lyingAdult_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\lyingAdult_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="magicalGirlClover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\magicalGirlClover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -973,6 +1000,9 @@
   <data name="servantOfWrath_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\servantOfWrath_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="servantOfWrath_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\servantOfWrath_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="shelterFrom27March" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\shelterFrom27March.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1186,6 +1216,60 @@
   <data name="talkingHodMouthOpen6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingHodMouthOpen6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="talkingNetzachBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachEyesClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachEyesClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachEyesClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachEyesClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachEyesClosed3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachEyesClosed3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachEyesClosed5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachEyesClosed5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachEyesEmission1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\talkingNetzachEyesEmission1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachEyesOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachEyesOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachEyesOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachEyesOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachEyesOpen5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachEyesOpen5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachMouthClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachMouthClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachMouthClosed4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachMouthClosed4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachMouthClosed5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachMouthClosed5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachMouthOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachMouthOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachMouthOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachMouthOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachMouthOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachMouthOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachMouthOpen4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachMouthOpen4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachMouthOpen5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachMouthOpen5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="talkingYesodBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingYesodBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1242,6 +1326,12 @@
   </data>
   <data name="theNakedNest_emission" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\theNakedNest_emission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="theNakedWorm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\theNakedWorm.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="theNakedWorm_pixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\theNakedWorm_pixel.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="theresia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\theresia.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

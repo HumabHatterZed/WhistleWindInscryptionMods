@@ -1,15 +1,7 @@
 ﻿using DiskCardGame;
-using WhistleWind.Core.Helpers;
 using ModDebuggingMod.Properties;
 using System.Collections.Generic;
-using InscryptionAPI.Card;
-using InscryptionAPI.Pelts;
-using WhistleWindLobotomyMod;
-using InscryptionAPI.Pelts.Extensions;
-using InscryptionAPI.Nodes;
-using System;
-using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Core;
+using WhistleWind.Core.Helpers;
 
 namespace ModDebuggingMod
 {
@@ -19,16 +11,15 @@ namespace ModDebuggingMod
         {
             List<Ability> abilities = new()
             {
-                Ability.TripleBlood,
-                SerpentsNest.ability
+                Ability.RandomAbility
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                StarSound.specialAbility
+                //StarSound.specialAbility
             };
             List<Tribe> tribes = new()
             {
-                LobotomyCardManager.TribeDivine
+                //AbnormalPlugin.TribeDivine
             };
             List<Trait> traits = new()
             {
@@ -38,14 +29,24 @@ namespace ModDebuggingMod
             {
 
             };
-            CardHelper.CreateCard(
+            CardInfo card = CardHelper.CreateCard(
                 "wstl", "wstlcard", "Debug",
                 "You shouldn't see this.",
-                0, 99, 0, 0, 0,
-                null, null,
+                5, 99, 0, 0, 0,
+                Resources.allAroundHelper_emission, Resources.allAroundHelper_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: traits,
                 evolveName: "Buggy {0}");
+
+            card.Mods.Add(new() { gemify = true });
+
+            /*            CardInfo moxOrange1 = CardManager.New("wstl", "wstlmoxblue", "Orange", 0, 1);
+                        moxOrange1.SetGemsCost(new() { GemType.Blue });
+                        moxOrange1.SetDefaultPart1Card();
+
+                        CardInfo moxOrange2 = CardManager.New("wstl", "wstlmoxgreen", "Orange", 0, 1);
+                        moxOrange2.SetGemsCost(new() { GemType.Green, GemType.Orange });
+                        moxOrange2.SetDefaultPart1Card();*/
         }
     }
 }

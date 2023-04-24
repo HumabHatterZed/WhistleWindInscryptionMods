@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Piercing()
         {
             const string rulebookName = "Piercing";
-            const string rulebookDescription = "Damage dealt by [creature] cannot be negated or reduced by sigils such as Repulsive or Thick Skin.";
+            const string rulebookDescription = "Damage dealt by this card cannot be negated or reduced by sigils such as Repulsive or Thick Skin.";
             const string dialogue = "Defences broken through.";
 
             Piercing.ability = AbnormalAbilityHelper.CreateAbility<Piercing>(

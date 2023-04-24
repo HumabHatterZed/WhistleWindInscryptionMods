@@ -24,7 +24,8 @@ namespace WhistleWind.AbnormalSigils
                 blood: 0, bones: 0, energy: 0,
                 Artwork.snowWhitesVine, pixelTexture: Artwork.snowWhitesVine_pixel,
                 abilities: abilities,
-                metaCategories: new(), tribes: tribes, traits: new());
+                metaCategories: new(), tribes: tribes, traits: new(),
+                metaTypes: CardHelper.CardMetaType.Terrain);
         }
     }
 }

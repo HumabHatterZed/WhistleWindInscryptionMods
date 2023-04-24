@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_meltingLove", "Melting Love",
                 "Don't let your beasts get too close now.",
-                atk: 4, hp: 2,
+                atk: 4, hp: 3,
                 blood: 3, bones: 0, energy: 0,
                 Artwork.meltingLove, Artwork.meltingLove_emission,
                 abilities: abilities, specialAbilities: specialAbilities,

@@ -3,9 +3,8 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Challenges;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod.Patches
@@ -14,23 +13,23 @@ namespace WhistleWindLobotomyMod.Patches
     internal static class AscensionSaveDataPatch
     {
         [HarmonyPrefix, HarmonyPatch(nameof(AscensionSaveData.NewRun))]
-        public static void AscensionModStarterDecks(ref List<CardInfo> starterDeck)
+        private static void AscensionModStarterDecks(ref List<CardInfo> starterDeck)
         {
             int tickCount = Environment.TickCount;
 
             // if all cards are disabled and this starter deck has mod cards in it, replace them mod death cards
-            if (LobotomyPlugin.AllCardsDisabled && starterDeck.Exists(x => AllLobotomyCards.Contains(x)))
+            if (LobotomyPlugin.AllCardsDisabled)
             {
-                for (int i = 0; i < starterDeck.Count; i++)
+                if (starterDeck.Exists(x => AllLobotomyCards.Contains(x)))
                 {
-                    if (AllLobotomyCards.Contains(starterDeck[i]))
-                        starterDeck[i] = LobotomyCardLoader.GetRandomModDeathCard(tickCount++);
+                    for (int i = 0; i < starterDeck.Count; i++)
+                    {
+                        if (AllLobotomyCards.Contains(starterDeck[i]))
+                            starterDeck[i] = LobotomyCardLoader.GetRandomModDeathCard(tickCount++);
+                    }
                 }
-
-                return;
             }
-            // if the starter deck has a placeholder card in it
-            if (starterDeck.Exists(x => x.name == "wstl_RANDOM_PLACEHOLDER"))
+            else if (starterDeck.Exists(x => x.name == "wstl_RANDOM_PLACEHOLDER")) // if the starter deck has a placeholder card in it
             {
                 List<CardInfo> newStarterDeck = new();
                 bool addRare = SeededRandom.Value(tickCount++) <= 0.05f;
@@ -43,13 +42,13 @@ namespace WhistleWindLobotomyMod.Patches
                     validCards.RemoveAll(x => x.HasTrait(TraitSephirah));
                     validCards.RemoveAll(x => x.onePerDeck && newStarterDeck.Contains(x));
 
-                    int randomIdx = UnityEngine.Random.Range(0, validCards.Count);
+                    int randomIdx = SeededRandom.Range(0, validCards.Count, SaveManager.SaveFile.GetCurrentRandomSeed());
                     CardInfo cardToAdd = validCards[randomIdx];
 
                     // starting deck cannot have rare (if non-Aleph cards can be pulled) or sefirot cards
-                    while (!addRare && cardToAdd.metaCategories.Contains(CardMetaCategory.Rare))
+                    while (!addRare && cardToAdd.HasCardMetaCategory(CardMetaCategory.Rare))
                     {
-                        randomIdx = UnityEngine.Random.Range(0, ObtainableLobotomyCards.Count);
+                        randomIdx = SeededRandom.Range(0, ObtainableLobotomyCards.Count, SaveManager.SaveFile.GetCurrentRandomSeed());
                         cardToAdd = ObtainableLobotomyCards[randomIdx];
                     }
 
@@ -59,6 +58,15 @@ namespace WhistleWindLobotomyMod.Patches
                 }
                 starterDeck = newStarterDeck;
             }
+
+            if (AscensionSaveData.Data.ChallengeIsActive(ApocalypseBirdStart.Id))
+                starterDeck.Add(CardLoader.GetCardByName("wstl_apocalypseBird"));
+
+            if (AscensionSaveData.Data.ChallengeIsActive(JesterOfNihilStart.Id))
+                starterDeck.Add(CardLoader.GetCardByName("wstl_jesterOfNihil"));
+
+            if (AscensionSaveData.Data.ChallengeIsActive(LyingAdultStart.Id))
+                starterDeck.Add(CardLoader.GetCardByName("wstl_lyingAdult"));
         }
     }
 }

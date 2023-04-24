@@ -12,39 +12,26 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_MagicalGirlClover_O01111()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.DoubleStrike,
-                Burning.ability,
-                Burning.ability
-            };
             List<Tribe> tribes = new() { TribeFae, Tribe.Reptile };
-            
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
+            List<Trait> traits = new() { TraitMagicalGirl };
 
-            };
             CreateCard(
                 "wstl_servantOfWrath", "Servant of Wrath",
                 "",
-                atk: 2, hp: 4,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.servantOfWrath, Artwork.servantOfWrath_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                onePerDeck: true);
-
-            abilities = new() { Burning.ability };
-            tribes = new() { TribeFae };
+                atk: 3, hp: 2,
+                blood: 2, bones: 0, energy: 0,
+                Artwork.servantOfWrath, Artwork.servantOfWrath_emission, Artwork.servantOfWrath_pixel,
+                abilities: new() { Ability.DoubleStrike }, specialAbilities: new() { BlindRage.specialAbility },
+                metaCategories: new(), tribes: tribes, traits: traits, onePerDeck: true);
 
             CreateCard(
                 "wstl_magicalGirlClover", "Magical Girl",
                 "Blind protector of another world.",
-                atk: 1, hp: 2,
-                blood: 1, bones: 0, energy: 0,
+                atk: 2, hp: 2,
+                blood: 2, bones: 0, energy: 0,
                 Artwork.magicalGirlClover, Artwork.magicalGirlClover_emission, pixelTexture: Artwork.magicalGirlClover_pixel,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new(), onePerDeck: true,
+                abilities: new() { Scorching.ability }, specialAbilities: new() { PinkTears.specialAbility },
+                metaCategories: new(), tribes: new() { TribeFae }, traits: traits, onePerDeck: true,
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
                 modTypes: ModCardType.Ruina);
         }

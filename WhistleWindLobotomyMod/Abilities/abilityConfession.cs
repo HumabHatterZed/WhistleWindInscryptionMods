@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 

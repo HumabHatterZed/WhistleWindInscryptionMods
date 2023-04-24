@@ -1,7 +1,5 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Properties;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod

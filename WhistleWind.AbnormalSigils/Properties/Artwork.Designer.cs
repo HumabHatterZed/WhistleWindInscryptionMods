@@ -563,26 +563,6 @@ namespace WhistleWind.AbnormalSigils.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] sigilBurning {
-            get {
-                object obj = ResourceManager.GetObject("sigilBurning", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] sigilBurning_pixel {
-            get {
-                object obj = ResourceManager.GetObject("sigilBurning_pixel", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] sigilConductor {
             get {
                 object obj = ResourceManager.GetObject("sigilConductor", resourceCulture);
@@ -1263,6 +1243,26 @@ namespace WhistleWind.AbnormalSigils.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] sigilScorching {
+            get {
+                object obj = ResourceManager.GetObject("sigilScorching", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sigilScorching_pixel {
+            get {
+                object obj = ResourceManager.GetObject("sigilScorching_pixel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] sigilScrambler {
             get {
                 object obj = ResourceManager.GetObject("sigilScrambler", resourceCulture);
@@ -1716,26 +1716,6 @@ namespace WhistleWind.AbnormalSigils.Properties {
         internal static byte[] theLittlePrinceMinion_emission {
             get {
                 object obj = ResourceManager.GetObject("theLittlePrinceMinion_emission", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] theNakedWorm {
-            get {
-                object obj = ResourceManager.GetObject("theNakedWorm", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] theNakedWorm_pixel {
-            get {
-                object obj = ResourceManager.GetObject("theNakedWorm_pixel", resourceCulture);
                 return ((byte[])(obj));
             }
         }

@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                evolveName:"[name]The Elder Dreaming Current");
+                evolveName: "[name]The Elder Dreaming Current");
         }
     }
 }

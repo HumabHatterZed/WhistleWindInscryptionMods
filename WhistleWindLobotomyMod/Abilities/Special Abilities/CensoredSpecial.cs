@@ -13,8 +13,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "CENSORED";
-        public static readonly string rDesc = "Whenver CENSORED kills a card, create a CENSORED copy of it in your hand.";
+        public const string rName = "CENSORED";
+        public const string rDesc = "Whenver CENSORED kills a card, create a CENSORED copy of it in your hand.";
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {

@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 "Don't look away. Contain it in your sight.",
                 atk: 0, hp: 2,
                 blood: 1, bones: 0, energy: 0,
-                Artwork.burrowingHeaven, Artwork.burrowingHeaven_emission,
+                Artwork.burrowingHeaven, Artwork.burrowingHeaven_emission, Artwork.burrowingHeaven_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,

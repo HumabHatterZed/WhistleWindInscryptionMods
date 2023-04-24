@@ -37,6 +37,9 @@ namespace WhistleWind.AbnormalSigils
                     return cardByName;
                 }
                 List<CardInfo> list = ScriptableObjectLoader<CardInfo>.AllData.FindAll((CardInfo x) => x.metaCategories.Contains(CardMetaCategory.ChoiceNode));
+                if (base.Card.Info.onePerDeck)
+                    list.Remove(base.Card.Info);
+
                 return list[SeededRandom.Range(0, list.Count, base.GetRandomSeed())];
             }
         }

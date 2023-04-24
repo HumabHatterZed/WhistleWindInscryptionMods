@@ -9,7 +9,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Marksman()
         {
             const string rulebookName = "Marksman";
-            const string rulebookDescription = "You may choose which opposing space a card bearing this sigil strikes.";
+            const string rulebookDescription = "You may choose which opposing spaces this card strikes.";
             const string dialogue = "Your beast strikes with precision.";
 
             Marksman.ability = AbnormalAbilityHelper.CreateAbility<Marksman>(

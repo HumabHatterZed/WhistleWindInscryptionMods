@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { BitterEnemies.ability };
             List<Tribe> tribes = new() { Tribe.Canine };
-            
+
             CreateCard(
                 "wstl_willBeBadWolf", "Big and Will Be Bad Wolf",
                 "It is no coincidence that wolves are the villains of so many tales.",

@@ -1,18 +1,14 @@
 using DiskCardGame;
-using EasyFeedback.APIs;
 using HarmonyLib;
 using Infiniscryption.Core.Helpers;
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
 using Pixelplacement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static Infiniscryption.Spells.InfiniscryptionSpellsPlugin;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Infiniscryption.Spells.Patchers
 {
@@ -177,7 +173,7 @@ namespace Infiniscryption.Spells.Patchers
             }
         }
         #endregion
-        
+
         #region Main Spell Patches
         // First: we don't need room on board
         [HarmonyPatch(typeof(BoardManager), "SacrificesCreateRoomForCard")]
@@ -425,7 +421,7 @@ namespace Infiniscryption.Spells.Patchers
 
                 Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue);
                 yield return new WaitForSeconds(0.3f);
-                
+
                 // move card to position above board corresponding to the side it's targeting
                 Tween.LocalPosition(card.transform, new(0.65f, 6.2f, targetPlayer ? 0f : 1f),
                     0.1f, 0f, Tween.EaseOut, Tween.LoopType.None, delegate
@@ -473,7 +469,7 @@ namespace Infiniscryption.Spells.Patchers
 
                         if (visualiser?.sniperIcons.Count > i && visualiser?.sniperIcons[i] != null)
                             visualiser?.CleanUpTargetIcon(visualiser?.sniperIcons[i]);
-                        
+
                         for (bool active = true; active;)
                         {
                             try // Catch exceptions only on executing/resuming the iterator function
@@ -629,7 +625,7 @@ namespace Infiniscryption.Spells.Patchers
         private static List<TriggerReceiver> GetAllReceivers(CardTriggerHandler handler)
         {
             List<TriggerReceiver> list = new();
-            
+
             foreach (Tuple<SpecialTriggeredAbility, SpecialCardBehaviour> specialAbility in handler.specialAbilities)
                 list.Add(specialAbility.Item2);
 

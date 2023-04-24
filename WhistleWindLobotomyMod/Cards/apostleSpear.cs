@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             };
             List<Tribe> tribes = new() { TribeDivine };
             List<Trait> traits = new() { TraitApostle };
-            
+
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {
                 ForcedWhiteEmission.appearance

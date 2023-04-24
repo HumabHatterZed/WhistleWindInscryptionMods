@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Triggers;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -13,8 +12,8 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Neutered()
         {
             const string rulebookName = "Neutered";
-            const string rulebookDescription = "[creature] has it Power reduced to 0. This sigil is removed on upkeep.";
-            const string dialogue = "femboy";
+            const string rulebookDescription = "[creature] has its Power reduced to 0. At the start of the owner's turn, remove this sigil.";
+            const string dialogue = "";
             Neutered.ability = AbnormalAbilityHelper.CreateAbility<Neutered>(
                 Artwork.sigilNeutered, Artwork.sigilNeutered_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,

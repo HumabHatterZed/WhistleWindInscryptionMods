@@ -5,7 +5,6 @@ using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 // Patches to make abilities function properly
@@ -17,11 +16,11 @@ namespace WhistleWind.AbnormalSigils.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
         private static void ModifyTakenDamage(ref PlayableCard __instance, ref int damage, PlayableCard attacker)
         {
-            bool piercingAttacker = attacker != null && attacker.HasAbility(Piercing.ability);
+            bool attackerHasPiercing = attacker != null && attacker.HasAbility(Piercing.ability);
 
             damage += __instance.Info.GetExtendedPropertyAsInt("wstl:Prudence") ?? 0;
 
-            if (!piercingAttacker)
+            if (!attackerHasPiercing)
             {
                 damage -= __instance.GetAbilityStacks(ThickSkin.ability);
                 damage -= __instance.Slot.GetAdjacentCards().FindAll(x => x.HasAbility(Protector.ability)).Count;
@@ -44,44 +43,6 @@ namespace WhistleWind.AbnormalSigils.Patches
 
             if (damage < 0)
                 damage = 0;
-        }
-
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.AttackIsBlocked))]
-        private static void PiercingNegatesRepulsive(PlayableCard __instance, CardSlot opposingSlot, ref bool __result)
-        {
-            if (!__result)
-                return;
-
-            if (__instance.HasAbility(Piercing.ability))
-            {
-                if (opposingSlot.Card != null && opposingSlot.Card.HasAbility(Ability.PreventAttack))
-                {
-                    if (__instance.LacksAbility(Ability.Flying) || opposingSlot.Card.HasAbility(Ability.Reach))
-                        __result = false;
-                }
-            }
-        }
-
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
-        private static void ModifyAttack(PlayableCard __instance, ref int __result)
-        {
-            if (!__instance.OnBoard)
-                return;
-
-            if (__instance.HasAbility(Neutered.ability))
-            {
-                __result = 0;
-                if (__instance.Info.Attack + __instance.GetAttackModifications() + __instance.GetPassiveAttackBuffs() > 0)
-                    __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
-                return;
-            }
-            List<CardSlot> slotsToCheck = Singleton<BoardManager>.Instance.AllSlotsCopy.FindAll(x => x.Card != null && x.Card != __instance);
-            if (slotsToCheck.Exists(x => x.Card.HasAbility(Conductor.ability)))
-            {
-                __result = 1;
-                if (__instance.Info.Attack + __instance.GetAttackModifications() + __instance.GetPassiveAttackBuffs() != 1)
-                    __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
-            }
         }
 
         private static bool CheckValidOneSided(PlayableCard attacker, PlayableCard target)
@@ -111,8 +72,46 @@ namespace WhistleWind.AbnormalSigils.Patches
             // otherwise return true
             return true;
         }
+
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.AttackIsBlocked))]
+        private static void PiercingNegatesRepulsive(PlayableCard __instance, CardSlot opposingSlot, ref bool __result)
+        {
+            if (!__result)
+                return;
+
+            if (__instance.HasAbility(Piercing.ability))
+            {
+                if (opposingSlot.Card != null && opposingSlot.Card.HasAbility(Ability.PreventAttack))
+                {
+                    if (__instance.LacksAbility(Ability.Flying) || opposingSlot.Card.HasAbility(Ability.Reach))
+                        __result = false;
+                }
+            }
+        }
+
+        #region Neutered patches
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
+        private static void ModifyAttackStat(PlayableCard __instance, ref int __result)
+        {
+            if (!__instance.OnBoard || __instance.LacksAbility(Neutered.ability))
+                return;
+
+            if (__instance.Info.Attack + __instance.GetPassiveAttackBuffs() > 0)
+                __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
+
+            __result = 0;
+        }
+
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.OnStatsChanged))]
+        private static void NeuteredColourChange(PlayableCard __instance)
+        {
+            if (__instance.HasAbility(Neutered.ability))
+                __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
+        }
+        #endregion
     }
 
+    #region Sporogenic patch
     [HarmonyPatch(typeof(GlobalTriggerHandler))]
     internal class GlobalTriggerHandlerPatches
     {
@@ -149,6 +148,9 @@ namespace WhistleWind.AbnormalSigils.Patches
             yield return enumerator;
         }
     }
+    #endregion
+
+    #region ImmuneToInstaDeath patch
     [HarmonyPatch(typeof(Deathtouch))]
     internal class DeathtouchPatch
     {
@@ -160,4 +162,5 @@ namespace WhistleWind.AbnormalSigils.Patches
                 __result = target.LacksAbility(Ability.MadeOfStone) && target.LacksTrait(AbnormalPlugin.ImmuneToInstaDeath);
         }
     }
+    #endregion
 }

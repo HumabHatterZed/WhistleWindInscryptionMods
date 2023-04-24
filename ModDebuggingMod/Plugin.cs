@@ -5,19 +5,11 @@ using HarmonyLib;
 using InscryptionAPI.Ascension;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
-using InscryptionAPI.Helpers;
-using InscryptionAPI.Pelts;
 using InscryptionAPI.Regions;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Opponents;
-using static DiskCardGame.EncounterBlueprintData;
 using static InscryptionAPI.Encounters.EncounterManager;
 
 namespace ModDebuggingMod
@@ -33,51 +25,33 @@ namespace ModDebuggingMod
         private const string pluginVersion = "1.0.0";
 
         internal static ManualLogSource Log;
-        private static Harmony harmony;
-        public static EncounterBlueprintData ModdingEncounter
-        {
-            get
-            {
-                return New("DebugEncounter")
+        private static Harmony HarmonyInstance = new(pluginGuid);
+        public static EncounterBlueprintData ModdingEncounter =>
+            New("DebugEncounter")
                     .AddDominantTribes(Tribe.Canine)
                     .AddTurns(
-                    CreateTurn(),
+                    CreateTurn("wstlcard", "wstlcard", "wstlcard"),
                     CreateTurn()
                     );
-            }
-        }
 
-        private void Start()
-        {
-        }
         private void Awake()
         {
-            Plugin.Log = base.Logger;
-            harmony = Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), pluginGuid);
-            
+            Log = base.Logger;
+            HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+
             // AddChallenges();
+            // ItemDebug();
 
-            ItemDebug();
             CARD_DEBUG();
+            // DebugEncounters();
+            // ModifyCardList();
 
-            // TestField();
-
-            // clears regions and add debug encounter
-/*            for (int i = 0; i < 3; i++)
+            StarterDeckHelper.AddStarterDeck("wstl", "DEBUG HUG", Properties.Resources.starterDeckMagicalGirls, 0, cardNames: new()
             {
-                RegionProgression.Instance.regions[i].encounters.Clear();
-                RegionProgression.Instance.regions[i].AddEncounters(LobotomyEncounterManager.HelperJuggernaut);
-            }*/
-
-
-            AddStartDeck("DEBUG HUG", Properties.Resources.starterDeckMagicalGirls, new()
-            {
-                CardLoader.GetCardByName("Squirrel"),
-                CardLoader.GetCardByName("wstlcard"),
-                CardLoader.GetCardByName("wstlcard")
-            }, 0);
-
-            //ModifyCardList();
+                "Squirrel",
+                "wstlcard",
+                "wstlcard"
+            });
 
             Logger.LogInfo($"{pluginName} loaded.");
         }
@@ -88,20 +62,20 @@ namespace ModDebuggingMod
             {
                 foreach (CardInfo card in cards)
                 {
-                    //Log.LogInfo($"{card.HasCardMetaCategory(LobotomyCardHelper.CannotBoostStats)}");
+                    card.SetCost(0, 0, 0, new());
                 }
 
                 return cards;
             };
         }
 
-        private static StarterDeckManager.FullStarterDeck AddStartDeck(string title, byte[] icon, List<CardInfo> cards, int unlockLevel = 0)
+        private void DebugEncounters()
         {
-            StarterDeckInfo starterDeckInfo = ScriptableObject.CreateInstance<StarterDeckInfo>();
-            starterDeckInfo.title = title;
-            starterDeckInfo.iconSprite = TextureLoader.LoadSpriteFromBytes(icon, new(0.5f, 0.5f));
-            starterDeckInfo.cards = cards;
-            return StarterDeckManager.Add("wstl", starterDeckInfo, unlockLevel);
+            for (int i = 0; i < 3; i++)
+            {
+                RegionProgression.Instance.regions[i].encounters.Clear();
+                RegionProgression.Instance.regions[i].AddEncounters(ModdingEncounter);
+            }
         }
     }
 }

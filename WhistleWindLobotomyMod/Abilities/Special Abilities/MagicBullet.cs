@@ -13,8 +13,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Magic Bullet";
-        public static readonly string rDesc = "After Der Freischütz attacks 6 times, it will attack all other ally cards on the board.";
+        public const string rName = "Magic Bullet";
+        public const string rDesc = "After Der Freischütz attacks 6 times, it will attack all other ally cards on the board.";
 
         private int freischutzShots;
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0;

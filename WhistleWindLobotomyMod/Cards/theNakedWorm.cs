@@ -1,18 +1,18 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
-namespace WhistleWind.AbnormalSigils
+namespace WhistleWindLobotomyMod
 {
-    public partial class AbnormalPlugin
+    public partial class LobotomyPlugin
     {
         private void Card_TheNakedWorm_O0274()
         {
-            List<Tribe> tribes = new()
-            {
-                Tribe.Insect
-            };
+            List<Tribe> tribes = new() { Tribe.Insect };
+            List<Trait> traits = new() { NakedSerpent };
+
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_theNakedWorm", "Naked Worm",
@@ -21,7 +21,7 @@ namespace WhistleWind.AbnormalSigils
                 blood: 0, bones: 0, energy: 0,
                 Artwork.theNakedWorm, pixelTexture: Artwork.theNakedWorm_pixel,
                 abilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new());
+                metaCategories: new(), tribes: tribes, traits: traits);
         }
     }
 }

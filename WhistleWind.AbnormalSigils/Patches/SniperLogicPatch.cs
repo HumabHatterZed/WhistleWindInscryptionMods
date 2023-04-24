@@ -113,21 +113,16 @@ namespace WhistleWind.AbnormalSigils.Patches
                         PlayableCard strongestAttackable = GetFirstStrongestAttackableCard();
                         PlayableCard strongestAttackableNoPreferences = GetFirstStrongestAttackableCardNoPreferences();
                         if (CanWin())
-                        {
                             attackSlot = GetFirstAvailableOpenSlot();
-                        }
+
                         else if (strongestKillable != null)
-                        {
                             attackSlot = strongestKillable.Slot;
-                        }
+
                         else if (strongestAttackable != null)
-                        {
                             attackSlot = strongestAttackable.Slot;
-                        }
+
                         else if (strongestAttackableNoPreferences != null)
-                        {
                             attackSlot = strongestAttackableNoPreferences.Slot;
-                        }
                     }
                     opposingSlots.Add(attackSlot);
                     instance.VisualizeConfirmSniperAbility(attackSlot);

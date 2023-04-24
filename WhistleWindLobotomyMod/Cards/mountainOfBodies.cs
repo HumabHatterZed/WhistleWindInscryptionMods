@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private void Card_MountainOfBodies_T0175()
         {
             List<Ability> abilities = new() { Assimilator.ability };
-            
+
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 Smile.specialAbility
@@ -45,7 +45,7 @@ namespace WhistleWindLobotomyMod
                 Artwork.mountainOfBodies, Artwork.mountainOfBodies_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new(), choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
+                appearances: new(), choiceType: CardHelper.CardChoiceType.Rare,
                 evolveName: "{0}");
         }
     }

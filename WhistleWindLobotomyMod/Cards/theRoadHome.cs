@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Properties;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -14,7 +15,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { YellowBrickRoad.ability };
             List<Tribe> tribes = new() { TribeFae };
-           
+            List<Trait> traits = new() { TraitEmeraldCity };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 TheHomingInstinct.specialAbility,
@@ -23,11 +24,11 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_theRoadHome", "The Road Home",
                 "A young girl on a quest to return home with her friends.",
-                atk: 1, hp: 1,
+                atk: LobotomySaveManager.UnlockedLyingAdult ? 2 : 1, hp: 1,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.theRoadHome, Artwork.theRoadHome_emission, pixelTexture: Artwork.theRoadHome_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new(),
+                metaCategories: new(), tribes: tribes, traits: traits,
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He, modTypes: ModCardType.Ruina,
                 evolveName: "[name]The Long Road Home");
         }

@@ -14,14 +14,17 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { FalseThrone.ability };
             List<Tribe> tribes = new() { TribeAnthropoid };
-
+            List<CardAppearanceBehaviour.Appearance> appearances = new()
+            {
+                ForcedWhiteEmission.appearance
+            };
             CreateCard(
                 "wstl_lyingAdult", "The Adult Who Tells Lies",
                 "",
-                atk: 1, hp: 6,
+                atk: 1, hp: 4,
                 blood: 2, bones: 0, energy: 0,
-                Artwork.lyingAdult, Artwork.lyingAdult_emission,
-                abilities: abilities, specialAbilities: new(),
+                Artwork.lyingAdult, Artwork.lyingAdult_emission, Artwork.lyingAdult_pixel,
+                abilities: abilities, specialAbilities: new(), appearances: appearances,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, modTypes: ModCardType.Ruina | ModCardType.EventCard);
         }

@@ -1,52 +1,64 @@
-﻿/*using DiskCardGame;
-using InscryptionAPI.Helpers;
-using System.Collections;
+﻿using DiskCardGame;
+using InscryptionAPI.TalkingCards;
+using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWind.Core.Helpers.TextureLoader;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public class TalkingCardNetzach : CustomPaperTalkingCard
     {
-        private void Card_Netzach()
-        {
-            List<Ability> abilities = new()
-            {
-                Ability.LatchDeathShield
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                TalkingCardNetzach.specialAbility
-            };
-            List<CardMetaCategory> metaCategories = new()
-            {
-                CardHelper.SephirahCard
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.AnimatedPortrait
-            };
-            CardHelper.CreateCard(
-                "wstl_sephirahNetzach", "Netzach",
-                "The head of the Security Department. Perhaps you can motivate him.",
-                atk: 1, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                null, null,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: metaCategories, tribes: new(), traits: new(),
-                appearances: appearances, onePerDeck: true, face: SephirahNetzach.Face);
-        }
-        private void SpecialAbility_Netzach() => TalkingCardNetzach.specialAbility = AbilityHelper.CreatePaperTalkingCard<TalkingCardNetzach>("Netzach").Id;
-    }
-    public class TalkingCardNetzach : PaperTalkingCard
-    {
+        public override string CardName => "wstl_sephirahNetzach";
+        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.1f, voiceSoundPitch: 0.6f);
+        public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
+
         public static SpecialTriggeredAbility specialAbility;
-        public SpecialTriggeredAbility SpecialAbility => specialAbility;
-        public override string OnDiscoveredInExplorationDialogueId => "SephirahNetzachChoice";
+        public override SpecialTriggeredAbility DialogueAbility => specialAbility;
+
+        public override List<EmotionData> Emotions
+        {
+            get
+            {
+                Sprite face = LoadSpriteFromBytes(Artwork.talkingNetzachBody, new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingNetzachEyesEmission1);
+
+                return new()
+                {
+                    new(emotion: Emotion.Neutral,
+                        face: face,
+                        eyes: MakeFaceAnim(Artwork.talkingNetzachEyesOpen1, Artwork.talkingNetzachEyesClosed1),
+                        mouth: MakeFaceAnim(Artwork.talkingNetzachMouthOpen1, Artwork.talkingNetzachMouthClosed1),
+                        emission: emissionMain),
+                    new(emotion: Emotion.Surprise,
+                        face: face,
+                        eyes: MakeFaceAnim(Artwork.talkingNetzachEyesOpen5, Artwork.talkingNetzachEyesClosed5),
+                        mouth: MakeFaceAnim(Artwork.talkingNetzachMouthOpen5, Artwork.talkingNetzachMouthClosed5),
+                        emission: emissionMain),
+                    new(emotion: Emotion.Laughter,
+                        face: face,
+                        eyes: MakeFaceAnim(Artwork.talkingNetzachEyesOpen3, Artwork.talkingNetzachEyesClosed3),
+                        mouth: MakeFaceAnim(Artwork.talkingNetzachMouthOpen4, Artwork.talkingNetzachMouthClosed4),
+                        emission: emissionMain),
+                    new(emotion: Emotion.Quiet,
+                        face: face,
+                        eyes: MakeFaceAnim(Artwork.talkingNetzachEyesClosed3, Artwork.talkingNetzachEyesClosed3),
+                        mouth: MakeFaceAnim(Artwork.talkingNetzachMouthOpen3, Artwork.talkingNetzachMouthClosed1),
+                        emission: null),
+                    new(emotion: Emotion.Anger,
+                        face: face,
+                        eyes: MakeFaceAnim(Artwork.talkingNetzachEyesOpen2, Artwork.talkingNetzachEyesClosed2),
+                        mouth: MakeFaceAnim(Artwork.talkingNetzachMouthOpen2, Artwork.talkingNetzachMouthClosed1),
+                        emission: emissionMain)
+                };
+            }
+        }
+
         public override string OnDrawnDialogueId => "SephirahNetzachDrawn";
-        public override string OnDrawnFallbackDialogueId => "SephirahNetzachDrawn";
         public override string OnAttackedDialogueId => "SephirahNetzachHurt";
         public override string OnSacrificedDialogueId => "SephirahNetzachSacrificed";
         public override string OnBecomeSelectableNegativeDialogueId => "SephirahNetzachSelectableBad";
@@ -59,100 +71,35 @@ namespace WhistleWindLobotomyMod
         {
             { Opponent.Type.ProspectorBoss, "SephirahNetzachChoice" }
         };
-        public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
-        public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
+
+        public override void OnShownForCardChoiceNode()
         {
-            yield return new WaitForEndOfFrame();
-            yield return base.OnShownForCardSelect(forPositiveEffect);
-            yield break;
+            this.TriggerSoloDialogue("SephirahNetzachChoice");
+            base.OnShownForCardChoiceNode();
         }
     }
-    static class SephirahNetzach
+    public partial class LobotomyPlugin
     {
-        public static GameObject Face;
-        public static void Init()
+        private void SpecialAbility_Netzach()
         {
-            Face = LobotomyPlugin.sephirahBundle.LoadAsset<GameObject>("TalkingCardNetzach");
-
-            CharacterFace face = Face.AddComponent<CharacterFace>();
-            face.anim = Face.transform.Find("Anim").GetComponent<Animator>();
-            face.eyes = Face.transform.Find("Anim").Find("Body").Find("Eyes").gameObject.AddComponent<CharacterEyes>();
-            face.mouth = Face.transform.Find("Anim").Find("Body").Find("Mouth").gameObject.AddComponent<CharacterMouth>();
-            face.face = Face.transform.Find("Anim").Find("Body").GetComponent<SpriteRenderer>();
-
-            face.emotionSprites = new List<CharacterFace.EmotionSprites>()
+            TalkingCardNetzach.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardNetzach>("Netzach").Id;
+        }
+        private void Card_Netzach()
+        {
+            List<Ability> abilities = new()
             {
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Neutral,
-                    face = face.face.sprite,
-                    eyesOpen = face.eyes.GetComponent<SpriteRenderer>().sprite,
-                    mouthClosed = face.mouth.GetComponent<SpriteRenderer>().sprite,
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes1_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_mouth1_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Surprise,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes2_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_mouth2_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes2_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_mouth2_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Laughter,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes3_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_mouth3_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes3_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes_emission2, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_mouth3_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Quiet,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes4_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_mouth4_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes4_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_mouth4_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Curious,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes5_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_mouth4_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes5_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_mouth4_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Anger,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes6_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_mouth6_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes6_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardNetzach_mouth6_open, new(0.5f, 0f))
-                }
+                GreedyHealing.ability
             };
 
-            face.voiceSoundId = "female1_voice";
-            face.voiceSoundPitch = 0.5f;
-            face.eyes.blinkRate = 1.2f;
-
-            int offscreen = LayerMask.NameToLayer("CardOffscreen");
-            foreach (Transform t in Face.GetComponentsInChildren<Transform>()) { t.gameObject.layer = offscreen; }
-            Face.layer = offscreen;
-            face.eyes.emissionRenderer = face.eyes.transform.Find("Emission")?.GetComponent<SpriteRenderer>();
-            if (face.eyes.emissionRenderer != null) { face.eyes.emissionRenderer.gameObject.layer = LayerMask.NameToLayer("CardOffscreenEmission"); }
+            LobotomyCardManager.CreateCard(
+                "wstl_sephirahNetzach", "Netzach",
+                "The head of the Training Department. She will assist you the best she can.",
+                atk: 1, hp: 3,
+                blood: 1, bones: 0, energy: 0,
+                null, null,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
+                appearances: new(), onePerDeck: true);
         }
     }
-}*/
+}

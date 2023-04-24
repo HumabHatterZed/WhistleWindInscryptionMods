@@ -8,6 +8,8 @@ namespace WhistleWind.Core.Helpers
 {
     public static class CardHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
+        public static List<CardInfo> RemoveOwnedSingletons() => CardLoader.RemoveDeckSingletonsIfInDeck(CardManager.AllCardsCopy);
+
         public static CardInfo CreateCard(
             string modPrefix, string name, string displayName,
             string description, int atk, int hp,
@@ -93,7 +95,7 @@ namespace WhistleWind.Core.Helpers
 
             if (evolveName != null)
             {
-                if (evolveName.Contains("{0}"))                    
+                if (evolveName.Contains("{0}"))
                     cardInfo.defaultEvolutionName = string.Format(Localization.Translate(evolveName), cardInfo.DisplayedNameLocalized);
                 else if (evolveName.Contains("[name]"))
                     cardInfo.defaultEvolutionName = Localization.Translate(evolveName.Replace("[name]", ""));
@@ -124,7 +126,7 @@ namespace WhistleWind.Core.Helpers
 
                 if (metaTypes.HasFlag(CardMetaType.NoTerrainLayout))
                     cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainLayout);
-                
+
                 if (nonChoice || cardType == CardChoiceType.Rare)
                     cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainBackground);
             }

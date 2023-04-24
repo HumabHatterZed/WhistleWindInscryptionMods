@@ -16,10 +16,7 @@ namespace WhistleWindLobotomyMod
                 Ability.AllStrike,
                 Ability.SplitStrike
             };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                BoardEffects.specialAbility
-            };
+            List<SpecialTriggeredAbility> specialAbilities = new() { BoardEffects.specialAbility };
             List<Tribe> tribes = new() { Tribe.Bird };
 
             List<CardAppearanceBehaviour.Appearance> appearances = new()
@@ -31,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 "There was no moon, no stars. Just a bird, alone in the Black Forest.",
                 atk: 3, hp: 12,
                 blood: 4, bones: 0, energy: 0,
-                Artwork.apocalypseBird, Artwork.apocalypseBird_emission,
+                Artwork.apocalypseBird, Artwork.apocalypseBird_emission, Artwork.apocalypseBird_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 appearances: appearances, onePerDeck: true,

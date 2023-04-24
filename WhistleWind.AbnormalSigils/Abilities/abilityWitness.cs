@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Witness()
         {
             const string rulebookName = "Witness";
-            const string rulebookDescription = "Activate: Pay 2 bones to increase the chosen card's Health by 2 and their taken damage by 1. This effect stacks up to 3 times per card.";
+            const string rulebookDescription = "Pay 2 Bones to increase the selected creature's Health by 2 and their taken damage by 1. This effect stacks up to 3 times.";
             const string dialogue = "The truth will set you free.";
 
             Witness.ability = AbnormalAbilityHelper.CreateActivatedAbility<Witness>(

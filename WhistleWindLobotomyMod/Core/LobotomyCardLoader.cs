@@ -1,6 +1,8 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
+using System.Linq;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Core
 {
@@ -8,76 +10,61 @@ namespace WhistleWindLobotomyMod.Core
     {
         public static CardInfo GetRandomRareModCard(int randomSeed)
         {
-            List<CardInfo> unlockedCards = GetUnlockedModCards(CardMetaCategory.Rare, CardTemple.Nature);
+            List<CardInfo> unlockedCards = GetUnlockedModCards(CardMetaCategory.Rare);
             if (LobotomySaveManager.UsedBackwardClock)
                 unlockedCards.RemoveAll((x) => x.name == "wstl_backwardClock");
 
-            if (LobotomySaveManager.OwnsJesterOfNihil)
-                unlockedCards.RemoveAll((x) => x.name.Equals("wstl_magicalGirlSpade"));
-
             return CardLoader.Clone(unlockedCards[SeededRandom.Range(0, unlockedCards.Count, randomSeed)]);
         }
-        public static CardInfo GetRandomChoosableModCard(int randomSeed, string riskLevel, CardTemple temple = CardTemple.Nature)
+        public static CardInfo GetRandomChoosableModCard(int randomSeed, string riskLevel)
         {
-            List<CardInfo> unlockedCards = GetUnlockedModCards(CardMetaCategory.ChoiceNode, temple).FindAll((x) => x.GetExtendedProperty("wstl:RiskLevel") == riskLevel);
+            List<CardInfo> unlockedCards = GetUnlockedModCards(CardMetaCategory.ChoiceNode).FindAll((x) => x.GetExtendedProperty("wstl:RiskLevel") == riskLevel);
 
             if (LobotomySaveManager.OwnsApocalypseBird)
-                unlockedCards.RemoveAll((x) => x.name.Equals("wstl_punishingBird") || x.name.Equals("wstl_bigBird")
-                || x.name.Equals("wstl_judgementBird"));
+                unlockedCards.RemoveAll(x => x.HasTrait(LobotomyCardManager.TraitBlackForest));
 
             if (LobotomySaveManager.OwnsJesterOfNihil)
-                unlockedCards.RemoveAll((x) => x.name.Contains("wstl_magicalGirl"));
+                unlockedCards.RemoveAll(x => x.HasTrait(LobotomyCardManager.TraitMagicalGirl));
 
             if (LobotomySaveManager.OwnsLyingAdult)
-                unlockedCards.RemoveAll((x) => x.name.Equals("wstl_theRoadHome") || x.name.Equals("wstl_ozma")
-                || x.name.Equals("wstl_wisdomScarecrow") || x.name.Equals("wstl_warmHeartedWoodsman"));
+                unlockedCards.RemoveAll(x => x.HasTrait(LobotomyCardManager.TraitEmeraldCity));
 
             return CardLoader.Clone(unlockedCards[SeededRandom.Range(0, unlockedCards.Count, randomSeed)]);
         }
         public static CardInfo GetRandomSephirahCard(int randomSeed)
         {
             List<CardInfo> sephirahCards = GetSephirahCards();
-            bool hasGottenAngelaBefore = LobotomySaveManager.HasGottenAngelaOnce;
 
             // if the player has obtained all Sefirot + Angela, get a random modded death card
             if (sephirahCards.Count == 0)
                 return GetRandomModDeathCard(randomSeed);
 
             // remove Angela if the player hasn't gotten her before and there are other Sephirah to get
-            if (!hasGottenAngelaBefore && sephirahCards.Count > 1)
+            if (!LobotomySaveManager.UnlockedAngela && sephirahCards.Count > 1)
                 sephirahCards.RemoveAll(x => x.name.Equals("wstl_angela"));
 
             return CardLoader.Clone(sephirahCards[SeededRandom.Range(0, sephirahCards.Count, randomSeed)]);
         }
         private static List<CardInfo> CreateUniqueModDeathcards()
         {
-            List<CardInfo> list = new();
-            List<CardInfo> list2 = new();
-            // get a list of all mod death cards
-            foreach (CardModificationInfo item in SaveFile.IsAscension ? DefaultDeathCards.CreateAscensionCardMods() : SaveManager.SaveFile.deathCardMods)
+            List<CardInfo> allDeathCards = new();
+            List<CardInfo> uniqueDeathCard = new();
+
+            foreach (CardModificationInfo mod in SaveFile.IsAscension ? DefaultDeathCards.CreateAscensionCardMods() : SaveManager.SaveFile.deathCardMods)
             {
-                if (item.singletonId.StartsWith("wstl"))
-                {
-                    CardInfo item2 = CardLoader.CreateDeathCard(item);
-                    list.Add(item2);
-                }
+                if (mod.singletonId.StartsWith("wstl"))
+                    allDeathCards.Add(CardLoader.CreateDeathCard(mod));
             }
-            // foreach mod death card, if it's not in the player's deck, add it to list2
-            foreach (CardInfo item2 in list)
-            {
-                if (!RunState.DeckList.Contains(item2))
-                    list2.Add(item2);
-            }
-            // return a list of unique death cards; otherwise return a list of all death cards
-            return list2.Count > 0 ? list2 : list;
+            uniqueDeathCard.AddRange(allDeathCards.Where(x => !RunState.DeckList.Contains(x)));
+
+            return uniqueDeathCard.Count > 0 ? uniqueDeathCard : allDeathCards;
         }
         public static CardInfo GetRandomModDeathCard(int randomSeed)
         {
             List<CardInfo> deathCards = CreateUniqueModDeathcards();
             return CardLoader.Clone(deathCards[SeededRandom.Range(0, deathCards.Count, randomSeed)]);
         }
-        private static List<CardInfo> GetSephirahCards() => CardManager.AllCardsCopy.FindAll(x => x.HasTrait(LobotomyCardManager.TraitSephirah));
-        private static List<CardInfo> GetUnlockedModCards(CardMetaCategory category, CardTemple temple) =>
-            CardLoader.GetUnlockedCards(category, temple).FindAll((x) => x.name.StartsWith("wstl"));
+        public static List<CardInfo> GetSephirahCards() => CardHelper.RemoveOwnedSingletons().FindAll(x => x.HasTrait(LobotomyCardManager.TraitSephirah));
+        public static List<CardInfo> GetUnlockedModCards(CardMetaCategory category) => CardHelper.RemoveOwnedSingletons().FindAll(x => x.name.StartsWith("wstl") && x.HasCardMetaCategory(category) && ConceptProgressionTree.Tree.CardUnlocked(x));
     }
 }

@@ -15,15 +15,20 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-        public static readonly string rName = "Sap";
-        public static readonly string rDesc = "Whenever Giant Tree Sap is sacrificed, there is an increasing chance the sacrificing card will explode.";
+        public const string rName = "Sap";
+        public const string rDesc = "Whenever Giant Tree Sap is sacrificed, there is an increasing chance the sacrificing card will explode.";
 
         private int sacrificeCount = 0;
 
+        private void Start()
+        {
+            base.PlayableCard.Status.hiddenAbilities.Add(Ability.Sacrificial);
+            base.PlayableCard.AddTemporaryMod(new(Ability.Sacrificial));
+        }
         public override bool RespondsToSacrifice() => true;
         public override IEnumerator OnSacrifice()
         {
-            float chanceToExplode = Mathf.Max(.6f, sacrificeCount / 10);
+            float chanceToExplode = Mathf.Min(.6f, sacrificeCount / 10f);
 
             if (SeededRandom.Value(base.GetRandomSeed()) <= chanceToExplode)
             {

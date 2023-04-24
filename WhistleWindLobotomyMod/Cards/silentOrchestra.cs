@@ -18,8 +18,8 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_silentOrchestra", "The Silent Orchestra",
                 "A conductor of the apocalypse.",
-                atk: 1, hp: 5,
-                blood: 3, bones: 0, energy: 0,
+                atk: 2, hp: 4,
+                blood: 2, bones: 0, energy: 0,
                 Artwork.silentOrchestra, Artwork.silentOrchestra_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),

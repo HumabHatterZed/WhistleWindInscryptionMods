@@ -12,8 +12,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Wrist Cutter";
-        public static readonly string rDesc = "Bloodbath transforms whenever a card is sacrificed.";
+        public const string rName = "Wrist Cutter";
+        public const string rDesc = "Bloodbath transforms whenever a card is sacrificed.";
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             return card != base.Card && !fromCombat;

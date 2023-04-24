@@ -63,6 +63,16 @@ namespace ModDebuggingMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] allAroundHelper_emission {
+            get {
+                object obj = ResourceManager.GetObject("allAroundHelper_emission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] challenge1__1_ {
             get {
                 object obj = ResourceManager.GetObject("challenge1__1_", resourceCulture);

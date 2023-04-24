@@ -5,16 +5,12 @@ using DiskCardGame;
 using HarmonyLib;
 using Infiniscryption.PackManagement;
 using InscryptionAPI.Card;
-using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
 using InscryptionAPI.TalkingCards;
 using Sirenix.Utilities;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
-using UnityEngine.XR;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
@@ -41,13 +37,17 @@ namespace WhistleWindLobotomyMod
         internal static ManualLogSource Log;
         private static Harmony HarmonyInstance = new(pluginGuid);
 
+        public static bool addedOzDeck;
+        public static bool addedMagicDeck;
+        public static bool addedTwilightDeck;
+
         private static bool _allCardsDisabled;
         public static bool AllCardsDisabled => _allCardsDisabled;
 
         private static bool _ruinaCardsDisabled;
         public static bool RuinaCardsDisabled => _ruinaCardsDisabled;
 
-        private static bool _donatorCardsDisabled;
+        public static bool _donatorCardsDisabled;
         public static bool DonatorCardsDisabled => _donatorCardsDisabled;
 
         private static RiskLevel _disabledRiskLevels;
@@ -92,10 +92,10 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("Loading items and nodes...");
                 AddItems();
                 AddNodes();
-                
+
                 Log.LogDebug("Loading encounters...");
                 AddEncounters();
-                
+
                 if (PackAPI.Enabled)
                     PackAPI.CreateCardPack();
 
@@ -111,8 +111,6 @@ namespace WhistleWindLobotomyMod
                     Log.LogWarning("Disable Cards is set to [All]. All mod cards have been removed from the pool of obtainable cards");
                 else
                 {
-                    // DebugCardInfo();
-
                     if (DisabledRiskLevels != RiskLevel.None)
                         Log.LogWarning($"Disable Cards is set to [{DisabledRiskLevels}]. Cards with the affected risk level(s) have been removed from the pool of obtainable cards.");
 
@@ -155,7 +153,6 @@ namespace WhistleWindLobotomyMod
             {
                 foreach (CardInfo card in cards.Where(c => c.GetModTag() == "whistlewind.inscryption.abnormalsigils"))
                 {
-                    // add AbnormalSigils cards to the list of cards added by this mod
                     if (!AllLobotomyCards.Contains(card))
                         AllLobotomyCards.Add(card);
                 }
@@ -167,7 +164,7 @@ namespace WhistleWindLobotomyMod
 
             if (AllCardsDisabled)
             {
-                Log.LogInfo("All mod cards are disabled, adding Standard Training-Dummy Rabbit as a fallback card.");
+                Log.LogInfo("All mod cards are disabled, adding Standard Training-Dummy Rabbit as a fallback to prevent issues.");
                 ObtainableLobotomyCards.Add(CardLoader.GetCardByName("wstl_trainingDummy"));
             }
         }
@@ -190,10 +187,15 @@ namespace WhistleWindLobotomyMod
             // BirdBoss
             // FoolBoss
             // AdultBoss
+
+            ApocalypseBirdStart.Register();
+            JesterOfNihilStart.Register();
+            LyingAdultStart.Register();
+            BetterRareChances.Register(HarmonyInstance);
+
             MiracleWorker.Register(HarmonyInstance);
             AbnormalBosses.Register(HarmonyInstance);
             AbnormalEncounters.Register(HarmonyInstance);
-            BetterRareChances.Register(HarmonyInstance);
         }
         private void AddItems()
         {
@@ -201,82 +203,75 @@ namespace WhistleWindLobotomyMod
         }
         private void AddStarterDecks()
         {
-            string[] randomCards = { "wstl_RANDOM_PLACEHOLDER", "wstl_RANDOM_PLACEHOLDER", "wstl_RANDOM_PLACEHOLDER"};
+            List<string> randomCards = new() { "wstl_RANDOM_PLACEHOLDER", "wstl_RANDOM_PLACEHOLDER", "wstl_RANDOM_PLACEHOLDER" };
             if (LobotomyConfigManager.Instance.StarterDeckSize > 0)
             {
                 for (int i = 0; i < LobotomyConfigManager.Instance.StarterDeckSize; i++)
-                    randomCards.AddToArray("wstl_RANDOM_PLACEHOLDER");
+                    randomCards.Add("wstl_RANDOM_PLACEHOLDER");
             }
 
-            StarterDeckHelper.AddStarterDeck("Random Mod Cards", Artwork.starterDeckRandom, 0, randomCards);
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Random Mod Cards", Artwork.starterDeckRandom, 0, cardNames: randomCards);
 
-            StarterDeckHelper.AddStarterDeck("First Day", Artwork.starterDeckControl, 0,
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "First Day", Artwork.starterDeckControl, 0, cardNames: new() {
                 "wstl_oneSin",
                 "wstl_fairyFestival",
-                "wstl_oldLady");
+                "wstl_oldLady" });
 
-            StarterDeckHelper.AddStarterDeck("Lonely Friends", Artwork.starterDeckChildren, 2,
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Lonely Friends", Artwork.starterDeckChildren, 2, cardNames: new() {
                 "wstl_scorchedGirl",
                 "wstl_laetitia",
-                "wstl_childOfTheGalaxy");
+                "wstl_childOfTheGalaxy" });
 
-            StarterDeckHelper.AddStarterDeck("Blood Machines", Artwork.starterDeckBloodMachines, 4,
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Blood Machines", Artwork.starterDeckBloodMachines, 4, cardNames: new() {
                 "wstl_weCanChangeAnything",
-                "wstl_allAroundHelper",
-                "wstl_singingMachine");
+                "wstl_singingMachine",
+                "wstl_allAroundHelper" });
 
-            StarterDeckHelper.AddStarterDeck("People Pleasers", Artwork.starterDeckPeoplePleasers, 5,
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "People Pleasers", Artwork.starterDeckPeoplePleasers, 5, cardNames: new() {
                 "wstl_todaysShyLook",
                 RuinaCardsDisabled ? "wstl_mirrorOfAdjustment" : "wstl_pinocchio",
-                "wstl_behaviourAdjustment");
+                "wstl_behaviourAdjustment" });
 
-            StarterDeckHelper.AddStarterDeck("Freak Show", Artwork.starterDeckFreakShow, 6,
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Freak Show", Artwork.starterDeckFreakShow, 6, cardNames: new() {
                 "wstl_beautyAndBeast",
                 "wstl_voidDream",
-                "wstl_queenBee");
+                "wstl_queenBee" });
 
-            StarterDeckHelper.AddStarterDeck("Apocrypha", Artwork.starterDeckApocrypha, 7,
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Apocrypha", Artwork.starterDeckApocrypha, 7, cardNames: new() {
                 "wstl_fragmentOfUniverse",
                 "wstl_skinProphecy",
-                RuinaCardsDisabled ? "wstl_mhz176" : "wstl_priceOfSilence");
+                RuinaCardsDisabled ? "wstl_mhz176" : "wstl_priceOfSilence" });
 
-            StarterDeckHelper.AddStarterDeck("Keter", Artwork.starterDeckKeter, 8,
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Keter", Artwork.starterDeckKeter, 8, cardNames: new() {
                 "wstl_bloodBath",
                 "wstl_burrowingHeaven",
-                "wstl_snowQueen");
+                "wstl_snowQueen" });
 
-            #region Event Decks
-            StarterDeckHelper.AddStarterDeck("Road to Oz", Artwork.starterDeckFairyTale, 13,
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Road to Oz", Artwork.starterDeckFairyTale, 0, cardNames: new() {
                 RuinaCardsDisabled ? "wstl_laetitia" : "wstl_theRoadHome",
                 "wstl_warmHeartedWoodsman",
                 "wstl_wisdomScarecrow",
-                RuinaCardsDisabled ? "wstl_snowWhitesApple" : "wstl_ozma");
+                RuinaCardsDisabled ? "wstl_snowWhitesApple" : "wstl_ozma" },
+                customUnlock: dummy => LobotomySaveManager.UnlockedLyingAdult || LobotomyConfigManager.Instance.EventFlags);
 
-            StarterDeckHelper.AddStarterDeck("Magical Girls!", Artwork.starterDeckMagicalGirls, 13,
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Magical Girls!", Artwork.starterDeckMagicalGirls, 0, cardNames: new() {
                 "wstl_magicalGirlSpade",
                 "wstl_magicalGirlHeart",
                 "wstl_magicalGirlDiamond",
-                RuinaCardsDisabled ? "wstl_voidDream" : "wstl_magicalGirlClover");
-            
-            StarterDeckHelper.AddStarterDeck("Twilight", Artwork.starterDeckBlackForest, 13,
+                RuinaCardsDisabled? "wstl_voidDream" : "wstl_magicalGirlClover" },
+                customUnlock: dummy => LobotomySaveManager.UnlockedJesterOfNihil || LobotomyConfigManager.Instance.EventFlags);
+
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Twilight", Artwork.starterDeckBlackForest, 0, cardNames: new() {
                 "wstl_punishingBird",
                 "wstl_bigBird",
-                "wstl_judgementBird");
-            #endregion
+                "wstl_judgementBird" },
+                customUnlock: dummy => LobotomySaveManager.UnlockedApocalypseBird || LobotomyConfigManager.Instance.EventFlags);
         }
         private void AddEncounters()
         {
             BuildEncounters();
             for (int i = 0; i < 3; i++)
                 RegionProgression.Instance.regions[i].AddEncounters(ModEncounters[i].ToArray());
-        }
-
-        private void DebugCardInfo()
-        {
-            foreach (CardInfo card in AllLobotomyCards)
-            {
-                Log.LogInfo($"{card.name,-30} | {card.baseAttack,2}/{card.baseHealth,-2} | {card.cost,2}B :: x{card.bonesCost,-2} :: E{card.energyCost,-2}");
-            }
         }
 
         public static class PackAPI

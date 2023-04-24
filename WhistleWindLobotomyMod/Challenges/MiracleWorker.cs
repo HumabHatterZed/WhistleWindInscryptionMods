@@ -44,8 +44,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         [HarmonyPostfix]
         public static void AddPlagueDoctor(EncounterData encounterData, ref Opponent __result)
         {
-            if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id)
-                : LobotomyConfigManager.Instance.MiracleWorker)
+            if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id) : LobotomyConfigManager.Instance.MiracleWorker)
             {
                 if (!SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
                     ChallengeActivationUI.TryShowActivation(Id);

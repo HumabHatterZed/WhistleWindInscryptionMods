@@ -19,11 +19,10 @@ namespace WhistleWindLobotomyMod
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
-                CustomEvolveHelper.specialAbility,
-                LoveAndHate.specialAbility,
-                MagicalGirls.specialAbility
+                CustomEvolveHelper.specialAbility
             };
             List<Tribe> tribes = new() { TribeFae, Tribe.Reptile };
+            List<Trait> traits = new() { TraitMagicalGirl };
 
             CreateCard(
                 "wstl_queenOfHatred", "The Queen of Hatred",
@@ -32,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.queenOfHatred, Artwork.queenOfHatred_emission, Artwork.queenOfHatred_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new());
+                metaCategories: new(), tribes: tribes, traits: traits);
             CreateCard(
                 "wstl_queenOfHatredTired", "The Queen of Hatred",
                 "Exhaustion: the cost of an all-out attack.",
@@ -40,11 +39,9 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.queenOfHatredTired, Artwork.queenOfHatredTired_emission, Artwork.queenOfHatredTired_pixel,
                 abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new());
+                metaCategories: new(), tribes: tribes, traits: traits);
 
-            abilities.Remove(Piercing.ability);
-            specialAbilities.Remove(CustomEvolveHelper.specialAbility);
-            tribes = new() { TribeFae };
+            specialAbilities = new() { LoveAndHate.specialAbility };
 
             CreateCard(
                 "wstl_magicalGirlHeart", "Magical Girl",
@@ -52,8 +49,8 @@ namespace WhistleWindLobotomyMod
                 atk: 1, hp: 2,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.magicalGirlHeart, Artwork.magicalGirlHeart_emission, pixelTexture: Artwork.magicalGirlHeart_pixel,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new(), onePerDeck: true,
+                abilities: new() { OneSided.ability }, specialAbilities: specialAbilities,
+                metaCategories: new(), tribes: new() { TribeFae }, traits: traits, onePerDeck: true,
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
         }
     }

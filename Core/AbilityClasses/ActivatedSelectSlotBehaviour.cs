@@ -1,4 +1,6 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionCommunityPatch.Card;
 using Pixelplacement;
 using System;
 using System.Collections;
@@ -6,9 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using InscryptionCommunityPatch;
-using InscryptionCommunityPatch.Card;
-using InscryptionAPI.Card;
 
 namespace WhistleWind.Core.AbilityClasses
 {
@@ -52,8 +51,7 @@ namespace WhistleWind.Core.AbilityClasses
             }
         }
 
-        // determines what cards can be interacted with when selecting a target, NOT what targets are actually valid
-        public abstract bool CardSlotCanBeTargeted(CardSlot slot);
+        public abstract bool CardSlotCanBeTargeted(CardSlot slot); // whether the card slot can be interacted with, NOT if it's a valid target
 
         public virtual string NoTargetsDialogue => "There are no cards you can choose.";
         public virtual string NullTargetDialogue => "You can't target the air.";
@@ -61,36 +59,28 @@ namespace WhistleWind.Core.AbilityClasses
         public virtual string InvalidTargetDialogue => "It's already latched...";
 
         public virtual Ability LatchAbility => Ability.None; // Latches nothing by default
-        // see if we can target empty card slots (does GetValidTargets allow empty slots?)
         private bool ShowLatch => LatchAbility != Ability.None;
         private bool CanTargetNull => ValidTargets.Exists((CardSlot s) => s.Card == null);
 
-        // by default, can always activate
-        public virtual int TurnDelay => -1;
         private int turnDelay = 0;
+        public virtual int TurnDelay => -1;// by default, can always activate
 
-        public virtual IEnumerator OnNoValidTargets()
-        {
-            yield break;
-        }
+        public virtual IEnumerator OnNoValidTargets() { yield break; }
+
         public virtual IEnumerator OnValidTargetSelected(CardSlot slot)
         {
             // Perform latch logic by default
             // Though since LatchABility is None by default, nothing will actually happen
             if (LatchAbility != Ability.None && slot != null && slot.Card != null)
             {
-                CardModificationInfo cardModificationInfo = new(this.LatchAbility) { fromTotem = true, fromLatch = true };
-
+                CardModificationInfo cardModificationInfo = new(LatchAbility) { fromLatch = true };
                 slot.Card.Anim.LightNegationEffect();
                 slot.Card.AddTemporaryMod(cardModificationInfo);
                 yield return new WaitForSeconds(0.75f);
                 yield return base.LearnAbility();
             }
         }
-        public virtual IEnumerator OnPostValidTargetSelected()
-        {
-            yield break;
-        }
+        public virtual IEnumerator OnPostValidTargetSelected(CardSlot slot = null) { yield break; }
         public virtual bool CardIsNotValid(PlayableCard card) // By default returns whether the card is latched
         {
             return card.TemporaryMods.Exists((CardModificationInfo m) => m.fromLatch);
@@ -127,11 +117,10 @@ namespace WhistleWind.Core.AbilityClasses
             base.Card.Anim.LightNegationEffect();
             yield return new WaitForSeconds(0.2f);
 
-            // If there are no valid targets, break
-            if (!ValidTargetsExist())
+            if (!ValidTargetsExist()) // If there are no valid targets, break
             {
                 base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.45f);
 
                 yield return HelperMethods.PlayAlternateDialogue(dialogue: NoTargetsDialogue);
                 yield return OnNoValidTargets();
@@ -159,7 +148,7 @@ namespace WhistleWind.Core.AbilityClasses
 
                 // create claw object using claw prefab and latchParent
                 latchParent = latchParentGameObject.transform;
-                claw = UnityEngine.Object.Instantiate(ClawPrefab, latchParent);
+                claw = Instantiate(ClawPrefab, latchParent);
 
                 // get the cannon material if possible, and set the render materials to it
                 Material cannonMat = null;
@@ -233,7 +222,7 @@ namespace WhistleWind.Core.AbilityClasses
             if (turnDelay == 0)
                 turnDelay = TurnDelay;
 
-            yield return OnPostValidTargetSelected();
+            yield return OnPostValidTargetSelected(selectedSlot);
 
             if (!base.Card.OpponentCard)
                 yield return HelperMethods.ChangeCurrentView(View.Default);
@@ -333,7 +322,7 @@ namespace WhistleWind.Core.AbilityClasses
                 return -1000;
             }
             int num = card.PowerLevel;
-            if (card.Info.HasTrait(Trait.Terrain))
+            if (card.Info.HasAnyOfTraits(Trait.Terrain, Trait.Pelt))
                 num = 10 * (!positiveEffect ? 1 : -1);
             if (card.OpponentCard == positiveEffect)
                 num += 1000;

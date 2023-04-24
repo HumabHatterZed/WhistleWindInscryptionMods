@@ -1,5 +1,4 @@
-﻿using BepInEx.Logging;
-using DiskCardGame;
+﻿using DiskCardGame;
 using InscryptionAPI.Helpers;
 using InscryptionAPI.Items;
 using InscryptionAPI.Items.Extensions;
@@ -32,7 +31,7 @@ namespace WhistleWind.Core.Helpers
             itemData.SetExamineSoundId("stone_object_hit");
             itemData.SetComponentType(typeof(T));
             itemData.SetPowerLevel(powerLevel);
-            
+
             ConsumableItemManager.Add(pluginGuid, itemData);
 
             // ConsumableItemManager uses the rulebook name for the prefab id,
