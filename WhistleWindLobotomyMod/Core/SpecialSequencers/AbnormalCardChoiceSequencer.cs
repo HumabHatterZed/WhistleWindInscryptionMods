@@ -93,7 +93,7 @@ namespace WhistleWindLobotomyMod
             {
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default);
                 yield return new WaitForSeconds(0.4f);
-                yield return DialogueEventsManager.PlayDialogueEvent("AbnormalChoiceNodeIntro");
+                yield return DialogueHelper.PlayDialogueEvent("AbnormalChoiceNodeIntro");
             }
 
             Singleton<ViewManager>.Instance.SwitchToView(this.choicesView, immediate: false, lockAfter: true);

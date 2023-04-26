@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -37,7 +36,7 @@ namespace WhistleWindLobotomyMod
 
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(evolution, base.PlayableCard.Slot, 0.15f);
             yield return new WaitForSeconds(0.25f);
-            yield return DialogueEventsManager.PlayDialogueEvent("NothingThereReveal");
+            yield return DialogueHelper.PlayDialogueEvent("NothingThereReveal");
         }
 
         public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)

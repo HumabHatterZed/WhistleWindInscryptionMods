@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -51,7 +50,7 @@ namespace WhistleWindLobotomyMod
             card.Anim.LightNegationEffect();
             yield return new WaitForSeconds(0.2f);
 
-            yield return DialogueEventsManager.PlayDialogueEvent("YinDragonIntro");
+            yield return DialogueHelper.PlayDialogueEvent("YinDragonIntro");
 
             base.PlayableCard.RemoveFromBoard();
             card.RemoveFromBoard();

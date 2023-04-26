@@ -3,7 +3,6 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -42,13 +41,13 @@ namespace WhistleWindLobotomyMod
                     cardByName = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_knightOfDespair");
                     yield return base.PlayableCard.TransformIntoCard(cardByName);
                     yield return new WaitForSeconds(0.5f);
-                    yield return DialogueEventsManager.PlayDialogueEvent("KnightOfDespairTransform");
+                    yield return DialogueHelper.PlayDialogueEvent("KnightOfDespairTransform");
                     break;
                 case "wstl_magicalGirlClover":
                     cardByName = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_servantOfWrath");
                     yield return base.PlayableCard.TransformIntoCard(cardByName);
                     yield return new WaitForSeconds(0.5f);
-                    yield return DialogueEventsManager.PlayDialogueEvent("ServantOfWrathTransform");
+                    yield return DialogueHelper.PlayDialogueEvent("ServantOfWrathTransform");
                     break;
                 case "wstl_armyInPink":
                     cardByName = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_armyInBlack");
@@ -56,7 +55,7 @@ namespace WhistleWindLobotomyMod
                     yield return base.PlayableCard.TransformIntoCard(cardByName, preTransformCallback: ResetDamage);
                     yield return new WaitForSeconds(0.5f);
                     yield return CreateArmyInHand();
-                    yield return DialogueEventsManager.PlayDialogueEvent("ArmyInBlackTransform");
+                    yield return DialogueHelper.PlayDialogueEvent("ArmyInBlackTransform");
                     break;
             }
         }

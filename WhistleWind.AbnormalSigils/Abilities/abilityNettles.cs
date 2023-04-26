@@ -4,9 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -43,7 +43,7 @@ namespace WhistleWind.AbnormalSigils
                 yield return new WaitForSeconds(0.25f);
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return AbnormalDialogueManager.PlayDialogueEvent("NettlesFail");
+                yield return DialogueHelper.PlayDialogueEvent("NettlesFail");
                 yield break;
             }
 
@@ -101,7 +101,7 @@ namespace WhistleWind.AbnormalSigils
                 yield break;
 
             base.Card.RemoveTemporaryMod(cardMod);
-            yield return AbnormalDialogueManager.PlayDialogueEvent("NettlesDie");
+            yield return DialogueHelper.PlayDialogueEvent("NettlesDie");
         }
     }
 }

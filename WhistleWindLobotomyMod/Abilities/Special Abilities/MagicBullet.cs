@@ -3,7 +3,6 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -32,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 base.PlayableCard.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.5f);
 
-                yield return DialogueEventsManager.PlayDialogueEvent("DerFreischutzSeventhBullet");
+                yield return DialogueHelper.PlayDialogueEvent("DerFreischutzSeventhBullet");
 
                 foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(!base.PlayableCard.OpponentCard).Where(slot => slot.Card != base.Card))
                 {

@@ -98,7 +98,7 @@ namespace WhistleWindLobotomyMod
             AudioController.Instance.SetLoopAndPlay("red_noise", 1);
             AudioController.Instance.SetLoopVolumeImmediate(0.3f, 1);
 
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultIntro");
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultIntro");
 
             CardInfo info = CardLoader.GetCardByName("wstl_lyingAdult");
             if (opponentCard)
@@ -128,10 +128,10 @@ namespace WhistleWindLobotomyMod
             }
 
             yield return new WaitForSeconds(0.2f);
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultIntro2", 0.4f);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultIntro2", 0.4f);
 
             yield return LookAtCard(ozma, cardInHand);
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultOzma");
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultOzma");
             yield return ModifyCard(ozma, new(0, 2));
 
 
@@ -140,46 +140,46 @@ namespace WhistleWindLobotomyMod
             yield return RemoveFromBoardOrHand(ozma);
             yield return new WaitForSeconds(0.5f);
 
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultOzma2", 0.4f);
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultIntro3", 0.4f);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultOzma2", 0.4f);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultIntro3", 0.4f);
 
             yield return LookAtCard(scarecrow, cardInHand);
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultScarecrow");
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultScarecrow");
             yield return ModifyCard(scarecrow, new() { bonesCostAdjustment = -1 });
 
             yield return LookAtCard(woodsman, cardInHand);
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultWoodsman");
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultWoodsman");
             yield return ModifyCard(woodsman, new(0, 1));
 
             yield return LookAtCard(scaredyCat, cardInHand);
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultScaredyCat");
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultScaredyCat");
             scaredyCat.Anim.StrongNegationEffect();
             if (!LobotomySaveManager.UnlockedLyingAdult)
                 scaredyCat.AddTemporaryMod(new(1, 0));
             yield return new WaitForSeconds(0.5f);
 
             yield return LookAtCard(roadHome, cardInHand);
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultRoadHome");
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultRoadHome");
             yield return ModifyCard(roadHome, new(1, 0));
 
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultIntro4");
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultIntro4");
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             yield return new WaitForSeconds(0.2f);
 
             // Remove cards
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultScarecrow2", 0f);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultScarecrow2", 0f);
             yield return RemoveFromBoardOrHand(scarecrow);
 
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultWoodsman2", 0f);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultWoodsman2", 0f);
             yield return RemoveFromBoardOrHand(woodsman);
 
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultScaredyCat2", 0f);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultScaredyCat2", 0f);
             yield return RemoveFromBoardOrHand(scaredyCat);
 
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultRoadHome2", 0f);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultRoadHome2", 0f);
             yield return RemoveFromBoardOrHand(roadHome);
 
-            yield return DialogueEventsManager.PlayDialogueEvent("LyingAdultOutro");
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultOutro");
 
             LobotomySaveManager.UnlockedLyingAdult = true;
             CardManager.AllCardsCopy.Find(x => x.name == "wstl_theRoadHome").baseAttack = 2;

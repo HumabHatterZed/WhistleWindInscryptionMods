@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -54,13 +53,13 @@ namespace WhistleWindLobotomyMod
             switch (base.PlayableCard.Info.name)
             {
                 case "wstl_bloodBath1":
-                    yield return DialogueEventsManager.PlayDialogueEvent("Bloodbath1");
+                    yield return DialogueHelper.PlayDialogueEvent("Bloodbath1");
                     break;
                 case "wstl_bloodBath2":
-                    yield return DialogueEventsManager.PlayDialogueEvent("Bloodbath2");
+                    yield return DialogueHelper.PlayDialogueEvent("Bloodbath2");
                     break;
                 case "wstl_bloodBath3":
-                    yield return DialogueEventsManager.PlayDialogueEvent("Bloodbath3");
+                    yield return DialogueHelper.PlayDialogueEvent("Bloodbath3");
                     break;
             }
             if (base.PlayableCard.InHand && Singleton<BoardManager>.Instance.currentSacrificeDemandingCard != base.PlayableCard)

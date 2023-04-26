@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -51,7 +50,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.2f);
             }
 
-            yield return DialogueEventsManager.PlayDialogueEvent("MeltingLoveAbsorb");
+            yield return DialogueHelper.PlayDialogueEvent("MeltingLoveAbsorb");
 
             if (leftValid)
             {

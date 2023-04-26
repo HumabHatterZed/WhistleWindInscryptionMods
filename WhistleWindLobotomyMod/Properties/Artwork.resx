@@ -1232,7 +1232,7 @@
     <value>..\Artwork\talkingNetzachEyesClosed5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="talkingNetzachEyesEmission1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\talkingNetzachEyesEmission1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Artwork\talkingNetzachEyesEmission1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="talkingNetzachEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingNetzachEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

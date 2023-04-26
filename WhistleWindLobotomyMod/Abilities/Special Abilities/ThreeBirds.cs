@@ -52,7 +52,7 @@ namespace WhistleWindLobotomyMod
             bool opponentCard = base.PlayableCard.OpponentCard;
 
             yield return new WaitForSeconds(0.5f);
-            yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdIntro");
+            yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdIntro");
 
             AudioController.Instance.SetLoopVolume(0.5f * (Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.5f);
             AudioController.Instance.SetLoopAndPlay("red_noise", 1);
@@ -64,7 +64,7 @@ namespace WhistleWindLobotomyMod
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default, false, true);
                 yield return new WaitForSeconds(0.5f);
 
-                yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStory1");
+                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory1");
 
                 // Look down at the board
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board);
@@ -72,15 +72,15 @@ namespace WhistleWindLobotomyMod
 
                 smallSlot.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStorySmall");
+                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStorySmall");
                 longSlot.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStoryLong");
+                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStoryLong");
                 base.PlayableCard.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStoryBig");
+                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStoryBig");
 
-                yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStory2");
+                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory2");
             }
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Default, lockAfter: true);
@@ -95,7 +95,7 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.5f);
 
             yield return BoardEffects.ApocalypseTableEffects();
-            yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStory3");
+            yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory3");
 
             CardInfo info = CardLoader.GetCardByName("wstl_apocalypseBird");
             if (opponentCard)
@@ -126,9 +126,9 @@ namespace WhistleWindLobotomyMod
 
             yield return new WaitForSeconds(0.2f);
 
-            yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStory4");
+            yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory4");
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-            yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdOutro");
+            yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdOutro");
 
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }

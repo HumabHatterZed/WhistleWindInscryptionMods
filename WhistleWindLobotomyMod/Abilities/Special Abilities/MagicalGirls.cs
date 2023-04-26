@@ -80,7 +80,7 @@ namespace WhistleWindLobotomyMod
             base.PlayableCard.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.5f);
 
-            yield return DialogueEventsManager.PlayDialogueEvent("JesterOfNihilIntro", 0f);
+            yield return DialogueHelper.PlayDialogueEvent("JesterOfNihilIntro", 0f);
 
             // turn out the lights, activate table effects, remove magic girls
             Singleton<ExplorableAreaManager>.Instance.HangingLight.gameObject.SetActive(value: false);
@@ -96,7 +96,7 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.4f);
 
             if (!DialogueEventsData.EventIsPlayed("JesterOfNihilStory"))
-                yield return DialogueEventsManager.PlayDialogueEvent("JesterOfNihilStory");
+                yield return DialogueHelper.PlayDialogueEvent("JesterOfNihilStory");
             else
                 yield return new WaitForSeconds(0.4f);
 
@@ -134,7 +134,7 @@ namespace WhistleWindLobotomyMod
             }
 
             yield return new WaitForSeconds(0.2f);
-            yield return DialogueEventsManager.PlayDialogueEvent("JesterOfNihilOutro");
+            yield return DialogueHelper.PlayDialogueEvent("JesterOfNihilOutro");
             HelperMethods.ChangeCurrentView(View.Default);
 
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;

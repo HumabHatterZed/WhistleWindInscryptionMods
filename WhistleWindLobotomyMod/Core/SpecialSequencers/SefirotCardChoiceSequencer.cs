@@ -87,7 +87,7 @@ namespace WhistleWindLobotomyMod
             {
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default);
                 yield return new WaitForSeconds(0.4f);
-                yield return DialogueEventsManager.PlayDialogueEvent("SefirotChoiceNodeIntro");
+                yield return DialogueHelper.PlayDialogueEvent("SefirotChoiceNodeIntro");
             }
 
             Singleton<ViewManager>.Instance.SwitchToView(this.choicesView, immediate: false, lockAfter: true);

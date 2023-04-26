@@ -77,7 +77,7 @@ namespace WhistleWind.AbnormalSigils
             powerLevel += (base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") ?? 0) * 3;
             powerLevel += base.Card.Info.GetExtendedProperty("ForbiddenMoxCost") != null ? 3 : 0;
 
-            if (base.Card.Info.appearanceBehaviour.Contains(CardAppearanceBehaviour.Appearance.RareCardBackground) || 
+            if (base.Card.Info.appearanceBehaviour.Contains(CardAppearanceBehaviour.Appearance.RareCardBackground) ||
                 base.Card.Info.HasCardMetaCategory(CardMetaCategory.Rare))
                 powerLevel += 2;
 

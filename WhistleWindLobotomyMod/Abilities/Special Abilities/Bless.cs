@@ -89,7 +89,7 @@ namespace WhistleWindLobotomyMod
             if (!LobotomySaveManager.TriggeredWhiteNightThisRun)
             {
                 LobotomySaveManager.TriggeredWhiteNightThisRun = true;
-                yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightEventIntro");
+                yield return DialogueHelper.PlayDialogueEvent("WhiteNightEventIntro");
             }
             else
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventIntroRepeat, speaker: DialogueEvent.Speaker.Bonelord);
@@ -220,7 +220,7 @@ namespace WhistleWindLobotomyMod
                 yield return otherCard.TransformIntoCard(randApostle);
 
             if (HasHeretic)
-                yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightApostleHeretic");
+                yield return DialogueHelper.PlayDialogueEvent("WhiteNightApostleHeretic");
 
             if (Singleton<ViewManager>.Instance.CurrentView == View.Hand)
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);

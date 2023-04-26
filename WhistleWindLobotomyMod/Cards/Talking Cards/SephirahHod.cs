@@ -3,6 +3,7 @@ using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
@@ -91,17 +92,13 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Hod()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.GainBattery,
-                Ability.BuffNeighbours
-            };
+            List<Ability> abilities = new() { Protector.ability };
 
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahHod", "Hod",
                 "The head of the Training Department. She will assist you the best she can.",
-                atk: 1, hp: 3,
-                blood: 1, bones: 0, energy: 0,
+                atk: 1, hp: 2,
+                blood: 0, bones: 3, energy: 0,
                 null, null,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },

@@ -4,7 +4,6 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
@@ -54,7 +53,7 @@ namespace WhistleWind.AbnormalSigils
                     copyOfInfo.Mods = new(base.PlayableCard.Info.Mods);
                     yield return base.PlayableCard.TransformIntoCard(copyOfInfo);
                     yield return new WaitForSeconds(0.5f);
-                    yield return AbnormalDialogueManager.PlayDialogueEvent("SerpentsNestInfection");
+                    yield return DialogueHelper.PlayDialogueEvent("SerpentsNestInfection");
                 }
             }
         }

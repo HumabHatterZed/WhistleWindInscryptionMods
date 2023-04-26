@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.AbilityClasses;
@@ -45,7 +44,7 @@ namespace WhistleWind.AbnormalSigils
 
                 yield return SpawnCard(slot, "wstl_snowQueenIceHeart");
                 yield return new WaitForSeconds(0.5f);
-                yield return AbnormalDialogueManager.PlayDialogueEvent("FrostRulerKiss");
+                yield return DialogueHelper.PlayDialogueEvent("FrostRulerKiss");
             }
             else
                 yield return SpawnCard(slot, "wstl_snowQueenIceBlock");

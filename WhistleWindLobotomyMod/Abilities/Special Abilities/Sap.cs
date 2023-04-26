@@ -4,7 +4,6 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -35,7 +34,7 @@ namespace WhistleWindLobotomyMod
                 sacrificeCount = 0;
                 PlayableCard card = Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard;
 
-                yield return DialogueEventsManager.PlayDialogueEvent("GiantTreeSapExplode", 0f);
+                yield return DialogueHelper.PlayDialogueEvent("GiantTreeSapExplode", 0f);
                 yield return new WaitForSeconds(0.2f);
 
                 if (!card.HasAbility(Volatile.ability))

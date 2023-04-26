@@ -2,9 +2,9 @@
 using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -52,7 +52,7 @@ namespace WhistleWind.AbnormalSigils
             base.Card.SetInfo(baseInfo);
             yield return new WaitForSeconds(0.55f);
 
-            yield return AbnormalDialogueManager.PlayDialogueEvent("CopycatFail");
+            yield return DialogueHelper.PlayDialogueEvent("CopycatFail");
         }
         private CardInfo CopyInfo(CardInfo cardToCopy)
         {

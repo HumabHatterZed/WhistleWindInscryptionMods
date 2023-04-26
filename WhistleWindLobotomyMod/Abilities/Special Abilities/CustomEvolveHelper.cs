@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,18 +19,18 @@ namespace WhistleWindLobotomyMod
             switch (base.PlayableCard.Info.name)
             {
                 case "wstl_magicalGirlDiamond":
-                    yield return DialogueEventsManager.PlayDialogueEvent("KingOfGreedTransform");
+                    yield return DialogueHelper.PlayDialogueEvent("KingOfGreedTransform");
                     break;
                 case "wstl_nothingThereTrue":
                     base.Card.Anim.StrongNegationEffect();
                     yield return new WaitForSeconds(0.4f);
-                    yield return DialogueEventsManager.PlayDialogueEvent("NothingThereTransformTrue");
+                    yield return DialogueHelper.PlayDialogueEvent("NothingThereTransformTrue");
                     break;
                 case "wstl_nothingThereEgg":
                     CardInfo evolution = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_nothingThereFinal");
                     yield return base.PlayableCard.TransformIntoCard(evolution);
                     yield return new WaitForSeconds(0.5f);
-                    yield return DialogueEventsManager.PlayDialogueEvent("NothingThereTransformEgg");
+                    yield return DialogueHelper.PlayDialogueEvent("NothingThereTransformEgg");
                     break;
                 default:
                     yield break;
@@ -47,13 +46,13 @@ namespace WhistleWindLobotomyMod
                     CardInfo evolutionTired = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatredTired");
                     yield return base.PlayableCard.TransformIntoCard(evolutionTired);
                     yield return new WaitForSeconds(0.5f);
-                    yield return DialogueEventsManager.PlayDialogueEvent("QueenOfHatredExhaust");
+                    yield return DialogueHelper.PlayDialogueEvent("QueenOfHatredExhaust");
                     break;
                 case "wstl_queenOfHatredTired":
                     CardInfo evolutionRecovered = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatred");
                     yield return base.PlayableCard.TransformIntoCard(evolutionRecovered);
                     yield return new WaitForSeconds(0.5f);
-                    yield return DialogueEventsManager.PlayDialogueEvent("QueenOfHatredRecover");
+                    yield return DialogueHelper.PlayDialogueEvent("QueenOfHatredRecover");
                     break;
                 default:
                     yield break;

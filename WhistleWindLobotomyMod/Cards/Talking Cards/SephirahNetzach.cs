@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.TalkingCards;
+using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,7 +49,7 @@ namespace WhistleWindLobotomyMod
                         face: face,
                         eyes: MakeFaceAnim(Artwork.talkingNetzachEyesClosed3, Artwork.talkingNetzachEyesClosed3),
                         mouth: MakeFaceAnim(Artwork.talkingNetzachMouthOpen3, Artwork.talkingNetzachMouthClosed1),
-                        emission: null),
+                        emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Anger,
                         face: face,
                         eyes: MakeFaceAnim(Artwork.talkingNetzachEyesOpen2, Artwork.talkingNetzachEyesClosed2),
@@ -67,7 +68,7 @@ namespace WhistleWindLobotomyMod
         public override string OnSelectedForCardRemoveDialogueId => "SephirahNetzachSelectableBad";
         public override string OnSelectedForCardMergeDialogueId => "SephirahNetzachGivenSigil";
         public override string OnSelectedForDeckTrialDialogueId => "SephirahNetzachTrial";
-        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new Dictionary<Opponent.Type, string>()
+        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
             { Opponent.Type.ProspectorBoss, "SephirahNetzachChoice" }
         };
@@ -86,15 +87,12 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Netzach()
         {
-            List<Ability> abilities = new()
-            {
-                GreedyHealing.ability
-            };
+            List<Ability> abilities = new() { GreedyHealing.ability };
 
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahNetzach", "Netzach",
                 "The head of the Training Department. She will assist you the best she can.",
-                atk: 1, hp: 3,
+                atk: 0, hp: 5,
                 blood: 1, bones: 0, energy: 0,
                 null, null,
                 abilities: abilities, specialAbilities: new(),

@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
@@ -11,7 +10,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         public static AscensionChallenge Id { get; private set; }
 
         // Creates the challenge then calls the relevant patches
-        public static void Register(Harmony harmony)
+        public static void Register()
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,

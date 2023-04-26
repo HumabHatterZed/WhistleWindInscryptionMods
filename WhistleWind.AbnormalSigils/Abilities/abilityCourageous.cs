@@ -3,9 +3,9 @@ using InscryptionAPI.Card;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -57,14 +57,14 @@ namespace WhistleWind.AbnormalSigils
             {
                 card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return AbnormalDialogueManager.PlayDialogueEvent("CourageousFail");
+                yield return DialogueHelper.PlayDialogueEvent("CourageousFail");
                 yield break;
             }
             if (card.HasAnyOfAbilities(Ability.TailOnHit, Ability.Submerge, Ability.SubmergeSquid) || card.Status.hiddenAbilities.Contains(Ability.TailOnHit))
             {
                 card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return AbnormalDialogueManager.PlayDialogueEvent("CourageousRefuse");
+                yield return DialogueHelper.PlayDialogueEvent("CourageousRefuse");
                 yield break;
             }
 

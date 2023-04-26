@@ -21,8 +21,8 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_lyingAdult", "The Adult Who Tells Lies",
                 "",
-                atk: 1, hp: 4,
-                blood: 2, bones: 0, energy: 0,
+                atk: 1, hp: 8,
+                blood: 3, bones: 0, energy: 0,
                 Artwork.lyingAdult, Artwork.lyingAdult_emission, Artwork.lyingAdult_pixel,
                 abilities: abilities, specialAbilities: new(), appearances: appearances,
                 metaCategories: new(), tribes: tribes, traits: new(),

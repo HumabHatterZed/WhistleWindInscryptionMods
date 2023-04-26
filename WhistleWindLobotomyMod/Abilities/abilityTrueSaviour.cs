@@ -123,7 +123,7 @@ namespace WhistleWindLobotomyMod
         private IEnumerator KilledByNull()
         {
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f, false);
-            yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightKilledByNull");
+            yield return DialogueHelper.PlayDialogueEvent("WhiteNightKilledByNull");
 
             yield return new WaitForSeconds(0.2f);
             yield return Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase += 1;
@@ -149,7 +149,7 @@ namespace WhistleWindLobotomyMod
                 cardToKill.Anim.SetShaking(true);
                 yield return cardToKill.Die(false, base.Card);
                 yield return new WaitForSeconds(0.4f);
-                yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightMakeRoom");
+                yield return DialogueHelper.PlayDialogueEvent("WhiteNightMakeRoom");
             }
         }
         private IEnumerator ConvertToApostle(PlayableCard otherCard)
@@ -207,7 +207,7 @@ namespace WhistleWindLobotomyMod
                 yield return otherCard.TransformIntoCard(randApostle);
 
             if (HasHeretic)
-                yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightApostleHeretic");
+                yield return DialogueHelper.PlayDialogueEvent("WhiteNightApostleHeretic");
 
             if (Singleton<ViewManager>.Instance.CurrentView == View.Hand)
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);

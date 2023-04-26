@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -32,7 +31,7 @@ namespace WhistleWindLobotomyMod
             }
             yield return base.PlayableCard.TransformIntoCard(evolution);
             yield return new WaitForSeconds(0.5f);
-            yield return DialogueEventsManager.PlayDialogueEvent("MountainOfBodiesGrow");
+            yield return DialogueHelper.PlayDialogueEvent("MountainOfBodiesGrow");
         }
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
@@ -51,7 +50,7 @@ namespace WhistleWindLobotomyMod
             }
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(previous, base.PlayableCard.Slot, 0.15f);
             yield return new WaitForSeconds(0.25f);
-            yield return DialogueEventsManager.PlayDialogueEvent("MountainOfBodiesShrink");
+            yield return DialogueHelper.PlayDialogueEvent("MountainOfBodiesShrink");
         }
     }
     public class RulebookEntrySmile : AbilityBehaviour

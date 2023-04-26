@@ -2,13 +2,11 @@
 using BepInEx.Logging;
 using DiskCardGame;
 using HarmonyLib;
-using InscryptionAPI.Ascension;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
 using System.Collections.Generic;
 using System.Reflection;
-using UnityEngine;
 using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Encounters.EncounterManager;
 

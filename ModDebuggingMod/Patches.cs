@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using HarmonyLib;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,8 +49,8 @@ namespace ModDebuggingMod
         [HarmonyPatch(typeof(SaveFile), nameof(SaveFile.ResetPart1Run))]
         public static void Postfix(SaveFile __instance) => __instance.currentRun.consumables = customItems;
 
-//        [HarmonyPatch(typeof(AscensionSaveData), nameof(AscensionSaveData.NewRun))]
-//        public static void Postfix(AscensionSaveData __instance) => __instance.currentRun.consumables = customItems;
+        //        [HarmonyPatch(typeof(AscensionSaveData), nameof(AscensionSaveData.NewRun))]
+        //        public static void Postfix(AscensionSaveData __instance) => __instance.currentRun.consumables = customItems;
 
         private static NodeData StartNode => new();
         private static CopyCardNodeData CopyNode => new();

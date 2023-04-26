@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -27,7 +26,7 @@ namespace WhistleWindLobotomyMod
             {
                 yield return new WaitForSeconds(0.25f);
                 CardInfo cardByName = CardLoader.GetCardByName("wstl_namelessFetusAwake");
-                yield return DialogueEventsManager.PlayDialogueEvent("NamelessFetusAwake", 0f);
+                yield return DialogueHelper.PlayDialogueEvent("NamelessFetusAwake", 0f);
                 yield return base.PlayableCard.TransformIntoCard(cardByName);
                 yield return new WaitForSeconds(0.5f);
             }

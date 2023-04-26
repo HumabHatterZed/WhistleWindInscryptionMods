@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
@@ -60,7 +59,7 @@ namespace WhistleWind.AbnormalSigils
             }
             yield return base.Card.Die(false, null);
             yield return new WaitForSeconds(0.5f);
-            yield return AbnormalDialogueManager.PlayDialogueEvent("RegeneratorOverheal");
+            yield return DialogueHelper.PlayDialogueEvent("RegeneratorOverheal");
         }
 
         public override IEnumerator OnTakeDamage(PlayableCard source)

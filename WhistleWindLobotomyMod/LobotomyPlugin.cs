@@ -5,6 +5,7 @@ using DiskCardGame;
 using HarmonyLib;
 using Infiniscryption.PackManagement;
 using InscryptionAPI.Card;
+using InscryptionAPI.Dialogue;
 using InscryptionAPI.Regions;
 using InscryptionAPI.TalkingCards;
 using Sirenix.Utilities;
@@ -14,7 +15,6 @@ using System.Reflection;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
@@ -36,10 +36,6 @@ namespace WhistleWindLobotomyMod
 
         internal static ManualLogSource Log;
         private static Harmony HarmonyInstance = new(pluginGuid);
-
-        public static bool addedOzDeck;
-        public static bool addedMagicDeck;
-        public static bool addedTwilightDeck;
 
         private static bool _allCardsDisabled;
         public static bool AllCardsDisabled => _allCardsDisabled;
@@ -67,12 +63,12 @@ namespace WhistleWindLobotomyMod
                 _donatorCardsDisabled = LobotomyConfigManager.Instance.NoDonators;
                 _ruinaCardsDisabled = LobotomyConfigManager.Instance.NoRuina;
 
-                HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
-
                 if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
                     LobotomyConfigManager.Instance.SetBlessings(11);
 
-                DialogueEventsManager.GenerateDialogueEvents();
+                HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+
+                GenerateDialogueEvents();
 
                 AddChallenges();
 
@@ -81,20 +77,16 @@ namespace WhistleWindLobotomyMod
                 AddSpecialAbilities();
 
                 Log.LogDebug("Loading cards...");
-                AddAppearances();
-                AddTribes();
-
                 AddCards();
-                CreateTalkingCards();
-
+                AddAppearances();
                 AddStarterDecks();
+
+                Log.LogDebug("Loading encounters...");
+                AddEncounters();
 
                 Log.LogDebug("Loading items and nodes...");
                 AddItems();
                 AddNodes();
-
-                Log.LogDebug("Loading encounters...");
-                AddEncounters();
 
                 if (PackAPI.Enabled)
                     PackAPI.CreateCardPack();
@@ -133,7 +125,7 @@ namespace WhistleWindLobotomyMod
         {
             TalkingCardManager.New<TalkingCardHod>();
             TalkingCardManager.New<TalkingCardYesod>();
-            // SephirahNetzach.Init();
+            TalkingCardManager.New<TalkingCardNetzach>();
             // SephirahMalkuth.Init();
             // SephirahChesed.Init();
             // SephirahGebura.Init();
@@ -142,10 +134,6 @@ namespace WhistleWindLobotomyMod
             // SephirahBinah.Init();
             // SephirahHokma.Init();
             // Angela.Init();
-        }
-        private void AddTribes()
-        {
-
         }
         private void AddCards()
         {
@@ -156,16 +144,15 @@ namespace WhistleWindLobotomyMod
                     if (!AllLobotomyCards.Contains(card))
                         AllLobotomyCards.Add(card);
                 }
-
                 return cards;
             };
 
             AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
-
+            CreateTalkingCards();
             if (AllCardsDisabled)
             {
                 Log.LogInfo("All mod cards are disabled, adding Standard Training-Dummy Rabbit as a fallback to prevent issues.");
-                ObtainableLobotomyCards.Add(CardLoader.GetCardByName("wstl_trainingDummy"));
+                ObtainableLobotomyCards = new() { CardLoader.GetCardByName("wstl_trainingDummy") };
             }
         }
         private void AddAbilities()
@@ -191,7 +178,7 @@ namespace WhistleWindLobotomyMod
             ApocalypseBirdStart.Register();
             JesterOfNihilStart.Register();
             LyingAdultStart.Register();
-            BetterRareChances.Register(HarmonyInstance);
+            BetterRareChances.Register();
 
             MiracleWorker.Register(HarmonyInstance);
             AbnormalBosses.Register(HarmonyInstance);
@@ -274,10 +261,33 @@ namespace WhistleWindLobotomyMod
                 RegionProgression.Instance.regions[i].AddEncounters(ModEncounters[i].ToArray());
         }
 
+        private void GenerateDialogueEvents()
+        {
+            DialogueEventsManager.DialogueEvents ??= new();
+            DialogueEventsManager.RepeatDialogueEvents ??= new();
+
+            AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Dialogue")).ForEach(mi => mi.Invoke(this, null));
+
+            foreach (KeyValuePair<string, List<CustomLine>> dialogue in DialogueEventsManager.DialogueEvents)
+            {
+                DialogueEvent.Speaker speaker = DialogueEvent.Speaker.Single;
+
+                if (dialogue.Key.StartsWith("NothingThere"))
+                    speaker = DialogueEvent.Speaker.Leshy;
+                else if (dialogue.Key.StartsWith("WhiteNight"))
+                    speaker = DialogueEvent.Speaker.Bonelord;
+
+                if (!DialogueEventsManager.RepeatDialogueEvents.TryGetValue(dialogue.Key, out List<List<CustomLine>> repeatLines))
+                    repeatLines = null;
+
+                DialogueManager.GenerateEvent(pluginGuid, dialogue.Key, dialogue.Value, repeatLines, defaultSpeaker: speaker);
+            }
+        }
+
         public static class PackAPI
         {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
-            public static void CreateCardPack()
+            internal static void CreateCardPack()
             {
                 Log.LogDebug("PackManager is installed, creating card pack...");
                 PackInfo pack = PackManager.GetPackInfo("wstl");

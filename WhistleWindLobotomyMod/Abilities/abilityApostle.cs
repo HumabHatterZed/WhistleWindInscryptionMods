@@ -3,7 +3,6 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
 
@@ -52,7 +51,7 @@ namespace WhistleWindLobotomyMod
                 if (Saviour) // Downed Apostles without WhiteNight just die
                 {
                     yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, resolveTriggers: false);
-                    yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightApostleKilledByNull");
+                    yield return DialogueHelper.PlayDialogueEvent("WhiteNightApostleKilledByNull");
                 }
                 yield break;
             }
@@ -60,7 +59,7 @@ namespace WhistleWindLobotomyMod
             yield return DownApostle();
 
             if (Saviour)
-                yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightApostleDowned");
+                yield return DialogueHelper.PlayDialogueEvent("WhiteNightApostleDowned");
         }
 
         private IEnumerator DownApostle()

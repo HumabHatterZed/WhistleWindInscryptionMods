@@ -66,7 +66,7 @@ In future updates, these changes will be restrained to that mod's changelog.
 ### ⚖️ Gameplay Changes
 #### Cards
     - <<All-Around Helper>> cost changed from 2 Blood --> 4 Energy
-    - <<Apocalypse Bird>> Health increased from 8 --> 12
+    - <<Apocalypse Bird>> stats increased from 3/8 --> 4/15
     - <<Apostles>> no longer have Uncuttable traits for all non-heretical variants
     - <<Apostles>> given custom Apostle trait (replacing Terrain trait), making them unsacrificable for all variants
     - <<Downed Apostles>> Health reduced to 1 for all variants
@@ -107,7 +107,8 @@ In future updates, these changes will be restrained to that mod's changelog.
     - <<Magical Girl S>> Power reduced from 2 --> 1, no longer Rare
     - <<Melting Love>> Health increased from 2 --> 3
     - <<1.76 MHz>> reworked from 0/3; Annoying, Leader; 2 Bones --> 2/1, Annoying, 3 Energy
-    - <<Mountain of Smiling Bodies 3>> Power increased from 4 --> 5
+    - <<Mountain of Smiling Bodies 2>> cost reduced from 3 Blood --> 2
+    - <<Mountain of Smiling Bodies 3>> Power increased from 4 --> 5, cost reduced from 4 Blood --> 3
     - <<Nameless Fetus>> cost reduced from 5 Bones --> 3 Bones
     - <<Notes from a Crazed Researcher>> reworked into Targeted Spell with 2/0, Brittle, Give Stats and Sigils, 2 Bones
     - <<Old Faith and Promises>> cost changed from 2 Bones --> 3 Energy

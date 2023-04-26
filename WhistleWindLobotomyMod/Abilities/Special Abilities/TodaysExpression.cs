@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -29,7 +28,7 @@ namespace WhistleWindLobotomyMod
             yield return base.PlayableCard.FlipInHand(ChangeForme);
             yield return new WaitForSeconds(0.1f);
 
-            yield return DialogueEventsManager.PlayDialogueEvent(base.Card.Info.name switch
+            yield return DialogueHelper.PlayDialogueEvent(base.Card.Info.name switch
             {
                 "wstl_todaysShyLookAngry" => "TodaysShyLookAngry",
                 "wstl_todaysShyLookHappy" => "TodaysShyLookHappy",
@@ -55,7 +54,7 @@ namespace WhistleWindLobotomyMod
             yield return base.PlayableCard.TransformIntoCard(cardByName);
             yield return new WaitForSeconds(0.5f);
 
-            yield return DialogueEventsManager.PlayDialogueEvent(base.Card.Info.name switch
+            yield return DialogueHelper.PlayDialogueEvent(base.Card.Info.name switch
             {
                 "wstl_todaysShyLookAngry" => "TodaysShyLookAngry",
                 "wstl_todaysShyLookHappy" => "TodaysShyLookHappy",

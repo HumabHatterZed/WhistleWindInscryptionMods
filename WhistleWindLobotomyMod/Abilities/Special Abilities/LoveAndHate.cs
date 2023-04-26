@@ -3,7 +3,6 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -101,7 +100,7 @@ namespace WhistleWindLobotomyMod
         private IEnumerator PlayDialogue()
         {
             if (!DialogueEventsData.EventIsPlayed("MagicalGirlHeartTransform"))
-                yield return DialogueEventsManager.PlayDialogueEvent("MagicalGirlHeartTransform");
+                yield return DialogueHelper.PlayDialogueEvent("MagicalGirlHeartTransform");
             else
             {
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Good cannot exist without evil.");
