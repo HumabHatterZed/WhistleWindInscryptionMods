@@ -55,8 +55,8 @@ namespace WhistleWindLobotomyMod.Core
             // if this is an event card
             bool eventCard = modTypes.HasFlag(ModCardType.EventCard);
             bool riskDisabled = riskLevel != RiskLevel.None && DisabledRiskLevels.HasFlag(riskLevel);
-            bool donatorDisabled = DonatorCardsDisabled && modTypes.HasFlag(ModCardType.Donator);
-            bool ruinaDisabled = RuinaCardsDisabled && modTypes.HasFlag(ModCardType.Ruina);
+            bool donatorDisabled = LobotomyConfigManager.Instance.NoDonators && modTypes.HasFlag(ModCardType.Donator);
+            bool ruinaDisabled = LobotomyConfigManager.Instance.NoRuina && modTypes.HasFlag(ModCardType.Ruina);
 
             // mark disabled and event cards has non-choices (don't show up in card choices)
             if (AllCardsDisabled || riskDisabled || eventCard || donatorDisabled || ruinaDisabled)

@@ -56,7 +56,7 @@ namespace WhistleWindLobotomyMod
             }
             if (otherMagicGirls.Contains(null))
             {
-                if (LobotomyPlugin.RuinaCardsDisabled && otherMagicGirls[2] == null && otherMagicGirls.Count(x => x == null) == 1)
+                if (LobotomyConfigManager.Instance.NoRuina && otherMagicGirls[2] == null && otherMagicGirls.Count(x => x == null) == 1)
                     yield return NoRuina(otherMagicGirls[0], otherMagicGirls[1]);
 
                 yield break;

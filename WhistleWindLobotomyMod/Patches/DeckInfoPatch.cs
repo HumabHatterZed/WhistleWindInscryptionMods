@@ -67,7 +67,7 @@ namespace WhistleWindLobotomyMod.Patches
                 6 => new()
                 {
                     "wstl_todaysShyLook",
-                    LobotomyPlugin.RuinaCardsDisabled ? "wstl_mirrorOfAdjustment" : "wstl_pinocchio",
+                    LobotomyConfigManager.Instance.NoRuina ? "wstl_mirrorOfAdjustment" : "wstl_pinocchio",
                     "wstl_behaviourAdjustment"
                 },
                 7 => new()
@@ -80,7 +80,7 @@ namespace WhistleWindLobotomyMod.Patches
                 {
                     "wstl_fragmentOfUniverse",
                     "wstl_skinProphecy",
-                    "wstl_plagueDoctor"
+                    LobotomyConfigManager.Instance.NoRuina ? "wstl_mhz176" : "wstl_priceOfSilence"
                 },
                 9 => new()
                 {
@@ -90,17 +90,17 @@ namespace WhistleWindLobotomyMod.Patches
                 },
                 10 => new()
                 {
-                    LobotomyPlugin.RuinaCardsDisabled ? "wstl_laetitia" : "wstl_theRoadHome",
+                    LobotomyConfigManager.Instance.NoRuina ? "wstl_laetitia" : "wstl_theRoadHome",
                     "wstl_warmHeartedWoodsman",
                     "wstl_wisdomScarecrow",
-                    LobotomyPlugin.RuinaCardsDisabled ? "wstl_snowWhitesApple" : "wstl_ozma"
+                    LobotomyConfigManager.Instance.NoRuina ? "wstl_snowWhitesApple" : "wstl_ozma"
                 },
                 11 => new()
                 {
                     "wstl_magicalGirlSpade",
                     "wstl_magicalGirlHeart",
                     "wstl_magicalGirlDiamond",
-                    LobotomyPlugin.RuinaCardsDisabled ? "wstl_voidDream" : "wstl_magicalGirlClover"
+                    LobotomyConfigManager.Instance.NoRuina ? "wstl_voidDream" : "wstl_magicalGirlClover"
                 },
                 12 => new()
                 {

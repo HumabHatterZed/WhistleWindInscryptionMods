@@ -37,17 +37,8 @@ namespace WhistleWindLobotomyMod
         internal static ManualLogSource Log;
         private static Harmony HarmonyInstance = new(pluginGuid);
 
-        private static bool _allCardsDisabled;
-        public static bool AllCardsDisabled => _allCardsDisabled;
-
-        private static bool _ruinaCardsDisabled;
-        public static bool RuinaCardsDisabled => _ruinaCardsDisabled;
-
-        public static bool _donatorCardsDisabled;
-        public static bool DonatorCardsDisabled => _donatorCardsDisabled;
-
-        private static RiskLevel _disabledRiskLevels;
-        public static RiskLevel DisabledRiskLevels => _disabledRiskLevels;
+        public static bool AllCardsDisabled { get; internal set; }
+        public static RiskLevel DisabledRiskLevels { get; internal set; }
 
         private void Awake()
         {
@@ -58,10 +49,8 @@ namespace WhistleWindLobotomyMod
                 Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
             else
             {
-                _allCardsDisabled = LobotomyConfigManager.Instance.NoRisk.HasFlag(RiskLevel.All) || LobotomyConfigManager.Instance.NoRisk.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
-                _disabledRiskLevels = LobotomyConfigManager.Instance.NoRisk;
-                _donatorCardsDisabled = LobotomyConfigManager.Instance.NoDonators;
-                _ruinaCardsDisabled = LobotomyConfigManager.Instance.NoRuina;
+                DisabledRiskLevels = LobotomyConfigManager.Instance.NoRisk;
+                AllCardsDisabled = DisabledRiskLevels.HasFlag(RiskLevel.All) || DisabledRiskLevels.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
 
                 if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
                     LobotomyConfigManager.Instance.SetBlessings(11);
@@ -100,17 +89,17 @@ namespace WhistleWindLobotomyMod
             if (LobotomyConfigManager.Instance.ModEnabled)
             {
                 if (AllCardsDisabled)
-                    Log.LogWarning("Disable Cards is set to [All]. All mod cards have been removed from the pool of obtainable cards");
+                    Log.LogWarning("Disable Cards is set to [All]. All mod cards have been removed from the pool of obtainable cards.");
                 else
                 {
                     if (DisabledRiskLevels != RiskLevel.None)
                         Log.LogWarning($"Disable Cards is set to [{DisabledRiskLevels}]. Cards with the affected risk level(s) have been removed from the pool of obtainable cards.");
 
-                    if (DonatorCardsDisabled)
-                        Log.LogWarning("Disable Donators is set to true. Some cards have been removed from the pool of obtainable cards.");
+                    if (LobotomyConfigManager.Instance.NoDonators)
+                        Log.LogWarning("Disable Donators is set to [true]. Some cards have been removed from the pool of obtainable cards.");
 
-                    if (RuinaCardsDisabled)
-                        Log.LogWarning("Disable Ruina is set to true. Some cards have been removed from the pool of obtainable cards.");
+                    if (LobotomyConfigManager.Instance.NoRuina)
+                        Log.LogWarning("Disable Ruina is set to [true]. Some cards have been removed from the pool of obtainable cards.");
 
                     Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
                 }
@@ -216,7 +205,7 @@ namespace WhistleWindLobotomyMod
 
             StarterDeckHelper.AddStarterDeck(pluginPrefix, "People Pleasers", Artwork.starterDeckPeoplePleasers, 5, cardNames: new() {
                 "wstl_todaysShyLook",
-                RuinaCardsDisabled ? "wstl_mirrorOfAdjustment" : "wstl_pinocchio",
+                LobotomyConfigManager.Instance.NoRuina ? "wstl_mirrorOfAdjustment" : "wstl_pinocchio",
                 "wstl_behaviourAdjustment" });
 
             StarterDeckHelper.AddStarterDeck(pluginPrefix, "Freak Show", Artwork.starterDeckFreakShow, 6, cardNames: new() {
@@ -227,7 +216,7 @@ namespace WhistleWindLobotomyMod
             StarterDeckHelper.AddStarterDeck(pluginPrefix, "Apocrypha", Artwork.starterDeckApocrypha, 7, cardNames: new() {
                 "wstl_fragmentOfUniverse",
                 "wstl_skinProphecy",
-                RuinaCardsDisabled ? "wstl_mhz176" : "wstl_priceOfSilence" });
+                LobotomyConfigManager.Instance.NoRuina ? "wstl_mhz176" : "wstl_priceOfSilence" });
 
             StarterDeckHelper.AddStarterDeck(pluginPrefix, "Keter", Artwork.starterDeckKeter, 8, cardNames: new() {
                 "wstl_bloodBath",
@@ -235,17 +224,17 @@ namespace WhistleWindLobotomyMod
                 "wstl_snowQueen" });
 
             StarterDeckHelper.AddStarterDeck(pluginPrefix, "Road to Oz", Artwork.starterDeckFairyTale, 0, cardNames: new() {
-                RuinaCardsDisabled ? "wstl_laetitia" : "wstl_theRoadHome",
+                LobotomyConfigManager.Instance.NoRuina ? "wstl_laetitia" : "wstl_theRoadHome",
                 "wstl_warmHeartedWoodsman",
                 "wstl_wisdomScarecrow",
-                RuinaCardsDisabled ? "wstl_snowWhitesApple" : "wstl_ozma" },
+                LobotomyConfigManager.Instance.NoRuina ? "wstl_snowWhitesApple" : "wstl_ozma" },
                 customUnlock: dummy => LobotomySaveManager.UnlockedLyingAdult || LobotomyConfigManager.Instance.EventFlags);
 
             StarterDeckHelper.AddStarterDeck(pluginPrefix, "Magical Girls!", Artwork.starterDeckMagicalGirls, 0, cardNames: new() {
                 "wstl_magicalGirlSpade",
                 "wstl_magicalGirlHeart",
                 "wstl_magicalGirlDiamond",
-                RuinaCardsDisabled? "wstl_voidDream" : "wstl_magicalGirlClover" },
+                LobotomyConfigManager.Instance.NoRuina ? "wstl_voidDream" : "wstl_magicalGirlClover" },
                 customUnlock: dummy => LobotomySaveManager.UnlockedJesterOfNihil || LobotomyConfigManager.Instance.EventFlags);
 
             StarterDeckHelper.AddStarterDeck(pluginPrefix, "Twilight", Artwork.starterDeckBlackForest, 0, cardNames: new() {
