@@ -436,42 +436,65 @@ namespace WhistleWindLobotomyMod
         private void Dialogue_Malkuth()
         {
 
-            CreateDialogueEvents("SephirahMalkuthChoice", new()
-            {
-
+            CreateDialogueEvents("SephirahMalkuthChoice", new() {
+                NewLine("Nice to meet you, manager!", Emotion.Neutral)
             });
-            CreateDialogueEvents("SephirahMalkuthDrawn", new()
-            {
-
-            });
-            CreateDialogueEvents("SephirahMalkuthGivenSigil", new()
-            {
-
-            });
-            CreateDialogueEvents("SephirahMalkuthHurt", new()
-            {
-
-            });
-            CreateDialogueEvents("SephirahMalkuthPlayed", new()
-            {
-
-            });
-            CreateDialogueEvents("SephirahMalkuthSacrificed", new()
-            {
-
-            });
-            CreateDialogueEvents("SephirahMalkuthSelectableBad", new()
-            {
-
-            });
-            CreateDialogueEvents("SephirahMalkuthSelectableGood", new()
-            {
-
-            });
-            CreateDialogueEvents("SephirahMalkuthTrial", new()
-            {
-
-            });
+            CreateDialogueEvents("SephirahMalkuthDrawn", new() {
+                NewLine("Greetings Manager!", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Greetings Manager!", Emotion.Laughter) },
+                    new() { NewLine("I promise to succeed!", Emotion.Anger) },
+                    new() { NewLine("Trust me and follow my lead!", Emotion.Neutral) }
+                });
+            CreateDialogueEvents("SephirahMalkuthGivenSigil", new() {
+                NewLine("I'm fully prepared now!", Emotion.Anger) },
+                new() {
+                    new() { NewLine("I'm fully prepared now!", Emotion.Anger) },
+                    new() { NewLine("Winning is just a matter of time!", Emotion.Anger) },
+                    new() { NewLine("I'll do my best within my ability!", Emotion.Neutral) }
+                });
+            CreateDialogueEvents("SephirahMalkuthHurt", new() {
+                NewLine("Don't panic.", Emotion.Quiet) },
+                new() {
+                    new() { NewLine("Don't panic.", Emotion.Quiet) },
+                    new() { NewLine("Stay calm.", Emotion.Quiet) },
+                    new() { NewLine("I'll fight harder, don't worry!", Emotion.Anger) }
+                });
+            CreateDialogueEvents("SephirahMalkuthPlayed", new() {
+                NewLine("I've got a good feeling about this!", Emotion.Anger) },
+                new() {
+                    new() { NewLine("I've got a good feeling about this!", Emotion.Anger) },
+                    new() { NewLine("Trust me and follow my lead!", Emotion.Anger) },
+                    new() { NewLine("Let's stay sharp, shall we?", Emotion.Neutral) }
+                });
+            CreateDialogueEvents("SephirahMalkuthSacrificed", new() {
+                NewLine("Not like this...", Emotion.Quiet) },
+                new() {
+                    new() { NewLine("Not like this...", Emotion.Quiet) },
+                    new() { NewLine("...Don't give up.", Emotion.Quiet) },
+                    new() { NewLine("I talked big and failed, again.", Emotion.Quiet) }
+                });
+            CreateDialogueEvents("SephirahMalkuthSelectableBad", new() {
+                NewLine("Stay calm, everyone.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Stay calm, everyone.", Emotion.Neutral) },
+                    new() { NewLine("I have faith in your decision.", Emotion.Quiet) },
+                    new() { NewLine("Why don't we take a deep breath?", Emotion.Neutral) }
+                });
+            CreateDialogueEvents("SephirahMalkuthSelectableGood", new() {
+                NewLine("Things are going smoothly!", Emotion.Surprise) },
+                new() {
+                    new() { NewLine("Things are going smoothly!", Emotion.Surprise) },
+                    new() { NewLine("Let's make the most of this!", Emotion.Neutral) },
+                    new() { NewLine("I trust your judgement!", Emotion.Laughter) }
+                });
+            CreateDialogueEvents("SephirahMalkuthTrial", new() {
+                NewLine("Have faith in me!", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("We can do it!", Emotion.Anger) },
+                    new() { NewLine("Have faith in me!", Emotion.Anger) },
+                    new() { NewLine("You've got this manager!", Emotion.Neutral) }
+                });
         }
         private void Dialogue_Netzach()
         {

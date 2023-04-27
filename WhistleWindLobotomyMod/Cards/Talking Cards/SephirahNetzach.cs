@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
             get
             {
                 Sprite face = LoadSpriteFromBytes(Artwork.talkingNetzachBody, new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingNetzachEyesEmission1);
+                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingNetzachEmission);
 
                 return new()
                 {

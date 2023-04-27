@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
     public class TalkingCardHod : CustomPaperTalkingCard
     {
         public override string CardName => "wstl_sephirahHod";
-        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.0f, voiceSoundPitch: 1.5f);
+        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.0f, voiceSoundPitch: 1.4f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
         public static SpecialTriggeredAbility specialAbility;
@@ -25,8 +25,8 @@ namespace WhistleWindLobotomyMod
             get
             {
                 Sprite face = LoadSpriteFromBytes(Artwork.talkingHodBody, new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingHodEyesEmission1);
-                FaceAnim emissionLaugh = MakeFaceAnim(Artwork.talkingHodEyesEmission2);
+                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingHodEmission1);
+                FaceAnim emissionLaugh = MakeFaceAnim(Artwork.talkingHodEmission2);
 
                 return new()
                 {

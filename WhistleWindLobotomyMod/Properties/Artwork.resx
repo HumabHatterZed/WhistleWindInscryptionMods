@@ -1147,6 +1147,12 @@
   <data name="talkingHodBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingHodBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="talkingHodEmission1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEmission1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingHodEmission2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHodEmission2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="talkingHodEyesClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingHodEyesClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1161,12 +1167,6 @@
   </data>
   <data name="talkingHodEyesClosed6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingHodEyesClosed6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="talkingHodEyesEmission1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\talkingHodEyesEmission1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="talkingHodEyesEmission2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\talkingHodEyesEmission2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="talkingHodEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingHodEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1216,8 +1216,53 @@
   <data name="talkingHodMouthOpen6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingHodMouthOpen6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="talkingMalkuthBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthEmission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthEmission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthEyesClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthEyesClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthEyesClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthEyesClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthEyesOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthEyesOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthMouthClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthMouthClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthMouthClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthMouthClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthMouthClosed3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthMouthClosed3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthMouthClosed4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthMouthClosed4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthMouthOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthMouthOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthMouthOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthMouthOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthMouthOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthMouthOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingMalkuthMouthOpen4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingMalkuthMouthOpen4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="talkingNetzachBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingNetzachBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingNetzachEmission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingNetzachEmission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="talkingNetzachEyesClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingNetzachEyesClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1230,9 +1275,6 @@
   </data>
   <data name="talkingNetzachEyesClosed5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingNetzachEyesClosed5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="talkingNetzachEyesEmission1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\talkingNetzachEyesEmission1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="talkingNetzachEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingNetzachEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

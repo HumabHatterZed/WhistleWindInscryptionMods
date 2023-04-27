@@ -115,7 +115,7 @@ namespace WhistleWindLobotomyMod
             TalkingCardManager.New<TalkingCardHod>();
             TalkingCardManager.New<TalkingCardYesod>();
             TalkingCardManager.New<TalkingCardNetzach>();
-            // SephirahMalkuth.Init();
+            TalkingCardManager.New<TalkingCardMalkuth>();
             // SephirahChesed.Init();
             // SephirahGebura.Init();
             // SephirahTipherethB.Init();
