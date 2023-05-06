@@ -72,12 +72,6 @@ namespace WhistleWindLobotomyMod
         {
             { Opponent.Type.ProspectorBoss, "SephirahNetzachChoice" }
         };
-
-        public override void OnShownForCardChoiceNode()
-        {
-            this.TriggerSoloDialogue("SephirahNetzachChoice");
-            base.OnShownForCardChoiceNode();
-        }
     }
     public partial class LobotomyPlugin
     {
@@ -91,7 +85,7 @@ namespace WhistleWindLobotomyMod
 
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahNetzach", "Netzach",
-                "The head of the Training Department. She will assist you the best she can.",
+                "Despite a lack of motivation, he'll do his best to succeed.",
                 atk: 0, hp: 5,
                 blood: 1, bones: 0, energy: 0,
                 null, null,

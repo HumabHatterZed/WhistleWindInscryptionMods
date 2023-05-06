@@ -66,12 +66,6 @@ namespace WhistleWindLobotomyMod
         {
             { Opponent.Type.ProspectorBoss, "SephirahYesodChoice" }
         };
-
-        public override void OnShownForCardChoiceNode()
-        {
-            this.TriggerSoloDialogue("SephirahYesodChoice");
-            base.OnShownForCardChoiceNode();
-        }
     }
     public partial class LobotomyPlugin
     {

@@ -29,17 +29,6 @@ namespace WhistleWindLobotomyMod
 
     public partial class LobotomyPlugin : BaseUnityPlugin
     {
-        public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
-        public const string pluginPrefix = "wstl";
-        public const string pluginName = "WhistleWind Lobotomy Mod";
-        private const string pluginVersion = "2.0.0";
-
-        internal static ManualLogSource Log;
-        private static Harmony HarmonyInstance = new(pluginGuid);
-
-        public static bool AllCardsDisabled { get; internal set; }
-        public static RiskLevel DisabledRiskLevels { get; internal set; }
-
         private void Awake()
         {
             Log = base.Logger;
@@ -116,7 +105,7 @@ namespace WhistleWindLobotomyMod
             TalkingCardManager.New<TalkingCardYesod>();
             TalkingCardManager.New<TalkingCardNetzach>();
             TalkingCardManager.New<TalkingCardMalkuth>();
-            // SephirahChesed.Init();
+            TalkingCardManager.New<TalkingCardChesed>();
             // SephirahGebura.Init();
             // SephirahTipherethB.Init();
             // SephirahTipherethA.Init();
@@ -273,7 +262,7 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public static class PackAPI
+        internal static class PackAPI
         {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
             internal static void CreateCardPack()
@@ -286,5 +275,16 @@ namespace WhistleWindLobotomyMod
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             }
         }
+
+        public static bool AllCardsDisabled { get; internal set; }
+        public static RiskLevel DisabledRiskLevels { get; internal set; }
+        
+        private static Harmony HarmonyInstance = new(pluginGuid);
+        internal static ManualLogSource Log;
+
+        public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
+        public const string pluginPrefix = "wstl";
+        public const string pluginName = "WhistleWind Lobotomy Mod";
+        private const string pluginVersion = "2.0.0";
     }
 }

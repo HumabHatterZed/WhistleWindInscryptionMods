@@ -9,25 +9,6 @@ namespace ModDebuggingMod
     [HarmonyPatch]
     public static class DebugPatches
     {
-        private static readonly string LobGuid = WhistleWindLobotomyMod.LobotomyPlugin.pluginGuid;
-        private static readonly List<string> customItems = new()
-        {
-            LobGuid + "_" + "BottledTrain",
-            LobGuid + "_" + "BottledTrain",
-            LobGuid + "_" + "BottledTrain"
-        };
-
-        [HarmonyPatch(typeof(Part3SaveData), nameof(Part3SaveData.Initialize))]
-        private static void Postfix(ref Part3SaveData __instance)
-        {
-            /*            __instance.deck.Cards.Clear();
-                        __instance.deck.AddCard(CardLoader.GetCardByName("arackulele.inscryption.grimoramod Combustor"));
-                        __instance.deck.AddCard(CardLoader.GetCardByName("arackulele.inscryption.grimoramod UndeadCivilian"));
-                        __instance.deck.AddCard(CardLoader.GetCardByName("arackulele.inscryption.grimoramod UndeadVillage"));
-                        __instance.deck.AddCard(CardLoader.GetCardByName("arackulele.inscryption.grimoramod Undertaker"));*/
-        }
-
-
         [HarmonyPatch(typeof(PaperGameMap), "TryInitializeMapData")]
         public static void Prefix(ref PaperGameMap __instance)
         {
@@ -38,12 +19,22 @@ namespace ModDebuggingMod
             List<List<NodeData>> nodeRows = new()
             {
                 new() { StartNode },
-                new() { StatNode },
+                new() { BattleNode },
                 new() { StatNode }
             };
 
             nodes.nodeRows.AddRange(nodeRows);
             __instance.PredefinedNodes = nodes;
+        }
+
+        [HarmonyPatch(typeof(Part3SaveData), nameof(Part3SaveData.Initialize))]
+        private static void Postfix(ref Part3SaveData __instance)
+        {
+            /*            __instance.deck.Cards.Clear();
+                        __instance.deck.AddCard(CardLoader.GetCardByName("arackulele.inscryption.grimoramod Combustor"));
+                        __instance.deck.AddCard(CardLoader.GetCardByName("arackulele.inscryption.grimoramod UndeadCivilian"));
+                        __instance.deck.AddCard(CardLoader.GetCardByName("arackulele.inscryption.grimoramod UndeadVillage"));
+                        __instance.deck.AddCard(CardLoader.GetCardByName("arackulele.inscryption.grimoramod Undertaker"));*/
         }
 
         [HarmonyPatch(typeof(SaveFile), nameof(SaveFile.ResetPart1Run))]
@@ -64,5 +55,12 @@ namespace ModDebuggingMod
         private static CardChoicesNodeData TribeChoice => new() { choicesType = CardChoicesType.Tribe };
         private static DuplicateMergeNodeData DupeNode => new();
         private static GainConsumablesNodeData ItemNode => new();
+        private static readonly string LobGuid = WhistleWindLobotomyMod.LobotomyPlugin.pluginGuid;
+        private static readonly List<string> customItems = new()
+        {
+            LobGuid + "_" + "BottledTrain",
+            LobGuid + "_" + "BottledTrain",
+            LobGuid + "_" + "BottledTrain"
+        };
     }
 }

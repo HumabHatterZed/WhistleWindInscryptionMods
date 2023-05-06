@@ -77,12 +77,6 @@ namespace WhistleWindLobotomyMod
         {
             { Opponent.Type.ProspectorBoss, "SephirahHodChoice" }
         };
-
-        public override void OnShownForCardChoiceNode()
-        {
-            this.TriggerSoloDialogue("SephirahHodChoice");
-            base.OnShownForCardChoiceNode();
-        }
     }
     public partial class LobotomyPlugin
     {
@@ -96,7 +90,7 @@ namespace WhistleWindLobotomyMod
 
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahHod", "Hod",
-                "The head of the Training Department. She will assist you the best she can.",
+                "Though death is guaranteed, it never hurts to be prepared, right?",
                 atk: 1, hp: 2,
                 blood: 0, bones: 3, energy: 0,
                 null, null,

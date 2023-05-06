@@ -4,7 +4,6 @@ using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
@@ -72,12 +71,6 @@ namespace WhistleWindLobotomyMod
         {
             { Opponent.Type.ProspectorBoss, "SephirahMalkuthChoice" }
         };
-
-        public override void OnShownForCardChoiceNode()
-        {
-            this.TriggerSoloDialogue("SephirahMalkuthChoice");
-            base.OnShownForCardChoiceNode();
-        }
     }
     public partial class LobotomyPlugin
     {
@@ -91,7 +84,7 @@ namespace WhistleWindLobotomyMod
 
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahMalkuth", "Malkuth",
-                "The head of the Training Department. She will assist you the best she can.",
+                "The head of the Control Team, here to assist you any way she can.",
                 atk: 1, hp: 1,
                 blood: 0, bones: 3, energy: 0,
                 null, null,

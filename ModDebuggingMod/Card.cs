@@ -11,7 +11,7 @@ namespace ModDebuggingMod
         {
             List<Ability> abilities = new()
             {
-                Ability.RandomAbility
+
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
@@ -32,21 +32,13 @@ namespace ModDebuggingMod
             CardInfo card = CardHelper.CreateCard(
                 "wstl", "wstlcard", "Debug",
                 "You shouldn't see this.",
-                5, 99, 0, 0, 0,
+                0, 99, 0, 0, 0,
                 Resources.allAroundHelper_emission, Resources.allAroundHelper_emission,
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: traits,
                 evolveName: "Buggy {0}");
 
-            card.Mods.Add(new() { gemify = true });
-
-            /*            CardInfo moxOrange1 = CardManager.New("wstl", "wstlmoxblue", "Orange", 0, 1);
-                        moxOrange1.SetGemsCost(new() { GemType.Blue });
-                        moxOrange1.SetDefaultPart1Card();
-
-                        CardInfo moxOrange2 = CardManager.New("wstl", "wstlmoxgreen", "Orange", 0, 1);
-                        moxOrange2.SetGemsCost(new() { GemType.Green, GemType.Orange });
-                        moxOrange2.SetDefaultPart1Card();*/
+            // card.Mods.Add(new() { gemify = true });
         }
     }
 }

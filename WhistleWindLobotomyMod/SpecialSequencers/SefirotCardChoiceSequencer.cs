@@ -1,50 +1,47 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Nodes;
+using InscryptionAPI.TalkingCards;
 using Pixelplacement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
-using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod
 {
     public partial class LobotomyPlugin
     {
-        private void Node_ModCardChoice()
+        private void Node_SefirotCardChoice()
         {
             List<byte[]> animationFrames = new()
             {
-                Artwork.nodeAbnormalityCardChoice1,
-                Artwork.nodeAbnormalityCardChoice2,
-                Artwork.nodeAbnormalityCardChoice3,
-                Artwork.nodeAbnormalityCardChoice4
+                Artwork.nodeSefirotCardChoice1,
+                Artwork.nodeSefirotCardChoice2,
+                Artwork.nodeSefirotCardChoice3,
+                Artwork.nodeSefirotCardChoice4
             };
 
             GenerationType main = GenerationType.SpecialCardChoice;
-            GenerationType extra = LobotomyConfigManager.Instance.BoxStart ? GenerationType.RegionStart : GenerationType.None;
+            GenerationType extra = LobotomyConfigManager.Instance.SefirotChoiceAtStart ? GenerationType.RegionStart : GenerationType.None;
 
-            // don't generate node if it's disabled or no cards to spawn
-            if (LobotomyConfigManager.Instance.NoBox || AllCardsDisabled)
+            // don't generate node if it's disabled
+            if (LobotomyConfigManager.Instance.NoSefirot)
             {
                 main = GenerationType.None;
                 extra = GenerationType.None;
             }
-            NodeHelper.CreateNode("wstlModCardChoiceNode", typeof(AbnormalCardChoiceSequencer), animationFrames,
+            NodeHelper.CreateNode("wstlSefirotCardChoiceNode", typeof(SefirotCardChoiceSequencer), animationFrames,
                 main, extraGenType: extra);
         }
     }
-    public class AbnormalCardChoiceSequencer : CustomCardChoiceNodeSequencer
+    // Pulled wholesale from CardSingleChoicesSequencer and CardChoiceSequencer
+    public class SefirotCardChoiceSequencer : CustomCardChoiceNodeSequencer
     {
-        // Pulled wholesale from CardSingleChoicesSequencer and CardChoiceSequencer
-
         protected CardPile modDeckPile = SpecialNodeHandler.Instance.cardChoiceSequencer.deckPile;
         protected GamepadGridControl modGamepadGrid = SpecialNodeHandler.Instance.cardChoiceSequencer.gamepadGrid;
 
@@ -56,7 +53,6 @@ namespace WhistleWindLobotomyMod
         private SelectableCard chosenReward;
         private bool choicesRerolled;
         private Vector3 basePosition;
-
         private void Start()
         {
             // Sets up the clover and the basePosition,
@@ -76,12 +72,11 @@ namespace WhistleWindLobotomyMod
             }
             this.basePosition = base.transform.position;
         }
+        // The framework code, basically
+        // This is essentially ChooseCards from CardChoiceSequencer plus the code of deckpile.DestroyCards()
         public override IEnumerator DoCustomSequence(CustomSpecialNodeData choicesData)
         {
-            // The framework code, basically
-            // This is essentially ChooseCards from CardChoiceSequencer plus the code of deckpile.DestroyCards()
-
-            // Spawn the rulebook and card deck before the dialogue starts
+            // Spawns the rulebook and deck before the dialogue starts
             if (modGamepadGrid != null)
                 modGamepadGrid.enabled = true;
 
@@ -89,11 +84,11 @@ namespace WhistleWindLobotomyMod
             base.StartCoroutine(modDeckPile.SpawnCards(SaveManager.SaveFile.CurrentDeck.Cards.Count));
 
             // First-time dialogue for the node
-            if (!DialogueEventsData.EventIsPlayed("AbnormalChoiceNodeIntro"))
+            if (!DialogueEventsData.EventIsPlayed("SefirotChoiceNodeIntro"))
             {
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default);
                 yield return new WaitForSeconds(0.4f);
-                yield return DialogueHelper.PlayDialogueEvent("AbnormalChoiceNodeIntro");
+                yield return DialogueHelper.PlayDialogueEvent("SefirotChoiceNodeIntro");
             }
 
             Singleton<ViewManager>.Instance.SwitchToView(this.choicesView, immediate: false, lockAfter: true);
@@ -129,16 +124,12 @@ namespace WhistleWindLobotomyMod
 
             chosenReward = null;
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
-
-            // card choice loop
             while (chosenReward == null)
             {
-                // generate card choices
-                List<CardChoice> choices = GenerateRiskChoices(randomSeed);
+                List<CardChoice> choices = GenerateSephirahChoices(randomSeed);
                 randomSeed *= 2;
                 float x = (float)(choices.Count - 1) * 0.5f * -1.5f;
                 base.selectableCards = base.SpawnCards(choices.Count, base.transform, new Vector3(x, 5.01f, 0f));
-                // spawn selectable cards
                 for (int i = 0; i < choices.Count; i++)
                 {
                     CardChoice cardChoice = choices[i];
@@ -156,13 +147,9 @@ namespace WhistleWindLobotomyMod
                         components[j].OnShownForCardChoiceNode();
                     }
 
-                    // custom card backs
-                    if (card.ChoiceInfo.CardInfo.metaCategories.Contains(CardMetaCategory.Rare))
-                        card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBackRare));
-                    else
-                        card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBack));
-
+                    card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.sefirotRewardBack));
                     card.SetFaceDown(faceDown: true, immediate: true);
+
                     Vector3 position = card.transform.position;
                     card.transform.position = card.transform.position + Vector3.forward * 5f + new Vector3(-0.5f + UnityEngine.Random.value * 1f, 0f, 0f);
                     Tween.Position(card.transform, position, 0.3f, 0f, Tween.EaseInOut);
@@ -185,124 +172,44 @@ namespace WhistleWindLobotomyMod
             }
             yield return this.AddCardToDeckAndCleanUp(chosenReward);
         }
-        private List<CardChoice> GenerateRiskChoices(int randomSeed)
+        private List<CardChoice> GenerateSephirahChoices(int randomSeed)
         {
             List<CardChoice> listOfChoices = new();
-            int regionTier = RunState.CurrentRegionTier;
+            List<CardInfo> sephirahCards = LobotomyCardLoader.GetSephirahCards();
+            if (!LobotomySaveManager.UnlockedAngela)
+            {
+                if (sephirahCards.Count >= 3)
+                    sephirahCards.RemoveAll(x => x.name.Equals("wstl_angela"));
+
+                if (sephirahCards.Count <= 3)
+                    LobotomySaveManager.UnlockedAngela = true;
+            }
+
             while (listOfChoices.Count < 3)
             {
-                CardChoice cardChoice = new();
-                string riskLevel = GetRiskLevel(randomSeed++, regionTier);
-                bool overrideWithRare = SeededRandom.Value(randomSeed++) <= RareChoiceChance(regionTier);
-                CardInfo card = LobotomyCardLoader.GetRandomChoosableModCard(randomSeed++, riskLevel);
-
-                if (overrideWithRare)
-                    card = LobotomyCardLoader.GetRandomRareModCard(randomSeed++);
-
-                // if this is a duplicate card, generate a new card
-                while (listOfChoices.Exists((CardChoice x) => x.CardInfo.name == card.name))
+                CardInfo card;
+                if (sephirahCards.Count > 0)
                 {
-                    string riskLevel2 = GetRiskLevel(randomSeed++, regionTier);
-                    card = overrideWithRare ? LobotomyCardLoader.GetRandomRareModCard(randomSeed++) : LobotomyCardLoader.GetRandomChoosableModCard(randomSeed++, riskLevel2);
+                    card = CardLoader.Clone(sephirahCards[SeededRandom.Range(0, sephirahCards.Count, randomSeed++)]);
+                    while (listOfChoices.Exists(x => x.CardInfo.name == card.name))
+                        card = CardLoader.Clone(sephirahCards[SeededRandom.Range(0, sephirahCards.Count, randomSeed++)]);
+
+                    sephirahCards.RemoveAll(x => x.name == card.name);
                 }
-                cardChoice.CardInfo = card;
+                else
+                    card = LobotomyCardLoader.GetRandomModDeathCard(randomSeed++);
+
+                CardChoice cardChoice = new() { CardInfo = card };
                 listOfChoices.Add(cardChoice);
             }
-            return new List<CardChoice>(listOfChoices.Randomize());
-        }
-        private string GetRiskLevel(int randomSeed, int regionTier) // determines which risk level to draw cards from
-        {
-            // safeguard
-            if (AllCardsDisabled)
-                return "Zayin";
-
-            float tier1 = regionTier switch
-            {
-                2 => 0.25f,
-                1 => .30f,
-                _ => 0.40f
-            };
-            float tier2 = regionTier switch
-            {
-                2 => 0.25f,
-                _ => 0.30f
-            };
-            float tier3 = regionTier switch
-            {
-                2 => 0.25f,
-                _ => 0.20f
-            };
-            float tier4 = regionTier switch
-            {
-                2 => 0.25f,
-                1 => 0.20f,
-                _ => 0.10f
-            };
-
-            // lowest value to highest
-            List<float> tiers = new() { tier4, tier3, tier2, tier1 };
-            List<string> riskLevels = new();
-
-            // add possible risk levels to list
-            if (!DisabledRiskLevels.HasFlag(RiskLevel.Zayin))
-                riskLevels.Add("Zayin");
-            if (!DisabledRiskLevels.HasFlag(RiskLevel.Teth))
-                riskLevels.Add("Teth");
-            if (!DisabledRiskLevels.HasFlag(RiskLevel.He))
-                riskLevels.Add("He");
-            if (!DisabledRiskLevels.HasFlag(RiskLevel.Waw))
-                riskLevels.Add("Waw");
-
-            // return first element if list only has 1 element
-            if (riskLevels.Count == 1)
-                return riskLevels.First();
-
-            float rollValue = SeededRandom.Value(randomSeed);
-
-            // for every tier (from lowest chance to highest)
-            for (int i = 0; i < tiers.Count; i++)
-            {
-                // if rollValue is within tier's range or only one risk remains, break and return
-                if (rollValue <= tiers[i] || riskLevels.Count == 1)
-                    break;
-
-                // otherwise reduce rollValue by the tier's value and remove the disqualified risk level
-                rollValue -= tiers[i];
-                riskLevels.Remove(riskLevels.Last());
-            }
-
-            return riskLevels.Last();
-        }
-        private float RareChoiceChance(int regionTier)
-        {
-            // # || PT 1 | SPEC || #
-            // 0 || 0.00 | 0.02 || 1
-            // 1 || 0.02 | 0.05 || 2
-            // 2 || 0.05 | 0.10 || 3
-
-            int regionMultiplier = regionTier;
-
-            if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(BetterRareChances.Id)
-                : LobotomyConfigManager.Instance.BetterRareChances)
-            {
-                regionMultiplier++;
-            }
-
-            return regionMultiplier switch
-            {
-                0 => 0f,
-                1 => 0.02f,
-                2 => 0.05f,
-                3 => 0.10f,
-                _ => (regionMultiplier - 1) * 0.05f
-            };
+            return new(listOfChoices.Randomize());
         }
         private IEnumerator AddCardToDeckAndCleanUp(SelectableCard card)
         {
             CleanUpRerollItem();
             Singleton<RuleBookController>.Instance.SetShown(shown: false);
             yield return RewardChosenSequence(card);
-            LobotomySaveManager.LearnedAbnormalChoice = true;
+            LobotomySaveManager.LearnedSefirotChoice = true;
             AddChosenCardToDeck();
             Singleton<TextDisplayer>.Instance.Clear();
             yield return new WaitForSeconds(0.1f);
@@ -310,17 +217,16 @@ namespace WhistleWindLobotomyMod
         private IEnumerator RewardChosenSequence(SelectableCard card)
         {
             card.OnCardAddedToDeck();
-            float num = !LobotomySaveManager.LearnedAbnormalChoice ? 0.5f : 0f;
+            float num = !LobotomySaveManager.LearnedSefirotChoice ? 0.5f : 0f;
 
             modDeckPile.MoveCardToPile(card, flipFaceDown: true, num);
             yield return new WaitForSeconds(num);
-            if (!LobotomySaveManager.LearnedAbnormalChoice)
+            if (!LobotomySaveManager.LearnedSefirotChoice)
             {
                 Singleton<TextDisplayer>.Instance.Clear();
                 yield return new WaitForSeconds(0.15f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(
-                    "The creature rises from the well and joins your caravan. Ignoring the cries from the well, you hastily continue on.",
-                    0f, 0.4f, Emotion.Neutral, TextDisplayer.LetterAnimation.WavyJitter);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The Sephirah agrees, and the others continue their separate way.", 0f, 0.4f, Emotion.Neutral, TextDisplayer.LetterAnimation.WavyJitter);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Before they go, they promise to see you again.", 0f, 0.4f, Emotion.Neutral, TextDisplayer.LetterAnimation.WavyJitter);
             }
         }
         private void AddChosenCardToDeck()
@@ -348,6 +254,7 @@ namespace WhistleWindLobotomyMod
 
             if (card.Info != null)
                 base.StartCoroutine(RegularChoiceFlipped(card));
+
         }
         private IEnumerator RegularChoiceFlipped(SelectableCard card)
         {
@@ -360,6 +267,11 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator TutorialTextSequence(SelectableCard card)
         {
+            var component = card.GetComponent<CustomPaperTalkingCard>();
+
+            if (component)
+                component.CurrentDialogueSequence = base.StartCoroutine(Singleton<TalkingCardDialogueHandler>.Instance.DialogueSequence($"{card.Info.name.Split('_')[1]}Choice", component));
+
             if (!string.IsNullOrEmpty(card.Info.description) && !ProgressionData.IntroducedCard(card.Info))
             {
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
@@ -369,9 +281,14 @@ namespace WhistleWindLobotomyMod
                 if (!LobotomySaveManager.LearnedAbnormalChoice && this.AllCardsFlippedUp())
                 {
                     yield return new WaitForSeconds(0.25f);
-                    Singleton<TextDisplayer>.Instance.ShowMessage("You may choose [c:bR]1[c:] to join you. The others will remain submerged and forgotten.");
+                    Singleton<TextDisplayer>.Instance.ShowMessage("You may ask [c:bR]1[c:] to join you. The others will continue on their own.");
                 }
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            }
+            if (component)
+            {
+                yield return new WaitUntil(() => !component.PlayingDialogue);
+                component.CurrentDialogueSequence = null;
             }
         }
         private bool AllCardsFlippedUp() => !selectableCards.Exists((SelectableCard x) => x.Flipped);
@@ -394,7 +311,7 @@ namespace WhistleWindLobotomyMod
                     if (doTween)
                         Tween.Position(selectableCard.transform, selectableCard.transform.position + Vector3.forward * 20f, 0.5f, 0f, Tween.EaseInOut);
 
-                    UnityEngine.Object.Destroy(selectableCard.gameObject, doTween ? 0.5f : 0f);
+                    Destroy(selectableCard.gameObject, doTween ? 0.5f : 0f);
                 }
             }
             base.selectableCards.Clear();

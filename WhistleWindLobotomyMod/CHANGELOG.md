@@ -12,6 +12,7 @@ In future updates, these changes will be restrained to that mod's changelog.
 ### 🩹 Bug fixes
     - Abnormality card choice now properly displays and clears dialogue
     - Fixed custom challenges not working properly in Act 1
+    - Fixed custom death cards not being created correctly in some circumstances
     - <<WhiteNight>> event no longer softlocks when there are multiple Plague Doctors in play
     - <<Nothing There>> is no longer copyable by Goo Mage
     - <<Guardian Apostle>> no longer revives immediately after being Downed
