@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod
                     new(emotion: Emotion.Surprise,
                         face: face,
                         eyes: MakeFaceAnim(Artwork.talkingMalkuthEyesOpen1, Artwork.talkingMalkuthEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingMalkuthMouthOpen4, Artwork.talkingMalkuthMouthClosed4),
+                        mouth: MakeFaceAnim(Artwork.talkingMalkuthMouthOpen4, Artwork.talkingMalkuthMouthClosed3),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,

@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -26,19 +27,19 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
         private bool IsLaetitia => base.Card.Info.name.ToLowerInvariant().Contains("laetitia");
+        private string CustomCardToDraw => base.Card.Info.GetExtendedProperty("wstl:GiftGiver");
         public override CardInfo CardToDraw
         {
             get
             {
-                if (this.IsLaetitia)
+                if (IsLaetitia || CustomCardToDraw != null)
                 {
-                    CardInfo cardByName = CardLoader.GetCardByName("wstl_laetitiaFriend");
+                    CardInfo cardByName = CardLoader.GetCardByName(CustomCardToDraw ?? "wstl_laetitiaFriend");
                     cardByName.Mods.AddRange(base.GetNonDefaultModsFromSelf(this.Ability));
                     return cardByName;
                 }
-                List<CardInfo> list = ScriptableObjectLoader<CardInfo>.AllData.FindAll((CardInfo x) => x.metaCategories.Contains(CardMetaCategory.ChoiceNode));
-                if (base.Card.Info.onePerDeck)
-                    list.Remove(base.Card.Info);
+                List<CardInfo> list = CardManager.AllCardsCopy.FindAll(x => x.HasCardMetaCategory(CardMetaCategory.ChoiceNode));
+                list = CardLoader.RemoveDeckSingletonsIfInDeck(list);
 
                 return list[SeededRandom.Range(0, list.Count, base.GetRandomSeed())];
             }

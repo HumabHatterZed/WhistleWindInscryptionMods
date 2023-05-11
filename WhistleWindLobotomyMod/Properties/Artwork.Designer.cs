@@ -3613,6 +3613,146 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] talkingGeburaBody {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaBody", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaEmission {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaEmission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaEyesClosed1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaEyesClosed1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaEyesClosed2 {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaEyesClosed2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaEyesClosed3 {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaEyesClosed3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaEyesOpen1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaEyesOpen1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaEyesOpen2 {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaEyesOpen2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaEyesOpen3 {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaEyesOpen3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaMouthClosed1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaMouthClosed1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaMouthClosed2 {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaMouthClosed2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaMouthOpen1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaMouthOpen1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaMouthOpen2 {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaMouthOpen2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaMouthOpen3 {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaMouthOpen3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingGeburaMouthOpen4 {
+            get {
+                object obj = ResourceManager.GetObject("talkingGeburaMouthOpen4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] talkingHodBody {
             get {
                 object obj = ResourceManager.GetObject("talkingHodBody", resourceCulture);
@@ -3793,16 +3933,6 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] talkingHodMouthClosed6 {
-            get {
-                object obj = ResourceManager.GetObject("talkingHodMouthClosed6", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] talkingHodMouthOpen1 {
             get {
                 object obj = ResourceManager.GetObject("talkingHodMouthOpen1", resourceCulture);
@@ -3936,16 +4066,6 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] talkingMalkuthMouthClosed3 {
             get {
                 object obj = ResourceManager.GetObject("talkingMalkuthMouthClosed3", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] talkingMalkuthMouthClosed4 {
-            get {
-                object obj = ResourceManager.GetObject("talkingMalkuthMouthClosed4", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -4166,6 +4286,296 @@ namespace WhistleWindLobotomyMod.Properties {
         internal static byte[] talkingNetzachMouthOpen5 {
             get {
                 object obj = ResourceManager.GetObject("talkingNetzachMouthOpen5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethABody {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethABody", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAEmission1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAEmission1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAEmission2 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAEmission2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAEyesClosed1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAEyesClosed1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAEyesClosed2 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAEyesClosed2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAEyesClosed3 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAEyesClosed3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAEyesClosed4 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAEyesClosed4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAEyesOpen1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAEyesOpen1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAEyesOpen2 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAEyesOpen2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAEyesOpen3 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAEyesOpen3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAEyesOpen4 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAEyesOpen4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAMouthClosed1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAMouthClosed1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAMouthClosed2 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAMouthClosed2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAMouthClosed3 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAMouthClosed3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAMouthClosed4 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAMouthClosed4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAMouthOpen1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAMouthOpen1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAMouthOpen2 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAMouthOpen2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAMouthOpen3 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAMouthOpen3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAMouthOpen4 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAMouthOpen4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethAMouthOpen5 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethAMouthOpen5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethBBody {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethBBody", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethBEmission {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethBEmission", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethBEyesClosed1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethBEyesClosed1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethBEyesOpen1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethBEyesOpen1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethBEyesOpen2 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethBEyesOpen2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethBMouthClosed1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethBMouthClosed1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethBMouthClosed2 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethBMouthClosed2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethBMouthOpen1 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethBMouthOpen1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] talkingTipherethBMouthOpen2 {
+            get {
+                object obj = ResourceManager.GetObject("talkingTipherethBMouthOpen2", resourceCulture);
                 return ((byte[])(obj));
             }
         }

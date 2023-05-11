@@ -1183,6 +1183,48 @@
   <data name="talkingChesedMouthOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingChesedMouthOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="talkingGeburaBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaEmission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaEmission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaEyesClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaEyesClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaEyesClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaEyesClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaEyesClosed3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaEyesClosed3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaEyesOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaEyesOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaEyesOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaEyesOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaMouthClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaMouthClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaMouthClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaMouthClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaMouthOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaMouthOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaMouthOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaMouthOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaMouthOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaMouthOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingGeburaMouthOpen4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingGeburaMouthOpen4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="talkingHodBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingHodBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1237,9 +1279,6 @@
   <data name="talkingHodMouthClosed4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingHodMouthClosed4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="talkingHodMouthClosed6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\talkingHodMouthClosed6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="talkingHodMouthOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingHodMouthOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1281,9 +1320,6 @@
   </data>
   <data name="talkingMalkuthMouthClosed3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingMalkuthMouthClosed3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="talkingMalkuthMouthClosed4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Artwork\talkingMalkuthMouthClosed4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="talkingMalkuthMouthOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingMalkuthMouthOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1350,6 +1386,93 @@
   </data>
   <data name="talkingNetzachMouthOpen5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingNetzachMouthOpen5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethABody" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethABody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAEmission1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAEmission1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAEmission2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAEmission2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAEyesClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAEyesClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAEyesClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAEyesClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAEyesClosed3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAEyesClosed3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAEyesClosed4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAEyesClosed4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAEyesOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAEyesOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAEyesOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAEyesOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAEyesOpen4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAEyesOpen4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAMouthClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAMouthClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAMouthClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAMouthClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAMouthClosed3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAMouthClosed3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAMouthClosed4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAMouthClosed4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAMouthOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAMouthOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAMouthOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAMouthOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAMouthOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAMouthOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAMouthOpen4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAMouthOpen4.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethAMouthOpen5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethAMouthOpen5.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethBBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethBBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethBEmission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethBEmission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethBEyesClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethBEyesClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethBEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethBEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethBEyesOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethBEyesOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethBMouthClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethBMouthClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethBMouthClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethBMouthClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethBMouthOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethBMouthOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingTipherethBMouthOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingTipherethBMouthOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="talkingYesodBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingYesodBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

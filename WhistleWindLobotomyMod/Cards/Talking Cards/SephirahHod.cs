@@ -58,7 +58,7 @@ namespace WhistleWindLobotomyMod
                     new(emotion: Emotion.Anger,
                         face: face,
                         eyes: MakeFaceAnim(Artwork.talkingHodEyesOpen6, Artwork.talkingHodEyesClosed6),
-                        mouth: MakeFaceAnim(Artwork.talkingHodMouthOpen6, Artwork.talkingHodMouthClosed6),
+                        mouth: MakeFaceAnim(Artwork.talkingHodMouthOpen6, Artwork.talkingHodMouthClosed4),
                         emission: emissionMain)
                 };
             }

@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod.Core
         public static Trait TraitMagicalGirl = GuidManager.GetEnumValue<Trait>(pluginGuid, "MagicalGirlTrait");
 
         // Cards
-        public static void CreateCard(
+        public static CardInfo CreateCard(
             string name, string displayName,
             string description,
             int atk, int hp,
@@ -148,6 +148,8 @@ namespace WhistleWindLobotomyMod.Core
             }
 
             AllLobotomyCards.Add(cardInfo);
+
+            return cardInfo;
         }
 
         private static CardInfo SetNodeRestrictions(this CardInfo card, bool give, bool gain, bool buff, bool copy)

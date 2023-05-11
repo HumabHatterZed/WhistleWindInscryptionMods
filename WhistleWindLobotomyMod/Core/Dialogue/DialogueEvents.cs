@@ -646,41 +646,91 @@ namespace WhistleWindLobotomyMod
         }
         private void Dialogue_Tiphereth()
         {
-            CreateDialogueEvents("SephirahTipherethChoice", new()
-            {
-
+            CreateDialogueEvents("SephirahTipherethAChoice", new() {
+                NewLine("Hurry and pick one of us.", Emotion.Anger)
             });
-            CreateDialogueEvents("SephirahTipherethDrawn", new()
-            {
-
+            CreateDialogueEvents("SephirahTipherethADrawn", new() {
+                NewLine("Buckle up manager.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Buckle up manager.", Emotion.Neutral) },
+                    new() {
+                        NewLine("Have faith.", Emotion.Laughter),
+                        NewLine("You're not fighting alone.", Emotion.Surprise) },
+                    new() {
+                        NewLine("You can't plan forever.", Emotion.Neutral),
+                        NewLine("Now's the time for action.", Emotion.Anger) },
+                    new() { NewLine("You know what to do, right?", Emotion.Neutral) },
+                    new() { NewLine("We can't let everyone die here.", Emotion.Neutral) }
             });
-            CreateDialogueEvents("SephirahTipherethGivenSigil", new()
-            {
-
+            CreateDialogueEvents("SephirahTipherethAGivenSigil", new() {
+                NewLine("Think I can't do this myself?", Emotion.Anger) },
+                new() {
+                    new() { NewLine("Think I can't do this myself?", Emotion.Anger) },
+                    new() { NewLine("Thanks.", Emotion.Neutral) },
+                    new() { NewLine("Not bad.", Emotion.Neutral) },
+                    new() { NewLine("This better be useful.", Emotion.Anger) }
             });
-            CreateDialogueEvents("SephirahTipherethHurt", new()
-            {
-
+            CreateDialogueEvents("SephirahTipherethAHurt", new() {
+                NewLine("Ah!", Emotion.Quiet) },
+                new() {
+                    new() { NewLine("Ah!", Emotion.Quiet) },
+                    new() { NewLine("I was too slow...", Emotion.Quiet) }
             });
-            CreateDialogueEvents("SephirahTipherethPlayed", new()
-            {
-
+            CreateDialogueEvents("SephirahTipherethAPlayed", new() {
+                NewLine("Push forward!", Emotion.Anger) },
+                new() {
+                    new() { NewLine("Push forward!", Emotion.Anger) },
+                    new() { NewLine("Don't get cocky.", Emotion.Neutral) },
+                    new() { NewLine("We can do this.", Emotion.Laughter) }
             });
-            CreateDialogueEvents("SephirahTipherethSacrificed", new()
-            {
-
+            CreateDialogueEvents("SephirahTipherethASacrificed", new() {
+                NewLine("...", Emotion.Anger) },
+                new() {
+                    new() { NewLine("...", Emotion.Anger) },
+                    new() { NewLine("I can still fight!", Emotion.Anger) },
+                    new() { NewLine("...Sorry", Emotion.Quiet) }
             });
-            CreateDialogueEvents("SephirahTipherethSelectableBad", new()
-            {
-
+            CreateDialogueEvents("SephirahTipherethASelectableBad", new() {
+                NewLine("Why'd you bring us here?", Emotion.Anger) },
+                new() {
+                    new() { NewLine("Why'd you bring us here?", Emotion.Anger) },
+                    new() { NewLine("No.", Emotion.Anger) },
+                    new() { NewLine("Don't you dare.", Emotion.Anger) }
             });
-            CreateDialogueEvents("SephirahTipherethSelectableGood", new()
-            {
-
+            CreateDialogueEvents("SephirahTipherethASelectableGood", new() {
+                NewLine("A respite?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Decide for yourself.", Emotion.Neutral) },
+                    new() { NewLine("Make good use of this.", Emotion.Neutral) },
+                    new() { NewLine("Choose someone that needs it.", Emotion.Neutral) }
             });
-            CreateDialogueEvents("SephirahTipherethTrial", new()
-            {
+            CreateDialogueEvents("SephirahTipherethATrial", new() {
+                NewLine("A trial?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("We've gone through worse.", Emotion.Neutral) },
+                    new() { NewLine("I can handle it.", Emotion.Neutral) },
+                    new() { NewLine("I'll win this for sure.", Emotion.Laughter) }
+            });
 
+            CreateDialogueEvents("SephirahTipherethBDrawn", new() {
+                NewLine("Hello manager.", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Hello manager.", Emotion.Neutral) },
+                    new() { NewLine("Hello manager.", Emotion.Laughter) },
+                    new() { NewLine("You'll do fine, like always.", Emotion.Laughter) }
+            });
+            CreateDialogueEvents("SephirahTipherethBPlayed", new() {
+                NewLine("Here we go.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Here we go.", Emotion.Neutral) },
+                    new() { NewLine("What a strange place...", Emotion.Neutral) },
+                    new() { NewLine("Time to work.", Emotion.Neutral) },
+                    new() { NewLine("Let's do our best.", Emotion.Laughter) }
+            });
+            CreateDialogueEvents("SephirahTipherethBSacrificed", new() {
+                NewLine("...", Emotion.Quiet) },
+                new() {
+                    new() { NewLine("...", Emotion.Quiet) }
             });
         }
         private void Dialogue_Yesod()

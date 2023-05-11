@@ -16,6 +16,7 @@ In future updates, these changes will be restrained to that mod's changelog.
     - <<WhiteNight>> event no longer softlocks when there are multiple Plague Doctors in play
     - <<Nothing There>> is no longer copyable by Goo Mage
     - <<Guardian Apostle>> no longer revives immediately after being Downed
+    - <<Gift Giver>> ability no longer gives copies of singleton cards you already own
 ### 🔧 Tweaks
     - <<Singing Machine>> no longer looks like a Terrain card
     - <<Dragon>> cards no longer display stats, gained new artwork

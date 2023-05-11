@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
     public class TalkingCardChesed : CustomPaperTalkingCard
     {
         public override string CardName => "wstl_sephirahChesed";
-        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.2f, voiceSoundPitch: 0.5f);
+        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.9f, voiceSoundPitch: 0.7f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
         public static SpecialTriggeredAbility specialAbility;
@@ -77,12 +77,6 @@ namespace WhistleWindLobotomyMod
         {
             { Opponent.Type.ProspectorBoss, "SephirahChesedChoice" }
         };
-
-        public override void OnShownForCardChoiceNode()
-        {
-            this.TriggerSoloDialogue("SephirahChesedChoice");
-            base.OnShownForCardChoiceNode();
-        }
     }
     public partial class LobotomyPlugin
     {

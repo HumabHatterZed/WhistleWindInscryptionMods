@@ -11,7 +11,8 @@ namespace ModDebuggingMod
         {
             List<Ability> abilities = new()
             {
-
+                Ability.GainBattery,
+                Ability.DrawCopyOnDeath
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {

@@ -106,12 +106,12 @@ namespace WhistleWindLobotomyMod
             TalkingCardManager.New<TalkingCardNetzach>();
             TalkingCardManager.New<TalkingCardMalkuth>();
             TalkingCardManager.New<TalkingCardChesed>();
-            // SephirahGebura.Init();
-            // SephirahTipherethB.Init();
-            // SephirahTipherethA.Init();
-            // SephirahBinah.Init();
-            // SephirahHokma.Init();
-            // Angela.Init();
+            TalkingCardManager.New<TalkingCardGebura>();
+            TalkingCardManager.New<TalkingCardTipherethA>();
+            TalkingCardManager.New<TalkingCardTipherethB>();
+            // TalkingCardManager.New<TalkingCardBinah>();
+            // TalkingCardManager.New<TalkingCardHokma>();
+            // TalkingCardManager.New<TalkingCardAngela>();
         }
         private void AddCards()
         {
