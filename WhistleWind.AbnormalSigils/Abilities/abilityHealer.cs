@@ -86,7 +86,7 @@ namespace WhistleWind.AbnormalSigils
                 }
                 randSlot = validTargets[SeededRandom.Range(0, validTargets.Count, randomSeed)];
                 instance.VisualizeConfirmSniperAbility(randSlot);
-                visualiser?.VisualizeConfirmSniperAbility(randSlot);
+                visualiser?.VisualizeConfirmSniperAbility(randSlot, false, false);
                 yield return new WaitForSeconds(0.25f);
                 randSlot.Card.HealDamage(2);
                 randSlot.Card.Anim.StrongNegationEffect();

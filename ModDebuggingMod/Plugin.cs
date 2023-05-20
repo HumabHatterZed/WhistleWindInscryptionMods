@@ -23,12 +23,12 @@ namespace ModDebuggingMod
         private const string pluginVersion = "1.0.0";
 
         internal static ManualLogSource Log;
-        private static Harmony HarmonyInstance = new(pluginGuid);
-        public static EncounterBlueprintData ModdingEncounter =>
+        private static readonly Harmony HarmonyInstance = new(pluginGuid);
+        public static EncounterBlueprintData ModdingEncounter() =>
             New("DebugEncounter")
                     .AddDominantTribes(Tribe.Canine)
                     .AddTurns(
-                    CreateTurn("wstlcard", "wstlcard", "wstlcard"),
+                    CreateTurn("Beehive"),
                     CreateTurn()
                     );
 
@@ -38,11 +38,11 @@ namespace ModDebuggingMod
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
             // AddChallenges();
-            // ItemDebug();
+            ItemDebug();
 
             CARD_DEBUG();
-            // DebugEncounters();
-            // ModifyCardList();
+            DebugEncounters();
+            ModifyCardList();
 
             StarterDeckHelper.AddStarterDeck("wstl", "DEBUG HUG", Properties.Resources.starterDeckMagicalGirls, 0, cardNames: new()
             {
@@ -60,7 +60,10 @@ namespace ModDebuggingMod
             {
                 foreach (CardInfo card in cards)
                 {
-                    card.SetCost(0, 0, 0, new());
+                    if (card.name == "Beehive")
+                    {
+                        card.AddAbilities(Ability.SquirrelOrbit);
+                    }
                 }
 
                 return cards;
@@ -72,7 +75,7 @@ namespace ModDebuggingMod
             for (int i = 0; i < 3; i++)
             {
                 RegionProgression.Instance.regions[i].encounters.Clear();
-                RegionProgression.Instance.regions[i].AddEncounters(ModdingEncounter);
+                RegionProgression.Instance.regions[i].AddEncounters(ModdingEncounter());
             }
         }
     }

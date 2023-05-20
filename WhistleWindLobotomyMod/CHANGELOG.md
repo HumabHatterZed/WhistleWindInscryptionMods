@@ -101,6 +101,7 @@ In future updates, these changes will be restrained to that mod's changelog.
     - <<Giant Tree Sap>> Reworked from 0/3, 4 Bones; Morsel, Sacrificial --> 0/3, 3 Bones, Morsel, Rare
         - Special ability changed to trigger less often, now adds Sacrifical as a hidden temporary mod
     - <<Happy Teddy Bear>> cost reduced from 8 Bones --> 6, Health reduced from 3 --> 1
+    - <<Judgement Bird>>'s special ability no longer affects Terrain and Pelt cards
     - <<King of Greed>> rebalanced from 4/5, Hefty, 2 Blood --> 2/5, Cycler, 1 Blood
     - <<Luminous Bracelet>> reworked into Targeted Spell with Greedy Healing, Give Sigils; 2 Energy
     - <<Magical Girl D>> cost reduced from 2 Blood --> 1, Health reduced from 3 --> 2

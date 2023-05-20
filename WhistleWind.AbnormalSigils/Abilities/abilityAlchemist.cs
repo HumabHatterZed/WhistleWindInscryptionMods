@@ -62,12 +62,12 @@ namespace WhistleWind.AbnormalSigils
             {
                 if (Singleton<CardDrawPiles3D>.Instance.Deck.Cards.Count > 0)
                 {
-                    Singleton<CardDrawPiles3D>.Instance.pile.Draw();
+                    Singleton<CardDrawPiles3D>.Instance.Pile.Draw();
                     yield return Singleton<CardDrawPiles3D>.Instance.DrawCardFromDeck();
                 }
                 else if (Singleton<CardDrawPiles3D>.Instance.SideDeck.Cards.Count > 0)
                 {
-                    Singleton<CardDrawPiles3D>.Instance.sidePile.Draw();
+                    Singleton<CardDrawPiles3D>.Instance.SidePile.Draw();
                     yield return Singleton<CardDrawPiles3D>.Instance.DrawFromSidePile();
                 }
                 else

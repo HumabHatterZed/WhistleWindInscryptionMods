@@ -67,10 +67,15 @@ namespace WhistleWindLobotomyMod
         public override string OnSelectedForCardRemoveDialogueId => "SephirahMalkuthSelectableBad";
         public override string OnSelectedForCardMergeDialogueId => "SephirahMalkuthGivenSigil";
         public override string OnSelectedForDeckTrialDialogueId => "SephirahMalkuthTrial";
-        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new Dictionary<Opponent.Type, string>()
+        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahMalkuthChoice" }
+            { Opponent.Type.ProspectorBoss, "SephirahMalkuthProspector" },
+            { Opponent.Type.AnglerBoss, "SephirahMalkuthAngler" },
+            { Opponent.Type.TrapperTraderBoss, "SephirahMalkuthTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "SephirahMalkuthLeshy" },
+            { Opponent.Type.RoyalBoss, "SephirahMalkuthRoyal" }
         };
+        public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
     public partial class LobotomyPlugin
     {

@@ -159,7 +159,7 @@ namespace WhistleWind.AbnormalSigils.Patches
         private static void ImmunetoDeathTouch(ref bool __result, int amount, PlayableCard target)
         {
             if (amount > 0 && target != null && !target.Dead)
-                __result = target.LacksAbility(Ability.MadeOfStone) && target.LacksTrait(AbnormalPlugin.ImmuneToInstaDeath);
+                __result &= target.LacksTrait(AbnormalPlugin.ImmuneToInstaDeath);
         }
     }
     #endregion

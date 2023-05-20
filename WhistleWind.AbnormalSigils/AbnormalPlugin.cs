@@ -10,7 +10,6 @@ using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-//using TribalLibary;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
@@ -42,6 +41,7 @@ namespace WhistleWind.AbnormalSigils
         public static Trait SwanBrother = GuidManager.GetEnumValue<Trait>(pluginGuid, "SwanBrother");
         public static Trait NakedSerpent = GuidManager.GetEnumValue<Trait>(pluginGuid, "NakedSerpent");
         public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
+        public static Trait Executioner = GuidManager.GetEnumValue<Trait>(pluginGuid, "Executioner");
 
         public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
         public static CardMetaCategory CannotGainSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGainSigils");
@@ -208,10 +208,10 @@ namespace WhistleWind.AbnormalSigils
             public static void UseTribalTribes()
             {
                 Log.LogDebug("Tribal Libary detected. Using its tribes instead.");
-                TribeDivine = TribalLibary.Plugin.divinebeastTribe;
+                TribeDivine = TribalLibary.Plugin.guardianTribe;
                 TribeFae = TribalLibary.Plugin.fairyTribe;
                 TribeAnthropoid = TribalLibary.Plugin.humanoidTribe;
-                TribeMechanical = TribalLibary.Plugin.machineTribe;
+                TribeMechanical = TribalLibary.Plugin.androidTribe;
                 TribeBotanic = TribalLibary.Plugin.plantTribe;
             }
 

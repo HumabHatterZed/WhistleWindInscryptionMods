@@ -47,7 +47,7 @@ namespace WhistleWindLobotomyMod
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
                 GenerateDialogueEvents();
-
+                
                 AddChallenges();
 
                 Log.LogDebug("Loading abilities...");
@@ -55,8 +55,8 @@ namespace WhistleWindLobotomyMod
                 AddSpecialAbilities();
 
                 Log.LogDebug("Loading cards...");
-                AddCards();
                 AddAppearances();
+                AddCards();
                 AddStarterDecks();
 
                 Log.LogDebug("Loading encounters...");
@@ -127,6 +127,7 @@ namespace WhistleWindLobotomyMod
 
             AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
             CreateTalkingCards();
+            //AddDeathCards();
             if (AllCardsDisabled)
             {
                 Log.LogInfo("All mod cards are disabled, adding Standard Training-Dummy Rabbit as a fallback to prevent issues.");

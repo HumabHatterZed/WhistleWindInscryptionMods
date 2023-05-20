@@ -116,20 +116,17 @@ namespace WhistleWind.Core.Helpers
                     break;
             }
 
-            if (metaTypes.HasFlags(CardMetaType.Terrain, CardMetaType.Pelt))
-            {
-                if (metaTypes.HasFlag(CardMetaType.Pelt))
-                    cardInfo.SetPelt(!metaTypes.HasFlag(CardMetaType.NoLice));
+            if (metaTypes.HasFlag(CardMetaType.Pelt))
+                cardInfo.SetPelt(!metaTypes.HasFlag(CardMetaType.NoLice));
 
-                if (metaTypes.HasFlag(CardMetaType.Terrain))
-                    cardInfo.SetTerrain();
+            if (metaTypes.HasFlag(CardMetaType.Terrain))
+                cardInfo.SetTerrain();
 
-                if (metaTypes.HasFlag(CardMetaType.NoTerrainLayout))
-                    cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainLayout);
+            if (metaTypes.HasFlag(CardMetaType.NoTerrainLayout))
+                cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainLayout);
 
-                if (nonChoice || cardType == CardChoiceType.Rare)
-                    cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainBackground);
-            }
+            if (nonChoice || cardType == CardChoiceType.Rare)
+                cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainBackground);
 
             return cardInfo;
         }

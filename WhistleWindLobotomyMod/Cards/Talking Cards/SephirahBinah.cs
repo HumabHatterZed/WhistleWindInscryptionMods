@@ -1,52 +1,59 @@
-﻿/*using DiskCardGame;
-using InscryptionAPI.Helpers;
-using System.Collections;
+﻿using DiskCardGame;
+using InscryptionAPI.TalkingCards;
+using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;
+using static WhistleWind.Core.Helpers.TextureLoader;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public class TalkingCardBinah : CustomPaperTalkingCard
     {
-        private void Card_Binah()
-        {
-            List<Ability> abilities = new()
-            {
-                Ability.LatchDeathShield
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                TalkingCardBinah.specialAbility
-            };
-            List<CardMetaCategory> metaCategories = new()
-            {
-                CardHelper.SephirahCard
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.AnimatedPortrait
-            };
-            CardHelper.CreateCard(
-                "wstl_sephirahBinah", "Binah",
-                "The head of the Information Department. Incompetence is not tolerated.",
-                atk: 1, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                null, null,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: metaCategories, tribes: new(), traits: new(),
-                appearances: appearances, onePerDeck: true, face: SephirahBinah.Face);
-        }
-        private void SpecialAbility_Binah() => TalkingCardBinah.specialAbility = AbilityHelper.CreatePaperTalkingCard<TalkingCardBinah>("Binah").Id;
-    }
-    public class TalkingCardBinah : PaperTalkingCard
-    {
+        public override string CardName => "wstl_sephirahBinah";
+        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.8f, voiceSoundPitch: 0.7f);
+        public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
+
         public static SpecialTriggeredAbility specialAbility;
-        public SpecialTriggeredAbility SpecialAbility => specialAbility;
-        public override string OnDiscoveredInExplorationDialogueId => "SephirahBinahChoice";
+        public override SpecialTriggeredAbility DialogueAbility => specialAbility;
+
+        public override List<EmotionData> Emotions
+        {
+            get
+            {
+                Sprite face = LoadSpriteFromBytes(Artwork.talkingBinahBody, new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingBinahEmission);
+
+                return new()
+                {
+                    new(emotion: Emotion.Neutral,
+                        face: face,
+                        eyes: MakeFaceAnim(Artwork.talkingBinahEyesOpen1, Artwork.talkingBinahEyesClosed1),
+                        mouth: MakeFaceAnim(Artwork.talkingBinahMouthOpen1, Artwork.talkingBinahMouthClosed1),
+                        emission: emissionMain),
+                    new(emotion: Emotion.Surprise,
+                        face: face,
+                        eyes: MakeFaceAnim(Artwork.talkingBinahEyesOpen3, Artwork.talkingBinahEyesClosed3),
+                        mouth: MakeFaceAnim(Artwork.talkingBinahMouthOpen2, Artwork.talkingBinahMouthClosed2),
+                        emission: emissionMain),
+                    new(emotion: Emotion.Laughter,
+                        face: face,
+                        eyes: MakeFaceAnim(Artwork.talkingBinahEyesOpen1, Artwork.talkingBinahEyesClosed1),
+                        mouth: MakeFaceAnim(Artwork.talkingBinahMouthOpen2, Artwork.talkingBinahMouthClosed2),
+                        emission: emissionMain),
+                    new(emotion: Emotion.Anger,
+                        face: face,
+                        eyes: MakeFaceAnim(Artwork.talkingBinahEyesOpen2, Artwork.talkingBinahEyesOpen2),
+                        mouth: MakeFaceAnim(Artwork.talkingBinahMouthClosed1, Artwork.talkingBinahMouthClosed1),
+                        emission: emissionMain)
+                };
+            }
+        }
+
         public override string OnDrawnDialogueId => "SephirahBinahDrawn";
-        public override string OnDrawnFallbackDialogueId => "SephirahBinahDrawn";
         public override string OnAttackedDialogueId => "SephirahBinahHurt";
         public override string OnSacrificedDialogueId => "SephirahBinahSacrificed";
         public override string OnBecomeSelectableNegativeDialogueId => "SephirahBinahSelectableBad";
@@ -55,104 +62,35 @@ namespace WhistleWindLobotomyMod
         public override string OnSelectedForCardRemoveDialogueId => "SephirahBinahSelectableBad";
         public override string OnSelectedForCardMergeDialogueId => "SephirahBinahGivenSigil";
         public override string OnSelectedForDeckTrialDialogueId => "SephirahBinahTrial";
-        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new Dictionary<Opponent.Type, string>()
+        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahBinahChoice" }
+            { Opponent.Type.ProspectorBoss, "SephirahBinahProspector" },
+            { Opponent.Type.AnglerBoss, "SephirahBinahAngler" },
+            { Opponent.Type.TrapperTraderBoss, "SephirahBinahTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "SephirahBinahLeshy" },
+            { Opponent.Type.RoyalBoss, "SephirahBinahRoyal" }
         };
-        public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
-        public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
-        {
-            yield return new WaitForEndOfFrame();
-            yield return base.OnShownForCardSelect(forPositiveEffect);
-            yield break;
-        }
+        public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    static class SephirahBinah
+    public partial class LobotomyPlugin
     {
-        public static GameObject Face;
-        public static void Init()
+        private void SpecialAbility_Binah()
         {
-            Face = LobotomyPlugin.sephirahBundle.LoadAsset<GameObject>("TalkingCardBinah");
+            TalkingCardBinah.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardBinah>("Binah").Id;
+        }
+        private void Card_Binah()
+        {
+            List<Ability> abilities = new() { Protector.ability };
 
-            CharacterFace face = Face.AddComponent<CharacterFace>();
-            face.anim = Face.transform.Find("Anim").GetComponent<Animator>();
-            face.eyes = Face.transform.Find("Anim").Find("Body").Find("Eyes").gameObject.AddComponent<CharacterEyes>();
-            face.mouth = Face.transform.Find("Anim").Find("Body").Find("Mouth").gameObject.AddComponent<CharacterMouth>();
-            face.face = Face.transform.Find("Anim").Find("Body").GetComponent<SpriteRenderer>();
-
-            face.emotionSprites = new List<CharacterFace.EmotionSprites>()
-            {
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Neutral,
-                    face = face.face.sprite,
-                    eyesOpen = face.eyes.GetComponent<SpriteRenderer>().sprite,
-                    mouthClosed = face.mouth.GetComponent<SpriteRenderer>().sprite,
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes1_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_mouth1_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Surprise,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes2_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_mouth2_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes2_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_mouth2_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Laughter,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes3_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_mouth3_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes3_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes_emission2, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_mouth3_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Quiet,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes4_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_mouth4_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes4_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_mouth4_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Curious,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes5_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_mouth4_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes5_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_mouth4_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Anger,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes6_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_mouth6_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes6_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardBinah_mouth6_open, new(0.5f, 0f))
-                }
-            };
-
-            face.voiceSoundId = "female1_voice";
-            face.voiceSoundPitch = 0.5f;
-            face.eyes.blinkRate = 1.2f;
-
-            int offscreen = LayerMask.NameToLayer("CardOffscreen");
-            foreach (Transform t in Face.GetComponentsInChildren<Transform>()) { t.gameObject.layer = offscreen; }
-            Face.layer = offscreen;
-            face.eyes.emissionRenderer = face.eyes.transform.Find("Emission")?.GetComponent<SpriteRenderer>();
-            if (face.eyes.emissionRenderer != null) { face.eyes.emissionRenderer.gameObject.layer = LayerMask.NameToLayer("CardOffscreenEmission"); }
+            LobotomyCardManager.CreateCard(
+                "wstl_sephirahBinah", "Binah",
+                "She once held a position of great power. A boon to any team.",
+                atk: 1, hp: 2,
+                blood: 0, bones: 3, energy: 0,
+                null, null,
+                abilities: abilities, specialAbilities: new(),
+                metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
+                appearances: new(), onePerDeck: true);
         }
     }
-}*/
+}

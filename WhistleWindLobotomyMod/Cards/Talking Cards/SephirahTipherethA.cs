@@ -72,12 +72,13 @@ namespace WhistleWindLobotomyMod
         public override string OnSelectedForDeckTrialDialogueId => "SephirahTipherethATrial";
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahTipherethAChoice" }
+            { Opponent.Type.ProspectorBoss, "SephirahTipherethAProspector" },
+            { Opponent.Type.AnglerBoss, "SephirahTipherethAAngler" },
+            { Opponent.Type.TrapperTraderBoss, "SephirahTipherethATrapperTrader" },
+            { Opponent.Type.LeshyBoss, "SephirahTipherethALeshy" },
+            { Opponent.Type.RoyalBoss, "SephirahTipherethARoyal" }
         };
-        public override void OnShownForCardChoiceNode()
-        {
-            base.OnShownForCardChoiceNode();
-        }
+        public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
     public partial class LobotomyPlugin
     {
@@ -91,7 +92,7 @@ namespace WhistleWindLobotomyMod
 
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahTipherethA", "Tiphereth",
-                "",
+                "One of a pair of twins. Don't underestimate her capabilities.",
                 atk: 1, hp: 2,
                 blood: 0, bones: 0, energy: 4,
                 null, null,

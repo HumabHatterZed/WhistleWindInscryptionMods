@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using Pixelplacement;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,16 +37,15 @@ namespace WhistleWind.Core
             }, true);
         }
 
-        public void VisualizeConfirmSniperAbility(CardSlot targetSlot, bool isJudge = false)
+        public void VisualizeConfirmSniperAbility(CardSlot targetSlot, bool isJudge, bool immuneToHanging)
         {
             if (isJudge && targetSlot.Card != null)
-                targetSlot.Card.Anim.SetMarkedForSacrifice(marked: true);
+                targetSlot.Card.Anim.SetMarkedForSacrifice(marked: !immuneToHanging);
             else
             {
                 if (sniperIconPrefab == null)
-                {
                     sniperIconPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CannonTargetIcon");
-                }
+
                 GameObject gameObject = Instantiate(sniperIconPrefab, targetSlot.transform);
                 gameObject.transform.localPosition = new Vector3(0f, 0.25f, 0f);
                 gameObject.transform.localRotation = Quaternion.identity;

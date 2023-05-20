@@ -12,14 +12,14 @@ namespace ModDebuggingMod
         [HarmonyPatch(typeof(PaperGameMap), "TryInitializeMapData")]
         public static void Prefix(ref PaperGameMap __instance)
         {
-            if (RunState.Run.map != null)
+            if (true || RunState.Run.map != null)
                 return;
 
             PredefinedNodes nodes = ScriptableObject.CreateInstance<PredefinedNodes>();
             List<List<NodeData>> nodeRows = new()
             {
                 new() { StartNode },
-                new() { BattleNode },
+                new() { BattleNode, ItemNode },
                 new() { StatNode }
             };
 
@@ -59,7 +59,7 @@ namespace ModDebuggingMod
         private static readonly List<string> customItems = new()
         {
             LobGuid + "_" + "BottledTrain",
-            LobGuid + "_" + "BottledTrain",
+            //LobGuid + "_" + "BottledTrain",
             LobGuid + "_" + "BottledTrain"
         };
     }

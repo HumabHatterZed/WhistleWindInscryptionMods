@@ -70,8 +70,13 @@ namespace WhistleWindLobotomyMod
         public override string OnSelectedForDeckTrialDialogueId => "SephirahNetzachTrial";
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahNetzachChoice" }
+            { Opponent.Type.ProspectorBoss, "SephirahNetzachProspector" },
+            { Opponent.Type.AnglerBoss, "SephirahNetzachAngler" },
+            { Opponent.Type.TrapperTraderBoss, "SephirahNetzachTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "SephirahNetzachLeshy" },
+            { Opponent.Type.RoyalBoss, "SephirahNetzachRoyal" }
         };
+        public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
     public partial class LobotomyPlugin
     {
@@ -85,7 +90,7 @@ namespace WhistleWindLobotomyMod
 
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahNetzach", "Netzach",
-                "Despite a lack of motivation, he'll do his best to succeed.",
+                "Despite his lack of motivation, he'll do his best to succeed.",
                 atk: 0, hp: 5,
                 blood: 1, bones: 0, energy: 0,
                 null, null,

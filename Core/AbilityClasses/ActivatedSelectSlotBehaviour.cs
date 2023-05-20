@@ -249,7 +249,7 @@ namespace WhistleWind.Core.AbilityClasses
             {
                 selectedSlot = s;
                 instance.VisualizeConfirmSniperAbility(s);
-                visualiser?.VisualizeConfirmSniperAbility(s);
+                visualiser?.VisualizeConfirmSniperAbility(s, false, false);
             }, OnInvalidTarget, delegate (CardSlot s)
             {
                 if (CanTargetNull || s.Card != null)
@@ -278,7 +278,7 @@ namespace WhistleWind.Core.AbilityClasses
             }
 
             instance.VisualizeConfirmSniperAbility(selectedSlot);
-            visualiser?.VisualizeConfirmSniperAbility(selectedSlot);
+            visualiser?.VisualizeConfirmSniperAbility(selectedSlot, false, false);
             yield return new WaitForSeconds(0.25f);
         }
         private void OnInvalidTarget(CardSlot slot)

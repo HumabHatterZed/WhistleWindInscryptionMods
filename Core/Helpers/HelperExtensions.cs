@@ -67,14 +67,24 @@ namespace WhistleWind.Core.Helpers
             if (card.Health <= 0)
                 yield return card.Die(false, attacker);
         }
-        public static bool HasFlags(this Enum config, params Enum[] flags)
+
+        public static bool HasFlags(this Enum enumeration, params Enum[] flags)
         {
             foreach (Enum flag in flags)
             {
-                if (!config.HasFlag(flag))
+                if (!enumeration.HasFlag(flag))
                     return false;
             }
             return true;
+        }
+        public static bool HasAnyOfFlags(this Enum enumeration, params Enum[] flags)
+        {
+            foreach (Enum flag in flags)
+            {
+                if (enumeration.HasFlag(flag))
+                    return true;
+            }
+            return false;
         }
     }
 }

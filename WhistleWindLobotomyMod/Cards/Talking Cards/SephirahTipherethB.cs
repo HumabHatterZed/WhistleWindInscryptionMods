@@ -58,6 +58,7 @@ namespace WhistleWindLobotomyMod
         public override string OnPlayFromHandDialogueId => "SephirahTipherethBPlayed";
 
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new();
+        public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
     public partial class LobotomyPlugin
     {

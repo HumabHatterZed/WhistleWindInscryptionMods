@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { Marksman.ability };
             List<Tribe> tribes = new() { Tribe.Bird };
-            List<Trait> traits = new() { TraitBlackForest };
+            List<Trait> traits = new() { TraitBlackForest, AbnormalPlugin.Executioner };
 
             CreateCard(
                 "wstl_judgementBird", "Judgement Bird",

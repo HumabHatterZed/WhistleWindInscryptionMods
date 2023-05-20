@@ -23,7 +23,7 @@ The config file has also been reformatted, so any changes you've made to it will
 
 ## 🩹 Known Bugs and Issues
 ### Custom Bosses
-Boss challenges Abnormal Bosses, Emerald, Nihil, Apocalypse, and Rapture will override/be overridden by other mods that replace vanilla bosses.
+Boss challenges Abnormal Bosses, Emerald, Nihil, Apocalypse, and Rapture may override/be overridden by other mods that replace vanilla bosses.
 Your game will still be functional.
 
 --------------------------

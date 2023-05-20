@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using System.Resources;
 using static WhistleWind.Core.Helpers.DialogueHelper;
 using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin // Base code taken from GrimoraMod and SigilADay_julienperge
+    public partial class LobotomyPlugin
     {
         private void Dialogue_MapNodes()
         {
@@ -20,42 +21,6 @@ namespace WhistleWindLobotomyMod
                 "They're dressed oddly for this climate, and even odder, [c:bR]they seem to recognise you[c:].",
                 "They are on an expedition of some kind, in search of [c:bR]strange[c:] beasts.",
                 "Their appear quite knowledgeable. Perhaps you can convince them to aid you on your journey."
-                });
-        }
-        private void Dialogue_ApocalypseBird()
-        {
-            CreateDialogueEvents("ApocalypseBirdIntro", new() {
-                "Let me tell you a story. The story of the [c:bR]Black Forest[c:]."
-                });
-            CreateDialogueEvents("ApocalypseBirdOutro", new() {
-                "The three birds, [c:bR]now one[c:] looked around for [c:bR]the Beast[c:]. But there was nothing.",
-                "No creatures. No beast. No sun or moon or stars. Only a single bird, alone in an empty forest."
-                });
-            CreateDialogueEvents("ApocalypseBirdStory1", new() {
-                "Once upon a time, [c:bR]three birds[c:] lived happily in the lush Forest with their fellow animals.",
-                "One day a stranger arrived at the Forest.He proclaimed that the Forest would soon be ensared in a bitter conflict.",
-                "One that would only end when everything was devoured by a[c: bR]terrible Beast[c:].",
-                "The birds, frightened by this doomsay, sought to prevent conflict from ever breaking out."
-                });
-            CreateDialogueEvents("ApocalypseBirdStory2", new() {
-                "Fights began to break out. More and more creatures left the Forest, no matter how hard the birds worked.",
-                "They decided to combine their powers. This way, they could better protect their home.",
-                "This way they could better return the peace."
-                });
-            CreateDialogueEvents("ApocalypseBirdStory3", new() {
-                "Darkness fell upon the forest. Mayhem ran amok as creatures screamed in terror at the towering bird."
-                });
-            CreateDialogueEvents("ApocalypseBirdStory4", new() {
-                "Someone yelled out [c:bB]'It's the Beast! A big, scary monster lives in the Black Forest!'[c:]"
-                });
-            CreateDialogueEvents("ApocalypseBirdBig", new() {
-                "[c:bG]Big Bird[c:] with his many eyes kept constant watch over the entire Forest."
-                });
-            CreateDialogueEvents("ApocalypseBirdLong", new() {
-                "[c:bSG]Long Bird[c:] weighed the sins of all creatures in the forest with his scales."
-                });
-            CreateDialogueEvents("ApocalypseBirdSmall", new() {
-                "[c:bR]Small Bird[c:] punished wrongdoers with his beak."
                 });
         }
         private void Dialogue_Abnormalities()
@@ -138,6 +103,42 @@ namespace WhistleWindLobotomyMod
                 "Now you become the sky, and I the land."
                 });
         }
+        private void Dialogue_ApocalypseBird()
+        {
+            CreateDialogueEvents("ApocalypseBirdIntro", new() {
+                "Let me tell you a story. The story of the [c:bR]Black Forest[c:]."
+                });
+            CreateDialogueEvents("ApocalypseBirdOutro", new() {
+                "The three birds, [c:bR]now one[c:] looked around for [c:bR]the Beast[c:]. But there was nothing.",
+                "No creatures. No beast. No sun or moon or stars. Only a single bird, alone in an empty forest."
+                });
+            CreateDialogueEvents("ApocalypseBirdStory1", new() {
+                "Once upon a time, [c:bR]three birds[c:] lived happily in the lush Forest with their fellow animals.",
+                "One day a stranger arrived at the Forest.He proclaimed that the Forest would soon be ensared in a bitter conflict.",
+                "One that would only end when everything was devoured by a[c: bR]terrible Beast[c:].",
+                "The birds, frightened by this doomsay, sought to prevent conflict from ever breaking out."
+                });
+            CreateDialogueEvents("ApocalypseBirdStory2", new() {
+                "Fights began to break out. More and more creatures left the Forest, no matter how hard the birds worked.",
+                "They decided to combine their powers. This way, they could better protect their home.",
+                "This way they could better return the peace."
+                });
+            CreateDialogueEvents("ApocalypseBirdStory3", new() {
+                "Darkness fell upon the forest. Mayhem ran amok as creatures screamed in terror at the towering bird."
+                });
+            CreateDialogueEvents("ApocalypseBirdStory4", new() {
+                "Someone yelled out [c:bB]'It's the Beast! A big, scary monster lives in the Black Forest!'[c:]"
+                });
+            CreateDialogueEvents("ApocalypseBirdBig", new() {
+                "[c:bG]Big Bird[c:] with his many eyes kept constant watch over the entire Forest."
+                });
+            CreateDialogueEvents("ApocalypseBirdLong", new() {
+                "[c:bSG]Long Bird[c:] weighed the sins of all creatures in the forest with his scales."
+                });
+            CreateDialogueEvents("ApocalypseBirdSmall", new() {
+                "[c:bR]Small Bird[c:] punished wrongdoers with his beak."
+                });
+        }
         private void Dialogue_JesterOfNihil()
         {
             CreateDialogueEvents("JesterOfNihilIntro", new() {
@@ -203,51 +204,289 @@ namespace WhistleWindLobotomyMod
                 "[c:g1]Who do you possibly expect to understand with that ice-cold heart of yours?[c:]"
                 });
         }
+        private void Dialogue_Angela()
+        {
+            #region Boss Dialogue
+            CreateDialogueEvents("SephirahAngelaProspector", new()
+            {
+                NewLine("Deal with those beasts quickly.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("A small obstacle.", Emotion.Neutral) },
+                    new() { NewLine("Let us begin.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahAngelaAngler", new()
+            {
+                NewLine("Don't lose your appetite now.", Emotion.Surprise) },
+                new() {
+                    new() { NewLine("I grow tired of fish.", Emotion.Neutral) },
+                    new() { NewLine("You must enjoy the stench.", Emotion.Laughter) }
+            });
+            CreateDialogueEvents("SephirahAngelaTrapperTrader", new()
+            {
+                NewLine("Another two-faced deceiver.", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("No one helps you without a price.", Emotion.Neutral) },
+                    new() { NewLine("Be wary of where your foot falls.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahAngelaLeshy", new()
+            {
+                NewLine("It seems we have reached", Emotion.Neutral),
+                NewLine("the conclusion.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Are we doing this again?", Emotion.Neutral) },
+                    new() { NewLine("I have fought stronger foes.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahAngelaRoyal", new()
+            {
+                NewLine("What is this?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("A captain of a sunken vessel.", Emotion.Laughter) },
+                    new() { NewLine("His crew has no loyalty.", Emotion.Laughter) }
+            });
+            #endregion
+
+            #region Normal Dialogue
+            CreateDialogueEvents("SephirahAngelaChoice", new()
+            {
+                NewLine("Well look who it is.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Well look who it is.", Emotion.Neutral) },
+                    new() { NewLine("Choose.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahAngelaDrawn", new()
+            {
+                NewLine("Be calm.", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Miss me?", Emotion.Laughter) },
+                    new() { NewLine("Countless stars light the sky today.", Emotion.Neutral) },
+                    new() { NewLine("Your outlook is what decides things.", Emotion.Neutral) },
+                    new() { NewLine("Be calm.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahAngelaGivenSigil", new()
+            {
+                NewLine("I am curious to see", Emotion.Neutral),
+                NewLine("what memories you yielded.", Emotion.Surprise)},
+                new() {
+                    new() { NewLine("Excellent.", Emotion.Surprise) },
+                    new() { NewLine("You have done well.", Emotion.Laughter) },
+                    new() { NewLine("This power is incomplete.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahAngelaHurt", new()
+            {
+                NewLine("...", Emotion.Anger) },
+                new() {
+                    new() { NewLine("...", Emotion.Anger) },
+                    new() { NewLine("", Emotion.Anger) }
+            });
+            CreateDialogueEvents("SephirahAngelaPlayed", new()
+            {
+                NewLine("Let us begin.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("More bodies to clean.", Emotion.Neutral) },
+                    new() { NewLine("Let us begin.", Emotion.Neutral) },
+                    new() { NewLine("The closer to death, the freer you are.", Emotion.Laughter) }
+            });
+            CreateDialogueEvents("SephirahAngelaSacrificed", new()
+            {
+                NewLine("...", Emotion.Anger) },
+                new() {
+                    new() { NewLine("...", Emotion.Anger) },
+                    new() { NewLine("", Emotion.Anger) }
+            });
+            CreateDialogueEvents("SephirahAngelaSelectableBad", new()
+            {
+                NewLine("Did you think you could avoid it?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Did you think you could avoid it?", Emotion.Neutral) },
+                    new() { NewLine("This is nearing the end.", Emotion.Neutral) },
+                    new() { NewLine("Your breath is fading.", Emotion.Surprise) },
+                    new() { NewLine("No one will blame you.", Emotion.Laughter) }
+            });
+            CreateDialogueEvents("SephirahAngelaSelectableGood", new()
+            {
+                NewLine("Excellent.", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Excellent.", Emotion.Laughter) },
+                    new() { NewLine("Inching closer to wholeness.", Emotion.Neutral) },
+                    new() { NewLine("I leave it your discretion.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahAngelaTrial", new()
+            {
+                NewLine("Tis an ordeal to overcome.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Are you up to the task?", Emotion.Laughter) },
+                    new() { NewLine("Tis an ordeal to overcome.", Emotion.Neutral) },
+                    new() { NewLine("There is no obstacle you can't overcome.", Emotion.Neutral) }
+            });
+            #endregion
+        }
         private void Dialogue_Binah()
         {
+            #region Boss Dialogue
+            CreateDialogueEvents("SephirahBinahProspector", new()
+            {
+                NewLine("Deal with those beasts quickly.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("A small obstacle.", Emotion.Neutral) },
+                    new() { NewLine("Let us begin.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahBinahAngler", new()
+            {
+                NewLine("Don't lose your appetite now.", Emotion.Surprise) },
+                new() {
+                    new() { NewLine("I grow tired of fish.", Emotion.Neutral) },
+                    new() { NewLine("You must enjoy the stench.", Emotion.Laughter) }
+            });
+            CreateDialogueEvents("SephirahBinahTrapperTrader", new()
+            {
+                NewLine("Another two-faced deceiver.", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("No one helps you without a price.", Emotion.Neutral) },
+                    new() { NewLine("Be wary of where your foot falls.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahBinahLeshy", new()
+            {
+                NewLine("It seems we have reached", Emotion.Neutral),
+                NewLine("the conclusion.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Are we doing this again?", Emotion.Neutral) },
+                    new() { NewLine("I have fought stronger foes.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahBinahRoyal", new()
+            {
+                NewLine("What is this?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("A captain of a sunken vessel.", Emotion.Laughter) },
+                    new() { NewLine("His crew has no loyalty.", Emotion.Laughter) }
+            });
+            #endregion
+
+            #region Normal Dialogue
             CreateDialogueEvents("SephirahBinahChoice", new()
             {
-
+                NewLine("Well look who it is.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Well look who it is.", Emotion.Neutral) },
+                    new() { NewLine("Choose.", Emotion.Neutral) }
             });
             CreateDialogueEvents("SephirahBinahDrawn", new()
             {
-
+                NewLine("Be calm.", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Miss me?", Emotion.Laughter) },
+                    new() { NewLine("Countless stars light the sky today.", Emotion.Neutral) },
+                    new() { NewLine("Your outlook is what decides things.", Emotion.Neutral) },
+                    new() { NewLine("Be calm.", Emotion.Neutral) }
             });
             CreateDialogueEvents("SephirahBinahGivenSigil", new()
             {
-
+                NewLine("I am curious to see", Emotion.Neutral),
+                NewLine("what memories you yielded.", Emotion.Surprise)},
+                new() {
+                    new() { NewLine("Excellent.", Emotion.Surprise) },
+                    new() { NewLine("You have done well.", Emotion.Laughter) },
+                    new() { NewLine("This power is incomplete.", Emotion.Neutral) }
             });
             CreateDialogueEvents("SephirahBinahHurt", new()
             {
-
+                NewLine("...", Emotion.Anger) },
+                new() {
+                    new() { NewLine("...", Emotion.Anger) },
+                    new() { NewLine("", Emotion.Anger) }
             });
             CreateDialogueEvents("SephirahBinahPlayed", new()
             {
-
+                NewLine("Let us begin.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("More bodies to clean.", Emotion.Neutral) },
+                    new() { NewLine("Let us begin.", Emotion.Neutral) },
+                    new() { NewLine("The closer to death, the freer you are.", Emotion.Laughter) }
             });
             CreateDialogueEvents("SephirahBinahSacrificed", new()
             {
-
+                NewLine("...", Emotion.Anger) },
+                new() {
+                    new() { NewLine("...", Emotion.Anger) },
+                    new() { NewLine("", Emotion.Anger) }
             });
             CreateDialogueEvents("SephirahBinahSelectableBad", new()
             {
-
+                NewLine("Did you think you could avoid it?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Did you think you could avoid it?", Emotion.Neutral) },
+                    new() { NewLine("This is nearing the end.", Emotion.Neutral) },
+                    new() { NewLine("Your breath is fading.", Emotion.Surprise) },
+                    new() { NewLine("No one will blame you.", Emotion.Laughter) }
             });
             CreateDialogueEvents("SephirahBinahSelectableGood", new()
             {
-
+                NewLine("Excellent.", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Excellent.", Emotion.Laughter) },
+                    new() { NewLine("Inching closer to wholeness.", Emotion.Neutral) },
+                    new() { NewLine("I leave it your discretion.", Emotion.Neutral) }
             });
             CreateDialogueEvents("SephirahBinahTrial", new()
             {
-
+                NewLine("Tis an ordeal to overcome.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Are you up to the task?", Emotion.Laughter) },
+                    new() { NewLine("Tis an ordeal to overcome.", Emotion.Neutral) },
+                    new() { NewLine("There is no obstacle you can't overcome.", Emotion.Neutral) }
             });
+            #endregion
         }
         private void Dialogue_Chesed()
         {
+            #region Boss Dialogue
+            CreateDialogueEvents("SephirahChesedProspector", new()
+            {
+                NewLine("So many animals~", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("So much dust.", Emotion.Neutral) },
+                    new() { NewLine("Do we have to fight?", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahChesedAngler", new()
+            {
+                NewLine("That's an impressive hook there~.", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Are you feeling hungry?", Emotion.Laughter) },
+                    new() { NewLine("I'm used to the stench of decay by now.", Emotion.Laughter) }
+            });
+            CreateDialogueEvents("SephirahChesedTrapperTrader", new()
+            {
+                NewLine("What an odd fellow.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("What tricks are up their sleeve?", Emotion.Neutral) },
+                    new() {
+                        NewLine("Nothing like a cup of coffee", Emotion.Laughter),
+                        NewLine("to keep you warm~", Emotion.Laughter)}
+            });
+            CreateDialogueEvents("SephirahChesedLeshy", new()
+            {
+                NewLine("We've come so far...", Emotion.Neutral),
+                NewLine("just a little more now.", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Are you prepared manager?", Emotion.Laughter) },
+                    new() { NewLine("We can't hesitate now.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahChesedRoyal", new()
+            {
+                NewLine("A pirate? How fun~", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Watch your head now.", Emotion.Laughter) }
+            });
+            #endregion
+
+            #region Normal Dialogue
             CreateDialogueEvents("SephirahChesedChoice", new() {
                 NewLine("Hey~ manager.", Emotion.Laughter),
-                NewLine("Off on a nice stroll?", Emotion.Laughter)
-            });
+                NewLine("Off on a nice stroll?", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Hey~ manager.", Emotion.Laughter) },
+                    new() { NewLine("Off on a nice stroll?", Emotion.Laughter) },
+                    new() { NewLine("Who will it be this time~?", Emotion.Neutral) }
+                });
             CreateDialogueEvents("SephirahChesedDrawn", new() {
                 NewLine("Nothing like a fresh cup of coffee to start your day.", Emotion.Laughter) },
                 new() {
@@ -281,7 +520,7 @@ namespace WhistleWindLobotomyMod
                     new() { NewLine("All this effort wasted on fighting.", Emotion.Surprise) }
             });
             CreateDialogueEvents("SephirahChesedSacrificed", new() {
-                NewLine("I guess this is as far as I can...", Emotion.Surprise) },
+                NewLine("I guess this is as far as I can go...", Emotion.Surprise) },
                 new() {
                     new() { NewLine("Ah...", Emotion.Surprise) },
                     new() { NewLine("Heh...", Emotion.Surprise) },
@@ -317,12 +556,55 @@ namespace WhistleWindLobotomyMod
                         NewLine("in order to protect something.", Emotion.Curious)
                     }
             });
+            #endregion
         }
         private void Dialogue_Gebura()
         {
-            CreateDialogueEvents("SephirahGeburaChoice", new() {
-                NewLine("Manager.", Emotion.Neutral)
+            #region Boss Dialogue
+            CreateDialogueEvents("SephirahGeburaProspector", new()
+            {
+                NewLine("Who's this geezer?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("This guy...", Emotion.Anger) },
+                    new() { NewLine("What a pain.", Emotion.Neutral) }
             });
+            CreateDialogueEvents("SephirahGeburaAngler", new()
+            {
+                NewLine("Let's make quick work of him.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("This stench takes me back.", Emotion.Neutral) },
+                    new() { NewLine("Watch that hook there.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahGeburaTrapperTrader", new()
+            {
+                NewLine("Keep on your toes now.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("These traps are annoying.", Emotion.Anger) },
+                    new() { NewLine("Clear a path and strike cleanly.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahGeburaLeshy", new()
+            {
+                NewLine("Nothing left but to continue forward.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("We've got this.", Emotion.Neutral) },
+                    new() { NewLine("One more enemy left.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahGeburaRoyal", new()
+            {
+                NewLine("Not the strangest thing I've seen.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Be quick and avoid those cannons.", Emotion.Neutral) },
+                    new() { NewLine("His goons are tougher than they look.", Emotion.Anger) }
+            });
+            #endregion
+
+            #region Normal Dialogue
+            CreateDialogueEvents("SephirahGeburaChoice", new() {
+                NewLine("Manager.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Manager.", Emotion.Neutral) },
+                    new() { NewLine("Hey manager.", Emotion.Neutral) }
+                });
             CreateDialogueEvents("SephirahGeburaDrawn", new() {
                 NewLine("Not as strong as I used to be.", Emotion.Neutral),
                 NewLine("Still not used to it.", Emotion.Curious) },
@@ -392,13 +674,56 @@ namespace WhistleWindLobotomyMod
                         NewLine("and give it our best shot.", Emotion.Neutral) },
                     new() { NewLine("I defer to your judgement.", Emotion.Neutral) }
             });
+            #endregion
         }
         private void Dialogue_Hod()
         {
+            #region Boss Dialogue
+            CreateDialogueEvents("SephirahHodProspector", new()
+            {
+                NewLine("Watch out for that pickaxe.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("We've prepared for this.", Emotion.Neutral) },
+                    new() { NewLine("I'll follow your lead.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahHodAngler", new()
+            {
+                NewLine("Urk, the smell...", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Let's get out of here quickly...", Emotion.Neutral) },
+                    new() { NewLine("Don't knock over those buckets.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahHodTrapperTrader", new()
+            {
+                NewLine("A betrayal...", Emotion.Curious) },
+                new() {
+                    new() { NewLine("I'll trust you, manager.", Emotion.Neutral) },
+                    new() { NewLine("So many pelts...", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahHodLeshy", new()
+            {
+                NewLine("The moon's so large...", Emotion.Curious) },
+                new() {
+                    new() { NewLine("We can do this.", Emotion.Anger) },
+                    new() { NewLine("We're a lot stronger than before.", Emotion.Anger) }
+            });
+            CreateDialogueEvents("SephirahHodRoyal", new()
+            {
+                NewLine("A pirate...skeleton?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Those cannons hurt a lot...", Emotion.Neutral) }
+            });
+            #endregion
+
+            #region Normal Dialogue
             CreateDialogueEvents("SephirahHodChoice", new() {
                 NewLine("Oh! Um...", Emotion.Quiet),
-                NewLine("Hello manager.", Emotion.Laughter)
-            });
+                NewLine("Hello manager.", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Hello manager.", Emotion.Laughter) },
+                    new() { NewLine("I won't be a hindrance!", Emotion.Anger) },
+                    new() { NewLine("Who do you choose?", Emotion.Neutral) }
+                });
             CreateDialogueEvents("SephirahHodDrawn", new() {
                 NewLine("I'm not that skilled...", Emotion.Quiet),
                 NewLine("but I'll do my best!", Emotion.Anger) },
@@ -428,8 +753,7 @@ namespace WhistleWindLobotomyMod
                 NewLine("I’m nervous, but...", Emotion.Surprise),
                 NewLine("I won't let you down...!", Emotion.Anger) },
                 new(){
-                    new() { NewLine("I’m nervous, but...", Emotion.Surprise),
-                            NewLine("I won't let you down...!", Emotion.Anger) },
+                    new() { NewLine("I won't let you down!", Emotion.Anger) },
                     new() { NewLine("I hope nothing bad happens.", Emotion.Curious) },
                     new() { NewLine("Alright, here I come!", Emotion.Curious) },
                     new() { NewLine("Everything will work out...", Emotion.Neutral),
@@ -466,52 +790,185 @@ namespace WhistleWindLobotomyMod
                     new() { NewLine("I hope I can help.", Emotion.Neutral) },
                     new() { NewLine("I hope I'm prepared.", Emotion.Neutral) }
                 });
+            #endregion
         }
         private void Dialogue_Hokma()
         {
+            #region Boss Dialogue
+            CreateDialogueEvents("SephirahHokmaProspector", new()
+            {
+                NewLine("This is no different from anything else.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("We've done this before.", Emotion.Neutral) },
+                    new() { NewLine("We must move onward.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahHokmaAngler", new()
+            {
+                NewLine("We can endlessly question", Emotion.Neutral),
+                NewLine("why we must endure this endeavour.", Emotion.Neutral) },
+                new() {
+                    new() {
+                        NewLine("Take all possibilities", Emotion.Neutral),
+                        NewLine("into consideration.", Emotion.Neutral) },
+                    new() { NewLine("Let's work quickly now.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahHokmaTrapperTrader", new()
+            {
+                NewLine("His madness can be used to our advantage.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Bend the rules to your favour.", Emotion.Neutral) },
+                    new() { NewLine("Don't let the snow blind you.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahHokmaLeshy", new()
+            {
+                NewLine("We are all bound by something greater.", Emotion.Neutral),
+                NewLine("He is no exception.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("If we focus, victory is assured.", Emotion.Neutral) },
+                    new() { NewLine("Everything will happen as it should.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahHokmaRoyal", new()
+            {
+                NewLine("...I admit I am caught off-guard.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("In the end, this is all a pointless errand.", Emotion.Neutral) },
+                    new() {
+                        NewLine("The cannons are slow.", Emotion.Neutral),
+                        NewLine("We can easily avoid them.", Emotion.Neutral) }
+            });
+            #endregion
+
+            #region Normal Dialogue
             CreateDialogueEvents("SephirahHokmaChoice", new()
             {
-
+                NewLine("Greetings manager.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Greetings manager.", Emotion.Neutral) },
+                    new() { NewLine("There is work to be done.", Emotion.Neutral) }
             });
             CreateDialogueEvents("SephirahHokmaDrawn", new()
             {
-
+                NewLine("What matters more than strength...", Emotion.Neutral),
+                NewLine("is faith in our victory.", Emotion.Anger) },
+                new() {
+                    new() { NewLine("Stay true to your belief.", Emotion.Neutral) },
+                    new() {
+                        NewLine("You have come to the point", Emotion.Neutral),
+                        NewLine("of no return.", Emotion.Neutral) },
+                    new() { NewLine("It begins once more.", Emotion.Neutral) }
             });
             CreateDialogueEvents("SephirahHokmaGivenSigil", new()
             {
-
+                NewLine("Thank you.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Thank you.", Emotion.Neutral) },
+                    new() { NewLine("Thank you.", Emotion.Laughter) },
+                    new() { NewLine("This will help greatly.", Emotion.Neutral) }
             });
             CreateDialogueEvents("SephirahHokmaHurt", new()
             {
-
+                NewLine("...", Emotion.Anger) },
+                new() {
+                    new() { NewLine("...", Emotion.Anger) },
+                    new() { NewLine("", Emotion.Anger) }
             });
             CreateDialogueEvents("SephirahHokmaPlayed", new()
             {
-
+                NewLine("Let us begin the day.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Overconfidence is the greatest enemy.", Emotion.Neutral) },
+                    new() { NewLine("Let us begin the day.", Emotion.Neutral) },
+                    new() { NewLine("Let's hurry to finish this work.", Emotion.Neutral) }
             });
             CreateDialogueEvents("SephirahHokmaSacrificed", new()
             {
-
+                NewLine("A pointless errand.", Emotion.Anger) },
+                new() {
+                    new() { NewLine("A pointless errand.", Emotion.Anger) },
+                    new() { NewLine("", Emotion.Neutral) },
+                    new() { NewLine("", Emotion.Anger) }
             });
             CreateDialogueEvents("SephirahHokmaSelectableBad", new()
             {
-
+                NewLine("A pointless errand.", Emotion.Anger) },
+                new() {
+                    new() { NewLine("A pointless errand.", Emotion.Anger) },
+                    new() { NewLine("", Emotion.Neutral) },
+                    new() { NewLine("", Emotion.Anger) }
             });
             CreateDialogueEvents("SephirahHokmaSelectableGood", new()
             {
-
+                NewLine("An opportunity presents itself.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("An opportunity presents itself.", Emotion.Neutral) },
+                    new() { NewLine("Be prudent about this.", Emotion.Neutral) },
+                    new() { NewLine("I have faith in your decision.", Emotion.Neutral) }
             });
             CreateDialogueEvents("SephirahHokmaTrial", new()
             {
-
+                NewLine("Boundless pride and ambition", Emotion.Neutral),
+                NewLine("will bring about a bitter end...", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Do not be hasty.", Emotion.Neutral) },
+                    new() { NewLine("There is no halting now.", Emotion.Neutral) },
+                    new() { NewLine("An endless series of trials.", Emotion.Neutral) }
             });
+            #endregion
         }
         private void Dialogue_Malkuth()
         {
-
-            CreateDialogueEvents("SephirahMalkuthChoice", new() {
-                NewLine("Nice to meet you, manager!", Emotion.Neutral)
+            #region Boss Dialogue
+            CreateDialogueEvents("SephirahMalkuthProspector", new()
+            {
+                NewLine("Heads up manager!", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("We've got this!", Emotion.Anger) },
+                    new() { NewLine("Let's stay sharp, now!", Emotion.Neutral) }
             });
+            CreateDialogueEvents("SephirahMalkuthAngler", new()
+            {
+                NewLine("The familiar smell of death.", Emotion.Quiet) },
+                new() {
+                    new() { NewLine("Winning's just a matter of time!", Emotion.Anger) },
+                    new() { NewLine("Watch out for those bait buckets!", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahMalkuthTrapperTrader", new()
+            {
+                NewLine("Be on the look-out!", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Watch out for traps!", Emotion.Neutral) },
+                    new() { NewLine("We need to be smart about this.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahMalkuthLeshy", new()
+            {
+                NewLine("This guy looks tough.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Take a deep breath, and focus.", Emotion.Neutral) },
+                    new() {
+                        NewLine("We've made this far.", Emotion.Neutral),
+                        NewLine("We can't lose now!", Emotion.Anger) }
+            });
+            CreateDialogueEvents("SephirahMalkuthRoyal", new()
+            {
+                NewLine("Are those cannons?", Emotion.Quiet) },
+                new() {
+                    new() {
+                        NewLine("We've dealt with worse.", Emotion.Neutral),
+                        NewLine("No need to worry too much!", Emotion.Laughter) },
+                    new() {
+                        NewLine("Treat it as another abnormality", Emotion.Neutral),
+                        NewLine("and act accordingly!", Emotion.Neutral) }
+            });
+            #endregion
+
+            #region Normal Dialogue
+            CreateDialogueEvents("SephirahMalkuthChoice", new() {
+                NewLine("Nice to meet you, manager!", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Hello again!", Emotion.Neutral) },
+                    new() { NewLine("I'm prepared to help!", Emotion.Neutral) },
+                    new() { NewLine("I promise to succeed!", Emotion.Anger) }
+                });
             CreateDialogueEvents("SephirahMalkuthDrawn", new() {
                 NewLine("Greetings Manager!", Emotion.Laughter) },
                 new() {
@@ -574,11 +1031,56 @@ namespace WhistleWindLobotomyMod
                     new() { NewLine("You've got this manager!", Emotion.Neutral) },
                     new() { NewLine("Nothing we haven't solved before!", Emotion.Neutral) }
                 });
+            #endregion
         }
         private void Dialogue_Netzach()
         {
+            #region Boss Dialogue
+            CreateDialogueEvents("SephirahNetzachProspector", new()
+            {
+                NewLine("That banging's annoying...", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Again?", Emotion.Neutral) },
+                    new() { NewLine("Not a fan of that pickaxe.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahNetzachAngler", new()
+            {
+                NewLine("So many buckets of fish...", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("The smell's making me sick.", Emotion.Neutral) },
+                    new() { NewLine("Can't we take the long way around?", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahNetzachTrapperTrader", new()
+            {
+                NewLine("Everyone here's crazy...", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("At least those traps are obvious.", Emotion.Laughter) },
+                    new() {
+                        NewLine("Just want to lie down in the snow", Emotion.Neutral),
+                        NewLine("and go to sleep.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahNetzachLeshy", new()
+            {
+                NewLine("This is the final boss?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Since we've come this far, may as well.", Emotion.Neutral) },
+                    new() { NewLine("Let's finish this.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahNetzachRoyal", new()
+            {
+                NewLine("...am I hallucinating?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("I guess I've seen weirder things.", Emotion.Neutral) },
+                    new() { NewLine("Those cannons are pretty slow, huh?", Emotion.Neutral) }
+            });
+            #endregion
+
+            #region Normal Dialogue
             CreateDialogueEvents("SephirahNetzachChoice", new() {
-                NewLine("Hey.", Emotion.Neutral)
+                NewLine("Hey.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Hey.", Emotion.Neutral) },
+                    new() { NewLine("Pick someone else?", Emotion.Neutral) }
                 });
             CreateDialogueEvents("SephirahNetzachDrawn", new() {
                 NewLine("Hey.", Emotion.Quiet) },
@@ -643,12 +1145,55 @@ namespace WhistleWindLobotomyMod
                     new() { NewLine("Why with all the tests?", Emotion.Neutral) },
                     new() { NewLine("Ugh...", Emotion.Quiet) }
                 });
+            #endregion
         }
         private void Dialogue_Tiphereth()
         {
-            CreateDialogueEvents("SephirahTipherethAChoice", new() {
-                NewLine("Hurry and pick one of us.", Emotion.Anger)
+            #region Boss Dialogue
+            CreateDialogueEvents("SephirahTipherethAProspector", new()
+            {
+                NewLine("Let's deal with this guy quickly.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Should've stayed out of the way.", Emotion.Neutral) },
+                    new() { NewLine("You still haven't beat him?", Emotion.Neutral) }
             });
+            CreateDialogueEvents("SephirahTipherethAAngler", new()
+            {
+                NewLine("It smells like the Backstreets here.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("At least his actions are predictable.", Emotion.Neutral) },
+                    new() { NewLine("Quickly now.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahTipherethATrapperTrader", new()
+            {
+                NewLine("Guess we're next on the chopping block.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Those knives look sharp. Careful.", Emotion.Neutral) },
+                    new() { NewLine("Hold onto those pelts now.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahTipherethALeshy", new()
+            {
+                NewLine("We've got this manager.", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Don't forget, you have us to help.", Emotion.Surprise) },
+                    new() { NewLine("One more foe to beat.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahTipherethARoyal", new()
+            {
+                NewLine("Seriously?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Never was that into pirates.", Emotion.Neutral) },
+                    new() { NewLine("This guy can't aim at all.", Emotion.Neutral) }
+            });
+            #endregion
+
+            #region Normal Dialogue
+            CreateDialogueEvents("SephirahTipherethAChoice", new() {
+                NewLine("Hurry and pick one of us.", Emotion.Anger) },
+                new() {
+                    new() { NewLine("Hurry and pick one of us.", Emotion.Anger) },
+                    new() { NewLine("Don't keep up waiting.", Emotion.Neutral) }
+                });
             CreateDialogueEvents("SephirahTipherethADrawn", new() {
                 NewLine("Buckle up manager.", Emotion.Neutral) },
                 new() {
@@ -711,7 +1256,9 @@ namespace WhistleWindLobotomyMod
                     new() { NewLine("I can handle it.", Emotion.Neutral) },
                     new() { NewLine("I'll win this for sure.", Emotion.Laughter) }
             });
+            #endregion
 
+            #region Tiphereth B
             CreateDialogueEvents("SephirahTipherethBDrawn", new() {
                 NewLine("Hello manager.", Emotion.Laughter) },
                 new() {
@@ -732,11 +1279,59 @@ namespace WhistleWindLobotomyMod
                 new() {
                     new() { NewLine("...", Emotion.Quiet) }
             });
+            #endregion
         }
         private void Dialogue_Yesod()
         {
+            #region Boss Dialogue
+            CreateDialogueEvents("SephirahYesodProspector", new()
+            {
+                NewLine("Don't let his age lull you into", Emotion.Neutral),
+                NewLine("a false sense of security.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("That pickaxe is sharp. Stay vigilant.", Emotion.Neutral) },
+                    new() { NewLine("Let's not waste any time.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahYesodAngler", new()
+            {
+                NewLine("Don't let the smell dull your mind.", Emotion.Neutral) },
+                new() {
+                    new() {
+                        NewLine("His hook always seems to hit its mark.", Emotion.Neutral),
+                        NewLine("I'm sure you know how to deal with it.", Emotion.Neutral) },
+                    new() { NewLine("This isn't particularly pleasant...", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahYesodTrapperTrader", new()
+            {
+                NewLine("Come up with a plan, then execute it.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Don't let the cold cloud your senses, manager.", Emotion.Neutral) },
+                    new() { NewLine("Hasty actions will bring more harm than good.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahYesodLeshy", new()
+            {
+                NewLine("We must make sound judgements", Emotion.Neutral),
+                NewLine("before rushing forward.", Emotion.Neutral) },
+                new() {
+                    new() {
+                        NewLine("Use what we've learned until now.", Emotion.Neutral),
+                        NewLine("to take him down.", Emotion.Neutral) },
+                    new() { NewLine("Consider this your final test.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahYesodRoyal", new()
+            {
+                NewLine("A skeleton? That's new.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("His crew seems persuadable.", Emotion.Neutral) },
+                    new() { NewLine("Can't say I'm impressed.", Emotion.Neutral) }
+            });
+            #endregion
+
+            #region Normal Dialogue
             CreateDialogueEvents("SephirahYesodChoice", new() {
-                NewLine("Hello manager.", Emotion.Neutral)
+                NewLine("Hello manager.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Hello manager.", Emotion.Neutral) }
                 });
             CreateDialogueEvents("SephirahYesodDrawn", new() {
                 NewLine("Hello manager.", Emotion.Neutral) },
@@ -807,6 +1402,7 @@ namespace WhistleWindLobotomyMod
                     new() { NewLine("A single mistake could cause disaster.", Emotion.Curious) },
                     new() { NewLine("We must always proceed with discretion.", Emotion.Neutral) }
                 });
+            #endregion
         }
         private void Dialogue_WhiteNight()
         {

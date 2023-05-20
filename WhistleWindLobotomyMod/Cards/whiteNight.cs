@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             {
                 TraitApostle,
                 Trait.Uncuttable,
-                AbnormalPlugin.ImmuneToInstaDeath
+                ImmuneToInstaDeath
             };
             List<CardAppearanceBehaviour.Appearance> appearances = new()
             {

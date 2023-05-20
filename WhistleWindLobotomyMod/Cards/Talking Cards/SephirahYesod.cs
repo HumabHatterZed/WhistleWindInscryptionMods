@@ -62,10 +62,15 @@ namespace WhistleWindLobotomyMod
         public override string OnSelectedForCardRemoveDialogueId => "SephirahYesodSelectableBad";
         public override string OnSelectedForCardMergeDialogueId => "SephirahYesodGivenSigil";
         public override string OnSelectedForDeckTrialDialogueId => "SephirahYesodTrial";
-        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new Dictionary<Opponent.Type, string>()
+        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahYesodChoice" }
+            { Opponent.Type.ProspectorBoss, "SephirahYesodProspector" },
+            { Opponent.Type.AnglerBoss, "SephirahYesodAngler" },
+            { Opponent.Type.TrapperTraderBoss, "SephirahYesodTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "SephirahYesodLeshy" },
+            { Opponent.Type.RoyalBoss, "SephirahYesodRoyal" }
         };
+        public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
     public partial class LobotomyPlugin
     {
@@ -79,7 +84,7 @@ namespace WhistleWindLobotomyMod
             };
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahYesod", "Yesod",
-                "The head of the Information Department. Incompetence is not tolerated.",
+                "The head of the Information Department. Incompetence will not be tolerated.",
                 atk: 0, hp: 1,
                 blood: 2, bones: 0, energy: 0,
                 null, null,
