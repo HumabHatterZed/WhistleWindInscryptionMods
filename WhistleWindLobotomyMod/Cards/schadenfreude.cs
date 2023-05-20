@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Schadenfreude_O0576()
         {
-            List<Ability> abilities = new() { QuickDraw.ability };
+            List<Ability> abilities = new() { Ability.Sniper };
             List<Tribe> tribes = new() { TribeMechanical };
 
             CreateCard(

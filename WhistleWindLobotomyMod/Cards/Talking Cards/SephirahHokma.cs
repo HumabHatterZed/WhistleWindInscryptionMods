@@ -1,4 +1,4 @@
-﻿using DiskCardGame;
+﻿/*using DiskCardGame;
 using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
@@ -80,17 +80,17 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Hokma()
         {
-            List<Ability> abilities = new() { Protector.ability };
+            List<Ability> abilities = new() { NeuteredLatch.ability };
 
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahHokma", "Hokma",
                 "All things will happen in time. Just have faith.",
-                atk: 1, hp: 2,
-                blood: 0, bones: 3, energy: 0,
+                atk: 2, hp: 2,
+                blood: 2, bones: 0, energy: 0,
                 null, null,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
                 appearances: new(), onePerDeck: true);
         }
     }
-}
+}*/

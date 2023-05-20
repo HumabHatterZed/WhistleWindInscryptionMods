@@ -54,7 +54,7 @@ namespace WhistleWindLobotomyMod.Patches
                         __result = true;
                     }
                 }
-                if (SaveManager.SaveFile.IsPart1 && info.metaCategories.Contains(AbilityMetaCategory.Part3Rulebook))
+                if (info.metaCategories.Contains(AbilityMetaCategory.Part3Rulebook))
                 {
                     if (info.name.Equals("GainBattery") || info.name.Equals("LatchDeathShield") ||
                         info.name.Equals("MoveBeside"))

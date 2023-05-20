@@ -80,13 +80,13 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Binah()
         {
-            List<Ability> abilities = new() { Protector.ability };
+            List<Ability> abilities = new() { Ability.Sniper, Piercing.ability };
 
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahBinah", "Binah",
-                "She once held a position of great power. A boon to any team.",
-                atk: 1, hp: 2,
-                blood: 0, bones: 3, energy: 0,
+                "Though not as powerful as she once was, she will still make a great ally.",
+                atk: 3, hp: 5,
+                blood: 3, bones: 0, energy: 0,
                 null, null,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },

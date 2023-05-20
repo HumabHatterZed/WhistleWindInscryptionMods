@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod
                     .SetDeathCardPortrait(CompositeFigurine.FigurineType.SettlerWoman, 2, 3),
                 new CardModificationInfo(1, 1)
                     .SetNameReplacement("Summer").SetSingletonId("wstl_summer")
-                    .SetBloodCost(1).AddAbilities(Marksman.ability)
+                    .SetBloodCost(1).AddAbilities(Ability.Sniper)
                     .SetDeathCardPortrait(CompositeFigurine.FigurineType.Wildling, 3, 0),
                 new CardModificationInfo(2, 4)
                     .SetNameReplacement("Currince").SetSingletonId("wstl_currince")

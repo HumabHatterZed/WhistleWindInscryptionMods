@@ -109,7 +109,7 @@ namespace WhistleWindLobotomyMod
             TalkingCardManager.New<TalkingCardGebura>();
             TalkingCardManager.New<TalkingCardTipherethA>();
             TalkingCardManager.New<TalkingCardTipherethB>();
-            // TalkingCardManager.New<TalkingCardBinah>();
+            TalkingCardManager.New<TalkingCardBinah>();
             // TalkingCardManager.New<TalkingCardHokma>();
             // TalkingCardManager.New<TalkingCardAngela>();
         }

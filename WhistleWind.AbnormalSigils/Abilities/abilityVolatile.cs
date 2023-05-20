@@ -48,7 +48,7 @@ namespace WhistleWind.AbnormalSigils
         {
             base.Card.Anim.LightNegationEffect();
             yield return base.PreSuccessfulTriggerSequence();
-            yield return this.ExplodeFromSlot(base.Card.Slot);
+            yield return ExplodeFromSlot(base.Card.Slot);
             yield return base.LearnAbility(0.25f);
         }
 
@@ -58,15 +58,15 @@ namespace WhistleWind.AbnormalSigils
             if (adjacentSlots.Count > 0 && adjacentSlots[0].Index < slot.Index)
             {
                 if (adjacentSlots[0].Card != null && !adjacentSlots[0].Card.Dead)
-                    yield return this.BombCard(adjacentSlots[0].Card, slot.Card);
+                    yield return BombCard(adjacentSlots[0].Card, slot.Card);
 
                 adjacentSlots.RemoveAt(0);
             }
             if (slot.opposingSlot.Card != null && !slot.opposingSlot.Card.Dead)
-                yield return this.BombCard(slot.opposingSlot.Card, slot.Card);
+                yield return BombCard(slot.opposingSlot.Card, slot.Card);
 
             if (adjacentSlots.Count > 0 && adjacentSlots[0].Card != null && !adjacentSlots[0].Card.Dead)
-                yield return this.BombCard(adjacentSlots[0].Card, slot.Card);
+                yield return BombCard(adjacentSlots[0].Card, slot.Card);
         }
 
         private IEnumerator BombCard(PlayableCard target, PlayableCard attacker)

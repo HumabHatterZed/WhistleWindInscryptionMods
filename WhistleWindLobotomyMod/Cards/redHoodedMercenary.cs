@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                Marksman.ability,
+                Ability.Sniper,
                 BitterEnemies.ability
             };
             List<Tribe> tribes = new() { TribeAnthropoid };

@@ -57,6 +57,7 @@ In future updates, these changes will be restrained to that mod's changelog.
     - Added the following status effects:
         - Spores, Worms
     - Abilities can now be used by cards in Act 2
+    - Removed Marksman and Quick Draw, the mod now uses reskinned versions of Sniper and Sentry
 #### Other
     - Added new configuration options relating to Part 1 and events
     - Added 6 new random encounters

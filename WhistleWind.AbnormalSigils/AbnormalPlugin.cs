@@ -52,7 +52,7 @@ namespace WhistleWind.AbnormalSigils
 
         private void Awake()
         {
-            AbnormalPlugin.Log = base.Logger;
+            Log = base.Logger;
             AbnormalConfigManager.Instance.BindConfig();
 
             if (!AbnormalConfigManager.Instance.EnableMod)
@@ -167,9 +167,8 @@ namespace WhistleWind.AbnormalSigils
             Ability_Scrambler();
             Ability_Gardener();
             Ability_Slime();
-            Ability_Marksman();
             Ability_Protector();
-            Ability_QuickDraw();
+
             // v1.1
             Ability_Alchemist();
             Ability_Nettles();

@@ -5,11 +5,47 @@ using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.Core.Helpers;
 
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches
 {
+    [HarmonyPatch]
+    internal class RulebookPatches
+    {
+        [HarmonyPostfix, HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
+        private static void AddAbilities(ref int abilityIndex, ref bool __result)
+        {
+            if (SaveManager.SaveFile.IsPart1)
+            {
+                AbilityInfo info = AbilitiesUtil.GetInfo((Ability)abilityIndex);
+
+                if (info.name == "Sniper" || info.name == "Sentry")
+                {
+                    switch (info.name)
+                    {
+                        case "Sniper":
+                            info.rulebookName = "Marksman";
+                            info.triggerText = "Your beast strikes with precision.";
+                            info.SetIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilMarksman));
+                            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilMarksman_pixel));
+                            break;
+                        case "Sentry":
+                            info.rulebookName = "Quick Draw";
+                            info.triggerText = "The early bird gets the worm.";
+                            info.SetIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilQuickDraw));
+                            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilQuickDraw_pixel));
+                            info.SetCanStack();
+                            break;
+                    }
+                    __result = true;
+                }
+            }
+        }
+    }
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardPatches
     {
@@ -51,8 +87,8 @@ namespace WhistleWind.AbnormalSigils.Patches
             if (target.Attack == 0 || attacker.HasAnyOfAbilities(Ability.Submerge, Ability.SubmergeSquid) || attacker.FaceDown)
                 return true;
 
-            // if this card doesn't have Sniper or Marksman (will attack opposing)
-            if (attacker.LacksAllAbilities(Ability.Sniper, Marksman.ability))
+            // if this card doesn't have Sniper
+            if (attacker.LacksAbility(Ability.Sniper))
             {
                 // if this card has Bi or Tri Strike, check whether the opponent has it too
                 if (attacker.HasAbility(Ability.SplitStrike) || attacker.HasTriStrike())

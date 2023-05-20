@@ -44,7 +44,7 @@ namespace WhistleWind.AbnormalSigils
                 return true;
 
             // if this card doesn't have Sniper or Marksman (will attack opposing)
-            if (base.Card.LacksAllAbilities(Ability.Sniper, Marksman.ability))
+            if (base.Card.LacksAbility(Ability.Sniper))
             {
                 // if this card has Bi or Tri Strike, check whether the opponent has it too
                 if (base.Card.HasAbility(Ability.SplitStrike) || base.Card.HasTriStrike())

@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils.Patches
         [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.SlotAttackSequence))]
         private static bool OverrideWithMarksman(CombatPhaseManager __instance, ref IEnumerator __result, CardSlot slot)
         {
-            if (slot?.Card != null && slot.Card.HasAnyOfAbilities(Ability.Sniper, Marksman.ability))
+            if (slot?.Card != null && slot.Card.HasAbility(Ability.Sniper))
             {
                 if (IsJudgementBird(slot))
                     __result = WstlSniperSequence(__instance, slot);
@@ -42,6 +42,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
             int numAttacks = GetAttackCount(slot.Card);
+
             opposingSlots.Clear();
             Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode, false);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;

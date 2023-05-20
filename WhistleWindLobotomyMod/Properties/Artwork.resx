@@ -1144,6 +1144,39 @@
   <data name="starterDeckRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\starterDeckRandom.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="talkingBinahBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingBinahBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingBinahEmission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingBinahEmission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingBinahEyesClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingBinahEyesClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingBinahEyesClosed3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingBinahEyesClosed3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingBinahEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingBinahEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingBinahEyesOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingBinahEyesOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingBinahEyesOpen3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingBinahEyesOpen3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingBinahMouthClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingBinahMouthClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingBinahMouthClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingBinahMouthClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingBinahMouthOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingBinahMouthOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingBinahMouthOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingBinahMouthOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="talkingChesedBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingChesedBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

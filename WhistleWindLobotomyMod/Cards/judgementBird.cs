@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_JudgementBird_O0262()
         {
-            List<Ability> abilities = new() { Marksman.ability };
+            List<Ability> abilities = new() { Ability.Sniper };
             List<Tribe> tribes = new() { Tribe.Bird };
             List<Trait> traits = new() { TraitBlackForest, AbnormalPlugin.Executioner };
 
