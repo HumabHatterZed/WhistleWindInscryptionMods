@@ -20,7 +20,7 @@ namespace Infiniscryption.Spells
 
         internal const string PluginGuid = "zorro.inscryption.infiniscryption.spells";
         internal const string PluginName = "New Infiniscryption Spells";
-        internal const string PluginVersion = "1.1.0";
+        internal const string PluginVersion = "1.1.1";
         internal const string CardPrefix = "ZSPL";
 
         internal static ManualLogSource Log;

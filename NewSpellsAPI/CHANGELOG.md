@@ -1,5 +1,8 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
+## 1.1.1 (5/20/2023)
+- Fixed Give Stats giving the wrong stats
+
 ## 1.1.0 (2/4/2023)
 - Added opponent support for spell cards and all built-in sigils
 - Added Global Spell support for ability 'Gain Control'

@@ -11,7 +11,7 @@ New additions and features include:
 - 4 new cards: Soul Without a Body, Body Without a Soul, Another's Desire, Hope
 
 This mod is meant to **replace** the original version, not be used alongside it.
-Attempting to do so will more than likely cause problems!
+Installing both will likely cause problems!!
 
 #
 
