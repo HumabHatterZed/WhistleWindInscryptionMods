@@ -190,8 +190,8 @@ You'll need to play with the cards in order to figure out their special ability 
 
 <br>
 
-|NAME								|STATS	|COST																														      |SIGILS							|TRIBES					|TRAITS					|OTHER				   |
-|:----------------------------------|:-----:|:-------------------------------------------------------------------------------------------------------------------------------:|:------------------------------:|:---------------------:|:---------------------:|:---------------------|
+|NAME								|STATS	|COST																														      |SIGILS							|TRIBES					|TRAITS				|OTHER				   |
+|:----------------------------------|:-----:|:-------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------|:----------------------|:------------------|:---------------------|
 |Standard Training-Dummy Rabbit		|0/2	|<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/NcdGqIZ.png'>|									|Mechanical				|					|					   |
 |Scorched Girl						|1/1	|<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/czecyiH.png'>|Volatile							|Anthropoid				|					|					   |
 |One Sin and Hundreds of Good Deeds	|0/1	|<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/czecyiH.png'>|Martyr							|Divine					|					|					   |
