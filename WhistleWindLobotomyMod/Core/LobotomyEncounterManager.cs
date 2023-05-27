@@ -27,7 +27,6 @@ namespace WhistleWindLobotomyMod.Core
 
         public static void BuildEncounters()
         {
-            CardBlueprint nullCard = NewCardBlueprint(null, 25).SetReplacement(null);
             CardBlueprint workerBee = NewCardBlueprint("wstl_queenBeeWorker", 25);
             CardBlueprint nakedWorm = NewCardBlueprint("wstl_theNakedWorm", 25);
             CardBlueprint spiderling = NewCardBlueprint("wstl_spiderling", 25);
@@ -61,7 +60,7 @@ namespace WhistleWindLobotomyMod.Core
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_punishingBird", 30), NewCardBlueprint("wstl_judgementBird", 30)),
                     CreateTurn(),
-                    CreateTurn(nullCard.SetReplacement("wstl_theFireBird", 4))
+                    CreateTurn(NewCardBlueprint("wstl_theFireBird", 30))
                     ), regions: 0);
             Build(New("HelperJuggernaut")
                 .SetDifficulty(1, 4)
@@ -69,7 +68,7 @@ namespace WhistleWindLobotomyMod.Core
                 .AddRandomReplacementCards("wstl_behaviourAdjustment", "wstl_dontTouchMe", "wstl_mhz176")
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_allAroundHelper")),
-                    CreateTurn(nullCard.SetReplacement("wstl_singingMachine", 3)),
+                    CreateTurn(NewCardBlueprint("wstl_singingMachine", 30)),
                     CreateTurn()
                     ), regions: 0);
             Build(New("StrangeBotanicals")
@@ -90,8 +89,8 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(fairyFestival),
                     CreateTurn(),
                     CreateTurn(fairyFestival, fairyFestival),
-                    CreateTurn(nullCard.SetReplacement("wstl_fairyFestival", 3)),
-                    CreateTurn(nullCard.SetReplacement("wstl_fairyFestival", 3), nullCard.SetReplacement("wstl_nosferatu", 4)),
+                    CreateTurn(NewCardBlueprint("wstl_fairyFestival", 30)),
+                    CreateTurn(NewCardBlueprint("wstl_fairyFestival", 30), NewCardBlueprint("wstl_nosferatu", 4)),
                     CreateTurn(),
                     CreateTurn()
                     ), regions: new[] { 0, 1 });
@@ -110,7 +109,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(),
                     CreateTurn(workerBee, workerBee),
                     CreateTurn(),
-                    CreateTurn(nullCard.SetReplacement("wstl_workerBee", 8)),
+                    CreateTurn(NewCardBlueprint("wstl_workerBee", 8)),
                     CreateTurn()
                     ), regions: 1);
             Build(New("StrangeCreatures1")
@@ -135,8 +134,8 @@ namespace WhistleWindLobotomyMod.Core
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_theNakedNest"), nakedWorm),
                     CreateTurn(nakedWorm),
-                    CreateTurn(nakedWorm, nakedWorm, nullCard.SetReplacement("wstl_theNakedWorm", 10)),
-                    CreateTurn(nakedWorm, nullCard.SetReplacement("wstl_theNakedWorm", 9))
+                    CreateTurn(nakedWorm, nakedWorm, NewCardBlueprint("wstl_theNakedWorm", 10)),
+                    CreateTurn(nakedWorm, NewCardBlueprint("wstl_theNakedWorm", 9))
                 ), regions: 1);
             Build(New("StrangeCreatures2")
                 .SetDifficulty(6, 10)
@@ -165,7 +164,7 @@ namespace WhistleWindLobotomyMod.Core
                 .SetRedundantAbilities(Ability.Submerge, Ability.WhackAMole, Ability.TailOnHit, Ability.Sharp, Punisher.ability)
                 .AddRandomReplacementCards("wstl_voidDream", "wstl_punishingBird", "wstl_yang")
                 .AddTurns(
-                    CreateTurn(NewCardBlueprint("wstl_canOfWellCheers", 25), nullCard.SetReplacement("wstl_magicalGirlDiamond")),
+                    CreateTurn(NewCardBlueprint("wstl_canOfWellCheers", 25), NewCardBlueprint("wstl_magicalGirlDiamond")),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_yin")),
                     CreateTurn(),
@@ -179,7 +178,7 @@ namespace WhistleWindLobotomyMod.Core
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_kingOfGreed")),
                     CreateTurn(),
-                    CreateTurn(NewCardBlueprint("wstl_bigBird", 25), nullCard.SetReplacement("wstl_fleshIdol", 10)),
+                    CreateTurn(NewCardBlueprint("wstl_bigBird", 25), NewCardBlueprint("wstl_fleshIdol", 10)),
                     CreateTurn(),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_dreamingCurrent", 25), NewCardBlueprint("wstl_yin", 25))
@@ -207,7 +206,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(NewCardBlueprint("wstl_alriune"), NewCardBlueprint("wstl_burrowingHeaven", 10)),
                     CreateTurn(),
                     CreateTurn(),
-                    CreateTurn(NewCardBlueprint("wstl_voidDream", 25).SetReplacement("wstl_voidDreamRooster", 13)),
+                    CreateTurn(NewCardBlueprint("wstl_voidDream", 25).SetReplacement("wstl_voidDreamRooster", 130)),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_beautyAndBeast", 25)),
                     CreateTurn(),
@@ -222,7 +221,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(NewCardBlueprint("wstl_spiderBud"), spiderBrood),
                     CreateTurn(spiderling.SetReplacement("wstl_spiderBrood", 14), spiderBrood),
                     CreateTurn(spiderBrood),
-                    CreateTurn(nullCard.SetReplacement("wstl_spiderling", 13)),
+                    CreateTurn(NewCardBlueprint("wstl_spiderling", 130)),
                     CreateTurn(),
                     CreateTurn(spiderling.SetReplacement("wstl_spiderBrood", 14))
                 ), regions: 2);
@@ -260,7 +259,7 @@ namespace WhistleWindLobotomyMod.Core
                 .AddDominantTribes(Tribe.Bird)
                 .AddRandomReplacementCards("wstl_willBeBadWolf", "wstl_dreamingCurrent", "wstl_allAroundHelper")
                 .AddTurns(
-                    CreateTurn(NewCardBlueprint("wstl_dreamOfABlackSwan"), nullCard.SetReplacement("wstl_dreamOfABlackSwanBrother3", 14)),
+                    CreateTurn(NewCardBlueprint("wstl_dreamOfABlackSwan"), NewCardBlueprint("wstl_dreamOfABlackSwanBrother3", 14)),
                     CreateTurn(NewCardBlueprint("wstl_dreamOfABlackSwanBrother5", 50), NewCardBlueprint("wstl_dreamOfABlackSwanBrother2", 50)),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_bigBird", 25)),
@@ -284,7 +283,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_burrowingHeaven", 25)),
                     CreateTurn()
-                ), 3);
+                ), 30);
             ProspectorAbnormalBossP2 = Build(New("ProspectorAbnormalBossP2")
                .SetDifficulty(4, 7)
                .AddDominantTribes(AbnormalPlugin.TribeBotanic)
@@ -296,9 +295,9 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_warmHeartedWoodsman", 25)),
                     CreateTurn(),
-                    CreateTurn(nullCard.SetReplacement("wstl_graveOfBlossoms", 7)),
+                    CreateTurn(NewCardBlueprint("wstl_graveOfBlossoms", 7)),
                     CreateTurn()
-                ), 3);
+                ), 30);
             AnglerAbnormalBossP1 = Build(New("AnglerAbnormalBossP1")
                .SetDifficulty(9, 11)
                .AddDominantTribes(Tribe.Bird)
@@ -307,9 +306,9 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(NewCardBlueprint("wstl_theFirebird")),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_fairyFestival")),
-                    CreateTurn(nullCard.SetReplacement("wstl_fairyFestival", 11)),
+                    CreateTurn(NewCardBlueprint("wstl_fairyFestival", 11)),
                     CreateTurn()
-                ), 3);
+                ), 30);
             AnglerAbnormalBossP2 = Build(New("AnglerAbnormalBossP2")
                .SetDifficulty(9, 11)
                .AddDominantTribes(Tribe.Bird)
@@ -318,10 +317,10 @@ namespace WhistleWindLobotomyMod.Core
                    CreateTurn(),
                    CreateTurn(NewCardBlueprint("BaitBucket", 25)),
                    CreateTurn(),
-                   CreateTurn(NewCardBlueprint("BaitBucket"), nullCard.SetReplacement("wstl_punishingBird", 10)),
+                   CreateTurn(NewCardBlueprint("BaitBucket"), NewCardBlueprint("wstl_punishingBird", 10)),
                    CreateTurn(),
-                   CreateTurn(NewCardBlueprint("BaitBucket"), nullCard.SetReplacement("BaitBucket", 11))
-                ), 3);
+                   CreateTurn(NewCardBlueprint("BaitBucket"), NewCardBlueprint("BaitBucket", 11))
+                ), 30);
             TrapperTraderAbnormalBossP1 = Build(New("TrapperTraderAbnormalBossP1")
                .SetDifficulty(14, 16)
                .AddDominantTribes(AbnormalPlugin.TribeMechanical)
@@ -335,7 +334,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(NewCardBlueprint("wstl_meatLantern", 25)),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_judgementBird", 25))
-                ), 3);
+                ), 30);
             LeshyAbnormalBossP1 = Build(New("LeshyAbnormalBossP1")
                .SetDifficulty(20, 20)
                .AddDominantTribes(AbnormalPlugin.TribeFae)
@@ -344,38 +343,36 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(NewCardBlueprint("wstl_magicalGirlSpade")),
                     CreateTurn(NewCardBlueprint("wstl_funeralOfButterflies", 25)),
                     CreateTurn(NewCardBlueprint("wstl_mountainOfBodies", 25), NewCardBlueprint("wstl_silentOrchestra", 10)),
-                    CreateTurn(nullCard.SetReplacement(null)),
+                    CreateTurn(NewCardBlueprint(null)),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_censored"))
-                ), 3);
+                ), 30);
             PirateSkullAbnormalBossP1 = Build(New("PirateSkullAbnormalBossP1")
                .SetDifficulty(20, 20)
                .AddDominantTribes(Tribe.Bird)
-               .AddRandomReplacementCards("wstl_SKELETON_SHRIMP")
                .AddTurns(
                     CreateTurn(),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_SKELETON_SHRIMP"), NewCardBlueprint("wstl_theFirebird")),
-                    CreateTurn(nullCard),
+                    CreateTurn(NewCardBlueprint("wstl_SKELETON_SHRIMP")),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_SKELETON_SHRIMP"), NewCardBlueprint("wstl_voidDreamRooster")),
                     CreateTurn(),
                     CreateTurn()
-                ), 3);
+                ), 30);
             PirateSkullAbnormalBossP2 = Build(New("PirateSkullAbnormalBossP2")
                .SetDifficulty(20, 20)
                .AddDominantTribes(Tribe.Bird)
-               .AddRandomReplacementCards("wstl_CRUMPLED_CAN")
                .AddTurns(
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_yin"), NewCardBlueprint("wstl_yang")),
                     CreateTurn(NewCardBlueprint("wstl_punishingBird"), NewCardBlueprint("wstl_judgementBird")),
                     CreateTurn(),
                     CreateTurn(),
-                    CreateTurn(NewCardBlueprint("wstl_SKELETON_SHRIMP"), NewCardBlueprint("wstl_SKELETON_SHRIMP"), nullCard),
+                    CreateTurn(NewCardBlueprint("wstl_SKELETON_SHRIMP"), NewCardBlueprint("wstl_SKELETON_SHRIMP"), NewCardBlueprint("wstl_CRUMPLED_CAN")),
                     CreateTurn(),
                     CreateTurn()
-                ), 3);
+                ), 30);
             #endregion
         }
 
