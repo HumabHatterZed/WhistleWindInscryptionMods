@@ -35,8 +35,8 @@
     <Reference Include="InscryptionCommunityPatch" Private="false">
       <HintPath>..\lib\InscryptionCommunityPatch.dll</HintPath>
     </Reference>
-    <Reference Include="ATribeLibary" Private="false">
-      <HintPath>..\lib\ATribeLibary.dll</HintPath>
+    <Reference Include="ATribalLibary" Private="false">
+      <HintPath>..\lib\ATribalLibary.dll</HintPath>
     </Reference>
   </ItemGroup>
 	

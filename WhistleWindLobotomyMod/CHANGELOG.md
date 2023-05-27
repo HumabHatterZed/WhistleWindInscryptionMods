@@ -1,8 +1,7 @@
 # Plugin GUID: whistlewind.inscryption.lobotomycorp
 
 ## v2.0.0 - The One Perfect Book (?/?/2023)
-Note that for this update I'm including the changes made to sigils that have now been moved to Abnormal Sigils.
-In future updates, these changes will be restrained to that mod's changelog.
+Note that in the future, updates and changes to modded sigils will be found in the Abnormal Sigils changelog.
 
 ### 🧱 Structural
     - Split the majority of custom sigils (and any associated spawned cards) into their own separate mod Abnormal Sigils
@@ -37,9 +36,9 @@ In future updates, these changes will be restrained to that mod's changelog.
     - Added the following cards:
         - Magical Girl C, Price of Silence, Pinocchio, Nosferatu, The Way Home, Ozma, Silent Girl (Rare)
     - Added the following special cards:
-        - The Adult Who Tells Lies, Jester of Nihil, Malkuth, Yesod, Hod, Netzach, Tiphereth A, Gebura, Chesed, Binah, Hokma, Angela
+        - The Adult Who Tells Lies, Jester of Nihil, Malkuth, Yesod, Hod, Netzach, Tiphereth A and Tiphereth B, Gebura, Chesed, Binah, Hokma, Angela
     - Added 5 custom Tribes: Divine, Fae, Anthropoid, Mechanical, Botanic
-    - Added the following starter decks (* Replaces the primary card if Ruina cards are disabled in the config):
+    - Added the following starter decks (* = Replaces the primary card if Ruina cards are disabled in the config):
         - Random (3 randomly selected mod cards)
         - People Pleasers (Today's Shy Look, Pinocchio/Mirror of Adjustment*, Behaviour Adjustment)
         - Freak Show (Beauty and the Beast, Void Dream Queen Bee)
@@ -162,7 +161,6 @@ In future updates, these changes will be restrained to that mod's changelog.
         - "Affected cards gain Power equal to half this card's Power. Over the next 3 turns: affect adjacent -> allied -> all other cards and double the Power gained."
     - <<Ruler of Frost>> reworked to be:
         - "Activate: Once per turn, pay 3 Bones to choose a space on the board. If the space is occupied by a killable card, transform it into a Frozen Heart. Otherwise create a Block of Ice."
-    - 
 #### Other
     - Starter decks <<Road to Oz>>, <<Magical Girls!>>, <<Twilight>> now require completing the respective in-game event before unlocking the deck
         - This can be overriden in the config by-the-by

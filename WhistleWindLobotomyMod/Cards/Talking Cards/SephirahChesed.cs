@@ -96,7 +96,7 @@ namespace WhistleWindLobotomyMod
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahChesed", "Chesed",
                 "Nothing like a fresh cup of coffee to start your day.",
-                atk: 0, hp: 5,
+                atk: 0, hp: 4,
                 blood: 1, bones: 0, energy: 0,
                 null, null,
                 abilities: abilities, specialAbilities: new(),

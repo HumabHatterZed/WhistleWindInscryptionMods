@@ -11,7 +11,6 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
         private bool CheckValid(CardSlot slot) => slot.Card.Info.name != "wstl_theLittlePrinceMinion" && !slot.Card.Info.Mods.Exists(x => x.singletonId == "spore_status");
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;

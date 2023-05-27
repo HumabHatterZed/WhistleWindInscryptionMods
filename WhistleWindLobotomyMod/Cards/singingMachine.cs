@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_singingMachine", "Singing Machine",
                 "A wind-up music machine. The song it plays is to die for.",
-                atk: 0, hp: 3,
+                atk: 0, hp: 4,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.singingMachine, Artwork.singingMachine_emission, pixelTexture: Artwork.singingMachine_pixel,
                 abilities: abilities, specialAbilities: new(),

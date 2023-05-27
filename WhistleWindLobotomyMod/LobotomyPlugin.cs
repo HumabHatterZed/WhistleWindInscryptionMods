@@ -47,7 +47,7 @@ namespace WhistleWindLobotomyMod
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
                 GenerateDialogueEvents();
-                
+
                 AddChallenges();
 
                 Log.LogDebug("Loading abilities...");
@@ -110,8 +110,8 @@ namespace WhistleWindLobotomyMod
             TalkingCardManager.New<TalkingCardTipherethA>();
             TalkingCardManager.New<TalkingCardTipherethB>();
             TalkingCardManager.New<TalkingCardBinah>();
-            // TalkingCardManager.New<TalkingCardHokma>();
-            // TalkingCardManager.New<TalkingCardAngela>();
+            TalkingCardManager.New<TalkingCardHokma>();
+            TalkingCardManager.New<TalkingCardAngela>();
         }
         private void AddCards()
         {
@@ -126,12 +126,14 @@ namespace WhistleWindLobotomyMod
             };
 
             AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
+            AddCustomDeathCards();
             CreateTalkingCards();
-            //AddDeathCards();
+
             if (AllCardsDisabled)
             {
                 Log.LogInfo("All mod cards are disabled, adding Standard Training-Dummy Rabbit as a fallback to prevent issues.");
-                ObtainableLobotomyCards = new() { CardLoader.GetCardByName("wstl_trainingDummy") };
+                ObtainableLobotomyCards.Clear();
+                ObtainableLobotomyCards.Add(CardLoader.GetCardByName("wstl_trainingDummy"));
             }
         }
         private void AddAbilities()
@@ -279,8 +281,8 @@ namespace WhistleWindLobotomyMod
 
         public static bool AllCardsDisabled { get; internal set; }
         public static RiskLevel DisabledRiskLevels { get; internal set; }
-        
-        private static Harmony HarmonyInstance = new(pluginGuid);
+
+        private static readonly Harmony HarmonyInstance = new(pluginGuid);
         internal static ManualLogSource Log;
 
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";

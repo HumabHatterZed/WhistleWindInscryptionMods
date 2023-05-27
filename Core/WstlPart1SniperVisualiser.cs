@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
 using Pixelplacement;
 using System.Collections.Generic;
 using UnityEngine;

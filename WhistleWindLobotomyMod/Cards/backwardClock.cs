@@ -23,6 +23,7 @@ namespace WhistleWindLobotomyMod
                 metaCategories: new(), tribes: new(), traits: traits,
                 onePerDeck: true,
                 choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Waw,
+                metaTypes: CardHelper.CardMetaType.Terrain,
                 modTypes: ModCardType.Donator | ModCardType.Restricted);
         }
     }

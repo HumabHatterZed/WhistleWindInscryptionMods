@@ -2,10 +2,8 @@
 using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionCommunityPatch.Card;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.Core;
 using static InscryptionCommunityPatch.Card.SniperFix;

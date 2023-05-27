@@ -8,10 +8,11 @@ The cards in this mod are designed to be as faithful to their original counterpa
 Now featuring the abnormalities from Library of Ruina!
 
 Current Features:
-- 90 obtainable cards
+- 90+ obtainable cards
 - 11 starter decks
-- 11 challenges and cheats
+- 7 challenges and cheats
 - 2 new choice nodes
+- 1 new item
 
 ## ‼️ REGARDING 2.0 ‼️
 With the 2.0 release, a number of structural changes have been made you need to be aware of.
@@ -177,28 +178,162 @@ You'll need to play with the cards in order to figure out their special ability 
 <summary>View Cards</summary>
 
 **KEY**
-- Toxic - Kills survivors when eaten at the Campfire.
-- Spell - Can be played on top of other cards, dies upon play.
-- Special - Can only be obtained once per run, usually via a unique method.
-- Singleton - Can only have one copy in your deck at a time.
-- X - Stat varies
-- M - Mirror stat icon
-- S - Sacrifice stat icon
-- T - Passing Time stat icon
-- R - Sigil Power stat icon
+- Toxic = Kills survivors when eaten at the Campfire.
+- Spell = Can be played on top of other cards, dies upon play.
+- Special = Can only be obtained once per run, usually via a unique method.
+- Singleton = Can only have one copy in your deck at a time.
+- V = Stat varies
+- M = Mirror stat icon
+- S = Sacrifice stat icon
+- T = Passing Time stat icon
+- SP = Sigil Power stat icon
 
 <br>
 
-|NAME|STATS|COST|SIGILS|TRAITS|TRIBES|
-|:---|:---:|:--:|:----:|:----:|:----:|
+|NAME								|STATS	|COST																																										   |SIGILS							|TRIBES						|TRAITS							|
+|:----------------------------------|:-----:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------:|:-------------------------:|:-----------------------------:|
+|Standard Training-Dummy Rabbit		|0/2	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/NcdGqIZ.png'>|								|Mechanical					|								|
+|Scorched Girl						|1/1	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/czecyiH.png'>|Volatile						|Anthropoid					|								|
+|One Sin and Hundreds of Good Deeds	|0/1	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/czecyiH.png'>|Martyr							|Divine						|								|
+|Magical Girl H						|1/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Opportunistic					|Fae						|Singleton, Magical Girl		|
+|The Queen of Hatred				|8/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Opportunistic, Piercing			|Fae, Reptile				|Singleton, Magical Girl		|
+|⇒ The Queen of Hatred				|0/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|								|Fae, Reptile				|Singleton, Magical Girl		|
+|Happy Teddy Bear					|2/1	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/r1Q62Ck.png'>|Woodcutter						|							|								|
+|Red Shoes							|0/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Sharp Quills, Guardian			|							|								|
+|Theresia							|0/2	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/3ngvEdK.png'>|Healer							|Mechanical					|								|
+|Old Lady							|1/2	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/czecyiH.png'>|Stinky							|Anthropoid					|								|
+|Nameless Fetus						|0/1	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/jnK5NEz.png'>|Worthy Sacrifice, Unkillable	|Anthropoid					|								|
+|The Lady Facing The Wall			|1/2	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/iJN52Ow.png'>|Sharp Quills					|Anthropoid					|								|
+|Nothing There						|1/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Mighty Leap						|							|								|
+|⇒ Nothing There					|3/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Fledgling						|							|								|
+|⇒ Nothing There					|0/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|Fledgling						|Canine, Hooved, Reptile	|								|
+|⇒ Nothing There					|9/9	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/1c6PTpq.png'>|								|Anthropoid					|								|
+|1.76 MHz							|2/1	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/Aem0MCG.png'>|Annoying						|							|								|
+|Singing Machine					|0/4	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Team Leader, Aggravating		|Mechanical					|								|
+|The Silent Orchestra				|2/4	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Conductor						|Anthropoid					|								|
+|Warm-Hearted Woodsman				|2/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Woodcutter						|Mechanical					|Singleton, Emerald City		|
+|The Snow Queen						|1/2	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/o1qsSmA.png'>|Ruler of Frost					|Fae						|								|
+|Big Bird							|2/4	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Cycler							|Avian						|Singleton, Black Forest		|
+|All-Around Helper					|1/3	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/P1yr67p.png'>|Sprinter, Bifurcated Strike		|Mechanical					|								|
+|Snow White's Apple					|1/1	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/jnK5NEz.png'>|Roots							|Botanic					|Toxic							|
+|Spider Bud							|0/2	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/jnK5NEz.png'>|Broodmother						|Insect						|								|
+|Beauty and the Beast				|1/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Cursed							|Hooved, Insect				|								|
+|Plague Doctor						|0/3	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/jnK5NEz.png'>|Airborne, Healer				|Divine						|Singleton						|
+|Don't Touch Me						|0/1	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/3ngvEdK.png'>|Punisher, Guardian				|Mechanical					|Terrain, Toxic					|
+|Rudolta of the Sleigh				|2/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Sprinter, Gift Giver			|Hooved						|								|
+|Queen Bee							|0/4	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Queen Nest						|Insect						|								|
+|Bloodbath							|0/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|								|							|								|
+|Opened Can of Wellcheers			|1/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Waterborne, Sprinter			|Mechanical					|								|
+|Alriune							|4/5	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|Sprinter						|Botanic, Hooved			|								|
+|Forsaken Murderer					|4/1	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/cEvPoTk.png'>|								|Anthropoid					|								|
+|Child of the Galaxy				|1/4	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Flag Bearer, Bone Digger		|Anthropoid					|								|
+|Punishing Bird						|1/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Airborne, Punisher				|Avian						|Singleton, Black Forest, Toxic	|
+|Little Red Riding Hooded Mercenary	|2/5	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|Marksman, Bitter Enemies		|Anthropoid					|								|
+|Big and Will Be Bad Wolf			|4/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|Bitter Enemies					|Canine						|								|
+|You're Bald...						|0/1	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/3ngvEdK.png'>|Fecundity						|							|								|
+|Fragment of the Universe			|1/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Piercing						|Divine						|								|
+|Crumbling Armour					|0/3	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/o1qsSmA.png'>|Courageous						|							|								|
+|Judgement Bird						|1/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Marksman						|Avian						|Singleton, Black Forest		|
+|Apocalypse Bird					|4/15	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/1c6PTpq.png'>|Omni Strike						|Avian						|Singleton, Special				|
+|Magical Girl D						|0/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Fledgling						|Fae						|Singleton, Magical Girl		|
+|⇒ The King of Greed				|2/5	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Cycler							|Fae						|Singleton, Magical Girl		|
+|The Little Prince					|1/4	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Sporogenic						|Botanic					|								|
+|Laetitia							|1/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Gift Giver						|Fae						|								|
+|Funeral of the Dead Butterflies	|1/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Double Strike					|Insect						|								|
+|Der Freischütz						|1/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Bifurcated Strike, Marksman		|Fae						|								|
+|Dream of a Black Swan				|2/5	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|Nettle Clothes					|Avian						|								|
+|The Dreaming Current				|4/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|Waterborne, Barreler			|							|								|
+|The Burrowing Heaven				|0/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Burrower, Sharp Quills			|Divine						|								|
+|Magical Girl S						|1/4	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Protector						|Fae						|Singleton, Magical Girl		|
+|⇒ The Knight of Despair			|2/4	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Bifurcated Strike, Piercing		|Fae						|Singleton, Magical Girl		|
+|The Naked Nest						|0/3	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/o1qsSmA.png'>|Serpent's Nest					|Insect						|Naked Nest						|
+|The Mountain of Smiling Bodies		|2/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Assimilator						|							|								|
+|Schadenfreude						|1/1	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/P1yr67p.png'>|Quick Draw						|Mechanical					|								|
+|The Heart of Aspiration			|1/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Leader							|							|								|
+|Notes From A Crazed Researcher		|2/0	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/czecyiH.png'>|Brittle, Give Stats and Sigils	|							|								|
+|Flesh Idol							|0/2	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/jnK5NEz.png'>|Group Healer, Annoying			|Divine						|								|
+|Giant Tree Sap						|0/3	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/jnK5NEz.png'>|Morsel							|Botanic					|								|
+|The Mirror of Adjustment			|M/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Woodcutter						|							|Terrain						|
+|Shelter From The 27th of March		|0/1	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/3ngvEdK.png'>|Aggravating, Repulsive			|							|								|
+|Fairy Festival						|1/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Bloodfiend						|Fae						|								|
+|Meat Lantern						|1/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Punisher, Mighty Leap			|							|Toxic							|
+|We Can Change Anything				|0/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Grinder							|Mechanical					|								|
+|Express Train To Hell				|0/4	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/iJN52Ow.png'>|Group Healer					|Mechanical					|								|
+|Scarecrow Searching For Wisdom		|1/2	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/iJN52Ow.png'>|Bloodfiend						|Anthropoid, Botanic		|Singleton, Emerald City		|
+|Dimensional Refraction Variant		|SP/SP	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Amorphous						|							|								|
+|Censored							|4/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|Bloodfiend						|							|								|
+|Skin Prophecy						|0/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Witness							|Divine						|								|
+|Portrait of Another World			|0/4	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Reflector						|							|								|
+|Today's Shy Look					|1/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|								|Anthropoid					|								|
+|Blue Star							|0/4	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Fledgling						|Divine						|								|
+|⇒ Blue Star						|0/4	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|Fledgling, Idol					|Divine						|								|
+|⇒ Blue Star						|4/4	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/1c6PTpq.png'>|Fledgling, Omni Strike			|Divine						|								|
+|You Must Be Happy					|0/2	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/3ngvEdK.png'>|Scrambler						|Mechanical					|								|
+|Luminous Bracelet					|0/0	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/Aem0MCG.png'>|Greedy Healing, Give Sigils		|							|								|
+|Behaviour Adjustment				|0/1	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/Aem0MCG.png'>|Corrector						|Mechanical					|								|
+|Old Faith and Promise				|0/1	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/Aem0MCG.png'>|Alchemist						|Mechanical					|								|
+|Porccubus							|1/1	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/o1qsSmA.png'>|Touch of Death					|Botanic					|Toxic							|
+|Void Dream							|1/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Fledgling, Airborne				|Hooved, Bird				|								|
+|⇒ Void Dream Rooster				|2/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Stinky							|Hooved						|								|
+|Grave of Cherry Blossoms			|0/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Bloodfiend, Sharp Quills		|Botanic					|								|
+|The Firebird						|2/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Scorching, Airborne				|Avian						|								|
+|Yin								|2/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Sprinter, Waterborne			|							|								|
+|Yang								|0/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Regenerator						|							|								|
+|Backward Clock						|0/1	|<img align='center' src='https://i.imgur.com/C22peXt.png'><img align='center' src='https://i.imgur.com/hox8zlk.png'><img align='center' src='https://i.imgur.com/3ngvEdK.png'>|Time Machine					|							|Terrain						|
+|Il Pianto Della Luna				|2/6	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|Group Healer					|							|								|
+|Army in Pink						|3/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Protector, Clinger				|Anthropoid					|								|
+|Army in Black						|0/0	|																																											   |Volatile						|Anthropoid					|								|
+|Ppodae								|1/1	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/iJN52Ow.png'>|Stinky, Fledgling				|Canine						|								|
+|⇒ Ppodae							|3/2	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/cEvPoTk.png'>|Stinky							|Canine						|								|
+|Parasite Tree						|0/3	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/iJN52Ow.png'>|Gardener						|Botanic					|								|
+|Melting Love						|4/3	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|Made of Slime					|							|								|
+|Honoured Monk						|2/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Fledgling						|Anthropoid					|								|
+|⇒ Clouded Monk						|4/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|								|Anthropoid					|								|
+|Magical Girl C						|2/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Scorching						|Fae						|Singleton, Magical Girl		|
+|⇒ The Servant of Wrath				|3/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|								|Fae, Reptile				|Singleton, Magical Girl		|
+|Price of Silence					|T/1+T	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|								|							|								|
+|Pinocchio							|0/1	|<img align='center' src='https://i.imgur.com/GeMgIce.png'><img align='center' src='https://i.imgur.com/UMfuFFS.png'><img align='center' src='https://i.imgur.com/g6cUUvP.png'>|Copycat							|Anthropoid, Botanic		|								|
+|Nosferatu							|1/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Bloodfiend, Fledgling			|Anthropoid					|								|
+|⇒ Nosferatu						|3/2	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|Bloodfiend, Bloodfiend			|							|								|
+|The Road Home						|1/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Follow The Leader				|Fae						|Singleton, Emerald City		|
+|Scaredy Cat						|0/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|								|							|Singleton, Emerald City		|
+|Ozma								|1/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/UENa3ep.png'>|Rightful Heir					|Fae						|Singleton, Emerald City		|
+|Silent Girl						|2/1	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Trifurcated Strike				|Anthropoid					|								|
+|The Adult Who Tells Lies			|1/8	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/nR7Ce9J.png'>|False Throne					|Anthropoid					|Singleton, Special				|
+|Jester of Nihil					|0/7	|<img align='center' src='https://i.imgur.com/H6vESv7.png'><img align='center' src='https://i.imgur.com/3L8GdcW.png'><img align='center' src='https://i.imgur.com/vIrzRRC.png'>|Return To Nihil					|Fae						|Singleton, Special				|
 
 </details>
 
 ## 🗃️ Starter Decks
 
+- * = If DisableRuina is active in the config, these cards will be replaced by a different card.
+- S = Special requirement to unlock (or changing the config setting)
+
+|NAME			 |CARDS																				|UNLOCK LEVEL|
+|:---------------|:---------------------------------------------------------------------------------|:----------:|
+|Random Mod Cards|3+ random mod cards																|0|
+|First Day		 |One Sin and Hundreds of Good Deeds<br>Fairy Festival<br>Old Lady					|0|
+|Lonely Friends	 |Scorched Girl<br>Laetitia<br>Child of the Galaxy									|2|
+|Blood Machines	 |We Can Change Anything<br>Singing Machine<br>All-Around Helper					|4|
+|People Pleasers |Today's Shy Look<br>Pinocchio*<br>Behaviour Adjustment							|5|
+|Freak Show		 |Beauty and the Beast<br>Void Dream<br>Queen Bee									|6|
+|Apocrypha		 |Fragment of the Universe<br>Skin Prophecy<br>Price of Silence*					|7|
+|Keter			 |Bloodbath<br>The Burrowing Heaven<br>The Snow Queen								|8|
+|Road to Oz		 |The Road Home*<br>Scarecrow Searching for Wisdom<br>Warm-Hearted Woodsman<br>Ozma*|S|
+|Magical Girls!	 |Magical Girl S<br>Magical Girl H<br>Magical Girl D<br>Magical Girl C*				|S|
+|Twilight		 |Punishing Bird<br>Big Bird<br>Judgement Bird										|S|
 
 ## 💀 Challenges and Cheats
 
+|NAME				|POINTS|DESCRIPTION|
+|:------------------|:----:|:----------|
+|Abnormal Encounters|15	   |All regular battles will only use abnormality cards.|
+|Abnormal Bosses	|20	   |Bosses will only play abnormality cards.|
+|Miracle Worker		|12	   |Leshy will play Plague Doctor against you. Beware the Clock.|
+|Better Rare Chances|-10   |Rare cards are more likely to appear at abnormal choice nodes.|
+|Start with a Beast |-20   |<SPECIAL REQUIREMENT TO UNLOCK>|
+|Start with a Fool  |-20   |<SPECIAL REQUIREMENT TO UNLOCK>|
+|Start with a Liar  |-20   |<SPECIAL REQUIREMENT TO UNLOCK>|
 
 ## 🎰 Abnormality Card Choice Node
 This special node can be found randomly after battles, and draws exclusively from this mod's pool of cards.
@@ -215,19 +350,27 @@ This is a separate probability roll that occurs after the initial roll, and it d
 |2|30%|30%|20%|20%|**2%/*5%***|
 |3|25%|25%|25%|25%|**5%/*10%***|
 
-* Probability with the Better Rare Chances cheat enabled
+* Probability with the Better Rare Chances Cheat enabled
 
 ## 🕓 Closing Notes
 IT'S FINALLY OUT!!
-This was a massive undertaking, but I'm very proud of how it's turned out!
-My favourite part of this update were the custom bosses.
-I tried to recreate their original boss fights, so they'll play a little differently than usual Inscryption bosses do.
-Nevertheless, I hope you find them enjoyable to fight!
 
-The next (and most likely final) content update will be adding the abnormalities from WonderLab.
-This will only consist of new cards, so it won't be super major.
+After way too long, I've finally finished this thing.
+Wanted to include more encounters, items, and some bosses but after working on this for several months I decided it'd be best to leave those for a later date.
 
-See you next time, and thanks for playing my mod! <3
+I hope the balance changes I made aren't too out of left field, I wanted to keep things on a semi-even playing field.
+Like previous content updates, most of the work was on the cards.
+This time, the talking cards.
+I was only able to do like 1 a day, it's ridiculous.
+Wanted to add a couple more talking cards as well, but maybe next time.
+
+Anyhow, below's a rough idea of what I will be doing with this mod in the future.
+
+As always, thanks for playing my mod! <3
 
 Current plans:
-* Further balancing, tweaking, bug fixes, and general refinement of what's currently added (feedback is welcomed and encouraged!).
+- Custom bosses
+- More items and encounters
+- Balancing, bug fixes, etc. (feedback is welcomed and encouraged!)
+- Wonderlab card expansion
+- Limbus Season 1 expansion

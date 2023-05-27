@@ -28,7 +28,7 @@ namespace ModDebuggingMod
             New("DebugEncounter")
                     .AddDominantTribes(Tribe.Canine)
                     .AddTurns(
-                    CreateTurn("Beehive"),
+                    CreateTurn("!GIANTCARD_MOON"),
                     CreateTurn()
                     );
 
@@ -60,9 +60,10 @@ namespace ModDebuggingMod
             {
                 foreach (CardInfo card in cards)
                 {
-                    if (card.name == "Beehive")
+                    if (card.name == "Squirrel")
                     {
-                        card.AddAbilities(Ability.SquirrelOrbit);
+                        card.abilities = new() { Ability.Strafe };
+                        card.SetEvolve("Rabbit", 3);
                     }
                 }
 

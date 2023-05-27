@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new() { Cycler.ability };
             List<Tribe> tribes = new() { Tribe.Bird };
-            List<Trait> traits = new() { TraitEmeraldCity };
+            List<Trait> traits = new() { TraitBlackForest };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {
                 ThreeBirds.specialAbility

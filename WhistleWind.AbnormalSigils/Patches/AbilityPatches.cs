@@ -5,7 +5,6 @@ using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;

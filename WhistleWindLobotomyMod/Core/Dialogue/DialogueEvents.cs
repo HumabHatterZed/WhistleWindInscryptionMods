@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using System.Resources;
 using static WhistleWind.Core.Helpers.DialogueHelper;
 using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 
@@ -207,116 +206,130 @@ namespace WhistleWindLobotomyMod
         private void Dialogue_Angela()
         {
             #region Boss Dialogue
-            CreateDialogueEvents("SephirahAngelaProspector", new()
+            CreateDialogueEvents("AngelaProspector", new()
             {
-                NewLine("Deal with those beasts quickly.", Emotion.Neutral) },
+                NewLine("A decrepit old man.", Emotion.Neutral) },
                 new() {
-                    new() { NewLine("A small obstacle.", Emotion.Neutral) },
-                    new() { NewLine("Let us begin.", Emotion.Neutral) }
+                    new() {
+                        NewLine("I believe that pack animal", Emotion.Neutral),
+                        NewLine("will aid us with its death.", Emotion.Neutral) },
+                    new() { NewLine("Do you wonder if he ever bathes?", Emotion.Neutral) },
+                    new() { NewLine("You should know what to do by now.", Emotion.Neutral) }
             });
-            CreateDialogueEvents("SephirahAngelaAngler", new()
+            CreateDialogueEvents("AngelaAngler", new()
             {
-                NewLine("Don't lose your appetite now.", Emotion.Surprise) },
+                NewLine("He appears to have a simple mind.", Emotion.Neutral),
+                NewLine("We can easily manipulate him.", Emotion.Neutral) },
                 new() {
-                    new() { NewLine("I grow tired of fish.", Emotion.Neutral) },
-                    new() { NewLine("You must enjoy the stench.", Emotion.Laughter) }
+                    new() { NewLine("Fish are a lot like people, aren't they?", Emotion.Neutral) },
+                    new() { NewLine("I recommend holding your breath.", Emotion.Neutral) }
             });
-            CreateDialogueEvents("SephirahAngelaTrapperTrader", new()
+            CreateDialogueEvents("AngelaTrapperTrader", new()
             {
-                NewLine("Another two-faced deceiver.", Emotion.Laughter) },
+                NewLine("Everyone has a different side to them.", Emotion.Neutral),
+                NewLine("Don't you think, manager?", Emotion.Laughter) },
                 new() {
-                    new() { NewLine("No one helps you without a price.", Emotion.Neutral) },
-                    new() { NewLine("Be wary of where your foot falls.", Emotion.Neutral) }
+                    new() { NewLine("Don't die manager.", Emotion.Laughter) },
+                    new() { NewLine("Watch out for traps.", Emotion.Neutral) },
+                    new() { NewLine("Does the cold bother you?", Emotion.Neutral) }
             });
-            CreateDialogueEvents("SephirahAngelaLeshy", new()
+            CreateDialogueEvents("AngelaLeshy", new()
             {
-                NewLine("It seems we have reached", Emotion.Neutral),
-                NewLine("the conclusion.", Emotion.Neutral) },
+                NewLine("We appear to have reached the end.", Emotion.Neutral) },
                 new() {
-                    new() { NewLine("Are we doing this again?", Emotion.Neutral) },
-                    new() { NewLine("I have fought stronger foes.", Emotion.Neutral) }
+                    new() {
+                        NewLine("I expect you to conquer this challenge", Emotion.Neutral),
+                        NewLine("quite easily, manager.", Emotion.Neutral) },
+                    new() { NewLine("A final trial for you, manager.", Emotion.Neutral) },
+                    new() { NewLine("It has been quite the journey, yes?", Emotion.Neutral) }
             });
-            CreateDialogueEvents("SephirahAngelaRoyal", new()
+            CreateDialogueEvents("AngelaRoyal", new()
             {
-                NewLine("What is this?", Emotion.Neutral) },
+                NewLine("...do not expect a comment from me.", Emotion.Neutral) },
                 new() {
-                    new() { NewLine("A captain of a sunken vessel.", Emotion.Laughter) },
-                    new() { NewLine("His crew has no loyalty.", Emotion.Laughter) }
+                    new() {
+                        NewLine("Do not be deceived.", Emotion.Neutral),
+                        NewLine("He is not an abnormality.", Emotion.Neutral) },
+                    new() { NewLine("An unloyal crew...", Emotion.Laughter) },
+                    new() {
+                        NewLine("He reminds me of you", Emotion.Neutral),
+                        NewLine("in a way.", Emotion.Laughter) }
             });
             #endregion
 
             #region Normal Dialogue
-            CreateDialogueEvents("SephirahAngelaChoice", new()
+            CreateDialogueEvents("AngelaChoice", new()
             {
-                NewLine("Well look who it is.", Emotion.Neutral) },
+                NewLine("Hello manager.", Emotion.Neutral),
+                NewLine("Shall we get going?", Emotion.Surprise) },
                 new() {
-                    new() { NewLine("Well look who it is.", Emotion.Neutral) },
-                    new() { NewLine("Choose.", Emotion.Neutral) }
+                    new() { NewLine("Hello manager.", Emotion.Neutral) },
+                    new() { NewLine("I am here to assist you.", Emotion.Neutral) },
+                    new() { NewLine("Shall we get going?", Emotion.Surprise) }
             });
-            CreateDialogueEvents("SephirahAngelaDrawn", new()
+            CreateDialogueEvents("AngelaDrawn", new()
             {
-                NewLine("Be calm.", Emotion.Laughter) },
+                NewLine("Hello manager.", Emotion.Neutral) },
                 new() {
-                    new() { NewLine("Miss me?", Emotion.Laughter) },
-                    new() { NewLine("Countless stars light the sky today.", Emotion.Neutral) },
-                    new() { NewLine("Your outlook is what decides things.", Emotion.Neutral) },
-                    new() { NewLine("Be calm.", Emotion.Neutral) }
+                    new() { NewLine("Hello manager.", Emotion.Neutral) },
+                    new() { NewLine("Gotten yourself in trouble?", Emotion.Neutral) },
+                    new() { NewLine("I am here to assist you.", Emotion.Neutral) },
+                    new() { NewLine("You can rely on me.", Emotion.Neutral) }
             });
-            CreateDialogueEvents("SephirahAngelaGivenSigil", new()
+            CreateDialogueEvents("AngelaGivenSigil", new()
             {
-                NewLine("I am curious to see", Emotion.Neutral),
-                NewLine("what memories you yielded.", Emotion.Surprise)},
+                NewLine("Thank you.", Emotion.Neutral) },
                 new() {
-                    new() { NewLine("Excellent.", Emotion.Surprise) },
-                    new() { NewLine("You have done well.", Emotion.Laughter) },
-                    new() { NewLine("This power is incomplete.", Emotion.Neutral) }
+                    new() { NewLine("Thank you.", Emotion.Neutral) },
+                    new() { NewLine("Thank you.", Emotion.Laughter) },
+                    new() { NewLine("Thank you.", Emotion.Surprise) }
             });
-            CreateDialogueEvents("SephirahAngelaHurt", new()
+            CreateDialogueEvents("AngelaHurt", new()
             {
-                NewLine("...", Emotion.Anger) },
+                NewLine("", Emotion.Anger) },
                 new() {
-                    new() { NewLine("...", Emotion.Anger) },
                     new() { NewLine("", Emotion.Anger) }
             });
-            CreateDialogueEvents("SephirahAngelaPlayed", new()
+            CreateDialogueEvents("AngelaPlayed", new()
             {
-                NewLine("Let us begin.", Emotion.Neutral) },
+                NewLine("Combat?", Emotion.Neutral),
+                NewLine("I see.", Emotion.Curious) },
                 new() {
-                    new() { NewLine("More bodies to clean.", Emotion.Neutral) },
-                    new() { NewLine("Let us begin.", Emotion.Neutral) },
-                    new() { NewLine("The closer to death, the freer you are.", Emotion.Laughter) }
+                    new() { NewLine("Try not to make a mess.", Emotion.Neutral) },
+                    new() { NewLine("Let's hurry this up, yes?", Emotion.Surprise) },
+                    new() { NewLine("Nothing I can't overcome.", Emotion.Laughter) }
             });
-            CreateDialogueEvents("SephirahAngelaSacrificed", new()
+            CreateDialogueEvents("AngelaSacrificed", new()
             {
-                NewLine("...", Emotion.Anger) },
+                NewLine("I see.", Emotion.Anger) },
                 new() {
-                    new() { NewLine("...", Emotion.Anger) },
+                    new() { NewLine("I see.", Emotion.Anger) },
                     new() { NewLine("", Emotion.Anger) }
             });
-            CreateDialogueEvents("SephirahAngelaSelectableBad", new()
+            CreateDialogueEvents("AngelaSelectableBad", new()
             {
-                NewLine("Did you think you could avoid it?", Emotion.Neutral) },
+                NewLine("Reminds me of the facility.", Emotion.Neutral) },
                 new() {
-                    new() { NewLine("Did you think you could avoid it?", Emotion.Neutral) },
-                    new() { NewLine("This is nearing the end.", Emotion.Neutral) },
-                    new() { NewLine("Your breath is fading.", Emotion.Surprise) },
-                    new() { NewLine("No one will blame you.", Emotion.Laughter) }
+                    new() { NewLine("No point in hesitating.", Emotion.Neutral) },
+                    new() { NewLine("Sacrifices must be made.", Emotion.Neutral) },
+                    new() { NewLine("Nothing you should be uncomfortable with.", Emotion.Neutral) }
             });
-            CreateDialogueEvents("SephirahAngelaSelectableGood", new()
+            CreateDialogueEvents("AngelaSelectableGood", new()
             {
-                NewLine("Excellent.", Emotion.Laughter) },
+                NewLine("A golden opportunity.", Emotion.Neutral) },
                 new() {
-                    new() { NewLine("Excellent.", Emotion.Laughter) },
-                    new() { NewLine("Inching closer to wholeness.", Emotion.Neutral) },
-                    new() { NewLine("I leave it your discretion.", Emotion.Neutral) }
+                    new() { NewLine("A golden opportunity.", Emotion.Neutral) },
+                    new() { NewLine("I expect you to know the best choice.", Emotion.Curious) },
+                    new() { NewLine("I leave it to your discretion.", Emotion.Neutral) }
             });
-            CreateDialogueEvents("SephirahAngelaTrial", new()
+            CreateDialogueEvents("AngelaTrial", new()
             {
-                NewLine("Tis an ordeal to overcome.", Emotion.Neutral) },
+                NewLine("We must all overcome ordeals in life.", Emotion.Neutral),
+                NewLine("You taught me that.", Emotion.Surprise) },
                 new() {
-                    new() { NewLine("Are you up to the task?", Emotion.Laughter) },
-                    new() { NewLine("Tis an ordeal to overcome.", Emotion.Neutral) },
-                    new() { NewLine("There is no obstacle you can't overcome.", Emotion.Neutral) }
+                    new() { NewLine("You wouldn't fail so easily, right?", Emotion.Laughter) },
+                    new() { NewLine("No point in dilly-dallying now.", Emotion.Neutral) },
+                    new() { NewLine("Yet another obstacle in my way...", Emotion.Anger) }
             });
             #endregion
         }
@@ -346,8 +359,7 @@ namespace WhistleWindLobotomyMod
             });
             CreateDialogueEvents("SephirahBinahLeshy", new()
             {
-                NewLine("It seems we have reached", Emotion.Neutral),
-                NewLine("the conclusion.", Emotion.Neutral) },
+                NewLine("It seems we have reached the conclusion.", Emotion.Neutral) },
                 new() {
                     new() { NewLine("Are we doing this again?", Emotion.Neutral) },
                     new() { NewLine("I have fought stronger foes.", Emotion.Neutral) }
@@ -424,7 +436,7 @@ namespace WhistleWindLobotomyMod
                 new() {
                     new() { NewLine("Excellent.", Emotion.Laughter) },
                     new() { NewLine("Inching closer to wholeness.", Emotion.Neutral) },
-                    new() { NewLine("I leave it your discretion.", Emotion.Neutral) }
+                    new() { NewLine("I leave it to your discretion.", Emotion.Neutral) }
             });
             CreateDialogueEvents("SephirahBinahTrial", new()
             {

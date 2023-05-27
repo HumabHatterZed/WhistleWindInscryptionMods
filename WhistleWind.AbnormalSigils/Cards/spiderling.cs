@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
@@ -40,7 +41,8 @@ namespace WhistleWind.AbnormalSigils
                 Artwork.spiderling, Artwork.spiderling_emission, Artwork.spiderling_pixel,
                 abilities: abilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
-                appearances: appearances, evolveName: "wstl_spiderBrood");
+                appearances: appearances, evolveName: "wstl_spiderBrood")
+                .SetAffectedByTidalLock();
         }
     }
 }

@@ -1,11 +1,9 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Properties;

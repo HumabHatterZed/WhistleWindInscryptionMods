@@ -86,12 +86,12 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Netzach()
         {
-            List<Ability> abilities = new() { GreedyHealing.ability };
+            List<Ability> abilities = new() { GreedyHealing.ability, Ability.WhackAMole };
 
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahNetzach", "Netzach",
                 "Despite his lack of motivation, he'll do his best to succeed.",
-                atk: 0, hp: 5,
+                atk: 0, hp: 3,
                 blood: 1, bones: 0, energy: 0,
                 null, null,
                 abilities: abilities, specialAbilities: new(),

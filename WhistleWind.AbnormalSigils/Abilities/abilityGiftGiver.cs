@@ -40,6 +40,11 @@ namespace WhistleWind.AbnormalSigils
                 }
                 List<CardInfo> list = CardManager.AllCardsCopy.FindAll(x => x.HasCardMetaCategory(CardMetaCategory.ChoiceNode));
                 list = CardLoader.RemoveDeckSingletonsIfInDeck(list);
+                if (SaveManager.SaveFile.IsPart2)
+                    list.RemoveAll(x => x.LacksCardMetaCategory(CardMetaCategory.GBCPlayable));
+
+                if (list.Count == 0)
+                    list.Add(CardLoader.GetCardByName("wstl_trainingDummy"));
 
                 return list[SeededRandom.Range(0, list.Count, base.GetRandomSeed())];
             }

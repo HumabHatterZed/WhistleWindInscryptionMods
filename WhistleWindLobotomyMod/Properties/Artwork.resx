@@ -1144,6 +1144,36 @@
   <data name="starterDeckRandom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\starterDeckRandom.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="talkingAngelaBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingAngelaBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingAngelaEmission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingAngelaEmission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingAngelaEyesClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingAngelaEyesClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingAngelaEyesClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingAngelaEyesClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingAngelaEyesClosed3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingAngelaEyesClosed3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingAngelaEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingAngelaEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingAngelaMouthClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingAngelaMouthClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingAngelaMouthClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingAngelaMouthClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingAngelaMouthOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingAngelaMouthOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingAngelaMouthOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingAngelaMouthOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="talkingBinahBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingBinahBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1326,6 +1356,36 @@
   </data>
   <data name="talkingHodMouthOpen6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingHodMouthOpen6.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingHokmaBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHokmaBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingHokmaEmission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHokmaEmission.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingHokmaEyesClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHokmaEyesClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingHokmaEyesClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHokmaEyesClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingHokmaEyesOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHokmaEyesOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingHokmaEyesOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHokmaEyesOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingHokmaMouthClosed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHokmaMouthClosed1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingHokmaMouthClosed2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHokmaMouthClosed2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingHokmaMouthOpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHokmaMouthOpen1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="talkingHokmaMouthOpen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Artwork\talkingHokmaMouthOpen2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="talkingMalkuthBody" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Artwork\talkingMalkuthBody.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

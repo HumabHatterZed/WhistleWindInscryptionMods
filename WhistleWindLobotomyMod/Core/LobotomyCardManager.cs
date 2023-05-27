@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod.Core
 {
     public static class LobotomyCardManager // Base code taken from GrimoraMod and SigilADay_julienperge
     {
-        public static List<CardInfo> AllLobotomyCards = new();
-        public static List<CardInfo> ObtainableLobotomyCards = new();
+        public static readonly List<CardInfo> AllLobotomyCards = new();
+        public static readonly List<CardInfo> ObtainableLobotomyCards = new();
 
         public static Trait TraitApostle = GuidManager.GetEnumValue<Trait>(pluginGuid, "ApostleTrait");
         public static Trait TraitSephirah = GuidManager.GetEnumValue<Trait>(pluginGuid, "SephirahTrait");
@@ -138,13 +138,14 @@ namespace WhistleWindLobotomyMod.Core
                 else if (tribes.Contains(AbnormalPlugin.TribeMechanical))
                     temple = CardTemple.Tech;
 
-                cardInfo.SetGBCPlayable(temple);
+                if (!modTypes.HasFlag(ModCardType.EventCard))
+                    cardInfo.SetGBCPlayable(temple);
             }
 
-            if (!metaTypes.HasFlag(CardHelper.CardMetaType.NonChoice))
+            if (!metaTypes.HasFlag(CardHelper.CardMetaType.NonChoice) &&
+                cardInfo.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.TraderOffer, CardMetaCategory.Rare))
             {
-                if (cardInfo.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.TraderOffer, CardMetaCategory.Rare))
-                    ObtainableLobotomyCards.Add(cardInfo);
+                ObtainableLobotomyCards.Add(cardInfo);
             }
 
             AllLobotomyCards.Add(cardInfo);

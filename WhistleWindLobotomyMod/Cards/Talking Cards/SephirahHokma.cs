@@ -1,4 +1,4 @@
-﻿/*using DiskCardGame;
+﻿using DiskCardGame;
 using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
     public class TalkingCardHokma : CustomPaperTalkingCard
     {
         public override string CardName => "wstl_sephirahHokma";
-        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.85f, voiceSoundPitch: 0.6f);
+        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.85f, voiceSoundPitch: 0.5f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
         public static SpecialTriggeredAbility specialAbility;
@@ -33,11 +33,6 @@ namespace WhistleWindLobotomyMod
                         face: face,
                         eyes: MakeFaceAnim(Artwork.talkingHokmaEyesOpen1, Artwork.talkingHokmaEyesClosed1),
                         mouth: MakeFaceAnim(Artwork.talkingHokmaMouthOpen1, Artwork.talkingHokmaMouthClosed1),
-                        emission: emissionMain),
-                    new(emotion: Emotion.Surprise,
-                        face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingHokmaEyesOpen3, Artwork.talkingHokmaEyesClosed3),
-                        mouth: MakeFaceAnim(Artwork.talkingHokmaMouthOpen2, Artwork.talkingHokmaMouthClosed2),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
@@ -93,4 +88,4 @@ namespace WhistleWindLobotomyMod
                 appearances: new(), onePerDeck: true);
         }
     }
-}*/
+}

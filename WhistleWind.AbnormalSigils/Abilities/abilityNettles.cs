@@ -36,7 +36,7 @@ namespace WhistleWind.AbnormalSigils
 
         public override IEnumerator OnResolveOnBoard()
         {
-            List<CardSlot> validSlots = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).FindAll((CardSlot slot) => !(slot.Card != null) && slot.Card != base.Card);
+            List<CardSlot> validSlots = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).FindAll((CardSlot slot) => !slot.Card && slot.Card != base.Card);
 
             if (validSlots.Count == 0)
             {

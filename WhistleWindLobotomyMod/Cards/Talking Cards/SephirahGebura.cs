@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.TalkingCards;
-using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
