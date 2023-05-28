@@ -20,7 +20,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "Make room.";
             Barreler.ability = AbnormalAbilityHelper.CreateAbility<Barreler>(
                 Artwork.sigilBarreler, Artwork.sigilBarreler_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 1,
                 modular: true, opponent: true).Id;
         }
     }

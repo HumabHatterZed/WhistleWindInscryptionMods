@@ -6,6 +6,17 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod.Patches
 {
+    [HarmonyPatch]
+    internal class T
+    {
+        [HarmonyPatch(typeof(CardDrawPiles), nameof(CardDrawPiles.DrawCardFromDeck))]
+        [HarmonyPrefix]
+        private static void ChangeMainDrawCard(ref CardInfo specificCard)
+        {
+            specificCard = CardLoader.GetCardByName("wstlcard");
+        }
+    }
+
     [HarmonyPatch(typeof(DeckInfo))]
     internal static class DeckInfoPatch
     {

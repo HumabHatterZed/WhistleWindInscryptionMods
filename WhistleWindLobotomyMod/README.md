@@ -33,10 +33,6 @@ If you encounter any issues or bugs, or you just want to give some feedback, you
 
 ## 🔗 Compatibility
 
-### Tribal Libary (sic)
-If you have [Tribal Libary](https://inscryption.thunderstore.io/package/The_Unwanted_but_Useful_Libraries/Tribal_Libary/) installed,
-my custom Tribes will be replaced with equivalents from Tribal Libary.
-
 ### Pack Management API
 If you have [Pack Management API](https://inscryption.thunderstore.io/package/Infiniscryption/Pack_Management_API/) installed,
 a custom card pack will be created representing this mod. That's all :).
@@ -164,7 +160,7 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 |Army in Black						|0/0  |	Free																															|Volatile						|Anthropoid				|					|Spell				   |
 |Ppodae								|1/1  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/iJN52Ow.png'>|Stinky, Fledgling				|Canine					|					|					   |
 |⤷ Ppodae							|3/2  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/cEvPoTk.png'>|Stinky							|Canine					|					|					   |
-|Parasite Tree						|0/3  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/iJN52Ow.png'>|Gardener						|Botanic				|					|					   |
+|Parasite Tree						|0/3  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/iJN52Ow.png'>|Gardener						|Botanic				|					|Terrain			   |
 |Melting Love						|4/3  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Made of Slime					|						|					|Rare				   |
 |Honoured Monk						|2/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Fledgling						|Anthropoid				|					|					   |
 |⤷ Clouded Monk						|4/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|								|Anthropoid				|					|					   |
@@ -231,7 +227,7 @@ You'll need to play around in order to figure out what cards have the special an
 
 ## 🗃️ Starter Decks
 
-- * = If 'DisableRuina' is active in the config, these cards will be replaced by a different card.
+- \* = If 'DisableRuina' is active in the config, these cards will be replaced by a different card.
 - S = Special requirement to unlock (can be changed in the config settings)
 
 |NAME			 |CARDS																				|UNLOCK LVL|

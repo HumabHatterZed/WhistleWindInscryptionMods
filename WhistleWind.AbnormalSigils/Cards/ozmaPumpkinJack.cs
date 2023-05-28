@@ -24,7 +24,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginPrefix,
                 "wstl_ozmaPumpkin", "Pumpkin",
                 "An orange gourd.",
-                atk: 0, hp: 4,
+                atk: 0, hp: 2,
                 blood: 0, bones: 0, energy: 0,
                 Artwork.ozmaPumpkin, pixelTexture: Artwork.ozmaPumpkin_pixel,
                 abilities: new() { Ability.Evolve },

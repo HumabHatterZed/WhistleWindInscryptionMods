@@ -14,16 +14,12 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch]
     internal class AddSniperPiperPatch
     {
-        [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.SlotAttackSequence))]
-        private static bool OverrideWithMarksman(CombatPhaseManager __instance, ref IEnumerator __result, CardSlot slot)
+        [HarmonyPrefix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.SniperAttack))]
+        private static bool OverrideWithMarksman(CombatPhaseManager instance, CardSlot slot, ref IEnumerator __result)
         {
-            if (slot?.Card != null && slot.Card.HasAbility(Ability.Sniper))
+            if (IsJudgementBird(slot))
             {
-                if (IsJudgementBird(slot))
-                    __result = WstlSniperSequence(__instance, slot);
-                else
-                    __result = SniperAttack(__instance, slot);
-
+                __result = WstlSniperSequence(instance, slot);
                 return false;
             }
             return true;

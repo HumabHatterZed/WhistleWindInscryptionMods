@@ -74,6 +74,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - <<Downed Apostles>> Health reduced to 1 for all variants
     - <<Spear Apostle>> Power increased from 3 --> 4
     - <<Army in Black>> reworked into Targeted Spell with Volatile ability
+        - <<Army in Pink>> special ability now triggers when 3 ally cards die
     - <<Backward Clock>> cost changed from 4 Bones --> 2 Energy
     - <<Behaviour Adjustment>> cost changed from 4 Bones --> 3 Energy
     - <<Big Bird>> given Cycler ability
@@ -118,7 +119,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - <<Porccubus>> Health reduced from 2 --> 1
     - <<Queen Bee>> Health reduced from 6 --> 4
     - <<Little Red Riding Hooded Mercenary>> cost increased from 2 Blood --> 3, Health increased from 3 --> 5
-    - <<Sapling>> reworked from 0/2 free --> 0/1, Bone Digger, 4 Bones, Terrain
+    - <<Sapling>> reworked from 0/2 free --> 0/2, Bone Digger, 2 Bones, Terrain
     - <<Scarecrow Searching for Wisdom>> rebalanced from 1/3, 5 Bones --> 1/2, 4 Bones
     - <<Schadenfreude>> rebalanced from 0/1; Quick Draw, Touch of Death; 4 Bones --> 1/1, Quick Draw, 2 Energy
     - <<Scorched Girl>> cost reduced from 3 Bones --> 2

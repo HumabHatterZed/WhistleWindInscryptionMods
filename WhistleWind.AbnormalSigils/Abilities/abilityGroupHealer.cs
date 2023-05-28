@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_GroupHealer()
         {
             const string rulebookName = "Group Healer";
-            const string rulebookDescription = "At the start of its owner's turn, this card will heal all allies whose Health is below their maximum by 1 Health.";
+            const string rulebookDescription = "At the start of its owner's turn, this card will heal all allies that have taken damage by 1 Health.";
             const string dialogue = "You only delay the inevitable.";
             GroupHealer.ability = AbnormalAbilityHelper.CreateAbility<GroupHealer>(
                 Artwork.sigilGroupHealer, Artwork.sigilGroupHealer_pixel,

@@ -3093,6 +3093,46 @@ namespace WhistleWindLobotomyMod.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] sigilMarksman {
+            get {
+                object obj = ResourceManager.GetObject("sigilMarksman", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sigilMarksman_pixel {
+            get {
+                object obj = ResourceManager.GetObject("sigilMarksman_pixel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sigilQuickDraw {
+            get {
+                object obj = ResourceManager.GetObject("sigilQuickDraw", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sigilQuickDraw_pixel {
+            get {
+                object obj = ResourceManager.GetObject("sigilQuickDraw_pixel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] sigilTimeMachine {
             get {
                 object obj = ResourceManager.GetObject("sigilTimeMachine", resourceCulture);

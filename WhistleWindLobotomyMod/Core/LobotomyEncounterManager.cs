@@ -206,7 +206,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(NewCardBlueprint("wstl_alriune"), NewCardBlueprint("wstl_burrowingHeaven", 10)),
                     CreateTurn(),
                     CreateTurn(),
-                    CreateTurn(NewCardBlueprint("wstl_voidDream", 25).SetReplacement("wstl_voidDreamRooster", 130)),
+                    CreateTurn(NewCardBlueprint("wstl_voidDream", 25).SetReplacement("wstl_voidDreamRooster", 30)),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_beautyAndBeast", 25)),
                     CreateTurn(),
@@ -221,7 +221,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(NewCardBlueprint("wstl_spiderBud"), spiderBrood),
                     CreateTurn(spiderling.SetReplacement("wstl_spiderBrood", 14), spiderBrood),
                     CreateTurn(spiderBrood),
-                    CreateTurn(NewCardBlueprint("wstl_spiderling", 130)),
+                    CreateTurn(NewCardBlueprint("wstl_spiderling", 30)),
                     CreateTurn(),
                     CreateTurn(spiderling.SetReplacement("wstl_spiderBrood", 14))
                 ), regions: 2);
@@ -283,7 +283,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_burrowingHeaven", 25)),
                     CreateTurn()
-                ), 30);
+                ), 3);
             ProspectorAbnormalBossP2 = Build(New("ProspectorAbnormalBossP2")
                .SetDifficulty(4, 7)
                .AddDominantTribes(AbnormalPlugin.TribeBotanic)
@@ -297,7 +297,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_graveOfBlossoms", 7)),
                     CreateTurn()
-                ), 30);
+                ), 3);
             AnglerAbnormalBossP1 = Build(New("AnglerAbnormalBossP1")
                .SetDifficulty(9, 11)
                .AddDominantTribes(Tribe.Bird)
@@ -308,7 +308,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(NewCardBlueprint("wstl_fairyFestival")),
                     CreateTurn(NewCardBlueprint("wstl_fairyFestival", 11)),
                     CreateTurn()
-                ), 30);
+                ), 3);
             AnglerAbnormalBossP2 = Build(New("AnglerAbnormalBossP2")
                .SetDifficulty(9, 11)
                .AddDominantTribes(Tribe.Bird)
@@ -319,8 +319,8 @@ namespace WhistleWindLobotomyMod.Core
                    CreateTurn(),
                    CreateTurn(NewCardBlueprint("BaitBucket"), NewCardBlueprint("wstl_punishingBird", 10)),
                    CreateTurn(),
-                   CreateTurn(NewCardBlueprint("BaitBucket"), NewCardBlueprint("BaitBucket", 11))
-                ), 30);
+                   CreateTurn(NewCardBlueprint("BaitBucket"), NewCardBlueprint("BaitBucket", 10))
+                ), 3);
             TrapperTraderAbnormalBossP1 = Build(New("TrapperTraderAbnormalBossP1")
                .SetDifficulty(14, 16)
                .AddDominantTribes(AbnormalPlugin.TribeMechanical)
@@ -334,7 +334,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(NewCardBlueprint("wstl_meatLantern", 25)),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_judgementBird", 25))
-                ), 30);
+                ), 3);
             LeshyAbnormalBossP1 = Build(New("LeshyAbnormalBossP1")
                .SetDifficulty(20, 20)
                .AddDominantTribes(AbnormalPlugin.TribeFae)
@@ -343,10 +343,10 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(NewCardBlueprint("wstl_magicalGirlSpade")),
                     CreateTurn(NewCardBlueprint("wstl_funeralOfButterflies", 25)),
                     CreateTurn(NewCardBlueprint("wstl_mountainOfBodies", 25), NewCardBlueprint("wstl_silentOrchestra", 10)),
-                    CreateTurn(NewCardBlueprint(null)),
+                    CreateTurn(),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_censored"))
-                ), 30);
+                ), 3);
             PirateSkullAbnormalBossP1 = Build(New("PirateSkullAbnormalBossP1")
                .SetDifficulty(20, 20)
                .AddDominantTribes(Tribe.Bird)
@@ -359,7 +359,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(NewCardBlueprint("wstl_SKELETON_SHRIMP"), NewCardBlueprint("wstl_voidDreamRooster")),
                     CreateTurn(),
                     CreateTurn()
-                ), 30);
+                ), 3);
             PirateSkullAbnormalBossP2 = Build(New("PirateSkullAbnormalBossP2")
                .SetDifficulty(20, 20)
                .AddDominantTribes(Tribe.Bird)
@@ -372,7 +372,7 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(NewCardBlueprint("wstl_SKELETON_SHRIMP"), NewCardBlueprint("wstl_SKELETON_SHRIMP"), NewCardBlueprint("wstl_CRUMPLED_CAN")),
                     CreateTurn(),
                     CreateTurn()
-                ), 30);
+                ), 3);
             #endregion
         }
 

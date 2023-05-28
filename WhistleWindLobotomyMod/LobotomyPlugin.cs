@@ -12,10 +12,13 @@ using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Properties;
+using static DialogueEvent;
+using static DiskCardGame.CommandLineTextSegment;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
 
@@ -251,12 +254,12 @@ namespace WhistleWindLobotomyMod
 
             foreach (KeyValuePair<string, List<CustomLine>> dialogue in DialogueEventsManager.DialogueEvents)
             {
-                DialogueEvent.Speaker speaker = DialogueEvent.Speaker.Single;
+                Speaker speaker = Speaker.Single;
 
                 if (dialogue.Key.StartsWith("NothingThere"))
-                    speaker = DialogueEvent.Speaker.Leshy;
+                    speaker = Speaker.Leshy;
                 else if (dialogue.Key.StartsWith("WhiteNight"))
-                    speaker = DialogueEvent.Speaker.Bonelord;
+                    speaker = Speaker.Bonelord;
 
                 if (!DialogueEventsManager.RepeatDialogueEvents.TryGetValue(dialogue.Key, out List<List<CustomLine>> repeatLines))
                     repeatLines = null;

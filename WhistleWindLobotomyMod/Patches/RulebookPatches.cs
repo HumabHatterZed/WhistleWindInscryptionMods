@@ -1,6 +1,9 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Properties;
 
 namespace WhistleWindLobotomyMod.Patches
 {
@@ -8,7 +11,7 @@ namespace WhistleWindLobotomyMod.Patches
     internal class RulebookPatches
     {
         [HarmonyPatch(typeof(RuleBookController))]
-        private static class OpenToAbilityPage_patch
+        private static class RulebookControllerPatches
         {
             // Reset the descriptions of WhiteNight-related abilities
             [HarmonyPrefix, HarmonyPatch(nameof(RuleBookController.SetShown))]
@@ -16,12 +19,9 @@ namespace WhistleWindLobotomyMod.Patches
             {
                 if (!shown)
                 {
-                    AbilityManager.FullAbility apostle = AbilityManager.AllAbilities.Find(x => x.Id == Apostle.ability);
-                    AbilityManager.FullAbility saviour = AbilityManager.AllAbilities.Find(x => x.Id == TrueSaviour.ability);
-                    AbilityManager.FullAbility confession = AbilityManager.AllAbilities.Find(x => x.Id == Confession.ability);
-                    AbilitiesUtil.GetInfo(Apostle.ability).rulebookDescription = apostle.BaseRulebookDescription;
-                    AbilitiesUtil.GetInfo(TrueSaviour.ability).rulebookDescription = saviour.BaseRulebookDescription;
-                    AbilitiesUtil.GetInfo(Confession.ability).rulebookDescription = confession.BaseRulebookDescription;
+                    AbilitiesUtil.GetInfo(Apostle.ability).ResetDescription();
+                    AbilitiesUtil.GetInfo(TrueSaviour.ability).ResetDescription();
+                    AbilitiesUtil.GetInfo(Confession.ability).ResetDescription();
                 }
                 return true;
             }
@@ -41,31 +41,46 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
         private static void AddKayceeAbilities(ref int abilityIndex, ref bool __result)
         {
-            if (SaveManager.SaveFile.IsPart1)
+            if (!SaveManager.SaveFile.IsPart1 || __result)
+                return;
+
+            AbilityInfo info = AbilitiesUtil.GetInfo((Ability)abilityIndex);
+
+            if (!abilityNames.Contains(info.name))
+                return;
+
+            __result = true;
+
+            switch (info.name)
             {
-                AbilityInfo info = AbilitiesUtil.GetInfo((Ability)abilityIndex);
-
-                if (!SaveFile.IsAscension && info.metaCategories.Contains(AbilityMetaCategory.AscensionUnlocked))
-                {
-                    if (info.name.Equals("BoneDigger") || info.name.Equals("DeathShield") ||
-                        info.name.Equals("DoubleStrike") || info.name.Equals("GainAttackOnKill") ||
-                        info.name.Equals("StrafeSwap") || info.name.Equals("Morsel"))
-                    {
-                        __result = true;
-                    }
-                }
-                if (info.metaCategories.Contains(AbilityMetaCategory.Part3Rulebook))
-                {
-                    if (info.name.Equals("GainBattery") || info.name.Equals("LatchDeathShield") ||
-                        info.name.Equals("MoveBeside"))
-                    {
-                        if (info.name.Equals("LatchDeathShield"))
-                            info.rulebookDescription = "When this card perishes, give a card the Armoured sigil.";
-
-                        __result = true;
-                    }
-                }
+                case "Sniper":
+                    info.rulebookName = "Marksman";
+                    info.triggerText = "Your beast strikes with precision.";
+                    info.SetIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilMarksman));
+                    info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilMarksman_pixel));
+                    return;
+                case "Sentry":
+                    info.rulebookName = "Quick Draw";
+                    info.triggerText = "The early bird gets the worm.";
+                    info.SetIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilQuickDraw));
+                    info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilQuickDraw_pixel));
+                    info.SetCanStack();
+                    return;
             }
         }
+        private static readonly List<string> abilityNames = new()
+        {
+            "BoneDigger",
+            "DeathShield",
+            "DoubleStrike",
+            "GainAttackOnKill",
+            "GainBattery",
+            "LatchDeathShield",
+            "Morsel",
+            "MoveBeside",
+            "Sentry",
+            "Sniper",
+            "StrafeSwap"
+        };
     }
 }

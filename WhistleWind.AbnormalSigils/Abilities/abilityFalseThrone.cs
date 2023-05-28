@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "A simple little magic trick.";
             FalseThrone.ability = AbnormalAbilityHelper.CreateActivatedAbility<FalseThrone>(
                 Artwork.sigilFalseThrone, Artwork.sigilFalseThrone_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5, special: true).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4, special: true).Id;
         }
     }
     public class FalseThrone : ActivatedSelectSlotBehaviour

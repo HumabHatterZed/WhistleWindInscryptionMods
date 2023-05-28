@@ -7,6 +7,19 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
+    public partial class AbnormalPlugin
+    {
+        private void Ability_Sporogenic()
+        {
+            const string rulebookName = "Sporogenic";
+            const string rulebookDescription = "Creatures adjacent to this card gain 1 Spores at the end of its owner's turn. This sigil activates before other sigils.";
+            const string dialogue = "They will love this curse like a blessing.";
+            Sporogenic.ability = AbnormalAbilityHelper.CreateAbility<Sporogenic>(
+                Artwork.sigilSporogenic, Artwork.sigilSporogenic_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                modular: false, opponent: true, canStack: false).Id;
+        }
+    }
     public class Sporogenic : AbilityBehaviour
     {
         public static Ability ability;
@@ -40,20 +53,6 @@ namespace WhistleWind.AbnormalSigils
                 }
                 base.LearnAbility(0.4f);
             }
-        }
-    }
-
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Sporogenic()
-        {
-            const string rulebookName = "Sporogenic";
-            const string rulebookDescription = "Creatures adjacent to this card gain 1 Spores at the end of its owner's turn. This sigil activates before other sigils.";
-            const string dialogue = "They will love this curse like a blessing.";
-            Sporogenic.ability = AbnormalAbilityHelper.CreateAbility<Sporogenic>(
-                Artwork.sigilSporogenic, Artwork.sigilSporogenic_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: false, opponent: true, canStack: false).Id;
         }
     }
 }

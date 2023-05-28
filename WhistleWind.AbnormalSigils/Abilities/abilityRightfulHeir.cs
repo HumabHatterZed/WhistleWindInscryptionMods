@@ -7,6 +7,18 @@ using WhistleWind.Core.AbilityClasses;
 
 namespace WhistleWind.AbnormalSigils
 {
+    public partial class AbnormalPlugin
+    {
+        private void Ability_RightfulHeir()
+        {
+            const string rulebookName = "Rightful Heir";
+            const string rulebookDescription = "Once per turn, pay [sigilcost:3 Bones] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1 Bone until battle's end. [define:wstl_ozmaPumpkin]";
+            const string dialogue = "All she has left now are her children.";
+            RightfulHeir.ability = AbnormalAbilityHelper.CreateActivatedAbility<RightfulHeir>(
+                Artwork.sigilRightfulHeir, Artwork.sigilRightfulHeir_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+        }
+    }
     public class RightfulHeir : ActivatedSelectSlotBehaviour
     {
         public static Ability ability;
@@ -25,18 +37,6 @@ namespace WhistleWind.AbnormalSigils
             CardInfo info = CardLoader.GetCardByName("wstl_ozmaPumpkin");
             yield return slot.Card.TransformIntoCard(info);
             yield return new WaitForSeconds(0.5f);
-        }
-    }
-    public partial class AbnormalPlugin
-    {
-        private void Ability_RightfulHeir()
-        {
-            const string rulebookName = "Rightful Heir";
-            const string rulebookDescription = "Once per turn, pay [sigilcost:3 Bones] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1 Bone until battle's end. [define:wstl_ozmaPumpkin]";
-            const string dialogue = "All she has left now are her children.";
-            RightfulHeir.ability = AbnormalAbilityHelper.CreateActivatedAbility<RightfulHeir>(
-                Artwork.sigilRightfulHeir, Artwork.sigilRightfulHeir_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
         }
     }
 }

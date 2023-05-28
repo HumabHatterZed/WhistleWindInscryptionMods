@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             Idol.ability = AbnormalAbilityHelper.CreateAbility<Idol>(
                 Artwork.sigilIdol, Artwork.sigilIdol_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: true).Id;
         }
     }
     public class Idol : AbilityBehaviour, IPassiveAttackBuff

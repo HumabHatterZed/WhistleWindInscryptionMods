@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             Protector.ability = AbnormalAbilityHelper.CreateAbility<Protector>(
                 Artwork.sigilProtector, Artwork.sigilProtector_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: true).Id;
         }
     }
     public class Protector : AbilityBehaviour

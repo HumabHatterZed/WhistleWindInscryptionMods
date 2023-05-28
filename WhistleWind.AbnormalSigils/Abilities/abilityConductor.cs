@@ -9,6 +9,20 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
+    public partial class AbnormalPlugin
+    {
+        private void Ability_Conductor()
+        {
+            const string rulebookName = "Conductor";
+            const string rulebookDescription = "Affected cards gain Power equal to half this card's Power. Over the next 3 turns: affect adjacent -> allied -> all other cards and double the Power gained.";
+            const string dialogue = "From break and ruin, the most beautiful performance begins.";
+
+            Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(
+                Artwork.sigilConductor, Artwork.sigilConductor_pixel,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                modular: false, opponent: true, canStack: false).Id;
+        }
+    }
     public class Conductor : AbilityBehaviour, IPassiveAttackBuff
     {
         public static Ability ability;
@@ -57,21 +71,6 @@ namespace WhistleWind.AbnormalSigils
                 return Mathf.FloorToInt(base.Card.Attack / 2);
 
             return 0;
-        }
-    }
-
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Conductor()
-        {
-            const string rulebookName = "Conductor";
-            const string rulebookDescription = "Affected cards gain Power equal to half this card's Power. Over the next 3 turns: affect adjacent -> allied -> all other cards and double the Power gained.";
-            const string dialogue = "From break and ruin, the most beautiful performance begins.";
-
-            Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(
-                Artwork.sigilConductor, Artwork.sigilConductor_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: false, opponent: true, canStack: false).Id;
         }
     }
 }

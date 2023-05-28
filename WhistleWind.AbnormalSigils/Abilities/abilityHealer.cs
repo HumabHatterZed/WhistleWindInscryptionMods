@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Healer()
         {
             const string rulebookName = "Healer";
-            const string rulebookDescription = "At the end of your turn, you may select one of your cards to heal by 2 Health, excluding this card.";
+            const string rulebookDescription = "At the end of the owner's turn, they will choose one of their cards to heal by 2 Health.";
             const string dialogue = "Never underestimate the importance of a healer.";
             Healer.ability = AbnormalAbilityHelper.CreateAbility<Healer>(
                 Artwork.sigilHealer, Artwork.sigilHealer_pixel,

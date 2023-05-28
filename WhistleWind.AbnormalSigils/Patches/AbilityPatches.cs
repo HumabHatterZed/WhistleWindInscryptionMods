@@ -12,39 +12,6 @@ using WhistleWind.Core.Helpers;
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches
 {
-    [HarmonyPatch]
-    internal class RulebookPatches
-    {
-        [HarmonyPostfix, HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
-        private static void AddAbilities(ref int abilityIndex, ref bool __result)
-        {
-            if (SaveManager.SaveFile.IsPart1)
-            {
-                AbilityInfo info = AbilitiesUtil.GetInfo((Ability)abilityIndex);
-
-                if (info.name == "Sniper" || info.name == "Sentry")
-                {
-                    switch (info.name)
-                    {
-                        case "Sniper":
-                            info.rulebookName = "Marksman";
-                            info.triggerText = "Your beast strikes with precision.";
-                            info.SetIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilMarksman));
-                            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilMarksman_pixel));
-                            break;
-                        case "Sentry":
-                            info.rulebookName = "Quick Draw";
-                            info.triggerText = "The early bird gets the worm.";
-                            info.SetIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilQuickDraw));
-                            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilQuickDraw_pixel));
-                            info.SetCanStack();
-                            break;
-                    }
-                    __result = true;
-                }
-            }
-        }
-    }
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardPatches
     {

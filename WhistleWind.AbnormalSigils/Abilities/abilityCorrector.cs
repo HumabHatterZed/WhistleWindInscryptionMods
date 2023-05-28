@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Corrector()
         {
             const string rulebookName = "Corrector";
-            const string rulebookDescription = "When [creature] is drawn, randomly change its stats according to its play cost. A higher cost yields a higher stat total.";
+            const string rulebookDescription = "When [creature] is drawn, randomly change its stats according to its play cost. Higher costs yields higher stat totals.";
             const string dialogue = "How balanced.";
             Corrector.ability = AbnormalAbilityHelper.CreateAbility<Corrector>(
                 Artwork.sigilCorrector, Artwork.sigilCorrector_pixel,

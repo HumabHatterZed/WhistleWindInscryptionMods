@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginPrefix,
                 "wstl_parasiteTreeSapling", "Sapling",
                 "",
-                atk: 0, hp: 1,
+                atk: 0, hp: 2,
                 blood: 0, bones: 2, energy: 0,
                 Artwork.parasiteTreeSapling, pixelTexture: Artwork.parasiteTreeSapling_pixel,
                 abilities: abilities,

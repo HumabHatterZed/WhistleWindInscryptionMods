@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             Martyr.ability = AbnormalAbilityHelper.CreateAbility<Martyr>(
                 Artwork.sigilMartyr, Artwork.sigilMartyr_pixel,
                 rulebookName, rulebookDescription, dialogue, powerLevel: 1,
-                modular: true, opponent: false, canStack: false).Id;
+                modular: true, opponent: false, canStack: true).Id;
         }
     }
     public class Martyr : AbilityBehaviour

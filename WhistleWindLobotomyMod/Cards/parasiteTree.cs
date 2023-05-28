@@ -24,7 +24,8 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                modTypes: ModCardType.Donator);
+                modTypes: ModCardType.Donator,
+                metaTypes: CardHelper.CardMetaType.Terrain);
         }
     }
 }
