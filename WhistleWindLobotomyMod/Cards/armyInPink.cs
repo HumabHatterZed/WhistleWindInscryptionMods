@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
 
             List<SpecialTriggeredAbility> specialAbilties = new()
             {
-                PinkTears.specialAbility
+                Pink.specialAbility
             };
             CreateCard(
                 "wstl_armyInPink", "Army in Pink",

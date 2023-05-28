@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "Adoration";
-        public const string rDesc = "If Melting Love's Health is 1 on upkeep, absorb the Health of adjacent Slimes.";
+        public const string rDesc = "At the start of the owner's turn, if Melting Love's Health is 1, absorb the Health of adjacent Slimes.";
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
 

@@ -12,8 +12,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public const string rName = "Love and Hate";
-        public const string rDesc = "Magical Girl H will keep track of the number of allied and opposing cards that have been killed. When the difference of the two is at least 2, transform then ally itself with whomever has lost more.";
+        public const string rName = "In the Name of Love and Hate";
+        public const string rDesc = "When 2 more ally cards have died than opposing cards or vice versa, Magical Girl H will transform then move to the side of the board that lost more cards.";
 
         private int cardDeathBalance; // positive == more ally deaths, negative == more opponent deaths
 

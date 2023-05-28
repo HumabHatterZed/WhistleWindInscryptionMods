@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
 
             List<SpecialTriggeredAbility> specialAbilties = new()
             {
-                PinkTears.specialAbility
+                SwordWithTears.specialAbility
             };
             CreateCard(
                 "wstl_knightOfDespair", "The Knight of Despair",

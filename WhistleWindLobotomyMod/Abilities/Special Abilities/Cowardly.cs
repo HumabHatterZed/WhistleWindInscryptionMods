@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
 
         public const string rName = "Cowardly";
-        public const string rDesc = "Ff an ally card on the board has at least 1 Power, Scaredy Cat transforms into a stronger forme.";
+        public const string rDesc = "If there is an non-Structure ally card on the board, Scaredy Cat transforms into a stronger forme. Otherwise transform into a weaker forme.";
 
         public bool RespondsToBellRung(bool playerCombatPhase) => base.PlayableCard.OpponentCard != playerCombatPhase;
         public override bool RespondsToResolveOnBoard() => true;
@@ -28,24 +29,19 @@ namespace WhistleWindLobotomyMod
         private IEnumerator CheckTransform()
         {
             List<CardSlot> slots = HelperMethods.GetSlotsCopy(base.PlayableCard.OpponentCard)
-                .Where(x => x.Card != null && x.Card != base.Card).ToList();
+                .Where(x => x.Card != null && x.Card != base.Card && x.Card.LacksTrait(Trait.Structure)).ToList();
 
-            if (slots.Count > 0)
+            if (slots.Count > 0 && base.PlayableCard.Info.name == "wstl_scaredyCat")
             {
-                if (base.PlayableCard.Info.name == "wstl_scaredyCatStrong" && !slots.Exists(x => x.Card.Attack > 0))
-                {
-                    // if there are no other cards that can attack, become weak (reset damage)
-                    CardInfo weakForme = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_scaredyCat");
-                    yield return base.PlayableCard.TransformIntoCard(weakForme, ResetDamage);
-                    yield return new WaitForSeconds(0.4f);
-                }
-                else if (base.PlayableCard.Info.name == "wstl_scaredyCat" && slots.Exists(x => x.Card.Attack > 0))
-                {
-                    // if there are other cards that can attack, become strong
-                    CardInfo strongForme = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_scaredyCatStrong");
-                    yield return base.PlayableCard.TransformIntoCard(strongForme);
-                    yield return new WaitForSeconds(0.4f);
-                }
+                CardInfo strongForme = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_scaredyCatStrong");
+                yield return base.PlayableCard.TransformIntoCard(strongForme);
+                yield return new WaitForSeconds(0.4f);
+            }
+            else if (slots.Count == 0 && base.PlayableCard.Info.name == "wstl_scaredyCatStrong")
+            {
+                CardInfo weakForme = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_scaredyCat");
+                yield return base.PlayableCard.TransformIntoCard(weakForme, ResetDamage);
+                yield return new WaitForSeconds(0.4f);
             }
         }
         private void ResetDamage() => base.PlayableCard.Status.damageTaken = 0;

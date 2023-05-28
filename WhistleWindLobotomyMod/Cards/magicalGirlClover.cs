@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
                 atk: 2, hp: 2,
                 blood: 2, bones: 0, energy: 0,
                 Artwork.magicalGirlClover, Artwork.magicalGirlClover_emission, pixelTexture: Artwork.magicalGirlClover_pixel,
-                abilities: new() { Scorching.ability }, specialAbilities: new() { PinkTears.specialAbility },
+                abilities: new() { Scorching.ability }, specialAbilities: new() { SwordWithTears.specialAbility },
                 metaCategories: new(), tribes: new() { TribeFae }, traits: traits, onePerDeck: true,
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
                 modTypes: ModCardType.Ruina);
