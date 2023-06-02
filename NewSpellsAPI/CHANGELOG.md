@@ -1,5 +1,8 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
+## 1.1.2 (6/1/2023)
+- Fixed Spells not working correctly in Act 2
+
 ## 1.1.1 (5/20/2023)
 - Fixed Give Stats giving the wrong stats
 

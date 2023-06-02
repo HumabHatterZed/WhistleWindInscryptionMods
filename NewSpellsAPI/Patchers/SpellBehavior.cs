@@ -1,4 +1,5 @@
 using DiskCardGame;
+using GBC;
 using HarmonyLib;
 using Infiniscryption.Core.Helpers;
 using Infiniscryption.Spells.Sigils;
@@ -69,10 +70,14 @@ namespace Infiniscryption.Spells.Patchers
             }
 
             retval.Sort((CardSlot a, CardSlot b) => a.Index - b.Index);
+
             return retval;
         }
         public static bool IsValidTarget(this CardSlot slot, PlayableCard card, bool checkSingleSlot = false)
         {
+            if (!slot)
+                return false;
+
             if (checkSingleSlot)
             {
                 if (card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard, Array.Empty<object>()))
@@ -180,28 +185,28 @@ namespace Infiniscryption.Spells.Patchers
         [HarmonyPrefix]
         public static bool SpellsDoNotNeedSpace(PlayableCard card, BoardManager __instance, List<CardSlot> sacrifices, ref bool __result)
         {
-            if (card != null && card.Info.IsSpell())
-            {
-                if (card.Info.BloodCost > 0)
-                {
-                    // iterate through each slot that hasn't been selected for sacrifice
-                    // to determine if there will still be valid targets afterwards
-                    foreach (CardSlot slot in __instance.AllSlotsCopy
-                        .Where(asc => (asc.Card != null && asc.Card.HasAbility(Ability.Sacrificial)) || !sacrifices.Contains(asc)))
-                    {
-                        if (slot.IsValidTarget(card))
-                        {
-                            __result = true;
-                            break;
-                        }
-                    }
-                }
-                else
-                    __result = true;
+            if (!card || !card.Info.IsSpell())
+                return true;
 
+            if (card.Info.BloodCost <= 0)
+            {
+                __result = true;
                 return false;
             }
-            return true;
+
+            // iterate through each slot that hasn't been selected for sacrifice
+            // to determine if there will still be valid targets afterwards
+            foreach (CardSlot slot in __instance.AllSlotsCopy
+                .Where(asc => (asc.Card != null && asc.Card.HasAbility(Ability.Sacrificial)) || !sacrifices.Contains(asc)))
+            {
+                if (slot.IsValidTarget(card))
+                {
+                    __result = true;
+                    break;
+                }
+            }
+
+            return false;
         }
 
         // Next, there has to be at least one slot (for targeted spells)
@@ -291,7 +296,16 @@ namespace Infiniscryption.Spells.Patchers
                 while (chooseSlotEnumerator.MoveNext())
                     yield return chooseSlotEnumerator.Current;
 
-                if (!Singleton<BoardManager>.Instance.cancelledPlacementWithInput)
+                bool canPlayCard = false;
+
+                // Act 2 has some ManagedUpdate bull making things not do the do
+                // so we go like this and it works, yeah
+                if (SaveManager.SaveFile.IsPart2 && InputButtons.GetButtonDown(Button.Select))
+                    canPlayCard = (Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot).IsValidTarget(card, true);
+                else
+                    canPlayCard = !Singleton<BoardManager>.Instance.cancelledPlacementWithInput;
+
+                if (canPlayCard)
                 {
                     cardWasPlayed = true;
                     card.Anim.SetSelectedToPlay(false);
@@ -346,7 +360,13 @@ namespace Infiniscryption.Spells.Patchers
                         // SlotTargetedForAttack (targeted spells only)
                         if (card.Info.IsTargetedSpell())
                         {
-                            foreach (CardSlot targetSlot in Singleton<BoardManager>.Instance.LastSelectedSlot.GetAffectedSlots(card))
+                            // LastSelectedSlot doesn't seem to work in Act 2, or at least not when there's a card
+                            // so we do this
+                            CardSlot selectedSlot = SaveManager.SaveFile.IsPart2 ?
+                                Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot :
+                                Singleton<BoardManager>.Instance.LastSelectedSlot;
+
+                            foreach (CardSlot targetSlot in selectedSlot.GetAffectedSlots(card))
                             {
                                 object[] targetArgs = new object[] { targetSlot, card };
                                 yield return card.TriggerHandler.OnTrigger(Trigger.SlotTargetedForAttack, targetArgs);
@@ -368,7 +388,7 @@ namespace Infiniscryption.Spells.Patchers
 
                         Singleton<InteractionCursor>.Instance.ClearForcedCursorType();
                         yield return new WaitForSeconds(0.6f);
-                        GameObject.Destroy(card.gameObject, 0.5f);
+                        UnityEngine.Object.Destroy(card.gameObject, 0.5f);
                         Singleton<ViewManager>.Instance.SwitchToView(View.Default);
                     }
                 }

@@ -1,10 +1,10 @@
 {
   "name": "New_Spell_Card_Toolkit",
-  "version_number": "1.1.1",
+  "version_number": "1.1.2",
   "website_url": "https://github.com/HumabHatterZed/WhistleWindInscryptionMods",
-  "description": "v1.1.1 - Minor bug fix for Give Stats. An updated version of Infiniscryption's Spell Card Toolkit with new features and general improvements.",
+  "description": "v1.1.2 - Fixed Spells not working in Act 2. An updated version of Infiniscryption's Spell Card Toolkit with new features and general improvements.",
   "dependencies": [
     "BepInEx-BepInExPack_Inscryption-5.4.1902",
-    "API_dev-API-2.13.1"
+    "API_dev-API-2.13.2"
   ]
 }
