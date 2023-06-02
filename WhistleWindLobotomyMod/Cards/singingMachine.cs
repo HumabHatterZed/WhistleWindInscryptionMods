@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 blood: 1, bones: 0, energy: 0,
                 Artwork.singingMachine, Artwork.singingMachine_emission, pixelTexture: Artwork.singingMachine_pixel,
                 abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
+                metaCategories: new(), tribes: tribes, traits: new() { AbnormalPlugin.Orchestral },
                 appearances: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
         }

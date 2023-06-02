@@ -22,8 +22,8 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_childOfTheGalaxy", "Child of the Galaxy",
                 "A small child longing for a friend. Will you be his?",
-                atk: 1, hp: 4,
-                blood: 2, bones: 0, energy: 0,
+                atk: 0, hp: 3,
+                blood: 1, bones: 0, energy: 0,
                 Artwork.childOfTheGalaxy, Artwork.childOfTheGalaxy_emission, pixelTexture: Artwork.childOfTheGalaxy_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),

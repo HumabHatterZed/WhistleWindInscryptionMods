@@ -1,5 +1,8 @@
 ﻿using DiskCardGame;
+using EasyFeedback.APIs;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -30,19 +33,19 @@ namespace WhistleWind.AbnormalSigils
         // original code taken from SigilADay - julianperge
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            var validCards = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(s => s.Card != null && s.Card != base.Card);
+            List<CardSlot> validSlots = Singleton<BoardManager>.Instance.GetSlotsCopy(!base.Card.OpponentCard).FindAll(s => s.Card && s.Card != base.Card);
 
             // if no other cards on the board except this card
-            if (validCards.Count() == 0)
+            if (validSlots.Count == 0)
                 yield break;
 
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
-            foreach (var slot in validCards)
+            foreach (var slot in validSlots)
             {
                 slot.Card.Anim.LightNegationEffect();
                 slot.Card.HealDamage(2);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.15f);
             }
             yield return base.LearnAbility(0.25f);
         }

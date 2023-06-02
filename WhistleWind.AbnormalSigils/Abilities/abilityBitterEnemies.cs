@@ -20,8 +20,8 @@ namespace WhistleWind.AbnormalSigils
 
             BitterEnemies.ability = AbnormalAbilityHelper.CreateAbility<BitterEnemies>(
                 Artwork.sigilBitterEnemies, Artwork.sigilBitterEnemies_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 1,
-                modular: true, opponent: true, canStack: true).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                modular: true, opponent: true, canStack: false).Id;
         }
     }
     public class BitterEnemies : AbilityBehaviour, IPassiveAttackBuff

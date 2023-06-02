@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_shelterFrom27March", "Shelter From the 27th of March",
                 "It makes itself the safest place in the world by altering the reality around it.",
                 atk: 0, hp: 0,
-                blood: 0, bones: 0, energy: 2,
+                blood: 0, bones: 0, energy: 3,
                 Artwork.shelterFrom27March, Artwork.shelterFrom27March_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),

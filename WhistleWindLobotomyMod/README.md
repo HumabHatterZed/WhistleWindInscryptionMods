@@ -70,8 +70,8 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 |:---|:---:|:--:|:-----|:-----|:-----|:----|
 |Standard Training-Dummy Rabbit		|0/2  |<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/NcdGqIZ.png'>|								|Mechanical				|					|					   |
 |Scorched Girl						|1/1  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/czecyiH.png'>|Volatile						|Anthropoid				|					|					   |
-|One Sin and Hundreds of Good Deeds	|0/1  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/czecyiH.png'>|Martyr							|Divine					|					|					   |
-|Magical Girl H						|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Opportunistic					|Fae					|Magical Girl		|Singleton			   |
+|One Sin and Hundreds of Good Deeds	|0/1  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/g6cUUvP.png'>|Martyr							|Divine					|					|					   |
+|Magical Girl						|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Opportunistic					|Fae					|Magical Girl		|Singleton			   |
 |The Queen of Hatred				|8/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Opportunistic, Piercing		|Fae, Reptile			|Magical Girl		|Singleton			   |
 |Happy Teddy Bear					|2/1  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/r1Q62Ck.png'>|Woodcutter						|						|					|					   |
 |Red Shoes							|0/3  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Sharp Quills, Guardian			|						|					|					   |
@@ -110,7 +110,7 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 |Crumbling Armour					|0/3  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/o1qsSmA.png'>|Courageous						|						|					|					   |
 |Judgement Bird						|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Marksman						|Avian					|Black Forest		|Singleton			   |
 |Apocalypse Bird					|4/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/1c6PTpq.png'>|Omni Strike					|Avian					|					|Event, Rare, Singleton|
-|Magical Girl D						|0/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Fledgling						|Fae					|Magical Girl		|Singleton			   |
+|The King of Greed					|0/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Fledgling						|Fae					|Magical Girl		|Singleton			   |
 |⤷ The King of Greed				|2/5  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Cycler							|Fae					|Magical Girl		|Singleton			   |
 |The Little Prince					|1/4  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Sporogenic						|Botanic				|					|					   |
 |Laetitia							|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Gift Giver						|Fae					|					|					   |
@@ -119,8 +119,7 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 |Dream of a Black Swan				|2/5  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Nettle Clothes					|Avian					|					|Rare				   |
 |The Dreaming Current				|4/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Waterborne, Barreler			|						|					|					   |
 |The Burrowing Heaven				|0/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Burrower, Sharp Quills			|Divine					|					|					   |
-|Magical Girl S						|1/4  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Protector						|Fae					|Magical Girl		|Singleton			   |
-|⤷ The Knight of Despair			|2/4  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Bifurcated Strike, Piercing	|Fae					|Magical Girl		|Singleton			   |
+|The Knight of Despair				|1/4  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Protector						|Fae					|Magical Girl		|Singleton			   |
 |The Naked Nest						|0/3  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/o1qsSmA.png'>|Serpent's Nest					|Insect					|Naked Nest			|					   |
 |The Mountain of Smiling Bodies		|2/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Assimilator					|						|					|Rare				   |
 |Schadenfreude						|1/1  |<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/P1yr67p.png'>|Quick Draw						|Mechanical				|					|					   |
@@ -161,11 +160,10 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 |Ppodae								|1/1  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/iJN52Ow.png'>|Stinky, Fledgling				|Canine					|					|					   |
 |⤷ Ppodae							|3/2  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/cEvPoTk.png'>|Stinky							|Canine					|					|					   |
 |Parasite Tree						|0/3  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/iJN52Ow.png'>|Gardener						|Botanic				|					|Terrain			   |
-|Melting Love						|4/3  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Made of Slime					|						|					|Rare				   |
+|Melting Love						|4/3  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Made of Slime					|						|Toxic				|Rare				   |
 |Honoured Monk						|2/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Fledgling						|Anthropoid				|					|					   |
 |⤷ Clouded Monk						|4/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|								|Anthropoid				|					|					   |
-|Magical Girl C						|2/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Scorching						|Fae					|Magical Girl		|Singleton			   |
-|⤷ The Servant of Wrath				|3/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|								|Fae, Reptile			|Magical Girl		|Singleton			   |
+|The Servant of Wrath				|2/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Scorching						|Fae					|Magical Girl		|Singleton			   |
 |Price of Silence					|T/T  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|								|						|					|					   |
 |Pinocchio							|0/1  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/g6cUUvP.png'>|Copycat						|Anthropoid, Botanic	|					|					   |
 |Nosferatu							|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Bloodfiend, Fledgling			|Anthropoid				|					|					   |
@@ -241,7 +239,7 @@ You'll need to play around in order to figure out what cards have the special an
 |Apocrypha		 |Fragment of the Universe<br>Skin Prophecy<br>Price of Silence*					|7|
 |Keter			 |Bloodbath<br>The Burrowing Heaven<br>The Snow Queen								|8|
 |Road to Oz		 |The Road Home*<br>Scarecrow Searching for Wisdom<br>Warm-Hearted Woodsman<br>Ozma*|S|
-|Magical Girls!	 |Magical Girl S<br>Magical Girl H<br>Magical Girl D<br>Magical Girl C*				|S|
+|Magical Girls!	 |The Knight of Despair<br>Magical Girl H<br>The King of Greed<br>The Servant of Wrath*				|S|
 |Twilight		 |Punishing Bird<br>Big Bird<br>Judgement Bird										|S|
 
 ## 💀 Challenges and Cheats
@@ -319,7 +317,7 @@ Removes the following abnormalities from the pool of obtainable cards:
 ### Disable Ruina
 #### Default value: False
 Removes the following abnormalities from the pool of obtainable cards:
-- Magical Girl C, Price of Silence, Nosferatu, The Road Home, Ozma, Silent Girl.
+- The Servant of Wrath, Price of Silence, Nosferatu, The Road Home, Ozma, Silent Girl.
 
 </details>
 </details>
@@ -337,7 +335,7 @@ PART 1 ONLY - Replaces your starting cards with one of this mod's custom decks.
 - 4 - Nothing There, Today's Shy Look, Pinocchio / Mirror of Adjustment
 - 5 - Snow White's Apple, The Snow Queen, 
 - 5 - The Road Home / Snow White's Apple, Warm-Hearted-Woodsman, Wisdom Scarecrow, Ozma / The Snow Queen
-- 6 - Magical Girl S, Magical Girl H, Magical Girl D, Magical Girl C / Laetitia
+- 6 - The Knight of Despair, Magical Girl H, The King of Greed, The Servant of Wrath / Laetitia
 - 7 - Punishing Bird, Big Bird, Judgement Bird
 - 8 - 3 Random Mod Cards
 - 9 - Random Mod Deck (1-7)

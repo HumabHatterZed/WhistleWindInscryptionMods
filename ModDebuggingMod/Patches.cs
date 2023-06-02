@@ -12,7 +12,7 @@ namespace ModDebuggingMod
         [HarmonyPatch(typeof(PaperGameMap), "TryInitializeMapData")]
         public static void Prefix(ref PaperGameMap __instance)
         {
-            if (true || RunState.Run.map != null)
+            if (false || RunState.Run.map != null)
                 return;
 
             PredefinedNodes nodes = ScriptableObject.CreateInstance<PredefinedNodes>();

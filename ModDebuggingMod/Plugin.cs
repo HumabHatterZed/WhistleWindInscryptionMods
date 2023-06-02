@@ -2,6 +2,8 @@
 using BepInEx.Logging;
 using DiskCardGame;
 using HarmonyLib;
+using Infiniscryption.Spells;
+using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
@@ -28,7 +30,7 @@ namespace ModDebuggingMod
             New("DebugEncounter")
                     .AddDominantTribes(Tribe.Canine)
                     .AddTurns(
-                    CreateTurn("!GIANTCARD_MOON"),
+                    CreateTurn("wstl_theNakedNest"),
                     CreateTurn()
                     );
 
@@ -62,8 +64,8 @@ namespace ModDebuggingMod
                 {
                     if (card.name == "Squirrel")
                     {
-                        card.abilities = new() { Ability.Strafe };
-                        card.SetEvolve("Rabbit", 3);
+                        card.abilities = new() { DirectDamage.AbilityID };
+                        card.SetTargetedSpell();
                     }
                 }
 

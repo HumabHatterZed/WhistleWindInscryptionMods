@@ -28,11 +28,14 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             bool modular = false, bool special = false,
             bool opponent = false, bool canStack = false,
             bool unobtainable = false,
-            bool flipY = false, byte[] flipTexture = null)
+            bool flipY = false, byte[] flipTexture = null,
+            string statusEffect = null)
             where T : AbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            info.CheckModularity(unobtainable, special, modular, AbilityGroup.Normal);
+            info.CheckModularity(unobtainable || !string.IsNullOrEmpty(statusEffect), special, modular, AbilityGroup.Normal);
+            if (!string.IsNullOrEmpty(statusEffect))
+                info.SetExtendedProperty("wstl:StatusEffect", statusEffect);
 
             return AbilityHelper.CreateAbility<T>(
                 info, pluginGuid, texture, gbcTexture,

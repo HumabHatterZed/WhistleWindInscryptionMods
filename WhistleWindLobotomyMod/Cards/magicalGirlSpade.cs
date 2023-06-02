@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod
             abilities = new() { Protector.ability };
 
             CreateCard(
-                "wstl_magicalGirlSpade", "Magical Girl",
+                "wstl_magicalGirlSpade", "The Knight of Despair",
                 "A loyal knight fighting to protect those close to her.",
                 atk: 1, hp: 4,
                 blood: 2, bones: 0, energy: 0,

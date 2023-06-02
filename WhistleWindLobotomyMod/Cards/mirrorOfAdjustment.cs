@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 metaCategories: new(), tribes: new(), traits: new(),
                 appearances: new(), statIcon: SpecialStatIcon.Mirror,
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
-                evolveName: "[name]The Elder Mirror of Adjustment", metaTypes: CardHelper.CardMetaType.NoTerrainLayout);
+                evolveName: "[name]The Grand Mirror of Adjustment", metaTypes: CardHelper.CardMetaType.NoTerrainLayout);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using WhistleWind.AbnormalSigils.Properties;
+﻿using DiskCardGame;
+using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -11,10 +12,10 @@ namespace WhistleWind.AbnormalSigils
                 pluginPrefix,
                 "wstl_snowQueenIceBlock", "Block of Ice",
                 "",
-                atk: 0, hp: 1,
+                atk: 0, hp: 2,
                 blood: 0, bones: 0, energy: 0,
                 Artwork.snowQueenIceBlock, pixelTexture: Artwork.snowQueenIceBlock_pixel,
-                abilities: new(),
+                abilities: new() { Ability.Reach },
                 metaCategories: new(), tribes: new(), traits: new(),
                 metaTypes: CardHelper.CardMetaType.Terrain);
         }

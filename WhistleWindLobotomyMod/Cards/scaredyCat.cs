@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 pluginPrefix,
                 "wstl_scaredyCatStrong", "Scaredy Cat",
                 "",
-                atk: LobotomySaveManager.UnlockedLyingAdult ? 3 : 2, hp: 6,
+                atk: 2, hp: 6,
                 blood: 2, bones: 0, energy: 0,
                 Artwork.scaredyCatStrong, Artwork.scaredyCatStrong_emission,
                 specialAbilities: specialAbilities,

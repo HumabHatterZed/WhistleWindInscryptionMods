@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_warmHeartedWoodsman", "Warm-Hearted Woodsman",
                 "A tin woodsman on the search for a heart. Perhaps you can give him yours.",
-                atk: 2, hp: LobotomySaveManager.UnlockedLyingAdult ? 4 : 3,
+                atk: 2, hp: 3,
                 blood: 2, bones: 0, energy: 0,
                 Artwork.warmHeartedWoodsman, Artwork.warmHeartedWoodsman_emission, pixelTexture: Artwork.warmHeartedWoodsman_pixel,
                 abilities: abilities, specialAbilities: new(),

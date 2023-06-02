@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_ReturnToNihil()
         {
             const string rulebookName = "Return to Nihil";
-            const string rulebookDescription = "At the end of the owner's turn, deal damage to all other cards on the board equal to this card's Power.";
+            const string rulebookDescription = "At the end of the owner's turn, deal damage equal to this card's Power to all other cards on the board.";
             const string dialogue = "One step closer to oblivion.";
 
             ReturnToNihil.ability = AbnormalAbilityHelper.CreateAbility<ReturnToNihil>(

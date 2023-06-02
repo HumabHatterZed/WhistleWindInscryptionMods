@@ -25,11 +25,21 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
+        private readonly CardModificationInfo wormStatusMod = new(StatusEffectWorms.ability)
+        {
+            singletonId = "worms_status",
+            nonCopyable = true,
+        };
+        private readonly CardModificationInfo wormDecalMod = new()
+        {
+            singletonId = "worms_decal",
+            DecalIds = { "wstl_worms_0" },
+            nonCopyable = true,
+        };
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
             if (source != null)
-                return source.LacksTrait(AbnormalPlugin.NakedSerpent) && !source.Info.Mods.Exists(x => x.singletonId == "wstl:serpentDummy");
+                return source.LacksTrait(AbnormalPlugin.NakedSerpent) && source.GetComponent<Worms>() == null;
 
             return false;
         }
@@ -37,10 +47,12 @@ namespace WhistleWind.AbnormalSigils
         {
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
+
             CardInfo copyOfSource = source.Info.Clone() as CardInfo;
-            copyOfSource.Mods = new(source.Info.Mods) { new() { singletonId = "wstl:serpentDummy" } };
-            source.SetInfo(copyOfSource);
+            copyOfSource.Mods = new(source.Info.Mods) { wormStatusMod, wormDecalMod };
             source.AddPermanentBehaviour<Worms>();
+            source.SetInfo(copyOfSource);
+            
             yield return new WaitForSeconds(0.55f);
             yield return base.LearnAbility();
         }

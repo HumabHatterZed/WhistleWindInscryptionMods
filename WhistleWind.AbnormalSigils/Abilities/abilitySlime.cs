@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Slime()
         {
             const string rulebookName = "Made of Slime";
-            const string rulebookDescription = "At the start of the owner's turn, this card transforms adjacent creatures with more than 1 Health into Slimes. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.";
+            const string rulebookDescription = "At the start of the owner's turn, creatures adjacent to this card with at least 2 Health are transformed into Slimes. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.";
             const string dialogue = "Its army grows everyday.";
 
             Slime.ability = AbnormalAbilityHelper.CreateAbility<Slime>(

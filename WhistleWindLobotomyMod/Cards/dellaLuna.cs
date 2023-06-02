@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_dellaLuna", "Il Pianto della Luna",
                 "In reality, man despairs at [c:bR]the moon[c:].",
-                atk: 2, hp: 6,
+                atk: 2, hp: 7,
                 blood: 3, bones: 0, energy: 0,
                 Artwork.dellaLuna, Artwork.dellaLuna_emission,
                 abilities: abilities, specialAbilities: new(),

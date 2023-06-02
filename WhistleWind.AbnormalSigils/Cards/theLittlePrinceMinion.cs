@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils
         private void Card_TheLittlePrinceMinion_O0466()
         {
             List<Tribe> tribes = new() { TribeBotanic };
-
+            List<Trait> traits = new() { SporeFriend };
             CardHelper.CreateCard(
                 pluginPrefix,
                 "wstl_theLittlePrinceMinion", "Spore Mold Creature",
@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
                 blood: 0, bones: 0, energy: 0,
                 Artwork.theLittlePrinceMinion, Artwork.theLittlePrinceMinion_emission,
                 abilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new());
+                metaCategories: new(), tribes: tribes, traits: traits);
         }
     }
 }

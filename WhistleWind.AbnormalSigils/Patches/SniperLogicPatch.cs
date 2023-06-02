@@ -25,10 +25,16 @@ namespace WhistleWind.AbnormalSigils.Patches
             return true;
         }
         [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.WillDieFromSharp))]
-        private static void ImmuneToSharp(CardSlot slot, ref bool __result)
+        private static void AddExtraChecks(CardSlot slot, ref bool __result)
         {
-            if (IsJudgementBird(slot))
+            if (IsJudgementBird(slot)) // Judgement Bird does not trigger OnDealDamage or OnTakeDamage
+            {
                 __result = false;
+                return;
+            }
+
+            if (slot.Card.HasAbility(Punisher.ability))
+                __result = true;
         }
         private static IEnumerator WstlSniperSequence(CombatPhaseManager instance, CardSlot slot)
         {

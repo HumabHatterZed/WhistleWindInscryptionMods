@@ -44,7 +44,7 @@ namespace WhistleWindLobotomyMod
                 minion.tribes.Add(item);
 
             // Adds base sigils
-            foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            foreach (Ability item in card.Info.abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
                 minion.Mods.Add(new CardModificationInfo(item));
 
             foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))

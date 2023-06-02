@@ -132,7 +132,7 @@ namespace WhistleWindLobotomyMod
 
             yield return LookAtCard(ozma, cardInHand);
             yield return DialogueHelper.PlayDialogueEvent("LyingAdultOzma");
-            yield return ModifyCard(ozma, new(0, 2));
+            yield return ModifyCard(ozma, new(1, 0));
 
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
@@ -160,7 +160,7 @@ namespace WhistleWindLobotomyMod
 
             yield return LookAtCard(roadHome, cardInHand);
             yield return DialogueHelper.PlayDialogueEvent("LyingAdultRoadHome");
-            yield return ModifyCard(roadHome, new(1, 0));
+            yield return ModifyCard(roadHome, new(0, 2));
 
             yield return DialogueHelper.PlayDialogueEvent("LyingAdultIntro4");
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);

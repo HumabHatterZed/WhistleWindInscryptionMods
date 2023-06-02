@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             List<Trait> traits = new() { TraitMagicalGirl };
 
             CreateCard(
-                "wstl_servantOfWrath", "Servant of Wrath",
+                "wstl_servantOfWrath", "The Servant of Wrath",
                 "",
                 atk: 3, hp: 2,
                 blood: 2, bones: 0, energy: 0,
@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 metaCategories: new(), tribes: tribes, traits: traits, onePerDeck: true);
 
             CreateCard(
-                "wstl_magicalGirlClover", "Magical Girl",
+                "wstl_magicalGirlClover", "The Servant of Wrath",
                 "Blind protector of another world.",
                 atk: 2, hp: 2,
                 blood: 2, bones: 0, energy: 0,

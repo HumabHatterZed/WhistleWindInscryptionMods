@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         private void Card_Pinocchio_F01112()
         {
             List<Ability> abilities = new() { Copycat.ability };
-            List<Tribe> tribes = new() { TribeAnthropoid, TribeBotanic };
+            List<Tribe> tribes = new() { TribeBotanic };
 
             CreateCard(
                 "wstl_pinocchio", "Pinocchio",

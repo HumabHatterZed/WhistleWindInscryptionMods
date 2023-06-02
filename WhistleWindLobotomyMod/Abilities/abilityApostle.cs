@@ -24,21 +24,21 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             downCount++;
-            if (downCount >= 2)
+            if (downCount < 2)
+                yield break;
+
+            downCount = 0;
+            yield return base.PreSuccessfulTriggerSequence();
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
+            base.Card.Anim.LightNegationEffect();
+            yield return new WaitForSeconds(0.2f);
+            if (!base.HasLearned)
             {
-                downCount = 0;
-                yield return base.PreSuccessfulTriggerSequence();
-                Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
-                base.Card.Anim.LightNegationEffect();
-                yield return new WaitForSeconds(0.2f);
-                if (!base.HasLearned)
-                {
-                    yield return new WaitForSeconds(0.5f);
-                    yield return HelperMethods.PlayAlternateDialogue(delay: 0f, dialogue: "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:]");
-                    base.SetLearned();
-                }
-                yield return ReviveApostle();
+                yield return new WaitForSeconds(0.5f);
+                yield return HelperMethods.PlayAlternateDialogue(delay: 0f, dialogue: "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:]");
+                base.SetLearned();
             }
+            yield return ReviveApostle();
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {

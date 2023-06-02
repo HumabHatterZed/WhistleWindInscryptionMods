@@ -14,11 +14,11 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FalseThrone()
         {
             const string rulebookName = "False Throne";
-            const string rulebookDescription = "Once per turn, pay 2 Health to give Neutered to a chosen creature, then create a free, unaltered copy of it in your hand.";
+            const string rulebookDescription = "Once per turn, pay 1 Health to give Neutered to a chosen creature, then create a free, unaltered copy of it in your hand.";
             const string dialogue = "A simple little magic trick.";
             FalseThrone.ability = AbnormalAbilityHelper.CreateActivatedAbility<FalseThrone>(
                 Artwork.sigilFalseThrone, Artwork.sigilFalseThrone_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4, special: true).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 5, special: true).Id;
         }
     }
     public class FalseThrone : ActivatedSelectSlotBehaviour
@@ -26,7 +26,7 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
         public override Ability LatchAbility => Neutered.ability;
-        public override int StartingHealthCost => 2;
+        public override int StartingHealthCost => 1;
         public override int TurnDelay => 1;
 
         public override bool CardSlotCanBeTargeted(CardSlot slot) => slot.Card != null && slot.Card != base.Card;

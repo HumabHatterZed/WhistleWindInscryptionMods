@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Nettles()
         {
             const string rulebookName = "Nettle Clothes";
-            const string rulebookDescription = "When this card is played, fill all empty spaces on the owner's side of the board with random Brothers. This card gains sigils based on allied Brothers.";
+            const string rulebookDescription = "When this card is played, fill all empty spaces on the owner's side of the board with random Brothers. This card gains the first sigil of each allied Brother.";
             const string dialogue = "These clothes will surely restore our happy days.";
             Nettles.ability = AbnormalAbilityHelper.CreateAbility<Nettles>(
                 Artwork.sigilNettles, Artwork.sigilNettles_pixel,

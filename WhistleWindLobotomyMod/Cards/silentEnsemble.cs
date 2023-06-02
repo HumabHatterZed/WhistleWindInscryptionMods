@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Properties;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -20,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 blood: 0, bones: 0, energy: 0,
                 Artwork.silentEnsemble, Artwork.silentEnsemble_emission,
                 abilities: abilities, specialAbilities: new(),
-                tribes: tribes);
+                tribes: tribes, traits: new() { AbnormalPlugin.Orchestral });
         }
     }
 }

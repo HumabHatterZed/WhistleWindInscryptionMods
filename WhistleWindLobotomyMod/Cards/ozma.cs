@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_ozma", "Ozma",
                 "The former ruler of a far away land, now reduced to this.",
-                atk: 1, hp: LobotomySaveManager.UnlockedLyingAdult ? 3 : 1,
+                atk: 1, hp: 2,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.ozma, Artwork.ozma_emission, Artwork.ozma_pixel,
                 abilities: abilities, specialAbilities: new(),

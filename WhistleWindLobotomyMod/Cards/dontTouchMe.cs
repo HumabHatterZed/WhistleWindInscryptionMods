@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_DontTouchMe_O0547()
         {
-            List<Ability> abilities = new() { Punisher.ability, Ability.GuardDog };
+            List<Ability> abilities = new() { Punisher.ability };
             List<Tribe> tribes = new() { TribeMechanical };
 
             CreateCard(

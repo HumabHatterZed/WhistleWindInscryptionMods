@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
             CreateCard(
                 "wstl_theRoadHome", "The Road Home",
                 "A young girl on a quest to return home with her friends.",
-                atk: LobotomySaveManager.UnlockedLyingAdult ? 2 : 1, hp: 1,
+                atk: 1, hp: 1,
                 blood: 1, bones: 0, energy: 0,
                 Artwork.theRoadHome, Artwork.theRoadHome_emission, pixelTexture: Artwork.theRoadHome_pixel,
                 abilities: abilities, specialAbilities: specialAbilities,

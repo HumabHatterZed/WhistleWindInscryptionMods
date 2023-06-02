@@ -86,7 +86,7 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Angela()
         {
-            List<Ability> abilities = new() { FrostRuler.ability };
+            List<Ability> abilities = new() { FrostRuler.ability, Ability.DrawCopyOnDeath };
 
             LobotomyCardManager.CreateCard(
                 "wstl_angela", "Angela",

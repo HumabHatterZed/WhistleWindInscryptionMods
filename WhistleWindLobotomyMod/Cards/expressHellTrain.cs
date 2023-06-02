@@ -28,6 +28,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: specialAbilities,
                 metaCategories: new(), tribes: tribes, traits: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Waw,
+                metaTypes: CardHelper.CardMetaType.Terrain,
                 evolveName: "[name]Express Train to Turbo Hell");
 
             abilities = new() { TheTrain.ability };
@@ -39,7 +40,9 @@ namespace WhistleWindLobotomyMod
                 Artwork.expressHellTrain, Artwork.expressHellTrain_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                evolveName: "[name]Express Train to Turbo Hell", spellType: SpellType.Global);
+                evolveName: "[name]Express Train to Turbo Hell",
+                metaTypes: CardHelper.CardMetaType.Terrain,
+                spellType: SpellType.Global);
         }
     }
 }

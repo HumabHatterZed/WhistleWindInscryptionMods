@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_notesFromResearcher", "Notes from a Crazed Researcher",
                 "An insane garble of guilty confessions and incoherent gibberish.",
                 atk: 2, hp: 0,
-                blood: 0, bones: 2, energy: 0,
+                blood: 0, bones: 4, energy: 0,
                 Artwork.notesFromResearcher, Artwork.notesFromResearcher_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(), appearances: new(),

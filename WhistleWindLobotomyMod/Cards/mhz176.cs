@@ -21,6 +21,7 @@ namespace WhistleWindLobotomyMod
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
                 choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
+                metaTypes: CardHelper.CardMetaType.NoTerrainLayout,
                 evolveName: "Loud {0}");
         }
     }

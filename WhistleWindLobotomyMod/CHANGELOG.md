@@ -87,6 +87,8 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - <<The Burrowing Heaven>> cost changed from 3 Bones --> 1 Blood
     - <<CENSORED>> rebalanced from 6/3, 4 Blood --> 4/3, 3 Blood
     - <<Dimensional Refraction Variant>> reworked from 4/4, 3 Blood --> Sigil Power, 2 Blood
+    - <<Il Pianto Della Luna>> Health increased from 6 --> 7
+    - <<Child of the Galaxy>> reworked into 0/3; 1 Blood; Flag Bearer, Bone Digger
     - <<Don't Touch Me>> cost changed from 2 Bones --> 2 Energy, given Terrain trait
     - <<The Dreaming Current>> given Barreler ability, replacing Rampager ability
     - <<Second Brother>> gained Piercing ability
@@ -98,24 +100,26 @@ Note that in the future, updates and changes to modded sigils will be found in t
         - Rare version: 0/4, Group Healer, 4 Bones
         - Item version: Global Spell, The Train, 2 Blood
     - <<Fairy Festival>> Health increased from 1 --> 2
+    - <<Flesh Idol>> reworked into 0/3; 2 Bones; Aggravating, Fledgling
     - <<Funeral of the Dead Butterflies>> rebalanced from 3/3, 3 Blood --> 1/3, 2 Blood
     - <<Giant Tree Sap>> Reworked from 0/3, 4 Bones; Morsel, Sacrificial --> 0/3, 3 Bones, Morsel, Rare
         - Special ability changed to trigger less often, now adds Sacrifical as a hidden temporary mod
-    - <<Happy Teddy Bear>> cost reduced from 8 Bones --> 6, Health reduced from 3 --> 1
+    - <<Happy Teddy Bear>> reworked into 1/6; 6 Bones; Guardian
     - <<Judgement Bird>>'s special ability no longer affects Terrain and Pelt cards
     - <<King of Greed>> rebalanced from 4/5, Hefty, 2 Blood --> 2/5, Cycler, 1 Blood
-    - <<Luminous Bracelet>> reworked into Targeted Spell with Greedy Healing, Give Sigils; 2 Energy
-    - <<Magical Girl D>> cost reduced from 2 Blood --> 1, Health reduced from 3 --> 2
+    - <<Luminous Bracelet>> reworked into 0/2 Targeted Spell with Greedy Healing, Give Stats and Sigils; 2 Energy
+    - <<Magical Girl D>> cost reduced from 2 Blood --> 1, Health reduced from 3 --> 2, renamed to The King of Greed
     - <<Magical Girl H>> Power reduced from 2 --> 1, gained Opportunistic ability
     - <<Queen of Hatred>> Power increased from 7 --> 8
-    - <<Magical Girl S>> Power reduced from 2 --> 1, no longer Rare
+    - <<Magical Girl S>> Power reduced from 2 --> 1, no longer Rare, renamed to The Knight of Despair
     - <<Melting Love>> Health increased from 2 --> 3
     - <<1.76 MHz>> reworked from 0/3; Annoying, Leader; 2 Bones --> 2/1, Annoying, 3 Energy
     - <<Mountain of Smiling Bodies 2>> cost reduced from 3 Blood --> 2
     - <<Mountain of Smiling Bodies 3>> Power increased from 4 --> 5, cost reduced from 4 Blood --> 3
     - <<Nameless Fetus>> cost reduced from 5 Bones --> 3 Bones
-    - <<Notes from a Crazed Researcher>> reworked into Targeted Spell with 2/0, Brittle, Give Stats and Sigils, 2 Bones
+    - <<Notes from a Crazed Researcher>> reworked into Targeted Spell with 2/0, Brittle, Give Stats and Sigils, 4 Bones
     - <<Old Faith and Promises>> cost changed from 2 Bones --> 3 Energy
+    - <<One Sin and Hundreds of Good Deeds>> cost reduced from 2 Bones --> 1 Bone
     - <<Porccubus>> Health reduced from 2 --> 1
     - <<Queen Bee>> Health reduced from 6 --> 4
     - <<Little Red Riding Hooded Mercenary>> cost increased from 2 Blood --> 3, Health increased from 3 --> 5
@@ -123,10 +127,10 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - <<Scarecrow Searching for Wisdom>> rebalanced from 1/3, 5 Bones --> 1/2, 4 Bones
     - <<Schadenfreude>> rebalanced from 0/1; Quick Draw, Touch of Death; 4 Bones --> 1/1, Quick Draw, 2 Energy
     - <<Scorched Girl>> cost reduced from 3 Bones --> 2
-    - <<Shelter from the 27th of March>> reworked into Targeted Spell with Repulsive, Aggravating, Give Sigils; 2 Energy
+    - <<Shelter from the 27th of March>> reworked into Targeted Spell with Repulsive, Aggravating, Give Sigils; 3 Energy
     - <<Spider Buff>> cost reduced from 4 Bones --> 3 Bones
     - <<Chairs>> Power reduced from 1 --> 0
-    - <<Silent Orchestra>> rebalanced from 1/5, 3 Blood --> 2/4, 2 Blood
+    - <<Silent Orchestra>> rebalanced from 1/5 --> 2/6
     - <<Silent Machine>> rebalanced from 0/8, 2 Blood --> 0/3, 1 Blood
     - <<The Snow Queen>> cost reduced from 6 Bones --> 5, Health reduced from 3 --> 2
     - <<Snow White's Apple>> Health reduced from 3 --> 1
@@ -141,7 +145,6 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - <<We Can Change Anything>> rebalanced from 1/2 --> 0/3
     - <<WhiteNight>> Health reduced from 666 --> 66, replaced Terrain trait with Apostle, gained immunity to Touch of Death, Punisher
         - Can now be killed by regular cards, with a different reward if done so
-    - <<Big and Will Be Bad Wolf>> cost increased from 2 Blood --> 3, Power increased from 3 --> 4
     - <<You Must Be Happy>> reworked into Targeted Spell with 0/2, Scrambler, 2 Energy
     - <<You're Bald...>> cost changed from 3 Bones --> 2 Energy, Power reduced from 1 --> 0
     - <<Ttungsil>> no longer has Fledgling ability

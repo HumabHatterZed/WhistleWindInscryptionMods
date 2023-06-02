@@ -40,8 +40,10 @@ namespace WhistleWind.AbnormalSigils
         public static Trait Boneless = GuidManager.GetEnumValue<Trait>(pluginGuid, "Boneless");
         public static Trait SwanBrother = GuidManager.GetEnumValue<Trait>(pluginGuid, "SwanBrother");
         public static Trait NakedSerpent = GuidManager.GetEnumValue<Trait>(pluginGuid, "NakedSerpent");
+        public static Trait SporeFriend = GuidManager.GetEnumValue<Trait>(pluginGuid, "SporeFriend");
         public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
         public static Trait Executioner = GuidManager.GetEnumValue<Trait>(pluginGuid, "Executioner");
+        public static Trait Orchestral = GuidManager.GetEnumValue<Trait>(pluginGuid, "Orchestral");
 
         public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
         public static CardMetaCategory CannotGainSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGainSigils");
@@ -151,7 +153,7 @@ namespace WhistleWind.AbnormalSigils
             Ability_Courageous();
 
             Ability_SerpentsNest();
-            Rulebook_Worms();
+            StatusEffect_Worms();
 
             Ability_Assimilator();
             Ability_GroupHealer();
@@ -174,7 +176,7 @@ namespace WhistleWind.AbnormalSigils
             Ability_Nettles();
 
             Ability_Sporogenic();
-            Rulebook_Spores();
+            StatusEffect_Spores();
 
             Ability_Witness();
             Ability_Corrector();

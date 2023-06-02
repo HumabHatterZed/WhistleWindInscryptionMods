@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_oneSin", "One Sin and Hundreds of Good Deeds",
                 "A floating skull. Its hollow sockets see through you.",
                 atk: 0, hp: 1,
-                blood: 0, bones: 2, energy: 0,
+                blood: 0, bones: 1, energy: 0,
                 Artwork.oneSin, Artwork.oneSin_emission, pixelTexture: Artwork.oneSin_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: new(),

@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Schadenfreude_O0576()
         {
-            List<Ability> abilities = new() { Ability.Sniper };
+            List<Ability> abilities = new() { Ability.Sentry };
             List<Tribe> tribes = new() { TribeMechanical };
 
             CreateCard(

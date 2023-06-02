@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_wisdomScarecrow", "Scarecrow Searching for Wisdom",
                 "A hollow-headed scarecrow. Blood soaks its straw limbs.",
                 atk: 1, hp: 2,
-                blood: 0, bones: LobotomySaveManager.UnlockedLyingAdult ? 3 : 4, energy: 0,
+                blood: 0, bones: 4, energy: 0,
                 Artwork.wisdomScarecrow, Artwork.wisdomScarecrow_emission, pixelTexture: Artwork.wisdomScarecrow_pixel,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: tribes, traits: traits,

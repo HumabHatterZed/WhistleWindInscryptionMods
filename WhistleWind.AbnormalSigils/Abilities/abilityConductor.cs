@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
@@ -14,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Conductor()
         {
             const string rulebookName = "Conductor";
-            const string rulebookDescription = "Affected cards gain Power equal to half this card's Power. Over the next 3 turns: affect adjacent -> allied -> all other cards and double the Power gained.";
+            const string rulebookDescription = "The effect of this sigil will change over the next 3 turns. This turn: do nothing.";
             const string dialogue = "From break and ruin, the most beautiful performance begins.";
 
             Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(
@@ -58,17 +59,21 @@ namespace WhistleWind.AbnormalSigils
          */
         public int GetPassiveAttackBuff(PlayableCard target)
         {
-            if (!base.Card.OnBoard || turnCount < 1 || target == base.Card)
+            // if not on board, target is base, target is opposing, or count is 0
+            if (!base.Card.OnBoard || target == base.Card || turnCount == 0)
                 return 0;
 
-            if (turnCount > 2)
-                return base.Card.Attack;
+            int attack = base.Card.Attack;
+            if (target.HasTrait(AbnormalPlugin.Orchestral))
+                attack++;
 
-            if (base.Card.Slot.GetAdjacentCards().Contains(target))
-                return Mathf.FloorToInt(base.Card.Attack / 2);
+            // at 3+ turns, give all other cards Power
+            if (turnCount >= 3)
+                return attack;
 
-            if (turnCount > 1 && target.OpponentCard == base.Card.OpponentCard)
-                return Mathf.FloorToInt(base.Card.Attack / 2);
+            // if adjacent or it's been 2 turns, give Power / 2
+            if (base.Card.Slot.GetAdjacentCards().Contains(target) || (turnCount >= 2 && target.OpponentCard == base.Card.OpponentCard))
+                return Mathf.FloorToInt(attack / 2);
 
             return 0;
         }

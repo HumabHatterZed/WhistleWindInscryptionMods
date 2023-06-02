@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 blood: 4, bones: 0, energy: 0,
                 Artwork.nothingThereFinal, Artwork.nothingThereFinal_emission,
                 abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new() { TribeAnthropoid }, traits: new(),
+                metaCategories: new(), tribes: null, traits: new(),
                 appearances: new(),
                 choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
 

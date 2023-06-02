@@ -11,12 +11,12 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_HappyTeddyBear_T0406()
         {
-            List<Ability> abilities = new() { Woodcutter.ability };
+            List<Ability> abilities = new() { Ability.GuardDog };
 
             CreateCard(
                 "wstl_happyTeddyBear", "Happy Teddy Bear",
                 "Its memories began with a warm hug.",
-                atk: 2, hp: 1,
+                atk: 1, hp: 6,
                 blood: 0, bones: 6, energy: 0,
                 Artwork.happyTeddyBear, Artwork.happyTeddyBear_emission,
                 abilities: abilities, specialAbilities: new(),

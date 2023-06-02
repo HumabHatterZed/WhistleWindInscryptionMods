@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod
         {
             List<Ability> abilities = new()
             {
-                OneSided.ability,
-                Piercing.ability
+                Piercing.ability,
+                OneSided.ability
             };
             List<SpecialTriggeredAbility> specialAbilities = new()
             {

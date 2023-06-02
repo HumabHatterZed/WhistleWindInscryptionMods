@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod
             specialAbilities.Add(CustomEvolveHelper.specialAbility);
 
             CreateCard(
-                "wstl_magicalGirlDiamond", "Magical Girl",
+                "wstl_magicalGirlDiamond", "The King of Greed",
                 "A girl encased in hardened amber. Happiness trapped by greed.",
                 atk: 0, hp: 2,
                 blood: 1, bones: 0, energy: 0,

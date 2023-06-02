@@ -19,11 +19,12 @@ namespace WhistleWindLobotomyMod
                 "wstl_redShoes", "Red Shoes",
                 "How pretty. Maybe they'll fit.",
                 atk: 0, hp: 3,
-                blood: 1, bones: 0, energy: 0,
+                blood: 0, bones: 3, energy: 0,
                 Artwork.redShoes, Artwork.redShoes_emission,
                 abilities: abilities, specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
+                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
+                metaTypes: CardHelper.CardMetaType.Terrain);
         }
     }
 }

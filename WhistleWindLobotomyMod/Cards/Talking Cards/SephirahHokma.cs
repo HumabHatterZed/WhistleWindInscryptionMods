@@ -80,7 +80,7 @@ namespace WhistleWindLobotomyMod
             LobotomyCardManager.CreateCard(
                 "wstl_sephirahHokma", "Hokma",
                 "All things will happen in time. Just have faith.",
-                atk: 2, hp: 2,
+                atk: 2, hp: 3,
                 blood: 2, bones: 0, energy: 0,
                 null, null,
                 abilities: abilities, specialAbilities: new(),

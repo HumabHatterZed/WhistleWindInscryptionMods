@@ -19,7 +19,8 @@ namespace WhistleWindLobotomyMod
                 Artwork.skeleton_can,
                 abilities: new(), specialAbilities: new(),
                 metaCategories: new(), tribes: new(), traits: new(),
-                evolveName: "[name]Crumpled Can of Aged WellCheers");
+                metaTypes: CardHelper.CardMetaType.Terrain,
+                evolveName: "[name]Rusted Can of WellCheers");
 
             List<Ability> abilities = new()
             {

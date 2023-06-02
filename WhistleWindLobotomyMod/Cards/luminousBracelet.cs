@@ -15,12 +15,12 @@ namespace WhistleWindLobotomyMod
             List<Ability> abilities = new()
             {
                 GreedyHealing.ability,
-                GiveSigils.AbilityID
+                GiveStatsSigils.AbilityID
             };
             CreateCard(
                 "wstl_luminousBracelet", "Luminous Bracelet",
                 "A bracelet that will heal those nearby. It does not forgive the greedy.",
-                atk: 0, hp: 0,
+                atk: 0, hp: 2,
                 blood: 0, bones: 0, energy: 2,
                 Artwork.luminousBracelet, Artwork.luminousBracelet_emission,
                 abilities: abilities, specialAbilities: new(),

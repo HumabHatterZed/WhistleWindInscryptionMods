@@ -1,5 +1,7 @@
 ﻿using DiskCardGame;
+using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
+using Steamworks;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -14,63 +16,83 @@ namespace WhistleWind.AbnormalSigils
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public static readonly string rName = "Spores";
-        public static readonly string rDesc = "At the end of its owner's turn, this card takes damage equal to its Spores. Create a Spore Mold Creature with stats equal to its Spores upon perishing.";
+        public static readonly string rDesc = "At the start of its owner's turn, this card takes damage equal to its Spores. Upon dying, create a Spore Mold Creature with stats equal to its Spores.";
 
-        public int spore;
-        public override bool RespondsToTurnEnd(bool playerTurnEnd)
+        public int spore = 1;
+        public int turnPlayed = -1;
+
+        private CardModificationInfo GetSporeStatusMod()
         {
-            if (base.PlayableCard != null)
-                return base.PlayableCard.OpponentCard != playerTurnEnd;
+            CardModificationInfo sporeStatusMod = new()
+            {
+                singletonId = "spore_status",
+                nonCopyable = true,
+            };
 
-            return false;
+            for (int i = 0; i < spore; i++)
+                sporeStatusMod.AddAbilities(StatusEffectSpores.ability);
+
+            return sporeStatusMod;
+        }
+        private CardModificationInfo GetSporeDecalMod()
+        {
+            return new()
+            {
+                singletonId = "spore_decal",
+                DecalIds = { $"wstl_spore_{Mathf.Min(2, spore - 1)}" },
+                nonCopyable = true,
+            };
+        }
+
+        public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard && base.PlayableCard.OpponentCard != playerUpkeep;
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.PlayableCard && base.PlayableCard.OpponentCard != playerTurnEnd;
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && spore > 0;
+
+        public override IEnumerator OnUpkeep(bool playerUpkeep)
+        {
+            yield return HelperMethods.ChangeCurrentView(View.Board);
+            yield return base.PlayableCard.TakeDamageTriggerless(spore, null);
+            yield return new WaitForSeconds(0.4f);
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            int num = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot)
-                .FindAll(s => s.Card != null && s.Card.HasAbility(Sporogenic.ability)).Count;
-
-            spore += num;
-
-            if (spore <= 0)
+            if (turnPlayed == Singleton<TurnManager>.Instance.TurnNumber)
                 yield break;
 
-            if (num > 0)
-            {
-                yield return HelperMethods.ChangeCurrentView(View.Board);
-                base.PlayableCard.Anim.LightNegationEffect();
-                if (spore <= 3)
-                {
-                    CardModificationInfo cardModificationInfo = new()
-                    {
-                        singletonId = "spore_status",
-                        DecalIds = { "wstl_spore_" + (spore - 1).ToString() },
-                        nonCopyable = true,
-                    };
-                    base.PlayableCard.Info.Mods.RemoveAll(x => x.singletonId == "spore_status");
-                    base.PlayableCard.Info.Mods.Add(cardModificationInfo);
-                }
-                yield return new WaitForSeconds(0.2f);
-            }
+            int newSpore = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot)
+                .FindAll(s => s.Card != null && s.Card.HasAbility(Sporogenic.ability)).Count;
 
-            if (spore > 0)
+            if (newSpore == 0)
+                yield break;
+
+            spore += newSpore;
+            yield return HelperMethods.ChangeCurrentView(View.Board);
+            base.PlayableCard.Anim.LightNegationEffect();
+            base.PlayableCard.Info.Mods.RemoveAll(x => x.singletonId == "spore_status");
+            base.PlayableCard.Info.Mods.Add(GetSporeStatusMod());
+            if (spore <= 3)
             {
-                yield return new WaitForSeconds(0.2f);
-                yield return base.PlayableCard.TakeDamageTriggerless(spore, null);
-                yield return new WaitForSeconds(0.4f);
+                base.PlayableCard.Info.Mods.RemoveAll(x => x.singletonId == "spore_decal");
+                base.PlayableCard.Info.Mods.Add(GetSporeDecalMod());
             }
+            base.PlayableCard.RenderCard();
+            yield return new WaitForSeconds(0.2f);
         }
-
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && spore > 0;
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             if (base.PlayableCard.Slot == null)
                 yield break;
 
             CardInfo minion = CardLoader.GetCardByName("wstl_theLittlePrinceMinion");
+            CardModificationInfo stats = new(spore, spore)
+            {
+                bloodCostAdjustment = base.PlayableCard.Info.BloodCost,
+                bonesCostAdjustment = base.PlayableCard.Info.BonesCost,
+                energyCostAdjustment = base.PlayableCard.Info.EnergyCost,
+                addGemCost = base.PlayableCard.Info.GemsCost
+            };
 
-            minion.SetCost(base.PlayableCard.Info.BloodCost, base.PlayableCard.Info.BonesCost, base.PlayableCard.Info.EnergyCost, base.PlayableCard.Info.GemsCost);
-
-            minion.Mods.Add(new(spore, spore));
+            minion.Mods.Add(stats);
 
             foreach (CardModificationInfo item in base.PlayableCard.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
@@ -87,34 +109,26 @@ namespace WhistleWind.AbnormalSigils
                 minion.Mods.Add(cardModificationInfo);
             }
 
-            foreach (Ability item in base.PlayableCard.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            foreach (Ability item in base.PlayableCard.Info.abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
                 minion.Mods.Add(new CardModificationInfo(item)); // Add base sigils
-
-            CardModificationInfo cardModificationInfo2 = new()
-            {
-                singletonId = "spore_status",
-                DecalIds = { "wstl_spore_" + (Mathf.Min(3, spore) - 1).ToString() },
-                nonCopyable = true,
-            };
-            minion.Mods.Add(cardModificationInfo2);
 
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(minion, base.PlayableCard.Slot, 0.15f);
         }
     }
-    public class RulebookSpores : AbilityBehaviour
+    public class StatusEffectSpores : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
     }
     public partial class AbnormalPlugin
     {
-        private void Rulebook_Spores()
+        private void StatusEffect_Spores()
         {
-            RulebookSpores.ability = AbnormalAbilityHelper.CreateAbility<RulebookSpores>(Artwork.sigilSpores, Artwork.sigilSpores_pixel, Spores.rName, Spores.rDesc, "", unobtainable: true).Id;
+            StatusEffectSpores.ability = AbnormalAbilityHelper.CreateAbility<StatusEffectSpores>(
+                Artwork.sigilSpores, Artwork.sigilSpores_pixel,
+                Spores.rName, Spores.rDesc, "",
+                canStack: true, statusEffect: "green").Id;
         }
-        private void SpecialAbility_Spores()
-        {
-            Spores.specialAbility = AbilityHelper.CreateSpecialAbility<Spores>(pluginGuid, Spores.rName).Id;
-        }
+        private void SpecialAbility_Spores() => Spores.specialAbility = AbilityHelper.CreateSpecialAbility<Spores>(pluginGuid, Spores.rName).Id;
     }
 }
