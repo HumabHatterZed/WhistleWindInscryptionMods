@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -14,10 +14,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Protector";
             const string rulebookDescription = "Creatures adjacent to this card take 1 less damage when struck.";
             const string dialogue = "Your beast shields its ally against the blow.";
-
+            const string triggerText = "[creature] shields its friend!";
             Protector.ability = AbnormalAbilityHelper.CreateAbility<Protector>(
-                Artwork.sigilProtector, Artwork.sigilProtector_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                "sigilProtector",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: false, opponent: false, canStack: true).Id;
         }
     }
@@ -30,13 +30,8 @@ namespace WhistleWind.AbnormalSigils
         {
             // only respond if the target hasn't died
             if (amount > 0 && target.NotDead())
-            {
-                foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Where(slot => slot.Card != null))
-                {
-                    if (slot.Card == target)
-                        return true;
-                }
-            }
+                return Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Contains(target.Slot);
+
             return false;
         }
         public override IEnumerator OnOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)

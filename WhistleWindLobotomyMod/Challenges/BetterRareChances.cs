@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 
 namespace WhistleWindLobotomyMod.Core.Challenges
 {
@@ -17,8 +17,8 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 "Better Rare Chances",
                 "Rare cards are more likely to appear at abnormal choice nodes.",
                 -10,
-                TextureLoader.LoadTextureFromBytes(Artwork.ascensionBetterRareChances),
-                TextureLoader.LoadTextureFromBytes(Artwork.ascensionBetterRareChances_activated)
+                TextureLoader.LoadTextureFromFile("ascensionBetterRareChances"),
+                TextureLoader.LoadTextureFromFile("ascensionBetterRareChances_activated")
                 ).Challenge.challengeType;
         }
     }

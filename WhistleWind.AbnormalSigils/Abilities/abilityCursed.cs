@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -15,9 +15,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Cursed";
             const string rulebookDescription = "When [creature] dies, the killer transforms into a copy of this card.";
             const string dialogue = "The curse continues unabated.";
+            const string triggerText = "[creature] passes the curse on.";
             Cursed.ability = AbnormalAbilityHelper.CreateAbility<Cursed>(
-                Artwork.sigilCursed, Artwork.sigilCursed_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
+                "sigilCursed",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 0,
                 modular: true, opponent: false, canStack: false).Id;
         }
     }

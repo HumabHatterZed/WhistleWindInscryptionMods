@@ -2,7 +2,7 @@
 using InscryptionAPI.Card;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookDescription = "[creature] deals 1 additional damage when striking a card that cannot attack it.";
             const string dialogue = "A cheap hit.";
             OneSided.ability = AbnormalAbilityHelper.CreateAbility<OneSided>(
-                Artwork.sigilOneSided, Artwork.sigilOneSided_pixel,
+                "sigilOneSided",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: true, opponent: true, canStack: true).Id;
         }

@@ -1,19 +1,27 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionCommunityPatch.Card;
+using Pixelplacement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches
 {
     [HarmonyPatch(typeof(PlayableCard))]
-    internal class PlayableCardPatches
+    internal class PlayableCardAbilityPatches
     {
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
         private static void ModifyTakenDamage(ref PlayableCard __instance, ref int damage, PlayableCard attacker)
@@ -75,22 +83,6 @@ namespace WhistleWind.AbnormalSigils.Patches
             return true;
         }
 
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.AttackIsBlocked))]
-        private static void PiercingNegatesRepulsive(PlayableCard __instance, CardSlot opposingSlot, ref bool __result)
-        {
-            if (!__result)
-                return;
-
-            if (__instance.HasAbility(Piercing.ability))
-            {
-                if (opposingSlot.Card != null && opposingSlot.Card.HasAbility(Ability.PreventAttack))
-                {
-                    if (__instance.LacksAbility(Ability.Flying) || opposingSlot.Card.HasAbility(Ability.Reach))
-                        __result = false;
-                }
-            }
-        }
-
         #region Neutered patches
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
         private static void ModifyAttackStat(PlayableCard __instance, ref int __result)
@@ -113,12 +105,18 @@ namespace WhistleWind.AbnormalSigils.Patches
         #endregion
     }
 
-    #region Sporogenic patch
-    [HarmonyPatch(typeof(GlobalTriggerHandler))]
-    internal class GlobalTriggerHandlerPatches
+    [HarmonyPatch]
+    internal class OtherAbilityPatches
     {
+        [HarmonyPostfix, HarmonyPatch(typeof(Deathtouch), nameof(Deathtouch.RespondsToDealDamage))]
+        private static void ImmunetoDeathTouch(ref bool __result, int amount, PlayableCard target)
+        {
+            if (amount > 0 && target != null && !target.Dead)
+                __result &= target.LacksTrait(AbnormalPlugin.ImmuneToInstaDeath);
+        }
+
         // Triggers card with Fungal Infector before other cards
-        [HarmonyPostfix, HarmonyPatch(nameof(GlobalTriggerHandler.TriggerCardsOnBoard))]
+        [HarmonyPostfix, HarmonyPatch(typeof(GlobalTriggerHandler), nameof(GlobalTriggerHandler.TriggerCardsOnBoard))]
         private static IEnumerator TriggerSporogenicFirst(IEnumerator enumerator, GlobalTriggerHandler __instance, Trigger trigger, bool triggerFacedown, params object[] otherArgs)
         {
             if (trigger == Trigger.TurnEnd)
@@ -150,19 +148,4 @@ namespace WhistleWind.AbnormalSigils.Patches
             yield return enumerator;
         }
     }
-    #endregion
-
-    #region ImmuneToInstaDeath patch
-    [HarmonyPatch(typeof(Deathtouch))]
-    internal class DeathtouchPatch
-    {
-        // Adds 
-        [HarmonyPostfix, HarmonyPatch(nameof(Deathtouch.RespondsToDealDamage))]
-        private static void ImmunetoDeathTouch(ref bool __result, int amount, PlayableCard target)
-        {
-            if (amount > 0 && target != null && !target.Dead)
-                __result &= target.LacksTrait(AbnormalPlugin.ImmuneToInstaDeath);
-        }
-    }
-    #endregion
 }

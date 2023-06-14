@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -11,19 +12,19 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_DimensionalRefraction_O0388()
         {
-            List<Ability> abilities = new() { Ability.RandomAbility };
+            const string dimensionalRefraction = "dimensionalRefraction";
 
-            CreateCard(
-                "wstl_dimensionalRefraction", "Dimensional Refraction Variant",
+            CardInfo card = NewCard(
+                dimensionalRefraction,
+                "Dimensional Refraction Variant",
                 "A strange phenomenon. Or rather, the creature is the phenomena in and of itself.",
-                atk: 0, hp: 0,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.dimensionalRefraction, Artwork.dimensionalRefraction_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                statIcon: SigilPower.Icon,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                evolveName: "4th {0}");
+                attack: 0, health: 0, blood: 2)
+                .SetPortraits(dimensionalRefraction)
+                .AddAbilities(Ability.RandomAbility)
+                .SetStatIcon(SigilPower.Icon)
+                .SetEvolveInfo("4th {0}");
+
+            CreateCard(card, CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

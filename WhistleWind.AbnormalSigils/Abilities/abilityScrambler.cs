@@ -3,7 +3,7 @@ using Infiniscryption.Spells.Patchers;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -20,7 +20,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "Do you love your city?";
 
             Scrambler.ability = AbnormalAbilityHelper.CreateAbility<Scrambler>(
-                Artwork.sigilScrambler, Artwork.sigilScrambler_pixel,
+                "sigilScrambler",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false).Id;
         }

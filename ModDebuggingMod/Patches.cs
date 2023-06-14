@@ -1,16 +1,22 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using Sirenix.Utilities;
+using MonoMod.Utils;
 
 namespace ModDebuggingMod
 {
+
     // Adds predefined nodes for testing
     [HarmonyPatch]
-    public static class DebugPatches
+    internal static class DebugPatches
     {
         [HarmonyPatch(typeof(PaperGameMap), "TryInitializeMapData")]
-        public static void Prefix(ref PaperGameMap __instance)
+        private static void Prefix(ref PaperGameMap __instance)
         {
             if (false || RunState.Run.map != null)
                 return;
@@ -30,6 +36,10 @@ namespace ModDebuggingMod
         [HarmonyPatch(typeof(Part3SaveData), nameof(Part3SaveData.Initialize))]
         private static void Postfix(ref Part3SaveData __instance)
         {
+            __instance.deck.Cards.Clear();
+            __instance.deck.AddCard(CardLoader.GetCardByName("Squirrel"));
+            __instance.deck.AddCard(CardLoader.GetCardByName("Squirrel"));
+            __instance.deck.AddCard(CardLoader.GetCardByName("Squirrel"));
             /*            __instance.deck.Cards.Clear();
                         __instance.deck.AddCard(CardLoader.GetCardByName("arackulele.inscryption.grimoramod Combustor"));
                         __instance.deck.AddCard(CardLoader.GetCardByName("arackulele.inscryption.grimoramod UndeadCivilian"));
@@ -38,7 +48,7 @@ namespace ModDebuggingMod
         }
 
         [HarmonyPatch(typeof(SaveFile), nameof(SaveFile.ResetPart1Run))]
-        public static void Postfix(SaveFile __instance) => __instance.currentRun.consumables = customItems;
+        private static void Postfix(SaveFile __instance) => __instance.currentRun.consumables = customItems;
 
         //        [HarmonyPatch(typeof(AscensionSaveData), nameof(AscensionSaveData.NewRun))]
         //        public static void Postfix(AscensionSaveData __instance) => __instance.currentRun.consumables = customItems;

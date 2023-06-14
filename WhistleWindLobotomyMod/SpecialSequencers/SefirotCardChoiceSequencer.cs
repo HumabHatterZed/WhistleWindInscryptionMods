@@ -10,7 +10,7 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,12 +18,12 @@ namespace WhistleWindLobotomyMod
     {
         private void Node_SefirotCardChoice()
         {
-            List<byte[]> animationFrames = new()
+            List<string> animationFrames = new()
             {
-                Artwork.nodeSefirotCardChoice1,
-                Artwork.nodeSefirotCardChoice2,
-                Artwork.nodeSefirotCardChoice3,
-                Artwork.nodeSefirotCardChoice4
+                "nodeSefirotCardChoice1",
+                "nodeSefirotCardChoice2",
+                "nodeSefirotCardChoice3",
+                "nodeSefirotCardChoice4"
             };
 
             GenerationType main = GenerationType.SpecialCardChoice;
@@ -147,7 +147,7 @@ namespace WhistleWindLobotomyMod
                         components[j].OnShownForCardChoiceNode();
                     }
 
-                    card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.sefirotRewardBack));
+                    card.SetCardback(TextureLoader.LoadTextureFromFile("sefirotRewardBack"));
                     card.SetFaceDown(faceDown: true, immediate: true);
 
                     Vector3 position = card.transform.position;

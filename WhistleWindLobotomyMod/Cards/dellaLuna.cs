@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -11,19 +12,19 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_DellaLuna_D01105()
         {
-            List<Ability> abilities = new() { GroupHealer.ability };
-            List<Tribe> tribes = new() { Tribe.Bird };
+            const string dellaLuna = "dellaLuna";
 
-            CreateCard(
-                "wstl_dellaLuna", "Il Pianto della Luna",
+            CardInfo luna = NewCard(
+                dellaLuna,
+                "Il Pianto della Luna",
                 "In reality, man despairs at [c:bR]the moon[c:].",
-                atk: 2, hp: 7,
-                blood: 3, bones: 0, energy: 0,
-                Artwork.dellaLuna, Artwork.dellaLuna_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                evolveName: "{0} Maggiore", modTypes: ModCardType.Donator);
+                attack: 2, health: 7, blood: 3)
+                .SetPortraits(dellaLuna)
+                .AddAbilities(GroupHealer.ability)
+                .AddTribes(Tribe.Bird)
+                .SetEvolveInfo("{0} Maggiore");
+
+            CreateCard(luna, CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Donator);
         }
     }
 }

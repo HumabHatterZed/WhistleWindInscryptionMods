@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using Pixelplacement;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace WhistleWind.Core.Helpers
         {
             // Remove from deck if this card is owned by the player
             if (removeFromDeck && !item.OpponentCard && !item.OriginatedFromQueue)
-                RunState.Run.playerDeck.RemoveCard(item.Info);
+                HelperMethods.RemoveCardFromDeck(item.Info);
 
             item.UnassignFromSlot();
             SpecialCardBehaviour[] components = item.GetComponents<SpecialCardBehaviour>();
@@ -24,7 +25,16 @@ namespace WhistleWind.Core.Helpers
             {
                 components[i].OnCleanUp();
             }
-            item.ExitBoard(tweenLength, Vector3.zero);
+
+            if (SaveManager.SaveFile.IsPart2)
+            {
+                Tween.Position(item.transform, item.transform.position + Vector3.up * (item.OpponentCard ? 2f : -2f), 0.25f, 0f, Tween.EaseIn, Tween.LoopType.None, null, delegate
+                {
+                    UnityEngine.Object.Destroy(item.gameObject);
+                });
+            }
+            else
+                item.ExitBoard(tweenLength, Vector3.zero);
         }
         /// <summary>
         /// Kills this card without triggering OnDie or OnOtherCardDie. Triggers OnDie if it has the PackMule special ability.

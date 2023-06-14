@@ -1,7 +1,8 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -10,30 +11,31 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Ppodae_D02107()
         {
-            List<Ability> abilities = new() { Ability.DebuffEnemy };
-            List<Tribe> tribes = new() { Tribe.Canine };
+            const string name = "Ppodae";
+            const string ppodae = "ppodae";
+            const string ppodaeBuff = "ppodaeBuff";
+            Tribe[] tribes = new[] { Tribe.Canine };
 
-            CreateCard(
-                "wstl_ppodaeBuff", "Ppodae",
-                "",
-                atk: 3, hp: 2,
-                blood: 0, bones: 8, energy: 0,
-                Artwork.ppodaeBuff, Artwork.ppodaeBuff_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new());
+            CardInfo ppodaeBuffCard = NewCard(
+                ppodaeBuff,
+                name,
+                attack: 3, health: 2, bones: 8)
+                .SetPortraits(ppodaeBuff)
+                .AddAbilities(Ability.DebuffEnemy)
+                .AddTribes(tribes);
 
-            abilities.Add(Ability.Evolve);
-
-            CreateCard(
-                "wstl_ppodae", "Ppodae",
+            CardInfo ppodaeCard = NewCard(
+                ppodae,
+                name,
                 "An innocent little puppy.",
-                atk: 1, hp: 1,
-                blood: 0, bones: 4, energy: 0,
-                Artwork.ppodae, Artwork.ppodae_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                modTypes: ModCardType.Donator, evolveName: "wstl_ppodaeBuff");
+                attack: 1, health: 1, bones: 4)
+                .SetPortraits(ppodae)
+                .AddAbilities(Ability.DebuffEnemy, Ability.Evolve)
+                .AddTribes(tribes)
+                .SetEvolveInfo("wstl_ppodaeBuff");
+
+            CreateCard(ppodaeBuffCard);
+            CreateCard(ppodaeCard, CardHelper.ChoiceType.Common, RiskLevel.Teth, ModCardType.Donator);
         }
     }
 }

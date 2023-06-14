@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using WhistleWind.Core.Helpers;
+using WhistleWind.AbnormalSigils.Core;
 
 namespace WhistleWind.AbnormalSigils.Patches
 {
@@ -37,6 +37,7 @@ namespace WhistleWind.AbnormalSigils.Patches
                 return true;
             }
         }
+
         private static readonly List<string> ConductorDescriptions = new()
         {
             "Adjacent creatures gain Power equal to half this card's Power, rounded down. This effect changes next turn.",

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -17,9 +17,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Nettle Clothes";
             const string rulebookDescription = "When this card is played, fill all empty spaces on the owner's side of the board with random Brothers. This card gains the first sigil of each allied Brother.";
             const string dialogue = "These clothes will surely restore our happy days.";
+            const string triggerText = "[creature] brings out its family!";
             Nettles.ability = AbnormalAbilityHelper.CreateAbility<Nettles>(
-                Artwork.sigilNettles, Artwork.sigilNettles_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
+                "sigilNettles",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }

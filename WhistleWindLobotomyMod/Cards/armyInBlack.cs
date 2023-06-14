@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -11,28 +12,25 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ArmyInBlack_D01106()
         {
-            CreateCard(
-                "wstl_armyInBlack", "Army in Black",
-                "Duty-bound.",
-                atk: 3, hp: 3,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.armyInBlack, Artwork.armyInBlack_emission,
-                abilities: new() { Volatile.ability, Ability.Brittle }, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
+            const string blackName = "Army in Black";
+            const string armyInBlack = "armyInBlack";
 
-            CreateCard(
-                "wstl_armyInBlackSpell", "Army in Black",
-                "Duty-bound.",
-                atk: 0, hp: 0,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.armyInBlack, Artwork.armyInBlack_emission,
-                abilities: new() { Volatile.ability }, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
-                spellType: SpellType.Targeted);
+            CardInfo army = NewCard(
+                armyInBlack,
+                blackName,
+                attack: 3, health: 3, blood: 2)
+                .SetPortraits(armyInBlack)
+                .AddAbilities(Volatile.ability, Ability.Brittle);
+
+            CardInfo armySpell = NewCard(
+                "armyInBlackSpell",
+                blackName)
+                .SetPortraits(armyInBlack)
+                .AddAbilities(Volatile.ability)
+                .SetSpellType(SpellType.Targeted);
+
+            CreateCard(army, CardHelper.ChoiceType.Rare, nonChoice: true);
+            CreateCard(armySpell, CardHelper.ChoiceType.Rare, nonChoice: true);
         }
     }
 }

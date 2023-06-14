@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -15,9 +15,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Copycat";
             const string rulebookDescription = "This gains the sigils and stats of the first card to be played in the opposing space.";
             const string dialogue = "A near perfect impersonation.";
+            const string triggerText = "[creature] tries to mimick the opposing creature.";
             Copycat.ability = AbnormalAbilityHelper.CreateAbility<Copycat>(
-                Artwork.sigilCopycat, Artwork.sigilCopycat_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                "sigilCopycat",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: true, opponent: true, canStack: false).Id;
         }
     }

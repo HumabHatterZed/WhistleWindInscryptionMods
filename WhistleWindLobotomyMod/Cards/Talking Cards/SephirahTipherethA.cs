@@ -1,14 +1,18 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
+using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,36 +29,36 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromBytes(Artwork.talkingTipherethABody, new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingTipherethAEmission1);
-                FaceAnim emissionSurprise = MakeFaceAnim(Artwork.talkingTipherethAEmission2);
+                Sprite face = LoadSpriteFromFile("talkingTipherethABody", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingTipherethAEmission1");
+                FaceAnim emissionSurprise = MakeFaceAnim("talkingTipherethAEmission2");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingTipherethAEyesOpen1, Artwork.talkingTipherethAEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingTipherethAMouthOpen1, Artwork.talkingTipherethAMouthClosed1),
+                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen1", "talkingTipherethAEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen1", "talkingTipherethAMouthClosed1"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingTipherethAEyesOpen1, Artwork.talkingTipherethAEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingTipherethAMouthOpen2, Artwork.talkingTipherethAMouthClosed2),
+                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen1", "talkingTipherethAEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen2", "talkingTipherethAMouthClosed2"),
                         emission: emissionMain),
                     new(emotion: Emotion.Surprise,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingTipherethAEyesOpen2, Artwork.talkingTipherethAEyesClosed2),
-                        mouth: MakeFaceAnim(Artwork.talkingTipherethAMouthOpen3, Artwork.talkingTipherethAMouthClosed3),
+                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen2", "talkingTipherethAEyesClosed2"),
+                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen3", "talkingTipherethAMouthClosed3"),
                         emission: emissionSurprise),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingTipherethAEyesOpen3, Artwork.talkingTipherethAEyesClosed3),
-                        mouth: MakeFaceAnim(Artwork.talkingTipherethAMouthOpen4, Artwork.talkingTipherethAMouthClosed4),
+                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen3", "talkingTipherethAEyesClosed3"),
+                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen4", "talkingTipherethAMouthClosed4"),
                         emission: emissionMain),
                     new(emotion: Emotion.Quiet,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingTipherethAEyesOpen4, Artwork.talkingTipherethAEyesClosed4),
-                        mouth: MakeFaceAnim(Artwork.talkingTipherethAMouthOpen5, Artwork.talkingTipherethAMouthClosed1),
+                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen4", "talkingTipherethAEyesClosed4"),
+                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen5", "talkingTipherethAMouthClosed1"),
                         emission: emissionMain),
                 };
             }
@@ -87,18 +91,17 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_TipherethA()
         {
-            List<Ability> abilities = new() { GiftGiver.ability };
-
-            LobotomyCardManager.CreateCard(
-                "wstl_sephirahTipherethA", "Tiphereth",
+            CardInfo tipherethACard = NewCard(
+                "sephirahTipherethA",
+                "Tiphereth",
                 "One of a pair of twins. Don't underestimate her capabilities.",
-                atk: 1, hp: 2,
-                blood: 0, bones: 0, energy: 4,
-                null, null,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
-                appearances: new(), onePerDeck: true)
+                attack: 1, health: 2, energy: 4)
+                .AddAbilities(GiftGiver.ability)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck()
                 .SetExtendedProperty("wstl:GiftGiver", "wstl_sephirahTipherethB");
+
+            CreateCard(tipherethACard);
         }
     }
 }

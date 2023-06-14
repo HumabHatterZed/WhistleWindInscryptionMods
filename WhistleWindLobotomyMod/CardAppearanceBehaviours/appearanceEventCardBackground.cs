@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,11 +15,11 @@ namespace WhistleWindLobotomyMod
     public class EventBackground : CardAppearanceBehaviour
     {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromBytes(Artwork.eventCardBackground);
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("eventCardBackground");
     }
     public class RareEventBackground : CardAppearanceBehaviour
     {
         public static Appearance appearance;
-        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromBytes(Artwork.eventCardBackgroundRare);
+        public override void ApplyAppearance() => base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("eventCardBackgroundRare");
     }
 }

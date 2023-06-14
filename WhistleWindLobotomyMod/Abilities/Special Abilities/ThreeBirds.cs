@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace WhistleWindLobotomyMod
             CardSlot punishingBird = null;
             CardSlot judgementBird = null;
 
-            foreach (CardSlot slot in HelperMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+            foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(!base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 if (slot.Card.Info.name == "wstl_punishingBird")
                     punishingBird = slot;
@@ -100,7 +101,7 @@ namespace WhistleWindLobotomyMod
             CardInfo info = CardLoader.GetCardByName("wstl_apocalypseBird");
             if (opponentCard)
             {
-                List<CardSlot> validSlots = HelperMethods.GetSlotsCopy(opponentCard).FindAll(x => x.Card == null);
+                List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
                 if (validSlots.Count > 0)
                 {
                     HelperMethods.ChangeCurrentView(View.Board, 0.4f);

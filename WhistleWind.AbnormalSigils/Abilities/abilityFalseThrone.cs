@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
 
@@ -16,9 +16,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "False Throne";
             const string rulebookDescription = "Once per turn, pay 1 Health to give Neutered to a chosen creature, then create a free, unaltered copy of it in your hand.";
             const string dialogue = "A simple little magic trick.";
+            const string triggerText = "[creature] gives a false present to the chosen creature.";
             FalseThrone.ability = AbnormalAbilityHelper.CreateActivatedAbility<FalseThrone>(
-                Artwork.sigilFalseThrone, Artwork.sigilFalseThrone_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5, special: true).Id;
+                "sigilFalseThrone",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5, special: true).Id;
         }
     }
     public class FalseThrone : ActivatedSelectSlotBehaviour
@@ -36,7 +37,13 @@ namespace WhistleWind.AbnormalSigils
             if (slot != null && slot.Card != null)
             {
                 CardInfo cardInfo = slot.Card.Info.Clone() as CardInfo;
-                cardInfo.Mods = new(slot.Card.Info.Mods);
+                foreach (CardModificationInfo mod in cardInfo.Mods)
+                {
+                    mod.bloodCostAdjustment = 0;
+                    mod.bonesCostAdjustment = 0;
+                    mod.energyCostAdjustment = 0;
+                    mod.addGemCost = new();
+                }
                 cardInfo.SetCost(0, 0, 0, new());
 
                 slot.Card.Anim.LightNegationEffect();

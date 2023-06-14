@@ -103,7 +103,7 @@ namespace WhistleWindLobotomyMod
                 yield return DialogueHelper.PlayDialogueEvent("MagicalGirlHeartTransform");
             else
             {
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Good cannot exist without evil.");
+                yield return DialogueHelper.ShowUntilInput("Good cannot exist without evil.");
                 yield return new WaitForSeconds(0.2f);
             }
         }

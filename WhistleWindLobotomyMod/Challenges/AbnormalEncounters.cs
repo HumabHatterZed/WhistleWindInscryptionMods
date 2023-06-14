@@ -2,7 +2,7 @@
 using HarmonyLib;
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
 
 namespace WhistleWindLobotomyMod.Core.Challenges
@@ -19,8 +19,8 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 "Abnormal Encounters",
                 "All regular battles will only use abnormality cards.",
                 15,
-                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalEncounters),
-                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalEncounters_activated)
+                TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters"),
+                TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters_activated")
                 ).Challenge.challengeType;
 
             // Do later?

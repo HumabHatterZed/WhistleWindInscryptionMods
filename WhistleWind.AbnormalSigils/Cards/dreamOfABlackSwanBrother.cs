@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -9,72 +9,75 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_SwanBrothers_F0270()
         {
-            List<Tribe> tribes = new() { TribeAnthropoid };
-            List<Trait> traits = new() { SwanBrother };
+            const string dreamOfABlackSwanBrother1 = "dreamOfABlackSwanBrother1";
+            const string dreamOfABlackSwanBrother2 = "dreamOfABlackSwanBrother2";
+            const string dreamOfABlackSwanBrother3 = "dreamOfABlackSwanBrother3";
+            const string dreamOfABlackSwanBrother4 = "dreamOfABlackSwanBrother4";
+            const string dreamOfABlackSwanBrother5 = "dreamOfABlackSwanBrother5";
+            const string dreamOfABlackSwanBrother6 = "dreamOfABlackSwanBrother6";
+            Tribe[] tribes = new[] { TribeAnthropoid };
+            Trait[] traits = new[] { SwanBrother };
+            CardAppearanceBehaviour.Appearance[] appearances = new[] { CardAppearanceBehaviour.Appearance.TerrainLayout };
 
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.TerrainLayout
-            };
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_dreamOfABlackSwanBrother1", "First Brother",
-                "What happens when the black swan wakes up from dreaming of a white swan?",
-                atk: 0, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.dreamOfABlackSwanBrother1, pixelTexture: Artwork.dreamOfABlackSwanBrother1_pixel,
-                abilities: new() { Ability.DoubleStrike },
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances);
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_dreamOfABlackSwanBrother2", "Second Brother",
-                "What happens when the black swan wakes up from dreaming of a white swan?",
-                atk: 0, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.dreamOfABlackSwanBrother2, pixelTexture: Artwork.dreamOfABlackSwanBrother2_pixel,
-                abilities: new() { Piercing.ability },
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances);
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_dreamOfABlackSwanBrother3", "Third Brother",
-                "What happens when the black swan wakes up from dreaming of a white swan?",
-                atk: 0, hp: 2,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.dreamOfABlackSwanBrother3, pixelTexture: Artwork.dreamOfABlackSwanBrother3_pixel,
-                abilities: new() { Reflector.ability },
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances);
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_dreamOfABlackSwanBrother4", "Fourth Brother",
-                "What happens when the black swan wakes up from dreaming of a white swan?",
-                atk: 0, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.dreamOfABlackSwanBrother4, pixelTexture: Artwork.dreamOfABlackSwanBrother4_pixel,
-                abilities: new() { Ability.Deathtouch }, metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances);
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_dreamOfABlackSwanBrother5", "Fifth Brother",
-                "What happens when the black swan wakes up from dreaming of a white swan?",
-                atk: 0, hp: 2,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.dreamOfABlackSwanBrother5, pixelTexture: Artwork.dreamOfABlackSwanBrother5_pixel,
-                abilities: new() { Scorching.ability },
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances);
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_dreamOfABlackSwanBrother6", "Sixth Brother",
-                "What happens when the black swan wakes up from dreaming of a white swan?",
-                atk: 0, hp: 2,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.dreamOfABlackSwanBrother6, pixelTexture: Artwork.dreamOfABlackSwanBrother6_pixel,
-                abilities: new() { ThickSkin.ability },
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances);
+            CreateCard(MakeCard(
+                cardName: dreamOfABlackSwanBrother1,
+                "First Brother",
+                attack: 0, health: 1, blood: 1)
+                .SetPortraits(dreamOfABlackSwanBrother1)
+                .AddAbilities(Ability.DoubleStrike)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances));
+
+            CreateCard(MakeCard(
+                cardName: dreamOfABlackSwanBrother2,
+                "Second Brother",
+                attack: 0, health: 1, blood: 1)
+                .SetPortraits(dreamOfABlackSwanBrother2)
+                .AddAbilities(Piercing.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances));
+
+            CreateCard(MakeCard(
+                cardName: dreamOfABlackSwanBrother3,
+                "Third Brother",
+                attack: 0, health: 2, blood: 1)
+                .SetPortraits(dreamOfABlackSwanBrother3)
+                .AddAbilities(Reflector.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances));
+
+            CreateCard(MakeCard(
+                cardName: dreamOfABlackSwanBrother4,
+                "Fourth Brother",
+                attack: 0, health: 1, blood: 1)
+                .SetPortraits(dreamOfABlackSwanBrother4)
+                .AddAbilities(Ability.Deathtouch)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances));
+
+            CreateCard(MakeCard(
+                cardName: dreamOfABlackSwanBrother5,
+                "Fifth Brother",
+                attack: 0, health: 1, blood: 1)
+                .SetPortraits(dreamOfABlackSwanBrother5)
+                .AddAbilities(Scorching.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances));
+
+            CreateCard(MakeCard(
+                cardName: dreamOfABlackSwanBrother6,
+                "Sixth Brother",
+                attack: 0, health: 1, blood: 1)
+                .SetPortraits(dreamOfABlackSwanBrother6)
+                .AddAbilities(ThickSkin.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances));
         }
     }
 }

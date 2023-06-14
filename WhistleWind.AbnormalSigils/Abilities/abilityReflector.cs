@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,9 +13,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Reflector";
             const string rulebookDescription = "When this card is struck, the striker is dealt damage equal to the striker's Power.";
             const string dialogue = "What goes around comes around.";
+            const string triggerText = "[creature] returns the damage.";
             Reflector.ability = AbnormalAbilityHelper.CreateAbility<Reflector>(
-                Artwork.sigilReflector, Artwork.sigilReflector_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                "sigilReflector",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: true, opponent: false, canStack: false).Id;
         }
     }

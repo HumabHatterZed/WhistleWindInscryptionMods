@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -15,10 +15,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Regenerator";
             const string rulebookDescription = "At the start of its owner's turn, this card heals adjacent cards by 1 Health.";
             const string dialogue = "Wounds heal, but the scars remain.";
-
+            const string triggerText = "[creature] heals adjacent creatures.";
             Regenerator.ability = AbnormalAbilityHelper.CreateAbility<Regenerator>(
-                Artwork.sigilRegenerator, Artwork.sigilRegenerator_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                "sigilRegenerator",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: true, opponent: false, canStack: true).Id;
         }
     }
@@ -39,7 +39,7 @@ namespace WhistleWind.AbnormalSigils
                 if (slot.Card.Health < slot.Card.MaxHealth)
                 {
                     bool faceDown = slot.Card.FaceDown;
-                    yield return slot.Card.FlipFaceUp(faceDown, 0.4f);
+                    yield return slot.Card.FlipFaceUp(false, 0.4f);
                     slot.Card.Anim.LightNegationEffect();
                     slot.Card.HealDamage(1);
                     yield return new WaitForSeconds(0.2f);

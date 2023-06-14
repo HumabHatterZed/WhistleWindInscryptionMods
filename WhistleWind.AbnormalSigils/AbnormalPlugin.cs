@@ -5,19 +5,21 @@ using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
+using InscryptionAPI.PixelCard;
 using InscryptionAPI.Resource;
 using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
-using WhistleWind.AbnormalSigils.Properties;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
     [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("community.inscryption.patch", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.spells", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("tribes.libary", BepInDependency.DependencyFlags.SoftDependency)]
 
@@ -64,7 +66,6 @@ namespace WhistleWind.AbnormalSigils
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
                 AddResources();
-
                 AbnormalDialogueManager.GenerateDialogueEvents();
 
                 InitTribes();
@@ -86,38 +87,36 @@ namespace WhistleWind.AbnormalSigils
             }
             else
             {
-                TribeAnthropoid = TribeManager.Add(pluginGuid, "AnthropoidTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeAnthropoid), true, null);
-                TribeBotanic = TribeManager.Add(pluginGuid, "BotanicalTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeBotanic), true, null);
-                TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeDivine), true, null);
-                TribeFae = TribeManager.Add(pluginGuid, "FaerieTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeFae), true, null);
-                TribeMechanical = TribeManager.Add(pluginGuid, "MechanicalTribe", TextureLoader.LoadTextureFromBytes(Artwork.tribeMechanical), true, null);
+                Texture2D anthro = TextureLoader.LoadTextureFromFile("tribeAnthropoid");
+                Texture2D botanical = TextureLoader.LoadTextureFromFile("tribeBotanic");
+                Texture2D divine = TextureLoader.LoadTextureFromFile("tribeDivine");
+                Texture2D fae = TextureLoader.LoadTextureFromFile("tribeFae");
+                Texture2D mechanic = TextureLoader.LoadTextureFromFile("tribeMechanical");
+
+                TribeAnthropoid = TribeManager.Add(pluginGuid, "AnthropoidTribe", anthro, true, null);
+                TribeBotanic = TribeManager.Add(pluginGuid, "BotanicalTribe", botanical, true, null);
+                TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", divine, true, null);
+                TribeFae = TribeManager.Add(pluginGuid, "FaerieTribe", fae, true, null);
+                TribeMechanical = TribeManager.Add(pluginGuid, "MechanicalTribe", mechanic, true, null);
             }
         }
 
         private void AddResources()
         {
-            Dictionary<string, List<byte[]>> decals = new()
+            List<string> decalStrings = new()
             {
-                { "wstl_spore", new() {
-                    Artwork.decalSpore_0,
-                    Artwork.decalSpore_1,
-                    Artwork.decalSpore_2
-                }},
-                { "wstl_worms", new() {
-                    Artwork.decalWorms_0,
-                    Artwork.decalWorms_1,
-                    Artwork.decalWorms_2
-                }}
+                "decalSpore",
+                "decalWorms"
             };
-            foreach (KeyValuePair<string, List<byte[]>> resources in decals)
+
+            foreach (string name in decalStrings)
             {
-                for (int i = 0; i < resources.Value.Count; i++)
+                for (int i = 0; i < 3; i++)
                 {
-                    ResourceBankManager.Add(pluginGuid, new ResourceBank.Resource()
-                    {
-                        path = $"Art/Cards/Decals/{resources.Key}_{i}",
-                        asset = TextureLoader.LoadTextureFromBytes(resources.Value[i])
-                    });
+                    string resource = $"{name}_{i}";
+                    Texture2D texture = TextureLoader.LoadTextureFromFile($"{resource}");
+                    ResourceBankManager.AddDecal(pluginGuid, resource, texture);
+                    PixelCardManager.AddGBCDecal(pluginGuid, resource, texture);
                 }
             }
         }
@@ -150,6 +149,7 @@ namespace WhistleWind.AbnormalSigils
             Ability_Healer();
             Ability_QueenNest();
             Ability_BitterEnemies();
+            Ability_Persistent();
             Ability_Courageous();
 
             Ability_SerpentsNest();
@@ -217,5 +217,17 @@ namespace WhistleWind.AbnormalSigils
             }
 
         }
+
+        public static CardInfo MakeCard(
+            string cardName, string displayName = null,
+            string description = null,
+            int attack = 0, int health = 0,
+            int blood = 0, int bones = 0, int energy = 0
+            )
+        {
+            return CardHelper.NewCard(false, pluginPrefix, cardName, displayName, description, attack, health, blood, bones, energy);
+        }
+
+        public static void CreateCard(CardInfo cardInfo) => CardManager.Add(pluginPrefix, cardInfo);
     }
 }

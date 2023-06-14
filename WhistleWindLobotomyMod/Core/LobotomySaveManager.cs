@@ -24,6 +24,11 @@ namespace WhistleWindLobotomyMod.Core
             get => GetRunBool("UsedBackwardClock");
             set => SetRunBool("UsedBackwardClock", value);
         }
+        public static bool UsedBackwardClockGBC
+        {
+            get => GetSaveBool("UsedBackwardClockGBC");
+            set => SetSaveBool("UsedBackwardClockGBC", value);
+        }
         public static bool TriggeredWhiteNightThisRun
         {
             // Has the Clock struck twelve this run?

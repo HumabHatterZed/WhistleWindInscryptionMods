@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -14,10 +14,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Greedy Healing";
             const string rulebookDescription = "At the end of its owner's turn, this card gains 2 Health. If 2 turns pass without this card taking damage, it will die.";
             const string dialogue = "Your beast has Health in excess.";
-
+            const string triggerText = "[creature] gives itself more Health!";
             GreedyHealing.ability = AbnormalAbilityHelper.CreateAbility<GreedyHealing>(
-                Artwork.sigilGreedyHealing, Artwork.sigilGreedyHealing_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                "sigilGreedyHealing",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: true, opponent: false, canStack: false).Id;
         }
     }
@@ -38,7 +38,8 @@ namespace WhistleWind.AbnormalSigils
 
             bool faceDown = base.Card.FaceDown;
 
-            yield return base.Card.FlipFaceUp(faceDown);
+            // flip up
+            yield return base.Card.FlipFaceDown(false);
 
             if (turnCount < 2)
             {
@@ -46,6 +47,8 @@ namespace WhistleWind.AbnormalSigils
                 base.Card.HealDamage(2);
                 yield return new WaitForSeconds(0.3f);
                 yield return base.LearnAbility();
+                
+                // if we were submerged at the start, resubmerge
                 yield return base.Card.FlipFaceDown(faceDown);
                 yield break;
             }

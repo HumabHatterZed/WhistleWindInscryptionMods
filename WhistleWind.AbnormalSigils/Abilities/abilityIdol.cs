@@ -3,7 +3,7 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "My beasts defer to you.";
 
             Idol.ability = AbnormalAbilityHelper.CreateAbility<Idol>(
-                Artwork.sigilIdol, Artwork.sigilIdol_pixel,
+                "sigilIdol",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
                 modular: false, opponent: false, canStack: true).Id;
         }

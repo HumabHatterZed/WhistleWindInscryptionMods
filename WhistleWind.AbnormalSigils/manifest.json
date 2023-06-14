@@ -5,6 +5,6 @@
 	"description": "A collection of sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina. Includes some custom Tribes and Traits.",
 	"dependencies": [
 		"BepInEx-BepInExPack_Inscryption-5.4.1902",
-		"API_dev-API-2.13.4"
+		"API_dev-API-2.14.0"
 	]
 }

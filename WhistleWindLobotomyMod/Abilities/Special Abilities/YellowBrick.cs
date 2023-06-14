@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace WhistleWindLobotomyMod
             List<PlayableCard> cardsOnBoard = new() { null, null, null, null, null };
 
             // check cards on the board first
-            foreach (CardSlot slot in HelperMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+            foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(!base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 string cardName = slot.Card.Info.name;
                 if (slot == base.PlayableCard.Slot)
@@ -103,7 +104,7 @@ namespace WhistleWindLobotomyMod
             CardInfo info = CardLoader.GetCardByName("wstl_lyingAdult");
             if (opponentCard)
             {
-                List<CardSlot> validSlots = HelperMethods.GetSlotsCopy(opponentCard).FindAll(x => x.Card == null);
+                List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
                 if (validSlots.Count > 0)
                 {
                     Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue, lockAfter: true);

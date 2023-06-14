@@ -3,7 +3,7 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "My beasts are incensed by your creature's presence.";
 
             Aggravating.ability = AbnormalAbilityHelper.CreateAbility<Aggravating>(
-                Artwork.sigilAggravating, Artwork.sigilAggravating_pixel,
+                "sigilAggravating",
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
                 modular: false, opponent: false, canStack: true).Id;
         }

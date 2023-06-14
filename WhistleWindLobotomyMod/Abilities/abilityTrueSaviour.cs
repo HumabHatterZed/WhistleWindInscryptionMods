@@ -8,7 +8,7 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
 
             TrueSaviour.ability = LobotomyAbilityHelper.CreateAbility<TrueSaviour>(
-                Artwork.sigilTrueSaviour, Artwork.sigilTrueSaviour_pixel,
+                "sigilTrueSaviour",
                 rulebookName, "My story is nowhere, unknown to all.", dialogue, powerLevel: -3,
                 canStack: false).Id;
         }
@@ -129,7 +129,7 @@ namespace WhistleWindLobotomyMod
             yield return Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase += 1;
             yield return Singleton<LifeManager>.Instance.ShowDamageSequence(1, 1, toPlayer: true, 0.25f, ResourceBank.Get<GameObject>("Prefabs/Environment/ScaleWeights/Weight_RealTooth"));
 
-            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(sternDialogue, -0.65f, 0.4f, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord);
+            yield return DialogueHelper.ShowUntilInput(sternDialogue, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord, -0.65f, 0.4f);
         }
         private IEnumerator MakeRoomForOneSin()
         {

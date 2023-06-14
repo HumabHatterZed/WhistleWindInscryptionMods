@@ -1,7 +1,8 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -11,42 +12,35 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleStaff_T0346()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Sniper,
-                Apostle.ability
-            };
-            List<Tribe> tribes = new() { TribeDivine };
-            List<Trait> traits = new() { TraitApostle };
+            const string staffName = "Staff Apostle";
+            const string apostleStaff = "apostleStaff";
+            const string apostleStaffDown = "apostleStaffDown";
+            Tribe[] tribes = new[] { TribeDivine };
+            Trait[] traits = new[] { TraitApostle };
+            CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedWhiteEmission.appearance
-            };
-            CreateCard(
-                "wstl_apostleStaff", "Staff Apostle",
-                "The time has come.",
-                atk: 3, hp: 6,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.apostleStaff, Artwork.apostleStaff_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard);
+            CardInfo apostle = NewCard(
+                apostleStaff,
+                staffName,
+                attack: 3, health: 6)
+                .SetPortraits(apostleStaff)
+                .AddAbilities(Ability.Sniper, Apostle.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances);
 
-            abilities = new()
-            {
-                Ability.PreventAttack,
-                Apostle.ability
-            };
-            CreateCard(
-                "wstl_apostleStaffDown", "Staff Apostle",
-                "The time has come.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.apostleStaffDown, Artwork.apostleStaffDown_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard);
+            CardInfo apostleDown = NewCard(
+                apostleStaffDown,
+                staffName,
+                attack: 0, health: 1)
+                .SetPortraits(apostleStaffDown)
+                .AddAbilities(Apostle.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances);
+
+            CreateCard(apostle, cardType: ModCardType.EventCard);
+            CreateCard(apostleDown, cardType: ModCardType.EventCard);
         }
     }
 }

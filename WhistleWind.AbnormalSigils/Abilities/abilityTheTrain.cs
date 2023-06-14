@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -16,10 +16,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "The Train";
             const string rulebookDescription = "When this card is played, kill all creatures on the board. Creatures killed this way do not drop bones.";
             const string dialogue = "The train boards those that don't step away from the tracks.";
-
+            const string triggerText = "The train blows its mighty horn.";
             TheTrain.ability = AbnormalAbilityHelper.CreateAbility<TheTrain>(
-                Artwork.sigilTheTrain, Artwork.sigilTheTrain_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
+                "sigilTheTrain",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
                 special: true).Id;
         }
     }

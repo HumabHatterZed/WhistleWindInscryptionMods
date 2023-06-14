@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -12,39 +13,35 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_MagicalGirlSpade_O0173()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.SplitStrike,
-                Piercing.ability
-            };
-            List<Tribe> tribes = new() { TribeFae };
-            List<Trait> traits = new() { TraitMagicalGirl };
+            const string knightName = "The Knight of Despair";
+            const string knightOfDespair = "knightOfDespair";
+            const string magicalGirlSpade = "magicalGirlSpade";
+            Tribe[] tribes = new[] { TribeFae };
+            Trait[] traits = new[] { TraitMagicalGirl };
 
-            List<SpecialTriggeredAbility> specialAbilties = new()
-            {
-                SwordWithTears.specialAbility
-            };
-            CreateCard(
-                "wstl_knightOfDespair", "The Knight of Despair",
-                "",
-                atk: 2, hp: 4,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.knightOfDespair, Artwork.knightOfDespair_emission, Artwork.knightOfDespair_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: new(), onePerDeck: true);
+            CardInfo knightOfDespairCard = NewCard(
+                knightOfDespair,knightName,
+                attack: 1, health: 4, blood: 2)
+                .SetPortraits(knightOfDespair)
+                .AddAbilities(Ability.SplitStrike, Piercing.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .SetOnePerDeck();
 
-            abilities = new() { Protector.ability };
-
-            CreateCard(
-                "wstl_magicalGirlSpade", "The Knight of Despair",
+            CardInfo magicalGirlSpadeCard = NewCard(
+                magicalGirlSpade,
+                knightName,
                 "A loyal knight fighting to protect those close to her.",
-                atk: 1, hp: 4,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.magicalGirlSpade, Artwork.magicalGirlSpade_emission, pixelTexture: Artwork.magicalGirlSpade_pixel,
-                abilities: abilities, specialAbilities: specialAbilties,
-                metaCategories: new(), tribes: tribes, traits: traits, onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
+                attack: 1, health: 4, blood: 2)
+                .SetPortraits(magicalGirlSpade)
+                .AddAbilities(Protector.ability)
+                .AddSpecialAbilities(SwordWithTears.specialAbility)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .SetOnePerDeck();
+
+            CreateCard(knightOfDespairCard);
+            CreateCard(magicalGirlSpadeCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

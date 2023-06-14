@@ -2,7 +2,7 @@
 using InscryptionAPI.Card;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -33,9 +33,7 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Sigil Power";
             const string rulebookDescription = "The value represented with this sigil will be equal to the power level of this card's strongest sigil.";
             SigilPower.icon = AbilityHelper.CreateStatIcon<SigilPower>(
-                pluginGuid, rulebookName, rulebookDescription,
-                TextureLoader.LoadTextureFromBytes(Artwork.sigilSigilPower),
-                TextureLoader.LoadTextureFromBytes(Artwork.sigilSigilPower_pixel), true, true).Id;
+                pluginGuid, "sigilSigilPower", rulebookName, rulebookDescription, true, true).Id;
         }
     }
 }

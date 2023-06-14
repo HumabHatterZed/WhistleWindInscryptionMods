@@ -62,7 +62,7 @@ namespace WhistleWindLobotomyMod
             {
                 if (slot.Card != null)
                 {
-                    yield return slot.Card.Info.SetExtendedProperty("wstl:NoBones", true);
+                    slot.Card.Info.SetExtendedProperty("wstl:NoBones", true);
                     yield return slot.Card.DieTriggerless();
                 }
 
@@ -97,15 +97,15 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.5f);
 
                 if (isNegative)
-                    yield return HelperMethods.PlayAlternateDialogue(dialogue: "The end at the beginning.");
+                    yield return DialogueHelper.PlayAlternateDialogue(dialogue: "The end at the beginning.");
                 else
-                    yield return HelperMethods.PlayAlternateDialogue(dialogue: "The beginning at the end.");
+                    yield return DialogueHelper.PlayAlternateDialogue(dialogue: "The beginning at the end.");
             }
             else
             {
                 Singleton<ViewManager>.Instance.SwitchToView(View.Scales);
                 yield return new WaitForSeconds(0.5f);
-                yield return HelperMethods.PlayAlternateDialogue(dialogue: "Everything is equal. Everything is as it should be.");
+                yield return DialogueHelper.PlayAlternateDialogue(dialogue: "Everything is equal. Everything is as it should be.");
             }
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);

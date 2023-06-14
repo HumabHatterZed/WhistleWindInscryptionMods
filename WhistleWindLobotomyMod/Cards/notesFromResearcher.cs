@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Sigils;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -11,21 +12,19 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_NotesFromResearcher_T0978()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Brittle,
-                GiveStatsSigils.AbilityID
-            };
-            CreateCard(
-                "wstl_notesFromResearcher", "Notes from a Crazed Researcher",
+            const string notesFromResearcher = "notesFromResearcher";
+
+            CardInfo notesFromResearcherCard = NewCard(
+                notesFromResearcher,
+                "Notes from a Crazed Researcher",
                 "An insane garble of guilty confessions and incoherent gibberish.",
-                atk: 2, hp: 0,
-                blood: 0, bones: 4, energy: 0,
-                Artwork.notesFromResearcher, Artwork.notesFromResearcher_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), appearances: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                evolveName: "Frantic {0}", spellType: SpellType.TargetedStatsSigils);
+                attack: 2, health: 0, blood: 4)
+                .SetPortraits(notesFromResearcher)
+                .AddAbilities(Ability.Brittle, GiveStatsSigils.AbilityID)
+                .SetSpellType(SpellType.TargetedStatsSigils)
+                .SetEvolveInfo("Frantic {0}");
+
+            CreateCard(notesFromResearcherCard, CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

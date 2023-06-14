@@ -1,7 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -11,32 +13,21 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_WhiteNight_T0346()
         {
-            List<Ability> abilities = new()
-            {
-                TrueSaviour.ability,
-                Idol.ability
-            };
-            List<Tribe> tribes = new() { TribeDivine };
+            const string whiteNight = "whiteNight";
 
-            List<Trait> traits = new()
-            {
-                TraitApostle,
-                Trait.Uncuttable,
-                ImmuneToInstaDeath
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedWhiteEmission.appearance
-            };
-            CreateCard(
-                "wstl_whiteNight", "WhiteNight",
+            CardInfo whiteNightCard = NewCard(
+                whiteNight,
+                "WhiteNight",
                 "The time has come.",
-                atk: 0, hp: 66,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.whiteNight, Artwork.whiteNight_emission, titleTexture: Artwork.whiteNight_title,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard, onePerDeck: true);
+                attack: 0, health: 66)
+                .SetPortraits(whiteNight, titleName: "whiteNight_title")
+                .AddAbilities(Idol.ability, TrueSaviour.ability)
+                .AddTribes(TribeDivine)
+                .AddTraits(ImmuneToInstaDeath, Trait.Uncuttable, TraitApostle)
+                .AddAppearances(ForcedWhiteEmission.appearance)
+                .SetOnePerDeck();
+
+            CreateCard(whiteNightCard, CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
         }
     }
 }

@@ -12,7 +12,7 @@ using WhistleWindLobotomyMod.Core.Opponents.Leshy;
 using WhistleWindLobotomyMod.Core.Opponents.PirateSkull;
 using WhistleWindLobotomyMod.Core.Opponents.Prospector;
 using WhistleWindLobotomyMod.Core.Opponents.TrapperTrader;
-using WhistleWindLobotomyMod.Properties;
+
 
 namespace WhistleWindLobotomyMod.Core.Challenges
 {
@@ -28,8 +28,8 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 "Abnormal Bosses",
                 "Bosses will only play abnormality cards.",
                 20,
-                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalBosses),
-                TextureLoader.LoadTextureFromBytes(Artwork.ascensionAbnormalBosses_activated)
+                TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses"),
+                TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses_activated")
                 ).Challenge.challengeType;
 
             harmony.PatchAll(typeof(AbnormalBosses));

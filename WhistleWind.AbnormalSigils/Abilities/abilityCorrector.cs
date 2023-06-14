@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -15,9 +15,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Corrector";
             const string rulebookDescription = "When [creature] is drawn, randomly change its stats according to its play cost. Higher costs yields higher stat totals.";
             const string dialogue = "How balanced.";
+            const string triggerText = "[creature] stats are forcefully corrected.";
             Corrector.ability = AbnormalAbilityHelper.CreateAbility<Corrector>(
-                Artwork.sigilCorrector, Artwork.sigilCorrector_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                "sigilCorrector",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: true, opponent: true, canStack: false).Id;
         }
     }

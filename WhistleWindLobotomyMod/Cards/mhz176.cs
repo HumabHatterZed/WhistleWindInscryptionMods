@@ -1,7 +1,8 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -10,19 +11,19 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_MHz176_T0727()
         {
-            List<Ability> abilities = new() { Ability.BuffEnemy };
+            const string mhz176 = "mhz176";
 
-            CreateCard(
-                "wstl_mhz176", "1.76 MHz",
+            CardInfo mhz176Card = NewCard(
+                mhz176,
+                "1.76 MHz",
                 "This is a record, a record of a day we must never forget.",
-                atk: 2, hp: 1,
-                blood: 0, bones: 0, energy: 3,
-                Artwork.mhz176, Artwork.mhz176_emission, Artwork.mhz176_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                metaTypes: CardHelper.CardMetaType.NoTerrainLayout,
-                evolveName: "Loud {0}");
+                attack: 2, health: 1, energy: 3)
+                .SetPortraits(mhz176)
+                .AddAbilities(Ability.BuffEnemy)
+                .SetTerrain(false)
+                .SetEvolveInfo("Loud {0}");
+
+            CreateCard(mhz176Card, CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

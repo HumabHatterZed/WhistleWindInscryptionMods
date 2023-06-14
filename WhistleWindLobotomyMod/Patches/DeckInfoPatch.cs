@@ -7,7 +7,7 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 namespace WhistleWindLobotomyMod.Patches
 {
     [HarmonyPatch(typeof(DeckInfo))]
-    internal static class DeckInfoPatch
+    internal class DeckInfoPatch
     {
         // Adds Nothing There to the deck when chosen in a card choice (Trader, Boss Box, etc.)
         [HarmonyPrefix, HarmonyPatch(nameof(DeckInfo.AddCard))]

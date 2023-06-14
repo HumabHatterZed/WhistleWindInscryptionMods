@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,9 +13,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Assimilator";
             const string rulebookDescription = "When this card kills an opposing card, it gains 1 Power and 1 Health.";
             const string dialogue = "From the many, one.";
+            const string triggerText = "[creature] makes its victim a part of itself.";
             Assimilator.ability = AbnormalAbilityHelper.CreateAbility<Assimilator>(
-                Artwork.sigilAssimilator, Artwork.sigilAssimilator_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                "sigilAssimilator",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: false, canStack: true).Id;
         }
     }

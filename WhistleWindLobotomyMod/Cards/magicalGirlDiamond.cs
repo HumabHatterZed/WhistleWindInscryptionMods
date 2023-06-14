@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -12,33 +13,39 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_MagicalGirlDiamond_O0164()
         {
-            List<Ability> abilities = new() { Cycler.ability };
-            List<Tribe> tribes = new() { TribeFae };
-            List<Trait> traits = new() { TraitMagicalGirl };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                MagicalGirls.specialAbility
-            };
-            CreateCard(
-                "wstl_kingOfGreed", "The King of Greed",
-                "",
-                atk: 2, hp: 5,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.kingOfGreed, Artwork.kingOfGreed_emission, Artwork.kingOfGreed_pixel,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: traits, onePerDeck: true);
+            const string kingName = "The King of Greed";
+            const string magicalGirlDiamond = "magicalGirlDiamond";
+            const string kingOfGreed = "kingOfGreed";
+            SpecialTriggeredAbility[] specialAbilities = new[] { MagicalGirls.specialAbility };
+            Tribe[] tribes = new[] { TribeFae };
+            Trait[] traits = new[] { TraitMagicalGirl };
 
-            specialAbilities.Add(CustomEvolveHelper.specialAbility);
+            CardInfo kingOfGreedCard = NewCard(
+                kingOfGreed,
+                kingName,
+                attack: 2, health: 5, blood: 1)
+                .SetPortraits(kingOfGreed)
+                .AddAbilities(Cycler.ability)
+                .AddSpecialAbilities(specialAbilities)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .SetOnePerDeck();
 
-            CreateCard(
-                "wstl_magicalGirlDiamond", "The King of Greed",
+            CardInfo magicalGirlDiamondCard = NewCard(
+                magicalGirlDiamond,
+                kingName,
                 "A girl encased in hardened amber. Happiness trapped by greed.",
-                atk: 0, hp: 2,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.magicalGirlDiamond, Artwork.magicalGirlDiamond_emission, pixelTexture: Artwork.magicalGirlDiamond_pixel,
-                abilities: new() { Ability.Evolve }, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: traits, onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw, evolveName: "wstl_kingOfGreed");
+                attack: 0, health: 2, blood: 1)
+                .SetPortraits(magicalGirlDiamond)
+                .AddAbilities(Ability.Evolve)
+                .AddSpecialAbilities(specialAbilities)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .SetOnePerDeck()
+                .SetEvolveInfo("wstl_kingOfGreed");
+
+            CreateCard(kingOfGreedCard);
+            CreateCard(magicalGirlDiamondCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

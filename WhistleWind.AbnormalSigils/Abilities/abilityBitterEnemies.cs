@@ -1,11 +1,12 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -19,7 +20,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "A bitter grudge laid bare.";
 
             BitterEnemies.ability = AbnormalAbilityHelper.CreateAbility<BitterEnemies>(
-                Artwork.sigilBitterEnemies, Artwork.sigilBitterEnemies_pixel,
+                "sigilBitterEnemies",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: true, opponent: true, canStack: false).Id;
         }
@@ -40,7 +41,7 @@ namespace WhistleWind.AbnormalSigils
             if (!this.Card.OnBoard || target == base.Card || target.Info.LacksAbility(ability))
                 return 0;
 
-            List<CardSlot> slotsToCount = HelperMethods.GetSlotsCopy(base.Card.OpponentCard).FindAll(x => x.Card != null && x.Card.HasAbility(ability));
+            List<CardSlot> slotsToCount = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).FindAll(x => x.Card != null && x.Card.HasAbility(ability));
             slotsToCount.Remove(base.Card.Slot);
 
             return slotsToCount.Count > 0 ? 1 : 0;

@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookDescription = "This card gains the stats of the creatures sacrificed to play it.";
             const string dialogue = "Now everything will be just fine.";
             Grinder.ability = AbnormalAbilityHelper.CreateAbility<Grinder>(
-                Artwork.sigilGrinder, Artwork.sigilGrinder_pixel,
+                "sigilGrinder",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false).Id;
         }

@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -10,39 +10,29 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_Spiderling_O0243()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Evolve
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Insect
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.RedEmission
-            };
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_spiderBrood", "Spider Brood",
-                "Big and mean.",
-                atk: 1, hp: 3,
-                blood: 0, bones: 3, energy: 0,
-                Artwork.spiderBrood, Artwork.spiderBrood_emission, Artwork.spiderBrood_pixel,
-                abilities: new(), metaCategories: new(), tribes: tribes, traits: new(),
-                appearances: appearances, evolveName: "[name]Spider Buff");
+            const string spiderling = "spiderling";
+            const string spiderBrood = "spiderBrood";
+            Tribe[] tribes = new[] { Tribe.Insect };
+            CardAppearanceBehaviour.Appearance[] appearances = new[] { CardAppearanceBehaviour.Appearance.RedEmission };
 
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_spiderling", "Spiderling",
-                "Small and defenceless.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.spiderling, Artwork.spiderling_emission, Artwork.spiderling_pixel,
-                abilities: abilities,
-                metaCategories: new(), tribes: tribes, traits: new(),
-                appearances: appearances, evolveName: "wstl_spiderBrood")
-                .SetAffectedByTidalLock();
+            CreateCard(MakeCard(
+                cardName: spiderBrood,
+                "Spider Brood",
+                attack: 1, health: 3, bones: 3)
+                .SetPortraits(spiderBrood)
+                .AddTribes(tribes)
+                .AddAppearances(appearances)
+                .SetEvolveInfo("[name]Spider Buff"));
+
+            CreateCard(MakeCard(
+                cardName: spiderling,
+                "Spiderling",
+                attack: 0, health: 1)
+                .SetPortraits(spiderling)
+                .AddAbilities(Ability.Evolve)
+                .AddTribes(tribes)
+                .AddAppearances(appearances)
+                .SetAffectedByTidalLock());
         }
     }
 }

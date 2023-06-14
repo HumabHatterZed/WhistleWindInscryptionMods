@@ -1,13 +1,18 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
+using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -24,25 +29,25 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromBytes(Artwork.talkingHokmaBody, new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingHokmaEmission);
+                Sprite face = LoadSpriteFromFile("talkingHokmaBody", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingHokmaEmission");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingHokmaEyesOpen1, Artwork.talkingHokmaEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingHokmaMouthOpen1, Artwork.talkingHokmaMouthClosed1),
+                        eyes: MakeFaceAnim("talkingHokmaEyesOpen1", "talkingHokmaEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingHokmaMouthOpen1", "talkingHokmaMouthClosed1"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingHokmaEyesOpen1, Artwork.talkingHokmaEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingHokmaMouthOpen2, Artwork.talkingHokmaMouthClosed2),
+                        eyes: MakeFaceAnim("talkingHokmaEyesOpen1", "talkingHokmaEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingHokmaMouthOpen2", "talkingHokmaMouthClosed2"),
                         emission: emissionMain),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingHokmaEyesOpen2, Artwork.talkingHokmaEyesOpen2),
-                        mouth: MakeFaceAnim(Artwork.talkingHokmaMouthClosed1, Artwork.talkingHokmaMouthClosed1),
+                        eyes: MakeFaceAnim("talkingHokmaEyesOpen2", "talkingHokmaEyesOpen2"),
+                        mouth: MakeFaceAnim("talkingHokmaMouthClosed1", "talkingHokmaMouthClosed1"),
                         emission: emissionMain)
                 };
             }
@@ -75,17 +80,16 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Hokma()
         {
-            List<Ability> abilities = new() { NeuteredLatch.ability };
-
-            LobotomyCardManager.CreateCard(
-                "wstl_sephirahHokma", "Hokma",
+            CardInfo hokmaCard = NewCard(
+                "sephirahHokma",
+                "Hokma",
                 "All things will happen in time. Just have faith.",
-                atk: 2, hp: 3,
-                blood: 2, bones: 0, energy: 0,
-                null, null,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
-                appearances: new(), onePerDeck: true);
+                attack: 2, health: 3, bones: 2)
+                .AddAbilities(NeuteredLatch.ability)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck();
+
+            CreateCard(hokmaCard);
         }
     }
 }

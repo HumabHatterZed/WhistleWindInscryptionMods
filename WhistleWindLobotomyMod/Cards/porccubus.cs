@@ -1,7 +1,8 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -11,18 +12,18 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Porccubus_O0298()
         {
-            List<Ability> abilities = new() { Ability.Deathtouch };
-            List<Tribe> tribes = new() { TribeBotanic };
+            const string porccubus = "porccubus";
 
-            CreateCard(
-                "wstl_porccubus", "Porccubus",
+            CardInfo porccubusCard = NewCard(
+                porccubus,
+                "Porccubus",
                 "A prick from one of its quills creates a deadly euphoria.",
-                atk: 1, hp: 1,
-                blood: 0, bones: 5, energy: 0,
-                Artwork.porccubus, Artwork.porccubus_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
+                attack: 1, health: 1, bones: 5)
+                .SetPortraits(porccubus)
+                .AddAbilities(Ability.Deathtouch)
+                .AddTribes(TribeBotanic);
+
+            CreateCard(porccubusCard, CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

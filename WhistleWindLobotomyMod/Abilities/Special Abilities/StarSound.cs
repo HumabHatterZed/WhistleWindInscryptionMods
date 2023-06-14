@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
@@ -20,7 +21,7 @@ namespace WhistleWindLobotomyMod
 
         public List<CardSlot> GetOpposingSlots(List<CardSlot> originalSlots, List<CardSlot> otherAddedSlots)
         {
-            return HelperMethods.GetSlotsCopy(!base.PlayableCard.OpponentCard);
+            return BoardManager.Instance.GetSlotsCopy(base.PlayableCard.OpponentCard);
         }
 
         private bool AttackAllOpposingSlots() => base.PlayableCard.HasAbility(Ability.AllStrike);

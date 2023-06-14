@@ -1,7 +1,8 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -11,17 +12,18 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_SilentEnsemble_T0131()
         {
-            List<Ability> abilities = new() { Ability.BuffNeighbours };
-            List<Tribe> tribes = new() { TribeAnthropoid };
+            const string silentEnsemble = "silentEnsemble";
 
-            CreateCard(
-                "wstl_silentEnsemble", "Chairs",
-                "",
-                atk: 0, hp: 3,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.silentEnsemble, Artwork.silentEnsemble_emission,
-                abilities: abilities, specialAbilities: new(),
-                tribes: tribes, traits: new() { AbnormalPlugin.Orchestral });
+            CardInfo silentEnsembleCard = NewCard(
+                silentEnsemble,
+                "Chairs",
+                attack: 0, health: 3)
+                .SetPortraits(silentEnsemble)
+                .AddAbilities(Ability.BuffNeighbours)
+                .AddTribes(TribeAnthropoid)
+                .AddTraits(Orchestral);
+
+            CreateCard(silentEnsembleCard);
         }
     }
 }

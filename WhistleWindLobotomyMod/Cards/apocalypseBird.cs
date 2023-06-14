@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -11,30 +12,22 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApocalypseBird_O0263()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.AllStrike,
-                Ability.SplitStrike
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new() { BoardEffects.specialAbility };
-            List<Tribe> tribes = new() { Tribe.Bird };
+            const string apocalypseBird = "apocalypseBird";
+            CardInfo apocalypse = NewCard(
+                apocalypseBird,
+                "Apocalypse Bird",
+                attack: 3, health: 9, blood: 4)
+                .SetPortraits(apocalypseBird)
+                .AddAbilities(Ability.AllStrike, Ability.SplitStrike, Ability.MadeOfStone)
+                .AddSpecialAbilities(BoardEffects.specialAbility)
+                .AddTribes(Tribe.Bird)
+                .AddTraits(Trait.DeathcardCreationNonOption)
+                .AddAppearances(ForcedWhiteEmission.appearance)
+                .SetNodeRestrictions(true, false, false, true)
+                .SetEvolveInfo("Greater {0}")
+                .SetOnePerDeck();
 
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedWhiteEmission.appearance
-            };
-            CreateCard(
-                "wstl_apocalypseBird", "Apocalypse Bird",
-                "There was no moon, no stars. Just a bird, alone in the Black Forest.",
-                atk: 4, hp: 15,
-                blood: 4, bones: 0, energy: 0,
-                Artwork.apocalypseBird, Artwork.apocalypseBird_emission, Artwork.apocalypseBird_pixel,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new(),
-                appearances: appearances, onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Rare,
-                modTypes: ModCardType.EventCard, metaTypes: CardHelper.CardMetaType.NonChoice,
-                evolveName: "Greater {0}");
+            CreateCard(apocalypse, CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
         }
     }
 }

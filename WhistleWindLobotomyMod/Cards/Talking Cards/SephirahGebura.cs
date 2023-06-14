@@ -1,13 +1,18 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
+using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -24,30 +29,30 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromBytes(Artwork.talkingGeburaBody, new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingGeburaEmission);
+                Sprite face = LoadSpriteFromFile("talkingGeburaBody", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingGeburaEmission");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingGeburaEyesOpen1, Artwork.talkingGeburaEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingGeburaMouthOpen1, Artwork.talkingGeburaMouthClosed1),
+                        eyes: MakeFaceAnim("talkingGeburaEyesOpen1", "talkingGeburaEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingGeburaMouthOpen1", "talkingGeburaMouthClosed1"),
                         emission: emissionMain),
                     new(emotion: Emotion.Curious,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingGeburaEyesOpen2, Artwork.talkingGeburaEyesClosed2),
-                        mouth: MakeFaceAnim(Artwork.talkingGeburaMouthOpen2, Artwork.talkingGeburaMouthClosed1),
+                        eyes: MakeFaceAnim("talkingGeburaEyesOpen2", "talkingGeburaEyesClosed2"),
+                        mouth: MakeFaceAnim("talkingGeburaMouthOpen2", "talkingGeburaMouthClosed1"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingGeburaEyesOpen1, Artwork.talkingGeburaEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingGeburaMouthOpen3, Artwork.talkingGeburaMouthClosed2),
+                        eyes: MakeFaceAnim("talkingGeburaEyesOpen1", "talkingGeburaEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingGeburaMouthOpen3", "talkingGeburaMouthClosed2"),
                         emission: emissionMain),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingGeburaEyesOpen3, Artwork.talkingGeburaEyesClosed3),
-                        mouth: MakeFaceAnim(Artwork.talkingGeburaMouthOpen4, Artwork.talkingGeburaMouthClosed1),
+                        eyes: MakeFaceAnim("talkingGeburaEyesOpen3", "talkingGeburaEyesClosed3"),
+                        mouth: MakeFaceAnim("talkingGeburaMouthOpen4", "talkingGeburaMouthClosed1"),
                         emission: emissionMain)
                 };
             }
@@ -80,17 +85,16 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Gebura()
         {
-            List<Ability> abilities = new() { Ability.GainAttackOnKill, Piercing.ability };
-
-            LobotomyCardManager.CreateCard(
-                "wstl_sephirahGebura", "Gebura",
+            CardInfo geburaCard = NewCard(
+                "sephirahGebura",
+                "Gebura",
                 "Head of the Disciplinary Team. A fierce warrior and ally.",
-                atk: 3, hp: 5,
-                blood: 3, bones: 0, energy: 0,
-                null, null,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
-                appearances: new(), onePerDeck: true);
+                attack: 3, health: 5, blood: 3)
+                .AddAbilities(Ability.GainAttackOnKill, Piercing.ability)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck();
+
+            CreateCard(geburaCard);
         }
     }
 }

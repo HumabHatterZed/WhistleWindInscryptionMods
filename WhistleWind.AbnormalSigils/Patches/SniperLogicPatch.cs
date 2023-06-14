@@ -14,6 +14,18 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch]
     internal class AddSniperPiperPatch
     {
+        private const string singleton = "wstl:JudgementExecution";
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.VisualizeConfirmSniperAbility))]
+        [HarmonyPatch(typeof(Part1SniperVisualizer), nameof(Part1SniperVisualizer.VisualizeConfirmSniperAbility))]
+        private static bool PerformHanging(CardSlot targetSlot)
+        {
+            if (targetSlot.Card?.TemporaryMods.Exists(x => x.singletonId == singleton) ?? false)
+                targetSlot.Card.Anim.SetMarkedForSacrifice(marked: true);
+
+            return true;
+        }
         [HarmonyPrefix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.SniperAttack))]
         private static bool OverrideWithMarksman(CombatPhaseManager instance, CardSlot slot, ref IEnumerator __result)
         {
@@ -46,9 +58,10 @@ namespace WhistleWind.AbnormalSigils.Patches
             opposingSlots.Clear();
             Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode, false);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
-            WstlPart1SniperVisualiser visualizer = null;
-            if ((SaveManager.SaveFile?.IsPart1).GetValueOrDefault())
-                visualizer = instance.GetComponent<WstlPart1SniperVisualiser>() ?? instance.gameObject.AddComponent<WstlPart1SniperVisualiser>();
+
+            Part1SniperVisualizer visualizer = null;
+            if (SaveManager.SaveFile.IsPart1)
+                visualizer = instance.GetComponent<Part1SniperVisualizer>() ?? instance.gameObject.AddComponent<Part1SniperVisualizer>();
 
             if (slot.Card.OpponentCard)
                 yield return WstlOpponentLogic(instance, visualizer, opposingSlots, slot, numAttacks);
@@ -80,7 +93,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             yield break;
         }
 
-        private static IEnumerator WstlPlayerLogic(CombatPhaseManager instance, WstlPart1SniperVisualiser visualizer,
+        private static IEnumerator WstlPlayerLogic(CombatPhaseManager instance, Part1SniperVisualizer visualizer,
         List<CardSlot> opposingSlots, CardSlot slot, int numAttacks)
         {
             for (int i = 0; i < numAttacks; i++)
@@ -93,21 +106,26 @@ namespace WhistleWind.AbnormalSigils.Patches
                     instance.VisualizeAimSniperAbility(slot, cardSlot);
                     visualizer?.VisualizeAimSniperAbility(slot, cardSlot);
                 }
-                yield return Singleton<BoardManager>.Instance.ChooseTarget(Singleton<BoardManager>.Instance.OpponentSlotsCopy, Singleton<BoardManager>.Instance.OpponentSlotsCopy,
+                List<CardSlot> list = Singleton<BoardManager>.Instance.OpponentSlotsCopy;
+                yield return Singleton<BoardManager>.Instance.ChooseTarget(list, list,
                     delegate (CardSlot s)
                     {
                         opposingSlots.Add(s);
-                        bool neckless = s.Card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt, AbnormalPlugin.ImmuneToInstaDeath);
+                        if (!ImmuneToHanging(s))
+                        {
+                            s.Card.AddTemporaryMod(new() { singletonId = singleton });
+                        }
                         instance.VisualizeConfirmSniperAbility(s);
-                        visualizer?.VisualizeConfirmSniperAbility(s, true, neckless);
+                        visualizer?.VisualizeConfirmSniperAbility(s);
                     }, null, delegate (CardSlot s)
                     {
+                        InteractionCursor.Instance.ForceCursorType(ImmuneToHanging(s) ? CursorType.Target : CursorType.Sacrifice);
                         instance.VisualizeAimSniperAbility(slot, s);
                         visualizer?.VisualizeAimSniperAbility(slot, s);
-                    }, () => false, CursorType.Sacrifice);
+                    }, () => false, CursorType.Target);
             }
         }
-        private static IEnumerator WstlOpponentLogic(CombatPhaseManager instance, WstlPart1SniperVisualiser visualizer,
+        private static IEnumerator WstlOpponentLogic(CombatPhaseManager instance, Part1SniperVisualizer visualizer,
         List<CardSlot> opposingSlots, CardSlot slot, int numAttacks)
         {
             List<CardSlot> playerSlots = Singleton<BoardManager>.Instance.PlayerSlotsCopy;
@@ -133,13 +151,16 @@ namespace WhistleWind.AbnormalSigils.Patches
                         attackSlot = strongestAttackableNoPreferences.Slot;
                 }
 
-                bool neckless = attackSlot.Card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt, AbnormalPlugin.ImmuneToInstaDeath);
                 opposingSlots.Add(attackSlot);
+                if (!ImmuneToHanging(attackSlot))
+                    attackSlot.Card.AddTemporaryMod(new() { singletonId = "wstl:JudgementExecution" });
+
                 instance.VisualizeConfirmSniperAbility(attackSlot);
-                visualizer?.VisualizeConfirmSniperAbility(attackSlot, true, neckless);
+                visualizer?.VisualizeConfirmSniperAbility(attackSlot);
                 yield return new WaitForSeconds(0.25f);
             }
         }
+        private static bool ImmuneToHanging(CardSlot slot) => slot.Card?.HasAnyOfTraits(Trait.Terrain, Trait.Pelt, AbnormalPlugin.ImmuneToInstaDeath) ?? true;
         private static bool IsJudgementBird(CardSlot slot) => slot.Card.HasTrait(AbnormalPlugin.Executioner);
         private static IEnumerator Execution(PlayableCard target)
         {

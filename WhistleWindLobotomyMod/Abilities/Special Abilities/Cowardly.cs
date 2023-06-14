@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace WhistleWindLobotomyMod
         public IEnumerator OnBellRung(bool playerCombatPhase) => CheckTransform();
         private IEnumerator CheckTransform()
         {
-            List<CardSlot> slots = HelperMethods.GetSlotsCopy(base.PlayableCard.OpponentCard)
+            List<CardSlot> slots = BoardManager.Instance.GetSlotsCopy(!base.PlayableCard.OpponentCard)
                 .Where(x => x.Card != null && x.Card != base.Card && x.Card.LacksTrait(Trait.Structure)).ToList();
 
             if (slots.Count > 0 && base.PlayableCard.Info.name == "wstl_scaredyCat")

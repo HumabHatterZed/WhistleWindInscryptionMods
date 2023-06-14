@@ -1,13 +1,18 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -24,25 +29,25 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromBytes(Artwork.talkingTipherethBBody, new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingTipherethBEmission);
+                Sprite face = LoadSpriteFromFile("talkingTipherethBBody", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingTipherethBEmission");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingTipherethBEyesOpen1, Artwork.talkingTipherethBEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingTipherethBMouthOpen1, Artwork.talkingTipherethBMouthClosed1),
+                        eyes: MakeFaceAnim("talkingTipherethBEyesOpen1", "talkingTipherethBEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingTipherethBMouthOpen1", "talkingTipherethBMouthClosed1"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingTipherethBEyesOpen1, Artwork.talkingTipherethBEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingTipherethBMouthOpen2, Artwork.talkingTipherethBMouthClosed2),
+                        eyes: MakeFaceAnim("talkingTipherethBEyesOpen1", "talkingTipherethBEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingTipherethBMouthOpen2", "talkingTipherethBMouthClosed2"),
                         emission: emissionMain),
                     new(emotion: Emotion.Quiet,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingTipherethBEyesOpen2, Artwork.talkingTipherethBEyesOpen2),
-                        mouth: MakeFaceAnim(Artwork.talkingTipherethBMouthClosed1, Artwork.talkingTipherethBMouthClosed1),
+                        eyes: MakeFaceAnim("talkingTipherethBEyesOpen2", "talkingTipherethBEyesOpen2"),
+                        mouth: MakeFaceAnim("talkingTipherethBMouthClosed1", "talkingTipherethBMouthClosed1"),
                         emission: GeneratePortrait.EmptyPortraitTuple)
                 };
             }
@@ -66,17 +71,15 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_TipherethB()
         {
-            List<Ability> abilities = new() { Ability.DrawCopyOnDeath, Ability.LatchDeathShield };
+            CardInfo tipherethBCard = NewCard(
+                "sephirahTipherethB",
+                "Tiphereth",
+                attack: 0, health: 1, energy: 2)
+                .AddAbilities(Ability.DrawCopyOnDeath, Ability.LatchDeathShield)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck();
 
-            LobotomyCardManager.CreateCard(
-                "wstl_sephirahTipherethB", "Tiphereth",
-                "",
-                atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 2,
-                null, null,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
-                appearances: new(), onePerDeck: true);
+            CreateCard(tipherethBCard);
         }
     }
 }

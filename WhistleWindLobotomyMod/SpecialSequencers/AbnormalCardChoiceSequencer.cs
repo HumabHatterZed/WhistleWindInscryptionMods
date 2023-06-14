@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Nodes;
 using Pixelplacement;
 using System;
@@ -10,7 +11,7 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
@@ -20,12 +21,12 @@ namespace WhistleWindLobotomyMod
     {
         private void Node_ModCardChoice()
         {
-            List<byte[]> animationFrames = new()
+            List<string> animationFrames = new()
             {
-                Artwork.nodeAbnormalityCardChoice1,
-                Artwork.nodeAbnormalityCardChoice2,
-                Artwork.nodeAbnormalityCardChoice3,
-                Artwork.nodeAbnormalityCardChoice4
+                "nodeAbnormalityCardChoice1",
+                "nodeAbnormalityCardChoice2",
+                "nodeAbnormalityCardChoice3",
+                "nodeAbnormalityCardChoice4"
             };
 
             GenerationType main = GenerationType.SpecialCardChoice;
@@ -56,6 +57,8 @@ namespace WhistleWindLobotomyMod
         private bool choicesRerolled;
         private Vector3 basePosition;
 
+        private Texture2D RewardBackRare = TextureLoader.LoadTextureFromFile("abnormalRewardBackRare");
+        private Texture2D RewardBack = TextureLoader.LoadTextureFromFile("abnormalRewardBack");
         private void Start()
         {
             // Sets up the clover and the basePosition,
@@ -156,10 +159,10 @@ namespace WhistleWindLobotomyMod
                     }
 
                     // custom card backs
-                    if (card.ChoiceInfo.CardInfo.metaCategories.Contains(CardMetaCategory.Rare))
-                        card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBackRare));
+                    if (card.ChoiceInfo.CardInfo.HasCardMetaCategory(CardMetaCategory.Rare))
+                        card.SetCardback(RewardBackRare);
                     else
-                        card.SetCardback(TextureLoader.LoadTextureFromBytes(Artwork.abnormalRewardBack));
+                        card.SetCardback(RewardBack);
 
                     card.SetFaceDown(faceDown: true, immediate: true);
                     Vector3 position = card.transform.position;

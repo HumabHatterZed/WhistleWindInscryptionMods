@@ -3,7 +3,7 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Patches
 {
@@ -19,6 +19,7 @@ namespace WhistleWindLobotomyMod.Patches
             {
                 if (!shown)
                 {
+                    AbilitiesUtil.GetInfo(Ability.DebuffEnemy).rulebookName = "Stinky";
                     AbilitiesUtil.GetInfo(Apostle.ability).ResetDescription();
                     AbilitiesUtil.GetInfo(TrueSaviour.ability).ResetDescription();
                     AbilitiesUtil.GetInfo(Confession.ability).ResetDescription();
@@ -26,13 +27,19 @@ namespace WhistleWindLobotomyMod.Patches
                 return true;
             }
             [HarmonyPrefix, HarmonyPatch(nameof(RuleBookController.OpenToAbilityPage))]
-            private static bool OpenToAbilityPage(PlayableCard card)
+            private static bool OpenToAbilityPage(string abilityName, PlayableCard card)
             {
-                if (card != null && card.HasAnyOfAbilities(Apostle.ability, TrueSaviour.ability, Confession.ability))
+                if (card)
                 {
-                    AbilitiesUtil.GetInfo(Apostle.ability).rulebookDescription = "[creature] will enter a downed state instead of dying. Downed creatures are invulnerable under special conditions.";
-                    AbilitiesUtil.GetInfo(TrueSaviour.ability).rulebookDescription = $"While {card.Info.DisplayedNameLocalized} is on the board, remove ally Terrain and Pelt cards and transform the rest into random Apostles.";
-                    AbilitiesUtil.GetInfo(Confession.ability).rulebookDescription = "Kill WhiteNight and all Apostles on the board then deal 33 direct damage.";
+                    if (abilityName == "DebuffEnemy" && card.Info.displayedName == "Ppodae")
+                        AbilitiesUtil.GetInfo(Ability.DebuffEnemy).rulebookName = "Cute Lil Guy";
+
+                    if (card.HasTrait(LobotomyCardManager.TraitApostle))
+                    {
+                        AbilitiesUtil.GetInfo(Apostle.ability).rulebookDescription = "[creature] will enter a downed state instead of dying. Downed creatures are invulnerable under special conditions.";
+                        AbilitiesUtil.GetInfo(TrueSaviour.ability).rulebookDescription = $"While {card.Info.DisplayedNameLocalized} is on the board, remove ally Terrain and Pelt cards and transform the rest into random Apostles.";
+                        AbilitiesUtil.GetInfo(Confession.ability).rulebookDescription = "Kill WhiteNight and all Apostles on the board then deal 33 direct damage.";
+                    }
                 }
                 return true;
             }
@@ -41,32 +48,14 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
         private static void AddKayceeAbilities(ref int abilityIndex, ref bool __result)
         {
-            if (!SaveManager.SaveFile.IsPart1 || __result)
+            if (__result || !SaveManager.SaveFile.IsPart1)
                 return;
 
             AbilityInfo info = AbilitiesUtil.GetInfo((Ability)abilityIndex);
-
             if (!abilityNames.Contains(info.name))
                 return;
 
             __result = true;
-
-            switch (info.name)
-            {
-                case "Sniper":
-                    info.rulebookName = "Marksman";
-                    info.triggerText = "Your beast strikes with precision.";
-                    info.SetIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilMarksman));
-                    info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilMarksman_pixel));
-                    return;
-                case "Sentry":
-                    info.rulebookName = "Quick Draw";
-                    info.triggerText = "The early bird gets the worm.";
-                    info.SetIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilQuickDraw));
-                    info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromBytes(Artwork.sigilQuickDraw_pixel));
-                    info.SetCanStack();
-                    return;
-            }
         }
         private static readonly List<string> abilityNames = new()
         {

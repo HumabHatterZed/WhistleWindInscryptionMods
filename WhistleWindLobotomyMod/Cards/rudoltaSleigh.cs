@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -11,36 +12,32 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Rudolta_F0249()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Strafe,
-                GiftGiver.ability
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                SpecialTriggeredAbility.PackMule
-            };
-            List<Tribe> tribes = new() { Tribe.Hooved };
-            List<Trait> traits = new() { Trait.Uncuttable };
+            const string sleighName = "Rudolta of the Sleigh";
+            const string rudoltaSleigh = "rudoltaSleigh";
+            Ability[] abilities = new[] { Ability.Strafe, GiftGiver.ability };
+            Tribe[] tribes = new[] { Tribe.Hooved };
 
-            CreateCard(
-                "wstl_rudoltaSleigh", "Rudolta of the Sleigh",
+            CardInfo rudoltaSleighCard = NewCard(
+                rudoltaSleigh,
+                sleighName,
                 "A grotesque effigy of a reindeer. With its infinite hate, it bequeaths gifts onto you.",
-                atk: 2, hp: 3,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.rudoltaSleigh, Artwork.rudoltaSleigh_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
+                attack: 2, health: 3, blood: 2)
+                .SetPortraits(rudoltaSleigh)
+                .AddAbilities(abilities)
+                .AddTribes(tribes);
 
-            CreateCard(
-                "wstl_RUDOLTA_MULE", "Rudolta of the Sleigh",
-                "",
-                atk: 2, hp: 3,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.rudoltaSleigh, Artwork.rudoltaSleigh_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: traits);
+            CardInfo rudoltaMuleCard = NewCard(
+                "RUDOLTA_MULE",
+                sleighName,
+                attack: 2, health: 3, blood: 2)
+                .SetPortraits(rudoltaSleigh)
+                .AddAbilities(abilities)
+                .AddSpecialAbilities(SpecialTriggeredAbility.PackMule)
+                .AddTribes(tribes)
+                .AddTraits(Trait.Uncuttable);
+
+            CreateCard(rudoltaMuleCard);
+            CreateCard(rudoltaSleighCard, CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

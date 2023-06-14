@@ -1,7 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionAPI.Helpers;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -10,26 +12,18 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleHeretic_T0346()
         {
-            List<Ability> abilities = new() { Confession.ability };
+            const string apostleHeretic = "apostleHeretic";
 
-            List<Trait> traits = new()
-            {
-                Trait.Uncuttable,
-                TraitApostle
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedWhiteEmission.appearance
-            };
-            CreateCard(
-                "wstl_apostleHeretic", "Heretic",
-                "The time has come.",
-                atk: 0, hp: 7,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.apostleHeretic, Artwork.apostleHeretic_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard);
+            CardInfo heretic = NewCard(
+                apostleHeretic,
+                "Heretic",
+                attack: 0, health: 7)
+                .SetPortraits(apostleHeretic)
+                .AddAbilities(Confession.ability)
+                .AddTraits(Trait.Uncuttable, TraitApostle)
+                .AddAppearances(ForcedWhiteEmission.appearance);
+
+            CreateCard(heretic, cardType: ModCardType.EventCard);
         }
     }
 }

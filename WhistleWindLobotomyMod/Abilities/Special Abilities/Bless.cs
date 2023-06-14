@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using Pixelplacement;
 using System.Collections;
 using System.Linq;
@@ -8,7 +9,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 
 namespace WhistleWindLobotomyMod
 {
@@ -52,7 +53,7 @@ namespace WhistleWindLobotomyMod
             {
                 yield return base.PlayableCard.DieTriggerless();
                 yield return new WaitForSeconds(0.5f);
-                yield return HelperMethods.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]You shall have no other gods before me.[c:]");
+                yield return DialogueHelper.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]You shall have no other gods before me.[c:]");
                 yield break;
             }
 
@@ -60,7 +61,7 @@ namespace WhistleWindLobotomyMod
 
             // If blessings are in the negatives (aka someone altered the config value), wag a finger and go 'nuh-uh-uh!'
             if (LobotomyConfigManager.Instance.NumOfBlessings < 0)
-                yield return HelperMethods.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou cannot stop my ascension. Even the [c:]tutelary[c:bR] bows to my authority.[c:]");
+                yield return DialogueHelper.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou cannot stop my ascension. Even the [c:]tutelary[c:bR] bows to my authority.[c:]");
 
             // Change Leshy's eyes to red
             LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
@@ -79,11 +80,9 @@ namespace WhistleWindLobotomyMod
 
             yield return new WaitForSeconds(0.5f);
 
-
-            LobotomyPlugin.Log.LogDebug("Resetting Plague Doctor's portrait");
-
             // reset the Doctor's sprites
-            CardLoader.GetCardByName("wstl_plagueDoctor").SetPortrait(TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor), TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor_emission));
+            LobotomyPlugin.Log.LogDebug("Resetting Plague Doctor's portrait");
+            CardLoader.GetCardByName("wstl_plagueDoctor").SetPortraits("plagueDoctor");
 
             // Play dialogue depending on whether this is the first time this has happened this run
             if (!LobotomySaveManager.TriggeredWhiteNightThisRun)
@@ -92,9 +91,9 @@ namespace WhistleWindLobotomyMod
                 yield return DialogueHelper.PlayDialogueEvent("WhiteNightEventIntro");
             }
             else
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventIntroRepeat, speaker: DialogueEvent.Speaker.Bonelord);
+                yield return DialogueHelper.ShowUntilInput(eventIntroRepeat, speaker: DialogueEvent.Speaker.Bonelord);
 
-            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventIntro3, speaker: DialogueEvent.Speaker.Bonelord);
+            yield return DialogueHelper.ShowUntilInput(eventIntro3, speaker: DialogueEvent.Speaker.Bonelord);
             yield return new WaitForSeconds(0.2f);
 
             LobotomyPlugin.Log.LogDebug("Determining whether player owns One Sin / has the Heretic");
@@ -108,7 +107,7 @@ namespace WhistleWindLobotomyMod
             LobotomyPlugin.Log.LogDebug("Transforming cards");
 
             // Kill non-living/Mule card(s) and transform the rest (excluding One Sin) into Apostles
-            foreach (CardSlot slot in HelperMethods.GetSlotsCopy(isOpponent).Where(slot => slot.Card != null && slot != baseSlot))
+            foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(!isOpponent).Where(slot => slot.Card != null && slot != baseSlot))
             {
                 if (slot.Card.Info.name != "wstl_oneSin")
                     yield return ConvertToApostle(slot.Card, HasHeretic);
@@ -120,10 +119,10 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.5f);
 
                 // if there is a One Sin on the board
-                if (HelperMethods.GetSlotsCopy(false).FindAll(slot => slot.Card != null && slot.Card.Info.name == "wstl_oneSin").Count > 0)
+                if (BoardManager.Instance.GetSlotsCopy(true).FindAll(slot => slot.Card != null && slot.Card.Info.name == "wstl_oneSin").Count > 0)
                 {
                     LobotomyPlugin.Log.LogDebug("One Sin is on the board");
-                    foreach (CardSlot slot in HelperMethods.GetSlotsCopy(false).Where(s => s.Card != null && s.Card.Info.name == "wstl_oneSin"))
+                    foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(true).Where(s => s.Card != null && s.Card.Info.name == "wstl_oneSin"))
                     {
                         // Transform the first One Sin into Heretic
                         // Remove the rest
@@ -259,12 +258,10 @@ namespace WhistleWindLobotomyMod
             LobotomyPlugin.Log.LogDebug("Trying to update portrait");
             if (base.PlayableCard != null && base.PlayableCard.Info.name == "wstl_plagueDoctor")
             {
-                CardInfo newInfo = (CardInfo)base.PlayableCard.Info.Clone();
-                byte[][] portraits = LobotomyPlugin.UpdatePlagueSprites();
+                CardInfo newInfo = base.PlayableCard.Info.Clone() as CardInfo;
+                string portraits = LobotomyPlugin.UpdatePlagueSprites();
 
-                newInfo.SetPortrait(
-                    TextureLoader.LoadTextureFromBytes(portraits[0]), TextureLoader.LoadTextureFromBytes(portraits[1])
-                    ).SetPixelPortrait(TextureLoader.LoadTextureFromBytes(portraits[2]));
+                newInfo.SetPortraits(portraits);
                 base.PlayableCard.SetInfo(newInfo);
             }
         }

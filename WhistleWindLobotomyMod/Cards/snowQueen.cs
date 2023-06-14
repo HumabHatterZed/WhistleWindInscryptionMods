@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -12,19 +13,19 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_SnowQueen_F0137()
         {
-            List<Ability> abilities = new() { FrostRuler.ability };
-            List<Tribe> tribes = new() { TribeFae };
+            const string snowQueen = "snowQueen";
 
-            CreateCard(
-                "wstl_snowQueen", "The Snow Queen",
+            CardInfo snowQueenCard = NewCard(
+                snowQueen,
+                "The Snow Queen",
                 "A queen from far away. Those who enter her palace never leave.",
-                atk: 1, hp: 2,
-                blood: 0, bones: 5, energy: 0,
-                Artwork.snowQueen, Artwork.snowQueen_emission, Artwork.snowQueen_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                evolveName: "[name]The Snow Empress");
+                attack: 1, health: 2, bones: 5)
+                .SetPortraits(snowQueen)
+                .AddAbilities(FrostRuler.ability)
+                .AddTribes(TribeFae)
+                .SetEvolveInfo("[name]The Snow Empress");
+
+            CreateCard(snowQueenCard, CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

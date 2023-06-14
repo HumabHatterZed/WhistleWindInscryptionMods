@@ -2,8 +2,9 @@
 using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -16,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "It can enter your body through any aperture.";
 
             SerpentsNest.ability = AbnormalAbilityHelper.CreateAbility<SerpentsNest>(
-                Artwork.sigilSerpentsNest, Artwork.sigilSerpentsNest_pixel,
+                "sigilSerpentsNest",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 4,
                 modular: false, opponent: true, canStack: false).Id;
         }
@@ -25,17 +26,20 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        private readonly CardModificationInfo wormStatusMod = new(StatusEffectWorms.ability)
+        private CardModificationInfo GetWormStatusMod()
         {
-            singletonId = "worms_status",
-            nonCopyable = true,
-        };
-        private readonly CardModificationInfo wormDecalMod = new()
+            CardModificationInfo result = StatusEffectManager.StatusMod("worm", false);
+            result.AddAbilities(StatusEffectWorms.ability);
+
+            return result;
+        }
+        private CardModificationInfo GetWormDecalMod()
         {
-            singletonId = "worms_decal",
-            DecalIds = { "wstl_worms_0" },
-            nonCopyable = true,
-        };
+            CardModificationInfo decal = StatusEffectManager.StatusMod("worm_decal", false);
+            decal.DecalIds.Add($"decalWorms_0");
+            return decal;
+        }
+
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
             if (source != null)
@@ -48,10 +52,8 @@ namespace WhistleWind.AbnormalSigils
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
 
-            CardInfo copyOfSource = source.Info.Clone() as CardInfo;
-            copyOfSource.Mods = new(source.Info.Mods) { wormStatusMod, wormDecalMod };
             source.AddPermanentBehaviour<Worms>();
-            source.SetInfo(copyOfSource);
+            source.AddTemporaryMods(GetWormStatusMod(), GetWormDecalMod());
             
             yield return new WaitForSeconds(0.55f);
             yield return base.LearnAbility();

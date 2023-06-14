@@ -3,7 +3,7 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "Your beast emboldens its allies.";
 
             TeamLeader.ability = AbnormalAbilityHelper.CreateAbility<TeamLeader>(
-                Artwork.sigilTeamLeader, Artwork.sigilTeamLeader_pixel,
+                "sigilTeamLeader",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
                 modular: false, opponent: true, canStack: false).Id;
         }

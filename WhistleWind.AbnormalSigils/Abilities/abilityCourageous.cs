@@ -4,7 +4,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "Life is only given to those who don't fear death.";
 
             Courageous.ability = AbnormalAbilityHelper.CreateAbility<Courageous>(
-                Artwork.sigilCourageous, Artwork.sigilCourageous_pixel,
+                "sigilCourageous",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false).Id;
         }

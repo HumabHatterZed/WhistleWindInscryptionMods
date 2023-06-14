@@ -1,13 +1,18 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
+using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -24,41 +29,41 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromBytes(Artwork.talkingHodBody, new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingHodEmission1);
-                FaceAnim emissionLaugh = MakeFaceAnim(Artwork.talkingHodEmission2);
+                Sprite face = LoadSpriteFromFile("talkingHodBody", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingHodEmission1");
+                FaceAnim emissionLaugh = MakeFaceAnim("talkingHodEmission2");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingHodEyesOpen1, Artwork.talkingHodEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingHodMouthOpen1, Artwork.talkingHodMouthClosed1),
+                        eyes: MakeFaceAnim("talkingHodEyesOpen1", "talkingHodEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingHodMouthOpen1", "talkingHodMouthClosed1"),
                         emission: emissionMain),
                     new(emotion: Emotion.Surprise,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingHodEyesOpen2, Artwork.talkingHodEyesClosed2),
-                        mouth: MakeFaceAnim(Artwork.talkingHodMouthOpen2, Artwork.talkingHodMouthClosed2),
+                        eyes: MakeFaceAnim("talkingHodEyesOpen2", "talkingHodEyesClosed2"),
+                        mouth: MakeFaceAnim("talkingHodMouthOpen2", "talkingHodMouthClosed2"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingHodEyesOpen3, Artwork.talkingHodEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingHodMouthOpen3, Artwork.talkingHodMouthClosed3),
+                        eyes: MakeFaceAnim("talkingHodEyesOpen3", "talkingHodEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingHodMouthOpen3", "talkingHodMouthClosed3"),
                         emission: emissionLaugh),
                     new(emotion: Emotion.Quiet,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingHodEyesOpen4, Artwork.talkingHodEyesClosed4),
-                        mouth: MakeFaceAnim(Artwork.talkingHodMouthOpen4, Artwork.talkingHodMouthClosed4),
+                        eyes: MakeFaceAnim("talkingHodEyesOpen4", "talkingHodEyesClosed4"),
+                        mouth: MakeFaceAnim("talkingHodMouthOpen4", "talkingHodMouthClosed4"),
                         emission: emissionMain),
                     new(emotion: Emotion.Curious,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingHodEyesOpen5, Artwork.talkingHodEyesClosed5),
-                        mouth: MakeFaceAnim(Artwork.talkingHodMouthOpen4, Artwork.talkingHodMouthClosed4),
+                        eyes: MakeFaceAnim("talkingHodEyesOpen5", "talkingHodEyesClosed5"),
+                        mouth: MakeFaceAnim("talkingHodMouthOpen4", "talkingHodMouthClosed4"),
                         emission: emissionMain),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingHodEyesOpen6, Artwork.talkingHodEyesClosed6),
-                        mouth: MakeFaceAnim(Artwork.talkingHodMouthOpen6, Artwork.talkingHodMouthClosed4),
+                        eyes: MakeFaceAnim("talkingHodEyesOpen6", "talkingHodEyesClosed6"),
+                        mouth: MakeFaceAnim("talkingHodMouthOpen6", "talkingHodMouthClosed4"),
                         emission: emissionMain)
                 };
             }
@@ -91,17 +96,16 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Hod()
         {
-            List<Ability> abilities = new() { Protector.ability };
-
-            LobotomyCardManager.CreateCard(
-                "wstl_sephirahHod", "Hod",
+            CardInfo hodCard = NewCard(
+                "sephirahHod",
+                "Hod",
                 "Though death is guaranteed, it never hurts to be prepared, right?",
-                atk: 1, hp: 2,
-                blood: 0, bones: 3, energy: 0,
-                null, null,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
-                appearances: new(), onePerDeck: true);
+                attack: 1, health: 2, bones: 3)
+                .AddAbilities(Protector.ability)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck();
+
+            CreateCard(hodCard);
         }
     }
 }

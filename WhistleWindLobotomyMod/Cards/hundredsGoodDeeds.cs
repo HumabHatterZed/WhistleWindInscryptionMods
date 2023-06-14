@@ -1,36 +1,31 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
     public partial class LobotomyPlugin
     {
+        private const string oneSinName = "One Sin and Hundreds of Good Deeds";
+        private const string oneSin = "oneSin";
         private void Card_HundredsGoodDeeds_O0303()
         {
-            List<Ability> abilities = new() { Confession.ability };
+            const string hundredsGoodDeeds = "hundredsGoodDeeds";
 
-            List<Trait> traits = new()
-            {
-                Trait.Uncuttable,
-                Trait.Terrain
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedWhiteEmission.appearance
-            };
-            CreateCard(
-                "wstl_hundredsGoodDeeds", "One Sin and Hundreds of Good Deeds",
-                "Its hollow sockets see through you.",
-                atk: 0, hp: 77,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.hundredsGoodDeeds, Artwork.hundredsGoodDeeds_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard,
-                hideStats: true);
+            CardInfo hundredsGoodDeedsCard = NewCard(
+                hundredsGoodDeeds,
+                oneSinName,
+                attack: 0, health: 77)
+                .SetPortraits(oneSin, hundredsGoodDeeds, hundredsGoodDeeds)
+                .AddAbilities(Confession.ability)
+                .AddTraits(Trait.Uncuttable, TraitApostle)
+                .AddAppearances(ForcedWhiteEmission.appearance)
+                .SetHideStats();
+
+            CreateCard(hundredsGoodDeedsCard, CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.EventCard);
         }
     }
 }

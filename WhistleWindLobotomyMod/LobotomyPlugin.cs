@@ -4,6 +4,8 @@ using BepInEx.Logging;
 using DiskCardGame;
 using HarmonyLib;
 using Infiniscryption.PackManagement;
+using Infiniscryption.Spells;
+using InscryptionAPI;
 using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
 using InscryptionAPI.Regions;
@@ -13,21 +15,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Challenges;
-using WhistleWindLobotomyMod.Properties;
+
 using static DialogueEvent;
-using static DiskCardGame.CommandLineTextSegment;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
 
 namespace WhistleWindLobotomyMod
 {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
-    [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
-    [BepInDependency("zorro.inscryption.infiniscryption.spells", BepInDependency.DependencyFlags.HardDependency)]
-    [BepInDependency("whistlewind.inscryption.abnormalsigils", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency(InscryptionAPIPlugin.ModGUID, BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency(InfiniscryptionSpellsPlugin.PluginGuid, BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency(AbnormalPlugin.pluginGuid, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
 
     public partial class LobotomyPlugin : BaseUnityPlugin
@@ -141,6 +144,25 @@ namespace WhistleWindLobotomyMod
         }
         private void AddAbilities()
         {
+            AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
+            {
+                var sniperInfo = abilities.Find(x => x.Info.name == "Sniper").Info;
+                var sentryInfo = abilities.Find(x => x.Info.name == "Sentry").Info;
+
+                sniperInfo.rulebookName = "Marksman";
+                sniperInfo.triggerText = "Your beast strikes with precision.";
+                sniperInfo.SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman"));
+                sniperInfo.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel"));
+
+                sentryInfo.rulebookName = "Quick Draw";
+                sentryInfo.triggerText = "The early bird gets the worm.";
+                sentryInfo.SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw"));
+                sentryInfo.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel"));
+                sentryInfo.SetCanStack();
+
+                return abilities;
+            };
+
             Ability_TimeMachine();
             Ability_Apostle();
             Ability_TrueSaviour();
@@ -181,58 +203,58 @@ namespace WhistleWindLobotomyMod
                     randomCards.Add("wstl_RANDOM_PLACEHOLDER");
             }
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Random Mod Cards", Artwork.starterDeckRandom, 0, cardNames: randomCards);
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Random Mod Cards", "starterDeckRandom", 0, cardNames: randomCards);
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "First Day", Artwork.starterDeckControl, 0, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "First Day", "starterDeckControl", 0, cardNames: new() {
                 "wstl_oneSin",
                 "wstl_fairyFestival",
                 "wstl_oldLady" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Lonely Friends", Artwork.starterDeckChildren, 2, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Lonely Friends", "starterDeckChildren", 2, cardNames: new() {
                 "wstl_scorchedGirl",
                 "wstl_laetitia",
                 "wstl_childOfTheGalaxy" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Blood Machines", Artwork.starterDeckBloodMachines, 4, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Blood Machines", "starterDeckBloodMachines", 4, cardNames: new() {
                 "wstl_weCanChangeAnything",
                 "wstl_singingMachine",
                 "wstl_allAroundHelper" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "People Pleasers", Artwork.starterDeckPeoplePleasers, 5, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "People Pleasers", "starterDeckPeoplePleasers", 5, cardNames: new() {
                 "wstl_todaysShyLook",
                 LobotomyConfigManager.Instance.NoRuina ? "wstl_mirrorOfAdjustment" : "wstl_pinocchio",
                 "wstl_behaviourAdjustment" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Freak Show", Artwork.starterDeckFreakShow, 6, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Freak Show", "starterDeckFreakShow", 6, cardNames: new() {
                 "wstl_beautyAndBeast",
                 "wstl_voidDream",
                 "wstl_queenBee" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Apocrypha", Artwork.starterDeckApocrypha, 7, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Apocrypha", "starterDeckApocrypha", 7, cardNames: new() {
                 "wstl_fragmentOfUniverse",
                 "wstl_skinProphecy",
                 LobotomyConfigManager.Instance.NoRuina ? "wstl_mhz176" : "wstl_priceOfSilence" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Keter", Artwork.starterDeckKeter, 8, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Keter", "starterDeckKeter", 8, cardNames: new() {
                 "wstl_bloodBath",
                 "wstl_burrowingHeaven",
                 "wstl_snowQueen" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Road to Oz", Artwork.starterDeckFairyTale, 0, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Road to Oz", "starterDeckFairyTale", 0, cardNames: new() {
                 LobotomyConfigManager.Instance.NoRuina ? "wstl_laetitia" : "wstl_theRoadHome",
                 "wstl_warmHeartedWoodsman",
                 "wstl_wisdomScarecrow",
                 LobotomyConfigManager.Instance.NoRuina ? "wstl_snowWhitesApple" : "wstl_ozma" },
                 customUnlock: dummy => LobotomySaveManager.UnlockedLyingAdult || LobotomyConfigManager.Instance.EventFlags);
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Magical Girls!", Artwork.starterDeckMagicalGirls, 0, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Magical Girls!", "starterDeckMagicalGirls", 0, cardNames: new() {
                 "wstl_magicalGirlSpade",
                 "wstl_magicalGirlHeart",
                 "wstl_magicalGirlDiamond",
                 LobotomyConfigManager.Instance.NoRuina ? "wstl_voidDream" : "wstl_magicalGirlClover" },
                 customUnlock: dummy => LobotomySaveManager.UnlockedJesterOfNihil || LobotomyConfigManager.Instance.EventFlags);
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Twilight", Artwork.starterDeckBlackForest, 0, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Twilight", "starterDeckBlackForest", 0, cardNames: new() {
                 "wstl_punishingBird",
                 "wstl_bigBird",
                 "wstl_judgementBird" },
@@ -276,7 +298,7 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("PackManager is installed, creating card pack...");
                 PackInfo pack = PackManager.GetPackInfo("wstl");
                 pack.Title = "WhistleWind Lobotomy Mod";
-                pack.SetTexture(TextureLoader.LoadTextureFromBytes(Artwork.wstl_pack));
+                pack.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack"));
                 pack.Description = $"A set of {ObtainableLobotomyCards.Count} abnormal cards hailing from the world of Lobotomy Corporation.";
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             }

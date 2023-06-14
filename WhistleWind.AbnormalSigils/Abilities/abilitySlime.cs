@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -14,10 +14,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Made of Slime";
             const string rulebookDescription = "At the start of the owner's turn, creatures adjacent to this card with at least 2 Health are transformed into Slimes. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.";
             const string dialogue = "Its army grows everyday.";
-
+            const string triggerText = "Creatures adjacent to [creature] melt into slime!";
             Slime.ability = AbnormalAbilityHelper.CreateAbility<Slime>(
-                Artwork.sigilSlime, Artwork.sigilSlime_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
+                "sigilSlime",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }

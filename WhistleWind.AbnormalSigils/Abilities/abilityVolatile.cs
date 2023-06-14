@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -16,12 +16,12 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Volatile";
             const string rulebookDescription = "When this card dies, adjacent and opposing cards are dealt 10 damage.";
             const string dialogue = "An explosive finish.";
-
+            const string triggerText = "[creature] detonates! Adjacent creatures are killed in the blast.";
             Volatile.ability = AbnormalAbilityHelper.CreateAbility<Volatile>(
-                Artwork.sigilVolatile, Artwork.sigilVolatile_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 0,
+                "sigilVolatile",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 0,
                 modular: false, opponent: true, canStack: false,
-                flipTexture: Artwork.sigilVolatile_flipped).Id;
+                flipTextureName: "sigilVolatile_flipped").Id;
         }
     }
     public class Volatile : AbilityBehaviour
@@ -38,9 +38,10 @@ namespace WhistleWind.AbnormalSigils
         }
         public override IEnumerator OnResolveOnBoard()
         {
+            yield return new WaitForSeconds(0.25f);
             base.Card.Anim.LightNegationEffect();
             yield return new WaitForSeconds(0.25f);
-            yield return base.Card.Info.SetExtendedProperty("wstl:Sap", false);
+            base.Card.Info.SetExtendedProperty("wstl:Sap", false);
             yield return base.Card.Die(false, null);
         }
         public override bool RespondsToPreDeathAnimation(bool wasSacrifice) => base.Card.OnBoard && !wasSacrifice;

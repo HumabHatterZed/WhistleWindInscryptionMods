@@ -216,7 +216,7 @@ namespace WhistleWindLobotomyMod.Core
                 .SetDifficulty(11, 14)
                 .AddDominantTribes(Tribe.Insect)
                 .SetRedundantAbilities(BroodMother.ability)
-                .AddRandomReplacementCards("wstl_redShoes", "wstl_heartOfAspiration", "wstl_ppodaeBuff", "wstl_voidDrem")
+                .AddRandomReplacementCards("wstl_redShoes", "wstl_heartOfAspiration", "wstl_ppodaeBuff", "wstl_voidDream")
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_spiderBud"), spiderBrood),
                     CreateTurn(spiderling.SetReplacement("wstl_spiderBrood", 14), spiderBrood),
@@ -243,7 +243,7 @@ namespace WhistleWindLobotomyMod.Core
                 .SetDifficulty(11, 14)
                 .SetRedundantAbilities()
                 .AddDominantTribes(AbnormalPlugin.TribeBotanic)
-                .AddRandomReplacementCards("wstl_workerBee", "wstl_snowWhitesApple", "wstl_schadenfreude", "wstl_burrowingHeaven")
+                .AddRandomReplacementCards("wstl_queenBeeWorker", "wstl_snowWhitesApple", "wstl_schadenfreude", "wstl_burrowingHeaven")
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_parasiteTree", 25), NewCardBlueprint("wstl_queenBee", 25)),
                     CreateTurn(nakedWorm),
@@ -324,7 +324,7 @@ namespace WhistleWindLobotomyMod.Core
             TrapperTraderAbnormalBossP1 = Build(New("TrapperTraderAbnormalBossP1")
                .SetDifficulty(14, 16)
                .AddDominantTribes(AbnormalPlugin.TribeMechanical)
-               .AddRandomReplacementCards("wstl_scorchedGirl", "wstl_bloodBath", "wstl_voidDreamRooster", "wst_porccubus")
+               .AddRandomReplacementCards("wstl_scorchedGirl", "wstl_bloodBath", "wstl_voidDreamRooster", "wstl_porccubus")
                .AddTurns(
                     CreateTurn(NewCardBlueprint("TrapFrog")),
                     CreateTurn(NewCardBlueprint("wstl_trainingDummy", 30).SetReplacement("wstl_mhz176")),
@@ -338,9 +338,9 @@ namespace WhistleWindLobotomyMod.Core
             LeshyAbnormalBossP1 = Build(New("LeshyAbnormalBossP1")
                .SetDifficulty(20, 20)
                .AddDominantTribes(AbnormalPlugin.TribeFae)
-               .AddRandomReplacementCards("wstl_derFreischutz", "wstl_armyInPink")
+               .AddRandomReplacementCards("wstl_derFreischutz", "wstl_armyInPink", "wstl_expressHellTrain")
                .AddTurns(
-                    CreateTurn(NewCardBlueprint("wstl_magicalGirlSpade")),
+                    CreateTurn(NewCardBlueprint("wstl_dreamOfABlackSwan")),
                     CreateTurn(NewCardBlueprint("wstl_funeralOfButterflies", 25)),
                     CreateTurn(NewCardBlueprint("wstl_mountainOfBodies", 25), NewCardBlueprint("wstl_silentOrchestra", 10)),
                     CreateTurn(),

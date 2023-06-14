@@ -23,7 +23,8 @@ namespace WhistleWind.AbnormalSigils.Core
                 new() { "The snow melts away. Perhaps spring is coming." }},
             { "NettlesDie",
                 new() {
-                    "She saw her dear brothers in the distance. Her family that needed the nettle clothing to be free of the curse.",
+                    "She saw her dear brothers in the distance.",
+                    "Her family that needed the nettle clothing to be free of the curse.",
                     "She fell to the ground, vomiting ooze like the rest of [c:bR]the City[c:]." }},
             { "NettlesFail",
                 new() { "The lake ripples gently. As if a number of swans just took flight." }},

@@ -1,7 +1,8 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -11,42 +12,35 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleSpear_T0346()
         {
-            List<Ability> abilities = new()
-            {
-                Piercing.ability,
-                Apostle.ability
-            };
-            List<Tribe> tribes = new() { TribeDivine };
-            List<Trait> traits = new() { TraitApostle };
+            const string spearName = "Spear Apostle";
+            const string apostleSpear = "apostleSpear";
+            const string apostleSpearDown = "apostleSpearDown";
+            Tribe[] tribes = new[] { TribeDivine };
+            Trait[] traits = new[] { TraitApostle };
+            CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedWhiteEmission.appearance
-            };
-            CreateCard(
-                "wstl_apostleSpear", "Spear Apostle",
-                "The time has come.",
-                atk: 4, hp: 6,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.apostleSpear, Artwork.apostleSpear_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard);
+            CardInfo apostle = NewCard(
+                apostleSpear,
+                spearName,
+                attack: 4, health: 6)
+                .SetPortraits(apostleSpear)
+                .AddAbilities(Piercing.ability, Apostle.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances);
 
-            abilities = new()
-            {
-                Ability.PreventAttack,
-                Apostle.ability
-            };
-            CreateCard(
-                "wstl_apostleSpearDown", "Spear Apostle",
-                "The time has come.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.apostleSpearDown, Artwork.apostleSpearDown_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard);
+            CardInfo apostleDown = NewCard(
+                apostleSpearDown,
+                spearName,
+                attack: 0, health: 1)
+                .SetPortraits(apostleSpearDown)
+                .AddAbilities(Apostle.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances);
+
+            CreateCard(apostle, cardType: ModCardType.EventCard);
+            CreateCard(apostleDown, cardType: ModCardType.EventCard);
         }
     }
 }

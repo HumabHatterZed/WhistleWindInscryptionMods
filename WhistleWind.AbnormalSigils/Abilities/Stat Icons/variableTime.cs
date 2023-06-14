@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -27,7 +27,7 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Passing Time";
             const string rulebookDescription = "The value represented with this sigil will be equal to the number of turns that have passed since this card was played.";
             Time.icon = AbilityHelper.CreateStatIcon<Time>(pluginGuid,
-                rulebookName, rulebookDescription, Artwork.sigilTime, Artwork.sigilTime_pixel, true, false).Id;
+                "sigilTime", rulebookName, rulebookDescription, true, false).Id;
         }
     }
 }

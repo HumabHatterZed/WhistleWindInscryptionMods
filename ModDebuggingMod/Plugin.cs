@@ -9,13 +9,15 @@ using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
 using System.Collections.Generic;
 using System.Reflection;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod;
 using static InscryptionAPI.Encounters.EncounterManager;
 
 namespace ModDebuggingMod
 {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
-    [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency(LobotomyPlugin.pluginGuid, BepInDependency.DependencyFlags.HardDependency)]
 
     public partial class Plugin : BaseUnityPlugin
     {
@@ -30,8 +32,8 @@ namespace ModDebuggingMod
             New("DebugEncounter")
                     .AddDominantTribes(Tribe.Canine)
                     .AddTurns(
-                    CreateTurn("wstl_theNakedNest"),
-                    CreateTurn()
+                    CreateTurn("Otter", "Skink"),
+                    CreateTurn("Squirrel", "Squirrel", "Squirrel", "Squirrel")
                     );
 
         private void Awake()
@@ -46,7 +48,7 @@ namespace ModDebuggingMod
             DebugEncounters();
             ModifyCardList();
 
-            StarterDeckHelper.AddStarterDeck("wstl", "DEBUG HUG", Properties.Resources.starterDeckMagicalGirls, 0, cardNames: new()
+            StarterDeckHelper.AddStarterDeck("wstl", "DEBUG HUG", "starterDeckMagicalGirls", 0, cardNames: new()
             {
                 "Squirrel",
                 "wstlcard",
@@ -64,8 +66,13 @@ namespace ModDebuggingMod
                 {
                     if (card.name == "Squirrel")
                     {
-                        card.abilities = new() { DirectDamage.AbilityID };
-                        card.SetTargetedSpell();
+                        //card.abilities = new() { Ability.Evolve };
+                        //card.SetEvolve(CardLoader.GetCardByName("wstl_apostleMoleman"), 1)
+                        //.SetHideStats()
+                        //.SetBaseAttackAndHealth(0, 7)
+                        //.SetGlobalSpell()
+                        //.AddSpecialAbilities(SpecialTriggeredAbility.Shapeshifter)
+                        ;
                     }
                 }
 
@@ -78,7 +85,7 @@ namespace ModDebuggingMod
             for (int i = 0; i < 3; i++)
             {
                 RegionProgression.Instance.regions[i].encounters.Clear();
-                RegionProgression.Instance.regions[i].AddEncounters(ModdingEncounter());
+                RegionProgression.Instance.regions[i].encounters = new() { ModdingEncounter() };
             }
         }
     }

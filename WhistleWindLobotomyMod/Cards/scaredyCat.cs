@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -11,32 +12,30 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ScaredyCat_F02115()
         {
-            List<Trait> traits = new() { TraitEmeraldCity };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                Cowardly.specialAbility
-            };
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_scaredyCatStrong", "Scaredy Cat",
-                "",
-                atk: 2, hp: 6,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.scaredyCatStrong, Artwork.scaredyCatStrong_emission,
-                specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: traits,
-                evolveName: "wstl_scaredyCat");
+            const string catName = "Scaredy Cat";
+            const string scaredyCat = "scaredyCat";
+            const string scaredyCatStrong = "scaredyCatStrong";
+            Trait[] traits = new[] { TraitEmeraldCity };
+            SpecialTriggeredAbility[] specialAbilities = new[] { Cowardly.specialAbility };
 
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_scaredyCat", "Scaredy Cat",
-                "A pitiful little cat.",
-                atk: 0, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.scaredyCat, Artwork.scaredyCat_emission,
-                specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: traits,
-                evolveName: "wstl_scaredyCatStrong");
+            CardInfo scaredyCatStrongCard = NewCard(
+                scaredyCatStrong,
+                catName,
+                attack: 2, health: 6, blood: 2)
+                .SetPortraits(scaredyCatStrong)
+                .AddSpecialAbilities(specialAbilities)
+                .AddTraits(traits);
+
+            CardInfo scaredyCatCard = NewCard(
+                scaredyCat,
+                catName,
+                attack: 0, health: 1, blood: 1)
+                .SetPortraits(scaredyCat)
+                .AddSpecialAbilities(specialAbilities)
+                .AddTraits(traits);
+
+            CreateCard(scaredyCatStrongCard, cardType: ModCardType.Ruina);
+            CreateCard(scaredyCatCard, cardType: ModCardType.Ruina);
         }
     }
 }

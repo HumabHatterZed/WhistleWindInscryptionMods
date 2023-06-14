@@ -1,7 +1,8 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -11,19 +12,19 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_WallLady_F0118()
         {
-            List<Ability> abilities = new() { Ability.Sharp };
-            List<Tribe> tribes = new() { TribeAnthropoid };
+            const string wallLady = "wallLady";
 
-            CreateCard(
-                "wstl_wallLady", "The Lady Facing the Wall",
+            CardInfo wallLadyCard = NewCard(
+                wallLady,
+                "The Lady Facing the Wall",
                 "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.",
-                atk: 1, hp: 2,
-                blood: 0, bones: 4, energy: 0,
-                Artwork.wallLady, Artwork.wallLady_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                evolveName: "[name]The Elder Lady Facing the Wall");
+                attack: 1, health: 2, bones: 4)
+                .SetPortraits(wallLady)
+                .AddAbilities(Ability.Sharp)
+                .AddTribes(TribeAnthropoid)
+                .SetEvolveInfo("[name]The Elder Lady Facing the Wall");
+
+            CreateCard(wallLadyCard, CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

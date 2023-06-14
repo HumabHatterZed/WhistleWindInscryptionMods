@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -16,10 +16,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Alchemist";
             const string rulebookDescription = "Pay 2 Energy to discard your current hand and draw cards equal to the amount you discarded.";
             const string dialogue = "The unending faith of countless promises.";
-
+            const string triggerText = "[creature] replaces your hand with a new one!";
             Alchemist.ability = AbnormalAbilityHelper.CreateActivatedAbility<Alchemist>(
-                Artwork.sigilAlchemist, Artwork.sigilAlchemist_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3).Id;
+                "sigilAlchemist",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3).Id;
         }
     }
     public class Alchemist : ExtendedActivatedAbilityBehaviour
@@ -72,7 +72,7 @@ namespace WhistleWind.AbnormalSigils
                 }
                 else
                 {
-                    yield return HelperMethods.PlayAlternateDialogue(dialogue: "You've exhausted all of your cards.");
+                    yield return DialogueHelper.PlayAlternateDialogue(dialogue: "You've exhausted all of your cards.");
                     break;
                 }
             }

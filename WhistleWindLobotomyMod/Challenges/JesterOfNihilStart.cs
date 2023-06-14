@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 
 namespace WhistleWindLobotomyMod.Core.Challenges
 {
@@ -17,8 +17,8 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 "Start with a Fool",
                 "Start your run with Jester of Nihil in your deck.",
                 -20,
-                TextureLoader.LoadTextureFromBytes(Artwork.ascensionJesterStart),
-                TextureLoader.LoadTextureFromBytes(Artwork.ascensionJesterStart_activated), 0)
+                TextureLoader.LoadTextureFromFile("ascensionJesterStart"),
+                TextureLoader.LoadTextureFromFile("ascensionJesterStart_activated"), 0)
                 .SetCustomUnlock(dummy => LobotomySaveManager.UnlockedJesterOfNihil || LobotomyConfigManager.Instance.EventFlags)
                 .Challenge.challengeType;
         }

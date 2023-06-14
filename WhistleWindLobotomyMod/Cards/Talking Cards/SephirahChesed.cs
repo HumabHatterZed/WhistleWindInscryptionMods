@@ -1,14 +1,18 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,40 +29,40 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromBytes(Artwork.talkingChesedBody, new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingChesedEmission);
+                Sprite face = LoadSpriteFromFile("talkingChesedBody", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingChesedEmission");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingChesedEyesOpen1, Artwork.talkingChesedEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingChesedMouthOpen1, Artwork.talkingChesedMouthClosed1),
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen1", "talkingChesedEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen1", "talkingChesedMouthClosed1"),
                         emission: emissionMain),
                     new(emotion: Emotion.Surprise,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingChesedEyesOpen3, Artwork.talkingChesedEyesClosed3),
-                        mouth: MakeFaceAnim(Artwork.talkingChesedMouthOpen2, Artwork.talkingChesedMouthClosed2),
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen3", "talkingChesedEyesClosed3"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen2", "talkingChesedMouthClosed2"),
                         emission: emissionMain),
                     new(emotion: Emotion.Curious,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingChesedEyesOpen2, Artwork.talkingChesedEyesClosed2),
-                        mouth: MakeFaceAnim(Artwork.talkingChesedMouthOpen2, Artwork.talkingChesedMouthClosed2),
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen2", "talkingChesedEyesClosed2"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen2", "talkingChesedMouthClosed2"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingChesedEyesOpen1, Artwork.talkingChesedEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingChesedMouthOpen2, Artwork.talkingChesedMouthClosed2),
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen1", "talkingChesedEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen2", "talkingChesedMouthClosed2"),
                         emission: emissionMain),
                     new(emotion: Emotion.Quiet,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingChesedEyesClosed1, Artwork.talkingChesedEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingChesedMouthOpen2, Artwork.talkingChesedMouthClosed2),
+                        eyes: MakeFaceAnim("talkingChesedEyesClosed1", "talkingChesedEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen2", "talkingChesedMouthClosed2"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingChesedEyesOpen2, Artwork.talkingChesedEyesClosed2),
-                        mouth: MakeFaceAnim(Artwork.talkingChesedMouthOpen3, Artwork.talkingChesedMouthClosed1),
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen2", "talkingChesedEyesClosed2"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen3", "talkingChesedMouthClosed1"),
                         emission: emissionMain)
                 };
             }
@@ -91,17 +95,16 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Chesed()
         {
-            List<Ability> abilities = new() { Healer.ability, ThickSkin.ability };
-
-            LobotomyCardManager.CreateCard(
-                "wstl_sephirahChesed", "Chesed",
+            CardInfo chesedCard = NewCard(
+                "sephirahChesed",
+                "Chesed",
                 "Nothing like a fresh cup of coffee to start your day.",
-                atk: 0, hp: 4,
-                blood: 1, bones: 0, energy: 0,
-                null, null,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
-                appearances: new(), onePerDeck: true);
+                attack: 0, health: 4, blood: 1)
+                .AddAbilities(Healer.ability, ThickSkin.ability)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck();
+
+            CreateCard(chesedCard);
         }
     }
 }

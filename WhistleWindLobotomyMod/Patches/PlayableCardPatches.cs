@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -24,9 +25,9 @@ namespace WhistleWindLobotomyMod.Patches
             if (__instance != null && __instance.HasAbility(Apostle.ability))
             {
                 // Downed Apostles don't take damage if WhiteNight exists as an ally
-                bool saviour = HelperMethods.GetSlotsCopy(__instance.OpponentCard).Exists(x => x.Card != null && x.Card.HasAbility(TrueSaviour.ability));
+                bool saviour = BoardManager.Instance.GetSlotsCopy(!__instance.OpponentCard).Exists(x => x.Card?.HasAbility(TrueSaviour.ability) ?? false);
 
-                if (__instance.Info.name.Contains("Down") && saviour)
+                if (saviour && __instance.Info.name.Contains("Down"))
                 {
                     __instance.Anim.StrongNegationEffect();
                     damage = 0;
@@ -43,7 +44,7 @@ namespace WhistleWindLobotomyMod.Patches
                 if (killer != null && killer.HasAnyOfAbilities(Confession.ability, TrueSaviour.ability))
                     return true;
 
-                bool saviour = HelperMethods.GetSlotsCopy(__instance.OpponentCard).Exists(x => x.Card != null && x.Card.HasAbility(TrueSaviour.ability));
+                bool saviour = BoardManager.Instance.GetSlotsCopy(!__instance.OpponentCard).Exists(x => x.Card?.HasAbility(TrueSaviour.ability) ?? false);
 
                 // Downed Apostles can't die if WhiteNight is an ally
                 // Active Apostles will always be downed

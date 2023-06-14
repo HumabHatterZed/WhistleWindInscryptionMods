@@ -30,7 +30,7 @@ namespace Infiniscryption.Spells.Sigils
             info.appliesToHealth = true;
             info.rulebookName = "Spell (Global)";
             info.rulebookDescription = "When played, this card will cause an immediate effect and then disappear.";
-            info.gbcDescription = "Global spell.";
+            info.gbcDescription = "GLOBAL SPELL.";
             info.iconGraphic = AssetHelper.LoadTexture("global_spell_stat_icon");
             info.SetPixelIcon(AssetHelper.LoadTexture("global_spell_icon_pixel"));
             info.SetDefaultPart1Ability();

@@ -5,7 +5,7 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -17,10 +17,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Conductor";
             const string rulebookDescription = "The effect of this sigil will change over the next 3 turns. This turn: do nothing.";
             const string dialogue = "From break and ruin, the most beautiful performance begins.";
-
+            const string triggerText = "[creature] plays a quiet symphony.";
             Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(
-                Artwork.sigilConductor, Artwork.sigilConductor_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                "sigilConductor",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: false, opponent: true, canStack: false).Id;
         }
     }

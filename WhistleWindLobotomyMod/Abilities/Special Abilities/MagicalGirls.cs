@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace WhistleWindLobotomyMod
 
             List<CardSlot> otherMagicGirls = new() { null, null, null };
 
-            foreach (CardSlot slot in HelperMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where(s => s.Card != null))
+            foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(!base.PlayableCard.OpponentCard).Where(s => s.Card != null))
             {
                 if (slot != base.PlayableCard.Slot)
                 {
@@ -109,7 +110,7 @@ namespace WhistleWindLobotomyMod
             CardInfo info = CardLoader.GetCardByName("wstl_jesterOfNihil");
             if (opponentCard)
             {
-                List<CardSlot> validSlots = HelperMethods.GetSlotsCopy(opponentCard).FindAll(x => x.Card == null);
+                List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
                 if (validSlots.Count > 0)
                 {
                     HelperMethods.ChangeCurrentView(View.Board, 0.4f);
@@ -160,7 +161,7 @@ namespace WhistleWindLobotomyMod
             knightOfDespair.Card.Anim.StrongNegationEffect();
             base.PlayableCard.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
-            yield return HelperMethods.PlayAlternateDialogue(dialogue: "Without the [c:g1]fourth[c:], their purpose is rendered null.");
+            yield return DialogueHelper.PlayAlternateDialogue(dialogue: "Without the [c:g1]fourth[c:], their purpose is rendered null.");
         }
     }
     public class RulebookEntryMagicalGirls : AbilityBehaviour

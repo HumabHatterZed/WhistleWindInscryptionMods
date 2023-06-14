@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,10 +13,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Woodcutter";
             const string rulebookDescription = "When a creature moves into the space opposite this card, they take damage equal to this card's Power.";
             const string dialogue = "No matter how many trees fall, the forest remains dense.";
-
+            const string triggerText = "[creature] takes a free swing.";
             Woodcutter.ability = AbnormalAbilityHelper.CreateAbility<Woodcutter>(
-                Artwork.sigilWoodcutter, Artwork.sigilWoodcutter_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                "sigilWoodcutter",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: true, canStack: false).Id;
         }
     }

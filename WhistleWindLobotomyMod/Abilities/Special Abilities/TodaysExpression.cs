@@ -37,8 +37,8 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnResolveOnBoard()
         {
+            GlobalTriggerHandler.Instance.NumTriggersThisBattle++;
             CardInfo cardByName = CardLoader.GetCardByName("wstl_todaysShyLookNeutral");
-
             int rand = SeededRandom.Range(0, 3, base.GetRandomSeed());
             switch (rand)
             {
@@ -64,8 +64,8 @@ namespace WhistleWindLobotomyMod
 
         private void ChangeForme()
         {
+            GlobalTriggerHandler.Instance.NumTriggersThisBattle++;
             CardInfo cardByName = CardLoader.GetCardByName("wstl_todaysShyLookNeutral");
-
             int rand = SeededRandom.Range(0, 3, base.GetRandomSeed());
             switch (rand)
             {

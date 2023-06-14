@@ -1,14 +1,18 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,35 +29,35 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromBytes(Artwork.talkingAngelaBody, new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingAngelaEmission);
+                Sprite face = LoadSpriteFromFile("talkingAngelaBody", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingAngelaEmission");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingAngelaEyesClosed1, Artwork.talkingAngelaEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingAngelaMouthOpen1, Artwork.talkingAngelaMouthClosed1),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1", "talkingAngelaEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingAngelaMouthOpen1", "talkingAngelaMouthClosed1"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingAngelaEyesClosed1, Artwork.talkingAngelaEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingAngelaMouthOpen2, Artwork.talkingAngelaMouthClosed2),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1", "talkingAngelaEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingAngelaMouthOpen2", "talkingAngelaMouthClosed2"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Curious,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingAngelaEyesClosed2, Artwork.talkingAngelaEyesClosed2),
-                        mouth: MakeFaceAnim(Artwork.talkingAngelaMouthClosed1, Artwork.talkingAngelaMouthClosed1),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed2", "talkingAngelaEyesClosed2"),
+                        mouth: MakeFaceAnim("talkingAngelaMouthClosed1", "talkingAngelaMouthClosed1"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Surprise,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingAngelaEyesOpen1, Artwork.talkingAngelaEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingAngelaMouthClosed1, Artwork.talkingAngelaMouthClosed1),
+                        eyes: MakeFaceAnim("talkingAngelaEyesOpen1", "talkingAngelaEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingAngelaMouthClosed1", "talkingAngelaMouthClosed1"),
                         emission: emissionMain),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingAngelaEyesClosed3, Artwork.talkingAngelaEyesClosed3),
-                        mouth: MakeFaceAnim(Artwork.talkingAngelaMouthClosed1, Artwork.talkingAngelaMouthClosed1),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed3", "talkingAngelaEyesClosed3"),
+                        mouth: MakeFaceAnim("talkingAngelaMouthClosed1", "talkingAngelaMouthClosed1"),
                         emission: GeneratePortrait.EmptyPortraitTuple)
                 };
             }
@@ -86,17 +90,16 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Angela()
         {
-            List<Ability> abilities = new() { FrostRuler.ability, Ability.DrawCopyOnDeath };
+            CardInfo angelaCard = NewCard(
+                "angela",
+                "Angela",
+                "A trustworthy AI assistant. You will trust her with your life.",
+                attack: 3, health: 3, energy: 6)
+                .AddAbilities(FrostRuler.ability, Ability.DrawCopyOnDeath)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck();
 
-            LobotomyCardManager.CreateCard(
-                "wstl_angela", "Angela",
-                "A trustworthy AI assistant.",
-                atk: 3, hp: 3,
-                blood: 0, bones: 0, energy: 6,
-                null, null,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
-                appearances: new(), onePerDeck: true);
+            CreateCard(angelaCard);
         }
     }
 }

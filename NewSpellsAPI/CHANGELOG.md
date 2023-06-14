@@ -1,5 +1,9 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
+## 1.1.3 (6/7/2023)
+- Fixed Global Spells behaving like Targeted Spells
+- Tweaked Act 2 descriptions for Targeted and Global Spells.
+
 ## 1.1.2 (6/1/2023)
 - Fixed Spells not working correctly in Act 2
 

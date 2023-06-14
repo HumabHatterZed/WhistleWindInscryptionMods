@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -12,42 +13,31 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_NamelessFetus_O0115()
         {
-            List<Ability> abilities = new()
-            {
-                Aggravating.ability,
-                Ability.PreventAttack
-            };
-            List<Tribe> tribes = new() { TribeAnthropoid };
+            const string fetusName = "Nameless Fetus";
+            const string namelessFetus = "namelessFetus";
+            const string namelessFetusAwake = "namelessFetusAwake";
+            Tribe[] tribes = new[] { TribeAnthropoid };
 
-            CreateCard(
-                "wstl_namelessFetusAwake", "Nameless Fetus",
-                "Only a sacrifice will stop its piercing wails.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 3, energy: 0,
-                Artwork.namelessFetusAwake, Artwork.namelessFetusAwake,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new());
+            CardInfo namelessFetusAwakeCard = NewCard(
+                namelessFetusAwake, displayName: fetusName,
+                attack: 0, health: 1, bones: 3)
+                .SetPortraits(namelessFetusAwake)
+                .AddAbilities(Aggravating.ability, Ability.PreventAttack, Ability.Sacrificial)
+                .AddTribes(tribes);
 
-            abilities = new()
-            {
-                Ability.TripleBlood,
-                Ability.Sacrificial
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                Syrinx.specialAbility
-            };
-            List<Trait> traits = new() { Trait.Goat };
+            CardInfo namelessFetusCard = NewCard(
+                namelessFetus,
+                fetusName,
+                "A neverending supply of blood. Just don't wake it up.",
+                attack: 0, health: 1, bones: 3)
+                .SetPortraits(namelessFetus)
+                .AddAbilities(Ability.TripleBlood, Ability.Sacrificial)
+                .AddSpecialAbilities(Syrinx.specialAbility)
+                .AddTribes(tribes)
+                .AddTraits(Trait.Goat);
 
-            CreateCard(
-                "wstl_namelessFetus", "Nameless Fetus",
-                "A neverending supply a blood. Just don't wake it.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 3, energy: 0,
-                Artwork.namelessFetus, Artwork.namelessFetus_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: traits,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
+            CreateCard(namelessFetusAwakeCard);
+            CreateCard(namelessFetusCard, CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

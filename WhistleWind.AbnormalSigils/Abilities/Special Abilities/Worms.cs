@@ -4,10 +4,9 @@ using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.AbnormalSigils.Core;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -17,46 +16,36 @@ namespace WhistleWind.AbnormalSigils
         public static SpecialTriggeredAbility specialAbility;
 
         public static readonly string rName = "Worms";
-        public static readonly string rDesc = "At the start of the owner's turn, this card gains 1 Worms. At 4+ Worms, attack allied spaces instead with a chance to give 1 Worms to struck cards.";
+        public static readonly string rDesc = "At the start of the owner's turn, this card gains 1 Worms. At 5+ Worms, attack allied creatures instead with a chance to give 1 Worms to struck cards.";
 
         public int wormSeverity = 1;
         private bool accountForInitialHit = true;
         private bool hasEvolved = false;
-        private bool Infested => wormSeverity >= 4;
-        private CardModificationInfo GetWormDecalMod()
+        private bool Infested => wormSeverity >= 5;
+        private CardModificationInfo GetWormStatusMod(int severity)
         {
-            return new()
-            {
-                singletonId = "worms_decal",
-                DecalIds = { $"wstl_worms_{Mathf.Min(2, wormSeverity - 1)}" },
-                nonCopyable = true,
-            };
-        }
-        private CardModificationInfo GetWormStatusMod()
-        {
-            CardModificationInfo result = new()
-            {
-                singletonId = "worms_status",
-                nonCopyable = true
-            };
-            for (int i = 0; i < wormSeverity; i++)
+            CardModificationInfo result = StatusEffectManager.StatusMod("worm", false);
+            for (int i = 0; i < severity; i++)
                 result.AddAbilities(StatusEffectWorms.ability);
 
             return result;
+        }
+        private CardModificationInfo GetWormDecalMod(int severity)
+        {
+            CardModificationInfo decal = StatusEffectManager.StatusMod("worm_decal", false);
+            decal.DecalIds.Add($"decalWorms_{Mathf.Min(2, severity - 1)}");
+            return decal;
         }
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && target != null;
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
         private void UpdateWorms()
         {
             wormSeverity++;
-            base.PlayableCard.Info.Mods.RemoveAll(x => x.singletonId == "worms_status");
-            base.PlayableCard.Info.Mods.Add(GetWormStatusMod());
-            if (wormSeverity <= 3) // update the decal if the image has changed
-            {
-                base.PlayableCard.Info.Mods.RemoveAll(x => x.singletonId == "worms_decal");
-                base.PlayableCard.Info.Mods.Add(GetWormDecalMod());
-            }
-            base.PlayableCard.RenderCard();
+            base.PlayableCard.AddTemporaryMod(GetWormStatusMod(wormSeverity));
+
+            // update the decal if the image has changed
+            if (wormSeverity <= 3)
+                base.PlayableCard.AddTemporaryMod(GetWormDecalMod(wormSeverity));
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
@@ -96,25 +85,20 @@ namespace WhistleWind.AbnormalSigils
                 {
                     if (target.LacksSpecialAbility(Worms.specialAbility))
                     {
-                        CardInfo targetCopy = target.Info.Clone() as CardInfo;
-                        CardModificationInfo newWormStatusMod = new(StatusEffectWorms.ability)
-                        {
-                            singletonId = "worms_status",
-                            nonCopyable = true,
-                        };
-                        CardModificationInfo newWormDecalMod = new()
-                        {
-                            singletonId = "worms_decal",
-                            DecalIds = { "wstl_worms_0" },
-                            nonCopyable = true,
-                        };
-                        targetCopy.Mods = new(target.Info.Mods) { newWormStatusMod, newWormDecalMod };
+                        CardModificationInfo newWormStatusMod = GetWormStatusMod(1);
+                        CardModificationInfo newWormDecalMod = GetWormDecalMod(1);
+
                         target.AddPermanentBehaviour<Worms>();
-                        target.Status.hiddenAbilities.Add(StatusEffectWorms.ability);
-                        target.SetInfo(targetCopy);
+                        target.AddTemporaryMods(newWormStatusMod, newWormDecalMod);
                     }
                     else
-                        target.GetComponent<Worms>().wormSeverity++;
+                    {
+                        var component = target.GetComponent<Worms>();
+                        component.wormSeverity++;
+                        target.AddTemporaryMod(GetWormStatusMod(component.wormSeverity));
+                        if (component.wormSeverity <= 3)
+                            target.AddTemporaryMod(GetWormDecalMod(component.wormSeverity));
+                    }
                 }
             }
 
@@ -145,11 +129,10 @@ namespace WhistleWind.AbnormalSigils
     {
         private void StatusEffect_Worms()
         {
-            StatusEffectWorms.ability = AbnormalAbilityHelper.CreateAbility<StatusEffectWorms>(
-                Artwork.sigilWorms, Artwork.sigilWorms_pixel,
-                Worms.rName, Worms.rDesc, "",
-                canStack: true, statusEffect: "brown").Id;
+            StatusEffectManager.StatusEffect<StatusEffectWorms, Worms>(
+                ref StatusEffectWorms.ability, ref Worms.specialAbility,
+                pluginGuid, "sigilWorms", Worms.rName, Worms.rDesc,
+                false, StatusEffectManager.IconColour.Brown, StatusEffectManager.Part1StatusEffect);
         }
-        private void SpecialAbility_Worms() => Worms.specialAbility = AbilityHelper.CreateSpecialAbility<Worms>(pluginGuid, Worms.rName).Id;
     }
 }

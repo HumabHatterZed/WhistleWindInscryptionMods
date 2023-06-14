@@ -1,7 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -10,54 +12,50 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Bloodbath_T0551()
         {
-            List<Ability> abilities = new() { Ability.TripleBlood };
-            List<Trait> traits = new() { Trait.Goat };
+            const string bathName = "Bloodbath";
+            const string bloodBath = "bloodBath";
+            const string bloodBath1 = "bloodBath1";
+            const string bloodBath2 = "bloodBath2";
+            const string bloodBath3 = "bloodBath3";
+            Ability[] abilities = new[] { Ability.TripleBlood };
+            SpecialTriggeredAbility[] specialAbilities = new[] { WristCutter.specialAbility };
 
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                WristCutter.specialAbility,
-            };
-            CreateCard(
-                "wstl_bloodBath", "Bloodbath",
+            CardInfo bath = NewCard(
+                bloodBath,
+                bathName,
                 "A tub of blood. The hands of people you once loved wait inside.",
-                atk: 0, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.bloodBath, Artwork.bloodBath_emission, Artwork.bloodBath_pixel,
-                abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: traits,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
+                attack: 0, health: 1, blood: 1)
+                .SetPortraits(bloodBath)
+                .AddSpecialAbilities(specialAbilities)
+                .AddTraits(Trait.Goat);
 
-            CreateCard(
-                "wstl_bloodBath1", "Bloodbath",
-                "A tub of blood. The hands of people you once loved wait inside.",
-                atk: 0, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.bloodBath1, Artwork.bloodBath1_emission, Artwork.bloodBath1_pixel,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                statIcon: SpecialStatIcon.SacrificesThisTurn);
+            CardInfo bath1 = NewCard(
+                bloodBath1,
+                bathName,
+                attack: 0, health: 1, blood: 1)
+                .SetPortraits(bloodBath1)
+                .AddAbilities(abilities)
+                .AddSpecialAbilities(specialAbilities);
 
-            abilities.Add(Ability.QuadrupleBones);
+            CardInfo bath2 = NewCard(
+                bloodBath2,
+                bathName,
+                attack: 0, health: 2, blood: 1)
+                .SetPortraits(bloodBath2)
+                .AddAbilities(abilities)
+                .AddSpecialAbilities(specialAbilities)
+                .SetStatIcon(SpecialStatIcon.SacrificesThisTurn);
 
-            CreateCard(
-                "wstl_bloodBath2", "Bloodbath",
-                "A tub of blood. The hands of people you once loved wait inside.",
-                atk: 0, hp: 2,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.bloodBath2, Artwork.bloodBath2_emission, Artwork.bloodBath2_pixel,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                statIcon: SpecialStatIcon.SacrificesThisTurn);
+            CardInfo bath3 = NewCard(
+                bloodBath3,
+                bathName,
+                attack: 1, health: 2, blood: 2)
+                .SetPortraits(bloodBath3)
+                .AddAbilities(Ability.TripleBlood, Ability.QuadrupleBones)
+                .SetStatIcon(SpecialStatIcon.SacrificesThisTurn);
 
-            CreateCard(
-                "wstl_bloodBath3", "Bloodbath",
-                "A tub of blood. The hands of people you once loved wait inside.",
-                atk: 1, hp: 2,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.bloodBath3, Artwork.bloodBath3_emission, Artwork.bloodBath3_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                statIcon: SpecialStatIcon.SacrificesThisTurn);
+            CreateCard(bath, CardHelper.ChoiceType.Common, RiskLevel.Teth);
+            CreateCards(bath1, bath2, bath3);
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,7 +16,7 @@ namespace WhistleWindLobotomyMod
 
         private int downCount = 0;
 
-        private bool Saviour => HelperMethods.GetSlotsCopy(base.Card.OpponentCard).Exists(s => s.Card != null && s.Card.HasAbility(TrueSaviour.ability));
+        private bool Saviour => BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).Exists(s => s.Card != null && s.Card.HasAbility(TrueSaviour.ability));
         private bool Downed => base.Card.Info.name.Contains("Down");
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => Downed && base.Card.OpponentCard != playerUpkeep;
@@ -35,7 +36,7 @@ namespace WhistleWindLobotomyMod
             if (!base.HasLearned)
             {
                 yield return new WaitForSeconds(0.5f);
-                yield return HelperMethods.PlayAlternateDialogue(delay: 0f, dialogue: "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:]");
+                yield return DialogueHelper.PlayAlternateDialogue(delay: 0f, dialogue: "[c:bR]Ye who are full of blessings, rejoice. For I am with ye.[c:]");
                 base.SetLearned();
             }
             yield return ReviveApostle();
@@ -105,7 +106,7 @@ namespace WhistleWindLobotomyMod
             const string dialogue = "";
 
             Apostle.ability = LobotomyAbilityHelper.CreateAbility<Apostle>(
-                Artwork.sigilApostle, Artwork.sigilApostle_pixel,
+                "sigilApostle",
                 rulebookName, "Thou wilt abandon flesh and be born again.", dialogue, powerLevel: -3,
                 canStack: false).Id;
         }

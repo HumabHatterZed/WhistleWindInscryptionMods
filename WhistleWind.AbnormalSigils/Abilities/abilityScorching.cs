@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -13,10 +13,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Scorching";
             const string rulebookDescription = "The creature opposing this card takes 1 damage at the end of its owner's turn.";
             const string dialogue = "A slow and painful death.";
-
+            const string triggerText = "The creature opposing [creature] is burned!";
             Scorching.ability = AbnormalAbilityHelper.CreateAbility<Scorching>(
-                Artwork.sigilScorching, Artwork.sigilScorching_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                "sigilScorching",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: true, opponent: true, canStack: true).Id;
         }
     }

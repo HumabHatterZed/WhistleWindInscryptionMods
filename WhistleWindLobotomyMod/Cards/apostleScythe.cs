@@ -1,7 +1,8 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -11,41 +12,35 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleScythe_T0346()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.DoubleStrike,
-                Apostle.ability
-            };
-            List<Tribe> tribes = new() { TribeDivine };
-            List<Trait> traits = new() { TraitApostle };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedWhiteEmission.appearance
-            };
-            CreateCard(
-                "wstl_apostleScythe", "Scythe Apostle",
-                "The time has come.",
-                atk: 2, hp: 6,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.apostleScythe, Artwork.apostleScythe_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard);
+            const string scytheName = "Scythe Apostle";
+            const string apostleScythe = "apostleScythe";
+            const string apostleScytheDown = "apostleScytheDown";
+            Tribe[] tribes = new[] { TribeDivine };
+            Trait[] traits = new[] { TraitApostle };
+            CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
-            abilities = new()
-            {
-                Ability.PreventAttack,
-                Apostle.ability
-            };
-            CreateCard(
-                "wstl_apostleScytheDown", "Scythe Apostle",
-                "The time has come.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.apostleScytheDown, Artwork.apostleScytheDown_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard);
+            CardInfo apostle = NewCard(
+                apostleScythe,
+                scytheName,
+                attack: 2, health: 6)
+                .SetPortraits(apostleScythe)
+                .AddAbilities(Ability.DoubleStrike, Apostle.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances);
+
+            CardInfo apostleDown = NewCard(
+                apostleScytheDown,
+                scytheName,
+                attack: 0, health: 1)
+                .SetPortraits(apostleScytheDown)
+                .AddAbilities(Apostle.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances);
+
+            CreateCard(apostle, cardType: ModCardType.EventCard);
+            CreateCard(apostleDown, cardType: ModCardType.EventCard);
         }
     }
 }

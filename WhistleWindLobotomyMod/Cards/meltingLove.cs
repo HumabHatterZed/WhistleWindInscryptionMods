@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -12,24 +13,19 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_MeltingLove_D03109()
         {
-            List<Ability> abilities = new() { Slime.ability };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                Adoration.specialAbility
-            };
-            List<Tribe> tribes = new() { TribeAnthropoid };
-            List<Trait> traits = new() { Trait.KillsSurvivors };
+            const string meltingLove = "meltingLove";
 
-            CreateCard(
-                "wstl_meltingLove", "Melting Love",
+            CardInfo meltingLoveCard = NewCard(
+                meltingLove,
+                "Melting Love",
                 "Don't let your beasts get too close now.",
-                atk: 4, hp: 3,
-                blood: 3, bones: 0, energy: 0,
-                Artwork.meltingLove, Artwork.meltingLove_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: traits,
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph,
-                modTypes: ModCardType.Donator);
+                attack: 4, health: 3, blood: 3)
+                .SetPortraits(meltingLove)
+                .AddAbilities(Slime.ability)
+                .AddSpecialAbilities(Adoration.specialAbility)
+                .AddTraits(Trait.KillsSurvivors);
+
+            CreateCard(meltingLoveCard, CardHelper.ChoiceType.Rare, RiskLevel.Aleph, ModCardType.Donator);
         }
     }
 }

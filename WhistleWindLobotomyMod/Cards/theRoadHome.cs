@@ -1,9 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -13,24 +14,21 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_TheRoadHome_F01114()
         {
-            List<Ability> abilities = new() { YellowBrickRoad.ability };
-            List<Tribe> tribes = new() { TribeFae };
-            List<Trait> traits = new() { TraitEmeraldCity };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                TheHomingInstinct.specialAbility,
-                YellowBrick.specialAbility
-            };
-            CreateCard(
-                "wstl_theRoadHome", "The Road Home",
+            const string theRoadHome = "theRoadHome";
+
+            CardInfo theRoadHomeCard = NewCard(
+                theRoadHome,
+                "The Road Home",
                 "A young girl on a quest to return home with her friends.",
-                atk: 1, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.theRoadHome, Artwork.theRoadHome_emission, pixelTexture: Artwork.theRoadHome_pixel,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: traits,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He, modTypes: ModCardType.Ruina,
-                evolveName: "[name]The Long Road Home");
+                attack: 1, health: 1, blood: 1)
+                .SetPortraits(theRoadHome)
+                .AddAbilities(YellowBrickRoad.ability)
+                .AddSpecialAbilities(TheHomingInstinct.specialAbility, YellowBrick.specialAbility)
+                .AddTribes(TribeFae)
+                .AddTraits(TraitEmeraldCity)
+                .SetOnePerDeck();
+
+            CreateCard(theRoadHomeCard, CardHelper.ChoiceType.Common, RiskLevel.He, ModCardType.Ruina);
         }
     }
 }

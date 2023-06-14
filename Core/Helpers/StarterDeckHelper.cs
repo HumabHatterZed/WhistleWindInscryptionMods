@@ -7,7 +7,7 @@ namespace WhistleWind.Core.Helpers
 {
     public static class StarterDeckHelper // Methods specific to getting modded cards
     {
-        public static FullStarterDeck AddStarterDeck(string pluginPrefix, string title, byte[] icon, int unlockLevel, List<string> cardNames, Func<int, bool> customUnlock = null)
+        public static FullStarterDeck AddStarterDeck(string pluginPrefix, string title, string icon, int unlockLevel, List<string> cardNames, Func<int, bool> customUnlock = null)
         {
             if (cardNames.Count == 0)
                 return null;
@@ -20,14 +20,14 @@ namespace WhistleWind.Core.Helpers
             }
             return AddStarterDeck(pluginPrefix, title, icon, unlockLevel, cardInfos, customUnlock);
         }
-        public static FullStarterDeck AddStarterDeck(string pluginPrefix, string title, byte[] icon, int unlockLevel, List<CardInfo> cardInfos, Func<int, bool> customUnlock = null)
+        public static FullStarterDeck AddStarterDeck(string pluginPrefix, string title, string icon, int unlockLevel, List<CardInfo> cardInfos, Func<int, bool> customUnlock = null)
         {
             if (cardInfos.Count == 0)
                 return null;
 
             StarterDeckInfo starterDeckInfo = ScriptableObject.CreateInstance<StarterDeckInfo>();
             starterDeckInfo.title = title;
-            starterDeckInfo.iconSprite = TextureLoader.LoadSpriteFromBytes(icon);
+            starterDeckInfo.iconSprite = TextureLoader.LoadSpriteFromFile(icon);
             starterDeckInfo.cards = cardInfos;
 
             FullStarterDeck fullDeck = Add(pluginPrefix, starterDeckInfo, unlockLevel);

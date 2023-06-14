@@ -1,13 +1,18 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
+using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -24,30 +29,30 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromBytes(Artwork.talkingBinahBody, new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingBinahEmission);
+                Sprite face = LoadSpriteFromFile("talkingBinahBody", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingBinahEmission");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingBinahEyesOpen1, Artwork.talkingBinahEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingBinahMouthOpen1, Artwork.talkingBinahMouthClosed1),
+                        eyes: MakeFaceAnim("talkingBinahEyesOpen1", "talkingBinahEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingBinahMouthOpen1", "talkingBinahMouthClosed1"),
                         emission: emissionMain),
                     new(emotion: Emotion.Surprise,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingBinahEyesOpen3, Artwork.talkingBinahEyesClosed3),
-                        mouth: MakeFaceAnim(Artwork.talkingBinahMouthOpen2, Artwork.talkingBinahMouthClosed2),
+                        eyes: MakeFaceAnim("talkingBinahEyesOpen3", "talkingBinahEyesClosed3"),
+                        mouth: MakeFaceAnim("talkingBinahMouthOpen2", "talkingBinahMouthClosed2"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingBinahEyesOpen1, Artwork.talkingBinahEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingBinahMouthOpen2, Artwork.talkingBinahMouthClosed2),
+                        eyes: MakeFaceAnim("talkingBinahEyesOpen1", "talkingBinahEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingBinahMouthOpen2", "talkingBinahMouthClosed2"),
                         emission: emissionMain),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingBinahEyesOpen2, Artwork.talkingBinahEyesOpen2),
-                        mouth: MakeFaceAnim(Artwork.talkingBinahMouthClosed1, Artwork.talkingBinahMouthClosed1),
+                        eyes: MakeFaceAnim("talkingBinahEyesOpen2", "talkingBinahEyesOpen2"),
+                        mouth: MakeFaceAnim("talkingBinahMouthClosed1", "talkingBinahMouthClosed1"),
                         emission: emissionMain)
                 };
             }
@@ -80,17 +85,16 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Binah()
         {
-            List<Ability> abilities = new() { Ability.Sniper, Piercing.ability };
-
-            LobotomyCardManager.CreateCard(
-                "wstl_sephirahBinah", "Binah",
+            CardInfo angelaCard = NewCard(
+                "sephirahBinah",
+                "Binah",
                 "Though not as powerful as she once was, she will still make a great ally.",
-                atk: 3, hp: 5,
-                blood: 3, bones: 0, energy: 0,
-                null, null,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
-                appearances: new(), onePerDeck: true);
+                attack: 3, health: 5, blood: 3)
+                .AddAbilities(Ability.Sniper, Piercing.ability)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck();
+
+            CreateCard(angelaCard);
         }
     }
 }

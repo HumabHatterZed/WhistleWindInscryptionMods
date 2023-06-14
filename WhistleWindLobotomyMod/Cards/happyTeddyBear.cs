@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -11,18 +12,18 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_HappyTeddyBear_T0406()
         {
-            List<Ability> abilities = new() { Ability.GuardDog };
+            const string happyTeddyBear = "happyTeddyBear";
 
-            CreateCard(
-                "wstl_happyTeddyBear", "Happy Teddy Bear",
-                "Its memories began with a warm hug.",
-                atk: 1, hp: 6,
-                blood: 0, bones: 6, energy: 0,
-                Artwork.happyTeddyBear, Artwork.happyTeddyBear_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                evolveName: "Big, {0}");
+            CardInfo happyTeddyBearCard = NewCard(
+                happyTeddyBear,
+                "Happy Teddy Bear",
+                "A discarded stuffed bear. Its memories began with a warm hug.",
+                attack: 1, health: 6, bones: 6)
+                .SetPortraits(happyTeddyBear)
+                .AddAbilities(Ability.GuardDog)
+                .SetEvolveInfo("Big, {0}");
+
+            CreateCard(happyTeddyBearCard, CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

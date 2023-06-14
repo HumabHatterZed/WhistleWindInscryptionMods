@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -11,42 +12,42 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_MountainOfBodies_T0175()
         {
-            List<Ability> abilities = new() { Assimilator.ability };
+            const string mountainName = "The Mountain of Smiling Bodies";
+            const string mountainOfBodies = "mountainOfBodies";
+            const string mountainOfBodies2 = "mountainOfBodies2";
+            const string mountainOfBodies3 = "mountainOfBodies3";
+            Ability[] abilities = new[] { Assimilator.ability };
+            SpecialTriggeredAbility[] specialAbilities = new[] { Smile.specialAbility };
 
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                Smile.specialAbility
-            };
-            CreateCard(
-                "wstl_mountainOfBodies3", "The Mountain of Smiling Bodies",
+            CardInfo mountainOfBodies3Card = NewCard(
+                mountainOfBodies3, displayName: mountainName,
+                attack: 5, health: 1, blood: 3)
+                .SetPortraits(mountainOfBodies3)
+                .AddAbilities(abilities)
+                .AddSpecialAbilities(specialAbilities)
+                .SetEvolveInfo("{0}");
+
+            CardInfo mountainOfBodies2Card = NewCard(
+                mountainOfBodies2, displayName: mountainName,
+                attack: 3, health: 1, blood: 2)
+                .SetPortraits(mountainOfBodies2)
+                .AddAbilities(abilities)
+                .AddSpecialAbilities(specialAbilities)
+                .SetEvolveInfo("{0}");
+
+            CardInfo mountainOfBodiesCard = NewCard(
+                mountainOfBodies,
+                mountainName,
                 "A mass grave, melted and congealed into one eternally hungry beast.",
-                atk: 5, hp: 1,
-                blood: 3, bones: 0, energy: 0,
-                Artwork.mountainOfBodies3, Artwork.mountainOfBodies3_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new(), choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
-                evolveName: "{0}");
-            CreateCard(
-                "wstl_mountainOfBodies2", "The Mountain of Smiling Bodies",
-                "A mass grave, melted and congealed into one eternally hungry beast.",
-                atk: 3, hp: 1,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.mountainOfBodies2, Artwork.mountainOfBodies2_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new(), choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
-                evolveName: "{0}");
-            CreateCard(
-                "wstl_mountainOfBodies", "The Mountain of Smiling Bodies",
-                "A mass grave, melted and congealed into one eternally hungry beast.",
-                atk: 2, hp: 1,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.mountainOfBodies, Artwork.mountainOfBodies_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new(), choiceType: CardHelper.CardChoiceType.Rare,
-                evolveName: "{0}");
+                attack: 2, health: 1, blood: 2)
+                .SetPortraits(mountainOfBodies)
+                .AddAbilities(abilities)
+                .AddSpecialAbilities(specialAbilities)
+                .SetEvolveInfo("{0}");
+
+            CreateCard(mountainOfBodies3Card, CardHelper.ChoiceType.Rare, nonChoice: true);
+            CreateCard(mountainOfBodies2Card, CardHelper.ChoiceType.Rare, nonChoice: true);
+            CreateCard(mountainOfBodiesCard, CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
         }
     }
 }

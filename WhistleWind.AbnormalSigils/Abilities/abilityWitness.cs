@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
 
@@ -17,10 +18,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Witness";
             const string rulebookDescription = "Pay 2 Bones to increase the selected creature's Health by 2 and their taken damage by 1. This effect stacks up to 3 times.";
             const string dialogue = "The truth will set you free.";
-
+            const string triggerText = "The chosen creature beholds [creature] and is reborn.";
             Witness.ability = AbnormalAbilityHelper.CreateActivatedAbility<Witness>(
-                Artwork.sigilWitness, Artwork.sigilWitness_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 1).Id;
+                "sigilWitness",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1).Id;
         }
     }
     public class Witness : ActivatedSelectSlotBehaviour
@@ -35,7 +36,7 @@ namespace WhistleWind.AbnormalSigils
         public override bool CanActivate()
         {
             // Are there other cards to affect, are any of them valid targets, and is this card on the player's side
-            foreach (var slot in HelperMethods.GetSlotsCopy(base.Card.OpponentCard).Where((CardSlot slot) => slot.Card != base.Card))
+            foreach (var slot in BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).Where((CardSlot slot) => slot.Card != base.Card))
             {
                 if (slot.Card != null)
                 {

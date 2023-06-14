@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -12,19 +13,20 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_SilentOrchestra_T0131()
         {
-            List<Ability> abilities = new() { Conductor.ability };
-            List<Tribe> tribes = new() { TribeAnthropoid };
+            const string silentOrchestra = "silentOrchestra";
 
-            CreateCard(
-                "wstl_silentOrchestra", "The Silent Orchestra",
-                "A conductor of the apocalypse.",
-                atk: 2, hp: 6,
-                blood: 3, bones: 0, energy: 0,
-                Artwork.silentOrchestra, Artwork.silentOrchestra_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new() { AbnormalPlugin.Orchestral },
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph,
-                evolveName: "[name]The Grand Silent Orchestra");
+            CardInfo silentOrchestraCard = NewCard(
+                silentOrchestra,
+                "The Silent Orchestra",
+                "Soon, the song none can hear but all can listen to will begin.",
+                attack: 2, health: 6, blood: 3)
+                .SetPortraits(silentOrchestra)
+                .AddAbilities(Conductor.ability)
+                .AddTribes(TribeAnthropoid)
+                .AddTraits(Orchestral)
+                .SetEvolveInfo("[name]The Grand Silent Orchestra");
+
+            CreateCard(silentOrchestraCard, CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
         }
     }
 }

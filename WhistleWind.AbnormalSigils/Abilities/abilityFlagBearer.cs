@@ -3,7 +3,7 @@ using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "Morale runs high.";
 
             FlagBearer.ability = AbnormalAbilityHelper.CreateAbility<FlagBearer>(
-                Artwork.sigilFlagBearer, Artwork.sigilFlagBearer_pixel,
+                "sigilFlagBearer",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: true).Id;
         }

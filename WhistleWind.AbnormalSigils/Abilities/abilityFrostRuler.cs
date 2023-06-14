@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
 
@@ -16,9 +16,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Ruler of Frost";
             const string rulebookDescription = "Once per turn, pay 3 Bones to choose a space on the board. If the space is occupied by a killable card, transform it into a Frozen Heart. Otherwise create a Block of Ice.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
+            const string triggerText = "[creature] freezes the path.";
             FrostRuler.ability = AbnormalAbilityHelper.CreateActivatedAbility<FrostRuler>(
-                Artwork.sigilFrostRuler, Artwork.sigilFrostRuler_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
+                "sigilFrostRuler",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4).Id;
         }
     }
 

@@ -6,7 +6,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
         public const string rName = "The Homing Instinct";
         public const string rDesc = "When The Road Home is played, create a Scaredy Cat in your hand. [define:wstl_scaredyCat]. Whenever this card moves, turn its previous space into a Paved Road. When all spaces on the owner's side of the board are Paved Roads, all ally cards gain 1 Power.";
 
-        internal static Texture PavedSlotTexture => TextureLoader.LoadTextureFromBytes(Artwork.slotPavedRoad);
+        internal static Texture PavedSlotTexture => TextureLoader.LoadTextureFromFile("slotPavedRoad");
         internal static Texture DefaultSlotTexture;
         internal static List<CardSlot> PavedSlots = new();
         private bool hasResolved = false;

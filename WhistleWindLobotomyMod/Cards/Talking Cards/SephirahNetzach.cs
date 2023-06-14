@@ -1,14 +1,18 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -25,35 +29,35 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromBytes(Artwork.talkingNetzachBody, new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim(Artwork.talkingNetzachEmission);
+                Sprite face = LoadSpriteFromFile("talkingNetzachBody", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingNetzachEmission");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingNetzachEyesOpen1, Artwork.talkingNetzachEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingNetzachMouthOpen1, Artwork.talkingNetzachMouthClosed1),
+                        eyes: MakeFaceAnim("talkingNetzachEyesOpen1", "talkingNetzachEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingNetzachMouthOpen1", "talkingNetzachMouthClosed1"),
                         emission: emissionMain),
                     new(emotion: Emotion.Surprise,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingNetzachEyesOpen5, Artwork.talkingNetzachEyesClosed5),
-                        mouth: MakeFaceAnim(Artwork.talkingNetzachMouthOpen5, Artwork.talkingNetzachMouthClosed5),
+                        eyes: MakeFaceAnim("talkingNetzachEyesOpen5", "talkingNetzachEyesClosed5"),
+                        mouth: MakeFaceAnim("talkingNetzachMouthOpen5", "talkingNetzachMouthClosed5"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingNetzachEyesOpen3, Artwork.talkingNetzachEyesClosed3),
-                        mouth: MakeFaceAnim(Artwork.talkingNetzachMouthOpen4, Artwork.talkingNetzachMouthClosed4),
+                        eyes: MakeFaceAnim("talkingNetzachEyesOpen3", "talkingNetzachEyesClosed3"),
+                        mouth: MakeFaceAnim("talkingNetzachMouthOpen4", "talkingNetzachMouthClosed4"),
                         emission: emissionMain),
                     new(emotion: Emotion.Quiet,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingNetzachEyesClosed3, Artwork.talkingNetzachEyesClosed3),
-                        mouth: MakeFaceAnim(Artwork.talkingNetzachMouthOpen3, Artwork.talkingNetzachMouthClosed1),
+                        eyes: MakeFaceAnim("talkingNetzachEyesClosed3", "talkingNetzachEyesClosed3"),
+                        mouth: MakeFaceAnim("talkingNetzachMouthOpen3", "talkingNetzachMouthClosed1"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingNetzachEyesOpen2, Artwork.talkingNetzachEyesClosed2),
-                        mouth: MakeFaceAnim(Artwork.talkingNetzachMouthOpen2, Artwork.talkingNetzachMouthClosed1),
+                        eyes: MakeFaceAnim("talkingNetzachEyesOpen2", "talkingNetzachEyesClosed2"),
+                        mouth: MakeFaceAnim("talkingNetzachMouthOpen2", "talkingNetzachMouthClosed1"),
                         emission: emissionMain)
                 };
             }
@@ -86,17 +90,16 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Netzach()
         {
-            List<Ability> abilities = new() { GreedyHealing.ability, Ability.WhackAMole };
-
-            LobotomyCardManager.CreateCard(
-                "wstl_sephirahNetzach", "Netzach",
+            CardInfo netzachCard = NewCard(
+                "sephirahNetzach",
+                "Netzach",
                 "Despite his lack of motivation, he'll do his best to succeed.",
-                atk: 0, hp: 3,
-                blood: 1, bones: 0, energy: 0,
-                null, null,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
-                appearances: new(), onePerDeck: true);
+                attack: 0, health: 3, blood: 1)
+                .AddAbilities(GreedyHealing.ability, Ability.WhackAMole)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck();
+
+            CreateCard(netzachCard);
         }
     }
 }

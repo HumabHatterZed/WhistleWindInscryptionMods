@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -14,10 +14,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Return to Nihil";
             const string rulebookDescription = "At the end of the owner's turn, deal damage equal to this card's Power to all other cards on the board.";
             const string dialogue = "One step closer to oblivion.";
-
+            const string triggerText = "The void calls.";
             ReturnToNihil.ability = AbnormalAbilityHelper.CreateAbility<ReturnToNihil>(
-                Artwork.sigilReturnToNihil, Artwork.sigilReturnToNihil_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
+                "sigilReturnToNihil",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
                 modular: false, special: true, opponent: false, canStack: false).Id;
         }
     }

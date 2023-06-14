@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -11,23 +12,22 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_BigBird_O0240()
         {
-            List<Ability> abilities = new() { Cycler.ability };
-            List<Tribe> tribes = new() { Tribe.Bird };
-            List<Trait> traits = new() { TraitBlackForest };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                ThreeBirds.specialAbility
-            };
-            CreateCard(
-                "wstl_bigBird", "Big Bird",
+            const string bigBird = "bigBird";
+
+            CardInfo bird = NewCard(
+                bigBird,
+                "Big Bird",
                 "Its eyes light up the darkness like stars.",
-                atk: 2, hp: 4,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.bigBird, Artwork.bigBird_emission, pixelTexture: Artwork.bigBird_pixel,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: traits, onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                evolveName: "[name]Bigger Bird");
+                attack: 2, health: 4, blood: 2)
+                .SetPortraits(bigBird)
+                .AddAbilities(Cycler.ability)
+                .AddSpecialAbilities(ThreeBirds.specialAbility)
+                .AddTribes(Tribe.Bird)
+                .AddTraits(TraitBlackForest)
+                .SetEvolveInfo("[name]Bigger Bird")
+                .SetOnePerDeck();
+
+            CreateCard(bird, CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

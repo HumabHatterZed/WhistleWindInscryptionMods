@@ -42,13 +42,14 @@ namespace WhistleWindLobotomyMod.Patches
                     validCards.RemoveAll(x => x.HasTrait(TraitSephirah));
                     validCards.RemoveAll(x => x.onePerDeck && newStarterDeck.Contains(x));
 
-                    int randomIdx = SeededRandom.Range(0, validCards.Count, SaveManager.SaveFile.GetCurrentRandomSeed());
+                    int randomSeed = SaveManager.SaveFile?.GetCurrentRandomSeed() ?? Environment.TickCount;
+                    int randomIdx = SeededRandom.Range(0, validCards.Count, randomSeed++);
                     CardInfo cardToAdd = validCards[randomIdx];
 
                     // starting deck cannot have rare (if non-Aleph cards can be pulled) or sefirot cards
                     while (!addRare && cardToAdd.HasCardMetaCategory(CardMetaCategory.Rare))
                     {
-                        randomIdx = SeededRandom.Range(0, ObtainableLobotomyCards.Count, SaveManager.SaveFile.GetCurrentRandomSeed());
+                        randomIdx = SeededRandom.Range(0, ObtainableLobotomyCards.Count, randomSeed++);
                         cardToAdd = ObtainableLobotomyCards[randomIdx];
                     }
 

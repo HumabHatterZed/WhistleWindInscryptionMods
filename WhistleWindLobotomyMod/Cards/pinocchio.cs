@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -12,19 +13,18 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Pinocchio_F01112()
         {
-            List<Ability> abilities = new() { Copycat.ability };
-            List<Tribe> tribes = new() { TribeBotanic };
+            const string pinocchio = "pinocchio";
 
-            CreateCard(
-                "wstl_pinocchio", "Pinocchio",
+            CardInfo pinocchioCard = NewCard(
+                pinocchio,
+                "Pinocchio",
                 "A wooden doll that mimics the beasts it encounters. Can you see through its lie?",
-                atk: 0, hp: 1,
-                blood: 0, bones: 1, energy: 0,
-                Artwork.pinocchio, Artwork.pinocchio_emission, Artwork.pinocchio_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                modTypes: ModCardType.Ruina);
+                attack: 0, health: 1, bones: 1)
+                .SetPortraits(pinocchio)
+                .AddAbilities(Copycat.ability)
+                .AddTribes(TribeBotanic);
+
+            CreateCard(pinocchioCard, CardHelper.ChoiceType.Common, RiskLevel.Teth, ModCardType.Ruina);
         }
     }
 }

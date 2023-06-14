@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -11,19 +12,20 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_MirrorOfAdjustment_O0981()
         {
-            List<Ability> abilities = new() { Woodcutter.ability };
+            const string mirrorOfAdjustment = "mirrorOfAdjustment";
 
-            CreateCard(
-                "wstl_mirrorOfAdjustment", "The Mirror of Adjustment",
+            CardInfo mirrorOfAdjustmentCard = NewCard(
+                mirrorOfAdjustment,
+                "The Mirror of Adjustment",
                 "A mirror that reflects nothing on its surface.",
-                atk: 0, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.mirrorOfAdjustment, Artwork.mirrorOfAdjustment_emission, Artwork.mirrorOfAdjustment_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new(), statIcon: SpecialStatIcon.Mirror,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
-                evolveName: "[name]The Grand Mirror of Adjustment", metaTypes: CardHelper.CardMetaType.NoTerrainLayout);
+                attack: 0, health: 1, blood: 1)
+                .SetPortraits(mirrorOfAdjustment)
+                .AddAbilities(Woodcutter.ability)
+                .SetStatIcon(SpecialStatIcon.Mirror)
+                .SetTerrain(false)
+                .SetEvolveInfo("[name]The Grand Mirror of Adjustment");
+
+            CreateCard(mirrorOfAdjustmentCard, CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
     }
 }

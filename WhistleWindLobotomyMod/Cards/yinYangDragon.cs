@@ -1,5 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -8,34 +12,26 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_YinYangDragon_O07103()
         {
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                DragonHead.specialAbility
-            };
-            CreateCard(
-                "wstl_yinYangHead", "", "",
-                atk: 0, hp: 0,
-                blood: 0, bones: 0, energy: 0,
-                portrait: null,
-                abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new() { DragonHeadBackground.appearance }, hideStats: true);
-            CreateCard(
-                "wstl_yinYangHorns", "", "",
-                atk: 0, hp: 0,
-                blood: 0, bones: 0, energy: 0,
-                portrait: null,
-                abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new() { DragonHornsBackground.appearance }, hideStats: true);
-            CreateCard(
-                "wstl_yinYangBody", "", "",
-                atk: 0, hp: 0,
-                blood: 0, bones: 0, energy: 0,
-                portrait: null,
-                abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new() { DragonBodyBackground.appearance }, hideStats: true);
+            SpecialTriggeredAbility[] specialAbilities = new[] { DragonHead.specialAbility };
+
+            CardInfo yinYangHeadCard = NewCard(
+                "yinYangHead")
+                .AddSpecialAbilities(specialAbilities)
+                .AddAppearances(DragonHeadBackground.appearance)
+                .SetHideStats();
+
+            CardInfo yinYangHornsCard = NewCard(
+                "yinYangHorns")
+                .AddSpecialAbilities(specialAbilities)
+                .AddAppearances(DragonHornsBackground.appearance)
+                .SetHideStats();
+
+            CardInfo yinYangBodyCard = NewCard(
+                "yinYangBody")
+                .AddAppearances(DragonBodyBackground.appearance)
+                .SetHideStats();
+
+            CreateCards(yinYangHeadCard, yinYangHornsCard, yinYangBodyCard);
         }
     }
 }

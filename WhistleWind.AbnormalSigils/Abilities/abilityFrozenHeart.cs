@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -14,9 +14,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Frozen Heart";
             const string rulebookDescription = "When [creature] dies, the killer gains 2 Health.";
             const string dialogue = "Spring arrives with blossoming roses.";
+            const string triggerText = "[creature] releases warm life.";
             FrozenHeart.ability = AbnormalAbilityHelper.CreateAbility<FrozenHeart>(
-                Artwork.sigilFrozenHeart, Artwork.sigilFrozenHeart_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: -1,
+                "sigilFrozenHeart",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: -1,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }
@@ -41,7 +42,7 @@ namespace WhistleWind.AbnormalSigils
                 if (!base.HasLearned)
                 {
                     base.SetLearned();
-                    yield return HelperMethods.PlayAlternateDialogue(dialogue: altDialogue);
+                    yield return DialogueHelper.PlayAlternateDialogue(dialogue: altDialogue);
                 }
             }
             else

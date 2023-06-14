@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -12,20 +13,18 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ParasiteTree_D04108()
         {
-            List<Ability> abilities = new() { Gardener.ability };
-            List<Tribe> tribes = new() { TribeBotanic };
+            const string parasiteTree = "parasiteTree";
 
-            CreateCard(
-                "wstl_parasiteTree", "Parasite Tree",
+            CardInfo parasiteTreeCard = NewCard(
+                parasiteTree,
+                "Parasite Tree",
                 "A beautiful tree. It wants only to help you and your beasts.",
-                atk: 0, hp: 3,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.parasiteTree, Artwork.parasiteTree_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                modTypes: ModCardType.Donator,
-                metaTypes: CardHelper.CardMetaType.Terrain);
+                attack: 0, health: 3, blood: 1)
+                .SetPortraits(parasiteTree)
+                .AddAbilities(Gardener.ability)
+                .AddTribes(TribeBotanic);
+
+            CreateCard(parasiteTreeCard, CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Donator);
         }
     }
 }

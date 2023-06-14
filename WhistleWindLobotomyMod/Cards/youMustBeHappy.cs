@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -12,19 +13,19 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_YouMustBeHappy_T0994()
         {
-            List<Ability> abilities = new() { Scrambler.ability };
-            List<Tribe> tribes = new() { TribeMechanical };
+            const string youMustBeHappy = "youMustBeHappy";
 
-            CreateCard(
-                "wstl_youMustBeHappy", "You Must Be Happy",
+            CardInfo youMustBeHappyCard = NewCard(
+                youMustBeHappy,
+                "You Must Be Happy",
                 "Those that undergo the procedure find themselves rested and healthy again.",
-                atk: 0, hp: 2,
-                blood: 0, bones: 0, energy: 2,
-                Artwork.youMustBeHappy, Artwork.youMustBeHappy_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
-                evolveName: "[name]You Must Be Happier", spellType: SpellType.TargetedStats);
+                attack: 0, health: 2, energy: 2)
+                .SetPortraits(youMustBeHappy)
+                .AddAbilities(Scrambler.ability)
+                .SetSpellType(SpellType.TargetedStats)
+                .SetEvolveInfo("[name]You Must Be Happier");
+
+            CreateCard(youMustBeHappyCard, CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
     }
 }

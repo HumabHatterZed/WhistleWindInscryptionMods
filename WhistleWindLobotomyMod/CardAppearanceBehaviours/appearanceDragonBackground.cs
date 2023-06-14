@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,18 +17,18 @@ namespace WhistleWindLobotomyMod
     {
         public static Appearance appearance;
         public override void ApplyAppearance() =>
-            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromBytes(Artwork.dragonHeadBackground);
+            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("dragonHeadBackground");
     }
     public class DragonHornsBackground : CardAppearanceBehaviour
     {
         public static Appearance appearance;
         public override void ApplyAppearance() =>
-            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromBytes(Artwork.dragonHornsBackground);
+            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("dragonHornsBackground");
     }
     public class DragonBodyBackground : CardAppearanceBehaviour
     {
         public static Appearance appearance;
         public override void ApplyAppearance() =>
-            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromBytes(Artwork.dragonBodyBackground);
+            base.Card.RenderInfo.baseTextureOverride = TextureLoader.LoadTextureFromFile("dragonBodyBackground");
     }
 }

@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -12,27 +13,19 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ArmyInPink_D01106()
         {
-            List<Ability> abilities = new()
-            {
-                Protector.ability,
-                Ability.MoveBeside
-            };
-            List<Tribe> tribes = new() { TribeAnthropoid };
+            const string armyInPink = "armyInPink";
 
-            List<SpecialTriggeredAbility> specialAbilties = new()
-            {
-                Pink.specialAbility
-            };
-            CreateCard(
-                "wstl_armyInPink", "Army in Pink",
+            CardInfo army = NewCard(
+                armyInPink,
+                "Army in Pink",
                 "A friendly soldier the colour of the human heart. It will protect you wherever you go.",
-                atk: 3, hp: 3,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.armyInPink, Artwork.armyInPink_emission,
-                abilities: abilities, specialAbilities: specialAbilties,
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph,
-                modTypes: ModCardType.Donator);
+                attack: 3, health: 3, blood: 2)
+                .SetPortraits(armyInPink)
+                .AddAbilities(Protector.ability, Ability.MoveBeside)
+                .AddSpecialAbilities(Pink.specialAbility)
+                .AddTribes(TribeAnthropoid);
+
+            CreateCard(army, CardHelper.ChoiceType.Rare, RiskLevel.Zayin, ModCardType.Donator);
         }
     }
 }

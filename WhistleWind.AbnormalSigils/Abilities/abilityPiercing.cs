@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -12,11 +12,11 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Piercing()
         {
             const string rulebookName = "Piercing";
-            const string rulebookDescription = "Damage dealt by this card cannot be negated or reduced by sigils such as Repulsive or Thick Skin.";
+            const string rulebookDescription = "Damage dealt by this card cannot be negated or reduced by sigils such as Armoured or Thick Skin. Deal 1 overkill damage when attacking a card.";
             const string dialogue = "Defences broken through.";
 
             Piercing.ability = AbnormalAbilityHelper.CreateAbility<Piercing>(
-                Artwork.sigilPiercing, Artwork.sigilPiercing_pixel,
+                "sigilPiercing",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: false, canStack: false).Id;
         }

@@ -73,7 +73,7 @@ namespace WhistleWind.Core.AbilityClasses
             // Though since LatchABility is None by default, nothing will actually happen
             if (LatchAbility != Ability.None && slot != null && slot.Card != null)
             {
-                CardModificationInfo cardModificationInfo = new(LatchAbility) { fromLatch = true };
+                CardModificationInfo cardModificationInfo = new(LatchAbility) { fromLatch = SaveManager.SaveFile.IsPart3 };
                 slot.Card.Anim.LightNegationEffect();
                 slot.Card.AddTemporaryMod(cardModificationInfo);
                 yield return new WaitForSeconds(0.75f);
@@ -122,7 +122,7 @@ namespace WhistleWind.Core.AbilityClasses
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.45f);
 
-                yield return HelperMethods.PlayAlternateDialogue(dialogue: NoTargetsDialogue);
+                yield return DialogueHelper.PlayAlternateDialogue(dialogue: NoTargetsDialogue);
                 yield return OnNoValidTargets();
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default);
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
@@ -167,9 +167,9 @@ namespace WhistleWind.Core.AbilityClasses
 
             // set up the sniper visualiser
             CombatPhaseManager instance = Singleton<CombatPhaseManager>.Instance;
-            WstlPart1SniperVisualiser visualiser = null;
+            Part1SniperVisualizer visualiser = null;
             if ((SaveManager.SaveFile?.IsPart1).GetValueOrDefault())
-                visualiser = instance.GetComponent<WstlPart1SniperVisualiser>() ?? instance.gameObject.AddComponent<WstlPart1SniperVisualiser>();
+                visualiser = instance.GetComponent<Part1SniperVisualizer>() ?? instance.gameObject.AddComponent<Part1SniperVisualizer>();
 
             // Run opponent logic then break
             if (base.Card.OpponentCard)
@@ -227,7 +227,7 @@ namespace WhistleWind.Core.AbilityClasses
             if (!base.Card.OpponentCard)
                 yield return HelperMethods.ChangeCurrentView(View.Default);
         }
-        private IEnumerator PlayerSelectTarget(CombatPhaseManager instance, WstlPart1SniperVisualiser visualiser, Transform latchParent = null)
+        private IEnumerator PlayerSelectTarget(CombatPhaseManager instance, Part1SniperVisualizer visualiser, Transform latchParent = null)
         {
             // call both together, because that's how it's done in the API
             // and I'm not going to mess with what ain't broke
@@ -249,7 +249,7 @@ namespace WhistleWind.Core.AbilityClasses
             {
                 selectedSlot = s;
                 instance.VisualizeConfirmSniperAbility(s);
-                visualiser?.VisualizeConfirmSniperAbility(s, false, false);
+                visualiser?.VisualizeConfirmSniperAbility(s);
             }, OnInvalidTarget, delegate (CardSlot s)
             {
                 if (CanTargetNull || s.Card != null)
@@ -261,7 +261,7 @@ namespace WhistleWind.Core.AbilityClasses
                 }
             }, () => false, CursorType.Target);
         }
-        private IEnumerator OpponentSelectTarget(CombatPhaseManager instance, WstlPart1SniperVisualiser visualiser)
+        private IEnumerator OpponentSelectTarget(CombatPhaseManager instance, Part1SniperVisualizer visualiser)
         {
             List<CardSlot> validTargets = ValidTargets;
 
@@ -278,7 +278,7 @@ namespace WhistleWind.Core.AbilityClasses
             }
 
             instance.VisualizeConfirmSniperAbility(selectedSlot);
-            visualiser?.VisualizeConfirmSniperAbility(selectedSlot, false, false);
+            visualiser?.VisualizeConfirmSniperAbility(selectedSlot);
             yield return new WaitForSeconds(0.25f);
         }
         private void OnInvalidTarget(CardSlot slot)

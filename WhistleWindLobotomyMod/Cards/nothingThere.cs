@@ -1,7 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -11,66 +13,56 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_NothingThere_O0620()
         {
-            List<Ability> abilities = new() { Ability.Evolve };
-            List<SpecialTriggeredAbility> specialAbilities = new() { CustomEvolveHelper.specialAbility };
+            const string nothingName = "Nothing There";
+            const string nothingThere = "nothingThere";
+            const string nothingThereTrue = "nothingThereTrue";
+            const string nothingThereEgg = "nothingThereEgg";
+            const string nothingThereFinal = "nothingThereFinal";
+            Ability[] abilities = new[] { Ability.Evolve };
 
-            List<Tribe> tribes = new()
-            {
-                Tribe.Canine,
-                Tribe.Hooved,
-                Tribe.Reptile
-            };
-            CreateCard(
-                "wstl_nothingThereFinal", "Nothing There",
-                "A grotesque attempt at mimicry. Pray it does not improve its disguise.",
-                atk: 9, hp: 9,
-                blood: 4, bones: 0, energy: 0,
-                Artwork.nothingThereFinal, Artwork.nothingThereFinal_emission,
-                abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: null, traits: new(),
-                appearances: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice);
+            CardInfo nothingThereFinalCard = NewCard(
+                nothingThereFinal,
+                nothingName,
+                attack: 9, health: 9, blood: 4)
+                .SetPortraits(nothingThereFinal)
+                .AddAbilities(Piercing.ability, ThickSkin.ability, ThickSkin.ability)
+                .SetEvolveInfo("{0}")
+                .SetOnePerDeck();
 
-            CreateCard(
-                "wstl_nothingThereEgg", "An Egg",
-                "What is it doing?",
-                atk: 0, hp: 3,
-                blood: 3, bones: 0, energy: 0,
-                Artwork.nothingThereEgg, Artwork.nothingThereEgg_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
-                evolveName: "wstl_nothingThereFinal");
+            CardInfo nothingThereEggCard = NewCard(
+                nothingThereEgg,
+                "An Egg",
+                attack: 0, health: 3, blood: 2)
+                .SetPortraits(nothingThereEgg)
+                .AddAbilities(abilities)
+                .SetEvolveInfo("wstl_nothingThereFinal")
+                .SetOnePerDeck();
 
-            CreateCard(
-                "wstl_nothingThereTrue", "Nothing There",
-                "What is that?",
-                atk: 3, hp: 3,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.nothingThereTrue, Artwork.nothingThereTrue_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new(),
-                appearances: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
-                evolveName: "wstl_nothingThereEgg");
+            CardInfo nothingThereTrueCard = NewCard(
+                nothingThereTrue,
+                nothingName,
+                attack: 3, health: 3, blood: 2)
+                .SetPortraits(nothingThereTrue)
+                .AddAbilities(abilities)
+                .AddTribes(Tribe.Canine, Tribe.Hooved, Tribe.Reptile)
+                .SetEvolveInfo("wstl_nothingThereEgg")
+                .SetOnePerDeck();
 
-            specialAbilities = new() { Mimicry.specialAbility };
-
-            List<Trait> traits = new()
-            {
-                Trait.DeathcardCreationNonOption
-            };
-            CreateCard(
-                "wstl_nothingThere", "Yumi",
+            CardInfo nothingThereCard = NewCard(
+                nothingThere,
+                "Yumi",
                 "I don't remember this challenger...",
-                atk: 1, hp: 1,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.nothingThere, Artwork.nothingThere_emission,
-                abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: traits,
-                onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph);
+                attack: 1, health: 1, blood: 2)
+                .SetPortraits(nothingThere)
+                .AddAbilities(abilities)
+                .AddSpecialAbilities(Mimicry.specialAbility)
+                .AddTraits(Trait.DeathcardCreationNonOption)
+                .SetOnePerDeck();
+
+            CreateCard(nothingThereFinalCard, CardHelper.ChoiceType.Rare, nonChoice: true);
+            CreateCard(nothingThereEggCard, CardHelper.ChoiceType.Rare, nonChoice: true);
+            CreateCard(nothingThereTrueCard, CardHelper.ChoiceType.Rare, nonChoice: true);
+            CreateCard(nothingThereCard, CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
         }
     }
 }

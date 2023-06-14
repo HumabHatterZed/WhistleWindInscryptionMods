@@ -1,9 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -13,19 +14,20 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_WarmHeartedWoodsman_F0532()
         {
-            List<Ability> abilities = new() { Woodcutter.ability };
-            List<Tribe> tribes = new() { TribeMechanical };
-            List<Trait> traits = new() { TraitEmeraldCity };
+            const string warmHeartedWoodsman = "warmHeartedWoodsman";
 
-            CreateCard(
-                "wstl_warmHeartedWoodsman", "Warm-Hearted Woodsman",
+            CardInfo warmHeartedWoodsmanCard = NewCard(
+                warmHeartedWoodsman,
+                "Warm-Hearted Woodsman",
                 "A tin woodsman on the search for a heart. Perhaps you can give him yours.",
-                atk: 2, hp: 3,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.warmHeartedWoodsman, Artwork.warmHeartedWoodsman_emission, pixelTexture: Artwork.warmHeartedWoodsman_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He);
+                attack: 2, health: 3, blood: 2)
+                .SetPortraits(warmHeartedWoodsman)
+                .AddAbilities(Woodcutter.ability)
+                .AddTribes(TribeMechanical)
+                .AddTraits(TraitEmeraldCity)
+                .SetOnePerDeck();
+
+            CreateCard(warmHeartedWoodsmanCard, CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

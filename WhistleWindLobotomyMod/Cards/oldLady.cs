@@ -1,7 +1,8 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -11,19 +12,19 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_OldLady_O0112()
         {
-            List<Ability> abilities = new() { Ability.DebuffEnemy };
-            List<Tribe> tribes = new() { TribeAnthropoid };
+            const string oldLady = "oldLady";
 
-            CreateCard(
-                "wstl_oldLady", "Old Lady",
+            CardInfo oldLadyCard = NewCard(
+                oldLady,
+                "Old Lady",
                 "An aged storyteller. She can tell you any tale, even those that can't exist.",
-                atk: 1, hp: 2,
-                blood: 0, bones: 2, energy: 0,
-                Artwork.oldLady, Artwork.oldLady_emission, pixelTexture: Artwork.oldLady_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                evolveName: "[name]Elder Lady");
+                attack: 1, health: 2, bones: 2)
+                .SetPortraits(oldLady)
+                .AddAbilities(Ability.DebuffEnemy)
+                .AddTribes(TribeAnthropoid)
+                .SetEvolveInfo("[name]Elderly Lady");
+
+            CreateCard(oldLadyCard, CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

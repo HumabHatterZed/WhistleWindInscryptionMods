@@ -22,6 +22,22 @@ namespace WhistleWindLobotomyMod
                 "Their appear quite knowledgeable. Perhaps you can convince them to aid you on your journey."
                 });
         }
+        private void Dialogue_BackwardClock()
+        {
+            CreateDialogueEvents("BackwardClockStart", new() {
+                "Close your eyes and count to ten.",
+                "When you open them, you will be standing at the exact moment you wish to be in." },
+                new() {
+                    new() { "Close your eyes and count to ten." }
+                });
+
+            CreateDialogueEvents("BackwardClockOperate", new() {
+                "[c:bR]One of your creatures[c:] must stay behind to operate [c:bR]the Clock[c:]." },
+                new() {
+                    new() { "[c:bR]One of your creatures[c:] must stay behind to operate [c:bR]the Clock[c:]." }
+                });
+        }
+        
         private void Dialogue_Abnormalities()
         {
             CreateDialogueEvents("ArmyInBlackTransform", new() {
@@ -1422,7 +1438,7 @@ namespace WhistleWindLobotomyMod
                 "[c:bR]The time has come. A new world will come.[c:]",
                 "[c:bR]I am death and life. Darkness and light.[c:]" });
             CreateDialogueEvents("WhiteNightApostleHeretic", new() {
-                "[c:bR]Have I not chosen you, the Twelve? Yet one of you is [c:][c:bG]a devil[c:][c:bR].[c:]"
+                "[c:bR]Have I not chosen you, the Twelve? Yet one of you is [c:bG]a devil[c:bR].[c:]"
                 });
             CreateDialogueEvents("WhiteNightApostleDowned", new() {
                 "[c:bR]None of you can leave my side until I permit you.[c:]"

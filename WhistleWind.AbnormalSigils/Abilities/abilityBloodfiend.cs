@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -14,10 +14,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Bloodfiend";
             const string rulebookDescription = "When this card deals damage, it gains 1 Health.";
             const string dialogue = "Accursed fiend.";
-
+            const string triggerText = "[creature] sucks out fresh life!";
             Bloodfiend.ability = AbnormalAbilityHelper.CreateAbility<Bloodfiend>(
-                Artwork.sigilBloodfiend, Artwork.sigilBloodfiend_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                "sigilBloodfiend",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: true, opponent: true, canStack: true).Id;
         }
     }

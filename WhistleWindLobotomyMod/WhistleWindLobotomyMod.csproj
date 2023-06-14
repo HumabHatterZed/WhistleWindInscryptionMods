@@ -12,6 +12,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Artwork\*.png" />
+	</ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Artwork\*.png" />
+  </ItemGroup>
+
+	<ItemGroup>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" GeneratePathProperty="true" IncludeAssets="none" />
     <PackageReference Include="BepInEx.Core" Version="5.4.19" GeneratePathProperty="true" IncludeAssets="none" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" GeneratePathProperty="true" IncludeAssets="none" />
@@ -42,22 +50,6 @@
       <HintPath>..\lib\Infiniscryption.PackManager.dll</HintPath>
     </Reference>
   </ItemGroup>
-	
-	<ItemGroup>
-	  <Compile Update="Properties\Artwork.Designer.cs">
-	    <DependentUpon>Artwork.resx</DependentUpon>
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	  </Compile>
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <EmbeddedResource Update="Properties\Artwork.resx">
-	    <SubType>Designer</SubType>
-	    <LastGenOutput>Artwork.Designer.cs</LastGenOutput>
-	    <Generator>ResXFileCodeGenerator</Generator>
-	  </EmbeddedResource>
-	</ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /Y $(ProjectDir)\..\lib\*.dll $(TargetDir)" />

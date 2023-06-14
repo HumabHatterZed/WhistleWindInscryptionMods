@@ -11,11 +11,11 @@ namespace WhistleWind.Core.Helpers
     {
         public static void CreateItem<T>(
             string pluginGuid, string internalName, string rulebookName, string rulebookDescription,
-            byte[] rulebookIcon, string nodeDialogue,
-            ConsumableItemManager.ModelType modelType = ConsumableItemManager.ModelType.BasicRune,
+            string rulebookIcon, string nodeDialogue,
+            ModelType modelType = ModelType.BasicRune,
             int powerLevel = 1, bool regionSpecific = false, bool notRandom = false, bool outsideBattle = false)
         {
-            Texture2D texture2D = TextureLoader.LoadTextureFromBytes(rulebookIcon);
+            Texture2D texture2D = TextureLoader.LoadTextureFromFile(rulebookIcon);
             ConsumableItemData itemData = ScriptableObject.CreateInstance<ConsumableItemData>();
 
             itemData.SetRulebookName(internalName);
@@ -41,14 +41,17 @@ namespace WhistleWind.Core.Helpers
         }
         public static void CreateItemWithPrefab<T>(
             string pluginGuid, string internalName, string rulebookName, string rulebookDescription,
-            byte[] rulebookIcon, string nodeDialogue,
+            string rulebookIcon, string nodeDialogue,
             GameObject prefab,
             int powerLevel = 1, bool regionSpecific = false, bool notRandom = false, bool outsideBattle = false)
         {
             ConsumableItemResource consumableItemResource = new ConsumableItemResource();
             consumableItemResource.FromPrefab(prefab);
             ModelType modelType = RegisterPrefab(pluginGuid, rulebookName, consumableItemResource);
-            UnityEngine.Object.DontDestroyOnLoad(prefab);
+            Transform parent = prefab.transform.parent;
+            prefab.transform.SetParent(null);
+            Object.DontDestroyOnLoad(prefab);
+            prefab.transform.SetParent(parent);
             prefab.SetActive(value: false);
 
             CreateItem<T>(
@@ -56,11 +59,11 @@ namespace WhistleWind.Core.Helpers
                 nodeDialogue, modelType, powerLevel, regionSpecific, notRandom, outsideBattle);
         }
         public static ConsumableItemData CreateBottleItem(
-            string pluginGuid, string internalName, string cardByName, byte[] rulebookIcon,
+            string pluginGuid, string internalName, string cardByName, string rulebookIcon,
             string nodeDialogue = "", int powerLevel = 1, string rulebookName = null, bool outsideBattle = false)
         {
             CardInfo cardInfo = CardLoader.GetCardByName(cardByName);
-            Texture2D texture2D = TextureLoader.LoadTextureFromBytes(rulebookIcon);
+            Texture2D texture2D = TextureLoader.LoadTextureFromFile(rulebookIcon);
 
             ConsumableItemData itemData = ScriptableObject.CreateInstance<ConsumableItemData>();
 
@@ -105,7 +108,7 @@ namespace WhistleWind.Core.Helpers
                 .SetComponentType(typeof(CardBottleItem))
                 .SetPowerLevel(powerLevel);
 
-            ConsumableItemManager.Add(pluginGuid, itemData);
+            Add(pluginGuid, itemData);
 
             itemData.SetRulebookName(rulebookName_);
 

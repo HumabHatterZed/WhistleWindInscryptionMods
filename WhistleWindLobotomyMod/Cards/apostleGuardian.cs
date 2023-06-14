@@ -1,7 +1,8 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Properties;
+using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -11,34 +12,36 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleGuardian_T0346()
         {
-            List<Ability> abilities = new() { Apostle.ability };
-            List<Tribe> tribes = new() { TribeDivine };
-            List<Trait> traits = new() { TraitApostle };
+            const string guardianName = "Guardian Apostle";
+            const string apostleGuardian = "apostleGuardian";
+            const string apostleGuardianDown = "apostleGuardianDown";
+            Ability[] abilities = new[] { Apostle.ability };
+            Tribe[] tribes = new[] { TribeDivine };
+            Trait[] traits = new[] { TraitApostle };
+            CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedWhiteEmission.appearance
-            };
-            CreateCard(
-                "wstl_apostleGuardian", "Guardian Apostle",
-                "The time has come.",
-                atk: 4, hp: 6,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.apostleGuardian, Artwork.apostleGuardian_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard);
+            CardInfo apostle = NewCard(
+                apostleGuardian,
+                guardianName,
+                attack: 4, health: 6)
+                .SetPortraits(apostleGuardian)
+                .AddAbilities(abilities)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances);
 
-            CreateCard(
-                "wstl_apostleGuardianDown", "Guardian Apostle",
-                "The time has come.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.apostleGuardianDown, Artwork.apostleGuardianDown_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: traits,
-                appearances: appearances, evolveName: "wstl_apostleGuardian", numTurns: 2,
-                modTypes: ModCardType.EventCard);
+            CardInfo apostleDown = NewCard(
+                apostleGuardianDown,
+                guardianName,
+                attack: 0, health: 1)
+                .SetPortraits(apostleGuardianDown)
+                .AddAbilities(abilities)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances);
+
+            CreateCard(apostle, cardType: ModCardType.EventCard);
+            CreateCard(apostleDown, cardType: ModCardType.EventCard);
         }
     }
 }

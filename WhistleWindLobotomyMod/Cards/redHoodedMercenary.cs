@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -12,23 +13,20 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_RedHoodedMercenary_F0157()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Sniper,
-                BitterEnemies.ability
-            };
-            List<Tribe> tribes = new() { TribeAnthropoid };
+            const string redHoodedMercenary = "redHoodedMercenary";
 
-            CreateCard(
-                "wstl_redHoodedMercenary", "Little Red Riding Hooded Mercenary",
+            CardInfo redHoodedMercenaryCard = NewCard(
+                redHoodedMercenary,
+                "Little Red Riding Hooded Mercenary",
                 "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.",
-                atk: 2, hp: 5,
-                blood: 3, bones: 0, energy: 0,
-                Artwork.redHoodedMercenary, Artwork.redHoodedMercenary_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                evolveName: "[name]Red Riding Hooded Mercenary");
+                attack: 2, health: 5, blood: 3)
+                .SetPortraits(redHoodedMercenary)
+                .AddAbilities(Ability.Sniper, Persistent.ability)
+                .AddSpecialAbilities(CrimsonScar.specialAbility)
+                .AddTribes(TribeAnthropoid)
+                .SetEvolveInfo("[name]Red Riding Hooded Mercenary");
+
+            CreateCard(redHoodedMercenaryCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

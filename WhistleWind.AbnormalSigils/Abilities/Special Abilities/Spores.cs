@@ -4,8 +4,8 @@ using InscryptionAPI.Card;
 using Steamworks;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+using WhistleWind.AbnormalSigils.Core;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -23,12 +23,7 @@ namespace WhistleWind.AbnormalSigils
 
         private CardModificationInfo GetSporeStatusMod()
         {
-            CardModificationInfo sporeStatusMod = new()
-            {
-                singletonId = "spore_status",
-                nonCopyable = true,
-            };
-
+            CardModificationInfo sporeStatusMod = StatusEffectManager.StatusMod("spore", false);
             for (int i = 0; i < spore; i++)
                 sporeStatusMod.AddAbilities(StatusEffectSpores.ability);
 
@@ -36,12 +31,9 @@ namespace WhistleWind.AbnormalSigils
         }
         private CardModificationInfo GetSporeDecalMod()
         {
-            return new()
-            {
-                singletonId = "spore_decal",
-                DecalIds = { $"wstl_spore_{Mathf.Min(2, spore - 1)}" },
-                nonCopyable = true,
-            };
+            CardModificationInfo sporeDecalMod = StatusEffectManager.StatusMod("spore_decal", false);
+            sporeDecalMod.DecalIds.Add($"decalSpore_{Mathf.Min(2, spore - 1)}");
+            return sporeDecalMod;
         }
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard && base.PlayableCard.OpponentCard != playerUpkeep;
@@ -58,7 +50,7 @@ namespace WhistleWind.AbnormalSigils
         {
             if (turnPlayed == Singleton<TurnManager>.Instance.TurnNumber)
                 yield break;
-
+            
             int newSpore = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot)
                 .FindAll(s => s.Card != null && s.Card.HasAbility(Sporogenic.ability)).Count;
 
@@ -68,14 +60,10 @@ namespace WhistleWind.AbnormalSigils
             spore += newSpore;
             yield return HelperMethods.ChangeCurrentView(View.Board);
             base.PlayableCard.Anim.LightNegationEffect();
-            base.PlayableCard.Info.Mods.RemoveAll(x => x.singletonId == "spore_status");
-            base.PlayableCard.Info.Mods.Add(GetSporeStatusMod());
+            base.PlayableCard.AddTemporaryMod(GetSporeStatusMod());
             if (spore <= 3)
-            {
-                base.PlayableCard.Info.Mods.RemoveAll(x => x.singletonId == "spore_decal");
-                base.PlayableCard.Info.Mods.Add(GetSporeDecalMod());
-            }
-            base.PlayableCard.RenderCard();
+                base.PlayableCard.AddTemporaryMod(GetSporeDecalMod());
+
             yield return new WaitForSeconds(0.2f);
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
@@ -124,11 +112,10 @@ namespace WhistleWind.AbnormalSigils
     {
         private void StatusEffect_Spores()
         {
-            StatusEffectSpores.ability = AbnormalAbilityHelper.CreateAbility<StatusEffectSpores>(
-                Artwork.sigilSpores, Artwork.sigilSpores_pixel,
-                Spores.rName, Spores.rDesc, "",
-                canStack: true, statusEffect: "green").Id;
+            StatusEffectManager.StatusEffect<StatusEffectSpores, Spores>(
+                ref StatusEffectSpores.ability, ref Spores.specialAbility,
+                pluginGuid, "sigilSpores", Spores.rName, Spores.rDesc,
+                false, StatusEffectManager.IconColour.Green, StatusEffectManager.Part1StatusEffect);
         }
-        private void SpecialAbility_Spores() => Spores.specialAbility = AbilityHelper.CreateSpecialAbility<Spores>(pluginGuid, Spores.rName).Id;
     }
 }

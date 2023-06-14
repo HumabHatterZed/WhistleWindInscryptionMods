@@ -1,13 +1,18 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
+using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -24,30 +29,30 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromBytes(Artwork.talkingYesodBody, new(0.5f, 0f));
-                FaceAnim emission = MakeFaceAnim(Artwork.talkingYesodEyesEmission);
+                Sprite face = LoadSpriteFromFile("talkingYesodBody", new(0.5f, 0f));
+                FaceAnim emission = MakeFaceAnim("talkingYesodEyesEmission");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingYesodEyesOpen1, Artwork.talkingYesodEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingYesodMouthOpen1, Artwork.talkingYesodMouthClosed1),
+                        eyes: MakeFaceAnim("talkingYesodEyesOpen1", "talkingYesodEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingYesodMouthOpen1", "talkingYesodMouthClosed1"),
                         emission: emission),
                     new(emotion: Emotion.Curious,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingYesodEyesOpen2, Artwork.talkingYesodEyesClosed2),
-                        mouth: MakeFaceAnim(Artwork.talkingYesodMouthOpen2, Artwork.talkingYesodMouthClosed1),
+                        eyes: MakeFaceAnim("talkingYesodEyesOpen2", "talkingYesodEyesClosed2"),
+                        mouth: MakeFaceAnim("talkingYesodMouthOpen2", "talkingYesodMouthClosed1"),
                         emission: emission),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingYesodEyesOpen3, Artwork.talkingYesodEyesClosed3),
-                        mouth: MakeFaceAnim(Artwork.talkingYesodMouthOpen2, Artwork.talkingYesodMouthClosed1),
+                        eyes: MakeFaceAnim("talkingYesodEyesOpen3", "talkingYesodEyesClosed3"),
+                        mouth: MakeFaceAnim("talkingYesodMouthOpen2", "talkingYesodMouthClosed1"),
                         emission: emission),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim(Artwork.talkingYesodEyesOpen1, Artwork.talkingYesodEyesClosed1),
-                        mouth: MakeFaceAnim(Artwork.talkingYesodMouthOpen3, Artwork.talkingYesodMouthClosed2),
+                        eyes: MakeFaceAnim("talkingYesodEyesOpen1", "talkingYesodEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingYesodMouthOpen3", "talkingYesodMouthClosed2"),
                         emission: emission)
                 };
             }
@@ -77,20 +82,16 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_Yesod() => TalkingCardYesod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardYesod>("Yesod").Id;
         private void Card_Yesod()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Tutor,
-                Corrector.ability
-            };
-            LobotomyCardManager.CreateCard(
-                "wstl_sephirahYesod", "Yesod",
+            CardInfo yesodCard = NewCard(
+                "sephirahYesod",
+                "Yesod",
                 "The head of the Information Department. Incompetence will not be tolerated.",
-                atk: 0, hp: 1,
-                blood: 2, bones: 0, energy: 0,
-                null, null,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new() { LobotomyCardManager.TraitSephirah },
-                appearances: new(), onePerDeck: true);
+                attack: 0, health: 1, blood: 2)
+                .AddAbilities(Ability.Tutor, Corrector.ability)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck();
+
+            CreateCard(yesodCard);
         }
     }
 }
