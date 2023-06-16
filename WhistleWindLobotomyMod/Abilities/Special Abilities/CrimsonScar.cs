@@ -1,5 +1,7 @@
 ﻿using DiskCardGame;
+using HarmonyLib;
 using InscryptionAPI;
+using InscryptionAPI.Dialogue;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,57 +17,83 @@ namespace WhistleWindLobotomyMod
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "Crimson Scar";
-        public const string rDesc = "When Big and Will Be Bad Wolf is on the board, Little Red Riding Hooded Mercenary gains 2 Power and targets them.";
-        private string CardName => base.PlayableCard.Info.name;
+        public const string rDesc = "Big and Will Be Bad Wolf and Red Hooded Mercenary will gain 1 Power when their counterpart is played on the board. While they're on the board, target them exclusively.";
+
         private const string WolfName = "wstl_willBeBadWolf";
         private const string HoodName = "wstl_redHoodedMercenary";
-        private bool GrudgeExists(PlayableCard otherCard)
+
+        public bool Enraged = false;
+        private bool GrudgeExists(PlayableCard thisCard, PlayableCard otherCard)
         {
             if (otherCard == null)
                 return false;
 
-            if (base.PlayableCard.name == HoodName && otherCard.name == WolfName)
+            if (thisCard.Info.name == HoodName && otherCard.Info.name == WolfName)
                 return true;
 
-            if (base.PlayableCard.name == WolfName && otherCard.name == HoodName)
+            if (thisCard.Info.name == WolfName && otherCard.Info.name == HoodName)
                 return true;
 
             return false;
         }
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => GrudgeExists(otherCard);
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !Enraged && GrudgeExists(base.PlayableCard, otherCard);
         public override bool RespondsToResolveOnBoard()
         {
-            if (base.PlayableCard.name == HoodName)
-                return GrudgeExists(BoardManager.Instance.AllSlotsCopy.Find(x => x.Card?.name == WolfName).Card);
-            else
-                return GrudgeExists(BoardManager.Instance.AllSlotsCopy.Find(x => x.Card?.name == HoodName).Card);
+            return !Enraged && GrudgeExists(base.PlayableCard, BoardManager.Instance.AllSlotsCopy.Find(
+                x => x.Card?.Info.name == (base.PlayableCard.Info.name == HoodName ? WolfName : HoodName))?
+                .Card);
+        }
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
+        {
+            Enraged = true;
+            base.PlayableCard.Anim.StrongNegationEffect();
+            base.PlayableCard.AddTemporaryMod(new(1, 0) { fromTotem = true });
+            base.PlayableCard.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
+            yield return new WaitForSeconds(0.4f);
 
-            return false;
+            if (base.PlayableCard.Info.name == HoodName)
+                yield return DialogueManager.PlayDialogueEventSafe("CrimsonScarHood", TextDisplayer.MessageAdvanceMode.Input);
+            else
+                yield return DialogueManager.PlayDialogueEventSafe("CrimsonScarWolf", TextDisplayer.MessageAdvanceMode.Input);
+        }
+        public override IEnumerator OnResolveOnBoard()
+        {
+            Enraged = true;
+            base.PlayableCard.Anim.StrongNegationEffect();
+            base.PlayableCard.AddTemporaryMod(new(1, 0) { fromTotem = true });
+            base.PlayableCard.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
+            yield return new WaitForSeconds(0.4f);
+
+            if (base.PlayableCard.Info.name == HoodName)
+                yield return DialogueManager.PlayDialogueEventSafe("CrimsonScarHood", TextDisplayer.MessageAdvanceMode.Input);
+            else
+                yield return DialogueManager.PlayDialogueEventSafe("CrimsonScarWolf", TextDisplayer.MessageAdvanceMode.Input);
         }
 
         public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
         {
-            return card == base.Card && modType == OpposingSlotTriggerPriority.PostAdditionModification;
+            return card == base.PlayableCard && modType == OpposingSlotTriggerPriority.PostAdditionModification;
         }
 
         public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
         {
-            string nameToFind;
-            if (base.PlayableCard.name == HoodName)
-                nameToFind = WolfName;
-            else
-                nameToFind = HoodName;
+            if (Enraged)
+            {
+                CardSlot slot = BoardManager.Instance.AllSlotsCopy.Find(
+                    x => x.Card?.Info.name == (base.PlayableCard.Info.name == HoodName ? WolfName : HoodName));
 
-            CardSlot slot = BoardManager.Instance.AllSlotsCopy.Find(x => x.Card?.name == nameToFind);
-            for (int i = 0; i < currentSlots.Count; i++)
-                currentSlots[i] = slot;
-
+                if (slot != null)
+                {
+                    for (int i = 0; i < currentSlots.Count; i++)
+                        currentSlots[i] = slot;
+                }
+            }
             return currentSlots;
         }
 
         public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
         {
-            return int.MinValue;
+            return 0;
         }
     }
     public class RulebookEntryCrimsonScar : AbilityBehaviour

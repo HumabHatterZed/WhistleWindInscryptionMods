@@ -32,7 +32,7 @@ namespace ModDebuggingMod
             New("DebugEncounter")
                     .AddDominantTribes(Tribe.Canine)
                     .AddTurns(
-                    CreateTurn("Otter", "Skink"),
+                    CreateTurn("wstl_redHoodedMercenary", "wstl_willBeBadWolf"),
                     CreateTurn("Squirrel", "Squirrel", "Squirrel", "Squirrel")
                     );
 

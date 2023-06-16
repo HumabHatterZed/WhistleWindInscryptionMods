@@ -126,8 +126,8 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - <<One Sin and Hundreds of Good Deeds>> cost reduced from 2 Bones --> 1 Bone
     - <<Porccubus>> Health reduced from 2 --> 1
     - <<Queen Bee>> Health reduced from 6 --> 4
-    - <<Little Red Riding Hooded Mercenary>> reworked into 2/5 3 Blood; Sniper, Persistent
-    - <<Big and Will Be Bad Wolf>> reworked into 1/3 2 Blood; Assimilator
+    - <<Little Red Riding Hooded Mercenary>> reworked into 2/5 3 Blood; Sniper, Persistent; Crimson Scar
+    - <<Big and Will Be Bad Wolf>> reworked into 3/4 3 Blood, Assimilator; Crimson Scar
     - <<Sapling>> reworked from 0/2 free --> 0/2, Bone Digger, 2 Bones, Terrain
     - <<Scarecrow Searching for Wisdom>> rebalanced from 1/3, 5 Bones --> 1/2, 4 Bones
     - <<Schadenfreude>> rebalanced from 0/1; Quick Draw, Touch of Death; 4 Bones --> 1/1, Quick Draw, 3 Energy

@@ -146,6 +146,7 @@ namespace WhistleWindLobotomyMod.Core
         public static Trait TraitBlackForest = GuidManager.GetEnumValue<Trait>(pluginGuid, "BlackForestTrait");
         public static Trait TraitEmeraldCity = GuidManager.GetEnumValue<Trait>(pluginGuid, "EmeraldCityTrait");
         public static Trait TraitMagicalGirl = GuidManager.GetEnumValue<Trait>(pluginGuid, "MagicalGirlTrait");
+        public static Trait TraitExecutioner = GuidManager.GetEnumValue<Trait>(pluginGuid, "Executioner");
 
         [Flags]
         public enum RiskLevel

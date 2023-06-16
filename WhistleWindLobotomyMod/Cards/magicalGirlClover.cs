@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 servantName,
                 attack: 3, health: 2, blood: 2)
                 .SetPortraits(servantOfWrath)
-                .AddAbilities(Ability.DoubleStrike)
+                .AddAbilities(Ability.DoubleStrike, Persistent.ability)
                 .AddSpecialAbilities(BlindRage.specialAbility)
                 .AddTribes(TribeFae, Tribe.Reptile)
                 .AddTraits(traits)

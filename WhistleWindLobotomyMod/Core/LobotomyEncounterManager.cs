@@ -49,9 +49,9 @@ namespace WhistleWindLobotomyMod.Core
                 .AddRandomReplacementCards("wstl_canOfWellCheers", "wstl_ppodae", "wstl_redShoes", "wstl_heartOfAspiration")
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_willBeBadWolf")),
+                    CreateTurn(NewCardBlueprint("wstl_redHoodedMercenary")),
                     CreateTurn(),
-                    CreateTurn(NewCardBlueprint("wstl_redHoodedMercenary", 40)),
-                    CreateTurn()
+                    CreateTurn(NewCardBlueprint("wstl_yang"))
                     ), regions: 0);
             Build(New("StrangeFlock")
                 .SetDifficulty(1, 4)

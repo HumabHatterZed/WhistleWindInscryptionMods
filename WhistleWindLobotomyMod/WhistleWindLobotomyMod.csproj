@@ -40,6 +40,9 @@
     <Reference Include="InscryptionAPI" Private="false">
       <HintPath>..\lib\InscryptionAPI.dll</HintPath>
     </Reference>
+    <Reference Include="InscryptionCommunityPatch" Private="false">
+      <HintPath>..\lib\InscryptionCommunityPatch.dll</HintPath>
+    </Reference>
     <Reference Include="Infiniscryption.Spells" Private="false">
       <HintPath>..\lib\Infiniscryption.Spells.dll</HintPath>
     </Reference>

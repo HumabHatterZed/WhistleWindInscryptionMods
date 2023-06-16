@@ -16,15 +16,13 @@ namespace WhistleWindLobotomyMod
         public const string rName = "Sound of a Star";
         public const string rDesc = "If there are no cards on the opposing side that can be attacked, Blue Star strikes all slots directly.";
 
-        public bool RemoveDefaultAttackSlot() => AttackAllOpposingSlots();
-        public bool RespondsToGetOpposingSlots() => AttackAllOpposingSlots();
+        public bool RemoveDefaultAttackSlot() => true;
+        public bool RespondsToGetOpposingSlots() => true;
 
         public List<CardSlot> GetOpposingSlots(List<CardSlot> originalSlots, List<CardSlot> otherAddedSlots)
         {
             return BoardManager.Instance.GetSlotsCopy(base.PlayableCard.OpponentCard);
         }
-
-        private bool AttackAllOpposingSlots() => base.PlayableCard.HasAbility(Ability.AllStrike);
     }
     public class RulebookEntryStarSound : AbilityBehaviour
     {

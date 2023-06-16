@@ -3,6 +3,7 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Triggers;
 using InscryptionCommunityPatch.Card;
 using Pixelplacement;
 using System;
@@ -32,6 +33,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             if (opposingSlot.Card != null && opposingSlot.Card.FaceDown)
                 __result = false;
         }
+
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.AttackIsBlocked))]
         private static void NotAffectedByRepulsive(PlayableCard __instance, CardSlot opposingSlot, ref bool __result)
         {
@@ -45,11 +47,20 @@ namespace WhistleWind.AbnormalSigils.Patches
             }
         }
 
+        [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.DealOverkillDamage))]
+        private static bool PiercingDoesOverkill(ref int damage, CardSlot attackingSlot, CardSlot opposingSlot)
+        {
+            if (attackingSlot.Card != null && attackingSlot.Card.HasAbility(Piercing.ability) && opposingSlot.Card != null)
+                damage = Mathf.Max(1, damage + 1);
+
+            return true;
+        }
+
         [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.SlotAttackSlot))]
-        private static bool GetPersistentTarget(CombatPhaseManager __instance, CardSlot attackingSlot, CardSlot opposingSlot, float waitAfter, ref IEnumerator __result)
+        private static bool PerformPersistence(CombatPhaseManager __instance, CardSlot attackingSlot, CardSlot opposingSlot, float waitAfter, ref IEnumerator __result)
         {
             // both opposing and attacker cards must exist
-            if (attackingSlot.Card != null && attackingSlot.Card.HasAnyOfAbilities(Piercing.ability, Persistent.ability))
+            if (attackingSlot.Card != null && attackingSlot.Card.HasAbility(Persistent.ability) && opposingSlot.Card != null)
             {
                 __result = PersistentSlotAttackSlot(__instance, attackingSlot, opposingSlot, waitAfter);
                 return false;
@@ -92,7 +103,6 @@ namespace WhistleWind.AbnormalSigils.Patches
             CardSlot opposingSlot = opposing;
             CardSlot attackingSlot = attacker;
             PlayableCard persistentTarget = opposingSlot.Card;
-            bool piercing = attackingSlot.Card.HasAbility(Piercing.ability);
             bool persistent = attackingSlot.Card.HasAbility(Persistent.ability);
 
             bool forcedFaceUp = persistentTarget?.FaceDown ?? false;
@@ -181,9 +191,6 @@ namespace WhistleWind.AbnormalSigils.Patches
                     
                     yield return new WaitForSeconds(0.05f);
                     int overkillDamage = attackingSlot.Card.Attack - opposingSlot.Card.Health;
-                    if (piercing)
-                        overkillDamage = Mathf.Max(1, overkillDamage + 1);
-
                     int damage = attackingSlot.Card.Attack;
                     if (targetSwitched || opposingSlot.Card.HasAbility(Ability.PreventAttack))
                         damage++;

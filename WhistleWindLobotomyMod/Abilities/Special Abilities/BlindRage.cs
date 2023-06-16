@@ -1,5 +1,9 @@
 ﻿using DiskCardGame;
+using HarmonyLib;
+using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
+using InscryptionCommunityPatch.Card;
+using System.Collections;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
@@ -24,7 +28,8 @@ namespace WhistleWindLobotomyMod
             if (allSlots.Exists(x => x.Card != null))
                 allSlots.RemoveAll(x => x.Card == null);
 
-            CardSlot slotToAttack = allSlots[SeededRandom.Range(0, allSlots.Count, base.GetRandomSeed())];
+            int randomSeed = base.GetRandomSeed();
+            CardSlot slotToAttack = allSlots[SeededRandom.Range(0, allSlots.Count, randomSeed++)];
 
             retval.Add(slotToAttack);
             if (base.PlayableCard.HasAbility(Ability.SplitStrike))
@@ -70,5 +75,31 @@ namespace WhistleWindLobotomyMod
             => RulebookEntryBlindRage.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryBlindRage>(BlindRage.rName, BlindRage.rDesc).Id;
         private void SpecialAbility_BlindRage()
             => BlindRage.specialAbility = AbilityHelper.CreateSpecialAbility<BlindRage>(pluginGuid, BlindRage.rName).Id;
+    }
+
+    [HarmonyPatch]
+    internal class BlindRagePatch
+    {
+        [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.SlotAttackSlot))]
+        private static IEnumerator ForceAttack(IEnumerator enumerator, CombatPhaseManager __instance, CardSlot attackingSlot, CardSlot opposingSlot)
+        {
+            if (attackingSlot.Card != null && attackingSlot.Card.HasSpecialAbility(BlindRage.specialAbility))
+            {
+                Part1SniperVisualizer component = __instance.GetComponent<Part1SniperVisualizer>() ?? __instance.gameObject.AddComponent<Part1SniperVisualizer>();
+
+                __instance.VisualizeConfirmSniperAbility(opposingSlot);
+                component?.VisualizeConfirmSniperAbility(opposingSlot);
+            }
+
+            yield return enumerator;
+
+            if (attackingSlot.Card != null && attackingSlot.Card.HasSpecialAbility(BlindRage.specialAbility))
+            {
+                Part1SniperVisualizer component = __instance.GetComponent<Part1SniperVisualizer>() ?? __instance.gameObject.AddComponent<Part1SniperVisualizer>();
+
+;                __instance.VisualizeClearSniperAbility();
+                component?.VisualizeClearSniperAbility();
+            }
+        }
     }
 }

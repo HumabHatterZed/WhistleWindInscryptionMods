@@ -16,13 +16,12 @@ namespace WhistleWindLobotomyMod
             const string starName = "Blue Star";
             const string blueStar = "blueStar";
             Tribe[] tribes = new[] { TribeDivine };
-            SpecialTriggeredAbility[] specialAbilities = new[] { StarSound.specialAbility };
 
             CardInfo star3 = NewCard(
                 "blueStar3",
                 starName,
                 attack: 4, health: 4, blood: 4)
-                .SetPortraits(blueStar)
+                .SetPortraits(blueStar, pixelPortraitName: "blueStar2")
                 .AddAbilities(Ability.Evolve, Ability.AllStrike)
                 .AddSpecialAbilities(StarSound.specialAbility)
                 .AddTribes(tribes)

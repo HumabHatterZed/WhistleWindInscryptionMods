@@ -55,6 +55,12 @@ namespace WhistleWindLobotomyMod
             CreateDialogueEvents("CENSOREDKilledCard", new() {
                 "What have you done to my beast?"
                 });
+            CreateDialogueEvents("CrimsonScarHood", new() {
+                "At long last, she has found him."
+                });
+            CreateDialogueEvents("CrimsonScarWolf", new() {
+                "That familiar red cloth..."
+                });
             CreateDialogueEvents("DerFreischutzSeventhBullet", new() {
                 "The Devil proposed a childist contract.",
                 "The seventh bullet would pierce the heart of his most beloved.",

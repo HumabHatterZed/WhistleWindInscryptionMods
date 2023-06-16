@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(judgementBird)
                 .AddAbilities(Ability.Sniper)
                 .AddTribes(Tribe.Bird)
-                .AddTraits(TraitBlackForest, AbnormalPlugin.Executioner)
+                .AddTraits(TraitBlackForest, TraitExecutioner)
                 .SetOnePerDeck();
 
             CreateCard(judgementBirdCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
