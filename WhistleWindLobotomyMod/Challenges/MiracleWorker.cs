@@ -47,10 +47,9 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                     ChallengeActivationUI.TryShowActivation(Id);
                 List<List<CardInfo>> turnPlan = __result.TurnPlan;
                 CardInfo info = CardLoader.GetCardByName("wstl_plagueDoctor");
-                info.SetPortraits(LobotomyPlugin.UpdatePlagueSprites());
                 for (int i = 0; i < turnPlan.Count(); i++)
                 {
-                    if (turnPlan[i].Count() > 0 && turnPlan[i].Count() < 4)
+                    if (turnPlan[i].Count > 0 && turnPlan[i].Count < 4)
                     {
                         turnPlan[i].Add(info);
                         break;

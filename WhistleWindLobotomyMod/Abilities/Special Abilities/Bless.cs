@@ -31,7 +31,9 @@ namespace WhistleWindLobotomyMod
 
             base.PlayableCard.Anim.LightNegationEffect();
             LobotomyConfigManager.Instance.UpdateBlessings(1);
-            UpdatePortrait();
+            base.PlayableCard.ClearAppearanceBehaviours();
+            base.PlayableCard.ApplyAppearanceBehaviours(base.PlayableCard.Info.appearanceBehaviour);
+            base.PlayableCard.RenderCard();
             yield return new WaitForSeconds(0.2f);
         }
         public override IEnumerator TriggerClock() => CheckTheClock();
@@ -75,14 +77,9 @@ namespace WhistleWindLobotomyMod
 
             // Transform the Doctor into Him
             yield return base.PlayableCard.TransformIntoCard(CardLoader.GetCardByName("wstl_whiteNight"));
-            base.PlayableCard.Status.hiddenAbilities.Add(Ability.Flying);
-            base.PlayableCard.AddTemporaryMod(new CardModificationInfo(Ability.Flying));
+            base.PlayableCard.Anim.SetHovering(true);
 
             yield return new WaitForSeconds(0.5f);
-
-            // reset the Doctor's sprites
-            LobotomyPlugin.Log.LogDebug("Resetting Plague Doctor's portrait");
-            CardLoader.GetCardByName("wstl_plagueDoctor").SetPortraits("plagueDoctor");
 
             // Play dialogue depending on whether this is the first time this has happened this run
             if (!LobotomySaveManager.TriggeredWhiteNightThisRun)
@@ -103,9 +100,7 @@ namespace WhistleWindLobotomyMod
             bool HasHeretic = Singleton<PlayerHand>.Instance.CardsInHand.FindAll(c => c.Info.name == "wstl_apostleHeretic").Count != 0 ||
                 Singleton<BoardManager>.Instance.AllSlotsCopy.FindAll(s => s.Card != null && s.Card.Info.name == "wstl_apostleHeretic").Count != 0;
 
-
             LobotomyPlugin.Log.LogDebug("Transforming cards");
-
             // Kill non-living/Mule card(s) and transform the rest (excluding One Sin) into Apostles
             foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(!isOpponent).Where(slot => slot.Card != null && slot != baseSlot))
             {
@@ -226,44 +221,6 @@ namespace WhistleWindLobotomyMod
 
             yield return new WaitForSeconds(0.2f);
             LobotomySaveManager.UnlockedWhiteNight = true;
-        }
-
-
-        public override bool RespondsToDrawn() => true;
-        public override void OnShownInDeckReview() => UpdatePortrait();
-        public override void OnShownForCardChoiceNode() => UpdatePortrait();
-        public override IEnumerator OnDrawn()
-        {
-            this.DisguiseInBattle();
-            yield break;
-        }
-        public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
-        {
-            this.UpdatePortrait();
-            yield break;
-        }
-        public override IEnumerator OnSelectedForDeckTrial()
-        {
-            this.UpdatePortrait();
-            yield break;
-        }
-        private void DisguiseInBattle()
-        {
-            this.UpdatePortrait();
-            if (LobotomyConfigManager.Instance.NumOfBlessings >= 11)
-                base.PlayableCard.ApplyAppearanceBehaviours(new() { ForcedWhiteEmission.appearance });
-        }
-        private void UpdatePortrait()
-        {
-            LobotomyPlugin.Log.LogDebug("Trying to update portrait");
-            if (base.PlayableCard != null && base.PlayableCard.Info.name == "wstl_plagueDoctor")
-            {
-                CardInfo newInfo = base.PlayableCard.Info.Clone() as CardInfo;
-                string portraits = LobotomyPlugin.UpdatePlagueSprites();
-
-                newInfo.SetPortraits(portraits);
-                base.PlayableCard.SetInfo(newInfo);
-            }
         }
     }
     public class RulebookEntryBless : AbilityBehaviour
