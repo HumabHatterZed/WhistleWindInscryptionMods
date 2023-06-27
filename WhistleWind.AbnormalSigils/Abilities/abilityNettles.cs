@@ -34,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
         {
             return otherCard.OpponentCard == base.Card.OpponentCard && otherCard.HasTrait(AbnormalPlugin.SwanBrother);
         }
-
+        private List<CardModificationInfo> currentMods = new();
         public override IEnumerator OnResolveOnBoard()
         {
             List<CardSlot> validSlots = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).FindAll((CardSlot slot) => !slot.Card && slot.Card != base.Card);
@@ -77,13 +77,9 @@ namespace WhistleWind.AbnormalSigils
             yield return base.PreSuccessfulTriggerSequence();
             CardModificationInfo abilityMod = new()
             {
-                singletonId = $"wstl:Swan_{otherCard.Info.name}"
+                singletonId = "wstl:Swan_" + otherCard.Info.name + currentMods.Count(x => x.singletonId.Contains(otherCard.Info.name)),
+                abilities = new() { otherCard.Info.Abilities.Count > 0 ? otherCard.Info.Abilities.First() : Ability.Sharp }
             };
-
-            if (otherCard.Info.Abilities.Count > 0)
-                abilityMod.abilities = new() { otherCard.Info.Abilities[0] };
-            else
-                abilityMod.abilities = new() { Ability.Sharp };
 
             base.Card.AddTemporaryMod(abilityMod);
         }
@@ -95,7 +91,7 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             CardModificationInfo cardMod = base.Card.TemporaryMods.FirstOrDefault(
-                x => x.singletonId == $"wstl:Swan_{card.Info.name}" &&
+                x => x.singletonId.StartsWith($"wstl:Swan_{card.Info.name}") &&
                 x.HasAbility(card.Info.Abilities.Count > 0 ? card.Info.Abilities[0] : Ability.Sharp));
 
             if (cardMod == null)

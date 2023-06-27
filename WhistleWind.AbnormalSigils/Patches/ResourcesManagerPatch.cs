@@ -14,15 +14,10 @@ namespace WhistleWind.AbnormalSigils.Patches
         {
             if (slot != null && slot.Card != null)
             {
-                bool killedByTrain = slot.Card.Info.GetExtendedPropertyAsBool("wstl:NoBones") ?? false;
+                bool killedByTrain = slot.Card.TemporaryMods.Exists(x => x.singletonId == "wstl:KilledByTrain");
 
                 if (slot.Card.HasTrait(AbnormalPlugin.Boneless) || killedByTrain)
-                {
-                    if (killedByTrain)
-                        slot.Card.Info.SetExtendedProperty("wstl:NoBones", null);
-
                     yield break;
-                }
             }
             yield return enumerator;
         }

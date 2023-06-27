@@ -31,7 +31,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - Increased point amount of Better Rare Chances from -15 --> -10
     - Adjusted flow of some dialogue
     - Changes to some card portraitss to make them cleaner/better
-    - Leshy can now trigger special events on his side of the board
+    - Leshy can now trigger special events on his side of the board (you don't get the rewards though)
 ### ➕ Additions
 #### Cards
     - Added the following cards:
@@ -45,8 +45,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
         - Freak Show (Beauty and the Beast, Void Dream Queen Bee)
         - Apocrypha (Fragment of the Universe, Skin Prophecy, Price of Silence/1.76MHz*)
         - Keter (Bloodbath, The Burrowing Heaven, The Snow Queen)
-    - Added pixel sprites to some cards
-    - A limited number of cards are now usable in Act 2
+    - Added pixel sprites for all cards and made them available in Act 2
 #### Abilities
     - Added the following abilities:
         - Neutered, Neutered Latch, Return to Nihil, False Throne, Rightful Heir, Opportunistic, Cycler, Follow the Leader, Persistent
@@ -173,6 +172,8 @@ Note that in the future, updates and changes to modded sigils will be found in t
         - "The effect of this sigil will change over the next 3 turns. This turn: do nothing."
     - <<Ruler of Frost>> reworked to be:
         - "Activate: Once per turn, pay 3 Bones to choose a space on the board. If the space is occupied by a killable card, transform it into a Frozen Heart. Otherwise create a Block of Ice."
+    - <<The Train>> reworked to be:
+        - "Three turns after this card is played, kill all creatures on the board. Creatures killed this way do not drop bones."
 #### Other
     - Starter decks <<Road to Oz>>, <<Magical Girls!>>, <<Twilight>> now require completing the respective in-game event before unlocking the deck
         - This can be overriden in the config by-the-by

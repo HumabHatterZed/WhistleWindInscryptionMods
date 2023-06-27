@@ -13,23 +13,20 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ExpressHellTrain_T0986()
         {
-            const string trainName = "Express Train to Hell";
             const string expressHellTrain = "expressHellTrain";
-            const string evolveName = "[name]Express Train to Turbo Hell";
 
             CardInfo expressHellTrainCard = NewCard(
                 expressHellTrain,
-                trainName,
+                "Express Train to Hell",
                 "When the time comes, the train will sound its mighty horn.",
                 attack: 0, health: 4, bones: 4)
                 .SetPortraits(expressHellTrain)
                 .AddAbilities(TheTrain.ability)
                 .AddTribes(TribeMechanical)
                 .SetTerrain()
-                .SetEvolveInfo(evolveName);
+                .SetEvolveInfo("[name]Express Train to Turbo Hell");
 
             CreateCard(expressHellTrainCard, CardHelper.ChoiceType.Rare, RiskLevel.Waw);
-            //CreateCard(bottledExpressHellTrainCard);
         }
     }
 }

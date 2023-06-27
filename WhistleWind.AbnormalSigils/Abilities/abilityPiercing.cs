@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             Piercing.ability = AbnormalAbilityHelper.CreateAbility<Piercing>(
                 "sigilPiercing",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: true, opponent: false, canStack: false).Id;
         }
     }
     public class Piercing : AbilityBehaviour
