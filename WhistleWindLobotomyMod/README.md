@@ -3,17 +3,17 @@
 ### Face the Fear. Make the Future.
 
 Inspired by KingSlime's mod, this is my own take on translating the abnormalities of Lobotomy Corporation into Inscryption.
-The cards in this mod are designed to be as faithful to their original counterparts as possible while still being "balanced".
+The cards in this mod are designed to be as faithful to their original counterparts as possible while still being quote-on-quote "balanced".
 
 Now featuring the abnormalities from Library of Ruina!
 
 Current Features:
-- 90+ obtainable cards
+- 90* obtainable cards
 - 11 starter decks
 - 7 challenges and cheats
 - 2 new choice nodes
-- 1 new item
 
+* Not including special cards obtained via events
 ## ‼️ REGARDING 2.0 ‼️
 With the 2.0 release, a number of structural changes have been made you need to be aware of.
 
@@ -214,7 +214,6 @@ You'll need to play around in order to figure out what cards have the special an
 |Pink								|When ally cards die.								|
 |Syrinx								|When this card is sacrificed.						|
 |The Homing Instinct				|When this card moves.								|
-|Ticket Taker						|When this card has been on the board long enough.	|
 |Today's Expression					|When this card is drawn.							|
 |Wrist Cutter						|When another card is sacrificed.					|
 |Sap								|When this card is sacrificed.						|
@@ -416,6 +415,11 @@ This time, the talking cards.
 I was only able to do like 1 a day, it's ridiculous.
 Wanted to add a couple more talking cards as well, but maybe next time.
 
+Also ended up spending a week making pixel sprites for all 100+ cards.
+Was always planning on doing this at some point, but since that Endless Act 2 mod came out semi-recently I decided to just do it now.
+Hopefully nothing breaks, but I know that something will so eh.
+I'll fix it when it happens.
+
 Anyhow, below's a rough idea of what I will be doing with this mod in the future.
 
 As always, thanks for playing my mod! <3
@@ -425,4 +429,4 @@ Current plans:
 - More items and encounters
 - Balancing, bug fixes, etc. (feedback is welcomed and encouraged!)
 - Wonderlab card expansion
-- Limbus Season 1 expansion
+- Limbus Season 1 card expansion
