@@ -18,18 +18,18 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
 
         public const string rName = "The Homing Instinct";
-        public const string rDesc = "When The Road Home is played, create a Scaredy Cat in your hand. [define:wstl_scaredyCat]. Whenever this card moves, turn its previous space into a Paved Road. When all spaces on the owner's side of the board are Paved Roads, all ally cards gain 1 Power.";
+        public const string rDesc = "When The Road Home is played, create a Scaredy Cat in your hand. [define:wstl_scaredyCat].";
 
-        internal static Texture PavedSlotTexture => TextureLoader.LoadTextureFromFile("slotPavedRoad");
-        internal static Texture DefaultSlotTexture;
-        internal static List<CardSlot> PavedSlots = new();
-        private bool hasResolved = false;
+        //internal static Texture PavedSlotTexture => TextureLoader.LoadTextureFromFile(SaveManager.SaveFile.IsPart2 ? "slotPavedRoad_pixel" : "slotPavedRoad");
+        //internal static Texture DefaultSlotTexture;
+        //internal static List<CardSlot> PavedSlots = new();
+        //private bool hasResolved = false;
         public override bool RespondsToResolveOnBoard() => true;
-        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => hasResolved && otherCard == base.PlayableCard;
+        //public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => hasResolved && otherCard == base.PlayableCard;
         public override IEnumerator OnResolveOnBoard()
         {
-            hasResolved = true;
-            DefaultSlotTexture = base.PlayableCard.Slot.transform.Find("Quad").GetComponent<Renderer>().material.mainTexture;
+            //hasResolved = true;
+            //DefaultSlotTexture = base.PlayableCard.Slot.transform.Find("Quad").GetComponent<Renderer>().material.mainTexture;
 
             CardInfo CardToDraw = CardLoader.GetCardByName("wstl_scaredyCat");
             ModifySpawnedCard(CardToDraw);
@@ -39,10 +39,7 @@ namespace WhistleWindLobotomyMod
             else
                 yield return CreateDrawnCard(CardToDraw);
         }
-        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
-        {
-            return base.OnOtherCardAssignedToSlot(otherCard);
-        }
+        //public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) => base.OnOtherCardAssignedToSlot(otherCard);
         private IEnumerator CreateDrawnCard(CardInfo CardToDraw)
         {
             if (Singleton<ViewManager>.Instance.CurrentView != View.Default)
@@ -75,7 +72,7 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.SetupPhase))]
+/*        [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.SetupPhase))]
         [HarmonyPostfix]
         private static void ResetPavedSlots() => PavedSlots.Clear();
 
@@ -107,7 +104,7 @@ namespace WhistleWindLobotomyMod
             foreach (CardSlot slot in PavedSlots)
                 ResetCardSlot(slot);
             PavedSlots.Clear();
-        }
+        }*/
     }
     public class RulebookEntryTheHomingInstinct : AbilityBehaviour
     {

@@ -29,7 +29,6 @@ namespace WhistleWind.Core.Helpers
 
         public static Texture2D LoadTextureFromFile(string fileName, Assembly target = null)
         {
-            //Debug.Log($"fileName: {fileName}");
             if (fileName == null)
                 return null;
 
@@ -43,7 +42,6 @@ namespace WhistleWind.Core.Helpers
             texture2D.filterMode = FilterMode.Point;
             return texture2D;
         }
-        // Create Texture2D's from resource files
 
         public static Sprite LoadSpriteFromFile(string fileName, Vector2? vector = null)
         {

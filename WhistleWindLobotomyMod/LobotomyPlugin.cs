@@ -68,8 +68,8 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("Loading encounters...");
                 AddEncounters();
 
-                Log.LogDebug("Loading items and nodes...");
-                AddItems();
+                Log.LogDebug("Loading map nodes...");
+                //AddItems();
                 AddNodes();
 
                 if (PackAPI.Enabled)
@@ -192,7 +192,7 @@ namespace WhistleWindLobotomyMod
         }
         private void AddItems()
         {
-            AddBottleCards();
+
         }
         private void AddStarterDecks()
         {

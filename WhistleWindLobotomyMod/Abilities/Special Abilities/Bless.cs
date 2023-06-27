@@ -77,8 +77,6 @@ namespace WhistleWindLobotomyMod
 
             // Transform the Doctor into Him
             yield return base.PlayableCard.TransformIntoCard(CardLoader.GetCardByName("wstl_whiteNight"));
-            base.PlayableCard.Anim.SetHovering(true);
-
             yield return new WaitForSeconds(0.5f);
 
             // Play dialogue depending on whether this is the first time this has happened this run

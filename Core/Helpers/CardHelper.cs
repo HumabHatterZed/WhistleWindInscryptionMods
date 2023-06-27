@@ -31,17 +31,19 @@ namespace WhistleWind.Core.Helpers
 
         public static CardInfo SetPortraits(this CardInfo cardInfo,
             string portraitName, string emissionName = null, string pixelPortraitName = null,
-            string altPortraitName = null, string titleName = null)
+            string altPortraitName = null, string altEmissionName = null, string titleName = null)
         {
-            Texture2D portraitTex = TextureLoader.LoadTextureFromFile($"{portraitName}");
-            Texture2D emissionTex = TextureLoader.LoadTextureFromFile($"{emissionName ?? portraitName}_emission");
-            Texture2D pixelTex = TextureLoader.LoadTextureFromFile($"{pixelPortraitName ?? portraitName}_pixel");
+            Texture2D portraitTex = TextureLoader.LoadTextureFromFile(portraitName);
+            // if a custom emission name isn't provided, default to the filename [portraitName]_emission
+            Texture2D emissionTex = TextureLoader.LoadTextureFromFile(emissionName ?? $"{portraitName}_emission");
+            // if a custom pixel name isn't provided, default to the filename [portraitName]_pixel
+            Texture2D pixelTex = TextureLoader.LoadTextureFromFile(pixelPortraitName ?? $"{portraitName}_pixel");
             Texture2D altTex = null, altEmissionTex = null;
-            Texture2D titleTex = !string.IsNullOrEmpty(titleName) ? TextureLoader.LoadTextureFromFile($"{titleName}") : null;
+            Texture2D titleTex = TextureLoader.LoadTextureFromFile(titleName);
             if (!string.IsNullOrEmpty(altPortraitName))
             {
-                altTex = TextureLoader.LoadTextureFromFile($"{altPortraitName}");
-                altEmissionTex = TextureLoader.LoadTextureFromFile($"{altPortraitName}_emission");
+                altTex = TextureLoader.LoadTextureFromFile(altPortraitName);
+                altEmissionTex = TextureLoader.LoadTextureFromFile(altEmissionName ?? $"{altPortraitName}_emission");
             }
             if (portraitTex != null)
                 cardInfo.SetPortrait(portraitTex);
@@ -65,9 +67,10 @@ namespace WhistleWind.Core.Helpers
                 cardInfo.SetDefaultPart1Card();
             else if (cardChoice == ChoiceType.Rare)
             {
-                cardInfo.SetRare();
-                cardInfo.temple = CardTemple.Nature;
-                cardInfo.RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
+                cardInfo
+                    .SetRare()
+                    .SetCardTemple(CardTemple.Nature)
+                    .RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
                 if (nonChoice)
                     cardInfo.RemoveCardMetaCategories(CardMetaCategory.Rare);
             }

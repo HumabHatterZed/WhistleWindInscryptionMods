@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 "blueStar3",
                 starName,
                 attack: 4, health: 4, blood: 4)
-                .SetPortraits(blueStar, pixelPortraitName: "blueStar2")
+                .SetPortraits(blueStar, pixelPortraitName: "blueStar2_pixel")
                 .AddAbilities(Ability.Evolve, Ability.AllStrike)
                 .AddSpecialAbilities(StarSound.specialAbility)
                 .AddTribes(tribes)

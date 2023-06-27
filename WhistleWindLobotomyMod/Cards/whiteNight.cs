@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 "The time has come.",
                 attack: 0, health: 66)
                 .SetPortraits(whiteNight, titleName: "whiteNight_title")
-                .AddAbilities(Idol.ability, TrueSaviour.ability)
+                .AddAbilities(Ability.Flying, Idol.ability, TrueSaviour.ability)
                 .AddTribes(TribeDivine)
                 .AddTraits(ImmuneToInstaDeath, Trait.Uncuttable, TraitApostle)
                 .AddAppearances(ForcedWhiteEmission.appearance)

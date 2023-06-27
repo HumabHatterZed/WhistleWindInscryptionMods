@@ -23,24 +23,13 @@ namespace WhistleWindLobotomyMod
                 "When the time comes, the train will sound its mighty horn.",
                 attack: 0, health: 4, bones: 4)
                 .SetPortraits(expressHellTrain)
-                .AddAbilities(GroupHealer.ability)
-                .AddSpecialAbilities(TicketTaker.specialAbility)
+                .AddAbilities(TheTrain.ability)
                 .AddTribes(TribeMechanical)
                 .SetTerrain()
                 .SetEvolveInfo(evolveName);
 
-            CardInfo bottledExpressHellTrainCard = NewCard(
-                "BottledExpressHellTrain",
-                trainName,
-                attack: 0, health: 0, energy: 3)
-                .SetPortraits(expressHellTrain)
-                .AddAbilities(TheTrain.ability)
-                .AddTribes(TribeMechanical)
-                .SetSpellType(SpellType.Global)
-                .SetEvolveInfo(evolveName);
-
             CreateCard(expressHellTrainCard, CardHelper.ChoiceType.Rare, RiskLevel.Waw);
-            CreateCard(bottledExpressHellTrainCard);
+            //CreateCard(bottledExpressHellTrainCard);
         }
     }
 }

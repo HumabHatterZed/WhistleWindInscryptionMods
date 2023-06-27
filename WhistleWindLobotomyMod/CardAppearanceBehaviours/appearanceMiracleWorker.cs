@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using GBC;
 using InscryptionAPI.Card;
 using InscryptionAPI.PixelCard;
 using UnityEngine;
@@ -17,14 +18,14 @@ namespace WhistleWindLobotomyMod
     public class MiracleWorkerAppearance : PixelAppearanceBehaviour
     {
         public static Appearance appearance;
-        public override Sprite PixelAppearance()
+        public override Sprite OverridePixelPortrait()
         {
             return LobotomyPlugin.UpdateDoctorPixelPortrait(LobotomyConfigManager.Instance.NumOfBlessings);
         }
         public override void ApplyAppearance()
         {
             base.Card.RenderInfo.portraitOverride = LobotomyPlugin.PlagueDoctorPortraits[Mathf.Max(0, LobotomyConfigManager.Instance.NumOfBlessings - 1)];
-            base.Card.RenderInfo.forceEmissivePortrait = LobotomyConfigManager.Instance.NumOfBlessings >= 11;
+            base.Card.RenderInfo.forceEmissivePortrait |= LobotomyConfigManager.Instance.NumOfBlessings >= 11;
         }
     }
 }

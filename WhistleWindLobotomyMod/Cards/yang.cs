@@ -1,7 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.PixelCard;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -20,6 +22,7 @@ namespace WhistleWindLobotomyMod
                 "A white pendant that heals those nearby.",
                 attack: 0, health: 3, blood: 1)
                 .SetPortraits(yang, altPortraitName: "yangAlt")
+                .SetPixelAlternatePortrait(TextureLoader.LoadTextureFromFile("yangAlt_pixel.png"))
                 .AddAbilities(Regenerator.ability)
                 .AddSpecialAbilities(Concord.specialAbility)
                 .AddAppearances(AlternateBattlePortrait.appearance)

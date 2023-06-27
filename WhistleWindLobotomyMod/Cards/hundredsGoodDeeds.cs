@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 hundredsGoodDeeds,
                 oneSinName,
                 attack: 0, health: 77)
-                .SetPortraits(oneSin, hundredsGoodDeeds, hundredsGoodDeeds)
+                .SetPortraits(oneSin, "hundredsGoodDeeds_emission", "hundredsGoodDeeds_pixel")
                 .AddAbilities(Confession.ability)
                 .AddTraits(Trait.Uncuttable, TraitApostle)
                 .AddAppearances(ForcedWhiteEmission.appearance)

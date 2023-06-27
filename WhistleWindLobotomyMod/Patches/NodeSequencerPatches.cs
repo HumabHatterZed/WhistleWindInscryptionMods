@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod.Patches
         private static void ShowNothingThereDialogue(SelectableCard card, ref string message)
         {
             // if this isn't a disguised Nothing There, or is just the fallback Nothing There
-            if (card.Info.LacksSpecialAbility(Mimicry.specialAbility) || card.Info.name == "wstl_nothingThere")
+            if (card?.Info == null || card.Info.LacksSpecialAbility(Mimicry.specialAbility) || card.Info.name == "wstl_nothingThere")
                 return;
 
             // use final forme as dummy for the introduced bool
