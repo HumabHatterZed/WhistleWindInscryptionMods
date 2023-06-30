@@ -39,7 +39,7 @@ namespace WhistleWindLobotomyMod.Core
                 .AddDominantTribes(Tribe.Canine)
                 .AddRandomReplacementCards("wstl_burrowingHeaven", "wstl_oldLady", "wstl_heartOfAspiration")
                 .AddTurns(
-                    CreateTurn(NewCardBlueprint("wstl_ppodae", 10, true, 3, "wstl_ppodaeBuff")),
+                    CreateTurn(NewCardBlueprint("wstl_ppodae", 10, true, 4, "wstl_ppodaeBuff")),
                     CreateTurn(NewCardBlueprint("wstl_heartOfAspiration", 25)),
                     CreateTurn()
                     ), regions: 0);
@@ -50,7 +50,7 @@ namespace WhistleWindLobotomyMod.Core
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_willBeBadWolf")),
                     CreateTurn(NewCardBlueprint("wstl_redHoodedMercenary")),
-                    CreateTurn(),
+                    CreateTurn(NewCardBlueprint("wstl_trainingDummy", 0, true, 3, "wstl_luminousBracelet")),
                     CreateTurn(NewCardBlueprint("wstl_yang"))
                     ), regions: 0);
             Build(New("StrangeFlock")

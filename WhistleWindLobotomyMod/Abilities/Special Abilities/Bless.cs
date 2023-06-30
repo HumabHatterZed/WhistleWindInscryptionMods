@@ -59,6 +59,10 @@ namespace WhistleWindLobotomyMod
                 yield break;
             }
 
+            bool canInitiateCombat = TurnManager.Instance.PlayerCanInitiateCombat;
+            if (canInitiateCombat)
+                TurnManager.Instance.PlayerCanInitiateCombat = false;
+
             yield return new WaitForSeconds(0.5f);
 
             // If blessings are in the negatives (aka someone altered the config value), wag a finger and go 'nuh-uh-uh!'
@@ -66,8 +70,10 @@ namespace WhistleWindLobotomyMod
                 yield return DialogueHelper.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou cannot stop my ascension. Even the [c:]tutelary[c:bR] bows to my authority.[c:]");
 
             // Change Leshy's eyes to red
-            LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
-
+            if (SaveManager.SaveFile.IsPart1)
+                LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
+            else if (SaveManager.SaveFile.IsPart3)
+                P03AnimationController.Instance.SwitchToFace(P03AnimationController.Face.Disconnected);
 
             LobotomyPlugin.Log.LogDebug("Transforming into WhiteNight");
 
@@ -94,7 +100,12 @@ namespace WhistleWindLobotomyMod
             LobotomyPlugin.Log.LogDebug("Determining whether player owns One Sin / has the Heretic");
 
             // Determine whether a Heretic is needed by seeing if One Sin exists in the player's deck
-            bool sinful = RunState.DeckList.FindAll(info => info.name == "wstl_oneSin").Count > 0;
+            bool sinful;
+            if (SaveManager.SaveFile.IsPart2)
+                sinful = SaveManager.SaveFile.gbcData.deck.Cards.Exists(info => info.name == "wstl_oneSin");
+            else
+                sinful = RunState.DeckList.Exists(info => info.name == "wstl_oneSin");
+
             bool HasHeretic = Singleton<PlayerHand>.Instance.CardsInHand.FindAll(c => c.Info.name == "wstl_apostleHeretic").Count != 0 ||
                 Singleton<BoardManager>.Instance.AllSlotsCopy.FindAll(s => s.Card != null && s.Card.Info.name == "wstl_apostleHeretic").Count != 0;
 
@@ -155,6 +166,8 @@ namespace WhistleWindLobotomyMod
                 }
             }
             yield return new WaitForSeconds(0.2f);
+            if (canInitiateCombat)
+                TurnManager.Instance.PlayerCanInitiateCombat = true;
         }
 
         private IEnumerator ConvertToApostle(PlayableCard otherCard, bool HasHeretic)

@@ -79,7 +79,7 @@ namespace WhistleWindLobotomyMod
         private IEnumerator KilledByNonNull(PlayableCard killer)
         {
             AudioController.Instance.PlaySound2D("mycologist_scream");
-            Singleton<UIManager>.Instance.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 0.4f);
+            Singleton<UIManager>.Instance?.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 0.4f);
 
             // if not killed by Hundreds of Good Deeds
             if (killer.LacksAbility(Confession.ability))
@@ -104,9 +104,12 @@ namespace WhistleWindLobotomyMod
             int damage = combatManager.DamageDealtThisPhase - excessDamage;
 
             yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
-
             yield return combatManager.VisualizeExcessLethalDamage(excessDamage, specialSequence);
-            RunState.Run.currency += excessDamage;
+            
+            if (SaveManager.SaveFile.IsPart2)
+                SaveManager.SaveFile.gbcData.currency += excessDamage;
+            else
+                RunState.Run.currency += excessDamage;
 
             if (killer.LacksAbility(Confession.ability))
             {

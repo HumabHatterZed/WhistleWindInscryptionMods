@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
             Copycat.ability = AbnormalAbilityHelper.CreateAbility<Copycat>(
                 "sigilCopycat",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: true, opponent: true, canStack: false).Id;
+                modular: false, opponent: true, canStack: false).Id;
         }
     }
     public class Copycat : AbilityBehaviour

@@ -29,33 +29,36 @@ namespace WhistleWindLobotomyMod.Core.Challenges
             harmony.PatchAll(typeof(MiracleWorker));
         }
 
-        private static readonly Opponent.Type[] SUPPORTED_OPPONENTS = new Opponent.Type[] {
-            Opponent.Type.ProspectorBoss,
-            Opponent.Type.AnglerBoss,
-            Opponent.Type.TrapperTraderBoss,
-            Opponent.Type.LeshyBoss,
-            Opponent.Type.PirateSkullBoss
+        private static readonly Opponent.Type[] BLACKLISTED_OPPONENTS = new Opponent.Type[] {
+            
         };
 
         [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]
         [HarmonyPostfix]
-        public static void AddPlagueDoctor(EncounterData encounterData, ref Opponent __result)
+        private static void AddPlagueDoctor(EncounterData encounterData, ref Opponent __result)
         {
             if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id) : LobotomyConfigManager.Instance.MiracleWorker)
             {
-                if (!SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
-                    ChallengeActivationUI.TryShowActivation(Id);
-                List<List<CardInfo>> turnPlan = __result.TurnPlan;
+                List<List<CardInfo>> turnPlan = new(__result.TurnPlan);
                 CardInfo info = CardLoader.GetCardByName("wstl_plagueDoctor");
-                for (int i = 0; i < turnPlan.Count(); i++)
+                
+                // if there are no turns that have 0 < cards < 4, insert a new turn at the start with just Plague Doctor
+                if (!turnPlan.Exists(turn => turn.Count > 0 && turn.Count < 4))
                 {
-                    if (turnPlan[i].Count > 0 && turnPlan[i].Count < 4)
+                    turnPlan.Insert(0, new() { info });
+                }
+                else
+                {
+                    for (int i = 0; i < turnPlan.Count; i++)
                     {
-                        turnPlan[i].Add(info);
-                        break;
+                        // add Plague Doctor to the first possible turn plan
+                        if (turnPlan[i].Count > 0 && turnPlan[i].Count < 4 && !turnPlan[i].Exists(x => x.HasTrait(Trait.Giant)))
+                        {
+                            turnPlan[i].Add(info);
+                            break;
+                        }
                     }
                 }
-                LobotomyPlugin.Log.LogDebug($"start5");
                 __result.TurnPlan = turnPlan;
             }
         }

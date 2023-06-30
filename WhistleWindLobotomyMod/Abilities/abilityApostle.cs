@@ -71,6 +71,7 @@ namespace WhistleWindLobotomyMod
                 "wstl_apostleMoleman" => CardLoader.GetCardByName("wstl_apostleMolemanDown"),
                 "wstl_apostleSpear" => CardLoader.GetCardByName("wstl_apostleSpearDown"),
                 "wstl_apostleStaff" => CardLoader.GetCardByName("wstl_apostleStaffDown"),
+                "wstl_apostleScythe" => CardLoader.GetCardByName("wstl_apostleScytheDown"),
                 _ => CardLoader.GetCardByName(base.Card.Info.name)
             };
 

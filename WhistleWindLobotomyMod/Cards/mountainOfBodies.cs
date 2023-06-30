@@ -39,7 +39,7 @@ namespace WhistleWindLobotomyMod
                 mountainOfBodies,
                 mountainName,
                 "A mass grave, melted and congealed into one eternally hungry beast.",
-                attack: 2, health: 1, blood: 2)
+                attack: 2, health: 1, blood: 2, temple: CardTemple.Undead)
                 .SetPortraits(mountainOfBodies)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(specialAbilities)

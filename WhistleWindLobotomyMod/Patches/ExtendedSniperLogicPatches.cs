@@ -102,11 +102,11 @@ namespace WhistleWind.AbnormalSigils.Patches
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
             foreach (CardSlot opposingSlot in opposingSlots)
             {
-                Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
-                if (IsJudgementBird(slot) && opposingSlot.Card != null && !ImmuneToHanging(opposingSlot) && !opposingSlot.Card.AttackIsBlocked(slot))
+                Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
+                if (IsJudgementBird(slot) && opposingSlot.Card != null && !ImmuneToHanging(opposingSlot) && !slot.Card.AttackIsBlocked(opposingSlot))
                 {
-                    slot.Card.FlipFaceDown(false);
-                    slot.Card.Anim.StrongNegationEffect();
+                    opposingSlot.Card.FlipFaceDown(false);
+                    opposingSlot.Card.Anim.StrongNegationEffect();
                     yield return new WaitForSeconds(0.4f);
                     yield return Execution(opposingSlot.Card);
                 }

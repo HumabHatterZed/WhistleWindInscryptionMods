@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
                 notesFromResearcher,
                 "Notes from a Crazed Researcher",
                 "An insane garble of guilty confessions and incoherent gibberish.",
-                attack: 2, health: 0, blood: 4)
+                attack: 2, health: 0, bones: 4, temple: CardTemple.Undead)
                 .SetPortraits(notesFromResearcher)
                 .AddAbilities(Ability.Brittle, GiveStatsSigils.AbilityID)
                 .SetSpellType(SpellType.TargetedStatsSigils)

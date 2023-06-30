@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
                 backwardClock,
                 "Backward Clock",
                 "A clock to rewind your wasted time. Will you pay the toll?",
-                attack: 0, health: 1, energy: 2)
+                attack: 0, health: 1, energy: 2, temple: CardTemple.Tech)
                 .SetPortraits(backwardClock)
                 .AddAbilities(TimeMachine.ability)
                 .AddTraits(Trait.DeathcardCreationNonOption)

@@ -71,8 +71,9 @@ namespace WhistleWindLobotomyMod
             bool opponentCard = base.PlayableCard.OpponentCard;
 
             yield return new WaitForSeconds(0.2f);
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board, lockAfter: true);
+            bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
+
             yield return new WaitForSeconds(0.2f);
 
             queenOfHatred.Card.Anim.StrongNegationEffect();
@@ -84,9 +85,13 @@ namespace WhistleWindLobotomyMod
             yield return DialogueHelper.PlayDialogueEvent("JesterOfNihilIntro", 0f);
 
             // turn out the lights, activate table effects, remove magic girls
-            Singleton<ExplorableAreaManager>.Instance.HangingLight.gameObject.SetActive(value: false);
-            Singleton<ExplorableAreaManager>.Instance.HandLight.gameObject.SetActive(value: false);
-            yield return BoardEffects.EntropyTableEffects();
+            if (!SaveManager.SaveFile.IsPart2)
+            {
+                Singleton<ExplorableAreaManager>.Instance.HangingLight.gameObject.SetActive(value: false);
+                Singleton<ExplorableAreaManager>.Instance.HandLight.gameObject.SetActive(value: false);
+                yield return BoardEffects.EntropyTableEffects();
+            }
+
             RemoveMagic(queenOfHatred, knightOfDespair, servantOfWrath, opponentCard);
 
             yield return new WaitForSeconds(0.4f);
@@ -101,11 +106,13 @@ namespace WhistleWindLobotomyMod
             else
                 yield return new WaitForSeconds(0.4f);
 
-            if (Singleton<VideoCameraRig>.Instance != null)
-                Singleton<VideoCameraRig>.Instance.PlayCameraAnim("refocus_quick");
+            Singleton<VideoCameraRig>.Instance?.PlayCameraAnim("refocus_quick");
 
-            Singleton<ExplorableAreaManager>.Instance.HangingLight.gameObject.SetActive(value: true);
-            Singleton<ExplorableAreaManager>.Instance.HandLight.gameObject.SetActive(value: true);
+            if (!SaveManager.SaveFile.IsPart2)
+            {
+                Singleton<ExplorableAreaManager>.Instance.HangingLight.gameObject.SetActive(value: true);
+                Singleton<ExplorableAreaManager>.Instance.HandLight.gameObject.SetActive(value: true);
+            }
 
             CardInfo info = CardLoader.GetCardByName("wstl_jesterOfNihil");
             if (opponentCard)
@@ -126,8 +133,9 @@ namespace WhistleWindLobotomyMod
             {
                 HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
 
+                // add the card to the player's deck (this adds a clone so we can modify it after-the-fact for this battle only)
                 RunState.Run.playerDeck.AddCard(info);
-                info.cost = 0;
+                info.bonesCost = 0;
 
                 yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0f, null);
                 LobotomySaveManager.OwnsJesterOfNihil = true;
@@ -137,16 +145,27 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.2f);
             yield return DialogueHelper.PlayDialogueEvent("JesterOfNihilOutro");
             HelperMethods.ChangeCurrentView(View.Default);
-
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
         }
 
         private void RemoveMagic(CardSlot queenOfHatred, CardSlot knightOfDespair, CardSlot servantOfWrath, bool opponentCard)
         {
+            // remove all cards in the player's deck that are magical girls
+            // since the evolutions can also trigger the sequence,
+            // we remove them this way instead
             if (!opponentCard)
             {
-                foreach (CardInfo card in RunState.Run.playerDeck.Cards.Where(x => x.HasTrait(LobotomyCardManager.TraitMagicalGirl)))
-                    RunState.Run.playerDeck.RemoveCardByName(card.name);
+                if (SaveManager.SaveFile.IsPart2)
+                {
+                    foreach (CardInfo card in SaveManager.SaveFile.gbcData.deck.Cards.Where(x => x.HasTrait(LobotomyCardManager.TraitMagicalGirl)))
+                        SaveManager.SaveFile.gbcData.deck.RemoveCardByName(card.name);
+                }
+                else
+                {
+                    foreach (CardInfo card in RunState.Run.playerDeck.Cards.Where(x => x.HasTrait(LobotomyCardManager.TraitMagicalGirl)))
+                        RunState.Run.playerDeck.RemoveCardByName(card.name);
+                }
             }
 
             queenOfHatred.Card.RemoveFromBoard(false, 0f);

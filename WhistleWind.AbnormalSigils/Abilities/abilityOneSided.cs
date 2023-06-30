@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_OneSided()
         {
             const string rulebookName = "Opportunistic";
-            const string rulebookDescription = "[creature] deals 1 additional damage when striking a card that cannot attack it.";
+            const string rulebookDescription = "[creature] deals 1 additional damage to opposing cards that cannot attack this card during their own turn.";
             const string dialogue = "A cheap hit.";
             OneSided.ability = AbnormalAbilityHelper.CreateAbility<OneSided>(
                 "sigilOneSided",

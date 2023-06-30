@@ -13,12 +13,12 @@ namespace WhistleWindLobotomyMod
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "CENSORED";
-        public const string rDesc = "Whenver CENSORED kills a card, create a CENSORED copy of it in your hand.";
+        public const string rDesc = "Whenver CENSORED kills a card, create a CENSORED in your hand with the killed card's Power, tribes, and sigils.";
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             if (fromCombat)
-                return killer == base.PlayableCard && killer.Info.name == "wstl_censored" && !card.LacksAllTraits(Trait.Terrain, Trait.Pelt);
+                return killer == base.PlayableCard && card.LacksAllTraits(Trait.Giant, Trait.Terrain, Trait.Pelt);
 
             return false;
         }

@@ -37,7 +37,6 @@ namespace WhistleWindLobotomyMod
                     new() { "[c:bR]One of your creatures[c:] must stay behind to operate [c:bR]the Clock[c:]." }
                 });
         }
-        
         private void Dialogue_Abnormalities()
         {
             CreateDialogueEvents("ArmyInBlackTransform", new() {
@@ -135,7 +134,7 @@ namespace WhistleWindLobotomyMod
                 });
             CreateDialogueEvents("ApocalypseBirdStory1", new() {
                 "Once upon a time, [c:bR]three birds[c:] lived happily in the lush Forest with their fellow animals.",
-                "One day a stranger arrived at the Forest.He proclaimed that the Forest would soon be ensared in a bitter conflict.",
+                "One day a stranger arrived at the Forest. He proclaimed that the Forest would soon be ensared in a bitter conflict.",
                 "One that would only end when everything was devoured by a[c: bR]terrible Beast[c:].",
                 "The birds, frightened by this doomsay, sought to prevent conflict from ever breaking out."
                 });
@@ -167,12 +166,12 @@ namespace WhistleWindLobotomyMod
                 "They're calling - no, praying for something."
                 });
             CreateDialogueEvents("JesterOfNihilOutro", new() {
-                "There was no way to know if they had gathered to become [c:gray]The jester[c:],",
-                "or if [c:gray]The jester[c:] had come to resemble them."
+                "There was no way to know if they had gathered to become [c:gray]the Jester[c:],",
+                "or if [c:gray]the Jester[c:] had come to resemble them."
                 });
             CreateDialogueEvents("JesterOfNihilStory", new() {
-                "[c:gray]The jester[c:] retraced the steps of a path everyone would've taken.",
-                "No matter what it did, the jester always found itself at the end of that road."
+                "[c:gray]The Jester[c:] retraced the steps of a path everyone would've taken.",
+                "No matter what it did, the Jester always found itself at the end of that road."
                 });
         }
         private void Dialogue_LyingAdult()
@@ -1444,7 +1443,7 @@ namespace WhistleWindLobotomyMod
                 "[c:bR]The time has come. A new world will come.[c:]",
                 "[c:bR]I am death and life. Darkness and light.[c:]" });
             CreateDialogueEvents("WhiteNightApostleHeretic", new() {
-                "[c:bR]Have I not chosen you, the Twelve? Yet one of you is [c:bG]a devil[c:bR].[c:]"
+                "[c:bR]Have I not chosen you, the Twelve? Yet one of you is a devil.[c:]"
                 });
             CreateDialogueEvents("WhiteNightApostleDowned", new() {
                 "[c:bR]None of you can leave my side until I permit you.[c:]"

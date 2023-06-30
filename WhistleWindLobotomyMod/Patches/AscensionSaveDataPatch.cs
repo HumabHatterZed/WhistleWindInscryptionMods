@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPrefix, HarmonyPatch(nameof(AscensionSaveData.NewRun))]
         private static void AscensionModStarterDecks(ref List<CardInfo> starterDeck)
         {
-            int tickCount = Environment.TickCount;
+            int randomSeed = SaveFile.IsAscension ? AscensionSaveData.Data.currentRunSeed : (SaveManager.SaveFile.pastRuns.Count * 1000);
 
             // if all cards are disabled and this starter deck has mod cards in it, replace them mod death cards
             if (LobotomyPlugin.AllCardsDisabled)
@@ -25,14 +25,14 @@ namespace WhistleWindLobotomyMod.Patches
                     for (int i = 0; i < starterDeck.Count; i++)
                     {
                         if (AllLobotomyCards.Contains(starterDeck[i]))
-                            starterDeck[i] = LobotomyCardLoader.GetRandomModDeathCard(tickCount++);
+                            starterDeck[i] = LobotomyCardLoader.GetRandomModDeathCard(randomSeed++);
                     }
                 }
             }
             else if (starterDeck.Exists(x => x.name == "wstl_RANDOM_PLACEHOLDER")) // if the starter deck has a placeholder card in it
             {
                 List<CardInfo> newStarterDeck = new();
-                bool addRare = SeededRandom.Value(tickCount++) <= 0.05f;
+                bool addRare = SeededRandom.Value(randomSeed++) <= 0.05f;
                 while (newStarterDeck.Count < starterDeck.Count)
                 {
                     List<CardInfo> validCards = ObtainableLobotomyCards.FindAll(x => x.LacksCardMetaCategory(CardMetaCategory.Rare));
@@ -42,7 +42,6 @@ namespace WhistleWindLobotomyMod.Patches
                     validCards.RemoveAll(x => x.HasTrait(TraitSephirah));
                     validCards.RemoveAll(x => x.onePerDeck && newStarterDeck.Contains(x));
 
-                    int randomSeed = SaveManager.SaveFile?.GetCurrentRandomSeed() ?? Environment.TickCount;
                     int randomIdx = SeededRandom.Range(0, validCards.Count, randomSeed++);
                     CardInfo cardToAdd = validCards[randomIdx];
 

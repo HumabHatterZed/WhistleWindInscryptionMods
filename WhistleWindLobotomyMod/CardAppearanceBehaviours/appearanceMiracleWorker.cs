@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
         }
         public override void ApplyAppearance()
         {
-            base.Card.RenderInfo.portraitOverride = LobotomyPlugin.PlagueDoctorPortraits[Mathf.Max(0, LobotomyConfigManager.Instance.NumOfBlessings - 1)];
+            base.Card.RenderInfo.portraitOverride = LobotomyPlugin.PlagueDoctorPortraits[Mathf.Min(11, LobotomyConfigManager.Instance.NumOfBlessings)];
             base.Card.RenderInfo.forceEmissivePortrait |= LobotomyConfigManager.Instance.NumOfBlessings >= 11;
         }
     }

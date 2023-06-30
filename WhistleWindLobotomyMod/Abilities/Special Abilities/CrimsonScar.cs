@@ -48,7 +48,8 @@ namespace WhistleWindLobotomyMod
             Enraged = true;
             base.PlayableCard.Anim.StrongNegationEffect();
             base.PlayableCard.AddTemporaryMod(new(1, 0) { fromTotem = true });
-            base.PlayableCard.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
+            if (!SaveManager.SaveFile.IsPart2)
+                base.PlayableCard.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
             yield return new WaitForSeconds(0.4f);
 
             if (base.PlayableCard.Info.name == HoodName)
@@ -61,7 +62,8 @@ namespace WhistleWindLobotomyMod
             Enraged = true;
             base.PlayableCard.Anim.StrongNegationEffect();
             base.PlayableCard.AddTemporaryMod(new(1, 0) { fromTotem = true });
-            base.PlayableCard.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
+            if (!SaveManager.SaveFile.IsPart2)
+                base.PlayableCard.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
             yield return new WaitForSeconds(0.4f);
 
             if (base.PlayableCard.Info.name == HoodName)

@@ -59,19 +59,19 @@ namespace WhistleWind.AbnormalSigils.Core
             for (int i = 0; i < componentsInChildren.Length; i++)
             {
                 Material mat = new(controller.statusEffectMat);
-                string colourName = distinct[i].GetExtendedProperty("wstl:StatusEffect");
+                StatusEffectManager.IconColour iconColour = (StatusEffectManager.IconColour)(distinct[i].GetExtendedPropertyAsInt("wstl:StatusEffect") ?? 0);
 
-                if (!string.IsNullOrEmpty(colourName))
+                if (iconColour != 0)
                 {
-                    switch (colourName)
+                    switch (iconColour)
                     {
-                        case "red":
+                        case StatusEffectManager.IconColour.Red:
                             mat.color = GameColors.Instance.red;
                             break;
-                        case "green":
+                        case StatusEffectManager.IconColour.Green:
                             mat.color = SaveManager.SaveFile.IsPart1 ? GameColors.Instance.darkBlue : GameColors.Instance.darkLimeGreen;
                             break;
-                        case "brown":
+                        case StatusEffectManager.IconColour.Brown:
                             mat.color = GameColors.Instance.brown;
                             break;
                     };

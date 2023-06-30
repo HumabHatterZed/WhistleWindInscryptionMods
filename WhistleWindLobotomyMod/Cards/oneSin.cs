@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
                 oneSin,
                 oneSinName,
                 "A floating skull. Its hollow sockets see through you.",
-                attack: 0, health: 1, bones: 1)
+                attack: 0, health: 1, bones: 1, temple: CardTemple.Undead)
                 .SetPortraits(oneSin)
                 .AddAbilities(Martyr.ability)
                 .AddTribes(TribeDivine)

@@ -55,7 +55,7 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.5f);
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdIntro");
 
-            AudioController.Instance.SetLoopVolume(0.5f * (Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.5f);
+            AudioController.Instance.SetLoopVolume(0.5f * (Singleton<GameFlowManager>.Instance as Part1GameFlowManager)?.GameTableLoopVolume ?? 1f, 0.5f);
             AudioController.Instance.SetLoopAndPlay("red_noise", 1);
             AudioController.Instance.SetLoopVolumeImmediate(0.3f, 1);
 
@@ -85,6 +85,7 @@ namespace WhistleWindLobotomyMod
             }
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Default, lockAfter: true);
+            bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
             yield return new WaitForSeconds(0.2f);
 
             // Remove cards
@@ -95,7 +96,9 @@ namespace WhistleWindLobotomyMod
             base.PlayableCard.RemoveFromBoard(!opponentCard);
             yield return new WaitForSeconds(0.5f);
 
-            yield return BoardEffects.ApocalypseTableEffects();
+            if (!SaveManager.SaveFile.IsPart2)
+                yield return BoardEffects.ApocalypseTableEffects();
+            
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory3");
 
             CardInfo info = CardLoader.GetCardByName("wstl_apocalypseBird");
@@ -132,6 +135,7 @@ namespace WhistleWindLobotomyMod
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdOutro");
 
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
         }
     }
     public class RulebookEntryThreeBirds : AbilityBehaviour

@@ -94,8 +94,13 @@ namespace WhistleWindLobotomyMod
             bool opponentCard = base.PlayableCard.OpponentCard;
 
             yield return new WaitForSeconds(0.5f);
-            yield return BoardEffects.EmeraldTableEffects();
-            AudioController.Instance.SetLoopVolume(0.5f * (Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.5f);
+
+            bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
+
+            if (!SaveManager.SaveFile.IsPart2)
+                yield return BoardEffects.EmeraldTableEffects();
+
+            AudioController.Instance.SetLoopVolume(0.5f * (Singleton<GameFlowManager>.Instance as Part1GameFlowManager)?.GameTableLoopVolume ?? 1f, 0.5f);
             AudioController.Instance.SetLoopAndPlay("red_noise", 1);
             AudioController.Instance.SetLoopVolumeImmediate(0.3f, 1);
 
@@ -183,14 +188,10 @@ namespace WhistleWindLobotomyMod
             yield return DialogueHelper.PlayDialogueEvent("LyingAdultOutro");
 
             LobotomySaveManager.UnlockedLyingAdult = true;
-            CardManager.AllCardsCopy.Find(x => x.name == "wstl_theRoadHome").baseAttack = 2;
-            CardManager.AllCardsCopy.Find(x => x.name == "wstl_scaredyCatStrong").baseAttack = 3;
-            CardManager.AllCardsCopy.Find(x => x.name == "wstl_ozma").baseHealth = 3;
-            CardManager.AllCardsCopy.Find(x => x.name == "wstl_warmHeartedWoodsman").baseHealth = 4;
-            CardManager.AllCardsCopy.Find(x => x.name == "wstl_wisdomScarecrow").bonesCost = 3;
 
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
         }
         private IEnumerator ModifyCard(PlayableCard card, CardModificationInfo mod)
         {
@@ -216,7 +217,7 @@ namespace WhistleWindLobotomyMod
             Singleton<ViewManager>.Instance.SwitchToView(card != cardInHand ? View.Board : View.Default);
             yield return new WaitForSeconds(0.2f);
             if (card.InHand)
-                (Singleton<PlayerHand>.Instance as PlayerHand3D).MoveCardAboveHand(card);
+                (Singleton<PlayerHand>.Instance as PlayerHand3D)?.MoveCardAboveHand(card);
         }
     }
     public class RulebookEntryYellowBrick : AbilityBehaviour

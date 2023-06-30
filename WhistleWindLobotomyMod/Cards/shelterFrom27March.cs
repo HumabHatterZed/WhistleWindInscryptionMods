@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 shelterFrom27March,
                 "Shelter From the 27th of March",
                 "It makes itself the safest place in the world by altering the reality around it.",
-                attack: 0, health: 0, energy: 3)
+                attack: 0, health: 0, energy: 3, temple: CardTemple.Tech)
                 .SetPortraits(shelterFrom27March)
                 .AddAbilities(Ability.PreventAttack, Aggravating.ability, GiveSigils.AbilityID)
                 .SetSpellType(SpellType.TargetedSigils);

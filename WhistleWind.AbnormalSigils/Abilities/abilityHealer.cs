@@ -74,9 +74,9 @@ namespace WhistleWind.AbnormalSigils
             yield return DialogueHelper.PlayAlternateDialogue(emotion: Emotion.Anger, dialogue: failAsDoctorDialogue);
 
             CardSlot randSlot;
-            List<CardSlot> opposingSlots = base.Card.OpponentCard ? Singleton<BoardManager>.Instance.PlayerSlotsCopy : Singleton<BoardManager>.Instance.OpponentSlotsCopy;
+            List<CardSlot> opposingSlots = BoardManager.Instance.GetSlotsCopy(base.Card.OpponentCard);
             List<CardSlot> validTargets = opposingSlots.FindAll((CardSlot x) => x.Card != null && x.Card != base.Card);
-            int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber;
+            int randomSeed = base.GetRandomSeed();
 
             // If there are valid targets on the opposing side, heal a random one of their cards.
             // Else spit out another failure message then break
@@ -88,7 +88,7 @@ namespace WhistleWind.AbnormalSigils
                 {
                     visualiser = instance.GetComponent<Part1SniperVisualizer>() ?? instance.gameObject.AddComponent<Part1SniperVisualizer>();
                 }
-                randSlot = validTargets[SeededRandom.Range(0, validTargets.Count, randomSeed)];
+                randSlot = validTargets[SeededRandom.Range(0, validTargets.Count, randomSeed++)];
                 instance.VisualizeConfirmSniperAbility(randSlot);
                 visualiser?.VisualizeConfirmSniperAbility(randSlot);
                 yield return new WaitForSeconds(0.25f);

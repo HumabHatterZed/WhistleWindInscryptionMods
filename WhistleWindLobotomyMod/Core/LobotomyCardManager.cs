@@ -21,10 +21,10 @@ namespace WhistleWindLobotomyMod.Core
             string cardName, string displayName = null,
             string description = null,
             int attack = 0, int health = 0,
-            int blood = 0, int bones = 0, int energy = 0
-            )
+            int blood = 0, int bones = 0, int energy = 0,
+            CardTemple temple = CardTemple.Nature)
         {
-            return CardHelper.NewCard(false, pluginPrefix, cardName, displayName, description, attack, health, blood, bones, energy);
+            return CardHelper.NewCard(false, pluginPrefix, cardName, displayName, description, attack, health, blood, bones, energy, temple: temple);
         }
         public static CardInfo CreateCard(
             CardInfo cardInfo,
@@ -65,7 +65,7 @@ namespace WhistleWindLobotomyMod.Core
 
             if (LobotomyConfigManager.Instance.GBCPacks && cardInfo.pixelPortrait != null)
             {
-                CardTemple temple = CardTemple.Nature;
+                CardTemple temple = cardInfo.temple;
                 if (cardInfo.IsOfTribe(AbnormalPlugin.TribeFae))
                     temple = CardTemple.Wizard;
                 else if (cardInfo.IsOfTribe(AbnormalPlugin.TribeMechanical))

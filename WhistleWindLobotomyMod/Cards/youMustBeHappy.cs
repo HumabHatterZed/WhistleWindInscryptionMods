@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 youMustBeHappy,
                 "You Must Be Happy",
                 "Those that undergo the procedure find themselves rested and healthy again.",
-                attack: 0, health: 2, energy: 2)
+                attack: 0, health: 2, energy: 2, temple: CardTemple.Tech)
                 .SetPortraits(youMustBeHappy)
                 .AddAbilities(Scrambler.ability)
                 .SetSpellType(SpellType.TargetedStats)

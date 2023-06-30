@@ -11,7 +11,7 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public override bool RespondsToResolveOnBoard() => true;
+        public override bool RespondsToResolveOnBoard() => !SaveManager.SaveFile.IsPart2;
         public override IEnumerator OnResolveOnBoard()
         {
             if (base.PlayableCard.Info.name == "wstl_apocalypseBird" && !LobotomySaveManager.BoardEffectsApocalypse)

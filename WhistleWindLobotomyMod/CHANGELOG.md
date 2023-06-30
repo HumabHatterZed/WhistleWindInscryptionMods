@@ -32,6 +32,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - Adjusted flow of some dialogue
     - Changes to some card portraitss to make them cleaner/better
     - Leshy can now trigger special events on his side of the board (you don't get the rewards though)
+    - <<Miracle Worker>> challenge will now play Plague Doctor during boss fights, no longer shows activation sequence every battle
 ### ➕ Additions
 #### Cards
     - Added the following cards:
@@ -178,7 +179,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - Starter decks <<Road to Oz>>, <<Magical Girls!>>, <<Twilight>> now require completing the respective in-game event before unlocking the deck
         - This can be overriden in the config by-the-by
 ### 💣 Removals
-    - Removed emission sprites from some cards
+    - Removed emission sprites from some terrain cards
 
 <details>
 <summary>Pre-2.0 Updates</summary>

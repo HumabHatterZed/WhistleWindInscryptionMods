@@ -44,7 +44,7 @@ namespace WhistleWindLobotomyMod
         private IEnumerator DragonSequence(PlayableCard card)
         {
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
-
+            bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
             yield return new WaitForSeconds(0.2f);
             base.PlayableCard.Anim.LightNegationEffect();
             card.Anim.LightNegationEffect();
@@ -112,6 +112,7 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.4f);
 
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
         }
     }
     public class RulebookEntryConcord : AbilityBehaviour

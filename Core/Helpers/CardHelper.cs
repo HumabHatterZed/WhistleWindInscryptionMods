@@ -15,7 +15,8 @@ namespace WhistleWind.Core.Helpers
             bool addToAPI, string modPrefix,
             string cardName, string displayName = null, string description = null,
             int attack = 0, int health = 0,
-            int blood = 0, int bones = 0, int energy = 0, List<GemType> gems = null)
+            int blood = 0, int bones = 0, int energy = 0, List<GemType> gems = null,
+            CardTemple temple = CardTemple.Nature)
         {
             if (addToAPI)
                 return CardManager.New(modPrefix, cardName, displayName, attack, health, description).SetCost(blood, bones, energy, gems);
@@ -24,7 +25,8 @@ namespace WhistleWind.Core.Helpers
                 CardInfo cardInfo = ScriptableObject.CreateInstance<CardInfo>()
                     .SetName(cardName, modPrefix)
                     .SetBasic(displayName, attack, health, description)
-                    .SetCost(blood, bones, energy);
+                    .SetCost(blood, bones, energy)
+                    .SetCardTemple(temple);
                 return cardInfo;
             }
         }
@@ -64,12 +66,11 @@ namespace WhistleWind.Core.Helpers
         public static CardInfo SetChoiceType(this CardInfo cardInfo, ChoiceType cardChoice, bool nonChoice = false)
         {
             if (cardChoice == ChoiceType.Common && !nonChoice)
-                cardInfo.SetDefaultPart1Card();
+                cardInfo.AddMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.TraderOffer);
             else if (cardChoice == ChoiceType.Rare)
             {
                 cardInfo
                     .SetRare()
-                    .SetCardTemple(CardTemple.Nature)
                     .RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
                 if (nonChoice)
                     cardInfo.RemoveCardMetaCategories(CardMetaCategory.Rare);

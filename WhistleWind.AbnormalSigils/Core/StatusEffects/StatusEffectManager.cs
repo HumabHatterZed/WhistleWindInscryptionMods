@@ -51,13 +51,7 @@ namespace WhistleWind.AbnormalSigils.Core
             info.powerLevel = positiveEffect ? 0 : -1;
             info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile($"{iconTexture}_pixel"))
                 .SetCanStack().SetPassive()
-                .SetExtendedProperty("wstl:StatusEffect", iconColour switch
-                {
-                    IconColour.Red => "red",
-                    IconColour.Brown => "brown",
-                    IconColour.Green => "green",
-                    _ => "black"
-                });
+                .SetExtendedProperty("wstl:StatusEffect", (int)iconColour);
             if (metaCategories.Length > 0)
                 info.AddMetaCategories(metaCategories);
             
@@ -82,7 +76,7 @@ namespace WhistleWind.AbnormalSigils.Core
         }
     }
 
-    [HarmonyPatch]
+/*    [HarmonyPatch]
     internal static class RulebookStatusEffects
     {
         [HarmonyPatch(typeof(RuleBookInfo), "ConstructPageData", new Type[] { typeof(AbilityMetaCategory) })]
@@ -121,5 +115,5 @@ namespace WhistleWind.AbnormalSigils.Core
                 }
             }
         }
-    }
+    }*/
 }
