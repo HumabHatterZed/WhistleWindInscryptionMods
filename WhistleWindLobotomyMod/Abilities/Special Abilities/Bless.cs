@@ -29,8 +29,12 @@ namespace WhistleWindLobotomyMod
             if (LobotomyConfigManager.Instance.NoEvents)
                 yield break;
 
+            if (base.PlayableCard.Info.Mods.Exists(x => x.singletonId == "wstl:MiracleWorkerChallenge"))
+                LobotomySaveManager.OpponentBlessings++;
+            else
+                LobotomyConfigManager.Instance.UpdateBlessings(1);
+
             base.PlayableCard.Anim.LightNegationEffect();
-            LobotomyConfigManager.Instance.UpdateBlessings(1);
             base.PlayableCard.ClearAppearanceBehaviours();
             base.PlayableCard.ApplyAppearanceBehaviours(base.PlayableCard.Info.appearanceBehaviour);
             base.PlayableCard.RenderCard();
@@ -40,17 +44,17 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator CheckTheClock()
         {
-            LobotomyPlugin.Log.LogDebug("Checking the Clock");
-
             if (LobotomyConfigManager.Instance.NoEvents)
                 yield break;
+            
+            int blessings = base.Card.Info.Mods.Exists(x => x.singletonId == "wstl:MiracleWorkerChallenge") ?
+                LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.Instance.NumOfBlessings;
 
-            // if in range [0, 12)
-            if (0 <= LobotomyConfigManager.Instance.NumOfBlessings && LobotomyConfigManager.Instance.NumOfBlessings < 12)
+            LobotomyPlugin.Log.LogDebug("Checking the Clock");
+            if (blessings >= 0 && blessings < 12)
                 yield break;
 
             LobotomyPlugin.Log.LogDebug("Clock has struck twelve");
-
             if (Singleton<BoardManager>.Instance.AllSlotsCopy.Exists(x => x.Card != null && x.Card.Info.name == "wstl_whiteNight"))
             {
                 yield return base.PlayableCard.DieTriggerless();
@@ -59,10 +63,8 @@ namespace WhistleWindLobotomyMod
                 yield break;
             }
 
-            bool canInitiateCombat = TurnManager.Instance.PlayerCanInitiateCombat;
-            if (canInitiateCombat)
-                TurnManager.Instance.PlayerCanInitiateCombat = false;
-
+            LobotomySaveManager.TriggeredWhiteNightThisBattle = true;
+            bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
             yield return new WaitForSeconds(0.5f);
 
             // If blessings are in the negatives (aka someone altered the config value), wag a finger and go 'nuh-uh-uh!'
@@ -165,9 +167,10 @@ namespace WhistleWindLobotomyMod
                     yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_apostleHeretic"));
                 }
             }
+
+            LobotomyConfigManager.Instance.SetHasSeenHim();
             yield return new WaitForSeconds(0.2f);
-            if (canInitiateCombat)
-                TurnManager.Instance.PlayerCanInitiateCombat = true;
+            LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
         }
 
         private IEnumerator ConvertToApostle(PlayableCard otherCard, bool HasHeretic)
@@ -231,7 +234,6 @@ namespace WhistleWindLobotomyMod
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
 
             yield return new WaitForSeconds(0.2f);
-            LobotomySaveManager.UnlockedWhiteNight = true;
         }
     }
     public class RulebookEntryBless : AbilityBehaviour

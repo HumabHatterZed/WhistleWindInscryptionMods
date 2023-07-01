@@ -24,8 +24,11 @@ namespace WhistleWindLobotomyMod
         }
         public override void ApplyAppearance()
         {
-            base.Card.RenderInfo.portraitOverride = LobotomyPlugin.PlagueDoctorPortraits[Mathf.Min(11, LobotomyConfigManager.Instance.NumOfBlessings)];
-            base.Card.RenderInfo.forceEmissivePortrait |= LobotomyConfigManager.Instance.NumOfBlessings >= 11;
+            int blessings = base.Card.Info.Mods.Exists(x => x.singletonId == "wstl:MiracleWorkerChallenge") ?
+                LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.Instance.NumOfBlessings;
+            
+            base.Card.RenderInfo.portraitOverride = LobotomyPlugin.PlagueDoctorPortraits[Mathf.Min(11, blessings)];
+            base.Card.RenderInfo.forceEmissivePortrait |= blessings >= 11;
         }
     }
 }

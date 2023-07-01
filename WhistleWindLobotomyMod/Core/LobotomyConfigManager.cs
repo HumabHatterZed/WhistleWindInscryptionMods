@@ -102,6 +102,9 @@ namespace WhistleWindLobotomyMod.Core
         private ConfigEntry<int> Config_Blessings;
         public int NumOfBlessings => Config_Blessings.Value;
 
+        internal ConfigEntry<bool> Config_HasSeenHim;
+        public bool HasSeenHim => Config_HasSeenHim.Value;
+
         #endregion
 
         internal void BindConfig()
@@ -207,6 +210,9 @@ namespace WhistleWindLobotomyMod.Core
 
             Config_Blessings = WstlConfigFile.Bind(
                 "Gameplay.Other", "Blessings", 0);
+
+            Config_HasSeenHim = WstlConfigFile.Bind(
+                "Gameplay.Other", "Blessed", false);
         }
         public void UpdateBlessings(int value)
         {
@@ -217,6 +223,10 @@ namespace WhistleWindLobotomyMod.Core
         {
             Config_Blessings.Value = value;
             Log.LogDebug($"The Clock is now at [{Instance.NumOfBlessings}]");
+        }
+        public void SetHasSeenHim()
+        {
+            Config_HasSeenHim.Value = true;
         }
     }
 }

@@ -39,21 +39,19 @@ namespace WhistleWindLobotomyMod
 
             minion.Mods.Add(new(newAttack, 1));
 
-            // Adds tribes
+            // Add tribes
             foreach (Tribe item in card.Info.tribes.FindAll((Tribe x) => x != Tribe.NUM_TRIBES))
                 minion.tribes.Add(item);
 
-            // Adds base sigils
+            // Add base sigils
             foreach (Ability item in card.Info.abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
                 minion.Mods.Add(new CardModificationInfo(item));
 
             foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
-                // Adds merged sigils
+                // Add merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                if (cardModificationInfo.healthAdjustment > 0)
-                    cardModificationInfo.healthAdjustment = 0;
-
+                cardModificationInfo.healthAdjustment = 0;
                 minion.Mods.Add(cardModificationInfo);
             }
 

@@ -47,6 +47,9 @@ namespace WhistleWindLobotomyMod
                 DisabledRiskLevels = LobotomyConfigManager.Instance.NoRisk;
                 AllCardsDisabled = DisabledRiskLevels.HasFlag(RiskLevel.All) || DisabledRiskLevels.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
 
+                if (LobotomySaveManager.OpponentBlessings > 11)
+                    LobotomySaveManager.OpponentBlessings = 11;
+
                 if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
                     LobotomyConfigManager.Instance.SetBlessings(11);
 

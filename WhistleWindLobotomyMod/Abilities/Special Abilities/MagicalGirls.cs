@@ -158,13 +158,17 @@ namespace WhistleWindLobotomyMod
             {
                 if (SaveManager.SaveFile.IsPart2)
                 {
-                    foreach (CardInfo card in SaveManager.SaveFile.gbcData.deck.Cards.Where(x => x.HasTrait(LobotomyCardManager.TraitMagicalGirl)))
-                        SaveManager.SaveFile.gbcData.deck.RemoveCardByName(card.name);
+                    SaveManager.SaveFile.gbcData.deck.RemoveCardByName("wstl_magicalGirlSpade");
+                    SaveManager.SaveFile.gbcData.deck.RemoveCardByName("wstl_magicalGirlDiamond");
+                    SaveManager.SaveFile.gbcData.deck.RemoveCardByName("wstl_magicalGirlHeart");
+                    SaveManager.SaveFile.gbcData.deck.RemoveCardByName("wstl_magicalGirlClover");
                 }
                 else
                 {
-                    foreach (CardInfo card in RunState.Run.playerDeck.Cards.Where(x => x.HasTrait(LobotomyCardManager.TraitMagicalGirl)))
-                        RunState.Run.playerDeck.RemoveCardByName(card.name);
+                    RunState.Run.playerDeck.RemoveCardByName("wstl_magicalGirlSpade");
+                    RunState.Run.playerDeck.RemoveCardByName("wstl_magicalGirlDiamond");
+                    RunState.Run.playerDeck.RemoveCardByName("wstl_magicalGirlHeart");
+                    RunState.Run.playerDeck.RemoveCardByName("wstl_magicalGirlClover");
                 }
             }
 
