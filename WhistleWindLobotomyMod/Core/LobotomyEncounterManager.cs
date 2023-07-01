@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod.Core
             Build(New("StrangePack")
                 .SetDifficulty(1, 4)
                 .AddDominantTribes(Tribe.Canine)
-                .AddRandomReplacementCards("wstl_burrowingHeaven", "wstl_oldLady", "wstl_heartOfAspiration")
+                .AddRandomReplacementCards("wstl_burrowingHeaven", "wstl_oldLady", "wstl_heartOfAspiration", "wstl_youMustBeHappy")
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_ppodae", 10, true, 4, "wstl_ppodaeBuff")),
                     CreateTurn(NewCardBlueprint("wstl_heartOfAspiration", 25)),
@@ -65,7 +65,7 @@ namespace WhistleWindLobotomyMod.Core
             Build(New("HelperJuggernaut")
                 .SetDifficulty(1, 4)
                 .AddDominantTribes(AbnormalPlugin.TribeMechanical)
-                .AddRandomReplacementCards("wstl_behaviourAdjustment", "wstl_dontTouchMe", "wstl_mhz176")
+                .AddRandomReplacementCards("wstl_behaviourAdjustment", "wstl_dontTouchMe", "wstl_mhz176", "wstl_youMustBeHappy")
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_allAroundHelper")),
                     CreateTurn(NewCardBlueprint("wstl_singingMachine", 30)),
@@ -100,7 +100,7 @@ namespace WhistleWindLobotomyMod.Core
             Build(New("StrangeBees")
                 .SetDifficulty(5, 10)
                 .AddDominantTribes(Tribe.Insect)
-                .AddRandomReplacementCards("wstl_meatLantern")
+                .AddRandomReplacementCards("wstl_meatLantern", "wstl_youMustBeHappy")
                 .SetRedundantAbilities(QueenNest.ability)
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_queenBee"), workerBee),
