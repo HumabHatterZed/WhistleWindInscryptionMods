@@ -4,7 +4,7 @@
 	"website_url": "https://github.com/HumabHatterZed/WhistleWindInscryptionMods",
 	"description": "NEW 2.0 update! - Library of Ruina expansion, balancing, near-complete rewrite. | A content mod for Inscryption that adds cards and abilities based on the abnormalities from the game Lobotomy Corporation.",
 	"dependencies": [
-		"API_dev-API-2.14.2",
+		"API_dev-API-2.14.3",
 		"WhistleWind-New_Spell_Card_Toolkit-1.1.2",
 		"WhistleWind-WhistleWind_Abnormal_Sigils-1.0.0"
 	]
