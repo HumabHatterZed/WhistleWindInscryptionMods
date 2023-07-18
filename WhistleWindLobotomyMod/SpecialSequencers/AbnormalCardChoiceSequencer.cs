@@ -317,7 +317,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.15f);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(
                     "The creature rises from the well and joins your caravan. Ignoring the cries from the well, you hastily continue on.",
-                    0f, 0.4f, Emotion.Neutral, TextDisplayer.LetterAnimation.WavyJitter);
+                    0f, 0.4f, Emotion.Neutral);
             }
         }
         private void AddChosenCardToDeck()

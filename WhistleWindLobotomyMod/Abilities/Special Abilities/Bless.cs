@@ -168,6 +168,7 @@ namespace WhistleWindLobotomyMod
                 }
             }
 
+            // for future use
             LobotomyConfigManager.Instance.SetHasSeenHim();
             yield return new WaitForSeconds(0.2f);
             LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);

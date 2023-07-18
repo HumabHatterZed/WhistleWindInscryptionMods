@@ -30,9 +30,10 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - Abnormality choice node can now offer multiple Rare cards as choices (this doesn't change the overall chance of finding a Rare)
     - Increased point amount of Better Rare Chances from -15 --> -10
     - Adjusted flow of some dialogue
-    - Changes to some card portraitss to make them cleaner/better
+    - Adjusted some card portraits to be cleaner/visually better
     - Leshy can now trigger special events on his side of the board (you don't get the rewards though)
-    - <<Miracle Worker>> challenge will now play Plague Doctor during boss fights, no longer shows activation sequence every battle
+    - <<Miracle Worker>> challenge will now play Plague Doctor during boss fights and on a random turn, no longer shows activation sequence every battle
+    - Plague Doctor uses a separate, per-run counter if played by Leshy
 ### ➕ Additions
 #### Cards
     - Added the following cards:
@@ -53,16 +54,13 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - Added the following stat icons:
         - Nihil, Passing Time, Sigil Power
     - Added the following special abilities:
-        - Cowardly, The Homing Instinct, Ticket Taker
+        - Cowardly, The Homing Instinct
     - Added the following status effects:
         - Spores, Worms
     - Abilities can now be used by cards in Act 2
     - Removed Marksman and Quick Draw, the mod now uses reskinned versions of Sniper and Sentry
 #### Other
     - Added new configuration options relating to Part 1 and events
-    - Added 6 new random encounters
-    - Added the following items:
-        Train in a Bottle, Hod in a Bottle, Inochi in a Bottle
     - Added the following cheats:
         - Start with a Beast, Start with a Jester, Start with a Liar
     - Added Sefirot card choice node
@@ -152,7 +150,7 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - <<WhiteNight>> Health reduced from 666 --> 66, replaced Terrain trait with Apostle, gained immunity to Touch of Death, Punisher
         - Can now be killed by regular cards, with a different reward if done so
     - <<You Must Be Happy>> reworked into Targeted Spell with 0/2, Scrambler, 2 Energy
-    - <<You're Bald...>> cost changed from 3 Bones --> 2 Energy, Power reduced from 1 --> 0
+    - <<You're Bald...>> stats and cost changed from 1/1, 3 Bones --> 0/2, 2 Energy
     - <<Ttungsil>> no longer has Fledgling ability
 #### Abilities
     - <<Apostle>> now prevents damage and death while WhiteNight is an ally

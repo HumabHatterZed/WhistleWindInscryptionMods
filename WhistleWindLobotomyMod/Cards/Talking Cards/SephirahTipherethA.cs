@@ -95,7 +95,7 @@ namespace WhistleWindLobotomyMod
                 "sephirahTipherethA",
                 "Tiphereth",
                 "One of a pair of twins. Don't underestimate her capabilities.",
-                attack: 1, health: 2, energy: 4)
+                attack: 1, health: 2, energy: 3)
                 .AddAbilities(GiftGiver.ability)
                 .AddTraits(TraitSephirah)
                 .SetOnePerDeck()

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
                 youreBald,
                 "You're Bald...",
                 "I've always wondered what it's like to be bald.",
-                attack: 0, health: 1, energy: 2)
+                attack: 0, health: 2, energy: 2)
                 .SetPortraits(youreBald)
                 .AddAbilities(Ability.DrawCopy)
                 .SetEvolveInfo("[name]You're Extra Bald...");

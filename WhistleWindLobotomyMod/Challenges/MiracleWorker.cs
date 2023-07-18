@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
 
         [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]
         [HarmonyPostfix]
-        private static void AddPlagueDoctor(EncounterData encounterData, ref Opponent __result)
+        private static void AddPlagueDoctor(ref Opponent __result)
         {
             if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id) : LobotomyConfigManager.Instance.MiracleWorker)
             {

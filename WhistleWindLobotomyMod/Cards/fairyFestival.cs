@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 fairyFestival,
                 "Fairy Festival",
                 "Everything will be peaceful while you're under the fairies' care.",
-                attack: 1, health: 2, blood: 1)
+                attack: 1, health: 1, blood: 1)
                 .SetPortraits(fairyFestival)
                 .AddAbilities(Bloodfiend.ability)
                 .AddTribes(TribeFae);

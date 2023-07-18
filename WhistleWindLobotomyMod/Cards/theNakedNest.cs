@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
                 theNakedNest,
                 "The Naked Nest",
                 "They can enter your body through any aperture.",
-                attack: 0, health: 3, bones: 5)
+                attack: 0, health: 3, bones: 4)
                 .SetPortraits(theNakedNest)
                 .AddAbilities(SerpentsNest.ability)
                 .AddTraits(Trait.KillsSurvivors)

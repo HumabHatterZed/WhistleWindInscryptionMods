@@ -105,7 +105,7 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 |Punishing Bird						|1/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Airborne, Punisher				|Avian					|Black Forest, Toxic	 |Singleton				|
 |Little Red Riding Hooded Mercenary	|2/5  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Marksman, Persistent			|Anthropoid				|						 |						|
 |Big and Will Be Bad Wolf			|3/4  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Assimilator					|Canine					|						 |						|
-|You're Bald...						|0/1  |<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/3ngvEdK.png'>|Fecundity						|						|						 |						|
+|You're Bald...						|0/2  |<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/3ngvEdK.png'>|Fecundity						|						|						 |						|
 |Fragment of the Universe			|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Piercing						|Divine					|						 |						|
 |Crumbling Armour					|0/3  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/o1qsSmA.png'>|Courageous						|						|						 |						|
 |Judgement Bird						|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Marksman						|Avian					|Black Forest,Executioner|Singleton				|
@@ -425,8 +425,8 @@ Anyhow, below's a rough idea of what I will be doing with this mod in the future
 As always, thanks for playing my mod! <3
 
 Current plans:
-- Custom bosses
-- More items and encounters
 - Balancing, bug fixes, etc. (feedback is welcomed and encouraged!)
+- Custom bosses
+- More custom encounters
 - Wonderlab card expansion
-- Limbus Season 1 card expansion
+- Limbus Company Seasons 1 + 2 card expansion
