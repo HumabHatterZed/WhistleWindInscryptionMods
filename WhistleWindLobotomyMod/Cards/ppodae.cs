@@ -16,26 +16,20 @@ namespace WhistleWindLobotomyMod
             const string ppodaeBuff = "ppodaeBuff";
             Tribe[] tribes = new[] { Tribe.Canine };
 
-            CardInfo ppodaeBuffCard = NewCard(
-                ppodaeBuff,
-                name,
+            CardInfo ppodaeBuffCard = NewCard(ppodaeBuff, name,
                 attack: 3, health: 2, bones: 8)
                 .SetPortraits(ppodaeBuff)
                 .AddAbilities(Ability.DebuffEnemy)
-                .AddTribes(tribes);
+                .AddTribes(tribes)
+                .Build();
 
-            CardInfo ppodaeCard = NewCard(
-                ppodae,
-                name,
-                "An innocent little puppy.",
+            NewCard(ppodae, name, "An innocent little puppy.",
                 attack: 1, health: 1, bones: 4)
                 .SetPortraits(ppodae)
                 .AddAbilities(Ability.DebuffEnemy, Ability.Evolve)
                 .AddTribes(tribes)
-                .SetEvolveInfo("wstl_ppodaeBuff");
-
-            CreateCard(ppodaeBuffCard);
-            CreateCard(ppodaeCard, CardHelper.ChoiceType.Common, RiskLevel.Teth, ModCardType.Donator);
+                .SetEvolve(ppodaeBuffCard, 1)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth, ModCardType.Donator);
         }
     }
 }

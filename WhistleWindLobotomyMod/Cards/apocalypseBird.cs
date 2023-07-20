@@ -13,9 +13,7 @@ namespace WhistleWindLobotomyMod
         private void Card_ApocalypseBird_O0263()
         {
             const string apocalypseBird = "apocalypseBird";
-            CardInfo apocalypse = NewCard(
-                apocalypseBird,
-                "Apocalypse Bird",
+            NewCard(apocalypseBird, "Apocalypse Bird",
                 attack: 3, health: 9, blood: 4)
                 .SetPortraits(apocalypseBird)
                 .AddAbilities(Ability.AllStrike, Ability.SplitStrike, Ability.MadeOfStone)
@@ -24,10 +22,9 @@ namespace WhistleWindLobotomyMod
                 .AddTraits(Trait.DeathcardCreationNonOption)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .SetNodeRestrictions(true, false, false, true)
-                .SetEvolveInfo("Greater {0}")
-                .SetOnePerDeck();
-
-            CreateCard(apocalypse, CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
+                .SetDefaultEvolutionName("Greater Apocalypse Bird")
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
         }
     }
 }

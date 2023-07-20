@@ -15,16 +15,12 @@ namespace WhistleWindLobotomyMod
         {
             const string parasiteTree = "parasiteTree";
 
-            CardInfo parasiteTreeCard = NewCard(
-                parasiteTree,
-                "Parasite Tree",
-                "A beautiful tree. It wants only to help you and your beasts.",
+            NewCard(parasiteTree, "Parasite Tree", "A beautiful tree. It wants only to help you and your beasts.",
                 attack: 0, health: 3, blood: 1)
                 .SetPortraits(parasiteTree)
                 .AddAbilities(Gardener.ability)
-                .AddTribes(TribeBotanic);
-
-            CreateCard(parasiteTreeCard, CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Donator);
+                .AddTribes(TribeBotanic)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Donator);
         }
     }
 }

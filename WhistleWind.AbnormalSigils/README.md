@@ -34,7 +34,7 @@ Testing and Feedback:
 |Bloodfiend			|✓	|✓	|3	|When this card deals damage, it gains 1 Health.|
 |Martyr				|✓	|✓	|1	|When a card bearing this sigil dies, all allied creatures gain 2 Health.|
 |Aggravating		|X	|✓	|-3	|While this card is on the board, all opposing creatures gain 1 Power.|
-|Team Leader		|X	|X	|5	|While this card is on the board, all allied creatures gain 1 Power.|
+|Team Leader		|X	|✓	|5	|While this card is on the board, all allied creatures gain 1 Power.|
 |Idol				|X	|✓	|5	|While this card is on the board, all opposing creatures lose 1 Power.|
 |Conductor			|X	|X	|3	|Affected cards gain Power equal to half this card's Power. Over the next 3 turns: affect adjacent -> allied -> all other cards and double the Power gained.|
 |Woodcutter			|X	|X	|4	|When a creature moves into the space opposite this card, they take damage equal to this card's Power.|
@@ -47,7 +47,7 @@ Testing and Feedback:
 |Queen Nest			|X	|X	|4	|Whenever another card dies, create a Worker Bee in your hand. A Worker Bee is defined as: 1 Power, 1 Health.|
 |Bitter Enemies		|✓	|✓	|1	|This card gains 1 Power for each other card on the board that also bears this sigil.|
 |Courageous			|X	|X	|3	|Creatures adjacent to this card lose up to 2 Health. For each point of Heath lost, the affected creature gains 1 Power. This effect cannot kill cards.|
-|Serpent's Nest		|X	|X	|4	|When a card bearing this sigil is struck, the striker gains 1 Worms.|
+|Serpent's Nest		|✓	|X	|2	|When a card bearing this sigil is struck, the striker gains 1 Worms.|
 |Assimilator		|X	|✓	|4	|When this card kills an opposing card, it gains 1 Power and 1 Health.|
 |Group Healer		|X	|X	|4	|At the start of its owner's turn, this card will heal all allies that have taken damage by 1 Health.|
 |Reflector			|✓	|X	|2	|When this card is struck, the striker is dealt damage equal to the striker's Power.|
@@ -65,7 +65,7 @@ Testing and Feedback:
 |Protector			|X	|✓	|3	|Creatures adjacent to this card take 1 less damage when struck.|
 |Alchemist			|X	|X	|3	|Pay 2 Energy to discard your current hand and draw cards equal to the amount you discarded.
 |Nettle Clothes		|X	|X	|5	|When this card is played, fill all empty spaces on the owner's side of the board with random Brothers. This card gains sigils based on allied Brothers.|
-|Sporogenic			|X	|X	|2	|"Creatures adjacent to this card gain 1 Spores at the end of its owner's turn. This sigil activates before other sigils.|
+|Sporogenic			|✓	|X	|2	|"Creatures adjacent to this card gain 1 Spores at the end of its owner's turn. This sigil activates before other sigils.|
 |Witness			|X	|X	|1	|Pay 2 Bones to increase the selected creature's Health by 2 and their taken damage by 1. This effect stacks up to 3 times.|
 |Corrector			|✓	|X	|2	|When a card bearing this sigil is drawn, randomly change its stats according to its play cost. Higher costs yields higher stat totals.|
 |Thick Skin			|✓	|✓	|2	|Whenever a card bearing this sigil takes damage, reduce that damage by 1.|
@@ -87,11 +87,12 @@ Testing and Feedback:
 Tribes: Anthropoid, Botanic, Divine, Fae, Mechanial
 
 ### Traits
+Note that the description is only how they're used in this mod; you can use them for other things if you wanted.
 - Boneless - This card will not drop bones when killed
 - SwanBrother - This card will give its first sigil to cards bearing Nettle Clothes
-- NakedSerpent - This card is immune to Worms
-- SporeFriend - This card is immune to Spores
-- ImmunetoInstaDeath - This card is immune to insta-kill effects such as those from Touch of Death and Punisher
+- NakedSerpent - This card is immune to Sporogenic ability
+- SporeFriend - This card is immune to Serpent Nest ability
+- ImmunetoInstaDeath - This card is immune to insta-kill abilities Touch of Death and Punisher
 
 ### CardMetaCategories
 - CannotGiveSigils - This card cannot be sacrificed for card merging
@@ -109,10 +110,10 @@ This mod uses a custom type of abilities known as status effects.
 These are special abilities that use a dummy ability's icon to display and keep track of the status's count.
 This mod has 2 status effects: Worms and Spores (see below), and cards will show up to 5 at a time, based on their priority and count.
 
-This system is **highly** obtuse and experimental so changes in how they work are guaranteed to happen in the future; I don't recommend creating them yourself at this juncture, but if you want to you can use the StatusEffect() method to create one.
+This system is **highly** obtuse and experimental so changes in how they work are near-guaranteed to happen in the future; I don't recommend creating them yourself at this juncture, but if you want to you can use the StatusEffect() method to create one.
 
 - Worms - At the start of the owner's turn, this card gains 1 Worms. At 5+ Worms, attack allied creatures instead with a chance to give 1 Worms to struck cards.
-- At the start of its owner's turn, this card takes damage equal to its Spores. Upon dying, create a Spore Mold Creature with stats equal to its Spores.
+- Spores - At the start of its owner's turn, this card takes damage equal to its Spores. Upon dying, create a Spore Mold Creature with stats equal to its Spores.
 
 ## 🛠️ Configuration Options
 

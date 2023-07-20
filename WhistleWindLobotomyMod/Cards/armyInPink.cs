@@ -15,17 +15,13 @@ namespace WhistleWindLobotomyMod
         {
             const string armyInPink = "armyInPink";
 
-            CardInfo army = NewCard(
-                armyInPink,
-                "Army in Pink",
-                "A friendly soldier the colour of the human heart. It will protect you wherever you go.",
+            NewCard(armyInPink, "Army in Pink", "A friendly pink soldier. It will protect you wherever you go.",
                 attack: 3, health: 3, blood: 2)
                 .SetPortraits(armyInPink)
                 .AddAbilities(Protector.ability, Ability.MoveBeside)
                 .AddSpecialAbilities(Pink.specialAbility)
-                .AddTribes(TribeAnthropoid);
-
-            CreateCard(army, CardHelper.ChoiceType.Rare, RiskLevel.Zayin, ModCardType.Donator);
+                .AddTribes(TribeAnthropoid)
+                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Zayin, ModCardType.Donator);
         }
     }
 }

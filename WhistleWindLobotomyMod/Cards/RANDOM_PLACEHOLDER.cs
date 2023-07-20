@@ -11,11 +11,10 @@ namespace WhistleWindLobotomyMod
         private void Card_RANDOM_PLACEHOLDER()
         {
             const string RANDOM_PLACEHOLDER = "RANDOM_PLACEHOLDER";
-            CardInfo RANDOM_PLACEHOLDERCard = NewCard(RANDOM_PLACEHOLDER)
+            NewCard(RANDOM_PLACEHOLDER)
                 .SetPortraits(RANDOM_PLACEHOLDER)
-                .SetStatIcon(SigilPower.Icon);
-
-            CreateCard(RANDOM_PLACEHOLDERCard, nonChoice: true);
+                .SetStatIcon(SigilPower.Icon)
+                .Build(nonChoice: true);
         }
     }
 }

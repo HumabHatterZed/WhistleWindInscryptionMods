@@ -17,27 +17,22 @@ namespace WhistleWindLobotomyMod
             const string fleshIdol = "fleshIdol";
             Tribe[] tribes = new[] { TribeDivine };
 
-            CardInfo fleshIdolGoodCard = NewCard(
-                "fleshIdolGood",
-                idolName,
-                attack: 0, health: 3, bones: 2)
+            CardInfo fleshIdolGoodCard = NewCard("fleshIdolGood", idolName,
+                attack: 0, health: 4, bones: 2)
                 .SetPortraits(fleshIdol)
-                .AddAbilities(TeamLeader.ability, GroupHealer.ability, Ability.Evolve)
+                .AddAbilities(TeamLeader.ability, TeamLeader.ability, Ability.Evolve)
                 .AddTribes(tribes)
-                .SetEvolveInfo("wstl_fleshIdol");
+                .Build();
 
-            CardInfo fleshIdolCard = NewCard(
-                fleshIdol,
-                idolName,
-                "Prayer inevitably ends with the worshipper's despair.",
-                attack: 0, health: 3, bones: 2)
+            CardInfo fleshIdolCard = NewCard(fleshIdol, idolName, "Prayer inevitably ends with the worshipper's despair.",
+                attack: 0, health: 4, bones: 2)
                 .SetPortraits(fleshIdol)
                 .AddAbilities(Aggravating.ability, Ability.Evolve)
                 .AddTribes(tribes)
-                .SetEvolveInfo("wstl_fleshIdolGood", 2);
+                .SetEvolve(fleshIdolGoodCard, 2)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
 
-            CreateCard(fleshIdolGoodCard);
-            CreateCard(fleshIdolCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+            fleshIdolGoodCard.SetEvolve(fleshIdol, 2);
         }
     }
 }

@@ -90,16 +90,12 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Angela()
         {
-            CardInfo angelaCard = NewCard(
-                "angela",
-                "Angela",
-                "A trustworthy AI assistant. You will trust her with your life.",
+            NewCard("angela", "Angela", "A trustworthy AI assistant. You will trust her with your life.",
                 attack: 3, health: 3, energy: 6)
                 .AddAbilities(FrostRuler.ability, Ability.DrawCopyOnDeath)
                 .AddTraits(TraitSephirah)
-                .SetOnePerDeck();
-
-            CreateCard(angelaCard);
+                .SetOnePerDeck()
+                .Build();
         }
     }
 }

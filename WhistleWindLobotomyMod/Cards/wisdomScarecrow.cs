@@ -16,18 +16,14 @@ namespace WhistleWindLobotomyMod
         {
             const string wisdomScarecrow = "wisdomScarecrow";
 
-            CardInfo wisdomScarecrowCard = NewCard(
-                wisdomScarecrow,
-                "Scarecrow Searching for Wisdom",
-                "A hollow-headed scarecrow. Blood soaks its straw limbs.",
-                attack: 1, health: 2, bones: 4)
+            NewCard(wisdomScarecrow, "Scarecrow Searching for Wisdom", "A hollow-headed scarecrow. Blood soaks its straw limbs.",
+                attack: 1, health: 1, bones: 4)
                 .SetPortraits(wisdomScarecrow)
                 .AddAbilities(Bloodfiend.ability)
                 .AddTribes(TribeBotanic)
                 .AddTraits(TraitEmeraldCity)
-                .SetOnePerDeck();
-
-            CreateCard(wisdomScarecrowCard, CardHelper.ChoiceType.Common, RiskLevel.He);
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

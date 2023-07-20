@@ -15,16 +15,12 @@ namespace WhistleWindLobotomyMod
         {
             const string shelterFrom27March = "shelterFrom27March";
 
-            CardInfo shelterFrom27MarchCard = NewCard(
-                shelterFrom27March,
-                "Shelter From the 27th of March",
-                "It makes itself the safest place in the world by altering the reality around it.",
+            NewCard(shelterFrom27March, "Shelter From the 27th of March", "It makes itself the safest place in the world by altering the reality around it.",
                 attack: 0, health: 0, energy: 3, temple: CardTemple.Tech)
                 .SetPortraits(shelterFrom27March)
                 .AddAbilities(Ability.PreventAttack, Aggravating.ability, GiveSigils.AbilityID)
-                .SetSpellType(SpellType.TargetedSigils);
-
-            CreateCard(shelterFrom27MarchCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .SetSpellType(SpellType.TargetedSigils)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

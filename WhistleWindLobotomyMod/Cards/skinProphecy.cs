@@ -15,16 +15,12 @@ namespace WhistleWindLobotomyMod
         {
             const string skinProphecy = "skinProphecy";
 
-            CardInfo skinProphecyCard = NewCard(
-                skinProphecy,
-                "Skin Prophecy",
-                "A holy book. Its believers wrapped it in skin to preserve its sanctity.",
+            NewCard(skinProphecy, "Skin Prophecy", "A holy book. Its believers wrapped it in skin to preserve its sanctity.",
                 attack: 0, health: 2, blood: 1)
                 .SetPortraits(skinProphecy)
                 .AddAbilities(Witness.ability)
-                .AddTribes(TribeDivine);
-
-            CreateCard(skinProphecyCard, CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .AddTribes(TribeDivine)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

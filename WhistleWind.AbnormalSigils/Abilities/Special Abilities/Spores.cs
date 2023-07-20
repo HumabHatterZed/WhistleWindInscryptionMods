@@ -21,7 +21,7 @@ namespace WhistleWind.AbnormalSigils
         public int spore = 1;
         public int turnPlayed = -1;
 
-        private CardModificationInfo GetSporeStatusMod()
+        public CardModificationInfo GetSporeStatusMod()
         {
             CardModificationInfo sporeStatusMod = StatusEffectManager.StatusMod("spore", false);
             for (int i = 0; i < spore; i++)
@@ -29,7 +29,7 @@ namespace WhistleWind.AbnormalSigils
 
             return sporeStatusMod;
         }
-        private CardModificationInfo GetSporeDecalMod()
+        public CardModificationInfo GetSporeDecalMod()
         {
             CardModificationInfo sporeDecalMod = StatusEffectManager.StatusMod("spore_decal", false);
             sporeDecalMod.DecalIds.Add($"decalSpore_{Mathf.Min(2, spore - 1)}");

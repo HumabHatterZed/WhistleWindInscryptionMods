@@ -149,7 +149,7 @@ namespace WhistleWindLobotomyMod.Core
             Build(New("StrangeCreatures3")
                 .SetDifficulty(6, 10)
                 .AddDominantTribes(AbnormalPlugin.TribeAnthropoid)
-                .AddRandomReplacementCards("wstl_theresia", "wstl_voidDream", "wstl_heartOfAspiration")
+                .AddRandomReplacementCards("wstl_theresia", "wstl_voidDream", "wstl_silentEnsemble")
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_scorchedGirl", 30)),
                     CreateTurn(NewCardBlueprint("wstl_todaysShyLook", 10)),

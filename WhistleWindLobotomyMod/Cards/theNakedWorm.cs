@@ -14,16 +14,12 @@ namespace WhistleWindLobotomyMod
         {
             const string theNakedWorm = "theNakedWorm";
 
-            CardInfo theNakedWormCard = NewCard(
-                theNakedWorm,
-                "Naked Worm",
-                "It can enter your body through any aperture.",
+            NewCard(theNakedWorm, "Naked Worm", "It can enter your body through any aperture.",
                 attack: 1, health: 1)
                 .SetPortraits(theNakedWorm)
                 .AddTribes(Tribe.Insect)
-                .AddTraits(NakedSerpent);
-
-            CreateCard(theNakedWormCard);
+                .AddTraits(NakedSerpent)
+                .Build();
         }
     }
 }

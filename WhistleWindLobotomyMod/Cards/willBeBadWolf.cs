@@ -14,17 +14,13 @@ namespace WhistleWindLobotomyMod
         {
             const string willBeBadWolf = "willBeBadWolf";
 
-            CardInfo willBeBadWolfCard = NewCard(
-                willBeBadWolf,
-                "Big and Will Be Bad Wolf",
-                "It's the fate of all wolves to be the villains of fairy tales.",
+            NewCard(willBeBadWolf, "Big and Will Be Bad Wolf", "It's the fate of all wolves to be the villains of fairy tales.",
                 attack: 3, health: 4, blood: 3)
                 .SetPortraits(willBeBadWolf)
                 .AddAbilities(Assimilator.ability)
                 .AddSpecialAbilities(CrimsonScar.specialAbility)
-                .AddTribes(Tribe.Canine);
-
-            CreateCard(willBeBadWolfCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .AddTribes(Tribe.Canine)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

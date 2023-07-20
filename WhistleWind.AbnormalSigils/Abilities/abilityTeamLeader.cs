@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             TeamLeader.ability = AbnormalAbilityHelper.CreateAbility<TeamLeader>(
                 "sigilTeamLeader",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                modular: false, opponent: true, canStack: false).Id;
+                modular: false, opponent: true, canStack: true).Id;
         }
     }
     public class TeamLeader : AbilityBehaviour, IPassiveAttackBuff

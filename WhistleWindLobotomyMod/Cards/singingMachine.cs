@@ -15,17 +15,13 @@ namespace WhistleWindLobotomyMod
         {
             const string singingMachine = "singingMachine";
 
-            CardInfo singingMachineCard = NewCard(
-                singingMachine,
-                "Singing Machine",
-                "A wind-up music machine. The song it plays is to die for.",
+            NewCard(singingMachine, "Singing Machine", "A wind-up music machine. The song it plays is to die for.",
                 attack: 0, health: 4, blood: 1)
                 .SetPortraits(singingMachine)
                 .AddAbilities(TeamLeader.ability, Aggravating.ability)
                 .AddTribes(TribeMechanical)
-                .AddTraits(Orchestral);
-
-            CreateCard(singingMachineCard, CardHelper.ChoiceType.Common, RiskLevel.He);
+                .AddTraits(Orchestral)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

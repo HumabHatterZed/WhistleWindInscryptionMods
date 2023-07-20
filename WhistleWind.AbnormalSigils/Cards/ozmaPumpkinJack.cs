@@ -29,7 +29,7 @@ namespace WhistleWind.AbnormalSigils
                 .SetPortraits(ozmaPumpkin)
                 .AddAbilities(Ability.Evolve)
                 .AddTribes(tribes)
-                .SetEvolveInfo("wstl_ozmaPumpkinJack", 2));
+                .SetEvolve("wstl_ozmaPumpkinJack", 2));
         }
     }
 }

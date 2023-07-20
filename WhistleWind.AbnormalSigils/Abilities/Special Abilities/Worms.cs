@@ -22,7 +22,7 @@ namespace WhistleWind.AbnormalSigils
         private bool accountForInitialHit = true;
         private bool hasEvolved = false;
         private bool Infested => wormSeverity >= 5;
-        private CardModificationInfo GetWormStatusMod(int severity)
+        public CardModificationInfo GetWormStatusMod(int severity)
         {
             CardModificationInfo result = StatusEffectManager.StatusMod("worm", false);
             for (int i = 0; i < severity; i++)
@@ -30,7 +30,7 @@ namespace WhistleWind.AbnormalSigils
 
             return result;
         }
-        private CardModificationInfo GetWormDecalMod(int severity)
+        public CardModificationInfo GetWormDecalMod(int severity)
         {
             CardModificationInfo decal = StatusEffectManager.StatusMod("worm_decal", false);
             decal.DecalIds.Add($"decalWorms_{Mathf.Min(2, severity - 1)}");

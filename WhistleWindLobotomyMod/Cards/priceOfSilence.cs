@@ -13,15 +13,11 @@ namespace WhistleWindLobotomyMod
         {
             const string priceOfSilence = "priceOfSilence";
 
-            CardInfo priceOfSilenceCard = NewCard(
-                priceOfSilence,
-                "Price of Silence",
-                "The unflinching hand of time cuts down man and beast alike.",
+            NewCard(priceOfSilence, "Price of Silence", "The unflinching hand of time cuts down man and beast alike.",
                 attack: 0, health: 3, blood: 2)
                 .SetPortraits(priceOfSilence)
-                .SetStatIcon(Time.Icon);
-
-            CreateCard(priceOfSilenceCard, CardHelper.ChoiceType.Common, RiskLevel.He, ModCardType.Ruina);
+                .SetStatIcon(Time.Icon)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He, ModCardType.Ruina);
         }
     }
 }

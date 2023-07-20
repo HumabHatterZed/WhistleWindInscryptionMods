@@ -85,16 +85,12 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Binah()
         {
-            CardInfo angelaCard = NewCard(
-                "sephirahBinah",
-                "Binah",
-                "Though not as powerful as she once was, she will still make a great ally.",
+            NewCard("sephirahBinah", "Binah", "Though not as powerful as she once was, she will still make a great ally.",
                 attack: 3, health: 5, blood: 3)
                 .AddAbilities(Ability.Sniper, Piercing.ability)
                 .AddTraits(TraitSephirah)
-                .SetOnePerDeck();
-
-            CreateCard(angelaCard);
+                .SetOnePerDeck()
+                .Build();
         }
     }
 }

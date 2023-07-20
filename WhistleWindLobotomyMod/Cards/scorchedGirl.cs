@@ -15,16 +15,12 @@ namespace WhistleWindLobotomyMod
         {
             const string scorchedGirl = "scorchedGirl";
 
-            CardInfo scorchedGirlCard = NewCard(
-                scorchedGirl,
-                "Scorched Girl",
-                "Though there's nothing left to burn, the fire won't go out.",
+            NewCard(scorchedGirl, "Scorched Girl", "Though there's nothing left to burn, the fire won't go out.",
                 attack: 1, health: 1, bones: 2)
                 .SetPortraits(scorchedGirl)
                 .AddAbilities(Volatile.ability)
-                .AddTribes(TribeAnthropoid);
-
-            CreateCard(scorchedGirlCard, CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .AddTribes(TribeAnthropoid)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

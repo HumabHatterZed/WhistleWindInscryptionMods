@@ -96,16 +96,12 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Hod()
         {
-            CardInfo hodCard = NewCard(
-                "sephirahHod",
-                "Hod",
-                "Though death is guaranteed, it never hurts to be prepared, right?",
+            NewCard("sephirahHod", "Hod", "Though death is guaranteed, it never hurts to be prepared, right?",
                 attack: 1, health: 2, bones: 3)
                 .AddAbilities(Protector.ability)
                 .AddTraits(TraitSephirah)
-                .SetOnePerDeck();
-
-            CreateCard(hodCard);
+                .SetOnePerDeck()
+                .Build();
         }
     }
 }

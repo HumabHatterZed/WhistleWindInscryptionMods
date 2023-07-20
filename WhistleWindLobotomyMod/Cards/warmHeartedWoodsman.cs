@@ -16,18 +16,14 @@ namespace WhistleWindLobotomyMod
         {
             const string warmHeartedWoodsman = "warmHeartedWoodsman";
 
-            CardInfo warmHeartedWoodsmanCard = NewCard(
-                warmHeartedWoodsman,
-                "Warm-Hearted Woodsman",
-                "A tin woodsman on the search for a heart. Perhaps you can give him yours.",
+            NewCard(warmHeartedWoodsman, "Warm-Hearted Woodsman", "A tin woodsman on the search for a heart. Perhaps you can give him yours.",
                 attack: 2, health: 3, blood: 2)
                 .SetPortraits(warmHeartedWoodsman)
                 .AddAbilities(Woodcutter.ability)
                 .AddTribes(TribeMechanical)
                 .AddTraits(TraitEmeraldCity)
-                .SetOnePerDeck();
-
-            CreateCard(warmHeartedWoodsmanCard, CardHelper.ChoiceType.Common, RiskLevel.He);
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

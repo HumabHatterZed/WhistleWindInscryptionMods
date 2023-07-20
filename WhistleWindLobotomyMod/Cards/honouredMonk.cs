@@ -15,25 +15,20 @@ namespace WhistleWindLobotomyMod
             const string honouredMonk = "honouredMonk";
             const string cloudedMonk = "cloudedMonk";
             Tribe[] tribes = new[] { TribeAnthropoid };
-            CardInfo cloudedMonkCard = NewCard(
-                cloudedMonk,
-                "Clouded Monk",
-                attack: 4, health: 3, blood: 3)
+            
+            CardInfo cloudedMonkCard = NewCard(cloudedMonk, "Clouded Monk",
+                attack: 4, health: 2, blood: 2)
                 .SetPortraits(cloudedMonk)
-                .AddTribes(tribes);
+                .AddTribes(tribes)
+                .Build(cardType: ModCardType.Donator);
 
-            CardInfo honouredMonkCard = NewCard(
-                honouredMonk,
-                "Honoured Monk",
-                "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...",
+            NewCard(honouredMonk, "Honoured Monk", "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...",
                 attack: 2, health: 1, blood: 2)
                 .SetPortraits(cloudedMonk)
                 .AddAbilities(Ability.Evolve)
                 .AddTribes(tribes)
-                .SetEvolveInfo("wstl_cloudedMonk");
-
-            CreateCard(cloudedMonkCard);
-            CreateCard(honouredMonkCard, CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Donator);
+                .SetEvolve(cloudedMonkCard, 1)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Donator);
         }
     }
 }

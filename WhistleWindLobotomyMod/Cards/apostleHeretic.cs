@@ -13,17 +13,13 @@ namespace WhistleWindLobotomyMod
         private void Card_ApostleHeretic_T0346()
         {
             const string apostleHeretic = "apostleHeretic";
-
-            CardInfo heretic = NewCard(
-                apostleHeretic,
-                "Heretic",
+            NewCard(apostleHeretic, "Heretic",
                 attack: 0, health: 7)
                 .SetPortraits(apostleHeretic)
                 .AddAbilities(Confession.ability)
                 .AddTraits(Trait.Uncuttable, TraitApostle)
-                .AddAppearances(ForcedWhiteEmission.appearance);
-
-            CreateCard(heretic, cardType: ModCardType.EventCard);
+                .AddAppearances(ForcedWhiteEmission.appearance)
+                .Build(cardType: ModCardType.EventCard);
         }
     }
 }

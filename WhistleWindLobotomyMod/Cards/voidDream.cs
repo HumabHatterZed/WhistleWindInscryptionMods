@@ -21,20 +21,16 @@ namespace WhistleWindLobotomyMod
                 attack: 2, health: 3, blood: 2)
                 .SetPortraits(voidDreamRooster)
                 .AddAbilities(Ability.DebuffEnemy)
-                .AddTribes(Tribe.Hooved, Tribe.Bird);
+                .AddTribes(Tribe.Hooved, Tribe.Bird)
+                .Build();
 
-            CardInfo voidDreamCard = NewCard(
-                voidDream,
-                dreamName,
-                "A sleeping goat. Or is it a sheep?",
+            NewCard(voidDream, dreamName, "A sleeping goat. Or is it a sheep?",
                 attack: 1, health: 1, blood: 1)
                 .SetPortraits(voidDream)
                 .AddAbilities(Ability.Flying, Ability.Evolve)
                 .AddTribes(Tribe.Hooved)
-                .SetEvolveInfo("wstl_voidDreamRooster");
-
-            CreateCard(voidDreamRoosterCard);
-            CreateCard(voidDreamCard, CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .SetEvolve(voidDreamRoosterCard, 1)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

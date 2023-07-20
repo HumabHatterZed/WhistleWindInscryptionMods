@@ -15,17 +15,13 @@ namespace WhistleWindLobotomyMod
         {
             const string youMustBeHappy = "youMustBeHappy";
 
-            CardInfo youMustBeHappyCard = NewCard(
-                youMustBeHappy,
-                "You Must Be Happy",
-                "Those that undergo the procedure find themselves rested and healthy again.",
+            NewCard(youMustBeHappy, "You Must Be Happy", "Those that undergo the procedure find themselves rested and healthy again.",
                 attack: 0, health: 2, energy: 2, temple: CardTemple.Tech)
                 .SetPortraits(youMustBeHappy)
                 .AddAbilities(Scrambler.ability)
                 .SetSpellType(SpellType.TargetedStats)
-                .SetEvolveInfo("[name]You Must Be Happier");
-
-            CreateCard(youMustBeHappyCard, CardHelper.ChoiceType.Common, RiskLevel.Zayin);
+                .SetDefaultEvolutionName("You Must Be Happier")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
     }
 }

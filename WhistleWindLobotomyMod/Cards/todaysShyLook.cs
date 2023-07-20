@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         {
             const string lookName = "Today's Shy Look";
             const string description = "An indecisive creature. Her expression is different whenever you draw her.";
-            const string evolveName = "[name]Tomorrow's Shy Look";
+            const string evolveName = "Tomorrow's Shy Look";
             const string todaysShyLook = "todaysShyLook";
             const string todaysShyLookHappy = "todaysShyLookHappy";
             const string todaysShyLookAngry = "todaysShyLookAngry";
@@ -22,53 +22,42 @@ namespace WhistleWindLobotomyMod
             Tribe[] tribes = new[] { TribeAnthropoid };
             Trait[] traits = new[] { Trait.DeathcardCreationNonOption };
 
-            CardInfo todaysShyLookCard = NewCard(
-                todaysShyLook,
-                lookName,
-                description,
+            NewCard(todaysShyLook, lookName, description,
                 attack: 1, health: 2, blood: 1)
                 .SetPortraits(todaysShyLook)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
-                .SetEvolveInfo(evolveName);
+                .SetDefaultEvolutionName(evolveName)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw); ;
 
-            CardInfo todaysShyLookNeutralCard = NewCard(
-                "todaysShyLookNeutral",
-                lookName,
-                description,
+            NewCard("todaysShyLookNeutral", lookName, description,
                 attack: 1, health: 2, blood: 1)
                 .SetPortraits(todaysShyLook)
                 .AddAbilities(Ability.DrawCopyOnDeath)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
-                .SetEvolveInfo(evolveName);
+                .SetDefaultEvolutionName(evolveName)
+                .Build();
 
-            CardInfo todaysShyLookHappyCard = NewCard(
-                todaysShyLookHappy,
-                "Today's Happy Look",
-                description,
+            NewCard(todaysShyLookHappy, "Today's Happy Look", description,
                 attack: 1, health: 3, blood: 1)
                 .SetPortraits(todaysShyLookHappy)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
-                .SetEvolveInfo("[name]Tomorrow's Happy Look");
+                .SetDefaultEvolutionName("Tomorrow's Happy Look")
+                .Build();
 
-            CardInfo todaysShyLookAngryCard = NewCard(
-                todaysShyLookAngry,
-                "Today's Angry Look",
-                description,
+            NewCard(todaysShyLookAngry, "Today's Angry Look", description,
                 attack: 2, health: 1, blood: 1)
                 .SetPortraits(todaysShyLookAngry)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
-                .SetEvolveInfo("[name]Tomorrow's Angry Look");
-
-            CreateCards(todaysShyLookNeutralCard, todaysShyLookHappyCard, todaysShyLookAngryCard);
-            CreateCard(todaysShyLookCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .SetDefaultEvolutionName("Tomorrow's Angry Look")
+                .Build();
         }
     }
 }

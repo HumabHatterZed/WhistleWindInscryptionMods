@@ -85,16 +85,12 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Gebura()
         {
-            CardInfo geburaCard = NewCard(
-                "sephirahGebura",
-                "Gebura",
-                "Head of the Disciplinary Team. A fierce warrior and ally.",
+            NewCard("sephirahGebura", "Gebura", "Head of the Disciplinary Team. A fierce warrior and ally.",
                 attack: 3, health: 5, blood: 3)
                 .AddAbilities(Ability.GainAttackOnKill, Piercing.ability)
                 .AddTraits(TraitSephirah)
-                .SetOnePerDeck();
-
-            CreateCard(geburaCard);
+                .SetOnePerDeck()
+                .Build();
         }
     }
 }

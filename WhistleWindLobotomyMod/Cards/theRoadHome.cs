@@ -16,19 +16,15 @@ namespace WhistleWindLobotomyMod
         {
             const string theRoadHome = "theRoadHome";
 
-            CardInfo theRoadHomeCard = NewCard(
-                theRoadHome,
-                "The Road Home",
-                "A young girl on a quest to return home with her friends.",
+            NewCard(theRoadHome, "The Road Home", "A young girl on a quest to return home with her friends.",
                 attack: 1, health: 1, blood: 1)
                 .SetPortraits(theRoadHome)
                 .AddAbilities(YellowBrickRoad.ability)
                 .AddSpecialAbilities(TheHomingInstinct.specialAbility, YellowBrick.specialAbility)
                 .AddTribes(TribeFae)
                 .AddTraits(TraitEmeraldCity)
-                .SetOnePerDeck();
-
-            CreateCard(theRoadHomeCard, CardHelper.ChoiceType.Common, RiskLevel.He, ModCardType.Ruina);
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He, ModCardType.Ruina);
         }
     }
 }

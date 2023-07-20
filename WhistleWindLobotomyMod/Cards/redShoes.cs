@@ -13,16 +13,12 @@ namespace WhistleWindLobotomyMod
         {
             const string redShoes = "redShoes";
 
-            CardInfo redShoesCard = NewCard(
-                redShoes,
-                "Red Shoes",
-                "How pretty. Maybe they'll fit.",
+            NewCard(redShoes, "Red Shoes", "How pretty. Maybe they'll fit.",
                 attack: 0, health: 3, bones: 3)
                 .SetPortraits(redShoes)
                 .AddAbilities(Ability.Sharp, Ability.GuardDog)
-                .SetTerrain();
-
-            CreateCard(redShoesCard, CardHelper.ChoiceType.Common, RiskLevel.He);
+                .SetTerrain()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

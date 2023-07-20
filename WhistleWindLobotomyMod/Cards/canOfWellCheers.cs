@@ -15,33 +15,28 @@ namespace WhistleWindLobotomyMod
             const string canOfWellCheers = "canOfWellCheers";
 
             CardInfo can = NewCard(
-                "CRUMPLED_CAN",
-                "Crumpled Can of WellCheers",
+                "CRUMPLED_CAN", "Crumpled Can of WellCheers",
                 attack: 0, health: 1)
                 .SetPortraits("skeleton_can")
                 .SetTerrain()
-                .SetEvolveInfo("[name]Rusted Can of WellCheers");
+                .SetDefaultEvolutionName("Rusted Can of WellCheers")
+                .Build();
 
             CardInfo skeleton = NewCard(
-                "SKELETON_SHRIMP",
-                "Skeleton Shrimp",
+                "SKELETON_SHRIMP", "Skeleton Shrimp",
                 attack: 2, health: 1)
                 .SetPortraits("skeleton_shrimp")
                 .AddAbilities(Ability.Brittle, Ability.IceCube)
-                .SetIceCube("wstl_CRUMPLED_CAN");
+                .SetIceCube(can)
+                .Build();
 
-            CardInfo shrimp = NewCard(
-                canOfWellCheers,
-                "Opened Can of WellCheers",
-                "A vending machine dispensing ocean soda.",
+            NewCard(canOfWellCheers, "Opened Can of WellCheers", "A vending machine dispensing ocean soda.",
                 attack: 1, health: 1, blood: 1)
                 .SetPortraits(canOfWellCheers)
                 .AddAbilities(Ability.Strafe, Ability.Submerge)
                 .AddTribes(TribeMechanical)
-                .SetIceCube("wstl_SKELETON_SHRIMP");
-
-            CreateCards(can, skeleton);
-            CreateCard(shrimp, CardHelper.ChoiceType.Common, RiskLevel.Zayin);
+                .SetIceCube(skeleton)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
     }
 }

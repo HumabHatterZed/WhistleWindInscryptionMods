@@ -19,29 +19,24 @@ namespace WhistleWindLobotomyMod
             Tribe[] tribes = new[] { TribeFae };
             Trait[] traits = new[] { TraitMagicalGirl };
 
-            CardInfo knightOfDespairCard = NewCard(
-                knightOfDespair,knightName,
+            NewCard(knightOfDespair, knightName,
                 attack: 1, health: 4, blood: 2)
                 .SetPortraits(knightOfDespair)
                 .AddAbilities(Ability.SplitStrike, Piercing.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)
-                .SetOnePerDeck();
+                .SetOnePerDeck()
+                .Build();
 
-            CardInfo magicalGirlSpadeCard = NewCard(
-                magicalGirlSpade,
-                knightName,
-                "A loyal knight fighting to protect those close to her.",
+            NewCard(magicalGirlSpade, knightName, "A loyal knight fighting to protect those close to her.",
                 attack: 1, health: 4, blood: 2)
                 .SetPortraits(magicalGirlSpade)
                 .AddAbilities(Protector.ability)
                 .AddSpecialAbilities(SwordWithTears.specialAbility)
                 .AddTribes(tribes)
                 .AddTraits(traits)
-                .SetOnePerDeck();
-
-            CreateCard(knightOfDespairCard);
-            CreateCard(magicalGirlSpadeCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

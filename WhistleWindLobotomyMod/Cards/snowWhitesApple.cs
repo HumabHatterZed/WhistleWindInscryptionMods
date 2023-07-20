@@ -15,18 +15,14 @@ namespace WhistleWindLobotomyMod
         {
             const string snowWhitesApple = "snowWhitesApple";
 
-            CardInfo snowWhitesAppleCard = NewCard(
-                snowWhitesApple,
-                "Snow White's Apple",
-                "A poisoned apple brought to life, on a fruitless search for its own happily ever after.",
+            NewCard(snowWhitesApple, "Snow White's Apple", "A poisoned apple brought to life, on a fruitless search for its own happily ever after.",
                 attack: 1, health: 1, bones: 3)
                 .SetPortraits(snowWhitesApple)
                 .AddAbilities(Roots.ability)
                 .AddTribes(TribeBotanic)
                 .AddTraits(Trait.KillsSurvivors)
-                .SetEvolveInfo("[name]Snow White's Rotted Apple");
-
-            CreateCard(snowWhitesAppleCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .SetDefaultEvolutionName("Snow White's Rotted Apple")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

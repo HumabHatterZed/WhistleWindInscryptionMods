@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
             Sporogenic.ability = AbnormalAbilityHelper.CreateAbility<Sporogenic>(
                 "sigilSporogenic",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: false, opponent: true, canStack: false).Id;
+                modular: false, opponent: true, canStack: true).Id;
         }
     }
     public class Sporogenic : AbilityBehaviour
@@ -32,17 +32,7 @@ namespace WhistleWind.AbnormalSigils
                 return card.LacksTrait(AbnormalPlugin.SporeFriend) && card.GetComponent<Spores>() == null;
             return false;
         }
-        private readonly CardModificationInfo sporeStatusMod = new(StatusEffectSpores.ability)
-        {
-            singletonId = "bad_status_effect_spore",
-            nonCopyable = true,
-        };
-        private readonly CardModificationInfo sporeDecalMod = new()
-        {
-            singletonId = "bad_status_effect_spore_decal",
-            DecalIds = { "decalSpore_0" },
-            nonCopyable = true,
-        };
+
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
@@ -66,10 +56,14 @@ namespace WhistleWind.AbnormalSigils
         }
         private IEnumerator AddSporesToCard(PlayableCard card)
         {
+            // apply extra Spore if this ability has stacks
+            int extraStacks = Mathf.Max(0, base.Card.GetAbilityStacks(ability) - 1);
             card.Anim.LightNegationEffect();
             card.AddPermanentBehaviour<Spores>();
-            card.GetComponent<Spores>().turnPlayed = Singleton<TurnManager>.Instance.TurnNumber;
-            card.AddTemporaryMods(sporeStatusMod, sporeDecalMod);
+            Spores component = card.GetComponent<Spores>();
+            component.turnPlayed = Singleton<TurnManager>.Instance.TurnNumber;
+            component.spore += extraStacks;
+            card.AddTemporaryMods(component.GetSporeStatusMod(), component.GetSporeDecalMod());
             yield return new WaitForSeconds(0.1f);
         }
     }

@@ -15,16 +15,12 @@ namespace WhistleWindLobotomyMod
         {
             const string fragmentOfUniverse = "fragmentOfUniverse";
 
-            CardInfo fragmentOfUniverseCard = NewCard(
-                fragmentOfUniverse,
-                "Fragment of the Universe",
-                "You see a song in front of you. It's approaching, becoming more colourful by the second.",
+            NewCard(fragmentOfUniverse, "Fragment of the Universe", "You see a song in front of you. It's approaching, becoming more colourful by the second.",
                 attack: 1, health: 2, blood: 1)
                 .SetPortraits(fragmentOfUniverse)
                 .AddAbilities(Piercing.ability)
-                .AddTribes(TribeDivine);
-
-            CreateCard(fragmentOfUniverseCard, CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .AddTribes(TribeDivine)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

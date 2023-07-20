@@ -80,16 +80,12 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Hokma()
         {
-            CardInfo hokmaCard = NewCard(
-                "sephirahHokma",
-                "Hokma",
-                "All things will happen in time. Just have faith.",
+            NewCard("sephirahHokma", "Hokma", "All things will happen in time. Just have faith.",
                 attack: 2, health: 3, bones: 2)
                 .AddAbilities(NeuteredLatch.ability)
                 .AddTraits(TraitSephirah)
-                .SetOnePerDeck();
-
-            CreateCard(hokmaCard);
+                .SetOnePerDeck()
+                .Build();
         }
     }
 }

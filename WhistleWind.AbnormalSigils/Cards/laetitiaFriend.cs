@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
                 attack: 2, health: 2, bones: 2)
                 .SetPortraits(laetitiaFriend)
                 .AddTribes(Tribe.Insect)
-                .SetEvolveInfo("[name]Little Witch's Big Friend"));
+                .SetDefaultEvolutionName("Little Witch's Big Friend"));
         }
     }
 }

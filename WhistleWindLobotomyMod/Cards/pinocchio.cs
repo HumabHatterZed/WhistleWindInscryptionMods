@@ -15,16 +15,12 @@ namespace WhistleWindLobotomyMod
         {
             const string pinocchio = "pinocchio";
 
-            CardInfo pinocchioCard = NewCard(
-                pinocchio,
-                "Pinocchio",
-                "A wooden doll that mimics the beasts it encounters. Can you see through its lie?",
+            NewCard(pinocchio, "Pinocchio", "A wooden doll that mimics the beasts it encounters. Can you see through its lie?",
                 attack: 0, health: 1, bones: 1)
                 .SetPortraits(pinocchio)
                 .AddAbilities(Copycat.ability)
-                .AddTribes(TribeBotanic);
-
-            CreateCard(pinocchioCard, CardHelper.ChoiceType.Common, RiskLevel.Teth, ModCardType.Ruina);
+                .AddTribes(TribeBotanic)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth, ModCardType.Ruina);
         }
     }
 }

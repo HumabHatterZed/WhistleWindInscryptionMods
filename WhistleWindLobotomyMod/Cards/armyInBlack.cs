@@ -15,22 +15,17 @@ namespace WhistleWindLobotomyMod
             const string blackName = "Army in Black";
             const string armyInBlack = "armyInBlack";
 
-            CardInfo army = NewCard(
-                armyInBlack,
-                blackName,
+            NewCard(armyInBlack, blackName,
                 attack: 3, health: 3, blood: 2)
                 .SetPortraits(armyInBlack)
-                .AddAbilities(Volatile.ability, Ability.Brittle);
+                .AddAbilities(Volatile.ability, Ability.Brittle)
+                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
 
-            CardInfo armySpell = NewCard(
-                "armyInBlackSpell",
-                blackName)
+            NewCard("armyInBlackSpell", blackName)
                 .SetPortraits(armyInBlack)
                 .AddAbilities(Volatile.ability)
-                .SetSpellType(SpellType.Targeted);
-
-            CreateCard(army, CardHelper.ChoiceType.Rare, nonChoice: true);
-            CreateCard(armySpell, CardHelper.ChoiceType.Rare, nonChoice: true);
+                .SetSpellType(SpellType.Targeted)
+                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
         }
     }
 }

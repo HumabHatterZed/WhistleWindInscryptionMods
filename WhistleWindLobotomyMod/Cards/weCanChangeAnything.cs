@@ -15,17 +15,13 @@ namespace WhistleWindLobotomyMod
         {
             const string weCanChangeAnything = "weCanChangeAnything";
 
-            CardInfo weCanChangeAnythingCard = NewCard(
-                weCanChangeAnything,
-                "We Can Change Anything",
-                "Whatever you're dissatisfied with, this machine will fix it. You just have to step inside.",
+            NewCard(weCanChangeAnything, "We Can Change Anything", "Whatever you're dissatisfied with, this machine will fix it. You just have to step inside.",
                 attack: 0, health: 2, blood: 1)
                 .SetPortraits(weCanChangeAnything)
                 .AddAbilities(Grinder.ability)
                 .AddTribes(TribeMechanical)
-                .SetEvolveInfo("[name]We Will Change Everything");
-
-            CreateCard(weCanChangeAnythingCard, CardHelper.ChoiceType.Common, RiskLevel.Zayin);
+                .SetDefaultEvolutionName("We Will Change Everything")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
     }
 }

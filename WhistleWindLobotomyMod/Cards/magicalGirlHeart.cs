@@ -21,41 +21,34 @@ namespace WhistleWindLobotomyMod
             Tribe[] tribes = new[] { TribeFae, Tribe.Reptile };
             Trait[] traits = new[] { TraitMagicalGirl };
 
-            CardInfo queenOfHatredTiredCard = NewCard(
-                queenOfHatredTired,
-                queenName,
+            NewCard(queenOfHatredTired, queenName,
                 attack: 0, health: 2, blood: 1)
                 .SetPortraits(queenOfHatredTired)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
-                .SetOnePerDeck();
+                .SetOnePerDeck()
+                .Build();
 
-            CardInfo queenOfHatredCard = NewCard(
-                queenOfHatred,
-                queenName,
+            NewCard(queenOfHatred, queenName,
                 attack: 8, health: 2, blood: 1)
                 .SetPortraits(queenOfHatred)
                 .AddAbilities(Piercing.ability, OneSided.ability)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
-                .SetOnePerDeck();
+                .SetOnePerDeck()
+                .Build();
 
-            CardInfo magicalGirlHeartCard = NewCard(
-                magicalGirlHeart,
-                "Magical Girl",
-                "A hero of love and justice. She will aid you on your journey.",
+            NewCard(magicalGirlHeart, "Magical Girl", "A hero of love and justice. She will aid you on your journey.",
                 attack: 1, health: 2, blood: 1)
                 .SetPortraits(magicalGirlHeart)
                 .AddAbilities(OneSided.ability)
                 .AddSpecialAbilities(LoveAndHate.specialAbility)
                 .AddTribes(TribeFae)
                 .AddTraits(traits)
-                .SetOnePerDeck();
-
-            CreateCards(queenOfHatredTiredCard, queenOfHatredCard);
-            CreateCard(magicalGirlHeartCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

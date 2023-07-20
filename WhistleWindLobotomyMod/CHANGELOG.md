@@ -1,56 +1,69 @@
+<details>
+<summary>View Changelog</summary>
+
 # Plugin GUID: whistlewind.inscryption.lobotomycorp
 
 ## v2.0.0 - The One Perfect Book (?/?/2023)
 Note that in the future, updates and changes to modded sigils will be found in the Abnormal Sigils changelog.
 
 ### 🧱 Structural
-    - Split the majority of custom sigils (and any associated spawned cards) into their own separate mod Abnormal Sigils
-    - Added 2 new dependencies: New Spell Card Toolkit, Abnormal Sigils
+    - Separated sigils into own mod: Abnormal Sigils
+    - Added 2 new mod dependencies: New Spell Card Toolkit, Abnormal Sigils
+    - Removed BepInEx as a dependency (redundant due to API)
     - Reformatted the configuration file (set values will more than likely not carry over)
-    - Hidden card abilities are now their own separate special abilities rather than being entwined with base sigil code
+    - Card and abilities now work and appear in Act 2
+    - Improved sigil code to no longer include card-specific effects; these effects are now special abilities
+    - Sniper and Sentry sigils will be reskinned and renamed while this mod is active
 ### 🩹 Bug fixes
-    - Abnormality card choice now properly displays and clears dialogue
+    - Abnormality card choice now correctly displays and clears dialogue
     - Fixed custom challenges not working properly in Act 1
     - Fixed custom death cards not being created correctly in some circumstances
-    - Fixed certain encounters being broken
-    - <<WhiteNight>> event no longer softlocks when there are multiple Plague Doctors in play
-    - <<Nothing There>> is no longer copyable by Goo Mage
-    - <<Guardian Apostle>> no longer revives immediately after being Downed
-    - <<Gift Giver>> ability no longer gives copies of singleton cards you already own
+    - Fixed broken encounters
+    - Gift Giver ability no longer gives copies of owned singleton cards
+    - WhiteNight event no longer softlocks when there are multiple Plague Doctors in play
+    - Nothing There is no longer copyable by Goo Mage
+    - Guardian Apostle no longer revives immediately after being Downed
 ### 🔧 Tweaks
-    - <<Singing Machine>> no longer looks like a Terrain card
-    - <<Dragon>> cards no longer display stats, gained new artwork
-    - Cleaned up rulebook entries to be clearer in their description and (hopefully) easier to read
-    - Ability <<Volatile>> now uses a custom flipped icon when used by opponents
-    - Ability <<The Train>> changed to trigger on resolve rather than on activate
-    - Starter Deck <<Road to Oz>> now includes The Road Home (replacing Wolf Cub) and Ozma
-    - Starter Deck <<Magical Girls!>> now includes Magical Girl C
-    - Abnormality choice node probabilities are now consistent for both Part 1 and Kaycee's Mod
-        - Probabilities changed to (0%, 2%, 5%) and (2%, 5%, 10%) with Better Rare Chances cheat enabled
-    - Abnormality choice node can now offer multiple Rare cards as choices (this doesn't change the overall chance of finding a Rare)
-    - Increased point amount of Better Rare Chances from -15 --> -10
+    - Singing Machine no longer looks like a Terrain card
+    - Dragon cards given new appearances, no longer display their stats
+    - Improved sigil rulebook description to be clearer, less cluttered
+    - Volatile ability now uses a custom flipped icon when used by opponents
+    - Sporogenic and Serpent's Nest abilities can now stack
+    - Starter Deck 'Road to Oz' now includes The Road Home (replacing Wolf Cub) and Ozma
+    - Starter Deck 'Magical Girls!' now includes Magical Girl C
+    - Abnormality choice node probabilities changed to (0%, 2%, 5%) by default and (2%, 5%, 10%) with Better Rare Chances cheat enabled
+        - Applies to both Part 1 and KCM
+    - Abnormality choice node can now offer multiple Rare cards as choices
+    - Increased point amount of Better Rare Chances (-15 --> -10)
     - Adjusted flow of some dialogue
-    - Adjusted some card portraits to be cleaner/visually better
-    - Leshy can now trigger special events on his side of the board (you don't get the rewards though)
-    - <<Miracle Worker>> challenge will now play Plague Doctor during boss fights and on a random turn, no longer shows activation sequence every battle
+    - Improved some cards' portraits
+    - Leshy can now trigger special events on his side of the board
+        - You will not receive the rewards for doing so however
+    - Miracle Worker challenge now plays Plague Doctor during a random turn and will trigger during boss battles
+        - activation sequence no longer plays every battle
     - Plague Doctor uses a separate, per-run counter if played by Leshy
+    - Bless special ability can no longer trigger multiple times per battle
+    - Replaced Marksman and Quick Draw sigils with the vanilla Sniper and Sentry sigils
 ### ➕ Additions
 #### Cards
     - Added the following cards:
         - Magical Girl C, Price of Silence, Pinocchio, Nosferatu, The Way Home, Ozma, Silent Girl (Rare)
     - Added the following special cards:
         - The Adult Who Tells Lies, Jester of Nihil, Malkuth, Yesod, Hod, Netzach, Tiphereth A and Tiphereth B, Gebura, Chesed, Binah, Hokma, Angela
-    - Added 5 custom Tribes: Divine, Fae, Anthropoid, Mechanical, Botanic
     - Added the following starter decks (* = Replaces the primary card if Ruina cards are disabled in the config):
         - Random (3 randomly selected mod cards)
         - People Pleasers (Today's Shy Look, Pinocchio/Mirror of Adjustment*, Behaviour Adjustment)
         - Freak Show (Beauty and the Beast, Void Dream Queen Bee)
         - Apocrypha (Fragment of the Universe, Skin Prophecy, Price of Silence/1.76MHz*)
         - Keter (Bloodbath, The Burrowing Heaven, The Snow Queen)
-    - Added pixel sprites for all cards and made them available in Act 2
+    - Added the following Tribes:
+        - Anthropoid, Botanic, Divine, Fae, Mechanical
+    - Added the following Traits:
+        - Boneless, SwanBrother, NakedSerpent, SporeFriend, ImmuneToInstaDeath, Orchestral
+    - Added pixel sprites for all cards
 #### Abilities
     - Added the following abilities:
-        - Neutered, Neutered Latch, Return to Nihil, False Throne, Rightful Heir, Opportunistic, Cycler, Follow the Leader, Persistent
+        - Neutered, Neutered Latch, Return to Nihil, False Throne, Rightful Heir, Opportunistic, Cycler, Barreler, Follow the Leader, Persistent
     - Added the following stat icons:
         - Nihil, Passing Time, Sigil Power
     - Added the following special abilities:
@@ -58,126 +71,119 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - Added the following status effects:
         - Spores, Worms
     - Abilities can now be used by cards in Act 2
-    - Removed Marksman and Quick Draw, the mod now uses reskinned versions of Sniper and Sentry
 #### Other
-    - Added new configuration options relating to Part 1 and events
+    - Added new configuration options
     - Added the following cheats:
         - Start with a Beast, Start with a Jester, Start with a Liar
     - Added Sefirot card choice node
 ### ⚖️ Gameplay Changes
 #### Cards
-    - <<All-Around Helper>> cost changed from 2 Blood --> 4 Energy
-    - <<Apocalypse Bird>> Health increased from 8 --> 12, given Made of Stone
-    - <<Apostles>> no longer have Uncuttable traits for all non-heretical variants
-    - <<Apostles>> given custom Apostle trait (replacing Terrain trait), making them unsacrificable for all variants
-    - <<Downed Apostles>> Health reduced to 1 for all variants
-    - <<Downed Apostles>> no longer have Repulsive sigil
-    - <<Spear Apostle>> Power increased from 3 --> 4
-    - <<Army in Black>> reworked into Targeted Spell with Volatile ability
-        - <<Army in Pink>> special ability now triggers when 3 ally cards die
-    - <<Backward Clock>> cost changed from 4 Bones --> 2 Energy
-    - <<Behaviour Adjustment>> cost changed from 4 Bones --> 3 Energy
-    - <<Big Bird>> given Cycler ability
-    - <<Bloodbath 2>> cost reduced from 2 Blood --> 1 Blood
-    - <<Bloodbath 3>> rebalanced from 1/3, 3 Blood --> 1/2, 2 Blood
-    - <<Blue Star>> reworked into:
-        - Forme 1: 0/4, Fledgling, 2 Blood
+    - All-Around Helper: Cost changed (2 Blood --> 4 Energy)
+    - Apocalypse Bird: Health increased (8 --> 12), given Made of Stone
+    - Apostles: Replaced Terrain trait with Apostle trait, removed Uncuttable trait
+    - Downed Apostles: Health reduced to 1 for all variants, removed Repulsive sigil
+    - Spear Apostle: Power increased from 3 --> 4
+    - Army in Black: Reworked into Targeted Spell with Volatile
+    - Army in Pink: special ability now triggers when 3 ally cards die
+    - Backward Clock: Cost changed (4 Bones --> 2 Energy)
+    - Behaviour Adjustment: Cost changed (4 Bones --> 3 Energy)
+    - Big Bird: Given Cycler ability
+    - Bloodbath 2: Cost reduced (2 --> 1 Blood)
+    - Bloodbath 3: Rebalanced (1/3; 3 Blood --> 1/2, 2 Blood)
+    - Blue Star: Reworked into:
+        - Forme 1: 0/4; Fledgling; 2 Blood
         - Forme 2: 0/4; Fledgling, Idol; 3 Blood
         - Forme 3: 4/4; Fledgling, All Strike; 4 Blood
-    - <<The Burrowing Heaven>> cost changed from 3 Bones --> 1 Blood, sigils are now Guardian, Sentry, Health reduced from 2 --> 1
-    - <<CENSORED>> rebalanced from 6/3, 4 Blood --> 4/3, 3 Blood
-    - <<Clouded Monk>> Health increased from 2 --> 3
-    - <<Dimensional Refraction Variant>> reworked from 4/4, 3 Blood --> Sigil Power, 2 Blood
-    - <<Il Pianto Della Luna>> Health increased from 6 --> 7
-    - <<Child of the Galaxy>> reworked into 0/3; 1 Blood; Flag Bearer, Bone Digger
-    - <<Don't Touch Me>> cost changed from 2 Bones --> 2 Energy, given Terrain trait
-    - <<The Dreaming Current>> given Barreler ability, replacing Rampager ability
-    - <<Second Brother>> gained Piercing ability
-    - <<Third Brother>> Health reduced from 3 --> 2
-    - <<Fourth Brother>> Health reduced from 2 --> 1
-    - <<Fifth Brother>> gained Burning ability, replacing Sharp
-    - <<Sixth Brother>> gained Thick Skin ability, replacing Stinky
-    - <<Express Train to Hell>> reworked into:
-        - Rare version: 0/4, Group Healer, 4 Bones
-        - Item version: Global Spell, The Train, 2 Blood
-    - <<Fairy Festival>> Health increased from 1 --> 2
-    - <<Flesh Idol>> reworked into 0/3; 2 Bones; Aggravating, Fledgling (2)
-    - <<Funeral of the Dead Butterflies>> rebalanced from 3/3, 3 Blood --> 1/3, 2 Blood
-    - <<Giant Tree Sap>> Cost changed from 4 --> 3 Bones, is now Rare
-        - Special ability triggers less often but is now inheritable
-    - <<Happy Teddy Bear>> reworked into 1/6; 6 Bones; Guardian
-    - <<Judgement Bird>>'s special ability no longer affects Terrain and Pelt cards, cursor now changes to indicate what slots are affected
-    - <<King of Greed>> rebalanced from 4/5, Hefty, 2 Blood --> 2/5, Cycler, 1 Blood
-    - <<Luminous Bracelet>> reworked into 0/2 Targeted Spell with Greedy Healing, Give Stats and Sigils; 2 Energy
-    - <<Magical Girl D>> cost reduced from 2 Blood --> 1, Health reduced from 3 --> 2, renamed to The King of Greed
-    - <<Magical Girl H>> Power reduced from 2 --> 1, gained Opportunistic ability
-    - <<Queen of Hatred>> Power increased from 7 --> 8
-    - <<Magical Girl S>> Power reduced from 2 --> 1, no longer Rare, renamed to The Knight of Despair
-    - <<Melting Love>> Health increased from 2 --> 3
-    - <<1.76 MHz>> reworked from 0/3; Annoying, Leader; 2 Bones --> 2/1, Annoying, 3 Energy
-    - <<Mountain of Smiling Bodies 2>> cost reduced from 3 Blood --> 2
-    - <<Mountain of Smiling Bodies 3>> Power increased from 4 --> 5, cost reduced from 4 Blood --> 3
-    - <<Nameless Fetus>> cost reduced from 5 Bones --> 3 Bones
-    - <<Notes from a Crazed Researcher>> reworked into Targeted Spell with 2/0, Brittle, Give Stats and Sigils, 4 Bones
-    - <<Nothing There Final>> given sigils Piercing, Thick Skin x2
-    - <<Old Faith and Promises>> cost changed from 2 Bones --> 3 Energy
-    - <<One Sin and Hundreds of Good Deeds>> cost reduced from 2 Bones --> 1 Bone
-    - <<Porccubus>> Health reduced from 2 --> 1
-    - <<Queen Bee>> Health reduced from 6 --> 4
-    - <<Little Red Riding Hooded Mercenary>> reworked into 2/5 3 Blood; Sniper, Persistent; Crimson Scar
-    - <<Big and Will Be Bad Wolf>> reworked into 3/4 3 Blood, Assimilator; Crimson Scar
-    - <<Sapling>> reworked from 0/2 free --> 0/2, Bone Digger, 2 Bones, Terrain
-    - <<Scarecrow Searching for Wisdom>> rebalanced from 1/3, 5 Bones --> 1/2, 4 Bones
-    - <<Schadenfreude>> rebalanced from 0/1; Quick Draw, Touch of Death; 4 Bones --> 1/1, Quick Draw, 3 Energy
-    - <<Scorched Girl>> cost reduced from 3 Bones --> 2
-    - <<Shelter from the 27th of March>> reworked into Targeted Spell with Repulsive, Aggravating, Give Sigils; 3 Energy
-    - <<Spider Buff>> cost reduced from 4 Bones --> 3 Bones
-    - <<Chairs>> Power reduced from 1 --> 0
-    - <<Silent Orchestra>> rebalanced from 1/5 --> 2/6
-    - <<Silent Machine>> rebalanced from 0/8, 2 Blood --> 0/3, 1 Blood
-    - <<The Snow Queen>> cost reduced from 6 Bones --> 5, Health reduced from 3 --> 2
-    - <<Snow White's Apple>> Health reduced from 3 --> 1
-    - <<Snow White's Vines>> gained the Terrain Trait
-    - <<Spider Bud>> cost reduced from 4 Bones --> 3
-    - <<The Firebird>> Power increased from 1 --> 2
-    - <<The Naked Nest>> now has the custom "Naked Serpent" Trait
-    - <<The Naked Worm>> now has the custom "Naked Serpent" Trait
-    - <<Theresia>> cost changed from 1 Bone --> 2 Energy
-    - <<Today's Shy Look>> special ability tweaked to randomise when multiple copies are drawn at once
-    - <<Standard Training-Dummy Rabbit>> rebalanced from 0/1, 1 Bone --> 0/2, 1 Energy
-    - <<The Lady Facing the Wall>> rebalanced from 0/2, Punisher --> 1/2, Sharp Quills
-    - <<We Can Change Anything>> rebalanced from 1/2 --> 0/3
-    - <<WhiteNight>> Health reduced from 666 --> 66, replaced Terrain trait with Apostle, gained immunity to Touch of Death, Punisher
+    - The Burrowing Heaven: Reworked into 0/1; Guardian, Sentry; 1 Blood
+    - CENSORED: Rebalanced (6/3, 4 Blood --> 4/3, 3 Blood)
+    - Clouded Monk: Cost reduced (3 Blood --> 2 Blood)
+    - Dimensional Refraction Variant: Reworked (4/4; 3 Blood --> 0/1; Sigil Power; 2 Blood)
+    - Il Pianto Della Luna: Health increased (6 --> 7)
+    - Child of the Galaxy: Reworked into 1/1; Flag Bearer, Bone Digger; 1 Blood
+    - Don't Touch Me: Cost changed (2 Bones --> 2 Energy), given Terrain trait
+    - Brothers: Given Terrain trait
+    - Second Brother: Given Piercing ability, Power reduced (0 --> 1)
+    - Third Brother: Health reduced (3 --> 2)
+    - Fourth Brother: Health reduced (2 --> 1)
+    - Fifth Brother: Replaced Sharp Quills with Scorching
+    - Sixth Brother: Replaced Stinky with Thick Skin
+    - Flesh Idol: Reworked into 0/4; 2 Bones; Aggravating, Fledgling (2)
+    - Funeral of the Dead Butterflies: Rebalanced (3/3, 3 Blood --> 1/3, 2 Blood)
+    - Giant Tree Sap: Cost reduced (4 --> 3 Bones), is now Rare
+    - Happy Teddy Bear: Reworked into 1/5; Guardian; 6 Bones
+    - King of Greed: Rebalanced (4/5, Hefty, 2 Blood --> 2/5, Cycler, 1 Blood)
+    - Luminous Bracelet: Reworked into 0/2 Targeted Spell; Greedy Healing, Give Stats and Sigils; 2 Energy
+    - Magical Girl D: Rebalanced (3 Health; 2 Blood --> 2 Health; 1 Blood), renamed to The King of Greed
+    - Magical Girl H: Power reduced (2 --> 1), given Opportunistic ability
+    - Queen of Hatred: Power increased (7 --> 8)
+    - Magical Girl S: Power reduced (2 --> 1), no longer Rare, renamed to The Knight of Despair
+    - Melting Love: Health increased (2 --> 3)
+    - 1.76 MHz: Reworked (0/3; Annoying, Leader; 2 Bones --> 2/1; Annoying; 3 Energy)
+    - Mountain of Smiling Bodies 2: Cost reduced (3 Blood --> 2)
+    - Mountain of Smiling Bodies 3: Rebalanced (4 Power; 4 Blood --> 5 Power; 3 Blood)
+    - Nameless Fetus: Cost reduced (5 --> 3 Bones)
+    - Notes from a Crazed Researcher: Reworked into Targeted Spell; 2/0; Brittle, Give Stats and Sigils; 4 Bones
+    - Nothing There Final: Given Piercing, Thick Skin x2 sigils
+    - Old Faith and Promises: Cost changed (2 Bones --> 3 Energy)
+    - One Sin and Hundreds of Good Deeds: Cost reduced (2 Bones --> 1 Bone)
+    - Porccubus: Health reduced (2 --> 1)
+    - Queen Bee: Health reduced (6 --> 4)
+    - Little Red Riding Hooded Mercenary: Reworked into 2/5; Sniper, Persistent; 3 Blood; Crimson Scar
+    - Big and Will Be Bad Wolf: Reworked into 3/4; Assimilator; 3 Blood; Crimson Scar
+    - Sapling: Reworked (0/2; free --> 0/2; Bone Digger, 2 Bones; Terrain)
+    - Scarecrow Searching for Wisdom: Rebalanced (1/3, 5 Bones --> 1/1, 4 Bones)
+    - Schadenfreude: Rebalanced (0/1; Quick Draw, Touch of Death; 4 Bones --> 1/1; Sentry; 3 Energy)
+    - Scorched Girl: Cost reduced (3 --> 2 Bones)
+    - Shelter from the 27th of March: Reworked into Targeted Spell; 0/0 ; Repulsive, Aggravating, Give Sigils; 3 Energy
+    - Spider Buff: Cost reduced (4 --> 3 Bones)
+    - Chairs: Power reduced (1 --> 0)
+    - Silent Orchestra: Rebalanced (1/5 --> 2/6)
+    - Silent Machine: Rebalanced (0/8, 2 Blood --> 0/3, 1 Blood)
+    - The Snow Queen: Rebalanced (3 Health 6 Bones --> 2 Health; 5 Bones)
+    - Snow White's Apple: Health reduced from 3 --> 1
+    - Snow White's Vines: gained the Terrain Trait
+    - The Firebird: Power increased (1 --> 2)
+    - The Naked Nest: Given NakedSerpent Trait
+    - The Naked Worm: Given NakedSerpent Trait
+    - Theresia: Cost changed (1 Bone --> 2 Energy)
+    - Today's Shy Look: Special ability tweaked to randomise when multiple copies are drawn at once
+    - Standard Training-Dummy Rabbit: Rebalanced (0/1, 1 Bone --> 0/2, 1 Energy)
+    - The Lady Facing the Wall: Rebalanced (0/2; Punisher --> 1/2; Sharp Quills)
+    - We Can Change Anything: Power reduced (1 --> 0)
+    - WhiteNight: Health reduced from 666 --> 66, replaced Terrain trait with Apostle, added ImmuneToInstaDeath trait
         - Can now be killed by regular cards, with a different reward if done so
-    - <<You Must Be Happy>> reworked into Targeted Spell with 0/2, Scrambler, 2 Energy
-    - <<You're Bald...>> stats and cost changed from 1/1, 3 Bones --> 0/2, 2 Energy
-    - <<Ttungsil>> no longer has Fledgling ability
+    - You Must Be Happy: Reworked into Targeted Spell, 0/2; Scrambler; 2 Energy
+    - You're Bald...: Reworked (1/1, 3 Bones --> 0/2, 2 Energy)
+    - Ttungsil: Removed Fledgling ability
 #### Abilities
-    - <<Apostle>> now prevents damage and death while WhiteNight is an ally
-    - <<Broodmother>> powerlevel reduced from 4 --> 3
-    - <<Burning>> renamed to Scorching
-    - <<Nettle Clothes>> now uses custom Trait "Swan Brother" for effect, no longer deals damage to the base card upon Brother cards dying
-    - <<Martyr>> now activates when sacrificed, added additional effect:
+    - Apostle: Now prevents damage and death while WhiteNight is an ally
+    - Broodmother: Powerlevel reduced (4 --> 3)
+    - Burning: Renamed to Scorching
+    - Nettle Clothes: Now considers cards with SwanBrother trait, no longer deals damage to the base card upon Brother cards dying
+    - Martyr: Can now activate when sacrificed, added additional effect:
         - "When a card bearing this sigil dies, all allied creatures gain 2 Health [ and lose all negative status effects ]."
-    - <<Corrector>> powerlevel reduced from 3 --> 2
-    - <<Frozen Heart>> now heals 2 Health instead of 1
-    - <<Fungal Infector>> renamed to Sporogenic, reworked to be:
+    - Corrector: Powerlevel reduced (3 --> 2)
+    - Frozen Heart: Healing amount changed (1 --> 2)
+    - Fungal Infector: Renamed to Sporogenic, reworked to be:
         - "Creatures adjacent to this card gain 1 Spores at the end of its owner's turn. This sigil activates before other sigils."
-    - <<Piercing>> reworked to be:
+    - Piercing: Reworked to be:
         - "Damage dealt by this card cannot be negated or reduced by sigils such as Armoured or Thick Skin. Deal 1 overkill damage when attacking a card."
-    - <<Serpent's Nest>> is no longer obtainable as a totem bottom, reworked to be:
+    - Serpent's Nest: No longer obtainable as a totem bottom, reworked to be:
         - "When a card bearing this sigil is struck, the striker gains 1 Worms."
-    - <<Conductor>> reworked to be:
+    - Conductor: Reworked to be:
         - "The effect of this sigil will change over the next 3 turns. This turn: do nothing."
-    - <<Ruler of Frost>> reworked to be:
+    - Ruler of Frost: Reworked to be:
         - "Activate: Once per turn, pay 3 Bones to choose a space on the board. If the space is occupied by a killable card, transform it into a Frozen Heart. Otherwise create a Block of Ice."
-    - <<The Train>> reworked to be:
+    - The Train: Reworked to be:
         - "Three turns after this card is played, kill all creatures on the board. Creatures killed this way do not drop bones."
+    - Sap: Triggers less often, is now inherited from card merging
+    - Justitia: No longer affects Terrain and Pelt cards, mouse cursor will change when hovering over affectable cards
 #### Other
-    - Starter decks <<Road to Oz>>, <<Magical Girls!>>, <<Twilight>> now require completing the respective in-game event before unlocking the deck
+    - Starter decks Road to Oz, Magical Girls!, Twilight now require completing the respective in-game event before unlocking the deck
         - This can be overriden in the config by-the-by
 ### 💣 Removals
     - Removed emission sprites from some terrain cards
+    - Removed Marksman and Quick Draw abilities
 
 <details>
 <summary>Pre-2.0 Updates</summary>
@@ -493,4 +499,5 @@ Note that in the future, updates and changes to modded sigils will be found in t
     - 38 Abilities
     - 13 Special abilities
 
+</details>
 </details>

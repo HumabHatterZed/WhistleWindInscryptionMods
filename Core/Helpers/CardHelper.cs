@@ -79,18 +79,6 @@ namespace WhistleWind.Core.Helpers
             return cardInfo;
         }
 
-        public static CardInfo SetEvolveInfo(this CardInfo cardInfo, string evolveName, int turnsToEvolve = 1)
-        {
-            if (evolveName.Contains("{0}"))
-                cardInfo.defaultEvolutionName = string.Format(Localization.Translate(evolveName), cardInfo.DisplayedNameLocalized);
-            else if (evolveName.Contains("[name]"))
-                cardInfo.defaultEvolutionName = Localization.Translate(evolveName.Replace("[name]", ""));
-            else
-                cardInfo.SetEvolve(evolveName, turnsToEvolve);
-
-            return cardInfo;
-        }
-
         public static List<CardInfo> RemoveOwnedSingletons() => CardLoader.RemoveDeckSingletonsIfInDeck(CardManager.AllCardsCopy);
         public static CardAppearanceBehaviourManager.FullCardAppearanceBehaviour CreateAppearance<T>(string pluginGuid, string name)
             where T : CardAppearanceBehaviour

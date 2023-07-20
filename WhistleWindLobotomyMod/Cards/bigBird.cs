@@ -14,20 +14,16 @@ namespace WhistleWindLobotomyMod
         {
             const string bigBird = "bigBird";
 
-            CardInfo bird = NewCard(
-                bigBird,
-                "Big Bird",
-                "Its eyes light up the darkness like stars.",
+            NewCard(bigBird, "Big Bird", "Its eyes light up the darkness like stars.",
                 attack: 2, health: 4, blood: 2)
                 .SetPortraits(bigBird)
                 .AddAbilities(Cycler.ability)
                 .AddSpecialAbilities(ThreeBirds.specialAbility)
                 .AddTribes(Tribe.Bird)
                 .AddTraits(TraitBlackForest)
-                .SetEvolveInfo("[name]Bigger Bird")
-                .SetOnePerDeck();
-
-            CreateCard(bird, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .SetDefaultEvolutionName("Bigger Bird")
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

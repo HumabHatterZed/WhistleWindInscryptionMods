@@ -21,10 +21,7 @@ namespace WhistleWindLobotomyMod
         {
             RegisterPortraitsAndEmissions();
 
-            CardInfo plagueDoctorCard = NewCard(
-                plagueDoctor,
-                "Plague Doctor",
-                "A worker of miracles. He humbly requests to join you.",
+            NewCard(plagueDoctor, "Plague Doctor", "A worker of miracles. He humbly requests to join you.",
                 attack: 0, health: 3, bones: 3)
                 .SetPortrait(PlagueDoctorPortraits.FirstOrDefault())
                 .SetEmissivePortrait(UpdateDoctorEmission(0))
@@ -33,9 +30,8 @@ namespace WhistleWindLobotomyMod
                 .AddSpecialAbilities(Bless.specialAbility)
                 .AddTribes(TribeDivine)
                 .AddAppearances(MiracleWorkerAppearance.appearance)
-                .SetOnePerDeck();
-
-            CreateCard(plagueDoctorCard, CardHelper.ChoiceType.Common, RiskLevel.Zayin);
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
         private void RegisterPortraitsAndEmissions()
         {
@@ -61,7 +57,7 @@ namespace WhistleWindLobotomyMod
                 5 => "plagueDoctor5",
                 9 => "plagueDoctor9",
                 11 => "plagueDoctor11",
-                _ => "plagueDoctor",
+                _ => plagueDoctor,
             };
             return TextureLoader.LoadSpriteFromFile(portraitName + "_emission");
         }
@@ -69,7 +65,7 @@ namespace WhistleWindLobotomyMod
         {
             return key switch
             {
-                0 => "plagueDoctor",
+                0 => plagueDoctor,
                 1 => "plagueDoctor1",
                 2 => "plagueDoctor2",
                 3 => "plagueDoctor3",

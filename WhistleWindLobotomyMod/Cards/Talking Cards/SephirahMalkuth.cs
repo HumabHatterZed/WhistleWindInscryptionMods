@@ -90,16 +90,12 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Malkuth()
         {
-            CardInfo malkuthCard = NewCard(
-                "sephirahMalkuth",
-                "Malkuth",
-                "The head of the Control Team, here to assist you any way she can.",
+            NewCard("sephirahMalkuth", "Malkuth", "The head of the Control Team, here to assist you any way she can.",
                 attack: 1, health: 1, bones: 3)
                 .AddAbilities(Ability.BuffNeighbours)
                 .AddTraits(TraitSephirah)
-                .SetOnePerDeck();
-
-            CreateCard(malkuthCard);
+                .SetOnePerDeck()
+                .Build();
         }
     }
 }

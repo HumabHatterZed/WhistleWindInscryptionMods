@@ -21,20 +21,17 @@ namespace WhistleWindLobotomyMod
             Trait[] traits = new[] { TraitMagicalGirl };
 
             CardInfo kingOfGreedCard = NewCard(
-                kingOfGreed,
-                kingName,
+                kingOfGreed, kingName,
                 attack: 2, health: 5, blood: 1)
                 .SetPortraits(kingOfGreed)
                 .AddAbilities(Cycler.ability)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
-                .SetOnePerDeck();
+                .SetOnePerDeck()
+                .Build();
 
-            CardInfo magicalGirlDiamondCard = NewCard(
-                magicalGirlDiamond,
-                kingName,
-                "A girl encased in hardened amber. Happiness trapped by greed.",
+            NewCard(magicalGirlDiamond, kingName, "A girl encased in hardened amber. Happiness trapped by greed.",
                 attack: 0, health: 2, blood: 1)
                 .SetPortraits(magicalGirlDiamond)
                 .AddAbilities(Ability.Evolve)
@@ -42,10 +39,8 @@ namespace WhistleWindLobotomyMod
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .SetOnePerDeck()
-                .SetEvolveInfo("wstl_kingOfGreed");
-
-            CreateCard(kingOfGreedCard);
-            CreateCard(magicalGirlDiamondCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .SetEvolve(kingOfGreedCard, 1)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

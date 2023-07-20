@@ -18,26 +18,20 @@ namespace WhistleWindLobotomyMod
             const string nosferatuBeast = "nosferatuBeast";
             Tribe[] tribes = new[] { TribeFae };
 
-            CardInfo nosferatuBeastCard = NewCard(
-                nosferatuBeast,
-                nosferatuName,
-                attack: 3, health: 2, blood: 2)
+            NewCard(nosferatuBeast, nosferatuName,
+                attack: 3, health: 1, blood: 2)
                 .SetPortraits(nosferatuBeast)
                 .AddAbilities(Bloodfiend.ability, Bloodfiend.ability)
-                .AddTribes(tribes);
+                .AddTribes(tribes)
+                .Build(cardType: ModCardType.Ruina);
 
-            CardInfo nosferatuCard = NewCard(
-                nosferatu,
-                nosferatuName,
-                "A creature of the night, noble and regal. Will you help sate its thirst?",
-                attack: 1, health: 2, blood: 2)
+            NewCard(nosferatu, nosferatuName, "A creature of the night, noble and regal. Will you help sate its thirst?",
+                attack: 2, health: 1, blood: 2)
                 .SetPortraits(nosferatu)
                 .AddAbilities(Bloodfiend.ability, Ability.Evolve)
                 .AddTribes(tribes)
-                .SetEvolveInfo("wstl_nosferatuBeast");
-
-            CreateCard(nosferatuBeastCard, cardType: ModCardType.Ruina);
-            CreateCard(nosferatuCard, CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Ruina);
+                .SetEvolve(nosferatuBeast, 1)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Ruina);
         }
     }
 }

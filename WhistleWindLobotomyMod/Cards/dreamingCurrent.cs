@@ -14,16 +14,12 @@ namespace WhistleWindLobotomyMod
         {
             const string dreamingCurrent = "dreamingCurrent";
 
-            CardInfo dream = NewCard(
-                dreamingCurrent,
-                "The Dreaming Current",
-                "A sickly child. Everyday it was fed candy that let it see the ocean.",
+            NewCard(dreamingCurrent, "The Dreaming Current", "A sickly child. Everyday it was fed candy that let it see the ocean.",
                 attack: 4, health: 2, blood: 3)
                 .SetPortraits(dreamingCurrent)
-                .AddAbilities(Ability.Submerge, Barreler.ability)
-                .SetEvolveInfo("[name]The Elder Dreaming Current");
-
-            CreateCard(dream, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .AddAbilities(Ability.Submerge, Ability.StrafeSwap)
+                .SetDefaultEvolutionName("The Elder Dreaming Current")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

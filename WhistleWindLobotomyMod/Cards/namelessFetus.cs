@@ -18,26 +18,21 @@ namespace WhistleWindLobotomyMod
             const string namelessFetusAwake = "namelessFetusAwake";
             Tribe[] tribes = new[] { TribeAnthropoid };
 
-            CardInfo namelessFetusAwakeCard = NewCard(
-                namelessFetusAwake, displayName: fetusName,
+            NewCard(namelessFetusAwake, displayName: fetusName,
                 attack: 0, health: 1, bones: 3)
                 .SetPortraits(namelessFetusAwake)
                 .AddAbilities(Aggravating.ability, Ability.PreventAttack, Ability.Sacrificial)
-                .AddTribes(tribes);
+                .AddTribes(tribes)
+                .Build();
 
-            CardInfo namelessFetusCard = NewCard(
-                namelessFetus,
-                fetusName,
-                "A neverending supply of blood. Just don't wake it up.",
+            NewCard(namelessFetus, fetusName, "A neverending supply of blood. Just don't wake it up.",
                 attack: 0, health: 1, bones: 3)
                 .SetPortraits(namelessFetus)
                 .AddAbilities(Ability.TripleBlood, Ability.Sacrificial)
                 .AddSpecialAbilities(Syrinx.specialAbility)
                 .AddTribes(tribes)
-                .AddTraits(Trait.Goat);
-
-            CreateCard(namelessFetusAwakeCard);
-            CreateCard(namelessFetusCard, CardHelper.ChoiceType.Common, RiskLevel.He);
+                .AddTraits(Trait.Goat)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

@@ -10,7 +10,6 @@ using MonoMod.Utils;
 
 namespace ModDebuggingMod
 {
-
     // Adds predefined nodes for testing
     [HarmonyPatch]
     internal static class DebugPatches

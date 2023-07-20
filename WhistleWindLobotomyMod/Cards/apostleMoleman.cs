@@ -16,33 +16,27 @@ namespace WhistleWindLobotomyMod
             const string molemanName = "Moleman Apostle";
             const string apostleMoleman = "apostleMoleman";
             const string apostleMolemanDown = "apostleMolemanDown";
-            Ability[] abilities = new[] { Apostle.ability };
             Tribe[] tribes = new[] { TribeDivine };
             Trait[] traits = new[] { TraitApostle };
             CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
-            CardInfo apostle = NewCard(
-                apostleMoleman,
-                molemanName,
+            NewCard(apostleMoleman, molemanName,
                 attack: 1, health: 8)
                 .SetPortraits(apostleMoleman)
                 .AddAbilities(Ability.Reach, Ability.WhackAMole, Apostle.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)
-                .AddAppearances(appearances);
+                .AddAppearances(appearances)
+                .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
 
-            CardInfo apostleDown = NewCard(
-                apostleMolemanDown,
-                molemanName,
+            NewCard(apostleMolemanDown, molemanName,
                 attack: 0, health: 1)
                 .SetPortraits(apostleMolemanDown)
                 .AddAbilities(Apostle.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)
-                .AddAppearances(appearances);
-
-            CreateCard(apostle, CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
-            CreateCard(apostleDown, CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
+                .AddAppearances(appearances)
+                .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
         }
     }
 }

@@ -14,15 +14,11 @@ namespace WhistleWindLobotomyMod
         {
             const string forsakenMurderer = "forsakenMurderer";
 
-            CardInfo forsakenMurdererCard = NewCard(
-                forsakenMurderer,
-                "Forsaken Murderer",
-                "Experimented on then forgotten. What was anger has become abhorrence.",
+            NewCard(forsakenMurderer, "Forsaken Murderer", "Experimented on then forgotten. What was anger has become abhorrence.",
                 attack: 4, health: 1, bones: 8)
                 .SetPortraits(forsakenMurderer)
-                .AddTribes(TribeAnthropoid);
-
-            CreateCard(forsakenMurdererCard, CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .AddTribes(TribeAnthropoid)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

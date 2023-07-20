@@ -15,18 +15,14 @@ namespace WhistleWindLobotomyMod
         {
             const string redHoodedMercenary = "redHoodedMercenary";
 
-            CardInfo redHoodedMercenaryCard = NewCard(
-                redHoodedMercenary,
-                "Little Red Riding Hooded Mercenary",
-                "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.",
+            NewCard(redHoodedMercenary, "Little Red Riding Hooded Mercenary", "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.",
                 attack: 2, health: 5, blood: 3)
                 .SetPortraits(redHoodedMercenary)
                 .AddAbilities(Ability.Sniper, Persistent.ability)
                 .AddSpecialAbilities(CrimsonScar.specialAbility)
                 .AddTribes(TribeAnthropoid)
-                .SetEvolveInfo("[name]Red Riding Hooded Mercenary");
-
-            CreateCard(redHoodedMercenaryCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .SetDefaultEvolutionName("Red Riding Hooded Mercenary")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

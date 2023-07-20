@@ -26,8 +26,9 @@ namespace WhistleWindLobotomyMod.Core
         {
             return CardHelper.NewCard(false, pluginPrefix, cardName, displayName, description, attack, health, blood, bones, energy, temple: temple);
         }
-        public static CardInfo CreateCard(
-            CardInfo cardInfo,
+        
+        public static CardInfo Build(
+            this CardInfo cardInfo,
             ChoiceType choiceType = ChoiceType.None,
             RiskLevel riskLevel = RiskLevel.None,
             ModCardType cardType = ModCardType.None,
@@ -82,13 +83,6 @@ namespace WhistleWindLobotomyMod.Core
             AllLobotomyCards.Add(cardInfo);
             CardManager.Add(pluginPrefix, cardInfo);
             return cardInfo;
-        }
-
-        public static CardInfo[] CreateCards(params CardInfo[] cards)
-        {
-            foreach (CardInfo card in cards)
-                CreateCard(card);
-            return cards;
         }
 
         public static CardInfo SetSpellType(this CardInfo cardInfo, SpellType spellType, bool showStats = false)

@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using Pixelplacement;
 using System;
 using System.Collections;
@@ -61,8 +62,8 @@ namespace WhistleWind.Core.Helpers
                 if (!card.HasAbility(Ability.QuadrupleBones) && slotBeforeDeath.IsPlayerSlot)
                     yield return Singleton<ResourcesManager>.Instance.AddBones(1, slotBeforeDeath);
 
-                if (card.Info.SpecialAbilities.Contains(SpecialTriggeredAbility.PackMule) && card.TriggerHandler.RespondsToTrigger(Trigger.Die, false, null))
-                    yield return card.TriggerHandler.OnTrigger(Trigger.Die, false, null);
+                if (card.HasSpecialAbility(SpecialTriggeredAbility.PackMule))
+                    UnityEngine.Object.Destroy(card.GetComponent<PackMule>().pack.gameObject);
 
                 card.UnassignFromSlot();
                 card.StartCoroutine(card.DestroyWhenStackIsClear());

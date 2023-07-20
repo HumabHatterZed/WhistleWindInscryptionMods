@@ -17,39 +17,33 @@ namespace WhistleWindLobotomyMod
             const string blueStar = "blueStar";
             Tribe[] tribes = new[] { TribeDivine };
 
-            CardInfo star3 = NewCard(
-                "blueStar3",
-                starName,
+            CardInfo star3 = NewCard("blueStar3", starName,
                 attack: 4, health: 4, blood: 4)
                 .SetPortraits(blueStar, pixelPortraitName: "blueStar2_pixel")
                 .AddAbilities(Ability.Evolve, Ability.AllStrike)
                 .AddSpecialAbilities(StarSound.specialAbility)
                 .AddTribes(tribes)
                 .AddAppearances(ForcedEmission.appearance)
-                .SetEvolveInfo("wstl_blueStar");
+                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
 
-            CardInfo star2 = NewCard(
-                "blueStar2",
-                starName,
+            CardInfo star2 = NewCard("blueStar2", starName,
                 attack: 0, health: 4, blood: 3)
                 .SetPortraits(blueStar)
                 .AddAbilities(Ability.Evolve, Idol.ability)
                 .AddTribes(tribes)
-                .SetEvolveInfo("wstl_blueStar3");
+                .SetEvolve(star3, 1)
+                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
 
-            CardInfo star = NewCard(
-                blueStar,
-                starName,
-                "When this is over, let's meet again as stars.",
+            CardInfo star = NewCard(blueStar, starName, "When this is over, let's meet again as stars.",
                 attack: 0, health: 4, blood: 2)
                 .SetPortraits(blueStar)
                 .AddAbilities(Ability.Evolve)
                 .AddTribes(tribes)
-                .SetEvolveInfo("wstl_blueStar2");
+                .SetEvolve(star2, 1)
+                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
 
-            CreateCard(star3, CardHelper.ChoiceType.Rare, nonChoice: true);
-            CreateCard(star2, CardHelper.ChoiceType.Rare, nonChoice: true);
-            CreateCard(star, CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
+            // set the evolve info here to prevent any errors with evolving cards and encounters
+            star3.SetEvolve(star, 1);
         }
     }
 }

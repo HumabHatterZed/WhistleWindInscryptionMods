@@ -18,30 +18,25 @@ namespace WhistleWindLobotomyMod
             const string servantOfWrath = "servantOfWrath";
             Trait[] traits = new[] { TraitMagicalGirl };
 
-            CardInfo servantOfWrathCard = NewCard(
-                servantOfWrath,
-                servantName,
+            NewCard(servantOfWrath, servantName,
                 attack: 3, health: 2, blood: 2)
                 .SetPortraits(servantOfWrath)
                 .AddAbilities(Ability.DoubleStrike, Persistent.ability)
                 .AddSpecialAbilities(BlindRage.specialAbility)
                 .AddTribes(TribeFae, Tribe.Reptile)
                 .AddTraits(traits)
-                .SetOnePerDeck();
+                .SetOnePerDeck()
+                .Build(cardType: ModCardType.Ruina);
 
-            CardInfo magicalGirlCloverCard = NewCard(
-                magicalGirlClover,servantName,
-                "Blind protector of another world.",
+            NewCard(magicalGirlClover,servantName, "Blind protector of another world.",
                 attack: 2, health: 2, blood: 2)
                 .SetPortraits(magicalGirlClover)
                 .AddAbilities(Scorching.ability)
                 .AddSpecialAbilities(SwordWithTears.specialAbility)
                 .AddTribes(TribeFae)
                 .AddTraits(traits)
-                .SetOnePerDeck();
-
-            CreateCard(servantOfWrathCard);
-            CreateCard(magicalGirlCloverCard, CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Ruina);
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Ruina);
         }
     }
 }

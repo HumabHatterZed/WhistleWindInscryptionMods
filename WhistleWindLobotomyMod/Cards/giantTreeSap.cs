@@ -14,19 +14,15 @@ namespace WhistleWindLobotomyMod
         {
             const string giantTreeSap = "giantTreeSap";
 
-            CardInfo giantTreeSapCard = NewCard(
-                giantTreeSap,
-                "Giant Tree Sap",
-                "Sap from a tree at the end of the world. It is a potent healing agent.",
+            NewCard(giantTreeSap, "Giant Tree Sap", "Sap from a tree at the end of the world. It is a potent healing agent.",
                 attack: 0, health: 3, bones: 3)
                 .SetPortraits(giantTreeSap)
                 .AddAbilities(Ability.Sacrificial, Ability.Morsel)
                 .AddSpecialAbilities(Sap.specialAbility)
                 .AddTribes(TribeBotanic)
-                .SetEvolveInfo("[name]Giant Elder Tree Sap")
-                .SetOnePerDeck();
-
-            CreateCard(giantTreeSapCard, CardHelper.ChoiceType.Rare, RiskLevel.He);
+                .SetDefaultEvolutionName("Giant Elder Tree Sap")
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Rare, RiskLevel.He);
         }
     }
 }

@@ -14,15 +14,11 @@ namespace WhistleWindLobotomyMod
         {
             const string worldPortrait = "worldPortrait";
 
-            CardInfo worldPortraitCard = NewCard(
-                worldPortrait,
-                "Portrait of Another World",
-                "This portrait captures a moment, one we're destined to lose.",
+            NewCard(worldPortrait, "Portrait of Another World", "This portrait captures a moment, one we're destined to lose.",
                 attack: 0, health: 4, blood: 1)
                 .SetPortraits(worldPortrait)
-                .AddAbilities(Reflector.ability);
-
-            CreateCard(worldPortraitCard, CardHelper.ChoiceType.Common, RiskLevel.He);
+                .AddAbilities(Reflector.ability)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

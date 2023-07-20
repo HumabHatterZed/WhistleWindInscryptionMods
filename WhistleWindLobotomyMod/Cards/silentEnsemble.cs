@@ -14,16 +14,13 @@ namespace WhistleWindLobotomyMod
         {
             const string silentEnsemble = "silentEnsemble";
 
-            CardInfo silentEnsembleCard = NewCard(
-                silentEnsemble,
-                "Chairs",
+            NewCard(silentEnsemble, "Chairs",
                 attack: 0, health: 3)
                 .SetPortraits(silentEnsemble)
                 .AddAbilities(Ability.BuffNeighbours)
                 .AddTribes(TribeAnthropoid)
-                .AddTraits(Orchestral);
-
-            CreateCard(silentEnsembleCard);
+                .AddTraits(Orchestral)
+                .Build();
         }
     }
 }

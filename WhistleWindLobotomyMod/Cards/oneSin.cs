@@ -11,19 +11,17 @@ namespace WhistleWindLobotomyMod
 {
     public partial class LobotomyPlugin
     {
+        private const string oneSinName = "One Sin and Hundreds of Good Deeds";
+        private const string oneSin = "oneSin";
         private void Card_OneSin_O0303()
         {
-            CardInfo oneSinCard = NewCard(
-                oneSin,
-                oneSinName,
-                "A floating skull. Its hollow sockets see through you.",
+            NewCard(oneSin, oneSinName, "A floating skull. Its hollow sockets see through you.",
                 attack: 0, health: 1, bones: 1, temple: CardTemple.Undead)
                 .SetPortraits(oneSin)
                 .AddAbilities(Martyr.ability)
                 .AddTribes(TribeDivine)
-                .SetEvolveInfo("{0}");
-
-            CreateCard(oneSinCard, CardHelper.ChoiceType.Common, RiskLevel.Zayin);
+                .SetDefaultEvolutionName(oneSinName)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
     }
 }

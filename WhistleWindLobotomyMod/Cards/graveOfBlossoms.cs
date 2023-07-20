@@ -15,17 +15,13 @@ namespace WhistleWindLobotomyMod
         {
             const string graveOfBlossoms = "graveOfBlossoms";
 
-            CardInfo graveOfBlossomsCard = NewCard(
-                graveOfBlossoms,
-                "Grave of Cherry Blossoms",
-                "A blooming cherry tree. The more blood it has, the more beautiful it becomes.",
+            NewCard(graveOfBlossoms, "Grave of Cherry Blossoms", "A blooming cherry tree. The more blood it has, the more beautiful it becomes.",
                 attack: 0, health: 3, blood: 1)
                 .SetPortraits(graveOfBlossoms)
                 .AddAbilities(Ability.Sharp, Bloodfiend.ability)
                 .AddTribes(TribeBotanic)
-                .SetEvolveInfo("Mass {0}");
-
-            CreateCard(graveOfBlossomsCard, CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .SetDefaultEvolutionName("Mass Grave of Cherry Blossoms")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

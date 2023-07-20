@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
 
         public override IEnumerator TriggerBlessing()
         {
-            if (LobotomyConfigManager.Instance.NoEvents)
+            if (LobotomyConfigManager.Instance.NoEvents || LobotomySaveManager.TriggeredWhiteNightThisBattle)
                 yield break;
 
             if (base.PlayableCard.Info.Mods.Exists(x => x.singletonId == "wstl:MiracleWorkerChallenge"))
@@ -44,7 +44,7 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator CheckTheClock()
         {
-            if (LobotomyConfigManager.Instance.NoEvents)
+            if (LobotomyConfigManager.Instance.NoEvents || LobotomySaveManager.TriggeredWhiteNightThisBattle)
                 yield break;
             
             int blessings = base.Card.Info.Mods.Exists(x => x.singletonId == "wstl:MiracleWorkerChallenge") ?

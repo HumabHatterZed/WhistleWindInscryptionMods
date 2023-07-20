@@ -14,17 +14,13 @@ namespace WhistleWindLobotomyMod
         {
             const string wallLady = "wallLady";
 
-            CardInfo wallLadyCard = NewCard(
-                wallLady,
-                "The Lady Facing the Wall",
-                "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.",
+            NewCard(wallLady, "The Lady Facing the Wall", "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.",
                 attack: 1, health: 2, bones: 4)
                 .SetPortraits(wallLady)
                 .AddAbilities(Ability.Sharp)
                 .AddTribes(TribeAnthropoid)
-                .SetEvolveInfo("[name]The Elder Lady Facing the Wall");
-
-            CreateCard(wallLadyCard, CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .SetDefaultEvolutionName("The Elder Lady Facing the Wall")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

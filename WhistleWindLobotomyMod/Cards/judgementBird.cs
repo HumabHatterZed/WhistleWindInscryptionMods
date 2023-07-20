@@ -14,18 +14,14 @@ namespace WhistleWindLobotomyMod
         {
             const string judgementBird = "judgementBird";
 
-            CardInfo judgementBirdCard = NewCard(
-                judgementBird,
-                "Judgement Bird",
-                "A long bird that judges sinners with swift efficiency. It alone is above consequences.",
+            NewCard(judgementBird, "Judgement Bird", "A long bird that judges sinners with swift efficiency. It alone is above consequences.",
                 attack: 1, health: 1, blood: 2)
                 .SetPortraits(judgementBird)
                 .AddAbilities(Ability.Sniper)
                 .AddTribes(Tribe.Bird)
                 .AddTraits(TraitBlackForest, TraitExecutioner)
-                .SetOnePerDeck();
-
-            CreateCard(judgementBirdCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

@@ -15,18 +15,14 @@ namespace WhistleWindLobotomyMod
         {
             const string silentOrchestra = "silentOrchestra";
 
-            CardInfo silentOrchestraCard = NewCard(
-                silentOrchestra,
-                "The Silent Orchestra",
-                "Soon, the song none can hear but all can listen to will begin.",
+            NewCard(silentOrchestra, "The Silent Orchestra", "Soon, the song none can hear but all can listen to will begin.",
                 attack: 2, health: 6, blood: 3)
                 .SetPortraits(silentOrchestra)
                 .AddAbilities(Conductor.ability)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(Orchestral)
-                .SetEvolveInfo("[name]The Grand Silent Orchestra");
-
-            CreateCard(silentOrchestraCard, CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
+                .SetDefaultEvolutionName("The Grand Silent Orchestra")
+                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
         }
     }
 }

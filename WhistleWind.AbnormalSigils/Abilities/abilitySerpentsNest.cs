@@ -18,28 +18,14 @@ namespace WhistleWind.AbnormalSigils
 
             SerpentsNest.ability = AbnormalAbilityHelper.CreateAbility<SerpentsNest>(
                 "sigilSerpentsNest",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                modular: false, opponent: true, canStack: false).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                modular: false, opponent: true, canStack: true).Id;
         }
     }
     public class SerpentsNest : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        private CardModificationInfo GetWormStatusMod()
-        {
-            CardModificationInfo result = StatusEffectManager.StatusMod("worm", false);
-            result.AddAbilities(StatusEffectWorms.ability);
-
-            return result;
-        }
-        private CardModificationInfo GetWormDecalMod()
-        {
-            CardModificationInfo decal = StatusEffectManager.StatusMod("worm_decal", false);
-            decal.DecalIds.Add($"decalWorms_0");
-            return decal;
-        }
-
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
             if (source != null)
@@ -49,12 +35,14 @@ namespace WhistleWind.AbnormalSigils
         }
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
+            int extraStacks = Mathf.Max(0, base.Card.GetAbilityStacks(ability) - 1);
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
 
             source.AddPermanentBehaviour<Worms>();
-            source.AddTemporaryMods(GetWormStatusMod(), GetWormDecalMod());
-            
+            Worms component = source.GetComponent<Worms>();
+            component.wormSeverity += extraStacks;
+            source.AddTemporaryMods(component.GetWormStatusMod(component.wormSeverity), component.GetWormDecalMod(component.wormSeverity));
             yield return new WaitForSeconds(0.55f);
             yield return base.LearnAbility();
         }

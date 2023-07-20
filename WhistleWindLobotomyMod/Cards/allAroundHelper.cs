@@ -12,16 +12,14 @@ namespace WhistleWindLobotomyMod
         private void Card_AllAroundHelper_T0541()
         {
             const string allAroundHelper = "allAroundHelper";
-            CardInfo helper = NewCard(
-                cardName: allAroundHelper, displayName: "All-Around Helper",
-                description: "A murderous machine originally built to do chores. It reminds me of someone I know.",
+            
+            NewCard(allAroundHelper, "All-Around Helper", "A murderous cleaning machine. Far nicer than a certain other...well, nevermind.",
                 attack: 1, health: 3, energy: 4)
                 .SetPortraits(allAroundHelper)
                 .AddAbilities(Ability.Strafe, Ability.SplitStrike)
                 .AddTribes(TribeMechanical)
-                .SetEvolveInfo("{0} 2.0");
-
-            CreateCard(helper, CardHelper.ChoiceType.Common, RiskLevel.He);
+                .SetDefaultEvolutionName($"All-Around Helper 2.0")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

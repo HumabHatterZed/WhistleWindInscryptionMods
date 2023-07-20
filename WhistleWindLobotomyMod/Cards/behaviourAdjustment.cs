@@ -15,16 +15,12 @@ namespace WhistleWindLobotomyMod
         {
             const string behaviourAdjustment = "behaviourAdjustment";
 
-            CardInfo behaviour = NewCard(
-                behaviourAdjustment,
-                "Behaviour Adjustment",
-                "A device made to 'fix' errant beasts. Its idea of 'fixing' might not be yours, however.",
+            NewCard(behaviourAdjustment, "Behaviour Adjustment", "A device made to 'fix' errant beasts. Its idea of 'fixing' might not be yours, however.",
                 attack: 0, health: 1, blood: 3)
                 .SetPortraits(behaviourAdjustment)
                 .AddAbilities(Corrector.ability)
-                .AddTribes(TribeMechanical);
-
-            CreateCard(behaviour, CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .AddTribes(TribeMechanical)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

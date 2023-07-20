@@ -18,24 +18,19 @@ namespace WhistleWindLobotomyMod
             Trait[] traits = new[] { TraitEmeraldCity };
             SpecialTriggeredAbility[] specialAbilities = new[] { Cowardly.specialAbility };
 
-            CardInfo scaredyCatStrongCard = NewCard(
-                scaredyCatStrong,
-                catName,
+            NewCard(scaredyCatStrong, catName,
                 attack: 2, health: 6, blood: 2)
                 .SetPortraits(scaredyCatStrong)
                 .AddSpecialAbilities(specialAbilities)
-                .AddTraits(traits);
+                .AddTraits(traits)
+                .Build(cardType: ModCardType.Ruina);
 
-            CardInfo scaredyCatCard = NewCard(
-                scaredyCat,
-                catName,
+            NewCard(scaredyCat, catName,
                 attack: 0, health: 1, blood: 1)
                 .SetPortraits(scaredyCat)
                 .AddSpecialAbilities(specialAbilities)
-                .AddTraits(traits);
-
-            CreateCard(scaredyCatStrongCard, cardType: ModCardType.Ruina);
-            CreateCard(scaredyCatCard, cardType: ModCardType.Ruina);
+                .AddTraits(traits)
+                .Build(cardType: ModCardType.Ruina);
         }
     }
 }

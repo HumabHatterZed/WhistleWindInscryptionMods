@@ -22,7 +22,7 @@ namespace WhistleWind.AbnormalSigils
                 .SetPortraits(spiderBrood)
                 .AddTribes(tribes)
                 .AddAppearances(appearances)
-                .SetEvolveInfo("[name]Spider Buff"));
+                .SetDefaultEvolutionName("Spider Buff"));
 
             CreateCard(MakeCard(
                 cardName: spiderling,
@@ -32,6 +32,7 @@ namespace WhistleWind.AbnormalSigils
                 .AddAbilities(Ability.Evolve)
                 .AddTribes(tribes)
                 .AddAppearances(appearances)
+                .SetEvolve("wstl_spiderBrood", 1)
                 .SetAffectedByTidalLock());
         }
     }

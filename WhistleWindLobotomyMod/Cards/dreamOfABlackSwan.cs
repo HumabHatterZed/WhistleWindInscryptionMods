@@ -14,17 +14,13 @@ namespace WhistleWindLobotomyMod
         {
             const string dreamOfABlackSwan = "dreamOfABlackSwan";
 
-            CardInfo dreamOfABlackSwanCard = NewCard(
-                dreamOfABlackSwan,
-                "Dream of a Black Swan",
-                "Sister of six brothers. Tirelessly she worked to protect them, all for naught.",
+            NewCard(dreamOfABlackSwan, "Dream of a Black Swan", "Sister of six brothers. Tirelessly she worked to protect them, all for naught.",
                 attack: 2, health: 5, blood: 3)
                 .SetPortraits(dreamOfABlackSwan)
                 .AddAbilities(Nettles.ability)
                 .AddTribes(Tribe.Bird)
-                .SetEvolveInfo("[name]Dream of an Elder Swan");
-
-            CreateCard(dreamOfABlackSwanCard, CardHelper.ChoiceType.Rare, RiskLevel.Waw);
+                .SetDefaultEvolutionName("Dream of an Elder Swan")
+                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Waw);
         }
     }
 }

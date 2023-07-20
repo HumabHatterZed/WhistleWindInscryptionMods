@@ -95,16 +95,12 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Chesed()
         {
-            CardInfo chesedCard = NewCard(
-                "sephirahChesed",
-                "Chesed",
-                "Nothing like a fresh cup of coffee to start your day.",
+            NewCard("sephirahChesed", "Chesed", "Nothing like a fresh cup of coffee to start your day.",
                 attack: 0, health: 4, blood: 1)
                 .AddAbilities(Healer.ability, ThickSkin.ability)
                 .AddTraits(TraitSephirah)
-                .SetOnePerDeck();
-
-            CreateCard(chesedCard);
+                .SetOnePerDeck()
+                .Build();
         }
     }
 }

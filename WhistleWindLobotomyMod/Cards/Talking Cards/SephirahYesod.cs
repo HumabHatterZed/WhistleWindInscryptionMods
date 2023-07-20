@@ -82,16 +82,12 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_Yesod() => TalkingCardYesod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardYesod>("Yesod").Id;
         private void Card_Yesod()
         {
-            CardInfo yesodCard = NewCard(
-                "sephirahYesod",
-                "Yesod",
-                "The head of the Information Department. Incompetence will not be tolerated.",
+            NewCard("sephirahYesod", "Yesod", "The head of the Information Department. Incompetence will not be tolerated.",
                 attack: 0, health: 1, blood: 2)
                 .AddAbilities(Ability.Tutor, Corrector.ability)
                 .AddTraits(TraitSephirah)
-                .SetOnePerDeck();
-
-            CreateCard(yesodCard);
+                .SetOnePerDeck()
+                .Build();
         }
     }
 }

@@ -35,6 +35,8 @@ namespace WhistleWindLobotomyMod.Patches
 
                 if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
                     LobotomyConfigManager.Instance.SetBlessings(0);
+
+                LobotomySaveManager.TriggeredWhiteNightThisBattle = false;
             }
 
             LobotomySaveManager.BoardEffectsApocalypse = false;

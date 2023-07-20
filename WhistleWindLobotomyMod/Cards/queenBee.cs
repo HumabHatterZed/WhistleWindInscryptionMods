@@ -14,16 +14,12 @@ namespace WhistleWindLobotomyMod
         {
             const string queenBee = "queenBee";
 
-            CardInfo queenBeeCard = NewCard(
-                queenBee,
-                "Queen Bee",
-                "A monstrous amalgam of a hive and a bee.",
+            NewCard(queenBee, "Queen Bee", "A monstrous amalgam of a hive and a bee.",
                 attack: 0, health: 4, blood: 2)
                 .SetPortraits(queenBee)
                 .AddAbilities(QueenNest.ability)
-                .AddTribes(Tribe.Insect);
-
-            CreateCard(queenBeeCard, CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .AddTribes(Tribe.Insect)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

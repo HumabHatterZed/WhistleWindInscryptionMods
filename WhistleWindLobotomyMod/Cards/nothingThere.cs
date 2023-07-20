@@ -21,48 +21,41 @@ namespace WhistleWindLobotomyMod
             Ability[] abilities = new[] { Ability.Evolve };
 
             CardInfo nothingThereFinalCard = NewCard(
-                nothingThereFinal,
-                nothingName,
+                nothingThereFinal, nothingName,
                 attack: 9, health: 9, blood: 4)
                 .SetPortraits(nothingThereFinal)
                 .AddAbilities(Piercing.ability, ThickSkin.ability, ThickSkin.ability)
-                .SetEvolveInfo("{0}")
-                .SetOnePerDeck();
+                .SetDefaultEvolutionName(nothingName)
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
 
             CardInfo nothingThereEggCard = NewCard(
-                nothingThereEgg,
-                "An Egg",
+                nothingThereEgg, "An Egg",
                 attack: 0, health: 3, blood: 2)
                 .SetPortraits(nothingThereEgg)
                 .AddAbilities(abilities)
-                .SetEvolveInfo("wstl_nothingThereFinal")
-                .SetOnePerDeck();
+                .SetEvolve(nothingThereFinalCard, 1)
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
 
-            CardInfo nothingThereTrueCard = NewCard(
-                nothingThereTrue,
-                nothingName,
+            NewCard(
+                nothingThereTrue, nothingName,
                 attack: 3, health: 3, blood: 2)
                 .SetPortraits(nothingThereTrue)
                 .AddAbilities(abilities)
                 .AddTribes(Tribe.Canine, Tribe.Hooved, Tribe.Reptile)
-                .SetEvolveInfo("wstl_nothingThereEgg")
-                .SetOnePerDeck();
+                .SetEvolve(nothingThereEggCard, 1)
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
 
-            CardInfo nothingThereCard = NewCard(
-                nothingThere,
-                "Yumi",
-                "I don't remember this challenger...",
+            NewCard(nothingThere, "Yumi", "I don't remember this challenger...",
                 attack: 1, health: 1, blood: 2)
                 .SetPortraits(nothingThere)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(Mimicry.specialAbility)
                 .AddTraits(Trait.DeathcardCreationNonOption)
-                .SetOnePerDeck();
-
-            CreateCard(nothingThereFinalCard, CardHelper.ChoiceType.Rare, nonChoice: true);
-            CreateCard(nothingThereEggCard, CardHelper.ChoiceType.Rare, nonChoice: true);
-            CreateCard(nothingThereTrueCard, CardHelper.ChoiceType.Rare, nonChoice: true);
-            CreateCard(nothingThereCard, CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
         }
     }
 }

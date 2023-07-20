@@ -14,16 +14,12 @@ namespace WhistleWindLobotomyMod
         {
             const string spiderBud = "spiderBud";
 
-            CardInfo spiderBudCard = NewCard(
-                spiderBud,
-                "Spider Bud",
-                "A grotesque mother of spiders. Its children are small but grow quickly.",
-                attack: 0, health: 2, bones: 3)
+            NewCard(spiderBud, "Spider Bud", "A grotesque mother of spiders. Its children are small but grow quickly.",
+                attack: 0, health: 2, bones: 4)
                 .SetPortraits(spiderBud)
                 .AddAbilities(BroodMother.ability)
-                .AddTribes(Tribe.Insect);
-
-            CreateCard(spiderBudCard, CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .AddTribes(Tribe.Insect)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

@@ -14,24 +14,22 @@ namespace WhistleWindLobotomyMod
         {
             SpecialTriggeredAbility[] specialAbilities = new[] { DragonHead.specialAbility };
 
-            CardInfo yinYangHeadCard = NewCard(
-                "yinYangHead")
+            NewCard("yinYangHead")
                 .AddSpecialAbilities(specialAbilities)
                 .AddAppearances(DragonHeadBackground.appearance)
-                .SetHideStats();
+                .SetHideStats()
+                .Build();
 
-            CardInfo yinYangHornsCard = NewCard(
-                "yinYangHorns")
+            NewCard("yinYangHorns")
                 .AddSpecialAbilities(specialAbilities)
                 .AddAppearances(DragonHornsBackground.appearance)
-                .SetHideStats();
+                .SetHideStats()
+                .Build();
 
-            CardInfo yinYangBodyCard = NewCard(
-                "yinYangBody")
+            NewCard("yinYangBody")
                 .AddAppearances(DragonBodyBackground.appearance)
-                .SetHideStats();
-
-            CreateCards(yinYangHeadCard, yinYangHornsCard, yinYangBodyCard);
+                .SetHideStats()
+                .Build();
         }
     }
 }

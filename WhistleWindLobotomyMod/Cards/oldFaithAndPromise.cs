@@ -15,17 +15,13 @@ namespace WhistleWindLobotomyMod
         {
             const string oldFaithAndPromise = "oldFaithAndPromise";
 
-            CardInfo oldFaithAndPromiseCard = NewCard(
-                oldFaithAndPromise,
-                "Old Faith and Promise",
-                "A mysterious marble. Use it without desire or expectation and you may be rewarded.",
+            NewCard(oldFaithAndPromise, "Old Faith and Promise", "A mysterious marble. Use it without desire or expectation and you may be rewarded.",
                 attack: 0, health: 1, energy: 3)
                 .SetPortraits(oldFaithAndPromise)
                 .AddAbilities(Alchemist.ability)
                 .AddTribes(TribeMechanical)
-                .SetEvolveInfo("[name]Older Faith and Promise");
-
-            CreateCard(oldFaithAndPromiseCard, CardHelper.ChoiceType.Common, RiskLevel.Zayin);
+                .SetDefaultEvolutionName("Elder Faith and Promise")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
     }
 }

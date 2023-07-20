@@ -15,16 +15,12 @@ namespace WhistleWindLobotomyMod
         {
             const string theresia = "theresia";
 
-            CardInfo theresiaCard = NewCard(
-                theresia,
-                "Theresia",
-                "An old music box. It plays a familiar melody.",
+            NewCard(theresia, "Theresia", "An old music box. It plays a familiar melody.",
                 attack: 0, health: 2, energy: 2)
                 .SetPortraits(theresia)
                 .AddAbilities(Healer.ability)
-                .AddTribes(TribeMechanical);
-
-            CreateCard(theresiaCard, CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .AddTribes(TribeMechanical)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

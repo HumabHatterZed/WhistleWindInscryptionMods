@@ -14,16 +14,12 @@ namespace WhistleWindLobotomyMod
         {
             const string happyTeddyBear = "happyTeddyBear";
 
-            CardInfo happyTeddyBearCard = NewCard(
-                happyTeddyBear,
-                "Happy Teddy Bear",
-                "A discarded stuffed bear. Its memories began with a warm hug.",
+            NewCard(happyTeddyBear, "Happy Teddy Bear", "A discarded stuffed bear. Its memories began with a warm hug.",
                 attack: 1, health: 5, bones: 6, temple: CardTemple.Undead)
                 .SetPortraits(happyTeddyBear)
                 .AddAbilities(Ability.GuardDog)
-                .SetEvolveInfo("Big, {0}");
-
-            CreateCard(happyTeddyBearCard, CardHelper.ChoiceType.Common, RiskLevel.He);
+                .SetDefaultEvolutionName("Big, Happy Teddy Bear")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }
