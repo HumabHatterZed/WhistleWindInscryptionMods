@@ -25,7 +25,7 @@ Testing and Feedback:
 \*Modular means that the sigil can be found on Totem bases.
 
 |NAME|MODULAR|STACKABLE|POWERLEVEL|DESCRIPTION|
-|:-|:-:|:-:|:--|
+|:-|:-:|:-:|:-:|:--|
 |Punisher			|X	|X	|4	|When a card bearing this sigil is struck, the striker is killed.|
 |Bloodfiend			|✓	|✓	|3	|When this card deals damage, it gains 1 Health.|
 |Martyr				|✓	|✓	|1	|When a card bearing this sigil dies, all allied creatures gain 2 Health.|
