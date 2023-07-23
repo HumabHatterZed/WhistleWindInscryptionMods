@@ -6,9 +6,11 @@
 		<Description>A mod for Inscryption adding sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina.</Description>
 		<Version>1.0.0</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<LangVersion>9.0</LangVersion>
+    <LangVersion>latest</LangVersion>
+    <DebugType>full</DebugType>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
 	</PropertyGroup>
 
   <ItemGroup>
@@ -49,7 +51,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /Y $(ProjectDir)\..\lib\*.dll $(TargetDir)" />
+    <Exec Command="xcopy /Y ..\lib\*.dll $(TargetDir)" />
     <Exec Command="$(PkgILRepack)\tools\ILRepack /out:..\Compiled\$(ProjectName).dll $(TargetPath) ../Compiled/WhistleWind.Core.dll /lib:$(TargetDir)" />
     <Copy Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Inscryption\')" SourceFiles="..\Compiled\$(ProjectName).dll" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Inscryption\BepInEx\plugins\" />
   </Target>
