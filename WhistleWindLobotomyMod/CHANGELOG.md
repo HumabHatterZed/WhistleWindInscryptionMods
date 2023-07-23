@@ -1,9 +1,9 @@
+# Plugin GUID: whistlewind.inscryption.lobotomycorp
+
 <details>
 <summary>View Changelog</summary>
 
-# Plugin GUID: whistlewind.inscryption.lobotomycorp
-
-## v2.0.0 - The One Perfect Book (?/?/2023)
+## v2.0.0 - The One Perfect Book (7/22/2023)
 Note that in the future, updates and changes to modded sigils will be found in the Abnormal Sigils changelog.
 
 ### 🧱 Structural

@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         {
             string rulebookDescription = "When [creature] is sacrificed, give its stats to the sacrificing card then scramble the card's stats.";
             if (SpellAPI.Enabled)
-                rulebookDescription += " Works with spells.";
+                rulebookDescription += " For Spells: On target selected.";
 
             const string rulebookName = "Scrambler";
             const string dialogue = "Do you love your city?";

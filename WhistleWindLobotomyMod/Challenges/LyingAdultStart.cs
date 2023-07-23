@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 LobotomyPlugin.pluginGuid,
                 "Start with a Liar",
                 "Start your run with Adult Who Tells Lies in your deck.",
-                -20,
+                -15,
                 TextureLoader.LoadTextureFromFile("ascensionLiarStart"),
                 TextureLoader.LoadTextureFromFile("ascensionLiarStart_activated"), 0)
                 .SetCustomUnlock(dummy => LobotomySaveManager.UnlockedLyingAdult || LobotomyConfigManager.Instance.EventFlags)

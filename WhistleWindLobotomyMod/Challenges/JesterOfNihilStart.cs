@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 LobotomyPlugin.pluginGuid,
                 "Start with a Fool",
                 "Start your run with Jester of Nihil in your deck.",
-                -20,
+                -15,
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart"),
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart_activated"), 0)
                 .SetCustomUnlock(dummy => LobotomySaveManager.UnlockedJesterOfNihil || LobotomyConfigManager.Instance.EventFlags)

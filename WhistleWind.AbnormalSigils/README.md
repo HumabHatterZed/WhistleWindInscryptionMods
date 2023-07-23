@@ -8,10 +8,6 @@ Also includes:
 - 4 custom CardMetaCategories
 - 3 custom CardAppearanceBehaviours
 
-## ⚙️ Dependencies
-* BepInEx-BepInExPack_Inscryption v5.4.1902
-* API_dev-API v2.14.2
-
 ## 🔗 Compatibility
 
 ### Tribal Libary (sic)

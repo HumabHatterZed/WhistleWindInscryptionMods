@@ -249,9 +249,9 @@ You'll need to play around in order to figure out what cards have the special an
 |Abnormal Bosses	|20		|Bosses will only play abnormality cards.						|
 |Miracle Worker		|12		|Leshy will play Plague Doctor against you. Beware the Clock.	|
 |Better Rare Chances|-10	|Rare cards are more likely to appear at abnormal choice nodes.	|
-|Start with a Beast |-20	|Start your run with Apocalypse Bird in your deck.				|
-|Start with a Fool  |-20	|Start your run with Jester of Nihil in your deck.				|
-|Start with a Liar  |-20	|Start your run with Adult Who Tells Lies in your deck.			|
+|Start with a Beast |-15	|Start your run with Apocalypse Bird in your deck.				|
+|Start with a Fool  |-15	|Start your run with Jester of Nihil in your deck.				|
+|Start with a Liar  |-15	|Start your run with Adult Who Tells Lies in your deck.			|
 
 ## 🎰 Abnormality Card Choice Node
 This special node can be found randomly after battles, and draws exclusively from this mod's pool of cards.
