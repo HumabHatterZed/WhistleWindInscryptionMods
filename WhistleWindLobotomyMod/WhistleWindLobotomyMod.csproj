@@ -4,7 +4,7 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AssemblyName>WhistleWindLobotomyMod</AssemblyName>
 		<Description>A mod for Inscryption adding cards and sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina.</Description>
-		<Version>2.0.0</Version>
+		<Version>2.0.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <DebugType>full</DebugType>

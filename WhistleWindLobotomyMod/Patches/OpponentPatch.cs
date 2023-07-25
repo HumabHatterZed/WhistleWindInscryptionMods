@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod.Patches
         {
             // marks the card as using the opponent's blessings count
             if (card.Info.name == "wstl_plagueDoctor")
-                card.Info.Mods.Add(new() { singletonId = "wstl:MiracleWorkerChallenge" });
+                card.Info.Mods.Add(new() { singletonId = PlagueDoctorHelpers.ModSingletonId });
         }
         // Reset board effects for event cards and the Clock for WhiteNight
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.OutroSequence))]

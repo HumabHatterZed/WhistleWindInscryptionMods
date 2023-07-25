@@ -31,14 +31,16 @@ namespace WhistleWindLobotomyMod
                 attack: 0, health: 1, blood: 1)
                 .SetPortraits(bloodBath1)
                 .AddAbilities(abilities)
-                .AddSpecialAbilities(specialAbilities);
+                .AddSpecialAbilities(specialAbilities)
+                .Build();
 
             NewCard(bloodBath2, bathName,
                 attack: 0, health: 2, blood: 1)
                 .SetPortraits(bloodBath2)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(specialAbilities)
-                .SetStatIcon(SpecialStatIcon.SacrificesThisTurn);
+                .SetStatIcon(SpecialStatIcon.SacrificesThisTurn)
+                .Build();
 
             NewCard(bloodBath3, bathName,
                 attack: 1, health: 2, blood: 2)

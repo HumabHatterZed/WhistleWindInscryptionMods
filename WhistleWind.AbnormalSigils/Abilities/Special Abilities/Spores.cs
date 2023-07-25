@@ -3,47 +3,38 @@ using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using Steamworks;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
+using WhistleWind.AbnormalSigils.StatusEffects;
 
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
-    public class Spores : SpecialCardBehaviour
+    public class Spores : StatusEffectBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-        public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Spores";
-        public static readonly string rDesc = "At the start of its owner's turn, this card takes damage equal to its Spores. Upon dying, create a Spore Mold Creature with stats equal to its Spores.";
+        public override string SingletonName => "spore";
 
-        public int spore = 1;
+        public override List<string> EffectDecalIds()
+        {
+            return new()
+            {
+                "decalSpore_" + Mathf.Min(2, effectCount - 1)
+            };
+        }
+
         public int turnPlayed = -1;
-
-        public CardModificationInfo GetSporeStatusMod()
-        {
-            CardModificationInfo sporeStatusMod = StatusEffectManager.StatusMod("spore", false);
-            for (int i = 0; i < spore; i++)
-                sporeStatusMod.AddAbilities(StatusEffectSpores.ability);
-
-            return sporeStatusMod;
-        }
-        public CardModificationInfo GetSporeDecalMod()
-        {
-            CardModificationInfo sporeDecalMod = StatusEffectManager.StatusMod("spore_decal", false);
-            sporeDecalMod.DecalIds.Add($"decalSpore_{Mathf.Min(2, spore - 1)}");
-            return sporeDecalMod;
-        }
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard && base.PlayableCard.OpponentCard != playerUpkeep;
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.PlayableCard && base.PlayableCard.OpponentCard != playerTurnEnd;
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && spore > 0;
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && effectCount > 0;
 
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             yield return HelperMethods.ChangeCurrentView(View.Board);
-            yield return base.PlayableCard.TakeDamageTriggerless(spore, null);
+            yield return base.PlayableCard.TakeDamageTriggerless(effectCount, null);
             yield return new WaitForSeconds(0.4f);
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
@@ -57,12 +48,12 @@ namespace WhistleWind.AbnormalSigils
             if (newSpore == 0)
                 yield break;
 
-            spore += newSpore;
+            effectCount += newSpore;
             yield return HelperMethods.ChangeCurrentView(View.Board);
             base.PlayableCard.Anim.LightNegationEffect();
-            base.PlayableCard.AddTemporaryMod(GetSporeStatusMod());
-            if (spore <= 3)
-                base.PlayableCard.AddTemporaryMod(GetSporeDecalMod());
+            base.PlayableCard.AddTemporaryMod(GetEffectCountMod());
+            if (effectCount <= 3)
+                base.PlayableCard.AddTemporaryMod(GetEffectDecalMod());
 
             yield return new WaitForSeconds(0.2f);
         }
@@ -72,7 +63,7 @@ namespace WhistleWind.AbnormalSigils
                 yield break;
 
             CardInfo minion = CardLoader.GetCardByName("wstl_theLittlePrinceMinion");
-            CardModificationInfo stats = new(spore, spore)
+            CardModificationInfo stats = new(effectCount, effectCount)
             {
                 bloodCostAdjustment = base.PlayableCard.Info.BloodCost,
                 bonesCostAdjustment = base.PlayableCard.Info.BonesCost,
@@ -112,10 +103,14 @@ namespace WhistleWind.AbnormalSigils
     {
         private void StatusEffect_Spores()
         {
-            StatusEffectManager.StatusEffect<StatusEffectSpores, Spores>(
-                ref StatusEffectSpores.ability, ref Spores.specialAbility,
-                pluginGuid, "sigilSpores", Spores.rName, Spores.rDesc,
-                false, StatusEffectManager.IconColour.Green, StatusEffectManager.Part1StatusEffect);
+            const string rName = "Spores";
+            const string rDesc = "At the start of its owner's turn, this card takes damage equal to its Spores. Upon dying, create a Spore Mold Creature with stats equal to its Spores.";
+            
+            Spores.specialAbility = StatusEffectManager.NewStatusEffect<Spores>(
+                pluginGuid, rName, rDesc,
+                iconTexture: "sigilSpores", pixelIconTexture: "sigilSpores_pixel",
+                powerLevel: -2, iconColour: GameColors.Instance.darkBlue,
+                categories: new() { StatusEffectManager.StatusMetaCategory.Part1StatusEffect }).Item1;
         }
     }
 }

@@ -101,6 +101,9 @@ namespace WhistleWindLobotomyMod
             CreateDialogueEvents("NothingThereTransformTrue", new() {
                 "What is it doing?"
                 });
+            CreateDialogueEvents("PlagueDoctorBless", new() {
+                "The hands of the Clock move towards salvation."
+                });
             CreateDialogueEvents("QueenOfHatredExhaust", new() {
                 "A formidable attack. Shame it has left her too tired to defend herself."
                 });

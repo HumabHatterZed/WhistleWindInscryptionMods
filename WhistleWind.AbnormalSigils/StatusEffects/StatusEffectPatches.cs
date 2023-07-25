@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.StatusEffects;
 
 namespace WhistleWind.AbnormalSigils.Core
 {
@@ -59,23 +60,7 @@ namespace WhistleWind.AbnormalSigils.Core
             for (int i = 0; i < componentsInChildren.Length; i++)
             {
                 Material mat = new(controller.statusEffectMat);
-                StatusEffectManager.IconColour iconColour = (StatusEffectManager.IconColour)(distinct[i].GetExtendedPropertyAsInt("wstl:StatusEffect") ?? 0);
-
-                if (iconColour != 0)
-                {
-                    switch (iconColour)
-                    {
-                        case StatusEffectManager.IconColour.Red:
-                            mat.color = GameColors.Instance.red;
-                            break;
-                        case StatusEffectManager.IconColour.Green:
-                            mat.color = SaveManager.SaveFile.IsPart1 ? GameColors.Instance.darkBlue : GameColors.Instance.darkLimeGreen;
-                            break;
-                        case StatusEffectManager.IconColour.Brown:
-                            mat.color = GameColors.Instance.brown;
-                            break;
-                    };
-                }
+                mat.color = StatusEffectManager.AllIconColours[distinct[i]];
                 componentsInChildren[i].gameObject.SetActive(true);
                 componentsInChildren[i].SetMaterial(mat);
                 componentsInChildren[i].AssignAbility(distinct[i], playableCard.Info, playableCard);
@@ -86,7 +71,7 @@ namespace WhistleWind.AbnormalSigils.Core
         public static List<Ability> GetDistinctStatusEffects(PlayableCard card)
         {
             List<Ability> abilities = AbilitiesUtil.GetAbilitiesFromMods(card?.TemporaryMods ?? new());
-            abilities.RemoveAll(x => string.IsNullOrEmpty(x.GetExtendedProperty("wstl:StatusEffect")));
+            abilities.RemoveAll(x => !StatusEffectManager.AllIconColours.ContainsKey(x));
 
             if (abilities.Count == 0)
                 return null;

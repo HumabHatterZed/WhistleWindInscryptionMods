@@ -62,8 +62,8 @@ namespace WhistleWind.AbnormalSigils
             card.AddPermanentBehaviour<Spores>();
             Spores component = card.GetComponent<Spores>();
             component.turnPlayed = Singleton<TurnManager>.Instance.TurnNumber;
-            component.spore += extraStacks;
-            card.AddTemporaryMods(component.GetSporeStatusMod(), component.GetSporeDecalMod());
+            component.effectCount += extraStacks;
+            card.AddTemporaryMods(component.GetEffectCountMod(), component.GetEffectDecalMod());
             yield return new WaitForSeconds(0.1f);
         }
     }

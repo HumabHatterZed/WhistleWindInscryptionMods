@@ -3,6 +3,15 @@
 <details>
 <summary>View Changelog</summary>
 
+## v2.0.1 - Minor patch (7/25/2023)
+### 🩹 Bug fixes
+- Fixed Bloodbath evolutions not being correctly added to the game
+- Fixed softlock when a card with a Totem-given Fledgling sigil evolves
+### 🔧 Tweaks
+- Increased point count of Miracle Worker challenge (12 --> 60) to better indicate its difficulty
+### ➕ Additions
+- Added dialogue to help indicate when Bless special ability has activated
+
 ## v2.0.0 - The One Perfect Book (7/22/2023)
 Note that in the future, updates and changes to modded sigils will be found in the Abnormal Sigils changelog.
 

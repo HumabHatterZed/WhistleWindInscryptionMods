@@ -106,8 +106,6 @@ This mod uses a custom type of abilities known as status effects.
 These are special abilities that use a dummy ability's icon to display and keep track of the status's count.
 This mod has 2 status effects: Worms and Spores (see below), and cards will show up to 5 at a time, based on their priority and count.
 
-This system is **highly** obtuse and experimental so changes in how they work are near-guaranteed to happen in the future; I don't recommend creating them yourself at this juncture, but if you want to you can use the StatusEffect() method to create one.
-
 - Worms - At the start of the owner's turn, this card gains 1 Worms. At 5+ Worms, attack allied creatures instead with a chance to give 1 Worms to struck cards.
 - Spores - At the start of its owner's turn, this card takes damage equal to its Spores. Upon dying, create a Spore Mold Creature with stats equal to its Spores.
 

@@ -3,6 +3,10 @@
 <details>
 <summary>View Changelog</summary>
 
+## v1.0.1 - Status Effect Refactor (7/23/2023)
+- Refactored how Status Effects are internally created
+- Fixed the ReadMe
+
 ## v1.0.0 - Initial release (7/22/2023)
 ### ➕ Additions
     - Moved the following abilities from WhistleWind's Lobotomy Mod:

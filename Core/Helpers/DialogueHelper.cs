@@ -33,6 +33,14 @@ namespace WhistleWind.Core.Helpers
             }
         }
 
+        public static IEnumerator PlayAlternateDialogue(params string[] dialogue)
+        {
+            foreach (string s in dialogue)
+            {
+                yield return ShowUntilInput(s, Emotion.Neutral, DialogueEvent.Speaker.Leshy, style: TextBox.Style.Nature, screenPosition: TextBox.ScreenPosition.ForceBottom, delay: 0.2f);
+            }
+        }
+
         public static IEnumerator PlayAlternateDialogue(
             Emotion emotion = Emotion.Neutral,
             DialogueEvent.Speaker speaker = DialogueEvent.Speaker.Leshy,

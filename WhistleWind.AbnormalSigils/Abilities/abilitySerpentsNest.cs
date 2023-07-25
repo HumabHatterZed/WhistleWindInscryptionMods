@@ -41,8 +41,8 @@ namespace WhistleWind.AbnormalSigils
 
             source.AddPermanentBehaviour<Worms>();
             Worms component = source.GetComponent<Worms>();
-            component.wormSeverity += extraStacks;
-            source.AddTemporaryMods(component.GetWormStatusMod(component.wormSeverity), component.GetWormDecalMod(component.wormSeverity));
+            component.effectCount += extraStacks;
+            source.AddTemporaryMods(component.GetEffectDecalMod(), component.GetEffectDecalMod());
             yield return new WaitForSeconds(0.55f);
             yield return base.LearnAbility();
         }

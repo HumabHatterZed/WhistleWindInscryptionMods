@@ -6,46 +6,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
-
+using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
-    public class Worms : SpecialCardBehaviour, IGetOpposingSlots
+    public class Worms : StatusEffectBehaviour, IGetOpposingSlots
     {
         public static SpecialTriggeredAbility specialAbility;
+        public override string SingletonName => "worm";
 
-        public static readonly string rName = "Worms";
-        public static readonly string rDesc = "At the start of the owner's turn, this card gains 1 Worms. At 5+ Worms, attack allied creatures instead with a chance to give 1 Worms to struck cards.";
-
-        public int wormSeverity = 1;
         private bool accountForInitialHit = true;
         private bool hasEvolved = false;
-        private bool Infested => wormSeverity >= 5;
-        public CardModificationInfo GetWormStatusMod(int severity)
-        {
-            CardModificationInfo result = StatusEffectManager.StatusMod("worm", false);
-            for (int i = 0; i < severity; i++)
-                result.AddAbilities(StatusEffectWorms.ability);
+        public bool Infested => effectCount >= 5;
 
-            return result;
-        }
-        public CardModificationInfo GetWormDecalMod(int severity)
+        public override List<string> EffectDecalIds()
         {
-            CardModificationInfo decal = StatusEffectManager.StatusMod("worm_decal", false);
-            decal.DecalIds.Add($"decalWorms_{Mathf.Min(2, severity - 1)}");
-            return decal;
+            return new()
+            {
+                "decalWorms_" + Mathf.Min(2, effectCount - 1)
+            };
         }
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && target != null;
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
-        private void UpdateWorms()
+        public void UpdateWorms()
         {
-            wormSeverity++;
-            base.PlayableCard.AddTemporaryMod(GetWormStatusMod(wormSeverity));
+            effectCount++;
+            base.PlayableCard.AddTemporaryMod(GetEffectCountMod());
 
             // update the decal if the image has changed
-            if (wormSeverity <= 3)
-                base.PlayableCard.AddTemporaryMod(GetWormDecalMod(wormSeverity));
+            if (effectCount <= 3)
+                base.PlayableCard.AddTemporaryMod(GetEffectDecalMod());
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
@@ -81,23 +72,17 @@ namespace WhistleWind.AbnormalSigils
 
             if (Infested && target.LacksTrait(AbnormalPlugin.NakedSerpent))
             {
-                if (SeededRandom.Value(base.GetRandomSeed()) <= (wormSeverity - 2) * .1f)
+                if (SeededRandom.Value(base.GetRandomSeed()) <= (effectCount - 2) * .1f)
                 {
                     if (target.LacksSpecialAbility(Worms.specialAbility))
                     {
-                        CardModificationInfo newWormStatusMod = GetWormStatusMod(1);
-                        CardModificationInfo newWormDecalMod = GetWormDecalMod(1);
-
                         target.AddPermanentBehaviour<Worms>();
-                        target.AddTemporaryMods(newWormStatusMod, newWormDecalMod);
+                        target.AddTemporaryMods(GetEffectCountMod(), GetEffectDecalMod());
                     }
                     else
                     {
                         var component = target.GetComponent<Worms>();
-                        component.wormSeverity++;
-                        target.AddTemporaryMod(GetWormStatusMod(component.wormSeverity));
-                        if (component.wormSeverity <= 3)
-                            target.AddTemporaryMod(GetWormDecalMod(component.wormSeverity));
+                        component.UpdateWorms();
                     }
                 }
             }
@@ -129,10 +114,14 @@ namespace WhistleWind.AbnormalSigils
     {
         private void StatusEffect_Worms()
         {
-            StatusEffectManager.StatusEffect<StatusEffectWorms, Worms>(
-                ref StatusEffectWorms.ability, ref Worms.specialAbility,
-                pluginGuid, "sigilWorms", Worms.rName, Worms.rDesc,
-                false, StatusEffectManager.IconColour.Brown, StatusEffectManager.Part1StatusEffect);
+            const string rName = "Worms";
+            const string rDesc = "At the start of the owner's turn, this card gains 1 Worms. At 5+ Worms, attack allied creatures instead with a chance to give 1 Worms to struck cards.";
+
+            Worms.specialAbility = StatusEffectManager.NewStatusEffect<Worms>(
+                pluginGuid, rName, rDesc,
+                iconTexture: "sigilWorms", pixelIconTexture: "sigilWorms_pixel",
+                powerLevel: -3, iconColour: GameColors.Instance.brown,
+                categories: new() { StatusEffectManager.StatusMetaCategory.Part1StatusEffect }).Item1;
         }
     }
 }

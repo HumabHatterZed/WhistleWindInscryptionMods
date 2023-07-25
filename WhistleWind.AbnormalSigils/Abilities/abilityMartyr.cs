@@ -9,7 +9,7 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.AbnormalSigils.StatusEffects;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -49,19 +49,11 @@ namespace WhistleWind.AbnormalSigils
                 // get all temp mods relating to negative status effects
                 List<CardModificationInfo> negativeAbilities = slot.Card.TemporaryMods.FindAll(x => x.IsStatusMod(false));
 
-                // remove all special abilities relating to negative status effects
-                SpecialCardBehaviour[] components = slot.Card.GetComponents<SpecialCardBehaviour>();
-                foreach (SpecialCardBehaviour component in components)
-                {
-                    foreach (var effect in StatusEffectManager.StatusEffects[false])
-                    {
-                        if (component.GetType() == effect.Key.AbilityBehaviour)
-                        {
-                            Destroy(component);
-                            break;
-                        }
-                    }
-                }
+                // remove all negative effects
+                List<StatusEffectBehaviour> negativeEffects = slot.Card.GetStatusEffects(false);
+
+                for (int i = 0; i < negativeEffects.Count; i++)
+                    Destroy(negativeEffects[i]);
 
                 slot.Card.Anim.LightNegationEffect();
                 slot.Card.HealDamage(2);

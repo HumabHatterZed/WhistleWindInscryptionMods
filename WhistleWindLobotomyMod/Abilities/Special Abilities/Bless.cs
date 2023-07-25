@@ -29,16 +29,30 @@ namespace WhistleWindLobotomyMod
             if (LobotomyConfigManager.Instance.NoEvents || LobotomySaveManager.TriggeredWhiteNightThisBattle)
                 yield break;
 
-            if (base.PlayableCard.Info.Mods.Exists(x => x.singletonId == "wstl:MiracleWorkerChallenge"))
-                LobotomySaveManager.OpponentBlessings++;
-            else
-                LobotomyConfigManager.Instance.UpdateBlessings(1);
+            PlagueDoctorHelpers.UpdateBlessings(base.PlayableCard, 1);
+
+            yield return HelperMethods.ChangeCurrentView(View.Board);
 
             base.PlayableCard.Anim.LightNegationEffect();
             base.PlayableCard.ClearAppearanceBehaviours();
             base.PlayableCard.ApplyAppearanceBehaviours(base.PlayableCard.Info.appearanceBehaviour);
             base.PlayableCard.RenderCard();
             yield return new WaitForSeconds(0.2f);
+
+            int blessings = PlagueDoctorHelpers.Blessings(base.PlayableCard);
+
+            // play hint dialogue if it hasn't been yet, or if this is the first run since it triggered
+            if (!DialogueEventsData.EventIsPlayed("PlagueDoctorBless"))
+                DialogueHelper.PlayDialogueEvent("PlagueDoctorBless", card: base.PlayableCard);
+
+            else if (!LobotomySaveManager.TriggeredWhiteNightThisRun && blessings == 0)
+                DialogueHelper.PlayAlternateDialogue("The hands of the Clock move towards salvation.");
+
+            else if (blessings == 9)
+                DialogueHelper.PlayAlternateDialogue("[c:bR]When the day comes, find me.[c:]");
+
+            else if (blessings == 10)
+                DialogueHelper.PlayAlternateDialogue("[c:bR]I will save your life from destruction and raise you from the end of the world.[c:]");
         }
         public override IEnumerator TriggerClock() => CheckTheClock();
 
@@ -46,9 +60,8 @@ namespace WhistleWindLobotomyMod
         {
             if (LobotomyConfigManager.Instance.NoEvents || LobotomySaveManager.TriggeredWhiteNightThisBattle)
                 yield break;
-            
-            int blessings = base.Card.Info.Mods.Exists(x => x.singletonId == "wstl:MiracleWorkerChallenge") ?
-                LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.Instance.NumOfBlessings;
+
+            int blessings = PlagueDoctorHelpers.Blessings(base.PlayableCard);
 
             LobotomyPlugin.Log.LogDebug("Checking the Clock");
             if (blessings >= 0 && blessings < 12)
@@ -248,5 +261,24 @@ namespace WhistleWindLobotomyMod
             => RulebookEntryBless.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryBless>(Bless.rName, Bless.rDesc).Id;
         private void SpecialAbility_Bless()
             => Bless.specialAbility = AbilityHelper.CreateSpecialAbility<Bless>(pluginGuid, Bless.rName).Id;
+    }
+
+    public class PlagueDoctorHelpers
+    {
+        public const string ModSingletonId = "wstl:MiracleWorkerChallenge";
+
+        public static int Blessings(PlayableCard card)
+        {
+            return card.Info.Mods.Exists(x => x.singletonId == ModSingletonId) ?
+                LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.Instance.NumOfBlessings;
+        }
+
+        public static void UpdateBlessings(PlayableCard card, int num)
+        {
+            if (card.Info.Mods.Exists(x => x.singletonId == ModSingletonId))
+                LobotomySaveManager.OpponentBlessings += num;
+            else
+                LobotomyConfigManager.Instance.UpdateBlessings(num);
+        }
     }
 }

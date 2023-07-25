@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 LobotomyPlugin.pluginGuid,
                 "Miracle Worker",
                 "Leshy will play Plague Doctor against you. Beware the Clock.",
-                12,
+                60,
                 TextureLoader.LoadTextureFromFile("ascensionMiracleWorker"),
                 TextureLoader.LoadTextureFromFile("ascensionMiracleWorker_activated")
                 ).Challenge.challengeType;
