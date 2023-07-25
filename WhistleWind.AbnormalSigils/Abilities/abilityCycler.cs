@@ -1,17 +1,14 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using Pixelplacement;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
-using static UnityEngine.GraphicsBuffer;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -20,11 +17,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Cycler()
         {
             const string rulebookName = "Cycler";
-            const string rulebookDescription = "At the end of the owner's turn, this card moves in the sigil's direction. Upon reaching the end of the board, move to the other side.";
+            const string rulebookDescription = "At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board.";
             const string dialogue = "A never-ending cycle.";
+            const string triggerText = "[creature] moves to a new space, going around its side of the board.";
             Cycler.ability = AbnormalAbilityHelper.CreateAbility<Cycler>(
-                Artwork.sigilCycler, Artwork.sigilCycler_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 1,
+                "sigilCycler",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
                 modular: true, opponent: true).Id;
         }
     }
@@ -38,7 +36,7 @@ namespace WhistleWind.AbnormalSigils
             if (base.Card.HasTrait(Trait.Giant)) // do nothing for giant cards
                 yield break;
 
-            List<CardSlot> allySlots = HelperMethods.GetSlotsCopy(base.Card.OpponentCard);
+            List<CardSlot> allySlots = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard);
             CardSlot oldSlot = base.Card.Slot;
 
             CardSlot destination;

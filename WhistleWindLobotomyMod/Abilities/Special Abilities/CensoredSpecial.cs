@@ -3,7 +3,6 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -13,15 +12,14 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "CENSORED";
-        public static readonly string rDesc = "Whenver CENSORED kills a card, create a CENSORED copy of it in your hand.";
+        public const string rName = "CENSORED";
+        public const string rDesc = "Whenver CENSORED kills a card, create a CENSORED in your hand with the killed card's Power, tribes, and sigils.";
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             if (fromCombat)
-            {
-                return killer == base.PlayableCard && killer.Info.name == "wstl_censored" && !card.LacksAllTraits(Trait.Terrain, Trait.Pelt);
-            }
+                return killer == base.PlayableCard && card.LacksAllTraits(Trait.Giant, Trait.Terrain, Trait.Pelt);
+
             return false;
         }
 
@@ -41,25 +39,20 @@ namespace WhistleWindLobotomyMod
 
             minion.Mods.Add(new(newAttack, 1));
 
-            foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
-            {
-                // Adds base sigils
+            // Add tribes
+            foreach (Tribe item in card.Info.tribes.FindAll((Tribe x) => x != Tribe.NUM_TRIBES))
+                minion.tribes.Add(item);
+
+            // Add base sigils
+            foreach (Ability item in card.Info.abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
                 minion.Mods.Add(new CardModificationInfo(item));
-            }
+
             foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
-                // Adds merged sigils
+                // Add merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                if (cardModificationInfo.healthAdjustment > 0)
-                {
-                    cardModificationInfo.healthAdjustment = 0;
-                }
+                cardModificationInfo.healthAdjustment = 0;
                 minion.Mods.Add(cardModificationInfo);
-            }
-            foreach (Tribe item in card.Info.tribes.FindAll((Tribe x) => x != Tribe.NUM_TRIBES))
-            {
-                // Adds tribes
-                minion.tribes.Add(item);
             }
 
             base.PlayableCard.Anim.StrongNegationEffect();
@@ -81,7 +74,7 @@ namespace WhistleWindLobotomyMod
             {
                 HelperMethods.QueueCreatedCard(minion);
             }
-            yield return DialogueEventsManager.PlayDialogueEvent("CENSOREDKilledCard");
+            yield return DialogueHelper.PlayDialogueEvent("CENSOREDKilledCard");
             yield return new WaitForSeconds(0.25f);
         }
     }
@@ -93,12 +86,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_CensoredSpecial()
-        {
-            RulebookEntryCensoredSpecial.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCensoredSpecial>(CensoredSpecial.rName, CensoredSpecial.rDesc).Id;
-        }
+            => RulebookEntryCensoredSpecial.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCensoredSpecial>(CensoredSpecial.rName, CensoredSpecial.rDesc).Id;
         private void SpecialAbility_CensoredSpecial()
-        {
-            CensoredSpecial.specialAbility = AbilityHelper.CreateSpecialAbility<CensoredSpecial>(pluginGuid, CensoredSpecial.rName).Id;
-        }
+            => CensoredSpecial.specialAbility = AbilityHelper.CreateSpecialAbility<CensoredSpecial>(pluginGuid, CensoredSpecial.rName).Id;
     }
 }

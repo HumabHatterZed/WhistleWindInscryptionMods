@@ -1,7 +1,10 @@
-﻿using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -9,15 +12,13 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_TrainingDummy_00000()
         {
-            CreateCard(
-                "wstl_trainingDummy", "Standard Training-Dummy Rabbit",
-                "A beast in the shape of a training dummy. The safest of these abnormal creatures.",
-                atk: 0, hp: 2,
-                blood: 0, bones: 0, energy: 1,
-                Artwork.trainingDummy, Artwork.trainingDummy_emission,
-                abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin);
+            const string trainingDummy = "trainingDummy";
+
+            NewCard(trainingDummy, "Standard Training-Dummy Rabbit", "A beast in the shape of a training dummy. The safest of these abnormal creatures.",
+                attack: 0, health: 2, energy: 1)
+                .SetPortraits(trainingDummy)
+                .AddTribes(TribeMechanical)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
     }
 }

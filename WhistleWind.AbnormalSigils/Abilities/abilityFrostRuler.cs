@@ -1,11 +1,9 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
 using System;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
 
@@ -16,11 +14,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FrostRuler()
         {
             const string rulebookName = "Ruler of Frost";
-            const string rulebookDescription = "Once per turn, pay 3 Bones to choose a space on the board. Create a Block of Ice if it is empty, or transform the chosen card into a Frozen Heart if this card can kill it.";
+            const string rulebookDescription = "Once per turn, pay 3 Bones to choose a space on the board. If the space is occupied by a killable card, transform it into a Frozen Heart. Otherwise create a Block of Ice.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
+            const string triggerText = "[creature] freezes the path.";
             FrostRuler.ability = AbnormalAbilityHelper.CreateActivatedAbility<FrostRuler>(
-                Artwork.sigilFrostRuler, Artwork.sigilFrostRuler_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4).Id;
+                "sigilFrostRuler",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4).Id;
         }
     }
 
@@ -46,7 +45,7 @@ namespace WhistleWind.AbnormalSigils
 
                 yield return SpawnCard(slot, "wstl_snowQueenIceHeart");
                 yield return new WaitForSeconds(0.5f);
-                yield return AbnormalDialogueManager.PlayDialogueEvent("FrostRulerKiss");
+                yield return DialogueHelper.PlayDialogueEvent("FrostRulerKiss");
             }
             else
                 yield return SpawnCard(slot, "wstl_snowQueenIceBlock");
@@ -60,9 +59,10 @@ namespace WhistleWind.AbnormalSigils
         }
         public override bool CardIsNotValid(PlayableCard card)
         {
-            // not valid if Health > 1 or has Burning or is uncuttable and isn't a mule card
-            return card.Health > base.Card.Attack || card.HasAbility(Burning.ability) ||
-                (card.LacksSpecialAbility(SpecialTriggeredAbility.PackMule) && card.HasTrait(Trait.Uncuttable));
+            if (card.HasAbility(Scorching.ability))
+                return false;
+
+            return card.Health > base.Card.Attack;
         }
 
         private IEnumerator SpawnCard(CardSlot slot, string name)

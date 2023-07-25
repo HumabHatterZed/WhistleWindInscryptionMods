@@ -1,6 +1,13 @@
 # Plugin GUID: whistlewind.inscryption.abnormalsigils
 
-## v1.0.0 - Initial release (?/?/202?)
+<details>
+<summary>View Changelog</summary>
+
+## v1.0.1 - Status Effect Refactor (7/23/2023)
+- Refactored how Status Effects are internally created
+- Fixed the ReadMe
+
+## v1.0.0 - Initial release (7/22/2023)
 ### ➕ Additions
     - Moved the following abilities from WhistleWind's Lobotomy Mod:
         - Punisher
@@ -27,7 +34,7 @@
         - Flag Bearer
         - Grinder
         - The Train
-        - Burning
+        - Scorching
         - Regenerator
         - Volatile
         - Gift Giver
@@ -40,24 +47,12 @@
         - Quick Draw
         - Alchemist
         - Nettle Clothes
-        - Fungal Infector
+        - Sporogenic
         - Witness
         - Corrector
-    - Added the following cards:
-        - Scaredy Cat
-        - Pumpkin Jack
     - Added the following abilities:
-        - Thick Skin
-        - One-Sided Strike
-        - Copycat
-        - Cat Lover
-        - Cowardly
-        - Neutered
-        - Neutered Latch
-        - Rightful Heir
-        - Greedy Healing
-        - False Throne
-        - Imbue Target
-        - Strengthen Target
-        - Empower Target
-        - Passing Time - stat icon
+        - Neutered, Neutered Latch, Return to Nihil, False Throne, Rightful Heir, Opportunistic, Cycler, Barreler, Follow the Leader, Persistent
+    - Added the following stat icons:
+        - Nihil, Passing Time, Sigil Power
+
+</details>

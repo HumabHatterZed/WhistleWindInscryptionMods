@@ -3,7 +3,7 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -12,13 +12,13 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_TeamLeader()
         {
             const string rulebookName = "Team Leader";
-            const string rulebookDescription = "While this card is on the board, all ally cards gain 1 Power.";
+            const string rulebookDescription = "While this card is on the board, all allied creatures gain 1 Power.";
             const string dialogue = "Your beast emboldens its allies.";
 
             TeamLeader.ability = AbnormalAbilityHelper.CreateAbility<TeamLeader>(
-                Artwork.sigilTeamLeader, Artwork.sigilTeamLeader_pixel,
+                "sigilTeamLeader",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                modular: false, opponent: true, canStack: false).Id;
+                modular: false, opponent: true, canStack: true).Id;
         }
     }
     public class TeamLeader : AbilityBehaviour, IPassiveAttackBuff

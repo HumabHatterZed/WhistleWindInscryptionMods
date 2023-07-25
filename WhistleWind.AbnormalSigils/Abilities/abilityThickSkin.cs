@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -10,13 +10,13 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_ThickSkin()
         {
             const string rulebookName = "Thick Skin";
-            const string rulebookDescription = "[creature] takes 1 less damage from attacks.";
+            const string rulebookDescription = "Whenever [creature] takes damage, reduce that damage by 1.";
             const string dialogue = "Your creature's hide absorbs the blow.";
-
+            const string triggerText = "[creature] absorbs the blow.";
             ThickSkin.ability = AbnormalAbilityHelper.CreateAbility<ThickSkin>(
-                Artwork.sigilThickSkin, Artwork.sigilThickSkin_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: true, opponent: true, canStack: true).Id;
+                "sigilThickSkin",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
+                modular: true, opponent: false, canStack: true).Id;
         }
     }
     public class ThickSkin : AbilityBehaviour

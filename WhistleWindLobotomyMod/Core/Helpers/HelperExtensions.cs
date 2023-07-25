@@ -4,8 +4,14 @@ using System.Collections.Generic;
 
 namespace WhistleWindLobotomyMod.Core.Helpers
 {
-    public static class LobotomyHelperExtensions
+    public static class LobotomyHelpers
     {
+        public static bool AllowInitiateCombat(bool initiate)
+        {
+            bool canInitiateCombat = TurnManager.Instance.PlayerCanInitiateCombat;
+            TurnManager.Instance.PlayerCanInitiateCombat = initiate;
+            return canInitiateCombat;
+        }
         /// <summary>
         /// Replaces the current blueprint with a custom blueprint.
         /// </summary>

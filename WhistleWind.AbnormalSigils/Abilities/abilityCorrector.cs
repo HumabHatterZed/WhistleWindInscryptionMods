@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -13,11 +13,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Corrector()
         {
             const string rulebookName = "Corrector";
-            const string rulebookDescription = "[creature] has its stats randomly changed according to its cost. Higher costs yield higher stats totals.";
+            const string rulebookDescription = "When [creature] is drawn, randomly change its stats according to its play cost. Higher costs yields higher stat totals.";
             const string dialogue = "How balanced.";
+            const string triggerText = "[creature] stats are forcefully corrected.";
             Corrector.ability = AbnormalAbilityHelper.CreateAbility<Corrector>(
-                Artwork.sigilCorrector, Artwork.sigilCorrector_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                "sigilCorrector",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: true, opponent: true, canStack: false).Id;
         }
     }
@@ -53,9 +54,9 @@ namespace WhistleWind.AbnormalSigils
             {
                 0 => 0,
                 1 => 4,
-                2 => 7,
-                3 => 11,
-                4 => 18,
+                2 => 8,
+                3 => 13,
+                4 => 20,
                 _ => base.Card.Info.BloodCost * 7
             };
             powerLevel += base.Card.Info.EnergyCost switch
@@ -71,29 +72,32 @@ namespace WhistleWind.AbnormalSigils
             };
             powerLevel += base.Card.Info.GemsCost.Count * 3;
 
-            // LifeCost, Forbidden Mox compatibility
-            powerLevel += base.Card.Info.GetExtendedPropertyAsInt("LifeCost") ?? 0;
+            // Life Cost, Forbidden Mox compatibility
+            powerLevel += (base.Card.Info.GetExtendedPropertyAsInt("LifeCost") ?? 0) * 2;
             powerLevel += base.Card.Info.GetExtendedPropertyAsInt("MoneyCost") ?? 0;
-            powerLevel += base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") ?? 0;
+            powerLevel += (base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") ?? 0) * 3;
             powerLevel += base.Card.Info.GetExtendedProperty("ForbiddenMoxCost") != null ? 3 : 0;
 
-            int[] stats = new[] { 0, 1 }; 
+            if (base.Card.Info.appearanceBehaviour.Contains(CardAppearanceBehaviour.Appearance.RareCardBackground) ||
+                base.Card.Info.HasCardMetaCategory(CardMetaCategory.Rare))
+                powerLevel += 2;
+
+            int[] stats = new[] { 0, 1 };
             int randomSeed = base.GetRandomSeed();
+
             while (powerLevel > 0)
             {
-                // If can afford 1 Power
-                if (powerLevel - 2 >= 0)
+                float num = SeededRandom.Value(randomSeed++);
+                if (num <= 0.33f && powerLevel >= 2)
                 {
-                    // Roll for 1 Power
-                    if (SeededRandom.Range(0, 3, randomSeed++) == 0)
-                    {
-                        stats[0]++;
-                        powerLevel -= 2;
-                        continue;
-                    }
+                    stats[0]++;
+                    powerLevel -= 2;
                 }
-                stats[1]++;
-                powerLevel--;
+                else
+                {
+                    stats[1]++;
+                    powerLevel--;
+                }
             }
             base.Card.AddTemporaryMod(new(stats[0] - base.Card.Attack, stats[1] - base.Card.Health));
         }

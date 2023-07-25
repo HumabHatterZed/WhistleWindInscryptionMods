@@ -1,11 +1,11 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Sigils;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using WhistleWindLobotomyMod.Core;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -13,22 +13,14 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_LuminousBracelet_O0995()
         {
-            List<Ability> abilities = new()
-            {
-                GreedyHealing.ability,
-                GiveSigils.AbilityID
-            };
+            const string luminousBracelet = "luminousBracelet";
 
-            CreateCard(
-                "wstl_luminousBracelet", "Luminous Bracelet",
-                "A bracelet that will heal those nearby. It does not forgive the greedy.",
-                atk: 0, hp: 0,
-                blood: 0, bones: 0, energy: 2,
-                Artwork.luminousBracelet, Artwork.luminousBracelet_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                spellType: SpellType.TargetedSigils);
+            NewCard(luminousBracelet, "Luminous Bracelet", "A bracelet that will heal those nearby. It does not forgive the greedy.",
+                attack: 0, health: 2, energy: 3, temple: CardTemple.Tech)
+                .SetPortraits(luminousBracelet)
+                .AddAbilities(GreedyHealing.ability, GiveStatsSigils.AbilityID)
+                .SetSpellType(SpellType.TargetedSigils)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

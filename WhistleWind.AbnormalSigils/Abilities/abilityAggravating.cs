@@ -3,7 +3,7 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -12,13 +12,13 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Aggravating()
         {
             const string rulebookName = "Aggravating";
-            const string rulebookDescription = "While this card is on the board, all opposing cards gain 1 Power.";
+            const string rulebookDescription = "While this card is on the board, all opposing creatures gain 1 Power.";
             const string dialogue = "My beasts are incensed by your creature's presence.";
 
             Aggravating.ability = AbnormalAbilityHelper.CreateAbility<Aggravating>(
-                Artwork.sigilAggravating, Artwork.sigilAggravating_pixel,
+                "sigilAggravating",
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: true).Id;
         }
     }
     public class Aggravating : AbilityBehaviour, IPassiveAttackBuff

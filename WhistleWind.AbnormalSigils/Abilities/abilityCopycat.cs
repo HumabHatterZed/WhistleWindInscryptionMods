@@ -1,11 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -15,12 +13,13 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Copycat()
         {
             const string rulebookName = "Copycat";
-            const string rulebookDescription = "When [creature] is played, become a copy of the opposing card if it exists. The copy may be imperfect.";
+            const string rulebookDescription = "This gains the sigils and stats of the first card to be played in the opposing space.";
             const string dialogue = "A near perfect impersonation.";
+            const string triggerText = "[creature] tries to mimick the opposing creature.";
             Copycat.ability = AbnormalAbilityHelper.CreateAbility<Copycat>(
-                Artwork.sigilCopycat, Artwork.sigilCopycat_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: true, opponent: true, canStack: false).Id;
+                "sigilCopycat",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
+                modular: false, opponent: true, canStack: false).Id;
         }
     }
     public class Copycat : AbilityBehaviour
@@ -28,65 +27,49 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToResolveOnBoard() => true;
+        bool isACopy = false;
+        private CardInfo baseInfo;
+
+        private void Start() => baseInfo = base.Card.Info.Clone() as CardInfo;
+
+        public override bool RespondsToResolveOnBoard() => base.Card.OpposingCard() != null;
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard.Slot == base.Card.OpposingSlot() && !isACopy;
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && isACopy;
         public override IEnumerator OnResolveOnBoard()
         {
             yield return base.PreSuccessfulTriggerSequence();
-
-            // if the opposing card is null
-            if (!(base.Card.OpposingCard() != null))
-            {
-                base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.4f);
-                if (base.Card.Health < 1)
-                {
-                    yield return base.Card.Die(true);
-                    yield return new WaitForSeconds(0.4f);
-                }
-                yield return AbnormalDialogueManager.PlayDialogueEvent("CopycatFail");
-                yield break;
-            }
-            yield return base.Card.TransformIntoCard(CopyOpposingCard(base.Card.OpposingCard().Info));
+            yield return base.Card.TransformIntoCard(CopyInfo(base.Card.OpposingCard().Info), NegateCopycat);
             yield return base.LearnAbility(0.5f);
         }
-        private CardInfo CopyOpposingCard(CardInfo cardToCopy)
+        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
         {
-            CardInfo cardByName = CardLoader.GetCardByName(cardToCopy.name);
+            yield return base.PreSuccessfulTriggerSequence();
+            yield return base.Card.TransformIntoCard(CopyInfo(otherCard.Info), NegateCopycat);
+            yield return base.LearnAbility(0.5f);
+        }
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
+        {
+            base.Card.Anim.StrongNegationEffect();
+            base.Card.SetInfo(baseInfo);
+            yield return new WaitForSeconds(0.55f);
 
-            cardByName.portraitTex = base.Card.Info.portraitTex;
-            cardByName.alternatePortrait = base.Card.Info.alternatePortrait;
-            cardByName.pixelPortrait = base.Card.Info.pixelPortrait;
-            cardByName.animatedPortrait = base.Card.Info.animatedPortrait;
-            cardByName.displayedName = base.Card.Info.displayedName;
+            yield return DialogueHelper.PlayDialogueEvent("CopycatFail");
+        }
+        private CardInfo CopyInfo(CardInfo cardToCopy)
+        {
+            CardInfo newInfo = baseInfo.Clone() as CardInfo;
+            newInfo.baseAttack = cardToCopy.baseAttack;
+            newInfo.baseHealth = cardToCopy.baseHealth;
+            newInfo.Mods = new(base.Card.Info.Mods);
+            foreach (CardModificationInfo mod in cardToCopy.Mods.FindAll(x => !x.nonCopyable))
+                newInfo.Mods.Add(mod.Clone() as CardModificationInfo);
 
-            foreach (CardModificationInfo item2 in cardToCopy.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
-            {
-                CardModificationInfo item = (CardModificationInfo)item2.Clone();
-                cardByName.Mods.Add(item);
-            }
-            CardModificationInfo cardModificationInfo = new();
-            cardByName.Mods.Add(cardModificationInfo);
-            CardModificationInfo cardModificationInfo2 = new();
-            int currentRandomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
-            float num = SeededRandom.Value(currentRandomSeed++);
-            if (num < 0.33f && cardByName.Mods.Exists((CardModificationInfo x) => x.abilities.Count > 0))
-            {
-                List<CardModificationInfo> list = new() { new(Ability.Sharp) { fromCardMerge = true } };
-                if (cardByName.Mods.Exists((CardModificationInfo x) => x.abilities.Count > 0))
-                    list = cardByName.Mods.FindAll((CardModificationInfo x) => x.abilities.Count > 0);
-                list[SeededRandom.Range(0, list.Count, currentRandomSeed++)].abilities[0] = AbilitiesUtil.GetRandomLearnedAbility(currentRandomSeed++);
-            }
-            else if (num < 0.66f && cardByName.Attack > 0)
-            {
-                cardModificationInfo2.attackAdjustment = SeededRandom.Range(-1, 2, currentRandomSeed++);
-            }
-            else if (cardByName.Health > 1)
-            {
-                int num2 = Mathf.Min(2, cardByName.Health - 1);
-                cardModificationInfo2.healthAdjustment = SeededRandom.Range(-num2, 3, currentRandomSeed++);
-            }
-            cardByName.Mods.Add(cardModificationInfo2);
-            return cardByName;
+            return newInfo;
+        }
+        private void NegateCopycat()
+        {
+            isACopy = true;
+            base.Card.AddTemporaryMod(new() { negateAbilities = new() { ability } });
         }
     }
 }

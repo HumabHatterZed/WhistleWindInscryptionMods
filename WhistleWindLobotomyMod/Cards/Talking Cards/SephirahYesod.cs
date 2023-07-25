@@ -1,54 +1,64 @@
 ﻿using DiskCardGame;
-using System.Collections;
+using InscryptionAPI.Card;
+using InscryptionAPI.TalkingCards;
+using InscryptionAPI.TalkingCards.Animation;
+using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
+using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public class TalkingCardYesod : CustomPaperTalkingCard
     {
-        private void Card_Yesod()
-        {
-            List<Ability> abilities = new()
-            {
-                Ability.Tutor,
-                Corrector.ability
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                TalkingCardYesod.specialAbility
-            };
-            List<CardMetaCategory> metaCategories = new()
-            {
-                LobotomyCardManager.SephirahCard
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.AnimatedPortrait
-            };
-            LobotomyCardManager.CreateCard(
-                "wstl_sephirahYesod", "Yesod",
-                "The head of the Information Department. Incompetence is not tolerated.",
-                atk: 0, hp: 1,
-                blood: 2, bones: 0, energy: 0,
-                null, null,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: metaCategories, tribes: new(), traits: new(),
-                appearances: appearances, onePerDeck: true, face: SephirahYesod.Face);
-        }
-        private void SpecialAbility_Yesod() => TalkingCardYesod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardYesod>("Yesod").Id;
-    }
-    public class TalkingCardYesod : PaperTalkingCard
-    {
+        public override string CardName => "wstl_sephirahYesod";
+        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.0f, voiceSoundPitch: 0.7f);
+        public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
+
         public static SpecialTriggeredAbility specialAbility;
-        public SpecialTriggeredAbility SpecialAbility => specialAbility;
-        public override string OnDiscoveredInExplorationDialogueId => "SephirahYesodChoice";
+        public override SpecialTriggeredAbility DialogueAbility => specialAbility;
+
+        public override List<EmotionData> Emotions
+        {
+            get
+            {
+                Sprite face = LoadSpriteFromFile("talkingYesodBody", new(0.5f, 0f));
+                FaceAnim emission = MakeFaceAnim("talkingYesodEyesEmission");
+
+                return new()
+                {
+                    new(emotion: Emotion.Neutral,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingYesodEyesOpen1", "talkingYesodEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingYesodMouthOpen1", "talkingYesodMouthClosed1"),
+                        emission: emission),
+                    new(emotion: Emotion.Curious,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingYesodEyesOpen2", "talkingYesodEyesClosed2"),
+                        mouth: MakeFaceAnim("talkingYesodMouthOpen2", "talkingYesodMouthClosed1"),
+                        emission: emission),
+                    new(emotion: Emotion.Anger,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingYesodEyesOpen3", "talkingYesodEyesClosed3"),
+                        mouth: MakeFaceAnim("talkingYesodMouthOpen2", "talkingYesodMouthClosed1"),
+                        emission: emission),
+                    new(emotion: Emotion.Laughter,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingYesodEyesOpen1", "talkingYesodEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingYesodMouthOpen3", "talkingYesodMouthClosed2"),
+                        emission: emission)
+                };
+            }
+        }
+
         public override string OnDrawnDialogueId => "SephirahYesodDrawn";
-        public override string OnDrawnFallbackDialogueId => "SephirahYesodDrawn";
         public override string OnAttackedDialogueId => "SephirahYesodHurt";
         public override string OnSacrificedDialogueId => "SephirahYesodSacrificed";
         public override string OnBecomeSelectableNegativeDialogueId => "SephirahYesodSelectableBad";
@@ -57,84 +67,27 @@ namespace WhistleWindLobotomyMod
         public override string OnSelectedForCardRemoveDialogueId => "SephirahYesodSelectableBad";
         public override string OnSelectedForCardMergeDialogueId => "SephirahYesodGivenSigil";
         public override string OnSelectedForDeckTrialDialogueId => "SephirahYesodTrial";
-        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new Dictionary<Opponent.Type, string>()
+        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahYesodChoice" }
+            { Opponent.Type.ProspectorBoss, "SephirahYesodProspector" },
+            { Opponent.Type.AnglerBoss, "SephirahYesodAngler" },
+            { Opponent.Type.TrapperTraderBoss, "SephirahYesodTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "SephirahYesodLeshy" },
+            { Opponent.Type.RoyalBoss, "SephirahYesodRoyal" }
         };
-        public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
-        public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
-        {
-            yield return new WaitForEndOfFrame();
-            yield return base.OnShownForCardSelect(forPositiveEffect);
-            yield break;
-        }
+        public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    static class SephirahYesod
+    public partial class LobotomyPlugin
     {
-        public static GameObject Face;
-        public static void Init()
+        private void SpecialAbility_Yesod() => TalkingCardYesod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardYesod>("Yesod").Id;
+        private void Card_Yesod()
         {
-            Face = LobotomyPlugin.sephirahBundle.LoadAsset<GameObject>("TalkingCardYesod");
-
-            CharacterFace face = Face.AddComponent<CharacterFace>();
-            face.anim = Face.transform.Find("Anim").GetComponent<Animator>();
-            face.eyes = Face.transform.Find("Anim").Find("Body").Find("Eyes").gameObject.AddComponent<CharacterEyes>();
-            face.mouth = Face.transform.Find("Anim").Find("Body").Find("Mouth").gameObject.AddComponent<CharacterMouth>();
-            face.face = Face.transform.Find("Anim").Find("Body").GetComponent<SpriteRenderer>();
-
-            face.emotionSprites = new List<CharacterFace.EmotionSprites>()
-            {
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Neutral,
-                    face = face.face.sprite,
-                    eyesOpen = face.eyes.GetComponent<SpriteRenderer>().sprite,
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes1_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes_emission, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth1_open, new(0.5f, 0f)),
-                    mouthClosed = face.mouth.GetComponent<SpriteRenderer>().sprite
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Curious,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes2_open, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes2_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes_emission, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth2_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth1_closed, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Anger,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes3_open, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes3_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes_emission, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth2_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth1_closed, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Laughter,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes1_open, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes1_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_eyes_emission, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth3_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardYesod_mouth2_closed, new(0.5f, 0f))
-                }
-            };
-
-            face.voiceSoundId = "female1_voice";
-            face.voiceSoundPitch = 0.7f;
-            face.eyes.blinkRate = 1.0f;
-
-            int offscreen = LayerMask.NameToLayer("CardOffscreen");
-            foreach (Transform t in Face.GetComponentsInChildren<Transform>()) { t.gameObject.layer = offscreen; }
-            Face.layer = offscreen;
-            face.eyes.emissionRenderer = face.eyes.transform.Find("Emission")?.GetComponent<SpriteRenderer>();
-            if (face.eyes.emissionRenderer != null) { face.eyes.emissionRenderer.gameObject.layer = LayerMask.NameToLayer("CardOffscreenEmission"); }
+            NewCard("sephirahYesod", "Yesod", "The head of the Information Department. Incompetence will not be tolerated.",
+                attack: 0, health: 1, blood: 2)
+                .AddAbilities(Ability.Tutor, Corrector.ability)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck()
+                .Build();
         }
     }
 }

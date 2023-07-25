@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -12,11 +12,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FrozenHeart()
         {
             const string rulebookName = "Frozen Heart";
-            const string rulebookDescription = "When this card dies the killer gains 1 Health.";
+            const string rulebookDescription = "When [creature] dies, the killer gains 2 Health.";
             const string dialogue = "Spring arrives with blossoming roses.";
+            const string triggerText = "[creature] releases warm life.";
             FrozenHeart.ability = AbnormalAbilityHelper.CreateAbility<FrozenHeart>(
-                Artwork.sigilFrozenHeart, Artwork.sigilFrozenHeart_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: -1,
+                "sigilFrozenHeart",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: -1,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }
@@ -37,18 +38,19 @@ namespace WhistleWind.AbnormalSigils
             killer.Anim.LightNegationEffect();
             if (killer.Info.name.ToLowerInvariant().Contains("warmheartedwoodsman"))
             {
-                killer.HealDamage(2);
-                yield return new WaitForSeconds(0.2f);
+                killer.HealDamage(4);
                 if (!base.HasLearned)
-                    yield return HelperMethods.PlayAlternateDialogue(dialogue: altDialogue);
-
-                yield return new WaitForSeconds(0.25f);
+                {
+                    base.SetLearned();
+                    yield return DialogueHelper.PlayAlternateDialogue(dialogue: altDialogue);
+                }
             }
             else
             {
-                killer.HealDamage(1);
+                killer.HealDamage(2);
                 yield return base.LearnAbility(0.4f);
             }
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }

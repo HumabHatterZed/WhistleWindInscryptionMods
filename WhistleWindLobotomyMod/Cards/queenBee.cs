@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,24 +12,14 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_QueenBee_T0450()
         {
-            List<Ability> abilities = new()
-            {
-                QueenNest.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Insect
-            };
+            const string queenBee = "queenBee";
 
-            CreateCard(
-                "wstl_queenBee", "Queen Bee",
-                "A monstrous amalgam of a hive and a bee.",
-                atk: 0, hp: 4,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.queenBee, Artwork.queenBee_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
+            NewCard(queenBee, "Queen Bee", "A monstrous amalgam of a hive and a bee.",
+                attack: 0, health: 4, blood: 2)
+                .SetPortraits(queenBee)
+                .AddAbilities(QueenNest.ability)
+                .AddTribes(Tribe.Insect)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

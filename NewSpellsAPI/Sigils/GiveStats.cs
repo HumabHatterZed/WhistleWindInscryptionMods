@@ -35,14 +35,14 @@ namespace Infiniscryption.Spells.Sigils
             foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.IsPlayerCard()))
             {
                 if (slot.Card != null)
-                    slot.Card.AddTemporaryMod(new CardModificationInfo(base.Card.Health, base.Card.Attack));
+                    slot.Card.AddTemporaryMod(new CardModificationInfo(base.Card.Attack, base.Card.Health));
             }
             yield return base.LearnAbility(0.5f);
         }
 
         private IEnumerator SingleEffect(PlayableCard card)
         {
-            card.AddTemporaryMod(new CardModificationInfo(base.Card.Health, base.Card.Attack));
+            card.AddTemporaryMod(new CardModificationInfo(base.Card.Attack, base.Card.Health));
             yield return base.LearnAbility(0.5f);
         }
 

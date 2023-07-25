@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -12,11 +12,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Gardener()
         {
             const string rulebookName = "Gardener";
-            const string rulebookDescription = "When an ally card is killed, create a Sapling in their place. [define:wstl_parasiteTreeSapling]";
+            const string rulebookDescription = "When an allied card is killed, create a Sapling in their place. [define:wstl_parasiteTreeSapling]";
             const string dialogue = "They proliferate and become whole. Can you feel it?";
+            const string triggerText = "A sapling grows out of the dead card's corpse.";
             Gardener.ability = AbnormalAbilityHelper.CreateAbility<Gardener>(
-                Artwork.sigilGardener, Artwork.sigilGardener_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                "sigilGardener",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }

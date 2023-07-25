@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -12,8 +11,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Wrist Cutter";
-        public static readonly string rDesc = "Bloodbath transforms whenever a card is sacrificed.";
+        public const string rName = "Wrist Cutter";
+        public const string rDesc = "Bloodbath transforms whenever a card is sacrificed.";
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             return card != base.Card && !fromCombat;
@@ -54,13 +53,13 @@ namespace WhistleWindLobotomyMod
             switch (base.PlayableCard.Info.name)
             {
                 case "wstl_bloodBath1":
-                    yield return DialogueEventsManager.PlayDialogueEvent("Bloodbath1");
+                    yield return DialogueHelper.PlayDialogueEvent("Bloodbath1");
                     break;
                 case "wstl_bloodBath2":
-                    yield return DialogueEventsManager.PlayDialogueEvent("Bloodbath2");
+                    yield return DialogueHelper.PlayDialogueEvent("Bloodbath2");
                     break;
                 case "wstl_bloodBath3":
-                    yield return DialogueEventsManager.PlayDialogueEvent("Bloodbath3");
+                    yield return DialogueHelper.PlayDialogueEvent("Bloodbath3");
                     break;
             }
             if (base.PlayableCard.InHand && Singleton<BoardManager>.Instance.currentSacrificeDemandingCard != base.PlayableCard)
@@ -78,12 +77,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_WristCutter()
-        {
-            RulebookEntryWristCutter.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryWristCutter>(WristCutter.rName, WristCutter.rDesc).Id;
-        }
+            => RulebookEntryWristCutter.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryWristCutter>(WristCutter.rName, WristCutter.rDesc).Id;
         private void SpecialAbility_WristCutter()
-        {
-            WristCutter.specialAbility = AbilityHelper.CreateSpecialAbility<WristCutter>(pluginGuid, WristCutter.rName).Id;
-        }
+            => WristCutter.specialAbility = AbilityHelper.CreateSpecialAbility<WristCutter>(pluginGuid, WristCutter.rName).Id;
     }
 }

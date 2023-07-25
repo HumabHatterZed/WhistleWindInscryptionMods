@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -11,41 +11,26 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_VoidDream_T0299()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.DebuffEnemy
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Hooved,
-                Tribe.Bird
-            };
-            CreateCard(
-                "wstl_voidDreamRooster", "Void Dream",
-                "Quite the chimera.",
-                atk: 2, hp: 3,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.voidDreamRooster, Artwork.voidDreamRooster_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new());
+            const string dreamName = "Void Dream";
+            const string voidDream = "voidDream";
+            const string voidDreamRooster = "voidDreamRooster";
 
-            abilities = new()
-            {
-                Ability.Flying,
-                Ability.Evolve
-            };
-            tribes.Remove(Tribe.Bird);
+            CardInfo voidDreamRoosterCard = NewCard(
+                voidDreamRooster,
+                dreamName,
+                attack: 2, health: 3, blood: 2)
+                .SetPortraits(voidDreamRooster)
+                .AddAbilities(Ability.DebuffEnemy)
+                .AddTribes(Tribe.Hooved, Tribe.Bird)
+                .Build();
 
-            CreateCard(
-                "wstl_voidDream", "Void Dream",
-                "A sleeping goat. Or is it a sheep?",
-                atk: 1, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.voidDream, Artwork.voidDream_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                evolveName: "wstl_voidDreamRooster");
+            NewCard(voidDream, dreamName, "A sleeping goat. Or is it a sheep?",
+                attack: 1, health: 1, blood: 1)
+                .SetPortraits(voidDream)
+                .AddAbilities(Ability.Flying, Ability.Evolve)
+                .AddTribes(Tribe.Hooved)
+                .SetEvolve(voidDreamRoosterCard, 1)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

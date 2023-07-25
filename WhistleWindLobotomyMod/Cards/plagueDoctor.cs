@@ -1,109 +1,83 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionAPI.Helpers;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
     public partial class LobotomyPlugin
     {
+        private const string plagueDoctor = "plagueDoctor";
+        public static readonly List<Sprite> PlagueDoctorPortraits = new();
         private void Card_PlagueDoctor_O0145()
         {
-            byte[][] portraits = UpdatePlagueSprites();
+            RegisterPortraitsAndEmissions();
 
-            List<Ability> abilities = new()
-            {
-                Ability.Flying,
-                Healer.ability
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                Bless.specialAbility
-            };
-            CreateCard(
-                "wstl_plagueDoctor", "Plague Doctor",
-                "A worker of miracles. He humbly requests to join you.",
-                atk: 0, hp: 3,
-                blood: 0, bones: 3, energy: 0,
-                portraits[0], portraits[1], pixelTexture: portraits[2],
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
-                customTribe: TribeDivine);
+            NewCard(plagueDoctor, "Plague Doctor", "A worker of miracles. He humbly requests to join you.",
+                attack: 0, health: 3, bones: 3)
+                .SetPortrait(PlagueDoctorPortraits.FirstOrDefault())
+                .SetEmissivePortrait(UpdateDoctorEmission(0))
+                .SetPixelPortrait(UpdateDoctorPixelPortrait(0))
+                .AddAbilities(Ability.Flying, Healer.ability)
+                .AddSpecialAbilities(Bless.specialAbility)
+                .AddTribes(TribeDivine)
+                .AddAppearances(MiracleWorkerAppearance.appearance)
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
-        public static byte[][] UpdatePlagueSprites()
+        private void RegisterPortraitsAndEmissions()
         {
-            byte[][] resources = { null, null, null };
-            // Update portrait and emission on loadup
-            switch (LobotomyConfigManager.Instance.NumOfBlessings)
+            for (int i = 0; i < 12; i++)
             {
-                case 0:
-                    resources[0] = Artwork.plagueDoctor;
-                    resources[1] = Artwork.plagueDoctor_emission;
-                    resources[2] = Artwork.allAroundHelper_pixel;
-                    break;
-                case 1:
-                    resources[0] = Artwork.plagueDoctor1;
-                    resources[1] = Artwork.plagueDoctor1_emission;
-                    resources[2] = Artwork.allAroundHelper_pixel;
-                    break;
-                case 2:
-                    resources[0] = Artwork.plagueDoctor2;
-                    resources[1] = Artwork.plagueDoctor2_emission;
-                    resources[2] = Artwork.allAroundHelper_pixel;
-                    break;
-                case 3:
-                    resources[0] = Artwork.plagueDoctor3;
-                    resources[1] = Artwork.plagueDoctor3_emission;
-                    resources[2] = Artwork.allAroundHelper_pixel;
-                    break;
-                case 4:
-                    resources[0] = Artwork.plagueDoctor4;
-                    resources[1] = Artwork.plagueDoctor4_emission;
-                    resources[2] = Artwork.allAroundHelper_pixel;
-                    break;
-                case 5:
-                    resources[0] = Artwork.plagueDoctor5;
-                    resources[1] = Artwork.plagueDoctor5_emission;
-                    resources[2] = Artwork.allAroundHelper_pixel;
-                    break;
-                case 6:
-                    resources[0] = Artwork.plagueDoctor6;
-                    resources[1] = Artwork.plagueDoctor6_emission;
-                    resources[2] = Artwork.allAroundHelper_pixel;
-                    break;
-                case 7:
-                    resources[0] = Artwork.plagueDoctor7;
-                    resources[1] = Artwork.plagueDoctor7_emission;
-                    resources[2] = Artwork.allAroundHelper_pixel;
-                    break;
-                case 8:
-                    resources[0] = Artwork.plagueDoctor8;
-                    resources[1] = Artwork.plagueDoctor8_emission;
-                    resources[2] = Artwork.allAroundHelper_pixel;
-                    break;
-                case 9:
-                    resources[0] = Artwork.plagueDoctor9;
-                    resources[1] = Artwork.plagueDoctor9_emission;
-                    resources[2] = Artwork.allAroundHelper_pixel;
-                    break;
-                case 10:
-                    resources[0] = Artwork.plagueDoctor10;
-                    resources[1] = Artwork.plagueDoctor10_emission;
-                    resources[2] = Artwork.allAroundHelper_pixel;
-                    break;
-                default:
-                    resources[0] = Artwork.plagueDoctor11;
-                    resources[1] = Artwork.plagueDoctor11_emission;
-                    resources[2] = Artwork.allAroundHelper_pixel;
-                    break;
+                Sprite portrait = UpdateDoctorPortrait(i);
+                Sprite emission = UpdateDoctorEmission(i);
+                PlagueDoctorPortraits.Add(portrait);
+                portrait.RegisterEmissionForSprite(emission);
             }
-            return resources;
+        }
+        public static Sprite UpdateDoctorPortrait(int key)
+        {
+            Sprite retval = TextureLoader.LoadSpriteFromFile(GetDoctorName(key));
+            retval.name = GetDoctorName(key) + "_portrait";
+            return retval;
+        }
+        public static Sprite UpdateDoctorPixelPortrait(int key) => TextureLoader.LoadSpriteFromFile(GetDoctorName(key) + "_pixel");
+        public static Sprite UpdateDoctorEmission(int key)
+        {
+            string portraitName = key switch
+            {
+                5 => "plagueDoctor5",
+                9 => "plagueDoctor9",
+                11 => "plagueDoctor11",
+                _ => plagueDoctor,
+            };
+            return TextureLoader.LoadSpriteFromFile(portraitName + "_emission");
+        }
+        private static string GetDoctorName(int key)
+        {
+            return key switch
+            {
+                0 => plagueDoctor,
+                1 => "plagueDoctor1",
+                2 => "plagueDoctor2",
+                3 => "plagueDoctor3",
+                4 => "plagueDoctor4",
+                5 => "plagueDoctor5",
+                6 => "plagueDoctor6",
+                7 => "plagueDoctor7",
+                8 => "plagueDoctor8",
+                9 => "plagueDoctor9",
+                10 => "plagueDoctor10",
+                _ => "plagueDoctor11",
+            };
         }
     }
 }

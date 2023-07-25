@@ -1,14 +1,15 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
+using Pixelplacement;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,82 +18,130 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Bless";
-        public static readonly string rDesc = "Upon successfully healing a card using the Healer ability, Plague Doctor changes its appearance.";
+        public const string rName = "Bless";
+        public const string rDesc = "Upon successfully healing a card using the Healer ability, Plague Doctor changes its appearance.";
 
         private readonly string eventIntro3 = "[c:bR]Rise, my servants. Rise and serve me.[c:]";
         private readonly string eventIntroRepeat = "[c:bR]The time has come again. I will be thy guide.[c:]";
 
         public override IEnumerator TriggerBlessing()
         {
-            if (LobotomyConfigManager.Instance.NoEvents)
+            if (LobotomyConfigManager.Instance.NoEvents || LobotomySaveManager.TriggeredWhiteNightThisBattle)
                 yield break;
 
+            PlagueDoctorHelpers.UpdateBlessings(base.PlayableCard, 1);
+
+            yield return HelperMethods.ChangeCurrentView(View.Board);
+
             base.PlayableCard.Anim.LightNegationEffect();
-            LobotomyConfigManager.Instance.UpdateBlessings(1);
-            UpdatePortrait();
+            base.PlayableCard.ClearAppearanceBehaviours();
+            base.PlayableCard.ApplyAppearanceBehaviours(base.PlayableCard.Info.appearanceBehaviour);
+            base.PlayableCard.RenderCard();
             yield return new WaitForSeconds(0.2f);
+
+            int blessings = PlagueDoctorHelpers.Blessings(base.PlayableCard);
+
+            // play hint dialogue if it hasn't been yet, or if this is the first run since it triggered
+            if (!DialogueEventsData.EventIsPlayed("PlagueDoctorBless"))
+                DialogueHelper.PlayDialogueEvent("PlagueDoctorBless", card: base.PlayableCard);
+
+            else if (!LobotomySaveManager.TriggeredWhiteNightThisRun && blessings == 0)
+                DialogueHelper.PlayAlternateDialogue("The hands of the Clock move towards salvation.");
+
+            else if (blessings == 9)
+                DialogueHelper.PlayAlternateDialogue("[c:bR]When the day comes, find me.[c:]");
+
+            else if (blessings == 10)
+                DialogueHelper.PlayAlternateDialogue("[c:bR]I will save your life from destruction and raise you from the end of the world.[c:]");
         }
         public override IEnumerator TriggerClock() => CheckTheClock();
 
         private IEnumerator CheckTheClock()
         {
-            // If No Events or Blessings are between (0,11), break
-            if (LobotomyConfigManager.Instance.NoEvents ||
-                (0 <= LobotomyConfigManager.Instance.NumOfBlessings && LobotomyConfigManager.Instance.NumOfBlessings < 12))
+            if (LobotomyConfigManager.Instance.NoEvents || LobotomySaveManager.TriggeredWhiteNightThisBattle)
                 yield break;
 
+            int blessings = PlagueDoctorHelpers.Blessings(base.PlayableCard);
+
+            LobotomyPlugin.Log.LogDebug("Checking the Clock");
+            if (blessings >= 0 && blessings < 12)
+                yield break;
+
+            LobotomyPlugin.Log.LogDebug("Clock has struck twelve");
+            if (Singleton<BoardManager>.Instance.AllSlotsCopy.Exists(x => x.Card != null && x.Card.Info.name == "wstl_whiteNight"))
+            {
+                yield return base.PlayableCard.DieTriggerless();
+                yield return new WaitForSeconds(0.5f);
+                yield return DialogueHelper.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]You shall have no other gods before me.[c:]");
+                yield break;
+            }
+
+            LobotomySaveManager.TriggeredWhiteNightThisBattle = true;
+            bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
             yield return new WaitForSeconds(0.5f);
 
-            // If blessings are in the negatives (aka someone altered tge config value), wag a finger and go 'nuh-uh-uh!'
+            // If blessings are in the negatives (aka someone altered the config value), wag a finger and go 'nuh-uh-uh!'
             if (LobotomyConfigManager.Instance.NumOfBlessings < 0)
-                yield return HelperMethods.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou cannot stop my ascension. Even the [c:]tutelary[c:bR] bows to my authority.[c:]");
+                yield return DialogueHelper.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou cannot stop my ascension. Even the [c:]tutelary[c:bR] bows to my authority.[c:]");
 
             // Change Leshy's eyes to red
-            LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
+            if (SaveManager.SaveFile.IsPart1)
+                LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
+            else if (SaveManager.SaveFile.IsPart3)
+                P03AnimationController.Instance.SwitchToFace(P03AnimationController.Face.Disconnected);
+
+            LobotomyPlugin.Log.LogDebug("Transforming into WhiteNight");
+
+            // need to do this or it breaks later
+            bool isOpponent = base.PlayableCard.OpponentCard;
+            CardSlot baseSlot = base.PlayableCard.Slot;
 
             // Transform the Doctor into Him
             yield return base.PlayableCard.TransformIntoCard(CardLoader.GetCardByName("wstl_whiteNight"));
-            base.PlayableCard.Status.hiddenAbilities.Add(Ability.Flying);
-            base.PlayableCard.AddTemporaryMod(new CardModificationInfo(Ability.Flying));
             yield return new WaitForSeconds(0.5f);
-
-            // reset the Doctor's sprites
-            CardLoader.GetCardByName("wstl_plagueDoctor").SetPortrait(TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor), TextureLoader.LoadTextureFromBytes(Artwork.plagueDoctor_emission));
 
             // Play dialogue depending on whether this is the first time this has happened this run
             if (!LobotomySaveManager.TriggeredWhiteNightThisRun)
             {
                 LobotomySaveManager.TriggeredWhiteNightThisRun = true;
-                yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightEventIntro");
+                yield return DialogueHelper.PlayDialogueEvent("WhiteNightEventIntro");
             }
             else
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventIntroRepeat, speaker: DialogueEvent.Speaker.Bonelord);
+                yield return DialogueHelper.ShowUntilInput(eventIntroRepeat, speaker: DialogueEvent.Speaker.Bonelord);
 
-            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(eventIntro3, speaker: DialogueEvent.Speaker.Bonelord);
+            yield return DialogueHelper.ShowUntilInput(eventIntro3, speaker: DialogueEvent.Speaker.Bonelord);
             yield return new WaitForSeconds(0.2f);
 
+            LobotomyPlugin.Log.LogDebug("Determining whether player owns One Sin / has the Heretic");
+
             // Determine whether a Heretic is needed by seeing if One Sin exists in the player's deck
-            bool sinful = new List<CardInfo>(RunState.DeckList).FindAll((CardInfo info) => info.name == "wstl_oneSin").Count() > 0;
-            bool HasHeretic = new List<PlayableCard>(Singleton<PlayerHand>.Instance.CardsInHand)
-                .FindAll((PlayableCard c) => c.Info.name == "wstl_apostleHeretic").Count != 0 ||
-                new List<CardSlot>(Singleton<BoardManager>.Instance.AllSlotsCopy
-                .Where((CardSlot s) => s.Card != null && s.Card.Info.name == "wstl_apostleHeretic")).Count != 0;
-            
+            bool sinful;
+            if (SaveManager.SaveFile.IsPart2)
+                sinful = SaveManager.SaveFile.gbcData.deck.Cards.Exists(info => info.name == "wstl_oneSin");
+            else
+                sinful = RunState.DeckList.Exists(info => info.name == "wstl_oneSin");
+
+            bool HasHeretic = Singleton<PlayerHand>.Instance.CardsInHand.FindAll(c => c.Info.name == "wstl_apostleHeretic").Count != 0 ||
+                Singleton<BoardManager>.Instance.AllSlotsCopy.FindAll(s => s.Card != null && s.Card.Info.name == "wstl_apostleHeretic").Count != 0;
+
+            LobotomyPlugin.Log.LogDebug("Transforming cards");
             // Kill non-living/Mule card(s) and transform the rest (excluding One Sin) into Apostles
-            foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(!base.PlayableCard.OpponentCard).Where(slot => slot.Card != base.Card))
+            foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(!isOpponent).Where(slot => slot.Card != null && slot != baseSlot))
             {
-                if (slot.Card != null && slot.Card.Info.name != "wstl_oneSin")
-                    yield return ConvertToApostle(slot.Card, HasHeretic, sinful);
+                if (slot.Card.Info.name != "wstl_oneSin")
+                    yield return ConvertToApostle(slot.Card, HasHeretic);
             }
             // If the player has One Sin
             if (sinful)
             {
+                LobotomyPlugin.Log.LogDebug("Player has One Sin");
                 yield return new WaitForSeconds(0.5f);
+
                 // if there is a One Sin on the board
-                if (Singleton<BoardManager>.Instance.PlayerSlotsCopy.FindAll((CardSlot slot) => slot.Card != null && slot.Card.Info.name == "wstl_oneSin").Count > 0)
+                if (BoardManager.Instance.GetSlotsCopy(true).FindAll(slot => slot.Card != null && slot.Card.Info.name == "wstl_oneSin").Count > 0)
                 {
-                    foreach (CardSlot slot in Singleton<BoardManager>.Instance.PlayerSlotsCopy.Where(s => s.Card != null && s.Card.Info.name == "wstl_oneSin"))
+                    LobotomyPlugin.Log.LogDebug("One Sin is on the board");
+                    foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(true).Where(s => s.Card != null && s.Card.Info.name == "wstl_oneSin"))
                     {
                         // Transform the first One Sin into Heretic
                         // Remove the rest
@@ -102,19 +151,12 @@ namespace WhistleWindLobotomyMod
                             yield return slot.Card.TransformIntoCard(CardLoader.GetCardByName("wstl_apostleHeretic"));
                         }
                         else
-                        {
-                            slot.Card.Dead = true;
-                            slot.Card.UnassignFromSlot();
-                            SpecialCardBehaviour[] components = slot.Card.GetComponents<SpecialCardBehaviour>();
-                            for (int i = 0; i < components.Length; i++)
-                                components[i].OnCleanUp();
-
-                            slot.Card.ExitBoard(0.3f, Vector3.zero);
-                        }
+                            slot.Card.RemoveFromBoard();
                     }
                 }
                 else
                 {
+                    LobotomyPlugin.Log.LogDebug("Heretic is in the player's hand");
                     // Transform into Heretic
                     yield return new WaitForSeconds(0.25f);
                     foreach (PlayableCard card in Singleton<PlayerHand>.Instance.CardsInHand.Where(c => c.Info.name == "wstl_oneSin"))
@@ -126,118 +168,86 @@ namespace WhistleWindLobotomyMod
                             yield return new WaitForSeconds(0.5f);
                         }
                         else
-                        {
-                            card.Dead = true;
-                            card.UnassignFromSlot();
-                            SpecialCardBehaviour[] components = card.GetComponents<SpecialCardBehaviour>();
-                            for (int i = 0; i < components.Length; i++)
-                            {
-                                components[i].OnCleanUp();
-                            }
-                            card.ExitBoard(0.3f, Vector3.zero);
-                        }
+                            card.DieTriggerless();
                     }
 
                 }
                 // Spawn card to hand if One Sin is in the deck or dead
                 if (!HasHeretic)
                 {
+                    LobotomyPlugin.Log.LogDebug("Forcing One Sin into the hand");
                     HasHeretic = true;
                     yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_apostleHeretic"));
                 }
             }
+
+            // for future use
+            LobotomyConfigManager.Instance.SetHasSeenHim();
             yield return new WaitForSeconds(0.2f);
+            LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
         }
 
-        public override bool RespondsToDrawn() => true;
-        public override IEnumerator OnDrawn()
+        private IEnumerator ConvertToApostle(PlayableCard otherCard, bool HasHeretic)
         {
-            this.DisguiseInBattle();
-            yield break;
-        }
-        private void DisguiseInBattle()
-        {
-            this.UpdatePortrait();
-            if (LobotomyConfigManager.Instance.NumOfBlessings >= 11)
-                base.PlayableCard.ApplyAppearanceBehaviours(new() { ForcedWhiteEmission.appearance });
-        }
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
 
-        public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
-        {
-            this.UpdatePortrait();
-            yield break;
-        }
-        public override IEnumerator OnSelectedForDeckTrial()
-        {
-            this.UpdatePortrait();
-            yield break;
-        }
-        public override void OnShownInDeckReview()
-        {
-            this.UpdatePortrait();
-        }
-        public override void OnShownForCardChoiceNode()
-        {
-            this.UpdatePortrait();
-        }
-
-        public IEnumerator ConvertToApostle(PlayableCard otherCard, bool HasHeretic, bool HasOneSin = false)
-        {
-            bool isOpponent = otherCard.OpponentCard;
-            // null check should be done elsewhere
-            if (otherCard.HasAnyOfTraits(Trait.Pelt, Trait.Terrain) || otherCard.HasSpecialAbility(SpecialTriggeredAbility.PackMule))
+            if (otherCard.HasAnyOfTraits(Trait.Pelt, Trait.Terrain))
             {
-                Singleton<ViewManager>.Instance.SwitchToView(View.Board);
                 yield return otherCard.DieTriggerless();
+                yield break;
             }
-            else
+
+            bool isOpponent = otherCard.OpponentCard;
+
+            if (otherCard.HasSpecialAbility(SpecialTriggeredAbility.PackMule))
             {
-                int randomSeed = base.GetRandomSeed();
-                CardInfo randApostle = SeededRandom.Range(0, 3, randomSeed++) switch
+                Tween.LocalPosition(otherCard.transform, Vector3.up * (Singleton<BoardManager>.Instance.SlotHeightOffset), 0.1f, 0.05f, Tween.EaseOut, Tween.LoopType.None);
+                Tween.Rotation(otherCard.transform, otherCard.Slot.transform.GetChild(0).rotation, 0.1f, 0f, Tween.EaseOut);
+
+                if (otherCard.TriggerHandler.RespondsToTrigger(Trigger.Die, false, null))
+                    yield return otherCard.TriggerHandler.OnTrigger(Trigger.Die, false, null);
+
+                Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            }
+
+            int randomSeed = base.GetRandomSeed();
+            CardInfo randApostle = SeededRandom.Range(0, 3, randomSeed++) switch
+            {
+                0 => CardLoader.GetCardByName("wstl_apostleScythe"),
+                1 => CardLoader.GetCardByName("wstl_apostleSpear"),
+                _ => CardLoader.GetCardByName("wstl_apostleStaff")
+            };
+            if (!HasHeretic)
+            {
+                if (new System.Random().Next(0, 12) == 0)
                 {
-                    0 => CardLoader.GetCardByName("wstl_apostleScythe"),
-                    1 => CardLoader.GetCardByName("wstl_apostleSpear"),
-                    _ => CardLoader.GetCardByName("wstl_apostleStaff")
-                };
-                if (!HasHeretic && !HasOneSin)
-                {
-                    if (new System.Random().Next(0, 12) == 0)
+                    HasHeretic = true;
+                    if (!isOpponent)
+                        randApostle = CardLoader.GetCardByName("wstl_apostleHeretic");
+                    else
                     {
-                        HasHeretic = true;
-                        if (!isOpponent)
-                            randApostle = CardLoader.GetCardByName("wstl_apostleHeretic");
-                        else
+                        otherCard.RemoveFromBoard();
+                        yield return new WaitForSeconds(0.5f);
+                        if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
                         {
-                            otherCard.RemoveFromBoard();
-                            yield return new WaitForSeconds(0.5f);
-                            if (Singleton<ViewManager>.Instance.CurrentView != View.Hand)
-                            {
-                                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
-                                yield return new WaitForSeconds(0.2f);
-                            }
-                            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_apostleHeretic"), null, 0.25f, null);
-                            yield return new WaitForSeconds(0.45f);
+                            Singleton<ViewManager>.Instance.SwitchToView(View.Hand, false, false);
+                            yield return new WaitForSeconds(0.2f);
                         }
+                        yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_apostleHeretic"), null, 0.25f, null);
+                        yield return new WaitForSeconds(0.45f);
                     }
                 }
-                if (otherCard != null)
-                    yield return otherCard.TransformIntoCard(randApostle);
-
-                yield return DialogueEventsManager.PlayDialogueEvent("WhiteNightApostleHeretic");
-
-                Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
-                yield return new WaitForSeconds(0.2f);
             }
-        }
-        private void UpdatePortrait()
-        {
-            CardInfo newInfo = (CardInfo)base.Card?.Info.Clone();
-            byte[][] portraits = LobotomyPlugin.UpdatePlagueSprites();
+            if (otherCard != null)
+                yield return otherCard.TransformIntoCard(randApostle);
 
-            newInfo.SetPortrait(
-                TextureLoader.LoadTextureFromBytes(portraits[0]), TextureLoader.LoadTextureFromBytes(portraits[1])
-                ).SetPixelPortrait(TextureLoader.LoadTextureFromBytes(portraits[2]));
-            base.Card?.SetInfo(newInfo);
+            if (HasHeretic)
+                yield return DialogueHelper.PlayDialogueEvent("WhiteNightApostleHeretic");
+
+            if (Singleton<ViewManager>.Instance.CurrentView == View.Hand)
+                Singleton<ViewManager>.Instance.SwitchToView(View.Board, false, false);
+
+            yield return new WaitForSeconds(0.2f);
         }
     }
     public class RulebookEntryBless : AbilityBehaviour
@@ -248,12 +258,27 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_Bless()
-        {
-            RulebookEntryBless.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryBless>(Bless.rName, Bless.rDesc).Id;
-        }
+            => RulebookEntryBless.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryBless>(Bless.rName, Bless.rDesc).Id;
         private void SpecialAbility_Bless()
+            => Bless.specialAbility = AbilityHelper.CreateSpecialAbility<Bless>(pluginGuid, Bless.rName).Id;
+    }
+
+    public class PlagueDoctorHelpers
+    {
+        public const string ModSingletonId = "wstl:MiracleWorkerChallenge";
+
+        public static int Blessings(PlayableCard card)
         {
-            Bless.specialAbility = AbilityHelper.CreateSpecialAbility<Bless>(pluginGuid, Bless.rName).Id;
+            return card.Info.Mods.Exists(x => x.singletonId == ModSingletonId) ?
+                LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.Instance.NumOfBlessings;
+        }
+
+        public static void UpdateBlessings(PlayableCard card, int num)
+        {
+            if (card.Info.Mods.Exists(x => x.singletonId == ModSingletonId))
+                LobotomySaveManager.OpponentBlessings += num;
+            else
+                LobotomyConfigManager.Instance.UpdateBlessings(num);
         }
     }
 }

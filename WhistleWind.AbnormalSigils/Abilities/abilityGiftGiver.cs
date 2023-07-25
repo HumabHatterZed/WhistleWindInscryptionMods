@@ -1,9 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.AbilityClasses;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -14,10 +16,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Gift Giver";
             const string rulebookDescription = "When [creature] is played, create a random card in your hand.";
             const string dialogue = "A gift for you.";
-
+            const string triggerText = "[creature] has a gift for you!";
             GiftGiver.ability = AbnormalAbilityHelper.CreateAbility<GiftGiver>(
-                Artwork.sigilGiftGiver, Artwork.sigilGiftGiver_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                "sigilGiftGiver",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }
@@ -26,17 +28,25 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
         private bool IsLaetitia => base.Card.Info.name.ToLowerInvariant().Contains("laetitia");
+        private string CustomCardToDraw => base.Card.Info.GetExtendedProperty("wstl:GiftGiver");
         public override CardInfo CardToDraw
         {
             get
             {
-                if (this.IsLaetitia)
+                if (IsLaetitia || CustomCardToDraw != null)
                 {
-                    CardInfo cardByName = CardLoader.GetCardByName("wstl_laetitiaFriend");
+                    CardInfo cardByName = CardLoader.GetCardByName(CustomCardToDraw ?? "wstl_laetitiaFriend");
                     cardByName.Mods.AddRange(base.GetNonDefaultModsFromSelf(this.Ability));
                     return cardByName;
                 }
-                List<CardInfo> list = ScriptableObjectLoader<CardInfo>.AllData.FindAll((CardInfo x) => x.metaCategories.Contains(CardMetaCategory.ChoiceNode));
+                List<CardInfo> list = CardManager.AllCardsCopy.FindAll(x => x.HasCardMetaCategory(CardMetaCategory.ChoiceNode));
+                list = CardLoader.RemoveDeckSingletonsIfInDeck(list);
+                if (SaveManager.SaveFile.IsPart2)
+                    list.RemoveAll(x => x.LacksCardMetaCategory(CardMetaCategory.GBCPlayable));
+
+                if (list.Count == 0)
+                    list.Add(CardLoader.GetCardByName("wstl_trainingDummy"));
+
                 return list[SeededRandom.Range(0, list.Count, base.GetRandomSeed())];
             }
         }

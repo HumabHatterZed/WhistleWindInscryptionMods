@@ -1,9 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -11,23 +12,42 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Bloodbath_T0551()
         {
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                WristCutter.specialAbility,
-            };
-            List<Trait> traits = new()
-            {
-                Trait.Goat
-            };
-            CreateCard(
-                "wstl_bloodBath", "Bloodbath",
-                "A tub of blood. The hands of people you once loved wait inside.",
-                atk: 0, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.bloodBath, Artwork.bloodBath_emission,
-                abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: traits,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
+            const string bathName = "Bloodbath";
+            const string bloodBath = "bloodBath";
+            const string bloodBath1 = "bloodBath1";
+            const string bloodBath2 = "bloodBath2";
+            const string bloodBath3 = "bloodBath3";
+            Ability[] abilities = new[] { Ability.TripleBlood };
+            SpecialTriggeredAbility[] specialAbilities = new[] { WristCutter.specialAbility };
+
+            NewCard(bloodBath, bathName, "A tub of blood. The hands of people you once loved wait inside.",
+                attack: 0, health: 1, blood: 1)
+                .SetPortraits(bloodBath)
+                .AddSpecialAbilities(specialAbilities)
+                .AddTraits(Trait.Goat)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
+            
+            NewCard(bloodBath1, bathName,
+                attack: 0, health: 1, blood: 1)
+                .SetPortraits(bloodBath1)
+                .AddAbilities(abilities)
+                .AddSpecialAbilities(specialAbilities)
+                .Build();
+
+            NewCard(bloodBath2, bathName,
+                attack: 0, health: 2, blood: 1)
+                .SetPortraits(bloodBath2)
+                .AddAbilities(abilities)
+                .AddSpecialAbilities(specialAbilities)
+                .SetStatIcon(SpecialStatIcon.SacrificesThisTurn)
+                .Build();
+
+            NewCard(bloodBath3, bathName,
+                attack: 1, health: 2, blood: 2)
+                .SetPortraits(bloodBath3)
+                .AddAbilities(Ability.TripleBlood, Ability.QuadrupleBones)
+                .SetStatIcon(SpecialStatIcon.SacrificesThisTurn)
+                .Build();
         }
     }
 }

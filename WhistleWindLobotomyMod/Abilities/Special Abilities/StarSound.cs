@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
@@ -12,23 +13,15 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-        public static readonly string rName = "Sound of a Star";
-        public static readonly string rDesc = "If there are no cards on the opposing side that can be attacked, Blue Star strikes all slots directly.";
+        public const string rName = "Sound of a Star";
+        public const string rDesc = "If there are no cards on the opposing side that can be attacked, Blue Star strikes all slots directly.";
 
-        public bool RespondsToGetOpposingSlots() => CheckOpposingSlots();
+        public bool RemoveDefaultAttackSlot() => true;
+        public bool RespondsToGetOpposingSlots() => true;
 
         public List<CardSlot> GetOpposingSlots(List<CardSlot> originalSlots, List<CardSlot> otherAddedSlots)
         {
-            return HelperMethods.GetSlotsCopy(!base.PlayableCard.OpponentCard);
-        }
-
-        public bool RemoveDefaultAttackSlot() => CheckOpposingSlots();
-
-        private bool CheckOpposingSlots()
-        {
-            List<CardSlot> opposingSlots = HelperMethods.GetSlotsCopy(!base.PlayableCard.OpponentCard);
-            opposingSlots.RemoveAll(s => s.Card != null);
-            return opposingSlots.Count > 0;
+            return BoardManager.Instance.GetSlotsCopy(base.PlayableCard.OpponentCard);
         }
     }
     public class RulebookEntryStarSound : AbilityBehaviour
@@ -39,12 +32,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_StarSound()
-        {
-            RulebookEntryStarSound.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryStarSound>(StarSound.rName, StarSound.rDesc).Id;
-        }
+            => RulebookEntryStarSound.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryStarSound>(StarSound.rName, StarSound.rDesc).Id;
         private void SpecialAbility_StarSound()
-        {
-            StarSound.specialAbility = AbilityHelper.CreateSpecialAbility<StarSound>(pluginGuid, StarSound.rName).Id;
-        }
+            => StarSound.specialAbility = AbilityHelper.CreateSpecialAbility<StarSound>(pluginGuid, StarSound.rName).Id;
     }
 }

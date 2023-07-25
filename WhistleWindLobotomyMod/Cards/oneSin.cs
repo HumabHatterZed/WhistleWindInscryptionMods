@@ -1,31 +1,27 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
     public partial class LobotomyPlugin
     {
+        private const string oneSinName = "One Sin and Hundreds of Good Deeds";
+        private const string oneSin = "oneSin";
         private void Card_OneSin_O0303()
         {
-            List<Ability> abilities = new()
-            {
-                Martyr.ability
-            };
-            CreateCard(
-                "wstl_oneSin", "One Sin and Hundreds of Good Deeds",
-                "A floating skull. Its hollow sockets see through you.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 2, energy: 0,
-                Artwork.oneSin, Artwork.oneSin_emission, pixelTexture: Artwork.oneSin_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
-                customTribe: TribeDivine);
+            NewCard(oneSin, oneSinName, "A floating skull. Its hollow sockets see through you.",
+                attack: 0, health: 1, bones: 1, temple: CardTemple.Undead)
+                .SetPortraits(oneSin)
+                .AddAbilities(Martyr.ability)
+                .AddTribes(TribeDivine)
+                .SetDefaultEvolutionName(oneSinName)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
     }
 }

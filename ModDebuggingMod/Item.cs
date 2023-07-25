@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Items;
-using WhistleWind.Core.Helpers;
+using InscryptionAPI.Items.Extensions;
 using System.Collections;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Items.ConsumableItemManager;
-using InscryptionAPI.Items.Extensions;
 
 namespace ModDebuggingMod
 {
@@ -15,9 +15,9 @@ namespace ModDebuggingMod
             string rulebookName = "DebugItem";
             string rulebookDescription = "Displays text colour codes";
             ModelType modelType = ModelType.HoveringRune;
-            Texture2D texture2D = TextureLoader.LoadTextureFromBytes(Properties.Resources.itemRulebookIcon);
+            Texture2D texture2D = TextureLoader.LoadTextureFromFile("itemRulebookIcon");
 
-            ConsumableItemManager.New(Plugin.pluginPrefix, rulebookName, rulebookDescription, texture2D, typeof(DebugItem), modelType)
+            New(pluginPrefix, rulebookName, rulebookDescription, texture2D, typeof(DebugItem), modelType)
                 .SetAct1()
                 .SetLearnItemDescription("AAAA");
         }
@@ -27,6 +27,7 @@ namespace ModDebuggingMod
         public override IEnumerator ActivateSequence()
         {
             base.PlayExitAnimation();
+            //yield return GraveyardManager.Instance.DrawCard();
             yield return new WaitForSeconds(0.25f);
             yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(
                 $"default " +

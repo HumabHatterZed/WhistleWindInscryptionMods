@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core.Helpers
@@ -12,13 +12,13 @@ namespace WhistleWindLobotomyMod.Core.Helpers
     public static class NodeHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
         public static NewNodeManager.FullNode CreateNode(
-            string name, Type T, List<byte[]> animationFrames,
+            string name, Type T, List<string> animationFrames,
             GenerationType generationType, GenerationType extraGenType = GenerationType.None)
         {
             List<Texture2D> nodeAnimation = new();
             if (animationFrames.Count != 4)
             {
-                Texture2D defaultTexture = TextureLoader.LoadTextureFromBytes(Artwork.sigilAbnormality);
+                Texture2D defaultTexture = TextureLoader.LoadTextureFromFile("sigilAbnormality");
                 for (int i = 0; i < 4; i++)
                 {
                     nodeAnimation.Add(defaultTexture);
@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    nodeAnimation.Add(TextureLoader.LoadTextureFromBytes(animationFrames[i]));
+                    nodeAnimation.Add(TextureLoader.LoadTextureFromFile(animationFrames[i]));
                 }
             }
             if (extraGenType == GenerationType.None)

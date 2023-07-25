@@ -1,9 +1,8 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -13,12 +12,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_GreedyHealing()
         {
             const string rulebookName = "Greedy Healing";
-            const string rulebookDescription = "[creature] gains 2 Health at the end of its turn. If 2 turns pass without this card taking damage, this card will perish.";
-            const string dialogue = "Your beast has health in excess.";
-
+            const string rulebookDescription = "At the end of its owner's turn, this card gains 2 Health. If 2 turns pass without this card taking damage, it will die.";
+            const string dialogue = "Your beast has Health in excess.";
+            const string triggerText = "[creature] gives itself more Health!";
             GreedyHealing.ability = AbnormalAbilityHelper.CreateAbility<GreedyHealing>(
-                Artwork.sigilGreedyHealing, Artwork.sigilGreedyHealing_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                "sigilGreedyHealing",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: true, opponent: false, canStack: false).Id;
         }
     }
@@ -37,19 +36,20 @@ namespace WhistleWind.AbnormalSigils
             yield return PreSuccessfulTriggerSequence();
             yield return HelperMethods.ChangeCurrentView(View.Board);
 
-            if (base.Card.FaceDown)
-            {
-                base.Card.SetFaceDown(false);
-                base.Card.UpdateFaceUpOnBoardEffects();
-                yield return new WaitForSeconds(0.55f);
-            }
+            bool faceDown = base.Card.FaceDown;
+
+            // flip up
+            yield return base.Card.FlipFaceDown(false);
 
             if (turnCount < 2)
             {
                 base.Card.Anim.LightNegationEffect();
                 base.Card.HealDamage(2);
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.3f);
                 yield return base.LearnAbility();
+                
+                // if we were submerged at the start, resubmerge
+                yield return base.Card.FlipFaceDown(faceDown);
                 yield break;
             }
 
@@ -62,7 +62,7 @@ namespace WhistleWind.AbnormalSigils
             }
             yield return base.Card.Die(false, null);
             yield return new WaitForSeconds(0.5f);
-            yield return AbnormalDialogueManager.PlayDialogueEvent("RegeneratorOverheal");
+            yield return DialogueHelper.PlayDialogueEvent("RegeneratorOverheal");
         }
 
         public override IEnumerator OnTakeDamage(PlayableCard source)

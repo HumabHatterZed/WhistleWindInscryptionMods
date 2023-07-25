@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,21 +13,15 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_GraveOfBlossoms_O04100()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Sharp,
-                Bloodfiend.ability
-            };
-            CreateCard(
-                "wstl_graveOfBlossoms", "Grave of Cherry Blossoms",
-                "A blooming cherry tree. The more blood it has, the more beautiful it becomes.",
-                atk: 0, hp: 3,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.graveOfBlossoms, Artwork.graveOfBlossoms_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                customTribe: TribePlant);
+            const string graveOfBlossoms = "graveOfBlossoms";
+
+            NewCard(graveOfBlossoms, "Grave of Cherry Blossoms", "A blooming cherry tree. The more blood it has, the more beautiful it becomes.",
+                attack: 0, health: 3, blood: 1)
+                .SetPortraits(graveOfBlossoms)
+                .AddAbilities(Ability.Sharp, Bloodfiend.ability)
+                .AddTribes(TribeBotanic)
+                .SetDefaultEvolutionName("Mass Grave of Cherry Blossoms")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

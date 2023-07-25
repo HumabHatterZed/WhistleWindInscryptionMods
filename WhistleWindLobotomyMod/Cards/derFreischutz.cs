@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,25 +12,15 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_DerFreischutz_F0169()
         {
-            List<Ability> abilities = new()
-            {
-                Marksman.ability,
-                Ability.SplitStrike
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                MagicBullet.specialAbility
-            };
-            CreateCard(
-                "wstl_derFreischutz", "Der Freischütz",
-                "A friendly hunter to some, a cruel gunsman to others. His bullets always hit their mark.",
-                atk: 1, hp: 1,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.derFreischutz, Artwork.derFreischutz_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.He,
-                customTribe: TribeFae);
+            const string derFreischutz = "derFreischutz";
+
+            NewCard(derFreischutz, "Der Freischütz", "A friendly hunter to some, a cruel gunsman to others. His bullets always hit their mark.",
+                attack: 1, health: 1, blood: 2)
+                .SetPortraits(derFreischutz)
+                .AddAbilities(Ability.Sniper, Ability.SplitStrike)
+                .AddTribes(TribeFae)
+                .SetDefaultEvolutionName("Der Ältere Freischütz")
+                .Build(CardHelper.ChoiceType.Rare, RiskLevel.He);
         }
     }
 }

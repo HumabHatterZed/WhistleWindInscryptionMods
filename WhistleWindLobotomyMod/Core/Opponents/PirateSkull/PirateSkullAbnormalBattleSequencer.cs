@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Core.Opponents.PirateSkull
 {
@@ -9,7 +8,7 @@ namespace WhistleWindLobotomyMod.Core.Opponents.PirateSkull
         {
             EncounterData encounterData = base.BuildCustomEncounter(nodeData);
             encounterData.Blueprint = LobotomyEncounterManager.PirateSkullAbnormalBossP1;
-            encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, 20);
+            encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, 20, false);
             encounterData.startConditions.Clear();
             EncounterData.StartCondition startCondition = new();
             startCondition.cardsInOpponentSlots[0] = CardLoader.GetCardByName("wstl_apostleMoleman");

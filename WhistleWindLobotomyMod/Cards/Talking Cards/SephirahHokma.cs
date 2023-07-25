@@ -1,52 +1,59 @@
-﻿/*using DiskCardGame;
-using InscryptionAPI.Helpers;
-using System.Collections;
+﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionAPI.TalkingCards;
+using InscryptionAPI.TalkingCards.Animation;
+using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
+using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public class TalkingCardHokma : CustomPaperTalkingCard
     {
-        private void Card_Hokma()
-        {
-            List<Ability> abilities = new()
-            {
-                Ability.LatchDeathShield
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                TalkingCardHokma.specialAbility
-            };
-            List<CardMetaCategory> metaCategories = new()
-            {
-                CardHelper.SephirahCard
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.AnimatedPortrait
-            };
-            CardHelper.CreateCard(
-                "wstl_sephirahHokma", "Hokma",
-                "The head of the Information Department. Incompetence is not tolerated.",
-                atk: 1, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                null, null,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: metaCategories, tribes: new(), traits: new(),
-                appearances: appearances, onePerDeck: true, face: SephirahHokma.Face);
-        }
-        private void SpecialAbility_Hokma() => TalkingCardHokma.specialAbility = AbilityHelper.CreatePaperTalkingCard<TalkingCardHokma>("Hokma").Id;
-    }
-    public class TalkingCardHokma : PaperTalkingCard
-    {
+        public override string CardName => "wstl_sephirahHokma";
+        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.85f, voiceSoundPitch: 0.5f);
+        public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
+
         public static SpecialTriggeredAbility specialAbility;
-        public SpecialTriggeredAbility SpecialAbility => specialAbility;
-        public override string OnDiscoveredInExplorationDialogueId => "SephirahHokmaChoice";
+        public override SpecialTriggeredAbility DialogueAbility => specialAbility;
+
+        public override List<EmotionData> Emotions
+        {
+            get
+            {
+                Sprite face = LoadSpriteFromFile("talkingHokmaBody", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingHokmaEmission");
+
+                return new()
+                {
+                    new(emotion: Emotion.Neutral,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingHokmaEyesOpen1", "talkingHokmaEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingHokmaMouthOpen1", "talkingHokmaMouthClosed1"),
+                        emission: emissionMain),
+                    new(emotion: Emotion.Laughter,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingHokmaEyesOpen1", "talkingHokmaEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingHokmaMouthOpen2", "talkingHokmaMouthClosed2"),
+                        emission: emissionMain),
+                    new(emotion: Emotion.Anger,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingHokmaEyesOpen2", "talkingHokmaEyesOpen2"),
+                        mouth: MakeFaceAnim("talkingHokmaMouthClosed1", "talkingHokmaMouthClosed1"),
+                        emission: emissionMain)
+                };
+            }
+        }
+
         public override string OnDrawnDialogueId => "SephirahHokmaDrawn";
-        public override string OnDrawnFallbackDialogueId => "SephirahHokmaDrawn";
         public override string OnAttackedDialogueId => "SephirahHokmaHurt";
         public override string OnSacrificedDialogueId => "SephirahHokmaSacrificed";
         public override string OnBecomeSelectableNegativeDialogueId => "SephirahHokmaSelectableBad";
@@ -55,104 +62,30 @@ namespace WhistleWindLobotomyMod
         public override string OnSelectedForCardRemoveDialogueId => "SephirahHokmaSelectableBad";
         public override string OnSelectedForCardMergeDialogueId => "SephirahHokmaGivenSigil";
         public override string OnSelectedForDeckTrialDialogueId => "SephirahHokmaTrial";
-        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new Dictionary<Opponent.Type, string>()
+        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahHokmaChoice" }
+            { Opponent.Type.ProspectorBoss, "SephirahHokmaProspector" },
+            { Opponent.Type.AnglerBoss, "SephirahHokmaAngler" },
+            { Opponent.Type.TrapperTraderBoss, "SephirahHokmaTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "SephirahHokmaLeshy" },
+            { Opponent.Type.RoyalBoss, "SephirahHokmaRoyal" }
         };
-        public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
-        public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
-        {
-            yield return new WaitForEndOfFrame();
-            yield return base.OnShownForCardSelect(forPositiveEffect);
-            yield break;
-        }
+        public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    static class SephirahHokma
+    public partial class LobotomyPlugin
     {
-        public static GameObject Face;
-        public static void Init()
+        private void SpecialAbility_Hokma()
         {
-            Face = LobotomyPlugin.sephirahBundle.LoadAsset<GameObject>("TalkingCardHokma");
-
-            CharacterFace face = Face.AddComponent<CharacterFace>();
-            face.anim = Face.transform.Find("Anim").GetComponent<Animator>();
-            face.eyes = Face.transform.Find("Anim").Find("Body").Find("Eyes").gameObject.AddComponent<CharacterEyes>();
-            face.mouth = Face.transform.Find("Anim").Find("Body").Find("Mouth").gameObject.AddComponent<CharacterMouth>();
-            face.face = Face.transform.Find("Anim").Find("Body").GetComponent<SpriteRenderer>();
-
-            face.emotionSprites = new List<CharacterFace.EmotionSprites>()
-            {
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Neutral,
-                    face = face.face.sprite,
-                    eyesOpen = face.eyes.GetComponent<SpriteRenderer>().sprite,
-                    mouthClosed = face.mouth.GetComponent<SpriteRenderer>().sprite,
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes1_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_mouth1_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Surprise,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes2_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_mouth2_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes2_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_mouth2_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Laughter,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes3_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_mouth3_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes3_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes_emission2, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_mouth3_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Quiet,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes4_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_mouth4_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes4_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_mouth4_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Curious,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes5_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_mouth4_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes5_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_mouth4_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Anger,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes6_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_mouth6_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes6_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardHokma_mouth6_open, new(0.5f, 0f))
-                }
-            };
-
-            face.voiceSoundId = "female1_voice";
-            face.voiceSoundPitch = 0.5f;
-            face.eyes.blinkRate = 1.2f;
-
-            int offscreen = LayerMask.NameToLayer("CardOffscreen");
-            foreach (Transform t in Face.GetComponentsInChildren<Transform>()) { t.gameObject.layer = offscreen; }
-            Face.layer = offscreen;
-            face.eyes.emissionRenderer = face.eyes.transform.Find("Emission")?.GetComponent<SpriteRenderer>();
-            if (face.eyes.emissionRenderer != null) { face.eyes.emissionRenderer.gameObject.layer = LayerMask.NameToLayer("CardOffscreenEmission"); }
+            TalkingCardHokma.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardHokma>("Hokma").Id;
+        }
+        private void Card_Hokma()
+        {
+            NewCard("sephirahHokma", "Hokma", "All things will happen in time. Just have faith.",
+                attack: 2, health: 3, bones: 2)
+                .AddAbilities(NeuteredLatch.ability)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck()
+                .Build();
         }
     }
-}*/
+}

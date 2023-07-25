@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,24 +12,16 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_JudgementBird_O0262()
         {
-            List<Ability> abilities = new()
-            {
-                Marksman.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Bird
-            };
-            CreateCard(
-                "wstl_judgementBird", "Judgement Bird",
-                "A long bird that judges sinners with swift efficiency. It alone is above consequences.",
-                atk: 1, hp: 1,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.judgementBird, Artwork.judgementBird_emission, pixelTexture: Artwork.judgementBird_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
+            const string judgementBird = "judgementBird";
+
+            NewCard(judgementBird, "Judgement Bird", "A long bird that judges sinners with swift efficiency. It alone is above consequences.",
+                attack: 1, health: 1, blood: 2)
+                .SetPortraits(judgementBird)
+                .AddAbilities(Ability.Sniper)
+                .AddTribes(Tribe.Bird)
+                .AddTraits(TraitBlackForest, TraitExecutioner)
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

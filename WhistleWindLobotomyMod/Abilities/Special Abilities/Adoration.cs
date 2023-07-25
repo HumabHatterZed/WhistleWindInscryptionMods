@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -12,8 +11,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Adoration";
-        public static readonly string rDesc = "If Melting Love's Health is 1 on upkeep, absorb the Health of adjacent Slimes.";
+        public const string rName = "Adoration";
+        public const string rDesc = "At the start of the owner's turn, if Melting Love's Health is 1, absorb the Health of adjacent Slimes.";
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
 
@@ -51,7 +50,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.2f);
             }
 
-            yield return DialogueEventsManager.PlayDialogueEvent("MeltingLoveAbsorb");
+            yield return DialogueHelper.PlayDialogueEvent("MeltingLoveAbsorb");
 
             if (leftValid)
             {
@@ -81,12 +80,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_Adoration()
-        {
-            RulebookEntryAdoration.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryAdoration>(Adoration.rName, Adoration.rDesc).Id;
-        }
+            => RulebookEntryAdoration.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryAdoration>(Adoration.rName, Adoration.rDesc).Id;
         private void SpecialAbility_Adoration()
-        {
-            Adoration.specialAbility = AbilityHelper.CreateSpecialAbility<Adoration>(pluginGuid, Adoration.rName).Id;
-        }
+            => Adoration.specialAbility = AbilityHelper.CreateSpecialAbility<Adoration>(pluginGuid, Adoration.rName).Id;
     }
 }

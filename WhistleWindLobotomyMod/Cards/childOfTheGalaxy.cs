@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,21 +13,15 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ChildOfTheGalaxy_O0155()
         {
-            List<Ability> abilities = new()
-            {
-                FlagBearer.ability,
-                Ability.BoneDigger
-            };
-            CreateCard(
-                "wstl_childOfTheGalaxy", "Child of the Galaxy",
-                "A small child longing for a friend. Will you be his?",
-                atk: 1, hp: 4,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.childOfTheGalaxy, Artwork.childOfTheGalaxy_emission, pixelTexture: Artwork.childOfTheGalaxy_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                customTribe: TribeHumanoid);
+            const string childOfTheGalaxy = "childOfTheGalaxy";
+            
+            NewCard(childOfTheGalaxy, "Child of the Galaxy", "A small child longing for a friend. Will you be his?",
+                attack: 1, health: 1, blood: 1)
+                .SetPortraits(childOfTheGalaxy)
+                .AddAbilities(FlagBearer.ability, Ability.BoneDigger)
+                .AddTribes(TribeAnthropoid)
+                .SetDefaultEvolutionName("Teen of the Galaxy")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

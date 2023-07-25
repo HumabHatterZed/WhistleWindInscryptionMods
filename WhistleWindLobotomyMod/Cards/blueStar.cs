@@ -1,70 +1,49 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
     public partial class LobotomyPlugin
     {
-        Tribe customTribe = TribeDivine;
         private void Card_BlueStar_O0393()
         {
-            List<Ability> thirdFormeAbilities = new()
-            {
-                Ability.Evolve,
-                Ability.AllStrike
-            };
-            List<Ability> secondFormeAbilities = new()
-            {
-                Ability.Evolve,
-                Idol.ability
-            };
-            List<Ability> baseAbility = new()
-            {
-                Ability.Evolve
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                StarSound.specialAbility
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedEmission.appearance
-            };
-            CreateCard(
-                "wstl_blueStar3", "Blue Star", "",
-                atk: 4, hp: 4,
-                blood: 4, bones: 0, energy: 0,
-                Artwork.blueStar, Artwork.blueStar_emission,
-                abilities: thirdFormeAbilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances,
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
-                evolveName: "wstl_blueStar", customTribe: customTribe);
-            CreateCard(
-                "wstl_blueStar2", "Blue Star", "",
-                atk: 0, hp: 4,
-                blood: 3, bones: 0, energy: 0,
-                Artwork.blueStar, Artwork.blueStar_emission,
-                abilities: secondFormeAbilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, metaTypes: CardHelper.CardMetaType.NonChoice,
-                evolveName: "wstl_blueStar3", customTribe: customTribe);
-            CreateCard(
-                "wstl_blueStar", "Blue Star",
-                "When this is over, let's meet again as stars.",
-                atk: 0, hp: 4,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.blueStar, Artwork.blueStar_emission,
-                abilities: baseAbility, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph,
-                evolveName: "wstl_blueStar2", customTribe: customTribe);
+            const string starName = "Blue Star";
+            const string blueStar = "blueStar";
+            Tribe[] tribes = new[] { TribeDivine };
+
+            CardInfo star3 = NewCard("blueStar3", starName,
+                attack: 4, health: 4, blood: 4)
+                .SetPortraits(blueStar, pixelPortraitName: "blueStar2_pixel")
+                .AddAbilities(Ability.Evolve, Ability.AllStrike)
+                .AddSpecialAbilities(StarSound.specialAbility)
+                .AddTribes(tribes)
+                .AddAppearances(ForcedEmission.appearance)
+                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
+
+            CardInfo star2 = NewCard("blueStar2", starName,
+                attack: 0, health: 4, blood: 3)
+                .SetPortraits(blueStar)
+                .AddAbilities(Ability.Evolve, Idol.ability)
+                .AddTribes(tribes)
+                .SetEvolve(star3, 1)
+                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
+
+            CardInfo star = NewCard(blueStar, starName, "When this is over, let's meet again as stars.",
+                attack: 0, health: 4, blood: 2)
+                .SetPortraits(blueStar)
+                .AddAbilities(Ability.Evolve)
+                .AddTribes(tribes)
+                .SetEvolve(star2, 1)
+                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
+
+            // set the evolve info here to prevent any errors with evolving cards and encounters
+            star3.SetEvolve(star, 1);
         }
     }
 }

@@ -1,5 +1,15 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
+## 1.1.3 (6/7/2023)
+- Fixed Global Spells behaving like Targeted Spells
+- Tweaked Act 2 descriptions for Targeted and Global Spells.
+
+## 1.1.2 (6/1/2023)
+- Fixed Spells not working correctly in Act 2
+
+## 1.1.1 (5/20/2023)
+- Fixed Give Stats giving the wrong stats
+
 ## 1.1.0 (2/4/2023)
 - Added opponent support for spell cards and all built-in sigils
 - Added Global Spell support for ability 'Gain Control'

@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,23 +12,15 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_WillBeBadWolf_F0258()
         {
-            List<Ability> abilities = new()
-            {
-                BitterEnemies.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Canine
-            };
-            CreateCard(
-                "wstl_willBeBadWolf", "Big and Will be Bad Wolf",
-                "It is no coincidence that wolves are the villains of so many tales.",
-                atk: 3, hp: 2,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.willBeBadWolf, Artwork.willBeBadWolf_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
+            const string willBeBadWolf = "willBeBadWolf";
+
+            NewCard(willBeBadWolf, "Big and Will Be Bad Wolf", "It's the fate of all wolves to be the villains of fairy tales.",
+                attack: 3, health: 4, blood: 3)
+                .SetPortraits(willBeBadWolf)
+                .AddAbilities(Assimilator.ability)
+                .AddSpecialAbilities(CrimsonScar.specialAbility)
+                .AddTribes(Tribe.Canine)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

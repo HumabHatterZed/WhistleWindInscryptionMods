@@ -3,18 +3,23 @@ using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
+using InscryptionAPI.PixelCard;
+using InscryptionAPI.Resource;
 using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TribalLibary;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
     [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("community.inscryption.patch", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.spells", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("tribes.libary", BepInDependency.DependencyFlags.SoftDependency)]
 
@@ -23,26 +28,34 @@ namespace WhistleWind.AbnormalSigils
         public const string pluginGuid = "whistlewind.inscryption.abnormalsigils";
         public const string pluginPrefix = "wstl";
         public const string pluginName = "Abnormal Sigils";
-        private const string pluginVersion = "1.0.0";
+        private const string pluginVersion = "1.0.1";
 
         internal static ManualLogSource Log;
         private static readonly Harmony HarmonyInstance = new(pluginGuid);
 
+        public static Tribe TribeDivine;
+        public static Tribe TribeFae;
+        public static Tribe TribeBotanic;
+        public static Tribe TribeAnthropoid;
+        public static Tribe TribeMechanical;
+
         public static Trait Boneless = GuidManager.GetEnumValue<Trait>(pluginGuid, "Boneless");
+        public static Trait SwanBrother = GuidManager.GetEnumValue<Trait>(pluginGuid, "SwanBrother");
+        public static Trait NakedSerpent = GuidManager.GetEnumValue<Trait>(pluginGuid, "NakedSerpent");
+        public static Trait SporeFriend = GuidManager.GetEnumValue<Trait>(pluginGuid, "SporeFriend");
         public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
+        public static Trait Orchestral = GuidManager.GetEnumValue<Trait>(pluginGuid, "Orchestral");
+
         public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
         public static CardMetaCategory CannotGainSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGainSigils");
         public static CardMetaCategory CannotBoostStats = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotBoostStats");
         public static CardMetaCategory CannotCopyCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotCopyCard");
 
-        private void OnDisable()
-        {
-            HarmonyInstance.UnpatchSelf();
-        }
+        private void OnDisable() => HarmonyInstance.UnpatchSelf();
 
         private void Awake()
         {
-            AbnormalPlugin.Log = base.Logger;
+            Log = base.Logger;
             AbnormalConfigManager.Instance.BindConfig();
 
             if (!AbnormalConfigManager.Instance.EnableMod)
@@ -51,13 +64,59 @@ namespace WhistleWind.AbnormalSigils
             {
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
+                AddResources();
                 AbnormalDialogueManager.GenerateDialogueEvents();
 
+                InitTribes();
                 AddAbilities();
                 AddSpecialAbilities();
+                AddAppearances();
+
                 AddCards();
 
                 Logger.LogInfo($"{pluginName} loaded!");
+            }
+        }
+        private void InitTribes()
+        {
+            Log.LogDebug("Loading tribes...");
+            if (TribalAPI.Enabled)
+            {
+                TribalAPI.UseTribalTribes();
+            }
+            else
+            {
+                Texture2D anthro = TextureLoader.LoadTextureFromFile("tribeAnthropoid");
+                Texture2D botanical = TextureLoader.LoadTextureFromFile("tribeBotanic");
+                Texture2D divine = TextureLoader.LoadTextureFromFile("tribeDivine");
+                Texture2D fae = TextureLoader.LoadTextureFromFile("tribeFae");
+                Texture2D mechanic = TextureLoader.LoadTextureFromFile("tribeMechanical");
+
+                TribeAnthropoid = TribeManager.Add(pluginGuid, "AnthropoidTribe", anthro, true, null);
+                TribeBotanic = TribeManager.Add(pluginGuid, "BotanicalTribe", botanical, true, null);
+                TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", divine, true, null);
+                TribeFae = TribeManager.Add(pluginGuid, "FaerieTribe", fae, true, null);
+                TribeMechanical = TribeManager.Add(pluginGuid, "MechanicalTribe", mechanic, true, null);
+            }
+        }
+
+        private void AddResources()
+        {
+            List<string> decalStrings = new()
+            {
+                "decalSpore",
+                "decalWorms"
+            };
+
+            foreach (string name in decalStrings)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    string resource = $"{name}_{i}";
+                    Texture2D texture = TextureLoader.LoadTextureFromFile($"{resource}");
+                    ResourceBankManager.AddDecal(pluginGuid, resource, texture);
+                    PixelCardManager.AddGBCDecal(pluginGuid, resource, texture);
+                }
             }
         }
         private void AddSpecialAbilities()
@@ -68,6 +127,7 @@ namespace WhistleWind.AbnormalSigils
             StatIcon_SigilPower();
             StatIcon_Nihil();
         }
+        private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
         private void AddCards() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
         private void AddAbilities()
         {
@@ -88,15 +148,19 @@ namespace WhistleWind.AbnormalSigils
             Ability_Healer();
             Ability_QueenNest();
             Ability_BitterEnemies();
+            Ability_Persistent();
             Ability_Courageous();
+
             Ability_SerpentsNest();
+            StatusEffect_Worms();
+
             Ability_Assimilator();
             Ability_GroupHealer();
             Ability_Reflector();
             Ability_FlagBearer();
             Ability_Grinder();
             Ability_TheTrain();
-            Ability_Burning();
+            Ability_Scorching();
             Ability_Regenerator();
             Ability_Volatile();
             Ability_GiftGiver();
@@ -104,19 +168,18 @@ namespace WhistleWind.AbnormalSigils
             Ability_Scrambler();
             Ability_Gardener();
             Ability_Slime();
-            Ability_Marksman();
             Ability_Protector();
-            Ability_QuickDraw();
+
             // v1.1
             Ability_Alchemist();
             Ability_Nettles();
 
-            //RenderCost_Spores();
             Ability_Sporogenic();
-            Rulebook_Spores();
+            StatusEffect_Spores();
 
             Ability_Witness();
             Ability_Corrector();
+
             // v2.0
             Ability_ThickSkin();
             Ability_OneSided();
@@ -142,22 +205,28 @@ namespace WhistleWind.AbnormalSigils
         public static class TribalAPI
         {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("tribes.libary");
-            public static List<Tribe> AddTribalTribe(List<Tribe> list, string name)
+            public static void UseTribalTribes()
             {
-                Tribe tribeToAdd = name switch
-                {
-                    "divine" => Plugin.divinebeastTribe,
-                    "fae" => Plugin.fairyTribe,
-                    "humanoid" => Plugin.humanoidTribe,
-                    "machine" => Plugin.machineTribe,
-                    "plant" => Plugin.plantTribe,
-                    _ => Tribe.None
-                };
-                if (tribeToAdd != Tribe.None)
-                    list.Add(tribeToAdd);
-
-                return list;
+                Log.LogDebug("Tribal Libary detected. Using its tribes instead.");
+                TribeDivine = TribalLibary.Plugin.guardianTribe;
+                TribeFae = TribalLibary.Plugin.fairyTribe;
+                TribeAnthropoid = TribalLibary.Plugin.humanoidTribe;
+                TribeMechanical = TribalLibary.Plugin.androidTribe;
+                TribeBotanic = TribalLibary.Plugin.plantTribe;
             }
+
         }
+
+        public static CardInfo MakeCard(
+            string cardName, string displayName = null,
+            string description = null,
+            int attack = 0, int health = 0,
+            int blood = 0, int bones = 0, int energy = 0
+            )
+        {
+            return CardHelper.NewCard(false, pluginPrefix, cardName, displayName, description, attack, health, blood, bones, energy);
+        }
+
+        public static void CreateCard(CardInfo cardInfo) => CardManager.Add(pluginPrefix, cardInfo);
     }
 }

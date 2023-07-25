@@ -1,52 +1,74 @@
-﻿/*using DiskCardGame;
-using InscryptionAPI.Helpers;
-using System.Collections;
+﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionAPI.TalkingCards;
+using InscryptionAPI.TalkingCards.Animation;
+using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
+using static WhistleWind.Core.Helpers.TextureLoader;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public class TalkingCardChesed : CustomPaperTalkingCard
     {
-        private void Card_Chesed()
-        {
-            List<Ability> abilities = new()
-            {
-                Ability.LatchDeathShield
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                TalkingCardChesed.specialAbility
-            };
-            List<CardMetaCategory> metaCategories = new()
-            {
-                CardHelper.SephirahCard
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                CardAppearanceBehaviour.Appearance.AnimatedPortrait
-            };
-            CardHelper.CreateCard(
-                "wstl_sephirahChesed", "Chesed",
-                "The head of the Information Department. Incompetence is not tolerated.",
-                atk: 1, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                null, null,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: metaCategories, tribes: new(), traits: new(),
-                appearances: appearances, onePerDeck: true, face: SephirahChesed.Face);
-        }
-        private void SpecialAbility_Chesed() => TalkingCardChesed.specialAbility = AbilityHelper.CreatePaperTalkingCard<TalkingCardChesed>("Chesed").Id;
-    }
-    public class TalkingCardChesed : PaperTalkingCard
-    {
+        public override string CardName => "wstl_sephirahChesed";
+        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.9f, voiceSoundPitch: 0.7f);
+        public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
+
         public static SpecialTriggeredAbility specialAbility;
-        public SpecialTriggeredAbility SpecialAbility => specialAbility;
-        public override string OnDiscoveredInExplorationDialogueId => "SephirahChesedChoice";
+        public override SpecialTriggeredAbility DialogueAbility => specialAbility;
+
+        public override List<EmotionData> Emotions
+        {
+            get
+            {
+                Sprite face = LoadSpriteFromFile("talkingChesedBody", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingChesedEmission");
+
+                return new()
+                {
+                    new(emotion: Emotion.Neutral,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen1", "talkingChesedEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen1", "talkingChesedMouthClosed1"),
+                        emission: emissionMain),
+                    new(emotion: Emotion.Surprise,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen3", "talkingChesedEyesClosed3"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen2", "talkingChesedMouthClosed2"),
+                        emission: emissionMain),
+                    new(emotion: Emotion.Curious,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen2", "talkingChesedEyesClosed2"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen2", "talkingChesedMouthClosed2"),
+                        emission: emissionMain),
+                    new(emotion: Emotion.Laughter,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen1", "talkingChesedEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen2", "talkingChesedMouthClosed2"),
+                        emission: emissionMain),
+                    new(emotion: Emotion.Quiet,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingChesedEyesClosed1", "talkingChesedEyesClosed1"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen2", "talkingChesedMouthClosed2"),
+                        emission: GeneratePortrait.EmptyPortraitTuple),
+                    new(emotion: Emotion.Anger,
+                        face: face,
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen2", "talkingChesedEyesClosed2"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen3", "talkingChesedMouthClosed1"),
+                        emission: emissionMain)
+                };
+            }
+        }
+
         public override string OnDrawnDialogueId => "SephirahChesedDrawn";
-        public override string OnDrawnFallbackDialogueId => "SephirahChesedDrawn";
         public override string OnAttackedDialogueId => "SephirahChesedHurt";
         public override string OnSacrificedDialogueId => "SephirahChesedSacrificed";
         public override string OnBecomeSelectableNegativeDialogueId => "SephirahChesedSelectableBad";
@@ -55,104 +77,30 @@ namespace WhistleWindLobotomyMod
         public override string OnSelectedForCardRemoveDialogueId => "SephirahChesedSelectableBad";
         public override string OnSelectedForCardMergeDialogueId => "SephirahChesedGivenSigil";
         public override string OnSelectedForDeckTrialDialogueId => "SephirahChesedTrial";
-        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new Dictionary<Opponent.Type, string>()
+        public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahChesedChoice" }
+            { Opponent.Type.ProspectorBoss, "SephirahChesedProspector" },
+            { Opponent.Type.AnglerBoss, "SephirahChesedAngler" },
+            { Opponent.Type.TrapperTraderBoss, "SephirahChesedTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "SephirahChesedLeshy" },
+            { Opponent.Type.RoyalBoss, "SephirahChesedRoyal" }
         };
-        public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
-        public override IEnumerator OnShownForCardSelect(bool forPositiveEffect)
-        {
-            yield return new WaitForEndOfFrame();
-            yield return base.OnShownForCardSelect(forPositiveEffect);
-            yield break;
-        }
+        public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    static class SephirahChesed
+    public partial class LobotomyPlugin
     {
-        public static GameObject Face;
-        public static void Init()
+        private void SpecialAbility_Chesed()
         {
-            Face = LobotomyPlugin.sephirahBundle.LoadAsset<GameObject>("TalkingCardChesed");
-
-            CharacterFace face = Face.AddComponent<CharacterFace>();
-            face.anim = Face.transform.Find("Anim").GetComponent<Animator>();
-            face.eyes = Face.transform.Find("Anim").Find("Body").Find("Eyes").gameObject.AddComponent<CharacterEyes>();
-            face.mouth = Face.transform.Find("Anim").Find("Body").Find("Mouth").gameObject.AddComponent<CharacterMouth>();
-            face.face = Face.transform.Find("Anim").Find("Body").GetComponent<SpriteRenderer>();
-
-            face.emotionSprites = new List<CharacterFace.EmotionSprites>()
-            {
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Neutral,
-                    face = face.face.sprite,
-                    eyesOpen = face.eyes.GetComponent<SpriteRenderer>().sprite,
-                    mouthClosed = face.mouth.GetComponent<SpriteRenderer>().sprite,
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes1_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_mouth1_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Surprise,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes2_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_mouth2_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes2_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_mouth2_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Laughter,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes3_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_mouth3_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes3_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes_emission2, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_mouth3_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Quiet,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes4_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_mouth4_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes4_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_mouth4_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Curious,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes5_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_mouth4_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes5_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_mouth4_open, new(0.5f, 0f))
-                },
-                new CharacterFace.EmotionSprites()
-                {
-                    emotion = Emotion.Anger,
-                    face = face.face.sprite,
-                    eyesOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes6_open, new(0.5f, 0f)),
-                    mouthClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_mouth6_closed, new(0.5f, 0f)),
-                    eyesClosed = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes6_closed, new(0.5f, 0f)),
-                    eyesOpenEmission = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_eyes_emission1, new(0.5f, 0f)),
-                    mouthOpen = TextureLoader.LoadSpriteFromBytes(Artwork.TalkingCardChesed_mouth6_open, new(0.5f, 0f))
-                }
-            };
-
-            face.voiceSoundId = "female1_voice";
-            face.voiceSoundPitch = 0.5f;
-            face.eyes.blinkRate = 1.2f;
-
-            int offscreen = LayerMask.NameToLayer("CardOffscreen");
-            foreach (Transform t in Face.GetComponentsInChildren<Transform>()) { t.gameObject.layer = offscreen; }
-            Face.layer = offscreen;
-            face.eyes.emissionRenderer = face.eyes.transform.Find("Emission")?.GetComponent<SpriteRenderer>();
-            if (face.eyes.emissionRenderer != null) { face.eyes.emissionRenderer.gameObject.layer = LayerMask.NameToLayer("CardOffscreenEmission"); }
+            TalkingCardChesed.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardChesed>("Chesed").Id;
+        }
+        private void Card_Chesed()
+        {
+            NewCard("sephirahChesed", "Chesed", "Nothing like a fresh cup of coffee to start your day.",
+                attack: 0, health: 4, blood: 1)
+                .AddAbilities(Healer.ability, ThickSkin.ability)
+                .AddTraits(TraitSephirah)
+                .SetOnePerDeck()
+                .Build();
         }
     }
-}*/
+}

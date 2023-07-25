@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -14,11 +15,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Nettles()
         {
             const string rulebookName = "Nettle Clothes";
-            const string rulebookDescription = "When this card is played, fill all empty spaces on the owner's side of the board with random Brothers. This card gains new abilities based on ally Brothers.";
+            const string rulebookDescription = "When this card is played, fill all empty spaces on the owner's side of the board with random Brothers. This card gains the first sigil of each allied Brother.";
             const string dialogue = "These clothes will surely restore our happy days.";
+            const string triggerText = "[creature] brings out its family!";
             Nettles.ability = AbnormalAbilityHelper.CreateAbility<Nettles>(
-                Artwork.sigilNettles, Artwork.sigilNettles_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5,
+                "sigilNettles",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }
@@ -27,26 +29,22 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        // 1 mode for each brother
-        private readonly CardModificationInfo mod1 = new(Ability.DoubleStrike);
-        private readonly CardModificationInfo mod2 = new(Piercing.ability);
-        private readonly CardModificationInfo mod3 = new(Reflector.ability);
-        private readonly CardModificationInfo mod4 = new(Ability.Deathtouch);
-        private readonly CardModificationInfo mod5 = new(Burning.ability);
-        private readonly CardModificationInfo mod6 = new(ThickSkin.ability);
         public override bool RespondsToResolveOnBoard() => true;
-
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
+        {
+            return otherCard.OpponentCard == base.Card.OpponentCard && otherCard.HasTrait(AbnormalPlugin.SwanBrother);
+        }
+        private List<CardModificationInfo> currentMods = new();
         public override IEnumerator OnResolveOnBoard()
         {
-            yield return HelperMethods.ChangeCurrentView(View.Board);
-            List<CardSlot> validSlots = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).FindAll((CardSlot slot) => !(slot.Card != null) && slot.Card != base.Card);
+            List<CardSlot> validSlots = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).FindAll((CardSlot slot) => !slot.Card && slot.Card != base.Card);
 
             if (validSlots.Count == 0)
             {
                 yield return new WaitForSeconds(0.25f);
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return AbnormalDialogueManager.PlayDialogueEvent("NettlesFail");
+                yield return DialogueHelper.PlayDialogueEvent("NettlesFail");
                 yield break;
             }
 
@@ -55,62 +53,52 @@ namespace WhistleWind.AbnormalSigils
             // Create list of all Brothers
             List<CardInfo> brothers = new()
             {
-                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother1"), CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother2"),
-                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother3"), CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother4"),
-                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother5"), CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother6")
+                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother1"),
+                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother2"),
+                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother3"),
+                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother4"),
+                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother5"),
+                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother6")
             };
 
             // Create a unique Brother for each valid slot
-            foreach (CardSlot s in validSlots)
+            int randomSeed = base.GetRandomSeed();
+
+            foreach (CardSlot slot in validSlots)
             {
-                int seed = SeededRandom.Range(0, brothers.Count, base.GetRandomSeed());
-                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(brothers[seed], s, 0.15f);
+                int seed = SeededRandom.Range(0, brothers.Count, randomSeed++);
+                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(brothers[seed], slot, 0.15f);
                 brothers.RemoveAt(seed);
             }
             yield return base.LearnAbility();
         }
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
-        {
-            // respond if otherCard on same side of board and is a Brother
-            return otherCard.OpponentCard == base.Card.OpponentCard && otherCard.Info.name.Contains("wstl_dreamOfABlackSwanBrother");
-        }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
-            // get the right mod
-            CardModificationInfo cardMod = otherCard.Info.name switch
+            yield return base.PreSuccessfulTriggerSequence();
+            CardModificationInfo abilityMod = new()
             {
-                "wstl_dreamOfABlackSwanBrother1" => mod1,
-                "wstl_dreamOfABlackSwanBrother2" => mod2,
-                "wstl_dreamOfABlackSwanBrother3" => mod3,
-                "wstl_dreamOfABlackSwanBrother4" => mod4,
-                "wstl_dreamOfABlackSwanBrother5" => mod5,
-                _ => mod6
+                singletonId = "wstl:Swan_" + otherCard.Info.name + currentMods.Count(x => x.singletonId.Contains(otherCard.Info.name)),
+                abilities = new() { otherCard.Info.Abilities.Count > 0 ? otherCard.Info.Abilities.First() : Ability.Sharp }
             };
-            base.Card.AddTemporaryMod(cardMod);
-            yield break;
+
+            base.Card.AddTemporaryMod(abilityMod);
         }
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return card.OpponentCard == base.Card.OpponentCard && card.Info.name.Contains("wstl_dreamOfABlackSwanBrother");
+            return card.OpponentCard == base.Card.OpponentCard && card.HasTrait(AbnormalPlugin.SwanBrother);
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            CardModificationInfo cardMod = card.Info.name switch
-            {
-                "wstl_dreamOfABlackSwanBrother1" => mod1,
-                "wstl_dreamOfABlackSwanBrother2" => mod2,
-                "wstl_dreamOfABlackSwanBrother3" => mod3,
-                "wstl_dreamOfABlackSwanBrother4" => mod4,
-                "wstl_dreamOfABlackSwanBrother5" => mod5,
-                _ => mod6
-            };
-            if (card.Info.Abilities.Count != 0)
-                base.Card.Status.hiddenAbilities.Remove(card.Info.Abilities[0]);
+            CardModificationInfo cardMod = base.Card.TemporaryMods.FirstOrDefault(
+                x => x.singletonId.StartsWith($"wstl:Swan_{card.Info.name}") &&
+                x.HasAbility(card.Info.Abilities.Count > 0 ? card.Info.Abilities[0] : Ability.Sharp));
+
+            if (cardMod == null)
+                yield break;
 
             base.Card.RemoveTemporaryMod(cardMod);
-            yield return AbnormalDialogueManager.PlayDialogueEvent("NettlesDie");
-            yield return base.Card.TakeDamage(1, null);
+            yield return DialogueHelper.PlayDialogueEvent("NettlesDie");
         }
     }
 }

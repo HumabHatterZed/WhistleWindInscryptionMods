@@ -1,10 +1,12 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
+using System.ComponentModel;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,20 +14,17 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_AdultWhoTellsLies_F01117()
         {
-            List<Ability> abilities = new()
-            {
-                FalseThrone.ability
-            };
-            CreateCard(
-                "wstl_lyingAdult", "The Adult Who Tells Lies",
-                "",
-                atk: 1, hp: 6,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.lyingAdult, Artwork.lyingAdult_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, modTypes: ModCardType.Ruina | ModCardType.EventCard,
-                customTribe: TribeFae);
+            const string lyingAdult = "lyingAdult";
+
+            NewCard(lyingAdult, "The Adult Who Tells Lies",
+                attack: 1, health: 5, blood: 2)
+                .SetPortraits(lyingAdult)
+                .AddAbilities(FalseThrone.ability)
+                .AddSpecialAbilities(BoardEffects.specialAbility)
+                .AddTribes(TribeAnthropoid)
+                .AddAppearances(ForcedWhiteEmission.appearance)
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.Ruina | ModCardType.EventCard);
         }
     }
 }

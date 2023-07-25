@@ -1,9 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
-using WhistleWind.Core.Helpers;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using WhistleWind.Core.Helpers;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -11,54 +13,30 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApostleMoleman_T0346()
         {
-            Tribe customTribe = TribeDivine;
-            List<Ability> abilities = new()
-            {
-                Apostle.ability,
-                Ability.Reach,
-                Ability.WhackAMole
-            };
-            List<Trait> traits = new()
-            {
-                Trait.Uncuttable,
-                Trait.Terrain
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedWhiteEmission.appearance
-            };
-            CreateCard(
-                "wstl_apostleMoleman", "Moleman Apostle",
-                "The time has come.",
-                atk: 1, hp: 8,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.apostleMoleman, Artwork.apostleMoleman_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances,
-                choiceType: CardHelper.CardChoiceType.Rare,
-                metaTypes: CardHelper.CardMetaType.NonChoice,
-                modTypes: ModCardType.EventCard, customTribe: customTribe);
+            const string molemanName = "Moleman Apostle";
+            const string apostleMoleman = "apostleMoleman";
+            const string apostleMolemanDown = "apostleMolemanDown";
+            Tribe[] tribes = new[] { TribeDivine };
+            Trait[] traits = new[] { TraitApostle };
+            CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
-            abilities = new()
-            {
-                Ability.Reach,
-                Ability.Evolve
-            };
-            traits = new()
-            {
-                Trait.Terrain
-            };
-            CreateCard(
-                "wstl_apostleMolemanDown", "Moleman Apostle",
-                "The time has come.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.apostleMolemanDown, Artwork.apostleMolemanDown_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, evolveName: "wstl_apostleMoleman", numTurns: 2,
-                modTypes: ModCardType.EventCard, customTribe: customTribe);
+            NewCard(apostleMoleman, molemanName,
+                attack: 1, health: 8)
+                .SetPortraits(apostleMoleman)
+                .AddAbilities(Ability.Reach, Ability.WhackAMole, Apostle.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances)
+                .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
+
+            NewCard(apostleMolemanDown, molemanName,
+                attack: 0, health: 1)
+                .SetPortraits(apostleMolemanDown)
+                .AddAbilities(Apostle.ability)
+                .AddTribes(tribes)
+                .AddTraits(traits)
+                .AddAppearances(appearances)
+                .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
         }
     }
 }

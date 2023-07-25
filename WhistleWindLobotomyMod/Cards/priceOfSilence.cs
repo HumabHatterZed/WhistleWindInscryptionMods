@@ -1,8 +1,9 @@
-﻿using WhistleWind.AbnormalSigils;
+﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -10,16 +11,13 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_PriceOfSilence_O0565()
         {
-            CreateCard(
-                "wstl_priceOfSilence", "Price of Silence",
-                "The unflinching hand of time cuts down man and beast alike.",
-                atk: 0, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.priceOfSilence, Artwork.priceOfSilence_emission,
-                abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), appearances: new(),
-                statIcon: Time.icon, choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                modTypes: ModCardType.Ruina);
+            const string priceOfSilence = "priceOfSilence";
+
+            NewCard(priceOfSilence, "Price of Silence", "The unflinching hand of time cuts down man and beast alike.",
+                attack: 0, health: 3, blood: 2)
+                .SetPortraits(priceOfSilence)
+                .SetStatIcon(Time.Icon)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He, ModCardType.Ruina);
         }
     }
 }

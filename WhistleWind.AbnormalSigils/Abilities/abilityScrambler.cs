@@ -1,10 +1,9 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Patchers;
 using System.Collections;
-using TribalLibary;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -13,15 +12,15 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Ability_Scrambler()
         {
-            string rulebookDescription = "When [creature] is sacrificed, give its stats to the sacrificing card then scramble its new stats.";
+            string rulebookDescription = "When [creature] is sacrificed, give its stats to the sacrificing card then scramble the card's stats.";
             if (SpellAPI.Enabled)
-                rulebookDescription += " Works with spells.";
+                rulebookDescription += " For Spells: On target selected.";
 
             const string rulebookName = "Scrambler";
             const string dialogue = "Do you love your city?";
 
             Scrambler.ability = AbnormalAbilityHelper.CreateAbility<Scrambler>(
-                Artwork.sigilScrambler, Artwork.sigilScrambler_pixel,
+                "sigilScrambler",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false).Id;
         }

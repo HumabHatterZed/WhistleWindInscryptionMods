@@ -1,5 +1,7 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
@@ -13,8 +15,9 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Three Birds";
-        public static readonly string rDesc = "Gain a special card when Punishing Bird, Judgement Bird, and Big Bird are on the same side of the board.";
+        public const string rName = "Three Birds";
+        public const string rDesc = "Gain a special card when Punishing Bird, Judgement Bird, and Big Bird are on the same side of the board.";
+
         public override bool RespondsToResolveOnBoard() => !LobotomyConfigManager.Instance.NoEvents;
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !LobotomyConfigManager.Instance.NoEvents && otherCard.OpponentCard == base.PlayableCard.OpponentCard;
         public override IEnumerator OnResolveOnBoard() => CheckForOtherCards();
@@ -22,49 +25,37 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator CheckForOtherCards()
         {
-            // Break if already have Apocalypse Bird
             if (LobotomySaveManager.OwnsApocalypseBird)
             {
                 LobotomyPlugin.Log.LogDebug("Player already has Apocalypse Bird.");
                 yield break;
             }
 
-            CardSlot punishSlot = null;
-            CardSlot judgeSlot = null;
+            CardSlot punishingBird = null;
+            CardSlot judgementBird = null;
 
-            foreach (CardSlot slot in HelperMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+            foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(!base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
-                if (slot != base.PlayableCard.Slot)
-                {
-                    if (slot.Card.Info.name == "wstl_punishingBird")
-                    {
-                        LobotomyPlugin.Log.LogDebug("Player has Punishing Bird.");
-                        punishSlot = slot;
-                        continue;
-                    }
-                    if (slot.Card.Info.name == "wstl_judgementBird")
-                    {
-                        LobotomyPlugin.Log.LogDebug("Player has Judgement Bird.");
-                        judgeSlot = slot;
-                        continue;
-                    }
-                }
+                if (slot.Card.Info.name == "wstl_punishingBird")
+                    punishingBird = slot;
+                else if (slot.Card.Info.name == "wstl_judgementBird")
+                    judgementBird = slot;
             }
 
-            if (punishSlot == null || judgeSlot == null)
+            if (punishingBird == null || judgementBird == null)
                 yield break;
 
-            yield return Apocalypse(punishSlot, judgeSlot);
+            yield return Apocalypse(punishingBird, judgementBird);
         }
 
         private IEnumerator Apocalypse(CardSlot smallSlot, CardSlot longSlot)
         {
+            bool opponentCard = base.PlayableCard.OpponentCard;
+
             yield return new WaitForSeconds(0.5f);
+            yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdIntro");
 
-            // Exposit story of the Black Forest
-            yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdIntro");
-
-            AudioController.Instance.SetLoopVolume(0.5f * (Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.5f);
+            AudioController.Instance.SetLoopVolume(0.5f * (Singleton<GameFlowManager>.Instance as Part1GameFlowManager)?.GameTableLoopVolume ?? 1f, 0.5f);
             AudioController.Instance.SetLoopAndPlay("red_noise", 1);
             AudioController.Instance.SetLoopVolumeImmediate(0.3f, 1);
 
@@ -74,7 +65,7 @@ namespace WhistleWindLobotomyMod
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default, false, true);
                 yield return new WaitForSeconds(0.5f);
 
-                yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStory1");
+                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory1");
 
                 // Look down at the board
                 Singleton<ViewManager>.Instance.SwitchToView(View.Board);
@@ -82,55 +73,69 @@ namespace WhistleWindLobotomyMod
 
                 smallSlot.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStorySmall");
+                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStorySmall");
                 longSlot.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStoryLong");
+                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStoryLong");
                 base.PlayableCard.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStoryBig");
+                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStoryBig");
 
-                yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStory2");
+                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory2");
             }
 
-            Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
+            Singleton<ViewManager>.Instance.SwitchToView(View.Default, lockAfter: true);
+            bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
             yield return new WaitForSeconds(0.2f);
 
             // Remove cards
-            smallSlot.Card.RemoveFromBoard(true);
+            smallSlot.Card.RemoveFromBoard(!opponentCard);
             yield return new WaitForSeconds(0.2f);
-            longSlot.Card.RemoveFromBoard(true);
+            longSlot.Card.RemoveFromBoard(!opponentCard);
             yield return new WaitForSeconds(0.2f);
-            base.PlayableCard.RemoveFromBoard(true);
+            base.PlayableCard.RemoveFromBoard(!opponentCard);
             yield return new WaitForSeconds(0.5f);
 
-            yield return BoardEffects.ApocalypseTableEffects();
-
-            // More text
-            yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStory3");
-
-            // Give player Apocalypse in their deck and their hand
-            Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
+            if (!SaveManager.SaveFile.IsPart2)
+                yield return BoardEffects.ApocalypseTableEffects();
+            
+            yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory3");
 
             CardInfo info = CardLoader.GetCardByName("wstl_apocalypseBird");
-            RunState.Run.playerDeck.AddCard(info);
+            if (opponentCard)
+            {
+                List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
+                if (validSlots.Count > 0)
+                {
+                    HelperMethods.ChangeCurrentView(View.Board, 0.4f);
+                    yield return Singleton<BoardManager>.Instance.CreateCardInSlot(info, validSlots[SeededRandom.Range(0, validSlots.Count - 1, RunState.RandomSeed)], resolveTriggers: false);
+                }
+                else
+                {
+                    HelperMethods.ChangeCurrentView(View.OpponentQueue, 0.4f);
+                    yield return HelperMethods.QueueCreatedCard(info);
+                }
+            }
+            else
+            {
+                HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
 
-            // set cost to 0 for this fight (can play immediately that way)
-            info.cost = 0;
-            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0.25f, null);
-            LobotomySaveManager.OwnsApocalypseBird = true;
+                RunState.Run.playerDeck.AddCard(info);
+                info.cost = 0;
+                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0.25f, null);
+
+                LobotomySaveManager.OwnsApocalypseBird = true;
+                LobotomySaveManager.UnlockedApocalypseBird = true;
+            }
+
             yield return new WaitForSeconds(0.2f);
 
-            // Li'l text blurb
-            yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdStory4");
-
-            yield return new WaitForSeconds(0.2f);
+            yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory4");
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-            yield return new WaitForSeconds(0.15f);
-            yield return DialogueEventsManager.PlayDialogueEvent("ApocalypseBirdOutro");
+            yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdOutro");
 
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
         }
     }
     public class RulebookEntryThreeBirds : AbilityBehaviour
@@ -141,12 +146,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_ThreeBirds()
-        {
-            RulebookEntryThreeBirds.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryThreeBirds>(ThreeBirds.rName, ThreeBirds.rDesc).Id;
-        }
+            => RulebookEntryThreeBirds.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryThreeBirds>(ThreeBirds.rName, ThreeBirds.rDesc).Id;
         private void SpecialAbility_ThreeBirds()
-        {
-            ThreeBirds.specialAbility = AbilityHelper.CreateSpecialAbility<ThreeBirds>(pluginGuid, ThreeBirds.rName).Id;
-        }
+            => ThreeBirds.specialAbility = AbilityHelper.CreateSpecialAbility<ThreeBirds>(pluginGuid, ThreeBirds.rName).Id;
     }
 }

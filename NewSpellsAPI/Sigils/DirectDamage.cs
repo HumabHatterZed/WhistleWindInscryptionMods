@@ -27,10 +27,10 @@ namespace Infiniscryption.Spells.Sigils
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             yield return new WaitForSeconds(0.2f);
 
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlots(base.Card.IsPlayerCard()))
+            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetSlotsCopy(!base.Card.OpponentCard))
             {
                 if (slot.Card != null)
-                    yield return slot.Card.TakeDamage(1, base.Card);
+                    yield return slot.Card.TakeDamage(1, null);
             }
             yield return base.LearnAbility(0.5f);
         }

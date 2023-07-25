@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,19 +13,14 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_BehaviourAdjustment_O0996()
         {
-            List<Ability> abilities = new()
-            {
-                Corrector.ability
-            };
-            CreateCard(
-                "wstl_behaviourAdjustment", "Behaviour Adjustment",
-                "A strange device made to 'fix' errant beasts. I do not see the point.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 3,
-                Artwork.behaviourAdjustment, Artwork.behaviourAdjustment_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
+            const string behaviourAdjustment = "behaviourAdjustment";
+
+            NewCard(behaviourAdjustment, "Behaviour Adjustment", "A device made to 'fix' errant beasts. Its idea of 'fixing' might not be yours, however.",
+                attack: 0, health: 1, blood: 3)
+                .SetPortraits(behaviourAdjustment)
+                .AddAbilities(Corrector.ability)
+                .AddTribes(TribeMechanical)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

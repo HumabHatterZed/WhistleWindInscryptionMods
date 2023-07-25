@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,35 +12,19 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApocalypseBird_O0263()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.AllStrike,
-                Ability.SplitStrike
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                BoardEffects.specialAbility
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Bird
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedWhiteEmission.appearance
-            };
-            CreateCard(
-                "wstl_apocalypseBird", "Apocalypse Bird",
-                "There was no moon, no stars. Just a bird, alone in the Black Forest.",
-                atk: 3, hp: 12,
-                blood: 4, bones: 0, energy: 0,
-                Artwork.apocalypseBird, Artwork.apocalypseBird_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new(),
-                appearances: appearances, onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Rare,
-                modTypes: ModCardType.EventCard,
-                metaTypes: CardHelper.CardMetaType.NonChoice);
+            const string apocalypseBird = "apocalypseBird";
+            NewCard(apocalypseBird, "Apocalypse Bird",
+                attack: 3, health: 9, blood: 4)
+                .SetPortraits(apocalypseBird)
+                .AddAbilities(Ability.AllStrike, Ability.SplitStrike, Ability.MadeOfStone)
+                .AddSpecialAbilities(BoardEffects.specialAbility)
+                .AddTribes(Tribe.Bird)
+                .AddTraits(Trait.DeathcardCreationNonOption)
+                .AddAppearances(ForcedWhiteEmission.appearance)
+                .SetNodeRestrictions(true, false, false, true)
+                .SetDefaultEvolutionName("Greater Apocalypse Bird")
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
         }
     }
 }

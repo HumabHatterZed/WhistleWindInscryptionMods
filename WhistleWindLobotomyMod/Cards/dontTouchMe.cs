@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,22 +13,16 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_DontTouchMe_O0547()
         {
-            List<Ability> abilities = new()
-            {
-                Punisher.ability
-            };
-            CreateCard(
-                "wstl_dontTouchMe", "Don't Touch Me",
-                "Don't touch it.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 2,
-                Artwork.dontTouchMe, Artwork.dontTouchMe_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic,
-                riskLevel: RiskLevel.Zayin,
-                metaTypes: CardHelper.CardMetaType.Terrain,
-                customTribe: TribeMachine);
+            const string dontTouchMe = "dontTouchMe";
+
+            NewCard(dontTouchMe, "Don't Touch Me", "Don't touch it.",
+                attack: 0, health: 1, energy: 2)
+                .SetPortraits(dontTouchMe)
+                .AddAbilities(Punisher.ability)
+                .AddTribes(TribeMechanical)
+                .SetTerrain()
+                .SetDefaultEvolutionName("Please Don't Touch Me")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
     }
 }

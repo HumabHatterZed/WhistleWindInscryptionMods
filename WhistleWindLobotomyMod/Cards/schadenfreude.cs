@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,20 +12,15 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Schadenfreude_O0576()
         {
-            List<Ability> abilities = new()
-            {
-                QuickDraw.ability
-            };
-            CreateCard(
-                "wstl_schadenfreude", "SchadenFreude",
-                "A strange machine. You can feel someone's persistent gaze through the keyhole.",
-                atk: 1, hp: 1,
-                blood: 0, bones: 0, energy: 4,
-                Artwork.schadenfreude, Artwork.schadenfreude_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                customTribe: TribeMachine);
+            const string schadenfreude = "schadenfreude";
+
+            NewCard(schadenfreude, "Schadenfreude", "A strange machine. You can feel someone's persistent gaze through the keyhole.",
+                attack: 1, health: 1, energy: 3)
+                .SetPortraits(schadenfreude)
+                .AddAbilities(Ability.Sentry)
+                .AddTribes(TribeMechanical)
+                .SetDefaultEvolutionName("Große Schadenfreude")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

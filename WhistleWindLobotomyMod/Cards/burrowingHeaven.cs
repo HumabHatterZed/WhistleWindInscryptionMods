@@ -1,9 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -11,21 +12,15 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_BurrowingHeaven_O0472()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Sharp,
-                Ability.WhackAMole
-            };
-            CreateCard(
-                "wstl_burrowingHeaven", "The Burrowing Heaven",
-                "Don't look away. Contain it in your sight.",
-                atk: 0, hp: 2,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.burrowingHeaven, Artwork.burrowingHeaven_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                customTribe: TribeDivine);
+            const string burrowingHeaven = "burrowingHeaven";
+
+            NewCard(burrowingHeaven, "The Burrowing Heaven", "Don't look away. Contain it in your sight.",
+                attack: 0, health: 1, blood: 1)
+                .SetPortraits(burrowingHeaven)
+                .AddAbilities(Ability.GuardDog, Ability.Sentry)
+                .AddTribes(TribeDivine)
+                .SetDefaultEvolutionName("The Elder Burrowing Heaven")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

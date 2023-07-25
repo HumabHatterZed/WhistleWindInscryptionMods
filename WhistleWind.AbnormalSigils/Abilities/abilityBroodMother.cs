@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.AbilityClasses;
 
 namespace WhistleWind.AbnormalSigils
@@ -14,9 +14,10 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Broodmother";
             const string rulebookDescription = "When [creature] is struck, create a Spiderling in your hand. [define:wstl_spiderling]";
             const string dialogue = "A small spider takes refuge in your hand.";
+            const string triggerText = "[creature] drops a spiderling!";
             BroodMother.ability = AbnormalAbilityHelper.CreateAbility<BroodMother>(
-                Artwork.sigilBroodMother, Artwork.sigilBroodMother_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                "sigilBroodMother",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
                 modular: true, opponent: false, canStack: false).Id;
         }
     }

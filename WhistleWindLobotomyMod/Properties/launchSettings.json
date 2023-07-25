@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "Inscryption": {
-      "commandName": "Executable",
-      "executablePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Inscryption\\Inscryption.exe",
-      "workingDirectory": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Inscryption"
-    }
-  }
-}

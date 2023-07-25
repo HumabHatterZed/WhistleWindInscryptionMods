@@ -3,9 +3,9 @@ using InscryptionAPI.Card;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -14,11 +14,11 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Courageous()
         {
             const string rulebookName = "Courageous";
-            const string rulebookDescription = "Adjacent creatures lose up to 2 Health. For each point of Heath lost this way, the affected creature gains 1 Power. This effect cannot kill cards.";
+            const string rulebookDescription = "Creatures adjacent to this card lose up to 2 Health. For each point of Heath lost, the affected creature gains 1 Power. This effect cannot kill cards.";
             const string dialogue = "Life is only given to those who don't fear death.";
 
             Courageous.ability = AbnormalAbilityHelper.CreateAbility<Courageous>(
-                Artwork.sigilCourageous, Artwork.sigilCourageous_pixel,
+                "sigilCourageous",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false).Id;
         }
@@ -27,9 +27,6 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
-        public static CardModificationInfo courageMod = new(1, -1);
-        public static CardModificationInfo courageMod2 = new(1, -1);
 
         public override bool RespondsToResolveOnBoard()
         {
@@ -46,10 +43,7 @@ namespace WhistleWind.AbnormalSigils
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
-            if (Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Exists(slot => slot.Card != null))
-                return Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Contains(otherCard.Slot);
-
-            return false;
+            return Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Contains(otherCard.Slot);
         }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {
@@ -59,30 +53,42 @@ namespace WhistleWind.AbnormalSigils
 
         private IEnumerator ApplyEffect(PlayableCard card)
         {
-            if (card.Health == 1)
+            if (card.Health <= 1)
             {
                 card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
-                yield return AbnormalDialogueManager.PlayDialogueEvent("CourageousFail");
+                yield return DialogueHelper.PlayDialogueEvent("CourageousFail");
                 yield break;
             }
             if (card.HasAnyOfAbilities(Ability.TailOnHit, Ability.Submerge, Ability.SubmergeSquid) || card.Status.hiddenAbilities.Contains(Ability.TailOnHit))
             {
-                yield return AbnormalDialogueManager.PlayDialogueEvent("CourageousRefuse");
+                card.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.4f);
+                yield return DialogueHelper.PlayDialogueEvent("CourageousRefuse");
                 yield break;
             }
 
-            if (!card.TemporaryMods.Contains(courageMod))
+            if (!card.TemporaryMods.Exists(x => x.singletonId == "wstl:Courageous1"))
             {
-                card.AddTemporaryMod(courageMod);
-                card.OnStatsChanged();
+                CardModificationInfo mod = new(1, -1)
+                {
+                    singletonId = "wstl:Courageous1"
+                };
+                card.AddTemporaryMod(mod);
             }
-            if (!card.TemporaryMods.Contains(courageMod2) && card.Health > 1)
+            if (!card.TemporaryMods.Exists(x => x.singletonId == "wstl:Courageous2"))
             {
-                card.AddTemporaryMod(courageMod2);
-                card.OnStatsChanged();
+                if (card.Health > 1)
+                {
+                    CardModificationInfo mod = new(1, -1)
+                    {
+                        singletonId = "wstl:Courageous2"
+                    };
+                    card.AddTemporaryMod(mod);
+                }
             }
 
+            card.OnStatsChanged();
             card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
             yield return base.LearnAbility();

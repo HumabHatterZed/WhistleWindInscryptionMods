@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,21 +13,16 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_RedHoodedMercenary_F0157()
         {
-            List<Ability> abilities = new()
-            {
-                Marksman.ability,
-                BitterEnemies.ability
-            };
-            CreateCard(
-                "wstl_redHoodedMercenary", "Little Red Riding Hooded Mercenary",
-                "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.",
-                atk: 2, hp: 5,
-                blood: 3, bones: 0, energy: 0,
-                Artwork.redHoodedMercenary, Artwork.redHoodedMercenary_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                customTribe: TribeHumanoid);
+            const string redHoodedMercenary = "redHoodedMercenary";
+
+            NewCard(redHoodedMercenary, "Little Red Riding Hooded Mercenary", "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.",
+                attack: 2, health: 5, blood: 3)
+                .SetPortraits(redHoodedMercenary)
+                .AddAbilities(Ability.Sniper, Persistent.ability)
+                .AddSpecialAbilities(CrimsonScar.specialAbility)
+                .AddTribes(TribeAnthropoid)
+                .SetDefaultEvolutionName("Red Riding Hooded Mercenary")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

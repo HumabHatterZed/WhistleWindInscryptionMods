@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -9,34 +10,26 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_OzmaPumpkinJack_F04116()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Evolve
-            };
+            const string ozmaPumpkinJack = "ozmaPumpkinJack";
+            const string ozmaPumpkin = "ozmaPumpkin";
+            Tribe[] tribes = new[] { TribeBotanic };
 
-            List<Tribe> tribes = new();
-            if (TribalAPI.Enabled)
-                TribalAPI.AddTribalTribe(tribes, "plant");
+            CreateCard(MakeCard(
+                ozmaPumpkinJack,
+                "Jack",
+                attack: 2, health: 2, blood: 1)
+                .SetPortraits(ozmaPumpkinJack)
+                .AddAbilities(Cursed.ability)
+                .AddTribes(tribes));
 
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_ozmaPumpkinJack", "Jack",
-                "A child borne of an orange gourd.",
-                atk: 1, hp: 3,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.ozmaPumpkinJack, Artwork.ozmaPumpkinJack_emission,
-                abilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(), appearances: new());
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_ozmaPumpkin", "Pumpkin",
-                "An orange gourd.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.ozmaPumpkin,
-                abilities: abilities,
-                metaCategories: new(), tribes: tribes, traits: new(),
-                evolveName: "wstl_ozmaPumpkinJack");
+            CreateCard(MakeCard(
+                ozmaPumpkin,
+                "Pumpkin",
+                attack: 0, health: 2)
+                .SetPortraits(ozmaPumpkin)
+                .AddAbilities(Ability.Evolve)
+                .AddTribes(tribes)
+                .SetEvolve("wstl_ozmaPumpkinJack", 2));
         }
     }
 }

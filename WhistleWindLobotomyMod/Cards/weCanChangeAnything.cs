@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,21 +13,15 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_WeCanChangeAnything_T0985()
         {
-            List<Ability> abilities = new()
-            {
-                Grinder.ability
-            };
+            const string weCanChangeAnything = "weCanChangeAnything";
 
-            CreateCard(
-                "wstl_weCanChangeAnything", "We Can Change Anything",
-                "Whatever you're dissatisfied with, this machine will fix it. You just have to step inside.",
-                atk: 0, hp: 3,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.weCanChangeAnything, Artwork.weCanChangeAnything_emission, pixelTexture: Artwork.weCanChangeAnything_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin,
-                customTribe: TribeMachine);
+            NewCard(weCanChangeAnything, "We Can Change Anything", "Whatever you're dissatisfied with, this machine will fix it. You just have to step inside.",
+                attack: 0, health: 2, blood: 1)
+                .SetPortraits(weCanChangeAnything)
+                .AddAbilities(Grinder.ability)
+                .AddTribes(TribeMechanical)
+                .SetDefaultEvolutionName("We Will Change Everything")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
     }
 }

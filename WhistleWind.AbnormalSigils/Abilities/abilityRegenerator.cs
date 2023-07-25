@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
 using System.Collections;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -13,13 +13,13 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Regenerator()
         {
             const string rulebookName = "Regenerator";
-            const string rulebookDescription = "Adjacent cards gain 1 Health at the start of the owner's turn.";
+            const string rulebookDescription = "At the start of its owner's turn, this card heals adjacent cards by 1 Health.";
             const string dialogue = "Wounds heal, but the scars remain.";
-
+            const string triggerText = "[creature] heals adjacent creatures.";
             Regenerator.ability = AbnormalAbilityHelper.CreateAbility<Regenerator>(
-                Artwork.sigilRegenerator, Artwork.sigilRegenerator_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: true, opponent: false, canStack: false).Id;
+                "sigilRegenerator",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
+                modular: true, opponent: false, canStack: true).Id;
         }
     }
     public class Regenerator : AbilityBehaviour
@@ -29,32 +29,21 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            bool faceDown = false;
             yield return HelperMethods.ChangeCurrentView(View.Board);
             yield return PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
 
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(Card.Slot).Where(slot => slot.Card != null))
+            List<CardSlot> adjacentSlots = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).FindAll(s => s.Card != null);
+            foreach (CardSlot slot in adjacentSlots)
             {
                 if (slot.Card.Health < slot.Card.MaxHealth)
                 {
-                    if (slot.Card.FaceDown)
-                    {
-                        faceDown = true;
-                        slot.Card.SetFaceDown(false);
-                        slot.Card.UpdateFaceUpOnBoardEffects();
-                        yield return new WaitForSeconds(0.55f);
-                    }
+                    bool faceDown = slot.Card.FaceDown;
+                    yield return slot.Card.FlipFaceUp(false, 0.4f);
                     slot.Card.Anim.LightNegationEffect();
                     slot.Card.HealDamage(1);
-                    if (faceDown)
-                    {
-                        faceDown = false;
-                        yield return new WaitForSeconds(0.2f);
-                        slot.Card.SetFaceDown(false);
-                        slot.Card.UpdateFaceUpOnBoardEffects();
-                        yield return new WaitForSeconds(0.2f);
-                    }
+                    yield return new WaitForSeconds(0.2f);
+                    yield return slot.Card.FlipFaceDown(faceDown);
                 }
             }
             yield return new WaitForSeconds(0.2f);

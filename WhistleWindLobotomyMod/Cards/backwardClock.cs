@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -11,25 +11,17 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_BackwardClock_D09104()
         {
-            List<Ability> abilities = new()
-            {
-                TimeMachine.ability
-            };
-            List<Trait> traits = new()
-            {
-                Trait.DeathcardCreationNonOption
-            };
-            CreateCard(
-                "wstl_backwardClock", "Backward Clock",
-                "A clock to rewind your wasted time. Will you pay the toll?",
-                atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 2,
-                Artwork.backwardClock, Artwork.backwardClock_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Waw,
-                modTypes: ModCardType.Donator | ModCardType.Restricted);
+            const string backwardClock = "backwardClock";
+
+            NewCard(backwardClock, "Backward Clock", "A clock to rewind your wasted time. Will you pay the toll?",
+                attack: 0, health: 1, energy: 2, temple: CardTemple.Tech)
+                .SetPortraits(backwardClock)
+                .AddAbilities(TimeMachine.ability)
+                .AddTraits(Trait.DeathcardCreationNonOption)
+                .SetTerrain()
+                .SetNodeRestrictions(true, true, true, true)
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Waw, ModCardType.Donator);
         }
     }
 }

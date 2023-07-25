@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.AbilityClasses;
 
 namespace WhistleWind.AbnormalSigils
@@ -12,11 +12,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_QueenNest()
         {
             const string rulebookName = "Queen Nest";
-            const string rulebookDescription = "While this card is on the board, create a Worker Bee in your hand whenever another card dies. [define:wstl_queenBeeWorker]";
+            const string rulebookDescription = "Whenever another card dies, create a Worker Bee in your hand. [define:wstl_queenBeeWorker]";
             const string dialogue = "For the hive.";
+            const string triggerText = "Another worker is born to serve [creature].";
             QueenNest.ability = AbnormalAbilityHelper.CreateAbility<QueenNest>(
-                Artwork.sigilQueenNest, Artwork.sigilQueenNest_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                "sigilQueenNest",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: true, canStack: false).Id;
         }
     }

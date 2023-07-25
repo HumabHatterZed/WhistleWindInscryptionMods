@@ -2,28 +2,22 @@
 using BepInEx.Logging;
 using DiskCardGame;
 using HarmonyLib;
-using InscryptionAPI.Ascension;
+using Infiniscryption.Spells;
+using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
-using InscryptionAPI.Helpers;
-using InscryptionAPI.Pelts;
 using InscryptionAPI.Regions;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using UnityEngine;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Opponents;
-using static DiskCardGame.EncounterBlueprintData;
+using WhistleWindLobotomyMod;
 using static InscryptionAPI.Encounters.EncounterManager;
 
 namespace ModDebuggingMod
 {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
-    [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency(LobotomyPlugin.pluginGuid, BepInDependency.DependencyFlags.HardDependency)]
 
     public partial class Plugin : BaseUnityPlugin
     {
@@ -33,82 +27,33 @@ namespace ModDebuggingMod
         private const string pluginVersion = "1.0.0";
 
         internal static ManualLogSource Log;
-        private static Harmony harmony;
-        public static EncounterBlueprintData ModdingEncounter
-        {
-            get
-            {
-                return New("DebugEncounter")
+        private static readonly Harmony HarmonyInstance = new(pluginGuid);
+        public static EncounterBlueprintData ModdingEncounter() =>
+            New("DebugEncounter")
                     .AddDominantTribes(Tribe.Canine)
                     .AddTurns(
-                    CreateTurn(),
-                    CreateTurn()
+                    CreateTurn("wstl_redHoodedMercenary", "wstl_willBeBadWolf"),
+                    CreateTurn("Squirrel", "Squirrel", "Squirrel", "Squirrel")
                     );
 
-                return New("DebugEncounter") // Create new EncounterBlueprintData
-                .AddDominantTribes(Tribe.Canine)
-                .AddTurns(
-                    CreateTurn("Squirrel"),                             // Play a Squirrel (creates a CardBlueprint with default values)
-                    CreateTurn("Squirrel", "Skeleton"),                 // Play a Squirrel and Skeleton
-                    CreateTurn())                                       // Create an empty turn (nothing is played)
-                .DuplicateTurns(1)                                      // Duplicate the current turn plan once (last 3 turns will repeat once)
-                .AddTurn(CreateTurn("Mole", "Mole", "Mole", "Mole"))    // Play 4 Moles
-                .AddTurns(
-                    CreateTurn(                 // Play 2 Cats that will be replaced with Wolves at difficulty = 4
-                        NewCardBlueprint("Cat").SetReplacement("Wolf", 4),
-                        NewCardBlueprint("Cat").SetReplacement("Wolf", 4)),
-                    CreateTurn(                 // Play 2 Zombies with random chance of replacement of 50% and 25% respectively
-                        NewCardBlueprint("Zombie", randomReplaceChance: 50),
-                        NewCardBlueprint("Zombie", randomReplaceChance: 25)))
-                .DuplicateTurns(2)              // Duplicates the current turn plan twice
-                .AddTurns(CreateTurn().DuplicateTurn(9))    // Adds 10 empty turns at the end of the turn plan
-                .SyncTurnDifficulties(1, 10);               // ensures all CardBlueprints have the same difficulty values
-            }
-            // The created turn plan looks like this
-            // 1 - Squirrel
-            // 2 - Squirrel, Skeleton
-            // 3 - 
-            // 4 - Squirrel
-            // 5 - Squirrel, Skeleton
-            // 6 - 
-            // 7 - 4 Moles
-            // 8 - 2 Cats/Wolves
-            // 9 - Zombie (50%), Zombie (25%)
-            // Repeat the above sequence 2 more times
-            // 10 empty turns
-        }
-
-        private void Start()
-        {
-        }
         private void Awake()
         {
-            Plugin.Log = base.Logger;
-            harmony = Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), pluginGuid);
-            
+            Log = base.Logger;
+            HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+
             // AddChallenges();
-
             ItemDebug();
+            Ability_Test();
             CARD_DEBUG();
-
-            // TestField();
-
-            // clears regions and add debug encounter
-/*            for (int i = 0; i < 3; i++)
-            {
-                RegionProgression.Instance.regions[i].encounters.Clear();
-                RegionProgression.Instance.regions[i].AddEncounters(LobotomyEncounterManager.BitterPack);
-            }*/
-
-
-            AddStartDeck("DEBUG HUG", Properties.Resources.starterDeckMagicalGirls, new()
-            {
-                CardLoader.GetCardByName("Squirrel"),
-                CardLoader.GetCardByName("wstlcard"),
-                CardLoader.GetCardByName("wstlcard")
-            }, 0);
-
+            //DebugEncounters();
             //ModifyCardList();
+
+            StarterDeckHelper.AddStarterDeck("wstl", "DEBUG HUG", "starterDeckMagicalGirls", 0, cardNames: new()
+            {
+                "Squirrel",
+                "wstlcard",
+                "wstlcard"
+            });
 
             Logger.LogInfo($"{pluginName} loaded.");
         }
@@ -119,20 +64,30 @@ namespace ModDebuggingMod
             {
                 foreach (CardInfo card in cards)
                 {
-                    //Log.LogInfo($"{card.HasCardMetaCategory(LobotomyCardHelper.CannotBoostStats)}");
+                    if (card.name == "Squirrel")
+                    {
+                        //card.SetPixelAlternatePortrait(TextureLoader.LoadTextureFromFile("allAroundHelper_emission"));
+                        //card.abilities = new() { Piercing.ability };
+                        //card.SetEvolve(CardLoader.GetCardByName("wstl_apostleMoleman"), 1)
+                        //.SetHideStats()
+                        //.SetBaseAttackAndHealth(0, 7)
+                        //.SetGlobalSpell()
+                        //.AddSpecialAbilities(SpecialTriggeredAbility.Shapeshifter)
+                        //;
+                    }
                 }
 
                 return cards;
             };
         }
 
-        private static StarterDeckManager.FullStarterDeck AddStartDeck(string title, byte[] icon, List<CardInfo> cards, int unlockLevel = 0)
+        private void DebugEncounters()
         {
-            StarterDeckInfo starterDeckInfo = ScriptableObject.CreateInstance<StarterDeckInfo>();
-            starterDeckInfo.title = title;
-            starterDeckInfo.iconSprite = TextureLoader.LoadSpriteFromBytes(icon, new(0.5f, 0.5f));
-            starterDeckInfo.cards = cards;
-            return StarterDeckManager.Add("wstl", starterDeckInfo, unlockLevel);
+            for (int i = 0; i < 3; i++)
+            {
+                RegionProgression.Instance.regions[i].encounters.Clear();
+                RegionProgression.Instance.regions[i].encounters = new() { ModdingEncounter() };
+            }
         }
     }
 }

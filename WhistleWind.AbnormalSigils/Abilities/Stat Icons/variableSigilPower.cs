@@ -1,10 +1,8 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
-using InscryptionCommunityPatch.Card;
-using System.Collections;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Properties;
+using UnityEngine;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -19,9 +17,12 @@ namespace WhistleWind.AbnormalSigils
             List<AbilityInfo> infos = AbilityManager.AllAbilityInfos
                 .FindAll(x => base.PlayableCard.AllAbilities().Contains(x.ability) && x.ability != Ability.RandomAbility);
 
+            if (infos.Count == 0)
+                return new int[2] { 0, 0 };
+
             infos.Sort((AbilityInfo a, AbilityInfo b) => b.powerLevel - a.powerLevel);
 
-            return new int[2] { infos[0].powerLevel, 0 };
+            return new int[2] { infos[0].powerLevel, Mathf.Max(1, infos[0].powerLevel) };
         }
     }
 
@@ -32,9 +33,7 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Sigil Power";
             const string rulebookDescription = "The value represented with this sigil will be equal to the power level of this card's strongest sigil.";
             SigilPower.icon = AbilityHelper.CreateStatIcon<SigilPower>(
-                pluginGuid, rulebookName, rulebookDescription,
-                TextureLoader.LoadTextureFromBytes(Artwork.sigilSigilPower),
-                TextureLoader.LoadTextureFromBytes(Artwork.sigilSigilPower_pixel), true, false).Id;
+                pluginGuid, "sigilSigilPower", rulebookName, rulebookDescription, true, true).Id;
         }
     }
 }

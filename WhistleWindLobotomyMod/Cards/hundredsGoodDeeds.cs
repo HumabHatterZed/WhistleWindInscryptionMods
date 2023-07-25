@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using WhistleWind.Core.Helpers;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -10,28 +11,16 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_HundredsGoodDeeds_O0303()
         {
-            List<Ability> abilities = new()
-            {
-                Confession.ability
-            };
-            List<Trait> traits = new()
-            {
-                Trait.Uncuttable,
-                Trait.Terrain
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedWhiteEmission.appearance
-            };
-            CreateCard(
-                "wstl_hundredsGoodDeeds", "One Sin and Hundreds of Good Deeds",
-                "Its hollow sockets see through you.",
-                atk: 0, hp: 777,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.hundredsGoodDeeds, Artwork.hundredsGoodDeeds_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: traits,
-                appearances: appearances, modTypes: ModCardType.EventCard);
+            const string hundredsGoodDeeds = "hundredsGoodDeeds";
+
+            NewCard(hundredsGoodDeeds, oneSinName,
+                attack: 0, health: 77)
+                .SetPortraits(oneSin, "hundredsGoodDeeds_emission", "hundredsGoodDeeds_pixel")
+                .AddAbilities(Confession.ability)
+                .AddTraits(Trait.Uncuttable, TraitApostle)
+                .AddAppearances(ForcedWhiteEmission.appearance)
+                .SetHideStats()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.EventCard);
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,21 +13,26 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_FleshIdol_T0979()
         {
-            List<Ability> abilities = new()
-            {
-                GroupHealer.ability,
-                Ability.BuffEnemy
-            };
-            CreateCard(
-                "wstl_fleshIdol", "Flesh Idol",
-                "Prayer inevitably ends with the worshipper's despair.",
-                atk: 0, hp: 2,
-                blood: 0, bones: 3, energy: 0,
-                Artwork.fleshIdol, Artwork.fleshIdol_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                customTribe: TribeDivine);
+            const string idolName = "Flesh Idol";
+            const string fleshIdol = "fleshIdol";
+            Tribe[] tribes = new[] { TribeDivine };
+
+            CardInfo fleshIdolGoodCard = NewCard("fleshIdolGood", idolName,
+                attack: 0, health: 4, bones: 2)
+                .SetPortraits(fleshIdol)
+                .AddAbilities(TeamLeader.ability, TeamLeader.ability, Ability.Evolve)
+                .AddTribes(tribes)
+                .Build();
+
+            CardInfo fleshIdolCard = NewCard(fleshIdol, idolName, "Prayer inevitably ends with the worshipper's despair.",
+                attack: 0, health: 4, bones: 2)
+                .SetPortraits(fleshIdol)
+                .AddAbilities(Aggravating.ability, Ability.Evolve)
+                .AddTribes(tribes)
+                .SetEvolve(fleshIdolGoodCard, 2)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+
+            fleshIdolGoodCard.SetEvolve(fleshIdol, 2);
         }
     }
 }

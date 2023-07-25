@@ -1,8 +1,6 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
-using System.Collections;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -27,7 +25,7 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Nihil";
             const string rulebookDescription = "The value represented by this sigil will be equal to the number of empty spaces on the board.";
             Nihil.icon = AbilityHelper.CreateStatIcon<Nihil>(pluginGuid,
-                rulebookName, rulebookDescription, Artwork.sigilNihil, Artwork.sigilNihil_pixel, true, false).Id;
+                "sigilNihil", rulebookName, rulebookDescription, true, false).Id;
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,43 +13,30 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_MagicalGirlClover_O01111()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.DoubleStrike,
-                Burning.ability,
-                Burning.ability
-            };
-            List<Ability> abilities2 = new()
-            {
-                Burning.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Reptile
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
+            const string servantName = "The Servant of Wrath";
+            const string magicalGirlClover = "magicalGirlClover";
+            const string servantOfWrath = "servantOfWrath";
+            Trait[] traits = new[] { TraitMagicalGirl };
 
-            };
-            CreateCard(
-                "wstl_servantOfWrath", "Servant of Wrath",
-                "",
-                atk: 2, hp: 4,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.servantOfWrath, Artwork.servantOfWrath_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                onePerDeck: true);
-            CreateCard(
-                "wstl_magicalGirlClover", "Magical Girl",
-                "Blind protector of another world.",
-                atk: 1, hp: 2,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.magicalGirlClover, Artwork.magicalGirlClover_emission, pixelTexture: Artwork.magicalGirlClover_pixel,
-                abilities: abilities2, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                modTypes: ModCardType.Ruina, customTribe: TribeFae);
+            NewCard(servantOfWrath, servantName,
+                attack: 3, health: 2, blood: 2)
+                .SetPortraits(servantOfWrath)
+                .AddAbilities(Ability.DoubleStrike, Persistent.ability)
+                .AddSpecialAbilities(BlindRage.specialAbility)
+                .AddTribes(TribeFae, Tribe.Reptile)
+                .AddTraits(traits)
+                .SetOnePerDeck()
+                .Build(cardType: ModCardType.Ruina);
+
+            NewCard(magicalGirlClover,servantName, "Blind protector of another world.",
+                attack: 2, health: 2, blood: 2)
+                .SetPortraits(magicalGirlClover)
+                .AddAbilities(Scorching.ability)
+                .AddSpecialAbilities(SwordWithTears.specialAbility)
+                .AddTribes(TribeFae)
+                .AddTraits(traits)
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Ruina);
         }
     }
 }

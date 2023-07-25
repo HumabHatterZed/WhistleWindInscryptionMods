@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using InscryptionAPI.Card;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,20 +13,14 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ScorchedGirl_F0102()
         {
-            List<Ability> abilities = new()
-            {
-                Volatile.ability
-            };
-            CreateCard(
-                "wstl_scorchedGirl", "Scorched Girl",
-                "Though there's nothing left to burn, the fire won't go out.",
-                atk: 1, hp: 1,
-                blood: 0, bones: 2, energy: 0,
-                Artwork.scorchedGirl, Artwork.scorchedGirl_emission, pixelTexture: Artwork.scorchedGirl_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                customTribe: TribeHumanoid);
+            const string scorchedGirl = "scorchedGirl";
+
+            NewCard(scorchedGirl, "Scorched Girl", "Though there's nothing left to burn, the fire won't go out.",
+                attack: 1, health: 1, bones: 2)
+                .SetPortraits(scorchedGirl)
+                .AddAbilities(Volatile.ability)
+                .AddTribes(TribeAnthropoid)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

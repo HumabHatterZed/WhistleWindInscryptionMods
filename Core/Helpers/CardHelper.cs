@@ -1,142 +1,96 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 namespace WhistleWind.Core.Helpers
 {
     public static class CardHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
-        [Flags]
-        public enum CardMetaType
+        public static CardInfo NewCard(
+            bool addToAPI, string modPrefix,
+            string cardName, string displayName = null, string description = null,
+            int attack = 0, int health = 0,
+            int blood = 0, int bones = 0, int energy = 0, List<GemType> gems = null,
+            CardTemple temple = CardTemple.Nature)
         {
-            None = 0,
-            NonChoice = 1,          // Remove as choice option
-            Terrain = 2,            // Terrain trait
-            NoTerrainLayout = 4     // No terrain layout
+            if (addToAPI)
+                return CardManager.New(modPrefix, cardName, displayName, attack, health, description).SetCost(blood, bones, energy, gems);
+            else
+            {
+                CardInfo cardInfo = ScriptableObject.CreateInstance<CardInfo>()
+                    .SetName(cardName, modPrefix)
+                    .SetBasic(displayName, attack, health, description)
+                    .SetCost(blood, bones, energy)
+                    .SetCardTemple(temple);
+                return cardInfo;
+            }
         }
-        public enum CardChoiceType
+
+        public static CardInfo SetPortraits(this CardInfo cardInfo,
+            string portraitName, string emissionName = null, string pixelPortraitName = null,
+            string altPortraitName = null, string altEmissionName = null, string titleName = null)
         {
-            None,
-            Basic,  // Default background, common choice
-            Rare    // Rare background, boss chest
-        }
-
-        public static CardInfo CreateCard(
-            string modPrefix, string name, string displayName,
-            string description, int atk, int hp,
-            int blood, int bones, int energy,
-            byte[] portrait = null, byte[] emission = null, byte[] pixelTexture = null,
-            byte[] altTexture = null, byte[] emissionAltTexture = null,
-            byte[] titleTexture = null,
-            List<Ability> abilities = null,
-            List<SpecialTriggeredAbility> specialAbilities = null,
-            List<CardMetaCategory> metaCategories = null,
-            List<Tribe> tribes = null,
-            List<Trait> traits = null,
-            List<CardAppearanceBehaviour.Appearance> appearances = null,
-            List<Texture> decals = null,
-            SpecialStatIcon statIcon = SpecialStatIcon.None,
-            CardChoiceType cardType = CardChoiceType.None,
-            CardMetaType metaTypes = 0,
-            string iceCubeName = null,
-            string evolveName = null,
-            int numTurns = 1,
-            bool onePerDeck = false,
-            bool hideStats = false
-            )
-        {
-            // Create empty lists if any of them are null
-            abilities ??= new();
-            specialAbilities ??= new();
-            metaCategories ??= new();
-            tribes ??= new();
-            traits ??= new();
-            appearances ??= new();
-            decals ??= new();
-
-            // Load textures
-            Texture2D portraitTex = portrait != null ? TextureLoader.LoadTextureFromBytes(portrait) : null;
-            Texture2D emissionTex = emission != null ? TextureLoader.LoadTextureFromBytes(emission) : null;
-            Texture2D altTex = altTexture != null ? TextureLoader.LoadTextureFromBytes(altTexture) : null;
-            Texture2D altEmissionTex = emissionAltTexture != null ? TextureLoader.LoadTextureFromBytes(emissionAltTexture) : null;
-            Texture2D pixelTex = pixelTexture != null ? TextureLoader.LoadTextureFromBytes(pixelTexture) : null;
-            Texture titleTex = titleTexture != null ? TextureLoader.LoadTextureFromBytes(titleTexture) : null;
-
-            bool nonChoice = metaTypes.HasFlag(CardMetaType.NonChoice);
-
-            CardInfo cardInfo = CardManager.New(modPrefix, name, displayName, atk, hp, description);
-
-            cardInfo.SetBloodCost(blood).SetBonesCost(bones).SetEnergyCost(energy);
-
+            Texture2D portraitTex = TextureLoader.LoadTextureFromFile(portraitName);
+            // if a custom emission name isn't provided, default to the filename [portraitName]_emission
+            Texture2D emissionTex = TextureLoader.LoadTextureFromFile(emissionName ?? $"{portraitName}_emission");
+            // if a custom pixel name isn't provided, default to the filename [portraitName]_pixel
+            Texture2D pixelTex = TextureLoader.LoadTextureFromFile(pixelPortraitName ?? $"{portraitName}_pixel");
+            Texture2D altTex = null, altEmissionTex = null;
+            Texture2D titleTex = TextureLoader.LoadTextureFromFile(titleName);
+            if (!string.IsNullOrEmpty(altPortraitName))
+            {
+                altTex = TextureLoader.LoadTextureFromFile(altPortraitName);
+                altEmissionTex = TextureLoader.LoadTextureFromFile(altEmissionName ?? $"{altPortraitName}_emission");
+            }
             if (portraitTex != null)
                 cardInfo.SetPortrait(portraitTex);
             if (emissionTex != null)
                 cardInfo.SetEmissivePortrait(emissionTex);
-            if (pixelTexture != null)
+            if (pixelTex != null)
                 cardInfo.SetPixelPortrait(pixelTex);
             if (altTex != null)
                 cardInfo.SetAltPortrait(altTex);
             if (altEmissionTex != null)
                 cardInfo.SetEmissiveAltPortrait(altEmissionTex);
-            if (titleTexture != null)
+            if (titleTex != null)
                 cardInfo.titleGraphic = titleTex;
 
-            // Abilities
-            cardInfo.abilities = abilities;
-            cardInfo.specialAbilities = specialAbilities;
-
-            if (statIcon != SpecialStatIcon.None)
-                cardInfo.SetStatIcon(statIcon);
-
-            // Internal values
-            cardInfo.metaCategories = metaCategories;
-            cardInfo.tribes = tribes;
-            cardInfo.traits = traits;
-
-            // Misc
-            cardInfo.decals = decals;
-            cardInfo.temple = CardTemple.Nature;
-            cardInfo.cardComplexity = CardComplexity.Simple;
-            cardInfo.appearanceBehaviour = appearances;
-            cardInfo.onePerDeck = onePerDeck;
-            cardInfo.hideAttackAndHealth = hideStats;
-
-            // Sets the info for Ice Cube and Evolve, if present
-            if (iceCubeName != null)
-                cardInfo.SetIceCube(iceCubeName);
-
-            if (evolveName != null)
-                cardInfo.SetEvolve(evolveName, numTurns);
-
-            switch (cardType)
-            {
-                case CardChoiceType.Basic:
-                    if (!nonChoice)
-                        cardInfo.SetDefaultPart1Card();
-                    break;
-                case CardChoiceType.Rare:
-                    cardInfo.SetRare();
-                    if (nonChoice)
-                        cardInfo.metaCategories.Remove(CardMetaCategory.Rare);
-                    break;
-            }
-
-            if (metaTypes.HasFlag(CardMetaType.Terrain))
-            {
-                cardInfo.SetTerrain();
-                if (metaTypes.HasFlag(CardMetaType.NoTerrainLayout))
-                    cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainLayout);
-                if (nonChoice || cardType == CardChoiceType.Rare)
-                    cardInfo.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.TerrainBackground);
-            }
             return cardInfo;
         }
 
-        public static CardAppearanceBehaviourManager.FullCardAppearanceBehaviour CreateAppearance<T>(string pluginGuid, string name) where T : CardAppearanceBehaviour
+        public static CardInfo SetChoiceType(this CardInfo cardInfo, ChoiceType cardChoice, bool nonChoice = false)
+        {
+            if (cardChoice == ChoiceType.Common && !nonChoice)
+                cardInfo.AddMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.TraderOffer);
+            else if (cardChoice == ChoiceType.Rare)
+            {
+                cardInfo
+                    .SetRare()
+                    .RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
+                if (nonChoice)
+                    cardInfo.RemoveCardMetaCategories(CardMetaCategory.Rare);
+            }
+
+            return cardInfo;
+        }
+
+        public static List<CardInfo> RemoveOwnedSingletons() => CardLoader.RemoveDeckSingletonsIfInDeck(CardManager.AllCardsCopy);
+        public static CardAppearanceBehaviourManager.FullCardAppearanceBehaviour CreateAppearance<T>(string pluginGuid, string name)
+            where T : CardAppearanceBehaviour
         {
             return CardAppearanceBehaviourManager.Add(pluginGuid, name, typeof(T));
+        }
+
+        public enum ChoiceType
+        {
+            None,
+            Common,
+            Rare
         }
     }
 }

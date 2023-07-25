@@ -1,10 +1,12 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using WhistleWindLobotomyMod.Core;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,20 +14,16 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Ozma_F04116()
         {
-            List<Ability> abilities = new()
-            {
-                RightfulHeir.ability
-            };
-            CreateCard(
-                "wstl_ozma", "Ozma",
-                "The former ruler of a far away land, now reduced to this.",
-                atk: 1, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.ozma, Artwork.ozma_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw,
-                modTypes: ModCardType.Ruina, customTribe: TribeFae);
+            const string ozma = "ozma";
+
+            NewCard(ozma, "Ozma", "The former ruler of a far away land, now reduced to this.",
+                attack: 1, health: 2, blood: 1)
+                .SetPortraits(ozma)
+                .AddAbilities(RightfulHeir.ability)
+                .AddTribes(TribeFae)
+                .AddTraits(TraitEmeraldCity)
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Ruina);
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+using WhistleWind.Core.Helpers;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -10,34 +12,24 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_YinYangDragon_O07103()
         {
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                ForcedWhiteEmission.appearance
-            };
+            SpecialTriggeredAbility[] specialAbilities = new[] { DragonHead.specialAbility };
 
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                CustomEvolveHelper.specialAbility
-            };
-            CreateCard(
-                "wstl_yinYangHead", "",
-                "Now you become [c:bR]the sky[c:], and I the land.",
-                atk: 0, hp: 0,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.yinYangHead, Artwork.yinYangHead_emission,
-                abilities: new(), specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, hideStats: true);
+            NewCard("yinYangHead")
+                .AddSpecialAbilities(specialAbilities)
+                .AddAppearances(DragonHeadBackground.appearance)
+                .SetHideStats()
+                .Build();
 
-            CreateCard(
-                "wstl_yinYangBody", "",
-                "Now you become [c:bR]the sky[c:], and I the land.",
-                atk: 0, hp: 0,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.yinYangBody, Artwork.yinYangBody_emission,
-                abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, hideStats: true);
+            NewCard("yinYangHorns")
+                .AddSpecialAbilities(specialAbilities)
+                .AddAppearances(DragonHornsBackground.appearance)
+                .SetHideStats()
+                .Build();
+
+            NewCard("yinYangBody")
+                .AddAppearances(DragonBodyBackground.appearance)
+                .SetHideStats()
+                .Build();
         }
     }
 }

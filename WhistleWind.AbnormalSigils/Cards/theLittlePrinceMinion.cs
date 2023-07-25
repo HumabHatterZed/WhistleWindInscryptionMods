@@ -1,5 +1,9 @@
-﻿using WhistleWind.AbnormalSigils.Properties;
+﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using System.Collections.Generic;
+
 using WhistleWind.Core.Helpers;
+using static DiskCardGame.CardAppearanceBehaviour;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -7,15 +11,14 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_TheLittlePrinceMinion_O0466()
         {
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_theLittlePrinceMinion", "Spore Mold Creature",
-                "A creature consumed by cruel, kind fungus.",
-                atk: 0, hp: 0,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.theLittlePrinceMinion, Artwork.theLittlePrinceMinion_emission,
-                abilities: new(),
-                metaCategories: new(), tribes: new(), traits: new());
+            const string theLittlePrinceMinion = "theLittlePrinceMinion";
+
+            CreateCard(MakeCard(
+                cardName: theLittlePrinceMinion,
+                "Spore Mold Creature")
+                .SetPortraits(theLittlePrinceMinion)
+                .AddTribes(TribeBotanic)
+                .AddTraits(SporeFriend));
         }
     }
 }

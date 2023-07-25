@@ -1,15 +1,11 @@
 ﻿using DiskCardGame;
-using WhistleWind.Core.Helpers;
-using ModDebuggingMod.Properties;
-using System.Collections.Generic;
 using InscryptionAPI.Card;
+using InscryptionAPI.Dialogue;
 using InscryptionAPI.Pelts;
-using WhistleWindLobotomyMod;
-using InscryptionAPI.Pelts.Extensions;
-using InscryptionAPI.Nodes;
-using System;
-using WhistleWindLobotomyMod.Core.Helpers;
+using System.Collections.Generic;
+using System.Linq;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 
 namespace ModDebuggingMod
 {
@@ -17,33 +13,10 @@ namespace ModDebuggingMod
     {
         private void CARD_DEBUG()
         {
-            List<Ability> abilities = new()
-            {
-                Sporogenic.ability
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-
-            };
-            List<Tribe> tribes = new()
-            {
-                LobotomyCardManager.TribeDivine
-            };
-            List<Trait> traits = new()
-            {
-
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-
-            };
-            CardHelper.CreateCard(
-                "wstl", "wstlcard", "Debug",
-                "You shouldn't see this.",
-                0, 10, 0, 0, 0,
-                null, null,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: traits);
+            CardInfo info = CardHelper.NewCard(true, "wstl", "wstlcard", "Debug",
+                attack: 1, health: 1, blood: 0, bones: 0, energy: 0, gems: null)
+                .AddAbilities(Sporogenic.ability)
+                .SetPortraits("Untitled", pixelPortraitName: "buffBell.png");
         }
     }
 }

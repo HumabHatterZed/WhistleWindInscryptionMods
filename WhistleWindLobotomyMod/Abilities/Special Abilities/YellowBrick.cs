@@ -1,8 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
@@ -14,178 +17,207 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Yellow Brick Road";
-        public static readonly string rDesc = "Gain a special card when Ozma, The Road Home, Warm-Hearted Woodsman, and Scarecrow Searching for Wisdom are all on the same side of the board.";
+        public const string rName = "Yellow Brick Road";
+        public const string rDesc = "Gain a special card when Ozma, The Road Home, Warm-Hearted Woodsman, and Scarecrow Searching for Wisdom are all on the same side of the board.";
 
+        public override bool RespondsToDrawn() => !LobotomyConfigManager.Instance.NoEvents;
         public override bool RespondsToResolveOnBoard() => !LobotomyConfigManager.Instance.NoEvents;
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !LobotomyConfigManager.Instance.NoEvents && otherCard.OpponentCard == base.PlayableCard.OpponentCard;
         public bool RespondsToOtherCardResolveInHand(PlayableCard card) => !LobotomyConfigManager.Instance.NoEvents && card.OpponentCard == base.PlayableCard.OpponentCard;
 
+        public override IEnumerator OnDrawn() => CheckForOtherCards();
         public override IEnumerator OnResolveOnBoard() => CheckForOtherCards();
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => CheckForOtherCards();
         public IEnumerator OnOtherCardResolveInHand(PlayableCard card) => CheckForOtherCards();
         private IEnumerator CheckForOtherCards()
         {
-            // Break if already have Adult
             if (LobotomySaveManager.OwnsLyingAdult)
             {
                 LobotomyPlugin.Log.LogDebug("Player already has Adult Who Tells Lies.");
                 yield break;
             }
 
-            List<CardSlot> cardSlots = new()
-            {
-                null,
-                null,
-                null,
-                null,
-                null
-            };
+            List<PlayableCard> cardsOnBoard = new() { null, null, null, null, null };
 
             // check cards on the board first
-            foreach (CardSlot slot in HelperMethods.GetSlotsCopy(base.PlayableCard.OpponentCard)
-                .Where((CardSlot s) => s.Card != null))
+            foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(!base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
                 string cardName = slot.Card.Info.name;
-                if (slot == base.PlayableCard?.Slot)
-                {
-                    LobotomyPlugin.Log.LogDebug("Player has [The Road Home] on the board.");
-                    cardSlots[0] ??= slot;
-                }
-                else if (cardName == "wstl_scaredyCat" || cardName == "wstl_scaredyCatStrong")
-                {
-                    LobotomyPlugin.Log.LogDebug("Player has [Scaredy Cat] on the board.");
-                    cardSlots[1] ??= slot;
-                }
+                if (slot == base.PlayableCard.Slot)
+                    cardsOnBoard[0] ??= slot.Card;
+                else if (cardName.StartsWith("wstl_scaredyCat"))
+                    cardsOnBoard[1] ??= slot.Card;
                 else if (cardName == "wstl_wisdomScarecrow")
-                {
-                    LobotomyPlugin.Log.LogDebug("Player has [Scarecrow Searching for Wisdom] on the board.");
-                    cardSlots[2] ??= slot;
-                }
+                    cardsOnBoard[2] ??= slot.Card;
                 else if (cardName == "wstl_warmHeartedWoodsman")
-                {
-                    LobotomyPlugin.Log.LogDebug("Player has [Warm-Hearted Woodsman] on the board.");
-                    cardSlots[3] ??= slot;
-                }
+                    cardsOnBoard[3] ??= slot.Card;
                 else if (cardName == "wstl_ozma")
-                {
-                    LobotomyPlugin.Log.LogDebug("Player has [Ozma] on the board.");
-                    cardSlots[4] ??= slot;
-                }
+                    cardsOnBoard[4] ??= slot.Card;
             }
 
-            // if 4/5 of the requisite cards are on the board
-            if (cardSlots.FindAll(x => x == null).Count == 1)
+            if (cardsOnBoard.Count(x => x != null) < 4)
+                yield break;
+
+            if (base.PlayableCard.OpponentCard)
             {
-                // check our hand for the missing member of the quintuplet
-                foreach (PlayableCard card in PlayerHand.Instance.CardsInHand)
+                foreach (PlayableCard card in Singleton<Opponent>.Instance.Queue.Where(x => x.HasTrait(LobotomyCardManager.TraitEmeraldCity)))
                 {
-                    string cardName = card.Info.name;
-                    if (cardName == "wstl_theRoadHome" || cardName == "wstl_scaredyCat" || cardName == "wstl_scaredyCatStrong" ||
-                        cardName == "wstl_wisdomScarecrow" || cardName == "wstl_warmHeartedWoodsman" ||
-                        cardName == "wstl_ozma")
+                    if (!cardsOnBoard.Contains(card))
                     {
-                        LobotomyPlugin.Log.LogDebug($"Player has [{card.Info.displayedName}] in their hand.");
-                        yield return Emerald(cardSlots, card);
+                        yield return Emerald(cardsOnBoard, card);
                         break;
                     }
                 }
             }
-
-            yield break;
+            else
+            {
+                foreach (PlayableCard card in PlayerHand.Instance.CardsInHand.Where(x => x.HasTrait(LobotomyCardManager.TraitEmeraldCity)))
+                {
+                    if (!cardsOnBoard.Contains(card))
+                    {
+                        yield return Emerald(cardsOnBoard, card);
+                        break;
+                    }
+                }
+            }
         }
 
-        private IEnumerator Emerald(List<CardSlot> boardSlots, PlayableCard handCard)
+        private IEnumerator Emerald(List<PlayableCard> cardsOnBoard, PlayableCard cardInHand = null)
         {
-            yield break;
-            /*            yield return new WaitForSeconds(1f);
+            PlayableCard ozma = cardsOnBoard[4] ?? cardInHand;
+            PlayableCard scarecrow = cardsOnBoard[2] ?? cardInHand;
+            PlayableCard woodsman = cardsOnBoard[3] ?? cardInHand;
+            PlayableCard scaredyCat = cardsOnBoard[1] ?? cardInHand;
+            PlayableCard roadHome = cardsOnBoard[0] ?? cardInHand;
 
-                        // Exposit story of the Black Forest
-                        if (!WstlSaveManager.HasSeenAdult)
-                        {
-                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Let me tell you a story. The story of the [c:bR]Black Forest[c:].");
-                        }
+            bool firstTime = !DialogueEventsData.EventIsPlayed("LyingAdultOutro");
+            bool opponentCard = base.PlayableCard.OpponentCard;
 
-                        AudioController.Instance.SetLoopVolume(0.5f * (Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.5f);
-                        AudioController.Instance.SetLoopAndPlay("red_noise", 1);
-                        AudioController.Instance.SetLoopVolumeImmediate(0.3f, 1);
+            yield return new WaitForSeconds(0.5f);
 
-                        if (!WstlSaveManager.HasSeenAdult)
-                        {
-                            yield return new WaitForSeconds(0.4f);
-                            Singleton<ViewManager>.Instance.SwitchToView(View.Default, false, true);
-                            yield return new WaitForSeconds(0.5f);
+            bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
 
-                            yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f,
-                                "Once upon a time, [c:bR]three birds[c:] lived happily in the lush Forest with their fellow animals.",
-                                "One day a stranger arrived at the Forest.He proclaimed that the Forest would soon be ensared in a bitter conflict.",
-                                "One that would only end when everything was devoured by a[c: bR]terrible Beast[c:].",
-                                "The birds, frightened by this doomsay, sought to prevent conflict from ever breaking out.");
+            if (!SaveManager.SaveFile.IsPart2)
+                yield return BoardEffects.EmeraldTableEffects();
 
-                            // Look down at the board
-                            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-                            yield return new WaitForSeconds(0.25f);
+            AudioController.Instance.SetLoopVolume(0.5f * (Singleton<GameFlowManager>.Instance as Part1GameFlowManager)?.GameTableLoopVolume ?? 1f, 0.5f);
+            AudioController.Instance.SetLoopAndPlay("red_noise", 1);
+            AudioController.Instance.SetLoopVolumeImmediate(0.3f, 1);
 
-                            //smallSlot.Card.Anim.StrongNegationEffect();
-                            yield return new WaitForSeconds(0.4f);
-                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]Small Bird[c:] punished wrongdoers with his beak.");
-                            //longSlot.Card.Anim.StrongNegationEffect();
-                            yield return new WaitForSeconds(0.4f);
-                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bB]Long Bird[c:] weighed the sins of all creatures in the forest with his scales.");
-                            base.PlayableCard.Anim.StrongNegationEffect();
-                            yield return new WaitForSeconds(0.4f);
-                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("With his many eyes, [c:bG]Big Bird[c:] kept constant watch over the entire Forest.");
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultIntro");
 
-                            yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f,
-                                "Fights began to break out. More and more creatures left the Forest, no matter how hard the birds worked.",
-                                "They decided to combine their powers. This way, they could better protect their home.",
-                                "This way they could better return the peace.");
-                        }
+            CardInfo info = CardLoader.GetCardByName("wstl_lyingAdult");
+            if (opponentCard)
+            {
+                List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
+                if (validSlots.Count > 0)
+                {
+                    Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue, lockAfter: true);
+                    yield return Singleton<BoardManager>.Instance.CreateCardInSlot(info, validSlots[SeededRandom.Range(0, validSlots.Count - 1, RunState.RandomSeed)], resolveTriggers: false);
+                }
+                else
+                {
+                    Singleton<ViewManager>.Instance.SwitchToView(View.Board, lockAfter: true);
+                    yield return HelperMethods.QueueCreatedCard(info);
+                }
+            }
+            else
+            {
+                Singleton<ViewManager>.Instance.SwitchToView(View.Hand, lockAfter: true);
 
-                        Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-                        Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
-                        yield return new WaitForSeconds(0.2f);
+                RunState.Run.playerDeck.AddCard(info);
+                info.cost = 0;
 
-                        // Remove cards
-                        //smallSlot.Card.RemoveFromBoard(true);
-                        yield return new WaitForSeconds(0.2f);
-                        //longSlot.Card.RemoveFromBoard(true);
-                        yield return new WaitForSeconds(0.2f);
-                        base.PlayableCard.RemoveFromBoard(true);
-                        yield return new WaitForSeconds(0.5f);
+                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0.25f, null);
 
-                        yield return BoardEffects.EmeraldTableEffects();
+                LobotomySaveManager.OwnsLyingAdult = true;
+            }
 
-                        // More text
-                        if (!WstlSaveManager.HasSeenAdult)
-                            yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Darkness fell upon the forest. Mayhem ran amok as creatures screamed in terror at the towering bird.");
+            yield return new WaitForSeconds(0.2f);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultIntro2", 0.4f);
 
-                        // Give player Apocalypse in their deck and their hand
-                        Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
+            yield return LookAtCard(ozma, cardInHand);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultOzma");
+            yield return ModifyCard(ozma, new(1, 0));
 
-                        CardInfo info = CardLoader.GetCardByName("wstl_lyingAdult");
-                        RunState.Run.playerDeck.AddCard(info);
 
-                        // set cost to 0 for this fight (can play immediately that way)
-                        info.cost = 0;
-                        yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0.25f, null);
-                        WstlSaveManager.OwnsLyingAdult = true;
-                        yield return new WaitForSeconds(0.2f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+            yield return new WaitForSeconds(0.2f);
+            yield return RemoveFromBoardOrHand(ozma);
+            yield return new WaitForSeconds(0.5f);
 
-                        // Li'l text blurb
-                        yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Someone yelled out 'It's [c:bR]the Beast[c:]! A big, scary monster lives in the Black Forest!'");
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultOzma2", 0.4f);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultIntro3", 0.4f);
 
-                        yield return new WaitForSeconds(0.2f);
-                        Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-                        yield return new WaitForSeconds(0.15f);
-                        if (!WstlSaveManager.HasSeenAdult)
-                        {
-                            WstlSaveManager.HasSeenAdult = true;
-                            yield return CustomMethods.PlayAlternateDialogue(Emotion.Neutral, DialogueEvent.Speaker.Leshy, 0.2f,
-                                "The three birds, [c:bR]now one[c:] looked around for [c:bR]the Beast[c:]. But there was nothing.",
-                                "No creatures. No beast. No sun or moon or stars. Only a single bird, alone in an empty forest.");
-                        }
-                        Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;*/
+            yield return LookAtCard(scarecrow, cardInHand);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultScarecrow");
+            yield return ModifyCard(scarecrow, new() { bonesCostAdjustment = -1 });
+
+            yield return LookAtCard(woodsman, cardInHand);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultWoodsman");
+            yield return ModifyCard(woodsman, new(0, 1));
+
+            yield return LookAtCard(scaredyCat, cardInHand);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultScaredyCat");
+            scaredyCat.Anim.StrongNegationEffect();
+            if (!LobotomySaveManager.UnlockedLyingAdult)
+                scaredyCat.AddTemporaryMod(new(1, 0));
+            yield return new WaitForSeconds(0.5f);
+
+            yield return LookAtCard(roadHome, cardInHand);
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultRoadHome");
+            yield return ModifyCard(roadHome, new(0, 2));
+
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultIntro4");
+            Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+            yield return new WaitForSeconds(0.2f);
+
+            // Remove cards
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultScarecrow2", 0f);
+            yield return RemoveFromBoardOrHand(scarecrow);
+
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultWoodsman2", 0f);
+            yield return RemoveFromBoardOrHand(woodsman);
+
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultScaredyCat2", 0f);
+            yield return RemoveFromBoardOrHand(scaredyCat);
+
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultRoadHome2", 0f);
+            yield return RemoveFromBoardOrHand(roadHome);
+
+            yield return DialogueHelper.PlayDialogueEvent("LyingAdultOutro");
+
+            LobotomySaveManager.UnlockedLyingAdult = true;
+
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
+        }
+        private IEnumerator ModifyCard(PlayableCard card, CardModificationInfo mod)
+        {
+            card.Anim.StrongNegationEffect();
+            if (!LobotomySaveManager.UnlockedLyingAdult && !card.OpponentCard && !card.OriginatedFromQueue)
+                RunState.Run.playerDeck.ModifyCard(card.Info, mod);
+
+            yield return new WaitForSeconds(0.5f);
+        }
+        private IEnumerator RemoveFromBoardOrHand(PlayableCard card)
+        {
+            if (card.InHand)
+                Singleton<PlayerHand>.Instance.RemoveCardFromHand(card);
+
+            if (card.InOpponentQueue)
+                Singleton<Opponent>.Instance.Queue.Remove(card);
+
+            card.RemoveFromBoard();
+            yield return new WaitForSeconds(0.5f);
+        }
+        private IEnumerator LookAtCard(PlayableCard card, PlayableCard cardInHand)
+        {
+            Singleton<ViewManager>.Instance.SwitchToView(card != cardInHand ? View.Board : View.Default);
+            yield return new WaitForSeconds(0.2f);
+            if (card.InHand)
+                (Singleton<PlayerHand>.Instance as PlayerHand3D)?.MoveCardAboveHand(card);
         }
     }
     public class RulebookEntryYellowBrick : AbilityBehaviour
@@ -196,12 +228,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_YellowBrick()
-        {
-            RulebookEntryYellowBrick.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryYellowBrick>(YellowBrick.rName, YellowBrick.rDesc).Id;
-        }
+            => RulebookEntryYellowBrick.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryYellowBrick>(YellowBrick.rName, YellowBrick.rDesc).Id;
         private void SpecialAbility_YellowBrick()
-        {
-            YellowBrick.specialAbility = AbilityHelper.CreateSpecialAbility<YellowBrick>(pluginGuid, YellowBrick.rName).Id;
-        }
+            => YellowBrick.specialAbility = AbilityHelper.CreateSpecialAbility<YellowBrick>(pluginGuid, YellowBrick.rName).Id;
     }
 }

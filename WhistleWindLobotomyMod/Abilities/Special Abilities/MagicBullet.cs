@@ -3,7 +3,6 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -13,8 +12,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Magic Bullet";
-        public static readonly string rDesc = "After Der Freischütz attacks 6 times, it will attack all other ally cards on the board.";
+        public const string rName = "Magic Bullet";
+        public const string rDesc = "After Der Freischütz attacks 6 times, it will attack all other ally cards on the board.";
 
         private int freischutzShots;
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0;
@@ -32,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 base.PlayableCard.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.5f);
 
-                yield return DialogueEventsManager.PlayDialogueEvent("DerFreischutzSeventhBullet");
+                yield return DialogueHelper.PlayDialogueEvent("DerFreischutzSeventhBullet");
 
                 foreach (var slot in Singleton<BoardManager>.Instance.GetSlots(!base.PlayableCard.OpponentCard).Where(slot => slot.Card != base.Card))
                 {
@@ -50,12 +49,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_MagicBullet()
-        {
-            RulebookEntryMagicBullet.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMagicBullet>(MagicBullet.rName, MagicBullet.rDesc).Id;
-        }
+            => RulebookEntryMagicBullet.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMagicBullet>(MagicBullet.rName, MagicBullet.rDesc).Id;
         private void SpecialAbility_MagicBullet()
-        {
-            MagicBullet.specialAbility = AbilityHelper.CreateSpecialAbility<MagicBullet>(pluginGuid, MagicBullet.rName).Id;
-        }
+            => MagicBullet.specialAbility = AbilityHelper.CreateSpecialAbility<MagicBullet>(pluginGuid, MagicBullet.rName).Id;
     }
 }

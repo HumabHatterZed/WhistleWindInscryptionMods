@@ -6,7 +6,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
+
 
 namespace WhistleWindLobotomyMod
 {
@@ -17,32 +17,29 @@ namespace WhistleWindLobotomyMod
 
         public static SpecialTriggeredAbility specialAbility;
 
-        public static readonly string rName = "The Homing Instinct";
-        public static readonly string rDesc = "When The Road Home is played, create a Scaredy Cat in your hand. [define:wstl_scaredyCat]. Whenever this card moves, turn its previous space into a Paved Road. When all spaces on the owner's side of the board are Paved Roads, all ally cards gain 1 Power.";
+        public const string rName = "The Homing Instinct";
+        public const string rDesc = "When The Road Home is played, create a Scaredy Cat in your hand. [define:wstl_scaredyCat].";
 
-        internal static Texture PavedSlotTexture => TextureLoader.LoadTextureFromBytes(Artwork.slotPavedRoad);
-        internal static Texture DefaultSlotTexture;
-        internal static List<CardSlot> PavedSlots = new();
-        private bool hasResolved = false;
+        //internal static Texture PavedSlotTexture => TextureLoader.LoadTextureFromFile(SaveManager.SaveFile.IsPart2 ? "slotPavedRoad_pixel" : "slotPavedRoad");
+        //internal static Texture DefaultSlotTexture;
+        //internal static List<CardSlot> PavedSlots = new();
+        //private bool hasResolved = false;
         public override bool RespondsToResolveOnBoard() => true;
-        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => hasResolved && otherCard == base.PlayableCard;
+        //public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => hasResolved && otherCard == base.PlayableCard;
         public override IEnumerator OnResolveOnBoard()
         {
-            hasResolved = true;
-            DefaultSlotTexture = base.PlayableCard.Slot.transform.Find("Quad").GetComponent<Renderer>().material.mainTexture;
+            //hasResolved = true;
+            //DefaultSlotTexture = base.PlayableCard.Slot.transform.Find("Quad").GetComponent<Renderer>().material.mainTexture;
 
             CardInfo CardToDraw = CardLoader.GetCardByName("wstl_scaredyCat");
             ModifySpawnedCard(CardToDraw);
 
             if (base.PlayableCard.OpponentCard)
-                yield return HelperMethods.QueueCreatedCard(CardToDraw);
+                yield return HelperMethods.QueueCreatedCard(CardToDraw, true);
             else
                 yield return CreateDrawnCard(CardToDraw);
         }
-        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
-        {
-            return base.OnOtherCardAssignedToSlot(otherCard);
-        }
+        //public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) => base.OnOtherCardAssignedToSlot(otherCard);
         private IEnumerator CreateDrawnCard(CardInfo CardToDraw)
         {
             if (Singleton<ViewManager>.Instance.CurrentView != View.Default)
@@ -56,11 +53,10 @@ namespace WhistleWindLobotomyMod
         }
         private void ModifySpawnedCard(CardInfo card)
         {
-            List<Ability> abilities = base.Card.Info.Abilities;
+            List<Ability> abilities = base.PlayableCard.Info.Abilities;
             foreach (CardModificationInfo temporaryMod in base.PlayableCard.TemporaryMods)
-            {
                 abilities.AddRange(temporaryMod.abilities);
-            }
+
             abilities.RemoveAll((Ability x) => x == YellowBrickRoad.ability);
             if (abilities.Count > 0)
             {
@@ -76,7 +72,7 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.SetupPhase))]
+/*        [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.SetupPhase))]
         [HarmonyPostfix]
         private static void ResetPavedSlots() => PavedSlots.Clear();
 
@@ -88,7 +84,7 @@ namespace WhistleWindLobotomyMod
         private static void AddBuffForCardSlot(PlayableCard __instance, ref int __result)
         {
             if (PavedSlots.Count == 4 && PavedSlots.Contains(__instance.Slot))
-                    __result += 2;
+                __result += 2;
         }
 
         private static void PaveSlot(CardSlot slot)
@@ -108,7 +104,7 @@ namespace WhistleWindLobotomyMod
             foreach (CardSlot slot in PavedSlots)
                 ResetCardSlot(slot);
             PavedSlots.Clear();
-        }
+        }*/
     }
     public class RulebookEntryTheHomingInstinct : AbilityBehaviour
     {
@@ -118,12 +114,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_TheHomingInstinct()
-        {
-            RulebookEntryTheHomingInstinct.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryTheHomingInstinct>(TheHomingInstinct.rName, TheHomingInstinct.rDesc).Id;
-        }
+            => RulebookEntryTheHomingInstinct.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryTheHomingInstinct>(TheHomingInstinct.rName, TheHomingInstinct.rDesc).Id;
         private void SpecialAbility_TheHomingInstinct()
-        {
-            TheHomingInstinct.specialAbility = AbilityHelper.CreateSpecialAbility<TheHomingInstinct>(pluginGuid, TheHomingInstinct.rName).Id;
-        }
+            => TheHomingInstinct.specialAbility = AbilityHelper.CreateSpecialAbility<TheHomingInstinct>(pluginGuid, TheHomingInstinct.rName).Id;
     }
 }

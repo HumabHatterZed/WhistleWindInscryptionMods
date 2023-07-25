@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,25 +13,15 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ArmyInPink_D01106()
         {
-            List<Ability> abilities = new()
-            {
-                Protector.ability,
-                Ability.MoveBeside
-            };
-            List<SpecialTriggeredAbility> specialAbilties = new()
-            {
-                PinkTears.specialAbility
-            };
-            CreateCard(
-                "wstl_armyInPink", "Army in Pink",
-                "A friendly soldier the colour of the human heart. It will protect you wherever you go.",
-                atk: 3, hp: 3,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.armyInPink, Artwork.armyInPink_emission,
-                abilities: abilities, specialAbilities: specialAbilties,
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Aleph,
-                modTypes: ModCardType.Donator);
+            const string armyInPink = "armyInPink";
+
+            NewCard(armyInPink, "Army in Pink", "A friendly pink soldier. It will protect you wherever you go.",
+                attack: 3, health: 3, blood: 2)
+                .SetPortraits(armyInPink)
+                .AddAbilities(Protector.ability, Ability.MoveBeside)
+                .AddSpecialAbilities(Pink.specialAbility)
+                .AddTribes(TribeAnthropoid)
+                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Zayin, ModCardType.Donator);
         }
     }
 }

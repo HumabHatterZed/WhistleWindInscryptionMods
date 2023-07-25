@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -12,12 +12,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Piercing()
         {
             const string rulebookName = "Piercing";
-            const string rulebookDescription = "Damage dealt by this card cannot be negated or reduced. If there is another card behind the struck card, deal 1 damage to it.";
-            const string dialogue = "Your beast runs mine through.";
+            const string rulebookDescription = "Damage dealt by this card cannot be negated or reduced by sigils such as Armoured or Thick Skin. Deal 1 overkill damage when attacking a card.";
+            const string dialogue = "Defences broken through.";
 
             Piercing.ability = AbnormalAbilityHelper.CreateAbility<Piercing>(
-                Artwork.sigilPiercing, Artwork.sigilPiercing_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                "sigilPiercing",
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: true, opponent: false, canStack: false).Id;
         }
     }
@@ -29,19 +29,11 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => true;
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
-            yield return base.PreSuccessfulTriggerSequence();
-            if (base.Card.IsPlayerCard())
+            if (target.HasAnyOfAbilities(Ability.DeathShield, Ability.PreventAttack, ThickSkin.ability)
+                || target.Slot.GetAdjacentCards().Exists(x => x.HasAbility(Protector.ability)))
             {
-                PlayableCard queuedCard = Singleton<BoardManager>.Instance.GetCardQueuedForSlot(target.Slot);
-                if (queuedCard == null || queuedCard.Dead)
-                    yield break;
-
-                yield return Singleton<CombatPhaseManager>.Instance.DealOverkillDamage(base.Card.Info.name == "wstl_ApostleSpear" ? base.Card.Attack : 1, base.Card.Slot, target.Slot);
                 yield return LearnAbility(0.25f);
             }
-            if (target.HasAnyOfAbilities(Ability.DeathShield, ThickSkin.ability) ||
-                target.Slot.GetAdjacentCards().Exists(x => x.HasAbility(Protector.ability)))
-                yield return LearnAbility(0.25f);
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,27 +12,18 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_BigBird_O0240()
         {
-            List<Ability> abilities = new()
-            {
-                Cycler.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Bird
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                ThreeBirds.specialAbility
-            };
-            CreateCard(
-                "wstl_bigBird", "Big Bird",
-                "Its eyes light up the darkness like stars.",
-                atk: 2, hp: 4,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.bigBird, Artwork.bigBird_emission, pixelTexture: Artwork.bigBird_pixel,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: tribes, traits: new(), onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
+            const string bigBird = "bigBird";
+
+            NewCard(bigBird, "Big Bird", "Its eyes light up the darkness like stars.",
+                attack: 2, health: 4, blood: 2)
+                .SetPortraits(bigBird)
+                .AddAbilities(Cycler.ability)
+                .AddSpecialAbilities(ThreeBirds.specialAbility)
+                .AddTribes(Tribe.Bird)
+                .AddTraits(TraitBlackForest)
+                .SetDefaultEvolutionName("Bigger Bird")
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

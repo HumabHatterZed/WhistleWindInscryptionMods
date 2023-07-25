@@ -18,7 +18,7 @@ namespace Infiniscryption.Spells.Sigils
         {
             if (slot.Card != null && slot.opposingSlot.Card == null)
                 return base.Card.OpponentCard != slot.Card.OpponentCard;
-            
+
             return false;
         }
 

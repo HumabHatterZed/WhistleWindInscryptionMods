@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,25 +12,15 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_TheFirebird_O02101()
         {
-            List<Ability> abilities = new()
-            {
-                Burning.ability,
-                Ability.Flying
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Bird
-            };
+            const string theFirebird = "theFirebird";
 
-            CreateCard(
-                "wstl_theFirebird", "The Firebird",
-                "A bird that longs for the thrill of being hunted.",
-                atk: 2, hp: 3,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.theFirebird, Artwork.theFirebird_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
+            NewCard(theFirebird, "The Firebird", "A bird that longs for the thrill of being hunted.",
+                attack: 2, health: 3, blood: 2)
+                .SetPortraits(theFirebird)
+                .AddAbilities(Scorching.ability, Ability.Flying)
+                .AddTribes(Tribe.Bird)
+                .SetDefaultEvolutionName("The Grand Firebird")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

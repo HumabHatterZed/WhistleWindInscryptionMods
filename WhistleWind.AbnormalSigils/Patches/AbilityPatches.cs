@@ -1,55 +1,58 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionCommunityPatch.Card;
+using Pixelplacement;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+
+using WhistleWind.Core.Helpers;
 
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches
 {
     [HarmonyPatch(typeof(PlayableCard))]
-    internal class PlayableCardPatches
+    internal class PlayableCardAbilityPatches
     {
-        // Adds in logic for Piercing, Prudence, Protector, Thick Skin
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
         private static void ModifyTakenDamage(ref PlayableCard __instance, ref int damage, PlayableCard attacker)
         {
-            int skin = __instance.GetAbilityStacks(ThickSkin.ability);  // Count number of stacks of Thick Skin
-            int protector = __instance.Slot.GetAdjacentCards().FindAll(x => x.HasAbility(Protector.ability)).Count; // Count num of adjacent cards with Protector
+            bool attackerHasPiercing = attacker != null && attacker.HasAbility(Piercing.ability);
 
-            int prudence = __instance.Info.GetExtendedPropertyAsInt("wstl:Prudence") ?? 0;  // Count amount of Prudence this card has
-            int oneSided = 0;
+            damage += __instance.Info.GetExtendedPropertyAsInt("wstl:Prudence") ?? 0;
+
+            if (!attackerHasPiercing)
+            {
+                damage -= __instance.GetAbilityStacks(ThickSkin.ability);
+                damage -= __instance.Slot.GetAdjacentCards().FindAll(x => x.HasAbility(Protector.ability)).Count;
+            }
+            else if (__instance.HasShield())
+            {
+                __instance.Status.lostShield = true;
+                __instance.Anim.StrongNegationEffect();
+                if (__instance.Info.name == "MudTurtle")
+                    __instance.SwitchToAlternatePortrait();
+
+                __instance.UpdateFaceUpOnBoardEffects();
+            }
 
             if (attacker != null)
             {
                 if (attacker.HasAbility(OneSided.ability) && CheckValidOneSided(attacker, __instance))
-                    oneSided = 2;
-
-                if (attacker.HasAbility(Piercing.ability))
-                {
-                    // negate damage reduction
-                    skin = 0;
-                    protector = 0;
-
-                    // Negate shield
-                    if (__instance.HasShield())
-                    {
-                        __instance.Status.lostShield = true;
-                        __instance.Anim.StrongNegationEffect();
-                        if (__instance.Info.name == "MudTurtle")
-                            __instance.SwitchToAlternatePortrait();
-
-                        __instance.UpdateFaceUpOnBoardEffects();
-                    }
-                }
+                    damage += attacker.GetAbilityStacks(OneSided.ability);
             }
 
-            // Set damage equal to new value or to 0 if the new value is negative
-            damage = Mathf.Max(damage + prudence + oneSided - (protector + skin), 0);
+            if (damage < 0)
+                damage = 0;
         }
 
         private static bool CheckValidOneSided(PlayableCard attacker, PlayableCard target)
@@ -58,8 +61,8 @@ namespace WhistleWind.AbnormalSigils.Patches
             if (target.Attack == 0 || attacker.HasAnyOfAbilities(Ability.Submerge, Ability.SubmergeSquid) || attacker.FaceDown)
                 return true;
 
-            // if this card doesn't have Sniper or Marksman (will attack opposing)
-            if (attacker.LacksAllAbilities(Ability.Sniper, Marksman.ability))
+            // if this card doesn't have Sniper
+            if (attacker.LacksAbility(Ability.Sniper))
             {
                 // if this card has Bi or Tri Strike, check whether the opponent has it too
                 if (attacker.HasAbility(Ability.SplitStrike) || attacker.HasTriStrike())
@@ -79,13 +82,41 @@ namespace WhistleWind.AbnormalSigils.Patches
             // otherwise return true
             return true;
         }
+
+        #region Neutered patches
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
+        private static void ModifyAttackStat(PlayableCard __instance, ref int __result)
+        {
+            if (!__instance.OnBoard || __instance.LacksAbility(Neutered.ability))
+                return;
+
+            if (__instance.Info.Attack + __instance.GetPassiveAttackBuffs() > 0)
+                __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
+
+            __result = 0;
+        }
+
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.OnStatsChanged))]
+        private static void NeuteredColourChange(PlayableCard __instance)
+        {
+            if (__instance.HasAbility(Neutered.ability))
+                __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
+        }
+        #endregion
     }
 
-    [HarmonyPatch(typeof(GlobalTriggerHandler))]
-    internal class GlobalTriggerHandlerPatches
+    [HarmonyPatch]
+    internal class OtherAbilityPatches
     {
+        [HarmonyPostfix, HarmonyPatch(typeof(Deathtouch), nameof(Deathtouch.RespondsToDealDamage))]
+        private static void ImmunetoDeathTouch(ref bool __result, int amount, PlayableCard target)
+        {
+            if (amount > 0 && target != null && !target.Dead)
+                __result &= target.LacksTrait(AbnormalPlugin.ImmuneToInstaDeath);
+        }
+
         // Triggers card with Fungal Infector before other cards
-        [HarmonyPostfix, HarmonyPatch(nameof(GlobalTriggerHandler.TriggerCardsOnBoard))]
+        [HarmonyPostfix, HarmonyPatch(typeof(GlobalTriggerHandler), nameof(GlobalTriggerHandler.TriggerCardsOnBoard))]
         private static IEnumerator TriggerSporogenicFirst(IEnumerator enumerator, GlobalTriggerHandler __instance, Trigger trigger, bool triggerFacedown, params object[] otherArgs)
         {
             if (trigger == Trigger.TurnEnd)
@@ -115,17 +146,6 @@ namespace WhistleWind.AbnormalSigils.Patches
                 }
             }
             yield return enumerator;
-        }
-    }
-    [HarmonyPatch(typeof(Deathtouch))]
-    internal class DeathtouchPatch
-    {
-        // Adds 
-        [HarmonyPostfix, HarmonyPatch(nameof(Deathtouch.RespondsToDealDamage))]
-        private static void ImmunetoDeathTouch(ref bool __result, int amount, PlayableCard target)
-        {
-            if (amount > 0 && target != null && !target.Dead)
-                __result = target.LacksAbility(Ability.MadeOfStone) && target.LacksTrait(AbnormalPlugin.ImmuneToInstaDeath);
         }
     }
 }

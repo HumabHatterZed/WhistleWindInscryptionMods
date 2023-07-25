@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -11,19 +11,14 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_YoureBald_BaldIsAwesome()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.DrawCopy
-            };
-            CreateCard(
-                "wstl_youreBald", "You're Bald...",
-                "I've always wondered what it's like to be bald.",
-                atk: 0, hp: 1,
-                blood: 0, bones: 0, energy: 2,
-                Artwork.youreBald, Artwork.youreBald_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Zayin);
+            const string youreBald = "youreBald";
+
+            NewCard(youreBald, "You're Bald...", "I've always wondered what it's like to be bald.",
+                attack: 0, health: 2, energy: 2)
+                .SetPortraits(youreBald)
+                .AddAbilities(Ability.DrawCopy)
+                .SetDefaultEvolutionName("You're Extra Bald...")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
         }
     }
 }

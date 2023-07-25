@@ -1,7 +1,10 @@
-﻿using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -9,16 +12,13 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ForsakenMurderer_T0154()
         {
-            CreateCard(
-                "wstl_forsakenMurderer", "Forsaken Murderer",
-                "Experimented on then forgotten. What was anger has become abhorrence.",
-                atk: 4, hp: 1,
-                blood: 0, bones: 8, energy: 0,
-                Artwork.forsakenMurderer, Artwork.forsakenMurderer_emission,
-                abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth,
-                customTribe: TribeHumanoid);
+            const string forsakenMurderer = "forsakenMurderer";
+
+            NewCard(forsakenMurderer, "Forsaken Murderer", "Experimented on then forgotten. What was anger has become abhorrence.",
+                attack: 4, health: 1, bones: 8)
+                .SetPortraits(forsakenMurderer)
+                .AddTribes(TribeAnthropoid)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

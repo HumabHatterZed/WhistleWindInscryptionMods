@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,35 +13,16 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ExpressHellTrain_T0986()
         {
-            List<Ability> abilities = new()
-            {
-                GroupHealer.ability
-            };
-            List<SpecialTriggeredAbility> specialAbilities = new()
-            {
-                TicketTaker.specialAbility
-            };
-            CreateCard(
-                "wstl_expressHellTrain", "Express Train to Hell",
-                "When the time comes, the train will sound its mighty horn.",
-                atk: 0, hp: 4,
-                blood: 0, bones: 4, energy: 0,
-                Artwork.expressHellTrain, Artwork.expressHellTrain_emission,
-                abilities: abilities, specialAbilities: specialAbilities,
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Rare, riskLevel: RiskLevel.Waw,
-                customTribe: TribeMachine);
+            const string expressHellTrain = "expressHellTrain";
 
-            abilities = new() { TheTrain.ability };
-            CreateCard(
-                "wstl_BottledExpressHellTrain", "Express Train to Hell",
-                "When the time comes, the train will sound its mighty horn.",
-                atk: 0, hp: 0,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.expressHellTrain, Artwork.expressHellTrain_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                spellType: SpellType.Global);
+            NewCard(expressHellTrain, "Express Train to Hell", "When the time comes, the train will sound its mighty horn.",
+                attack: 0, health: 4, bones: 4)
+                .SetPortraits(expressHellTrain)
+                .AddAbilities(TheTrain.ability)
+                .AddTribes(TribeMechanical)
+                .SetTerrain()
+                .SetDefaultEvolutionName("Express Train to Turbo Hell")
+                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Waw);
         }
     }
 }

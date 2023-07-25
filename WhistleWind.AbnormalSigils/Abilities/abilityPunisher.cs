@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,11 +13,12 @@ namespace WhistleWind.AbnormalSigils
         {
             const string rulebookName = "Punisher";
             const string rulebookDescription = "When [creature] is struck, the striker is killed.";
-            const string dialogue = "Retaliation is swift, but death is slow.";
+            const string dialogue = "Retaliation is switft and brutal.";
+            const string triggerText = "[creature] swiftly retaliates!";
             Punisher.ability = AbnormalAbilityHelper.CreateAbility<Punisher>(
-                Artwork.sigilPunisher, Artwork.sigilPunisher_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
-                modular: true, opponent: true, canStack: false).Id;
+                "sigilPunisher",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
+                modular: false, opponent: true, canStack: false).Id;
         }
     }
     public class Punisher : AbilityBehaviour
@@ -26,7 +27,7 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
-            if (source != null && !source.Dead)
+            if (source != null && !source.Dead && source != base.Card)
                 return source.Health > 0 && !source.HasAbility(Ability.MadeOfStone) && !source.HasTrait(AbnormalPlugin.ImmuneToInstaDeath);
 
             return false;

@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,19 +13,16 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_TheLittlePrince_O0466()
         {
-            List<Ability> abilities = new()
-            {
-                Sporogenic.ability
-            };
-            CreateCard(
-                "wstl_theLittlePrince", "The Little Prince",
-                "A giant mushroom chunk. A mist of spores surrounds it.",
-                atk: 1, hp: 4,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.theLittlePrince, Artwork.theLittlePrince_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
+            const string theLittlePrince = "theLittlePrince";
+
+            NewCard(theLittlePrince, "The Little Prince", "A giant mushroom chunk. A mist of spores surrounds it.",
+                attack: 1, health: 4, blood: 2)
+                .SetPortraits(theLittlePrince)
+                .AddAbilities(Sporogenic.ability)
+                .AddTribes(TribeBotanic)
+                .AddTraits(SporeFriend)
+                .SetDefaultEvolutionName("The Little King")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

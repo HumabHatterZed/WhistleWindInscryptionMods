@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -12,8 +11,8 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Syrinx";
-        public static readonly string rDesc = "Nameless Fetus transforms when sacrificed six times.";
+        public const string rName = "Syrinx";
+        public const string rDesc = "Nameless Fetus transforms when sacrificed six times.";
 
         private int sacrificeCount;
 
@@ -27,7 +26,7 @@ namespace WhistleWindLobotomyMod
             {
                 yield return new WaitForSeconds(0.25f);
                 CardInfo cardByName = CardLoader.GetCardByName("wstl_namelessFetusAwake");
-                yield return DialogueEventsManager.PlayDialogueEvent("NamelessFetusAwake", 0f);
+                yield return DialogueHelper.PlayDialogueEvent("NamelessFetusAwake", 0f);
                 yield return base.PlayableCard.TransformIntoCard(cardByName);
                 yield return new WaitForSeconds(0.5f);
             }
@@ -41,12 +40,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_Syrinx()
-        {
-            RulebookEntrySyrinx.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySyrinx>(Syrinx.rName, Syrinx.rDesc).Id;
-        }
+            => RulebookEntrySyrinx.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySyrinx>(Syrinx.rName, Syrinx.rDesc).Id;
         private void SpecialAbility_Syrinx()
-        {
-            Syrinx.specialAbility = AbilityHelper.CreateSpecialAbility<Syrinx>(pluginGuid, Syrinx.rName).Id;
-        }
+            => Syrinx.specialAbility = AbilityHelper.CreateSpecialAbility<Syrinx>(pluginGuid, Syrinx.rName).Id;
     }
 }

@@ -1,5 +1,7 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
@@ -13,8 +15,15 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public static readonly string rName = "Magical Girls";
-        public static readonly string rDesc = "Gain a special card when all 4 Magical Girls or their evolutions are on the same side of the board.";
+        public const string rName = "Magical Girls";
+        public const string rDesc = "Gain a special card when all 4 Magical Girls or their evolutions are on the same side of the board.";
+
+        private static Dictionary<string, List<string>> ValidCardNames => new()
+        {
+            { "Clover", new() {"wstl_magicalGirlClover", "wstl_servantOfWrath" }},
+            { "Heart", new() {"wstl_magicalGirlHeart", "wstl_queenOfHatred", "wstl_queenOfHatredTired" }},
+            { "Spade", new() {"wstl_magicalGirlSpade", "wstl_knightOfDespair" }}
+        };
 
         public override bool RespondsToResolveOnBoard() => !LobotomyConfigManager.Instance.NoEvents;
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !LobotomyConfigManager.Instance.NoEvents && otherCard.OpponentCard == base.PlayableCard.OpponentCard;
@@ -23,72 +32,67 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator CheckForMagicGirls()
         {
-            // Break if already have Jester
             if (LobotomySaveManager.OwnsJesterOfNihil)
             {
                 LobotomyPlugin.Log.LogDebug("Player already has Jester of Nihil.");
                 yield break;
             }
 
-            CardSlot greedSlot = null;
-            CardSlot despairSlot = null;
-            CardSlot wrathSlot = null;
-            foreach (CardSlot slot in HelperMethods.GetSlotsCopy(base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
+            List<CardSlot> otherMagicGirls = new() { null, null, null };
+
+            foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(!base.PlayableCard.OpponentCard).Where(s => s.Card != null))
             {
                 if (slot != base.PlayableCard.Slot)
                 {
                     string slotName = slot.Card.Info.name;
-                    if (slotName == "wstl_magicalGirlDiamond" || slotName == "wstl_kingOfGreed")
-                    {
-                        LobotomyPlugin.Log.LogDebug("Player has Diamond.");
-                        greedSlot = slot;
-                        continue;
-                    }
-                    if (slotName == "wstl_magicalGirlSpade" || slotName == "wstl_knightOfDespair")
-                    {
-                        LobotomyPlugin.Log.LogDebug("Player has Spade.");
-                        despairSlot = slot;
-                        continue;
-                    }
-                    if (slotName == "wstl_magicalGirlClover" || slotName == "wstl_servantOfWrath")
-                    {
-                        LobotomyPlugin.Log.LogDebug("Player has Clover.");
-                        wrathSlot = slot;
-                        continue;
-                    }
+                    if (ValidCardNames["Heart"].Contains(slotName))
+                        otherMagicGirls[0] ??= slot;
+
+                    else if (ValidCardNames["Spade"].Contains(slotName))
+                        otherMagicGirls[1] = slot;
+
+                    if (ValidCardNames["Clover"].Contains(slotName))
+                        otherMagicGirls[2] = slot;
                 }
             }
-            if (greedSlot != null && despairSlot != null)
+            if (otherMagicGirls.Contains(null))
             {
-                if (LobotomyPlugin.RuinaCardsDisabled)
-                    yield return NoRuina(greedSlot, despairSlot);
-                else if (wrathSlot != null)
-                    yield return Entropy(greedSlot, despairSlot, wrathSlot);
+                if (LobotomyConfigManager.Instance.NoRuina && otherMagicGirls[2] == null && otherMagicGirls.Count(x => x == null) == 1)
+                    yield return NoRuina(otherMagicGirls[0], otherMagicGirls[1]);
+
+                yield break;
             }
 
-            yield break;
+            yield return Entropy(otherMagicGirls[0], otherMagicGirls[1], otherMagicGirls[2]);
         }
 
-        private IEnumerator Entropy(CardSlot greed, CardSlot despair, CardSlot wrath)
+        private IEnumerator Entropy(CardSlot queenOfHatred, CardSlot knightOfDespair, CardSlot servantOfWrath)
         {
+            bool opponentCard = base.PlayableCard.OpponentCard;
+
             yield return new WaitForSeconds(0.2f);
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board, lockAfter: true);
+            bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
+
             yield return new WaitForSeconds(0.2f);
 
-            greed.Card.Anim.StrongNegationEffect();
-            despair.Card.Anim.StrongNegationEffect();
-            wrath.Card.Anim.StrongNegationEffect();
+            queenOfHatred.Card.Anim.StrongNegationEffect();
+            knightOfDespair.Card.Anim.StrongNegationEffect();
+            servantOfWrath.Card.Anim.StrongNegationEffect();
             base.PlayableCard.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.5f);
 
-            yield return DialogueEventsManager.PlayDialogueEvent("JesterOfNihilIntro", 0f);
+            yield return DialogueHelper.PlayDialogueEvent("JesterOfNihilIntro", 0f);
 
             // turn out the lights, activate table effects, remove magic girls
-            Singleton<ExplorableAreaManager>.Instance.HangingLight.gameObject.SetActive(value: false);
-            Singleton<ExplorableAreaManager>.Instance.HandLight.gameObject.SetActive(value: false);
-            yield return BoardEffects.EntropyTableEffects();
-            RemoveMagic(greed, despair, wrath);
+            if (!SaveManager.SaveFile.IsPart2)
+            {
+                Singleton<ExplorableAreaManager>.Instance.HangingLight.gameObject.SetActive(value: false);
+                Singleton<ExplorableAreaManager>.Instance.HandLight.gameObject.SetActive(value: false);
+                yield return BoardEffects.EntropyTableEffects();
+            }
+
+            RemoveMagic(queenOfHatred, knightOfDespair, servantOfWrath, opponentCard);
 
             yield return new WaitForSeconds(0.4f);
 
@@ -98,55 +102,89 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.4f);
 
             if (!DialogueEventsData.EventIsPlayed("JesterOfNihilStory"))
-                yield return DialogueEventsManager.PlayDialogueEvent("JesterOfNihilStory");
+                yield return DialogueHelper.PlayDialogueEvent("JesterOfNihilStory");
             else
                 yield return new WaitForSeconds(0.4f);
 
-            if (Singleton<VideoCameraRig>.Instance != null)
-                Singleton<VideoCameraRig>.Instance.PlayCameraAnim("refocus_quick");
+            Singleton<VideoCameraRig>.Instance?.PlayCameraAnim("refocus_quick");
 
-            Singleton<ExplorableAreaManager>.Instance.HangingLight.gameObject.SetActive(value: true);
-            Singleton<ExplorableAreaManager>.Instance.HandLight.gameObject.SetActive(value: true);
+            if (!SaveManager.SaveFile.IsPart2)
+            {
+                Singleton<ExplorableAreaManager>.Instance.HangingLight.gameObject.SetActive(value: true);
+                Singleton<ExplorableAreaManager>.Instance.HandLight.gameObject.SetActive(value: true);
+            }
 
-            // Show hand so player can see the jester
-            yield return new WaitForSeconds(0.4f);
-            Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
-            yield return new WaitForSeconds(0.2f);
-
-            // add jester to deck and hand
             CardInfo info = CardLoader.GetCardByName("wstl_jesterOfNihil");
-            RunState.Run.playerDeck.AddCard(info);
+            if (opponentCard)
+            {
+                List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
+                if (validSlots.Count > 0)
+                {
+                    HelperMethods.ChangeCurrentView(View.Board, 0.4f);
+                    yield return Singleton<BoardManager>.Instance.CreateCardInSlot(info, validSlots[SeededRandom.Range(0, validSlots.Count - 1, RunState.RandomSeed)], resolveTriggers: false);
+                }
+                else
+                {
+                    HelperMethods.ChangeCurrentView(View.OpponentQueue, 0.4f);
+                    yield return HelperMethods.QueueCreatedCard(info);
+                }
+            }
+            else
+            {
+                HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
 
-            // set cost to 0 for this fight (can play immediately that way)
-            info.cost = 0;
-            yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0f, null);
-            LobotomySaveManager.OwnsJesterOfNihil = true;
+                // add the card to the player's deck (this adds a clone so we can modify it after-the-fact for this battle only)
+                RunState.Run.playerDeck.AddCard(info);
+                info.bonesCost = 0;
+
+                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0f, null);
+                LobotomySaveManager.OwnsJesterOfNihil = true;
+                LobotomySaveManager.UnlockedJesterOfNihil = true;
+            }
+
             yield return new WaitForSeconds(0.2f);
-
-            yield return DialogueEventsManager.PlayDialogueEvent("JesterOfNihilOutro");
-
-            yield return new WaitForSeconds(0.2f);
-            Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-            yield return new WaitForSeconds(0.15f);
-
+            yield return DialogueHelper.PlayDialogueEvent("JesterOfNihilOutro");
+            HelperMethods.ChangeCurrentView(View.Default);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
+            LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
         }
 
-        private IEnumerator NoRuina(CardSlot greed, CardSlot despair)
+        private void RemoveMagic(CardSlot queenOfHatred, CardSlot knightOfDespair, CardSlot servantOfWrath, bool opponentCard)
         {
-            greed.Card.Anim.StrongNegationEffect();
-            despair.Card.Anim.StrongNegationEffect();
+            // remove all cards in the player's deck that are magical girls
+            // since the evolutions can also trigger the sequence,
+            // we remove them this way instead
+            if (!opponentCard)
+            {
+                if (SaveManager.SaveFile.IsPart2)
+                {
+                    SaveManager.SaveFile.gbcData.deck.RemoveCardByName("wstl_magicalGirlSpade");
+                    SaveManager.SaveFile.gbcData.deck.RemoveCardByName("wstl_magicalGirlDiamond");
+                    SaveManager.SaveFile.gbcData.deck.RemoveCardByName("wstl_magicalGirlHeart");
+                    SaveManager.SaveFile.gbcData.deck.RemoveCardByName("wstl_magicalGirlClover");
+                }
+                else
+                {
+                    RunState.Run.playerDeck.RemoveCardByName("wstl_magicalGirlSpade");
+                    RunState.Run.playerDeck.RemoveCardByName("wstl_magicalGirlDiamond");
+                    RunState.Run.playerDeck.RemoveCardByName("wstl_magicalGirlHeart");
+                    RunState.Run.playerDeck.RemoveCardByName("wstl_magicalGirlClover");
+                }
+            }
+
+            queenOfHatred.Card.RemoveFromBoard(false, 0f);
+            knightOfDespair.Card.RemoveFromBoard(false, 0f);
+            servantOfWrath.Card.RemoveFromBoard(false, 0f);
+            base.PlayableCard.RemoveFromBoard(false, 0f);
+        }
+
+        private IEnumerator NoRuina(CardSlot queenOfHatred, CardSlot knightOfDespair)
+        {
+            queenOfHatred.Card.Anim.StrongNegationEffect();
+            knightOfDespair.Card.Anim.StrongNegationEffect();
             base.PlayableCard.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
-            yield return HelperMethods.PlayAlternateDialogue(dialogue: "Without the [c:g1]fourth[c:], their purpose is rendered null.");
-        }
-        private void RemoveMagic(CardSlot greed, CardSlot despair, CardSlot wrath)
-        {
-            // Remove cards
-            greed.Card.RemoveFromBoard(true, 0f);
-            despair.Card.RemoveFromBoard(true, 0f);
-            wrath.Card.RemoveFromBoard(true, 0f);
-            base.PlayableCard.RemoveFromBoard(true, 0f);
+            yield return DialogueHelper.PlayAlternateDialogue(dialogue: "Without the [c:g1]fourth[c:], their purpose is rendered null.");
         }
     }
     public class RulebookEntryMagicalGirls : AbilityBehaviour
@@ -157,12 +195,8 @@ namespace WhistleWindLobotomyMod
     public partial class LobotomyPlugin
     {
         private void Rulebook_MagicalGirls()
-        {
-            RulebookEntryMagicalGirls.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMagicalGirls>(MagicalGirls.rName, MagicalGirls.rDesc).Id;
-        }
+            => RulebookEntryMagicalGirls.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMagicalGirls>(MagicalGirls.rName, MagicalGirls.rDesc).Id;
         private void SpecialAbility_MagicalGirls()
-        {
-            MagicalGirls.specialAbility = AbilityHelper.CreateSpecialAbility<MagicalGirls>(pluginGuid, MagicalGirls.rName).Id;
-        }
+            => MagicalGirls.specialAbility = AbilityHelper.CreateSpecialAbility<MagicalGirls>(pluginGuid, MagicalGirls.rName).Id;
     }
 }

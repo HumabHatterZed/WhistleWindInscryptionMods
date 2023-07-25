@@ -1,6 +1,9 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Patches
 {
@@ -8,7 +11,7 @@ namespace WhistleWindLobotomyMod.Patches
     internal class RulebookPatches
     {
         [HarmonyPatch(typeof(RuleBookController))]
-        private static class OpenToAbilityPage_patch
+        private static class RulebookControllerPatches
         {
             // Reset the descriptions of WhiteNight-related abilities
             [HarmonyPrefix, HarmonyPatch(nameof(RuleBookController.SetShown))]
@@ -16,20 +19,27 @@ namespace WhistleWindLobotomyMod.Patches
             {
                 if (!shown)
                 {
-                    AbilitiesUtil.GetInfo(Apostle.ability).rulebookDescription = LobotomyPlugin.ApostleHiddenDescription;
-                    AbilitiesUtil.GetInfo(TrueSaviour.ability).rulebookDescription = LobotomyPlugin.TrueSaviourHiddenDescription;
-                    AbilitiesUtil.GetInfo(Confession.ability).rulebookDescription = LobotomyPlugin.ConfessionHiddenDescription;
+                    AbilitiesUtil.GetInfo(Ability.DebuffEnemy).rulebookName = "Stinky";
+                    AbilitiesUtil.GetInfo(Apostle.ability).ResetDescription();
+                    AbilitiesUtil.GetInfo(TrueSaviour.ability).ResetDescription();
+                    AbilitiesUtil.GetInfo(Confession.ability).ResetDescription();
                 }
                 return true;
             }
             [HarmonyPrefix, HarmonyPatch(nameof(RuleBookController.OpenToAbilityPage))]
-            private static bool OpenToAbilityPage(PlayableCard card)
+            private static bool OpenToAbilityPage(string abilityName, PlayableCard card)
             {
-                if (card != null && card.HasAnyOfAbilities(Apostle.ability, TrueSaviour.ability, Confession.ability))
+                if (card)
                 {
-                    AbilitiesUtil.GetInfo(Apostle.ability).rulebookDescription = LobotomyPlugin.ApostleRevealedDescription;
-                    AbilitiesUtil.GetInfo(TrueSaviour.ability).rulebookDescription = LobotomyPlugin.TrueSaviourRevealedDescription;
-                    AbilitiesUtil.GetInfo(Confession.ability).rulebookDescription = LobotomyPlugin.ConfessionRevealedDescription;
+                    if (abilityName == "DebuffEnemy" && card.Info.displayedName == "Ppodae")
+                        AbilitiesUtil.GetInfo(Ability.DebuffEnemy).rulebookName = "Cute Lil Guy";
+
+                    if (card.HasTrait(LobotomyCardManager.TraitApostle))
+                    {
+                        AbilitiesUtil.GetInfo(Apostle.ability).rulebookDescription = "[creature] will enter a downed state instead of dying. Downed creatures are invulnerable under special conditions.";
+                        AbilitiesUtil.GetInfo(TrueSaviour.ability).rulebookDescription = $"While {card.Info.DisplayedNameLocalized} is on the board, remove ally Terrain and Pelt cards and transform the rest into random Apostles.";
+                        AbilitiesUtil.GetInfo(Confession.ability).rulebookDescription = "Kill WhiteNight and all Apostles on the board then deal 33 direct damage.";
+                    }
                 }
                 return true;
             }
@@ -38,30 +48,28 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
         private static void AddKayceeAbilities(ref int abilityIndex, ref bool __result)
         {
-            if (SaveManager.SaveFile.IsPart1)
-            {
-                AbilityInfo info = AbilitiesUtil.GetInfo((Ability)abilityIndex);
+            if (__result || !SaveManager.SaveFile.IsPart1)
+                return;
 
-                if (!SaveFile.IsAscension && info.metaCategories.Contains(AbilityMetaCategory.AscensionUnlocked))
-                {
-                    if (info.name.Equals("BoneDigger") || info.name.Equals("DeathShield") ||
-                        info.name.Equals("DoubleStrike") || info.name.Equals("GainAttackOnKill") ||
-                        info.name.Equals("StrafeSwap") || info.name.Equals("Morsel"))
-                    {
-                        __result = true;
-                    }
-                }
-                if (SaveManager.SaveFile.IsPart1 && info.metaCategories.Contains(AbilityMetaCategory.Part3Rulebook))
-                {
-                    if (info.name.Equals("GainBattery") || info.name.Equals("LatchDeathShield") ||
-                        info.name.Equals("MoveBeside"))
-                    {
-                        if (info.name.Equals("LatchDeathShield"))
-                            info.rulebookDescription = "When this card perishes, give a card the Armoured sigil.";
-                        __result = true;
-                    }
-                }
-            }
+            AbilityInfo info = AbilitiesUtil.GetInfo((Ability)abilityIndex);
+            if (!abilityNames.Contains(info.name))
+                return;
+
+            __result = true;
         }
+        private static readonly List<string> abilityNames = new()
+        {
+            "BoneDigger",
+            "DeathShield",
+            "DoubleStrike",
+            "GainAttackOnKill",
+            "GainBattery",
+            "LatchDeathShield",
+            "Morsel",
+            "MoveBeside",
+            "Sentry",
+            "Sniper",
+            "StrafeSwap"
+        };
     }
 }

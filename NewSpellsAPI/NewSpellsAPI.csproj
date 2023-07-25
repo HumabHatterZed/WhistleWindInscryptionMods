@@ -4,10 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Infiniscryption.Spells</AssemblyName>
     <Description>An updated version of Infiniscryption's Spell Card Toolkit with new features and general improvements.</Description>
-    <Version>1.1.0</Version>
+    <Version>1.1.3</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <LangVersion>9.0</LangVersion>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <LangVersion>latest</LangVersion>
+    <DebugType>full</DebugType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
 

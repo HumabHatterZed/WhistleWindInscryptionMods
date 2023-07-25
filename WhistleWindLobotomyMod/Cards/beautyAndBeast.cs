@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,24 +12,14 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_BeautyAndBeast_O0244()
         {
-            List<Ability> abilities = new()
-            {
-                Cursed.ability
-            };
-            List<Tribe> tribes = new()
-            {
-                Tribe.Hooved,
-                Tribe.Insect
-            };
-            CreateCard(
-                "wstl_beautyAndBeast", "Beauty and the Beast",
-                "A pitiable creature. Death would be a mercy for it.",
-                atk: 1, hp: 1,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.beautyAndBeast, Artwork.beautyAndBeast_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Teth);
+            const string beautyAndBeast = "beautyAndBeast";
+
+            NewCard(beautyAndBeast, "Beauty and the Beast", "A pitiable creature. Death would be a mercy for it.",
+                attack: 1, health: 1, blood: 1)
+                .SetPortraits(beautyAndBeast)
+                .AddAbilities(Cursed.ability)
+                .AddTribes(Tribe.Hooved, Tribe.Insect)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }
 }

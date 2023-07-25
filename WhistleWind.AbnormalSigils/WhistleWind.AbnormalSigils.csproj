@@ -4,13 +4,23 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AssemblyName>WhistleWind.AbnormalSigils</AssemblyName>
 		<Description>A mod for Inscryption adding sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina.</Description>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<LangVersion>9.0</LangVersion>
+    <LangVersion>latest</LangVersion>
+    <DebugType>full</DebugType>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
 	</PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Artwork\*.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Artwork\*.png" />
+  </ItemGroup>
+  
 	<ItemGroup>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" GeneratePathProperty="true" IncludeAssets="none" />
     <PackageReference Include="BepInEx.Core" Version="5.4.19" GeneratePathProperty="true" IncludeAssets="none" />
@@ -35,29 +45,13 @@
     <Reference Include="InscryptionCommunityPatch" Private="false">
       <HintPath>..\lib\InscryptionCommunityPatch.dll</HintPath>
     </Reference>
-    <Reference Include="TribeLibary" Private="false">
-      <HintPath>..\lib\TribeLibary.dll</HintPath>
+    <Reference Include="ATribalLibary" Private="false">
+      <HintPath>..\lib\ATribalLibary.dll</HintPath>
     </Reference>
   </ItemGroup>
-	
-	<ItemGroup>
-		<Compile Update="Properties\Artwork.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Artwork.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Update="Properties\Artwork.resx">
-      <SubType>Designer</SubType>
-			<LastGenOutput>Artwork.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-		</EmbeddedResource>
-	</ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /Y $(ProjectDir)\..\lib\*.dll $(TargetDir)" />
+    <Exec Command="xcopy /Y ..\lib\*.dll $(TargetDir)" />
     <Exec Command="$(PkgILRepack)\tools\ILRepack /out:..\Compiled\$(ProjectName).dll $(TargetPath) ../Compiled/WhistleWind.Core.dll /lib:$(TargetDir)" />
     <Copy Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Inscryption\')" SourceFiles="..\Compiled\$(ProjectName).dll" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Inscryption\BepInEx\plugins\" />
   </Target>

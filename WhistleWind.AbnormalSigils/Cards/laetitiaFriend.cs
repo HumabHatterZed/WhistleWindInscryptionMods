@@ -1,7 +1,9 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
+using static DiskCardGame.CardAppearanceBehaviour;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -9,19 +11,14 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_LaetitiaFriend_O0167()
         {
-            List<Tribe> tribes = new()
-            {
-                Tribe.Insect
-            };
-            CardHelper.CreateCard(
-                pluginPrefix,
-                "wstl_laetitiaFriend", "Little Witch's Friend",
-                "She brought her friends along.",
-                atk: 2, hp: 2,
-                blood: 0, bones: 4, energy: 0,
-                Artwork.laetitiaFriend, Artwork.laetitiaFriend_emission,
-                abilities: new(),
-                metaCategories: new(), tribes: tribes, traits: new());
+            const string laetitiaFriend = "laetitiaFriend";
+            CreateCard(MakeCard(
+                cardName: laetitiaFriend,
+                "Little Witch's Friend",
+                attack: 2, health: 2, bones: 2)
+                .SetPortraits(laetitiaFriend)
+                .AddTribes(Tribe.Insect)
+                .SetDefaultEvolutionName("Little Witch's Big Friend"));
         }
     }
 }

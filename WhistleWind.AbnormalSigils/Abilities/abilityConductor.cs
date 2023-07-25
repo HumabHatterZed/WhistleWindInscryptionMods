@@ -1,22 +1,35 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
+    public partial class AbnormalPlugin
+    {
+        private void Ability_Conductor()
+        {
+            const string rulebookName = "Conductor";
+            const string rulebookDescription = "The effect of this sigil will change over the next 3 turns. This turn: do nothing.";
+            const string dialogue = "From break and ruin, the most beautiful performance begins.";
+            const string triggerText = "[creature] plays a quiet symphony.";
+            Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(
+                "sigilConductor",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
+                modular: false, opponent: true, canStack: false).Id;
+        }
+    }
     public class Conductor : AbilityBehaviour, IPassiveAttackBuff
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private int turnCount = 0;
+        public int turnCount = 0;
 
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() => base.LearnAbility(0.4f);
@@ -25,6 +38,7 @@ namespace WhistleWind.AbnormalSigils
         {
             if (turnCount < 3)
                 return base.Card.OpponentCard != onPlayerUpkeep;
+
             return false;
         }
         public override IEnumerator OnUpkeep(bool onPlayerUpkeep)
@@ -37,64 +51,31 @@ namespace WhistleWind.AbnormalSigils
             yield return HelperMethods.ChangeCurrentView(View.Default);
         }
 
+        /*
+         * turn 0: n/a
+         * turn 1: adjacent cards +self / 2
+         * turn 2: allied cards +self / 2
+         * turn 3: other cards +self
+         */
         public int GetPassiveAttackBuff(PlayableCard target)
         {
-            // do nothing if not on the board or we've just been played
-            if (!this.Card.OnBoard || turnCount == 0)
+            // if not on board, target is base, target is opposing, or count is 0
+            if (!base.Card.OnBoard || target == base.Card || turnCount == 0)
                 return 0;
 
-            if (target == this.Card)
-            {
-                // if turn 1, return number of valid adjacent cards
-                if (turnCount == 1)
-                    return Singleton<BoardManager>.Instance.GetAdjacentSlots(target.Slot).FindAll(slot => slot.Card != null).Count;
+            int attack = base.Card.Attack;
+            if (target.HasTrait(AbnormalPlugin.Orchestral))
+                attack++;
 
-                // get number of valid ally cards
-                int powerToSelf = HelperMethods.GetSlotsCopy(base.Card.OpponentCard)
-                    .FindAll(x => x.Card != base.Card && x.Card != null && x.Card.LacksAbility(Neutered.ability)).Count;
+            // at 3+ turns, give all other cards Power
+            if (turnCount >= 3)
+                return attack;
 
-                if (turnCount == 3)
-                {
-                    List<CardSlot> opposingSlots = HelperMethods.GetSlotsCopy(!base.Card.OpponentCard).FindAll(x => x.Card != null);
-                    powerToSelf += opposingSlots.Exists(s => s.Card.HasTrait(Trait.Giant)) ? 1 : opposingSlots.Count;
-                }
+            // if adjacent or it's been 2 turns, give Power / 2
+            if (base.Card.Slot.GetAdjacentCards().Contains(target) || (turnCount >= 2 && target.OpponentCard == base.Card.OpponentCard))
+                return Mathf.FloorToInt(attack / 2);
 
-                return powerToSelf;
-            }
-
-            // target is not this card
-
-            // turn 1, only give power to adjacent
-            if (Singleton<BoardManager>.Instance.GetAdjacentSlots(target.Slot).Exists(slot => slot.Card == base.Card))
-                return turnCount == 1 ? 1 : 0;
-
-            if (turnCount > 1)
-            {
-                // turn 2+, buff all allies
-                if (target.OpponentCard == base.Card.OpponentCard)
-                    return 1;
-
-                // turn 3, buff enemies
-                else if (turnCount == 3)
-                    return 1;
-            }
-
-            AbnormalPlugin.Log.LogError("Conductor ability is not working properly! Who's the idiot who coded it?");
             return 0;
-        }
-    }
-    public partial class AbnormalPlugin
-    {
-        private void Ability_Conductor()
-        {
-            const string rulebookName = "Conductor";
-            const string rulebookDescription = "While this card is on the board, reduce all other card's Power by the number of turns this card has been on the board, up to 3.";
-            const string dialogue = "From break and ruin, the most beautiful performance begins.";
-
-            Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(
-                Artwork.sigilConductor, Artwork.sigilConductor_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: false, opponent: true, canStack: false).Id;
         }
     }
 }

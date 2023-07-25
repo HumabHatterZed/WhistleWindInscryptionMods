@@ -1,10 +1,12 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionAPI.PixelCard;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,27 +14,16 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_Yin_O05102()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Strafe,
-                Ability.Submerge
-            };
-            List<CardAppearanceBehaviour.Appearance> appearances = new()
-            {
-                AlternateBattlePortrait.appearance
-            };
+            const string yin = "yin";
 
-            CreateCard(
-                "wstl_yin", "Yin",
-                "A black pendant in search of its missing half.",
-                atk: 2, hp: 3,
-                blood: 2, bones: 0, energy: 0,
-                Artwork.yin, Artwork.yin_emission,
-                altTexture: Artwork.yinAlt, emissionAltTexture: Artwork.yinAlt_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: appearances, onePerDeck: true,
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
+            NewCard(yin, "Yin", "A black pendant in search of its missing half.",
+                attack: 2, health: 3, blood: 2)
+                .SetPortraits(yin, altPortraitName: "yinAlt")
+                .SetPixelAlternatePortrait(TextureLoader.LoadTextureFromFile("yinAlt_pixel.png"))
+                .AddAbilities(Ability.Strafe, Ability.Submerge)
+                .AddAppearances(AlternateBattlePortrait.appearance)
+                .SetOnePerDeck()
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

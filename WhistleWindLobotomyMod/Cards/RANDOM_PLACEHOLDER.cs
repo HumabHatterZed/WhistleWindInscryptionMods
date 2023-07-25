@@ -1,7 +1,8 @@
-﻿using WhistleWind.AbnormalSigils;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -9,14 +10,11 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_RANDOM_PLACEHOLDER()
         {
-            CreateCard(
-                "wstl_RANDOM_PLACEHOLDER", "",
-                "",
-                atk: 0, hp: 0,
-                blood: 0, bones: 0, energy: 0,
-                Artwork.RANDOM_PLACEHOLDER, pixelTexture: Artwork.RANDOM_PLACEHOLDER_pixel,
-                abilities: new(), specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(), statIcon: SigilPower.icon);
+            const string RANDOM_PLACEHOLDER = "RANDOM_PLACEHOLDER";
+            NewCard(RANDOM_PLACEHOLDER)
+                .SetPortraits(RANDOM_PLACEHOLDER)
+                .SetStatIcon(SigilPower.Icon)
+                .Build(nonChoice: true);
         }
     }
 }

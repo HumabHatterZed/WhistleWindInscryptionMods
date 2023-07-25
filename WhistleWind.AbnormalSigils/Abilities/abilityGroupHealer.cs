@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -14,11 +14,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_GroupHealer()
         {
             const string rulebookName = "Group Healer";
-            const string rulebookDescription = "While this card is on the board, all allies whose Health is below their maximum regain 1 Health on upkeep.";
+            const string rulebookDescription = "At the start of its owner's turn, this card will heal all allies that have taken damage by 1 Health.";
             const string dialogue = "You only delay the inevitable.";
+            const string triggerText = "[creature] heals all its friends.";
             GroupHealer.ability = AbnormalAbilityHelper.CreateAbility<GroupHealer>(
-                Artwork.sigilGroupHealer, Artwork.sigilGroupHealer_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                "sigilGroupHealer",
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }
@@ -34,24 +35,26 @@ namespace WhistleWind.AbnormalSigils
             yield return HelperMethods.ChangeCurrentView(View.Board);
 
             // remove cards that are the base card or whose health is greater than/equal to the max
-            List<CardSlot> allyCards = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).Where(slot => slot.Card != null).ToList();
-            allyCards.RemoveAll(x => x.Card == base.Card || x.Card.MaxHealth <= x.Card.Health);
+            List<CardSlot> cardsToHeal = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).FindAll(slot => slot.Card != null);
+            cardsToHeal.RemoveAll(x => x.Card == base.Card || x.Card.Health >= x.Card.MaxHealth);
 
-            if (allyCards.Count > 0)
-            {
-                foreach (CardSlot slot in allyCards)
-                {
-                    slot.Card.Anim.LightNegationEffect();
-                    slot.Card.HealDamage(1);
-                    slot.Card.OnStatsChanged();
-                }
-                yield return base.LearnAbility(0.4f);
-            }
-            else
+            if (cardsToHeal.Count == 0)
             {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
+                yield break;
             }
+
+            foreach (CardSlot slot in cardsToHeal)
+            {
+                bool faceDown = slot.Card.FaceDown;
+                yield return slot.Card.FlipFaceDown(false);
+                slot.Card.Anim.LightNegationEffect();
+                slot.Card.HealDamage(1);
+                yield return new WaitForSeconds(0.2f);
+                yield return slot.Card.FlipFaceDown(faceDown);
+            }
+            yield return base.LearnAbility(0.4f);
         }
     }
 }

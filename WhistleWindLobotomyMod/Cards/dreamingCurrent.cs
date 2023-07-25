@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,21 +12,14 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_DreamingCurrent_T0271()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Submerge,
-                Barreler.ability
-            };
+            const string dreamingCurrent = "dreamingCurrent";
 
-            CreateCard(
-                "wstl_dreamingCurrent", "The Dreaming Current",
-                "A sickly child. Everyday it was fed candy that let it see the ocean.",
-                atk: 4, hp: 2,
-                blood: 3, bones: 0, energy: 0,
-                Artwork.dreamingCurrent, Artwork.dreamingCurrent_emission,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.Waw);
+            NewCard(dreamingCurrent, "The Dreaming Current", "A sickly child. Everyday it was fed candy that let it see the ocean.",
+                attack: 4, health: 2, blood: 3)
+                .SetPortraits(dreamingCurrent)
+                .AddAbilities(Ability.Submerge, Ability.StrafeSwap)
+                .SetDefaultEvolutionName("The Elder Dreaming Current")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
         }
     }
 }

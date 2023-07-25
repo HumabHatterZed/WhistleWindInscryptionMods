@@ -1,15 +1,13 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using Pixelplacement;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.AbnormalSigils.Properties;
+
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -19,11 +17,11 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_YellowBrickRoad()
         {
             const string rulebookName = "Follow the Leader";
-            const string rulebookDescription = "At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Ally cards follow, moving towards this card as far as possible.";
+            const string rulebookDescription = "At the end of its owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures towards this card in the sigil's direction as far as possible.";
             const string dialogue = "Let's go, together.";
+            const string triggerText = "[creature] leads your creatures forward.";
             YellowBrickRoad.ability = AbnormalAbilityHelper.CreateAbility<YellowBrickRoad>(
-                Artwork.sigilYellowBrickRoad, Artwork.sigilYellowBrickRoad_pixel,
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2, special: true).Id;
+                "sigilYellowBrickRoad", rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2, special: true).Id;
         }
     }
 
@@ -36,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
             if (base.Card.HasTrait(Trait.Giant)) // do nothing for giant cards
                 yield break;
 
-            List<CardSlot> allySlots = HelperMethods.GetSlotsCopy(base.Card.OpponentCard);
+            List<CardSlot> allySlots = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard);
             CardSlot oldSlot = base.Card.Slot;
 
             CardSlot destination;

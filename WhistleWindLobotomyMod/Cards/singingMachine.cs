@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -12,23 +13,15 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_SingingMachine_O0530()
         {
-            List<Ability> abilities = new()
-            {
-                TeamLeader.ability,
-                Aggravating.ability
-            };
+            const string singingMachine = "singingMachine";
 
-            CreateCard(
-                "wstl_singingMachine", "Singing Machine",
-                "A wind-up music machine. The song it plays is to die for.",
-                atk: 0, hp: 3,
-                blood: 1, bones: 0, energy: 0,
-                Artwork.singingMachine, Artwork.singingMachine_emission, pixelTexture: Artwork.singingMachine_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                appearances: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                customTribe: TribeMachine);
+            NewCard(singingMachine, "Singing Machine", "A wind-up music machine. The song it plays is to die for.",
+                attack: 0, health: 4, blood: 1)
+                .SetPortraits(singingMachine)
+                .AddAbilities(TeamLeader.ability, Aggravating.ability)
+                .AddTribes(TribeMechanical)
+                .AddTraits(Orchestral)
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }

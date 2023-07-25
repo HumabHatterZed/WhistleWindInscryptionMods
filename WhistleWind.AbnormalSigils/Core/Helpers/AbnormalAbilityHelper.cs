@@ -1,48 +1,46 @@
 ﻿using DiskCardGame;
+using EasyFeedback.APIs;
 using InscryptionAPI.Card;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Properties;
-using WhistleWind.Core.AbilityClasses;
+
 using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static InscryptionAPI.Card.AbilityManager;
 
 namespace WhistleWind.AbnormalSigils.Core.Helpers
 {
     public static class AbnormalAbilityHelper
     {
-        [Flags]
-        public enum AbilityGroup
-        {
-            None = 0,
-            Normal = 1,
-            Activated = 2,
-            Special = 4,
-            All = 8
-        }
-        private static AbilityGroup ForceModular => AbnormalConfigManager.Instance.MakeModular;
-        private static AbilityGroup ForceDisable => AbnormalConfigManager.Instance.DisableModular;
-        public static AbilityManager.FullAbility CreateAbility<T>(
-            byte[] texture, byte[] gbcTexture,
+        public static FullAbility CreateAbility<T>(
+            string abilityName,
             string rulebookName, string rulebookDescription,
-            string dialogue, int powerLevel = 0,
+            string dialogue = null, string triggerText = null,
+            int powerLevel = 0,
             bool modular = false, bool special = false,
             bool opponent = false, bool canStack = false,
             bool unobtainable = false,
-            bool flipY = false, byte[] flipTexture = null)
+            bool flipY = false, string flipTextureName = null)
             where T : AbilityBehaviour
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.CheckModularity(unobtainable, special, modular, AbilityGroup.Normal);
 
             return AbilityHelper.CreateAbility<T>(
-                info, pluginGuid, texture, gbcTexture,
-                rulebookName, rulebookDescription, dialogue, powerLevel,
-                opponent, canStack, false, false, flipY, flipTexture);
+                info, pluginGuid,
+                abilityName,
+                rulebookName, rulebookDescription,
+                dialogue, triggerText,
+                powerLevel,
+                opponent, canStack, false, false, flipY, flipTextureName);
         }
-        public static AbilityManager.FullAbility CreateActivatedAbility<T>(
-            byte[] texture, byte[] gbcTexture,
-            string rulebookName, string rulebookDescription, string dialogue, int powerLevel = 0,
+
+        public static FullAbility CreateActivatedAbility<T>(
+            string abilityName,
+            string rulebookName, string rulebookDescription,
+            string dialogue = null , string triggerText = null,
+            int powerLevel = 0,
             bool special = false, bool unobtainable = false)
             where T : ExtendedActivatedAbilityBehaviour
         {
@@ -50,15 +48,11 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             info.CheckModularity(unobtainable, special, false, AbilityGroup.Activated);
 
             return AbilityHelper.CreateActivatedAbility<T>(
-                info, pluginGuid, texture, gbcTexture,
-                rulebookName, rulebookDescription, dialogue, powerLevel);
-        }
-        public static AbilityManager.FullAbility CreateRulebookAbility<T>(string rulebookName, string rulebookDescription)
-            where T : AbilityBehaviour
-        {
-            return AbilityHelper.CreateFillerAbility<T>(
-                pluginGuid, rulebookName, rulebookDescription,
-                Artwork.sigilAbnormality, Artwork.sigilAbnormality_pixel);
+                info, pluginGuid,
+                abilityName,
+                rulebookName, rulebookDescription,
+                dialogue, triggerText,
+                powerLevel);
         }
 
         private static AbilityInfo CheckModularity(this AbilityInfo info, bool unobtainable, bool special, bool makeModular, AbilityGroup defaultGroup)
@@ -84,6 +78,19 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
                     info.AddMetaCategories(AbilityMetaCategory.Part1Modular);
             }
             return info;
+        }
+
+        private static AbilityGroup ForceModular => AbnormalConfigManager.Instance.MakeModular;
+        private static AbilityGroup ForceDisable => AbnormalConfigManager.Instance.DisableModular;
+
+        [Flags]
+        public enum AbilityGroup
+        {
+            None = 0,
+            Normal = 1,
+            Activated = 2,
+            Special = 4,
+            All = 8
         }
     }
 }

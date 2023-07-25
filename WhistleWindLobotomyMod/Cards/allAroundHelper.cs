@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
-using System.Collections.Generic;
+using InscryptionAPI.Card;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Properties;
-using static WhistleWindLobotomyMod.Core.Helpers.LobotomyCardManager;
+
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
@@ -11,21 +11,15 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_AllAroundHelper_T0541()
         {
-            List<Ability> abilities = new()
-            {
-                Ability.Strafe,
-                Ability.SplitStrike
-            };
-            CreateCard(
-                "wstl_allAroundHelper", "All-Around Helper",
-                "A murderous machine originally built to do chores. It reminds me of someone I know.",
-                atk: 1, hp: 2,
-                blood: 0, bones: 0, energy: 4,
-                Artwork.allAroundHelper, Artwork.allAroundHelper_emission, pixelTexture: Artwork.allAroundHelper_pixel,
-                abilities: abilities, specialAbilities: new(),
-                metaCategories: new(), tribes: new(), traits: new(),
-                choiceType: CardHelper.CardChoiceType.Basic, riskLevel: RiskLevel.He,
-                customTribe: TribeMachine);
+            const string allAroundHelper = "allAroundHelper";
+            
+            NewCard(allAroundHelper, "All-Around Helper", "A murderous cleaning machine. Far nicer than a certain other...well, nevermind.",
+                attack: 1, health: 3, energy: 4)
+                .SetPortraits(allAroundHelper)
+                .AddAbilities(Ability.Strafe, Ability.SplitStrike)
+                .AddTribes(TribeMechanical)
+                .SetDefaultEvolutionName($"All-Around Helper 2.0")
+                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }
 }
