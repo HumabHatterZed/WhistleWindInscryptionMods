@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Martyr()
         {
             const string rulebookName = "Martyr";
-            const string rulebookDescription = "When [creature] dies, all allied creatures gain 2 Health and lose all negative status effects.";
+            const string rulebookDescription = "When [creature] dies, all allied creatures gain 2 Health and lose any negative status effects.";
             const string dialogue = "A selfless death to cleanse your beasts of evil.";
             const string triggerText = "[creature]'s death cleanses your other creatures!";
             Martyr.ability = AbnormalAbilityHelper.CreateAbility<Martyr>(

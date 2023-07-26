@@ -3,6 +3,11 @@
 <details>
 <summary>View Changelog</summary>
 
+## v1.0.2 - Minor patch (7/26/2023)
+### 🩹 Bug fixes
+- Fixed Nettle Clothes softlock when killing Brother cards
+- Fixed Nettle Clothes gaining sigil from Brother cards that die before fully resolving
+
 ## v1.0.1 - Status Effect Refactor (7/23/2023)
 - Refactored how Status Effects are internally created
 - Fixed the ReadMe
