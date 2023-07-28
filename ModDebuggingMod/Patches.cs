@@ -67,9 +67,9 @@ namespace ModDebuggingMod
         private static readonly string LobGuid = WhistleWindLobotomyMod.LobotomyPlugin.pluginGuid;
         private static readonly List<string> customItems = new()
         {
-            LobGuid + "_" + "BottledTrain",
             //LobGuid + "_" + "BottledTrain",
-            LobGuid + "_" + "BottledTrain"
+            //LobGuid + "_" + "BottledTrain",
+            //LobGuid + "_" + "BottledTrain"
         };
     }
 }

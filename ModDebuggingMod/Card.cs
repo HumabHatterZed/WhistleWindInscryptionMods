@@ -17,6 +17,8 @@ namespace ModDebuggingMod
                 attack: 1, health: 1, blood: 0, bones: 0, energy: 0, gems: null)
                 .AddAbilities(Sporogenic.ability)
                 .SetPortraits("Untitled", pixelPortraitName: "buffBell.png");
+
+            //info.SetExtendedProperty("ForbiddenMoxCost", 1);
         }
     }
 }
