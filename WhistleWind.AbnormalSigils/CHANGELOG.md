@@ -3,6 +3,11 @@
 <details>
 <summary>View Changelog</summary>
 
+## v1.0.3 - Minor patch ()
+### 🩹 Bug fixes
+- Fixed softlock when playing in Grimora or Magnificus Act (status effects will not render in these Acts!)
+- Fixed ForcedWhiteEmission appearance behaviour not forcing the colour correctly
+
 ## v1.0.2 - Minor patch (7/26/2023)
 ### 🩹 Bug fixes
 - Fixed Nettle Clothes softlock when killing Brother cards

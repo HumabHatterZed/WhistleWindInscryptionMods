@@ -25,6 +25,9 @@ namespace WhistleWind.AbnormalSigils.Core
         [HarmonyPrefix, HarmonyPatch(nameof(CardAbilityIcons.UpdateAbilityIcons))]
         private static void AddStatusEffectIcons(CardAbilityIcons __instance)
         {
+            if (!__instance || SaveManager.SaveFile.IsGrimora || SaveManager.SaveFile.IsMagnificus)
+                return;
+
             if (__instance && !SaveManager.SaveFile.IsPart2)
             {
                 StatusEffectAbilityIcons component = __instance.GetComponent<StatusEffectAbilityIcons>();
@@ -43,6 +46,9 @@ namespace WhistleWind.AbnormalSigils.Core
         [HarmonyPostfix, HarmonyPatch(nameof(CardAbilityIcons.UpdateAbilityIcons))]
         private static void UpdateStatusEffects(CardAbilityIcons __instance, PlayableCard playableCard)
         {
+            if (!__instance || SaveManager.SaveFile.IsGrimora || SaveManager.SaveFile.IsMagnificus)
+                return;
+
             List<Ability> distinct = GetDistinctStatusEffects(playableCard);
             StatusEffectAbilityIcons controller = __instance.GetComponent<StatusEffectAbilityIcons>();
             controller.abilityIcons.Clear();

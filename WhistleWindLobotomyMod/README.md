@@ -275,8 +275,8 @@ This special node can be found randomly after battles, and draws from a pool of 
 These talking cards are based on the Sephirah (plus Angela) of Lobotomy Corporation.
 If all talking cards have been obtained, then this node will offer 3 random death cards instead.
 
-|NAME|STATS|COST|SIGILS|TRAITS|
-|:---|:---:|:--:|:-----|:-----|
+|NAME|STATS|COST|SIGILS|
+|:---|:---:|:--:|:-----|
 |Malkuth	|1/1|<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/jnK5NEz.png'>|Leader					|
 |Hod		|1/2|<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/jnK5NEz.png'>|Protector				|
 |Yesod		|0/1|<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Corrector				|

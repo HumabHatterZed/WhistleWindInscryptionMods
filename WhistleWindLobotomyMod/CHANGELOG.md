@@ -3,6 +3,11 @@
 <details>
 <summary>View Changelog</summary>
 
+## v2.0.2 - Minor patch (7/29/2023)
+### 🩹 Bug fixes
+- Fixed incorrect play cost for Hokma (2 Bones --> 2 Blood)
+- Fixed 'Start With' cheats adding extra copies when restarting a run using the retry button
+
 ## v2.0.1 - Minor patch (7/25/2023)
 ### 🩹 Bug fixes
 - Fixed Bloodbath evolutions not being correctly added to the game

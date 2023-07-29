@@ -22,13 +22,13 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix]
         private static void VanillaDeckAddEvents(ref DeckInfo __instance)
         {
-            if (LobotomyConfigManager.Instance.StartApocalypseBird)
+            if (LobotomyConfigManager.Instance.StartApocalypseBird && !__instance.Cards.Exists(x => x.name == "wstl_apocalypseBird"))
                 __instance.AddCard(CardLoader.GetCardByName("wstl_apocalypseBird"));
 
-            if (LobotomyConfigManager.Instance.StartJesterOfNihil)
+            if (LobotomyConfigManager.Instance.StartJesterOfNihil && !__instance.Cards.Exists(x => x.name == "wstl_jesterOfNihil"))
                 __instance.AddCard(CardLoader.GetCardByName("wstl_jesterOfNihil"));
 
-            if (LobotomyConfigManager.Instance.StartLyingAdult)
+            if (LobotomyConfigManager.Instance.StartLyingAdult && !__instance.Cards.Exists(x => x.name == "wstl_lyingAdult"))
                 __instance.AddCard(CardLoader.GetCardByName("wstl_lyingAdult"));
         }
 
