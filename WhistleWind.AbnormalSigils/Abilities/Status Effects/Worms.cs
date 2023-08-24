@@ -14,29 +14,27 @@ namespace WhistleWind.AbnormalSigils
     public class Worms : StatusEffectBehaviour, IGetOpposingSlots
     {
         public static SpecialTriggeredAbility specialAbility;
-        public override string SingletonName => "worm";
+        public override string CardModSingletonName => "worm";
 
         private bool accountForInitialHit = true;
         private bool hasEvolved = false;
-        public bool Infested => effectCount >= 5;
+        public bool Infested => StatusEffectCount >= 5;
 
         public override List<string> EffectDecalIds()
         {
             return new()
             {
-                "decalWorms_" + Mathf.Min(2, effectCount - 1)
+                "decalWorms_" + Mathf.Min(2, StatusEffectCount - 1)
             };
         }
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && target != null;
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
         public void UpdateWorms()
         {
-            effectCount++;
-            base.PlayableCard.AddTemporaryMod(GetEffectCountMod());
-
+            UpdateStatusEffectCount(1, false);
             // update the decal if the image has changed
-            if (effectCount <= 3)
-                base.PlayableCard.AddTemporaryMod(GetEffectDecalMod());
+            if (StatusEffectCount <= 3)
+                base.PlayableCard.AddTemporaryMod(EffectDecalMod());
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
@@ -72,18 +70,14 @@ namespace WhistleWind.AbnormalSigils
 
             if (Infested && target.LacksTrait(AbnormalPlugin.NakedSerpent))
             {
-                if (SeededRandom.Value(base.GetRandomSeed()) <= (effectCount - 2) * .1f)
+                if (SeededRandom.Value(base.GetRandomSeed()) <= (StatusEffectCount - 2) * .1f)
                 {
                     if (target.LacksSpecialAbility(Worms.specialAbility))
-                    {
-                        target.AddPermanentBehaviour<Worms>();
-                        target.AddTemporaryMods(GetEffectCountMod(), GetEffectDecalMod());
-                    }
+                        target.AddStatusEffectToCard<Worms>(addDecal: true);
+
                     else
-                    {
-                        var component = target.GetComponent<Worms>();
-                        component.UpdateWorms();
-                    }
+                        target.GetComponent<Worms>().UpdateWorms();
+
                 }
             }
 
@@ -105,11 +99,6 @@ namespace WhistleWind.AbnormalSigils
             return new() { allySlots[SeededRandom.Range(0, allySlots.Count - 1, base.GetRandomSeed())] };
         }
     }
-    public class StatusEffectWorms : AbilityBehaviour
-    {
-        public static Ability ability;
-        public override Ability Ability => ability;
-    }
     public partial class AbnormalPlugin
     {
         private void StatusEffect_Worms()
@@ -121,7 +110,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginGuid, rName, rDesc,
                 iconTexture: "sigilWorms", pixelIconTexture: "sigilWorms_pixel",
                 powerLevel: -3, iconColour: GameColors.Instance.brown,
-                categories: new() { StatusEffectManager.StatusMetaCategory.Part1StatusEffect }).Item1;
+                categories: new() { StatusEffectManager.StatusMetaCategory.Part1StatusEffect }).BehaviourId;
         }
     }
 }

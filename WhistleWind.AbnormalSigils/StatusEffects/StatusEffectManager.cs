@@ -13,38 +13,31 @@ using InscryptionAPI.Guid;
 using HarmonyLib;
 using InscryptionAPI.Triggers;
 using Sirenix.Utilities;
+using System.Text;
+using System.Linq;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.StatusEffects
 {
-    public class StatusEffectFillerAbility : AbilityBehaviour
-    {
-        // Ability.None - this is a dummy class so we don't need to care about it
-        public override Ability Ability => Ability.None;
-    }
-
     public static class StatusEffectManager
     {
-        public static readonly Dictionary<Type, AbilityInfo> AllStatusEffects = new();
+        public class FullStatusEffect
+        {
+            public string ModGUID;
+            public string RulebookName;
+            public Type BehaviourType;
+            public SpecialTriggeredAbility BehaviourId;
+            public Ability IconId;
+            public AbilityInfo IconAbilityInfo;
+            public FullStatusEffect()
+            {
+
+            }
+        }
+        public static readonly List<FullStatusEffect> AllStatusEffects = new();
         public static readonly Dictionary<Ability, Color> AllIconColours = new();
 
-        public static CardModificationInfo StatusMod(string name, bool positiveEffect, bool inheritable = false)
-        {
-            return new()
-            {
-                singletonId = (positiveEffect ? "" : "bad_") + "status_effect_" + name,
-                nonCopyable = !inheritable
-            };
-        }
-
-        public static bool IsStatusMod(this CardModificationInfo mod)
-        {
-            return mod.singletonId?.Contains("status_effect") ?? false;
-        }
-        public static bool IsStatusMod(this CardModificationInfo mod, bool positiveEffect)
-        {
-            return mod.singletonId?.StartsWith(positiveEffect ? "status" : "bad") ?? false;
-        }
-        public static Tuple<SpecialTriggeredAbility, Ability> NewStatusEffect<T>(
+        public static FullStatusEffect NewStatusEffect<T>(
             string pluginGuid,
             string rulebookName,
             string rulebookDescription,
@@ -63,8 +56,9 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             info.rulebookDescription = rulebookDescription;
             info.powerLevel = powerLevel;
 
+            info.SetExtendedProperty("wstl:StatusEffect", true);
             Texture2D icon = TextureLoader.LoadTextureFromFile(iconTexture);
-            
+
             if (pixelIconTexture != null)
                 info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile(pixelIconTexture));
 
@@ -72,29 +66,81 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             foreach (StatusMetaCategory category in categories)
                 info.AddMetaCategories((AbilityMetaCategory)category);
 
-            FullAbility iconAbility = Add(pluginGuid, info, typeof(AbilityBehaviour), icon);
-            FullSpecialTriggeredAbility effectAbility = Add(pluginGuid, rulebookName, typeof(T));
-            AllStatusEffects.Add(typeof(T), iconAbility.Info);
-            AllIconColours.Add(iconAbility.Id, iconColour);
-            return new(effectAbility.Id, iconAbility.Id);
+            FullAbility statusEffectIcon = Add(pluginGuid, info, typeof(AbilityBehaviour), icon);
+            FullSpecialTriggeredAbility statusEffectBehaviour = Add(pluginGuid, rulebookName, typeof(T));
+
+            FullStatusEffect fullEffect = new()
+            {
+                ModGUID = statusEffectBehaviour.ModGUID,
+                RulebookName = statusEffectBehaviour.AbilityName,
+                BehaviourType = statusEffectBehaviour.AbilityBehaviour,
+                BehaviourId = statusEffectBehaviour.Id,
+                IconId = statusEffectIcon.Id,
+                IconAbilityInfo = statusEffectIcon.Info
+            };
+            
+            AllStatusEffects.Add(fullEffect);
+            AllIconColours.Add(statusEffectIcon.Id, iconColour);
+            return fullEffect;
         }
+
+        public static CardModificationInfo StatusMod(string singletonName, bool positiveEffect, bool inheritable = false)
+        {
+            return new()
+            {
+                singletonId = (positiveEffect ? "good_status_effect_" : "bad_status_effect_") + singletonName,
+                nonCopyable = !inheritable
+            };
+        }
+
+        public static T AddStatusEffectToCard<T>(this PlayableCard playableCard, int extraStacks = 0, bool addDecal = false)
+            where T : StatusEffectBehaviour
+        {
+            playableCard.AddPermanentBehaviour<T>();
+            T component = playableCard.GetComponent<T>();
+            component.UpdateStatusEffectCount(extraStacks, addDecal);
+            return component;
+        }
+
+        public static int GetStatusEffectStacks<T>(this PlayableCard playableCard) where T : StatusEffectBehaviour
+        {
+            Ability iconAbility = GetStatusEffectIconAbility<T>();
+            return playableCard.GetAbilityStacks(iconAbility);
+        }
+        public static bool IsStatusMod(this CardModificationInfo mod) => mod.singletonId?.Contains("status_effect") ?? false;
+        public static bool IsStatusMod(this CardModificationInfo mod, bool positiveEffect) => mod.singletonId?.StartsWith(positiveEffect ? "good_status" : "bad_status") ?? false;
+
+        public static Ability GetStatusEffectIconAbility(SpecialTriggeredAbility statusBehaviourAbility)
+        {
+            return AllStatusEffects.Find(x => x.BehaviourId == statusBehaviourAbility).IconId;
+        }
+        public static Ability GetStatusEffectIconAbility<T>() where T : StatusEffectBehaviour
+        {
+            return AllStatusEffects.Find(x => x.BehaviourType == typeof(T)).IconId;
+        }
+        public static AbilityInfo GetStatusEffectIconAbilityInfo(SpecialTriggeredAbility statusBehaviourAbility)
+        {
+            return AllStatusEffects.Find(x => x.BehaviourId == statusBehaviourAbility).IconAbilityInfo;
+        }
+        public static AbilityInfo GetStatusEffectIconAbilityInfo<T>() where T : StatusEffectBehaviour
+        {
+            return AllStatusEffects.Find(x => x.BehaviourType == typeof(T)).IconAbilityInfo;
+        }
+
         public static List<StatusEffectBehaviour> GetStatusEffects(this PlayableCard card)
         {
-            List<StatusEffectBehaviour> statusEffects = new();
-            StatusEffectBehaviour[] specialAbilities= card.GetComponents<StatusEffectBehaviour>();
-            foreach (StatusEffectBehaviour ab in specialAbilities)
-            {
-                // if the special ability is a status effect
-                if (AllStatusEffects.ContainsKey(ab.GetType()))
-                    statusEffects.Add(ab);
-            }
+            StatusEffectBehaviour[] statusEffects = card.GetComponents<StatusEffectBehaviour>();
 
-            return statusEffects;
+            if (statusEffects.Length > 0)
+                return statusEffects.ToList();
+
+            return new();
         }
         public static List<StatusEffectBehaviour> GetStatusEffects(this PlayableCard card, bool positiveEffect)
         {
             List<StatusEffectBehaviour> statusEffects = card.GetStatusEffects();
-            statusEffects.RemoveAll(x => AllStatusEffects[x.GetType()].PositiveEffect != positiveEffect);
+            statusEffects.RemoveAll(x => AllStatusEffects.Find(y => y.BehaviourType == x.GetType()).IconAbilityInfo.PositiveEffect != positiveEffect);
+            
             return statusEffects;
         }
 

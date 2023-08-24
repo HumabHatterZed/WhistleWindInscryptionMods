@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -59,11 +59,10 @@ namespace WhistleWind.AbnormalSigils
             // apply extra Spore if this ability has stacks
             int extraStacks = Mathf.Max(0, base.Card.GetAbilityStacks(ability) - 1);
             card.Anim.LightNegationEffect();
-            card.AddPermanentBehaviour<Spores>();
-            Spores component = card.GetComponent<Spores>();
-            component.turnPlayed = Singleton<TurnManager>.Instance.TurnNumber;
-            component.effectCount += extraStacks;
-            card.AddTemporaryMods(component.GetEffectCountMod(), component.GetEffectDecalMod());
+
+            // add the status effect to the card and update the turn played
+            card.AddStatusEffectToCard<Spores>(extraStacks, true).TurnPlayed = Singleton<TurnManager>.Instance.TurnNumber;
+
             yield return new WaitForSeconds(0.1f);
         }
     }

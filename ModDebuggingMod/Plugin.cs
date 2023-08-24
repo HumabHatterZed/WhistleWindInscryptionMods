@@ -32,8 +32,7 @@ namespace ModDebuggingMod
             New("DebugEncounter")
                     .AddDominantTribes(Tribe.Canine)
                     .AddTurns(
-                    CreateTurn("wstl_redHoodedMercenary", "wstl_willBeBadWolf"),
-                    CreateTurn("Squirrel", "Squirrel", "Squirrel", "Squirrel")
+                    CreateTurn("wstlcard", "wstlcard", "wstlcard", "wstlcard")
                     );
 
         private void Awake()
@@ -45,8 +44,8 @@ namespace ModDebuggingMod
             ItemDebug();
             Ability_Test();
             CARD_DEBUG();
-            //DebugEncounters();
-            ModifyCardList();
+            DebugEncounters();
+            //ModifyCardList();
 
             StarterDeckHelper.AddStarterDeck("wstl", "DEBUG HUG", "starterDeckMagicalGirls", 0, cardNames: new()
             {

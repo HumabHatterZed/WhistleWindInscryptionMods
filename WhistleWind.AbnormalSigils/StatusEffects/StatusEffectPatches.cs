@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils.Core
         [HarmonyPatch(typeof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix), nameof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix.RenderTemporarySigils))]
         private static void DontRenderStatusEffectsNormally(ref List<Ability> __result)
         {
-            __result.RemoveAll(x => !string.IsNullOrEmpty(x.GetExtendedProperty("wstl:StatusEffect")));
+            __result.RemoveAll(x => x.GetExtendedPropertyAsBool("wstl:StatusEffect") == true);
         }
 
         [HarmonyPrefix, HarmonyPatch(nameof(CardAbilityIcons.UpdateAbilityIcons))]

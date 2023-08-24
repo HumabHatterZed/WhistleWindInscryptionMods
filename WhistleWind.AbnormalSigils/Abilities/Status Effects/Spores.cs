@@ -15,31 +15,32 @@ namespace WhistleWind.AbnormalSigils
     {
         public static SpecialTriggeredAbility specialAbility;
 
-        public override string SingletonName => "spore";
+        public override string CardModSingletonName => "spore";
+
+        // be sure to update this if it's important
+        public int TurnPlayed = -1;
 
         public override List<string> EffectDecalIds()
         {
             return new()
             {
-                "decalSpore_" + Mathf.Min(2, effectCount - 1)
+                "decalSpore_" + Mathf.Min(2, StatusEffectCount - 1)
             };
         }
 
-        public int turnPlayed = -1;
-
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard && base.PlayableCard.OpponentCard != playerUpkeep;
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.PlayableCard && base.PlayableCard.OpponentCard != playerTurnEnd;
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && effectCount > 0;
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && StatusEffectCount > 0;
 
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             yield return HelperMethods.ChangeCurrentView(View.Board);
-            yield return base.PlayableCard.TakeDamageTriggerless(effectCount, null);
+            yield return base.PlayableCard.TakeDamageTriggerless(StatusEffectCount, null);
             yield return new WaitForSeconds(0.4f);
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            if (turnPlayed == Singleton<TurnManager>.Instance.TurnNumber)
+            if (TurnPlayed == Singleton<TurnManager>.Instance.TurnNumber)
                 yield break;
             
             int newSpore = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot)
@@ -48,12 +49,12 @@ namespace WhistleWind.AbnormalSigils
             if (newSpore == 0)
                 yield break;
 
-            effectCount += newSpore;
             yield return HelperMethods.ChangeCurrentView(View.Board);
             base.PlayableCard.Anim.LightNegationEffect();
-            base.PlayableCard.AddTemporaryMod(GetEffectCountMod());
-            if (effectCount <= 3)
-                base.PlayableCard.AddTemporaryMod(GetEffectDecalMod());
+
+            UpdateStatusEffectCount(newSpore, false);
+            if (StatusEffectCount <= 3)
+                base.PlayableCard.AddTemporaryMod(EffectDecalMod());
 
             yield return new WaitForSeconds(0.2f);
         }
@@ -63,7 +64,7 @@ namespace WhistleWind.AbnormalSigils
                 yield break;
 
             CardInfo minion = CardLoader.GetCardByName("wstl_theLittlePrinceMinion");
-            CardModificationInfo stats = new(effectCount, effectCount)
+            CardModificationInfo stats = new(StatusEffectCount, StatusEffectCount)
             {
                 bloodCostAdjustment = base.PlayableCard.Info.BloodCost,
                 bonesCostAdjustment = base.PlayableCard.Info.BonesCost,
@@ -94,11 +95,6 @@ namespace WhistleWind.AbnormalSigils
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(minion, base.PlayableCard.Slot, 0.15f);
         }
     }
-    public class StatusEffectSpores : AbilityBehaviour
-    {
-        public static Ability ability;
-        public override Ability Ability => ability;
-    }
     public partial class AbnormalPlugin
     {
         private void StatusEffect_Spores()
@@ -110,7 +106,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginGuid, rName, rDesc,
                 iconTexture: "sigilSpores", pixelIconTexture: "sigilSpores_pixel",
                 powerLevel: -2, iconColour: GameColors.Instance.darkBlue,
-                categories: new() { StatusEffectManager.StatusMetaCategory.Part1StatusEffect }).Item1;
+                categories: new() { StatusEffectManager.StatusMetaCategory.Part1StatusEffect }).BehaviourId;
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.AbnormalSigils.StatusEffects;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -36,13 +36,12 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
             int extraStacks = Mathf.Max(0, base.Card.GetAbilityStacks(ability) - 1);
+            
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
 
-            source.AddPermanentBehaviour<Worms>();
-            Worms component = source.GetComponent<Worms>();
-            component.effectCount += extraStacks;
-            source.AddTemporaryMods(component.GetEffectDecalMod(), component.GetEffectDecalMod());
+            source.AddStatusEffectToCard<Worms>(extraStacks, true);
+
             yield return new WaitForSeconds(0.55f);
             yield return base.LearnAbility();
         }
