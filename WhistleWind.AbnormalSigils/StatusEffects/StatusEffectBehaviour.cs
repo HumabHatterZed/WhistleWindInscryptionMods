@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using WhistleWind.AbnormalSigils.Core;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.StatusEffects
 {
@@ -14,13 +15,24 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
         public virtual bool EffectCanBeInherited => false;
 
-        // always start with 1 stack
-        public int StatusEffectCount = 1;
+        public int StatusEffectCount = 0;
 
         // the ability used for the icon of this status effect
         public AbilityInfo IconAbilityInfo => StatusEffectManager.AllStatusEffects.Find(x => x.BehaviourType == this.GetType()).IconAbilityInfo;
 
         public virtual List<string> EffectDecalIds() => new();
+
+        // allows for adding extra stacks of an effect to a card
+        private void Start()
+        {
+            int startingStacks = base.PlayableCard?.GetAbilityStacks(IconAbilityInfo.ability) ?? 1;
+
+            StatusEffectCount = startingStacks;
+            //AbnormalPlugin.Log.LogInfo($"Start: {StatusEffectCount}");
+            CardModificationInfo decalMod = EffectDecalMod();
+            if (decalMod.DecalIds.Count > 0)
+                base.PlayableCard.AddTemporaryMod(decalMod);
+        }
 
         public void UpdateStatusEffectCount(int numToAdd, bool updateDecals)
         {
@@ -28,7 +40,11 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             base.PlayableCard.AddTemporaryMod(EffectCountMod());
 
             if (updateDecals)
-                base.PlayableCard.AddTemporaryMod(EffectDecalMod());
+            {
+                CardModificationInfo decalMod = EffectDecalMod();
+                if (decalMod.DecalIds.Count > 0)
+                    base.PlayableCard.AddTemporaryMod(decalMod);
+            }
         }
         public CardModificationInfo EffectDecalMod()
         {

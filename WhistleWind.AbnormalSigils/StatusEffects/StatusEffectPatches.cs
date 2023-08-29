@@ -76,7 +76,10 @@ namespace WhistleWind.AbnormalSigils.Core
         }
         public static List<Ability> GetDistinctStatusEffects(PlayableCard card)
         {
-            List<Ability> abilities = AbilitiesUtil.GetAbilitiesFromMods(card?.TemporaryMods ?? new());
+            if (card == null)
+                return null;
+
+            List<Ability> abilities = card.GetAbilitiesFromAllMods();
             abilities.RemoveAll(x => !StatusEffectManager.AllIconColours.ContainsKey(x));
 
             if (abilities.Count == 0)

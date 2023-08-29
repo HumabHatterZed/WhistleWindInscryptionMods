@@ -32,7 +32,8 @@ namespace ModDebuggingMod
             New("DebugEncounter")
                     .AddDominantTribes(Tribe.Canine)
                     .AddTurns(
-                    CreateTurn("wstlcard", "wstlcard", "wstlcard", "wstlcard")
+                    CreateTurn()
+                    //CreateTurn("wstlcard", "wstlcard", "wstlcard", "wstlcard")
                     );
 
         private void Awake()

@@ -17,7 +17,6 @@ namespace WhistleWind.AbnormalSigils
 
         public override string CardModSingletonName => "spore";
 
-        // be sure to update this if it's important
         public int TurnPlayed = -1;
 
         public override List<string> EffectDecalIds()
