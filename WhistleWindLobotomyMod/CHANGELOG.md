@@ -3,6 +3,13 @@
 <details>
 <summary>View Changelog</summary>
 
+## v2.0.3 - Minor patch ()
+### 🔧 Tweaks
+- Minor adjustments to some sequences
+
+### 🩹 Bug fixes
+- Fixed The Road Home softlocking the game when played by Leshy
+
 ## v2.0.2 - Minor patch (7/29/2023)
 ### 🩹 Bug fixes
 - Fixed incorrect play cost for Hokma (2 Bones --> 2 Blood)

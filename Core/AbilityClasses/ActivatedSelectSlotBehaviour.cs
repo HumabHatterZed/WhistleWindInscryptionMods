@@ -32,27 +32,22 @@ namespace WhistleWind.Core.AbilityClasses
         private static void AimWeaponAnim(GameObject tweenObj, Vector3 target) => Tween.LookAt(tweenObj.transform, target, Vector3.up, 0.075f, 0.0f, Tween.EaseInOut);
 
         public CardSlot selectedSlot = null;
-        public List<CardSlot> AllTargets
-        {
-            get
-            {
-                List<CardSlot> allSlots = Singleton<BoardManager>.Instance.AllSlotsCopy;
-                allSlots.RemoveAll(x => !CardSlotCanBeTargeted(x));
-                return allSlots;
-            }
-        }
+
         public List<CardSlot> ValidTargets
         {
             get
             {
-                List<CardSlot> allTargets = new(AllTargets);
-                allTargets.RemoveAll(InvalidTargets());
+                List<CardSlot> allTargets = Singleton<BoardManager>.Instance.AllSlotsCopy;
+                allTargets.RemoveAll(t => IsInvalidTarget(t));
                 return allTargets;
             }
         }
 
-        public abstract bool CardSlotCanBeTargeted(CardSlot slot); // whether the card slot can be interacted with, NOT if it's a valid target
-
+        private bool CanTargetNull => ValidTargets.Any(x => x.Card == null);
+        public virtual bool IsInvalidTarget(CardSlot slot)
+        {
+            return slot.Card == null || slot.Card.Dead || slot.Card == base.Card || slot.Card.TemporaryMods.Exists(m => m.fromLatch);
+        }
         public virtual string NoTargetsDialogue => "There are no cards you can choose.";
         public virtual string NullTargetDialogue => "You can't target the air.";
         public virtual string SelfTargetDialogue => "You must choose one of your other cards.";
@@ -60,7 +55,6 @@ namespace WhistleWind.Core.AbilityClasses
 
         public virtual Ability LatchAbility => Ability.None; // Latches nothing by default
         private bool ShowLatch => LatchAbility != Ability.None;
-        private bool CanTargetNull => ValidTargets.Exists((CardSlot s) => s.Card == null);
 
         private int turnDelay = 0;
         public virtual int TurnDelay => -1;// by default, can always activate
@@ -81,17 +75,7 @@ namespace WhistleWind.Core.AbilityClasses
             }
         }
         public virtual IEnumerator OnPostValidTargetSelected(CardSlot slot = null) { yield break; }
-        public virtual bool CardIsNotValid(PlayableCard card) // By default returns whether the card is latched
-        {
-            return card.TemporaryMods.Exists((CardModificationInfo m) => m.fromLatch);
-        }
-        private bool CardSlotIsNotValid(CardSlot slot)
-        {
-            if (slot.Card != null)
-                return CardIsNotValid(slot.Card);
 
-            return !CanTargetNull;
-        }
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
@@ -100,6 +84,7 @@ namespace WhistleWind.Core.AbilityClasses
                 turnDelay--;
                 if (turnDelay == 0)
                 {
+                    yield return HelperMethods.ChangeCurrentView(View.Board);
                     base.Card.Anim.LightNegationEffect();
                     yield return new WaitForSeconds(0.2f);
                 }
@@ -234,18 +219,16 @@ namespace WhistleWind.Core.AbilityClasses
             instance.VisualizeStartSniperAbility(base.Card.Slot);
             visualiser?.VisualizeStartSniperAbility(base.Card.Slot);
 
-            List<CardSlot> targetSlots = ValidTargets;
-
             CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
 
-            if (cardSlot != null && targetSlots.Contains(cardSlot))
+            if (cardSlot != null && ValidTargets.Contains(cardSlot))
             {
                 instance.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
                 visualiser?.VisualizeAimSniperAbility(base.Card.Slot, cardSlot);
             }
             selectedSlot = null;
 
-            yield return Singleton<BoardManager>.Instance.ChooseTarget(ValidTargets, targetSlots, delegate (CardSlot s)
+            yield return Singleton<BoardManager>.Instance.ChooseTarget(BoardManager.Instance.AllSlotsCopy, ValidTargets, delegate (CardSlot s)
             {
                 selectedSlot = s;
                 instance.VisualizeConfirmSniperAbility(s);
@@ -283,7 +266,7 @@ namespace WhistleWind.Core.AbilityClasses
         }
         private void OnInvalidTarget(CardSlot slot)
         {
-            if (CardSlotIsNotValid(slot) && !Singleton<TextDisplayer>.Instance.Displaying)
+            if (IsInvalidTarget(slot) && !Singleton<TextDisplayer>.Instance.Displaying)
             {
                 string dialogue = InvalidTargetDialogue;
                 if (slot.Card != null)
@@ -328,11 +311,9 @@ namespace WhistleWind.Core.AbilityClasses
                 num += 1000;
             return num;
         }
-        public bool ValidTargetsExist() => ValidTargets.Count > 0;
-        public virtual Predicate<CardSlot> InvalidTargets()
+        private bool ValidTargetsExist()
         {
-            // by default remove empty slots, dead cards, invalid cards, or this card
-            return (CardSlot x) => x.Card == null || x.Card.Dead || CardIsNotValid(x.Card) || x.Card == base.Card;
+            return ValidTargets.Count > 0;
         }
     }
 }

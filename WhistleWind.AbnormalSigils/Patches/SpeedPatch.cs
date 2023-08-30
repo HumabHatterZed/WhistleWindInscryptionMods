@@ -18,10 +18,10 @@ using WhistleWind.AbnormalSigils.StatusEffects;
 namespace WhistleWind.AbnormalSigils.Patches
 {
     [HarmonyPatch]
-    public static class SpeedPatches
+    public static class SpeedPatch
     {
         [HarmonyPostfix, HarmonyPatch(typeof(DoCombatPhasePatches), nameof(DoCombatPhasePatches.ModifyAttackingSlots))]
-        private static void DetermineCardSpeed(List<CardSlot> __result)
+        private static void SortByCardSpeed(List<CardSlot> __result)
         {
             __result.Sort((CardSlot a, CardSlot b) => CardSpeed(b) - CardSpeed(a));
         }

@@ -32,8 +32,6 @@ namespace WhistleWind.AbnormalSigils
         public override int StartingBonesCost => 3;
         public override int TurnDelay => 1;
 
-        public override bool CardSlotCanBeTargeted(CardSlot slot) => slot != base.Card.Slot;
-
         public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {
             yield return HelperMethods.ChangeCurrentView(View.Board);
@@ -53,16 +51,12 @@ namespace WhistleWind.AbnormalSigils
             yield return base.LearnAbility();
         }
 
-        public override Predicate<CardSlot> InvalidTargets()
+        public override bool IsInvalidTarget(CardSlot slot)
         {
-            return (CardSlot x) => x.Card != null && (x.Card.Dead || this.CardIsNotValid(x.Card) || x.Card == base.Card);
-        }
-        public override bool CardIsNotValid(PlayableCard card)
-        {
-            if (card.HasAbility(Scorching.ability))
+            if (slot.Card == null)
                 return false;
 
-            return card.Health > base.Card.Attack;
+            return slot.Card.HasAbility(Scorching.ability) || slot.Card.Health > base.Card.Attack || base.IsInvalidTarget(slot);
         }
 
         private IEnumerator SpawnCard(CardSlot slot, string name)

@@ -31,7 +31,16 @@ namespace WhistleWind.AbnormalSigils
         public override string NoTargetsDialogue => "There's no one to hear your message.";
         public override string InvalidTargetDialogue => "You must choose one of your other cards to proselytise.";
         public override int StartingBonesCost => 2;
-        public override bool CardSlotCanBeTargeted(CardSlot slot) => slot.IsPlayerSlot != base.Card.OpponentCard && slot != null;
+        public override bool IsInvalidTarget(CardSlot slot)
+        {
+            // slot is occupied and isn't an opposing slot
+            if (slot.Card != null && slot.IsPlayerSlot != base.Card.OpponentCard)
+            {
+                int prudence = slot.Card.Info.GetExtendedPropertyAsInt("wstl:Prudence") ?? 0;
+                return prudence >= 3;
+            }
+            return base.IsInvalidTarget(slot);
+        }
 
         public override bool CanActivate()
         {
@@ -57,16 +66,6 @@ namespace WhistleWind.AbnormalSigils
             slot.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.4f);
             yield return base.LearnAbility();
-        }
-
-        public override bool CardIsNotValid(PlayableCard card)
-        {
-            int prudence = card.Info.GetExtendedPropertyAsInt("wstl:Prudence") ?? -1;
-
-            if (prudence == -1)
-                return false;
-
-            return prudence >= 3;
         }
     }
 }

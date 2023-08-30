@@ -87,11 +87,11 @@ namespace WhistleWind.Core.Helpers
                 yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(cardToQueue, index);
                 if (triggerResolve)
                 {
-                    PlayableCard card = Singleton<TurnManager>.Instance.Opponent.Queue.Find(x => x.Info == cardToQueue);
-                    if (card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard))
+                    PlayableCard card = Singleton<TurnManager>.Instance.Opponent.Queue.Find(x => x.Info.name == cardToQueue.name);
+
+                    if (card != null && card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard))
                         yield return card.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard);
 
-                    yield return Singleton<GlobalTriggerHandler>.Instance.TriggerCardsOnBoard(Trigger.OtherCardResolve, false, card);
                 }
             }
             yield return new WaitForSeconds(0.45f);

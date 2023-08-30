@@ -29,8 +29,15 @@ namespace WhistleWind.AbnormalSigils
         public override int TurnDelay => 1;
         public override int StartingBonesCost => 3;
         public override int OnActivateBonesCostMod => 1;
-        public override bool CardSlotCanBeTargeted(CardSlot slot) => slot.Card != base.Card;
-        public override bool CardIsNotValid(PlayableCard card) => card.Info.name.Contains("ozmaPumpkin");
+        public override bool IsInvalidTarget(CardSlot slot)
+        {
+            if (slot.Card != null && slot.Card != base.Card)
+            {
+                return slot.Card.Info.name.Contains("ozmaPumpkin");
+            }
+
+            return base.IsInvalidTarget(slot);
+        }
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => false;
         public override IEnumerator OnValidTargetSelected(CardSlot slot)

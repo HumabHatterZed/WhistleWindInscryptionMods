@@ -32,20 +32,30 @@ namespace WhistleWindLobotomyMod
             List<CardSlot> slots = BoardManager.Instance.GetSlotsCopy(!base.PlayableCard.OpponentCard)
                 .Where(x => x.Card != null && x.Card != base.Card && x.Card.LacksTrait(Trait.Structure)).ToList();
 
-            if (slots.Count > 0 && base.PlayableCard.Info.name == "wstl_scaredyCat")
+            CardInfo transformation = null;
+            System.Action action = null;
+            if (slots.Count > 0)
             {
-                CardInfo strongForme = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_scaredyCatStrong");
-                yield return base.PlayableCard.TransformIntoCard(strongForme);
-                yield return new WaitForSeconds(0.4f);
+                if (base.PlayableCard.Info.name == "wstl_scaredyCat")
+                    transformation = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_scaredyCatStrong");
             }
-            else if (slots.Count == 0 && base.PlayableCard.Info.name == "wstl_scaredyCatStrong")
+            else if (base.PlayableCard.Info.name == "wstl_scaredyCatStrong")
             {
-                CardInfo weakForme = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_scaredyCat");
-                yield return base.PlayableCard.TransformIntoCard(weakForme, ResetDamage);
-                yield return new WaitForSeconds(0.4f);
+                // reset damage taken if we're changing to the weak forme, since it has less Health
+                transformation = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_scaredyCat");
+                action = () => base.PlayableCard.Status.damageTaken = 0;
+            }
+
+            if (transformation != null)
+            {
+                if (base.PlayableCard.OnBoard)
+                    yield return base.PlayableCard.TransformIntoCard(transformation, action);
+                else
+                    yield return base.PlayableCard.TransformIntoCardInHand(transformation, action);
+
+                yield return new WaitForSeconds(0.5f);
             }
         }
-        private void ResetDamage() => base.PlayableCard.Status.damageTaken = 0;
     }
     public class RulebookEntryCowardly : AbilityBehaviour
     {

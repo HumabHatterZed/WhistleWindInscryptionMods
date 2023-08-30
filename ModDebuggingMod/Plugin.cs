@@ -32,7 +32,7 @@ namespace ModDebuggingMod
             New("DebugEncounter")
                     .AddDominantTribes(Tribe.Canine)
                     .AddTurns(
-                    CreateTurn()
+                    CreateTurn("SentryBot")
                     //CreateTurn("wstlcard", "wstlcard", "wstlcard", "wstlcard")
                     );
 

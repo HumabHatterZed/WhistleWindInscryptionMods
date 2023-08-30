@@ -27,13 +27,12 @@ namespace WhistleWind.AbnormalSigils
         public override int StartingBonesCost => 2;
         public override int OnActivateBonesCostMod => 1;
 
-        public override bool CardSlotCanBeTargeted(CardSlot slot)
+        public override bool IsInvalidTarget(CardSlot slot)
         {
             if (slot.Card != null && slot.Card != base.Card)
-            {
-                return slot.Card.LacksAbility(Neutered.ability) && slot.Card.Attack > 0;
-            }
-            return false;
+                return slot.Card.HasAbility(Neutered.ability) || slot.Card.Attack == 0;
+
+            return base.IsInvalidTarget(slot);
         }
     }
 }

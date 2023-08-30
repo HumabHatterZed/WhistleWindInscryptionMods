@@ -57,7 +57,7 @@ namespace WhistleWind.AbnormalSigils
             yield return new WaitForSeconds(0.25f);
         }
 
-        int IGetAttackingSlots.Priority(bool playerIsAttacker, List<CardSlot> originalSlots) => 0;
+        public int TriggerPriority(bool playerIsAttacker, List<CardSlot> originalSlots) => 0;
     }
     public partial class AbnormalPlugin
     {

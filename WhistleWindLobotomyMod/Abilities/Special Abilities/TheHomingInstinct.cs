@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,6 +51,10 @@ namespace WhistleWindLobotomyMod
             }
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardToDraw);
             yield return new WaitForSeconds(0.45f);
+            PlayableCard thisCard = PlayerHand.Instance.CardsInHand.Find(x => x.Info.name == CardToDraw.name);
+            if (thisCard != null)
+                yield return thisCard.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard);
+
         }
         private void ModifySpawnedCard(CardInfo card)
         {

@@ -4,9 +4,17 @@
 <summary>View Changelog</summary>
 
 ## v1.0.3 - Minor patch ()
+### 🧱 Structural
+- Reworked how status effects are added and work
+
 ### 🩹 Bug fixes
 - Fixed softlock when playing in Grimora or Magnificus Act (status effects will not render in these Acts!)
 - Fixed ForcedWhiteEmission appearance behaviour not forcing the colour correctly
+- Fixed Frost Ruler not letting the player target cards
+
+### ➕ Additions
+- Added Paralysing Strike ability (beta)
+- Added Haste, Bind status effects (beta)
 
 ## v1.0.2 - Minor patch (7/26/2023)
 ### 🩹 Bug fixes
