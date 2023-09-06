@@ -3,6 +3,7 @@ using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
@@ -25,13 +26,14 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         // allows for adding extra stacks of an effect to a card
         private void Start()
         {
-            int startingStacks = base.PlayableCard?.GetAbilityStacks(IconAbilityInfo.ability) ?? 1;
+            int startingStacks = Mathf.Max(1, base.PlayableCard?.GetAbilityStacks(IconAbilityInfo.ability) ?? 0);
 
             StatusEffectCount = startingStacks;
-            //AbnormalPlugin.Log.LogInfo($"Start: {StatusEffectCount}");
-            CardModificationInfo decalMod = EffectDecalMod();
-            if (decalMod.DecalIds.Count > 0)
-                base.PlayableCard.AddTemporaryMod(decalMod);
+            AbnormalPlugin.Log.LogInfo($"Start: {StatusEffectCount}");
+
+            base.PlayableCard.AddTemporaryMod(EffectCountMod());
+            if (EffectDecalIds().Count > 0)
+                base.PlayableCard.AddTemporaryMod(EffectDecalMod());
         }
 
         public void UpdateStatusEffectCount(int numToAdd, bool updateDecals)
@@ -40,11 +42,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             base.PlayableCard.AddTemporaryMod(EffectCountMod());
 
             if (updateDecals)
-            {
-                CardModificationInfo decalMod = EffectDecalMod();
-                if (decalMod.DecalIds.Count > 0)
-                    base.PlayableCard.AddTemporaryMod(decalMod);
-            }
+                base.PlayableCard.AddTemporaryMod(EffectDecalMod());
         }
         public CardModificationInfo EffectDecalMod()
         {

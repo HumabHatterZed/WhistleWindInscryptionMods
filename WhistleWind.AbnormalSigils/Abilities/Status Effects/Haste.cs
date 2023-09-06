@@ -47,7 +47,9 @@ namespace WhistleWind.AbnormalSigils
             // LightNegationEffect sets DoingAttackAnimation to false for some reason, which causes visual glitches
             // so do it this way
             base.PlayableCard.Anim.NegationEffect(false);
-            UpdateStatusEffectCount(-StatusEffectCount, false);
+            CardModificationInfo mod = base.PlayableCard.TemporaryMods.Find(x => x.singletonId == CardModSingletonName);
+            if (mod != null)
+                base.PlayableCard.RemoveTemporaryMod(mod);
 
             // remove this trigger from the card
             base.PlayableCard.TriggerHandler.specialAbilities.RemoveAll(x => x.Item1 == specialAbility);

@@ -194,6 +194,7 @@ namespace WhistleWind.AbnormalSigils
 
             Ability_BindingStrike();
             StatusEffect_Bind();
+            Ability_NimbleFoot();
             StatusEffect_Haste();
             // Specials
             Ability_FalseThrone();

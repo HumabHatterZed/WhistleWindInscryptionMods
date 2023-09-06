@@ -86,11 +86,13 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
         public static CardModificationInfo StatusMod(string singletonName, bool positiveEffect, bool inheritable = false)
         {
-            return new()
+            CardModificationInfo retval = new()
             {
-                singletonId = (positiveEffect ? "good_status_effect_" : "bad_status_effect_") + singletonName,
+                singletonId = singletonName,
                 nonCopyable = !inheritable
             };
+            retval.SetExtendedProperty("wstl:StatusEffectMod", true).SetExtendedProperty("wstl:PositiveEffect", positiveEffect);
+            return retval;
         }
 
         public static T AddStatusEffectToCard<T>(this PlayableCard playableCard, int extraStacks = 0, bool addDecal = false)
@@ -107,8 +109,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             Ability iconAbility = GetStatusEffectIconAbility<T>();
             return playableCard.GetAbilityStacks(iconAbility);
         }
-        public static bool IsStatusMod(this CardModificationInfo mod) => mod.singletonId?.Contains("status_effect") ?? false;
-        public static bool IsStatusMod(this CardModificationInfo mod, bool positiveEffect) => mod.singletonId?.StartsWith(positiveEffect ? "good_status" : "bad_status") ?? false;
+        public static bool IsStatusMod(this CardModificationInfo mod) => mod.GetExtendedPropertyAsBool("wstl:StatusEffectMod") ?? false;
+        public static bool IsStatusMod(this CardModificationInfo mod, bool positiveEffect) => mod.IsStatusMod() && mod.GetExtendedPropertyAsBool("wstl:PositiveEffect") == positiveEffect;
 
         public static Ability GetStatusEffectIconAbility(SpecialTriggeredAbility statusBehaviourAbility)
         {
