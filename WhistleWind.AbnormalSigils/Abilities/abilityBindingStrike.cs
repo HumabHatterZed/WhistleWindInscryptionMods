@@ -10,23 +10,23 @@ namespace WhistleWind.AbnormalSigils
 {
     public partial class AbnormalPlugin
     {
-        private void Ability_ParalysingStrike()
+        private void Ability_BindingStrike()
         {
-            const string rulebookName = "Paralysing Strike";
+            const string rulebookName = "Binding Strike";
             const string rulebookDescription = "When [creature] strikes an opposing creature, inflict 1 Bind.";
             const string dialogue = "Your beast falls behind the pack.";
-            ParalysingStrike.ability = AbnormalAbilityHelper.CreateAbility<ParalysingStrike>(
-                "sigilParalysingStrike",
+            BindingStrike.ability = AbnormalAbilityHelper.CreateAbility<BindingStrike>(
+                "sigilBindingStrike",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 1,
                 modular: false, opponent: true, canStack: true).Id;
         }
     }
-    public class ParalysingStrike : AbilityBehaviour
+    public class BindingStrike : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        // only apply Bind if target isn't null and won't die
+        // only apply Bind if target isn't null/dead
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && !target.Dead;
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {

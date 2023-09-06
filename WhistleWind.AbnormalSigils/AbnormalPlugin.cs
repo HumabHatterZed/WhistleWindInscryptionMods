@@ -192,7 +192,7 @@ namespace WhistleWind.AbnormalSigils
             Ability_Cycler();
             Ability_Barreler();
 
-            Ability_ParalysingStrike();
+            Ability_BindingStrike();
             StatusEffect_Bind();
             StatusEffect_Haste();
             // Specials

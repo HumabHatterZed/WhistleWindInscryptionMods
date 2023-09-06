@@ -15,10 +15,10 @@ namespace WhistleWindLobotomyMod
         {
             const string eyeballChick = "eyeballChick";
 
-            NewCard("eyeballChickBind", "Eyeball Chick",
+            NewCard(eyeballChick, "Eyeball Chick",
                 attack: 1, health: 3)
                 .SetPortraits(eyeballChick)
-                .AddAbilities(ParalysingStrike.ability)
+                .AddAbilities(BindingStrike.ability)
                 .AddTribes(Tribe.Bird)
                 .Build();
         }

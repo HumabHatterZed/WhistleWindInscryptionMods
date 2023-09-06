@@ -46,7 +46,7 @@ namespace ModDebuggingMod
             Ability_Test();
             CARD_DEBUG();
             DebugEncounters();
-            ModifyCardList();
+            //ModifyCardList();
 
             StarterDeckHelper.AddStarterDeck("wstl", "DEBUG HUG", "starterDeckMagicalGirls", 0, cardNames: new()
             {
