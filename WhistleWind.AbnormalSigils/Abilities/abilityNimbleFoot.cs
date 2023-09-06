@@ -14,11 +14,10 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_NimbleFoot()
         {
             const string rulebookName = "Nimble-Footed";
-            const string rulebookDescription = "When [creature] strikes an opposing creature, gain 1 Haste.";
-            const string dialogue = "A quick.";
+            const string rulebookDescription = "At the start of the owner's turn, this card gains 1 Haste.";
             NimbleFoot.ability = AbnormalAbilityHelper.CreateAbility<NimbleFoot>(
-                "sigilBindingStrike",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 1,
+                "sigilNimbleFoot",
+                rulebookName, rulebookDescription, powerLevel: 1,
                 modular: true, opponent: true, canStack: true).Id;
         }
     }
