@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Angler
+namespace WhistleWindLobotomyMod.Opponents.Angler
 {
     public class AnglerAbnormalBattleSequencer : AnglerBattleSequencer
     {

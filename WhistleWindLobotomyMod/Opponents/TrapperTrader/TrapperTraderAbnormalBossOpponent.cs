@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core.SpecialSequencers;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.TrapperTrader
+namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
 {
     public class TrapperTraderAbnormalBossOpponent : TrapperTraderBossOpponent
     {
@@ -11,7 +11,12 @@ namespace WhistleWindLobotomyMod.Core.Opponents.TrapperTrader
         {
             if (HasGrizzlyGlitchPhase(1))
             {
-                yield return AbnormalGrizzlySequence.ApostleGlitchSequence(this);
+                // do Apostles only if it's ascension and the Grizzly challenge is active
+                if (SaveFile.IsAscension)
+                    yield return AbnormalGrizzlySequence.ApostleGlitchSequence(this);
+                else
+                    yield return GrizzlyGlitchSequence();
+
                 yield break;
             }
             sceneryObject.GetComponent<Animation>().Play("knives_table_exit");

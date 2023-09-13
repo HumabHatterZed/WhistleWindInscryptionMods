@@ -372,6 +372,96 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn(),
                     CreateTurn()
                 ), 3);
+
+            #region Apocalypse
+            ApocalypseBossP1 = Build(New("ApocalypseBossP1")
+               .SetDifficulty(20, 20)
+               .AddDominantTribes(Tribe.Bird)
+               .AddTurns(
+                    CreateTurn()
+               ), 3);
+
+            ApocalypseBossP2 = Build(New("ApocalypseBossP2")
+               .SetDifficulty(20, 20)
+               .AddDominantTribes(Tribe.Bird)
+               .AddTurns(
+                    CreateTurn()
+               ), 3);
+
+            ApocalypseBossP3 = Build(New("ApocalypseBossP3")
+               .SetDifficulty(20, 20)
+               .AddDominantTribes(Tribe.Bird)
+               .AddTurns(
+                    CreateTurn()
+               ), 3);
+            return;
+            #endregion
+            #region Jester
+            JesterBossP1 = Build(New("JesterBossP1")
+               .SetDifficulty(20, 20)
+               .AddDominantTribes(AbnormalPlugin.TribeFae)
+               .AddTurns(
+                    CreateTurn()
+               ), 3);
+
+            JesterBossP2 = Build(New("JesterBossP2")
+               .SetDifficulty(20, 20)
+               .AddDominantTribes(AbnormalPlugin.TribeFae)
+               .AddTurns(
+                    CreateTurn()
+               ), 3);
+
+            JesterBossP3 = Build(New("JesterBossP3")
+               .SetDifficulty(20, 20)
+               .AddDominantTribes(AbnormalPlugin.TribeFae)
+               .AddTurns(
+                    CreateTurn()
+               ), 3);
+            #endregion
+            #region Emerald
+            EmeraldBossP1 = Build(New("EmeraldBossP1")
+               .SetDifficulty(20, 20)
+               .AddDominantTribes(AbnormalPlugin.TribeAnthropoid)
+               .AddTurns(
+                    CreateTurn()
+               ), 3);
+
+            EmeraldBossP2 = Build(New("EmeraldBossP2")
+               .SetDifficulty(20, 20)
+               .AddDominantTribes(AbnormalPlugin.TribeAnthropoid)
+               .AddTurns(
+                    CreateTurn()
+               ), 3);
+
+            EmeraldBossP3 = Build(New("EmeraldBossP3")
+               .SetDifficulty(20, 20)
+               .AddDominantTribes(AbnormalPlugin.TribeAnthropoid)
+               .AddTurns(
+                    CreateTurn()
+               ), 3);
+            #endregion
+            #region Rapture
+            RaptureBossP1 = Build(New("RaptureBossP1")
+               .SetDifficulty(20, 20)
+               .AddDominantTribes(AbnormalPlugin.TribeDivine)
+               .AddTurns(
+                    CreateTurn()
+               ), 3);
+
+            RaptureBossP2 = Build(New("RaptureBossP2")
+               .SetDifficulty(20, 20)
+               .AddDominantTribes(AbnormalPlugin.TribeDivine)
+               .AddTurns(
+                    CreateTurn()
+               ), 3);
+
+            RaptureBossP3 = Build(New("RaptureBossP3")
+               .SetDifficulty(20, 20)
+               .AddDominantTribes(AbnormalPlugin.TribeDivine)
+               .AddTurns(
+                    CreateTurn()
+               ), 3);
+            #endregion
             #endregion
         }
 
@@ -383,5 +473,17 @@ namespace WhistleWindLobotomyMod.Core
         public static EncounterBlueprintData LeshyAbnormalBossP1 { get; private set; }
         public static EncounterBlueprintData PirateSkullAbnormalBossP1 { get; private set; }
         public static EncounterBlueprintData PirateSkullAbnormalBossP2 { get; private set; }
+        public static EncounterBlueprintData ApocalypseBossP1 { get; private set; }
+        public static EncounterBlueprintData ApocalypseBossP2 { get; private set; }
+        public static EncounterBlueprintData ApocalypseBossP3 { get; private set; }
+        public static EncounterBlueprintData JesterBossP1 { get; private set; }
+        public static EncounterBlueprintData JesterBossP2 { get; private set; }
+        public static EncounterBlueprintData JesterBossP3 { get; private set; }
+        public static EncounterBlueprintData EmeraldBossP1 { get; private set; }
+        public static EncounterBlueprintData EmeraldBossP2 { get; private set; }
+        public static EncounterBlueprintData EmeraldBossP3 { get; private set; }
+        public static EncounterBlueprintData RaptureBossP1 { get; private set; }
+        public static EncounterBlueprintData RaptureBossP2 { get; private set; }
+        public static EncounterBlueprintData RaptureBossP3 { get; private set; }
     }
 }

@@ -8,6 +8,7 @@ using Infiniscryption.Spells;
 using InscryptionAPI;
 using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
+using InscryptionAPI.Guid;
 using InscryptionAPI.Regions;
 using InscryptionAPI.TalkingCards;
 using Sirenix.Utilities;
@@ -18,8 +19,8 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Challenges;
-
+using WhistleWindLobotomyMod.Challenges;
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static DialogueEvent;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -55,6 +56,7 @@ namespace WhistleWindLobotomyMod
 
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
+                Log.LogDebug("Loading dialogue...");
                 GenerateDialogueEvents();
 
                 AddChallenges();
@@ -66,8 +68,9 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("Loading cards...");
                 AddAppearances();
                 AddCards();
+                Log.LogDebug("Loading starter decks...");
                 AddStarterDecks();
-
+                
                 Log.LogDebug("Loading encounters...");
                 AddEncounters();
 
@@ -179,10 +182,10 @@ namespace WhistleWindLobotomyMod
         }
         private void AddChallenges()
         {
-            // MiracleBoss
-            // BirdBoss
-            // FoolBoss
-            // AdultBoss
+            //FinalComing.Register();
+            FinalApocalypse.Register();
+            //FinalJester.Register();
+            //FinalTrick.Register();
 
             ApocalypseBirdStart.Register();
             JesterOfNihilStart.Register();
@@ -310,12 +313,21 @@ namespace WhistleWindLobotomyMod
         public static bool AllCardsDisabled { get; internal set; }
         public static RiskLevel DisabledRiskLevels { get; internal set; }
 
+        public static readonly Trait LittleEgg = GuidManager.GetEnumValue<Trait>(pluginGuid, "SmallBeakEgg");
+        public static readonly Trait BigEgg = GuidManager.GetEnumValue<Trait>(pluginGuid, "BigEyesEgg");
+        public static readonly Trait LongEgg = GuidManager.GetEnumValue<Trait>(pluginGuid, "LongArmsEgg");
+
+        public static readonly StoryEvent ApocalypseBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "ApocalpyseBossDefeated");
+        public static readonly StoryEvent JesterBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "JesterBossDefeated");
+        public static readonly StoryEvent EmeraldBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "EmeraldBossDefeated");
+        public static readonly StoryEvent SaviourBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "SaviourBossDefeated");
+
         private static readonly Harmony HarmonyInstance = new(pluginGuid);
         internal static ManualLogSource Log;
 
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginPrefix = "wstl";
         public const string pluginName = "WhistleWind Lobotomy Mod";
-        private const string pluginVersion = "2.0.1";
+        private const string pluginVersion = "2.1.0";
     }
 }

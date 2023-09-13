@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using System.Collections.Generic;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Core.SpecialSequencers;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Prospector
+namespace WhistleWindLobotomyMod.Opponents.Prospector
 {
     public class ProspectorAbnormalBossOpponent : ProspectorBossOpponent
     {
@@ -13,7 +14,12 @@ namespace WhistleWindLobotomyMod.Core.Opponents.Prospector
             // Update blueprint for phase 2
             if (HasGrizzlyGlitchPhase(int.MinValue))
             {
-                yield return AbnormalGrizzlySequence.ApostleGlitchSequence(this);
+                // do Apostles only if it's ascension and the Grizzly challenge is active
+                if (SaveFile.IsAscension)
+                    yield return AbnormalGrizzlySequence.ApostleGlitchSequence(this);
+                else
+                    yield return GrizzlyGlitchSequence();
+
                 yield break;
             }
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;

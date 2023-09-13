@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 
-
-namespace WhistleWindLobotomyMod.Core.Challenges
+namespace WhistleWindLobotomyMod.Challenges
 {
     public static class MiracleWorker
     {

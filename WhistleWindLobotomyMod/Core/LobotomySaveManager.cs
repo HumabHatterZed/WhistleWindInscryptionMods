@@ -96,7 +96,26 @@ namespace WhistleWindLobotomyMod.Core
             get => GetSaveBool("UnlockedAngela");
             set => SetSaveValue("UnlockedAngela", value);
         }
-
+        public static bool DefeatedApocalypseBoss
+        {
+            get => GetSaveBool("DefeatedApocalypseBoss");
+            set => SetSaveValue("DefeatedApocalypseBoss", value);
+        }
+        public static bool DefeatedJesterBoss
+        {
+            get => GetSaveBool("DefeatedJesterBoss");
+            set => SetSaveValue("DefeatedJesterBoss", value);
+        }
+        public static bool DefeatedEmeraldBoss
+        {
+            get => GetSaveBool("DefeatedEmeraldBoss");
+            set => SetSaveValue("DefeatedEmeraldBoss", value);
+        }
+        public static bool DefeatedSaviourBoss
+        {
+            get => GetSaveBool("DefeatedSaviourBoss");
+            set => SetSaveValue("DefeatedSaviourBoss", value);
+        }
         private static int GetRunInt(string id) => ModdedSaveManager.RunState.GetValueAsInt(LobotomyPlugin.pluginGuid, id);
         private static bool GetRunBool(string id) => ModdedSaveManager.RunState.GetValueAsBoolean(LobotomyPlugin.pluginGuid, id);
         private static void SetRunValue(string id, object value) => ModdedSaveManager.RunState.SetValue(LobotomyPlugin.pluginGuid, id, value);

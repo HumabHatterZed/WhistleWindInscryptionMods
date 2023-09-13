@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
+using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.PirateSkull
+namespace WhistleWindLobotomyMod.Opponents.PirateSkull
 {
     public class PirateSkullAbnormalBattleSequencer : PirateSkullBattleSequencer
     {

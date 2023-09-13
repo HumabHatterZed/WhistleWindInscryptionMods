@@ -138,7 +138,7 @@ namespace WhistleWindLobotomyMod
             CreateDialogueEvents("ApocalypseBirdStory1", new() {
                 "Once upon a time, [c:bR]three birds[c:] lived happily in the lush Forest with their fellow animals.",
                 "One day a stranger arrived at the Forest. He proclaimed that the Forest would soon be ensared in a bitter conflict.",
-                "One that would only end when everything was devoured by a[c: bR]terrible Beast[c:].",
+                "One that would only end when everything was devoured by a [c:bR]terrible Beast[c:].",
                 "The birds, frightened by this doomsay, sought to prevent conflict from ever breaking out."
                 });
             CreateDialogueEvents("ApocalypseBirdStory2", new() {
@@ -161,6 +161,27 @@ namespace WhistleWindLobotomyMod
             CreateDialogueEvents("ApocalypseBirdSmall", new() {
                 "[c:bR]Small Bird[c:] punished wrongdoers with his beak."
                 });
+            // boss stuff
+            CreateDialogueEvents("ApocalypseBossPreIntro", new() {
+                "Your journey has brought here, to an unknown yet familiar forest.",
+                "Above you, the stars and moon have vanished into the murky black.",
+                "An otherworldly roar brings you to attention. The earth itself quails in fear as something approaches you.",
+                "Lumbering yet impossibly fast, you find yourself face-to-face with..."
+                },
+                new() {
+                    new() { "Lumbering yet impossibly fast, you find yourself face-to-face with..." },
+                });
+            CreateDialogueEvents("ApocalypseBossIntro",
+                new() { "[c:bR]The Beast[c:]."},
+                new() {
+                    new() { "[c:bR]The Beast[c:]." }
+                });
+            CreateDialogueEvents("ApocalypseBossBrokenEggBig",
+                new() { "The far-sighted eyes have been blinded." } );
+            CreateDialogueEvents("ApocalypseBossBrokenEggLong",
+                new() { "The head that looked to the cosmos has been lowered." });
+            CreateDialogueEvents("ApocalypseBossBrokenEggSmall",
+                new() { "The mouth that devours everything has been shut." });
         }
         private void Dialogue_JesterOfNihil()
         {

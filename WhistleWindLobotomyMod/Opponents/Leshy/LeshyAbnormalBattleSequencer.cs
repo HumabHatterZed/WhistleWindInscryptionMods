@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Leshy
+namespace WhistleWindLobotomyMod.Opponents.Leshy
 {
     public class LeshyAbnormalBattleSequencer : LeshyBattleSequencer
     {

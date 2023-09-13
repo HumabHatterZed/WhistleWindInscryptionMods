@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Core.SpecialSequencers;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Angler
+namespace WhistleWindLobotomyMod.Opponents.Angler
 {
     public class AnglerAbnormalBossOpponent : AnglerBossOpponent
     {
@@ -12,7 +13,12 @@ namespace WhistleWindLobotomyMod.Core.Opponents.Angler
         {
             if (HasGrizzlyGlitchPhase(0))
             {
-                yield return AbnormalGrizzlySequence.ApostleGlitchSequence(this);
+                // do Apostles only if it's ascension and the Grizzly challenge is active
+                if (SaveFile.IsAscension)
+                    yield return AbnormalGrizzlySequence.ApostleGlitchSequence(this);
+                else
+                    yield return GrizzlyGlitchSequence();
+
                 yield break;
             }
             TurnPlan.Clear();

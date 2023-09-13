@@ -4,7 +4,7 @@ using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Challenges;
+using WhistleWindLobotomyMod.Challenges;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod.Patches

@@ -3,9 +3,10 @@ using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.PirateSkull
+namespace WhistleWindLobotomyMod.Opponents.PirateSkull
 {
     public class PirateSkullAbnormalBossOpponent : PirateSkullBossOpponent
     {

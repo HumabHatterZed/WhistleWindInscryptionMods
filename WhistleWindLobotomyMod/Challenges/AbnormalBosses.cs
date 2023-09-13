@@ -6,15 +6,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Opponents.Angler;
-using WhistleWindLobotomyMod.Core.Opponents.Leshy;
-using WhistleWindLobotomyMod.Core.Opponents.PirateSkull;
-using WhistleWindLobotomyMod.Core.Opponents.Prospector;
-using WhistleWindLobotomyMod.Core.Opponents.TrapperTrader;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents.Angler;
+using WhistleWindLobotomyMod.Opponents.Leshy;
+using WhistleWindLobotomyMod.Opponents.PirateSkull;
+using WhistleWindLobotomyMod.Opponents.Prospector;
+using WhistleWindLobotomyMod.Opponents.TrapperTrader;
 
 
-namespace WhistleWindLobotomyMod.Core.Challenges
+namespace WhistleWindLobotomyMod.Challenges
 {
     public static class AbnormalBosses // taken from infiniscryption
     {
@@ -57,7 +60,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         public static bool ReplaceBossEncounter(EncounterData encounterData, ref Opponent __result)
         {
             // breaks if challenge is not active or if opponent is not supported
-            if (SaveFile.IsAscension ? !AscensionSaveData.Data.ChallengeIsActive(Id) : !LobotomyConfigManager.Instance.AbnormalBosses)
+            if (!LobotomyHelpers.IsChallengeConfigActive(Id, LobotomyConfigManager.Instance.AbnormalBosses))
                 return true;
 
             if (!SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
@@ -76,8 +79,11 @@ namespace WhistleWindLobotomyMod.Core.Challenges
                 Opponent.Type.TrapperTraderBoss => gameObject.AddComponent<TrapperTraderAbnormalBossOpponent>(),
                 Opponent.Type.LeshyBoss => gameObject.AddComponent<LeshyAbnormalBossOpponent>(),
                 Opponent.Type.PirateSkullBoss => gameObject.AddComponent<PirateSkullAbnormalBossOpponent>(),
-                _ => throw new InvalidOperationException("Unsupported opponent type (what'd you do?)."),
+                _ => null
             };
+            if (opponent == null)
+                return true;
+
             string text = encounterData.aiId;
             if (string.IsNullOrEmpty(text))
             {
@@ -107,7 +113,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         [HarmonyPrefix]
         public static bool ReplaceSequencers(string specialBattleId, ref TurnManager __instance)
         {
-            // if challenge not active and 
+            // if challenge not active
             if (SaveFile.IsAscension ? !AscensionSaveData.Data.ChallengeIsActive(Id) : !LobotomyConfigManager.Instance.AbnormalBosses)
                 return true;
 

@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Prospector
+namespace WhistleWindLobotomyMod.Opponents.Prospector
 {
     public class ProspectorAbnormalBattleSequencer : ProspectorBattleSequencer
     {

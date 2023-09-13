@@ -6,6 +6,11 @@ namespace WhistleWindLobotomyMod.Core.Helpers
 {
     public static class LobotomyHelpers
     {
+        public static bool IsChallengeConfigActive(AscensionChallenge challenge, bool config)
+        {
+            return SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(challenge) : config;
+        }
+
         public static bool AllowInitiateCombat(bool initiate)
         {
             bool canInitiateCombat = TurnManager.Instance.PlayerCanInitiateCombat;

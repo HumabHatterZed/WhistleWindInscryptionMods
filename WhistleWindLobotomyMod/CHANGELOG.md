@@ -3,12 +3,16 @@
 <details>
 <summary>View Changelog</summary>
 
-## v2.0.3 - Minor patch ()
+## v2.1.0 - Into the Twilight ()
 ### 🔧 Tweaks
 - Minor adjustments to some sequences
-
+- Adjusted icon for Start with Beast cheat
 ### 🩹 Bug fixes
 - Fixed The Road Home softlocking the game when played by Leshy
+- Fixed Abnormal Bosses config replacing Grizzly Bears with Guardian Apostles in Part 1 during bosses
+### ➕ Additions
+- Added Beast boss to KCM as a random boss encounter (changeable in config)
+- Added Final Apocalypse challenge
 
 ## v2.0.2 - Minor patch (7/29/2023)
 ### 🩹 Bug fixes

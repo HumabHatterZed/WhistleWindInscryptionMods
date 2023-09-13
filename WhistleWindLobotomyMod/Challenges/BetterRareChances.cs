@@ -3,7 +3,7 @@ using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
 
 
-namespace WhistleWindLobotomyMod.Core.Challenges
+namespace WhistleWindLobotomyMod.Challenges
 {
     public static class BetterRareChances
     {

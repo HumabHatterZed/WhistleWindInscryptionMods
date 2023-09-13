@@ -3,42 +3,23 @@ using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core.Opponents.TrapperTrader;
+using WhistleWindLobotomyMod.Opponents.TrapperTrader;
 
-namespace WhistleWindLobotomyMod.Core.Opponents.Leshy
+namespace WhistleWindLobotomyMod.Opponents.Leshy
 {
     public class LeshyAbnormalBossOpponent : LeshyBossOpponent
     {
-        public new IEnumerator AdvanceMaskState()
-        {
-            if (NumLives > 1)
-            {
-                switch (maskState)
-                {
-                    case MaskState.NoMask:
-                        yield return SwitchToMask(currentMaskIndex);
-                        maskState = MaskState.MaskEquipped;
-                        break;
-                    case MaskState.MaskEquipped:
-                        yield return ActivateCurrentMask();
-                        yield return new WaitForSeconds(0.1f);
-                        yield return CleanUpCurrentMask();
-                        IncrementMaskIndex();
-                        maskState = MaskState.NoMask;
-                        break;
-                }
-            }
-        }
         public override IEnumerator StartNewPhaseSequence()
         {
+            // override this IEnum so it'll use the new Start...Phase IEnums
             TurnPlan.Clear();
             switch (NumLives)
             {
                 case 2:
-                    yield return StartDeathcardPhase();
+                    yield return this.StartDeathcardPhase();
                     break;
                 case 1:
-                    yield return StartMoonPhase();
+                    yield return base.StartMoonPhase();
                     break;
             }
         }
@@ -98,55 +79,6 @@ namespace WhistleWindLobotomyMod.Core.Opponents.Leshy
                 }
             }
             return list;
-        }
-        private new IEnumerator SwitchToMask(int index)
-        {
-            currentMaskIndex = index;
-            Singleton<ViewManager>.Instance.SwitchToView(View.DefaultUpwards);
-            yield return new WaitForSeconds(0.1f);
-            Singleton<OpponentAnimationController>.Instance.SetHeadSteady(steady: true);
-            yield return maskOrbiter.RotateToMaskIndex(index);
-            yield return new WaitForSeconds(0.1f);
-            currentMask = maskOrbiter.DetachMask(currentMaskIndex);
-            LeshyAnimationController.Instance.ParentObjectToFace(currentMask);
-            Tween.Position(currentMask, currentMask.position + Vector3.forward * 0.5f, 0.1f, 0f, Tween.EaseInOut);
-            switch (maskBossTypes[currentMaskIndex])
-            {
-                case Type.ProspectorBoss:
-                    FadeInSecondaryTrack(1);
-                    InstantiateBossBehaviour<PickAxeSlam>();
-                    break;
-                case Type.AnglerBoss:
-                    FadeInSecondaryTrack(2);
-                    InstantiateBossBehaviour<FishHookGrab>();
-                    yield return new WaitForSeconds(1f);
-                    yield return AimAnglerHook();
-                    break;
-                case Type.TrapperTraderBoss:
-                    FadeInSecondaryTrack(3);
-                    InstantiateBossBehaviour<TradeAbnormalCardsForPelts>();
-                    break;
-            }
-            yield return new WaitForSeconds(1f);
-        }
-        private new IEnumerator ActivateCurrentMask()
-        {
-            switch (maskBossTypes[currentMaskIndex])
-            {
-                case Type.ProspectorBoss:
-                    yield return ActivateProspector();
-                    break;
-                case Type.AnglerBoss:
-                    yield return ActivateAngler();
-                    break;
-                case Type.TrapperTraderBoss:
-                    yield return ActivateTrader();
-                    break;
-            }
-        }
-        private new IEnumerator ActivateTrader()
-        {
-            yield return GetComponent<TradeAbnormalCardsForPelts>().TradePhase(1, 1, 2, 1, "", "");
         }
     }
 }
