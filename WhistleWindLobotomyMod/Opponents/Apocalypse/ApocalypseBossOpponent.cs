@@ -52,16 +52,13 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossPreIntro", TextDisplayer.MessageAdvanceMode.Input);
             yield return new WaitForSeconds(0.15f);
             // hide leshy and spawn the bird
-            Tween.Position(OpponentAnimationController.Instance.transform, OpponentAnimationController.Instance.transform.position + Vector3.forward, 0.3f, 0f,
-                completeCallback: () => OpponentAnimationController.Instance.gameObject.SetActive(false));
-            
-            yield return new WaitForSeconds(1.5f);
-            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
-            yield return new WaitForSeconds(0.166f);
-            Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.1f);
-            yield return base.FaceZoomSequence();
-            yield return new WaitForSeconds(1.418f);
+            LeshyAnimationController.Instance.SetHeadOffset(new Vector3(0f, 0f, 20f), explorationMode: false);
+            /*            Tween.Position(OpponentAnimationController.Instance.transform, OpponentAnimationController.Instance.transform.position + Vector3.forward, 0.3f, 0f,
+                            completeCallback: () => OpponentAnimationController.Instance.gameObject.SetActive(false));*/
 
+            yield return new WaitForSeconds(0.75f);
+            yield return base.FaceZoomSequence();
+            apocalypseAnimation = Instantiate<GameObject>(CustomBossUtils.apocalypsePrefab, new Vector3(0.3f, 7.15f, 5.6f), Quaternion.identity);
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossIntro", TextDisplayer.MessageAdvanceMode.Input);
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;

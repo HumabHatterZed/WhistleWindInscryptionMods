@@ -6,7 +6,7 @@
 ## v2.1.0 - Into the Twilight ()
 ### 🔧 Tweaks
 - Minor adjustments to some sequences
-- Adjusted icon for Start with Beast cheat
+- Adjusted icon for Start with a Beast cheat
 ### 🩹 Bug fixes
 - Fixed The Road Home softlocking the game when played by Leshy
 - Fixed Abnormal Bosses config replacing Grizzly Bears with Guardian Apostles in Part 1 during bosses

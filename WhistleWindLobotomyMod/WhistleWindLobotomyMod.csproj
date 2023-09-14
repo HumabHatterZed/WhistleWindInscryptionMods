@@ -20,7 +20,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Artwork\*.png" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <None Remove="lobmodbosses" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="lobmodbosses" />
+  </ItemGroup>
+  
 	<ItemGroup>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" GeneratePathProperty="true" IncludeAssets="none" />
     <PackageReference Include="BepInEx.Core" Version="5.4.19" GeneratePathProperty="true" IncludeAssets="none" />

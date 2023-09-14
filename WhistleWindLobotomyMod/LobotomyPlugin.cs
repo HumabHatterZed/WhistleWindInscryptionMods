@@ -25,6 +25,9 @@ using static DialogueEvent;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
+//using InscryptionAPI.Helpers;
+using System.IO;
+using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod
 {
@@ -54,6 +57,7 @@ namespace WhistleWindLobotomyMod
                 if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
                     LobotomyConfigManager.Instance.SetBlessings(11);
 
+                CustomBossUtils.InitBossObjects();
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
                 Log.LogDebug("Loading dialogue...");

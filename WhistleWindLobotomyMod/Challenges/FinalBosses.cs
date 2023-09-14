@@ -50,7 +50,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 .SetFlags("ModdedFinalBoss")
                 .SetIncompatibleChallengeGetter(x =>
                 (from x2 in x
-                 where x2.Flags.Exists(x3 => x3?.ToString() == "ModdedFinalBoss")
+                 where x2?.Flags != null && x2.Flags.Exists(x3 => x3?.ToString() == "ModdedFinalBoss")
                  select x2 into x4
                  select x4.Challenge.challengeType).Concat(new AscensionChallenge[1] { AscensionChallenge.FinalBoss })
                 )
@@ -73,7 +73,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 .SetFlags("ModdedFinalBoss")
                 .SetIncompatibleChallengeGetter(x =>
                 (from x2 in x
-                 where x2.Flags.Exists(x3 => x3?.ToString() == "ModdedFinalBoss")
+                 where x2?.Flags != null && x2.Flags.Exists(x3 => x3?.ToString() == "ModdedFinalBoss")
                  select x2 into x4
                  select x4.Challenge.challengeType).Concat(new AscensionChallenge[1] { AscensionChallenge.FinalBoss })
                 )
@@ -96,7 +96,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 .SetFlags("ModdedFinalBoss")
                 .SetIncompatibleChallengeGetter(x =>
                 (from x2 in x
-                 where x2.Flags.Exists(x3 => x3?.ToString() == "ModdedFinalBoss")
+                 where x2?.Flags != null && x2.Flags.Exists(x3 => x3?.ToString() == "ModdedFinalBoss")
                  select x2 into x4
                  select x4.Challenge.challengeType).Concat(new AscensionChallenge[1] { AscensionChallenge.FinalBoss })
                 )
