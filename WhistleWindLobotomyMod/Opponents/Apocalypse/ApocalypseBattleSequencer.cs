@@ -55,21 +55,21 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            ApocalypseBossOpponent opponent = TurnManager.Instance?.Opponent as ApocalypseBossOpponent;
+            ApocalypseBossOpponent opponent = TurnManager.Instance.Opponent as ApocalypseBossOpponent;
             if (card.HasTrait(LobotomyPlugin.LittleEgg))
             {
                 BrokeSmallBeak = true;
-                yield return opponent?.ShutBeakSequence();
+                yield return opponent.ShutBeakSequence();
             }
             else if (card.HasTrait(LobotomyPlugin.BigEgg))
             {
                 BrokeBigEyes = true;
-                yield return opponent?.CloseEyesSequence();
+                yield return opponent.CloseEyesSequence();
             }
             else if (card.HasTrait(LobotomyPlugin.LongEgg))
             {
                 BrokeLongArms = true;
-                yield return opponent?.BreakArmsSequence();
+                yield return opponent.BreakArmsSequence();
             }
             yield break;
         }
@@ -78,7 +78,11 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         {
             // if on the player side for whatever reason, return to opponent side
             if (otherCard.Slot.IsPlayerSlot)
+            {
+                yield return new WaitForSeconds(0.5f);
                 yield return ReturnEggToBasket(otherCard);
+                yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossReturnEgg", TextDisplayer.MessageAdvanceMode.Input);
+            }
 
             // keep track of the egg cards
             if (otherCard != null && (!SmallBeakCard || !BigEyesCard || !LongArmsCard))
@@ -117,7 +121,8 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 int randomSeed = base.GetRandomSeed();
                 newSlot = opponentSlots[SeededRandom.Range(0, opponentSlots.Count, randomSeed++)];
             }
-
+            card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.45f);
             yield return BoardManager.Instance.AssignCardToSlot(card, newSlot);
             yield return new WaitForSeconds(0.75f);
         }

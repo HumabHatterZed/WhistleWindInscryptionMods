@@ -182,6 +182,19 @@ namespace WhistleWindLobotomyMod
                 new() { "The head that looked to the cosmos has been lowered." });
             CreateDialogueEvents("ApocalypseBossBrokenEggSmall",
                 new() { "The mouth that devours everything has been shut." });
+            CreateDialogueEvents("ApocalypseBossTryDirectDamage",
+                new() { "[c:bR]The monster[c:] is not so easily tamed." });
+            CreateDialogueEvents("ApocalypseBossReturnEgg",
+                new() { "Your efforts prove futile." });
+            CreateDialogueEvents("ApocalypseBossBendScales1",
+                new() {
+                    "The Beast is immune to mortal damage.",
+                    "Yet even it has its [c:bR]weaknesses[c:]."
+                });
+            CreateDialogueEvents("ApocalypseBossBendScales2",
+                new() { "Gather your courage, and march onward.", });
+            CreateDialogueEvents("ApocalypseBossPrelude",
+                new() { "[c:bSG]Into the twilight.[c:]", });
         }
         private void Dialogue_JesterOfNihil()
         {
