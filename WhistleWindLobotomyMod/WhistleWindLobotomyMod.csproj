@@ -59,6 +59,9 @@
     <Reference Include="Infiniscryption.PackManager" Private="false">
       <HintPath>..\lib\Infiniscryption.PackManager.dll</HintPath>
     </Reference>
+    <Reference Include="Infiniscryption.Achievements" Private="false">
+      <HintPath>..\lib\Infiniscryption.Achievements.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

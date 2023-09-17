@@ -35,7 +35,10 @@ namespace WhistleWind.Core.Helpers
             Assembly targetAssembly = target ?? Assembly.GetCallingAssembly();
             byte[] resourceFile = GetResource(fileName.EndsWith(".png") ? fileName : fileName + ".png", targetAssembly);
             if (resourceFile == null)
+            {
+                //Debug.Log($"Could not get file: [{fileName}]");
                 return null;
+            }
 
             Texture2D texture2D = new(2, 2);
             texture2D.LoadImage(resourceFile);

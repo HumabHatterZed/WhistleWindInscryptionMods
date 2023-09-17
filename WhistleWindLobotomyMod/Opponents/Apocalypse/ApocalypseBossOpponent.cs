@@ -6,11 +6,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Challenges;
-using WhistleWindLobotomyMod.Opponents.TrapperTrader;
-using WhistleWindLobotomyMod.Core.SpecialSequencers;
 using InscryptionAPI.Card;
 using System.Linq;
 using WhistleWind.AbnormalSigils;
+using HarmonyLib;
 
 namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 {
@@ -31,7 +30,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public override bool GiveCurrencyOnDefeat => false;
 
         private GameObject apocalypseAnimation;
-        private Transform apocalypseHead;
+        public Transform apocalypseHead;
         private Transform apocalypseWing1;
         private Transform apocalypseWing2;
         private Transform apocalypseArm1;
@@ -40,9 +39,19 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         // TO DO
         // figure out animations
 
+        // switch totem out each phase
         private bool bossTotems;
+
         public override IEnumerator LifeLostSequence()
         {
+            TurnPlan.Clear();
+            switch (NumLives)
+            {
+                case 2:
+                    break;
+                case 1:
+                    break;
+            }
             yield break;
         }
 
@@ -100,7 +109,14 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return new WaitForSeconds(0.75f);
             // create Apocalypse Bird object
             yield return base.FaceZoomSequence();
-            apocalypseAnimation = Instantiate<GameObject>(CustomBossUtils.apocalypsePrefab, new Vector3(0.3f, 5.5f, 4.5f), Quaternion.identity);
+            apocalypseAnimation = Instantiate(CustomBossUtils.apocalypsePrefab, new Vector3(0.3f, 5.5f, 4.5f), Quaternion.identity);
+            apocalypseAnimation.name = "ApocalypseBoss";
+            apocalypseHead = apocalypseAnimation.transform.Find("Head");
+            apocalypseWing1 = apocalypseAnimation.transform.Find("Wing1");
+            apocalypseWing2 = apocalypseAnimation.transform.Find("Wing2");
+            apocalypseMouth = apocalypseAnimation.transform.Find("Body").transform.Find("Mouth");
+            apocalypseHead = apocalypseAnimation.transform.Find("Head");
+
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossIntro", TextDisplayer.MessageAdvanceMode.Input);
             yield return new WaitForSeconds(0.5f);
 
@@ -108,15 +124,16 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             Singleton<ViewManager>.Instance.SwitchToView(View.Scales);
             yield return new WaitForSeconds(0.2f);
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBendScales1", TextDisplayer.MessageAdvanceMode.Input);
-            //Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = LifeManager.Instance.DamageUntilPlayerWin - 1;
-            yield return LifeManager.Instance.ShowDamageSequence(LifeManager.Instance.DamageUntilPlayerWin - 1, 1, false);
+            // pass through the boss game object as an easy-ish check
+            yield return LifeManager.Instance.ShowDamageSequence(LifeManager.Instance.DamageUntilPlayerWin - 1, 1, toPlayer: false);
+
             yield return new WaitForSeconds(0.5f);
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBendScales2", TextDisplayer.MessageAdvanceMode.Input);
-
+            
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             // fancy body animations
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossPrelude", TextDisplayer.MessageAdvanceMode.Input);
-            apocalypseHead = apocalypseAnimation.transform.Find("Head");
+            var i = apocalypseAnimation.GetComponentsInChildren<Animator>();
             apocalypseHead.GetComponent<Animator>().SetTrigger("StartIdle");
 
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;

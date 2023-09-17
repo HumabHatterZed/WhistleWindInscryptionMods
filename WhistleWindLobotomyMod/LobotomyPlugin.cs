@@ -5,6 +5,7 @@ using DiskCardGame;
 using HarmonyLib;
 using Infiniscryption.PackManagement;
 using Infiniscryption.Spells;
+using Infiniscryption.Achievements;
 using InscryptionAPI;
 using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
@@ -25,9 +26,10 @@ using static DialogueEvent;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
-//using InscryptionAPI.Helpers;
+
 using System.IO;
 using WhistleWindLobotomyMod.Opponents;
+
 
 namespace WhistleWindLobotomyMod
 {
@@ -36,6 +38,7 @@ namespace WhistleWindLobotomyMod
     [BepInDependency(InfiniscryptionSpellsPlugin.PluginGuid, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(AbnormalPlugin.pluginGuid, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("zorro.inscryption.infiniscryption.achievements", BepInDependency.DependencyFlags.SoftDependency)]
 
     public partial class LobotomyPlugin : BaseUnityPlugin
     {
@@ -84,6 +87,9 @@ namespace WhistleWindLobotomyMod
 
                 if (PackAPI.Enabled)
                     PackAPI.CreateCardPack();
+
+                if (AchievementAPI.Enabled)
+                    AchievementAPI.CreateAchievements();
 
                 Log.LogInfo($"Plugin loaded! Let's get to work manager!");
             }
@@ -302,10 +308,10 @@ namespace WhistleWindLobotomyMod
 
         internal static class PackAPI
         {
-            public static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
+            internal static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
             internal static void CreateCardPack()
             {
-                Log.LogDebug("PackManager is installed, creating card pack...");
+                Log.LogDebug("PackManager is installed.");
                 PackInfo pack = PackManager.GetPackInfo("wstl");
                 pack.Title = "WhistleWind Lobotomy Mod";
                 pack.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack"));
@@ -313,7 +319,59 @@ namespace WhistleWindLobotomyMod
                 pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             }
         }
+        internal static class AchievementAPI
+        {
+            internal static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.achievements");
 
+            // bosses
+            internal static Achievement ThroughTheTwilight;
+            internal static Achievement WhereAllPathsLead;
+            internal static Achievement EndOfTheRoad;
+            internal static Achievement ParadiseLost;
+
+            // event decks
+            internal static Achievement TheThreeBirds;
+            internal static Achievement MagicalGirls;
+            internal static Achievement YellowBrickRoad;
+
+            internal static Achievement Test1;
+            internal static Achievement Test2;
+            internal static void CreateAchievements()
+            {
+                Log.LogDebug("Achievements API is installed.");
+                ModdedAchievementManager.AchievementGroup grp = ModdedAchievementManager.NewGroup(pluginGuid, "Lobotomy Mod", TextureLoader.LoadTextureFromFile("achievementBox.png")).ID;
+
+                Test1 = ModdedAchievementManager.New(pluginGuid, "Test1", "pes",
+                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossEmerald.png")).ID;
+                Test2 = ModdedAchievementManager.New(pluginGuid, "Test2", "asd",
+                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossJester.png")).ID;
+
+                ThroughTheTwilight = ModdedAchievementManager.New(pluginGuid, "Through the Twilight", "Survive the apocalypse and defeat the Beast.",
+                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossTwilight.png")).ID;
+
+                WhereAllPathsLead = ModdedAchievementManager.New(pluginGuid, "Where All Paths Lead", "Hold on to hope and defeat the Fool.",
+                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossJester.png")).ID;
+
+                EndOfTheRoad = ModdedAchievementManager.New(pluginGuid, "End of the Road", "Keep your wits and defeat the Adult.",
+                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossEmerald.png")).ID;
+
+                ParadiseLost = ModdedAchievementManager.New(pluginGuid, "Paradise Lost", "Reject His gifts and stall the Saviour.",
+                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossSaviour.png")).ID;
+
+                TheThreeBirds = ModdedAchievementManager.New(pluginGuid, "The Three Birds", "You heard the story of the Black Forest.",
+                    true, grp, TextureLoader.LoadTextureFromFile("achievementTwilight.png")).ID;
+
+                MagicalGirls = ModdedAchievementManager.New(pluginGuid, "Magical Girls", "You walked the paths of all four magical girls.",
+                    true, grp, TextureLoader.LoadTextureFromFile("achievementMagicalGirls.png")).ID;
+
+                YellowBrickRoad = ModdedAchievementManager.New(pluginGuid, "Yellow Brick Road", "You visited the Emerald City.",
+                    true, grp, TextureLoader.LoadTextureFromFile("achievementRoadToOz.png")).ID;
+            }
+            internal static void Unlock(Achievement achievement)
+            {
+                if (Enabled) AchievementManager.Unlock(achievement);
+            }
+        }
         public static bool AllCardsDisabled { get; internal set; }
         public static RiskLevel DisabledRiskLevels { get; internal set; }
 
