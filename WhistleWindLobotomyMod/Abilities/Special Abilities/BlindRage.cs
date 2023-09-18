@@ -97,7 +97,7 @@ namespace WhistleWindLobotomyMod
             {
                 Part1SniperVisualizer component = __instance.GetComponent<Part1SniperVisualizer>() ?? __instance.gameObject.AddComponent<Part1SniperVisualizer>();
 
-;                __instance.VisualizeClearSniperAbility();
+                ; __instance.VisualizeClearSniperAbility();
                 component?.VisualizeClearSniperAbility();
             }
         }

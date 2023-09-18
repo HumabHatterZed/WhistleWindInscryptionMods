@@ -1,7 +1,4 @@
-﻿using DiskCardGame;
-using GBC;
-using InscryptionAPI.Card;
-using InscryptionAPI.PixelCard;
+﻿using InscryptionAPI.PixelCard;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
@@ -26,7 +23,7 @@ namespace WhistleWindLobotomyMod
         {
             int blessings = base.Card.Info.Mods.Exists(x => x.singletonId == "wstl:MiracleWorkerChallenge") ?
                 LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.Instance.NumOfBlessings;
-            
+
             base.Card.RenderInfo.portraitOverride = LobotomyPlugin.PlagueDoctorPortraits[Mathf.Min(11, blessings)];
             base.Card.RenderInfo.forceEmissivePortrait |= blessings >= 11;
         }

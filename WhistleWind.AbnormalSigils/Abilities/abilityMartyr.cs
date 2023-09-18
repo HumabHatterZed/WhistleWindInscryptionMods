@@ -1,13 +1,9 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 
@@ -33,7 +29,7 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
-        
+
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             List<CardSlot> validSlots = Singleton<BoardManager>.Instance.GetSlotsCopy(!base.Card.OpponentCard).FindAll(s => s.Card && s.Card != base.Card);

@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +41,7 @@ namespace WhistleWind.AbnormalSigils
             {
                 base.Card.RenderInfo.OverrideAbilityIcon(ability, TextureLoader.LoadTextureFromFile(
                         (SaveManager.SaveFile.IsPart2 ? "sigilTheTrain_pixel_" : "sigilTheTrain_") + turnDifference));
-                
+
                 base.Card.RenderCard();
             }
             if (turnDifference < 3)

@@ -1,13 +1,10 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-
 using WhistleWind.Core.Helpers;
-using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static InscryptionAPI.Card.AbilityManager;
+using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 
 namespace WhistleWind.AbnormalSigils.Core.Helpers
 {
@@ -39,7 +36,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
         public static FullAbility CreateActivatedAbility<T>(
             string abilityName,
             string rulebookName, string rulebookDescription,
-            string dialogue = null , string triggerText = null,
+            string dialogue = null, string triggerText = null,
             int powerLevel = 0,
             bool special = false, bool unobtainable = false)
             where T : ExtendedActivatedAbilityBehaviour

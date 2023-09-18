@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -14,7 +13,7 @@ namespace WhistleWindLobotomyMod
         private void Card_ChildOfTheGalaxy_O0155()
         {
             const string childOfTheGalaxy = "childOfTheGalaxy";
-            
+
             NewCard(childOfTheGalaxy, "Child of the Galaxy", "A small child longing for a friend. Will you be his?",
                 attack: 1, health: 1, blood: 1)
                 .SetPortraits(childOfTheGalaxy)

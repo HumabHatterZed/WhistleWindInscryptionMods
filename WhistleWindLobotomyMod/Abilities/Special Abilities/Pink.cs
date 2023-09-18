@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
@@ -46,7 +45,7 @@ namespace WhistleWindLobotomyMod
             CardInfo cardByName = CardLoader.GetCardByName("wstl_armyInBlackSpell");
 
             HelperMethods.ChangeCurrentView(View.Hand);
-            
+
             for (int i = 0; i < 2; i++)
                 yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(cardByName, null, 0.25f, null);
 

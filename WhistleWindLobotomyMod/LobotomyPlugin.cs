@@ -3,9 +3,9 @@ using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using DiskCardGame;
 using HarmonyLib;
+using Infiniscryption.Achievements;
 using Infiniscryption.PackManagement;
 using Infiniscryption.Spells;
-using Infiniscryption.Achievements;
 using InscryptionAPI;
 using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
@@ -16,20 +16,15 @@ using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Challenges;
-using WhistleWindLobotomyMod.Opponents.Apocalypse;
+using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Opponents;
+using WhistleWindLobotomyMod.Patches;
 using static DialogueEvent;
-
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
-
-using System.IO;
-using WhistleWindLobotomyMod.Opponents;
-
 
 namespace WhistleWindLobotomyMod
 {
@@ -77,7 +72,7 @@ namespace WhistleWindLobotomyMod
                 AddCards();
                 Log.LogDebug("Loading starter decks...");
                 AddStarterDecks();
-                
+
                 Log.LogDebug("Loading encounters...");
                 AddEncounters();
 
@@ -334,29 +329,32 @@ namespace WhistleWindLobotomyMod
             internal static Achievement MagicalGirls;
             internal static Achievement YellowBrickRoad;
 
-            internal static Achievement Test1;
-            internal static Achievement Test2;
+            // other
+            internal static Achievement Blessing;
+
+            //internal static Achievement Test1;
+            //internal static Achievement Test2;
             internal static void CreateAchievements()
             {
                 Log.LogDebug("Achievements API is installed.");
-                ModdedAchievementManager.AchievementGroup grp = ModdedAchievementManager.NewGroup(pluginGuid, "Lobotomy Mod", TextureLoader.LoadTextureFromFile("achievementBox.png")).ID;
+                ModdedAchievementManager.AchievementGroup grp = ModdedAchievementManager.NewGroup(pluginGuid, "WhistleWind Lobotomy Mod", TextureLoader.LoadTextureFromFile("achievementBox.png")).ID;
 
-                Test1 = ModdedAchievementManager.New(pluginGuid, "Test1", "pes",
-                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossEmerald.png")).ID;
-                Test2 = ModdedAchievementManager.New(pluginGuid, "Test2", "asd",
-                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossJester.png")).ID;
+                /*                Test1 = ModdedAchievementManager.New(pluginGuid, "Test1", "pes",
+                                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossEmerald.png")).ID;
+                                Test2 = ModdedAchievementManager.New(pluginGuid, "Test2", "asd",
+                                    false, grp, TextureLoader.LoadTextureFromFile("achievementRoadToOz.png")).ID;*/
 
                 ThroughTheTwilight = ModdedAchievementManager.New(pluginGuid, "Through the Twilight", "Survive the apocalypse and defeat the Beast.",
                     false, grp, TextureLoader.LoadTextureFromFile("achievementBossTwilight.png")).ID;
 
-                WhereAllPathsLead = ModdedAchievementManager.New(pluginGuid, "Where All Paths Lead", "Hold on to hope and defeat the Fool.",
-                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossJester.png")).ID;
+                /*                WhereAllPathsLead = ModdedAchievementManager.New(pluginGuid, "Where All Paths Lead", "Hold on to hope and defeat the Fool.",
+                                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossJester.png")).ID;
 
-                EndOfTheRoad = ModdedAchievementManager.New(pluginGuid, "End of the Road", "Keep your wits and defeat the Adult.",
-                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossEmerald.png")).ID;
+                                EndOfTheRoad = ModdedAchievementManager.New(pluginGuid, "End of the Road", "Keep your wits and defeat the Adult.",
+                                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossEmerald.png")).ID;
 
-                ParadiseLost = ModdedAchievementManager.New(pluginGuid, "Paradise Lost", "Reject His gifts and stall the Saviour.",
-                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossSaviour.png")).ID;
+                                ParadiseLost = ModdedAchievementManager.New(pluginGuid, "Paradise Lost", "Reject His gifts and delay the Saviour.",
+                                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossSaviour.png")).ID;*/
 
                 TheThreeBirds = ModdedAchievementManager.New(pluginGuid, "The Three Birds", "You heard the story of the Black Forest.",
                     true, grp, TextureLoader.LoadTextureFromFile("achievementTwilight.png")).ID;
@@ -366,6 +364,11 @@ namespace WhistleWindLobotomyMod
 
                 YellowBrickRoad = ModdedAchievementManager.New(pluginGuid, "Yellow Brick Road", "You visited the Emerald City.",
                     true, grp, TextureLoader.LoadTextureFromFile("achievementRoadToOz.png")).ID;
+
+                Blessing = ModdedAchievementManager.New(pluginGuid, "Blessing", "You witnessed His coming.",
+                    true, grp, TextureLoader.LoadTextureFromFile("achievementBlessing.png")).ID;
+
+                HarmonyInstance.PatchAll(typeof(AchievementPatches));
             }
             internal static void Unlock(Achievement achievement)
             {
@@ -374,6 +377,7 @@ namespace WhistleWindLobotomyMod
         }
         public static bool AllCardsDisabled { get; internal set; }
         public static RiskLevel DisabledRiskLevels { get; internal set; }
+        public static bool PreventOpponentDamage { get; internal set; }
 
         public static readonly Trait LittleEgg = GuidManager.GetEnumValue<Trait>(pluginGuid, "SmallBeakEgg");
         public static readonly Trait BigEgg = GuidManager.GetEnumValue<Trait>(pluginGuid, "BigEyesEgg");

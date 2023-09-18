@@ -1,11 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.StatusEffects
 {

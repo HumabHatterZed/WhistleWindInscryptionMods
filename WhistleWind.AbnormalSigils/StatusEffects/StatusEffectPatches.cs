@@ -1,12 +1,10 @@
 ﻿using DiskCardGame;
 using GBC;
-using GracesGames.Common.Scripts;
 using HarmonyLib;
 using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 

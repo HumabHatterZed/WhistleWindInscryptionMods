@@ -1,9 +1,7 @@
 ﻿using DiskCardGame;
-using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWindLobotomyMod.Opponents.TrapperTrader;
 
 namespace WhistleWindLobotomyMod.Opponents.Leshy
 {

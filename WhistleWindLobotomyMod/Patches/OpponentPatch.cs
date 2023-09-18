@@ -2,8 +2,8 @@
 using GBC;
 using HarmonyLib;
 using System.Collections;
-using UnityEngine;
 using WhistleWindLobotomyMod.Core;
+using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Patches
 {
@@ -28,14 +28,14 @@ namespace WhistleWindLobotomyMod.Patches
 
                 if (SaveManager.SaveFile.IsPart1)
                     LeshyAnimationController.Instance.ResetEyesTexture();
-                else if (SaveManager.SaveFile.IsPart3)
-                    P03AnimationController.Instance.SwitchToFace(P03AnimationController.Face.Default);
 
                 if (LobotomySaveManager.OpponentBlessings > 11)
                     LobotomySaveManager.OpponentBlessings = 0;
 
                 if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
                     LobotomyConfigManager.Instance.SetBlessings(0);
+
+                AchievementAPI.Unlock(AchievementAPI.Blessing);
 
                 LobotomySaveManager.TriggeredWhiteNightThisBattle = false;
             }

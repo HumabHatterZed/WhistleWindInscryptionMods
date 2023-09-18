@@ -1,10 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionCommunityPatch.Card;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using InscryptionCommunityPatch.Card;
 
 namespace WhistleWind.Core.AbilityClasses
 {
@@ -116,7 +116,7 @@ namespace WhistleWind.Core.AbilityClasses
         private int AIEvaluateTarget(PlayableCard card, bool positiveEffect)
         {
             if (card == null)
-                return CanTargetNull() ? UnityEngine.Random.Range(0, 5) : - 1000;
+                return CanTargetNull() ? UnityEngine.Random.Range(0, 5) : -1000;
 
             int num = card.PowerLevel;
             if (card.Info.HasTrait(Trait.Terrain))
@@ -124,7 +124,7 @@ namespace WhistleWind.Core.AbilityClasses
 
             if (card.OpponentCard == positiveEffect)
                 num += 1000;
-            
+
             return num;
         }
 

@@ -95,21 +95,24 @@ namespace WhistleWindLobotomyMod
 
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
 
-            SpecialBattleSequencer specialSequence = null;
-            var combatManager = Singleton<CombatPhaseManager>.Instance;
+            if (!LobotomyPlugin.PreventOpponentDamage)
+            {
+                SpecialBattleSequencer specialSequence = null;
+                var combatManager = Singleton<CombatPhaseManager>.Instance;
 
-            yield return combatManager.DamageDealtThisPhase += 33;
+                yield return combatManager.DamageDealtThisPhase += 33;
 
-            int excessDamage = Singleton<LifeManager>.Instance.Balance + combatManager.DamageDealtThisPhase - 5;
-            int damage = combatManager.DamageDealtThisPhase - excessDamage;
+                int excessDamage = Singleton<LifeManager>.Instance.Balance + combatManager.DamageDealtThisPhase - 5;
+                int damage = combatManager.DamageDealtThisPhase - excessDamage;
 
-            yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
-            yield return combatManager.VisualizeExcessLethalDamage(excessDamage, specialSequence);
-            
-            if (SaveManager.SaveFile.IsPart2)
-                SaveManager.SaveFile.gbcData.currency += excessDamage;
-            else
-                RunState.Run.currency += excessDamage;
+                yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
+                yield return combatManager.VisualizeExcessLethalDamage(excessDamage, specialSequence);
+
+                if (SaveManager.SaveFile.IsPart2)
+                    SaveManager.SaveFile.gbcData.currency += excessDamage;
+                else
+                    RunState.Run.currency += excessDamage;
+            }
 
             if (killer.LacksAbility(Confession.ability))
             {
@@ -129,7 +132,6 @@ namespace WhistleWindLobotomyMod
             yield return DialogueHelper.PlayDialogueEvent("WhiteNightKilledByNull");
 
             yield return new WaitForSeconds(0.2f);
-            yield return Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase += 1;
             yield return Singleton<LifeManager>.Instance.ShowDamageSequence(1, 1, toPlayer: true, 0.25f, ResourceBank.Get<GameObject>("Prefabs/Environment/ScaleWeights/Weight_RealTooth"));
 
             yield return DialogueHelper.ShowUntilInput(sternDialogue, Emotion.Anger, speaker: DialogueEvent.Speaker.Bonelord, -0.65f, 0.4f);

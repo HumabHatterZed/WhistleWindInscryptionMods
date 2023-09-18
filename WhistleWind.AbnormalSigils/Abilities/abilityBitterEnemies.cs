@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
-using WhistleWind.Core.Helpers;
-
 namespace WhistleWind.AbnormalSigils
 {
     public partial class AbnormalPlugin

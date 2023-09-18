@@ -2,14 +2,11 @@
 using BepInEx.Logging;
 using DiskCardGame;
 using HarmonyLib;
-using Infiniscryption.Spells;
-using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
 using System.Collections.Generic;
 using System.Reflection;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod;
 using static InscryptionAPI.Encounters.EncounterManager;

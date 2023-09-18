@@ -23,19 +23,21 @@ This mod now also requires [New Spell Card Toolkit](https://inscryption.thunders
 The config file has also been reformatted, so any changes you've made to it will need to be manually carried over. Sorry :(.
 
 ## 🩹 Known Bugs and Issues
-### Custom Bosses
-Boss challenges Abnormal Bosses, Emerald, Nihil, Apocalypse, and Rapture may override/be overridden by other mods that replace vanilla bosses.
-Your game will still be functional.
-
 --------------------------
 
 If you encounter any issues or bugs, or you just want to give some feedback, you can find me on the Inscryption Modding Discord.
 
 ## 🔗 Compatibility
 
+### Modded Custom Bosses
+Mods that replace vanilla bosses with custom ones may conflict with this mod's own custom bosses, as well as the Abnormal Bosses challenge.
+
 ### Pack Management API
 If you have [Pack Management API](https://inscryption.thunderstore.io/package/Infiniscryption/Pack_Management_API/) installed,
 a custom card pack will be created representing this mod. That's all :).
+
+### Achievements API
+This mod has custom achievements if you're using the [Achievements API](https://inscryption.thunderstore.io/package/Infiniscryption/Achievements/) installed.
 
 ## 💌 Credits/Acknowledgements
 Artwork and coding:

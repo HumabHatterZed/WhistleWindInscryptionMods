@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
-using System.Collections.Generic;
-using WhistleWind.Core.Helpers;
 using InscryptionAPI.Card;
+using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 

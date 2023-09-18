@@ -1,10 +1,8 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 
 namespace WhistleWind.AbnormalSigils.Patches
 {

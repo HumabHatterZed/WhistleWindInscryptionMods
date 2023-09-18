@@ -2,9 +2,7 @@ using DiskCardGame;
 using GBC;
 using InscryptionAPI.Dialogue;
 using System.Collections;
-using System.Xml.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace WhistleWind.Core.Helpers
 {

@@ -1,5 +1,4 @@
 using DiskCardGame;
-using GBC;
 using HarmonyLib;
 using Infiniscryption.Core.Helpers;
 using Infiniscryption.Spells.Sigils;

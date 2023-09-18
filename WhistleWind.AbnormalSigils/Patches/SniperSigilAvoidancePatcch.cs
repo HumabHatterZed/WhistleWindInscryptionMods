@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using InscryptionAPI.Card;
 using InscryptionCommunityPatch.Card;
 
 namespace WhistleWind.AbnormalSigils.Patches

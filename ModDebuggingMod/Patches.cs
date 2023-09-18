@@ -1,14 +1,7 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using System.Collections;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using Sirenix.Utilities;
-using MonoMod.Utils;
-using WhistleWindLobotomyMod.Challenges;
-using WhistleWindLobotomyMod.Opponents.Leshy;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace ModDebuggingMod

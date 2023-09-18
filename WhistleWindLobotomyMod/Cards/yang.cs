@@ -1,9 +1,5 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using InscryptionAPI.PixelCard;
-using System.Collections.Generic;
+﻿using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;

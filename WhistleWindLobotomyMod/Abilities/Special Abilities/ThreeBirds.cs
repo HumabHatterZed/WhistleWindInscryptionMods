@@ -98,7 +98,7 @@ namespace WhistleWindLobotomyMod
 
             if (!SaveManager.SaveFile.IsPart2)
                 yield return BoardEffects.ApocalypseTableEffects();
-            
+
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory3");
 
             CardInfo info = CardLoader.GetCardByName("wstl_apocalypseBird");

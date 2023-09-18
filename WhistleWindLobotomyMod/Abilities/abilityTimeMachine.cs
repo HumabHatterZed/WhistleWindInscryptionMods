@@ -10,7 +10,6 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
-
 namespace WhistleWindLobotomyMod
 {
     public partial class LobotomyPlugin
@@ -37,6 +36,13 @@ namespace WhistleWindLobotomyMod
         public override bool CanActivate() => SaveManager.SaveFile.IsPart2 ? !LobotomySaveManager.UsedBackwardClockGBC : !LobotomySaveManager.UsedBackwardClock;
         public override IEnumerator Activate()
         {
+            if (LobotomyPlugin.PreventOpponentDamage)
+            {
+                // destroy an egg
+                // or redo the sigil to just reset the battle
+                yield break;
+            }
+
             // prevent bell-ringing
             TurnManager.Instance.PlayerCanInitiateCombat = false;
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;

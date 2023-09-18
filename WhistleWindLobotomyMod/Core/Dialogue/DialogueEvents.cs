@@ -172,12 +172,12 @@ namespace WhistleWindLobotomyMod
                     new() { "Lumbering yet impossibly fast, you find yourself face-to-face with..." },
                 });
             CreateDialogueEvents("ApocalypseBossIntro",
-                new() { "[c:bR]The Beast[c:]."},
+                new() { "[c:bR]The Beast[c:]." },
                 new() {
                     new() { "[c:bR]The Beast[c:]." }
                 });
             CreateDialogueEvents("ApocalypseBossBrokenEggBig",
-                new() { "The far-sighted eyes have been blinded." } );
+                new() { "The far-sighted eyes have been blinded." });
             CreateDialogueEvents("ApocalypseBossBrokenEggLong",
                 new() { "The head that looked to the cosmos has been lowered." });
             CreateDialogueEvents("ApocalypseBossBrokenEggSmall",

@@ -1,15 +1,13 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Challenges;
-using InscryptionAPI.Card;
 using System.Linq;
+using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using HarmonyLib;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 {
@@ -42,7 +40,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         // switch totem out each phase
         private bool bossTotems;
 
-        public override IEnumerator LifeLostSequence()
+        public override IEnumerator StartNewPhaseSequence()
         {
             TurnPlan.Clear();
             switch (NumLives)
@@ -52,7 +50,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 case 1:
                     break;
             }
-            yield break;
+            return base.StartNewPhaseSequence();
         }
 
         public override IEnumerator IntroSequence(EncounterData encounter)
@@ -126,10 +124,10 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBendScales1", TextDisplayer.MessageAdvanceMode.Input);
             // pass through the boss game object as an easy-ish check
             yield return LifeManager.Instance.ShowDamageSequence(LifeManager.Instance.DamageUntilPlayerWin - 1, 1, toPlayer: false);
-
+            LobotomyPlugin.PreventOpponentDamage = true;
             yield return new WaitForSeconds(0.5f);
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBendScales2", TextDisplayer.MessageAdvanceMode.Input);
-            
+
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             // fancy body animations
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossPrelude", TextDisplayer.MessageAdvanceMode.Input);

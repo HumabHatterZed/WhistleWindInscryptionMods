@@ -1,13 +1,7 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
 using InscryptionAPI.Ascension;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using WhistleWind.Core.Helpers;
-using static InscryptionAPI.Ascension.ChallengeManager;
 
 namespace WhistleWindLobotomyMod.Challenges
 {

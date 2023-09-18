@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -17,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string magicalGirlHeart = "magicalGirlHeart";
             const string queenOfHatred = "queenOfHatred";
             const string queenOfHatredTired = "queenOfHatredTired";
-            SpecialTriggeredAbility[] specialAbilities = new[] { QueenOfHateExhaustion.specialAbility }; 
+            SpecialTriggeredAbility[] specialAbilities = new[] { QueenOfHateExhaustion.specialAbility };
             Tribe[] tribes = new[] { TribeFae, Tribe.Reptile };
             Trait[] traits = new[] { TraitMagicalGirl };
 

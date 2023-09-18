@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -28,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 .SetOnePerDeck()
                 .Build(cardType: ModCardType.Ruina);
 
-            NewCard(magicalGirlClover,servantName, "Blind protector of another world.",
+            NewCard(magicalGirlClover, servantName, "Blind protector of another world.",
                 attack: 2, health: 2, blood: 2)
                 .SetPortraits(magicalGirlClover)
                 .AddAbilities(Scorching.ability)

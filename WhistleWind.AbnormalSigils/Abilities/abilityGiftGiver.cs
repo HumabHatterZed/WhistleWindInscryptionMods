@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.AbilityClasses;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {

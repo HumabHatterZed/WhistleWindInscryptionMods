@@ -201,17 +201,17 @@ namespace WhistleWindLobotomyMod.Core
                 "Gameplay.Part1.Challenges", "Final Apocalypse", false,
                 new ConfigDescription("The Beast boss will be stronger and guaranteed to appear."));
 
-/*            Config_FinalJester = WstlConfigFile.Bind(
-                "Gameplay.Part1.Challenges", "Final Laugh", false,
-                new ConfigDescription("The Fool boss will be stronger and guaranteed to appear."));
+            /*            Config_FinalJester = WstlConfigFile.Bind(
+                            "Gameplay.Part1.Challenges", "Final Laugh", false,
+                            new ConfigDescription("The Fool boss will be stronger and guaranteed to appear."));
 
-            Config_FinalEmerald = WstlConfigFile.Bind(
-                "Gameplay.Part1.Challenges", "Final Trick", false,
-                new ConfigDescription("The Adult boss will be stronger and guaranteed to appear."));
+                        Config_FinalEmerald = WstlConfigFile.Bind(
+                            "Gameplay.Part1.Challenges", "Final Trick", false,
+                            new ConfigDescription("The Adult boss will be stronger and guaranteed to appear."));
 
-            Config_FinalComing = WstlConfigFile.Bind(
-                "Gameplay.Part1.Challenges", "Final Coming", false,
-                new ConfigDescription("The Saviour boss will be stronger and guaranteed to appear."));*/
+                        Config_FinalComing = WstlConfigFile.Bind(
+                            "Gameplay.Part1.Challenges", "Final Coming", false,
+                            new ConfigDescription("The Saviour boss will be stronger and guaranteed to appear."));*/
 
             Config_BetterRareChances = WstlConfigFile.Bind(
                 "Gameplay.Part1.Cheats", "Better Rare Chances", false,

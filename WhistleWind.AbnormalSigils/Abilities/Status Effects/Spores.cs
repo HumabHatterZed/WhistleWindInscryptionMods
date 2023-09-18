@@ -1,7 +1,4 @@
 ﻿using DiskCardGame;
-using Infiniscryption.Spells.Sigils;
-using InscryptionAPI.Card;
-using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,7 +38,7 @@ namespace WhistleWind.AbnormalSigils
         {
             if (TurnPlayed == Singleton<TurnManager>.Instance.TurnNumber)
                 yield break;
-            
+
             int newSpore = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot)
                 .FindAll(s => s.Card != null && s.Card.HasAbility(Sporogenic.ability)).Count;
 
@@ -100,7 +97,7 @@ namespace WhistleWind.AbnormalSigils
         {
             const string rName = "Spores";
             const string rDesc = "At the start of its owner's turn, this card takes damage equal to its Spores. Upon dying, create a Spore Mold Creature with stats equal to its Spores.";
-            
+
             Spores.specialAbility = StatusEffectManager.NewStatusEffect<Spores>(
                 pluginGuid, rName, rDesc,
                 iconTexture: "sigilSpores", pixelIconTexture: "sigilSpores_pixel",

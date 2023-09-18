@@ -1,21 +1,10 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
 using InscryptionAPI.Helpers.Extensions;
-using InscryptionCommunityPatch.Card;
-using Pixelplacement;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
-using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
-
-using WhistleWind.Core.Helpers;
 
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches

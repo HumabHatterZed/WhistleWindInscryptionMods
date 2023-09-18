@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         private void Card_AllAroundHelper_T0541()
         {
             const string allAroundHelper = "allAroundHelper";
-            
+
             NewCard(allAroundHelper, "All-Around Helper", "A murderous cleaning machine. Far nicer than a certain other...well, nevermind.",
                 attack: 1, health: 3, energy: 4)
                 .SetPortraits(allAroundHelper)

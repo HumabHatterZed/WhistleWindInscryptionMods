@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
@@ -24,7 +23,7 @@ namespace WhistleWindLobotomyMod.Challenges
         public static AscensionChallenge Id { get; private set; }
 
         // Creates the challenge then calls the relevant patches
-        public static void Register(Harmony harmony)
+        internal static void Register(Harmony harmony)
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
@@ -57,7 +56,7 @@ namespace WhistleWindLobotomyMod.Challenges
         // Replaces boss encounters with custom ones
         [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]
         [HarmonyPrefix]
-        public static bool ReplaceBossEncounter(EncounterData encounterData, ref Opponent __result)
+        private static bool ReplaceBossEncounter(EncounterData encounterData, ref Opponent __result)
         {
             // breaks if challenge is not active or if opponent is not supported
             if (!LobotomyHelpers.IsChallengeConfigActive(Id, LobotomyConfigManager.Instance.AbnormalBosses))
@@ -111,7 +110,7 @@ namespace WhistleWindLobotomyMod.Challenges
         // Replaces special sequencers with custom ones
         [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.UpdateSpecialSequencer))]
         [HarmonyPrefix]
-        public static bool ReplaceSequencers(string specialBattleId, ref TurnManager __instance)
+        private static bool ReplaceSequencers(string specialBattleId, ref TurnManager __instance)
         {
             // if challenge not active
             if (SaveFile.IsAscension ? !AscensionSaveData.Data.ChallengeIsActive(Id) : !LobotomyConfigManager.Instance.AbnormalBosses)
@@ -156,7 +155,7 @@ namespace WhistleWindLobotomyMod.Challenges
         // Replaces special sequencers with custom ones
         [HarmonyPatch(typeof(GiantShip), nameof(GiantShip.MutinySequence))]
         [HarmonyPostfix]
-        public static IEnumerator ReplaceSequencers(IEnumerator enumerator, GiantShip __instance)
+        private static IEnumerator ReplaceSequencers(IEnumerator enumerator, GiantShip __instance)
         {
             // if this challenge and Final Boss are active at once
             if (AscensionSaveData.Data.ChallengeIsActive(Id) && AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.FinalBoss))

@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -15,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string honouredMonk = "honouredMonk";
             const string cloudedMonk = "cloudedMonk";
             Tribe[] tribes = new[] { TribeAnthropoid };
-            
+
             CardInfo cloudedMonkCard = NewCard(cloudedMonk, "Clouded Monk",
                 attack: 4, health: 2, blood: 2)
                 .SetPortraits(cloudedMonk)

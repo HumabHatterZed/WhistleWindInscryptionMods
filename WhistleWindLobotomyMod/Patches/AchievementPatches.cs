@@ -1,15 +1,10 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using InscryptionAPI.Card;
-using System;
-using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Challenges;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Patches
 {
-    [HarmonyPatch]
     internal static class AchievementPatches
     {
         // this runs at the end of the run and whenever the KCM menu loads
@@ -24,6 +19,9 @@ namespace WhistleWindLobotomyMod.Patches
 
             if (LobotomySaveManager.UnlockedLyingAdult)
                 AchievementAPI.Unlock(AchievementAPI.YellowBrickRoad);
+
+            if (LobotomySaveManager.UnlockedAngela)
+                AchievementAPI.Unlock(AchievementAPI.ParadiseLost);
 
             if (LobotomySaveManager.DefeatedApocalypseBoss)
                 AchievementAPI.Unlock(AchievementAPI.ThroughTheTwilight);

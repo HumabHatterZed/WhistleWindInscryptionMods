@@ -6,8 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
-using WhistleWind.Core;
 using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
 

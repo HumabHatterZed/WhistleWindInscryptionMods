@@ -1,20 +1,10 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
-using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.Triggers;
 using InscryptionCommunityPatch.Card;
 using Pixelplacement;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
 
@@ -180,7 +170,7 @@ namespace WhistleWind.AbnormalSigils.Patches
 
                     if (persistent && forcedFaceUp)
                         yield return ForceTargetFaceUp(opposingSlot, attackingSlot);
-                    
+
                     if (attackingSlot.Card.IsFlyingAttackingReach())
                     {
                         opposingSlot.Card.Anim.PlayJumpAnimation();
@@ -188,7 +178,7 @@ namespace WhistleWind.AbnormalSigils.Patches
                         attackingSlot.Card.Anim.PlayAttackInAirAnimation();
                     }
                     attackingSlot.Card.Anim.SetAnimationPaused(paused: false);
-                    
+
                     yield return new WaitForSeconds(0.05f);
                     int overkillDamage = attackingSlot.Card.Attack - opposingSlot.Card.Health;
                     int damage = attackingSlot.Card.Attack;
@@ -197,7 +187,7 @@ namespace WhistleWind.AbnormalSigils.Patches
 
                     yield return opposingSlot.Card.TakeDamage(damage, attackingSlot.Card);
                     yield return instance.DealOverkillDamage(overkillDamage, attackingSlot, opposingSlot);
-                    
+
                     if (attackingSlot.Card != null && heightOffset > 0f)
                         yield return Singleton<BoardManager>.Instance.AssignCardToSlot(attackingSlot.Card, attackingSlot.Card.Slot, 0.1f, null, resolveTriggers: false);
 

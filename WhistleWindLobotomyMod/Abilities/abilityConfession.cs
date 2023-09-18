@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 
@@ -78,13 +79,11 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.5f);
 
             if (Singleton<TurnManager>.Instance.Opponent.NumLives > 1)
-                yield return thisSlot.Card.Die(false, thisSlot.Card);
+                yield return thisSlot.Card.DieTriggerless();
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            yield return base.PreSuccessfulTriggerSequence();
-            if (killer != base.Card)
-                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
+            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
         }
     }
 }

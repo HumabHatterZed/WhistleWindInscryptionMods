@@ -1,16 +1,9 @@
 ﻿using DiskCardGame;
-using Infiniscryption.Spells.Sigils;
-using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
-using Steamworks;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
-
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {

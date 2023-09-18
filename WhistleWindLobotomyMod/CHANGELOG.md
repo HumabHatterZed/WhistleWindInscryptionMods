@@ -11,8 +11,8 @@
 - Fixed The Road Home softlocking the game when played by Leshy
 - Fixed Abnormal Bosses config replacing Grizzly Bears with Guardian Apostles in Part 1 during bosses
 ### ➕ Additions
-- Added Beast boss to KCM as a random boss encounter (changeable in config)
-- Added Final Apocalypse challenge
+- Added Final Apocalypse challenge and boss
+- Added Achievements API support (5 achievements)
 
 ## v2.0.2 - Minor patch (7/29/2023)
 ### 🩹 Bug fixes

@@ -1,21 +1,12 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
 using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Card.AbilityManager;
-using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static InscryptionAPI.Card.SpecialTriggeredAbilityManager;
-using InscryptionAPI.Guid;
-using HarmonyLib;
-using InscryptionAPI.Triggers;
-using Sirenix.Utilities;
-using System.Text;
-using System.Linq;
-using WhistleWind.AbnormalSigils.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.StatusEffects
 {
@@ -78,7 +69,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
                 IconId = statusEffectIcon.Id,
                 IconAbilityInfo = statusEffectIcon.Info
             };
-            
+
             AllStatusEffects.Add(fullEffect);
             AllIconColours.Add(statusEffectIcon.Id, iconColour);
             return fullEffect;
@@ -142,7 +133,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         {
             List<StatusEffectBehaviour> statusEffects = card.GetStatusEffects();
             statusEffects.RemoveAll(x => AllStatusEffects.Find(y => y.BehaviourType == x.GetType()).IconAbilityInfo.PositiveEffect != positiveEffect);
-            
+
             return statusEffects;
         }
 

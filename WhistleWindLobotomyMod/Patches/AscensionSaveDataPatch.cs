@@ -1,10 +1,9 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
-using System;
 using System.Collections.Generic;
-using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Challenges;
+using WhistleWindLobotomyMod.Core;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod.Patches
@@ -33,7 +32,7 @@ namespace WhistleWindLobotomyMod.Patches
                 while (newStarterDeck.Count < starterDeck.Count)
                 {
                     List<CardInfo> validCards;
-                    
+
                     if (addRare)
                         validCards = ObtainableLobotomyCards.FindAll(x => x.HasCardMetaCategory(CardMetaCategory.Rare));
                     else

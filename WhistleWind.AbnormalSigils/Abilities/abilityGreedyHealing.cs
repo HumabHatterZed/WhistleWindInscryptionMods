@@ -47,7 +47,7 @@ namespace WhistleWind.AbnormalSigils
                 base.Card.HealDamage(2);
                 yield return new WaitForSeconds(0.3f);
                 yield return base.LearnAbility();
-                
+
                 // if we were submerged at the start, resubmerge
                 yield return base.Card.FlipFaceDown(faceDown);
                 yield break;

@@ -2,11 +2,8 @@
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
-using InscryptionAPI.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -26,7 +23,7 @@ namespace WhistleWindLobotomyMod.Core
         {
             return CardHelper.NewCard(false, pluginPrefix, cardName, displayName, description, attack, health, blood, bones, energy, temple: temple);
         }
-        
+
         public static CardInfo Build(
             this CardInfo cardInfo,
             ChoiceType choiceType = ChoiceType.None,

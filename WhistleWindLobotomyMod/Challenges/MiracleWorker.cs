@@ -1,10 +1,7 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Ascension;
-using InscryptionAPI.Card;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
@@ -30,7 +27,7 @@ namespace WhistleWindLobotomyMod.Challenges
         }
 
         private static readonly Opponent.Type[] BLACKLISTED_OPPONENTS = new Opponent.Type[] {
-            
+
         };
 
         [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]
