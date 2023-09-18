@@ -5,6 +5,7 @@ using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 {
@@ -14,28 +15,34 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public override Opponent.Type BossType => ApocalypseBossOpponent.ID;
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.ApocalypseBossDefeated;
 
-        private bool BrokeBigEyes = false;
-        private bool BrokeSmallBeak = false;
-        private bool BrokeLongArms = false;
+        public bool BrokeBigEyes = false;
+        public bool BrokeSmallBeak = false;
+        public bool BrokeLongArms = false;
 
         private PlayableCard BigEyesCard = null;
         private PlayableCard SmallBeakCard = null;
         private PlayableCard LongArmsCard = null;
 
-        // use an empty encounter plan
+        public List<EncounterBlueprintData> EggPhases = new()
+        {
+            LobotomyEncounterManager.ApocalypseBossBigEyes,
+            LobotomyEncounterManager.ApocalypseBossSmallBeak,
+            LobotomyEncounterManager.ApocalypseBossLongArms
+        };
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData)
         {
-            return new EncounterData
+            int index = SeededRandom.Range(0, EggPhases.Count, base.GetRandomSeed() + 1);
+            EncounterBlueprintData startingPhase = EggPhases[index];
+            EggPhases.Remove(startingPhase);
+
+            EncounterData data = new()
             {
-                opponentTurnPlan = new(),
-                Blueprint = new()
-                {
-                    turns = new(),
-                    dominantTribes = new List<Tribe> { Tribe.Bird }
-                },
                 opponentType = ApocalypseBossOpponent.ID,
-                startConditions = new()
+                startConditions = new(),
+                Blueprint = startingPhase
             };
+            data.opponentTurnPlan = DiskCardGame.EncounterBuilder.BuildOpponentTurnPlan(data.Blueprint, 20);
+            return data;
         }
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
@@ -50,22 +57,21 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             ApocalypseBossOpponent opponent = TurnManager.Instance.Opponent as ApocalypseBossOpponent;
-            if (card.HasTrait(LobotomyPlugin.LittleEgg))
-            {
-                BrokeSmallBeak = true;
-                yield return opponent.ShutBeakSequence();
-            }
-            else if (card.HasTrait(LobotomyPlugin.BigEgg))
+            if (card.HasTrait(LobotomyPlugin.BigEgg) && !BrokeBigEyes)
             {
                 BrokeBigEyes = true;
-                yield return opponent.CloseEyesSequence();
             }
-            else if (card.HasTrait(LobotomyPlugin.LongEgg))
+            else if (card.HasTrait(LobotomyPlugin.LittleEgg) && !BrokeSmallBeak)
+            {
+                BrokeSmallBeak = true;
+            }
+            else if (card.HasTrait(LobotomyPlugin.LongEgg) && !BrokeLongArms)
             {
                 BrokeLongArms = true;
-                yield return opponent.BreakArmsSequence();
             }
-            yield break;
+            // move to the next phase when an egg is broken
+            opponent.NumLives--;
+            yield return opponent.LifeLostSequence();
         }
 
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)

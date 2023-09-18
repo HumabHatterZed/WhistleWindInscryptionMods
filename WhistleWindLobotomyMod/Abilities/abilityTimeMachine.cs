@@ -2,6 +2,7 @@
 using GBC;
 using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod
 {
@@ -38,8 +40,7 @@ namespace WhistleWindLobotomyMod
         {
             if (LobotomyPlugin.PreventOpponentDamage)
             {
-                // destroy an egg
-                // or redo the sigil to just reset the battle
+                DialogueHelper.ShowUntilInput("Something prevents its function. You cannot escape this one.");
                 yield break;
             }
 
@@ -71,12 +72,9 @@ namespace WhistleWindLobotomyMod
             yield return EndBattle();
         }
 
-        private IEnumerator BackwardSequence()
+        private CardInfo GetCardToRemove()
         {
-            CardInfo cardToRemove = null;
-            PlayableCard card = null;
             int randomSeed = base.GetRandomSeed();
-
             List<CardInfo> cardsInDeck = new(SaveManager.SaveFile.IsPart2 ? SaveManager.SaveFile.gbcData.deck.Cards : RunState.DeckList);
             cardsInDeck.Remove(base.Card.Info);
             cardsInDeck.Sort((a, b) => b.PowerLevel - a.PowerLevel);
@@ -85,43 +83,49 @@ namespace WhistleWindLobotomyMod
             if (strongCards.Count > 1)
             {
                 strongCards.Sort((a, b) => b.PowerLevel - a.PowerLevel);
-                cardToRemove = SeededRandom.Value(randomSeed++) <= 0.85f ? strongCards[SeededRandom.Range(0, strongCards.Count, randomSeed++)] : strongCards[0];
+                return SeededRandom.Value(randomSeed++) <= 0.85f ? strongCards[SeededRandom.Range(0, strongCards.Count, randomSeed++)] : strongCards[0];
             }
             else
-                cardToRemove = cardsInDeck[0];
-
-            //LobotomyPlugin.Log.LogInfo($"Start {cardToRemove != null} {cardToRemove?.name}");
-            yield return DialogueManager.PlayDialogueEventSafe("BackwardClockOperate", speaker: DialogueHelper.GBCScrybe());
-
+                return cardsInDeck[0];
+        }
+        private IEnumerator RemoveChosenCardFromBoard(CardInfo cardToRemove)
+        {
             if (BoardManager.Instance.PlayerSlotsCopy.Exists(x => x.Card?.Info == cardToRemove || x.Card?.Info.name == cardToRemove.name))
             {
                 // find an exact match with the info; if one doesn't exist, find the name
                 CardSlot boardSlot = BoardManager.Instance.PlayerSlotsCopy.Find(x => x.Card?.Info == cardToRemove);
-                //LobotomyPlugin.Log.LogInfo($"Board {boardSlot?.Card?.Info == cardToRemove} {boardSlot?.Card?.Info.name}");
                 boardSlot ??= BoardManager.Instance.PlayerSlotsCopy.Find(x => x.Card?.Info.name == cardToRemove.name);
-                //LobotomyPlugin.Log.LogInfo($"Board2 {boardSlot?.Card?.Info == cardToRemove} {boardSlot?.Card?.Info.name}");
-                card = boardSlot?.Card;
+                chosenCard = boardSlot?.Card;
             }
             else
             {
                 yield return HelperMethods.ChangeCurrentView(View.Hand);
                 if (PlayerHand.Instance.CardsInHand.Exists(x => x.Info == cardToRemove || x.Info.name == cardToRemove.name))
-                {
-                    card = PlayerHand.Instance.CardsInHand.Find(x => x.Info == cardToRemove);
-                }
+                    chosenCard = PlayerHand.Instance.CardsInHand.Find(x => x.Info == cardToRemove);
+
                 else if (CardDrawPiles.Instance.Deck.Cards.Exists(x => x == cardToRemove || x.name == cardToRemove.name))
                 {
                     CardInfo drawToHand = CardDrawPiles.Instance.Deck.Cards.Find(x => x == cardToRemove);
 
                     yield return CardSpawner.Instance.SpawnCardToHand(drawToHand);
-                    card = PlayerHand.Instance.CardsInHand.Find(x => x.Info == drawToHand);
+                    chosenCard = PlayerHand.Instance.CardsInHand.Find(x => x.Info == drawToHand);
                     yield return new WaitForSeconds(0.5f);
                 }
             }
+        }
+        private PlayableCard chosenCard = null;
+        private IEnumerator BackwardSequence()
+        {
+            CardInfo cardToRemove = GetCardToRemove();
+
+            //LobotomyPlugin.Log.LogInfo($"Start {cardToRemove != null} {cardToRemove?.name}");
+            yield return DialogueManager.PlayDialogueEventSafe("BackwardClockOperate", speaker: DialogueHelper.GBCScrybe());
+
+            yield return RemoveChosenCardFromBoard(cardToRemove);
 
             base.Card.RemoveFromBoard(true);
-            if (card != null)
-                card.RemoveFromBoard(true);
+            if (chosenCard != null)
+                chosenCard.RemoveFromBoard(true);
             else
                 HelperMethods.RemoveCardFromDeck(cardToRemove);
 
@@ -178,8 +182,6 @@ namespace WhistleWindLobotomyMod
                 clone.SetEmissivePortrait(TextureLoader.LoadTextureFromFile(resource));
             }
 
-            //base.Card.ClearAppearanceBehaviours();
-            //base.Card.ApplyAppearanceBehaviours(new() { CardAppearanceBehaviour.Appearance.RareCardBackground });
             base.Card.RenderInfo.forceEmissivePortrait = true;
             base.Card.SetInfo(clone);
         }

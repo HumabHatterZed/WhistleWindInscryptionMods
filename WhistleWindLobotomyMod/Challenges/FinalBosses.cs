@@ -1,15 +1,24 @@
 ﻿using DiskCardGame;
+using HarmonyLib;
 using InscryptionAPI.Ascension;
 using System.Linq;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges
 {
+    internal static class FinalRegionPatch
+    {
+        [HarmonyPostfix, HarmonyPatch(typeof(RunState), nameof(RunState.CurrentMapRegion), MethodType.Getter)]
+        internal static void ReplaceFinalRegion(ref RegionData __result)
+        {
+
+        }
+    }
     public static class FinalApocalypse
     {
         public static AscensionChallenge Id { get; private set; }
 
-        public static void Register()
+        internal static void Register()
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
@@ -32,7 +41,7 @@ namespace WhistleWindLobotomyMod.Challenges
     {
         public static AscensionChallenge Id { get; private set; }
 
-        public static void Register()
+        internal static void Register()
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
@@ -55,7 +64,7 @@ namespace WhistleWindLobotomyMod.Challenges
     {
         public static AscensionChallenge Id { get; private set; }
 
-        public static void Register()
+        internal static void Register()
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
@@ -78,7 +87,7 @@ namespace WhistleWindLobotomyMod.Challenges
     {
         public static AscensionChallenge Id { get; private set; }
 
-        public static void Register()
+        internal static void Register()
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,

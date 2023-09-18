@@ -22,6 +22,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.OutroSequence))]
         private static IEnumerator ResetEffects(IEnumerator enumerator, Opponent __instance)
         {
+            PreventOpponentDamage = false;
             if (LobotomySaveManager.TriggeredWhiteNightThisBattle)
             {
                 LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");

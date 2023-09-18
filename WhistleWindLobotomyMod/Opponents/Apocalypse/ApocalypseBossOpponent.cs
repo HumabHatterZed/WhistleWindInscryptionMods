@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 {
@@ -26,6 +27,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public override int StartingLives => 3;
         public override string DefeatedPlayerDialogue => "Twilight falls...";
         public override bool GiveCurrencyOnDefeat => false;
+        private ApocalypseBattleSequencer BattleSequence => TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer;
 
         private GameObject apocalypseAnimation;
         public Transform apocalypseHead;
@@ -34,11 +36,17 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         private Transform apocalypseArm1;
         private Transform apocalypseArm2;
         private Transform apocalypseMouth;
+
         // TO DO
         // figure out animations
 
         // switch totem out each phase
         private bool bossTotems;
+        private List<Ability> possibleAbilities = new()
+        {
+            Ability.Sharp,
+            ThickSkin.ability
+        };
 
         public override IEnumerator StartNewPhaseSequence()
         {
@@ -46,11 +54,66 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             switch (NumLives)
             {
                 case 2:
+                    yield return SwitchToNextPhase(false);
                     break;
                 case 1:
+                    yield return SwitchToNextPhase(true);
                     break;
             }
-            return base.StartNewPhaseSequence();
+        }
+
+        private IEnumerator SwitchToNextPhase(bool finalPhase)
+        {
+            if (bossTotems)
+            {
+                TotemItemData totemData = CreateOpponentTotemData();
+                if (finalPhase)
+                    totemData.bottom.effectParams.ability = BitterEnemies.ability;
+
+                yield return new WaitForSeconds(0.25f);
+                yield return base.DisassembleTotem();
+                yield return new WaitForSeconds(0.5f);
+                yield return base.AssembleTotem(totemData, new Vector3(1f, 0f, -1f), new Vector3(0f, 20f, 0f), this.InteractablesGlowColor, particlesActive: false);
+                yield return new WaitForSeconds(0.5f);
+            }
+
+            EncounterBlueprintData data = BattleSequence.EggPhases[SeededRandom.Range(0, BattleSequence.EggPhases.Count, SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<GlobalTriggerHandler>.Instance.NumTriggersThisBattle + 1)];
+            BattleSequence.EggPhases.Remove(data);
+
+            yield return this.ReplaceWithCustomBlueprint(data);
+        }
+
+        public override IEnumerator LifeLostSequence()
+        {
+            Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
+            yield return new WaitForSeconds(0.5f);
+            Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
+            // reset parts to idle
+            yield return new WaitForSeconds(1f);
+
+            // disable a battle effect
+            if (BattleSequence.BrokeBigEyes)
+                yield return CloseEyesSequence();
+
+            if (BattleSequence.BrokeSmallBeak)
+                yield return ShutBeakSequence();
+
+            if (BattleSequence.BrokeLongArms)
+                yield return BreakArmsSequence();
+
+            yield return new WaitForSeconds(0.25f);
+
+            if (base.NumLives == 0)
+            {
+                AscensionStatsData.TryIncrementStat(AscensionStat.Type.BossesDefeated);
+                yield return new WaitForSeconds(0.25f);
+                Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
+                yield return new WaitForSeconds(0.5f);
+                // defeat animation
+                yield return new WaitForSeconds(1.2f);
+                yield return base.TransitionFromFinalBoss();
+                yield break;
+            }
         }
 
         public override IEnumerator IntroSequence(EncounterData encounter)
@@ -67,14 +130,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 bossTotems = true;
                 yield return new WaitForSeconds(0.25f);
                 ChallengeActivationUI.TryShowActivation(AscensionChallenge.BossTotems);
-                int difficulty = Mathf.Min(encounter.Difficulty, 15);
 
-                // only allow a select few abilities to be used by the boss
-                List<Ability> redundantAbilities = (from AbilityInfo x in AbilityManager.AllAbilityInfos
-                                                    where x.ability != ThickSkin.ability // && other
-                                                    select x.ability).ToList();
+                TotemItemData totemData = CreateOpponentTotemData();
 
-                TotemItemData totemData = DiskCardGame.EncounterBuilder.BuildOpponentTotem(encounter.Blueprint.dominantTribes[0], difficulty, redundantAbilities);
                 yield return base.AssembleTotem(totemData, new Vector3(1f, 0f, -1f), new Vector3(0f, 20f, 0f), this.InteractablesGlowColor, particlesActive: false);
                 if (!DialogueEventsData.EventIsPlayed("ChallengeBossTotems"))
                 {
@@ -122,7 +180,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             Singleton<ViewManager>.Instance.SwitchToView(View.Scales);
             yield return new WaitForSeconds(0.2f);
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBendScales1", TextDisplayer.MessageAdvanceMode.Input);
-            // pass through the boss game object as an easy-ish check
             yield return LifeManager.Instance.ShowDamageSequence(LifeManager.Instance.DamageUntilPlayerWin - 1, 1, toPlayer: false);
             LobotomyPlugin.PreventOpponentDamage = true;
             yield return new WaitForSeconds(0.5f);
@@ -139,18 +196,33 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         public IEnumerator CloseEyesSequence()
         {
+            // scribble out eyes
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBrokenEggBig", TextDisplayer.MessageAdvanceMode.Input);
             yield break;
         }
         public IEnumerator ShutBeakSequence()
         {
+            // 
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBrokenEggSmall", TextDisplayer.MessageAdvanceMode.Input);
             yield break;
         }
         public IEnumerator BreakArmsSequence()
         {
+            // lower arms
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBrokenEggLong", TextDisplayer.MessageAdvanceMode.Input);
             yield break;
+        }
+
+        private TotemItemData CreateOpponentTotemData()
+        {
+            int index = SeededRandom.Range(0, possibleAbilities.Count, SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<GlobalTriggerHandler>.Instance.NumTriggersThisBattle + 1);
+            Ability ability = possibleAbilities[index];
+            possibleAbilities.Remove(ability);
+            return new()
+            {
+                top = new(Tribe.Bird),
+                bottom = new(ability)
+            };
         }
     }
 }

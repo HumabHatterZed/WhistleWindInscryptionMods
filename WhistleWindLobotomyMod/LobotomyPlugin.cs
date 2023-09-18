@@ -191,6 +191,7 @@ namespace WhistleWindLobotomyMod
             FinalApocalypse.Register();
             //FinalJester.Register();
             //FinalTrick.Register();
+            HarmonyInstance.PatchAll(typeof(FinalRegionPatch));
 
             ApocalypseBirdStart.Register();
             JesterOfNihilStart.Register();
