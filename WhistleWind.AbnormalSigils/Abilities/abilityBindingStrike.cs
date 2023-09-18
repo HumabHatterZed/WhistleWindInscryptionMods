@@ -11,11 +11,11 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_BindingStrike()
         {
             const string rulebookName = "Binding Strike";
-            const string rulebookDescription = "When [creature] strikes an opposing creature, inflict Bind equal to this card's Power.";
+            const string rulebookDescription = "When [creature] strikes an opposing creature, inflict Bind equal to twice this card's Power.";
             const string dialogue = "Your beast falls behind the pack.";
             BindingStrike.ability = AbnormalAbilityHelper.CreateAbility<BindingStrike>(
                 "sigilBindingStrike",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: true, canStack: false).Id;
         }
     }
@@ -39,7 +39,7 @@ namespace WhistleWind.AbnormalSigils
             if (component == null)
             {
                 // apply extra stacks if this ability has them
-                int extraStacks = Mathf.Max(0, base.Card.Attack - 1);
+                int extraStacks = Mathf.Max(0, base.Card.Attack * 2 - 1);
                 card.AddStatusEffectToCard<Bind>(extraStacks);
             }
             else
