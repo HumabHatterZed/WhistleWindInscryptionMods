@@ -2,6 +2,7 @@
 using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardAbilityPatches
     {
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
+/*        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
         private static void ModifyTakenDamage(ref PlayableCard __instance, ref int damage, PlayableCard attacker)
         {
             bool attackerHasPiercing = attacker != null && attacker.HasAbility(Piercing.ability);
@@ -42,7 +43,7 @@ namespace WhistleWind.AbnormalSigils.Patches
 
             if (damage < 0)
                 damage = 0;
-        }
+        }*/
 
         private static bool CheckValidOneSided(PlayableCard attacker, PlayableCard target)
         {

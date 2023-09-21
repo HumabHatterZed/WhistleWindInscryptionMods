@@ -86,13 +86,18 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             return retval;
         }
 
-        public static T AddStatusEffectToCard<T>(this PlayableCard playableCard, int extraStacks = 0, bool addDecal = false)
-            where T : StatusEffectBehaviour
+        public static T AddStatusEffectToCard<T>(this PlayableCard playableCard, int extraStacks = 0, bool addDecal = false) where T : StatusEffectBehaviour
         {
             playableCard.AddPermanentBehaviour<T>();
-            T component = playableCard.GetComponent<T>();
+            T component = playableCard.GetStatusEffect<T>();
             component.UpdateStatusEffectCount(extraStacks, addDecal);
             return component;
+        }
+
+        public static void UpdateStatusEffectCount<T>(this PlayableCard card, int numToAdd, bool updateDecals) where T : StatusEffectBehaviour
+        {
+            T component = card.GetStatusEffect<T>();
+            component.UpdateStatusEffectCount(numToAdd, updateDecals);
         }
 
         public static int GetStatusEffectStacks<T>(this PlayableCard playableCard) where T : StatusEffectBehaviour
@@ -120,6 +125,15 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             return AllStatusEffects.Find(x => x.BehaviourType == typeof(T)).IconAbilityInfo;
         }
 
+        public static bool HasStatusEffect<T>(this PlayableCard card) where T : StatusEffectBehaviour
+        {
+            foreach (var effect in card.GetStatusEffects())
+            {
+                if (effect is T)
+                    return true;
+            }
+            return false;
+        }
         public static List<StatusEffectBehaviour> GetStatusEffects(this PlayableCard card)
         {
             StatusEffectBehaviour[] statusEffects = card.GetComponents<StatusEffectBehaviour>();
@@ -128,6 +142,10 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
                 return statusEffects.ToList();
 
             return new();
+        }
+        public static T GetStatusEffect<T>(this PlayableCard card) where T : StatusEffectBehaviour
+        {
+            return card.GetComponent<T>();
         }
         public static List<StatusEffectBehaviour> GetStatusEffects(this PlayableCard card, bool positiveEffect)
         {

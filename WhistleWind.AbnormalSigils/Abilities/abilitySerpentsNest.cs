@@ -28,18 +28,21 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
             if (source != null)
-                return source.LacksTrait(AbnormalPlugin.NakedSerpent) && source.GetComponent<Worms>() == null;
+                return source.LacksTrait(AbnormalPlugin.NakedSerpent);
 
             return false;
         }
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
-            int extraStacks = Mathf.Max(0, base.Card.GetAbilityStacks(ability) - 1);
+            int stacks = base.Card.GetAbilityStacks(ability);
 
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
 
-            source.AddStatusEffectToCard<Worms>(extraStacks, true);
+            if (source.HasStatusEffect<Worms>())
+                source.UpdateStatusEffectCount<Worms>(stacks, true);
+            else
+                source.AddStatusEffectToCard<Worms>(stacks - 1, true);
 
             yield return new WaitForSeconds(0.55f);
             yield return base.LearnAbility();

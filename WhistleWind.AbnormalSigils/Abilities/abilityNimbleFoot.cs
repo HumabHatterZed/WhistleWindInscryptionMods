@@ -34,16 +34,16 @@ namespace WhistleWind.AbnormalSigils
         }
         private IEnumerator AddHasteToCard(PlayableCard card)
         {
+            int stacks = base.Card.GetAbilityStacks(ability);
             card.Anim.LightNegationEffect();
-            Haste component = card.GetComponent<Haste>();
-            if (component == null)
+
+            Haste component = card.GetStatusEffect<Haste>();
+            if (component != null)
             {
-                // apply extra stacks if this ability has them
-                int extraStacks = Mathf.Max(0, base.Card.GetAbilityStacks(ability) - 1);
-                card.AddStatusEffectToCard<Haste>(extraStacks);
+                component.UpdateStatusEffectCount(stacks, false);
             }
             else
-                component.UpdateStatusEffectCount(base.Card.GetAbilityStacks(ability), false);
+                card.AddStatusEffectToCard<Haste>(stacks - 1);
 
             yield return new WaitForSeconds(0.1f);
         }

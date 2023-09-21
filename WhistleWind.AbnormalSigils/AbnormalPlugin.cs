@@ -28,7 +28,7 @@ namespace WhistleWind.AbnormalSigils
         public const string pluginGuid = "whistlewind.inscryption.abnormalsigils";
         public const string pluginPrefix = "wstl";
         public const string pluginName = "Abnormal Sigils";
-        private const string pluginVersion = "1.0.1";
+        private const string pluginVersion = "1.1.0";
 
         internal static ManualLogSource Log;
         private static readonly Harmony HarmonyInstance = new(pluginGuid);
@@ -178,6 +178,7 @@ namespace WhistleWind.AbnormalSigils
             StatusEffect_Spores();
 
             Ability_Witness();
+            StatusEffect_Prudence();
             Ability_Corrector();
 
             // v2.0

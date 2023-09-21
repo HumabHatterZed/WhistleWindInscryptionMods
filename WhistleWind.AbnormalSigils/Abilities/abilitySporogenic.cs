@@ -29,7 +29,7 @@ namespace WhistleWind.AbnormalSigils
         private bool CheckValid(PlayableCard card)
         {
             if (card != null)
-                return card.LacksTrait(AbnormalPlugin.SporeFriend) && card.GetComponent<Spores>() == null;
+                return card.LacksTrait(AbnormalPlugin.SporeFriend);
             return false;
         }
 
@@ -57,11 +57,14 @@ namespace WhistleWind.AbnormalSigils
         private IEnumerator AddSporesToCard(PlayableCard card)
         {
             // apply extra Spore if this ability has stacks
-            int extraStacks = Mathf.Max(0, base.Card.GetAbilityStacks(ability) - 1);
+            int stacks = base.Card.GetAbilityStacks(ability);
             card.Anim.LightNegationEffect();
 
             // add the status effect to the card and update the turn played
-            card.AddStatusEffectToCard<Spores>(extraStacks, true).TurnPlayed = Singleton<TurnManager>.Instance.TurnNumber;
+            if (card.HasStatusEffect<Spores>())
+                card.UpdateStatusEffectCount<Spores>(stacks, true);
+            else
+                card.AddStatusEffectToCard<Spores>(stacks - 1, true).TurnPlayed = Singleton<TurnManager>.Instance.TurnNumber;
 
             yield return new WaitForSeconds(0.1f);
         }

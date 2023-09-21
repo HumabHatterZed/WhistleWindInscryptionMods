@@ -20,7 +20,7 @@ namespace ModDebuggingMod
             List<List<NodeData>> nodeRows = new()
             {
                 new() { StartNode },
-                new() { ApocalypseNode },
+                new() { BattleNode, ApocalypseNode },
                 new() { StatNode }
             };
 

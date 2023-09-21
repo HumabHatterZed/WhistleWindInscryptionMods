@@ -20,18 +20,18 @@ namespace WhistleWind.AbnormalSigils
         {
             return new()
             {
-                "decalSpore_" + Mathf.Min(2, StatusEffectCount - 1)
+                "decalSpore_" + Mathf.Min(2, EffectSeverity - 1)
             };
         }
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard && base.PlayableCard.OpponentCard != playerUpkeep;
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.PlayableCard && base.PlayableCard.OpponentCard != playerTurnEnd;
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && StatusEffectCount > 0;
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && EffectSeverity > 0;
 
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             yield return HelperMethods.ChangeCurrentView(View.Board);
-            yield return base.PlayableCard.TakeDamageTriggerless(StatusEffectCount, null);
+            yield return base.PlayableCard.TakeDamageTriggerless(EffectSeverity, null);
             yield return new WaitForSeconds(0.4f);
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
@@ -49,7 +49,7 @@ namespace WhistleWind.AbnormalSigils
             base.PlayableCard.Anim.LightNegationEffect();
 
             UpdateStatusEffectCount(newSpore, false);
-            if (StatusEffectCount <= 3)
+            if (EffectSeverity <= 3)
                 base.PlayableCard.AddTemporaryMod(EffectDecalMod());
 
             yield return new WaitForSeconds(0.2f);
@@ -60,7 +60,7 @@ namespace WhistleWind.AbnormalSigils
                 yield break;
 
             CardInfo minion = CardLoader.GetCardByName("wstl_theLittlePrinceMinion");
-            CardModificationInfo stats = new(StatusEffectCount, StatusEffectCount)
+            CardModificationInfo stats = new(EffectSeverity, EffectSeverity)
             {
                 bloodCostAdjustment = base.PlayableCard.Info.BloodCost,
                 bonesCostAdjustment = base.PlayableCard.Info.BonesCost,

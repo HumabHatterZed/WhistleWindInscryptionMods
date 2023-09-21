@@ -25,7 +25,7 @@ namespace WhistleWind.AbnormalSigils
         public List<CardSlot> GetAttackingSlots(bool playerIsAttacker, List<CardSlot> originalSlots, List<CardSlot> currentSlots)
         {
             // if an opponent card has 4+ Haste, they will attack during the player's turn
-            if (base.PlayableCard.OpponentCard && StatusEffectCount >= 4)
+            if (base.PlayableCard.OpponentCard && EffectSeverity >= 4)
             {
                 if (!playerIsAttacker)
                     currentSlots.Remove(base.PlayableCard.Slot);

@@ -1,4 +1,6 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionAPI.Triggers;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
@@ -19,7 +21,7 @@ namespace WhistleWind.AbnormalSigils
                 modular: true, opponent: false, canStack: true).Id;
         }
     }
-    public class ThickSkin : AbilityBehaviour
+    public class ThickSkin : AbilityBehaviour, IModifyDamageTaken
     {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -30,5 +32,18 @@ namespace WhistleWind.AbnormalSigils
             yield return base.PreSuccessfulTriggerSequence();
             yield return base.LearnAbility(0.4f);
         }
+
+        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        {
+            return base.Card == target && damage > 0 && attacker.LacksAbility(Piercing.ability);
+        }
+
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        {
+            damage--;
+            return damage;
+        }
+
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
     }
 }

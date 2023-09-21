@@ -26,7 +26,7 @@ namespace WhistleWind.AbnormalSigils
         public List<CardSlot> GetAttackingSlots(bool playerIsAttacker, List<CardSlot> originalSlots, List<CardSlot> currentSlots)
         {
             // if a player card has 4+ Bind, they will attack during the opponent's turn
-            if (base.PlayableCard.IsPlayerCard() && StatusEffectCount >= 4)
+            if (base.PlayableCard.IsPlayerCard() && EffectSeverity >= 4)
             {
                 if (playerIsAttacker)
                     currentSlots.Remove(base.PlayableCard.Slot);

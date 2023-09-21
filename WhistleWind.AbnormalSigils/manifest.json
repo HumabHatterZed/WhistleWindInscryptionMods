@@ -1,9 +1,9 @@
 {
 	"name": "WhistleWind_Abnormal_Sigils",
-	"version_number": "1.0.2",
+	"version_number": "1.1.0",
 	"website_url": "https://github.com/HumabHatterZed/WhistleWindInscryptionMods",
 	"description": "A collection of sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina. Includes some custom Tribes and Traits.",
 	"dependencies": [
-		"API_dev-API-2.15.2"
+		"API_dev-API-2.17.0"
 	]
 }

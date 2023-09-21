@@ -17,13 +17,13 @@ namespace WhistleWind.AbnormalSigils
 
         private bool accountForInitialHit = true;
         private bool hasEvolved = false;
-        public bool Infested => StatusEffectCount >= 5;
+        public bool Infested => EffectSeverity >= 5;
 
         public override List<string> EffectDecalIds()
         {
             return new()
             {
-                "decalWorms_" + Mathf.Min(2, StatusEffectCount - 1)
+                "decalWorms_" + Mathf.Min(2, EffectSeverity - 1)
             };
         }
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && target != null;
@@ -32,7 +32,7 @@ namespace WhistleWind.AbnormalSigils
         {
             UpdateStatusEffectCount(1, false);
             // update the decal if the image has changed
-            if (StatusEffectCount <= 3)
+            if (EffectSeverity <= 3)
                 base.PlayableCard.AddTemporaryMod(EffectDecalMod());
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
@@ -69,7 +69,7 @@ namespace WhistleWind.AbnormalSigils
 
             if (Infested && target.LacksTrait(AbnormalPlugin.NakedSerpent))
             {
-                if (SeededRandom.Value(base.GetRandomSeed()) <= (StatusEffectCount - 2) * .1f)
+                if (SeededRandom.Value(base.GetRandomSeed()) <= (EffectSeverity - 2) * .1f)
                 {
                     if (target.LacksSpecialAbility(Worms.specialAbility))
                         target.AddStatusEffectToCard<Worms>(addDecal: true);

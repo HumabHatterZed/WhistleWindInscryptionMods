@@ -3,7 +3,7 @@
 <details>
 <summary>View Changelog</summary>
 
-## v1.0.3 - Minor patch ()
+## v1.1.0 - Fast and Slow ()
 ### 🧱 Structural
 - Reworked how status effects are added and work
 
@@ -11,10 +11,17 @@
 - Fixed softlock when playing in Grimora or Magnificus Act (status effects will not render in these Acts!)
 - Fixed ForcedWhiteEmission appearance behaviour not forcing the colour correctly
 - Fixed Frost Ruler not letting the player target cards
+- Fixed status-giving abilities giving more than they should
+
+### 🔧 Tweaks
+- Witness ability effect now uses the status effect system instead of extended properties
 
 ### ➕ Additions
-- Added Paralysing Strike ability (beta)
-- Added Haste, Bind status effects (beta)
+- Added the following abilities:
+    - Binding Strike, Nimble-Footed
+- Added the following status effects:
+    - Haste, Bind, Prudence
+- Added more helper methods to StatusEffectManager
 
 ## v1.0.2 - Minor patch (7/26/2023)
 ### 🩹 Bug fixes
@@ -22,6 +29,7 @@
 - Fixed Nettle Clothes gaining sigil from Brother cards that die before fully resolving
 
 ## v1.0.1 - Status Effect Refactor (7/23/2023)
+### 🧱 Structural
 - Refactored how Status Effects are internally created
 - Fixed the ReadMe
 

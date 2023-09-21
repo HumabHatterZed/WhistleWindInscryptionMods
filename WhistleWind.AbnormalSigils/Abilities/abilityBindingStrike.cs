@@ -34,16 +34,13 @@ namespace WhistleWind.AbnormalSigils
         }
         private IEnumerator AddBindToCard(PlayableCard card)
         {
+            int stacks = base.Card.Attack * 2;
             card.Anim.LightNegationEffect();
-            Bind component = card.GetComponent<Bind>();
-            if (component == null)
-            {
-                // apply extra stacks if this ability has them
-                int extraStacks = Mathf.Max(0, base.Card.Attack * 2 - 1);
-                card.AddStatusEffectToCard<Bind>(extraStacks);
-            }
+            if (card.HasStatusEffect<Bind>())
+                card.UpdateStatusEffectCount<Bind>(stacks, false);
+
             else
-                component.UpdateStatusEffectCount(base.Card.Attack, false);
+                card.AddStatusEffectToCard<Bind>(stacks - 1, false);
 
             yield return new WaitForSeconds(0.1f);
         }

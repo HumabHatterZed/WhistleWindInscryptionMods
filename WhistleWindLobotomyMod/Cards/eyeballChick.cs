@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
             const string eyeballChick = "eyeballChick";
 
             NewCard(eyeballChick, "Eyeball Chick",
-                attack: 2, health: 2)
+                attack: 1, health: 4)
                 .SetPortraits(eyeballChick)
                 .AddAbilities(BindingStrike.ability)
                 .AddTribes(Tribe.Bird)

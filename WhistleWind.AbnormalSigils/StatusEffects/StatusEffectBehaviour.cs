@@ -12,20 +12,23 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
         public virtual bool EffectCanBeInherited => false;
 
-        public int StatusEffectCount = 0;
+        public int EffectSeverity = 0;
 
         // the ability used for the icon of this status effect
-        public AbilityInfo IconAbilityInfo => StatusEffectManager.AllStatusEffects.Find(x => x.BehaviourType == this.GetType()).IconAbilityInfo;
+        public AbilityInfo IconAbilityInfo => StatusEffectManager.AllStatusEffects.Find(x => x.BehaviourType == this.GetType())?.IconAbilityInfo;
 
         public virtual List<string> EffectDecalIds() => new();
 
         // allows for adding extra stacks of an effect to a card
         private void Start()
         {
-            int startingStacks = Mathf.Max(1, base.PlayableCard?.GetAbilityStacks(IconAbilityInfo.ability) ?? 0);
+            if (base.PlayableCard == null)
+                return;
 
-            StatusEffectCount = startingStacks;
-            AbnormalPlugin.Log.LogInfo($"Start: {StatusEffectCount}");
+            int startingStacks = Mathf.Max(1, base.PlayableCard.GetAbilityStacks(IconAbilityInfo.ability));
+
+            EffectSeverity = startingStacks;
+            AbnormalPlugin.Log.LogInfo($"Start: {EffectSeverity}");
 
             base.PlayableCard.AddTemporaryMod(EffectCountMod());
             if (EffectDecalIds().Count > 0)
@@ -34,7 +37,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
         public void UpdateStatusEffectCount(int numToAdd, bool updateDecals)
         {
-            StatusEffectCount += numToAdd;
+            EffectSeverity += numToAdd;
             base.PlayableCard.AddTemporaryMod(EffectCountMod());
 
             if (updateDecals)
@@ -50,7 +53,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         public CardModificationInfo EffectCountMod()
         {
             CardModificationInfo result = StatusEffectManager.StatusMod(CardModSingletonName, IconAbilityInfo.PositiveEffect, EffectCanBeInherited);
-            for (int i = 0; i < StatusEffectCount; i++)
+            for (int i = 0; i < EffectSeverity; i++)
                 result.AddAbilities(IconAbilityInfo.ability);
 
             return result;
