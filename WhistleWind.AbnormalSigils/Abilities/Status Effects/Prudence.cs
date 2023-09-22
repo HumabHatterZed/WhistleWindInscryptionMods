@@ -34,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
     {
         private void StatusEffect_Prudence()
         {
-            const string rName = "Prudence";
+            const string rName = "Flagellated";
             const string rDesc = "When this card is struck, take damage equal to this status effect.";
 
             Prudence.specialAbility = StatusEffectManager.NewStatusEffect<Prudence>(

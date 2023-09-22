@@ -35,7 +35,10 @@ namespace WhistleWind.AbnormalSigils
 
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
-            return base.Card == target && damage > 0 && attacker.LacksAbility(Piercing.ability);
+            if (base.Card == target && damage > 0)
+                return attacker == null || attacker.LacksAbility(Piercing.ability);
+
+            return false;
         }
 
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)

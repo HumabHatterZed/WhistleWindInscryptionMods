@@ -52,20 +52,22 @@ namespace WhistleWind.AbnormalSigils
             if (target.Attack == 0)
                 return true;
 
-            if (target.HasAbility(Ability.Flying) && base.Card.LacksAbility(Ability.Reach))
-                return true;
+            // if this card is a potential target
+            if (target.GetOpposingSlots().Contains(base.Card.Slot))
+            {
+                if (target.HasAbility(Ability.Flying) && base.Card.LacksAbility(Ability.Reach))
+                    return true;
 
-            // Persistent check
-            if ((base.Card.HasAbility(Ability.TailOnHit) && !base.Card.Status.lostTail) ||
-                base.Card.HasAbility(Ability.PreventAttack) ||
-                base.Card.HasAnyOfAbilities(Ability.Submerge, Ability.SubmergeSquid) || base.Card.FaceDown)
-                return target.LacksAbility(Persistent.ability);
+                if ((base.Card.HasAbility(Ability.TailOnHit) && !base.Card.Status.lostTail) ||
+                    base.Card.HasAbility(Ability.PreventAttack) ||
+                    base.Card.HasAnyOfAbilities(Ability.Submerge, Ability.SubmergeSquid) || base.Card.FaceDown)
+                    return target.LacksAbility(Persistent.ability);
 
-            // Shield checks
-            if (base.Card.HasShield())
-                return target.LacksAllAbilities(Piercing.ability, Ability.Sharp, Reflector.ability);
+                if (base.Card.HasShield())
+                    return target.LacksAllAbilities(Piercing.ability, Ability.Sharp, Reflector.ability);
+            }
 
-            return !target.GetOpposingSlots().Contains(base.Card.Slot);
+            return true;
         }
 
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;

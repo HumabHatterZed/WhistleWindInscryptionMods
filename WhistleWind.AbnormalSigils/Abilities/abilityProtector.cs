@@ -1,5 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Triggers;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
@@ -20,7 +22,7 @@ namespace WhistleWind.AbnormalSigils
                 modular: false, opponent: false, canStack: true).Id;
         }
     }
-    public class Protector : AbilityBehaviour
+    public class Protector : AbilityBehaviour, IModifyDamageTaken
     {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -28,8 +30,8 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
         {
             // only respond if the target hasn't died
-            if (amount > 0 && target.NotDead())
-                return Singleton<BoardManager>.Instance.GetAdjacentSlots(base.Card.Slot).Contains(target.Slot);
+            if (amount > 0 && !target.Dead)
+                return base.Card.Slot.GetAdjacentCards().Contains(target);
 
             return false;
         }
@@ -39,5 +41,21 @@ namespace WhistleWind.AbnormalSigils
             base.Card.Anim.StrongNegationEffect();
             yield return base.LearnAbility(0.4f);
         }
+
+        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        {
+            if (base.Card.Slot.GetAdjacentCards().Contains(target) && damage > 0)
+                return attacker == null || attacker.LacksAbility(Piercing.ability);
+
+            return false;
+        }
+
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        {
+            damage--;
+            return damage;
+        }
+
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
     }
 }

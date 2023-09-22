@@ -22,13 +22,9 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         // allows for adding extra stacks of an effect to a card
         private void Start()
         {
-            if (base.PlayableCard == null)
-                return;
+            if (base.PlayableCard == null) return;
 
-            int startingStacks = Mathf.Max(1, base.PlayableCard.GetAbilityStacks(IconAbilityInfo.ability));
-
-            EffectSeverity = startingStacks;
-            AbnormalPlugin.Log.LogInfo($"Start: {EffectSeverity}");
+            EffectSeverity = Mathf.Max(1, base.PlayableCard.GetAbilityStacks(IconAbilityInfo.ability));
 
             base.PlayableCard.AddTemporaryMod(EffectCountMod());
             if (EffectDecalIds().Count > 0)
