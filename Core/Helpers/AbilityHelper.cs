@@ -52,7 +52,7 @@ namespace WhistleWind.Core.Helpers
 
             info.flipYIfOpponent = flipY;
 
-            Texture2D pixelTex = TextureLoader.LoadTextureFromFile($"{abilityName}_pixel");
+            Texture2D pixelTex = TextureLoader.LoadTextureFromFile($"{abilityName}_pixel.png");
             if (pixelTex != null)
                 info.SetPixelAbilityIcon(pixelTex);
 
@@ -62,7 +62,7 @@ namespace WhistleWind.Core.Helpers
             if (modular)
                 info.AddMetaCategories(AbilityMetaCategory.Part1Modular);
 
-            AbilityManager.FullAbility ability = AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromFile($"{abilityName}"));
+            AbilityManager.FullAbility ability = AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromFile(abilityName + ".png"));
 
             if (flipTextureName != null)
                 ability.SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile($"{flipTextureName}"));
@@ -92,10 +92,10 @@ namespace WhistleWind.Core.Helpers
             int powerLevel = 0)
         {
             info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, triggerText, powerLevel);
-            info.pixelIcon = TextureLoader.LoadTextureFromFile($"{abilityName}_pixel").ConvertTexture();
+            info.pixelIcon = TextureLoader.LoadTextureFromFile($"{abilityName}_pixel.png").ConvertTexture();
             info.activated = true;
 
-            return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromFile($"{abilityName}"));
+            return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromFile($"{abilityName}.png"));
         }
         public static AbilityManager.FullAbility CreateFillerAbility<T>(
             string pluginGuid, string abilityName,
@@ -114,11 +114,11 @@ namespace WhistleWind.Core.Helpers
             where T : AbilityBehaviour
         {
             info.SetBasicInfo(rulebookName, rulebookDescription);
-            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile($"{abilityName}_pixel"));
+            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile($"{abilityName}_pixel.png"));
             info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
             info.SetPassive();
 
-            return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromFile($"{abilityName}_pixel"));
+            return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromFile($"{abilityName}.png"));
         }
         public static StatIconManager.FullStatIcon CreateStatIcon<T>(
             string pluginGuid,
@@ -135,8 +135,8 @@ namespace WhistleWind.Core.Helpers
             statIconInfo.appliesToHealth = health;
             statIconInfo.SetDefaultPart1Ability();
 
-            Texture2D iconTex = TextureLoader.LoadTextureFromFile($"{abilityName}");
-            Texture2D pixelTex = TextureLoader.LoadTextureFromFile($"{abilityName}_pixel");
+            Texture2D iconTex = TextureLoader.LoadTextureFromFile($"{abilityName}.png");
+            Texture2D pixelTex = TextureLoader.LoadTextureFromFile($"{abilityName}_pixel.png");
 
             if (iconTex != null)
                 statIconInfo.SetIcon(iconTex);
@@ -162,6 +162,6 @@ namespace WhistleWind.Core.Helpers
             info.powerLevel = powerLevel;
             return info;
         }
-        private static DialogueEvent.LineSet SetAbilityInfoDialogue(string dialogue) => new DialogueEvent.LineSet(new List<DialogueEvent.Line>() { new() { text = dialogue } });
+        private static DialogueEvent.LineSet SetAbilityInfoDialogue(string dialogue) => new(new List<DialogueEvent.Line>() { new() { text = dialogue } });
     }
 }

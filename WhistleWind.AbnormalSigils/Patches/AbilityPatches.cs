@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
@@ -10,70 +11,48 @@ using System.Linq;
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches
 {
+    [HarmonyPatch]
+    internal class PiercingPatch
+    {
+        [HarmonyPostfix, HarmonyPatch(typeof(TakeDamagePatches), nameof(TakeDamagePatches.BreakShield))]
+        private static void IgnoreShield(PlayableCard target, int damage, PlayableCard attacker)
+        {
+            // Deal damage after breaking a shield
+            // This will only run if damage > 0 due to API patches so no need to check that
+            if (attacker != null && attacker.HasAbility(Piercing.ability))
+            {
+                target.StartCoroutine(TakeDamageCoroutine(target, damage, attacker));
+            }
+        }
+
+        private static IEnumerator TakeDamageCoroutine(PlayableCard target, int damage, PlayableCard attacker)
+        {
+            // recreate the damage logic since BreakShield breaks out of the method at the end
+            target.Status.damageTaken += damage;
+            target.UpdateStatsText();
+            if (target.Health > 0)
+                target.Anim.PlayHitAnimation();
+
+            if (target.TriggerHandler.RespondsToTrigger(Trigger.TakeDamage, attacker))
+                yield return target.TriggerHandler.OnTrigger(Trigger.TakeDamage, attacker);
+
+            if (target.Health <= 0)
+                yield return target.Die(wasSacrifice: false, attacker);
+
+            if (attacker.TriggerHandler.RespondsToTrigger(Trigger.DealDamage, damage, target))
+                yield return attacker.TriggerHandler.OnTrigger(Trigger.DealDamage, damage, target);
+
+            yield return Singleton<GlobalTriggerHandler>.Instance.TriggerCardsOnBoard(
+                Trigger.OtherCardDealtDamage, false, attacker, attacker.Attack, target);
+
+            yield return CustomTriggerFinder.TriggerInHand<IOnOtherCardDealtDamageInHand>(
+            x => x.RespondsToOtherCardDealtDamageInHand(attacker, attacker.Attack, target),
+                x => x.OnOtherCardDealtDamageInHand(attacker, attacker.Attack, target));
+        }
+    }
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardAbilityPatches
     {
-/*        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
-        private static void ModifyTakenDamage(ref PlayableCard __instance, ref int damage, PlayableCard attacker)
-        {
-            bool attackerHasPiercing = attacker != null && attacker.HasAbility(Piercing.ability);
-
-            damage += __instance.Info.GetExtendedPropertyAsInt("wstl:Prudence") ?? 0;
-
-            if (!attackerHasPiercing)
-            {
-                damage -= __instance.GetAbilityStacks(ThickSkin.ability);
-                damage -= __instance.Slot.GetAdjacentCards().FindAll(x => x.HasAbility(Protector.ability)).Count;
-            }
-            else if (__instance.HasShield())
-            {
-                __instance.Status.lostShield = true;
-                __instance.Anim.StrongNegationEffect();
-                if (__instance.Info.name == "MudTurtle")
-                    __instance.SwitchToAlternatePortrait();
-
-                __instance.UpdateFaceUpOnBoardEffects();
-            }
-
-            if (attacker != null)
-            {
-                if (attacker.HasAbility(OneSided.ability) && CheckValidOneSided(attacker, __instance))
-                    damage += attacker.GetAbilityStacks(OneSided.ability);
-            }
-
-            if (damage < 0)
-                damage = 0;
-        }*/
-
-        private static bool CheckValidOneSided(PlayableCard attacker, PlayableCard target)
-        {
-            // if target has no Power, if this card can submerge or is facedown (cannot be hit), return true by default
-            if (target.Attack == 0 || attacker.HasAnyOfAbilities(Ability.Submerge, Ability.SubmergeSquid) || attacker.FaceDown)
-                return true;
-
-            // if this card doesn't have Sniper
-            if (attacker.LacksAbility(Ability.Sniper))
-            {
-                // if this card has Bi or Tri Strike, check whether the opponent has it too
-                if (attacker.HasAbility(Ability.SplitStrike) || attacker.HasTriStrike())
-                    return !(target.HasAbility(Ability.SplitStrike) || target.HasTriStrike());
-
-                // otherwise, return whether the opponent can attack this card (won't attack directly or is blocked)
-                return target.CanAttackDirectly(attacker.Slot) || target.AttackIsBlocked(attacker.Slot);
-            }
-            // if the target is opposing this card
-            if (target.Slot == attacker.Slot.opposingSlot)
-                return target.CanAttackDirectly(attacker.Slot) || target.AttackIsBlocked(attacker.Slot);
-
-            // if the target is in an opposing adjacent slot
-            if (Singleton<BoardManager>.Instance.GetAdjacentSlots(attacker.Slot.opposingSlot).Contains(target.Slot))
-                return target.LacksAbility(Ability.SplitStrike) || !target.HasTriStrike();
-
-            // otherwise return true
-            return true;
-        }
-
-        #region Neutered patches
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
         private static void ModifyAttackStat(PlayableCard __instance, ref int __result)
         {
@@ -92,7 +71,6 @@ namespace WhistleWind.AbnormalSigils.Patches
             if (__instance.HasAbility(Neutered.ability))
                 __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
         }
-        #endregion
     }
 
     [HarmonyPatch]
