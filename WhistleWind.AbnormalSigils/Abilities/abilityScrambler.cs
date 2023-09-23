@@ -40,7 +40,7 @@ namespace WhistleWind.AbnormalSigils
         }
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
-            if (AbnormalPlugin.SpellAPI.Enabled && slot.Card != null)
+            if (AbnormalPlugin.SpellAPI.Enabled && base.Card.Info.IsSpell() && slot.Card != null)
                 return base.Card.OpponentCard == slot.Card.OpponentCard;
 
             return false;
