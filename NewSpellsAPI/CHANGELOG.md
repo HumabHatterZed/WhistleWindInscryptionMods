@@ -3,6 +3,9 @@
 ## 1.1.3 (?/?/2023)
 - Fixed Global Spells behaving like Targeted Spells
 - Fixed a few typos
+- Fixed example sigils activating incorrectly when attached to non-Spell cards
+- Added helper extension AbilityInfo.SetCanMerge() for controlling whether sigils should be transferrable or not - true by default
+- Added new config AllowCardMerge for controlling whether spell cards can gain or transfer sigils - true by default
 - Tweaked Act 2 descriptions for Targeted and Global Spells.
 
 ## 1.1.2 (6/1/2023)

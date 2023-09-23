@@ -28,7 +28,7 @@ namespace Infiniscryption.Spells.Sigils
         public override bool RespondsToSacrifice() => true;
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
-            if (slot.Card != null)
+            if (base.Card.Info.IsSpell() && slot.Card != null)
             {
                 bool validTarget = base.Card.OpponentCard == slot.Card.OpponentCard;
 

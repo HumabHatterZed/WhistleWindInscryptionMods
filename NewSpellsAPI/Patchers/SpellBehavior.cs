@@ -415,6 +415,24 @@ namespace Infiniscryption.Spells.Patchers
 
             yield break;
         }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(CardMergeSequencer), nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
+        private static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result)
+        {
+            __result.RemoveAll(x => x.Abilities.Exists(x => !x.CanMerge()));
+            if (InfiniscryptionSpellsPlugin.SpellMerge)
+                __result.RemoveAll(x => x.IsSpell());
+        }
+
+        // Prevents card from being merged / gaining sigils
+        [HarmonyPostfix, HarmonyPatch(typeof(CardMergeSequencer), nameof(CardMergeSequencer.GetValidCardsForHost))]
+        private static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
+        {
+            __result.RemoveAll(x => x.Abilities.Exists(x => !x.CanMerge()));
+            if (InfiniscryptionSpellsPlugin.SpellMerge)
+                __result.RemoveAll(x => x.IsSpell());
+        }
+
         #endregion
 
         #region Opponent Spell Patches

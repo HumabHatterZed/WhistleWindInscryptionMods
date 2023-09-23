@@ -66,9 +66,23 @@ namespace Infiniscryption.Spells.Sigils
             abilities = AbilitiesUtil.RemoveNonDistinctNonStacking(abilities);
             abilities.RemoveAll((Ability x) => mods.Exists((CardModificationInfo m) => m.negateAbilities.Contains(x)));
             if (hiddenAbilities != null)
-                abilities.RemoveAll((Ability x) => hiddenAbilities.Contains(x));
+                abilities.RemoveAll(hiddenAbilities.Contains);
 
             return abilities;
+        }
+
+        public static AbilityInfo SetCanMerge(this AbilityInfo info, bool canMerge = true)
+        {
+            info.SetExtendedProperty("Spells:CanMerge", canMerge);
+            return info;
+        }
+        public static bool CanMerge(this AbilityInfo info)
+        {
+            return info.GetExtendedPropertyAsBool("Spells:CanMerge") ?? true;
+        }
+        public static bool CanMerge(this Ability ability)
+        {
+            return ability.GetExtendedPropertyAsBool("Spells:CanMerge") ?? true;
         }
     }
 }

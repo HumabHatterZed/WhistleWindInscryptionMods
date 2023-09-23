@@ -20,7 +20,7 @@ namespace Infiniscryption.Spells
 
         public const string PluginGuid = "zorro.inscryption.infiniscryption.spells";
         internal const string PluginName = "New Infiniscryption Spells";
-        internal const string PluginVersion = "1.1.2";
+        internal const string PluginVersion = "1.1.3";
         internal const string CardPrefix = "ZSPL";
 
         internal static ManualLogSource Log;
@@ -34,12 +34,19 @@ namespace Infiniscryption.Spells
                 "AllowStatBoost", true,
                 new ConfigDescription("If true, this will allow stat-showing spells to be buffed at campfires.")).Value;
 
+        private bool AllowCardMerge =>
+            Config.Bind("InfiniscryptionSpells",
+                "AllowCardMerge", true,
+                new ConfigDescription("If true, this will allow spell cards to gain and transfer their sigils.")).Value;
+
+        internal static bool SpellMerge { get; private set; }
         private void Awake()
         {
             Log = base.Logger;
 
             Harmony harmony = new(PluginGuid);
 
+            SpellMerge = AllowCardMerge;
             harmony.PatchAll(typeof(SpellBehavior));
 
             // patch only if true
