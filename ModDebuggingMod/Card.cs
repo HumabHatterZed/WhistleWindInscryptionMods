@@ -11,7 +11,7 @@ namespace ModDebuggingMod
         {
             CardInfo info = CardHelper.NewCard(true, "wstl", "wstlcard", "Debug",
                 attack: 1, health: 100, blood: 0, bones: 0, energy: 0, gems: null)
-                .AddAbilities(Ability.DeathShield, Ability.DeathShield, Witness.ability)
+                .AddAbilities(Ability.Reach, Test.ability)
                 //.AddSpecialAbilities(Bind.specialAbility)
                 //.SetTransformerCardId("Squirrel")//.SetEvolve("Squirrel", 1)
                 .SetPortraits("misterWin_grimora", emissionName: "misterWin_grimora_emission", pixelPortraitName: "buffBell.png")

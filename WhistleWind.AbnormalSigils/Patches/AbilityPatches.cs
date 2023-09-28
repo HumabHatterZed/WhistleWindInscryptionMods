@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch]
     internal class PiercingPatch
     {
-        [HarmonyPostfix, HarmonyPatch(typeof(TakeDamagePatches), nameof(TakeDamagePatches.BreakShield))]
+        [HarmonyPostfix, HarmonyPatch(typeof(ShieldManager), nameof(ShieldManager.BreakShield))]
         private static void IgnoreShield(PlayableCard target, int damage, PlayableCard attacker)
         {
             // Deal damage after breaking a shield

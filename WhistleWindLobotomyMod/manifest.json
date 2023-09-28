@@ -5,7 +5,7 @@
 	"description": "Into the Twilight - New boss, balance changes, and bug fixes. | A content mod for Inscryption that adds cards and abilities based on the abnormalities from the game Lobotomy Corporation.",
 	"dependencies": [
 		"API_dev-API-2.17.0",
-		"WhistleWind-New_Spell_Card_Toolkit-1.1.2",
+		"WhistleWind-New_Spell_Card_Toolkit-1.1.3",
 		"WhistleWind-WhistleWind_Abnormal_Sigils-1.1.0"
 	]
 }

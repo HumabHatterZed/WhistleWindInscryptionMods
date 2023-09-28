@@ -1,6 +1,6 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
-## 1.1.3 (?/?/2023)
+## 1.1.3 (9/28/2023)
 - Fixed Global Spells behaving like Targeted Spells
 - Fixed a few typos
 - Fixed example sigils activating incorrectly when attached to non-Spell cards

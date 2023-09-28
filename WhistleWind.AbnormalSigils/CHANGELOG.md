@@ -10,8 +10,9 @@
 ### 🩹 Bug fixes
 - Fixed softlock when playing in Grimora or Magnificus Act (status effects will not render in these Acts!)
 - Fixed ForcedWhiteEmission appearance behaviour not forcing the colour correctly
-- Fixed Frost Ruler not letting the player target cards
+- Fixed Frost Ruler not letting the player target occupied slots
 - Fixed status-giving abilities giving more than they should
+- Fixed Scrambler ability activating incorrectly for non-Spell cards
 
 ### 🔧 Tweaks
 - Witness ability effect now uses the status effect system instead of extended properties
