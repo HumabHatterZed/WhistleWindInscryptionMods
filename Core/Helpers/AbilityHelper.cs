@@ -92,8 +92,8 @@ namespace WhistleWind.Core.Helpers
             int powerLevel = 0)
         {
             info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, triggerText, powerLevel);
-            info.pixelIcon = TextureLoader.LoadTextureFromFile($"{abilityName}_pixel.png").ConvertTexture();
-            info.activated = true;
+            info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile($"{abilityName}_pixel.png"));
+            info.SetActivated();
 
             return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromFile($"{abilityName}.png"));
         }

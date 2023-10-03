@@ -63,8 +63,10 @@ namespace WhistleWind.AbnormalSigils.Core
 
             for (int i = 0; i < componentsInChildren.Length; i++)
             {
-                Material mat = new(controller.statusEffectMat);
-                mat.color = StatusEffectManager.AllIconColours[distinct[i]];
+                Material mat = new(controller.statusEffectMat)
+                {
+                    color = StatusEffectManager.AllIconColours[distinct[i]]
+                };
                 componentsInChildren[i].gameObject.SetActive(true);
                 componentsInChildren[i].SetMaterial(mat);
                 componentsInChildren[i].AssignAbility(distinct[i], playableCard.Info, playableCard);
