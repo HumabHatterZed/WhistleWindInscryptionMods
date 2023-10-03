@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_NimbleFoot()
         {
             const string rulebookName = "Nimble-Footed";
-            const string rulebookDescription = "At the start of the owner's turn, this card gains 1 Haste.";
+            const string rulebookDescription = "At the start of the owner's turn, this card gains 2 Haste.";
             NimbleFoot.ability = AbnormalAbilityHelper.CreateAbility<NimbleFoot>(
                 "sigilNimbleFoot",
                 rulebookName, rulebookDescription, powerLevel: 1,
@@ -34,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
         }
         private IEnumerator AddHasteToCard(PlayableCard card)
         {
-            int stacks = base.Card.GetAbilityStacks(ability);
+            int stacks = base.Card.GetAbilityStacks(ability) * 2;
             card.Anim.LightNegationEffect();
 
             Haste component = card.GetStatusEffect<Haste>();
