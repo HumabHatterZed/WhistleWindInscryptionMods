@@ -50,7 +50,7 @@ namespace WhistleWind.AbnormalSigils.Core
             List<Ability> distinct = GetDistinctStatusEffects(playableCard);
             StatusEffectAbilityIcons controller = __instance.GetComponent<StatusEffectAbilityIcons>();
             controller.abilityIcons.Clear();
-
+            
             foreach (GameObject obj in controller.statusEffectIconGroups)
                 obj.SetActive(false);
 
@@ -60,7 +60,7 @@ namespace WhistleWind.AbnormalSigils.Core
             GameObject group = controller.statusEffectIconGroups[distinct.Count - 1];
             group.SetActive(true);
             AbilityIconInteractable[] componentsInChildren = group.GetComponentsInChildren<AbilityIconInteractable>();
-
+            
             for (int i = 0; i < componentsInChildren.Length; i++)
             {
                 Material mat = new(controller.statusEffectMat)
@@ -79,27 +79,19 @@ namespace WhistleWind.AbnormalSigils.Core
             if (card == null)
                 return null;
 
-            List<Ability> abilities = card.GetAbilitiesFromAllMods();
-            abilities.RemoveAll(x => !StatusEffectManager.AllIconColours.ContainsKey(x));
+            List<Ability> abilities = card.GetDisplayedStatusEffects(false);
 
             if (abilities.Count == 0)
                 return null;
 
-            List<Ability> distinct = abilities.Distinct().ToList();
-            if (distinct.Count > 5)
+            // sort by absolute value of power level
+            abilities.Sort((a, b) => Mathf.Abs(AbilitiesUtil.GetInfo(b).powerLevel) - Mathf.Abs(AbilitiesUtil.GetInfo(a).powerLevel));
+            if (abilities.Count > 5)
             {
-                List<int> counts = new();
-                for (int i = 0; i < distinct.Count; i++)
-                {
-                    counts.Add(abilities.FindAll(x => x == distinct[i]).Count);
-                }
-                distinct = counts.Select((ab, index) => new { Ability = (Ability)ab, Index = index })
-                    .OrderBy(x => counts.ElementAtOrDefault(x.Index))
-                    .Select(x => x.Ability).ToList();
-                distinct.RemoveRange(5, distinct.Count - 5);
+                abilities.RemoveRange(4, abilities.Count - 4);
+                abilities.Add(SeeMore.ability);
             }
-            distinct.Sort((a, b) => a.CompareTo(b));
-            return distinct;
+            return abilities;
         }
         private static void AddStatusIconsToCard(StatusEffectAbilityIcons controller, Transform abilityIconParent)
         {

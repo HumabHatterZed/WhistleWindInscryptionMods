@@ -20,6 +20,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             public SpecialTriggeredAbility BehaviourId;
             public Ability IconId;
             public AbilityInfo IconAbilityInfo;
+            public bool AddNormalRulebookEntry;
+            public List<StatusMetaCategory> statusMetaCategories = new();
             public FullStatusEffect()
             {
 
@@ -67,7 +69,9 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
                 BehaviourType = statusEffectBehaviour.AbilityBehaviour,
                 BehaviourId = statusEffectBehaviour.Id,
                 IconId = statusEffectIcon.Id,
-                IconAbilityInfo = statusEffectIcon.Info
+                IconAbilityInfo = statusEffectIcon.Info,
+                AddNormalRulebookEntry = false,
+                statusMetaCategories = categories
             };
 
             AllStatusEffects.Add(fullEffect);
@@ -75,6 +79,11 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             return fullEffect;
         }
 
+        public static FullStatusEffect SetAddNormalEntry(this FullStatusEffect statusEffect, bool addNormalEntry = true)
+        {
+            statusEffect.AddNormalRulebookEntry = addNormalEntry;
+            return statusEffect;
+        }
         public static CardModificationInfo StatusMod(string singletonName, bool positiveEffect, bool inheritable = false)
         {
             CardModificationInfo retval = new()
@@ -125,14 +134,23 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             return AllStatusEffects.Find(x => x.BehaviourType == typeof(T)).IconAbilityInfo;
         }
 
-        public static bool HasStatusEffect<T>(this PlayableCard card) where T : StatusEffectBehaviour
+        public static bool HasStatusEffect<T>(this PlayableCard card, bool atLeastOneStack = false) where T : StatusEffectBehaviour
         {
             foreach (var effect in card.GetStatusEffects())
             {
                 if (effect is T)
+                {
+                    if (atLeastOneStack)
+                        return (effect as T).EffectSeverity > 0;
                     return true;
+                }
             }
             return false;
+        }
+
+        public static T GetStatusEffect<T>(this PlayableCard card) where T : StatusEffectBehaviour
+        {
+            return card.GetComponent<T>();
         }
         public static List<StatusEffectBehaviour> GetStatusEffects(this PlayableCard card)
         {
@@ -143,16 +161,25 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
             return new();
         }
-        public static T GetStatusEffect<T>(this PlayableCard card) where T : StatusEffectBehaviour
-        {
-            return card.GetComponent<T>();
-        }
         public static List<StatusEffectBehaviour> GetStatusEffects(this PlayableCard card, bool positiveEffect)
         {
             List<StatusEffectBehaviour> statusEffects = card.GetStatusEffects();
             statusEffects.RemoveAll(x => AllStatusEffects.Find(y => y.BehaviourType == x.GetType()).IconAbilityInfo.PositiveEffect != positiveEffect);
 
             return statusEffects;
+        }
+
+        public static List<Ability> GetDisplayedStatusEffects(this PlayableCard card, bool retainStacks)
+        {
+            List<Ability> abilities = card.GetAbilitiesFromAllMods();
+            abilities.RemoveAll(x => !AllIconColours.ContainsKey(x));
+            if (abilities.Count == 0)
+                return new();
+
+            if (retainStacks)
+                return abilities;
+            else
+                return abilities.Distinct().ToList();
         }
 
         public enum StatusMetaCategory
