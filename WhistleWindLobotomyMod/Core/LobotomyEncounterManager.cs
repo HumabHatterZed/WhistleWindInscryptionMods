@@ -365,45 +365,6 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn()
                 ), 3);
 
-            #region Apocalypse
-            ApocalypseBossBigEyes = Build(New("ApocalypseBossBigEyes")
-               .SetDifficulty(20, 20)
-               .AddDominantTribes(Tribe.Bird)
-               .AddTurns(
-                    CreateTurn("wstl_eyeBallChick", "wstl_eyeballChick"),
-                    CreateTurn("wstl_eyeBallChick"),
-                    CreateTurn("wstl_eyeBallChick", "wstl_eyeballChick"),
-                    CreateTurn("wstl_eyeBallChick"),
-                    CreateTurn("wstl_eyeBallChick", "wstl_eyeballChick"),
-                    CreateTurn("wstl_eyeBallChick"),
-                    CreateTurn("wstl_eyeBallChick", "wstl_eyeballChick")
-               ), 3);
-
-            ApocalypseBossSmallBeak = Build(New("ApocalypseBossSmallBeak")
-               .SetDifficulty(20, 20)
-               .AddDominantTribes(Tribe.Bird)
-               .AddTurns(
-                    CreateTurn("wstl_testingDummy", "wstl_testingDummy"),
-                    CreateTurn("wstl_testingDummy"),
-                    CreateTurn("wstl_testingDummy", "wstl_testingDummy"),
-                    CreateTurn("wstl_testingDummy"),
-                    CreateTurn("wstl_testingDummy", "wstl_testingDummy"),
-                    CreateTurn("wstl_testingDummy"),
-                    CreateTurn("wstl_testingDummy", "wstl_testingDummy")
-               ), 3);
-
-            ApocalypseBossLongArms = Build(New("ApocalypseBossLongArms")
-               .SetDifficulty(20, 20)
-               .AddDominantTribes(Tribe.Bird)
-               .AddTurns(
-                    CreateTurn("wstl_judgementBird", "wstl_judgementBird"),
-                    CreateTurn("wstl_judgementBird"),
-                    CreateTurn("wstl_judgementBird", "wstl_judgementBird"),
-                    CreateTurn("wstl_judgementBird"),
-                    CreateTurn("wstl_judgementBird", "wstl_judgementBird"),
-                    CreateTurn("wstl_judgementBird"),
-                    CreateTurn("wstl_judgementBird", "wstl_judgementBird")
-               ), 3);
             return;
             #endregion
             #region Jester
@@ -472,7 +433,6 @@ namespace WhistleWindLobotomyMod.Core
                     CreateTurn()
                ), 3);
             #endregion
-            #endregion
         }
 
         private static EncounterBlueprintData Build(EncounterBlueprintData encounter, params int[] regions)
@@ -489,9 +449,6 @@ namespace WhistleWindLobotomyMod.Core
         public static EncounterBlueprintData LeshyAbnormalBossP1 { get; private set; }
         public static EncounterBlueprintData PirateSkullAbnormalBossP1 { get; private set; }
         public static EncounterBlueprintData PirateSkullAbnormalBossP2 { get; private set; }
-        public static EncounterBlueprintData ApocalypseBossBigEyes { get; private set; }
-        public static EncounterBlueprintData ApocalypseBossSmallBeak { get; private set; }
-        public static EncounterBlueprintData ApocalypseBossLongArms { get; private set; }
         public static EncounterBlueprintData JesterBossP1 { get; private set; }
         public static EncounterBlueprintData JesterBossP2 { get; private set; }
         public static EncounterBlueprintData JesterBossP3 { get; private set; }

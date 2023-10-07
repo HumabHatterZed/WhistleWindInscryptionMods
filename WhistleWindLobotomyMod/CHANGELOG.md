@@ -5,28 +5,32 @@
 
 ## v2.1.0 - Into the Twilight ()
 ### 🔧 Tweaks
-- Minor adjustments to some sequences
-- Adjusted icon for Start with a Beast cheat
+    - Minor adjustments to some sequences
+    - Adjusted icon for Start with a Beast cheat
+    - Adjusted description of Abnormal Bosses challenge to specify the affected bosses
+    - Angela card will now be unlocked if the player has at least 3 Sephirah cards in their deck
+    - Bless special ability will no longer affect Giant and Uncuttable cards (Mule cards are still affected)
+    - Change for Bless to create a Heretic apostle is now tied to the game's seed rather than being truly random
 ### 🩹 Bug fixes
-- Fixed The Road Home softlocking the game when played by Leshy
-- Fixed Abnormal Bosses config replacing Grizzly Bears with Guardian Apostles in Part 1 during bosses
+    - Fixed The Road Home softlocking the game when played by Leshy
+    - Fixed Abnormal Bosses config replacing Grizzly Bears with Guardian Apostles in Part 1 during bosses
 ### ➕ Additions
-- Added Final Apocalypse challenge and boss
-- Added Achievements API support (5 achievements)
+    - Added Final Apocalypse challenge and boss
+    - Added Achievements API support (5 achievements)
 
 ## v2.0.2 - Minor patch (7/29/2023)
 ### 🩹 Bug fixes
-- Fixed incorrect play cost for Hokma (2 Bones --> 2 Blood)
-- Fixed 'Start With' cheats adding extra copies when restarting a run using the retry button
+    - Fixed incorrect play cost for Hokma (2 Bones --> 2 Blood)
+    - Fixed 'Start With' cheats adding extra copies when restarting a run using the retry button
 
 ## v2.0.1 - Minor patch (7/25/2023)
 ### 🩹 Bug fixes
-- Fixed Bloodbath evolutions not being correctly added to the game
-- Fixed softlock when a card with a Totem-given Fledgling sigil evolves
+    - Fixed Bloodbath evolutions not being correctly added to the game
+    - Fixed softlock when a card with a Totem-given Fledgling sigil evolves
 ### 🔧 Tweaks
-- Increased point count of Miracle Worker challenge (12 --> 60) to better indicate its difficulty
+    - Increased point count of Miracle Worker challenge (12 --> 60) to better indicate its difficulty
 ### ➕ Additions
-- Added dialogue to help indicate when Bless special ability has activated
+    - Added dialogue to help indicate when Bless special ability has activated
 
 ## v2.0.0 - The One Perfect Book (7/22/2023)
 Note that in the future, updates and changes to modded sigils will be found in the Abnormal Sigils changelog.

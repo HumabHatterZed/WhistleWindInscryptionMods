@@ -2,6 +2,7 @@
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod
 {
@@ -21,8 +22,7 @@ namespace WhistleWindLobotomyMod
         }
         public override void ApplyAppearance()
         {
-            int blessings = base.Card.Info.Mods.Exists(x => x.singletonId == "wstl:MiracleWorkerChallenge") ?
-                LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.Instance.NumOfBlessings;
+            int blessings = SaviourBossUtils.Blessings(base.Card);
 
             base.Card.RenderInfo.portraitOverride = LobotomyPlugin.PlagueDoctorPortraits[Mathf.Min(11, blessings)];
             base.Card.RenderInfo.forceEmissivePortrait |= blessings >= 11;

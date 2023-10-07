@@ -172,19 +172,18 @@ namespace WhistleWindLobotomyMod
             }
             yield return this.AddCardToDeckAndCleanUp(chosenReward);
         }
+
         private List<CardChoice> GenerateSephirahChoices(int randomSeed)
         {
             List<CardChoice> listOfChoices = new();
             List<CardInfo> sephirahCards = LobotomyCardLoader.GetSephirahCards();
-            if (!LobotomySaveManager.UnlockedAngela)
+            
+            // if the player has 3 sephirah already, unlock Angela and make her a guaranteed choice
+            if (sephirahCards.Count <= 6 && !LobotomySaveManager.UnlockedAngela)
             {
-                if (sephirahCards.Count >= 3)
-                    sephirahCards.RemoveAll(x => x.name.Equals("wstl_angela"));
-
-                if (sephirahCards.Count <= 3)
-                    LobotomySaveManager.UnlockedAngela = true;
+                LobotomySaveManager.UnlockedAngela = true;
+                listOfChoices.Add(new() { CardInfo = CardLoader.GetCardByName("wstl_angela") });
             }
-
             while (listOfChoices.Count < 3)
             {
                 CardInfo card;

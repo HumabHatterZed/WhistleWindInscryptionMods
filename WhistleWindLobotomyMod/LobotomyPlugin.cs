@@ -179,6 +179,19 @@ namespace WhistleWindLobotomyMod
             Ability_TrueSaviour();
             Ability_Confession();
 
+            Ability_ReturnCard();
+            Ability_RefreshDecks();
+
+            Ability_Apocalypse();
+            Ability_BigEyes();
+            Ability_Dazzling();
+            StatusEffect_Enchanted();
+            Ability_SmallBeak();
+            Ability_Misdeeds();
+            Ability_LongArms();
+            Ability_UnjustScale();
+            StatusEffect_Sin();
+
             if (LobotomyConfigManager.Instance.RevealSpecials)
             {
                 Log.LogDebug("Adding rulebook entries for special abilities.");
@@ -191,7 +204,6 @@ namespace WhistleWindLobotomyMod
             FinalApocalypse.Register();
             //FinalJester.Register();
             //FinalTrick.Register();
-            HarmonyInstance.PatchAll(typeof(FinalRegionPatch));
 
             ApocalypseBirdStart.Register();
             JesterOfNihilStart.Register();
@@ -333,17 +345,10 @@ namespace WhistleWindLobotomyMod
             // other
             internal static Achievement Blessing;
 
-            //internal static Achievement Test1;
-            //internal static Achievement Test2;
             internal static void CreateAchievements()
             {
                 Log.LogDebug("Achievements API is installed.");
                 ModdedAchievementManager.AchievementGroup grp = ModdedAchievementManager.NewGroup(pluginGuid, "WhistleWind Lobotomy Mod", TextureLoader.LoadTextureFromFile("achievementBox.png")).ID;
-
-                /*                Test1 = ModdedAchievementManager.New(pluginGuid, "Test1", "pes",
-                                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossEmerald.png")).ID;
-                                Test2 = ModdedAchievementManager.New(pluginGuid, "Test2", "asd",
-                                    false, grp, TextureLoader.LoadTextureFromFile("achievementRoadToOz.png")).ID;*/
 
                 ThroughTheTwilight = ModdedAchievementManager.New(pluginGuid, "Through the Twilight", "Survive the apocalypse and defeat the Beast.",
                     false, grp, TextureLoader.LoadTextureFromFile("achievementBossTwilight.png")).ID;
@@ -379,10 +384,6 @@ namespace WhistleWindLobotomyMod
         public static bool AllCardsDisabled { get; internal set; }
         public static RiskLevel DisabledRiskLevels { get; internal set; }
         public static bool PreventOpponentDamage { get; internal set; }
-
-        public static readonly Trait LittleEgg = GuidManager.GetEnumValue<Trait>(pluginGuid, "SmallBeakEgg");
-        public static readonly Trait BigEgg = GuidManager.GetEnumValue<Trait>(pluginGuid, "BigEyesEgg");
-        public static readonly Trait LongEgg = GuidManager.GetEnumValue<Trait>(pluginGuid, "LongArmsEgg");
 
         public static readonly StoryEvent ApocalypseBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "ApocalpyseBossDefeated");
         public static readonly StoryEvent JesterBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "JesterBossDefeated");

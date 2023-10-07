@@ -108,7 +108,7 @@ namespace WhistleWindLobotomyMod
 
             Apostle.ability = LobotomyAbilityHelper.CreateAbility<Apostle>(
                 "sigilApostle",
-                rulebookName, "Thou wilt abandon flesh and be born again.", dialogue, powerLevel: -3,
+                rulebookName, "'Thou wilt abandon flesh and be born again.'", dialogue, powerLevel: -3,
                 canStack: false).Id;
         }
     }

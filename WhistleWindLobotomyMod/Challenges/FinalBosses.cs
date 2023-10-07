@@ -6,14 +6,6 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Challenges
 {
-    internal static class FinalRegionPatch
-    {
-        [HarmonyPostfix, HarmonyPatch(typeof(RunState), nameof(RunState.CurrentMapRegion), MethodType.Getter)]
-        internal static void ReplaceFinalRegion(ref RegionData __result)
-        {
-
-        }
-    }
     public static class FinalApocalypse
     {
         public static AscensionChallenge Id { get; private set; }
@@ -24,7 +16,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 LobotomyPlugin.pluginGuid,
                 "Final Apocalypse",
                 "Leshy is replaced as the final boss of the run with the Beast.",
-                20,
+                70,
                 TextureLoader.LoadTextureFromFile("ascensionBeastStart"),
                 TextureLoader.LoadTextureFromFile("ascensionBeastStart_activated"), 0)
                 .SetFlags("ModdedFinalBoss")
@@ -70,7 +62,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 LobotomyPlugin.pluginGuid,
                 "Final Trick",
                 "The Adult boss will be stronger and guaranteed to appear.",
-                20,
+                50,
                 TextureLoader.LoadTextureFromFile("ascensionLiarStart"),
                 TextureLoader.LoadTextureFromFile("ascensionLiarStart_activated"), 0)
                 .SetFlags("ModdedFinalBoss")
@@ -93,7 +85,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 LobotomyPlugin.pluginGuid,
                 "Final Coming",
                 "The Saviour boss will be stronger and guaranteed to appear.",
-                20,
+                70,
                 TextureLoader.LoadTextureFromFile("ascensionRaptureStart"),
                 TextureLoader.LoadTextureFromFile("ascensionRaptureStart_activated"), 0)
                 .SetFlags("ModdedFinalBoss")

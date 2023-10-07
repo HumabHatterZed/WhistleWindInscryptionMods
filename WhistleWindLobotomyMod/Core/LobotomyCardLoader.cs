@@ -56,10 +56,14 @@ namespace WhistleWindLobotomyMod.Core
         public static List<CardInfo> GetSephirahCards()
         {
             List<CardInfo> obtainableCards = new(LobotomyCardManager.AllLobotomyCards);
-            obtainableCards.RemoveAll(x => x.LacksTrait(LobotomyCardManager.TraitSephirah) || x.name == "wstl_sephirahTipherethB");
+            obtainableCards.RemoveAll(x => x.LacksTrait(LobotomyCardManager.TraitSephirah));
+
+            if (LobotomySaveManager.UnlockedAngela)
+                obtainableCards.Add(CardLoader.GetCardByName("wstl_angela"));
 
             return CardLoader.RemoveDeckSingletonsIfInDeck(obtainableCards);
         }
+
         public static List<CardInfo> GetUnlockedModCards(CardMetaCategory category)
         {
             List<CardInfo> obtainableCards = new(LobotomyCardManager.ObtainableLobotomyCards);

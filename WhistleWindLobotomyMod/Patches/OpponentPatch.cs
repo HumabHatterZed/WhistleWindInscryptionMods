@@ -3,6 +3,7 @@ using GBC;
 using HarmonyLib;
 using System.Collections;
 using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Opponents;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Patches
@@ -15,7 +16,18 @@ namespace WhistleWindLobotomyMod.Patches
         {
             // marks the card as using the opponent's blessings count
             if (card.Info.name == "wstl_plagueDoctor")
-                card.Info.Mods.Add(new() { singletonId = PlagueDoctorHelpers.ModSingletonId });
+                card.Info.Mods.Add(new() { singletonId = SaviourBossUtils.ModSingletonId });
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(SceneLoader), nameof(SceneLoader.Load))]
+        private static void ResetTriggers()
+        {
+            PreventOpponentDamage = false;
+            if (LobotomySaveManager.OpponentBlessings > 11)
+                LobotomySaveManager.OpponentBlessings = 11;
+
+            if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
+                LobotomyConfigManager.Instance.SetBlessings(11);
         }
 
         // Reset board effects for event cards and the Clock for WhiteNight
@@ -28,7 +40,7 @@ namespace WhistleWindLobotomyMod.Patches
                 LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
 
                 if (SaveManager.SaveFile.IsPart1)
-                    LeshyAnimationController.Instance.ResetEyesTexture();
+                    LeshyAnimationController.Instance?.ResetEyesTexture();
 
                 if (LobotomySaveManager.OpponentBlessings > 11)
                     LobotomySaveManager.OpponentBlessings = 0;

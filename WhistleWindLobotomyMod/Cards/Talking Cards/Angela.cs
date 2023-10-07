@@ -91,7 +91,7 @@ namespace WhistleWindLobotomyMod
             NewCard("angela", "Angela", "A trustworthy AI assistant. You will trust her with your life.",
                 attack: 3, health: 3, energy: 6)
                 .AddAbilities(FrostRuler.ability, Ability.DrawCopyOnDeath)
-                .AddTraits(TraitSephirah)
+                .AddTraits()
                 .SetOnePerDeck()
                 .Build();
         }

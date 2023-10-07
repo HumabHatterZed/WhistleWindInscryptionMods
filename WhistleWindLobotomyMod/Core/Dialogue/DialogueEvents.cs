@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Dialogue;
 using static WhistleWind.Core.Helpers.DialogueHelper;
 using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 
@@ -163,13 +164,14 @@ namespace WhistleWindLobotomyMod
                 });
             // boss stuff
             CreateDialogueEvents("ApocalypseBossPreIntro", new() {
-                "Your journey has brought here, to an unknown yet familiar forest.",
-                "Above you, the stars and moon have vanished into the murky black.",
-                "An otherworldly roar brings you to attention. The earth itself quails in fear as something approaches you.",
+                "You walk down into a large clearing, the black trees crowding around you.",
+                "An otherworldly roar brings you to attention. The very earth quails in fear as something approaches you.",
                 "Lumbering yet impossibly fast, you find yourself face-to-face with..."
                 },
                 new() {
-                    new() { "Lumbering yet impossibly fast, you find yourself face-to-face with..." },
+                    new() {
+                        "An otherworldly roar deafens shakes you to your core. The forest floor quakes as something approaches you.",
+                        "Lumbering yet impossibly fast, you find yourself face-to-face with..." },
                 });
             CreateDialogueEvents("ApocalypseBossIntro",
                 new() { "[c:bR]The Beast[c:]." },
@@ -192,9 +194,18 @@ namespace WhistleWindLobotomyMod
                     "Yet even it has its [c:bR]weaknesses[c:]."
                 });
             CreateDialogueEvents("ApocalypseBossBendScales2",
-                new() { "Gather your courage, and march onward.", });
+                new() { "Gather your courage, and march onward." });
             CreateDialogueEvents("ApocalypseBossPrelude",
-                new() { "[c:bSG]Into the twilight.[c:]", });
+                new() { "[c:bSG]Into the twilight.[c:]" });
+
+            CreateDialogueEvents("ApocalypseBossRecall",
+                new() { "The Beast is deceptively quick and wiry. Use these to reposition your creatures." });
+            CreateDialogueEvents("ApocalypseBossExhausted",
+                new() { "Why don't we continue a little longer?" });
+            CreateDialogueEvents("ApocalypseBossBoneGain",
+                new() {
+                    "Unable to damage the Beast, your creature strikes at the earth, revealing ancient, yellowed bones beneath the dark podzol."
+                });
         }
         private void Dialogue_JesterOfNihil()
         {
