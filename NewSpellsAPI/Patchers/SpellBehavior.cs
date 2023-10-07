@@ -152,7 +152,7 @@ namespace Infiniscryption.Spells.Patchers
                     __instance.statsMod.healthAdjustment = array[1];
                     __instance.PlayableCard.RenderInfo.showSpecialStats = handOrBoard;
                 }
-                // call this every 1 second to minimise lag
+                // call this every 50 ticks to minimise lag
                 if (__instance.prevOnBoard != __instance.PlayableCard.OnBoard || (handOrBoard && Environment.TickCount % 50 == 0))
                 {
                     __instance.PlayableCard.OnStatsChanged();
@@ -169,12 +169,10 @@ namespace Infiniscryption.Spells.Patchers
         public static void AllowStatBoostForSpells(ref List<CardInfo> __result)
         {
             List<CardInfo> deckList = new(RunState.DeckList);
-            if (deckList.Exists(dl => dl.HasAnyOfSpecialAbilities(TargetedSpellAbility.ID, GlobalSpellAbility.ID)))
-            {
-                deckList.RemoveAll(ci => ci.LacksAllSpecialAbilities(TargetedSpellAbility.ID, GlobalSpellAbility.ID));
-                deckList.RemoveAll(ci => ci.hideAttackAndHealth || (ci.baseAttack == 0 && ci.baseHealth == 0));
+            deckList.RemoveAll(ci => ci.LacksAllSpecialAbilities(TargetedSpellAbility.ID, GlobalSpellAbility.ID));
+            deckList.RemoveAll(ci => ci.hideAttackAndHealth || (ci.baseAttack == 0 && ci.baseHealth == 0));
+            if (deckList.Count > 0)
                 __result.AddRange(deckList);
-            }
         }
         #endregion
 

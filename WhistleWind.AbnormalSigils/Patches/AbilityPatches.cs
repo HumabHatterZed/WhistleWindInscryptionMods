@@ -14,18 +14,23 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch]
     internal class PiercingPatch
     {
-        [HarmonyPostfix, HarmonyPatch(typeof(ShieldManager), nameof(ShieldManager.BreakShield))]
-        private static void IgnoreShield(PlayableCard target, int damage, PlayableCard attacker)
+        [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.TakeDamage))]
+        private static IEnumerator IgnoreShield(IEnumerator enumerator, PlayableCard __instance, int damage, PlayableCard attacker)
         {
+            bool shield = __instance.HasShield();
+            yield return enumerator;
             // Deal damage after breaking a shield
             // This will only run if damage > 0 due to API patches so no need to check that
-            if (attacker != null && attacker.HasAbility(Piercing.ability))
+            if (shield && __instance != null && !__instance.Dead && attacker != null && attacker.HasAbility(Piercing.ability))
             {
-                target.StartCoroutine(TakeDamageCoroutine(target, damage, attacker));
+                if (damage <= 0)
+                    yield break;
+
+                yield return PiercingDamage(__instance, damage, attacker);
             }
         }
 
-        private static IEnumerator TakeDamageCoroutine(PlayableCard target, int damage, PlayableCard attacker)
+        private static IEnumerator PiercingDamage(PlayableCard target, int damage, PlayableCard attacker)
         {
             // recreate the damage logic since BreakShield breaks out of the method at the end
             target.Status.damageTaken += damage;

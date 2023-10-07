@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Copycat()
         {
             const string rulebookName = "Copycat";
-            const string rulebookDescription = "[creature] will transform into a copy of the first opposing creature it faces, retaining its own sigils.";
+            const string rulebookDescription = "[creature] will transform into a copy of the first creature it opposes, retaining its own sigils.";
             const string dialogue = "A near perfect impersonation.";
             const string triggerText = "[creature] tries to mimick the opposing creature.";
             Copycat.ability = AbnormalAbilityHelper.CreateAbility<Copycat>(

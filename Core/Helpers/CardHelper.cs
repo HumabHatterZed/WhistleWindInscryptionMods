@@ -33,11 +33,11 @@ namespace WhistleWind.Core.Helpers
         {
             Texture2D portraitTex = TextureLoader.LoadTextureFromFile(portraitName);
             // if a custom emission name isn't provided, default to the filename [portraitName]_emission
-            Texture2D emissionTex = TextureLoader.LoadTextureFromFile(emissionName ?? $"{portraitName}_emission");
+            Texture2D emissionTex = emissionName == "" ? null : TextureLoader.LoadTextureFromFile(emissionName ?? $"{portraitName}_emission");
             // if a custom pixel name isn't provided, default to the filename [portraitName]_pixel
-            Texture2D pixelTex = TextureLoader.LoadTextureFromFile(pixelPortraitName ?? $"{portraitName}_pixel");
+            Texture2D pixelTex = pixelPortraitName == "" ? null : TextureLoader.LoadTextureFromFile(pixelPortraitName ?? $"{portraitName}_pixel");
             Texture2D altTex = null, altEmissionTex = null;
-            Texture2D titleTex = TextureLoader.LoadTextureFromFile(titleName);
+            Texture2D titleTex = titleName != null ? TextureLoader.LoadTextureFromFile(titleName) : null;
             if (!string.IsNullOrEmpty(altPortraitName))
             {
                 altTex = TextureLoader.LoadTextureFromFile(altPortraitName);

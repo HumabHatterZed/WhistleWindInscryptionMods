@@ -28,7 +28,7 @@ namespace WhistleWind.Core.Helpers
 
         public static Texture2D LoadTextureFromFile(string fileName, Assembly target = null)
         {
-            if (fileName == null)
+            if (string.IsNullOrEmpty(fileName))
                 return null;
 
             Assembly targetAssembly = target ?? Assembly.GetCallingAssembly();

@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -15,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "Your beast falls behind the pack.";
             BindingStrike.ability = AbnormalAbilityHelper.CreateAbility<BindingStrike>(
                 "sigilBindingStrike",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: true, canStack: false).Id;
         }
     }
@@ -25,7 +26,9 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
 
         // only apply Bind if target isn't null/dead
-        public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && !target.Dead;
+        public override bool RespondsToDealDamage(int amount, PlayableCard target)
+            => target != null && !target.Dead && target.LacksTrait(AbnormalPlugin.ImmuneToAilments);
+
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
             yield return base.PreSuccessfulTriggerSequence();
@@ -40,7 +43,7 @@ namespace WhistleWind.AbnormalSigils
                 card.UpdateStatusEffectCount<Bind>(stacks, false);
 
             else
-                card.AddStatusEffectToCard<Bind>(stacks - 1, false);
+                card.AddStatusEffectToCard<Bind>(stacks, false);
 
             yield return new WaitForSeconds(0.1f);
         }

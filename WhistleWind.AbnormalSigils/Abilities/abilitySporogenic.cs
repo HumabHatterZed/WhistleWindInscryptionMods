@@ -29,7 +29,7 @@ namespace WhistleWind.AbnormalSigils
         private bool CheckValid(PlayableCard card)
         {
             if (card != null)
-                return card.LacksTrait(AbnormalPlugin.SporeFriend);
+                return card.LacksAllTraits(AbnormalPlugin.SporeFriend, AbnormalPlugin.ImmuneToAilments);
             return false;
         }
 

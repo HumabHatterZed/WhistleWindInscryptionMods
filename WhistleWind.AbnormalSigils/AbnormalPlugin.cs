@@ -45,6 +45,7 @@ namespace WhistleWind.AbnormalSigils
         public static Trait SporeFriend = GuidManager.GetEnumValue<Trait>(pluginGuid, "SporeFriend");
         public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
         public static Trait Orchestral = GuidManager.GetEnumValue<Trait>(pluginGuid, "Orchestral");
+        public static Trait ImmuneToAilments = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToAilments");
 
         public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
         public static CardMetaCategory CannotGainSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGainSigils");
@@ -193,13 +194,18 @@ namespace WhistleWind.AbnormalSigils
             Ability_Cycler();
             Ability_Barreler();
 
-            Ability_BindingStrike();
-            StatusEffect_Bind();
             Ability_NimbleFoot();
             StatusEffect_Haste();
+            Ability_HighStrung();
+
+            Ability_BindingStrike();
+            StatusEffect_Bind();
+
             // Specials
             Ability_FalseThrone();
             Ability_ReturnToNihil();
+
+            Ability_SeeMore();
         }
 
         public static class SpellAPI

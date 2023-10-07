@@ -13,16 +13,24 @@
 - Fixed Frost Ruler not letting the player target occupied slots
 - Fixed status-giving abilities giving more than they should
 - Fixed Scrambler ability activating incorrectly for non-Spell cards
+- Copycat ability no longer copies Giant or Uncuttable cards
 
 ### 🔧 Tweaks
 - Witness ability effect now uses the status effect system instead of extended properties
+- Changed Copycat's effect:
+    - "A card bearing this sigil will transform into a copy of the first creature it opposes, retaining its own sigils."
 
 ### ➕ Additions
 - Added the following abilities:
-    - Binding Strike, Nimble-Footed
+    - Binding Strike, Nimble-Footed, High-Strung
 - Added the following status effects:
     - Haste, Bind, Prudence
 - Added more helper methods to StatusEffectManager
+- Added a new section to the rulebook containing all status effects for the current Act - these entries are separate from the regularly added rulebook entries
+    - Added a new field to FullStatusEffect 'AddNormalRulebookEntry' to control whether the regular rulebook entry should be added as well - false by default
+    - Added FullStatusEffect.SetAddNormalEntry()
+- FullStatusEffect now stores a list of its StatusMetaCategories
+- Added 'Status Effect Overflow' - cards with more than 5 active status effects will gain the option a list of the overflowed statuses in the Rulebook
 
 ## v1.0.2 - Minor patch (7/26/2023)
 ### 🩹 Bug fixes
