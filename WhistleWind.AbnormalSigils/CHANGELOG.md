@@ -5,20 +5,24 @@
 
 ## v1.1.0 - Fast and Slow ()
 ### 🧱 Structural
-- Reworked how status effects are added and work
+- Reworked how status effects function and their implementation
 
 ### 🩹 Bug fixes
 - Fixed softlock when playing in Grimora or Magnificus Act (status effects will not render in these Acts!)
+- Fixed softlock when playing in Act 2
 - Fixed ForcedWhiteEmission appearance behaviour not forcing the colour correctly
 - Fixed Frost Ruler not letting the player target occupied slots
 - Fixed status-giving abilities giving more than they should
 - Fixed Scrambler ability activating incorrectly for non-Spell cards
 - Copycat ability no longer copies Giant or Uncuttable cards
+- Fixed tribe choice reward backs being off-centre
 
 ### 🔧 Tweaks
 - Witness ability effect now uses the status effect system instead of extended properties
 - Changed Copycat's effect:
     - "A card bearing this sigil will transform into a copy of the first creature it opposes, retaining its own sigils."
+- Idol no longer affects cards with Made of Stone
+- Changed description of Made of Stone to indicate it provides immunity to Idol and Punisher
 
 ### ➕ Additions
 - Added the following abilities:

@@ -30,9 +30,8 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
         public void UpdateWorms()
         {
-            UpdateStatusEffectCount(1, false);
-            // update the decal if the image has changed
-            if (EffectSeverity <= 3)
+            AddSeverity(1, false);
+            if (EffectSeverity <= 3) // update the decal if the image has changed
                 base.PlayableCard.AddTemporaryMod(EffectDecalMod());
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
@@ -71,8 +70,8 @@ namespace WhistleWind.AbnormalSigils
             {
                 if (SeededRandom.Value(base.GetRandomSeed()) <= (EffectSeverity - 2) * .1f)
                 {
-                    if (target.LacksSpecialAbility(Worms.specialAbility))
-                        target.AddStatusEffectToCard<Worms>(addDecal: true);
+                    if (target.LacksSpecialAbility(specialAbility))
+                        target.AddStatusEffect<Worms>(0, true);
 
                     else
                         target.GetComponent<Worms>().UpdateWorms();

@@ -11,6 +11,20 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(AscensionMenuScreens), nameof(AscensionMenuScreens.TryUnlockAchievements))]
         private static void UnlockAchievements()
         {
+            // bosses
+            if (LobotomySaveManager.DefeatedApocalypseBoss)
+                AchievementAPI.Unlock(AchievementAPI.ThroughTheTwilight);
+
+/*            if (LobotomySaveManager.DefeatedJesterBoss)
+                AchievementAPI.Unlock(AchievementAPI.WhereAllPathsLead);
+
+            if (LobotomySaveManager.DefeatedEmeraldBoss)
+                AchievementAPI.Unlock(AchievementAPI.EndOfTheRoad);
+
+            if (LobotomySaveManager.DefeatedSaviourBoss)
+                AchievementAPI.Unlock(AchievementAPI.ParadiseLost);*/
+
+            // event cards
             if (LobotomySaveManager.UnlockedApocalypseBird)
                 AchievementAPI.Unlock(AchievementAPI.TheThreeBirds);
 
@@ -21,19 +35,11 @@ namespace WhistleWindLobotomyMod.Patches
                 AchievementAPI.Unlock(AchievementAPI.YellowBrickRoad);
 
             if (LobotomySaveManager.UnlockedAngela)
-                AchievementAPI.Unlock(AchievementAPI.ParadiseLost);
+                AchievementAPI.Unlock(AchievementAPI.Impuritas);
 
-            if (LobotomySaveManager.DefeatedApocalypseBoss)
-                AchievementAPI.Unlock(AchievementAPI.ThroughTheTwilight);
-
-            if (LobotomySaveManager.DefeatedJesterBoss)
-                AchievementAPI.Unlock(AchievementAPI.WhereAllPathsLead);
-
-            if (LobotomySaveManager.DefeatedEmeraldBoss)
-                AchievementAPI.Unlock(AchievementAPI.EndOfTheRoad);
-
-            if (LobotomySaveManager.DefeatedSaviourBoss)
-                AchievementAPI.Unlock(AchievementAPI.ParadiseLost);
+            // other
+            if (LobotomyConfigManager.Instance.HasSeenHim)
+                AchievementAPI.Unlock(AchievementAPI.Blessing);
         }
     }
 }

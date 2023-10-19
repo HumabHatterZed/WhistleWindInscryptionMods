@@ -190,21 +190,54 @@ namespace WhistleWindLobotomyMod
                 new() { "Your efforts prove futile." });
             CreateDialogueEvents("ApocalypseBossBendScales1",
                 new() {
-                    "The Beast is immune to mortal damage.",
-                    "Yet even it has its [c:bR]weaknesses[c:]."
+                    "The Beast is [c:bR]immune to mortal damage[c:].",
+                    "Yet even it has its weaknesses."
                 });
             CreateDialogueEvents("ApocalypseBossBendScales2",
                 new() { "Gather your courage, and march onward." });
             CreateDialogueEvents("ApocalypseBossPrelude",
                 new() { "[c:bSG]Into the twilight.[c:]" });
 
+            CreateDialogueEvents("ApocalypseBossMouthPreAttack",
+                new() { "The mouth that devours everything opens." });
+            CreateDialogueEvents("ApocalypseBossMouthPostAttack",
+                new() { "The Small Bird's beak whispered endlessly." });
+            CreateDialogueEvents("ApocalypseBossMouthFailAttack",
+                new() { "The beast's maw snaps shut on empty air." });
+
+            CreateDialogueEvents("ApocalypseBossEyePreAttack",
+                new() { "The Big Bird's eyes imprisoned light..." });
+            CreateDialogueEvents("ApocalypseBossEyePostAttack",
+                new() { "...and they burned like stars." });
+            CreateDialogueEvents("ApocalypseBossEyeFailAttack",
+                new() { "...but there was nothing to behold." });
+
+            CreateDialogueEvents("ApocalypseBossArmsPreAttack",
+                new() { "The Long Bird's arms concealed time..." });
+            CreateDialogueEvents("ApocalypseBossArmsPostAttack",
+                new() { "...yet sins continued day after day." });
+
+            CreateDialogueEvents("ApocalypseBossCardsExhausted",
+                new() { "The Beast senses your hunger, and grows more daring." });
+
+            CreateDialogueEvents("ApocalypseBossAttackStrength",
+                new() { "The Beast begins to grow desperate." });
+            CreateDialogueEvents("ApocalypseBossAttackStrengthOvercharge",
+                new() { "The beast's strength grows beyond imagination..." });
+
             CreateDialogueEvents("ApocalypseBossRecall",
-                new() { "The Beast is deceptively quick and wiry. Use these to reposition your creatures." });
+                new() {
+                    "The Beast and its ilk move quickly. Use these to reposition your creatures.",
+                    "Returned creatures will have their cost changed based on how recently you played them.",
+                    "Newly played creatures will cost [c:bR]3 Bones[c:] to play again.",
+                    "I will reduce their recall cost over time, until they become [c:bR]free[c:] to replay." });
             CreateDialogueEvents("ApocalypseBossExhausted",
                 new() { "Why don't we continue a little longer?" });
             CreateDialogueEvents("ApocalypseBossBoneGain",
                 new() {
-                    "Unable to damage the Beast, your creature strikes at the earth, revealing ancient, yellowed bones beneath the dark podzol."
+                    "The beast is immune to mortal damage.",
+                    "Excess injury will instead yield you up to [c:bR]3[c:] bones.",
+                    "Don't worry about running dry, the ground you walk on is full of them."
                 });
         }
         private void Dialogue_JesterOfNihil()

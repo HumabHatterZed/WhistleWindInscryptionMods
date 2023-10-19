@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,17 @@ namespace WhistleWind.AbnormalSigils.Patches
         [HarmonyPatch(typeof(RuleBookController))]
         private static class RulebookControllerPatches
         {
+            private static bool changedRulebook = false;
             // Reset the descriptions of WhiteNight-related abilities
             [HarmonyPrefix, HarmonyPatch(nameof(RuleBookController.SetShown))]
             public static bool ResetAlteredDescriptions(bool shown)
             {
-                if (!shown)
+                if (!shown && changedRulebook)
                 {
-                    DynamicDescs[0].ResetDescription();
-                    DynamicDescs[1].ResetDescription();
+                    for (int i = 0; i < DynamicDescs.Count; i++)
+                        AbilitiesUtil.GetInfo(DynamicDescs[i]).ResetDescription();
+
+                    changedRulebook = false;
                 }
 
                 return true;
@@ -40,14 +44,16 @@ namespace WhistleWind.AbnormalSigils.Patches
                         if (!component || component.turnCount == 0)
                             return true;
 
-                        DynamicDescs[0].rulebookDescription = ConductorDescriptions[Mathf.Min(2, component.turnCount - 1)];
+                        AbilitiesUtil.GetInfo(DynamicDescs[0]).rulebookDescription = ConductorDescriptions[Mathf.Min(2, component.turnCount - 1)];
+                        changedRulebook = true;
                     }
                     if (card.GetDisplayedStatusEffects(false).Count > 5)
                     {
                         List<Ability> abilities = card.GetDisplayedStatusEffects(false);
                         abilities.Sort((a, b) => Mathf.Abs(AbilitiesUtil.GetInfo(b).powerLevel) - Mathf.Abs(AbilitiesUtil.GetInfo(a).powerLevel));
                         abilities.RemoveRange(0, 4);
-                        DynamicDescs[1].rulebookDescription = StatusOverflow(card, abilities);
+                        AbilitiesUtil.GetInfo(DynamicDescs[1]).rulebookDescription = StatusOverflow(card, abilities);
+                        changedRulebook = true;
                     }
                 }
                 return true;
@@ -137,10 +143,10 @@ namespace WhistleWind.AbnormalSigils.Patches
             return sb.ToString();
         }
 
-        private static readonly List<AbilityInfo> DynamicDescs = new()
+        private static readonly List<Ability> DynamicDescs = new()
         {
-            AbilitiesUtil.GetInfo(Conductor.ability),
-            AbilitiesUtil.GetInfo(SeeMore.ability)
+            Conductor.ability,
+            SeeMore.ability
         };
         private static readonly List<string> ConductorDescriptions = new()
         {

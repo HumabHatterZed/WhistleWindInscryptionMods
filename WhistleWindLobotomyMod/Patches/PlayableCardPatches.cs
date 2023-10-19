@@ -18,22 +18,6 @@ namespace WhistleWindLobotomyMod.Patches
                 __result = false;
         }
 
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
-        private static void DownedTrueApostlesAreImmortal(PlayableCard __instance, ref int damage)
-        {
-            if (__instance != null && __instance.HasAbility(Apostle.ability))
-            {
-                // Downed Apostles don't take damage if WhiteNight exists as an ally
-                bool saviour = BoardManager.Instance.GetSlotsCopy(!__instance.OpponentCard).Exists(x => x.Card?.HasAbility(TrueSaviour.ability) ?? false);
-
-                if (saviour && __instance.Info.name.Contains("Down"))
-                {
-                    __instance.Anim.StrongNegationEffect();
-                    damage = 0;
-                }
-            }
-        }
-
         [HarmonyPrefix, HarmonyPatch(nameof(PlayableCard.Die))]
         private static bool ApostleTransformOnDie(ref IEnumerator __result, PlayableCard __instance, bool wasSacrifice, PlayableCard killer)
         {
@@ -47,15 +31,10 @@ namespace WhistleWindLobotomyMod.Patches
 
                 // Downed Apostles can't die if WhiteNight is an ally
                 // Active Apostles will always be downed
-                if (__instance.Info.name.Contains("Down"))
-                {
-                    if (saviour)
-                        __result = ApostleDie(__instance, wasSacrifice, killer);
-                    else
-                        return true;
-                }
-                else
+                if (!__instance.Info.name.EndsWith("Down") || saviour)
                     __result = ApostleDie(__instance, wasSacrifice, killer);
+                else
+                    return true;
 
                 return false;
             }

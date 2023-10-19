@@ -24,21 +24,42 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         {
             if (base.PlayableCard == null) return;
 
-            EffectSeverity = Mathf.Max(1, base.PlayableCard.GetAbilityStacks(IconAbilityInfo.ability));
+            EffectSeverity = base.PlayableCard.GetAbilityStacks(IconAbilityInfo.ability);
 
             base.PlayableCard.AddTemporaryMod(EffectCountMod());
             if (EffectDecalIds().Count > 0)
                 base.PlayableCard.AddTemporaryMod(EffectDecalMod());
         }
 
-        public void UpdateStatusEffectCount(int numToAdd, bool updateDecals)
+        public void AddSeverity(int amount, bool updateDecals)
         {
-            EffectSeverity += numToAdd;
+            EffectSeverity += amount;
+            CardModificationInfo mod = base.PlayableCard.TemporaryMods.Find(x => x.singletonId == CardModSingletonName);
+            base.PlayableCard.RemoveTemporaryMod(mod);
             base.PlayableCard.AddTemporaryMod(EffectCountMod());
 
             if (updateDecals)
+            {
+                mod = base.PlayableCard.TemporaryMods.Find(x => x.singletonId == CardModSingletonName + "_decal");
+                base.PlayableCard.RemoveTemporaryMod(mod);
                 base.PlayableCard.AddTemporaryMod(EffectDecalMod());
+            }
         }
+        public void SetSeverity(int amount, bool updateDecals)
+        {
+            EffectSeverity = amount;
+            CardModificationInfo mod = base.PlayableCard.TemporaryMods.Find(x => x.singletonId == CardModSingletonName);
+            base.PlayableCard.RemoveTemporaryMod(mod);
+            base.PlayableCard.AddTemporaryMod(EffectCountMod());
+
+            if (updateDecals)
+            {
+                mod = base.PlayableCard.TemporaryMods.Find(x => x.singletonId == CardModSingletonName + "_decal");
+                base.PlayableCard.RemoveTemporaryMod(mod);
+                base.PlayableCard.AddTemporaryMod(EffectDecalMod());
+            }
+        }
+
         public CardModificationInfo EffectDecalMod()
         {
             CardModificationInfo result = StatusEffectManager.StatusMod(CardModSingletonName + "_decal", IconAbilityInfo.PositiveEffect, EffectCanBeInherited);

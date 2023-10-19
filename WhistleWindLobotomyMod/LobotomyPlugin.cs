@@ -23,6 +23,7 @@ using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Patches;
 using static DialogueEvent;
+using static InscryptionAPI.Dialogue.DialogueManager;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
 
@@ -46,6 +47,7 @@ namespace WhistleWindLobotomyMod
                 Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
             else
             {
+                PreventOpponentDamage = false;
                 DisabledRiskLevels = LobotomyConfigManager.Instance.NoRisk;
                 AllCardsDisabled = DisabledRiskLevels.HasFlag(RiskLevel.All) || DisabledRiskLevels.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
 
@@ -161,12 +163,12 @@ namespace WhistleWindLobotomyMod
                 var sentryInfo = abilities.Find(x => x.Info.name == "Sentry").Info;
 
                 sniperInfo.rulebookName = "Marksman";
-                sniperInfo.triggerText = "Your beast strikes with precision.";
+                sniperInfo.abilityLearnedDialogue = new(new() { new() { text = "Your beast strikes with precision." } });
                 sniperInfo.SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman"));
                 sniperInfo.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel"));
 
                 sentryInfo.rulebookName = "Quick Draw";
-                sentryInfo.triggerText = "The early bird gets the worm.";
+                sentryInfo.abilityLearnedDialogue = new(new() { new() { text = "The early bird gets the worm." } });
                 sentryInfo.SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw"));
                 sentryInfo.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel"));
                 sentryInfo.SetCanStack();
@@ -310,7 +312,7 @@ namespace WhistleWindLobotomyMod
                 if (!DialogueEventsManager.RepeatDialogueEvents.TryGetValue(dialogue.Key, out List<List<CustomLine>> repeatLines))
                     repeatLines = null;
 
-                DialogueManager.GenerateEvent(pluginGuid, dialogue.Key, dialogue.Value, repeatLines, defaultSpeaker: speaker);
+                GenerateEvent(pluginGuid, dialogue.Key, dialogue.Value, repeatLines, defaultSpeaker: speaker);
             }
         }
 
@@ -344,6 +346,7 @@ namespace WhistleWindLobotomyMod
 
             // other
             internal static Achievement Blessing;
+            internal static Achievement Impuritas;
 
             internal static void CreateAchievements()
             {
@@ -361,6 +364,9 @@ namespace WhistleWindLobotomyMod
 
                                 ParadiseLost = ModdedAchievementManager.New(pluginGuid, "Paradise Lost", "Reject His gifts and delay the Saviour.",
                                     false, grp, TextureLoader.LoadTextureFromFile("achievementBossSaviour.png")).ID;*/
+
+                Impuritas = ModdedAchievementManager.New(pluginGuid, "Impuritas Civitatis", "Unlock Angela by having 3 Sephirah in your deck while at a Sefirot choice node.",
+                    false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;
 
                 TheThreeBirds = ModdedAchievementManager.New(pluginGuid, "The Three Birds", "You heard the story of the Black Forest.",
                     true, grp, TextureLoader.LoadTextureFromFile("achievementTwilight.png")).ID;

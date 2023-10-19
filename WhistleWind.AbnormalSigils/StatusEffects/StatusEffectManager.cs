@@ -3,6 +3,7 @@ using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Card.AbilityManager;
@@ -27,7 +28,10 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
             }
         }
-        public static readonly List<FullStatusEffect> AllStatusEffects = new();
+
+        internal static List<FullStatusEffect> allStatusEffects = new();
+        public static List<FullStatusEffect> AllStatusEffects => new(allStatusEffects);
+        
         public static readonly Dictionary<Ability, Color> AllIconColours = new();
 
         public static FullStatusEffect NewStatusEffect<T>(
@@ -35,7 +39,24 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             string rulebookName,
             string rulebookDescription,
             string iconTexture,
+            Assembly modAssembly = null,
             string pixelIconTexture = null,
+            int powerLevel = 0,
+            List<StatusMetaCategory> categories = null,
+            Color iconColour = default
+            ) where T : StatusEffectBehaviour
+        {
+            Texture2D icon = TextureLoader.LoadTextureFromFile(iconTexture, modAssembly);
+            Texture2D pixelIcon = TextureLoader.LoadTextureFromFile(pixelIconTexture, modAssembly);
+
+            return NewStatusEffect<T>(pluginGuid, rulebookName, rulebookDescription, icon, pixelIcon, powerLevel, categories, iconColour);
+        }
+        public static FullStatusEffect NewStatusEffect<T>(
+            string pluginGuid,
+            string rulebookName,
+            string rulebookDescription,
+            Texture2D iconTexture,
+            Texture2D pixelIconTexture = null,
             int powerLevel = 0,
             List<StatusMetaCategory> categories = null,
             Color iconColour = default
@@ -48,18 +69,18 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             info.rulebookName = rulebookName;
             info.rulebookDescription = rulebookDescription;
             info.powerLevel = powerLevel;
+            info.colorOverride = iconColour;
 
             info.SetExtendedProperty("wstl:StatusEffect", true);
-            Texture2D icon = TextureLoader.LoadTextureFromFile(iconTexture);
 
             if (pixelIconTexture != null)
-                info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile(pixelIconTexture));
+                info.SetPixelAbilityIcon(pixelIconTexture);
 
             // StatusMetaCategories correspond to values of AbilityMetaCategory
             foreach (StatusMetaCategory category in categories)
                 info.AddMetaCategories((AbilityMetaCategory)category);
 
-            FullAbility statusEffectIcon = Add(pluginGuid, info, typeof(AbilityBehaviour), icon);
+            FullAbility statusEffectIcon = Add(pluginGuid, info, typeof(AbilityBehaviour), iconTexture);
             FullSpecialTriggeredAbility statusEffectBehaviour = Add(pluginGuid, rulebookName, typeof(T));
 
             FullStatusEffect fullEffect = new()
@@ -74,7 +95,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
                 statusMetaCategories = categories
             };
 
-            AllStatusEffects.Add(fullEffect);
+            allStatusEffects.Add(fullEffect);
             AllIconColours.Add(statusEffectIcon.Id, iconColour);
             return fullEffect;
         }
@@ -95,18 +116,15 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             return retval;
         }
 
-        public static T AddStatusEffectToCard<T>(this PlayableCard playableCard, int extraStacks = 0, bool addDecal = false) where T : StatusEffectBehaviour
-        {
-            playableCard.AddPermanentBehaviour<T>();
-            T component = playableCard.GetStatusEffect<T>();
-            component.UpdateStatusEffectCount(extraStacks, addDecal);
-            return component;
-        }
-
-        public static void UpdateStatusEffectCount<T>(this PlayableCard card, int numToAdd, bool updateDecals) where T : StatusEffectBehaviour
+        public static T AddStatusEffect<T>(this PlayableCard card, int effectSeverity, bool addDecals = false) where T : StatusEffectBehaviour
         {
             T component = card.GetStatusEffect<T>();
-            component.UpdateStatusEffectCount(numToAdd, updateDecals);
+            if (component == null)
+                card.AddPermanentBehaviour<T>();
+            
+            component = card.GetStatusEffect<T>();
+            component.AddSeverity(effectSeverity, addDecals);
+            return component;
         }
 
         public static int GetStatusEffectStacks<T>(this PlayableCard playableCard) where T : StatusEffectBehaviour

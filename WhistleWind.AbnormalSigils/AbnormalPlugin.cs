@@ -87,17 +87,17 @@ namespace WhistleWind.AbnormalSigils
             }
             else
             {
-                Texture2D anthro = TextureLoader.LoadTextureFromFile("tribeAnthropoid");
-                Texture2D botanical = TextureLoader.LoadTextureFromFile("tribeBotanic");
-                Texture2D divine = TextureLoader.LoadTextureFromFile("tribeDivine");
-                Texture2D fae = TextureLoader.LoadTextureFromFile("tribeFae");
-                Texture2D mechanic = TextureLoader.LoadTextureFromFile("tribeMechanical");
+                Texture2D anthro = TextureLoader.LoadTextureFromFile("tribeAnthropoid.png");
+                Texture2D botanical = TextureLoader.LoadTextureFromFile("tribeBotanic.png");
+                Texture2D divine = TextureLoader.LoadTextureFromFile("tribeDivine.png");
+                Texture2D fae = TextureLoader.LoadTextureFromFile("tribeFae.png");
+                Texture2D mechanic = TextureLoader.LoadTextureFromFile("tribeMechanical.png");
 
-                TribeAnthropoid = TribeManager.Add(pluginGuid, "AnthropoidTribe", anthro, true, null);
-                TribeBotanic = TribeManager.Add(pluginGuid, "BotanicalTribe", botanical, true, null);
-                TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", divine, true, null);
-                TribeFae = TribeManager.Add(pluginGuid, "FaerieTribe", fae, true, null);
-                TribeMechanical = TribeManager.Add(pluginGuid, "MechanicalTribe", mechanic, true, null);
+                TribeAnthropoid = TribeManager.Add(pluginGuid, "AnthropoidTribe", anthro, true, TextureLoader.LoadTextureFromFile("tribeAnthropoid_reward.png"));
+                TribeBotanic = TribeManager.Add(pluginGuid, "BotanicalTribe", botanical, true, TextureLoader.LoadTextureFromFile("tribeBotanic_reward.png"));
+                TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", divine, true, TextureLoader.LoadTextureFromFile("tribeDivine_reward.png"));
+                TribeFae = TribeManager.Add(pluginGuid, "FaerieTribe", fae, true, TextureLoader.LoadTextureFromFile("tribeFae_reward.png"));
+                TribeMechanical = TribeManager.Add(pluginGuid, "MechanicalTribe", mechanic, true, TextureLoader.LoadTextureFromFile("tribeMechanical_reward.png"));
             }
         }
 
@@ -132,6 +132,14 @@ namespace WhistleWind.AbnormalSigils
         private void AddCards() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
         private void AddAbilities()
         {
+            AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
+            {
+                var stoneInfo = abilities.Find(x => x.Info.name == "MadeOfStone").Info;
+                stoneInfo.rulebookDescription = "[creature] is immune to the effects of Touch of Death, Stinky, Punisher, and Idol.";
+
+                return abilities;
+            };
+
             // v1.0
             Ability_Punisher();
             Ability_Bloodfiend();

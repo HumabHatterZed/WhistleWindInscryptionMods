@@ -10,45 +10,20 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
+using static UnityEngine.GraphicsBuffer;
 
 namespace WhistleWindLobotomyMod
 {
-    public class ApocalypseAbility : AbilityBehaviour
+    public class ApocalypseAbility : AbilityBehaviour, IGetOpposingSlots
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToUpkeep(bool playerUpkeep)
+        public bool RemoveDefaultAttackSlot() => true;
+        public bool RespondsToGetOpposingSlots() => base.Card.HasTrait(Trait.Giant);
+        public List<CardSlot> GetOpposingSlots(List<CardSlot> originalSlots, List<CardSlot> otherAddedSlots)
         {
-            return base.Card.HasTrait(Trait.Giant) && base.Card.OpponentCard != playerUpkeep;
-        }
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
-            foreach (CardSlot item in Singleton<BoardManager>.Instance.PlayerSlotsCopy)
-            {
-                PlayableCard playerCard = item.Card;
-                if (playerCard == null || !playerCard.IsAffectedByTidalLock())
-                    continue;
-
-                Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-                yield return new WaitForSeconds(0.25f);
-                yield return playerCard.Die(false);
-                yield return new WaitForSeconds(0.1f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue);
-                yield return new WaitForSeconds(0.1f);
-
-                base.Card.HealDamage(1);
-
-                if (!base.HasLearned)
-                {
-                    yield return new WaitForSeconds(1f);
-                    yield return base.LearnAbility();
-                }
-                else
-                {
-                    yield return new WaitForSeconds(0.5f);
-                }
-            }
+            return new((TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer).specialTargetSlots);
         }
     }
 

@@ -7,7 +7,7 @@ using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public class StarSound : SpecialCardBehaviour, IGetOpposingSlots
+    public class StarSound : SpecialCardBehaviour, ISetupAttackSequence
     {
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
@@ -16,12 +16,19 @@ namespace WhistleWindLobotomyMod
         public const string rName = "Sound of a Star";
         public const string rDesc = "If there are no cards on the opposing side that can be attacked, Blue Star strikes all slots directly.";
 
-        public bool RemoveDefaultAttackSlot() => true;
-        public bool RespondsToGetOpposingSlots() => true;
+        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
+        {
+            return card == base.PlayableCard && modType == OpposingSlotTriggerPriority.PostAdditionModification;
+        }
 
-        public List<CardSlot> GetOpposingSlots(List<CardSlot> originalSlots, List<CardSlot> otherAddedSlots)
+        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
         {
             return BoardManager.Instance.GetSlotsCopy(base.PlayableCard.OpponentCard);
+        }
+
+        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
+        {
+            return 0;
         }
     }
     public class RulebookEntryStarSound : AbilityBehaviour

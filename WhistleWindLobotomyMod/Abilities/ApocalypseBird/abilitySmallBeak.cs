@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Small Beak";
             SmallBeak.ability = LobotomyAbilityHelper.CreateAbility<SmallBeak>(
                 "sigilSmallBeak", rulebookName,
-                "While this card is on the board, all creatures take twice as much damage.",
+                "At the start of the turn, target a random lane on the board.  At the start of the next turn, kill all cards in the targeted lane, excluding this card.",
                 null, powerLevel: 0,
                 canStack: false).Id;
         }

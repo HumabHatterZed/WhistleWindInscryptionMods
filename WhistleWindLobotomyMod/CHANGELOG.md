@@ -8,15 +8,20 @@
     - Minor adjustments to some sequences
     - Adjusted icon for Start with a Beast cheat
     - Adjusted description of Abnormal Bosses challenge to specify the affected bosses
-    - Angela card will now be unlocked if the player has at least 3 Sephirah cards in their deck
+    - Angela card will now be unlocked if the player has at least 3 Sephirah cards in their deck when moving to a Sefirot choice node
     - Bless special ability will no longer affect Giant and Uncuttable cards (Mule cards are still affected)
-    - Change for Bless to create a Heretic apostle is now tied to the game's seed rather than being truly random
+    - Chance for Bless to create a Heretic apostle is now tied to the game's seed rather than being truly random
+    - Blessings are now given to whomever owns the good doctor
 ### 🩹 Bug fixes
     - Fixed The Road Home softlocking the game when played by Leshy
     - Fixed Abnormal Bosses config replacing Grizzly Bears with Guardian Apostles in Part 1 during bosses
+    - Fixed learned dialogue for Marksman and Quick Draw not playing
+    - Fixed Nosferatu not evolving into the correct forme
+    - Fixed some WhiteNight-related dialogue not playing correctly
+    - Fixed WhiteNight not being immune to Touch of Death
 ### ➕ Additions
     - Added Final Apocalypse challenge and boss
-    - Added Achievements API support (5 achievements)
+    - Added Achievements API support (6 achievements)
 
 ## v2.0.2 - Minor patch (7/29/2023)
 ### 🩹 Bug fixes

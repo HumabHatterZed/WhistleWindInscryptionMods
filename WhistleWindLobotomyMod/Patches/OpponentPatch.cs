@@ -11,14 +11,6 @@ namespace WhistleWindLobotomyMod.Patches
     [HarmonyPatch]
     internal class OpponentPatches
     {
-        [HarmonyPostfix, HarmonyPatch(typeof(Part1Opponent), nameof(Part1Opponent.ModifyQueuedCard))]
-        private static void MarkOpponentDoctor(PlayableCard card)
-        {
-            // marks the card as using the opponent's blessings count
-            if (card.Info.name == "wstl_plagueDoctor")
-                card.Info.Mods.Add(new() { singletonId = SaviourBossUtils.ModSingletonId });
-        }
-
         [HarmonyPostfix, HarmonyPatch(typeof(SceneLoader), nameof(SceneLoader.Load))]
         private static void ResetTriggers()
         {
@@ -49,7 +41,6 @@ namespace WhistleWindLobotomyMod.Patches
                     LobotomyConfigManager.Instance.SetBlessings(0);
 
                 AchievementAPI.Unlock(AchievementAPI.Blessing);
-
                 LobotomySaveManager.TriggeredWhiteNightThisBattle = false;
             }
 
@@ -59,6 +50,15 @@ namespace WhistleWindLobotomyMod.Patches
 
             if (__instance is not PixelOpponent)
                 Singleton<TableVisualEffectsManager>.Instance?.ResetTableColors();
+
+            if (LobotomySaveManager.UnlockedApocalypseBird)
+                AchievementAPI.Unlock(AchievementAPI.TheThreeBirds);
+
+            if (LobotomySaveManager.UnlockedJesterOfNihil)
+                AchievementAPI.Unlock(AchievementAPI.MagicalGirls);
+
+            if (LobotomySaveManager.UnlockedLyingAdult)
+                AchievementAPI.Unlock(AchievementAPI.YellowBrickRoad);
 
             yield return enumerator;
         }

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string nosferatuBeast = "nosferatuBeast";
             Tribe[] tribes = new[] { TribeFae };
 
-            NewCard(nosferatuBeast, nosferatuName,
+            CardInfo beast = NewCard(nosferatuBeast, nosferatuName,
                 attack: 3, health: 1, blood: 2)
                 .SetPortraits(nosferatuBeast)
                 .AddAbilities(Bloodfiend.ability, Bloodfiend.ability)
@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(nosferatu)
                 .AddAbilities(Bloodfiend.ability, Ability.Evolve)
                 .AddTribes(tribes)
-                .SetEvolve(nosferatuBeast, 1)
+                .SetEvolve(beast, 1)
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Ruina);
         }
     }

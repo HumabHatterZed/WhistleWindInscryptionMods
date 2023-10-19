@@ -14,7 +14,7 @@ using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public class Dazzling : AbilityBehaviour, IModifyDamageTaken, IPreTakeDamage
+    public class Dazzling : AbilityBehaviour, IPreTakeDamage
     {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -37,13 +37,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.25f);
         }
 
-        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
-        {
-            return base.Card == target && attacker != null && attacker.HasStatusEffect<Enchanted>(true);
-        }
 
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => 0;
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => int.MinValue;
     }
 
     public partial class LobotomyPlugin
@@ -53,7 +47,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Dazzling";
             Dazzling.ability = LobotomyAbilityHelper.CreateAbility<Dazzling>(
                 "sigilDazzling", rulebookName,
-                "On activation, inflict up to 3 other cards on the board with Enchanted. This card takes no damage from Enchanted cards, killing them instead.",
+                "The turn after this card is played, inflict up to 3 other cards on the board with Enchanted. When struck by an Enchanted card, kill it.",
                 "Like moths to a flame.", powerLevel: 0,
                 canStack: false).Id;
         }

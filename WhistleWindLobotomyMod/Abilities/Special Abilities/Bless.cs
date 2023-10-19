@@ -42,16 +42,16 @@ namespace WhistleWindLobotomyMod
 
             // play hint dialogue if it hasn't been yet, or if this is the first run since it triggered
             if (!DialogueEventsData.EventIsPlayed("PlagueDoctorBless"))
-                DialogueHelper.PlayDialogueEvent("PlagueDoctorBless", card: base.PlayableCard);
+                yield return DialogueHelper.PlayDialogueEvent("PlagueDoctorBless", card: base.PlayableCard);
 
             else if (!LobotomySaveManager.TriggeredWhiteNightThisRun && blessings == 0)
-                DialogueHelper.PlayAlternateDialogue("The hands of the Clock move towards salvation.");
+                yield return DialogueHelper.PlayAlternateDialogue("The hands of the Clock move towards salvation.");
 
             else if (blessings == 9)
-                DialogueHelper.PlayAlternateDialogue("[c:bR]When the day comes, find me.[c:]");
+                yield return DialogueHelper.PlayAlternateDialogue("[c:bR]When the day comes, find me.[c:]");
 
             else if (blessings == 10)
-                DialogueHelper.PlayAlternateDialogue("[c:bR]I will save your life from destruction and raise you from the end of the world.[c:]");
+                yield return DialogueHelper.PlayAlternateDialogue("[c:bR]I will save your life from destruction and raise you from the end of the world.[c:]");
         }
         public override IEnumerator TriggerClock() => CheckTheClock();
 

@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Misdeeds Not Allowed";
             Misdeeds.ability = LobotomyAbilityHelper.CreateAbility<Misdeeds>(
                 "sigilMisdeeds", rulebookName,
-                "The turn before activation, target a random lane on the board. On activation, kill all cards in the targeted lane excluding this card.",
+                "When this card takes damage, gain 2 Power until the end of the owner's turn.",
                 null, powerLevel: 0,
                 canStack: false).Id;
         }

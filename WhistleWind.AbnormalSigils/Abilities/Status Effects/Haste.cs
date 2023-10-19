@@ -13,14 +13,8 @@ namespace WhistleWind.AbnormalSigils
         public static Ability iconId;
         public override string CardModSingletonName => "haste";
 
-        public bool RespondsToGetAttackingSlots(bool playerIsAttacker, List<CardSlot> originalSlots, List<CardSlot> currentSlots)
-        {
-            return true;
-        }
-        public bool RespondsToPostSlotAttackSequence(CardSlot attackingSlot)
-        {
-            return attackingSlot == base.PlayableCard.Slot;
-        }
+        public bool RespondsToGetAttackingSlots(bool playerIsAttacker, List<CardSlot> originalSlots, List<CardSlot> currentSlots) => true;
+        public bool RespondsToPostSlotAttackSequence(CardSlot attackingSlot) => attackingSlot.Card == base.PlayableCard;
 
         public List<CardSlot> GetAttackingSlots(bool playerIsAttacker, List<CardSlot> originalSlots, List<CardSlot> currentSlots)
         {
@@ -38,14 +32,10 @@ namespace WhistleWind.AbnormalSigils
         public IEnumerator OnPostSlotAttackSequence(CardSlot attackingSlot)
         {
             // LightNegationEffect sets DoingAttackAnimation to false for some reason, which causes visual glitches
-            // so do it this way
-            EffectSeverity = 0;
             base.PlayableCard.Anim.NegationEffect(false);
-            CardModificationInfo mod = base.PlayableCard.TemporaryMods.Find(x => x.singletonId == CardModSingletonName);
-            if (mod != null)
-                base.PlayableCard.RemoveTemporaryMod(mod);
-
+            SetSeverity(0, false);
             yield return new WaitForSeconds(0.25f);
+            Destroy();
         }
 
         public int TriggerPriority(bool playerIsAttacker, List<CardSlot> originalSlots) => 0;

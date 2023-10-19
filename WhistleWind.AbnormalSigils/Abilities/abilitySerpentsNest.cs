@@ -39,10 +39,7 @@ namespace WhistleWind.AbnormalSigils
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
 
-            if (source.HasStatusEffect<Worms>())
-                source.UpdateStatusEffectCount<Worms>(stacks, true);
-            else
-                source.AddStatusEffectToCard<Worms>(stacks - 1, true);
+            source.AddStatusEffect<Worms>(stacks, true);
 
             yield return new WaitForSeconds(0.55f);
             yield return base.LearnAbility();

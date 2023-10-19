@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Triggers;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
@@ -9,7 +10,7 @@ using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public class Apostle : AbilityBehaviour
+    public class Apostle : AbilityBehaviour, IModifyDamageTaken
     {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -97,6 +98,19 @@ namespace WhistleWindLobotomyMod
         }
 
         private void ResetDamage() => base.Card.Status.damageTaken = 0;
+
+        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        {
+            return base.Card == target && Downed && Saviour;
+        }
+
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        {
+            target.Anim.StrongNegationEffect();
+            return 0;
+        }
+
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
     }
 
     public partial class LobotomyPlugin

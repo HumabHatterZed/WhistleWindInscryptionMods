@@ -20,7 +20,6 @@ namespace WhistleWindLobotomyMod.Opponents
 {
     public class SaviourBossUtils
     {
-        public const string ModSingletonId = "wstl:MiracleWorkerChallenge";
         public static bool PlayerHasHeretic
         {
             get
@@ -37,13 +36,19 @@ namespace WhistleWindLobotomyMod.Opponents
 
         public static int Blessings(Card card)
         {
-            return card.Info.Mods.Exists(x => x.singletonId == ModSingletonId) ?
-                LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.Instance.NumOfBlessings;
+            return OpponentPlagueDoctor(card) ? LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.Instance.NumOfBlessings;
         }
 
+        private static bool OpponentPlagueDoctor(Card card)
+        {
+            if (card is PlayableCard && (card as PlayableCard).OpponentCard)
+                return true;
+
+            return card.Info.name == "wstl_plagueDoctorOpponent";
+        }
         public static void UpdateBlessings(Card card, int num)
         {
-            if (card.Info.Mods.Exists(x => x.singletonId == ModSingletonId))
+            if (OpponentPlagueDoctor(card))
                 LobotomySaveManager.OpponentBlessings += num;
             else
                 LobotomyConfigManager.Instance.UpdateBlessings(num);
@@ -119,7 +124,7 @@ namespace WhistleWindLobotomyMod.Opponents
 
         internal static EncounterBlueprintData CreateStartingBlueprint()
         {
-            string minion = (TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer).CurrentBossMinion;
+            string minion = (TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer).ActiveEggMinion;
 
             EncounterBlueprintData encounter = EncounterManager.New("SaviourBossPlan", false)
                 .AddDominantTribes(AbnormalPlugin.TribeDivine)

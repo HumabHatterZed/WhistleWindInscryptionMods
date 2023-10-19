@@ -138,6 +138,7 @@ namespace WhistleWindLobotomyMod
         private IEnumerator EndBattle()
         {
             int damage = Singleton<LifeManager>.Instance.DamageUntilPlayerWin;
+
             yield return Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = damage;
             yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
 

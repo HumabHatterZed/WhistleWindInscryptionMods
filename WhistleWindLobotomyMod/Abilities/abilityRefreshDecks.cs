@@ -28,12 +28,18 @@ namespace WhistleWindLobotomyMod
             CardDrawPiles3D.Instance.SideDeckData.ForEach((CardInfo x) => deck.Add(x.Clone() as CardInfo));
 
             yield return HelperMethods.ChangeCurrentView(View.CardPiles, 0.2f, 0.4f);
-            CardDrawPiles3D.Instance.Deck.Initialize(deck, GetRandomSeed());
-            CardDrawPiles3D.Instance.SideDeck.Initialize(sideDeck, GetRandomSeed());
 
+            Singleton<CardDrawPiles>.Instance.CleanUp();
+            
             // remove any remaining cards then create new piles
-            yield return CardDrawPiles3D.Instance.CleanUpPiles();
-            yield return CardDrawPiles3D.Instance.InitializePiles();
+            
+            yield return new WaitForSeconds(0.4f);
+            yield return Singleton<CardDrawPiles>.Instance.Initialize();
+
+            /*yield return CardDrawPiles3D.Instance.pile.SpawnCards(CardDrawPiles3D.Instance.Deck.CardsInDeck, 0.5f);
+            yield return new WaitForSeconds(0.4f);
+            yield return CardDrawPiles3D.Instance.sidePile.SpawnCards(CardDrawPiles3D.Instance.SideDeck.CardsInDeck, 0.5f);
+*/
         }
     }
 

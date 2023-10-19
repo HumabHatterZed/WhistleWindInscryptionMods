@@ -184,9 +184,9 @@ namespace WhistleWind.AbnormalSigils.Patches
             }
         }
         private static bool ImmuneToHanging(CardSlot slot) => slot.Card?.HasAnyOfTraits(Trait.Terrain, Trait.Pelt, AbnormalPlugin.ImmuneToInstaDeath) ?? true;
-        private static bool IsJudgementBird(CardSlot slot) => slot.Card.HasTrait(LobotomyCardManager.TraitExecutioner);
-        private static bool IsEnraged(CardSlot slot) => slot.Card.GetComponent<CrimsonScar>()?.Enraged ?? false;
-        private static bool IsRaging(CardSlot slot) => slot.Card.HasSpecialAbility(BlindRage.specialAbility);
+        private static bool IsJudgementBird(CardSlot slot) => slot?.Card != null && slot.Card.HasTrait(LobotomyCardManager.TraitExecutioner);
+        private static bool IsEnraged(CardSlot slot) => slot?.Card != null && (slot.Card.GetComponent<CrimsonScar>()?.Enraged ?? false);
+        private static bool IsRaging(CardSlot slot) => slot?.Card != null && slot.Card.HasSpecialAbility(BlindRage.specialAbility);
         private static IEnumerator Execution(PlayableCard target)
         {
             target.Anim.PlaySacrificeSound();

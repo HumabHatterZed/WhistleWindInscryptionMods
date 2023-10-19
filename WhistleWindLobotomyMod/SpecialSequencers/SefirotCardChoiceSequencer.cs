@@ -180,10 +180,8 @@ namespace WhistleWindLobotomyMod
             
             // if the player has 3 sephirah already, unlock Angela and make her a guaranteed choice
             if (sephirahCards.Count <= 6 && !LobotomySaveManager.UnlockedAngela)
-            {
-                LobotomySaveManager.UnlockedAngela = true;
                 listOfChoices.Add(new() { CardInfo = CardLoader.GetCardByName("wstl_angela") });
-            }
+
             while (listOfChoices.Count < 3)
             {
                 CardInfo card;
@@ -262,7 +260,13 @@ namespace WhistleWindLobotomyMod
             if (DuplicateInDeck(card))
                 SpawnMushroom(originalCardPos);
 
-            yield break;
+            // unlock achievement upon flipping the card
+            if (card.Info.name == "wstl_angela" && !LobotomySaveManager.UnlockedAngela)
+            {
+                yield return new WaitForSeconds(0.25f);
+                LobotomyPlugin.AchievementAPI.Unlock(LobotomyPlugin.AchievementAPI.Impuritas);
+                LobotomySaveManager.UnlockedAngela = true;
+            }
         }
         private IEnumerator TutorialTextSequence(SelectableCard card)
         {

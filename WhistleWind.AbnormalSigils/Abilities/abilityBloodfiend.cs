@@ -26,13 +26,7 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToDealDamage(int amount, PlayableCard target)
-        {
-            if (amount > 0)
-                return base.Card.NotDead() && base.Card.Health > 0;
-
-            return false;
-        }
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && base.Card.NotDead() && base.Card.Health > 0;
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
             yield return base.PreSuccessfulTriggerSequence();

@@ -48,7 +48,7 @@ namespace WhistleWind.AbnormalSigils
             yield return HelperMethods.ChangeCurrentView(View.Board);
             base.PlayableCard.Anim.LightNegationEffect();
 
-            UpdateStatusEffectCount(newSpore, false);
+            AddSeverity(newSpore, false);
             if (EffectSeverity <= 3)
                 base.PlayableCard.AddTemporaryMod(EffectDecalMod());
 

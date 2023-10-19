@@ -10,6 +10,7 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Opponents.Apocalypse
@@ -29,25 +30,12 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public override int StartingLives => 4;
         public override bool GiveCurrencyOnDefeat => false;
         public override string DefeatedPlayerDialogue => "Twilight falls...";
-        public override Color InteractablesGlowColor => GameColors.Instance.glowRed;
+        public override Color InteractablesGlowColor => GameColors.Instance.gold;
         public ApocalypseBattleSequencer BattleSequence => TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer;
 
         private GameObject apocalypseAnimation;
-
-        private Animator HeadAnimator;
-        private Animator NeckAnimator;
-        private Animator MouthAnimator;
-        private Animator Arm1Animator;
-        private Animator Arm2Animator;
-
-        private readonly Animator[] ApocalypseWings = new Animator[4];
-        private readonly Animator[] ApocalypseEyes = new Animator[4];
-
-        private const string START_IDLE = "StartIdle";
-        private const string START_FLARE = "StartFlare";
-
-        // TO DO
-        // figure out animations
+        internal Animator MasterAnimator;
+        // override GameFlow.KillPlayerSequence
 
         // if totem, change sigil each phase
         private bool bossTotems;
@@ -64,23 +52,41 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             ThickSkin.ability
         };
 
+        public override IEnumerator OutroSequence(bool wasDefeated)
+        {
+            if (AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems))
+            {
+                yield return base.DisassembleTotem();
+                Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
+            }
+            if (!wasDefeated)
+                yield return new WaitForSeconds(0.1f);
+        }
+        public override IEnumerator DefeatedPlayerSequence()
+        {
+            BattleSequence.CleanupTargetIcons();
+            yield return ResetToIdle();
+            yield return base.DefeatedPlayerSequence();
+        }
         public override IEnumerator LifeLostSequence()
         {
             Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
-            yield return new WaitForSeconds(0.25f);
+
+            ResetToIdle();
+            yield return new WaitForSeconds(0.5f);
             Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
-            AudioController.Instance.SetLoopVolume(0f, 0.5f);
             yield return new WaitForSeconds(1f);
 
-            switch (BattleSequence.CurrentBossPhase)
+            AudioController.Instance.PlaySound2D("bird_dead", MixerGroup.TableObjectsSFX);
+            switch (BattleSequence.ActiveEggEffect)
             {
-                case ApocalpyseBossPhase.BigEyes:
+                case ActiveEggEffect.BigEyes:
                     yield return DefeatBigEyesSequence();
                     break;
-                case ApocalpyseBossPhase.SmallBeak:
+                case ActiveEggEffect.SmallBeak:
                     yield return DefeatSmallBeakSequence();
                     break;
-                case ApocalpyseBossPhase.LongArms:
+                case ActiveEggEffect.LongArms:
                     yield return DefeatLongArmsSequence();
                     break;
             }
@@ -89,6 +95,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             if (base.NumLives == 0)
             {
+                LobotomySaveManager.DefeatedApocalypseBoss = true;
                 AscensionStatsData.TryIncrementStat(AscensionStat.Type.BossesDefeated);
                 yield return new WaitForSeconds(0.25f);
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
@@ -114,95 +121,104 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     AudioListener.volume = 0f;
                 }
             }
-            else if (base.NumLives > 1)
-            {
-                AudioController.Instance.SetLoopVolume(0.5f, 0.5f);
-            }
+
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
         }
         public override IEnumerator StartNewPhaseSequence()
         {
-            TurnPlan.Clear();
-
-            Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue);
-            BattleSequence.CompletedBossPhases.Add(BattleSequence.CurrentBossPhase);
-
             bool finalPhase = NumLives == 1;
+
+            TurnPlan.Clear();
+            Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue);
 
             // switch to the next phase if it's not the last phase; otherwise remove Airborne as a possible totem ability (assuming it's still a choice)
             if (!finalPhase)
-                yield return BattleSequence.SwitchToNextEggPhase(true);
-            else
-                possibleAbilities.Remove(Ability.Flying);
+                yield return BattleSequence.SwitchToNextEggEffect(true);
 
             if (bossTotems)
             {
+                if (finalPhase)
+                {
+                    possibleAbilities.Clear();
+                    possibleAbilities.Add(RunState.Run.DifficultyModifier > 1 ? Ability.GainAttackOnKill : Ability.Sharp);
+                }
                 Singleton<ViewManager>.Instance.SwitchToView(View.OpponentTotem);
                 yield return new WaitForSeconds(0.25f);
                 yield return ReplaceTotemBottom();
+
+                // immediately increase the music to regular volume for maximum coolness(tm)
+                //AudioController.Instance.loopSources[0].time = 11.5f;
+                AudioController.Instance.SetLoopVolumeImmediate(BG_VOLUME);
                 yield return new WaitForSeconds(0.5f);
                 Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue);
             }
+            else
+            {
+                //AudioController.Instance.loopSources[0].time = 11.5f;
+                AudioController.Instance.SetLoopVolume(BG_VOLUME, 1f);
+            }
 
             if (!finalPhase)
-                yield return this.QueueNewCards();
+            {
+                yield return BattleSequence.MoveOpponentCards();
+                yield return QueueNewCards();
+            }
             else
                 yield return StartGiantPhase();
         }
         public IEnumerator DefeatBigEyesSequence()
         {
-            // scribble out eyes
-            Singleton<CameraEffects>.Instance.Shake(0.5f, 0.5f);
+            MasterAnimator.SetBool("DefeatEyes", true);
+            Singleton<CameraEffects>.Instance.Shake(0.5f, 1f);
+            yield return new WaitForSeconds(1.5f);
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBrokenEggBig", TextDisplayer.MessageAdvanceMode.Input);
         }
         public IEnumerator DefeatSmallBeakSequence()
         {
-            // 
-            Singleton<CameraEffects>.Instance.Shake(0.5f, 0.5f);
+            MasterAnimator.SetBool("DefeatBeak", true);
+            Singleton<CameraEffects>.Instance.Shake(0.5f, 1f);
+            yield return new WaitForSeconds(1.5f);
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBrokenEggSmall", TextDisplayer.MessageAdvanceMode.Input);
         }
         public IEnumerator DefeatLongArmsSequence()
         {
-            // lower arms
-            Singleton<CameraEffects>.Instance.Shake(0.5f, 0.5f);
+            MasterAnimator.SetBool("DefeatArms", true);
+            Singleton<CameraEffects>.Instance.Shake(0.5f, 1f);
+            yield return new WaitForSeconds(1.5f);
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBrokenEggLong", TextDisplayer.MessageAdvanceMode.Input);
         }
 
         private IEnumerator StartGiantPhase()
         {
             CardInfo beast = CardLoader.GetCardByName("wstl_!GIANTCARD_ApocalypseBird");
-            beast.baseHealth = BattleSequence.CurrentEggCard.Health;
             yield return ClearBoard();
             yield return ClearQueue();
-            // collapse apocalypse bird
 
-            yield return new WaitForSeconds(0.5f);
-
-            // build-up
+            yield return HelperMethods.ChangeCurrentView(View.Default);
+            PlayDefeatAnimation();
+            yield return new WaitForSeconds(1f);
             AudioController.Instance.SetLoopVolume(0.5f, 0.5f);
-            AudioController.Instance.GetLoopSource(0).pitch += 1f;
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2f);
+
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(beast, BoardManager.Instance.OpponentSlotsCopy[0], 0.2f);
             yield return new WaitForSeconds(0.2f);
+            AudioController.Instance.GetLoopSource(0).pitch += 1f;
             AudioController.Instance.PlaySound3D("map_slam", MixerGroup.TableObjectsSFX, Singleton<BoardManager>.Instance.transform.position);
-            AudioController.Instance.PlaySound2D("apocalypseRoar", MixerGroup.TableObjectsSFX, skipToTime: 0.25f);
-            yield return new WaitForSeconds(1f);
+            AudioController.Instance.PlaySound2D("bird_roar", MixerGroup.TableObjectsSFX);
+            // re-emerge the bird
+            yield return new WaitForSeconds(2f);
+            yield return BattleSequence.GiantPhaseLogic();
         }
 
         public override IEnumerator IntroSequence(EncounterData encounter)
         {
             // expand base.IntroSequence so we can modify it further
             RunState.CurrentMapRegion.FadeOutAmbientAudio();
-            
-            // background music
-            AudioController.Instance.SetLoopAndPlay("part1_finale_boss");
-            AudioController.Instance.GetLoopSource(0).time = 1.75f;
-            AudioController.Instance.SetLoopVolumeImmediate(0f);
-
             yield return ReducePlayerLivesSequence();
             yield return new WaitForSeconds(0.4f);
             // don't instantiate the boss skull; we won't be using it
+
             if (AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems))
             {
                 bossTotems = true;
@@ -228,7 +244,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             yield return new WaitForSeconds(0.5f);
             AudioController.Instance.PlaySound2D("prospector_trees_enter", MixerGroup.TableObjectsSFX, 0.2f);
-            AudioController.Instance.FadeOutLoop(0.5f);
+            base.StartCoroutine(StartIntroLoop());
             yield return new WaitForSeconds(1.5f);
 
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossPreIntro", TextDisplayer.MessageAdvanceMode.Input);
@@ -241,38 +257,15 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 completeCallback: () => LeshyAnimationController.Instance.head.localPosition += new Vector3(0f, 0f, 18f)
                 );
 
-            yield return new WaitForSeconds(0.5f);
-            AudioController.Instance.SetLoopVolume(0.5f, 0.5f);
-            AudioController.Instance.PlaySound2D("apocalypseRoar", MixerGroup.TableObjectsSFX);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.75f);
+            AudioController.Instance.PlaySound2D("bird_roar", MixerGroup.TableObjectsSFX);
 
             yield return base.FaceZoomSequence();
             // create Apocalypse Bird object
             apocalypseAnimation = Instantiate(CustomBossUtils.apocalypsePrefab, new Vector3(0.3f, 5.5f, 4.5f), Quaternion.identity);
             apocalypseAnimation.name = "ApocalypseBoss";
 
-            Transform wing1 = apocalypseAnimation.transform.Find("Wing1");
-            Transform wing2 = apocalypseAnimation.transform.Find("Wing2");
-            Transform outer1 = wing1.Find("OuterWing");
-            Transform outer2 = wing2.Find("OuterWing");
-
-            HeadAnimator = apocalypseAnimation.transform.Find("Head").GetComponent<Animator>();
-            NeckAnimator = apocalypseAnimation.transform.Find("Neck").GetComponent<Animator>();
-
-            // wings and eyes are animated as groups
-            ApocalypseWings[0] = wing1.GetComponent<Animator>();
-            ApocalypseWings[1] = wing2.GetComponent<Animator>();
-            ApocalypseWings[2] = outer1.GetComponent<Animator>();
-            ApocalypseWings[3] = outer2.GetComponent<Animator>();
-
-            ApocalypseEyes[0] = wing1.Find("Eyes").GetComponent<Animator>();
-            ApocalypseEyes[1] = wing2.Find("Eyes").GetComponent<Animator>();
-            ApocalypseEyes[2] = outer1.Find("Eyes").GetComponent<Animator>();
-            ApocalypseEyes[3] = outer2.Find("Eyes").GetComponent<Animator>();
-
-            MouthAnimator = apocalypseAnimation.transform.Find("Body").transform.Find("Mouth").GetComponent<Animator>();
-            //Arm1Animator = apocalypseAnimation.transform.Find("Arm1").GetComponent<Animator>();
-            //Arm2Animator = apocalypseAnimation.transform.Find("Arm2").GetComponent<Animator>();
+            MasterAnimator = apocalypseAnimation.GetComponent<Animator>();
 
             this.SetSceneEffectsShown(true);
             Singleton<CameraEffects>.Instance.Shake(0.5f, 0.25f);
@@ -284,8 +277,10 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             Singleton<ViewManager>.Instance.SwitchToView(View.Scales);
             yield return new WaitForSeconds(0.2f);
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossBendScales1");
-            LobotomyPlugin.PreventOpponentDamage = false;
+            
+            // account for any challenges that affect the initial scale balance
             int damageThreshold = LifeManager.Instance.DamageUntilPlayerWin > 4 ? 4 : LifeManager.Instance.DamageUntilPlayerWin - 1;
+            LobotomyPlugin.PreventOpponentDamage = false;
             yield return LifeManager.Instance.ShowDamageSequence(damageThreshold, 1, toPlayer: false);
             LobotomyPlugin.PreventOpponentDamage = true;
             yield return new WaitForSeconds(0.5f);
@@ -293,11 +288,32 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossPrelude");
-            yield return SetToIdle();
-            
+            MasterAnimator.SetTrigger("MoveFromEntry");
+            yield return new WaitForSeconds(0.75f);
+            base.StartCoroutine(StartMainLoop());
+
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
 
+        private const float BG_VOLUME = 0.3f;
+        private IEnumerator StartIntroLoop()
+        {
+            yield return new WaitForSeconds(0.5f);
+            AudioController.Instance.SetLoopAndPlay("second_trumpet_intro", looping: false);
+            AudioController.Instance.SetLoopVolumeImmediate(BG_VOLUME);
+            yield return new WaitUntil(() => AudioController.Instance.loopSources[0].time + 0.05f >= AudioController.Instance.loopSources[0].clip.length);
+            AudioController.Instance.SetLoopAndPlay("second_trumpet_intro_loop");
+            AudioController.Instance.SetLoopVolumeImmediate(BG_VOLUME);
+        }
+        private IEnumerator StartMainLoop()
+        {
+            yield return new WaitUntil(() => AudioController.Instance.loopSources[0].time + 0.05f >= AudioController.Instance.loopSources[0].clip.length);
+            AudioController.Instance.SetLoopAndPlay("second_trumpet_main", looping: false);
+            AudioController.Instance.SetLoopVolumeImmediate(BG_VOLUME);
+            yield return new WaitUntil(() => AudioController.Instance.loopSources[0].time + 0.05f >= AudioController.Instance.loopSources[0].clip.length);
+            AudioController.Instance.SetLoopAndPlay("second_trumpet_main_loop");
+            AudioController.Instance.SetLoopVolumeImmediate(BG_VOLUME);
+        }
         private IEnumerator ReplaceTotemBottom()
         {
             // "disassemble" the totem
@@ -335,38 +351,23 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             return retval;
         }
 
-        private IEnumerator SetToIdle()
+        internal IEnumerator ResetToIdle()
         {
-            HeadAnimator.SetTrigger(START_IDLE);
-            NeckAnimator.SetBool("Flare", false);
-            CustomCoroutine.WaitThenExecute(0.4f, delegate
-            {
-                SetWingsToTrigger(START_IDLE);
-                SetEyesToTrigger(START_IDLE);
-            });
-            yield return new WaitUntil(() => HeadAnimator.GetCurrentAnimatorStateInfo(0).IsName("headIdle"));
+            if (MasterAnimator.GetBool("Flare"))
+                yield return new WaitForSeconds(0.5f);
+            
+            MasterAnimator.SetBool("Flare", false);
         }
-        private void FlareWings(float wingDelay)
+        internal void SetIdle(bool idle) => MasterAnimator.SetBool("Idle", idle);
+        
+        private void PlayDefeatAnimation()
         {
-            HeadAnimator.SetTrigger(START_FLARE);
-            NeckAnimator.SetBool("Flare", true);
-            CustomCoroutine.WaitThenExecute(wingDelay, delegate
-            {
-                SetWingsToTrigger(START_FLARE);
-                SetEyesToTrigger(START_FLARE);
-            });
+            // override the overrides
+            MasterAnimator.SetLayerWeight(2, 0f);
+            MasterAnimator.SetLayerWeight(3, 0f);
+            MasterAnimator.SetLayerWeight(4, 0f);
+            MasterAnimator.SetTrigger("StartFinal");
         }
-        private void SetWingsToTrigger(string trigger)
-        {
-            foreach (var anim in ApocalypseWings)
-                anim.SetTrigger(trigger);
-        }
-        private void SetEyesToTrigger(string trigger)
-        {
-            foreach (var anim in ApocalypseEyes)
-                anim.SetTrigger(trigger);
-        }
-
         public override void SetSceneEffectsShown(bool showEffects)
         {
             if (showEffects)

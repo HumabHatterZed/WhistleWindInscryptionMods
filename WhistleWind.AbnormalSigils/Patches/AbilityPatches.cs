@@ -11,10 +11,10 @@ using System.Linq;
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches
 {
-    [HarmonyPatch]
-    internal class PiercingPatch
+    [HarmonyPatch(typeof(PlayableCard))]
+    internal class PlayableCardAbilityPatches
     {
-        [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.TakeDamage))]
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
         private static IEnumerator IgnoreShield(IEnumerator enumerator, PlayableCard __instance, int damage, PlayableCard attacker)
         {
             bool shield = __instance.HasShield();
@@ -54,10 +54,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             x => x.RespondsToOtherCardDealtDamageInHand(attacker, attacker.Attack, target),
                 x => x.OnOtherCardDealtDamageInHand(attacker, attacker.Attack, target));
         }
-    }
-    [HarmonyPatch(typeof(PlayableCard))]
-    internal class PlayableCardAbilityPatches
-    {
+
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
         private static void ModifyAttackStat(PlayableCard __instance, ref int __result)
         {
@@ -84,8 +81,8 @@ namespace WhistleWind.AbnormalSigils.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(Deathtouch), nameof(Deathtouch.RespondsToDealDamage))]
         private static void ImmunetoDeathTouch(ref bool __result, int amount, PlayableCard target)
         {
-            if (amount > 0 && target != null && !target.Dead)
-                __result &= target.LacksTrait(AbnormalPlugin.ImmuneToInstaDeath);
+            if (amount > 0 && target != null && !target.Dead && target.HasTrait(AbnormalPlugin.ImmuneToInstaDeath))
+                __result = false;
         }
 
         // Triggers card with Fungal Infector before other cards

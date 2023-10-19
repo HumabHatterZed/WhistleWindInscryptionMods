@@ -40,6 +40,8 @@ a custom card pack will be created representing this mod. That's all :).
 This mod has custom achievements if you're using the [Achievements API](https://inscryption.thunderstore.io/package/Infiniscryption/Achievements/) installed.
 
 ## 💌 Credits/Acknowledgements
+**Audio files ripped from Lobotomy Corporation; all ownership goes to Project Moon.**
+
 Artwork and coding:
 - WhistleWind
 

@@ -46,29 +46,13 @@ namespace WhistleWind.AbnormalSigils
             return true;
         }
 
-        public override bool CanActivate()
-        {
-            // If there's a valid target on the owner's side
-            foreach (var slot in BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard))
-            {
-                if (!IsInvalidTarget(slot))
-                    return true;
-            }
-            return false;
-        }
-
+        public override bool CanActivate() => BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).Exists(x => !IsInvalidTarget(x));
         public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {
             slot.Card.Anim.StrongNegationEffect();
+            slot.Card.AddStatusEffect<Prudence>(1);
             slot.Card.HealDamage(2);
-
-            if (slot.Card.HasStatusEffect<Prudence>())
-                slot.Card.UpdateStatusEffectCount<Prudence>(1, false);
-            else
-                slot.Card.AddStatusEffectToCard<Prudence>();
-
-            yield return new WaitForSeconds(0.4f);
-            yield return base.LearnAbility();
+            yield return base.LearnAbility(0.4f);
         }
     }
 }
