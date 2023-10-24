@@ -42,11 +42,12 @@ namespace WhistleWindLobotomyMod
                 .Build();
             NewCard("!GIANTCARD_ApocalypseBird", "Apocalypse Bird",
                 attack: 2, health: 30)
-                .AddAbilities(ApocalypseAbility.ability, Ability.SquirrelOrbit, Ability.Reach, Ability.MadeOfStone)
+                .AddAbilities(ApocalypseAbility.ability, Ability.Reach, Ability.MadeOfStone)
                 .AddTraits(Trait.Uncuttable, Trait.Giant, AbnormalPlugin.ImmuneToInstaDeath)
                 .AddTribes(Tribe.Bird)
                 .AddSpecialAbilities(SpecialTriggeredAbility.GiantCard)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.GiantAnimatedPortrait)
+                .SetAnimatedPortrait(CustomBossUtils.apocalypsePrefab)
                 .Build();
         }
     }

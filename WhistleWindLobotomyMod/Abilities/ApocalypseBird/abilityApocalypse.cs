@@ -14,16 +14,46 @@ using static UnityEngine.GraphicsBuffer;
 
 namespace WhistleWindLobotomyMod
 {
-    public class ApocalypseAbility : AbilityBehaviour, IGetOpposingSlots
+    public class ApocalypseAbility : AbilityBehaviour, ISetupAttackSequence
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public bool RemoveDefaultAttackSlot() => true;
-        public bool RespondsToGetOpposingSlots() => base.Card.HasTrait(Trait.Giant);
-        public List<CardSlot> GetOpposingSlots(List<CardSlot> originalSlots, List<CardSlot> otherAddedSlots)
+        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
         {
-            return new((TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer).specialTargetSlots);
+            return card == base.Card && base.Card.HasTrait(Trait.Giant) && modType == OpposingSlotTriggerPriority.Normal;
+        }
+
+        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
+        {
+            ApocalypseBattleSequencer sequencer = TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer;
+            List<CardSlot> slots = new();
+            bool attackingNull = false;
+            foreach (CardSlot slot in sequencer.specialTargetSlots)
+            {
+                if (slot.Card == null)
+                {
+                    if (attackingNull)
+                    {
+                        sequencer.CleanUpGiantTarget(slot);
+                        continue;
+                    }
+
+                    attackingNull = true;
+                }
+                else if (base.Card.CanAttackDirectly(slot))
+                {
+                    sequencer.CleanUpGiantTarget(slot);
+                    continue;
+                }
+                slots.Add(slot);
+            }
+            return slots;
+        }
+
+        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
+        {
+            return 0;
         }
     }
 

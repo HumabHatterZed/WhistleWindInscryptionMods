@@ -12,6 +12,8 @@
     - Bless special ability will no longer affect Giant and Uncuttable cards (Mule cards are still affected)
     - Chance for Bless to create a Heretic apostle is now tied to the game's seed rather than being truly random
     - Blessings are now given to whomever owns the good doctor
+    - Changed challenge icon for 'Start with a Beast'
+    - Adjusted how Blind Rage calculates slots to target
 ### 🩹 Bug fixes
     - Fixed The Road Home softlocking the game when played by Leshy
     - Fixed Abnormal Bosses config replacing Grizzly Bears with Guardian Apostles in Part 1 during bosses
@@ -19,6 +21,7 @@
     - Fixed Nosferatu not evolving into the correct forme
     - Fixed some WhiteNight-related dialogue not playing correctly
     - Fixed WhiteNight not being immune to Touch of Death
+    - Fixed StarSound special ability incorrectly modifying what slots to target
 ### ➕ Additions
     - Added Final Apocalypse challenge and boss
     - Added Achievements API support (6 achievements)

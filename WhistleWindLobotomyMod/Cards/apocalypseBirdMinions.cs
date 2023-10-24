@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
 
             // spam card
             NewCard(eyeballChick, "Eyeball Chick",
-                attack: 1, health: 3)
+                attack: 2, health: 2)
                 .SetPortraits(eyeballChick)
                 .AddAbilities(BindingStrike.ability, Piercing.ability)
                 .AddTribes(Tribe.Bird)
@@ -27,14 +27,14 @@ namespace WhistleWindLobotomyMod
             NewCard(forestKeeper, "Keeper of the Black Forest",
                 attack: 1, health: 5)
                 .SetPortraits(forestKeeper)
-                .AddAbilities(BindingStrike.ability)
+                .AddAbilities(Ability.Sniper)
                 .AddTribes(Tribe.Bird)
                 .AddAppearances(ForcedEmission.appearance)
                 .Build();
 
             // regular
             NewCard(runawayBird, "Runaway Bird",
-                attack: 1, health: 5)
+                attack: 1, health: 3)
                 .SetPortraits(runawayBird)
                 .AddAbilities(Cycler.ability, HighStrung.ability)
                 .AddTribes(Tribe.Bird)

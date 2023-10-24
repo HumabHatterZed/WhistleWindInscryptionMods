@@ -3,6 +3,7 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
 using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod.Patches
@@ -46,17 +47,20 @@ namespace WhistleWindLobotomyMod.Patches
                         AbilitiesUtil.GetInfo(DynamicAbilities[2]).rulebookDescription = $"While {card.Info.DisplayedNameLocalized} is on the board, remove ally Terrain and Pelt cards and transform the rest into random Apostles.";
                         AbilitiesUtil.GetInfo(DynamicAbilities[3]).rulebookDescription = "Kill WhiteNight and all Apostles on the board then deal 33 direct damage.";
                     }
-                    if (TurnManager.Instance?.Opponent != null && TurnManager.Instance.Opponent is ApocalypseBossOpponent)
+                    if (CustomBossUtils.FightingCustomBoss())
                     {
-                        AbilitiesUtil.GetInfo(DynamicAbilities[4]).rulebookDescription = TurnManager.Instance.Opponent.NumLives switch
+                        if (CustomBossUtils.IsCustomBoss<ApocalypseBossOpponent>())
                         {
-                            1 => "On combat's end, mark opposing spaces with coloured icons. This card strikes those spaces on its turns. Red: double this card's damage; White: halve this card's damage then heal it equal to its Power; Yellow; No special effect.",
-                            _ => "Every 3 turns, switch the active egg effect and sigils. On the final phase, this sigil changes behaviour. Opponent cards may move at the end of the turn, and this card cannot go below 90/60/30 Health."
-                        };
-                        AbilitiesUtil.GetInfo(DynamicAbilities[5]).rulebookDescription = AbilitiesUtil.GetInfo(DynamicAbilities[5]).GetBaseRulebookDescription() + " Upon reaching 90/60/30 Health, permanently disable this effect then switch phase.";
-                        AbilitiesUtil.GetInfo(DynamicAbilities[6]).rulebookDescription = AbilitiesUtil.GetInfo(DynamicAbilities[6]).GetBaseRulebookDescription() + " Upon reaching 90/60/30 Health, permanently disable this effect then switch phase.";
-                        AbilitiesUtil.GetInfo(DynamicAbilities[7]).rulebookDescription = AbilitiesUtil.GetInfo(DynamicAbilities[7]).GetBaseRulebookDescription() + " Upon reaching 90/60/30 Health, permanently disable this effect then switch phase.";
-                        changedRulebook = true;
+                            changedRulebook = true;
+                            AbilitiesUtil.GetInfo(DynamicAbilities[4]).rulebookDescription = TurnManager.Instance.Opponent.NumLives switch
+                            {
+                                1 => "At the end of combat, this card will mark random spaces with coloured targets, then attack those spaces on its next turn. Red: this card's damage is doubled; White: this card's damage is halved and it heals equal to its Power; Yellow: no special effect.",
+                                _ => "Every 3 turns, switch the active egg effect and sigils. On the final phase, this sigil changes behaviour. Opponent cards may move at the end of the turn, and this card cannot go below 90/60/30 Health."
+                            };
+                            AbilitiesUtil.GetInfo(DynamicAbilities[5]).rulebookDescription = AbilitiesUtil.GetInfo(DynamicAbilities[5]).GetBaseRulebookDescription() + " Upon reaching 90/60/30 Health, permanently disable this effect then switch phase.";
+                            AbilitiesUtil.GetInfo(DynamicAbilities[6]).rulebookDescription = AbilitiesUtil.GetInfo(DynamicAbilities[6]).GetBaseRulebookDescription() + " Upon reaching 90/60/30 Health, permanently disable this effect then switch phase.";
+                            AbilitiesUtil.GetInfo(DynamicAbilities[7]).rulebookDescription = AbilitiesUtil.GetInfo(DynamicAbilities[7]).GetBaseRulebookDescription() + " Upon reaching 90/60/30 Health, permanently disable this effect then switch phase.";
+                        }
                     }
                 }
                 return true;

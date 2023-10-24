@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod
             if (allSlots.Exists(x => x.Card != null))
                 allSlots.RemoveAll(x => x.Card == null);
 
-            int randomSeed = base.GetRandomSeed();
+            int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
             CardSlot slotToAttack = allSlots[SeededRandom.Range(0, allSlots.Count, randomSeed++)];
 
             retval.Add(slotToAttack);

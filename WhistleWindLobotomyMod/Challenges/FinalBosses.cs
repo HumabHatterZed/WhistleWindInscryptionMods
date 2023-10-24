@@ -17,8 +17,8 @@ namespace WhistleWindLobotomyMod.Challenges
                 "Final Apocalypse",
                 "Leshy is replaced as the final boss of the run with the Beast.",
                 70,
-                TextureLoader.LoadTextureFromFile("ascensionBeastStart"),
-                TextureLoader.LoadTextureFromFile("ascensionBeastStart_activated"), 0)
+                TextureLoader.LoadTextureFromFile("ascensionFinalApocalypse.png"),
+                TextureLoader.LoadTextureFromFile("ascensionFinalApocalypse_activated.png"), 0)
                 .SetFlags("ModdedFinalBoss")
                 .SetIncompatibleChallengeGetter(x =>
                 (from x2 in x

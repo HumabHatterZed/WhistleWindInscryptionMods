@@ -1,10 +1,13 @@
 ﻿using DiskCardGame;
+using EasyFeedback.APIs;
 using HarmonyLib;
 using InscryptionAPI;
 using InscryptionAPI.Card;
+using InscryptionAPI.Triggers;
 using Pixelplacement;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Opponents;
@@ -83,6 +86,39 @@ namespace WhistleWindLobotomyMod.Patches
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager3D), nameof(CombatPhaseManager3D.VisualizeCardAttackingDirectly))]
+        private static IEnumerator FixGiantCardAnimation(IEnumerator enumerator, CombatPhaseManager3D __instance, CardSlot attackingSlot, CardSlot targetSlot, int damage)
+        {
+            if (!CustomBossUtils.FightingCustomBoss() || !CustomBossUtils.IsCustomBoss<ApocalypseBossOpponent>() || attackingSlot.Card.LacksTrait(Trait.Giant))
+            {
+                yield return enumerator;
+                yield break;
+            }
+            List<Transform> newWeights = new();
+            for (int i = 0; i < Mathf.Min(20, damage); i++)
+            {
+                GameObject gameObject = GameObject.Instantiate(__instance.weightPrefab);
+                Vector3 vector = new(0f, 0f, attackingSlot.IsPlayerSlot ? 0.75f : (-0.75f));
+                gameObject.transform.position = targetSlot.transform.position + vector + new Vector3((float)i * 0.1f, 0f, (float)i * 0.1f);
+                gameObject.transform.eulerAngles = UnityEngine.Random.insideUnitSphere;
+                newWeights.Add(gameObject.transform);
+            }
+            __instance.damageWeights.AddRange(newWeights);
+            // the giant card animation breaks if it's not targeting the firstmost slot, so we use the firstmost instead of the actual target slot
+            attackingSlot.Card.Anim.PlayAttackAnimation(attackPlayer: true, BoardManager.Instance.PlayerSlotsCopy[0], delegate
+            {
+                Singleton<TableVisualEffectsManager>.Instance?.ThumpTable(0.075f * Mathf.Min(10, damage));
+                foreach (Transform item in newWeights)
+                {
+                    if (item != null)
+                    {
+                        item.gameObject.SetActive(value: true);
+                        item.GetComponent<Rigidbody>().AddForce(Vector3.up * 4f, ForceMode.VelocityChange);
+                    }
+                }
+            });
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager3D), nameof(CombatPhaseManager3D.VisualizeCardAttackingDirectly))]
         private static IEnumerator GainBonesFromDirectDamage(IEnumerator enumerator, CardSlot attackingSlot, CardSlot targetSlot, int damage)
         {
             if (!CustomBossUtils.FightingCustomBoss() || !attackingSlot.IsPlayerSlot)
@@ -149,25 +185,13 @@ namespace WhistleWindLobotomyMod.Patches
             }
         }
 
-        [HarmonyPostfix, HarmonyPatch(typeof(BleachPotItem), nameof(BleachPotItem.ActivateSequence))]
-        private static IEnumerator PreventBleachingCustomBosses(IEnumerator enumerator, BleachPotItem __instance)
+        [HarmonyPostfix, HarmonyPatch(typeof(BleachPotItem), nameof(BleachPotItem.GetValidOpponentSlots))]
+        private static void CannotBleachCustomBosses(ref List<CardSlot> __result)
         {
             if (!CustomBossUtils.FightingCustomBoss())
-            {
-                yield return enumerator;
-                yield break;
-            }
+                return;
 
-            __instance.PlayExitAnimation();
-            yield return new WaitForSeconds(0.4f);
-            yield return TextDisplayer.Instance.ShowUntilInput("The bleach dissolves into colourless fumes, rendering the brush useless.");
-        }
-
-        [HarmonyPostfix, HarmonyPatch(typeof(BleachPotItem), nameof(BleachPotItem.ExtraActivationPrerequisitesMet))]
-        private static void RemoveBleachDuringCustomBosses(ref bool __result)
-        {
-            if (CustomBossUtils.FightingCustomBoss())
-                __result = true;
+            __result.RemoveAll(x => x.Card.HasTrait(Trait.Uncuttable));
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(RunState), nameof(RunState.CurrentMapRegion), MethodType.Getter)]

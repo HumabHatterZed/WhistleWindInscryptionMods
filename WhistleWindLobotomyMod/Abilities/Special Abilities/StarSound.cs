@@ -23,7 +23,11 @@ namespace WhistleWindLobotomyMod
 
         public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
         {
-            return BoardManager.Instance.GetSlotsCopy(base.PlayableCard.OpponentCard);
+            List<CardSlot> opposingSlots = BoardManager.Instance.GetSlotsCopy(base.PlayableCard.OpponentCard);
+            if (opposingSlots.Exists(x => x.Card != null))
+                return currentSlots;
+
+            return opposingSlots;
         }
 
         public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)

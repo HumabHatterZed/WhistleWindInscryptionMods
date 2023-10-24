@@ -2,6 +2,7 @@
 using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Sound;
 using Pixelplacement;
 using System.Collections;
@@ -35,7 +36,10 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         private GameObject apocalypseAnimation;
         internal Animator MasterAnimator;
-        // override GameFlow.KillPlayerSequence
+        public readonly List<Transform> LeftEyes = new();
+        public readonly List<Transform> RightEyes = new();
+
+        private const float BG_VOLUME = 0.3f;
 
         // if totem, change sigil each phase
         private bool bossTotems;
@@ -141,7 +145,8 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 if (finalPhase)
                 {
                     possibleAbilities.Clear();
-                    possibleAbilities.Add(RunState.Run.DifficultyModifier > 1 ? Ability.GainAttackOnKill : Ability.Sharp);
+                    possibleAbilities.Add(Piercing.ability);
+                    possibleAbilities.Add(OneSided.ability);
                 }
                 Singleton<ViewManager>.Instance.SwitchToView(View.OpponentTotem);
                 yield return new WaitForSeconds(0.25f);
@@ -208,7 +213,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             AudioController.Instance.PlaySound2D("bird_roar", MixerGroup.TableObjectsSFX);
             // re-emerge the bird
             yield return new WaitForSeconds(2f);
-            yield return BattleSequence.GiantPhaseLogic();
+            yield return BattleSequence.GiantPhaseLogic(true);
         }
 
         public override IEnumerator IntroSequence(EncounterData encounter)
@@ -266,6 +271,26 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             apocalypseAnimation.name = "ApocalypseBoss";
 
             MasterAnimator = apocalypseAnimation.GetComponent<Animator>();
+            Transform eyes = apocalypseAnimation.transform.Find("Wing1").Find("Eyes");
+            LeftEyes.Add(eyes.Find("Eye1"));
+            LeftEyes.Add(eyes.Find("Eye2"));
+            LeftEyes.Add(eyes.Find("Eye3"));
+            LeftEyes.Add(eyes.Find("Eye4"));
+            eyes = apocalypseAnimation.transform.Find("Wing1").Find("OuterWing").Find("Eyes");
+            LeftEyes.Add(eyes.Find("Eye1"));
+            LeftEyes.Add(eyes.Find("Eye2"));
+            LeftEyes.Add(eyes.Find("Eye3"));
+            LeftEyes.Add(eyes.Find("Eye4"));
+            eyes = apocalypseAnimation.transform.Find("Wing2").Find("Eyes");
+            RightEyes.Add(eyes.Find("Eye1"));
+            RightEyes.Add(eyes.Find("Eye2"));
+            RightEyes.Add(eyes.Find("Eye3"));
+            RightEyes.Add(eyes.Find("Eye4"));
+            eyes = apocalypseAnimation.transform.Find("Wing2").Find("OuterWing").Find("Eyes");
+            RightEyes.Add(eyes.Find("Eye1"));
+            RightEyes.Add(eyes.Find("Eye2"));
+            RightEyes.Add(eyes.Find("Eye3"));
+            RightEyes.Add(eyes.Find("Eye4"));
 
             this.SetSceneEffectsShown(true);
             Singleton<CameraEffects>.Instance.Shake(0.5f, 0.25f);
@@ -295,7 +320,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
 
-        private const float BG_VOLUME = 0.3f;
         private IEnumerator StartIntroLoop()
         {
             yield return new WaitForSeconds(0.5f);
@@ -358,8 +382,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             
             MasterAnimator.SetBool("Flare", false);
         }
-        internal void SetIdle(bool idle) => MasterAnimator.SetBool("Idle", idle);
-        
+
         private void PlayDefeatAnimation()
         {
             // override the overrides

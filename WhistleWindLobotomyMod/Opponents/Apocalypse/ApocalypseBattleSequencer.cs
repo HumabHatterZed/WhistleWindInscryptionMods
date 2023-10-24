@@ -54,7 +54,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         private int damageTakenThisTurn = 0;
 
         private int reactiveDifficulty = 0;
-        private int ReactiveDifficulty => PhaseDifficulty + reactiveDifficulty;
+        private int ReactiveDifficulty => RunState.Run.DifficultyModifier + reactiveDifficulty;
         private int PhaseDifficulty => 4 - Opponent.NumLives;
 
         private bool finalPhase = false;
@@ -77,12 +77,12 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         private IEnumerator BigBirdEnchantCards()
         {
             int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
-            List<CardSlot> possibleTargetSlots = ReactiveDifficulty > 5 ? BoardManager.Instance.PlayerSlotsCopy : BoardManager.Instance.AllSlotsCopy;
+            List<CardSlot> possibleTargetSlots = ReactiveDifficulty > 6 ? BoardManager.Instance.PlayerSlotsCopy : BoardManager.Instance.AllSlotsCopy;
             possibleTargetSlots.RemoveAll(x => x.Card == null || x.Card == BossCard);
             int maxCount = possibleTargetSlots.Count;
             while (possibleTargetSlots.Count > 0)
             {
-                if (specialTargetSlots.Count == (ReactiveDifficulty > 5 ? 3 : 3 + PhaseDifficulty))
+                if (specialTargetSlots.Count == 3 + PhaseDifficulty)
                     break;
 
                 CardSlot target = possibleTargetSlots[SeededRandom.Range(0, possibleTargetSlots.Count, randomSeed++)];
@@ -110,19 +110,49 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             }
             else
             {
+                List<Transform> leftSources = new(Opponent.LeftEyes);
+                List<Transform> rightSources = new(Opponent.RightEyes);
                 AudioController.Instance.PlaySound2D("bird_laser_fire", MixerGroup.TableObjectsSFX);
                 for (int i = 0; i < specialTargetSlots.Count; i++)
                 {
-                    // shoot laser at card
+
+                    Transform source;
+                    if (specialTargetSlots[i].Index % 2 == 0)
+                    {
+                        source = leftSources[UnityEngine.Random.Range(0, leftSources.Count)];
+                        leftSources.Remove(source);
+                    }
+                    else
+                    {
+                        source = rightSources[UnityEngine.Random.Range(0, rightSources.Count)];
+                        rightSources.Remove(source);
+                    }
+                    FireLaser(source.gameObject, specialTargetSlots[i], specialTargetSlots[i].IsPlayerSlot);
+                    
+                    if (ReactiveDifficulty > 7) // fire 2 lasers since we're enchanting twice
+                    {
+                        if (specialTargetSlots[i].Index % 2 == 0)
+                        {
+                            source = rightSources[UnityEngine.Random.Range(0, rightSources.Count)];
+                            rightSources.Remove(source);
+                        }
+                        else
+                        {
+                            source = leftSources[UnityEngine.Random.Range(0, leftSources.Count)];
+                            leftSources.Remove(source);
+                        }
+                        FireLaser(source.gameObject, specialTargetSlots[i], specialTargetSlots[i].IsPlayerSlot);
+                    }
                     yield return new WaitForSeconds(0.1f);
-                    yield return HelperMethods.ChangeCurrentView(View.Board, 0f, 0f);
+
                     specialTargetSlots[i].Card.Anim.StrongNegationEffect();
-                    specialTargetSlots[i].Card.AddStatusEffect<Enchanted>(ReactiveDifficulty > 3 ? 2 : 1).TurnGained = TurnManager.Instance.TurnNumber + 1;
-                    Debug.Log($"{targetIcons.Count} {specialTargetSlots.Count} {targetIcons.Exists(x => x == null)}");
+                    specialTargetSlots[i].Card.AddStatusEffect<Enchanted>(ReactiveDifficulty > 7 ? 2 : 1).TurnGained = TurnManager.Instance.TurnNumber + 1;
+                    
                     CleanUpTargetIcon(targetIcons[i]);
                 }
 
-                yield return new WaitForSeconds(0.5f);
+                yield return HelperMethods.ChangeCurrentView(View.Board, 0.2f, 0f);
+                yield return new WaitForSeconds(0.3f);
 
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossEyePostAttack", 0f);
                 seenEyeAttack = true;
@@ -139,7 +169,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         {
             List<CardSlot> lanes = BoardManager.Instance.OpponentSlotsCopy;
             int rand = base.GetRandomSeed();
-            int rowsToTarget = ReactiveDifficulty > 1 ? (ReactiveDifficulty > 5 ? 3 : 2) : 1;
+            int rowsToTarget = 1 + PhaseDifficulty;
             for (int i = 0; i < rowsToTarget; i++)
             {
                 int laneIndex = SeededRandom.Range(0, lanes.Count, rand++);
@@ -212,6 +242,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return new WaitForSeconds(0.5f);
             if (!seenArmsAttack)
                 yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossArmsPreAttack", TextDisplayer.MessageAdvanceMode.Input);
+            
             // tip scale animation
 
             foreach (CardSlot slot in slots)
@@ -246,7 +277,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             targetIcons.Remove(obj);
             CleanUpTargetIcon(obj);
         }
-        internal IEnumerator GiantPhaseLogic()
+        internal IEnumerator GiantPhaseLogic(bool firstStrike)
         {
             CleanupTargetIcons();
             specialTargetSlots.Clear();
@@ -254,56 +285,85 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             giantTargetSlots[1].Clear();
 
             List<CardSlot> playerSlots = BoardManager.Instance.PlayerSlotsCopy;
-            int maxRedTargets = ReactiveDifficulty > 5 ? 2 : 1;
-            int maxWhiteTargets = ReactiveDifficulty > 5 ? 2 : 1;
+            int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
+            if (firstStrike)
+                randomSeed += 5;
+
+            int maxRedTargets = 2, maxWhiteTargets = 1;
+            float redChance = 0.12f, whiteChance = 0.14f, directChance = 0.25f;
+
+            // if the opponent is winning, soften up on the attacks somewhat
+            if (LifeManager.Instance.Balance < 0)
+            {
+                redChance = 0.08f;
+                whiteChance = 0.22f;
+                directChance = 0.1f;
+            }
+
+            // at difficulty 8+
+            if (ReactiveDifficulty > 6)
+            {
+                redChance += 0.02f;
+                whiteChance += 0.04f;
+                directChance += 0.03f;
+            }
 
             // if 3+ cards on the opposing side
             if (playerSlots.Count(x => x.Card != null) >= 2)
-                maxRedTargets++;
+            {
+                redChance += 0.05f;
+                directChance -= 0.1f;
+            }
 
-            // can health
-            if (BossCard.Health <= 15)
-                maxWhiteTargets++;
+            // health is at 1/3
+            if (BossCard.Health >= 30)
+                whiteChance /= 2f;
+            else if (BossCard.Health <= 10)
+            {
+                redChance += 0.02f;
+                whiteChance += 0.05f;
+                directChance += 0.04f;
+            }
 
-            if (LifeManager.Instance.Balance < 0)
-                maxRedTargets--;
+            // if no opposing cards, target one random empty space
+            // randomly remove a random card slot from consideration at a 20% chance w/ reactive <= 3
+            if (playerSlots.Count(x => x.Card != null) == 0)
+            {
+                playerSlots = new() { playerSlots[SeededRandom.Range(0, playerSlots.Count, randomSeed++)] };
+                directChance = 1f;
+            }
+            else if (ReactiveDifficulty <= 6 && SeededRandom.Value(randomSeed++) <= 0.2f)
+            {
+                playerSlots.RemoveAt(SeededRandom.Range(0, playerSlots.Count, randomSeed));
+            }
 
             bool directlyAttacking = false;
-            int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
-
             foreach (CardSlot slot in playerSlots)
             {
-                // can only attack directly once per attack cycle
                 if (slot.Card == null)
                 {
-                    if (directlyAttacking)
+                    // if already directly attacking this turn, or random chance
+                    if (directlyAttacking || SeededRandom.Value(randomSeed *= 10) > directChance)
                         continue;
 
                     directlyAttacking = true;
+                    redChance -= 0.06f;
                 }
 
                 Color targetColour = GameColors.Instance.yellow;
                 float value = SeededRandom.Value(randomSeed++);
 
-                // 25%/33% chance of regular target
-                if (value > (ReactiveDifficulty > 5 ? 0.66f : 0.75f))
+                if (maxRedTargets > 0 && SeededRandom.Value(randomSeed + 5) <= redChance)
                 {
-                    // red targets are less likely for empty slots
-                    if (SeededRandom.Value(randomSeed++) > (slot.Card == null ? 0.80f : 0.40f))
-                    {
-                        if (maxRedTargets > 0)
-                        {
-                            targetColour = GameColors.Instance.glowRed;
-                            giantTargetSlots[0].Add(slot);
-                            maxRedTargets--;
-                        }
-                    }
-                    else if (maxWhiteTargets > 0)
-                    {
-                        targetColour = GameColors.Instance.brightNearWhite;
-                        giantTargetSlots[1].Add(slot);
-                        maxWhiteTargets--;
-                    }
+                    targetColour = GameColors.Instance.glowRed;
+                    giantTargetSlots[0].Add(slot);
+                    maxRedTargets--;
+                }
+                else if (maxWhiteTargets > 0 && SeededRandom.Value(randomSeed++) <= whiteChance)
+                {
+                    targetColour = GameColors.Instance.brightNearWhite;
+                    giantTargetSlots[1].Add(slot);
+                    maxWhiteTargets--;
                 }
 
                 yield return new WaitForSeconds(0.05f);
@@ -370,7 +430,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             if (finalPhase)
             {
-                yield return GiantPhaseLogic();
+                yield return GiantPhaseLogic(false);
 
                 if (reactiveDifficulty > 0)
                     reactiveDifficulty--;
@@ -383,7 +443,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             switch (ActiveEggEffect)
             {
                 case ActiveEggEffect.BigEyes:
-                    if (ReactiveDifficulty > 3 ? turnsToNextPhase > 1 : turnsToNextPhase == 2)
+                    if (turnsToNextPhase == 2)
                         yield return BigBirdEnchantCards();
                     break;
 
@@ -394,10 +454,13 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                         yield break;
 
                     AudioController.Instance.PlaySound2D("bird_down", MixerGroup.TableObjectsSFX);
+                    int sinCount = 2 + PhaseDifficulty;
+                    if (ReactiveDifficulty > 4)
+                        sinCount = Mathf.Min(5, sinCount + ReactiveDifficulty / 4);
                     foreach (CardSlot s in allSlots)
                     {
                         s.Card.Anim.StrongNegationEffect();
-                        s.Card.AddStatusEffect<Sin>(Mathf.Min(5, 2 + ((ReactiveDifficulty + 1) / 2)));
+                        s.Card.AddStatusEffect<Sin>(sinCount);
                         yield return new WaitForSeconds(0.1f);
                     }
                     break;
@@ -406,13 +469,13 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         }
         private int GetStartingCardCount()
         {
-            // queue 0 cards every 5 turns
-            if (TurnManager.Instance.TurnNumber % 5 == 0)
-                return 0;
+            // queue 2 cards every 7 turns
+            if (TurnManager.Instance.TurnNumber % 7 == 0)
+                return 2;
 
-            // queue 1 card every 4 turns
+            // queue 0 cards every 4 turns
             if (TurnManager.Instance.TurnNumber % 4 == 0)
-                return 1;
+                return 0;
 
             // queue 2 cards every even turn
             if (TurnManager.Instance.TurnNumber % 2 == 0)
@@ -433,30 +496,31 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             else if (LifeManager.Instance.Balance > 3)
                 cardNum++;
 
-            if (finalPhase)
-                cardNum++;
-
             switch (ActiveEggEffect)
             {
                 case ActiveEggEffect.BigEyes:
-                    if (cardNum < 1) // more spammy, less quantity per turn
-                        cardNum++;
-                    else
-                        cardNum = 1;
-
+                    cardNum = Mathf.Min(1, cardNum + 1);
                     break;
-                case ActiveEggEffect.SmallBeak:
-                    if (turnsToNextPhase == 1) // less spammy
-                        cardNum = 0;
+                case ActiveEggEffect.LongArms:
+                    if (cardNum > 1)
+                        cardNum--;
                     break;
             }
+
+            // if the opponent side is full, halve the incoming card count
+            if (BoardManager.Instance.GetCards(false).Count == 4)
+                cardNum /= 2;
+
+            // clamp the count to 3
+            if (cardNum > 3)
+                cardNum = 3;
 
             int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
 
             // threshold for whether to give queued card a mod
             // if the difficulty modifier is 6 or higher, guaranteed to modify stats, other chance is dependent on difficulty and cards being cued
             float gateValue;
-            if (RunState.Run.DifficultyModifier > 6)
+            if (ReactiveDifficulty > 6)
                 gateValue = opponentWinning ? 0.7f : 1f;
             else
                 gateValue = (4 - cardNum - (opponentWinning ? 1 : 0)) / (7f - RunState.Run.DifficultyModifier);
@@ -671,10 +735,10 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public override IEnumerator OnOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
         {
             damageTakenThisTurn += amount;
-            if (amount >= 5)
+            if (amount >= 5 && !attacker.HasStatusEffect<Enchanted>())
             {
                 reactiveDifficulty += Mathf.Max(1, amount / 5);
-
+                Debug.Log($"ReactiveDifficulty: {ReactiveDifficulty}");
                 yield return new WaitForSeconds(0.4f);
                 Singleton<CameraEffects>.Instance.Shake(0.5f, 0.25f);
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossAttackStrengthOvercharge");
@@ -749,7 +813,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             return damage;
         }
 
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => int.MinValue;
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => finalPhase ? int.MaxValue : int.MinValue;
 
         internal IEnumerator MoveOpponentCards()
         {
@@ -850,7 +914,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         {
             return finalPhase && attacker == BossCard;
         }
-
         public int OnModifyDirectDamage(CardSlot target, int damage, PlayableCard attacker, int originalDamage)
         {
             if (giantTargetSlots[0].Contains(target))
@@ -860,10 +923,76 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             return damage;
         }
+        public int TriggerPriority(CardSlot target, int damage, PlayableCard attacker) => int.MaxValue; // ModifyDirectDamage
 
-        public int TriggerPriority(CardSlot target, int damage, PlayableCard attacker)
+        private void FireLaser(GameObject source, CardSlot targetSlot, bool attackPlayer)
         {
-            return int.MinValue;
+            GameObject gameObject = new("Line");
+            LineRenderer line = gameObject.AddComponent<LineRenderer>();
+            line.material = Material.GetDefaultLineMaterial();
+            line.startColor = Color.yellow;
+            line.endColor = Color.yellow;
+            line.startWidth = 1f;
+            line.endWidth = 0f;
+            line.widthCurve = new AnimationCurve(new Keyframe(0f, 0f), new Keyframe(0.125f, 1.7f), new Keyframe(0.25f, 3f), new Keyframe(1f, 3f));
+            line.widthMultiplier = 0f;
+            Vector3 vector = source.transform.position + Vector3.up * 0.05f + Vector3.right * 2.05f + Vector3.forward;
+            Vector3 vector2 = targetSlot.transform.position + (attackPlayer ? Vector3.back : Vector3.zero) + (attackPlayer ? Vector3.zero : (Vector3.down * 0.05f));
+            //Vector3 vector3 = vector + Vector3.back;
+            line.SetPositions(new Vector3[2] { vector, vector2 });
+            line.alignment = LineAlignment.Local;
+            CustomCoroutine.Instance.StartCoroutine(TweenLineWidth(line, attackPlayer, 0.2f));
+        }
+        private IEnumerator TweenLineWidth(LineRenderer line, bool attackPlayer, float time = 0.25f)
+        {
+            if (line == null)
+            {
+                if (attackPlayer)
+                    yield break;
+
+                Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.2f);
+                yield break;
+            }
+            float ela2 = 0f;
+            line.widthMultiplier = 0f;
+            while (ela2 < time)
+            {
+                if (line == null)
+                {
+                    if (attackPlayer)
+                        yield break;
+
+                    Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.2f);
+                    yield break;
+                }
+                ela2 += UnityEngine.Time.deltaTime;
+                line.widthMultiplier = Mathf.Lerp(0f, 1f, ela2 / time);
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (line == null)
+            {
+                yield return new WaitForSeconds(0.1f);
+                yield break;
+            }
+            line.widthMultiplier = 1f;
+            ela2 = 0f;
+            while (ela2 < time)
+            {
+                if (line == null)
+                {
+                    yield return new WaitForSeconds(0.1f);
+                    yield break;
+                }
+                ela2 += UnityEngine.Time.deltaTime;
+                line.widthMultiplier = Mathf.Lerp(1f, 0f, ela2 / time);
+                yield return new WaitForEndOfFrame();
+            }
+
+            if (line != null)
+                Destroy(line.gameObject);
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
