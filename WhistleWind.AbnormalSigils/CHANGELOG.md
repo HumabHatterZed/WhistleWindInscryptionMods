@@ -23,6 +23,7 @@
     - "A card bearing this sigil will transform into a copy of the first creature it opposes, retaining its own sigils."
 - Idol no longer affects cards with Made of Stone
 - Changed description of Made of Stone to indicate it provides immunity to Idol and Punisher
+- Opportunistic sigil is now flipped for the opponent
 
 ### ➕ Additions
 - Added the following abilities:
