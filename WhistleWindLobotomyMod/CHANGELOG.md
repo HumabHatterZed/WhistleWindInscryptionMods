@@ -14,6 +14,7 @@
     - Blessings are now given to whomever owns the good doctor
     - Changed challenge icon for 'Start with a Beast'
     - Adjusted how Blind Rage calculates slots to target
+    - Changed TIme Machine ability - now makes you choose a card to remove from your deck, rather than remove a random one
 ### 🩹 Bug fixes
     - Fixed The Road Home softlocking the game when played by Leshy
     - Fixed Abnormal Bosses config replacing Grizzly Bears with Guardian Apostles in Part 1 during bosses

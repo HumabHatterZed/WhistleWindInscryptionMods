@@ -128,7 +128,7 @@ namespace WhistleWindLobotomyMod.Patches
             }
 
             bool doScaleDamage = LifeManager.Instance.DamageUntilPlayerWin > 1;
-            int bonesToGive = damage - (LifeManager.Instance.DamageUntilPlayerWin - 1);
+            int bonesToGive = (doScaleDamage ? 3 : damage) - (LifeManager.Instance.DamageUntilPlayerWin - 1);
 
             // deal scale damage
             if (doScaleDamage)
@@ -138,7 +138,7 @@ namespace WhistleWindLobotomyMod.Patches
             if (bonesToGive <= 0)
                 yield break;
 
-            bonesToGive = Mathf.Min(Mathf.Min(3, LifeManager.Instance.DamageUntilPlayerWin - 1), bonesToGive);
+            bonesToGive = Mathf.Min(3, bonesToGive);
 
             if (doScaleDamage)
                 DigUpBones(bonesToGive, targetSlot);

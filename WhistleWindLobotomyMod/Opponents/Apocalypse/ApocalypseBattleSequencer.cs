@@ -501,26 +501,17 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 case ActiveEggEffect.BigEyes:
                     cardNum = Mathf.Min(1, cardNum + 1);
                     break;
-                case ActiveEggEffect.LongArms:
-                    if (cardNum > 1)
-                        cardNum--;
+                case ActiveEggEffect.SmallBeak:
+                    cardNum = Mathf.Min(cardNum, 2 + PhaseDifficulty);
                     break;
             }
-
-            // if the opponent side is full, halve the incoming card count
-            if (BoardManager.Instance.GetCards(false).Count == 4)
-                cardNum /= 2;
-
-            // clamp the count to 3
-            if (cardNum > 3)
-                cardNum = 3;
 
             int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
 
             // threshold for whether to give queued card a mod
             // if the difficulty modifier is 6 or higher, guaranteed to modify stats, other chance is dependent on difficulty and cards being cued
             float gateValue;
-            if (ReactiveDifficulty > 6)
+            if (ReactiveDifficulty > 11)
                 gateValue = opponentWinning ? 0.7f : 1f;
             else
                 gateValue = (4 - cardNum - (opponentWinning ? 1 : 0)) / (7f - RunState.Run.DifficultyModifier);
@@ -542,9 +533,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     else
                         health++;
 
-                    // if randomValue is < half the gateValue
-                    // change to give +1/0 or 0/+2
-                    if (randomValue < (gateValue / 2f))
+                    if (randomValue <= (gateValue / 2f))
                         health++;
 
                     clone.baseAttack += attack;
@@ -843,7 +832,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             ((b.opposingSlot.Card?.CanAttackDirectly(card.Slot) ?? true) ? 0 : b.opposingSlot.Card.Attack)
             - ((a.opposingSlot.Card?.CanAttackDirectly(card.Slot) ?? true) ? 0 : a.opposingSlot.Card.Attack));
 
-            CardSlot newSlot = openSlots.LastOrDefault();
+            CardSlot newSlot = card.HasAbility(HighStrung.ability)
+                ? openSlots[SeededRandom.Range(0, openSlots.Count, base.GetRandomSeed() + TurnManager.Instance.TurnNumber)]
+                : openSlots.Last();
 
             float x = (newSlot.transform.position.x + card.Slot.transform.position.x) / 2f;
             float y = newSlot.transform.position.y + 0.5f;

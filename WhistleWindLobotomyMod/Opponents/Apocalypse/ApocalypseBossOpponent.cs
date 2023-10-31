@@ -45,13 +45,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         private bool bossTotems;
         private readonly List<Ability> possibleAbilities = new()
         {
-            Ability.Flying,
-            Ability.GainAttackOnKill,
             Ability.Sentry,
             Ability.Sharp,
-            Ability.Strafe,
             NimbleFoot.ability,
-            Persistent.ability,
             Scorching.ability,
             ThickSkin.ability
         };
@@ -65,10 +61,17 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             }
             if (!wasDefeated)
                 yield return new WaitForSeconds(0.1f);
+            else
+            {
+                yield return new WaitForSeconds(1f);
+                AudioController.Instance.PlaySound2D("bird_dead", MixerGroup.TableObjectsSFX);
+                AudioController.Instance.PlaySound2D("bird_roar", MixerGroup.TableObjectsSFX);
+            }
         }
         public override IEnumerator DefeatedPlayerSequence()
         {
             BattleSequence.CleanupTargetIcons();
+            AudioController.Instance.FadeOutLoop(0.5f, 0);
             yield return ResetToIdle();
             yield return base.DefeatedPlayerSequence();
         }
@@ -206,9 +209,12 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             AudioController.Instance.SetLoopVolume(0.5f, 0.5f);
             yield return new WaitForSeconds(2f);
 
+            apocalypseAnimation.gameObject.transform.position = new(0.3f, 5.5f, 0f);
+            apocalypseAnimation.gameObject.transform.localScale = new(0.5f, 0.5f, 0.5f);
+
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(beast, BoardManager.Instance.OpponentSlotsCopy[0], 0.2f);
+            MasterAnimator.SetTrigger("StartFinal");
             yield return new WaitForSeconds(0.2f);
-            AudioController.Instance.GetLoopSource(0).pitch += 1f;
             AudioController.Instance.PlaySound3D("map_slam", MixerGroup.TableObjectsSFX, Singleton<BoardManager>.Instance.transform.position);
             AudioController.Instance.PlaySound2D("bird_roar", MixerGroup.TableObjectsSFX);
             // re-emerge the bird
@@ -386,10 +392,10 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         private void PlayDefeatAnimation()
         {
             // override the overrides
+            MasterAnimator.SetTrigger("StartFinal");
             MasterAnimator.SetLayerWeight(2, 0f);
             MasterAnimator.SetLayerWeight(3, 0f);
             MasterAnimator.SetLayerWeight(4, 0f);
-            MasterAnimator.SetTrigger("StartFinal");
         }
         public override void SetSceneEffectsShown(bool showEffects)
         {

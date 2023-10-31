@@ -36,11 +36,11 @@ namespace WhistleWindLobotomyMod.Opponents
         internal static void KillPlayerSequence()
         {
             ApocalypseBossOpponent opponent = TurnManager.Instance.Opponent as ApocalypseBossOpponent;
+            opponent.MasterAnimator.SetTrigger("KillPlayer");
             opponent.MasterAnimator.SetLayerWeight(1, 0f);
             opponent.MasterAnimator.SetLayerWeight(2, 0f);
             opponent.MasterAnimator.SetLayerWeight(3, 0f);
             opponent.MasterAnimator.SetLayerWeight(4, 0f);
-            opponent.MasterAnimator.SetTrigger("KillPlayer");
         }
         internal static IEnumerator ExhaustedSequence(CardDrawPiles instance, CardSlot giantSlot)
         {
