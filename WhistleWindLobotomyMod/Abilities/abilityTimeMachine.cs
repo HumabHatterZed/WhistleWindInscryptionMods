@@ -3,6 +3,8 @@ using GBC;
 using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionCommunityPatch.PixelTutor;
+using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_TimeMachine()
         {
             const string rulebookName = "Time Machine";
-            const string rulebookDescription = "End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck at random based on their strength.";
+            const string rulebookDescription = "End the current battle or phase then remove this card from the player's deck. The player must choose an additional card from a selection of 3 to remove from their deck. Selection is based on card power.";
             const string dialogue = "Close your eyes and count to ten.";
 
             TimeMachine.ability = LobotomyAbilityHelper.CreateActivatedAbility<TimeMachine>(
@@ -36,6 +38,7 @@ namespace WhistleWindLobotomyMod
 
         // Failsafe that prevents ability from being used multiple times per run
         public override bool CanActivate() => SaveManager.SaveFile.IsPart2 ? !LobotomySaveManager.UsedBackwardClockGBC : !LobotomySaveManager.UsedBackwardClock;
+
         public override IEnumerator Activate()
         {
             if (LobotomyPlugin.PreventOpponentDamage)
@@ -72,21 +75,35 @@ namespace WhistleWindLobotomyMod
             yield return EndBattle();
         }
 
-        private CardInfo GetCardToRemove()
+        private List<CardInfo> GetCardChoices()
         {
+            List<CardInfo> choices = new();
             int randomSeed = base.GetRandomSeed();
             List<CardInfo> cardsInDeck = new(SaveManager.SaveFile.IsPart2 ? SaveManager.SaveFile.gbcData.deck.Cards : RunState.DeckList);
             cardsInDeck.Remove(base.Card.Info);
             cardsInDeck.Sort((a, b) => b.PowerLevel - a.PowerLevel);
 
             List<CardInfo> strongCards = cardsInDeck.FindAll(x => x.PowerLevel >= min);
-            if (strongCards.Count > 1)
+            while (choices.Count < 3)
             {
-                strongCards.Sort((a, b) => b.PowerLevel - a.PowerLevel);
-                return SeededRandom.Value(randomSeed++) <= 0.85f ? strongCards[SeededRandom.Range(0, strongCards.Count, randomSeed++)] : strongCards[0];
+                int index = 0;
+                if (strongCards.Count > 0)
+                {
+                    index = SeededRandom.Range(0, strongCards.Count, randomSeed++);
+                    choices.Add(strongCards[index]);
+                    strongCards.RemoveAt(index);
+                }
+                else if (cardsInDeck.Count > 0)
+                {
+                    index = SeededRandom.Range(0, cardsInDeck.Count, randomSeed++);
+                    choices.Add(cardsInDeck[0]);
+                    cardsInDeck.RemoveAt(index);
+                }
+                else
+                    break;
             }
-            else
-                return cardsInDeck[0];
+
+            return choices;
         }
         private IEnumerator RemoveChosenCardFromBoard(CardInfo cardToRemove)
         {
@@ -113,25 +130,58 @@ namespace WhistleWindLobotomyMod
                 }
             }
         }
+        private IEnumerator ChooseCardForClock(List<CardInfo> choices)
+        {
+            if (SaveManager.SaveFile.IsPart2)
+            {
+                PixelPlayableCard selectedCard = null;
+                yield return PixelBoardManager.Instance.GetComponent<PixelPlayableCardArray>().SelectPixelCardFrom(choices, delegate (PixelPlayableCard x)
+                {
+                    selectedCard = x;
+                });
+
+                Tween.Position(selectedCard.transform, selectedCard.transform.position + Vector3.back * 4f, 0.1f, 0f, Tween.EaseIn);
+                Destroy(selectedCard.gameObject, 0.1f);
+                chosenCardInfo = selectedCard.Info;
+            }
+            else
+            {
+                Singleton<ViewManager>.Instance.SwitchToView(View.DeckSelection, immediate: false, lockAfter: true);
+
+                SelectableCard selectedCard = null;
+                yield return BoardManager.Instance.CardSelector.SelectCardFrom(choices, (CardDrawPiles.Instance as CardDrawPiles3D).Pile, delegate (SelectableCard x)
+                {
+                    selectedCard = x;
+                });
+
+                Tween.Position(selectedCard.transform, selectedCard.transform.position + Vector3.back * 4f, 0.1f, 0f, Tween.EaseIn);
+                Destroy(selectedCard.gameObject, 0.1f);
+                chosenCardInfo = selectedCard.Info;
+
+                Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+            }
+        }
+        private CardInfo chosenCardInfo = null;
         private PlayableCard chosenCard = null;
         private IEnumerator BackwardSequence()
         {
-            CardInfo cardToRemove = GetCardToRemove();
-
+            List<CardInfo> choices = GetCardChoices();
+            
             //LobotomyPlugin.Log.LogInfo($"Start {cardToRemove != null} {cardToRemove?.name}");
             yield return DialogueManager.PlayDialogueEventSafe("BackwardClockOperate", speaker: DialogueHelper.GBCScrybe());
 
-            yield return RemoveChosenCardFromBoard(cardToRemove);
+            yield return ChooseCardForClock(choices);
+            yield return RemoveChosenCardFromBoard(chosenCardInfo);
 
             base.Card.RemoveFromBoard(true);
             if (chosenCard != null)
                 chosenCard.RemoveFromBoard(true);
             else
-                HelperMethods.RemoveCardFromDeck(cardToRemove);
+                HelperMethods.RemoveCardFromDeck(chosenCardInfo);
 
             yield return new WaitForSeconds(0.5f);
             HelperMethods.ChangeCurrentView(View.Default, 0f);
-            yield return DialogueHelper.ShowUntilInput("[c:bR]The Clock[c:] and your [c:bR]" + cardToRemove.DisplayedNameLocalized + "[c:] will remain in that abandoned time.", effectFOVOffset: -0.65f, effectEyelidIntensity: 0.4f);
+            yield return DialogueHelper.ShowUntilInput("[c:bR]The Clock[c:] and your [c:bR]" + chosenCardInfo.DisplayedNameLocalized + "[c:] will remain in that abandoned time.", effectFOVOffset: -0.65f, effectEyelidIntensity: 0.4f);
             yield return new WaitForSeconds(0.2f);
         }
 
