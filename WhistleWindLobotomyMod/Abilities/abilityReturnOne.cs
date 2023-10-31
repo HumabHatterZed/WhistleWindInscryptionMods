@@ -83,16 +83,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.2f);
             }
         }
-        private int GetBonesCost(PlayableCard card)
-        {
-            return (TurnManager.Instance.TurnNumber - card.TurnPlayed) switch
-            {
-                0 => 3,
-                1 => 2,
-                2 => 1,
-                _ => 0,
-            };
-        }
+        private int GetBonesCost(PlayableCard card) => Mathf.Max(0, 2 - (TurnManager.Instance.TurnNumber - card.TurnPlayed));
     }
 
     public partial class LobotomyPlugin
@@ -102,7 +93,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Return Card to Hand";
             ReturnCard.ability = LobotomyAbilityHelper.CreateAbility<ReturnCard>(
                 "sigilReturnCard", rulebookName,
-                "Returns the selected card to your hand with all changes and statuses retained. Change the selected card's cost to 0-3 Bones based on how recently it was played.",
+                "Returns the selected card to your hand with all changes and statuses retained. Change the selected card's cost to 0-2 Bones based on how recently it was played.",
                 null, powerLevel: 0,
                 canStack: false).Id;
         }
