@@ -46,7 +46,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         private readonly List<Ability> possibleAbilities = new()
         {
             Ability.Sentry,
-            Ability.Sharp,
+            Ability.Strafe,
             NimbleFoot.ability,
             Scorching.ability,
             ThickSkin.ability

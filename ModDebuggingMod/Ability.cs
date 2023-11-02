@@ -28,18 +28,22 @@ namespace ModDebuggingMod
 
         public override int StartingNumShields => base.Card.GetAbilityStacks(Ability);
 
-        public override bool RespondsToUpkeep(bool playerUpkeep)
+/*        public override bool RespondsToResolveOnBoard()
         {
-            return base.Card.OpponentCard != playerUpkeep;
+            return true;
         }
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
+
+        public override IEnumerator OnResolveOnBoard()
         {
-            //Debug.Log($"NumShields: {base.Card.GetTotalShields()}");
-            if (NumShields == 0)
-            {
-                ResetShields(true);
-            }
-            yield break;
-        }
+            Debug.Log("Start");
+            base.Card.AddShieldCount(1);
+            yield return new WaitForSeconds(0.5f);
+            Debug.Log("Start2");
+            base.Card.AddShieldCount(1, Ability.DeathShield);
+            yield return new WaitForSeconds(0.5f);
+            Debug.Log("Start3 {}");
+            base.Card.AddShieldCount<APIDeathShield>(1);
+            yield return new WaitForSeconds(0.5f);
+        }*/
     }
 }

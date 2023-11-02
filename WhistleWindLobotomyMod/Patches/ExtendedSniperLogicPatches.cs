@@ -10,6 +10,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static InscryptionCommunityPatch.Card.SniperFix;
 
 // custom version of the Sniper fix that adds Marksman compatibility and the special behaviour of Blue Star and Judgement Bird
@@ -41,11 +42,11 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.DoSniperLogic))]
         private static IEnumerator CustomSniperLogic(
             IEnumerator enumerator, CombatPhaseManager instance, Part1SniperVisualizer visualizer,
-            List<CardSlot> opposingSlots, CardSlot slot, int numAttacks)
+            List<CardSlot> opposingSlots, CardSlot attackingSlot, int numAttacks)
         {
-            if (IsRaging(slot)) // if raging, target random slots
+            if (IsRaging(attackingSlot)) // if raging, target random slots
             {
-                opposingSlots.AddRange(slot.Card.GetOpposingSlots());
+                opposingSlots.AddRange(attackingSlot.Card.GetOpposingSlots());
                 for (int i = 0; i < opposingSlots.Count; i++)
                 {
                     instance.VisualizeConfirmSniperAbility(opposingSlots[i]);
@@ -53,11 +54,10 @@ namespace WhistleWindLobotomyMod.Patches
                 }
                 yield break;
             }
-            if (IsEnraged(slot)) // if enraged, target the rival if they exist
+            if (IsEnraged(attackingSlot)) // if enraged, target the rival if they exist
             {
                 string nameToFind = "wstl_redHoodedMercenary";
-
-                if (slot.Card.Info.name == nameToFind)
+                if (attackingSlot.Card.Info.name == nameToFind)
                     nameToFind = "wstl_willBeBadWolf";
 
                 CardSlot enragedTarget = BoardManager.Instance.AllSlotsCopy.Find(x => x.Card?.Info.name == nameToFind);
@@ -75,9 +75,9 @@ namespace WhistleWindLobotomyMod.Patches
             yield return enumerator;
         }
         [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.DoAttackTargetSlotsLogic))]
-        private static IEnumerator CustomOpposingSlotsLogic(IEnumerator enumerator, CardSlot slot, CardSlot opposingSlot)
+        private static IEnumerator CustomOpposingSlotsLogic(IEnumerator enumerator, CardSlot attackingSlot, CardSlot opposingSlot)
         {
-            if (!IsJudgementBird(slot) || ImmuneToHanging(opposingSlot) || slot.Card.AttackIsBlocked(opposingSlot))
+            if (!IsJudgementBird(attackingSlot) || ImmuneToHanging(opposingSlot) || attackingSlot.Card.AttackIsBlocked(opposingSlot))
             {
                 yield return enumerator;
                 yield break;
@@ -100,6 +100,16 @@ namespace WhistleWindLobotomyMod.Patches
         private static void CustomCursorEnterCallback(CardSlot targetSlot)
         {
             InteractionCursor.Instance.ForceCursorType(ImmuneToHanging(targetSlot) ? CursorType.Target : CursorType.Sacrifice);
+        }
+        [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.GetValidTargets))]
+        private static void CustomSniperTargets(ref List<CardSlot> __result, bool playerIsAttacker, CardSlot attackingSlot)
+        {
+            if (!playerIsAttacker && (attackingSlot.Card?.HasStatusEffect<Sin>() ?? false))
+            {
+                __result = BoardManager.Instance.AllSlotsCopy;
+                __result.Remove(attackingSlot);
+                __result.RemoveAll(x => x.Card == (TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer).BossCard);
+            }
         }
         [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.OpponentSelectTargetSlot))]
         private static void CustomSelectTargetSlot(ref CardSlot __result, List<CardSlot> opposingSlots, List<PlayableCard> playerCards,
@@ -126,7 +136,7 @@ namespace WhistleWindLobotomyMod.Patches
                     {
                         if (sinCount >= 5) // if we have 5+ Sin, target the card with the lowest sin count
                             __result = filteredSlots[0];
-                        else
+                        else // otherwise target a card whose sin count will go over 5, otherwise default logic
                             __result = filteredSlots.Find(x => x.Card.GetStatusEffectStacks<Sin>() + sinCount >= 5) ?? __result;
                     }
                 }
