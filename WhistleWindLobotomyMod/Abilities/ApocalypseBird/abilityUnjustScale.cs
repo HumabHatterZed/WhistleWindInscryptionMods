@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Unjust Scale";
             UnjustScale.ability = LobotomyAbilityHelper.CreateAbility<UnjustScale>(
                 "sigilUnjustScale", rulebookName,
-                "At the end of the owner's turn, inflict 2+ Sin on all other cards based on difficulty. At the start of the owner's turn, kill all other cards with 5+ Sin.",
+                "At the end of the owner's turn, inflict Sin on all other cards proportional to the battle difficulty. At the start of the owner's turn, kill all other cards with 5+ Sin.",
                 null, powerLevel: 0,
                 canStack: false).Id;
         }

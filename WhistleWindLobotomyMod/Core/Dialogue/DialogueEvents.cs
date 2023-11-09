@@ -227,9 +227,9 @@ namespace WhistleWindLobotomyMod
 
             CreateDialogueEvents("ApocalypseBossRecall",
                 new() {
-                    "The Beast and its ilk move quickly. Use these to reposition your creatures.",
+                    "The Beast and its ilk move quickly and frequently. Use these to reposition your creatures.",
                     "Returned creatures will have their cost changed based on how recently you played them.",
-                    "Newly played creatures will cost [c:bR]3 Bones[c:] to play again.",
+                    "Newly played creatures will cost [c:bR]2 Bones[c:] to play again.",
                     "I will reduce their recall cost over time, until they become [c:bR]free[c:] to replay." });
             CreateDialogueEvents("ApocalypseBossExhausted",
                 new() { "Why don't we continue a little longer?" });
@@ -238,6 +238,15 @@ namespace WhistleWindLobotomyMod
                     "The beast is immune to mortal damage.",
                     "Excess injury will instead yield you up to [c:bR]3[c:] bones.",
                     "Don't worry about running dry, the ground you walk on is full of them."
+                });
+            CreateDialogueEvents("ApocalypseBossFinal",
+                new() {
+                    "Backed into a corner, the Beast releases one final burst of strength."
+                });
+            CreateDialogueEvents("ApocalypseBossFinalTargets",
+                new() {
+                    "When the Beast attacks a space marked in [c:bR]red[c:], it will deal twice the normal damage.",
+                    "When the Beast attacks a space marked in [c:bSG]white[c:], it will deal half the normal damage, but regain vitality."
                 });
         }
         private void Dialogue_JesterOfNihil()

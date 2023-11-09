@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
 
         private bool IsEnchanted => EffectSeverity > 0;
         public override List<string> EffectDecalIds() => new();
-        public int TurnGained = -1;
+
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
         public bool RespondsToUpkeepInHand(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
 

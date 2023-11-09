@@ -35,24 +35,23 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 "wstl_apocalypseEgg_long" } }
         };
         internal ActiveEggEffect ActiveEggEffect = ActiveEggEffect.None;
-
         internal readonly List<ActiveEggEffect> DisabledEggEffects = new();
 
         private int BossHealthThreshold => Opponent.NumLives switch
         {
-            4 => 90,
-            3 => 60,
-            2 => 30,
-            _ => 0
+            4 => 120,
+            3 => 90,
+            2 => 60,
+            _ => 1
         };
-        
 
         internal string ActiveEggMinion = null;
         internal PlayableCard BossCard = null;
 
-        internal int turnsToNextPhase = 3;
+        internal int turnsToNextPhase = 3; // number of turns until the active egg effect automatically changes
         private int damageTakenThisTurn = 0;
 
+        // makes things more difficult based on how much damage is dealt to the boss
         private int reactiveDifficulty = 0;
         private int ReactiveDifficulty => RunState.Run.DifficultyModifier + reactiveDifficulty;
         private int PhaseDifficulty => 4 - Opponent.NumLives;
@@ -61,10 +60,13 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         private bool changeToNextPhase = false;
         private bool justSwitchedEffect = false;
 
+        // controls dialogue
         private bool seenMouthAttack = false;
         private bool seenEyeAttack = false;
         private bool seenArmsAttack = false;
 
+        // list of cardslots being targeted by special attacks
+        // [0] - red, [1] - white
         internal readonly List<CardSlot>[] giantTargetSlots = new List<CardSlot>[2] 
         {
             new(),
@@ -72,7 +74,10 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         };
         internal readonly List<CardSlot> specialTargetSlots = new();
         private readonly List<GameObject> targetIcons = new();
+
+        private readonly Dictionary<CardSlot, GameObject> mouthIcons = new();
         private GameObject targetIconPrefab;
+        private GameObject bossMouthPrefab;
 
         private IEnumerator BigBirdEnchantCards()
         {
@@ -180,11 +185,14 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             }
 
             // mouth target animation
-
-            foreach (CardSlot slot in specialTargetSlots)
+            Opponent.MasterAnimator.SetBool("Mouth", true);
+            yield return new WaitForSeconds(0.25f);
+            foreach (CardSlot slot in specialTargetSlots.Where(x => x.IsOpponentSlot()))
             {
-                yield return new WaitForSeconds(0.05f);
-                CreateTargetIcon(slot, GameColors.Instance.glowRed);
+                yield return new WaitForSeconds(0.1f);
+                GameObject obj = Instantiate(bossMouthPrefab);
+                obj.transform.localPosition = slot.transform.position + new Vector3(0f, 1.2f, 0.4f);
+                mouthIcons.Add(slot, obj);
             }
             yield return new WaitForSeconds(0.5f);
 
@@ -193,22 +201,37 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         }
         private IEnumerator SmallBirdAttackLanes()
         {
-            yield return HelperMethods.ChangeCurrentView(View.Board, 0f);
-            // mouth attack animation
-            AudioController.Instance.PlaySound2D("bird_mouth", MixerGroup.TableObjectsSFX);
             bool killedCard = false;
+
+            yield return HelperMethods.ChangeCurrentView(View.Board, 0f);
             for (int i = 0; i < specialTargetSlots.Count; i++)
             {
+                GameObject mouthAnim = null;
                 PlayableCard target = specialTargetSlots[i].Card;
+
+                if (specialTargetSlots[i].IsOpponentSlot())
+                {
+                    mouthAnim = mouthIcons[specialTargetSlots[i]];
+                    mouthAnim.GetComponent<Animator>().Play("mouthShut");
+                    yield return new WaitForSeconds(0.05f);
+                    AudioController.Instance.PlaySound2D("bird_mouth", MixerGroup.TableObjectsSFX);
+                    yield return new WaitForSeconds(0.05f);
+                }
+
                 if (target != null && target != BossCard)
                 {
                     killedCard = true;
                     yield return target.Die(false, BossCard);
-                    yield return new WaitForSeconds(0.1f);
+                }
+
+                if (mouthAnim != null)
+                {
+                    yield return new WaitForSeconds(0.05f);
+                    CleanUpTargetIcon(mouthAnim);
                 }
             }
-
-            CleanupTargetIcons();
+            
+            mouthIcons.Clear();
             specialTargetSlots.Clear();
             yield return new WaitForSeconds(0.5f);
 
@@ -217,7 +240,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             else
             {
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossMouthPostAttack", 0f);
-                
                 if (reactiveDifficulty > 0)
                     reactiveDifficulty--;
             }
@@ -233,7 +255,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 yield break;
 
             yield return HelperMethods.ChangeCurrentView(View.Board, 0f);
-
             foreach (CardSlot slot in slots)
             {
                 slot.Card.Anim.SetMarkedForSacrifice(marked: true);
@@ -243,8 +264,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             if (!seenArmsAttack)
                 yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossArmsPreAttack", TextDisplayer.MessageAdvanceMode.Input);
             
-            // tip scale animation
-
             foreach (CardSlot slot in slots)
             {
                 slot.Card.Anim.PlaySacrificeSound();
@@ -290,13 +309,13 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 randomSeed += 5;
 
             int maxRedTargets = 2, maxWhiteTargets = 1;
-            float redChance = 0.12f, whiteChance = 0.14f, directChance = 0.25f;
+            float redChance = 0.12f, whiteChance = 0.14f, directChance = 0.2f;
 
             // if the opponent is winning, soften up on the attacks somewhat
             if (LifeManager.Instance.Balance < 0)
             {
                 redChance = 0.08f;
-                whiteChance = 0.22f;
+                whiteChance = 0.18f;
                 directChance = 0.1f;
             }
 
@@ -329,8 +348,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             // randomly remove a random card slot from consideration at a 20% chance w/ reactive <= 3
             if (playerSlots.Count(x => x.Card != null) == 0)
             {
-                playerSlots = new() { playerSlots[SeededRandom.Range(0, playerSlots.Count, randomSeed++)] };
                 directChance = 1f;
+                playerSlots.Clear();
+                playerSlots.Add(playerSlots[SeededRandom.Range(0, playerSlots.Count, randomSeed++)]);
             }
             else if (ReactiveDifficulty <= 6 && SeededRandom.Value(randomSeed++) <= 0.2f)
             {
@@ -372,6 +392,30 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             }
         }
 
+        public override IEnumerator PlayerUpkeep()
+        {
+            if (CardDrawPiles3D.Instance.Deck.CardsInDeck + CardDrawPiles3D.Instance.SideDeck.CardsInDeck > 1)
+                yield break;
+
+            if (PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name != "wstl_REFRESH_DECKS"))
+            {
+                ViewManager.Instance.SwitchToView(View.Hand);
+                CardInfo refreshDecks = CardLoader.GetCardByName("wstl_REFRESH_DECKS");
+                yield return CardSpawner.Instance.SpawnCardToHand(refreshDecks);
+                yield return new WaitForSeconds(0.4f);
+                yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossExhausted", TextDisplayer.MessageAdvanceMode.Input);
+            }
+        }
+        public override IEnumerator PreDeckSetup()
+        {
+            ViewManager.Instance.SwitchToView(View.Hand);
+            PlayerHand.Instance.InspectingLocked = false;
+            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD"));
+            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD_ALL"));
+            PlayerHand.Instance.InspectingLocked = true;
+            yield return new WaitForSeconds(0.4f);
+            yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossRecall", TextDisplayer.MessageAdvanceMode.Input);
+        }
         public override IEnumerator OpponentUpkeep()
         {
             yield return HelperMethods.ChangeCurrentView(View.Board);
@@ -385,13 +429,30 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 {
                     ActiveEggEffect = ActiveEggEffect.None;
                     finalPhase = true;
+                    damageTakenThisTurn = 0;
                 }
                 yield return Opponent.PostResetScalesSequence();
                 changeToNextPhase = false;
             }
             
             if (finalPhase)
+            {
+                if (damageTakenThisTurn > 0)
+                {
+                    int scaleDamage = Mathf.Min(LifeManager.Instance.DamageUntilPlayerWin - 1, damageTakenThisTurn / 3);
+                    int boneDamage = damageTakenThisTurn - scaleDamage;
+                    if (scaleDamage > 0)
+                        yield return LifeManager.Instance.ShowDamageSequence(scaleDamage, scaleDamage, false);
+
+                    if (boneDamage > 0)
+                    {
+                        ViewManager.Instance.SwitchToView(View.BoneTokens);
+                        yield return new WaitForSeconds(0.2f);
+                        yield return ResourcesManager.Instance.AddBones(Mathf.Min(3, boneDamage));
+                    }
+                }
                 yield break;
+            }
 
             if (justSwitchedEffect)
                 justSwitchedEffect = false;
@@ -426,49 +487,49 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         }
         public override IEnumerator OpponentCombatEnd()
         {
+            reactiveDifficulty += damageTakenThisTurn / 5;
             BossCard?.TemporaryMods.RemoveAll(x => x.singletonId == "SmallBeak");
-
             if (finalPhase)
-            {
                 yield return GiantPhaseLogic(false);
 
-                if (reactiveDifficulty > 0)
-                    reactiveDifficulty--;
-
-                yield break;
-            }
-
-            yield return MoveOpponentCards();
-
-            switch (ActiveEggEffect)
+            else
             {
-                case ActiveEggEffect.BigEyes:
-                    if (turnsToNextPhase == 2)
-                        yield return BigBirdEnchantCards();
-                    break;
+                yield return MoveOpponentCards();
+                switch (ActiveEggEffect)
+                {
+                    case ActiveEggEffect.BigEyes:
+                        if (turnsToNextPhase == 2)
+                            yield return BigBirdEnchantCards();
+                        break;
 
-                case ActiveEggEffect.LongArms:
-                    List<CardSlot> allSlots = BoardManager.Instance.AllSlotsCopy;
-                    allSlots.RemoveAll(x => x.Card == null || x.Card == BossCard);
-                    if (allSlots.Count == 0)
-                        yield break;
+                    case ActiveEggEffect.LongArms:
+                        List<CardSlot> allSlots = BoardManager.Instance.AllSlotsCopy;
+                        allSlots.RemoveAll(x => x.Card == null || x.Card == BossCard);
+                        if (allSlots.Count == 0)
+                            break;
 
-                    AudioController.Instance.PlaySound2D("bird_down", MixerGroup.TableObjectsSFX);
-                    int sinCount = 2 + PhaseDifficulty;
-                    if (ReactiveDifficulty > 4)
-                        sinCount = Mathf.Min(5, sinCount + ReactiveDifficulty / 4);
-                    foreach (CardSlot s in allSlots)
-                    {
-                        s.Card.Anim.StrongNegationEffect();
-                        s.Card.AddStatusEffect<Sin>(sinCount);
-                        yield return new WaitForSeconds(0.1f);
-                    }
-                    break;
+                        AudioController.Instance.PlaySound2D("bird_down", MixerGroup.TableObjectsSFX);
+                        int sinCount = 2 + PhaseDifficulty;
+                        if (ReactiveDifficulty > 4)
+                            sinCount = Mathf.Min(5, sinCount + ReactiveDifficulty / 4);
+                        
+                        foreach (CardSlot s in allSlots)
+                        {
+                            s.Card.Anim.StrongNegationEffect();
+                            s.Card.AddStatusEffect<Sin>(sinCount);
+                            yield return new WaitForSeconds(0.1f);
+                        }
+                        break;
+                }
             }
+
             damageTakenThisTurn = 0;
         }
         private int GetStartingCardCount()
         {
+            if (ActiveEggEffect == ActiveEggEffect.BigEyes)
+                return 1;
+
             // queue 2 cards every 7 turns
             if (TurnManager.Instance.TurnNumber % 7 == 0)
                 return 2;
@@ -493,18 +554,11 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             int cardNum = GetStartingCardCount();
             if (opponentWinning)
                 cardNum--;
-            else if (LifeManager.Instance.Balance > 3)
+            else
                 cardNum++;
 
-            switch (ActiveEggEffect)
-            {
-                case ActiveEggEffect.BigEyes:
-                    cardNum = Mathf.Min(1, cardNum + 1);
-                    break;
-                case ActiveEggEffect.SmallBeak:
-                    cardNum = Mathf.Min(cardNum, 2 + PhaseDifficulty);
-                    break;
-            }
+            if (ActiveEggEffect == ActiveEggEffect.SmallBeak)
+                cardNum = Mathf.Min(cardNum, 2 + PhaseDifficulty);
 
             int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
 
@@ -512,9 +566,12 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             // if the difficulty modifier is 6 or higher, guaranteed to modify stats, other chance is dependent on difficulty and cards being cued
             float gateValue;
             if (ReactiveDifficulty > 11)
-                gateValue = opponentWinning ? 0.7f : 1f;
+            {
+                gateValue = opponentWinning ? 0.65f : 1f;
+                cardNum++;
+            }
             else
-                gateValue = (4 - cardNum - (opponentWinning ? 1 : 0)) / (7f - RunState.Run.DifficultyModifier);
+                gateValue = (4 - cardNum - (opponentWinning ? 1 : 0)) / Mathf.Max(1f, 7f - RunState.Run.DifficultyModifier);
 
             for (int i = 0; i < cardNum; i++)
             {
@@ -523,17 +580,15 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 if (randomValue <= gateValue)
                 {
                     // either give +1/-1 or 0/+1
-                    bool giveAttack = SeededRandom.Bool(randomSeed++);
-                    int attack = 0, health = 0;
-                    if (giveAttack)
+                    int attack = ReactiveDifficulty > 11 ? 1 : 0;
+                    int health = randomValue <= (gateValue / 2f) ? 1 : 0;
+                    
+                    if (SeededRandom.Bool(randomSeed++))
                     {
                         attack++;
                         health--;
                     }
                     else
-                        health++;
-
-                    if (randomValue <= (gateValue / 2f))
                         health++;
 
                     clone.baseAttack += attack;
@@ -551,32 +606,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             BossCard.RenderCard();
         }
 
-        public override IEnumerator PlayerUpkeep()
-        {
-            if (CardDrawPiles3D.Instance.Deck.CardsInDeck + CardDrawPiles3D.Instance.SideDeck.CardsInDeck > 1)
-                yield break;
-
-            if (PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name != "wstl_REFRESH_DECKS"))
-            {
-                ViewManager.Instance.SwitchToView(View.Hand);
-
-                CardInfo refreshDecks = CardLoader.GetCardByName("wstl_REFRESH_DECKS");
-                yield return CardSpawner.Instance.SpawnCardToHand(refreshDecks);
-                yield return new WaitForSeconds(0.4f);
-                yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossExhausted", TextDisplayer.MessageAdvanceMode.Input);
-            }
-        }
-        public override IEnumerator PreDeckSetup()
-        {
-            ViewManager.Instance.SwitchToView(View.Hand);
-            PlayerHand.Instance.InspectingLocked = false;
-            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD"));
-            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD_ALL"));
-            PlayerHand.Instance.InspectingLocked = true;
-            yield return new WaitForSeconds(0.4f);
-            yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossRecall", TextDisplayer.MessageAdvanceMode.Input);
-        }
-
         internal IEnumerator SwitchToNextEggEffect(bool lostLife)
         {
             // clean up the previous phase and reset the counter
@@ -585,6 +614,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             specialTargetSlots.Clear();
             CleanupTargetIcons();
+            foreach (GameObject obj in mouthIcons.Values)
+                CleanUpTargetIcon(obj);
+            mouthIcons.Clear();
 
             yield return Opponent.ClearQueue();
             yield return new WaitForSeconds(0.4f);
@@ -656,8 +688,8 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         {
             // Set up start of battle
             ChangeActiveEggEffect();
-            targetIconPrefab ??= ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CannonTargetIcon");
-
+            targetIconPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CannonTargetIcon");
+            bossMouthPrefab = CustomBossUtils.bossBundle.LoadAsset<GameObject>("ApocalypseMouth");
             CardInfo startingEgg = CardLoader.GetCardByName(AllBossPhases[ActiveEggEffect][1]);
 
             if (ActiveEggEffect == ActiveEggEffect.BigEyes)
@@ -680,10 +712,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         }
 
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => BossCard == null || otherCard == BossCard;
-        public override bool RespondsToOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target) => target == BossCard || (finalPhase && attacker == BossCard);
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) => card == finalPhase && !deathSlot.IsPlayerSlot;
+        public override bool RespondsToOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target) => true;
 
-        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => target == BossCard || (finalPhase && attacker == BossCard);
+        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => true;
         public bool RespondsToPreScalesChangedRef(int damage, int numWeights, bool toPlayer) => !toPlayer && LobotomyPlugin.PreventOpponentDamage;
 
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
@@ -720,58 +751,60 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossReturnEgg");
             }
         }
-
         public override IEnumerator OnOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
         {
-            damageTakenThisTurn += amount;
-            if (amount >= 5 && !attacker.HasStatusEffect<Enchanted>())
+            if (attacker == BossCard)
             {
-                reactiveDifficulty += Mathf.Max(1, amount / 5);
-                Debug.Log($"ReactiveDifficulty: {ReactiveDifficulty}");
-                yield return new WaitForSeconds(0.4f);
-                Singleton<CameraEffects>.Instance.Shake(0.5f, 0.25f);
-                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossAttackStrengthOvercharge");
-            }
+                if (finalPhase)
+                    yield break;
 
-            if (finalPhase)
-            {
+                // if white target, heal the boss
                 if (giantTargetSlots[1].Contains(target.Slot))
-                    BossCard.HealDamage(amount * 2);
+                    BossCard.HealDamage(BossCard.Attack);
 
                 CleanUpGiantTarget(target.Slot);
                 yield break;
             }
-            else
+
+            if (target == BossCard)
             {
+                damageTakenThisTurn += amount;
+                if (amount >= 5 && !attacker.HasStatusEffect<Enchanted>())
+                {
+                    yield return new WaitForSeconds(0.4f);
+                    Singleton<CameraEffects>.Instance.Shake(0.5f, 0.25f);
+                    yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossAttackStrengthOvercharge");
+                }
+
                 if (ActiveEggEffect == ActiveEggEffect.SmallBeak)
                     BossCard.AddTemporaryMod(new(damageTakenThisTurn, 0) { singletonId = "SmallBeak" });
 
+                // don't switch phase if we're above the threshold
                 if (BossCard.Health > BossHealthThreshold)
                     yield break;
 
-                changeToNextPhase = true;
+                if (finalPhase)
+                {
+                    Opponent.NumLives--;
+                    yield return Opponent.LifeLostSequence();
+                }
+                else
+                    changeToNextPhase = true;
+                
                 AudioController.Instance.SetLoopVolume(0.1f, 1f);
             }
         }
 
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
-            Opponent.NumLives--;
-            yield return Opponent.LifeLostSequence();
-        }
-
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
-            if (finalPhase)
+            if (finalPhase && attacker == BossCard)
             {
                 if (giantTargetSlots[0].Contains(target.Slot))
                     return damage * 2;
                 if (giantTargetSlots[1].Contains(target.Slot))
                     return damage / 2;
-
-                return damage;
             }
-            else
+            else if (target == BossCard)
             {
                 // modify damage so it does not reduce health below the current threshold
                 int threshold = BossHealthThreshold;
@@ -781,6 +814,8 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
                 return target.Health - threshold;
             }
+
+            return damage;
         }
         public int CollectPreScalesChangedRef(int damage, ref int numWeights, ref bool toPlayer)
         {
@@ -791,12 +826,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             {
                 numWeights = Mathf.Min(LifeManager.Instance.DamageUntilPlayerWin - 1, numWeights);
                 return LifeManager.Instance.DamageUntilPlayerWin - 1;
-            }
-
-            if (damage > 3)
-            {
-                numWeights = Mathf.Min(3, numWeights);
-                return 3;
             }
 
             return damage;
@@ -881,16 +910,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             });
         }
 
-        private void UpdateAttackColours()
-        {
-            foreach (PlayableCard c in BoardManager.Instance.GetCards(true)
-                .Concat(BoardManager.Instance.GetCards(false))
-                .Concat(PlayerHand.Instance.CardsInHand))
-            {
-                c.OnStatsChanged();
-            }
-        }
-
         public bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) => finalPhase && attacker == BossCard;
         public IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage)
         {
@@ -916,6 +935,16 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         }
         public int TriggerPriority(CardSlot target, int damage, PlayableCard attacker) => int.MaxValue; // ModifyDirectDamage
 
+        // visual effects of big eyes
+        private void UpdateAttackColours()
+        {
+            foreach (PlayableCard c in BoardManager.Instance.GetCards(true)
+                .Concat(BoardManager.Instance.GetCards(false))
+                .Concat(PlayerHand.Instance.CardsInHand))
+            {
+                c.OnStatsChanged();
+            }
+        }
         private void FireLaser(GameObject source, CardSlot targetSlot, bool attackPlayer)
         {
             GameObject gameObject = new("Line");
@@ -931,7 +960,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             Vector3 vector2 = targetSlot.transform.position + (attackPlayer ? Vector3.back : Vector3.zero) + (attackPlayer ? Vector3.zero : (Vector3.down * 0.05f));
             //Vector3 vector3 = vector + Vector3.back;
             line.SetPositions(new Vector3[2] { vector, vector2 });
-            line.alignment = LineAlignment.Local;
+            line.alignment = LineAlignment.TransformZ;
             CustomCoroutine.Instance.StartCoroutine(TweenLineWidth(line, attackPlayer, 0.2f));
         }
         private IEnumerator TweenLineWidth(LineRenderer line, bool attackPlayer, float time = 0.25f)

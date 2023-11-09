@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public override Color InteractablesGlowColor => GameColors.Instance.gold;
         public ApocalypseBattleSequencer BattleSequence => TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer;
 
-        private GameObject apocalypseAnimation;
+        internal GameObject apocalypseAnimation;
         internal Animator MasterAnimator;
         public readonly List<Transform> LeftEyes = new();
         public readonly List<Transform> RightEyes = new();
@@ -43,7 +43,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         // if totem, change sigil each phase
         private bool bossTotems;
-        private readonly List<Ability> possibleAbilities = new()
+        private readonly List<Ability> possibleAbilities = new() // totem abilities
         {
             Ability.Sentry,
             Ability.Strafe,
@@ -60,12 +60,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
             }
             if (!wasDefeated)
-                yield return new WaitForSeconds(0.1f);
-            else
             {
-                yield return new WaitForSeconds(1f);
-                AudioController.Instance.PlaySound2D("bird_dead", MixerGroup.TableObjectsSFX);
-                AudioController.Instance.PlaySound2D("bird_roar", MixerGroup.TableObjectsSFX);
+                apocalypseAnimation.transform.SetParent(null);
+                yield return new WaitForSeconds(0.1f);
             }
         }
         public override IEnumerator DefeatedPlayerSequence()
@@ -79,8 +76,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         {
             Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
 
-            ResetToIdle();
-            yield return new WaitForSeconds(0.5f);
+            yield return ResetToIdle();
             Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
             yield return new WaitForSeconds(1f);
 
@@ -98,8 +94,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     break;
             }
 
-            yield return new WaitForSeconds(0.5f);
-
             if (base.NumLives == 0)
             {
                 LobotomySaveManager.DefeatedApocalypseBoss = true;
@@ -107,15 +101,15 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 yield return new WaitForSeconds(0.25f);
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
                 yield return new WaitForSeconds(0.5f);
-                // defeat animation
-                yield return new WaitForSeconds(1.5f);
                 Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
-                yield return new WaitForSeconds(0.5f);
+                yield return DefeatSequence();
+                yield return new WaitForSeconds(1.5f);
+                Object.DontDestroyOnLoad(AudioController.Instance.PlaySound2D("candle_loseLife", MixerGroup.TableObjectsSFX).gameObject);
                 Singleton<UIManager>.Instance.Effects.GetEffect<ScreenColorEffect>().SetColor(GameColors.Instance.nearBlack);
                 Singleton<UIManager>.Instance.Effects.GetEffect<ScreenColorEffect>().SetIntensity(1f, float.MaxValue);
                 AudioController.Instance.StopAllLoops();
-                Singleton<InteractionCursor>.Instance.SetHidden(hidden: true);
-                yield return new WaitForSeconds(3f);
+                Singleton<InteractionCursor>.Instance.SetHidden(true);
+                yield return new WaitForSeconds(2f);
                 if (SaveFile.IsAscension)
                 {
                     EndAscensionRun();
@@ -128,9 +122,23 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     AudioListener.volume = 0f;
                 }
             }
-
+            yield return new WaitForSeconds(0.5f);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
+        }
+        private IEnumerator DefeatSequence()
+        {
+            AudioController.Instance.PlaySound2D("bird_roar", MixerGroup.TableObjectsSFX);
+            MasterAnimator.Play("finalDeath");
+            Singleton<CameraEffects>.Instance.Shake(0.5f, 1.5f);
+            yield return new WaitForSeconds(0.5f);
+            yield return BoardManager.Instance.OpponentSlotsCopy[0].Card.Die(false, playSound: false);
+            yield return new WaitForSeconds(1f);
+            LobotomyPlugin.PreventOpponentDamage = false;
+            int damage = Singleton<LifeManager>.Instance.DamageUntilPlayerWin - 1;
+            yield return LifeManager.Instance.ShowDamageSequence(damage, damage, false);
+            yield return new WaitForSeconds(1f);
+            yield return LifeManager.Instance.ShowDamageSequence(1, 1, false);
         }
         public override IEnumerator StartNewPhaseSequence()
         {
@@ -163,7 +171,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             }
             else
             {
-                //AudioController.Instance.loopSources[0].time = 11.5f;
                 AudioController.Instance.SetLoopVolume(BG_VOLUME, 1f);
             }
 
@@ -200,26 +207,28 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         private IEnumerator StartGiantPhase()
         {
             CardInfo beast = CardLoader.GetCardByName("wstl_!GIANTCARD_ApocalypseBird");
+
             yield return ClearBoard();
             yield return ClearQueue();
-
-            yield return HelperMethods.ChangeCurrentView(View.Default);
+            yield return HelperMethods.ChangeCurrentView(View.Default, 0.5f);
             PlayDefeatAnimation();
-            yield return new WaitForSeconds(1f);
-            AudioController.Instance.SetLoopVolume(0.5f, 0.5f);
+            AudioController.Instance.SetLoopVolume(BG_VOLUME, 0.5f);
             yield return new WaitForSeconds(2f);
-
-            apocalypseAnimation.gameObject.transform.position = new(0.3f, 5.5f, 0f);
-            apocalypseAnimation.gameObject.transform.localScale = new(0.5f, 0.5f, 0.5f);
-
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(beast, BoardManager.Instance.OpponentSlotsCopy[0], 0.2f);
-            MasterAnimator.SetTrigger("StartFinal");
-            yield return new WaitForSeconds(0.2f);
+            apocalypseAnimation.transform.SetParent(BoardManager.Instance.OpponentSlotsCopy[0].Card.transform.Find("Quad"));
+            apocalypseAnimation.transform.localScale = new(0.5f, 0.5f, 0.5f);
+            apocalypseAnimation.transform.localPosition = new(-1.6f, -0.4f, -0.5f);
+            yield return new WaitForSeconds(0.05f);
+            MasterAnimator.Play("finalPhase");
+
             AudioController.Instance.PlaySound3D("map_slam", MixerGroup.TableObjectsSFX, Singleton<BoardManager>.Instance.transform.position);
             AudioController.Instance.PlaySound2D("bird_roar", MixerGroup.TableObjectsSFX);
-            // re-emerge the bird
+            Singleton<CameraEffects>.Instance.Shake(0.5f, 0.5f);
             yield return new WaitForSeconds(2f);
+            yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossFinal");
             yield return BattleSequence.GiantPhaseLogic(true);
+            yield return new WaitForSeconds(0.1f);
+            yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossFinalTargets");
         }
 
         public override IEnumerator IntroSequence(EncounterData encounter)
@@ -383,16 +392,18 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         internal IEnumerator ResetToIdle()
         {
-            if (MasterAnimator.GetBool("Flare"))
+            if (MasterAnimator.GetBool("Flare") || MasterAnimator.GetBool("Mouth"))
                 yield return new WaitForSeconds(0.5f);
             
             MasterAnimator.SetBool("Flare", false);
+            MasterAnimator.SetBool("Mouth", false);
         }
 
         private void PlayDefeatAnimation()
         {
             // override the overrides
-            MasterAnimator.SetTrigger("StartFinal");
+            MasterAnimator.Play("finalPhaseStart");
+            MasterAnimator.Play("idle2", 1);
             MasterAnimator.SetLayerWeight(2, 0f);
             MasterAnimator.SetLayerWeight(3, 0f);
             MasterAnimator.SetLayerWeight(4, 0f);

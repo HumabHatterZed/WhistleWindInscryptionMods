@@ -91,6 +91,7 @@ namespace WhistleWindLobotomyMod.Opponents
 
         public static AssetBundle bossBundle;
         public static GameObject apocalypsePrefab;
+
         public static List<AudioClip> bossSFX;
         public static List<AudioClip> bossLoop;
     }

@@ -128,7 +128,7 @@ namespace WhistleWindLobotomyMod.Patches
             }
 
             bool doScaleDamage = LifeManager.Instance.DamageUntilPlayerWin > 1;
-            int bonesToGive = (doScaleDamage ? 3 : damage) - (LifeManager.Instance.DamageUntilPlayerWin - 1);
+            int bonesToGive = damage - (LifeManager.Instance.DamageUntilPlayerWin - 1);
 
             // deal scale damage
             if (doScaleDamage)

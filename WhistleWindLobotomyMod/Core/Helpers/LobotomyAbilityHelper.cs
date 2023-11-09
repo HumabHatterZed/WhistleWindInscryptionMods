@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
                 pluginGuid, textureName,
                 rulebookName, rulebookDescription,
                 dialogue, triggerText,
-                powerLevel, false, canStack);
+                powerLevel, false, canStack, foundInRulebook: true);
         }
         public static FullAbility CreateActivatedAbility<T>(
             string textureName,
