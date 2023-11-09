@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         public virtual bool EffectCanBeInherited => false;
 
         public int EffectSeverity = 0;
-
+        public int TurnGained = -1;
         // the ability used for the icon of this status effect
         public AbilityInfo IconAbilityInfo => StatusEffectManager.AllStatusEffects.Find(x => x.BehaviourType == this.GetType())?.IconAbilityInfo;
 

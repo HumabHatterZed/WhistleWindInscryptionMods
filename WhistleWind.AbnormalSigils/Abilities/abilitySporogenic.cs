@@ -61,10 +61,7 @@ namespace WhistleWind.AbnormalSigils
             card.Anim.LightNegationEffect();
 
             // add the status effect to the card and update the turn played
-            if (!card.HasStatusEffect<Spores>())
-                card.AddStatusEffect<Spores>(stacks, true);
-            else
-                card.AddStatusEffect<Spores>(stacks, true).TurnPlayed = TurnManager.Instance.TurnNumber;
+            card.AddStatusEffect<Spores>(stacks, true);
 
             yield return new WaitForSeconds(0.1f);
         }

@@ -8,11 +8,37 @@ using WhistleWind.AbnormalSigils.StatusEffects;
 
 namespace WhistleWind.AbnormalSigils
 {
-    public class Bind : StatusEffectBehaviour, IGetAttackingSlots, IOnPostSlotAttackSequence
+    public class Bind : StatusEffectBehaviour, IGetAttackingSlots, IOnPostSlotAttackSequence, IOnUpkeepInHand
     {
         public static SpecialTriggeredAbility specialAbility;
         public static Ability iconId;
         public override string CardModSingletonName => "bind";
+
+        public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
+        public bool RespondsToUpkeepInHand(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
+
+        public override IEnumerator OnUpkeep(bool playerUpkeep)
+        {
+            if (TurnManager.Instance.TurnNumber <= TurnGained)
+                yield break;
+
+            base.PlayableCard.Anim.LightNegationEffect();
+            ViewManager.Instance.SwitchToView(View.Board);
+            yield return new WaitForSeconds(0.2f);
+            SetSeverity(0, false);
+            Destroy();
+        }
+        public IEnumerator OnUpkeepInHand(bool playerUpkeep)
+        {
+            if (TurnManager.Instance.TurnNumber <= TurnGained)
+                yield break;
+
+            base.PlayableCard.Anim.LightNegationEffect();
+            ViewManager.Instance.SwitchToView(View.Hand);
+            yield return new WaitForSeconds(0.2f);
+            SetSeverity(0, false);
+            Destroy();
+        }
 
         public bool RespondsToGetAttackingSlots(bool playerIsAttacker, List<CardSlot> originalSlots, List<CardSlot> currentSlots) => true;
         public bool RespondsToPostSlotAttackSequence(CardSlot attackingSlot) => attackingSlot.Card == base.PlayableCard;
@@ -47,7 +73,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Bind()
         {
             const string rName = "Bind";
-            const string rDesc = "This card attacks after ally cards with less Bind. At 4 Bind, attack after opposing cards as well. After this card attacks it loses all Bind.";
+            const string rDesc = "This card attacks after ally cards with less Bind. At 4 Bind, attack after opposing cards as well. Remove all Bind from this card when it attacks or on upkeep.";
 
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.NewStatusEffect<Bind>(
                 pluginGuid, rName, rDesc,

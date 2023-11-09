@@ -14,8 +14,6 @@ namespace WhistleWind.AbnormalSigils
 
         public override string CardModSingletonName => "spore";
 
-        public int TurnPlayed = -1;
-
         public override List<string> EffectDecalIds()
         {
             return new()
@@ -36,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            if (TurnPlayed == Singleton<TurnManager>.Instance.TurnNumber)
+            if (TurnGained == Singleton<TurnManager>.Instance.TurnNumber)
                 yield break;
 
             int newSpore = Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot)

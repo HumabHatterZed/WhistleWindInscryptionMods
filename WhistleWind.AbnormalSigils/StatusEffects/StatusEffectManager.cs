@@ -124,6 +124,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             
             component = card.GetStatusEffect<T>();
             component.AddSeverity(effectSeverity, addDecals);
+            component.TurnGained = TurnManager.Instance?.TurnNumber ?? -1;
             return component;
         }
 
