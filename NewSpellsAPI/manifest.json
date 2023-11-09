@@ -4,6 +4,6 @@
   "website_url": "https://github.com/HumabHatterZed/WhistleWindInscryptionMods",
   "description": "v1.1.3 - Fixed Spells not working in Act 2, added new config option. An updated version of Infiniscryption's Spell Card Toolkit with new features and general improvements.",
   "dependencies": [
-    "API_dev-API-2.18.2"
+    "API_dev-API-2.18.3"
   ]
 }

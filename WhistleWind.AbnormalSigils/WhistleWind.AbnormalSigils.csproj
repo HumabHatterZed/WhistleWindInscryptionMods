@@ -4,7 +4,7 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AssemblyName>WhistleWind.AbnormalSigils</AssemblyName>
 		<Description>A mod for Inscryption adding sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina.</Description>
-		<Version>1.0.2</Version>
+		<Version>1.1.0</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <DebugType>full</DebugType>
