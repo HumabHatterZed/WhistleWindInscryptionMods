@@ -15,17 +15,18 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.Core
 {
-    [HarmonyPatch(typeof(CardAbilityIcons))]
+    [HarmonyPatch]
     internal class StatusEffectPatches // Adds extra icon slots for rendering status effects
     {
-        [HarmonyPostfix, HarmonyPatch(nameof(CardAbilityIcons.GetDistinctShownAbilities))]
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.GetDistinctShownAbilities))]
         [HarmonyPatch(typeof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix), nameof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix.RenderTemporarySigils))]
-        private static void DontRenderStatusEffectsNormally(ref List<Ability> __result)
+        private static void DontRenderStatusEffectsNormally(List<Ability> __result)
         {
             __result.RemoveAll(x => x.GetExtendedPropertyAsBool("wstl:StatusEffect") == true);
         }
 
-        [HarmonyPrefix, HarmonyPatch(nameof(CardAbilityIcons.UpdateAbilityIcons))]
+        [HarmonyPrefix, HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.UpdateAbilityIcons))]
         private static void AddStatusEffectIcons(CardAbilityIcons __instance)
         {
             if (!__instance || SaveManager.SaveFile.IsGrimora || SaveManager.SaveFile.IsMagnificus)
@@ -46,7 +47,7 @@ namespace WhistleWind.AbnormalSigils.Core
             }
         }
 
-        [HarmonyPostfix, HarmonyPatch(nameof(CardAbilityIcons.UpdateAbilityIcons))]
+        [HarmonyPostfix, HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.UpdateAbilityIcons))]
         private static void UpdateStatusEffects(CardAbilityIcons __instance, PlayableCard playableCard)
         {
             if (!__instance || SaveManager.SaveFile.IsGrimora || SaveManager.SaveFile.IsMagnificus)

@@ -4,9 +4,10 @@ A library of 53 unique sigils based on the abnormalities from Lobotomy Corporati
 
 Also includes:
 - 5 custom Tribes
-- 6 custom Traits
+- 6+ custom Traits
 - 4 custom CardMetaCategories
 - 3 custom CardAppearanceBehaviours
+- New 'status effects'
 
 ## 🔗 Compatibility
 

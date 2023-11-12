@@ -24,6 +24,7 @@
 - Idol no longer affects cards with Made of Stone
 - Changed description of Made of Stone to indicate it provides immunity to Idol and Punisher
 - Opportunistic sigil is now flipped for the opponent
+- Adjusted custom tribe icon positions
 
 ### ➕ Additions
 - Added the following abilities:
