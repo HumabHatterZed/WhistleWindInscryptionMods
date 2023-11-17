@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,6 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        int turnPlayedOnBoard;
         public override bool RespondsToResolveOnBoard() => true;
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnResolveOnBoard()
@@ -37,13 +37,16 @@ namespace WhistleWind.AbnormalSigils
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);
             AudioController.Instance.PlaySound2D("combatbell_vibrate");
-            List<CardSlot> affectedSlots = Singleton<BoardManager>.Instance.AllSlotsCopy.FindAll(x => x.Card != null);
-            foreach (CardSlot slot in affectedSlots.Where(slot => slot.Card != base.Card))
+            List<CardSlot> affectedSlots = Singleton<BoardManager>.Instance.AllSlotsCopy;
+            affectedSlots.RemoveAll(x => x.Card == null || x.Card.HasAnyOfTraits(Trait.Giant, Trait.Uncuttable, AbnormalPlugin.ImmuneToInstaDeath));
+            affectedSlots.Remove(base.Card.Slot);
+
+            foreach (CardSlot slot in affectedSlots)
             {
                 slot.Card.Anim.SetShaking(true);
             }
             yield return new WaitForSeconds(0.55f);
-            foreach (CardSlot slot in affectedSlots.Where(slot => slot.Card != base.Card))
+            foreach (CardSlot slot in affectedSlots)
             {
                 slot.Card.AddTemporaryMod(new() { singletonId = "wstl:KilledByTrain" });
                 yield return slot.Card.Die(false, null);
