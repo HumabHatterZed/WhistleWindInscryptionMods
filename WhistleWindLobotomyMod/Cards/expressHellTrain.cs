@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string expressHellTrain = "expressHellTrain";
 
             NewCard(expressHellTrain, "Express Train to Hell", "When the time comes, the train will sound its mighty horn.",
-                attack: 0, health: 4, bones: 4)
+                attack: 0, health: 1, bones: 4)
                 .SetPortraits(expressHellTrain)
                 .AddAbilities(TheTrain.ability)
                 .AddTribes(TribeMechanical)

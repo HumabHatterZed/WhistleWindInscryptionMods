@@ -12,41 +12,15 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public class Enchanted : StatusEffectBehaviour, IOnUpkeepInHand, IModifyDamageTaken, ISetupAttackSequence
+    public class Enchanted : ReduceStatusEffectBehaviour, IModifyDamageTaken, ISetupAttackSequence
     {
         public static SpecialTriggeredAbility specialAbility;
         public override string CardModSingletonName => "enchanted";
 
         private bool IsEnchanted => EffectSeverity > 0;
+        public override int SeverityReduction => 1;
+
         public override List<string> EffectDecalIds() => new();
-
-        public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
-        public bool RespondsToUpkeepInHand(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
-
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
-            if (TurnManager.Instance.TurnNumber <= TurnGained)
-                yield break;
-
-            base.PlayableCard.Anim.LightNegationEffect();
-            ViewManager.Instance.SwitchToView(View.Board);
-            yield return new WaitForSeconds(0.2f);
-            AddSeverity(-1, false);
-            if (!IsEnchanted)
-                Destroy();
-        }
-        public IEnumerator OnUpkeepInHand(bool playerUpkeep)
-        {
-            if (TurnManager.Instance.TurnNumber <= TurnGained)
-                yield break;
-
-            base.PlayableCard.Anim.LightNegationEffect();
-            ViewManager.Instance.SwitchToView(View.Hand);
-            yield return new WaitForSeconds(0.2f);
-            AddSeverity(-1, false);
-            if (!IsEnchanted)
-                Destroy();
-        }
 
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
@@ -83,7 +57,7 @@ namespace WhistleWindLobotomyMod
         private void StatusEffect_Enchanted()
         {
             const string rName = "Enchanted";
-            const string rDesc = "This card will only attack cards with the Dazzling sigil, dealing no damage to them. At the start of the owner's next turn while on the board or in the hand, lose 1 stack of this effect.";
+            const string rDesc = "This card will target cards with the Dazzling sigil, dealing no damage to them and dying after attacking. At the start of the owner's next turn, lose 1 stack of this effect.";
 
             Enchanted.specialAbility = StatusEffectManager.NewStatusEffect<Enchanted>(
                 pluginGuid, rName, rDesc,

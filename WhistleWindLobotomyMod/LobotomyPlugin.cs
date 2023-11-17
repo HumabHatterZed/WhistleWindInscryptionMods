@@ -382,9 +382,10 @@ namespace WhistleWindLobotomyMod
 
                 HarmonyInstance.PatchAll(typeof(AchievementPatches));
             }
-            internal static void Unlock(Achievement achievement)
+            internal static void Unlock(bool prerequisite, Achievement achievement)
             {
-                if (Enabled) AchievementManager.Unlock(achievement);
+                if (Enabled && prerequisite)
+                    AchievementManager.Unlock(achievement);
             }
         }
         public static bool AllCardsDisabled { get; internal set; }

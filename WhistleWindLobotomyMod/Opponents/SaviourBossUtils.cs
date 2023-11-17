@@ -44,7 +44,7 @@ namespace WhistleWindLobotomyMod.Opponents
             if (card is PlayableCard && (card as PlayableCard).OpponentCard)
                 return true;
 
-            return card.Info.name == "wstl_plagueDoctorOpponent";
+            return false;
         }
         public static void UpdateBlessings(Card card, int num)
         {

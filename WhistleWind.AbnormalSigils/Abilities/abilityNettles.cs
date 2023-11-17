@@ -28,7 +28,7 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
+        public override int Priority => int.MaxValue;
         public override bool RespondsToResolveOnBoard() => true;
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {

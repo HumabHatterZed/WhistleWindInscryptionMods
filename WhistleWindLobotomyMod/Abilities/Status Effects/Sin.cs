@@ -12,7 +12,7 @@ using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod
 {
-    public class Sin : StatusEffectBehaviour
+    public class Sin : StatusEffectBehaviour, IOnUpkeepInHand
     {
         public static SpecialTriggeredAbility specialAbility;
 
@@ -22,16 +22,19 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
+            // remove Sin when Long Arms is broken
             if (CustomBossUtils.FightingCustomBoss() && TurnManager.Instance.Opponent is ApocalypseBossOpponent opp)
                 return opp.BattleSequence.DisabledEggEffects.Contains(ActiveEggEffect.LongArms) && base.PlayableCard.OpponentCard != playerUpkeep;
 
             return false;
         }
+        public bool RespondsToUpkeepInHand(bool playerUpkeep) => this.RespondsToUpkeep(playerUpkeep);
+
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && target != null;
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
-            target.AddStatusEffect<Sin>(EffectSeverity);
-            SetSeverity(0, false);
+            target.AddStatusEffect<Sin>(1);
+            AddSeverity(-1, false);
             yield break;
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
@@ -39,13 +42,14 @@ namespace WhistleWindLobotomyMod
             Destroy();
             yield break;
         }
+        public IEnumerator OnUpkeepInHand(bool playerUpkeep) => this.OnUpkeep(playerUpkeep);
     }
     public partial class LobotomyPlugin
     {
         private void StatusEffect_Sin()
         {
             const string rName = "Sin";
-            const string rDesc = "When this card strikes another card, transfer all Sin to that card.";
+            const string rDesc = "When this card deals damage to another creature, transfer 1 Sin to that card.";
 
             Sin.specialAbility = StatusEffectManager.NewStatusEffect<Sin>(
                 pluginGuid, rName, rDesc,

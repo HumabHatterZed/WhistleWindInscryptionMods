@@ -1,12 +1,15 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using Infiniscryption.Spells.Patchers;
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches
@@ -78,6 +81,35 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch]
     internal class OtherAbilityPatches
     {
+        [HarmonyPatch(typeof(VariableStatBehaviour), nameof(VariableStatBehaviour.UpdateStats))]
+        [HarmonyPrefix]
+        public static bool ShowStatsWhenInHand(ref VariableStatBehaviour __instance)
+        {
+            // if a spell that displays stats, show when in hand or on board
+            if (__instance is SigilPower && __instance.PlayableCard != null && __instance.PlayableCard.InHand)
+            {
+                int[] array = __instance.GetStatValues();
+                __instance.statsMod.attackAdjustment = array[0];
+                __instance.statsMod.healthAdjustment = array[1];
+                __instance.PlayableCard.RenderInfo.showSpecialStats = true;
+                if (!__instance.StatValuesEqual(__instance.prevStatValues, array) || __instance.prevOnBoard != __instance.PlayableCard.InHand)
+                {
+                    UpdateVariableStatsText(__instance.PlayableCard);
+                }
+                __instance.prevStatValues = array;
+                __instance.prevOnBoard = __instance.PlayableCard.InHand;
+                return false;
+            }
+            return true;
+        }
+
+        private static void UpdateVariableStatsText(PlayableCard card)
+        {
+            card.RenderInfo.attack = card.Attack;
+            card.RenderInfo.health = card.Health;
+            card.RenderInfo.attackTextColor = (card.GetPassiveAttackBuffs() + card.GetStatIconAttackBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
+            card.RenderCard();
+        }
         [HarmonyPostfix, HarmonyPatch(typeof(Deathtouch), nameof(Deathtouch.RespondsToDealDamage))]
         private static void ImmunetoDeathTouch(ref bool __result, int amount, PlayableCard target)
         {

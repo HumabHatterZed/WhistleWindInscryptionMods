@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             const string luminousBracelet = "luminousBracelet";
 
-            NewCard(luminousBracelet, "Luminous Bracelet", "A bracelet that will heal those nearby. It does not forgive the greedy.",
+            NewCard(luminousBracelet, "Luminous Bracelet", "A bracelet that will heal its bearer. It does not forgive the greedy.",
                 attack: 0, health: 2, energy: 3, temple: CardTemple.Tech)
                 .SetPortraits(luminousBracelet)
                 .AddAbilities(GreedyHealing.ability, GiveStatsSigils.AbilityID)

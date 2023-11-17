@@ -2,6 +2,7 @@
 using HarmonyLib;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
+using System.Text;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
@@ -57,9 +58,10 @@ namespace WhistleWindLobotomyMod.Patches
                                 1 => "At the end of combat, this card will mark random spaces with coloured targets, then attack those spaces on its next turn. Red: this card's damage is doubled; White: this card's damage is halved and it heals equal to its Power; Yellow: no special effect.",
                                 _ => "Every 3 turns, change the active egg effect. On the final phase, this sigil changes behaviour. Opponent cards may move at the end of the turn. This card cannot go below 90/60/30 Health."
                             };
-                            AbilitiesUtil.GetInfo(DynamicAbilities[5]).rulebookDescription = AbilitiesUtil.GetInfo(DynamicAbilities[5]).GetBaseRulebookDescription() + ApocalypseEnding;
-                            AbilitiesUtil.GetInfo(DynamicAbilities[6]).rulebookDescription = AbilitiesUtil.GetInfo(DynamicAbilities[6]).GetBaseRulebookDescription() + ApocalypseEnding;
-                            AbilitiesUtil.GetInfo(DynamicAbilities[7]).rulebookDescription = AbilitiesUtil.GetInfo(DynamicAbilities[7]).GetBaseRulebookDescription() + ApocalypseEnding;
+                            AppendToBaseDescription(5, GetApocalypseThresholds());
+                            AppendToBaseDescription(6, GetApocalypseThresholds());
+                            AppendToBaseDescription(7, GetApocalypseThresholds());
+                            
                             if (TurnManager.Instance.Opponent.NumLives == 1)
                                 AbilitiesUtil.GetInfo(DynamicAbilities[8]).rulebookDescription =
                                     "At the end of the owner's turn, deal direct damage to the owner proportional to how much damage this card received during the turn.";
@@ -70,7 +72,27 @@ namespace WhistleWindLobotomyMod.Patches
             }
         }
 
-        private static readonly string ApocalypseEnding = " Upon reaching 120/90/60 Health, permanently disable this effect then switch phase.";
+        private static void AppendToBaseDescription(int dynamicIndex, string stringToAppend)
+        {
+            AbilityInfo info = AbilitiesUtil.GetInfo(DynamicAbilities[dynamicIndex]);
+            info.rulebookDescription = info.GetBaseRulebookDescription() + stringToAppend;
+        }
+        private static string GetApocalypseThresholds()
+        {
+            if (ApocalypseThresholdString != null)
+                return ApocalypseThresholdString;
+
+            StringBuilder builder = new(" Upon reaching ");
+            ApocalypseBattleSequencer sequence = CustomBossUtils.AsCustomBoss<ApocalypseBossOpponent>().BattleSequence;
+            builder.Append(sequence.BossHealthThreshold(4))
+                .Append("/").Append(sequence.BossHealthThreshold(3))
+                .Append("/").Append(sequence.BossHealthThreshold(2))
+                .Append(" Health, permanently disable this effect then switch phase.");
+
+            return ApocalypseThresholdString = builder.ToString();
+        }
+
+        internal static string ApocalypseThresholdString = null;
         private static readonly List<Ability> DynamicAbilities = new()
         {
             Ability.DebuffEnemy,

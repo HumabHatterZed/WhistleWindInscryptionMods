@@ -1,10 +1,38 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Triggers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace WhistleWind.AbnormalSigils.StatusEffects
 {
+    public abstract class ReduceStatusEffectBehaviour : StatusEffectBehaviour, IOnUpkeepInHand
+    {
+        public abstract int SeverityReduction { get; }
+
+        public override bool RespondsToUpkeep(bool playerUpkeep) => CanReduceOnUpkeep(playerUpkeep);
+        public virtual bool RespondsToUpkeepInHand(bool playerUpkeep) => CanReduceOnUpkeep(playerUpkeep);
+
+        public override IEnumerator OnUpkeep(bool playerUpkeep) => OnReduceOnUpkeep();
+        public virtual IEnumerator OnUpkeepInHand(bool playerUpkeep) => OnReduceOnUpkeep();
+
+        private bool CanReduceOnUpkeep(bool playerUpkeep)
+        {
+            Debug.Log($"{TurnGained} {TurnManager.Instance.TurnNumber - 1} {base.PlayableCard.InHand}");
+            return base.PlayableCard.OpponentCard != playerUpkeep && (TurnManager.Instance.TurnNumber - 1) >= TurnGained;
+        }
+        private IEnumerator OnReduceOnUpkeep()
+        {
+            base.PlayableCard.Anim.LightNegationEffect();
+            ViewManager.Instance.SwitchToView(View.Board);
+            yield return new WaitForSeconds(0.2f);
+            AddSeverity(-SeverityReduction, false);
+            if (EffectSeverity <= 0)
+                Destroy();
+        }
+    }
+
     public abstract class StatusEffectBehaviour : SpecialCardBehaviour
     {
         // used for the card mod singleton IDs
@@ -36,7 +64,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             EffectSeverity += amount;
             CardModificationInfo mod = base.PlayableCard.TemporaryMods.Find(x => x.singletonId == CardModSingletonName);
             base.PlayableCard.RemoveTemporaryMod(mod);
-            base.PlayableCard.AddTemporaryMod(EffectCountMod());
+            if (EffectSeverity > 0)
+                base.PlayableCard.AddTemporaryMod(EffectCountMod());
 
             if (updateDecals)
             {
@@ -50,7 +79,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             EffectSeverity = amount;
             CardModificationInfo mod = base.PlayableCard.TemporaryMods.Find(x => x.singletonId == CardModSingletonName);
             base.PlayableCard.RemoveTemporaryMod(mod);
-            base.PlayableCard.AddTemporaryMod(EffectCountMod());
+            if (EffectSeverity > 0)
+                base.PlayableCard.AddTemporaryMod(EffectCountMod());
 
             if (updateDecals)
             {

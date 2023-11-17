@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             NewCard(armyInPink, "Army in Pink", "A friendly pink soldier. It will protect you wherever you go.",
                 attack: 3, health: 3, blood: 2)
                 .SetPortraits(armyInPink)
-                .AddAbilities(Protector.ability, Ability.MoveBeside)
+                .AddAbilities(Ability.MoveBeside, Protector.ability)
                 .AddSpecialAbilities(Pink.specialAbility)
                 .AddTribes(TribeAnthropoid)
                 .Build(CardHelper.ChoiceType.Rare, RiskLevel.Zayin, ModCardType.Donator);

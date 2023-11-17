@@ -8,6 +8,8 @@ namespace WhistleWind.AbnormalSigils.Core
         public static Dictionary<string, List<CustomLine>> EventNames => new()
         {
             { "CopycatFail",
+                new() { "Some things in this world are too unique to replicate." }},
+            { "CopycatDead",
                 new() { "The lie falls apart, revealing your pitiful true self." }},
             { "CourageousFail",
                 new() { "Your creature's consitution is too weak." }},

@@ -2,6 +2,7 @@
 using HarmonyLib;
 using WhistleWindLobotomyMod.Core;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
+using static WhistleWindLobotomyMod.Core.LobotomySaveManager;
 
 namespace WhistleWindLobotomyMod.Patches
 {
@@ -11,35 +12,21 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(AscensionMenuScreens), nameof(AscensionMenuScreens.TryUnlockAchievements))]
         private static void UnlockAchievements()
         {
-            // bosses
-            if (LobotomySaveManager.DefeatedApocalypseBoss)
-                AchievementAPI.Unlock(AchievementAPI.ThroughTheTwilight);
-
-/*            if (LobotomySaveManager.DefeatedJesterBoss)
-                AchievementAPI.Unlock(AchievementAPI.WhereAllPathsLead);
-
-            if (LobotomySaveManager.DefeatedEmeraldBoss)
-                AchievementAPI.Unlock(AchievementAPI.EndOfTheRoad);
-
-            if (LobotomySaveManager.DefeatedSaviourBoss)
-                AchievementAPI.Unlock(AchievementAPI.ParadiseLost);*/
+            // RulebookPatches.ApocalypseEnding = null; // if I make a harder version of the boss, we'll want to reset the string here
+            // bosses    
+            AchievementAPI.Unlock(DefeatedApocalypseBoss, AchievementAPI.ThroughTheTwilight);
+            //AchievementAPI.Unlock(DefeatedJesterBoss, AchievementAPI.WhereAllPathsLead);
+            //AchievementAPI.Unlock(DefeatedEmeraldBoss, AchievementAPI.EndOfTheRoad);
+            //AchievementAPI.Unlock(DefeatedSaviourBoss, AchievementAPI.ParadiseLost);
 
             // event cards
-            if (LobotomySaveManager.UnlockedApocalypseBird)
-                AchievementAPI.Unlock(AchievementAPI.TheThreeBirds);
-
-            if (LobotomySaveManager.UnlockedJesterOfNihil)
-                AchievementAPI.Unlock(AchievementAPI.MagicalGirls);
-
-            if (LobotomySaveManager.UnlockedLyingAdult)
-                AchievementAPI.Unlock(AchievementAPI.YellowBrickRoad);
-
-            if (LobotomySaveManager.UnlockedAngela)
-                AchievementAPI.Unlock(AchievementAPI.Impuritas);
+            AchievementAPI.Unlock(UnlockedApocalypseBird, AchievementAPI.TheThreeBirds);
+            AchievementAPI.Unlock(UnlockedJesterOfNihil, AchievementAPI.MagicalGirls);
+            AchievementAPI.Unlock(UnlockedLyingAdult, AchievementAPI.YellowBrickRoad);
+            AchievementAPI.Unlock(UnlockedAngela, AchievementAPI.Impuritas);
 
             // other
-            if (LobotomyConfigManager.Instance.HasSeenHim)
-                AchievementAPI.Unlock(AchievementAPI.Blessing);
+            AchievementAPI.Unlock(LobotomyConfigManager.Instance.HasSeenHim, AchievementAPI.Blessing);
         }
     }
 }

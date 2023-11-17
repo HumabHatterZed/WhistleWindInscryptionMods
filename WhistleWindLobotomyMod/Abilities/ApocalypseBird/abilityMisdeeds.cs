@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Misdeeds Not Allowed";
             Misdeeds.ability = LobotomyAbilityHelper.CreateAbility<Misdeeds>(
                 "sigilMisdeeds", rulebookName,
-                "When this card takes damage, gain 2 Power until the end of the owner's turn.",
+                "Whenever this card takes damage, gain 1 Power until the end of the owner's turn.",
                 null, powerLevel: 0,
                 canStack: false).Id;
         }

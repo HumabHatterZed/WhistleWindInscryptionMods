@@ -6,7 +6,6 @@
 ## v1.1.0 - Fast and Slow ()
 ### 🧱 Structural
 - Reworked how status effects function and their implementation
-
 ### 🩹 Bug fixes
 - Fixed softlock when playing in Grimora or Magnificus Act (status effects will not render in these Acts!)
 - Fixed softlock when playing in Act 2
@@ -16,16 +15,25 @@
 - Fixed Scrambler ability activating incorrectly for non-Spell cards
 - Copycat ability no longer copies Giant or Uncuttable cards
 - Fixed tribe choice reward backs being off-centre
-
+- Fixed Corrector ability giving 1 less Health than it should
+- Fixed Protector ability triggering when it shouldn't
 ### 🔧 Tweaks
+- Copycat ability now triggers OnResolveOnBoard sigils if it transforms immediately after being played
+- Copycat ability now has dialogue for when it cannot copy the opposing card
+- Copycat ability now triggers BEFORE most other sigils on the base card
+- Copycat ability now copies temporary mods as well
 - Witness ability effect now uses the status effect system instead of extended properties
-- Changed Copycat's effect:
-    - "A card bearing this sigil will transform into a copy of the first creature it opposes, retaining its own sigils."
 - Idol no longer affects cards with Made of Stone
 - Changed description of Made of Stone to indicate it provides immunity to Idol and Punisher
 - Opportunistic sigil is now flipped for the opponent
 - Adjusted custom tribe icon positions
-
+- Third Brother now has Sharp Quills instead of Reflector
+- Reworked The Train ability to activate on resolve instead of after 3 turns
+- Made a number of tweaks to dialogue
+- Adjusted Queen Nest description to be clearer on activation requirement: 'card dies' --> 'card is killed'
+- Reduced Rightful Heir ability's starting activation cost from 3 --> 2 Bones
+- Reduced Pumpkin's Health from 2 --> 1
+- Reduced Sapling's Health from 2 --> 1
 ### ➕ Additions
 - Added the following abilities:
     - Binding Strike, Nimble-Footed, High-Strung
@@ -37,6 +45,7 @@
     - Added FullStatusEffect.SetAddNormalEntry()
 - FullStatusEffect now stores a list of its StatusMetaCategories
 - Added 'Status Effect Overflow' - cards with more than 5 active status effects will gain the option a list of the overflowed statuses in the Rulebook
+- Added ReduceStatusEffectBehaviour for automatically reducing an effect's severity on upkeep
 
 ## v1.0.2 - Minor patch (7/26/2023)
 ### 🩹 Bug fixes

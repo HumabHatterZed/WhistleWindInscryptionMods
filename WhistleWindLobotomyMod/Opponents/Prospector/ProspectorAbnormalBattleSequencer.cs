@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod.Opponents.Prospector
         // Replaces Bloodhound with Bad Wolf
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
-            if (attacker != null && attacker.OpponentCard && attacker.Info.name == "wstl_willBeBadWolf")
+            if (attacker != null && attacker.OpponentCard && attacker.Info.name == "wstl_ppodaeBuff")
             {
                 return !bloodhoundMessageShown;
             }

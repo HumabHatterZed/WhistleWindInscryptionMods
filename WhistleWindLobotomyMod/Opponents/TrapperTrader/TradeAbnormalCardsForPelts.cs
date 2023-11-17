@@ -5,11 +5,53 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
 {
     public class TradeAbnormalCardsForPelts : TradeCardsForPelts
     {
+        private List<CardInfo> GenerateAbnormalTradeCards(int numQueueCards, int numOpponentSlotCards, int queueCostTier, int opponentSlotCostTier, int randomSeed)
+        {
+            List<CardInfo> list = new();
+            list.AddRange(GenerateAbnormalTradeCardsWithCostTier(numOpponentSlotCards, opponentSlotCostTier, randomSeed));
+            randomSeed *= 2;
+            list.AddRange(GenerateAbnormalTradeCardsWithCostTier(numQueueCards, queueCostTier, randomSeed));
+            return list;
+        }
+        private List<CardInfo> GenerateAbnormalTradeCardsWithCostTier(int numCards, int tier, int randomSeed)
+        {
+            bool flag = tier > 0;
+            tier = Mathf.Max(1, tier);
+            List<CardInfo> learnedCards = LobotomyCardManager.ObtainableLobotomyCards.FindAll(CardLoader.LearnedCards.Contains);
+            learnedCards.RemoveAll(x => x.CostTier != tier || x.Abilities.Exists((Ability a) => !AbilitiesUtil.GetInfo(a).opponentUsable));
+            if (!ProgressionData.LearnedMechanic(MechanicsConcept.Bones))
+                learnedCards.RemoveAll((CardInfo x) => x.BonesCost > 0);
+
+            List<CardInfo> distinctCardsFromPool = CardLoader.GetDistinctCardsFromPool(randomSeed, numCards, learnedCards, flag ? 1 : 0, opponentUsableAbility: true);
+            while (distinctCardsFromPool.Count < numCards)
+            {
+                CardInfo cardByName;
+                CardModificationInfo cardModificationInfo;
+                if (tier == 2)
+                {
+                    cardByName = CardLoader.GetCardByName("wstl_magicalGirlSpade");
+                    cardModificationInfo = new CardModificationInfo(Ability.Sharp);
+                }
+                else
+                {
+                    cardByName = CardLoader.GetCardByName("wstl_dellaLuna");
+                    cardModificationInfo = new CardModificationInfo(Ability.Reach);
+                }
+                if (flag)
+                {
+                    cardModificationInfo.fromCardMerge = true;
+                    cardByName.Mods.Add(cardModificationInfo);
+                }
+                distinctCardsFromPool.Add(cardByName);
+            }
+            return distinctCardsFromPool;
+        }
         public new IEnumerator TradePhase(int numQueueCards = 4, int numOpponentSlotCards = 4, int queueCostTier = 3, int opponentSlotCostTier = 2, string preTradeDialogueId = "TrapperTraderPreTrade", string postTradeDialogueId = "TrapperTraderPostTrade")
         {
             (Singleton<BoardManager>.Instance as BoardManager3D).Bell.enabled = false;
@@ -35,7 +77,7 @@ namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
             Singleton<PlayerHand>.Instance.PlayingLocked = true;
             yield return new WaitForSeconds(0.25f);
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed() + Singleton<TurnManager>.Instance.TurnNumber * 100;
-            List<CardInfo> cardInfos = GenerateTradeCards(numQueueCards, numOpponentSlotCards, queueCostTier, opponentSlotCostTier, randomSeed);
+            List<CardInfo> cardInfos = GenerateAbnormalTradeCards(numQueueCards, numOpponentSlotCards, queueCostTier, opponentSlotCostTier, randomSeed);
             for (int j = 0; j < numOpponentSlotCards; j++)
             {
                 List<CardSlot> list = Singleton<BoardManager>.Instance.OpponentSlotsCopy.FindAll((x) => x.Card == null);

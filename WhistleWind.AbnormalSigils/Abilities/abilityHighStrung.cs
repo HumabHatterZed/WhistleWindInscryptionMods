@@ -33,7 +33,7 @@ namespace WhistleWind.AbnormalSigils
 
             yield return base.PreSuccessfulTriggerSequence();
             yield return AddHasteToCard(stacks);
-            base.LearnAbility(0.4f);
+            yield return base.LearnAbility(0.4f);
         }
         private IEnumerator AddHasteToCard(int stacks)
         {

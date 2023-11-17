@@ -264,8 +264,8 @@ namespace WhistleWindLobotomyMod
             if (card.Info.name == "wstl_angela" && !LobotomySaveManager.UnlockedAngela)
             {
                 yield return new WaitForSeconds(0.25f);
-                LobotomyPlugin.AchievementAPI.Unlock(LobotomyPlugin.AchievementAPI.Impuritas);
                 LobotomySaveManager.UnlockedAngela = true;
+                LobotomyPlugin.AchievementAPI.Unlock(true, LobotomyPlugin.AchievementAPI.Impuritas);
             }
         }
         private IEnumerator TutorialTextSequence(SelectableCard card)

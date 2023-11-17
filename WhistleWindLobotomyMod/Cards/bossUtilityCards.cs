@@ -15,29 +15,24 @@ namespace WhistleWindLobotomyMod
             const string RETURNALL = "RETURN_CARD_ALL";
             const string REFRESHDECKS = "REFRESH_DECKS";
 
-            // spawn card
             NewCard(RETURNONE, "Single Recall",
-                attack: 0, health: 0)
+                attack: 0, health: 0, energy: 1)
                 .SetPortraits(RETURNONE, "", "")
-                .SetEnergyCost(1)
                 .AddAbilities(Ability.DrawCopyOnDeath, ReturnCard.ability)
-                .SetTargetedSpellStats()
+                .SetTargetedSpell()
                 .Build();
 
-            // only 3
             NewCard(RETURNALL, "Total Recall",
-                attack: 0, health: 0)
+                attack: 0, health: 0, energy: 3)
                 .SetPortraits(RETURNALL, "", "")
-                .SetEnergyCost(3)
                 .AddAbilities(Ability.DrawCopyOnDeath, ReturnCard.ability)
-                .SetGlobalSpellStats()
+                .SetGlobalSpell()
                 .Build();
 
             NewCard(REFRESHDECKS, "Reshuffle Decks",
-                attack: 0, health: 0)
+                attack: 0, health: 0, energy: 6)
                 .SetPortraits(REFRESHDECKS, "", "")
                 .AddAbilities(RefreshDecks.ability)
-                .SetEnergyCost(6)
                 .SetGlobalSpell()
                 .Build();
         }

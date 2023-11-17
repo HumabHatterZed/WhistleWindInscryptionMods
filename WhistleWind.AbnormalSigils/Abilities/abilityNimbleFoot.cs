@@ -30,7 +30,7 @@ namespace WhistleWind.AbnormalSigils
         {
             yield return base.PreSuccessfulTriggerSequence();
             yield return AddHasteToCard(base.Card);
-            base.LearnAbility(0.4f);
+            yield return base.LearnAbility(0.4f);
         }
         private IEnumerator AddHasteToCard(PlayableCard card)
         {

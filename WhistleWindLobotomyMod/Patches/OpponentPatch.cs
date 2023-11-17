@@ -1,7 +1,10 @@
 ﻿using DiskCardGame;
 using GBC;
 using HarmonyLib;
+using InscryptionAPI.Card;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
@@ -11,6 +14,52 @@ namespace WhistleWindLobotomyMod.Patches
     [HarmonyPatch]
     internal class OpponentPatches
     {
+        // fixes Trapper-Trader boss fight not using all lobotomy cards
+        [HarmonyPrefix, HarmonyPatch(typeof(TradeCardsForPelts), nameof(TradeCardsForPelts.GenerateTradeCardsWithCostTier))]
+        private static bool FixTrapperTrapperBoss(int numCards, int tier, int randomSeed, ref List<CardInfo> __result)
+        {
+            bool flag = tier > 0;
+            tier = Mathf.Max(1, tier);
+            List<CardInfo> learnedCards = CardLoader.LearnedCards;
+            learnedCards.RemoveAll(x => (!LobotomyCardManager.ObtainableLobotomyCards.Contains(x) && x.temple != 0) || x.CostTier != tier || x.Abilities.Exists(a => !AbilitiesUtil.GetInfo(a).opponentUsable));
+            if (!ProgressionData.LearnedMechanic(MechanicsConcept.Bones))
+                learnedCards.RemoveAll((CardInfo x) => x.BonesCost > 0);
+
+            List<CardInfo> distinctCardsFromPool = CardLoader.GetDistinctCardsFromPool(randomSeed, numCards, learnedCards, flag ? 1 : 0, true);
+            while (distinctCardsFromPool.Count < numCards)
+            {
+                CardInfo cardByName;
+                CardModificationInfo cardModificationInfo;
+                if (tier == 2)
+                {
+                    cardByName = CardLoader.GetCardByName("Snapper");
+                    cardModificationInfo = new CardModificationInfo(Ability.Sharp);
+                }
+                else
+                {
+                    cardByName = CardLoader.GetCardByName("Grizzly");
+                    cardModificationInfo = new CardModificationInfo(Ability.Reach);
+                }
+                if (flag)
+                {
+                    cardModificationInfo.fromCardMerge = true;
+                    cardByName.Mods.Add(cardModificationInfo);
+                }
+                distinctCardsFromPool.Add(cardByName);
+            }
+            __result = distinctCardsFromPool;
+            return false;
+        }
+        [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.CreateCard))]
+        private static void UpdatePlagueDoctorAppearance(ref PlayableCard __result)
+        {
+            if (__result?.HasSpecialAbility(Bless.specialAbility) ?? false)
+            {
+                __result.ClearAppearanceBehaviours();
+                __result.ApplyAppearanceBehaviours(new() { MiracleWorkerAppearance.appearance });
+            }
+        }
+
         [HarmonyPostfix, HarmonyPatch(typeof(SceneLoader), nameof(SceneLoader.Load))]
         private static void ResetTriggers()
         {
@@ -40,7 +89,7 @@ namespace WhistleWindLobotomyMod.Patches
                 if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
                     LobotomyConfigManager.Instance.SetBlessings(0);
 
-                AchievementAPI.Unlock(AchievementAPI.Blessing);
+                AchievementAPI.Unlock(true, AchievementAPI.Blessing);
                 LobotomySaveManager.TriggeredWhiteNightThisBattle = false;
             }
 
@@ -51,14 +100,9 @@ namespace WhistleWindLobotomyMod.Patches
             if (__instance is not PixelOpponent)
                 Singleton<TableVisualEffectsManager>.Instance?.ResetTableColors();
 
-            if (LobotomySaveManager.UnlockedApocalypseBird)
-                AchievementAPI.Unlock(AchievementAPI.TheThreeBirds);
-
-            if (LobotomySaveManager.UnlockedJesterOfNihil)
-                AchievementAPI.Unlock(AchievementAPI.MagicalGirls);
-
-            if (LobotomySaveManager.UnlockedLyingAdult)
-                AchievementAPI.Unlock(AchievementAPI.YellowBrickRoad);
+            AchievementAPI.Unlock(LobotomySaveManager.UnlockedApocalypseBird, AchievementAPI.TheThreeBirds);
+            AchievementAPI.Unlock(LobotomySaveManager.UnlockedJesterOfNihil, AchievementAPI.MagicalGirls);
+            AchievementAPI.Unlock(LobotomySaveManager.UnlockedLyingAdult, AchievementAPI.YellowBrickRoad);
 
             yield return enumerator;
         }

@@ -32,18 +32,6 @@ namespace WhistleWindLobotomyMod
                 .AddAppearances(MiracleWorkerAppearance.appearance)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
-
-            NewCard("plagueDoctorOpponent", "Plague Doctor", "A worker of miracles. He humbly requests to join you.",
-                attack: 0, health: 3, bones: 3)
-                .SetPortrait(PlagueDoctorPortraits.FirstOrDefault())
-                .SetEmissivePortrait(UpdateDoctorEmission(0))
-                .SetPixelPortrait(UpdateDoctorPixelPortrait(0))
-                .AddAbilities(Ability.Flying, Healer.ability)
-                .AddSpecialAbilities(Bless.specialAbility)
-                .AddTribes(TribeDivine)
-                .AddAppearances(MiracleWorkerAppearance.appearance)
-                .SetOnePerDeck()
-                .Build();
         }
         private void RegisterPortraitsAndEmissions()
         {

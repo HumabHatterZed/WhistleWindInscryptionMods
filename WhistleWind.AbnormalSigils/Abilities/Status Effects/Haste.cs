@@ -7,37 +7,12 @@ using WhistleWind.AbnormalSigils.StatusEffects;
 
 namespace WhistleWind.AbnormalSigils
 {
-    public class Haste : StatusEffectBehaviour, IGetAttackingSlots, IOnPostSlotAttackSequence, IOnUpkeepInHand
+    public class Haste : ReduceStatusEffectBehaviour, IGetAttackingSlots, IOnPostSlotAttackSequence
     {
         public static SpecialTriggeredAbility specialAbility;
         public static Ability iconId;
         public override string CardModSingletonName => "haste";
-
-        public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
-        public bool RespondsToUpkeepInHand(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
-
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
-            if (TurnManager.Instance.TurnNumber <= TurnGained)
-                yield break;
-
-            base.PlayableCard.Anim.LightNegationEffect();
-            ViewManager.Instance.SwitchToView(View.Board);
-            yield return new WaitForSeconds(0.2f);
-            SetSeverity(0, false);
-            Destroy();
-        }
-        public IEnumerator OnUpkeepInHand(bool playerUpkeep)
-        {
-            if (TurnManager.Instance.TurnNumber <= TurnGained)
-                yield break;
-
-            base.PlayableCard.Anim.LightNegationEffect();
-            ViewManager.Instance.SwitchToView(View.Hand);
-            yield return new WaitForSeconds(0.2f);
-            SetSeverity(0, false);
-            Destroy();
-        }
+        public override int SeverityReduction => EffectSeverity;
 
         public bool RespondsToGetAttackingSlots(bool playerIsAttacker, List<CardSlot> originalSlots, List<CardSlot> currentSlots) => true;
         public bool RespondsToPostSlotAttackSequence(CardSlot attackingSlot) => attackingSlot.Card == base.PlayableCard;
@@ -71,7 +46,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Haste()
         {
             const string rName = "Haste";
-            const string rDesc = "This card attacks before ally cards with less Haste. At 4 Haste, attack before opposing cards as well. Remove all Haste from this card when it attacks or on upkeep.";
+            const string rDesc = "This card attacks before ally cards with less Haste. At 4 Haste, attack before opposing cards as well. Remove all Haste from this card when it attacks or on next upkeep.";
 
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.NewStatusEffect<Haste>(
                 pluginGuid, rName, rDesc,

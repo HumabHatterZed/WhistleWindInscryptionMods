@@ -13,6 +13,7 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 {
@@ -41,8 +42,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         private const float BG_VOLUME = 0.3f;
 
-        // if totem, change sigil each phase
-        private bool bossTotems;
+        private bool bossTotems; // if totem, change sigil each phase
         private readonly List<Ability> possibleAbilities = new() // totem abilities
         {
             Ability.Sentry,
@@ -100,6 +100,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 AscensionStatsData.TryIncrementStat(AscensionStat.Type.BossesDefeated);
                 yield return new WaitForSeconds(0.25f);
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);
+                AchievementAPI.Unlock(LobotomySaveManager.DefeatedApocalypseBoss, AchievementAPI.ThroughTheTwilight);
                 yield return new WaitForSeconds(0.5f);
                 Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
                 yield return DefeatSequence();
@@ -207,7 +208,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         private IEnumerator StartGiantPhase()
         {
             CardInfo beast = CardLoader.GetCardByName("wstl_!GIANTCARD_ApocalypseBird");
-
+            beast.baseHealth = BattleSequence.BossHealthThreshold(2);
             yield return ClearBoard();
             yield return ClearQueue();
             yield return HelperMethods.ChangeCurrentView(View.Default, 0.5f);
@@ -249,7 +250,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 totemData.top = ScriptableObject.CreateInstance<TotemTopData>();
                 totemData.top.prerequisites = new() { tribe = Tribe.Bird };
                 totemData.bottom = CreateTotemBottomData();
-                yield return base.AssembleTotem(totemData, new Vector3(1f, 0f, -1f), new Vector3(0f, 20f, 0f), this.InteractablesGlowColor, false);
+                yield return base.AssembleTotem(totemData, new Vector3(0.5f, 0f, -0.5f), new Vector3(0f, 10f, 0f), this.InteractablesGlowColor, false);
                 yield return new WaitForSeconds(0.5f);
                 if (!DialogueEventsData.EventIsPlayed("ChallengeBossTotems"))
                 {

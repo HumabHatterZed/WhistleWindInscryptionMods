@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
             GiftGiver.ability = AbnormalAbilityHelper.CreateAbility<GiftGiver>(
                 "sigilGiftGiver",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: true, canStack: false).Id;
         }
     }
     public class GiftGiver : OpponentDrawCreatedCard

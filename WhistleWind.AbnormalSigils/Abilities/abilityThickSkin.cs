@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             ThickSkin.ability = AbnormalAbilityHelper.CreateAbility<ThickSkin>(
                 "sigilThickSkin",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: true, opponent: false, canStack: true).Id;
+                modular: true, opponent: true, canStack: true).Id;
         }
     }
     public class ThickSkin : AbilityBehaviour, IModifyDamageTaken

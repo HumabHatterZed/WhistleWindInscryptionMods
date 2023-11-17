@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Card;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
@@ -13,7 +14,7 @@ namespace ModDebuggingMod
         [HarmonyPatch(typeof(PaperGameMap), "TryInitializeMapData")]
         private static void Prefix(ref PaperGameMap __instance)
         {
-            if (false || RunState.Run.map != null)
+            if (true || RunState.Run.map != null)
                 return;
 
             PredefinedNodes nodes = ScriptableObject.CreateInstance<PredefinedNodes>();

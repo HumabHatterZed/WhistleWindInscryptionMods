@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPatch(typeof(Part1SniperVisualizer), nameof(Part1SniperVisualizer.VisualizeConfirmSniperAbility))]
         private static bool PerformHanging(CardSlot targetSlot)
         {
-            if (targetSlot.Card?.TemporaryMods.Exists(x => x.singletonId == executeId) ?? false)
+            if ((targetSlot.Card?.TemporaryMods.Exists(x => x.singletonId == executeId) ?? false) && !ImmuneToHanging(targetSlot))
                 targetSlot.Card.Anim.SetMarkedForSacrifice(marked: true);
 
             return true;

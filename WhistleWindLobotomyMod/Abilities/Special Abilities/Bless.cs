@@ -34,6 +34,7 @@ namespace WhistleWindLobotomyMod
             yield return HelperMethods.ChangeCurrentView(View.Board);
 
             base.PlayableCard.Anim.LightNegationEffect();
+            base.PlayableCard.ClearAppearanceBehaviours();
             base.PlayableCard.ApplyAppearanceBehaviours(base.PlayableCard.Info.appearanceBehaviour);
             base.PlayableCard.RenderCard();
             yield return new WaitForSeconds(0.2f);

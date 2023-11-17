@@ -313,7 +313,7 @@ namespace WhistleWindLobotomyMod
             if (!LobotomySaveManager.LearnedAbnormalChoice)
             {
                 Singleton<TextDisplayer>.Instance.Clear();
-                yield return new WaitForSeconds(0.15f);
+                yield return HelperMethods.ChangeCurrentView(View.Default);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(
                     "The creature rises from the well and joins your caravan. Ignoring the cries from the well, you hastily continue on.",
                     0f, 0.4f, Emotion.Neutral);

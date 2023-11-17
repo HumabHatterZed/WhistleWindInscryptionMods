@@ -41,6 +41,10 @@ namespace WhistleWindLobotomyMod.Opponents
         {
             return TurnManager.Instance.Opponent is T;
         }
+        public static T AsCustomBoss<T>() where T : Part1BossOpponent
+        {
+            return TurnManager.Instance.Opponent as T;
+        }
 
         [HarmonyPrefix, HarmonyPatch(typeof(AudioController), nameof(AudioController.GetAudioClip))]
         public static void AddAudioClips(AudioController __instance) => __instance.SFX.AddRange(bossSFX.Where(x => !__instance.SFX.Contains(x)));

@@ -13,9 +13,9 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Corrector()
         {
             const string rulebookName = "Corrector";
-            const string rulebookDescription = "When [creature] is drawn, randomly change its stats according to its play cost. Higher costs yields higher stat totals.";
+            const string rulebookDescription = "When [creature] is drawn, randomly change its stats proportional to its play cost.";
             const string dialogue = "How balanced.";
-            const string triggerText = "[creature] stats are forcefully corrected.";
+            const string triggerText = "[creature] stats are forcefully 'corrected'.";
             Corrector.ability = AbnormalAbilityHelper.CreateAbility<Corrector>(
                 "sigilCorrector",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
@@ -35,21 +35,24 @@ namespace WhistleWind.AbnormalSigils
             yield return HelperMethods.ChangeCurrentView(View.Board);
             base.Card.Anim.PlayTransformAnimation();
             yield return new WaitForSeconds(0.15f);
-            ChangeStats();
-            yield return new WaitForSeconds(0.45f);
+            GetNewStats();
+            yield return new WaitForSeconds(0.55f);
             yield return base.LearnAbility();
         }
         public override IEnumerator OnDrawn()
         {
             (Singleton<PlayerHand>.Instance as PlayerHand3D).MoveCardAboveHand(base.Card);
-            yield return base.Card.FlipInHand(ChangeStats);
+            yield return new WaitForSeconds(0.15f);
+            yield return base.Card.Anim.FlipInAir();
+            yield return new WaitForSeconds(0.1f);
+            GetNewStats();
             yield return new WaitForSeconds(0.1f);
             yield return base.LearnAbility();
         }
 
-        private void ChangeStats()
+        private int GetCostPowerLevel()
         {
-            int powerLevel = base.Card.Info.BonesCost - 1; // to account for initial 1 Health
+            int powerLevel = base.Card.Info.BonesCost;
             powerLevel += base.Card.Info.BloodCost switch
             {
                 0 => 0,
@@ -82,13 +85,18 @@ namespace WhistleWind.AbnormalSigils
                 base.Card.Info.HasCardMetaCategory(CardMetaCategory.Rare))
                 powerLevel += 2;
 
+            return powerLevel;
+        }
+        private void GetNewStats()
+        {
             int[] stats = new[] { 0, 1 };
+            int powerLevel = GetCostPowerLevel();
             int randomSeed = base.GetRandomSeed();
 
             while (powerLevel > 0)
             {
-                float num = SeededRandom.Value(randomSeed++);
-                if (num <= 0.33f && powerLevel >= 2)
+                // 33% of giving Power
+                if (powerLevel >= 2 && SeededRandom.Value(randomSeed *= 2) <= 0.33f)
                 {
                     stats[0]++;
                     powerLevel -= 2;
@@ -99,6 +107,7 @@ namespace WhistleWind.AbnormalSigils
                     powerLevel--;
                 }
             }
+
             base.Card.AddTemporaryMod(new(stats[0] - base.Card.Attack, stats[1] - base.Card.Health));
         }
     }

@@ -84,7 +84,7 @@ namespace WhistleWindLobotomyMod
         {
             NewCard("sephirahGebura", "Gebura", "Head of the Disciplinary Team. A fierce warrior and ally.",
                 attack: 3, health: 5, blood: 3)
-                .AddAbilities(Ability.GainAttackOnKill, Piercing.ability)
+                .AddAbilities(Ability.GainAttackOnKill, Persistent.ability)
                 .AddTraits(TraitSephirah)
                 .SetOnePerDeck()
                 .Build();

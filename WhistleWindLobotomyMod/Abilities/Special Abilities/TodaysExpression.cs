@@ -47,6 +47,7 @@ namespace WhistleWindLobotomyMod
                     break;
                 case 1:
                     cardByName = CardLoader.GetCardByName("wstl_todaysShyLookHappy");
+                    cardByName.abilities.Clear();
                     break;
                 default:
                     break;

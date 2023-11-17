@@ -7,6 +7,23 @@ namespace WhistleWind.Core.Helpers
 {
     public static class CardHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
+        public static CardModificationInfo FullClone(this CardModificationInfo modToClone)
+        {
+            CardModificationInfo clone = modToClone.Clone() as CardModificationInfo;
+            clone.SetAttackAndHealth(modToClone.attackAdjustment, modToClone.healthAdjustment)
+                .SetCosts(modToClone.bloodCostAdjustment, modToClone.bonesCostAdjustment, modToClone.energyCostAdjustment)
+                .SetSingletonId(modToClone.singletonId)
+                .SetNameReplacement(modToClone.nameReplacement);
+            clone.fromCardMerge = modToClone.fromCardMerge;
+            clone.fromDuplicateMerge = modToClone.fromDuplicateMerge;
+            clone.fromLatch = modToClone.fromLatch;
+            clone.fromTotem = modToClone.fromTotem;
+            clone.fromOverclock = modToClone.fromOverclock;
+            clone.bountyHunterInfo = modToClone.bountyHunterInfo;
+            clone.buildACardPortraitInfo = modToClone.buildACardPortraitInfo;
+            clone.deathCardInfo = modToClone.deathCardInfo;
+            return clone;
+        }
         public static CardInfo NewCard(
             bool addToAPI, string modPrefix,
             string cardName, string displayName = null, string description = null,

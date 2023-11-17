@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
             Protector.ability = AbnormalAbilityHelper.CreateAbility<Protector>(
                 "sigilProtector",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
-                modular: false, opponent: false, canStack: true).Id;
+                modular: false, opponent: true, canStack: true).Id;
         }
     }
     public class Protector : AbilityBehaviour, IModifyDamageTaken
@@ -44,7 +44,7 @@ namespace WhistleWind.AbnormalSigils
 
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
-            if (base.Card.Slot.GetAdjacentCards().Contains(target) && damage > 0)
+            if (base.Card.OnBoard && damage > 0 && base.Card.Slot.GetAdjacentCards().Contains(target))
                 return attacker == null || attacker.LacksAbility(Piercing.ability);
 
             return false;

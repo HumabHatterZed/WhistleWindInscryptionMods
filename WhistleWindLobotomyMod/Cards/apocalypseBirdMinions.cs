@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string runawayBird = "runawayBird";
 
             NewCard(eyeballChick, "Eyeball Chick",
-                attack: 2, health: 2)
+                attack: 2, health: 1, blood: 2)
                 .SetPortraits(eyeballChick)
                 .AddAbilities(BindingStrike.ability, Piercing.ability)
                 .AddTribes(Tribe.Bird)
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             NewCard(forestKeeper, "Keeper of the Black Forest",
-                attack: 1, health: 4)
+                attack: 1, health: 2, blood: 2)
                 .SetPortraits(forestKeeper)
                 .AddAbilities(Ability.GainAttackOnKill)
                 .AddTribes(Tribe.Bird)
@@ -31,9 +31,9 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             NewCard(runawayBird, "Runaway Bird",
-                attack: 1, health: 3)
+                attack: 1, health: 2, blood: 2)
                 .SetPortraits(runawayBird)
-                .AddAbilities(Ability.Sniper, HighStrung.ability)
+                .AddAbilities(HighStrung.ability, Persistent.ability)
                 .AddTribes(Tribe.Bird)
                 .AddAppearances(ForcedEmission.appearance)
                 .Build();

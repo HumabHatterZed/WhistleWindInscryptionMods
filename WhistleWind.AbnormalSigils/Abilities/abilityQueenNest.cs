@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_QueenNest()
         {
             const string rulebookName = "Queen Nest";
-            const string rulebookDescription = "Whenever another card dies, create a Worker Bee in your hand. [define:wstl_queenBeeWorker]";
+            const string rulebookDescription = "Whenever another card is killed, create a Worker Bee in your hand. [define:wstl_queenBeeWorker]";
             const string dialogue = "For the hive.";
             const string triggerText = "Another worker is born to serve [creature].";
             QueenNest.ability = AbnormalAbilityHelper.CreateAbility<QueenNest>(

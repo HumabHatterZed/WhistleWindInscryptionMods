@@ -22,9 +22,9 @@ namespace WhistleWind.Core.Helpers
                     RunState.Run.playerDeck.RemoveCardByName(info.name);
             }
         }
-        public static IEnumerator FlipFaceUp(this PlayableCard card, bool faceDown, float wait = 0.3f)
+        public static IEnumerator FlipFaceUp(this PlayableCard card, bool alreadyFaceDown, float wait = 0.3f)
         {
-            if (!faceDown)
+            if (!alreadyFaceDown)
                 yield break;
 
             card.SetFaceDown(false);

@@ -26,6 +26,7 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
+        public override int Priority => int.MaxValue;
         private bool CheckValid(PlayableCard card)
         {
             if (card != null)
@@ -52,7 +53,7 @@ namespace WhistleWind.AbnormalSigils
             if (rightValid)
                 yield return AddSporesToCard(rightCard);
 
-            base.LearnAbility(0.4f);
+            yield return base.LearnAbility(0.4f);
         }
         private IEnumerator AddSporesToCard(PlayableCard card)
         {

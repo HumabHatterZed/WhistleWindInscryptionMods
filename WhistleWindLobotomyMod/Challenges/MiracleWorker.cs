@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod.Challenges
             if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id) : LobotomyConfigManager.Instance.MiracleWorker)
             {
                 List<List<CardInfo>> turnPlan = new(__result.TurnPlan);
-                CardInfo doctorInfo = CardLoader.GetCardByName("wstl_plagueDoctorOpponent");
+                CardInfo doctorInfo = CardLoader.GetCardByName("wstl_plagueDoctor");
                 int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
 
                 List<int> validIdxs = new();
