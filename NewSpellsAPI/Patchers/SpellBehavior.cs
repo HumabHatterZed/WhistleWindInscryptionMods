@@ -36,9 +36,11 @@ namespace Infiniscryption.Spells.Patchers
         #endregion
 
         #region Spell Helpers
-        public static bool IsGlobalSpell(this CardInfo card) => card.HasSpecialAbility(GlobalSpellAbility.ID);
+        public static bool IsGlobalSpell(this CardInfo card) => card.HasAnyOfSpecialAbilities(GlobalSpellAbility.ID, InstaGlobalSpellAbility.ID);
+        public static bool IsInstaGlobalSpell(this CardInfo card) => card.HasSpecialAbility(InstaGlobalSpellAbility.ID);
         public static bool IsTargetedSpell(this CardInfo card) => card.HasSpecialAbility(TargetedSpellAbility.ID);
         public static bool IsSpell(this CardInfo card) => card.IsTargetedSpell() || card.IsGlobalSpell();
+        public static bool IsSpellShowStats(this CardInfo card) => card.IsSpell() && !card.hideAttackAndHealth;
         #endregion
 
         #region Target Validators
@@ -141,29 +143,30 @@ namespace Infiniscryption.Spells.Patchers
         public static bool ShowStatsWhenInHand(ref VariableStatBehaviour __instance)
         {
             // if a spell that displays stats, show when in hand or on board
-            if (__instance.PlayableCard.Info.IsSpell() && !__instance.PlayableCard.Info.hideAttackAndHealth)
+            if (__instance.PlayableCard != null && __instance.PlayableCard.Info.IsSpellShowStats() && __instance.PlayableCard.InHand)
             {
-                bool handOrBoard = __instance.PlayableCard.InHand || __instance.PlayableCard.OnBoard;
-                int[] array = new int[2];
-                if (handOrBoard)
+                int[] array = __instance.GetStatValues();
+                __instance.statsMod.attackAdjustment = array[0];
+                __instance.statsMod.healthAdjustment = array[1];
+                __instance.PlayableCard.RenderInfo.showSpecialStats = true;
+                if (!__instance.StatValuesEqual(__instance.prevStatValues, array) || __instance.prevOnBoard != __instance.PlayableCard.InHand)
                 {
-                    array = __instance.GetStatValues();
-                    __instance.statsMod.attackAdjustment = array[0];
-                    __instance.statsMod.healthAdjustment = array[1];
-                    __instance.PlayableCard.RenderInfo.showSpecialStats = handOrBoard;
-                }
-                // call this every 50 ticks to minimise lag
-                if (__instance.prevOnBoard != __instance.PlayableCard.OnBoard || (handOrBoard && Environment.TickCount % 50 == 0))
-                {
-                    __instance.PlayableCard.OnStatsChanged();
+                    UpdateVariableStatsText(__instance.PlayableCard);
                 }
                 __instance.prevStatValues = array;
-                __instance.prevOnBoard = __instance.PlayableCard.OnBoard;
+                __instance.prevOnBoard = __instance.PlayableCard.InHand;
                 return false;
             }
             return true;
         }
-
+        // truncated version of OnStatsChanged that only runs the code that relates to the actual stats, so it's faster
+        private static void UpdateVariableStatsText(PlayableCard card)
+        {
+            card.RenderInfo.attack = card.Attack;
+            card.RenderInfo.health = card.Health;
+            card.RenderInfo.attackTextColor = (card.GetPassiveAttackBuffs() + card.GetStatIconAttackBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
+            card.RenderCard();
+        }
         // method for adding show-stats spells to the campfire list of valid cards
         // not patched automatically
         public static void AllowStatBoostForSpells(ref List<CardInfo> __result)
@@ -242,12 +245,8 @@ namespace Infiniscryption.Spells.Patchers
             yield return new WaitWhile(() => Singleton<PlayerHand>.Instance.ChoosingSlot);
 
             Singleton<PlayerHand>.Instance.OnSelectSlotStartedForCard(card);
-
-            if (Singleton<RuleBookController>.Instance != null)
-                Singleton<RuleBookController>.Instance.SetShown(shown: false);
-
+            Singleton<RuleBookController>.Instance?.SetShown(shown: false);
             Singleton<BoardManager>.Instance.CancelledSacrifice = false;
-
             Singleton<PlayerHand>.Instance.choosingSlotCard = card;
 
             if (card != null && card.Anim != null)
@@ -271,36 +270,38 @@ namespace Infiniscryption.Spells.Patchers
 
             if (!Singleton<BoardManager>.Instance.CancelledSacrifice)
             {
-                IEnumerator chooseSlotEnumerator = Singleton<BoardManager>.Instance.ChooseSlot(allSlots, !requiresSacrifices);
-                chooseSlotEnumerator.MoveNext();
-
-                // Mark which slots can be targeted before letting the code continue
-                foreach (CardSlot slot in allSlots)
+                bool canPlayCard = true;
+                if (!card.Info.IsInstaGlobalSpell())
                 {
-                    bool isValidTarget;
-                    if (card.Info.IsTargetedSpell())
-                        isValidTarget = slot.IsValidTarget(card);
+                    IEnumerator chooseSlotEnumerator = Singleton<BoardManager>.Instance.ChooseSlot(allSlots, !requiresSacrifices);
+                    chooseSlotEnumerator.MoveNext();
+
+                    // Mark which slots can be targeted before letting the code continue
+                    foreach (CardSlot slot in allSlots)
+                    {
+                        bool isValidTarget = !card.Info.IsTargetedSpell() || slot.IsValidTarget(card);
+
+                        slot.SetEnabled(isValidTarget);
+                        slot.ShowState(isValidTarget ? HighlightedInteractable.State.Interactable : HighlightedInteractable.State.NonInteractable);
+                        slot.Chooseable = isValidTarget;
+                    }
+
+                    yield return chooseSlotEnumerator.Current; // not sure why this is separate, but it was like this in the original soo
+                    while (chooseSlotEnumerator.MoveNext()) // Run through the rest of the code to determine what slot has been targeted
+                        yield return chooseSlotEnumerator.Current;
+
+                    // Act 2 has some ManagedUpdate bull making things not do the do
+                    // so we check if the current interactable is A) a CardSlot and B) a valid target
+                    if (SaveManager.SaveFile.IsPart2 && InputButtons.GetButtonDown(Button.Select) && card.Info.IsTargetedSpell())
+                    {
+                        canPlayCard = (Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot).IsValidTarget(card, true);
+                    }
                     else
-                        isValidTarget = true;
-
-                    slot.SetEnabled(isValidTarget);
-                    slot.ShowState(isValidTarget ? HighlightedInteractable.State.Interactable : HighlightedInteractable.State.NonInteractable);
-                    slot.Chooseable = isValidTarget;
+                    {
+                        // if we didn't cancel placement
+                        canPlayCard = !Singleton<BoardManager>.Instance.cancelledPlacementWithInput;
+                    }
                 }
-                yield return chooseSlotEnumerator.Current;
-
-                // Run through the rest of the code to determine what slot has been targeted
-                while (chooseSlotEnumerator.MoveNext())
-                    yield return chooseSlotEnumerator.Current;
-
-                bool canPlayCard = false;
-
-                // Act 2 has some ManagedUpdate bull making things not do the do
-                // so we go like this and it works, yeah
-                if (SaveManager.SaveFile.IsPart2 && InputButtons.GetButtonDown(Button.Select))
-                    canPlayCard = (Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot).IsValidTarget(card, true);
-                else
-                    canPlayCard = !Singleton<BoardManager>.Instance.cancelledPlacementWithInput;
 
                 if (canPlayCard)
                 {
@@ -333,7 +334,6 @@ namespace Infiniscryption.Spells.Patchers
                             foreach (CardSlot slot in resolveSlots)
                             {
                                 card.Slot = slot;
-
                                 IEnumerator resolveTrigger = card.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard, Array.Empty<object>());
                                 for (bool active = true; active;)
                                 {

@@ -24,6 +24,22 @@ namespace Infiniscryption.Spells.Sigils
 
             return card;
         }
+        public static CardInfo SetInstaGlobalSpell(this CardInfo card)
+        {
+            card.hideAttackAndHealth = true;
+            card.SetStatIcon(InstaGlobalSpellAbility.Icon);
+            if (card.HasCardMetaCategory(CardMetaCategory.Rare))
+            {
+                card.AddAppearances(SpellBehavior.RareSpellBackgroundAppearance.ID);
+                card.appearanceBehaviour.Remove(CardAppearanceBehaviour.Appearance.RareCardBackground);
+            }
+            else
+            {
+                card.AddAppearances(SpellBehavior.SpellBackgroundAppearance.ID);
+            }
+
+            return card;
+        }
         public static CardInfo SetTargetedSpell(this CardInfo card)
         {
             card.hideAttackAndHealth = true;
@@ -51,7 +67,12 @@ namespace Infiniscryption.Spells.Sigils
             card.hideAttackAndHealth = false;
             return card;
         }
-
+        public static CardInfo SetInstaGlobalSpellStats(this CardInfo card)
+        {
+            card.SetInstaGlobalSpell();
+            card.hideAttackAndHealth = false;
+            return card;
+        }
         public static CardInfo SetNeverBoostStats(this CardInfo card)
         {
             card.AddTraits(NeverBoostStats);

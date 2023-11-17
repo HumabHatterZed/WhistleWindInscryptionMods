@@ -1,7 +1,12 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
+## 1.2.0 (11/16/2023)
+- Rewrote stat spell logic to -hopefully- be quicker/less laggy
+- Added Instant Global Spells, which replicate the original global spell behaviour (played immediately on selection)
+- Added SetInstaGlobalSpell() and SetInstaGlobalSpellStats()
+- Tweaked Spell stat icon descriptions to differentiate between instant and regular Global Spells
+
 ## 1.1.3 (9/28/2023)
-- Fixed Global Spells behaving like Targeted Spells
 - Fixed a few typos
 - Fixed example sigils activating incorrectly when attached to non-Spell cards
 - Added helper extension AbilityInfo.SetCanMerge() for controlling whether sigils should be transferrable or not - true by default

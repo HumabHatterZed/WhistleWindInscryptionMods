@@ -7,15 +7,8 @@ using UnityEngine;
 
 namespace Infiniscryption.Spells.Sigils
 {
-    public class GlobalSpellAbility : VariableStatBehaviour
+    public class InstaGlobalSpellAbility : VariableStatBehaviour
     {
-        // Why is this a stat behavior when these cards have no stats?
-        // Simple. I want to cover over the health and attack icons.
-        // I want these cards to have 0 health and 0 attack at all times in all zones.
-        // This is the best way to do that.
-
-        // I'm following the pattern of HealthForAnts
-
         private static SpecialStatIcon _icon;
         public static SpecialStatIcon Icon => _icon;
         public override SpecialStatIcon IconType => _icon;
@@ -28,16 +21,16 @@ namespace Infiniscryption.Spells.Sigils
             StatIconInfo info = ScriptableObject.CreateInstance<StatIconInfo>();
             info.appliesToAttack = true;
             info.appliesToHealth = true;
-            info.rulebookName = "Spell (Global)";
-            info.rulebookDescription = "When this card is played anywhere on the board, it will cause an immediate effect and then disappear.";
-            info.gbcDescription = "GLOBAL SPELL.";
-            info.iconGraphic = AssetHelper.LoadTexture("global_spell_stat_icon");
-            info.SetPixelIcon(AssetHelper.LoadTexture("global_spell_icon_pixel"));
+            info.rulebookName = "Spell (Global, Instant)";
+            info.rulebookDescription = "When this card is played, it will cause an immediate effect and then disappear.";
+            info.gbcDescription = "INSTA-GLOBAL SPELL.";
+            info.iconGraphic = AssetHelper.LoadTexture("insta_global_spell_stat_icon");
+            info.SetPixelIcon(AssetHelper.LoadTexture("insta_global_spell_icon_pixel"));
             info.SetDefaultPart1Ability();
 
             StatIconManager.FullStatIcon full = StatIconManager.Add(
                 InfiniscryptionSpellsPlugin.OriginalPluginGuid,
-                info, typeof(GlobalSpellAbility)
+                info, typeof(InstaGlobalSpellAbility)
             );
 
             _icon = full.Id;

@@ -20,7 +20,7 @@ namespace Infiniscryption.Spells
 
         public const string PluginGuid = "zorro.inscryption.infiniscryption.spells";
         internal const string PluginName = "New Infiniscryption Spells";
-        internal const string PluginVersion = "1.1.3";
+        internal const string PluginVersion = "1.2.0";
         internal const string CardPrefix = "ZSPL";
 
         internal static ManualLogSource Log;
@@ -59,6 +59,9 @@ namespace Infiniscryption.Spells
 
             TargetedSpellAbility.Register();
             GlobalSpellAbility.Register();
+            InstaGlobalSpellAbility.Register();
+            System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(SpellBehavior.SpellBackgroundAppearance).TypeHandle);
+            System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(SpellBehavior.RareSpellBackgroundAppearance).TypeHandle);
 
             DrawTwoCards.Register();
             DestroyAllCardsOnDeath.Register();
@@ -74,7 +77,7 @@ namespace Infiniscryption.Spells
             if (AddCards)
                 SpellCards.RegisterCustomCards();
 
-            // This makes sure that all cards with the spell ability are properly given all of the various components of a spell
+            // This makes sure that all cards with the spell special ability are properly given all of the various components of a spell
             CardManager.ModifyCardList += delegate (List<CardInfo> cards)
             {
                 foreach (CardInfo card in cards)
@@ -91,6 +94,8 @@ namespace Infiniscryption.Spells
                     {
                         if (!card.hideAttackAndHealth && (card.baseHealth > 0 || card.baseAttack > 0))
                             card.SetGlobalSpellStats();
+                        else if (card.IsInstaGlobalSpell())
+                            card.SetInstaGlobalSpell();
                         else
                             card.SetGlobalSpell();
                     }
