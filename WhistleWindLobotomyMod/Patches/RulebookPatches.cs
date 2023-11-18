@@ -61,7 +61,7 @@ namespace WhistleWindLobotomyMod.Patches
                             AppendToBaseDescription(5, GetApocalypseThresholds());
                             AppendToBaseDescription(6, GetApocalypseThresholds());
                             AppendToBaseDescription(7, GetApocalypseThresholds());
-                            
+
                             if (TurnManager.Instance.Opponent.NumLives == 1)
                                 AbilitiesUtil.GetInfo(DynamicAbilities[8]).rulebookDescription =
                                     "At the end of the owner's turn, deal direct damage to the owner proportional to how much damage this card received during the turn.";

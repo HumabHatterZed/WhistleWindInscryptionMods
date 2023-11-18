@@ -1,15 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using InscryptionAPI;
-using InscryptionAPI.Card;
-using Pixelplacement;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 

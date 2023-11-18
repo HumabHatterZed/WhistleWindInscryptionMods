@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
                 attack: 2, health: 0, bones: 4, temple: CardTemple.Undead)
                 .SetPortraits(notesFromResearcher)
                 .AddAbilities(Ability.Brittle, GiveStatsSigils.AbilityID)
-                .SetSpellType(SpellType.TargetedStatsSigils)
+                .SetSpellType(SpellType.TargetedStats)
                 .SetDefaultEvolutionName("Frantic Notes from a Crazed Researcher")
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }

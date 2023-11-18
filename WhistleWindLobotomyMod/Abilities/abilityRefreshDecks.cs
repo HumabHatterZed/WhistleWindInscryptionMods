@@ -1,11 +1,7 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Patchers;
-using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
@@ -30,9 +26,9 @@ namespace WhistleWindLobotomyMod
             yield return HelperMethods.ChangeCurrentView(View.CardPiles, 0.2f, 0.4f);
 
             Singleton<CardDrawPiles>.Instance.CleanUp();
-            
+
             // remove any remaining cards then create new piles
-            
+
             yield return new WaitForSeconds(0.4f);
             yield return Singleton<CardDrawPiles>.Instance.Initialize();
 

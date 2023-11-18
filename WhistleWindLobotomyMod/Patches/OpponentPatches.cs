@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Opponents;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Patches
@@ -48,6 +47,8 @@ namespace WhistleWindLobotomyMod.Patches
                 distinctCardsFromPool.Add(cardByName);
             }
             __result = distinctCardsFromPool;
+            __result = LobotomyCardLoader.GetSephirahCards();
+            __result.RemoveRange(numCards, __result.Count - numCards);
             return false;
         }
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.CreateCard))]

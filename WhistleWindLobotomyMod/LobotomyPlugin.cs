@@ -163,14 +163,16 @@ namespace WhistleWindLobotomyMod
                 var sentryInfo = abilities.Find(x => x.Info.name == "Sentry").Info;
 
                 sniperInfo.rulebookName = "Marksman";
-                sniperInfo.abilityLearnedDialogue = new(new() { new() { text = "Your beast strikes with precision." } });
-                sniperInfo.SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman"));
-                sniperInfo.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel"));
+                sniperInfo.SetAbilityLearnedDialogue("Your beast strikes with precision.")
+                    .SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman"))
+                    .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel"))
+                    .SetFlipYIfOpponent();
 
                 sentryInfo.rulebookName = "Quick Draw";
-                sentryInfo.abilityLearnedDialogue = new(new() { new() { text = "The early bird gets the worm." } });
-                sentryInfo.SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw"));
-                sentryInfo.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel"));
+                sentryInfo.SetAbilityLearnedDialogue("The early bird gets the worm.")
+                    .SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw"))
+                    .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel"));
+
                 sentryInfo.SetCanStack();
 
                 return abilities;

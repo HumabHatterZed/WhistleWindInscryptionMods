@@ -3,10 +3,7 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
-
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 

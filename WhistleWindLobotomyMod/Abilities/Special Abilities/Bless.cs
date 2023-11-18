@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
-using Pixelplacement;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -125,7 +124,7 @@ namespace WhistleWindLobotomyMod
                 if (slot.Card.Info.name != oneSinName)
                     yield return SaviourBossUtils.ConvertCardToApostle(slot.Card, base.GetRandomSeed());
             }
-            
+
             if (playerHasOneSin)
             {
                 LobotomyPlugin.Log.LogDebug("Player has One Sin");
@@ -155,7 +154,7 @@ namespace WhistleWindLobotomyMod
                     yield return CardDrawPiles3D.Instance.DrawCardFromDeck(oneSin);
                     yield return new WaitForSeconds(0.5f);
                 }
-                
+
                 if (!SaviourBossUtils.PlayerHasHeretic)
                 {
                     if (PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == oneSinName))

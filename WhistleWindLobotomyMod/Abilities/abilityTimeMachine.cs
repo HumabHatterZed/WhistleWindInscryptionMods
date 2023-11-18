@@ -2,7 +2,6 @@
 using GBC;
 using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
-using InscryptionAPI.Helpers.Extensions;
 using InscryptionCommunityPatch.PixelTutor;
 using Pixelplacement;
 using System.Collections;
@@ -12,7 +11,6 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod
 {
@@ -166,7 +164,7 @@ namespace WhistleWindLobotomyMod
         private IEnumerator BackwardSequence()
         {
             List<CardInfo> choices = GetCardChoices();
-            
+
             //LobotomyPlugin.Log.LogInfo($"Start {cardToRemove != null} {cardToRemove?.name}");
             yield return DialogueManager.PlayDialogueEventSafe("BackwardClockOperate", speaker: DialogueHelper.GBCScrybe());
 

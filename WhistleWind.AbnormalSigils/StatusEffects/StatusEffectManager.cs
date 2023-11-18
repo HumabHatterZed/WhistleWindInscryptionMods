@@ -31,7 +31,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
         internal static List<FullStatusEffect> allStatusEffects = new();
         public static List<FullStatusEffect> AllStatusEffects => new(allStatusEffects);
-        
+
         public static readonly Dictionary<Ability, Color> AllIconColours = new();
 
         public static FullStatusEffect NewStatusEffect<T>(
@@ -121,7 +121,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             T component = card.GetStatusEffect<T>();
             if (component == null)
                 card.AddPermanentBehaviour<T>();
-            
+
             component = card.GetStatusEffect<T>();
             component.AddSeverity(effectSeverity, addDecals);
             component.TurnGained = TurnManager.Instance?.TurnNumber ?? -1;

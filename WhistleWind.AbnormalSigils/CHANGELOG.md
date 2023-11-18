@@ -14,23 +14,27 @@
 - Fixed status-giving abilities giving more than they should
 - Fixed Scrambler ability activating incorrectly for non-Spell cards
 - Copycat ability no longer copies Giant or Uncuttable cards
-- Fixed tribe choice reward backs being off-centre
 - Fixed Corrector ability giving 1 less Health than it should
 - Fixed Protector ability triggering when it shouldn't
+- Fixed Healer ability always targeting the same card when used by the opponent
+- Fixed tribe choice reward backs being off-centre
 ### 🔧 Tweaks
+- Made a number of tweaks to dialogue
+- Adjusted custom tribe icons' positions
+- SniperSelectSlot.AIEvaluate target is now overridable
+- Opponents using the Healer ability will now prioritise cards with 1 Health and depriortise cards at max Health or higher
 - Copycat ability now triggers OnResolveOnBoard sigils if it transforms immediately after being played
 - Copycat ability now has dialogue for when it cannot copy the opposing card
 - Copycat ability now triggers BEFORE most other sigils on the base card
 - Copycat ability now copies temporary mods as well
 - Witness ability effect now uses the status effect system instead of extended properties
+- Opportunistic sigil is now flipped for the opponent
 - Idol no longer affects cards with Made of Stone
 - Changed description of Made of Stone to indicate it provides immunity to Idol and Punisher
-- Opportunistic sigil is now flipped for the opponent
-- Adjusted custom tribe icon positions
-- Third Brother now has Sharp Quills instead of Reflector
 - Reworked The Train ability to activate on resolve instead of after 3 turns
-- Made a number of tweaks to dialogue
+- The Train ability no longer affects Giant or Uncuttable cards
 - Adjusted Queen Nest description to be clearer on activation requirement: 'card dies' --> 'card is killed'
+- Third Brother now has Sharp Quills instead of Reflector
 - Reduced Rightful Heir ability's starting activation cost from 3 --> 2 Bones
 - Reduced Pumpkin's Health from 2 --> 1
 - Reduced Sapling's Health from 2 --> 1

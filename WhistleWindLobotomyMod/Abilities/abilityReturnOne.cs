@@ -1,9 +1,6 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.Triggers;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +8,6 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
-using static UnityEngine.UI.Image;
 
 
 namespace WhistleWindLobotomyMod
@@ -38,10 +34,11 @@ namespace WhistleWindLobotomyMod
                 energyCostAdjustment = -slot.Card.EnergyCost,
                 nullifyGemsCost = true
             });
-            
+
             slot.Card.RemoveFromBoard(false);
             yield return HelperMethods.ChangeCurrentView(View.Default);
-            yield return CardSpawner.Instance.SpawnCardToHand(copy, tempMods, 0.25f, (PlayableCard x) => {
+            yield return CardSpawner.Instance.SpawnCardToHand(copy, tempMods, 0.25f, (PlayableCard x) =>
+            {
                 x.Status = status;
                 for (int i = 0; i < behaviours.Count; i++)
                 {

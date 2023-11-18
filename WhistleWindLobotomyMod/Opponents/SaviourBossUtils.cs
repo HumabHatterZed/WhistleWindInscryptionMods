@@ -1,15 +1,10 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
 using Pixelplacement;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
@@ -41,7 +36,7 @@ namespace WhistleWindLobotomyMod.Opponents
 
         private static bool OpponentPlagueDoctor(Card card)
         {
-            if (card is PlayableCard && (card as PlayableCard).OpponentCard)
+            if (card is PlayableCard playable && playable.OriginatedFromQueue)
                 return true;
 
             return false;

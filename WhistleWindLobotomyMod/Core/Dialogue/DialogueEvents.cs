@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Dialogue;
 using static WhistleWind.Core.Helpers.DialogueHelper;
 using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 

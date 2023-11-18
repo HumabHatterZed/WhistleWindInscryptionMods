@@ -1,8 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 
@@ -26,7 +28,7 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
 
         public override bool CanActivate() => base.Card.Info.name != "wstl_hundredsGoodDeeds";
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => base.Card.Info.name != "wstl_hundredsGoodDeeds";
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
         public override IEnumerator Activate()
         {
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
@@ -83,7 +85,10 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
+            if (killer != null && killer.HasTrait(LobotomyCardManager.TraitApostle))
+                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
+            
+            yield break;
         }
     }
 }

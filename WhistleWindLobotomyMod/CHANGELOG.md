@@ -11,18 +11,20 @@
 - Fixed Nosferatu not evolving into the correct forme
 - Fixed some WhiteNight-related dialogue not playing correctly
 - Fixed WhiteNight not being immune to Touch of Death
+- Fixed blessings being added incorrectly when Plague Doctor changes sides
 - Fixed StarSound special ability incorrectly modifying what slots to target
 - Behaviour Adjustment's cost is now 3 Energy
 - Fixed Judgement Bird special ability interaction with Repulsive cards
 - Fixed Trapper boss phase 2 being unable to use all possible Lobotomy cards
 - Fixed Abnormal Trapper boss phase 2 still using vanilla cards
+- Fixed some stat spell cards not showing stats
 ### 🔧 Tweaks
 - Minor adjustments to some sequences
 - Adjusted icon for Start with a Beast cheat
 - Adjusted description of Abnormal Bosses challenge to specify the affected bosses
 - Angela card will now be unlocked if the player has at least 3 Sephirah cards in their deck when moving to a Sefirot choice node
 - Bless special ability will no longer affect Giant and Uncuttable cards (Mule cards are still affected)
-- Chance for Bless to create a Heretic apostle is now tied to the game's seed rather than being truly random
+- Chance for Bless to create a Heretic apostle is now tied to the game's seed instead of being fully random
 - Blessings are now given to whomever owns the good doctor
 - Changed challenge icon for 'Start with a Beast'
 - Adjusted how Blind Rage calculates slots to target
@@ -32,7 +34,9 @@
 - Reduced Express Train to Hell's Health from 4 --> 1
 - Rebalanced Der Freischütz from 1/1, 2 Blood, Bifurcated Strike, Sniper --> 2/1, 2 Blood, Sniper, Persistent
 - Rebalanced Little Red Riding Hooded Mercenary from 2/5, Sniper, Persistent --> 2/6, Sniper
+- Rebalanced We Can Change Anything from 0/2 --> 1/1
 - Gebura now has Persistent instead of Piercing
+- Quick Draw icon is now flipped when possessed by the opponent
 - Made a number of tweaks to dialogue
 ### ➕ Additions
 - Added Final Apocalypse challenge and boss

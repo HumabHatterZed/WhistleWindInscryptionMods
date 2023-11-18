@@ -1,11 +1,7 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using HarmonyLib;
-using InscryptionAPI;
 using InscryptionAPI.Card;
-using InscryptionAPI.Triggers;
 using Pixelplacement;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -201,12 +197,12 @@ namespace WhistleWindLobotomyMod.Patches
             {
                 if (AscensionSaveData.Data.ChallengeIsActive(FinalApocalypse.Id))
                     __result = CustomBossUtils.apocalypseRegion;
-/*                else if (AscensionSaveData.Data.ChallengeIsActive(FinalComing.Id))
-                    __result = CustomBossUtils.saviourRegion;
-                else if (AscensionSaveData.Data.ChallengeIsActive(FinalTrick.Id))
-                    __result = CustomBossUtils.adultRegion;
-                else if (AscensionSaveData.Data.ChallengeIsActive(FinalJester.Id))
-                    __result = CustomBossUtils.jesterRegion;*/
+                /*                else if (AscensionSaveData.Data.ChallengeIsActive(FinalComing.Id))
+                                    __result = CustomBossUtils.saviourRegion;
+                                else if (AscensionSaveData.Data.ChallengeIsActive(FinalTrick.Id))
+                                    __result = CustomBossUtils.adultRegion;
+                                else if (AscensionSaveData.Data.ChallengeIsActive(FinalJester.Id))
+                                    __result = CustomBossUtils.jesterRegion;*/
             }
         }
     }

@@ -82,35 +82,32 @@ namespace WhistleWindLobotomyMod.Core
             return cardInfo;
         }
 
-        public static CardInfo SetSpellType(this CardInfo cardInfo, SpellType spellType, bool showStats = false)
+        public static CardInfo SetSpellType(this CardInfo cardInfo, SpellType spellType)
         {
-            if (spellType == SpellType.Global)
-            {
-                if (!showStats)
-                    cardInfo.SetGlobalSpell();
-                else
-                    cardInfo.SetGlobalSpellStats();
-            }
-            else
-            {
-                if (!showStats)
-                    cardInfo.SetTargetedSpell();
-                else
-                    cardInfo.SetTargetedSpellStats();
-            }
-
             switch (spellType)
             {
                 case SpellType.Global:
+                    cardInfo.SetGlobalSpell();
                     cardInfo.SetNodeRestrictions(true, true, true, true);
                     break;
+                case SpellType.GlobalStats:
+                    cardInfo.SetGlobalSpellStats();
+                    cardInfo.SetNodeRestrictions(true, true, false, true);
+                    break;
+                case SpellType.GlobalSigils:
+                    cardInfo.SetGlobalSpell();
+                    cardInfo.SetNodeRestrictions(true, false, true, true);
+                    break;
                 case SpellType.Targeted:
+                    cardInfo.SetTargetedSpell();
                     cardInfo.SetNodeRestrictions(false, true, true, false);
                     break;
                 case SpellType.TargetedStats:
+                    cardInfo.SetTargetedSpellStats();
                     cardInfo.SetNodeRestrictions(false, true, false, false);
                     break;
                 case SpellType.TargetedSigils:
+                    cardInfo.SetTargetedSpell();
                     cardInfo.SetNodeRestrictions(false, false, true, false);
                     break;
             }
@@ -163,10 +160,11 @@ namespace WhistleWindLobotomyMod.Core
         {
             None,
             Global,
+            GlobalStats,
+            GlobalSigils,
             Targeted,
             TargetedStats,
-            TargetedSigils,
-            TargetedStatsSigils
+            TargetedSigils
         }
     }
 }

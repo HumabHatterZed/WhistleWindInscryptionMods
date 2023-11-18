@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionCommunityPatch.Card;
 using System;
 using System.Collections;
@@ -104,7 +105,7 @@ namespace WhistleWind.Core.AbilityClasses
             if (validTargets.Count > 0)
             {
                 validTargets.Sort((CardSlot a, CardSlot b) => AIEvaluateTarget(b.Card, IsPositiveEffect) - AIEvaluateTarget(a.Card, IsPositiveEffect));
-                chosenCallback(validTargets[0]);
+                chosenCallback(validTargets[SeededRandom.Range(0, validTargets.Count, base.GetRandomSeed())]);
                 yield return new WaitForSeconds(0.1f);
             }
             else
@@ -113,13 +114,13 @@ namespace WhistleWind.Core.AbilityClasses
                 yield return new WaitForSeconds(0.4f);
             }
         }
-        private int AIEvaluateTarget(PlayableCard card, bool positiveEffect)
+        public virtual int AIEvaluateTarget(PlayableCard card, bool positiveEffect)
         {
             if (card == null)
                 return CanTargetNull() ? UnityEngine.Random.Range(0, 5) : -1000;
 
             int num = card.PowerLevel;
-            if (card.Info.HasTrait(Trait.Terrain))
+            if (card.HasTrait(Trait.Terrain))
                 num = 10 * (!positiveEffect ? 1 : -1);
 
             if (card.OpponentCard == positiveEffect)

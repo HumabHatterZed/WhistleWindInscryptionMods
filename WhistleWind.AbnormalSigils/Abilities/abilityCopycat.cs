@@ -1,7 +1,5 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
-using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

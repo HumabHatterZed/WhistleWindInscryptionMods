@@ -1,11 +1,7 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using Infiniscryption.Spells.Patchers;
-using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

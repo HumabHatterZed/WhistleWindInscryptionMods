@@ -2,10 +2,8 @@
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {

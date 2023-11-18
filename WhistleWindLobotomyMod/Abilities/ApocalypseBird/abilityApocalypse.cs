@@ -1,16 +1,9 @@
 ﻿using DiskCardGame;
-using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
-using static UnityEngine.GraphicsBuffer;
 
 namespace WhistleWindLobotomyMod
 {

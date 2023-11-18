@@ -1,18 +1,12 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
-using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
-using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.Sound;
 using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Opponents.Apocalypse
@@ -318,7 +312,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             Singleton<ViewManager>.Instance.SwitchToView(View.Scales);
             yield return new WaitForSeconds(0.2f);
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossBendScales1");
-            
+
             // account for any challenges that affect the initial scale balance
             int damageThreshold = LifeManager.Instance.DamageUntilPlayerWin > 4 ? 4 : LifeManager.Instance.DamageUntilPlayerWin - 1;
             LobotomyPlugin.PreventOpponentDamage = false;
@@ -395,7 +389,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         {
             if (MasterAnimator.GetBool("Flare") || MasterAnimator.GetBool("Mouth"))
                 yield return new WaitForSeconds(0.5f);
-            
+
             MasterAnimator.SetBool("Flare", false);
             MasterAnimator.SetBool("Mouth", false);
         }

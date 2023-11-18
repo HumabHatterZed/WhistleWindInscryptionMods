@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ namespace WhistleWind.AbnormalSigils
                 else if (!currentSlots.Contains(base.PlayableCard.Slot))
                     currentSlots.Add(base.PlayableCard.Slot);
             }
-            
+
             return null;
         }
 

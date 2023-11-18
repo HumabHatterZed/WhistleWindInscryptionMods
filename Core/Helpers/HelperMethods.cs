@@ -85,8 +85,7 @@ namespace WhistleWind.Core.Helpers
                 yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(cardToQueue, index);
                 if (triggerResolve)
                 {
-                    PlayableCard card = Singleton<TurnManager>.Instance.Opponent.Queue.Find(x => x.Info.name == cardToQueue.name);
-
+                    PlayableCard card = Singleton<TurnManager>.Instance.Opponent.Queue.FindLast(x => x.Info.name == cardToQueue.name);
                     if (card != null && card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard))
                         yield return card.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard);
 

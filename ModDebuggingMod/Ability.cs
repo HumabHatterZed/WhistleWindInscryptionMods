@@ -1,7 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections;
-using UnityEngine;
 
 using WhistleWind.Core.Helpers;
 
@@ -28,22 +26,22 @@ namespace ModDebuggingMod
 
         public override int StartingNumShields => base.Card.GetAbilityStacks(Ability);
 
-/*        public override bool RespondsToResolveOnBoard()
-        {
-            return true;
-        }
+        /*        public override bool RespondsToResolveOnBoard()
+                {
+                    return true;
+                }
 
-        public override IEnumerator OnResolveOnBoard()
-        {
-            Debug.Log("Start");
-            base.Card.AddShieldCount(1);
-            yield return new WaitForSeconds(0.5f);
-            Debug.Log("Start2");
-            base.Card.AddShieldCount(1, Ability.DeathShield);
-            yield return new WaitForSeconds(0.5f);
-            Debug.Log("Start3 {}");
-            base.Card.AddShieldCount<APIDeathShield>(1);
-            yield return new WaitForSeconds(0.5f);
-        }*/
+                public override IEnumerator OnResolveOnBoard()
+                {
+                    Debug.Log("Start");
+                    base.Card.AddShieldCount(1);
+                    yield return new WaitForSeconds(0.5f);
+                    Debug.Log("Start2");
+                    base.Card.AddShieldCount(1, Ability.DeathShield);
+                    yield return new WaitForSeconds(0.5f);
+                    Debug.Log("Start3 {}");
+                    base.Card.AddShieldCount<APIDeathShield>(1);
+                    yield return new WaitForSeconds(0.5f);
+                }*/
     }
 }

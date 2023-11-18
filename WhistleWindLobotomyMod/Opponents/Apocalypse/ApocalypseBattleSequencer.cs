@@ -71,7 +71,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         // list of cardslots being targeted by special attacks
         // [0] - red, [1] - white
-        internal readonly List<CardSlot>[] giantTargetSlots = new List<CardSlot>[2] 
+        internal readonly List<CardSlot>[] giantTargetSlots = new List<CardSlot>[2]
         {
             new(),
             new()
@@ -137,7 +137,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                         rightSources.Remove(source);
                     }
                     FireLaser(source.gameObject, specialTargetSlots[i], specialTargetSlots[i].IsPlayerSlot);
-                    
+
                     if (ReactiveDifficulty > 7) // fire 2 lasers since we're enchanting twice
                     {
                         if (specialTargetSlots[i].Index % 2 == 0)
@@ -156,7 +156,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
                     specialTargetSlots[i].Card.Anim.StrongNegationEffect();
                     specialTargetSlots[i].Card.AddStatusEffect<Enchanted>(ReactiveDifficulty > 7 ? 2 : 1).TurnGained = TurnManager.Instance.TurnNumber + 1;
-                    
+
                     CleanUpTargetIcon(targetIcons[i]);
                 }
 
@@ -231,7 +231,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     CleanUpTargetIcon(mouthAnim);
                 }
             }
-            
+
             mouthIcons.Clear();
             specialTargetSlots.Clear();
             yield return new WaitForSeconds(0.5f);
@@ -242,7 +242,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             {
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossMouthPostAttack", 0f);
             }
-           
+
             yield return Opponent.ResetToIdle();
             seenMouthAttack = true;
         }
@@ -262,7 +262,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return new WaitForSeconds(0.5f);
             if (!seenArmsAttack)
                 yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossArmsPreAttack", TextDisplayer.MessageAdvanceMode.Input);
-            
+
             foreach (CardSlot slot in slots)
             {
                 slot.Card.Anim.PlaySacrificeSound();
@@ -278,7 +278,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         internal void CleanUpGiantTarget(CardSlot slot)
         {
             GameObject obj = targetIcons.Find(x => x.transform.parent == slot.transform);
-            
+
             if (obj == null)
                 return;
 
@@ -409,7 +409,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public override IEnumerator OpponentUpkeep()
         {
             yield return HelperMethods.ChangeCurrentView(View.Board);
-            
+
             if (changeToNextPhase)
             {
                 Opponent.NumLives--;
@@ -424,7 +424,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 yield return Opponent.PostResetScalesSequence();
                 changeToNextPhase = false;
             }
-            
+
             if (finalPhase)
             {
                 if (damageTakenThisTurn > 0)
@@ -570,7 +570,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     // either give +1/-1 or 0/+1
                     int attack = ReactiveDifficulty > 11 ? 1 : 0;
                     int health = randomValue <= (gateValue / 2f) ? 1 : 0;
-                    
+
                     if (SeededRandom.Bool(randomSeed++))
                     {
                         attack++;
@@ -781,7 +781,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 }
                 else
                     changeToNextPhase = true;
-                
+
                 AudioController.Instance.SetLoopVolume(0.1f, 1f);
             }
         }

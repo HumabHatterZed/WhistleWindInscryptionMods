@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Ability_Scrambler()
         {
-            string rulebookDescription = "When [creature] is sacrificed, give its stats to the sacrificing card then scramble the card's stats.";
+            string rulebookDescription = "When [creature] is sacrificed, give its stats to the sacrificing card then scramble the its stats.";
             if (SpellAPI.Enabled)
                 rulebookDescription += " For Spells: On target selected.";
 

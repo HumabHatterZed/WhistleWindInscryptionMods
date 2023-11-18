@@ -1,14 +1,10 @@
 ﻿using DiskCardGame;
 using GBC;
-using GracesGames.Common.Scripts;
 using HarmonyLib;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
@@ -93,7 +89,7 @@ namespace WhistleWind.AbnormalSigils.Core
                         __instance.abilityIcons.Add(controller.part1AbilityIcons[i]);
                     }
                 }
-            }   
+            }
             else
             {
                 foreach (GameObject defaultIconGroup in controller.statusEffectIconGroups)
@@ -119,30 +115,6 @@ namespace WhistleWind.AbnormalSigils.Core
                     __instance.abilityIcons.Add(componentsInChildren[i]);
                 }
             }
-        }
-        private static Texture2D StatusBackground(Texture2D abilityTexture, Color color)
-        {
-            Texture2D emptyCardback = TextureLoader.LoadTextureFromFile("statusBackground_dark.png", Assembly.GetExecutingAssembly());
-
-            int startX = (emptyCardback.width - 49) / 2;
-            int startY = emptyCardback.height - 49 + 20;
-
-            for (int x = startX; x < emptyCardback.width; x++)
-            {
-                for (int y = startY; y < emptyCardback.height; y++)
-                {
-                    Color bgColor = emptyCardback.GetPixel(x, y);
-                    Color wmColor = color;
-                    wmColor.a = abilityTexture.GetPixel(x - startX, y - startY).a;
-
-                    Color final_color = Color.Lerp(bgColor, wmColor, wmColor.a / 1.0f);
-
-                    emptyCardback.SetPixel(x, y, final_color);
-                }
-            }
-
-            emptyCardback.Apply();
-            return emptyCardback;
         }
 
         public static List<Ability> GetDistinctStatusEffects(PlayableCard card)

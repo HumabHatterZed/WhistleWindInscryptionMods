@@ -177,7 +177,7 @@ namespace WhistleWindLobotomyMod
         {
             List<CardChoice> listOfChoices = new();
             List<CardInfo> sephirahCards = LobotomyCardLoader.GetSephirahCards();
-            
+
             // if the player has 3 sephirah already, unlock Angela and make her a guaranteed choice
             if (sephirahCards.Count <= 6 && !LobotomySaveManager.UnlockedAngela)
                 listOfChoices.Add(new() { CardInfo = CardLoader.GetCardByName("wstl_angela") });

@@ -2,7 +2,6 @@
 using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace WhistleWind.AbnormalSigils.Patches

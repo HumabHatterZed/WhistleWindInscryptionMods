@@ -1,6 +1,4 @@
 ﻿using DiskCardGame;
-using System.Collections;
-using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 
