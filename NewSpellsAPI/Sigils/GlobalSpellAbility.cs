@@ -1,8 +1,6 @@
 using DiskCardGame;
 using Infiniscryption.Core.Helpers;
-using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
-using System.Linq;
 using UnityEngine;
 
 namespace Infiniscryption.Spells.Sigils

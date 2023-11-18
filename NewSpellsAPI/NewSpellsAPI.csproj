@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Infiniscryption.Spells</AssemblyName>
     <Description>An updated version of Infiniscryption's Spell Card Toolkit with new features and general improvements.</Description>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <DebugType>full</DebugType>

@@ -1,5 +1,8 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
+## 1.2.1 (11/?/2023)
+- Mousing over a stat spell card will reveal the card's stats
+
 ## 1.2.0 (11/16/2023)
 - Rewrote stat spell logic to -hopefully- be quicker/less laggy
 - Added Instant Global Spells, which replicate the original global spell behaviour (played immediately on selection)

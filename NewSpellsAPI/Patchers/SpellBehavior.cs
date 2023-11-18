@@ -1,4 +1,5 @@
 using DiskCardGame;
+using GBC;
 using HarmonyLib;
 using Infiniscryption.Core.Helpers;
 using Infiniscryption.Spells.Sigils;
@@ -137,45 +138,102 @@ namespace Infiniscryption.Spells.Patchers
         #endregion
 
         #region Stat Spell Patches
-        // this allows the card's stats to be displayed as-is in-battle
         [HarmonyPatch(typeof(VariableStatBehaviour), nameof(VariableStatBehaviour.UpdateStats))]
         [HarmonyPrefix]
         public static bool ShowStatsWhenInHand(ref VariableStatBehaviour __instance)
         {
-            // if a spell that displays stats, show when in hand or on board
-            if (__instance.PlayableCard != null && __instance.PlayableCard.Info.IsSpellShowStats() && __instance.PlayableCard.InHand)
+            // only affect stat spell cards that are in the hand
+            if (__instance.PlayableCard == null || NotStatsSpellInfo(__instance.PlayableCard.Info) || !__instance.PlayableCard.InHand)
+                return true;
+
+            int[] array = __instance.GetStatValues();
+            __instance.statsMod.attackAdjustment = array[0];
+            __instance.statsMod.healthAdjustment = array[1];
+            if (!__instance.StatValuesEqual(__instance.prevStatValues, array) || __instance.prevOnBoard != __instance.PlayableCard.InHand)
             {
-                int[] array = __instance.GetStatValues();
-                __instance.statsMod.attackAdjustment = array[0];
-                __instance.statsMod.healthAdjustment = array[1];
-                __instance.PlayableCard.RenderInfo.showSpecialStats = true;
-                if (!__instance.StatValuesEqual(__instance.prevStatValues, array) || __instance.prevOnBoard != __instance.PlayableCard.InHand)
-                {
-                    UpdateVariableStatsText(__instance.PlayableCard);
-                }
-                __instance.prevStatValues = array;
-                __instance.prevOnBoard = __instance.PlayableCard.InHand;
-                return false;
+                UpdatePlayableStatsSpellDisplay(__instance.PlayableCard, false);
             }
-            return true;
+            __instance.prevStatValues = array;
+            __instance.prevOnBoard = __instance.PlayableCard.InHand; // this is probably fine
+            return false;
         }
-        // truncated version of OnStatsChanged that only runs the code that relates to the actual stats, so it's faster
-        private static void UpdateVariableStatsText(PlayableCard card)
+
+        public static bool NotStatsSpellInfo(CardInfo info) => info == null || !info.IsSpellShowStats();
+
+        private static void UpdateStatsSpellDisplay<T>(T card, bool showStats) where T : Card
         {
-            card.RenderInfo.attack = card.Attack;
-            card.RenderInfo.health = card.Health;
-            card.RenderInfo.attackTextColor = (card.GetPassiveAttackBuffs() + card.GetStatIconAttackBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
+            if (NotStatsSpellInfo(card.Info))
+                return;
+
+            card.RenderInfo.showSpecialStats = showStats;
+            if (showStats)
+            {
+                card.RenderInfo.attack = card.Info.Attack;
+                card.RenderInfo.health = card.Info.Health;
+            }
+
+            card.RenderInfo.attackTextColor = card.RenderInfo.attack > 0 ? GameColors.Instance.darkBlue : Color.black;
+            card.RenderInfo.healthTextColor = card.RenderInfo.health > 0 ? GameColors.Instance.darkBlue : Color.black;
             card.RenderCard();
         }
+        private static void UpdatePlayableStatsSpellDisplay(PlayableCard card, bool showStats)
+        {
+            if (NotStatsSpellInfo(card.Info))
+                return;
+
+            card.RenderInfo.showSpecialStats = showStats;
+            if (showStats)
+            {
+                card.RenderInfo.attack = card.Info.Attack;
+                card.RenderInfo.health = card.Info.Health;
+            }
+
+            card.RenderInfo.attackTextColor = (card.GetPassiveAttackBuffs() + card.GetStatIconAttackBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
+            card.RenderInfo.attackTextColor = (card.GetPassiveHealthBuffs() + card.GetStatIconHealthBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
+            card.RenderCard();
+        }
+
+        // these allow the player to view a stat spell's stats when hovering over a card - how fancy~
+        [HarmonyPostfix, HarmonyPatch(typeof(SelectableCard), "OnCursorEnter")]
+        private static void ShowStatsSelectableCards(SelectableCard __instance) => UpdateStatsSpellDisplay(__instance, true);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), "OnCursorEnter")]
+        private static void ShowStatsPlayableCards(PlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, true);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PixelSelectableCard), "OnCursorEnter")]
+        private static void ShowStatsPixelSelectableCards(PixelSelectableCard __instance) => UpdateStatsSpellDisplay(__instance, true);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PixelPlayableCard), "OnCursorEnter")]
+        private static void ShowStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, true);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PixelSelectableCard), "OnCursorExit")]
+        private static void HideStatsPixelSelectableCards(PixelSelectableCard __instance) => UpdateStatsSpellDisplay(__instance, false);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PixelPlayableCard), "OnCursorExit")]
+        private static void HideStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, false);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(MainInputInteractable), "OnCursorExit")]
+        private static void ShowStatsSelectableCards(MainInputInteractable __instance)
+        {
+            if (__instance is SelectableCard)
+            {
+                SelectableCard card = __instance as SelectableCard;
+                UpdateStatsSpellDisplay(card, false);
+            }
+            else if (__instance is PlayableCard)
+            {
+                PlayableCard playableCard = __instance as PlayableCard;
+                UpdatePlayableStatsSpellDisplay(playableCard, false);
+            }
+        }
+
         // method for adding show-stats spells to the campfire list of valid cards
-        // not patched automatically
-        public static void AllowStatBoostForSpells(ref List<CardInfo> __result)
+        // not patched automatically; stat spells need to be able to stat boost in the first place
+        public static void AllowStatBoostForSpells(List<CardInfo> __result)
         {
             List<CardInfo> deckList = new(RunState.DeckList);
-            deckList.RemoveAll(ci => ci.LacksAllSpecialAbilities(TargetedSpellAbility.ID, GlobalSpellAbility.ID));
-            deckList.RemoveAll(ci => ci.hideAttackAndHealth || (ci.baseAttack == 0 && ci.baseHealth == 0));
-            if (deckList.Count > 0)
-                __result.AddRange(deckList);
+            deckList.RemoveAll(ci => __result.Contains(ci) || !ci.IsSpellShowStats() || (ci.baseAttack == 0 && ci.baseHealth == 0));
+            __result.AddRange(deckList);
         }
         #endregion
 
