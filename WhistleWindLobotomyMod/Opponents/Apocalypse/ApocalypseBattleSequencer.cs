@@ -34,8 +34,8 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 "wstl_runawayBird",
                 "wstl_apocalypseEgg_long" } }
         };
-        internal ActiveEggEffect ActiveEggEffect = ActiveEggEffect.None;
-        internal readonly List<ActiveEggEffect> DisabledEggEffects = new();
+        public ActiveEggEffect ActiveEggEffect = ActiveEggEffect.None;
+        public readonly List<ActiveEggEffect> DisabledEggEffects = new();
 
         // Giant card Health + product of other phases' Health
         // honestly should make these static values, but while I'm testing this'll make it easier to modify the Health
@@ -49,12 +49,13 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             _ => 1
         };
 
-        internal string ActiveEggMinion = null;
-        internal PlayableCard BossCard = null;
+        public string ActiveEggMinion = null;
+        public PlayableCard BossCard = null;
 
-        internal int turnsToNextPhase = 3; // number of turns until the active egg effect automatically changes
+        public int turnsToNextPhase = 3; // number of turns until the active egg effect automatically changes
         private int damageTakenThisTurn = 0;
         private int timesHitThisTurn = 0;
+
         // makes things more difficult based on how much damage is dealt to the boss
         private int reactiveDifficulty = 0;
         private int ReactiveDifficulty => RunState.Run.DifficultyModifier + reactiveDifficulty;
@@ -71,12 +72,12 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         // list of cardslots being targeted by special attacks
         // [0] - red, [1] - white
-        internal readonly List<CardSlot>[] giantTargetSlots = new List<CardSlot>[2]
+        public readonly List<CardSlot>[] giantTargetSlots = new List<CardSlot>[2]
         {
             new(),
             new()
         };
-        internal readonly List<CardSlot> specialTargetSlots = new();
+        public readonly List<CardSlot> specialTargetSlots = new();
         private readonly List<GameObject> targetIcons = new();
 
         private readonly Dictionary<CardSlot, GameObject> mouthIcons = new();
@@ -275,7 +276,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             seenArmsAttack = true;
         }
 
-        internal void CleanUpGiantTarget(CardSlot slot)
+        public void CleanUpGiantTarget(CardSlot slot)
         {
             GameObject obj = targetIcons.Find(x => x.transform.parent == slot.transform);
 
@@ -291,7 +292,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             targetIcons.Remove(obj);
             CleanUpTargetIcon(obj);
         }
-        internal IEnumerator GiantPhaseLogic(bool firstStrike)
+        public IEnumerator GiantPhaseLogic(bool firstStrike)
         {
             CleanupTargetIcons();
             specialTargetSlots.Clear();
@@ -595,7 +596,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             BossCard.RenderCard();
         }
 
-        internal IEnumerator SwitchToNextEggEffect(bool lostLife)
+        public IEnumerator SwitchToNextEggEffect(bool lostLife)
         {
             // clean up the previous phase and reset the counter
             turnsToNextPhase = 3;
@@ -824,7 +825,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => finalPhase ? int.MaxValue : int.MinValue;
 
-        internal IEnumerator MoveOpponentCards()
+        public IEnumerator MoveOpponentCards()
         {
             List<PlayableCard> cards = BoardManager.Instance.GetCards(false);
             // if all opponent slots are full
@@ -894,7 +895,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             targetIcons.Add(gameObject);
         }
-        internal void CleanupTargetIcons()
+        public void CleanupTargetIcons()
         {
             targetIcons.ForEach(delegate (GameObject x)
             {
