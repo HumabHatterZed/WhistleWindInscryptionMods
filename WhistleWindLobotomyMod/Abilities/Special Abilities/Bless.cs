@@ -32,9 +32,9 @@ namespace WhistleWindLobotomyMod
 
             yield return HelperMethods.ChangeCurrentView(View.Board);
 
-            base.PlayableCard.Anim.LightNegationEffect();
-            base.PlayableCard.ClearAppearanceBehaviours();
-            base.PlayableCard.ApplyAppearanceBehaviours(base.PlayableCard.Info.appearanceBehaviour);
+            AudioController.Instance.PlaySound2D("bird_laser_fire", MixerGroup.TableObjectsSFX, 0.8f);
+            base.PlayableCard.Anim.StrongNegationEffect();
+            base.PlayableCard.UpdateAppearanceBehaviours();
             base.PlayableCard.RenderCard();
             yield return new WaitForSeconds(0.2f);
 

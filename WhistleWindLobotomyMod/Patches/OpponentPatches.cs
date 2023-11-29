@@ -47,8 +47,6 @@ namespace WhistleWindLobotomyMod.Patches
                 distinctCardsFromPool.Add(cardByName);
             }
             __result = distinctCardsFromPool;
-            __result = LobotomyCardLoader.GetSephirahCards();
-            __result.RemoveRange(numCards, __result.Count - numCards);
             return false;
         }
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.CreateCard))]
@@ -56,8 +54,7 @@ namespace WhistleWindLobotomyMod.Patches
         {
             if (__result?.HasSpecialAbility(Bless.specialAbility) ?? false)
             {
-                __result.ClearAppearanceBehaviours();
-                __result.ApplyAppearanceBehaviours(new() { MiracleWorkerAppearance.appearance });
+                __result.UpdateAppearanceBehaviours();
             }
         }
 
