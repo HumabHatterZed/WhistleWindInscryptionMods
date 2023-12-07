@@ -5,12 +5,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.StatusEffects;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.AbnormalSigils
 {
     public class ReturnCard : AbilityBehaviour
     {
@@ -23,8 +22,8 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
             CardInfo copy = slot.Card.Info.Clone() as CardInfo;
-            List<StatusEffectBehaviour> behaviours = slot.Card.GetStatusEffects();
-
+            // includes status effects
+            List<SpecialCardBehaviour> behaviours = slot.Card.GetComponents<SpecialCardBehaviour>()?.ToList() ?? new();
             PlayableCardStatus status = new(slot.Card.Status);
             List<CardModificationInfo> tempMods = slot.Card.TemporaryMods;
             tempMods.Add(new()
@@ -48,7 +47,7 @@ namespace WhistleWindLobotomyMod
             });
             yield return new WaitForSeconds(0.2f);
         }
-        private static T CopyComponent<T>(T original, GameObject gameObject) where T : StatusEffectBehaviour
+        private static T CopyComponent<T>(T original, GameObject gameObject) where T : SpecialCardBehaviour
         {
             System.Type type = original.GetType();
             Component component = gameObject.AddComponent(type);
@@ -83,16 +82,15 @@ namespace WhistleWindLobotomyMod
         private int GetBonesCost(PlayableCard card) => Mathf.Max(0, 2 - (TurnManager.Instance.TurnNumber - card.TurnPlayed));
     }
 
-    public partial class LobotomyPlugin
+    public partial class AbnormalPlugin
     {
         private void Ability_ReturnCard()
         {
             const string rulebookName = "Return Card to Hand";
-            ReturnCard.ability = LobotomyAbilityHelper.CreateAbility<ReturnCard>(
-                "sigilReturnCard", rulebookName,
-                "Returns the selected card to your hand with all changes and statuses retained. Change the selected card's cost to 0-2 Bones based on how recently it was played.",
-                null, powerLevel: 0,
-                canStack: false).Id;
+            const string rulebookDescription = "Returns the selected card to your hand with all changes and statuses retained. Change the selected card's cost to 0-2 Bones based on how recently it was played.";
+            ReturnCard.ability = AbnormalAbilityHelper.CreateAbility<ReturnCard>(
+                "sigilReturnCard", rulebookName, rulebookDescription,
+                null, powerLevel: 0, canStack: false).Id;
         }
     }
 }
