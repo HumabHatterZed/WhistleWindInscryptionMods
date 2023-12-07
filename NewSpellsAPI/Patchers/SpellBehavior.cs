@@ -13,6 +13,30 @@ using UnityEngine;
 
 namespace Infiniscryption.Spells.Patchers
 {
+    public class Act1QueuedCardInteractable : MainInputInteractable
+    {
+        public HighlightedInteractable queueSlot;
+        public PlayableCard playableCard;
+
+        public void QueueCursorEnter()
+        {
+            if (playableCard?.QueuedSlot == null)
+            {
+                playableCard = null;
+                return;
+            }
+            SpellBehavior.UpdatePlayableStatsSpellDisplay(playableCard, true);
+        }
+        public void QueueCursorExit()
+        {
+            if (playableCard?.QueuedSlot == null)
+            {
+                playableCard = null;
+                return;
+            }
+            SpellBehavior.UpdatePlayableStatsSpellDisplay(playableCard, false);
+        }
+    }
     public static class SpellBehavior
     {
         #region CardAppearanceBehaviours
@@ -138,29 +162,9 @@ namespace Infiniscryption.Spells.Patchers
         #endregion
 
         #region Stat Spell Patches
-        [HarmonyPatch(typeof(VariableStatBehaviour), nameof(VariableStatBehaviour.UpdateStats))]
-        [HarmonyPrefix]
-        public static bool ShowStatsWhenInHand(ref VariableStatBehaviour __instance)
-        {
-            // only affect stat spell cards that are in the hand
-            if (__instance.PlayableCard == null || NotStatsSpellInfo(__instance.PlayableCard.Info) || !__instance.PlayableCard.InHand)
-                return true;
-
-            int[] array = __instance.GetStatValues();
-            __instance.statsMod.attackAdjustment = array[0];
-            __instance.statsMod.healthAdjustment = array[1];
-            if (!__instance.StatValuesEqual(__instance.prevStatValues, array) || __instance.prevOnBoard != __instance.PlayableCard.InHand)
-            {
-                UpdatePlayableStatsSpellDisplay(__instance.PlayableCard, false);
-            }
-            __instance.prevStatValues = array;
-            __instance.prevOnBoard = __instance.PlayableCard.InHand; // this is probably fine
-            return false;
-        }
-
         public static bool NotStatsSpellInfo(CardInfo info) => info == null || !info.IsSpellShowStats();
 
-        private static void UpdateStatsSpellDisplay<T>(T card, bool showStats) where T : Card
+        internal static void UpdateStatsSpellDisplay<T>(T card, bool showStats) where T : Card
         {
             if (NotStatsSpellInfo(card.Info))
                 return;
@@ -176,7 +180,7 @@ namespace Infiniscryption.Spells.Patchers
             card.RenderInfo.healthTextColor = card.RenderInfo.health > 0 ? GameColors.Instance.darkBlue : Color.black;
             card.RenderCard();
         }
-        private static void UpdatePlayableStatsSpellDisplay(PlayableCard card, bool showStats)
+        internal static void UpdatePlayableStatsSpellDisplay(PlayableCard card, bool showStats)
         {
             if (NotStatsSpellInfo(card.Info))
                 return;
@@ -189,7 +193,7 @@ namespace Infiniscryption.Spells.Patchers
             }
 
             card.RenderInfo.attackTextColor = (card.GetPassiveAttackBuffs() + card.GetStatIconAttackBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
-            card.RenderInfo.attackTextColor = (card.GetPassiveHealthBuffs() + card.GetStatIconHealthBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
+            card.RenderInfo.healthTextColor = (card.GetPassiveHealthBuffs() + card.GetStatIconHealthBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
             card.RenderCard();
         }
 
@@ -226,7 +230,23 @@ namespace Infiniscryption.Spells.Patchers
                 UpdatePlayableStatsSpellDisplay(playableCard, false);
             }
         }
+        [HarmonyPostfix, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.QueueCardForSlot))]
+        private static void ShowStatsSelectableCards(PlayableCard card)
+        {
+            if (SaveManager.SaveFile.IsPart2 || NotStatsSpellInfo(card.Info))
+                return;
 
+            HighlightedInteractable queueSlot = BoardManager3D.Instance.opponentQueueSlots[card.QueuedSlot.Index];
+            Act1QueuedCardInteractable interactable = queueSlot.GetComponent<Act1QueuedCardInteractable>();
+            if (interactable == null)
+            {
+                interactable = queueSlot.gameObject.AddComponent<Act1QueuedCardInteractable>();
+                queueSlot.CursorEntered += x => interactable.QueueCursorEnter();
+                queueSlot.CursorExited += x => interactable.QueueCursorExit();
+            }
+            interactable.playableCard = card;
+            Debug.Log($"Butt {card.Info.name}");
+        }
         // method for adding show-stats spells to the campfire list of valid cards
         // not patched automatically; stat spells need to be able to stat boost in the first place
         public static void AllowStatBoostForSpells(List<CardInfo> __result)
@@ -263,7 +283,6 @@ namespace Infiniscryption.Spells.Patchers
                     break;
                 }
             }
-
             return false;
         }
 
@@ -522,6 +541,9 @@ namespace Infiniscryption.Spells.Patchers
                         if (targetPlayer)
                             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
 
+                        if (card.Info.IsSpellShowStats())
+                            UpdatePlayableStatsSpellDisplay(card, true);
+
                     }, delegate
                     {
                         card.Anim.PlayRiffleSound();
@@ -542,7 +564,7 @@ namespace Infiniscryption.Spells.Patchers
                     else
                         resolveSlots = new List<CardSlot>() { null }; // For global spells, just resolve once, globally
 
-                    if (!card.Info.IsGlobalSpell())
+                    if (card.Info.IsTargetedSpell())
                     {
                         foreach (CardSlot resolveTarget in resolveSlots)
                         {
@@ -552,16 +574,13 @@ namespace Infiniscryption.Spells.Patchers
                             visualiser?.VisualizeConfirmSniperAbility(resolveTarget);
                             yield return new WaitForSeconds(0.1f);
                         }
-                        yield return new WaitForSeconds(0.2f);
+                        yield return new WaitForSeconds(0.4f);
                     }
 
                     for (int i = 0; i < resolveSlots.Count; i++)
                     {
                         card.Slot = resolveSlots[i];
                         IEnumerator resolveTrigger = card.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard, Array.Empty<object>());
-
-                        if (visualiser?.sniperIcons.Count > i && visualiser?.sniperIcons[i] != null)
-                            visualiser?.CleanUpTargetIcon(visualiser?.sniperIcons[i]);
 
                         for (bool active = true; active;)
                         {
@@ -577,6 +596,9 @@ namespace Infiniscryption.Spells.Patchers
                             if (active) // Yielding and other loop logic is moved outside of the try-catch
                                 yield return resolveTrigger.Current;
                         }
+
+                        if (visualiser?.sniperIcons.Count > i && visualiser?.sniperIcons[i] != null)
+                            visualiser?.CleanUpTargetIcon(visualiser?.sniperIcons[i]);
 
                         card.Slot = null;
                     }

@@ -1,8 +1,8 @@
 {
   "name": "New_Spell_Card_Toolkit",
-  "version_number": "1.2.1",
+  "version_number": "1.2.2",
   "website_url": "https://github.com/HumabHatterZed/WhistleWindInscryptionMods",
-  "description": "An updated version of Infiniscryption's Spell Card Toolkit with new features and general improvements. v1.2.1 - Stat spells cards now show their stats when mousing over them.",
+  "description": "An updated version of Infiniscryption's Spell Card Toolkit with new features and general improvements. v1.2.2 - Fixes and enhancements for stat spells cards.",
   "dependencies": [
     "API_dev-API-2.18.5"
   ]

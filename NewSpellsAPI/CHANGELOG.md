@@ -1,6 +1,12 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
-## 1.2.1 (11/?/2023)
+## 1.2.2 (12/3/2023)
+- Fixed stat spell cards' health not being coloured correctly during battle
+- Opponent stat spell cards now reveal their stats when played
+- Queued stat spell cards now reveal their stats when moused over
+- Adjusted when the target icons created by opponent target spells disappear
+
+## 1.2.1 (11/29/2023)
 - Mousing over a stat spell card will reveal the card's stats
 
 ## 1.2.0 (11/16/2023)

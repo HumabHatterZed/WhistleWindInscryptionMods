@@ -20,7 +20,7 @@ namespace Infiniscryption.Spells
 
         public const string PluginGuid = "zorro.inscryption.infiniscryption.spells";
         internal const string PluginName = "New Infiniscryption Spells";
-        internal const string PluginVersion = "1.2.1";
+        internal const string PluginVersion = "1.2.2";
         internal const string CardPrefix = "ZSPL";
 
         internal static ManualLogSource Log;
@@ -84,20 +84,22 @@ namespace Infiniscryption.Spells
                 {
                     if (card.IsTargetedSpell() && card.SpecialStatIcon != TargetedSpellAbility.Icon)
                     {
+                        card.SetTargetedSpell();
                         if (!card.hideAttackAndHealth && (card.baseHealth > 0 || card.baseAttack > 0))
-                            card.SetTargetedSpellStats();
-                        else
-                            card.SetTargetedSpell();
+                            card.SetHideStats(false);
                     }
 
                     if (card.IsGlobalSpell() && (card.SpecialStatIcon != GlobalSpellAbility.Icon || card.SpecialStatIcon != InstaGlobalSpellAbility.Icon))
                     {
-                        if (!card.hideAttackAndHealth && (card.baseHealth > 0 || card.baseAttack > 0))
-                            card.SetGlobalSpellStats();
-                        else if (card.IsInstaGlobalSpell())
+                        if (card.IsInstaGlobalSpell())
                             card.SetInstaGlobalSpell();
                         else
                             card.SetGlobalSpell();
+
+                        // if show stats
+                        if (!card.hideAttackAndHealth && (card.baseHealth > 0 || card.baseAttack > 0))
+                            card.SetHideStats(false);
+
                     }
                 }
                 return cards;

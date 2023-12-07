@@ -1,12 +1,11 @@
 # Spell Cards
-This is an updated version of DivisionByZ0rro's original [Spell Card Toolkit](https://inscryption.thunderstore.io/package/Infiniscryption/Spell_Card_Toolkit/).
-This mod seeks to improve upon what was left behind through bug fixes and minor content additions.
+This is the official continuation of DivisionByZ0rro's original [Spell Card Toolkit](https://inscryption.thunderstore.io/package/Infiniscryption/Spell_Card_Toolkit/).
 
 New additions and features include:
 - Opponent support for Leshy playing spell cards
 - The ability to cancel playing a spell card once you've selected it
-- The ability to create spell cards that display their stats during battle
-- Non- and global spell cards support for built-in sigils, allowing them to work properly on these kinds of cards
+- The ability to create spell cards that display their stats when moused over and during battle
+- Added support for non-spell and global spell cards to this mod's built-in abilities, allowing them to work properly on these kinds of cards
 - 3 new sigils: Give Stats, Give Sigils, Give Stats and Sigils
 - 4 new cards: Soul Without a Body, Body Without a Soul, Another's Desire, Hope
 
@@ -23,7 +22,7 @@ This mod contains special abilities that allow you to create a new type of card 
 In other words, these are cards you play entirely because they have an immediate effect.
 There are also some additional sigils in this pack that might be useful for you when creating spells.
 
-There are two types of spells:
+There are two main types of spells:
 
 **Targeted Spells:** These have an effect on one specific space on the board. Use this type if you want to use sigils like 'Direct Damage' (included in this pack) or something like the Beaver's dam creation ability.
 
@@ -31,9 +30,11 @@ There are two types of spells:
 
 #
 
-With this new version, you can also make spell cards display their stats.
+There are additionally two sub-types of spells:
 
-By default, these kinds of cards can have their stats boosted at the campfire; you can disable this in the config.
+**Insta-Global Spells:** A variant of global spells that trigger immediately upon being selected (unless they cost Blood).
+
+**Stat Spells:** A variant of spells that show their stats when moused over. Can be applied to targeted and both kinds of global spells.
 
 ## Credits
 Original mod by DivisionByZ0rro.
@@ -149,10 +150,14 @@ To add a spell using JSON loader, you simply need to add either the global spell
 {
   "specialAbilities": [ "zorro.infiniscryption.sigils.Spell (Targeted)" ]
 }
+
+{
+  "specialAbilities": [ "zorro.infiniscryption.sigils.Spell (Global, Instant)" ]
+}
 ```
 
-Spell cards with health or attack greater than 0 will automatically be set to show their stats during battle;
-this can be disabled by setting "hideAttackAndHealth" to "true" when creating your card.
+Spell cards with a Health or Attack above 0 will automatically be converted to stat spells;
+this can be disabled by setting the CardInfo's "hideAttackAndHealth" to "true" when creating your card.
 
 To create a spell card that can never be buffed at the campfire, you need to add this mod's special Trait:
 ```json
@@ -161,6 +166,9 @@ To create a spell card that can never be buffed at the campfire, you need to add
 }
 ```
 Don't worry about adding the Stat Icon to your card; the mod will do it for you.
+
+<details>
+<summary>Old Message from DivisionByZ0rro</summary>
 
 ## A Personal Message from DivisionByZ0rro (7/18/2022)
 It's been a while since you've heard from me. Life changes quickly. I got a bad case of Covid, I had family members get seriously injured, and was just generally unavailable for a while. 
@@ -173,3 +181,5 @@ If anybody wants to continue any of my work, I hereby grant unrestricted permiss
 
 Thanks for everything,
 /0
+
+</details>
