@@ -14,6 +14,27 @@ namespace WhistleWindLobotomyMod.Patches
     [HarmonyPatch]
     internal static class CustomBossPatches
     {
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(CardDrawPiles), nameof(CardDrawPiles.DrawCardFromDeck))]
+        [HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawFromSidePile))]
+        private static IEnumerator RefreshDecksForCustomBosses(IEnumerator enumerator, CardDrawPiles __instance)
+        {
+            yield return enumerator;
+            if (!CustomBossUtils.FightingCustomBoss())
+                yield break;
+
+            if (__instance.Exhausted && !PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == "wstl_REFRESH_DECKS"))
+            {
+                CardInfo refreshDecks = CardLoader.GetCardByName("wstl_REFRESH_DECKS");
+
+                yield return new WaitForSeconds(0.4f);
+                ViewManager.Instance.SwitchToView(View.Hand);
+                yield return CardSpawner.Instance.SpawnCardToHand(refreshDecks);
+                yield return new WaitForSeconds(0.4f);
+                yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossExhausted", TextDisplayer.MessageAdvanceMode.Input);
+            }
+
+        }
         [HarmonyPostfix, HarmonyPatch(typeof(Part1GameFlowManager), nameof(Part1GameFlowManager.KillPlayerSequence))]
         private static IEnumerator CustomKillPlayerSequences(IEnumerator enumerator)
         {

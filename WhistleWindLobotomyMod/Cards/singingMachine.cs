@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string singingMachine = "singingMachine";
 
             NewCard(singingMachine, "Singing Machine", "A wind-up music machine. The song it plays is to die for.",
-                attack: 0, health: 4, blood: 1)
+                attack: 0, health: 4, blood: 1, temple: CardTemple.Tech)
                 .SetPortraits(singingMachine)
                 .AddAbilities(TeamLeader.ability, Aggravating.ability)
                 .AddTribes(TribeMechanical)

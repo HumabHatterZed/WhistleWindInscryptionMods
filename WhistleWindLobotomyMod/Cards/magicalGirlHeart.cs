@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             Trait[] traits = new[] { TraitMagicalGirl };
 
             NewCard(queenOfHatredTired, queenName,
-                attack: 0, health: 2, blood: 1)
+                attack: 0, health: 2, blood: 1, temple: CardTemple.Wizard)
                 .SetPortraits(queenOfHatredTired)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             NewCard(queenOfHatred, queenName,
-                attack: 8, health: 2, blood: 1)
+                attack: 8, health: 2, blood: 1, temple: CardTemple.Wizard)
                 .SetPortraits(queenOfHatred)
                 .AddAbilities(Piercing.ability, OneSided.ability)
                 .AddSpecialAbilities(specialAbilities)
@@ -40,7 +40,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             NewCard(magicalGirlHeart, "Magical Girl", "A hero of love and justice. She will aid you on your journey.",
-                attack: 1, health: 2, blood: 1)
+                attack: 1, health: 2, blood: 1, temple: CardTemple.Wizard)
                 .SetPortraits(magicalGirlHeart)
                 .AddAbilities(OneSided.ability)
                 .AddSpecialAbilities(LoveAndHate.specialAbility)

@@ -16,14 +16,14 @@ namespace WhistleWindLobotomyMod
             Tribe[] tribes = new[] { TribeAnthropoid };
 
             CardInfo cloudedMonkCard = NewCard(cloudedMonk, "Clouded Monk",
-                attack: 4, health: 2, blood: 2)
+                attack: 4, health: 2, blood: 2, temple: CardTemple.Wizard)
                 .SetPortraits(cloudedMonk)
                 .AddTribes(tribes)
                 .Build(cardType: ModCardType.Donator);
 
             NewCard(honouredMonk, "Honoured Monk", "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...",
-                attack: 2, health: 1, blood: 2)
-                .SetPortraits(cloudedMonk)
+                attack: 2, health: 1, blood: 2, temple: CardTemple.Wizard)
+                .SetPortraits(honouredMonk)
                 .AddAbilities(Ability.Evolve)
                 .AddTribes(tribes)
                 .SetEvolve(cloudedMonkCard, 1)

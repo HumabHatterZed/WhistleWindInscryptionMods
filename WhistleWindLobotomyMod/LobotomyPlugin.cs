@@ -161,6 +161,7 @@ namespace WhistleWindLobotomyMod
             {
                 var sniperInfo = abilities.Find(x => x.Info.name == "Sniper").Info;
                 var sentryInfo = abilities.Find(x => x.Info.name == "Sentry").Info;
+                var transformInfo = abilities.Find(x => x.Info.name == "Transformer").Info;
 
                 sniperInfo.rulebookName = "Marksman";
                 sniperInfo.SetAbilityLearnedDialogue("Your beast strikes with precision.")
@@ -171,9 +172,10 @@ namespace WhistleWindLobotomyMod
                 sentryInfo.rulebookName = "Quick Draw";
                 sentryInfo.SetAbilityLearnedDialogue("The early bird gets the worm.")
                     .SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw"))
-                    .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel"));
+                    .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel"))
+                    .SetCanStack();
 
-                sentryInfo.SetCanStack();
+                transformInfo.rulebookDescription = "A card bearing this sigil will transform into an alternate forme after 1 turn on the board.";
 
                 return abilities;
             };
@@ -182,9 +184,6 @@ namespace WhistleWindLobotomyMod
             Ability_Apostle();
             Ability_TrueSaviour();
             Ability_Confession();
-
-            Ability_ReturnCard();
-            Ability_RefreshDecks();
 
             Ability_Apocalypse();
             Ability_BigEyes();
@@ -220,7 +219,9 @@ namespace WhistleWindLobotomyMod
         }
         private void AddItems()
         {
-
+            // Enkephalin box - recharge energy
+            // Loving Slime - +1 Thick Skin
+            // 
         }
         private void AddStarterDecks()
         {
@@ -254,8 +255,8 @@ namespace WhistleWindLobotomyMod
                 "wstl_behaviourAdjustment" });
 
             StarterDeckHelper.AddStarterDeck(pluginPrefix, "Freak Show", "starterDeckFreakShow", 6, cardNames: new() {
-                "wstl_beautyAndBeast",
                 "wstl_voidDream",
+                "wstl_beautyAndBeast",
                 "wstl_queenBee" });
 
             StarterDeckHelper.AddStarterDeck(pluginPrefix, "Apocrypha", "starterDeckApocrypha", 7, cardNames: new() {
@@ -367,7 +368,7 @@ namespace WhistleWindLobotomyMod
                                 ParadiseLost = ModdedAchievementManager.New(pluginGuid, "Paradise Lost", "Reject His gifts and delay the Saviour.",
                                     false, grp, TextureLoader.LoadTextureFromFile("achievementBossSaviour.png")).ID;*/
 
-                Impuritas = ModdedAchievementManager.New(pluginGuid, "Impuritas Civitatis", "Unlock Angela by having 3 Sephirah in your deck while at a Sefirot choice node.",
+                Impuritas = ModdedAchievementManager.New(pluginGuid, "Impuritas Civitatis", "Meet Angela while looking for a third Sephirah to join you.",
                     false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;
 
                 TheThreeBirds = ModdedAchievementManager.New(pluginGuid, "The Three Birds", "You heard the story of the Black Forest.",

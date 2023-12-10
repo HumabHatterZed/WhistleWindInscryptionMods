@@ -96,7 +96,7 @@ namespace WhistleWind.AbnormalSigils
             while (powerLevel > 0)
             {
                 // 33% of giving Power
-                if (powerLevel >= 2 && SeededRandom.Value(randomSeed *= 2) <= 0.33f)
+                if (powerLevel >= 2 && SeededRandom.Value(randomSeed *= 2) <= 0.4f)
                 {
                     stats[0]++;
                     powerLevel -= 2;
@@ -108,7 +108,7 @@ namespace WhistleWind.AbnormalSigils
                 }
             }
 
-            base.Card.AddTemporaryMod(new(stats[0] - base.Card.Attack, stats[1] - base.Card.Health));
+            base.Card.AddTemporaryMod(new(stats[0] - base.Card.Attack, stats[1] - base.Card.Health) { nonCopyable = true });
         }
     }
 }

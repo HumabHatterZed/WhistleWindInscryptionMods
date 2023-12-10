@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string childOfTheGalaxy = "childOfTheGalaxy";
 
             NewCard(childOfTheGalaxy, "Child of the Galaxy", "A small child longing for a friend. Will you be his?",
-                attack: 1, health: 1, blood: 1)
+                attack: 1, health: 1, blood: 1, temple: CardTemple.Wizard)
                 .SetPortraits(childOfTheGalaxy)
                 .AddAbilities(FlagBearer.ability, Ability.BoneDigger)
                 .AddTribes(TribeAnthropoid)

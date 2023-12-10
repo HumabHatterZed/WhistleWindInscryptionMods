@@ -52,8 +52,7 @@ namespace WhistleWind.AbnormalSigils
 
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
-            damage--;
-            return damage;
+            return damage - base.Card.GetAbilityStacks(Ability);
         }
 
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;

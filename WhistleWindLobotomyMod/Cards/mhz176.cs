@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
             const string mhz176 = "mhz176";
 
             NewCard(mhz176, "1.76 MHz", "This is a record, a record of a day we must never forget.",
-                attack: 2, health: 1, energy: 3)
+                attack: 2, health: 1, energy: 3, temple: CardTemple.Undead)
                 .SetPortraits(mhz176)
                 .AddAbilities(Ability.BuffEnemy)
                 .SetTerrain(false)

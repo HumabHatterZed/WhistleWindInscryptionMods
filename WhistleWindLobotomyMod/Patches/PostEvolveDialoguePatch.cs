@@ -12,21 +12,31 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix]
         private static IEnumerator PlaySpecialEvolveDialogue(IEnumerator enumerator, Evolve __instance)
         {
-            // instance can't be null here so we can check the Card
             if (__instance.Card == null)
             {
                 yield return enumerator;
                 yield break;
             }
 
-            // grab the pre-evolution card name
-            string cardName = __instance.Card.Info.name;
-
-            // dialogue plays before evolution
-            if (cardName == "wstl_nothingThereTrue")
+            // only show dialogue if we're actually evolving
+            int turnsToEvolve = __instance.Card.Info.evolveParams?.turnsToEvolve ?? 1;
+            if (Mathf.Max(1, turnsToEvolve - (__instance.numTurnsInPlay + 1)) < turnsToEvolve)
             {
+                yield return enumerator;
+                yield break;
+            }
+
+            // grab the pre-evolution card name
+            // since __instance can be null after calling enumerator and we thus can't reliably check the Card
+            string preEvolutionName = __instance.Card.Info.name;
+
+            // pre-evolution dialogue
+            if (preEvolutionName == "wstl_nothingThereTrue")
+            {
+                ViewManager.Instance.SwitchToView(View.Board);
+                yield return new WaitForSeconds(0.15f);
                 __instance.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.4f);
+                yield return new WaitForSeconds(0.45f);
                 yield return DialogueHelper.PlayDialogueEvent("NothingThereTransformTrue");
             }
 
@@ -34,8 +44,7 @@ namespace WhistleWindLobotomyMod.Patches
             yield return enumerator;
 
             // dialogue plays after evolution
-            // check pre-evolution name since __instance can be null here and we thus can't reliably check the Card
-            switch (cardName)
+            switch (preEvolutionName)
             {
                 case "wstl_magicalGirlDiamond":
                     yield return new WaitForSeconds(0.2f);

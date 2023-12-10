@@ -219,17 +219,29 @@ namespace WhistleWindLobotomyMod
             CreateDialogueEvents("ApocalypseBossCardsExhausted",
                 new() { "The Beast senses your hunger, and grows more daring." });
 
-            CreateDialogueEvents("ApocalypseBossAttackStrength",
+            CreateDialogueEvents("ApocalypseBossFinalPhase",
                 new() { "The Beast begins to grow desperate." });
-            CreateDialogueEvents("ApocalypseBossAttackStrengthOvercharge",
-                new() { "The beast's strength grows beyond imagination..." });
+
+            CreateDialogueEvents("ApocalypseBossReactive1",
+                new() { "Your power angers the Beast." });
+            CreateDialogueEvents("ApocalypseBossReactive2",
+                new() { "The Beast grows more aggressive." });
+            CreateDialogueEvents("ApocalypseBossReactive3",
+                new() { "The Beast's strength grows beyond imagination..." });
+
+            CreateDialogueEvents("ApocalypseBossReactiveSkin",
+                new() { "The Beast's hide hardens under your creatures' claws." });
 
             CreateDialogueEvents("ApocalypseBossRecall",
                 new() {
                     "The Beast and its ilk move quickly and frequently. Use these to reposition your creatures.",
                     "Returned creatures will have their cost changed based on how recently you played them.",
                     "Newly played creatures will cost [c:bR]2 Bones[c:] to play again.",
-                    "I will reduce their recall cost over time, until they become [c:bR]free[c:] to replay." });
+                    "I will reduce their recall cost over time, until they become [c:bR]free[c:] to replay." },
+                new()
+                {
+                    new() { "Use these to reposition your creatures, for a cost." }
+                });
             CreateDialogueEvents("ApocalypseBossExhausted",
                 new() { "Why don't we continue a little longer?" });
             CreateDialogueEvents("ApocalypseBossBoneGain",

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -29,36 +30,30 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
-
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            List<CardSlot> validSlots = Singleton<BoardManager>.Instance.GetSlotsCopy(!base.Card.OpponentCard).FindAll(s => s.Card && s.Card != base.Card);
+            List<PlayableCard> validCards = Singleton<BoardManager>.Instance.GetCards(!base.Card.OpponentCard);
+            validCards.Remove(base.Card);
 
-            // if no other cards on the board except this card
-            if (validSlots.Count == 0)
+            if (validCards.Count == 0)
                 yield break;
 
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.1f);
-            foreach (var slot in validSlots)
+            foreach (PlayableCard card in validCards)
             {
-                // get all temp mods relating to negative status effects
-                List<CardModificationInfo> negativeAbilities = slot.Card.TemporaryMods.FindAll(x => x.IsStatusMod(false));
-
                 // remove all negative effects
-                List<StatusEffectBehaviour> negativeEffects = slot.Card.GetStatusEffects(false);
+                List<StatusEffectBehaviour> negativeEffects = card.GetStatusEffects(false);
+                List<CardModificationInfo> negativeAbilities = card.TemporaryMods.FindAll(x => x.IsStatusMod(false));
 
                 for (int i = 0; i < negativeEffects.Count; i++)
                     Destroy(negativeEffects[i]);
 
-                slot.Card.Anim.LightNegationEffect();
-                slot.Card.HealDamage(2);
-                if (negativeAbilities.Count > 0)
+                yield return HelperMethods.HealCard(card.Slot, negativeAbilities.Count > 0 ? 0.15f : 0.1f, (CardSlot s) =>
                 {
-                    slot.Card.RemoveTemporaryMods(negativeAbilities.ToArray());
-                    yield return new WaitForSeconds(0.15f);
-                }
-                yield return new WaitForSeconds(0.15f);
+                    if (negativeAbilities.Count > 0)
+                        s.Card.RemoveTemporaryMods(negativeAbilities.ToArray());
+                });
             }
             yield return base.LearnAbility(0.25f);
         }

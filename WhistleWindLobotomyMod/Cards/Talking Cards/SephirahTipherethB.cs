@@ -71,7 +71,6 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahTipherethB", "Tiphereth",
                 attack: 0, health: 1, energy: 2)
                 .AddAbilities(Ability.DrawCopyOnDeath, Ability.LatchDeathShield)
-                .AddTraits(TraitSephirah)
                 .SetOnePerDeck()
                 .Build();
         }

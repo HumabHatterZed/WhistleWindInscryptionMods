@@ -14,10 +14,11 @@ namespace WhistleWindLobotomyMod
             const string beautyAndBeast = "beautyAndBeast";
 
             NewCard(beautyAndBeast, "Beauty and the Beast", "A pitiable creature. Death would be a mercy for it.",
-                attack: 1, health: 1, blood: 1)
+                attack: 0, health: 1, blood: 1)
                 .SetPortraits(beautyAndBeast)
                 .AddAbilities(Cursed.ability)
                 .AddTribes(Tribe.Hooved, Tribe.Insect)
+                .AddTraits(Trait.KillsSurvivors)
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }

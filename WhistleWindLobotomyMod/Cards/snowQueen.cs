@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string snowQueen = "snowQueen";
 
             NewCard(snowQueen, "The Snow Queen", "A queen from far away. Those who enter her palace never leave.",
-                attack: 1, health: 2, bones: 5)
+                attack: 1, health: 2, bones: 5, temple: CardTemple.Wizard)
                 .SetPortraits(snowQueen)
                 .AddAbilities(FrostRuler.ability)
                 .AddTribes(TribeFae)

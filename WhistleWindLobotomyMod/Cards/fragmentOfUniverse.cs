@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string fragmentOfUniverse = "fragmentOfUniverse";
 
             NewCard(fragmentOfUniverse, "Fragment of the Universe", "You see a song in front of you. It's approaching, becoming more colourful by the second.",
-                attack: 1, health: 2, blood: 1)
+                attack: 1, health: 2, blood: 1, temple: CardTemple.Wizard)
                 .SetPortraits(fragmentOfUniverse)
                 .AddAbilities(Piercing.ability)
                 .AddTribes(TribeDivine)

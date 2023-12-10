@@ -1,13 +1,6 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Encounters;
-using Pixelplacement;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
-using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Opponents.Saviour
 {

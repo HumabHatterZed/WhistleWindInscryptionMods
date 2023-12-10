@@ -177,10 +177,11 @@ namespace WhistleWindLobotomyMod.Core
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_voidDream").SetReplacement("wstl_voidDreamRooster", 14), NewCardBlueprint("wstl_beautyAndBeast")),
                     CreateTurn(),
-                    CreateTurn(NewCardBlueprint("wstl_allAroundHelper", 75)),
+                    CreateTurn(NewCardBlueprint("wstl_allAroundHelper", 45)),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_rudoltaSleigh")),
-                    CreateTurn()
+                    CreateTurn(),
+                    CreateTurn(EmptyBlueprint("wstl_alriune", 16))
                 ), regions: 2);
             Build(New("AlriuneJuggernaut")
                 .SetDifficulty(11, 14)
@@ -229,7 +230,7 @@ namespace WhistleWindLobotomyMod.Core
                 .AddDominantTribes(AbnormalPlugin.TribeBotanic)
                 .AddRandomReplacementCards("wstl_queenBeeWorker", "wstl_snowWhitesApple", "wstl_schadenfreude", "wstl_burrowingHeaven")
                 .AddTurns(
-                    CreateTurn(NewCardBlueprint("wstl_parasiteTree", 25), NewCardBlueprint("wstl_queenBee", 25)),
+                    CreateTurn(NewCardBlueprint("wstl_theLittlePrince", 25), NewCardBlueprint("wstl_queenBee", 25)),
                     CreateTurn(nakedWorm),
                     CreateTurn(workerBee, workerBee, nakedWorm),
                     CreateTurn(),
@@ -276,26 +277,27 @@ namespace WhistleWindLobotomyMod.Core
             ProspectorAbnormalBossP1 = Build(New("ProspectorAbnormalBossP1")
                 .SetDifficulty(4, 7)
                 .AddDominantTribes(AbnormalPlugin.TribeBotanic)
-                .AddRandomReplacementCards("wstl_porccubus", "wstl_todaysShyLookAngry", "wstl_ppodae")
-                .SetRedundantAbilities(Bloodfiend.ability)
+                .AddRandomReplacementCards("wstl_porccubus", "wstl_fragmentOfUniverse", "wstl_ppodae")
+                .SetRedundantAbilities(Bloodfiend.ability, Roots.ability, Ability.Sharp, Ability.Deathtouch)
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_RUDOLTA_MULE"), NewCardBlueprint("wstl_wisdomScarecrow")),
-                    CreateTurn(NewCardBlueprint("wstl_scorchedGirl", 20)),
+                    CreateTurn(),
+                    CreateTurn(NewCardBlueprint("wstl_scorchedGirl")),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_snowWhitesApple")),
                     CreateTurn(EmptyBlueprint("wstl_canOfWellCheers", 6)),
                     CreateTurn(NewCardBlueprint("wstl_graveOfBlossoms", 25)),
                     CreateTurn(),
-                    CreateTurn(EmptyBlueprint("wstl_fragmentOfUniverse", 6))
+                    CreateTurn(EmptyBlueprint("wstl_todaysShyLook", 6))
                 ), 3);
             ProspectorAbnormalBossP2 = Build(New("ProspectorAbnormalBossP2")
                .SetDifficulty(4, 7)
                .AddDominantTribes(AbnormalPlugin.TribeBotanic)
-               .AddRandomReplacementCards("wstl_ppodae", "wstl_porccubus", "wstl_wisdomScarecrow")
+               .AddRandomReplacementCards("wstl_beautyAndBeast", "wstl_porccubus", "wstl_wisdomScarecrow")
                .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_willBeBadWolf")),
                     CreateTurn(),
-                    CreateTurn(NewCardBlueprint("wstl_redHoodedMercenary", 25)),
+                    CreateTurn(NewCardBlueprint("wstl_redHoodedMercenary", 40)),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_warmHeartedWoodsman", 25)),
                     CreateTurn(),

@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -116,7 +117,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             return retval;
         }
 
-        public static T AddStatusEffect<T>(this PlayableCard card, int effectSeverity, bool addDecals = false) where T : StatusEffectBehaviour
+        public static T AddStatusEffect<T>(this PlayableCard card, int effectSeverity,
+            bool addDecals = false, Func<int, int> modifyTurnGained = null) where T : StatusEffectBehaviour
         {
             T component = card.GetStatusEffect<T>();
             if (component == null)
@@ -124,8 +126,18 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
             component = card.GetStatusEffect<T>();
             component.AddSeverity(effectSeverity, addDecals);
-            component.TurnGained = TurnManager.Instance?.TurnNumber ?? -1;
+            component.TurnGained = modifyTurnGained?.Invoke(TurnManager.Instance.TurnNumber) ?? TurnManager.Instance.TurnNumber;
             return component;
+        }
+        public static IEnumerator AddStatusEffectFlipCard<T>(this PlayableCard card, int effectSeverity,
+            bool addDecals = false, Func<int, int> modifyTurnGained = null) where T : StatusEffectBehaviour
+        {
+            bool faceDown = card.FaceDown;
+            yield return card.FlipFaceUp(faceDown);
+            card.AddStatusEffect<T>(effectSeverity, addDecals, modifyTurnGained);
+            yield return card.FlipFaceDown(faceDown);
+            if (faceDown)
+                yield return new WaitForSeconds(0.4f);
         }
 
         public static int GetStatusEffectStacks<T>(this PlayableCard playableCard) where T : StatusEffectBehaviour

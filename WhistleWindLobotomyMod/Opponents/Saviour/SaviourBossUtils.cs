@@ -119,11 +119,8 @@ namespace WhistleWindLobotomyMod.Opponents
 
         internal static EncounterBlueprintData CreateStartingBlueprint()
         {
-            string minion = (TurnManager.Instance.SpecialSequencer as SaviourBattleSequencer).ActiveEggMinion;
-
             EncounterBlueprintData encounter = EncounterManager.New("SaviourBossPlan", false)
-                .AddDominantTribes(AbnormalPlugin.TribeDivine)
-                .AddTurns(EncounterManager.CreateTurn(minion, minion));
+                .AddDominantTribes(AbnormalPlugin.TribeDivine);
 
             return encounter;
         }

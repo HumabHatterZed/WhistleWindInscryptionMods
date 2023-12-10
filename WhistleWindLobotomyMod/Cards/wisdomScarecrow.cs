@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string wisdomScarecrow = "wisdomScarecrow";
 
             NewCard(wisdomScarecrow, "Scarecrow Searching for Wisdom", "A hollow-headed scarecrow. Blood soaks its straw limbs.",
-                attack: 1, health: 1, bones: 4)
+                attack: 1, health: 1, bones: 4, temple: CardTemple.Undead)
                 .SetPortraits(wisdomScarecrow)
                 .AddAbilities(Bloodfiend.ability)
                 .AddTribes(TribeBotanic)

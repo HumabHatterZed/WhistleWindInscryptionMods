@@ -18,16 +18,16 @@ namespace WhistleWindLobotomyMod
             Tribe[] tribes = new[] { TribeFae };
 
             CardInfo beast = NewCard(nosferatuBeast, nosferatuName,
-                attack: 3, health: 1, blood: 2)
+                attack: 3, health: 1, blood: 2, temple: CardTemple.Undead)
                 .SetPortraits(nosferatuBeast)
                 .AddAbilities(Bloodfiend.ability, Bloodfiend.ability)
                 .AddTribes(tribes)
                 .Build(cardType: ModCardType.Ruina);
 
             NewCard(nosferatu, nosferatuName, "A creature of the night, noble and regal. Will you help sate its thirst?",
-                attack: 2, health: 1, blood: 2)
+                attack: 2, health: 1, blood: 2, temple: CardTemple.Undead)
                 .SetPortraits(nosferatu)
-                .AddAbilities(Bloodfiend.ability, Ability.Evolve)
+                .AddAbilities(Ability.Evolve, Bloodfiend.ability)
                 .AddTribes(tribes)
                 .SetEvolve(beast, 1)
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Ruina);

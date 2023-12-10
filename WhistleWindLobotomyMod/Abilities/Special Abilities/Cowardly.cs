@@ -48,10 +48,10 @@ namespace WhistleWindLobotomyMod
 
             if (transformation != null)
             {
-                if (base.PlayableCard.OnBoard)
-                    yield return base.PlayableCard.TransformIntoCard(transformation, action);
+                if (base.PlayableCard.InHand)
+                    yield return base.PlayableCard.TransformIntoCardAboveHand(transformation, action);
                 else
-                    yield return base.PlayableCard.TransformIntoCardInHand(transformation, action);
+                    yield return base.PlayableCard.TransformIntoCard(transformation, action);
 
                 yield return new WaitForSeconds(0.5f);
             }

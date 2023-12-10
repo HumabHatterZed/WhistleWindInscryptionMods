@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
 
             CardInfo kingOfGreedCard = NewCard(
                 kingOfGreed, kingName,
-                attack: 2, health: 5, blood: 1)
+                attack: 2, health: 5, blood: 1, temple: CardTemple.Wizard)
                 .SetPortraits(kingOfGreed)
                 .AddAbilities(Cycler.ability)
                 .AddSpecialAbilities(specialAbilities)
@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             NewCard(magicalGirlDiamond, kingName, "A girl encased in hardened amber. Happiness trapped by greed.",
-                attack: 0, health: 2, blood: 1)
+                attack: 0, health: 2, blood: 1, temple: CardTemple.Wizard)
                 .SetPortraits(magicalGirlDiamond)
                 .AddAbilities(Ability.Evolve)
                 .AddSpecialAbilities(specialAbilities)

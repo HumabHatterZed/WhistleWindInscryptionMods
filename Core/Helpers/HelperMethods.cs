@@ -1,4 +1,5 @@
 using DiskCardGame;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,30 @@ namespace WhistleWind.Core.Helpers
 {
     public static class HelperMethods
     {
+        public static T CopySpecialCardBehaviour<T>(T original, GameObject gameObject) where T : SpecialCardBehaviour
+        {
+            System.Type type = original.GetType();
+            Component component = gameObject.AddComponent(type);
+            System.Reflection.FieldInfo[] fields = type.GetFields();
+            foreach (System.Reflection.FieldInfo field in fields)
+            {
+                if (!field.IsLiteral)// && !field.IsInitOnly) // don't mess with constants
+                    field.SetValue(component, field.GetValue(original));
+            }
+            return component as T;
+        }
+        public static IEnumerator HealCard(CardSlot slot, float postWait = 0.1f, Action<CardSlot> onHealCallback = null)
+        {
+            bool faceDown = slot.Card.FaceDown;
+            yield return slot.Card.FlipFaceUp(faceDown);
+            slot.Card.Anim.LightNegationEffect();
+            slot.Card.HealDamage(2);
+            onHealCallback?.Invoke(slot);
+            yield return new WaitForSeconds(postWait);
+            yield return slot.Card.FlipFaceDown(faceDown);
+            if (faceDown)
+                yield return new WaitForSeconds(0.4f);
+        }
         public static void RemoveCardFromDeck(CardInfo info)
         {
             if (SaveManager.SaveFile.IsPart2)

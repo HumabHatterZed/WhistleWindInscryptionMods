@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
             const string meltingLove = "meltingLove";
 
             NewCard(meltingLove, "Melting Love", "Don't let your beasts get too close now.",
-                attack: 4, health: 3, blood: 3)
+                attack: 4, health: 3, blood: 3, temple: CardTemple.Undead)
                 .SetPortraits(meltingLove)
                 .AddAbilities(Slime.ability)
                 .AddSpecialAbilities(Adoration.specialAbility)

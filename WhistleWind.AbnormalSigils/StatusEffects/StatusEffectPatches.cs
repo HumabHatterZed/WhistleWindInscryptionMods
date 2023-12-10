@@ -4,10 +4,8 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.Core
 {
@@ -25,10 +23,7 @@ namespace WhistleWind.AbnormalSigils.Core
         [HarmonyPrefix, HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.UpdateAbilityIcons))]
         private static void AddStatusEffectIcons(CardAbilityIcons __instance)
         {
-            if (!__instance || SaveManager.SaveFile.IsGrimora || SaveManager.SaveFile.IsMagnificus)
-                return;
-
-            if (__instance && !SaveManager.SaveFile.IsPart2)
+            if (__instance != null && (SaveManager.SaveFile.IsPart1 || SaveManager.SaveFile.IsPart3))
             {
                 StatusEffectAbilityIcons component = __instance.GetComponent<StatusEffectAbilityIcons>();
                 if (component == null)
@@ -46,7 +41,7 @@ namespace WhistleWind.AbnormalSigils.Core
         [HarmonyPostfix, HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.UpdateAbilityIcons))]
         private static void UpdateStatusEffects(CardAbilityIcons __instance, PlayableCard playableCard)
         {
-            if (!__instance || SaveManager.SaveFile.IsGrimora || SaveManager.SaveFile.IsMagnificus)
+            if (__instance == null || SaveManager.SaveFile.IsGrimora || SaveManager.SaveFile.IsMagnificus)
                 return;
 
             List<Ability> distinct = GetDistinctStatusEffects(playableCard);

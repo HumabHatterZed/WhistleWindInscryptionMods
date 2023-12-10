@@ -39,8 +39,10 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         private bool bossTotems; // if totem, change sigil each phase
         private readonly List<Ability> possibleAbilities = new() // totem abilities
         {
+            Ability.GuardDog,
             Ability.Sentry,
             Ability.Strafe,
+            Cycler.ability,
             NimbleFoot.ability,
             Scorching.ability,
             ThickSkin.ability
@@ -152,14 +154,14 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 {
                     possibleAbilities.Clear();
                     possibleAbilities.Add(Piercing.ability);
-                    possibleAbilities.Add(OneSided.ability);
+                    possibleAbilities.Add(Persistent.ability);
                 }
                 Singleton<ViewManager>.Instance.SwitchToView(View.OpponentTotem);
                 yield return new WaitForSeconds(0.25f);
                 yield return ReplaceTotemBottom();
 
                 // immediately increase the music to regular volume for maximum coolness(tm)
-                //AudioController.Instance.loopSources[0].time = 11.5f;
+                AudioController.Instance.loopSources[0].time = 11.5f;
                 AudioController.Instance.SetLoopVolumeImmediate(BG_VOLUME);
                 yield return new WaitForSeconds(0.5f);
                 Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue);
@@ -208,6 +210,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return HelperMethods.ChangeCurrentView(View.Default, 0.5f);
             PlayDefeatAnimation();
             AudioController.Instance.SetLoopVolume(BG_VOLUME, 0.5f);
+            AudioController.Instance.loopSources[0].pitch *= 1.1f;
             yield return new WaitForSeconds(2f);
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(beast, BoardManager.Instance.OpponentSlotsCopy[0], 0.2f);
             apocalypseAnimation.transform.SetParent(BoardManager.Instance.OpponentSlotsCopy[0].Card.transform.Find("Quad"));

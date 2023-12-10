@@ -96,13 +96,24 @@ namespace WhistleWindLobotomyMod.Patches
                 targetSlot.Card.AddTemporaryMod(new() { singletonId = executeId });
         }
         [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.PlayerSlotCursorEnterCallback))]
-        private static void CustomCursorEnterCallback(CardSlot targetSlot)
+        private static void CustomCursorEnterCallback(CardSlot targetSlot, CardSlot attackingSlot)
         {
-            InteractionCursor.Instance.ForceCursorType(ImmuneToHanging(targetSlot) ? CursorType.Target : CursorType.Sacrifice);
+            if (IsJudgementBird(attackingSlot))
+                InteractionCursor.Instance.ForceCursorType(ImmuneToHanging(targetSlot) ? CursorType.Target : CursorType.Sacrifice);
         }
         [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.GetValidTargets))]
         private static void CustomSniperTargets(ref List<CardSlot> __result, bool playerIsAttacker, CardSlot attackingSlot)
         {
+            if (attackingSlot.Card.HasStatusEffect<Enchanted>(true))
+            {
+                List<CardSlot> slots = BoardManager.Instance.AllSlotsCopy.FindAll(x => x.Card != null && x.Card.HasAbility(Dazzling.ability));
+                // if there's a target card that this card can hit
+                if (slots.Count > 0 && slots.Exists(x => !attackingSlot.Card.CanAttackDirectly(x)))
+                {
+                    __result = slots.FindAll(x => !attackingSlot.Card.CanAttackDirectly(x));
+                    return;
+                }
+            }
             if (!playerIsAttacker && (attackingSlot.Card?.HasStatusEffect<Sin>() ?? false))
             {
                 __result = BoardManager.Instance.AllSlotsCopy;

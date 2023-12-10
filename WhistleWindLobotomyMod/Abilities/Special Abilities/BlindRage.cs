@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
 
         public const string rName = "Blind Rage";
-        public const string rDesc = "Servant of Wrath will target a random space on the board, prioritising occupied spaces.";
+        public const string rDesc = "Servant of Wrath will target a random space on the board when attacking, prioritising occupied spaces.";
 
         private List<CardSlot> GetRandomOccupiedSlot()
         {

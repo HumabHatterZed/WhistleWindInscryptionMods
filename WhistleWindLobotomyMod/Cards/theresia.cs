@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string theresia = "theresia";
 
             NewCard(theresia, "Theresia", "An old music box. It plays a familiar melody.",
-                attack: 0, health: 2, energy: 2)
+                attack: 0, health: 2, energy: 2, temple: CardTemple.Tech)
                 .SetPortraits(theresia)
                 .AddAbilities(Healer.ability)
                 .AddTribes(TribeMechanical)

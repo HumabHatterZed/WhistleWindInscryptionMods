@@ -19,15 +19,16 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
         private bool CanReduceOnUpkeep(bool playerUpkeep)
         {
-            Debug.Log($"{TurnGained} {TurnManager.Instance.TurnNumber - 1} {base.PlayableCard.InHand}");
-            return base.PlayableCard.OpponentCard != playerUpkeep && (TurnManager.Instance.TurnNumber - 1) >= TurnGained;
+            Debug.Log($"Reduce? {base.PlayableCard.Info.name} {base.PlayableCard.OpponentCard != playerUpkeep && TurnManager.Instance.TurnNumber > TurnGained}");
+            return base.PlayableCard.OpponentCard != playerUpkeep && TurnManager.Instance.TurnNumber > TurnGained;
         }
         private IEnumerator OnReduceOnUpkeep()
         {
+            Debug.Log($"Reduce: {EffectSeverity} | {EffectSeverity - SeverityReduction}");
             base.PlayableCard.Anim.LightNegationEffect();
-            ViewManager.Instance.SwitchToView(View.Board);
+            ViewManager.Instance.SwitchToView(base.PlayableCard.InHand ? View.Hand : View.Board);
             yield return new WaitForSeconds(0.2f);
-            AddSeverity(-SeverityReduction, false);
+            AddSeverity(-SeverityReduction, true);
             if (EffectSeverity <= 0)
                 Destroy();
         }
@@ -50,13 +51,14 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         // allows for adding extra stacks of an effect to a card
         private void Start()
         {
-            if (base.PlayableCard == null) return;
+            if (base.PlayableCard != null)
+            {
+                EffectSeverity = base.PlayableCard.GetAbilityStacks(IconAbilityInfo.ability);
 
-            EffectSeverity = base.PlayableCard.GetAbilityStacks(IconAbilityInfo.ability);
-
-            base.PlayableCard.AddTemporaryMod(EffectCountMod());
-            if (EffectDecalIds().Count > 0)
-                base.PlayableCard.AddTemporaryMod(EffectDecalMod());
+                base.PlayableCard.AddTemporaryMod(EffectCountMod());
+                if (EffectDecalIds().Count > 0)
+                    base.PlayableCard.AddTemporaryMod(EffectDecalMod());
+            }
         }
 
         public void AddSeverity(int amount, bool updateDecals)
@@ -71,7 +73,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             {
                 mod = base.PlayableCard.TemporaryMods.Find(x => x.singletonId == CardModSingletonName + "_decal");
                 base.PlayableCard.RemoveTemporaryMod(mod);
-                base.PlayableCard.AddTemporaryMod(EffectDecalMod());
+                if (EffectDecalIds().Count > 0)
+                    base.PlayableCard.AddTemporaryMod(EffectDecalMod());
             }
         }
         public void SetSeverity(int amount, bool updateDecals)
@@ -86,7 +89,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             {
                 mod = base.PlayableCard.TemporaryMods.Find(x => x.singletonId == CardModSingletonName + "_decal");
                 base.PlayableCard.RemoveTemporaryMod(mod);
-                base.PlayableCard.AddTemporaryMod(EffectDecalMod());
+                if (EffectDecalIds().Count > 0)
+                    base.PlayableCard.AddTemporaryMod(EffectDecalMod());
             }
         }
 

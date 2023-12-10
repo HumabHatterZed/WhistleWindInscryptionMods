@@ -96,7 +96,7 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 |All-Around Helper					|1/3  |<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/P1yr67p.png'>|Sprinter, Bifurcated Strike	|Mechanical				|						 |						|
 |Snow White's Apple					|1/1  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/jnK5NEz.png'>|Roots							|Botanic				|Toxic					 |						|
 |Spider Bud							|0/2  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/iJN52Ow.png'>|Broodmother					|Insect					|						 |						|
-|Beauty and the Beast				|1/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Cursed							|Hooved, Insect			|						 |						|
+|Beauty and the Beast				|0/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Cursed							|Hooved, Insect			|Toxic					 |						|
 |Plague Doctor						|0/3  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/jnK5NEz.png'>|Airborne, Healer				|Divine					|						 |Singleton				|
 |Don't Touch Me						|0/1  |<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/3ngvEdK.png'>|Punisher, Guardian				|Mechanical				|Terrain, Toxic			 |						|
 |Rudolta of the Sleigh				|2/3  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Sprinter, Gift Giver			|Hooved					|						 |						|
@@ -107,36 +107,37 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 |Forsaken Murderer					|4/1  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/cEvPoTk.png'>|								|Anthropoid				|						 |						|
 |Child of the Galaxy				|1/4  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Flag Bearer, Bone Digger		|Anthropoid				|						 |						|
 |Punishing Bird						|1/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Airborne, Punisher				|Avian					|Black Forest, Toxic	 |Singleton				|
-|Little Red Riding Hooded Mercenary	|2/5  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Marksman, Persistent			|Anthropoid				|						 |						|
+|Little Red Riding Hooded Mercenary	|2/5  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Sniper, Persistent				|Anthropoid				|						 |						|
 |Big and Will Be Bad Wolf			|3/4  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Assimilator					|Canine					|						 |						|
 |You're Bald...						|0/2  |<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/3ngvEdK.png'>|Fecundity						|						|						 |						|
 |Fragment of the Universe			|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Piercing						|Divine					|						 |						|
 |Crumbling Armour					|0/3  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/o1qsSmA.png'>|Courageous						|						|						 |						|
-|Judgement Bird						|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Marksman						|Avian					|Black Forest,Executioner|Singleton				|
+|Judgement Bird						|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Sniper							|Avian					|Black Forest, Executioner|Singleton				|
 |Apocalypse Bird					|3/9  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/1c6PTpq.png'>|Omni Strike					|Avian					|						 |Event, Rare, Singleton|
 |The King of Greed					|0/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Fledgling						|Fae					|Magical Girl			 |Singleton				|
 |⤷ The King of Greed				|2/5  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Cycler							|Fae					|Magical Girl			 |Singleton				|
 |The Little Prince					|1/4  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Sporogenic						|Botanic				|						 |						|
 |Laetitia							|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Gift Giver						|Fae					|						 |						|
 |Funeral of the Dead Butterflies	|1/3  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Double Strike					|Insect					|						 |						|
-|Der Freischütz						|1/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Bifurcated Strike, Marksman	|Fae					|						 |Rare					|
+|Der Freischütz						|2/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Sniper, Persistent				|Fae					|						 |Rare					|
 |Dream of a Black Swan				|2/5  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Nettle Clothes					|Avian					|						 |Rare					|
 |The Dreaming Current				|4/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Waterborne, Barreler			|						|						 |						|
-|The Burrowing Heaven				|0/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Quick Draw, Guardian			|Divine					|						 |						|
+|The Burrowing Heaven				|0/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Sentry, Guardian				|Divine					|						 |						|
 |The Knight of Despair				|1/4  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Protector						|Fae					|Magical Girl			 |Singleton				|
 |The Naked Nest						|0/3  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/o1qsSmA.png'>|Serpent's Nest					|Insect					|Naked Nest				 |						|
 |The Mountain of Smiling Bodies		|2/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Assimilator					|						|						 |Rare					|
-|Schadenfreude						|1/1  |<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/P1yr67p.png'>|Quick Draw						|Mechanical				|						 |						|
+|Schadenfreude						|1/1  |<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/P1yr67p.png'>|Sentry							|Mechanical				|						 |						|
 |The Heart of Aspiration			|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Leader							|						|						 |						|
 |Notes From A Crazed Researcher		|2/0  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/iJN52Ow.png'>|Brittle, Give Stats and Sigils	|						|						 |Spell					|
 |Flesh Idol							|0/4  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/czecyiH.png'>|Aggravating, Fledgling (2)		|Divine					|						 |						|
+|⤷ Flesh Idol						|0/4  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/czecyiH.png'>|Team Leader (2), Fledgling		|Divine					|						 |						|
 |Giant Tree Sap						|0/3  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/jnK5NEz.png'>|Morsel							|Botanic				|						 |Rare					|
 |The Mirror of Adjustment			|M/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Woodcutter						|						|Terrain				 |						|
 |Shelter From The 27th of March		|0/1  |<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/3ngvEdK.png'>|Aggravating, Repulsive			|						|						 |						|
 |Fairy Festival						|1/1  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Bloodfiend						|Fae					|						 |						|
 |Meat Lantern						|1/2  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Punisher, Mighty Leap			|						|Toxic					 |						|
 |We Can Change Anything				|0/3  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Grinder						|Mechanical				|						 |						|
-|Express Train To Hell				|0/4  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/iJN52Ow.png'>|Group Healer					|Mechanical				|						 |Rare					|
+|Express Train To Hell				|0/1  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/iJN52Ow.png'>|Group Healer					|Mechanical				|						 |Rare					|
 |Scarecrow Searching For Wisdom		|1/1  |<img src='https://i.imgur.com/GeMgIce.png'><img src='https://i.imgur.com/UMfuFFS.png'><img src='https://i.imgur.com/iJN52Ow.png'>|Bloodfiend						|Anthropoid, Botanic	|Emerald City			 |Singleton				|
 |Dimensional Refraction Variant		|SP/SP|<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Amorphous						|						|						 |						|
 |Censored							|4/3  |<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Bloodfiend						|						|						 |Rare					|
@@ -288,7 +289,7 @@ If all talking cards have been obtained, then this node will offer 3 random deat
 |Tiphereth A|1/2|<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/P1yr67p.png'>|Gift Giver				|
 |Chesed		|0/4|<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/UENa3ep.png'>|Healer, Thick Skin		|
 |Gebura		|3/5|<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Bloodlust, Piercing		|
-|Binah		|3/5|<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Marksman, Piercing		|
+|Binah		|3/5|<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/nR7Ce9J.png'>|Sniper, Piercing		|
 |Hokma		|2/2|<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/3L8GdcW.png'><img src='https://i.imgur.com/vIrzRRC.png'>|Neutered Latch			|
 |Angela		|3/3|<img src='https://i.imgur.com/C22peXt.png'><img src='https://i.imgur.com/hox8zlk.png'><img src='https://i.imgur.com/lgHEMp9.png'>|Ruler Of Frost			|
 

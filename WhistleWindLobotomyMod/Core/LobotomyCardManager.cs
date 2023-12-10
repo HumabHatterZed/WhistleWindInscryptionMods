@@ -61,18 +61,9 @@ namespace WhistleWindLobotomyMod.Core
                 cardInfo.RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
             }
 
-            if (LobotomyConfigManager.Instance.GBCPacks && cardInfo.pixelPortrait != null)
-            {
-                CardTemple temple = cardInfo.temple;
-                if (cardInfo.IsOfTribe(AbnormalPlugin.TribeFae))
-                    temple = CardTemple.Wizard;
-                else if (cardInfo.IsOfTribe(AbnormalPlugin.TribeMechanical))
-                    temple = CardTemple.Tech;
-
-                // make it available in packs and appear in the collection menu
-                if (canBeObtained)
-                    cardInfo.SetGBCPlayable(temple);
-            }
+            // make it available in packs and appear in the collection menu
+            if (LobotomyConfigManager.Instance.GBCPacks && cardInfo.pixelPortrait != null && canBeObtained)
+                cardInfo.AddMetaCategories(CardMetaCategory.GBCPack, CardMetaCategory.GBCPlayable);
 
             if (canBeObtained && cardInfo.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.Rare))
                 ObtainableLobotomyCards.Add(cardInfo);

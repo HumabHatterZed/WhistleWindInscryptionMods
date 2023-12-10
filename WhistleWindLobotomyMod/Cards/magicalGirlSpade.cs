@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             Trait[] traits = new[] { TraitMagicalGirl };
 
             NewCard(knightOfDespair, knightName,
-                attack: 1, health: 4, blood: 2)
+                attack: 1, health: 4, blood: 2, temple: CardTemple.Wizard)
                 .SetPortraits(knightOfDespair)
                 .AddAbilities(Ability.SplitStrike, Piercing.ability)
                 .AddTribes(tribes)
@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             NewCard(magicalGirlSpade, knightName, "A loyal knight fighting to protect those close to her.",
-                attack: 1, health: 4, blood: 2)
+                attack: 1, health: 4, blood: 2, temple: CardTemple.Wizard)
                 .SetPortraits(magicalGirlSpade)
                 .AddAbilities(Protector.ability)
                 .AddSpecialAbilities(SwordWithTears.specialAbility)

@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 .AddAbilities(Ability.Flying, Idol.ability, TrueSaviour.ability)
                 .AddTribes(TribeDivine)
                 .AddTraits(ImmuneToInstaDeath, Trait.Uncuttable, TraitApostle)
-                .AddAppearances(ForcedWhiteEmission.appearance)
+                .AddAppearances(ForcedWhiteEmission.appearance, CardAppearanceBehaviour.Appearance.TerrainLayout)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
         }

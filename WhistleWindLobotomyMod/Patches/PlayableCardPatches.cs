@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 

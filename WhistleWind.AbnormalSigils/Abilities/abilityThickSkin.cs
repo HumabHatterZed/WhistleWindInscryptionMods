@@ -26,7 +26,7 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToTakeDamage(PlayableCard source) => source != null;
+        public override bool RespondsToTakeDamage(PlayableCard source) => true;
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
             yield return base.PreSuccessfulTriggerSequence();
@@ -41,11 +41,7 @@ namespace WhistleWind.AbnormalSigils
             return false;
         }
 
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
-        {
-            damage--;
-            return damage;
-        }
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => damage - 1;
 
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
     }

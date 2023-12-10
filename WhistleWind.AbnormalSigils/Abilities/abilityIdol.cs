@@ -34,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
         public int GetPassiveAttackBuff(PlayableCard target)
         {
             if (this.Card.OnBoard && target.OpponentCard != base.Card.OpponentCard)
-                return target.LacksAbility(Ability.MadeOfStone) ? -1 : 0;
+                return target.LacksAbility(Ability.MadeOfStone) ? -base.Card.GetAbilityStacks(Ability) : 0;
 
             return 0;
         }

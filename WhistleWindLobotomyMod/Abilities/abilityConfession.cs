@@ -87,7 +87,7 @@ namespace WhistleWindLobotomyMod
         {
             if (killer != null && killer.HasTrait(LobotomyCardManager.TraitApostle))
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
-            
+
             yield break;
         }
     }

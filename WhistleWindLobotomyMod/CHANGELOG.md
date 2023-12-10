@@ -1,43 +1,55 @@
-# Plugin GUID: whistlewind.inscryption.lobotomycorp
-
 <details>
 <summary>View Changelog</summary>
 
+# Plugin GUID: whistlewind.inscryption.lobotomycorp
+
 ## v2.1.0 - Into the Twilight (?/?/202?)
 ### 🩹 Bug fixes
+- Fixed Honoured Monk having the wrong portrait
 - Fixed The Road Home softlocking the game when played by Leshy
 - Fixed Abnormal Bosses config replacing Grizzly Bears with Guardian Apostles in Part 1 during bosses
-- Fixed learned dialogue for Marksman and Quick Draw not playing
 - Fixed Nosferatu not evolving into the correct forme
-- Fixed some WhiteNight-related dialogue not playing correctly
 - Fixed WhiteNight not being immune to Touch of Death
 - Fixed blessings being added incorrectly when Plague Doctor changes sides
-- Fixed StarSound special ability incorrectly modifying what slots to target
-- Behaviour Adjustment's cost is now 3 Energy
+- Fixed learned dialogue for Marksman and Quick Draw not playing
+- Fixed some WhiteNight-related dialogue not playing correctly
+- Fixed StarSound special ability targeting the wrong slots
+- Fixed Behaviour Adjustment's incorrect cost from 3 Bones --> 3 Energy
 - Fixed Judgement Bird special ability interaction with Repulsive cards
-- Fixed Trapper boss phase 2 being unable to use all possible Lobotomy cards
-- Fixed Abnormal Trapper boss phase 2 still using vanilla cards
+- Fixed Trapper boss phase 2 only using a select few modded cards - it should now draw from a larger pool
+- Fixed Abnormal Trapper boss still using vanilla cards during the final phase
 - Fixed some stat spell cards not showing stats
+- Fixed Tiphereth B being obtainable from the Sefirot choice node
+- Fixed Nothing There evolving immediately upon being revealed
+- Fixed Today's Neutral Expression retaining the Undying sigil when played by the opponent
 ### 🔧 Tweaks
 - Minor adjustments to some sequences
 - Adjusted icon for Start with a Beast cheat
 - Adjusted description of Abnormal Bosses challenge to specify the affected bosses
-- Angela card will now be unlocked if the player has at least 3 Sephirah cards in their deck when moving to a Sefirot choice node
+- Angela is now unlocked when the player has at least 2 distinct Sephirah cards in their deck when moving to a Sefirot choice node
+- Added extra indicators for when Bless triggers
 - Bless special ability will no longer affect Giant and Uncuttable cards (Mule cards are still affected)
 - Chance for Bless to create a Heretic apostle is now tied to the game's seed instead of being fully random
 - Blessings are now given to whomever owns the good doctor
 - Changed challenge icon for 'Start with a Beast'
 - Adjusted how Blind Rage calculates slots to target
-- Reworked Time Machine ability - now makes you choose a card to remove from your deck, rather than remove a random one
-- Adjusted some encounter blueprints
-- Reduced Hokma's Health from 3 --> 2
-- Reduced Express Train to Hell's Health from 4 --> 1
-- Rebalanced Der Freischütz from 1/1, 2 Blood, Bifurcated Strike, Sniper --> 2/1, 2 Blood, Sniper, Persistent
-- Rebalanced Little Red Riding Hooded Mercenary from 2/5, Sniper, Persistent --> 2/6, Sniper
-- Rebalanced We Can Change Anything from 0/2 --> 1/1
-- Gebura now has Persistent instead of Piercing
 - Quick Draw icon is now flipped when possessed by the opponent
 - Made a number of tweaks to dialogue
+- WhiteNight now uses the Terrain stat layout
+### ⚖️ Balancing
+- Adjusted some encounter blueprints' balance
+- Changed the CardTemple of some cards
+- Reworked Time Machine ability - now makes you choose a card to remove from your deck, rather than remove a random one
+- Reduced Hokma's Health from 3 --> 2
+- Rebalanced Express Train to Hell from 0/4, 4 Bones --> 0/1, 2 Energy
+- Rebalanced Der Freischütz from 1/1, Bifurcated Strike, Sniper --> 2/1, Sniper, Persistent
+- Rebalanced Little Red Riding Hooded Mercenary from 2/5, Sniper, Persistent --> 2/6, Sniper
+- Rebalanced We Can Change Anything from 0/2 --> 1/1
+- Rebalanced Nothing There (final) from 9/9, Piercing, Thick Skin x2 --> 8/8, Piercing, Persistent
+- Reduced Beauty and the Beast's Power from 1 --> 0
+- Beauty and the Beast now has KillsSurvivors trait
+- Gebura now has Persistent instead of Piercing
+- Increased Spider Bud's Health from 2 --> 3
 ### ➕ Additions
 - Added Final Apocalypse challenge and boss
 - Added Achievements API support (6 achievements)
@@ -46,7 +58,7 @@
 ## v2.0.2 - Minor patch (7/29/2023)
 ### 🩹 Bug fixes
 - Fixed incorrect play cost for Hokma (2 Bones --> 2 Blood)
-- Fixed 'Start With' cheats adding extra copies when restarting a run using the retry button
+- Fixed 'Start With' Cheats adding extra copies when restarting a run using the retry button
 
 ## v2.0.1 - Minor patch (7/25/2023)
 ### 🩹 Bug fixes

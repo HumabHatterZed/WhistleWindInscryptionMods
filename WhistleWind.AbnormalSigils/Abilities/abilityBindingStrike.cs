@@ -38,7 +38,7 @@ namespace WhistleWind.AbnormalSigils
         private IEnumerator AddBindToCard(PlayableCard card)
         {
             card.Anim.LightNegationEffect();
-            card.AddStatusEffect<Bind>(base.Card.Attack * 2);
+            card.AddStatusEffectFlipCard<Bind>(base.Card.Attack * 2, modifyTurnGained: (int i) => i + 1);
             yield return new WaitForSeconds(0.1f);
         }
     }

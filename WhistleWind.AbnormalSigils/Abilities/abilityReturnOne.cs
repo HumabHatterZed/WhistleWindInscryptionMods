@@ -41,22 +41,11 @@ namespace WhistleWind.AbnormalSigils
                 x.Status = status;
                 for (int i = 0; i < behaviours.Count; i++)
                 {
-                    var copy = CopyComponent(behaviours[i], x.gameObject);
+                    var copy = HelperMethods.CopySpecialCardBehaviour(behaviours[i], x.gameObject);
                     x.TriggerHandler.permanentlyAttachedBehaviours.Add(copy);
                 }
             });
             yield return new WaitForSeconds(0.2f);
-        }
-        private static T CopyComponent<T>(T original, GameObject gameObject) where T : SpecialCardBehaviour
-        {
-            System.Type type = original.GetType();
-            Component component = gameObject.AddComponent(type);
-            System.Reflection.FieldInfo[] fields = type.GetFields();
-            foreach (System.Reflection.FieldInfo field in fields)
-            {
-                field.SetValue(component, field.GetValue(original));
-            }
-            return component as T;
         }
         public override IEnumerator OnResolveOnBoard()
         {

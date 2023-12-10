@@ -40,7 +40,7 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) => base.SelectionSequence();
 
-        public override IEnumerator OnValidTargetSelected(CardSlot slot) => HealCard(slot);
+        public override IEnumerator OnValidTargetSelected(CardSlot slot) => HelperMethods.HealCard(slot);
         public override IEnumerator OnPostValidTargetSelected()
         {
             if (DoctorComponent != null)
@@ -83,7 +83,7 @@ namespace WhistleWind.AbnormalSigils
             instance.VisualizeConfirmSniperAbility(randSlot);
             visualiser?.VisualizeConfirmSniperAbility(randSlot);
             yield return new WaitForSeconds(0.25f);
-            yield return HealCard(randSlot);
+            yield return HelperMethods.HealCard(randSlot);
             instance.VisualizeClearSniperAbility();
             visualiser?.VisualizeClearSniperAbility();
 
@@ -96,18 +96,6 @@ namespace WhistleWind.AbnormalSigils
 
             // Call the Clock if an opponent is healed
             yield return DoctorComponent?.TriggerClock();
-        }
-
-        private IEnumerator HealCard(CardSlot slot)
-        {
-            bool faceDown = slot.Card.FaceDown;
-            yield return slot.Card.FlipFaceUp(faceDown);
-            slot.Card.Anim.LightNegationEffect();
-            slot.Card.HealDamage(2);
-            yield return new WaitForSeconds(0.1f);
-            yield return slot.Card.FlipFaceDown(faceDown);
-            if (faceDown)
-                yield return new WaitForSeconds(0.4f);
         }
 
         public override int AIEvaluateTarget(PlayableCard card, bool positiveEffect)

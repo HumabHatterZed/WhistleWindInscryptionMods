@@ -135,7 +135,7 @@ namespace WhistleWind.AbnormalSigils
             AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
             {
                 var stoneInfo = abilities.Find(x => x.Info.name == "MadeOfStone").Info;
-                stoneInfo.rulebookDescription = "[creature] is immune to the effects of Touch of Death, Stinky, Punisher, and Idol.";
+                stoneInfo.rulebookDescription = "A card bearing this sigil is immune to the effects of Touch of Death, Stinky, Punisher, Cursed, and Idol.";
 
                 return abilities;
             };
@@ -213,6 +213,8 @@ namespace WhistleWind.AbnormalSigils
             Ability_FalseThrone();
             Ability_ReturnToNihil();
 
+            Ability_ReturnCard();
+            Ability_RefreshDecks();
             Ability_SeeMore();
         }
 

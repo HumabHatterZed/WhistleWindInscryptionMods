@@ -19,6 +19,8 @@ namespace WhistleWind.AbnormalSigils.Core
                 new() { "Love yourself." }},
             { "CowardlyWeaken",
                 new() { "Your beast's moxie withers away." }},
+            { "CursedFail",
+                new() { "The curse abates." }},
             { "FrostRulerKiss",
                 new() { "With a single kiss, the Snow Queen froze their hearts." }},
             { "FrostRulerFail",

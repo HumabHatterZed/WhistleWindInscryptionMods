@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
         }
         public bool RespondsToUpkeepInHand(bool playerUpkeep) => this.RespondsToUpkeep(playerUpkeep);
 
-        public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && target != null;
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && target != null && EffectSeverity > 0;
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
             target.AddStatusEffect<Sin>(1);

@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string laetitia = "laetitia";
 
             NewCard(laetitia, "Laetitia", "A little witch carrying a heart-shaped gift.",
-                attack: 1, health: 2, blood: 1)
+                attack: 1, health: 2, blood: 1, temple: CardTemple.Wizard)
                 .SetPortraits(laetitia)
                 .AddAbilities(GiftGiver.ability)
                 .AddTribes(TribeFae)
