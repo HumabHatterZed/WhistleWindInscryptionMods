@@ -15,43 +15,30 @@ namespace WhistleWind.Core.AbilityClasses
     // By default acts like Latch but can be overriden as needed
     public abstract class ActivatedSelectSlotBehaviour : ExtendedActivatedAbilityBehaviour
     {
-        private static GameObject _clawPrefab; // store claw prefab here
-        private static GameObject ClawPrefab // claw prefab we'll be referencing
-        {
-            get
-            {
-                if (Act1LatchAbilityFix._clawPrefab != null) // use the Latch Fix's claw prefab if it's not null
-                    return Act1LatchAbilityFix._clawPrefab;
-
-                if (_clawPrefab == null) // otherwise use the default
-                    _clawPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/LatchClaw");
-
-                return _clawPrefab;
-            }
-        }
-        private static void AimWeaponAnim(GameObject tweenObj, Vector3 target) => Tween.LookAt(tweenObj.transform, target, Vector3.up, 0.075f, 0.0f, Tween.EaseInOut);
-
         public CardSlot selectedSlot = null;
-
         public List<CardSlot> ValidTargets
         {
             get
             {
                 List<CardSlot> allTargets = Singleton<BoardManager>.Instance.AllSlotsCopy;
-                allTargets.RemoveAll(t => IsInvalidTarget(t));
+                allTargets.RemoveAll(t => !IsValidTarget(t));
                 return allTargets;
             }
         }
 
         private bool CanTargetNull => ValidTargets.Any(x => x.Card == null);
-        public virtual bool IsInvalidTarget(CardSlot slot)
+        public virtual bool IsValidTarget(CardSlot slot)
         {
-            return slot.Card == null || slot.Card.Dead || slot.Card == base.Card || slot.Card.TemporaryMods.Exists(m => m.fromLatch);
+            if (slot.Card != null && slot.Card != base.Card)
+            {
+                return !slot.Card.Dead && !slot.Card.TemporaryMods.Exists(m => m.fromLatch);
+            }
+            return false;
         }
         public virtual string NoTargetsDialogue => "There are no cards you can choose.";
         public virtual string NullTargetDialogue => "You can't target the air.";
         public virtual string SelfTargetDialogue => "You must choose one of your other cards.";
-        public virtual string InvalidTargetDialogue => "It's already latched...";
+        public virtual string InvalidTargetDialogue(CardSlot slot) => "It's already latched...";
 
         public virtual Ability LatchAbility => Ability.None; // Latches nothing by default
         private bool ShowLatch => LatchAbility != Ability.None;
@@ -102,7 +89,7 @@ namespace WhistleWind.Core.AbilityClasses
             base.Card.Anim.LightNegationEffect();
             yield return new WaitForSeconds(0.2f);
 
-            if (!ValidTargetsExist()) // If there are no valid targets, break
+            if (ValidTargets.Count == 0) // If there are no valid targets, break
             {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.45f);
@@ -266,13 +253,15 @@ namespace WhistleWind.Core.AbilityClasses
         }
         private void OnInvalidTarget(CardSlot slot)
         {
-            if (IsInvalidTarget(slot) && !Singleton<TextDisplayer>.Instance.Displaying)
+            if (!IsValidTarget(slot) && !Singleton<TextDisplayer>.Instance.Displaying)
             {
-                string dialogue = InvalidTargetDialogue;
+                string dialogue = null;
                 if (slot.Card != null)
                 {
                     if (slot.Card == base.Card)
                         dialogue = SelfTargetDialogue;
+                    else
+                        InvalidTargetDialogue(slot); // slot.Card is never null
                 }
                 else
                     dialogue = NullTargetDialogue;
@@ -311,9 +300,22 @@ namespace WhistleWind.Core.AbilityClasses
                 num += 1000;
             return num;
         }
-        private bool ValidTargetsExist()
+
+        private static GameObject _clawPrefab; // store claw prefab here
+        private static GameObject ClawPrefab // claw prefab we'll be referencing
         {
-            return ValidTargets.Count > 0;
+            get
+            {
+                if (Act1LatchAbilityFix._clawPrefab != null) // use the Latch Fix's claw prefab if it's not null
+                    return Act1LatchAbilityFix._clawPrefab;
+
+                if (_clawPrefab == null) // otherwise use the default
+                    _clawPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/LatchClaw");
+
+                return _clawPrefab;
+            }
         }
+        private static void AimWeaponAnim(GameObject tweenObj, Vector3 target) => Tween.LookAt(tweenObj.transform, target, Vector3.up, 0.075f, 0.0f, Tween.EaseInOut);
+
     }
 }
