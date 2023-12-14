@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
+using static UnityEngine.UI.Image;
 
 
 namespace WhistleWind.AbnormalSigils
@@ -23,7 +24,6 @@ namespace WhistleWind.AbnormalSigils
         {
             CardInfo copy = slot.Card.Info.Clone() as CardInfo;
             // includes status effects
-            List<SpecialCardBehaviour> behaviours = slot.Card.GetComponents<SpecialCardBehaviour>()?.ToList() ?? new();
             PlayableCardStatus status = new(slot.Card.Status);
             List<CardModificationInfo> tempMods = slot.Card.TemporaryMods;
             tempMods.Add(new()
@@ -34,6 +34,8 @@ namespace WhistleWind.AbnormalSigils
                 nullifyGemsCost = true
             });
 
+            List<SpecialCardBehaviour> behaviours = slot.Card.GetComponents<SpecialCardBehaviour>()?.ToList() ?? new();
+            List<AbilityBehaviour> abilities = slot.Card.GetComponents<AbilityBehaviour>()?.ToList() ?? new();
             slot.Card.RemoveFromBoard(false);
             yield return HelperMethods.ChangeCurrentView(View.Default);
             yield return CardSpawner.Instance.SpawnCardToHand(copy, tempMods, 0.25f, (PlayableCard x) =>

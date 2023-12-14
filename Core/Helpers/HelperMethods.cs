@@ -8,6 +8,18 @@ namespace WhistleWind.Core.Helpers
 {
     public static class HelperMethods
     {
+        public static T CopyAbilityBehaviour<T>(T original, GameObject gameObject) where T : AbilityBehaviour
+        {
+            System.Type type = original.GetType();
+            Component component = gameObject.AddComponent(type);
+            System.Reflection.FieldInfo[] fields = type.GetFields();
+            foreach (System.Reflection.FieldInfo field in fields)
+            {
+                if (!field.IsLiteral)// && !field.IsInitOnly) // don't mess with constants
+                    field.SetValue(component, field.GetValue(original));
+            }
+            return component as T;
+        }
         public static T CopySpecialCardBehaviour<T>(T original, GameObject gameObject) where T : SpecialCardBehaviour
         {
             System.Type type = original.GetType();

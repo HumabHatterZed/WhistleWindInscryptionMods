@@ -55,7 +55,7 @@ namespace WhistleWind.AbnormalSigils
             if (slot.Card == null)
                 return false;
 
-            return slot.Card.HasAbility(Scorching.ability) || slot.Card.Health > base.Card.Attack || base.IsInvalidTarget(slot);
+            return slot.Card.HasAbility(Scorching.ability) || slot.Card.Health > base.Card.Attack || slot.Card.Dead || slot.Card == base.Card;
         }
 
         private IEnumerator SpawnCard(CardSlot slot, string name)

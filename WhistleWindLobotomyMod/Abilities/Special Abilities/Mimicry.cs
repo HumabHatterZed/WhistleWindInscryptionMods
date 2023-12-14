@@ -30,7 +30,12 @@ namespace WhistleWindLobotomyMod
             CardInfo evolution = CardLoader.GetCardByName("wstl_nothingThereTrue");
             if (base.PlayableCard.OpponentCard == TurnManager.Instance.IsPlayerTurn)
             {
-                evolution.evolveParams.turnsToEvolve++;
+                EvolveParams evolveParams = new()
+                {
+                    turnsToEvolve = 2,
+                    evolution = evolution.evolveParams.evolution,
+                };
+                evolution.evolveParams = evolveParams;
             }
             foreach (Ability item in base.Card.Info.Abilities.FindAll(x => x != Ability.NUM_ABILITIES))
             {

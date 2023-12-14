@@ -7,7 +7,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -65,7 +65,8 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.AnglerBoss, "SephirahHokmaAngler" },
             { Opponent.Type.TrapperTraderBoss, "SephirahHokmaTrapperTrader" },
             { Opponent.Type.LeshyBoss, "SephirahHokmaLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahHokmaRoyal" }
+            { Opponent.Type.RoyalBoss, "SephirahHokmaRoyal" },
+            { ApocalypseBossOpponent.ID, "SephirahHokmaApocalypse" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }

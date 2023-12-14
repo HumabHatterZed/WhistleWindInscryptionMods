@@ -242,7 +242,7 @@ namespace WhistleWindLobotomyMod.Core
                 .SetDifficulty(11, 14)
                 .SetRedundantAbilities(Ability.WhackAMole, Ability.Sharp, Reflector.ability, Nettles.ability)
                 .AddDominantTribes(Tribe.Bird)
-                .AddRandomReplacementCards("wstl_forestKeeper", "wstl_dreamingCurrent", "wstl_allAroundHelper")
+                .AddRandomReplacementCards("wstl_forestKeeper", "wstl_runawayBird", "wstl_allAroundHelper")
                 .AddTurns(
                     CreateTurn(NewCardBlueprint("wstl_dreamOfABlackSwan"), NewCardBlueprint("wstl_dreamOfABlackSwanBrother3", 14)),
                     CreateTurn(NewCardBlueprint("wstl_dreamOfABlackSwanBrother5", 50), NewCardBlueprint("wstl_dreamOfABlackSwanBrother2", 50)),
@@ -262,7 +262,7 @@ namespace WhistleWindLobotomyMod.Core
                 .AddRandomReplacementCards("wstl_wallLady", "wstl_mhz176", "wstl_wisdomScarecrow", "wstl_forsakenMurderer")
                 .SetRedundantAbilities(Ability.Evolve, Ability.ExplodeOnDeath)
                 .AddTurns(
-                    CreateTurn(NewCardBlueprint("wstl_honouredMonk", 10, true, 11, "wstl_cloudedMonk")),
+                    CreateTurn(NewCardBlueprint("wstl_honouredMonk", 10, true, 15, "wstl_cloudedMonk")),
                     CreateTurn(NewCardBlueprint("wstl_oldLady", 40, true, 11, null)),
                     CreateTurn(),
                     CreateTurn(NewCardBlueprint("wstl_scorchedGirl", 15), EmptyBlueprint("wstl_silentEnsemble", 7)),

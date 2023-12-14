@@ -42,7 +42,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             Ability.GuardDog,
             Ability.Sentry,
             Ability.Strafe,
-            Cycler.ability,
             NimbleFoot.ability,
             Scorching.ability,
             ThickSkin.ability
@@ -153,8 +152,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 if (finalPhase)
                 {
                     possibleAbilities.Clear();
-                    possibleAbilities.Add(Piercing.ability);
                     possibleAbilities.Add(Persistent.ability);
+                    possibleAbilities.Add(Piercing.ability);
+                    possibleAbilities.Add(Scorching.ability);
                 }
                 Singleton<ViewManager>.Instance.SwitchToView(View.OpponentTotem);
                 yield return new WaitForSeconds(0.25f);

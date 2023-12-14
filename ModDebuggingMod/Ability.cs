@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-
+using System.Collections;
 using WhistleWind.Core.Helpers;
 
 namespace ModDebuggingMod
@@ -19,29 +19,19 @@ namespace ModDebuggingMod
                 modular: true, opponent: false, canStack: true).Id;//.Info.SetHideSingleStacks().ability;
         }
     }
-    public class Test : DamageShieldBehaviour
+    public class Test : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override int StartingNumShields => base.Card.GetAbilityStacks(Ability);
-
-        /*        public override bool RespondsToResolveOnBoard()
-                {
-                    return true;
-                }
-
-                public override IEnumerator OnResolveOnBoard()
-                {
-                    Debug.Log("Start");
-                    base.Card.AddShieldCount(1);
-                    yield return new WaitForSeconds(0.5f);
-                    Debug.Log("Start2");
-                    base.Card.AddShieldCount(1, Ability.DeathShield);
-                    yield return new WaitForSeconds(0.5f);
-                    Debug.Log("Start3 {}");
-                    base.Card.AddShieldCount<APIDeathShield>(1);
-                    yield return new WaitForSeconds(0.5f);
-                }*/
+        public override bool RespondsToUpkeep(bool playerUpkeep)
+        {
+            return playerUpkeep != base.Card.OpponentCard;
+        }
+        public override IEnumerator OnUpkeep(bool playerUpkeep)
+        {
+            if (base.Card.GetComponent<Evolve>().numTurnsInPlay > 0)
+                yield return base.Card.Die(false);
+        }
     }
 }

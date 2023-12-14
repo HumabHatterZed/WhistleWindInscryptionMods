@@ -169,7 +169,7 @@ namespace WhistleWindLobotomyMod
                 },
                 new() {
                     new() {
-                        "An otherworldly roar deafens shakes you to your core. The forest floor quakes as something approaches you.",
+                        "An otherworldly roar shakes you to your core. The forest floor quakes as something approaches you.",
                         "Lumbering yet impossibly fast, you find yourself face-to-face with..." },
                 });
             CreateDialogueEvents("ApocalypseBossIntro",
@@ -377,6 +377,16 @@ namespace WhistleWindLobotomyMod
                         NewLine("He reminds me of you", Emotion.Neutral),
                         NewLine("in a way.", Emotion.Laughter) }
             });
+            CreateDialogueEvents("AngelaApocalypse", new()
+            {
+                NewLine("This threat may be beyond you.", Emotion.Neutral) },
+                new () {
+                    new() {
+                        NewLine("We kept them separated for", Emotion.Neutral),
+                        NewLine("this reason, manager.", Emotion.Neutral) },
+                    new() { NewLine("A final trial for you, manager.", Emotion.Neutral) },
+                    new() { NewLine("It has been quite the journey, yes?", Emotion.Neutral) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -492,6 +502,17 @@ namespace WhistleWindLobotomyMod
                 new() {
                     new() { NewLine("A captain of a sunken vessel.", Emotion.Laughter) },
                     new() { NewLine("His crew has no loyalty.", Emotion.Laughter) }
+            });
+            CreateDialogueEvents("SephirahBinahApocalypse", new()
+            {
+                NewLine("You have wandered into a dangerous place.", Emotion.Laughter),
+                NewLine("Do you think yourself immortal?", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Quite the marvelous beast, isn't it?", Emotion.Laughter) },
+                    new() {
+                        NewLine("You have entered its lair once more.", Emotion.Neutral),
+                        NewLine("You must have a death wish.", Emotion.Laughter) },
+                    new() { NewLine("I do enjoy this place.", Emotion.Surprise) },
             });
             #endregion
 
@@ -609,6 +630,14 @@ namespace WhistleWindLobotomyMod
                 NewLine("A pirate? How fun~", Emotion.Laughter) },
                 new() {
                     new() { NewLine("Watch your head now.", Emotion.Laughter) }
+            });
+            CreateDialogueEvents("SephirahChesedApocalypse", new()
+            {
+                NewLine("This one...", Emotion.Neutral),
+                NewLine("I hope you're prepared.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("I worry you have a death wish.", Emotion.Neutral) },
+                    new() { NewLine("Are we really doing this?", Emotion.Neutral) }
             });
             #endregion
 
@@ -730,6 +759,15 @@ namespace WhistleWindLobotomyMod
                     new() { NewLine("Be quick and avoid those cannons.", Emotion.Neutral) },
                     new() { NewLine("His goons are tougher than they look.", Emotion.Anger) }
             });
+            CreateDialogueEvents("SephirahGeburaApocalypse", new()
+            {
+                NewLine("Why have you come here?", Emotion.Neutral),
+                NewLine("You trying to die?", Emotion.Anger) },
+                new() {
+                    new() { NewLine("Let me handle this.", Emotion.Neutral) },
+                    new() { NewLine("These stupid birds...", Emotion.Anger) },
+                    new() { NewLine("Don't chicken out now.", Emotion.Neutral) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -846,6 +884,14 @@ namespace WhistleWindLobotomyMod
                 NewLine("A pirate...skeleton?", Emotion.Neutral) },
                 new() {
                     new() { NewLine("Those cannons hurt a lot...", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahHodApocalypse", new()
+            {
+                NewLine("That monster...", Emotion.Neutral),
+                NewLine("Remember our training, please.", Emotion.Curious) },
+                new() {
+                    new() { NewLine("Keep calm...keep calm...", Emotion.Curious) },
+                    new() { NewLine("It's tough, but not immortal.", Emotion.Anger) }
             });
             #endregion
 
@@ -970,6 +1016,13 @@ namespace WhistleWindLobotomyMod
                         NewLine("The cannons are slow.", Emotion.Neutral),
                         NewLine("We can easily avoid them.", Emotion.Neutral) }
             });
+            CreateDialogueEvents("SephirahHokmaApocalypse", new()
+            {
+                NewLine("Every Goliath has its David.", Emotion.Neutral),
+                NewLine("Have faith in yourself, and in us.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Have faith in yourself and us.", Emotion.Curious) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -1093,6 +1146,15 @@ namespace WhistleWindLobotomyMod
                         NewLine("Treat it as another abnormality", Emotion.Neutral),
                         NewLine("and act accordingly!", Emotion.Neutral) }
             });
+            CreateDialogueEvents("SephirahMalkuthApocalypse", new()
+            {
+                NewLine("This thing is huge...", Emotion.Quiet),
+                NewLine("Uh, don't worry!", Emotion.Neutral),
+                NewLine("We can do it!", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("We just need to outlast it...", Emotion.Quiet) },
+                    new() { NewLine("Manage your resources carefully!", Emotion.Anger) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -1207,6 +1269,13 @@ namespace WhistleWindLobotomyMod
                     new() { NewLine("I guess I've seen weirder things.", Emotion.Neutral) },
                     new() { NewLine("Those cannons are pretty slow, huh?", Emotion.Neutral) }
             });
+            CreateDialogueEvents("SephirahNetzachApocalypse", new()
+            {
+                NewLine("What is that thing?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("I don't need this stress...", Emotion.Neutral) },
+                    new() { NewLine("Why are we back here?", Emotion.Neutral) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -1318,6 +1387,17 @@ namespace WhistleWindLobotomyMod
                 new() {
                     new() { NewLine("Never was that into pirates.", Emotion.Neutral) },
                     new() { NewLine("This guy can't aim at all.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahYesodApocalypse", new()
+            {
+                NewLine("Don't be intimidated.", Emotion.Neutral),
+                NewLine("Manage your creatures wisely,", Emotion.Neutral),
+                NewLine("and maintain constant fire.", Emotion.Neutral) },
+                new() {
+                    new() {
+                        NewLine("We know its tricks now.", Emotion.Neutral),
+                        NewLine("We are at an advantage.", Emotion.Neutral) },
+                    new() { NewLine("Don't lose your cool now.", Emotion.Neutral) }
             });
             #endregion
 

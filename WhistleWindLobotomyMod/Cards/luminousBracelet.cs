@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
                 attack: 0, health: 2, energy: 3, temple: CardTemple.Tech)
                 .SetPortraits(luminousBracelet)
                 .AddAbilities(GreedyHealing.ability, GiveStatsSigils.AbilityID)
-                .SetSpellType(SpellType.TargetedSigils)
+                .SetSpellType(SpellType.TargetedStats)
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }

@@ -22,6 +22,7 @@
 - Fixed Tiphereth B being obtainable from the Sefirot choice node
 - Fixed Nothing There evolving immediately upon being revealed
 - Fixed Today's Neutral Expression retaining the Undying sigil when played by the opponent
+- Fixed Luminous Bracelet not showing its stats
 ### 🔧 Tweaks
 - Minor adjustments to some sequences
 - Adjusted icon for Start with a Beast cheat

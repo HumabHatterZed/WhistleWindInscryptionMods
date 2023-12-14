@@ -82,14 +82,15 @@ namespace WhistleWindLobotomyMod.Patches
             if (ApocalypseThresholdString != null)
                 return ApocalypseThresholdString;
 
-            StringBuilder builder = new(" Upon reaching ");
+            return " Upon reaching 80/60/40 Health, permanently disable this effect then switch phase.";
+/*            StringBuilder builder = new(" Upon reaching ");
             ApocalypseBattleSequencer sequence = CustomBossUtils.AsCustomBoss<ApocalypseBossOpponent>().BattleSequence;
             builder.Append(sequence.BossHealthThreshold(4))
                 .Append("/").Append(sequence.BossHealthThreshold(3))
                 .Append("/").Append(sequence.BossHealthThreshold(2))
                 .Append(" Health, permanently disable this effect then switch phase.");
 
-            return ApocalypseThresholdString = builder.ToString();
+            return ApocalypseThresholdString = builder.ToString();*/
         }
 
         internal static string ApocalypseThresholdString = null;

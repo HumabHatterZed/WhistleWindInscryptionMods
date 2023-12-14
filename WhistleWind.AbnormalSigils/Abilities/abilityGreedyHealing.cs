@@ -41,7 +41,7 @@ namespace WhistleWind.AbnormalSigils
             // flip up
             yield return base.Card.FlipFaceDown(false);
 
-            if (turnCount < 2)
+            if (turnCount < 3)
             {
                 base.Card.Anim.LightNegationEffect();
                 base.Card.HealDamage(2);
