@@ -61,7 +61,7 @@
 - Added 1 new encounter
 ### 💣 Removals
 - Removed Magic Bullet special ability
-- Removed Adoration special ability
+- Removed unused dialogue events
 
 ## v2.0.2 - Minor patch (7/29/2023)
 ### 🩹 Bug fixes

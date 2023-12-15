@@ -60,17 +60,6 @@ namespace WhistleWindLobotomyMod
             CreateDialogueEvents("CrimsonScarWolf", new() {
                 "That familiar red cloth..."
                 });
-            CreateDialogueEvents("DerFreischutzSeventhBullet", new() {
-                "The Devil proposed a childist contract.",
-                "The seventh bullet would pierce the heart of his most beloved.",
-                "On hearing this, the hunter sought and shot everyone he loved."
-                });
-            CreateDialogueEvents("ExpressHellTrainWipe", new() {
-                "The train sounds its mighty horn."
-                });
-            CreateDialogueEvents("GiantTreeSapExplode", new() {
-                "A strange gurgling sound comes from your beast's stomach."
-                });
             CreateDialogueEvents("KingOfGreedTransform", new() {
                 "Desire unfulfilled, the koi continues for Eden."
                 });
