@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_TheTrain()
         {
             const string rulebookName = "The Train";
-            const string rulebookDescription = "When this card is played, kill all creatures on the board. Creatures killed this way do not drop bones.";
+            const string rulebookDescription = "When [creature] is played, kill all creatures on the board. Creatures killed this way do not drop bones.";
             const string dialogue = "The train boards those that don't step away from the tracks.";
             const string triggerText = "The train blows its mighty horn.";
             TheTrain.ability = AbnormalAbilityHelper.CreateAbility<TheTrain>(

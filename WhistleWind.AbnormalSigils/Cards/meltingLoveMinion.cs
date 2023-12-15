@@ -13,7 +13,9 @@ namespace WhistleWind.AbnormalSigils
                 cardName: meltingLoveMinion,
                 "Slime")
                 .SetPortraits(meltingLoveMinion)
-                .AddAbilities(Slime.ability));
+                .SetStatIcon(SlimeIcon.Icon)
+                .AddAbilities(Slime.ability)
+                .AddTraits(LovingSlime));
         }
     }
 }

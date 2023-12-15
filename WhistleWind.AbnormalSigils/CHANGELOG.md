@@ -23,6 +23,8 @@
 - The Train ability no longer affects Giant or Uncuttable cards
 - Fixed a number of abilities breaking visual effects when triggered on a facedown card
 ### 🔧 Tweaks
+- Status effect card mod infos are now nonCopyable
+- Overhauled Made of Slime's effect
 - Adjusted Ruler of Frost's description to be clearer (if longer :s)
 - Ruler of Frost ability now has different invalid target dialogue depending on the context
 - Made a number of tweaks to dialogue
@@ -38,6 +40,7 @@
 - Reworked The Train ability to activate on resolve instead of after 3 turns
 - Cursed now removes temporary mods that are nonCopyable or aren't from a Totem
 - Scrambler sigil now uses similar logic to Corrector
+- Slime now has LovingSlime Trait and Slimes stat icon
 ### ⚖️ Balancing
 - Reduced Ruler of Frost's activation cost from 3 --> 2 Bones
 - Reduced Rightful Heir ability's starting activation cost from 3 --> 2 Bones
@@ -54,6 +57,8 @@
     - Binding Strike, Nimble-Footed, High-Strung, Refresh Decks, Return Card To Hand
 - Added the following status effects:
     - Haste, Bind, Prudence
+- Added LovingSlime Trait
+- Added Slimes stat icon
 - Added more helper methods to StatusEffectManager
 - Added a new section to the rulebook containing all status effects for the current Act - these entries are separate from the regularly added rulebook entries
     - Added a new field to FullStatusEffect 'AddNormalRulebookEntry' to control whether the regular rulebook entry should be added as well - false by default

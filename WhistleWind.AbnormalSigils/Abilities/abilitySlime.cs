@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -12,9 +12,9 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Slime()
         {
             const string rulebookName = "Made of Slime";
-            const string rulebookDescription = "At the start of the owner's turn, creatures adjacent to this card with at least 2 Health are transformed into Slimes. A Slime is defined as: 1 Power, X - 1 Health, Made of Slime.";
+            const string rulebookDescription = "If this card is not a Slime, take 1 damage at turn's end and transform into a Slime on death. Adjacent cards gain this sigil at the end of the owner's turn.";
             const string dialogue = "Its army grows everyday.";
-            const string triggerText = "Creatures adjacent to [creature] melt into slime!";
+            const string triggerText = "[creature] melts into slime!";
             Slime.ability = AbnormalAbilityHelper.CreateAbility<Slime>(
                 "sigilSlime",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
@@ -26,74 +26,73 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
-
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            // Transform cards
+            // infect adjacent cards
             CardSlot leftSlot = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, true);
             CardSlot rightSlot = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, false);
 
-            // check if left card is valid target
-            bool leftValid = leftSlot != null && leftSlot.Card != null && leftSlot.Card.Info.Health > 1 &&
-                leftSlot.Card.LacksAbility(ability) && !leftSlot.Card.Info.HasAnyOfTraits(Trait.Terrain, Trait.Pelt);
+            bool leftValid = CheckIsValid(leftSlot);
+            bool rightValid = CheckIsValid(rightSlot);
 
-            // check if right card is valid target
-            bool rightValid = rightSlot != null && rightSlot.Card != null && rightSlot.Card.Info.Health > 1 &&
-                rightSlot.Card.LacksAbility(ability) && !rightSlot.Card.Info.HasAnyOfTraits(Trait.Terrain, Trait.Pelt);
-
-            if (!leftValid && !rightValid)
-                yield break;
-
-            // transform valid cards
-            yield return base.PreSuccessfulTriggerSequence();
             if (leftValid)
             {
-                CardInfo leftInfo = SlimeInfo(leftSlot.Card.Info);
-                yield return leftSlot.Card.TransformIntoCard(leftInfo);
-                yield return new WaitForSeconds(0.2f);
+                bool faceDown = leftSlot.Card.FaceDown;
+                yield return leftSlot.Card.FlipFaceUp(faceDown);
+                leftSlot.Card.Anim.StrongNegationEffect();
+                leftSlot.Card.AddTemporaryMod(new(this.Ability) { nonCopyable = true });
+                yield return new WaitForSeconds(0.5f);
+                yield return leftSlot.Card.TakeDamage(1, null);
+                yield return new WaitForSeconds(0.4f);
+                yield return leftSlot.Card.FlipFaceDown(faceDown, rightValid ? 0.1f : 0.3f);
             }
             if (rightValid)
             {
-                CardInfo rightInfo = SlimeInfo(rightSlot.Card.Info);
-                yield return rightSlot.Card.TransformIntoCard(rightInfo);
-                yield return new WaitForSeconds(0.2f);
+                bool faceDown = rightSlot.Card.FaceDown;
+                yield return rightSlot.Card.FlipFaceUp(faceDown);
+                rightSlot.Card.Anim.StrongNegationEffect();
+                rightSlot.Card.AddTemporaryMod(new(this.Ability) { nonCopyable = true });
+                yield return new WaitForSeconds(0.5f);
+                yield return rightSlot.Card.FlipFaceDown(faceDown);
             }
-            // learn ability or do a shimmy
-            if (leftValid || rightValid)
-                yield return base.LearnAbility(0.3f);
+
+            yield return base.LearnAbility(0.4f);
+
+            if (base.Card.LacksTrait(AbnormalPlugin.LovingSlime))
+                yield return base.Card.TakeDamage(1, null);
         }
-        private CardInfo SlimeInfo(CardInfo otherInfo)
+
+        private bool CheckIsValid(CardSlot slot)
         {
-            CardInfo cardInfo = CardLoader.GetCardByName("wstl_meltingLoveMinion");
-
-            cardInfo.appearanceBehaviour = otherInfo.appearanceBehaviour;
-            cardInfo.cost = otherInfo.BloodCost;
-            cardInfo.bonesCost = otherInfo.BonesCost;
-            cardInfo.energyCost = otherInfo.EnergyCost;
-            cardInfo.gemsCost = otherInfo.GemsCost;
-
-            // Health - 1, Power 1
-            int newHealth = otherInfo.baseHealth - 1;
-
-            cardInfo.Mods.Add(new(1, newHealth));
-
-            foreach (CardModificationInfo item in otherInfo.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+            if (slot?.Card != null && slot.Card.LacksAbility(this.Ability) && slot.Card.LacksAllTraits(Trait.Pelt, Trait.Uncuttable, Trait.Giant))
             {
-                // Copy merged sigils
+                return slot.Card.LacksTrait(AbnormalPlugin.LovingSlime);
+            }
+            return false;
+        }
+
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => base.Card.LacksTrait(AbnormalPlugin.LovingSlime);
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
+        {
+            CardInfo cardInfo = CardLoader.GetCardByName("wstl_meltingLoveMinion").Clone() as CardInfo;
+            cardInfo.baseHealth = base.Card.MaxHealth;
+            cardInfo.SetCost(base.Card.BloodCost(), base.Card.BonesCost(), base.Card.EnergyCost, base.Card.GemsCost());
+            foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+            {
+                // Copy merged sigils and the like
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                if (cardModificationInfo.attackAdjustment > 0)
-                    cardModificationInfo.attackAdjustment = 0;
+                cardModificationInfo.attackAdjustment = 0;
 
                 cardInfo.Mods.Add(cardModificationInfo);
             }
-            foreach (Ability item in otherInfo.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            foreach (Ability item in base.Card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
             {
                 // Copy base sigils
                 cardInfo.Mods.Add(new CardModificationInfo(item));
             }
 
-            return cardInfo;
+            yield return BoardManager.Instance.CreateCardInSlot(cardInfo, base.Card.Slot);
         }
     }
 }

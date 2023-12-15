@@ -43,6 +43,7 @@ namespace WhistleWind.AbnormalSigils
         public static Trait SwanBrother = GuidManager.GetEnumValue<Trait>(pluginGuid, "SwanBrother");
         public static Trait NakedSerpent = GuidManager.GetEnumValue<Trait>(pluginGuid, "NakedSerpent");
         public static Trait SporeFriend = GuidManager.GetEnumValue<Trait>(pluginGuid, "SporeFriend");
+        public static Trait LovingSlime = GuidManager.GetEnumValue<Trait>(pluginGuid, "LovingSlime");
         public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
         public static Trait Orchestral = GuidManager.GetEnumValue<Trait>(pluginGuid, "Orchestral");
         public static Trait ImmuneToAilments = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToAilments");
@@ -126,6 +127,7 @@ namespace WhistleWind.AbnormalSigils
 
             StatIcon_Time();
             StatIcon_SigilPower();
+            StatIcon_Slime();
             StatIcon_Nihil();
         }
         private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));

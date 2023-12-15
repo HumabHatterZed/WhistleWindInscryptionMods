@@ -13,11 +13,12 @@ namespace WhistleWindLobotomyMod
             const string meltingLove = "meltingLove";
 
             NewCard(meltingLove, "Melting Love", "Don't let your beasts get too close now.",
-                attack: 4, health: 3, blood: 3, temple: CardTemple.Undead)
+                attack: 0, health: 6, blood: 3, temple: CardTemple.Undead)
                 .SetPortraits(meltingLove)
+                .SetStatIcon(SlimeIcon.Icon)
                 .AddAbilities(Slime.ability)
                 .AddSpecialAbilities(Adoration.specialAbility)
-                .AddTraits(Trait.KillsSurvivors)
+                .AddTraits(Trait.KillsSurvivors, AbnormalPlugin.LovingSlime)
                 .Build(CardHelper.ChoiceType.Rare, RiskLevel.Aleph, ModCardType.Donator);
         }
     }

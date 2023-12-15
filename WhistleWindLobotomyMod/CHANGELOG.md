@@ -38,6 +38,7 @@
 - Quick Draw icon is now flipped when possessed by the opponent
 - Made a number of tweaks to dialogue
 - WhiteNight now uses the Terrain stat layout
+- Improved Adoration special ability's effect
 ### ⚖️ Balancing
 - Adjusted some encounter blueprints' balance
 - Changed the CardTemple of some cards
@@ -49,6 +50,7 @@
 - Rebalanced We Can Change Anything from 0/2 --> 1/1
 - Rebalanced Nothing There (final) from 9/9, Piercing, Thick Skin x2 --> 8/8, Piercing, Persistent
 - Rebalanced The Snow Queen from 1/2, 5 Bones --> 2/2, 2 Blood
+- Rebalanced Melting Love from 4/3 --> Slimes/6
 - Reduced Beauty and the Beast's Power from 1 --> 0
 - Beauty and the Beast now has KillsSurvivors trait
 - Gebura now has Persistent instead of Piercing

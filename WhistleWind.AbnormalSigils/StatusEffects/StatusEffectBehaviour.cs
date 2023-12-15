@@ -98,7 +98,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         {
             CardModificationInfo result = StatusEffectManager.StatusMod(CardModSingletonName + "_decal", IconAbilityInfo.PositiveEffect, EffectCanBeInherited);
             result.decalIds = EffectDecalIds();
-
+            result.nonCopyable = true;
             return result;
         }
         public CardModificationInfo EffectCountMod()
@@ -107,6 +107,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             for (int i = 0; i < EffectSeverity; i++)
                 result.AddAbilities(IconAbilityInfo.ability);
 
+            result.nonCopyable = true;
             return result;
         }
     }
