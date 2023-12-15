@@ -25,30 +25,27 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
         public override string NoTargetsDialogue => "There's no one to hear your message.";
-        public override string InvalidTargetDialogue => "You must choose one of your other cards to proselytise.";
+        public override string InvalidTargetDialogue(CardSlot slot) => "You must choose one of your other cards to proselytise.";
         public override int StartingBonesCost => 2;
-        public override bool IsInvalidTarget(CardSlot slot)
+        public override bool IsValidTarget(CardSlot slot)
         {
-            if (base.IsInvalidTarget(slot))
-                return true;
-
-            if (slot.Card.OpponentCard == base.Card.OpponentCard)
-            {
-                var component = slot.Card.GetStatusEffect<Prudence>();
-                if (component != null)
-                    return component.EffectSeverity > 3;
-
+            if (!base.IsValidTarget(slot))
                 return false;
-            }
-            return true;
+            // card is on same side of board and has less than 3 Prudence
+            return slot.Card.OpponentCard == base.Card.OpponentCard && (slot.Card.GetStatusEffect<Prudence>()?.EffectSeverity ?? -1) < 3;
         }
 
-        public override bool CanActivate() => BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).Exists(x => !IsInvalidTarget(x));
+        public override bool CanActivate() => BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).Exists(IsValidTarget);
         public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {
-            slot.Card.Anim.StrongNegationEffect();
-            slot.Card.AddStatusEffect<Prudence>(1);
-            slot.Card.HealDamage(2);
+            if (!slot.Card.FaceDown)
+                slot.Card.Anim.StrongNegationEffect();
+
+            slot.Card.AddStatusEffectFlipCard<Prudence>(1, false, delegate (int i)
+            {
+                slot.Card.HealDamage(2);
+                return i;
+            });
             yield return base.LearnAbility(0.4f);
         }
     }

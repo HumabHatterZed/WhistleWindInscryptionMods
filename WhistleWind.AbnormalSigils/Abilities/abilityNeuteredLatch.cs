@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.AbilityClasses;
@@ -26,12 +27,12 @@ namespace WhistleWind.AbnormalSigils
         public override int StartingBonesCost => 2;
         public override int OnActivateBonesCostMod => 1;
 
-        public override bool IsInvalidTarget(CardSlot slot)
+        public override bool IsValidTarget(CardSlot slot)
         {
-            if (slot.Card != null && slot.Card != base.Card)
-                return slot.Card.HasAbility(Neutered.ability) || slot.Card.Attack == 0;
+            if (!base.IsValidTarget(slot))
+                return false;
 
-            return base.IsInvalidTarget(slot);
+            return slot.Card.LacksAbility(Neutered.ability) && slot.Card.Attack > 0;
         }
     }
 }

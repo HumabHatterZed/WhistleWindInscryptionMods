@@ -29,9 +29,9 @@ namespace WhistleWind.Core.AbilityClasses
         private bool CanTargetNull => ValidTargets.Any(x => x.Card == null);
         public virtual bool IsValidTarget(CardSlot slot)
         {
-            if (slot.Card != null && slot.Card != base.Card)
+            if (slot.Card != null && slot.Card != base.Card && !slot.Card.Dead)
             {
-                return !slot.Card.Dead && !slot.Card.TemporaryMods.Exists(m => m.fromLatch);
+                return !SaveManager.SaveFile.IsPart3 || !slot.Card.TemporaryMods.Exists(m => m.fromLatch);
             }
             return false;
         }

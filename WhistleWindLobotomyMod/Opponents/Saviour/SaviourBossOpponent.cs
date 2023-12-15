@@ -74,7 +74,6 @@ namespace WhistleWindLobotomyMod.Opponents.Saviour
 
             if (base.NumLives == 0)
             {
-                LobotomySaveManager.DefeatedApocalypseBoss = true;
                 AscensionStatsData.TryIncrementStat(AscensionStat.Type.BossesDefeated);
                 yield return new WaitForSeconds(0.25f);
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default, immediate: false, lockAfter: true);

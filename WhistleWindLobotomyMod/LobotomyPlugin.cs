@@ -21,7 +21,6 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
-using WhistleWindLobotomyMod.Patches;
 using static DialogueEvent;
 using static InscryptionAPI.Dialogue.DialogueManager;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -223,72 +222,7 @@ namespace WhistleWindLobotomyMod
             // Loving Slime - +1 Thick Skin
             // 
         }
-        private void AddStarterDecks()
-        {
-            List<string> randomCards = new() { "wstl_RANDOM_PLACEHOLDER", "wstl_RANDOM_PLACEHOLDER", "wstl_RANDOM_PLACEHOLDER" };
-            if (LobotomyConfigManager.Instance.StarterDeckSize > 0)
-            {
-                for (int i = 0; i < LobotomyConfigManager.Instance.StarterDeckSize; i++)
-                    randomCards.Add("wstl_RANDOM_PLACEHOLDER");
-            }
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Random Mod Cards", "starterDeckRandom", 0, cardNames: randomCards);
-
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "First Day", "starterDeckControl", 0, cardNames: new() {
-                "wstl_oneSin",
-                "wstl_fairyFestival",
-                "wstl_oldLady" });
-
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Lonely Friends", "starterDeckChildren", 2, cardNames: new() {
-                "wstl_scorchedGirl",
-                "wstl_laetitia",
-                "wstl_childOfTheGalaxy" });
-
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Blood Machines", "starterDeckBloodMachines", 4, cardNames: new() {
-                "wstl_weCanChangeAnything",
-                "wstl_singingMachine",
-                "wstl_allAroundHelper" });
-
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "People Pleasers", "starterDeckPeoplePleasers", 5, cardNames: new() {
-                "wstl_todaysShyLook",
-                LobotomyConfigManager.Instance.NoRuina ? "wstl_mirrorOfAdjustment" : "wstl_pinocchio",
-                "wstl_behaviourAdjustment" });
-
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Freak Show", "starterDeckFreakShow", 6, cardNames: new() {
-                "wstl_voidDream",
-                "wstl_beautyAndBeast",
-                "wstl_queenBee" });
-
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Apocrypha", "starterDeckApocrypha", 7, cardNames: new() {
-                "wstl_fragmentOfUniverse",
-                "wstl_skinProphecy",
-                LobotomyConfigManager.Instance.NoRuina ? "wstl_mhz176" : "wstl_priceOfSilence" });
-
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Keter", "starterDeckKeter", 8, cardNames: new() {
-                "wstl_bloodBath",
-                "wstl_burrowingHeaven",
-                "wstl_snowQueen" });
-
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Road to Oz", "starterDeckFairyTale", 0, cardNames: new() {
-                LobotomyConfigManager.Instance.NoRuina ? "wstl_laetitia" : "wstl_theRoadHome",
-                "wstl_warmHeartedWoodsman",
-                "wstl_wisdomScarecrow",
-                LobotomyConfigManager.Instance.NoRuina ? "wstl_snowWhitesApple" : "wstl_ozma" },
-                customUnlock: dummy => LobotomySaveManager.UnlockedLyingAdult || LobotomyConfigManager.Instance.EventFlags);
-
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Magical Girls!", "starterDeckMagicalGirls", 0, cardNames: new() {
-                "wstl_magicalGirlSpade",
-                "wstl_magicalGirlHeart",
-                "wstl_magicalGirlDiamond",
-                LobotomyConfigManager.Instance.NoRuina ? "wstl_voidDream" : "wstl_magicalGirlClover" },
-                customUnlock: dummy => LobotomySaveManager.UnlockedJesterOfNihil || LobotomyConfigManager.Instance.EventFlags);
-
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Twilight", "starterDeckBlackForest", 0, cardNames: new() {
-                "wstl_punishingBird",
-                "wstl_bigBird",
-                "wstl_judgementBird" },
-                customUnlock: dummy => LobotomySaveManager.UnlockedApocalypseBird || LobotomyConfigManager.Instance.EventFlags);
-        }
         private void AddEncounters()
         {
             BuildEncounters();
@@ -316,79 +250,6 @@ namespace WhistleWindLobotomyMod
                     repeatLines = null;
 
                 GenerateEvent(pluginGuid, dialogue.Key, dialogue.Value, repeatLines, defaultSpeaker: speaker);
-            }
-        }
-
-        internal static class PackAPI
-        {
-            internal static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
-            internal static void CreateCardPack()
-            {
-                Log.LogDebug("PackManager is installed.");
-                PackInfo pack = PackManager.GetPackInfo("wstl");
-                pack.Title = "WhistleWind Lobotomy Mod";
-                pack.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack"));
-                pack.Description = $"A set of {ObtainableLobotomyCards.Count} abnormal cards hailing from the world of Lobotomy Corporation.";
-                pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
-            }
-        }
-        internal static class AchievementAPI
-        {
-            internal static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.achievements");
-
-            // bosses
-            internal static Achievement ThroughTheTwilight;
-            internal static Achievement WhereAllPathsLead;
-            internal static Achievement EndOfTheRoad;
-            internal static Achievement ParadiseLost;
-
-            // event decks
-            internal static Achievement TheThreeBirds;
-            internal static Achievement MagicalGirls;
-            internal static Achievement YellowBrickRoad;
-
-            // other
-            internal static Achievement Blessing;
-            internal static Achievement Impuritas;
-
-            internal static void CreateAchievements()
-            {
-                Log.LogDebug("Achievements API is installed.");
-                ModdedAchievementManager.AchievementGroup grp = ModdedAchievementManager.NewGroup(pluginGuid, "WhistleWind Lobotomy Mod", TextureLoader.LoadTextureFromFile("achievementBox.png")).ID;
-
-                ThroughTheTwilight = ModdedAchievementManager.New(pluginGuid, "Through the Twilight", "Survive the apocalypse and defeat the Beast.",
-                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossTwilight.png")).ID;
-
-                /*                WhereAllPathsLead = ModdedAchievementManager.New(pluginGuid, "Where All Paths Lead", "Hold on to hope and defeat the Fool.",
-                                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossJester.png")).ID;
-
-                                EndOfTheRoad = ModdedAchievementManager.New(pluginGuid, "End of the Road", "Keep your wits and defeat the Adult.",
-                                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossEmerald.png")).ID;
-
-                                ParadiseLost = ModdedAchievementManager.New(pluginGuid, "Paradise Lost", "Reject His gifts and delay the Saviour.",
-                                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossSaviour.png")).ID;*/
-
-                Impuritas = ModdedAchievementManager.New(pluginGuid, "Impuritas Civitatis", "Meet Angela while looking for a third Sephirah to join you.",
-                    false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;
-
-                TheThreeBirds = ModdedAchievementManager.New(pluginGuid, "The Three Birds", "You heard the story of the Black Forest.",
-                    true, grp, TextureLoader.LoadTextureFromFile("achievementTwilight.png")).ID;
-
-                MagicalGirls = ModdedAchievementManager.New(pluginGuid, "Magical Girls", "You walked the paths of all four magical girls.",
-                    true, grp, TextureLoader.LoadTextureFromFile("achievementMagicalGirls.png")).ID;
-
-                YellowBrickRoad = ModdedAchievementManager.New(pluginGuid, "Yellow Brick Road", "You visited the Emerald City.",
-                    true, grp, TextureLoader.LoadTextureFromFile("achievementRoadToOz.png")).ID;
-
-                Blessing = ModdedAchievementManager.New(pluginGuid, "Blessing", "You witnessed His coming.",
-                    true, grp, TextureLoader.LoadTextureFromFile("achievementBlessing.png")).ID;
-
-                HarmonyInstance.PatchAll(typeof(AchievementPatches));
-            }
-            internal static void Unlock(bool prerequisite, Achievement achievement)
-            {
-                if (Enabled && prerequisite)
-                    AchievementManager.Unlock(achievement);
             }
         }
         public static bool AllCardsDisabled { get; internal set; }

@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWindLobotomyMod.Challenges;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
@@ -214,16 +215,23 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(RunState), nameof(RunState.CurrentMapRegion), MethodType.Getter)]
         private static void ReplaceFinalWithCustomBossRegion(ref RegionData __result)
         {
-            if (SaveFile.IsAscension && RunState.Run.regionTier == RegionProgression.Instance.regions.Count - 1)
+            if (RunState.Run.regionTier == RegionProgression.Instance.regions.Count - 1)
             {
-                if (AscensionSaveData.Data.ChallengeIsActive(FinalApocalypse.Id))
+                if (SaveFile.IsAscension)
+                {
+                    if (AscensionSaveData.Data.ChallengeIsActive(FinalApocalypse.Id))
+                        __result = CustomBossUtils.apocalypseRegion;
+                    /*                else if (AscensionSaveData.Data.ChallengeIsActive(FinalComing.Id))
+                                        __result = CustomBossUtils.saviourRegion;
+                                    else if (AscensionSaveData.Data.ChallengeIsActive(FinalTrick.Id))
+                                        __result = CustomBossUtils.adultRegion;
+                                    else if (AscensionSaveData.Data.ChallengeIsActive(FinalJester.Id))
+                                        __result = CustomBossUtils.jesterRegion;*/
+                }
+                else if (LobotomyConfigManager.Instance.FinalApocalypse)
+                {
                     __result = CustomBossUtils.apocalypseRegion;
-                /*                else if (AscensionSaveData.Data.ChallengeIsActive(FinalComing.Id))
-                                    __result = CustomBossUtils.saviourRegion;
-                                else if (AscensionSaveData.Data.ChallengeIsActive(FinalTrick.Id))
-                                    __result = CustomBossUtils.adultRegion;
-                                else if (AscensionSaveData.Data.ChallengeIsActive(FinalJester.Id))
-                                    __result = CustomBossUtils.jesterRegion;*/
+                }
             }
         }
     }

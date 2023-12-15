@@ -26,18 +26,21 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override string InvalidTargetDialogue => "That card is fine as it is.";
+        public override string InvalidTargetDialogue(CardSlot slot)
+        {
+            if (slot.Card.Info.name.Contains("ozmaPumpkin"))
+                return "No need, it's already perfect.";
+            return "That card is fine as it is.";
+        }
         public override int TurnDelay => 1;
         public override int StartingBonesCost => 1;
         public override int OnActivateBonesCostMod => 1;
-        public override bool IsInvalidTarget(CardSlot slot)
+        public override bool IsValidTarget(CardSlot slot)
         {
-            if (slot.Card != null && slot.Card != base.Card)
-            {
-                return slot.Card.HasAnyOfTraits(Trait.Giant, Trait.Uncuttable) || slot.Card.Info.name.Contains("ozmaPumpkin");
-            }
+            if (!base.IsValidTarget(slot))
+                return false;
 
-            return base.IsInvalidTarget(slot);
+            return slot.Card.LacksAllTraits(Trait.Giant, Trait.Uncuttable) && !slot.Card.Info.name.Contains("ozmaPumpkin");
         }
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => false;

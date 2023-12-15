@@ -24,6 +24,7 @@
 - Fixed Today's Neutral Expression retaining the Undying sigil when played by the opponent
 - Fixed Luminous Bracelet not showing its stats
 ### 🔧 Tweaks
+- Twilight starter deck can now be unlocked by completing the Final Apocalypse challenge
 - Minor adjustments to some sequences
 - Adjusted icon for Start with a Beast cheat
 - Adjusted description of Abnormal Bosses challenge to specify the affected bosses
@@ -47,6 +48,7 @@
 - Rebalanced Little Red Riding Hooded Mercenary from 2/5, Sniper, Persistent --> 2/6, Sniper
 - Rebalanced We Can Change Anything from 0/2 --> 1/1
 - Rebalanced Nothing There (final) from 9/9, Piercing, Thick Skin x2 --> 8/8, Piercing, Persistent
+- Rebalanced The Snow Queen from 1/2, 5 Bones --> 2/2, 2 Blood
 - Reduced Beauty and the Beast's Power from 1 --> 0
 - Beauty and the Beast now has KillsSurvivors trait
 - Gebura now has Persistent instead of Piercing
@@ -55,6 +57,9 @@
 - Added Final Apocalypse challenge and boss
 - Added Achievements API support (6 achievements)
 - Added 1 new encounter
+### 💣 Removals
+- Removed Magic Bullet special ability
+- Removed Adoration special ability
 
 ## v2.0.2 - Minor patch (7/29/2023)
 ### 🩹 Bug fixes

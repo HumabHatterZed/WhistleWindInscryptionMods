@@ -30,12 +30,12 @@ namespace WhistleWind.AbnormalSigils
         public override int StartingHealthCost => 1;
         public override int TurnDelay => 1;
 
-        public override bool IsInvalidTarget(CardSlot slot)
+        public override bool IsValidTarget(CardSlot slot)
         {
-            if (slot.Card != null && slot.Card != base.Card)
-                return slot.Card.HasAnyOfTraits(Trait.Giant, Trait.Uncuttable);
+            if (!base.IsValidTarget(slot))
+                return false;
 
-            return base.IsInvalidTarget(slot);
+            return slot.Card.LacksAllTraits(Trait.Giant, Trait.Uncuttable);
         }
         public override IEnumerator OnValidTargetSelected(CardSlot slot)
         {

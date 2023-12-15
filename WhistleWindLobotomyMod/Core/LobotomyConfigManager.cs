@@ -199,7 +199,7 @@ namespace WhistleWindLobotomyMod.Core
 
             Config_FinalApocalypse = WstlConfigFile.Bind(
                 "Gameplay.Part1.Challenges", "Final Apocalypse", false,
-                new ConfigDescription("The Beast boss will be stronger and guaranteed to appear."));
+                new ConfigDescription("Leshy will be replaced with the Beast."));
 
             /*            Config_FinalJester = WstlConfigFile.Bind(
                             "Gameplay.Part1.Challenges", "Final Laugh", false,

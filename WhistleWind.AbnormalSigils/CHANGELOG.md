@@ -20,7 +20,11 @@
 - Fixed tribe choice reward backs being off-centre
 - Fixed sigils that give passive stat buffs not working correctly when stacked
 - Added missing Global Spell support to Scrambler sigil
+- The Train ability no longer affects Giant or Uncuttable cards
+- Fixed a number of abilities breaking visual effects when triggered on a facedown card
 ### 🔧 Tweaks
+- Adjusted Ruler of Frost's description to be clearer (if longer :s)
+- Ruler of Frost ability now has different invalid target dialogue depending on the context
 - Made a number of tweaks to dialogue
 - Adjusted custom tribe icons' positions
 - SniperSelectSlot.AIEvaluate target is now overridable
@@ -32,10 +36,10 @@
 - Opportunistic sigil is now flipped for the opponent
 - Changed description of Made of Stone to indicate it provides immunity to Idol and Punisher
 - Reworked The Train ability to activate on resolve instead of after 3 turns
-- The Train ability no longer affects Giant or Uncuttable cards
 - Cursed now removes temporary mods that are nonCopyable or aren't from a Totem
 - Scrambler sigil now uses similar logic to Corrector
 ### ⚖️ Balancing
+- Reduced Ruler of Frost's activation cost from 3 --> 2 Bones
 - Reduced Rightful Heir ability's starting activation cost from 3 --> 2 Bones
 - Reduced Pumpkin's Health from 2 --> 1
 - Reduced Sapling's Health from 2 --> 1
