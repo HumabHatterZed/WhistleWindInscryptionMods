@@ -42,7 +42,7 @@ namespace WhistleWind.AbnormalSigils
                 yield return leftSlot.Card.FlipFaceUp(faceDown);
                 leftSlot.Card.Anim.StrongNegationEffect();
                 leftSlot.Card.AddTemporaryMod(new(this.Ability) { nonCopyable = true });
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.6f);
                 yield return leftSlot.Card.TakeDamage(1, null);
                 yield return new WaitForSeconds(0.4f);
                 yield return leftSlot.Card.FlipFaceDown(faceDown, rightValid ? 0.1f : 0.3f);
@@ -53,7 +53,7 @@ namespace WhistleWind.AbnormalSigils
                 yield return rightSlot.Card.FlipFaceUp(faceDown);
                 rightSlot.Card.Anim.StrongNegationEffect();
                 rightSlot.Card.AddTemporaryMod(new(this.Ability) { nonCopyable = true });
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.6f);
                 yield return rightSlot.Card.FlipFaceDown(faceDown);
             }
 
@@ -76,7 +76,7 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             CardInfo cardInfo = CardLoader.GetCardByName("wstl_meltingLoveMinion").Clone() as CardInfo;
-            cardInfo.baseHealth = base.Card.MaxHealth;
+            cardInfo.baseHealth = Mathf.Max(1, base.Card.MaxHealth - 1);
             cardInfo.SetCost(base.Card.BloodCost(), base.Card.BonesCost(), base.Card.EnergyCost, base.Card.GemsCost());
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
@@ -86,9 +86,9 @@ namespace WhistleWind.AbnormalSigils
 
                 cardInfo.Mods.Add(cardModificationInfo);
             }
+            // Copy base sigils
             foreach (Ability item in base.Card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
             {
-                // Copy base sigils
                 cardInfo.Mods.Add(new CardModificationInfo(item));
             }
 

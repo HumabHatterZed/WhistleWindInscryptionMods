@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Persistent()
         {
             const string rulebookName = "Persistent";
-            const string rulebookDescription = "Attacks by this card cannot be avoided, redirected, or prevented by sigils like Repulsive or Waterborne. Deal 1 additional damage to cards bearing these sigils.";
+            const string rulebookDescription = "Attacks by this card cannot be avoided or redirected by sigils like Loose Tail or Waterborne.";
             const string dialogue = "Prey cannot hide so easily.";
             const string triggerText = "[creature] chases its prey down.";
             Persistent.ability = AbnormalAbilityHelper.CreateAbility<Persistent>(

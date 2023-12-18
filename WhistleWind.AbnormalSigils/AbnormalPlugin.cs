@@ -204,12 +204,17 @@ namespace WhistleWind.AbnormalSigils
             Ability_Cycler();
             Ability_Barreler();
 
+            Ability_LeftStrike();
+            Ability_RightStrike();
+
             Ability_NimbleFoot();
             StatusEffect_Haste();
             Ability_HighStrung();
 
             Ability_BindingStrike();
             StatusEffect_Bind();
+            
+            Ability_Persecutor();
 
             // Specials
             Ability_FalseThrone();

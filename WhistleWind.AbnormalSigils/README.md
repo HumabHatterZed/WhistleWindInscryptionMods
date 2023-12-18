@@ -55,7 +55,7 @@ Testing and Feedback:
 |Regenerator		|✓	|✓	|3	|At the start of its owner's turn, this card heals adjacent cards by 1 Health.|
 |Volatile			|X	|X	|0	|When this card dies, adjacent and opposing cards are dealt 10 damage.|
 |Gift Giver			|X	|X	|3	|When a card bearing this sigil is played, create a random card in your hand.|
-|Piercing			|✓	|X	|2	|Damage dealt by this card cannot be negated or reduced by sigils such as Armoured or Thick Skin. Deal 1 overkill damage when attacking a card.|
+|Piercing			|✓	|X	|2	|Damage dealt by this card cannot be negated or reduced by sigils such as Armoured or Thick Skin.|
 |Scrambler			|X	|X	|3	|When a card bearing this sigil is sacrificed, give its stats to the sacrificing card then scramble its new stats. Works with Spells.|
 |Gardener			|X	|X	|4	|When an allied card is killed, create a Sapling in their place. A Sapling is defined as: 0 Power, 2 Health, Bone Digger.|
 |Made of Slime		|X	|X	|4	|If this card is not a Slime, take 1 damage at turn's end and transform into a Slime on death. Adjacent cards gain this sigil at the end of the owner's turn.|
@@ -67,12 +67,15 @@ Testing and Feedback:
 |Corrector			|✓	|X	|2	|When a card bearing this sigil is drawn, randomly change its stats according to its play cost. Higher costs yields higher stat totals.|
 |Thick Skin			|✓	|✓	|2	|Whenever a card bearing this sigil takes damage, reduce that damage by 1.|
 |Opportunistic		|✓	|✓	|2	|A card bearing this sigil deals 1 additional damage to opposing cards that cannot attack this card during their own turn.|
-|Persistent			|✓	|X	|2	|Attacks by this card cannot be avoided, redirected, or prevented by sigils like Repulsive or Waterborne. Deal 1 additional damage to cards bearing these sigils.|
+|Persistent			|✓	|X	|2	|Attacks by this card cannot be avoided or redirected by sigils like Loose Tail or Waterborne.|
 |Copycat			|X	|X	|2	|This gains the sigils and stats of the first card to be played in the opposing space.|
 |Neutered			|X	|X	|-3	|A card bearing this sigil has its Power reduced to 0. At the start of the owner's turn, remove this sigil.|
 |Neutered Latch		|X	|X	|4	|Once per turn, pay [sigilcost:2 Bones] to choose a creature to gain the Neutered sigil, then increase this sigil's activation cost by 2 Bones.|
 |Rightful Heir		|X	|X	|3	|Once per turn, pay [sigilcost:3 Bones] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1 Bone until battle's end. A Pumpkin is defined as: 0 Power, 2 Health, Fledgling.|
 |Greedy Healing		|✓	|X	|3	|At the end of its owner's turn, this card gains 2 Health. If 2 turns pass without this card taking damage, it will die.|
+|Left-Veering Strike|X	|X	|0	|A card bearing this sigil will strike the opposing space to the left of the space across from it.|
+|Right-Veering Strike|X	|X	|0	|A card bearing this sigil will strike the opposing space to the right of the space across from it.|
+|Persecutor			|X	|X	|4	|When a card bearing this sigil is played, create a Nail in the adjacent left space and a Hammer in the adjacent right space if they are empty.|
 |False Throne		|X	|X	|4	|Once per turn, pay 2 Health to give Neutered to a chosen creature, then create a free, unaltered copy of it in your hand.|
 |Return to Nihil	|X	|X	|5	|At the end of the owner's turn, deal damage to all other cards on the board equal to this card's Power.|
 |Follow the Leader	|X	|X	|2	|At the end of its owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures towards this card in the sigil's direction as far as possible.|

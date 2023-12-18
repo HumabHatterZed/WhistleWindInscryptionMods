@@ -37,14 +37,14 @@ namespace WhistleWind.AbnormalSigils.Patches
             }
         }
 
-        [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.DealOverkillDamage))]
+/*        [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.DealOverkillDamage))]
         private static bool PiercingDoesOverkill(ref int damage, CardSlot attackingSlot, CardSlot opposingSlot)
         {
             if (attackingSlot.Card != null && attackingSlot.Card.HasAbility(Piercing.ability) && opposingSlot.Card != null)
                 damage = Mathf.Max(1, damage + 1);
 
             return true;
-        }
+        }*/
 
         [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.SlotAttackSlot))]
         private static bool PerformPersistence(CombatPhaseManager __instance, CardSlot attackingSlot, CardSlot opposingSlot, float waitAfter, ref IEnumerator __result)
@@ -182,8 +182,6 @@ namespace WhistleWind.AbnormalSigils.Patches
                     yield return new WaitForSeconds(0.05f);
                     int overkillDamage = attackingSlot.Card.Attack - opposingSlot.Card.Health;
                     int damage = attackingSlot.Card.Attack;
-                    if (targetSwitched || opposingSlot.Card.HasAbility(Ability.PreventAttack))
-                        damage++;
 
                     yield return opposingSlot.Card.TakeDamage(damage, attackingSlot.Card);
                     yield return instance.DealOverkillDamage(overkillDamage, attackingSlot, opposingSlot);

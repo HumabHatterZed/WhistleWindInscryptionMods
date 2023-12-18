@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             if (base.PlayableCard == null)
                 return new int[2] { 0, 0 };
 
-            int slimeCount = BoardManager.Instance.GetSlots(base.PlayableCard.OpponentCard).Count(x => x.Card != null && x.Card.HasTrait(AbnormalPlugin.LovingSlime));
+            int slimeCount = BoardManager.Instance.GetSlots(!base.PlayableCard.OpponentCard).Count(x => x.Card != null && x.Card.HasTrait(AbnormalPlugin.LovingSlime));
             return new int[2] { slimeCount, 0 };
         }
     }
