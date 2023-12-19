@@ -11,7 +11,7 @@ namespace WhistleWind.AbnormalSigils
             const string meltingLoveMinion = "meltingLoveMinion";
             CreateCard(MakeCard(
                 cardName: meltingLoveMinion,
-                "Slime")
+                "Slime", attack: 0, health: 1)
                 .SetPortraits(meltingLoveMinion)
                 .SetStatIcon(SlimeIcon.Icon)
                 .AddAbilities(Slime.ability)

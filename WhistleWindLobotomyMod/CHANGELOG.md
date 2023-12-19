@@ -45,12 +45,13 @@
 - Reworked Time Machine ability - now makes you choose a card to remove from your deck, rather than remove a random one
 - Reduced Hokma's Health from 3 --> 2
 - Rebalanced Express Train to Hell from 0/4, 4 Bones --> 0/1, 2 Energy
-- Rebalanced Der Freischütz from 1/1, Bifurcated Strike, Sniper --> 2/1, Sniper, Persistent
+- Rebalanced Der Freischütz from 1/1, Bifurcated Strike, Sniper --> 2/2, Sniper, Persistent
 - Rebalanced Little Red Riding Hooded Mercenary from 2/5, Sniper, Persistent --> 2/6, Sniper
 - Rebalanced We Can Change Anything from 0/2 --> 1/1
 - Rebalanced Nothing There (final) from 9/9, Piercing, Thick Skin x2 --> 8/8, Piercing, Persistent
 - Rebalanced The Snow Queen from 1/2, 5 Bones --> 2/2, 2 Blood
 - Rebalanced Melting Love from 4/3 --> Slimes/6
+- Rebalanced Silent Girl from 2/1, Trifurcated Strike --> 2/2, Persecutor
 - Reduced Beauty and the Beast's Power from 1 --> 0
 - Beauty and the Beast now has KillsSurvivors trait
 - Gebura now has Persistent instead of Piercing

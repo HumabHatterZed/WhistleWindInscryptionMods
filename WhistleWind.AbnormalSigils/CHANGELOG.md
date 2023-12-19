@@ -41,11 +41,11 @@
 - Cursed now removes temporary mods that are nonCopyable or aren't from a Totem
 - Scrambler sigil now uses similar logic to Corrector
 - Slime now has LovingSlime Trait and Slimes stat icon
+- Persistent and Piercing abilities no longer have additional damage effects
 ### ⚖️ Balancing
 - Reduced Ruler of Frost's activation cost from 3 --> 2 Bones
 - Reduced Rightful Heir ability's starting activation cost from 3 --> 2 Bones
 - Reduced Pumpkin's Health from 2 --> 1
-- Reduced Sapling's Health from 2 --> 1
 - Third Brother now has Sharp Quills instead of Reflector
 - Adjusted Queen Nest description to be clearer on activation requirement: 'card dies' --> 'card is killed'
 - Opponents using the Healer ability will now prioritise cards with 1 Health and depriortise cards at max Health or higher
@@ -54,7 +54,7 @@
 - Increased probability of Corrector sigil giving Attack from 33% --> 40%
 ### ➕ Additions
 - Added the following abilities:
-    - Binding Strike, Nimble-Footed, High-Strung, Refresh Decks, Return Card To Hand
+    - Binding Strike, Nimble-Footed, High-Strung, Refresh Decks, Return Card To Hand, Persecutor, Left-Veering Strike, Right-Veering Strike
 - Added the following status effects:
     - Haste, Bind, Prudence
 - Added LovingSlime Trait
