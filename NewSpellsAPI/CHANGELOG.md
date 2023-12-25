@@ -1,5 +1,12 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
+<details>
+<summary>View changelog</summary>
+
+## 1.2.3 (12/24/2023)
+- Queued spell cards can now be prevented from being played by patching Opponent.QueuedCardIsBlocked
+- Made UpdateStatsSpellDisplay and UpdatePlayableStatsSpellDisplay public
+
 ## 1.2.2 (12/3/2023)
 - Fixed stat spell cards' health not being coloured correctly during battle
 - Opponent stat spell cards now reveal their stats when played
@@ -47,6 +54,7 @@
 - Spell cards no longer force the player to play them if selected
 - Minor code optimisations
 - Minor changes to some dialogue
+</details>
 
 #
 

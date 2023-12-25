@@ -164,7 +164,7 @@ namespace Infiniscryption.Spells.Patchers
         #region Stat Spell Patches
         public static bool NotStatsSpellInfo(CardInfo info) => info == null || !info.IsSpellShowStats();
 
-        internal static void UpdateStatsSpellDisplay<T>(T card, bool showStats) where T : Card
+        public static void UpdateStatsSpellDisplay<T>(T card, bool showStats) where T : Card
         {
             if (NotStatsSpellInfo(card.Info))
                 return;
@@ -180,7 +180,7 @@ namespace Infiniscryption.Spells.Patchers
             card.RenderInfo.healthTextColor = card.RenderInfo.health > 0 ? GameColors.Instance.darkBlue : Color.black;
             card.RenderCard();
         }
-        internal static void UpdatePlayableStatsSpellDisplay(PlayableCard card, bool showStats)
+        public static void UpdatePlayableStatsSpellDisplay(PlayableCard card, bool showStats)
         {
             if (NotStatsSpellInfo(card.Info))
                 return;
@@ -661,47 +661,49 @@ namespace Infiniscryption.Spells.Patchers
             if (__instance.Queue.Count <= 0)
                 yield break;
 
-            if (__instance.Queue.Any(x => x.Info.IsSpell()))
+            if (!__instance.Queue.Exists(x => x.Info.IsSpell()))
             {
-                List<PlayableCard> queuedCards = new(__instance.Queue);
-
-                yield return __instance.VisualizePrePlayQueuedCards();
-                List<PlayableCard> playedCards = new();
-
-                queuedCards.Sort((PlayableCard a, PlayableCard b) => a.QueuedSlot.Index - b.QueuedSlot.Index);
-
-                // play non-spell cards first - this is just the vanilla code
-                foreach (PlayableCard queuedCard in queuedCards.Where(qc => !qc.Info.IsSpell()))
-                {
-                    if (!__instance.QueuedCardIsBlocked(queuedCard))
-                    {
-                        CardSlot queuedSlot = queuedCard.QueuedSlot;
-                        queuedCard.QueuedSlot = null;
-                        if (queuedCard != null)
-                            queuedCard.OnPlayedFromOpponentQueue();
-
-                        yield return Singleton<BoardManager>.Instance.ResolveCardOnBoard(queuedCard, queuedSlot, tweenLength);
-                        playedCards.Add(queuedCard);
-                    }
-                }
-                foreach (PlayableCard queuedCard in queuedCards.Where(qc => qc.Info.IsSpell()))
-                {
-                    // spell cards don't need space to be played
-                    CardSlot queuedSlot = queuedCard.QueuedSlot;
-                    queuedCard.QueuedSlot = null;
-                    if (queuedCard != null)
-                        queuedCard.OnPlayedFromOpponentQueue();
-
-                    yield return Singleton<BoardManager>.Instance.ResolveCardOnBoard(queuedCard, queuedSlot, tweenLength);
-                    playedCards.Add(queuedCard);
-                }
-                __instance.Queue.RemoveAll((PlayableCard x) => playedCards.Contains(x));
-                yield return new WaitForSeconds(0.5f);
+                yield return enumerator;
                 yield break;
             }
-            else
-                yield return enumerator;
+
+            yield return __instance.VisualizePrePlayQueuedCards();
+            List<PlayableCard> playedCards = new(), queuedCards = new(__instance.Queue);
+            queuedCards.Sort((PlayableCard a, PlayableCard b) => a.QueuedSlot.Index - b.QueuedSlot.Index);
+
+            // play non-spell cards before spell cards
+            foreach (PlayableCard queuedCard in queuedCards.Where(qc => !qc.Info.IsSpell()))
+            {
+                if (__instance.QueuedCardIsBlocked(queuedCard))
+                    continue;
+
+                CardSlot queuedSlot = queuedCard.QueuedSlot;
+                queuedCard.QueuedSlot = null;
+                queuedCard?.OnPlayedFromOpponentQueue();
+                yield return Singleton<BoardManager>.Instance.ResolveCardOnBoard(queuedCard, queuedSlot, tweenLength);
+                playedCards.Add(queuedCard);
+            }
+            foreach (PlayableCard queuedCard in queuedCards.Where(qc => qc.Info.IsSpell()))
+            {
+                if (__instance.QueuedCardIsBlocked(queuedCard))
+                    continue;
+
+                CardSlot queuedSlot = queuedCard.QueuedSlot;
+                queuedCard.QueuedSlot = null;
+                queuedCard?.OnPlayedFromOpponentQueue();
+                yield return Singleton<BoardManager>.Instance.ResolveCardOnBoard(queuedCard, queuedSlot, tweenLength);
+                playedCards.Add(queuedCard);
+            }
+            __instance.Queue.RemoveAll(playedCards.Contains);
+            yield return new WaitForSeconds(0.5f);
         }
+        [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.QueuedCardIsBlocked))]
+        private static void QueuedSpellsCantBeBlocked(ref bool __result, PlayableCard queuedCard)
+        {
+            if (queuedCard != null && queuedCard.Info.IsSpell())
+                __result = false;
+        }
+
         public static CardSlot OpponentGetTargetSlot(List<CardSlot> validTargets)
         {
             CardSlot selectedSlot = null;
