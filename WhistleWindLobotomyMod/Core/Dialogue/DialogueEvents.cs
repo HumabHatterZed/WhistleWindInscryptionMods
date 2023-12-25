@@ -236,8 +236,12 @@ namespace WhistleWindLobotomyMod
             CreateDialogueEvents("ApocalypseBossBoneGain",
                 new() {
                     "The beast is immune to mortal damage.",
-                    "Excess injury will instead yield you up to [c:bR]3[c:] bones.",
+                    "Excess injury will instead yield you up to [c:bR]2[c:] bones.",
                     "Don't worry about running dry, the ground you walk on is full of them."
+                },
+                new()
+                {
+                    new() { "The ground is full of bones." }
                 });
             CreateDialogueEvents("ApocalypseBossFinal",
                 new() {
@@ -1377,16 +1381,15 @@ namespace WhistleWindLobotomyMod
                     new() { NewLine("Never was that into pirates.", Emotion.Neutral) },
                     new() { NewLine("This guy can't aim at all.", Emotion.Neutral) }
             });
-            CreateDialogueEvents("SephirahYesodApocalypse", new()
+            CreateDialogueEvents("SephirahTipherethAApocalypse", new()
             {
-                NewLine("Don't be intimidated.", Emotion.Neutral),
-                NewLine("Manage your creatures wisely,", Emotion.Neutral),
-                NewLine("and maintain constant fire.", Emotion.Neutral) },
+                NewLine("It's massive...", Emotion.Neutral),
+                NewLine("I hope you know", Emotion.Neutral),
+                NewLine("what you're doing.", Emotion.Neutral) },
                 new() {
-                    new() {
-                        NewLine("We know its tricks now.", Emotion.Neutral),
-                        NewLine("We are at an advantage.", Emotion.Neutral) },
-                    new() { NewLine("Don't lose your cool now.", Emotion.Neutral) }
+                    new() { NewLine("Keep your head on tight, manager.", Emotion.Neutral) },
+                    new() { NewLine("This'll be tough.", Emotion.Neutral) },
+                    new() { NewLine("We'll make it out for sure.", Emotion.Neutral) }
             });
             #endregion
 
@@ -1527,6 +1530,17 @@ namespace WhistleWindLobotomyMod
                 new() {
                     new() { NewLine("His crew seems persuadable.", Emotion.Neutral) },
                     new() { NewLine("Can't say I'm impressed.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahYesodApocalypse", new()
+            {
+                NewLine("Don't be intimidated.", Emotion.Neutral),
+                NewLine("Manage your creatures wisely,", Emotion.Neutral),
+                NewLine("and maintain constant fire.", Emotion.Neutral) },
+                new() {
+                    new() {
+                        NewLine("We know its tricks now.", Emotion.Neutral),
+                        NewLine("We are at an advantage.", Emotion.Neutral) },
+                    new() { NewLine("Don't lose your cool now.", Emotion.Neutral) }
             });
             #endregion
 

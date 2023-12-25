@@ -428,7 +428,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     {
                         ViewManager.Instance.SwitchToView(View.BoneTokens);
                         yield return new WaitForSeconds(0.2f);
-                        yield return ResourcesManager.Instance.AddBones(Mathf.Min(3, boneDamage));
+                        yield return ResourcesManager.Instance.AddBones(Mathf.Min(2, boneDamage));
                     }
                 }
                 yield break;
@@ -735,32 +735,44 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             data.opponentTurnPlan = DiskCardGame.EncounterBuilder.BuildOpponentTurnPlan(data.Blueprint, 20, false);
             return data;
         }
+
+        private bool reactive1 = false;
+        private bool reactive2 = false;
+        private bool reactive3 = false;
+        private bool reactiveSkin = false;
         private IEnumerator OnReactiveIncreased()
         {
+            Singleton<CameraEffects>.Instance.Shake(0.5f, 0.25f);
+            BossCard.Anim.StrongNegationEffect();
+            
             if (ReactiveDifficulty > 3 && BossCard.Info.baseAttack < 2)
             {
                 BossCard.Info.baseAttack = 2;
                 BossCard.OnStatsChanged();
             }
+            yield return new WaitForSeconds(0.15f);
 
-            if (!DialogueEventsData.EventIsPlayed("ApocalypseBossReactive1"))
+            if (!reactive1)
             {
+                reactive1 = true;
                 yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("ApocalypseBossReactive1", TextDisplayer.MessageAdvanceMode.Input);
                 yield break;
             }
             if (ReactiveDifficulty < 8)
                 yield break;
 
-            if (!DialogueEventsData.EventIsPlayed("ApocalypseBossReactive2"))
+            if (!reactive2)
             {
+                reactive2 = true;
                 yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("ApocalypseBossReactive2", TextDisplayer.MessageAdvanceMode.Input);
                 yield break;
             }
             if (ReactiveDifficulty < 13)
                 yield break;
 
-            if (!DialogueEventsData.EventIsPlayed("ApocalypseBossReactive3"))
+            if (!reactive3)
             {
+                reactive3 = true;
                 yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("ApocalypseBossReactive3", TextDisplayer.MessageAdvanceMode.Input);
                 yield break;
             }
@@ -773,100 +785,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => true;
         public bool RespondsToPreScalesChangedRef(int damage, int numWeights, bool toPlayer) => !toPlayer && LobotomyPlugin.PreventOpponentDamage;
 
-        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
-        {
-            if (BossCard == null)
-            {
-                BossCard = otherCard;
-                if (!finalPhase)
-                    UpdateCounter();
-            }
-
-            // if on the player side for whatever reason, return to opponent side
-            if (otherCard.Slot.IsPlayerSlot)
-            {
-                CardSlot newSlot;
-                List<CardSlot> opponentSlots = BoardManager.Instance.OpponentSlotsCopy.FindAll(x => x.Card == null);
-
-                yield return new WaitForSeconds(0.5f);
-                BossCard.Anim.StrongNegationEffect();
-
-                if (opponentSlots.Count == 0)
-                {
-                    newSlot = BossCard.OpposingSlot();
-                    yield return newSlot.Card.DieTriggerless();
-                }
-                else
-                {
-                    newSlot = opponentSlots[SeededRandom.Range(0, opponentSlots.Count, base.GetRandomSeed() + TurnManager.Instance.TurnNumber)];
-                }
-
-                yield return new WaitForSeconds(0.45f);
-                yield return BoardManager.Instance.AssignCardToSlot(BossCard, newSlot);
-                yield return new WaitForSeconds(0.75f);
-                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossReturnEgg");
-            }
-        }
-        public override IEnumerator OnOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
-        {
-            if (attacker == BossCard)
-            {
-                if (finalPhase)
-                    yield break;
-
-                // if white target, heal the boss
-                if (giantTargetSlots[1].Contains(target.Slot))
-                    BossCard.HealDamage(BossCard.Attack);
-
-                CleanUpGiantTarget(target.Slot);
-                yield break;
-            }
-
-            if (target == BossCard)
-            {
-                timesHitThisTurn++;
-                damageTakenThisTurn += amount;
-
-                if (ActiveEggEffect == ActiveEggEffect.SmallBeak)
-                    BossCard.AddTemporaryMod(new(timesHitThisTurn, 0) { singletonId = "SmallBeak" });
-
-                if (amount > 4 && !attacker.HasStatusEffect<Enchanted>())
-                {
-                    // reactive is also increased at combat's end for every 6 damage taken so we account for that
-                    reactiveDifficulty += amount - (4 + amount / 6);
-
-                    if (amount > 5 && BossCard.TemporaryMods.Find(x => x.singletonId == "ReactiveSkin") == null)
-                    {
-                        CardModificationInfo mod = new() { singletonId = "ReactiveSkin", nonCopyable = true };
-                        mod.AddAbilities(ThickSkin.ability, ThickSkin.ability, ThickSkin.ability);
-                        BossCard.AddTemporaryMod(mod);
-                        yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossReactiveSkin");
-                    }
-
-                    Singleton<CameraEffects>.Instance.Shake(0.5f, 0.25f);
-                    yield return new WaitForSeconds(0.15f);
-                    yield return OnReactiveIncreased();
-
-                }
-
-                // don't switch phase if we're above the threshold
-                if (BossCard.Health > BossHealthThreshold(Opponent.NumLives))
-                    yield break;
-
-                if (finalPhase)
-                {
-                    Opponent.NumLives--;
-                    yield return Opponent.LifeLostSequence();
-                }
-                else
-                    changeToNextPhase = true;
-
-                AudioController.Instance.SetLoopVolume(0.1f, 1f);
-            }
-        }
-        #endregion
-
-        #region Triggers 2
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
             if (finalPhase && attacker == BossCard)
@@ -904,13 +822,125 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         }
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => finalPhase ? int.MaxValue : int.MinValue;
 
-        public bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) => finalPhase && attacker == BossCard;
+        public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
+        {
+            if (BossCard == null)
+            {
+                BossCard = otherCard;
+                if (!finalPhase)
+                    UpdateCounter();
+            }
+
+            // if on the player side for whatever reason, return to opponent side
+            if (otherCard.Slot.IsPlayerSlot)
+            {
+                CardSlot newSlot;
+                List<CardSlot> opponentSlots = BoardManager.Instance.OpponentSlotsCopy.FindAll(x => x.Card == null);
+
+                yield return new WaitForSeconds(0.5f);
+                BossCard.Anim.StrongNegationEffect();
+
+                if (opponentSlots.Count == 0)
+                {
+                    newSlot = BossCard.OpposingSlot();
+                    yield return newSlot.Card.DieTriggerless();
+                }
+                else
+                {
+                    newSlot = opponentSlots[SeededRandom.Range(0, opponentSlots.Count, base.GetRandomSeed() + TurnManager.Instance.TurnNumber)];
+                }
+
+                yield return new WaitForSeconds(0.45f);
+                yield return BoardManager.Instance.AssignCardToSlot(BossCard, newSlot);
+                yield return new WaitForSeconds(0.75f);
+                yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossReturnEgg");
+            }
+        }
+        public override IEnumerator OnOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
+        {
+            // if the boss dealt damage
+            if (attacker == BossCard)
+            {
+                if (finalPhase)
+                    yield break;
+
+                // if white target, heal the boss
+                if (giantTargetSlots[1].Contains(target.Slot))
+                    BossCard.HealDamage(BossCard.Attack);
+
+                CleanUpGiantTarget(target.Slot);
+                yield break;
+            }
+
+            // if the boss took damage
+            if (target == BossCard)
+            {
+                timesHitThisTurn++;
+                damageTakenThisTurn += amount;
+
+                if (ActiveEggEffect == ActiveEggEffect.SmallBeak)
+                    BossCard.AddTemporaryMod(new(timesHitThisTurn, 0) { singletonId = "SmallBeak" });
+
+                if (amount > 4 && !attacker.HasStatusEffect<Enchanted>())
+                {
+                    // reactive is also increased at combat's end for every 6 damage taken so we account for that
+                    reactiveDifficulty += amount - (4 + amount / 6);
+
+                    if (amount > 5 && BossCard.TemporaryMods.Find(x => x.singletonId == "ReactiveSkin") == null)
+                    {
+                        CardModificationInfo mod = new() { fromCardMerge = true, singletonId = "ReactiveSkin", nonCopyable = true };
+                        mod.AddAbilities(ThickSkin.ability, ThickSkin.ability, ThickSkin.ability);
+                        BossCard.AddTemporaryMod(mod);
+
+                        if (!reactiveSkin)
+                        {
+                            reactiveSkin = true;
+                            yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossReactiveSkin");
+                        }
+                    }
+                    yield return OnReactiveIncreased();
+                }
+
+                // don't switch phase if we're above the threshold
+                if (BossCard.Health > BossHealthThreshold(Opponent.NumLives))
+                    yield break;
+
+                if (finalPhase)
+                {
+                    Opponent.NumLives--;
+                    yield return Opponent.LifeLostSequence();
+                }
+                else
+                    changeToNextPhase = true;
+
+                AudioController.Instance.SetLoopVolume(0.1f, 1f);
+            }
+        }
+        #endregion
+
+        #region Triggers 2
+        public bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) => true;
         public IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage)
         {
-            if (giantTargetSlots[1].Contains(opposingSlot))
-                BossCard.HealDamage(damage * 2);
+            if (finalPhase && attacker == BossCard)
+            {
+                if (giantTargetSlots[1].Contains(opposingSlot))
+                    BossCard.HealDamage(damage * 2);
 
-            CleanUpGiantTarget(opposingSlot);
+                CleanUpGiantTarget(opposingSlot);
+            }
+
+            if (attacker.OpponentCard && damage < -4)
+            {
+                reactiveDifficulty += (damage * -1) - 4;
+                yield return OnReactiveIncreased();
+            }
+
+            else if (!attacker.OpponentCard && damage > 4)
+            {
+                reactiveDifficulty += damage - 4;
+                yield return OnReactiveIncreased();
+            }
             yield break;
         }
 

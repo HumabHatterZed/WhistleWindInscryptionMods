@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Corrector()
         {
             const string rulebookName = "Corrector";
-            const string rulebookDescription = "When [creature] is drawn, randomly change its stats proportional to its play cost.";
+            const string rulebookDescription = "When [creature] is drawn, randomly change its stats according to its total play cost.";
             const string dialogue = "How balanced.";
             const string triggerText = "[creature] stats are forcefully 'corrected'.";
             Corrector.ability = AbnormalAbilityHelper.CreateAbility<Corrector>(
@@ -59,8 +59,7 @@ namespace WhistleWind.AbnormalSigils
                 1 => 4,
                 2 => 8,
                 3 => 13,
-                4 => 20,
-                _ => base.Card.Info.BloodCost * 7
+                _ => 24 + (base.Card.Info.BloodCost - 4) * 7
             };
             powerLevel += base.Card.Info.EnergyCost switch
             {
@@ -68,9 +67,8 @@ namespace WhistleWind.AbnormalSigils
                 1 => 1,
                 2 => 2,
                 3 => 4,
-                4 => 6,
-                5 => 8,
-                6 => 12,
+                4 => 7,
+                5 => 9,
                 _ => 12 + (base.Card.Info.EnergyCost - 6) * 4
             };
             powerLevel += base.Card.Info.GemsCost.Count * 3;

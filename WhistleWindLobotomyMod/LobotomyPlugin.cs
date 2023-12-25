@@ -93,25 +93,25 @@ namespace WhistleWindLobotomyMod
 
         private void Start()
         {
-            if (LobotomyConfigManager.Instance.ModEnabled)
+            if (!LobotomyConfigManager.Instance.ModEnabled)
+                return;
+
+            if (AllCardsDisabled)
+                Log.LogWarning("Disable Cards is set to [All]. All mod cards have been removed from the pool of obtainable cards.");
+            else
             {
-                if (AllCardsDisabled)
-                    Log.LogWarning("Disable Cards is set to [All]. All mod cards have been removed from the pool of obtainable cards.");
-                else
-                {
-                    if (DisabledRiskLevels != RiskLevel.None)
-                        Log.LogWarning($"Disable Cards is set to [{DisabledRiskLevels}]. Cards with the affected risk level(s) have been removed from the pool of obtainable cards.");
+                if (DisabledRiskLevels != RiskLevel.None)
+                    Log.LogWarning($"Disable Cards is set to [{DisabledRiskLevels}]. Cards with the affected risk level(s) have been removed from the pool of obtainable cards.");
 
-                    if (LobotomyConfigManager.Instance.NoDonators)
-                        Log.LogWarning("Disable Donators is set to [true]. Some cards have been removed from the pool of obtainable cards.");
+                if (LobotomyConfigManager.Instance.NoDonators)
+                    Log.LogWarning("Disable Donators is set to [true]. Some cards have been removed from the pool of obtainable cards.");
 
-                    if (LobotomyConfigManager.Instance.NoRuina)
-                        Log.LogWarning("Disable Ruina is set to [true]. Some cards have been removed from the pool of obtainable cards.");
+                if (LobotomyConfigManager.Instance.NoRuina)
+                    Log.LogWarning("Disable Ruina is set to [true]. Some cards have been removed from the pool of obtainable cards.");
 
-                    Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
-                }
-                Log.LogInfo($"The Clock is at [{LobotomyConfigManager.Instance.NumOfBlessings}].");
+                Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
             }
+            Log.LogInfo($"The Clock is at [{LobotomyConfigManager.Instance.NumOfBlessings}].");
         }
         private void OnDisable() => HarmonyInstance.UnpatchSelf();
         private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
@@ -156,28 +156,31 @@ namespace WhistleWindLobotomyMod
         }
         private void AddAbilities()
         {
-            AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
+            if (LobotomyConfigManager.Instance.ReskinSigils)
             {
-                var sniperInfo = abilities.Find(x => x.Info.name == "Sniper").Info;
-                var sentryInfo = abilities.Find(x => x.Info.name == "Sentry").Info;
-                var transformInfo = abilities.Find(x => x.Info.name == "Transformer").Info;
+                AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
+                {
+                    var sniperInfo = abilities.Find(x => x.Info.name == "Sniper").Info;
+                    var sentryInfo = abilities.Find(x => x.Info.name == "Sentry").Info;
+                    var transformInfo = abilities.Find(x => x.Info.name == "Transformer").Info;
 
-                sniperInfo.rulebookName = "Marksman";
-                sniperInfo.SetAbilityLearnedDialogue("Your beast strikes with precision.")
-                    .SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman"))
-                    .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel"))
-                    .SetFlipYIfOpponent();
+                    sniperInfo.rulebookName = "Marksman";
+                    sniperInfo.SetAbilityLearnedDialogue("Your beast strikes with precision.")
+                        .SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman"))
+                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel"));
 
-                sentryInfo.rulebookName = "Quick Draw";
-                sentryInfo.SetAbilityLearnedDialogue("The early bird gets the worm.")
-                    .SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw"))
-                    .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel"))
-                    .SetCanStack();
+                    sentryInfo.rulebookName = "Quick Draw";
+                    sentryInfo.SetAbilityLearnedDialogue("The early bird gets the worm.")
+                        .SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw"))
+                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel"))
+                        .SetCanStack()
+                        .SetFlipYIfOpponent();
 
-                transformInfo.rulebookDescription = "A card bearing this sigil will transform into an alternate forme after 1 turn on the board.";
+                    transformInfo.rulebookDescription = "A card bearing this sigil will transform into an alternate forme after 1 turn on the board.";
 
-                return abilities;
-            };
+                    return abilities;
+                };
+            }
 
             Ability_TimeMachine();
             Ability_Apostle();

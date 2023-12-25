@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FrostRuler()
         {
             const string rulebookName = "Ruler of Frost";
-            const string rulebookDescription = "Once per turn, pay 2 Bones to choose a space on the board. If the space is empty, create a Block of Ice. Otherwise, if this card can kill the chosen card, transform it into a Frozen Heart.";
+            const string rulebookDescription = "Once per turn, pay 2 Bones to choose a space on the board. If the space is empty, create a Block of Ice. Otherwise, if this card can kill the occupying card, transform it into a Frozen Heart.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
             const string triggerText = "[creature] freezes the path.";
             FrostRuler.ability = AbnormalAbilityHelper.CreateActivatedAbility<FrostRuler>(
@@ -34,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
                 return "Its heart is too strong to ensare.";
 
             if (slot.Card.HasAbility(Scorching.ability))
-                return "This creature is too firey to freeze.";
+                return "This creature burns with passion. It cannot freeze.";
 
             return "Frost cannot penetrate this one. Choose another.";
         }
@@ -63,10 +63,10 @@ namespace WhistleWind.AbnormalSigils
             if (slot.Card == null)
                 return true;
 
-            if (slot.Card == base.Card || slot.Card.Dead)
+            if (slot.Card == base.Card || slot.Card.Dead || slot.Card.HasAnyOfTraits(Trait.Uncuttable, Trait.Giant) || slot.Card.HasAbility(Scorching.ability))
                 return false;
 
-            return slot.Card.LacksAbility(Scorching.ability) && slot.Card.Health <= base.Card.Attack;
+            return base.Card.Attack >= slot.Card.Health || (base.Card.HasAbility(Ability.Deathtouch));
         }
 
         private IEnumerator SpawnCard(CardSlot slot, string name)

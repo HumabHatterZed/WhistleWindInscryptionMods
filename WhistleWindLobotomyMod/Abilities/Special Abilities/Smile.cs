@@ -13,16 +13,15 @@ namespace WhistleWindLobotomyMod
 
         public const string rName = "Smile";
         public const string rDesc = "Mountain of Smiling Bodies grows into a stronger forme whenever killing a card. Upon dying, revert to a previous forme if possible.";
-        private string CardName => base.PlayableCard.Info.name;
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return killer == base.PlayableCard && !base.PlayableCard.Dead && CardName != "wstl_mountainOfBodies3";
+            return killer == base.PlayableCard && !base.PlayableCard.Dead && base.PlayableCard.Info.name != "wstl_mountainOfBodies3";
         }
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            CardInfo evolution = CardName == "wstl_mountainOfBodies" ? CardLoader.GetCardByName("wstl_mountainOfBodies2") : CardLoader.GetCardByName("wstl_mountainOfBodies3");
+            CardInfo evolution = CardLoader.GetCardByName(base.PlayableCard.Info.name == "wstl_mountainOfBodies" ? "wstl_mountainOfBodies2" : "wstl_mountainOfBodies3");
             yield return new WaitForSeconds(0.25f);
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
@@ -36,12 +35,12 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            return !wasSacrifice && CardName != "wstl_mountainOfBodies";
+            return !wasSacrifice && base.PlayableCard.Info.name != "wstl_mountainOfBodies";
         }
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            CardInfo previous = CardName.Equals("wstl_mountainOfBodies2") ? CardLoader.GetCardByName("wstl_mountainOfBodies") : CardLoader.GetCardByName("wstl_mountainOfBodies2");
+            CardInfo previous = CardLoader.GetCardByName(base.PlayableCard.Info.name == "wstl_mountainOfBodies2" ? "wstl_mountainOfBodies" : "wstl_mountainOfBodies2");
             yield return new WaitForSeconds(0.25f);
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {

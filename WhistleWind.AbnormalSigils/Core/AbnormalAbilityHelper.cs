@@ -1,6 +1,8 @@
 ﻿using DiskCardGame;
+using EasyFeedback.APIs;
 using InscryptionAPI.Card;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Card.AbilityManager;
@@ -10,6 +12,58 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
 {
     public static class AbnormalAbilityHelper
     {
+        /// <summary>
+        /// Returns whether Opportunistic/OneSided can trigger during an attack.
+        /// </summary>
+        /// <param name="attacker">The card with Opportunistic.</param>
+        /// <param name="target">The card being targeted.</param>
+        public static bool SimulateOneSidedAttack(PlayableCard attacker, PlayableCard target)
+        {
+            if (target == null)
+                return false;
+
+            // target cannot attack on its turn
+            if (target.Attack == 0 || target.HasAbility(Neutered.ability))
+                return true;
+
+            // attacker is not being targeted
+            if (!target.GetOpposingSlots().Contains(attacker.Slot))
+                return true;
+
+            // if target can hit us
+            if (target.LacksAbility(Ability.Flying) || attacker.HasAbility(Ability.Reach))
+            {
+                // if the target is Persistent it can always hit us
+                if (target.HasAbility(Persistent.ability))
+                    return false;
+
+                // target cannot hit facedown/submerged cards, Repulsive cards, or Loose Tail cards with their tail intact
+                return attacker.FaceDown || attacker.HasAbility(Ability.PreventAttack) || (attacker.HasAbility(Ability.TailOnHit) && !attacker.Status.lostTail);
+            }
+            return true; // target cannot hit us
+        }
+        /// <summary>
+        /// Returns whether Persistent can trigger during an attack.
+        /// </summary>
+        /// <param name="attacker">The card with Persistent.</param>
+        /// <param name="target">The card being targeted.</param>
+        public static bool SimulatePersistentAttack(PlayableCard attacker, PlayableCard target)
+        {
+            if (target == null)
+                return false;
+
+            // if attacker can hit the target
+            if (attacker.LacksAbility(Ability.Flying) || target.HasAbility(Ability.Reach))
+            {
+                // if the target has Loose Tail and hasn't lost it
+                if (target.HasAbility(Ability.TailOnHit) && !target.Status.lostTail)
+                    return true;
+
+                // attacker can hit facedown cards and Repulsive cards
+                return target.FaceDown || target.HasAbility(Ability.PreventAttack);
+            }
+            return false;
+        }
         public static FullAbility CreateAbility<T>(
             string abilityName,
             string rulebookName, string rulebookDescription,

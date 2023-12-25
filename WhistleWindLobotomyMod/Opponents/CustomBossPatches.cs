@@ -156,7 +156,7 @@ namespace WhistleWindLobotomyMod.Patches
             if (bonesToGive <= 0)
                 yield break;
 
-            bonesToGive = Mathf.Min(3, bonesToGive);
+            bonesToGive = Mathf.Min(2, bonesToGive);
 
             if (doScaleDamage)
                 DigUpBones(bonesToGive, targetSlot);

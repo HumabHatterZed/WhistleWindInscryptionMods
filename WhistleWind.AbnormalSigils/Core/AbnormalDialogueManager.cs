@@ -25,6 +25,8 @@ namespace WhistleWind.AbnormalSigils.Core
                 new() { "With a single kiss, the Snow Queen froze their hearts." }},
             { "FrostRulerFail",
                 new() { "The snow melts away. Perhaps spring is coming." }},
+            { "LonelyDie",
+                new() { "Why do they always leave?" }},
             { "NettlesDie",
                 new() {
                     "She saw her dear brothers in the distance.",

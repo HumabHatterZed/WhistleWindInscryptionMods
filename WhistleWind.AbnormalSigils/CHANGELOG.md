@@ -23,35 +23,44 @@
 - The Train ability no longer affects Giant or Uncuttable cards
 - Fixed a number of abilities breaking visual effects when triggered on a facedown card
 ### 🔧 Tweaks
-- Status effect card mod infos are now nonCopyable
-- Overhauled Made of Slime's effect
-- Adjusted Ruler of Frost's description to be clearer (if longer :s)
-- Ruler of Frost ability now has different invalid target dialogue depending on the context
-- Made a number of tweaks to dialogue
-- Adjusted custom tribe icons' positions
 - SniperSelectSlot.AIEvaluate target is now overridable
+- Status effect card mod infos are now nonCopyable
+- Ruler of Frost ability now has different invalid target dialogue depending on the context
+- Adjusted Ruler of Frost's description to be clearer (if longer :s)
 - Copycat ability now triggers OnResolveOnBoard sigils if it transforms immediately after being played
 - Copycat ability now has dialogue for when it cannot copy the opposing card
 - Copycat ability now triggers BEFORE most other sigils on the base card
 - Copycat ability now copies temporary mods as well
 - Witness ability effect now uses the status effect system instead of extended properties
-- Opportunistic sigil is now flipped for the opponent
-- Changed description of Made of Stone to indicate it provides immunity to Idol and Punisher
+- Opportunistic ability icon is now flipped for the opponent
+- Improved Opportunistic logic
 - Reworked The Train ability to activate on resolve instead of after 3 turns
-- Cursed now removes temporary mods that are nonCopyable or aren't from a Totem
+- Overhauled Made of Slime ability's effect
+- Changed description of Made of Stone to indicate modded abilities it is immune to
+- Cursed ability now removes temporary mods that are nonCopyable or aren't from a Totem
 - Scrambler sigil now uses similar logic to Corrector
 - Slime now has LovingSlime Trait and Slimes stat icon
-- Persistent and Piercing abilities no longer have additional damage effects
+- Made a number of tweaks to dialogue
+- Adjusted custom tribe icons' positions
+- Cards with Sigil Power stat icon now display their stats when moused over while in the hand
 ### ⚖️ Balancing
 - Reduced Ruler of Frost's activation cost from 3 --> 2 Bones
 - Reduced Rightful Heir ability's starting activation cost from 3 --> 2 Bones
-- Reduced Pumpkin's Health from 2 --> 1
+- Ruler of Frost ability now accounts for the base card having Touch of Death
 - Third Brother now has Sharp Quills instead of Reflector
 - Adjusted Queen Nest description to be clearer on activation requirement: 'card dies' --> 'card is killed'
 - Opponents using the Healer ability will now prioritise cards with 1 Health and depriortise cards at max Health or higher
-- Idol no longer affects cards with Made of Stone
-- Corrector temporary mod is now marked as nonCopyable
-- Increased probability of Corrector sigil giving Attack from 33% --> 40%
+- Idol ability no longer affects cards with Made of Stone
+- Corrector ability's temporary mod is now marked as nonCopyable
+- Increased probability of Corrector and Scrambler sigils giving Attack from 33% --> 40%
+- Increased power value of some costs in Corrector ability's calculation
+    - 4 Energy now counts for 7 pts (from 6)
+    - 5 Energy now counts for 9 pts (from 8)
+    - 4 Blood now counts for 24 pts (from 20)
+    - Blood costs above 5 now use a different formula, resulting in overall higher values (why are your cards over 5 Blood anyway?)
+- Opportunistic ability now triggers even if the target has Sharp Quills or Reflector
+- Opportunistic ability no longer triggers even if the attacker has shields
+- Persistent and Piercing abilities no longer deal additional or overkill damage respectively
 ### ➕ Additions
 - Added the following abilities:
     - Binding Strike, Nimble-Footed, High-Strung, Refresh Decks, Return Card To Hand, Persecutor, Left-Veering Strike, Right-Veering Strike

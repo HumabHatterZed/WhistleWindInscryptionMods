@@ -20,6 +20,8 @@ namespace WhistleWindLobotomyMod.Core
 
         private ConfigEntry<bool> Config_FoundInGBC;
         public bool GBCPacks => Config_FoundInGBC.Value;
+        private ConfigEntry<bool> Config_ReskinSigils;
+        public bool ReskinSigils => Config_ReskinSigils.Value;
 
         private ConfigEntry<bool> Config_SpecialsInRulebook;
         public bool RevealSpecials => Config_SpecialsInRulebook.Value;
@@ -133,6 +135,10 @@ namespace WhistleWindLobotomyMod.Core
             Config_FoundInGBC = WstlConfigFile.Bind(
                 "Config", "GBC Packs", true,
                 new ConfigDescription("Allows some cards to be obtainable in Act 2 card packs."));
+
+            Config_ReskinSigils = WstlConfigFile.Bind(
+                "Config", "Reskin Sigils", true,
+                new ConfigDescription("Changes the names and icons of Sniper and Sentry."));
 
             Config_SpecialsInRulebook = WstlConfigFile.Bind(
                 "Config", "Special Abilities in Rulebook", false,

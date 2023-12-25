@@ -27,49 +27,23 @@ namespace WhistleWind.AbnormalSigils
 
         private bool activate = false;
 
-        public override bool RespondsToDealDamage(int amount, PlayableCard target) => activate;
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
-            return base.Card == attacker && CheckValid(target);
+            return base.Card == attacker && AbnormalAbilityHelper.SimulateOneSidedAttack(base.Card, target);
         }
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        {
+            activate = true;
+            return damage + 1;
+        }
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
 
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) => activate;
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
             activate = false;
             yield return base.PreSuccessfulTriggerSequence();
             yield return base.LearnAbility(0.4f);
         }
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
-        {
-            activate = true;
-            damage++;
-            return damage;
-        }
-
-        private bool CheckValid(PlayableCard target)
-        {
-            // if target has no Power, if this card can submerge or is facedown (cannot be hit), return true by default
-            if (target.Attack == 0)
-                return true;
-
-            // if this card is a potential target
-            if (target.GetOpposingSlots().Contains(base.Card.Slot))
-            {
-                if (target.HasAbility(Ability.Flying) && base.Card.LacksAbility(Ability.Reach))
-                    return true;
-
-                if ((base.Card.HasAbility(Ability.TailOnHit) && !base.Card.Status.lostTail) ||
-                    base.Card.HasAbility(Ability.PreventAttack) ||
-                    base.Card.HasAnyOfAbilities(Ability.Submerge, Ability.SubmergeSquid) || base.Card.FaceDown)
-                    return target.LacksAbility(Persistent.ability);
-
-                if (base.Card.HasShield())
-                    return target.LacksAllAbilities(Piercing.ability, Ability.Sharp, Reflector.ability);
-            }
-
-            return true;
-        }
-
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
     }
 }

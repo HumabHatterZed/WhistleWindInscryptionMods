@@ -40,10 +40,7 @@
 - WhiteNight now uses the Terrain stat layout
 - Improved Adoration special ability's effect
 ### ⚖️ Balancing
-- Adjusted some encounter blueprints' balance
-- Changed the CardTemple of some cards
-- Reworked Time Machine ability - now makes you choose a card to remove from your deck, rather than remove a random one
-- Reduced Hokma's Health from 3 --> 2
+- Increased Spider Bud's Health from 2 --> 3
 - Rebalanced Express Train to Hell from 0/4, 4 Bones --> 0/1, 2 Energy
 - Rebalanced Der Freischütz from 1/1, Bifurcated Strike, Sniper --> 2/2, Sniper, Persistent
 - Rebalanced Little Red Riding Hooded Mercenary from 2/5, Sniper, Persistent --> 2/6, Sniper
@@ -52,14 +49,20 @@
 - Rebalanced The Snow Queen from 1/2, 5 Bones --> 2/2, 2 Blood
 - Rebalanced Melting Love from 4/3 --> Slimes/6
 - Rebalanced Silent Girl from 2/1, Trifurcated Strike --> 2/2, Persecutor
+- Rebalanced Yesod from 0/1; Hoarder, Corrector --> 2/3, Hoarder
+- Rebalanced Chesed from 0/; Thick Skin, Healer; 1 Blood --> 1/4; Regenerator, Healer; 4 Energy
+- Rebalanced Hokma from 2/3 --> 1/4
+- Gebura now has Persistent instead of Piercing
 - Reduced Beauty and the Beast's Power from 1 --> 0
 - Beauty and the Beast now has KillsSurvivors trait
-- Gebura now has Persistent instead of Piercing
-- Increased Spider Bud's Health from 2 --> 3
+- Reworked Time Machine ability - now makes you choose a card to remove from your deck, rather than remove a random one
+- Adjusted some encounter blueprints' balance
+- Changed the CardTemple of some cards
 ### ➕ Additions
 - Added Final Apocalypse challenge and boss
 - Added Achievements API support (6 achievements)
 - Added 1 new encounter
+- Added Reskin Sigils config for controlling the names and icons of Sniper and Sentry (true by default)
 ### 💣 Removals
 - Removed Magic Bullet special ability
 - Removed unused dialogue events

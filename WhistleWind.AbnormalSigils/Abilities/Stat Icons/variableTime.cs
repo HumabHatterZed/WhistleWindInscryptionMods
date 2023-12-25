@@ -10,14 +10,7 @@ namespace WhistleWind.AbnormalSigils
         public static SpecialStatIcon icon;
         public static SpecialStatIcon Icon => icon;
         public override SpecialStatIcon IconType => icon;
-        private int turns;
-        public override int[] GetStatValues() => new int[2] { turns, 0 };
-        public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
-            turns += 1;
-            yield break;
-        }
+        public override int[] GetStatValues() => new int[2] { TurnManager.Instance.TurnNumber - base.PlayableCard.TurnPlayed, 0 };
     }
 
     public partial class AbnormalPlugin

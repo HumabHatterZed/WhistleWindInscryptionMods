@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             CreateCard(MakeCard(
                 ozmaPumpkinJack,
                 "Jack",
-                attack: 2, health: 2, blood: 1)
+                attack: 2, health: 2)
                 .SetPortraits(ozmaPumpkinJack)
                 .AddAbilities(Cursed.ability)
                 .AddTribes(tribes));
@@ -24,7 +24,7 @@ namespace WhistleWind.AbnormalSigils
             CreateCard(MakeCard(
                 ozmaPumpkin,
                 "Pumpkin",
-                attack: 0, health: 1)
+                attack: 0, health: 2)
                 .SetPortraits(ozmaPumpkin)
                 .AddAbilities(Ability.Evolve)
                 .AddTribes(tribes)

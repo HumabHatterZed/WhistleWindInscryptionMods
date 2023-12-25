@@ -72,12 +72,12 @@ namespace WhistleWind.AbnormalSigils
             return false;
         }
 
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => base.Card.LacksTrait(AbnormalPlugin.LovingSlime);
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && base.Card.LacksTrait(AbnormalPlugin.LovingSlime);
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             CardInfo cardInfo = CardLoader.GetCardByName("wstl_meltingLoveMinion").Clone() as CardInfo;
             cardInfo.baseHealth = Mathf.Max(1, base.Card.MaxHealth - 1);
-            cardInfo.SetCost(base.Card.BloodCost(), base.Card.BonesCost(), base.Card.EnergyCost, base.Card.GemsCost());
+
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
                 // Copy merged sigils and the like
