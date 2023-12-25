@@ -14,12 +14,12 @@ namespace WhistleWindLobotomyMod
         {
             const string childOfTheGalaxy = "childOfTheGalaxy";
 
-            NewCard(childOfTheGalaxy, "Child of the Galaxy", "A small child longing for a friend. Will you be his?",
-                attack: 1, health: 1, blood: 1, temple: CardTemple.Wizard)
+            NewCard(childOfTheGalaxy, "Child of the Galaxy", "A small child longing for an eternal friend. Will you be his?",
+                attack: 0, health: 0, bones: 3, temple: CardTemple.Wizard)
                 .SetPortraits(childOfTheGalaxy)
-                .AddAbilities(FlagBearer.ability, Ability.BoneDigger)
-                .AddTribes(TribeAnthropoid)
-                .SetDefaultEvolutionName("Teen of the Galaxy")
+                .AddAbilities(Lonely.ability)
+                .SetSpellType(SpellType.Targeted)
+                .AddMetaCategories(CannotGiveSigils)
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }

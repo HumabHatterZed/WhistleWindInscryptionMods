@@ -215,6 +215,8 @@ namespace WhistleWind.AbnormalSigils
             StatusEffect_Bind();
             
             Ability_Persecutor();
+            Ability_Lonely();
+            StatusEffect_Pebble();
 
             // Specials
             Ability_FalseThrone();
