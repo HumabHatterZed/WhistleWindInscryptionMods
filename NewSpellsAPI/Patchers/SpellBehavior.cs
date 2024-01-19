@@ -245,7 +245,6 @@ namespace Infiniscryption.Spells.Patchers
                 queueSlot.CursorExited += x => interactable.QueueCursorExit();
             }
             interactable.playableCard = card;
-            Debug.Log($"Butt {card.Info.name}");
         }
         // method for adding show-stats spells to the campfire list of valid cards
         // not patched automatically; stat spells need to be able to stat boost in the first place
@@ -259,13 +258,13 @@ namespace Infiniscryption.Spells.Patchers
 
         #region Main Spell Patches
         // First: we don't need room on board
-        [HarmonyPatch(typeof(BoardManager), "SacrificesCreateRoomForCard")]
-        [HarmonyPrefix]
+        [HarmonyPrefix, HarmonyPatch(typeof(BoardManager), "SacrificesCreateRoomForCard")]
         public static bool SpellsDoNotNeedSpace(PlayableCard card, BoardManager __instance, List<CardSlot> sacrifices, ref bool __result)
         {
-            if (!card || !card.Info.IsSpell())
+            if (card == null || !card.Info.IsSpell())
                 return true;
 
+            // if the spell costs no blood, we don't need to bother with this
             if (card.Info.BloodCost <= 0)
             {
                 __result = true;
@@ -273,17 +272,20 @@ namespace Infiniscryption.Spells.Patchers
             }
 
             // iterate through each slot that hasn't been selected for sacrifice
-            // to determine if there will still be valid targets afterwards
-            foreach (CardSlot slot in __instance.AllSlotsCopy
-                .Where(asc => (asc.Card != null && asc.Card.HasAbility(Ability.Sacrificial)) || !sacrifices.Contains(asc)))
+            // to determine if there will still be valid targets after sacrifices
+            foreach (CardSlot slot in __instance.AllSlotsCopy)
             {
-                if (slot.IsValidTarget(card))
+                if (!sacrifices.Contains(slot) || (slot.Card != null && slot.Card.HasAbility(Ability.Sacrificial)))
                 {
+                    if (!slot.IsValidTarget(card))
+                        continue;
+
                     __result = true;
-                    break;
+                    return false;
                 }
             }
-            return false;
+
+            return true;
         }
 
         // Next, there has to be at least one slot (for targeted spells)
@@ -344,7 +346,6 @@ namespace Infiniscryption.Spells.Patchers
 
             // All card slots
             List<CardSlot> allSlots = Singleton<BoardManager>.Instance.AllSlotsCopy;
-
             if (!Singleton<BoardManager>.Instance.CancelledSacrifice)
             {
                 bool canPlayCard = true;

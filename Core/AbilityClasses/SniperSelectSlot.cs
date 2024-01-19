@@ -105,7 +105,7 @@ namespace WhistleWind.Core.AbilityClasses
             if (validTargets.Count > 0)
             {
                 validTargets.Sort((CardSlot a, CardSlot b) => AIEvaluateTarget(b.Card, IsPositiveEffect) - AIEvaluateTarget(a.Card, IsPositiveEffect));
-                chosenCallback(validTargets[SeededRandom.Range(0, validTargets.Count, base.GetRandomSeed())]);
+                chosenCallback(validTargets[0]);
                 yield return new WaitForSeconds(0.1f);
             }
             else

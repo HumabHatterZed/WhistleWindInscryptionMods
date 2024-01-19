@@ -119,6 +119,7 @@ namespace WhistleWind.Core.Helpers
             else
             {
                 CardSlot index = openSlots[SeededRandom.Range(0, openSlots.Count, randomSeed++)];
+                ViewManager.Instance.SwitchToView(View.OpponentQueue);
                 yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(cardToQueue, index);
                 if (triggerResolve)
                 {

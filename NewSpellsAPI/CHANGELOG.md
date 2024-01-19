@@ -3,6 +3,9 @@
 <details>
 <summary>View changelog</summary>
 
+## 1.2.4 (1/16/2024)
+- Fixed Blood-costing spell cards not being playable even when there are sufficient sacrifices and targets
+
 ## 1.2.3 (12/24/2023)
 - Queued spell cards can now be prevented from being played by patching Opponent.QueuedCardIsBlocked
 - Made UpdateStatsSpellDisplay and UpdatePlayableStatsSpellDisplay public
