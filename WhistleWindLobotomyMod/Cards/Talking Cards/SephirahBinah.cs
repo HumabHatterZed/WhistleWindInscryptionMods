@@ -86,7 +86,7 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahBinah", "Binah", "Though not as powerful as she once was, she will still make a great ally.",
                 attack: 3, health: 5, blood: 3)
                 .AddAbilities(Ability.Sniper, Piercing.ability)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

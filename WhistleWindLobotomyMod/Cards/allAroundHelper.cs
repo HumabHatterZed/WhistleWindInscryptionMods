@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string allAroundHelper = "allAroundHelper";
 
             NewCard(allAroundHelper, "All-Around Helper", "A murderous cleaning machine. Far nicer than a certain other...well, nevermind.",
-                attack: 1, health: 3, energy: 4, temple: CardTemple.Tech)
+                attack: 1, health: 2, energy: 3, temple: CardTemple.Tech)
                 .SetPortraits(allAroundHelper)
                 .AddAbilities(Ability.Strafe, Ability.SplitStrike)
                 .AddTribes(TribeMechanical)

@@ -11,29 +11,34 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
-        public bool RespondsToPostSlotAttackSequence(CardSlot attackingSlot) => attackingSlot.Card == base.PlayableCard;
+        public bool RespondsToPostSlotAttackSequence(CardSlot attackingSlot) => attackingSlot.Card == base.PlayableCard && base.PlayableCard.Info.name == "wstl_queenOfHatred";
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => playerTurnEnd != base.PlayableCard.OpponentCard;
+
         public IEnumerator OnPostSlotAttackSequence(CardSlot attackingSlot)
         {
-            switch (base.PlayableCard.Info.name)
-            {
-                case "wstl_queenOfHatred":
-                    CardInfo evolutionTired = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatredTired");
-                    yield return base.PlayableCard.TransformIntoCard(evolutionTired);
-                    yield return new WaitForSeconds(0.5f);
-                    yield return DialogueHelper.PlayDialogueEvent("QueenOfHatredExhaust");
-                    break;
-                case "wstl_queenOfHatredTired":
-                    CardInfo evolutionRecovered = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatred");
-                    yield return base.PlayableCard.TransformIntoCard(evolutionRecovered);
-                    yield return new WaitForSeconds(0.5f);
-                    yield return DialogueHelper.PlayDialogueEvent("QueenOfHatredRecover");
-                    break;
-            }
+            exhaustedThisTurn = true;
+            CardInfo evolutionTired = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatredTired");
+            yield return base.PlayableCard.TransformIntoCard(evolutionTired);
+            yield return new WaitForSeconds(0.5f);
+            yield return DialogueHelper.PlayDialogueEvent("QueenOfHatredExhaust");
         }
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
+        {
+            if (exhaustedThisTurn)
+            {
+                exhaustedThisTurn = false;
+                yield break;
+            }
+            CardInfo evolutionRecovered = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_queenOfHatred");
+            yield return base.PlayableCard.TransformIntoCard(evolutionRecovered);
+            yield return new WaitForSeconds(0.5f);
+            yield return DialogueHelper.PlayDialogueEvent("QueenOfHatredRecover");
+        }
+        private bool exhaustedThisTurn = false;
     }
     public partial class LobotomyPlugin
     {
-        private void SpecialAbility_CustomFledgling()
+        private void SpecialAbility_QueenOfHatredExhaustion()
             => QueenOfHateExhaustion.specialAbility = AbilityHelper.CreateSpecialAbility<QueenOfHateExhaustion>(pluginGuid, "QueenOfHateExhaustion").Id;
     }
 }

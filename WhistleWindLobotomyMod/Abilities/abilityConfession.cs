@@ -85,7 +85,7 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            if (killer != null && killer.HasTrait(LobotomyCardManager.TraitApostle))
+            if (killer != null && killer.HasTrait(LobotomyCardManager.Apostle))
                 yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, 0.15f);
 
             yield break;

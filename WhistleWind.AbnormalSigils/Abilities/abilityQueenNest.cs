@@ -25,15 +25,7 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override CardInfo CardToDraw
-        {
-            get
-            {
-                CardInfo cardByName = CardLoader.GetCardByName("wstl_queenBeeWorker");
-                cardByName.Mods.AddRange(base.GetNonDefaultModsFromSelf(this.Ability));
-                return cardByName;
-            }
-        }
+        public override CardInfo CardToDraw => CardLoader.GetCardByName("wstl_queenBeeWorker");
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {

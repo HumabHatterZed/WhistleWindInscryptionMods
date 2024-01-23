@@ -221,9 +221,11 @@ namespace WhistleWindLobotomyMod
         }
         private void AddItems()
         {
-            // Enkephalin box - recharge energy
-            // Loving Slime - +1 Thick Skin
-            // 
+            // Enkephalin box - max out and recharge energy
+            // Loving Slime - +1 Thick Skin to a card
+            // Pebble - Gives Pebble effect to a card
+            // Accelerator - Gives card +X Speed
+            Item_RecallBottle();
         }
 
         private void AddEncounters()

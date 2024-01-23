@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(warmHeartedWoodsman)
                 .AddAbilities(Woodcutter.ability)
                 .AddTribes(TribeMechanical)
-                .AddTraits(TraitEmeraldCity)
+                .AddTraits(EmeraldCity)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }

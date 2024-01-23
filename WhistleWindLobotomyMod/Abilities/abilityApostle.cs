@@ -10,7 +10,7 @@ using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public class Apostle : AbilityBehaviour, IModifyDamageTaken
+    public class ApostleSigil : AbilityBehaviour, IModifyDamageTaken
     {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -78,7 +78,11 @@ namespace WhistleWindLobotomyMod
 
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
-            yield return base.Card.TransformIntoCard(downedInfo, ResetDamage);
+            if (base.Card.Slot.Card != null)
+                yield return base.Card.TransformIntoCard(downedInfo, ResetDamage);
+            else
+                yield return BoardManager.Instance.CreateCardInSlot(downedInfo, base.Card.Slot);
+
             yield return new WaitForSeconds(0.5f);
 
         }
@@ -120,7 +124,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Apostle";
             const string dialogue = "";
 
-            Apostle.ability = LobotomyAbilityHelper.CreateAbility<Apostle>(
+            ApostleSigil.ability = LobotomyAbilityHelper.CreateAbility<ApostleSigil>(
                 "sigilApostle",
                 rulebookName, "'Thou wilt abandon flesh and be born again.'", dialogue, powerLevel: -3,
                 canStack: false).Id;

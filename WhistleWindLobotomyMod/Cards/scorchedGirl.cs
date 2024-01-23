@@ -17,6 +17,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(scorchedGirl)
                 .AddAbilities(Volatile.ability)
                 .AddTribes(TribeAnthropoid)
+                .AddTraits(DiskCardGame.Trait.KillsSurvivors)
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }

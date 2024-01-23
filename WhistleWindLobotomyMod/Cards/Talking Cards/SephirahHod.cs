@@ -97,7 +97,7 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahHod", "Hod", "Though death is guaranteed, it never hurts to be prepared, right?",
                 attack: 1, health: 2, bones: 3)
                 .AddAbilities(Protector.ability)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

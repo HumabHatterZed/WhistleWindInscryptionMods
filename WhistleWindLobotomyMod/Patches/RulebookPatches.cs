@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod.Patches
                         AbilitiesUtil.GetInfo(DynamicAbilities[0]).rulebookName = "Cute Lil Guy";
                     }
 
-                    if (card.HasTrait(LobotomyCardManager.TraitApostle))
+                    if (card.HasTrait(LobotomyCardManager.Apostle))
                     {
                         changedRulebook = true;
                         AbilitiesUtil.GetInfo(DynamicAbilities[1]).rulebookDescription = "[creature] will enter a downed state instead of dying. Downed creatures are invulnerable under special conditions.";
@@ -97,7 +97,7 @@ namespace WhistleWindLobotomyMod.Patches
         private static readonly List<Ability> DynamicAbilities = new()
         {
             Ability.DebuffEnemy,
-            Apostle.ability,
+            ApostleSigil.ability,
             TrueSaviour.ability,
             Confession.ability,
             ApocalypseAbility.ability,

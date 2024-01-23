@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             const string queenOfHatredTired = "queenOfHatredTired";
             SpecialTriggeredAbility[] specialAbilities = new[] { QueenOfHateExhaustion.specialAbility };
             Tribe[] tribes = new[] { TribeFae, Tribe.Reptile };
-            Trait[] traits = new[] { TraitMagicalGirl };
+            Trait[] traits = new[] { MagicalGirl };
 
             NewCard(queenOfHatredTired, queenName,
                 attack: 0, health: 2, blood: 1, temple: CardTemple.Wizard)

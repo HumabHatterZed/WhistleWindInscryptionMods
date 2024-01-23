@@ -79,22 +79,18 @@ namespace WhistleWind.AbnormalSigils
             powerLevel += (base.Card.Info.GetExtendedPropertyAsInt("LifeMoneyCost") ?? 0) * 3;
             powerLevel += base.Card.Info.GetExtendedProperty("ForbiddenMoxCost") != null ? 3 : 0;
 
-            if (base.Card.Info.appearanceBehaviour.Contains(CardAppearanceBehaviour.Appearance.RareCardBackground) ||
-                base.Card.Info.HasCardMetaCategory(CardMetaCategory.Rare))
-                powerLevel += 2;
-
             return powerLevel;
         }
         private void GetNewStats()
         {
-            int[] stats = new[] { 0, 1 };
+            int[] stats = new[] { 0, 0 };
             int powerLevel = GetCostPowerLevel();
             int randomSeed = base.GetRandomSeed();
 
             while (powerLevel > 0)
             {
-                // 33% of giving Power
-                if (powerLevel >= 2 && SeededRandom.Value(randomSeed *= 2) <= 0.4f)
+                // 40% chance of giving Power
+                if (powerLevel > 1 && SeededRandom.Value(randomSeed *= 2) <= 0.4f)
                 {
                     stats[0]++;
                     powerLevel -= 2;
@@ -105,6 +101,10 @@ namespace WhistleWind.AbnormalSigils
                     powerLevel--;
                 }
             }
+
+            // give 1 extra Health if there is none present
+            if (stats[1] == 0)
+                stats[1]++;
 
             base.Card.AddTemporaryMod(new(stats[0] - base.Card.Attack, stats[1] - base.Card.Health) { nonCopyable = true });
         }

@@ -35,6 +35,20 @@ namespace WhistleWindLobotomyMod
                 .AddAbilities(RefreshDecks.ability)
                 .SetGlobalSpell()
                 .Build();
+
+            NewCard("RETURN_CARD_WEAK", "Single Recall",
+                attack: 0, health: 0, energy: 1)
+                .SetPortraits(RETURNONE, "", "")
+                .AddAbilities(ReturnCard.ability)
+                .SetTargetedSpell()
+                .Build();
+
+            NewCard("RETURN_CARD_ALL_WEAK", "Total Recall",
+                attack: 0, health: 0, energy: 3)
+                .SetPortraits(RETURNALL, "", "")
+                .AddAbilities(ReturnCard.ability)
+                .SetGlobalSpell()
+                .Build();
         }
     }
 }

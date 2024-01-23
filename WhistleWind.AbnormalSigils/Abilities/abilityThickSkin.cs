@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             ThickSkin.ability = AbnormalAbilityHelper.CreateAbility<ThickSkin>(
                 "sigilThickSkin",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: true, opponent: true, canStack: true).Id;
+                modular: true, opponent: false, canStack: true).Id;
         }
     }
     public class ThickSkin : AbilityBehaviour, IModifyDamageTaken
@@ -42,7 +42,6 @@ namespace WhistleWind.AbnormalSigils
         }
 
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => damage - 1;
-
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
     }
 }

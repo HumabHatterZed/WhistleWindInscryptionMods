@@ -4,6 +4,7 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 
@@ -12,6 +13,27 @@ namespace WhistleWind.AbnormalSigils.Core
     [HarmonyPatch]
     internal class StatusEffectPatches // Adds extra icon slots for rendering status effects
     {
+        [HarmonyPrefix, HarmonyPatch(typeof(CreateCardsAdjacent), nameof(CreateCardsAdjacent.ModifySpawnedCard))]
+        private static bool DontInheritStatusEffects(CreateCardsAdjacent __instance, CardInfo card)
+        {
+            List<Ability> abilities = __instance.Card.Info.Abilities;
+            foreach (CardModificationInfo temporaryMod in __instance.Card.TemporaryMods)
+            {
+                abilities.AddRange(temporaryMod.abilities);
+            }
+            abilities.RemoveAll(x => x == __instance.Ability || StatusEffectManager.AllIconColours.Keys.Contains(x));
+            if (abilities.Count > 4)
+            {
+                abilities.RemoveRange(3, abilities.Count - 4);
+            }
+            CardModificationInfo cardModificationInfo = new()
+            {
+                fromCardMerge = true,
+                abilities = abilities
+            };
+            card.Mods.Add(cardModificationInfo);
+            return false;
+        }
         [HarmonyPostfix]
         [HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.GetDistinctShownAbilities))]
         [HarmonyPatch(typeof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix), nameof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix.RenderTemporarySigils))]

@@ -92,7 +92,7 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahNetzach", "Netzach", "Despite his lack of motivation, he'll do his best to succeed.",
                 attack: 0, health: 3, blood: 1)
                 .AddAbilities(GreedyHealing.ability, Ability.WhackAMole)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

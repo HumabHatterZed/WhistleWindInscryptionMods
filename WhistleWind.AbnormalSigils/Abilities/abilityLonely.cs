@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
@@ -19,7 +20,7 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "A friend to stay.";
             Lonely.ability = AbnormalAbilityHelper.CreateAbility<Lonely>(
                 "sigilLonely",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }
@@ -91,6 +92,6 @@ namespace WhistleWind.AbnormalSigils
 
             }
         }
-        private bool CheckValid(CardSlot target) => target.Card != null && target.Card.OpponentCard == base.Card.OpponentCard && !HasFriend;
+        private bool CheckValid(CardSlot target) => target.IsOpponentSlot() == base.Card.OpponentCard && target.Card != null && !HasFriend;
     }
 }

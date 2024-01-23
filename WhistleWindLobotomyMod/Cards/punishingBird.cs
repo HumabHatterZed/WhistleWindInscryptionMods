@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(punishingBird)
                 .AddAbilities(Ability.Flying, Punisher.ability)
                 .AddTribes(Tribe.Bird)
-                .AddTraits(TraitBlackForest)
+                .AddTraits(BlackForest)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }

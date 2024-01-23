@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
                 attack: 0, health: 7)
                 .SetPortraits(apostleHeretic)
                 .AddAbilities(Confession.ability)
-                .AddTraits(Trait.Uncuttable, TraitApostle)
+                .AddTraits(Trait.Uncuttable, Apostle)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .Build(cardType: ModCardType.EventCard);
         }

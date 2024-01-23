@@ -25,20 +25,18 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private readonly CardModificationInfo mod = new(1, 1);
-
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             return killer == base.Card && !base.Card.Dead;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            yield return PreSuccessfulTriggerSequence();
-            yield return new WaitForSeconds(0.2f);
-            base.Card.AddTemporaryMod(mod);
-
-            base.Card.Anim.StrongNegationEffect();
-            yield return LearnAbility(0.4f);
+            yield return base.PreSuccessfulTriggerSequence();
+            yield return new WaitForSeconds(0.3f);
+            base.Card.AddTemporaryMod(new(1, 1));
+            base.Card.Anim.LightNegationEffect();
+            yield return new WaitForSeconds(0.3f);
+            yield return base.LearnAbility();
         }
     }
 }

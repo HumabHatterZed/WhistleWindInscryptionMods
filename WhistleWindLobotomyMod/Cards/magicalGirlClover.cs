@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string servantName = "The Servant of Wrath";
             const string magicalGirlClover = "magicalGirlClover";
             const string servantOfWrath = "servantOfWrath";
-            Trait[] traits = new[] { TraitMagicalGirl };
+            Trait[] traits = new[] { MagicalGirl };
 
             NewCard(servantOfWrath, servantName,
                 attack: 3, health: 2, blood: 2, temple: CardTemple.Wizard)

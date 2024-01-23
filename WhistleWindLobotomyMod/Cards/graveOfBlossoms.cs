@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             NewCard(graveOfBlossoms, "Grave of Cherry Blossoms", "A blooming cherry tree. The more blood it has, the more beautiful it becomes.",
                 attack: 0, health: 3, blood: 1)
                 .SetPortraits(graveOfBlossoms)
-                .AddAbilities(Ability.Sharp, Bloodfiend.ability)
+                //.AddAbilities(Ability.Sharp, Bloodfiend.ability)
                 .AddTribes(TribeBotanic)
                 .SetDefaultEvolutionName("Mass Grave of Cherry Blossoms")
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);

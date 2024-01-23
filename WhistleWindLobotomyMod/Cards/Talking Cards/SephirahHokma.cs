@@ -81,7 +81,7 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahHokma", "Hokma", "All things will happen in time. Just have faith.",
                 attack: 1, health: 4, blood: 2)
                 .AddAbilities(NeuteredLatch.ability)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

@@ -66,6 +66,7 @@ namespace WhistleWind.AbnormalSigils.Patches
         {
             if ((Ability)abilityIndex == SeeMore.ability)
                 __result = false;
+
             if (StatusEffectManager.AllStatusEffects.Exists(x => x.IconId == (Ability)abilityIndex && !x.AddNormalRulebookEntry))
                 __result = false;
         }
@@ -101,16 +102,6 @@ namespace WhistleWind.AbnormalSigils.Patches
                 else if (SaveManager.SaveFile.IsMagnificus)
                     statuses.RemoveAll(x => !x.statusMetaCategories.Contains(StatusEffectManager.StatusMetaCategory.MagnificusStatusEffect));
 
-                RuleBookPageInfo seeMore = new()
-                {
-                    pagePrefab = pageRangeInfo.rangePrefab,
-                    headerText = string.Format(Localization.Translate("APPENDIX XII, SUBSECTION II - STATUS EFFECTS {0}"), curPageNum)
-                };
-                __instance.FillAbilityPage(seeMore, pageRangeInfo, (int)SeeMore.ability);
-                __result.Insert(insertPosition, seeMore);
-                curPageNum += 1;
-                insertPosition += 1;
-
                 foreach (var status in statuses)
                 {
                     RuleBookPageInfo info = new()
@@ -123,6 +114,14 @@ namespace WhistleWind.AbnormalSigils.Patches
                     curPageNum += 1;
                     insertPosition += 1;
                 }
+
+                RuleBookPageInfo seeMore = new()
+                {
+                    pagePrefab = pageRangeInfo.rangePrefab,
+                    headerText = string.Format(Localization.Translate("APPENDIX XII, SUBSECTION II - STATUS EFFECTS {0}"), curPageNum)
+                };
+                __instance.FillAbilityPage(seeMore, pageRangeInfo, (int)SeeMore.ability);
+                __result.Insert(insertPosition, seeMore);
             }
         }
         private static string StatusOverflow(PlayableCard card, List<Ability> distinct)

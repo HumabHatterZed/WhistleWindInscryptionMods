@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 .AddAbilities(YellowBrickRoad.ability)
                 .AddSpecialAbilities(TheHomingInstinct.specialAbility, YellowBrick.specialAbility)
                 .AddTribes(TribeFae)
-                .AddTraits(TraitEmeraldCity)
+                .AddTraits(EmeraldCity)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.He, ModCardType.Ruina);
         }

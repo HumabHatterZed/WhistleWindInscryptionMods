@@ -30,10 +30,11 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            base.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.55f);
+            yield return new WaitForSeconds(0.3f);
             base.Card.HealDamage(1);
-            yield return base.LearnAbility(0.4f);
+            base.Card.Anim.LightNegationEffect();
+            yield return new WaitForSeconds(0.3f);
+            yield return base.LearnAbility();
         }
     }
 }

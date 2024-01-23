@@ -13,14 +13,20 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.CanBeSacrificed), MethodType.Getter)]
         private static void CannotSacrificeApostles(PlayableCard __instance, ref bool __result)
         {
-            if (__instance.HasTrait(TraitApostle))
+            if (__instance.HasTrait(Apostle))
                 __result = false;
         }
 
         [HarmonyPrefix, HarmonyPatch(nameof(PlayableCard.Die))]
         private static bool ApostleTransformOnDie(ref IEnumerator __result, PlayableCard __instance, bool wasSacrifice, PlayableCard killer)
         {
-            if (__instance.HasAnyOfAbilities(Apostle.ability, Confession.ability))
+            if (__instance.HasSpecialAbility(Smile.specialAbility) && __instance.Info.name != "wstl_mountainOfBodies")
+            {
+                __result = ApostleDie(__instance, wasSacrifice, killer);
+                return false;
+            }
+
+            if (__instance.HasAnyOfAbilities(ApostleSigil.ability, Confession.ability))
             {
                 // if killed by WhiteNight or One Sin, die normally
                 if (killer != null && killer.HasAnyOfAbilities(Confession.ability, TrueSaviour.ability))

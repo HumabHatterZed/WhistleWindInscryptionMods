@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string knightOfDespair = "knightOfDespair";
             const string magicalGirlSpade = "magicalGirlSpade";
             Tribe[] tribes = new[] { TribeFae };
-            Trait[] traits = new[] { TraitMagicalGirl };
+            Trait[] traits = new[] { MagicalGirl };
 
             NewCard(knightOfDespair, knightName,
                 attack: 1, health: 4, blood: 2, temple: CardTemple.Wizard)

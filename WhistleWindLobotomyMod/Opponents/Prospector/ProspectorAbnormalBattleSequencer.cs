@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod.Opponents.Prospector
         // Replaces Bloodhound with Bad Wolf
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
-            if (attacker != null && attacker.OpponentCard && attacker.Info.name == "wstl_ppodaeBuff")
+            if (attacker != null && attacker.OpponentCard && attacker.Info.name == "wstl_willBeBadWolf")
             {
                 return !bloodhoundMessageShown;
             }
@@ -30,16 +30,15 @@ namespace WhistleWindLobotomyMod.Opponents.Prospector
         public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
             bloodhoundMessageShown = true;
-            StartCoroutine(Singleton<TextDisplayer>.Instance.ShowThenClear("Git 'em!", 3f));
+            StartCoroutine(Singleton<TextDisplayer>.Instance.ShowThenClear("Eat 'em!", 3f));
             yield return new WaitForSeconds(0.75f);
         }
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             if (!muleMessageShown)
-            {
                 return card.Info.name == "wstl_RUDOLTA_MULE";
-            }
+
             return false;
         }
 

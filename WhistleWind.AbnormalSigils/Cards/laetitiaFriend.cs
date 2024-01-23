@@ -13,9 +13,9 @@ namespace WhistleWind.AbnormalSigils
             CreateCard(MakeCard(
                 cardName: laetitiaFriend,
                 "Little Witch's Friend",
-                attack: 2, health: 2, bones: 2)
+                attack: 1, health: 2, bones: 3)
                 .SetPortraits(laetitiaFriend)
-                .AddTribes(Tribe.Insect)
+                .AddTribes(AbnormalPlugin.TribeFae, Tribe.Insect)
                 .SetDefaultEvolutionName("Little Witch's Big Friend"));
         }
     }

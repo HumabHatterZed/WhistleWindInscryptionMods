@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
                 attack: 0, health: 77)
                 .SetPortraits(oneSin, "hundredsGoodDeeds_emission", "hundredsGoodDeeds_pixel")
                 .AddAbilities(Confession.ability)
-                .AddTraits(Trait.Uncuttable, TraitApostle)
+                .AddTraits(Trait.Uncuttable, Apostle)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .SetHideStats()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.EventCard);

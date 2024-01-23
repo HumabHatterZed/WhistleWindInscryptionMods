@@ -55,9 +55,11 @@ namespace WhistleWind.AbnormalSigils
 
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
-                yield return base.Card.TakeDamage(Mathf.Min(-1, -base.Card.Health * i), null);
+                base.Card.Status.damageTaken -= Mathf.Max(1, base.Card.Health) * (i + 1);
+                base.Card.UpdateStatsText();
+                base.Card.Anim.PlayHitAnimation();
                 yield return new WaitForSeconds(0.2f);
             }
             yield return base.Card.Die(false, null);

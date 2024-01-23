@@ -92,7 +92,7 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahTipherethA", "Tiphereth", "One of a pair of twins. Don't underestimate her capabilities.",
                 attack: 1, health: 2, energy: 3)
                 .AddAbilities(GiftGiver.ability)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .SetExtendedProperty("wstl:GiftGiver", "wstl_sephirahTipherethB")
                 .Build();

@@ -120,12 +120,12 @@ namespace WhistleWindLobotomyMod.Core
         public static readonly List<CardInfo> AllLobotomyCards = new();
         public static readonly List<CardInfo> ObtainableLobotomyCards = new();
 
-        public static Trait TraitApostle = GuidManager.GetEnumValue<Trait>(pluginGuid, "ApostleTrait");
-        public static Trait TraitSephirah = GuidManager.GetEnumValue<Trait>(pluginGuid, "SephirahTrait");
-        public static Trait TraitBlackForest = GuidManager.GetEnumValue<Trait>(pluginGuid, "BlackForestTrait");
-        public static Trait TraitEmeraldCity = GuidManager.GetEnumValue<Trait>(pluginGuid, "EmeraldCityTrait");
-        public static Trait TraitMagicalGirl = GuidManager.GetEnumValue<Trait>(pluginGuid, "MagicalGirlTrait");
-        public static Trait TraitExecutioner = GuidManager.GetEnumValue<Trait>(pluginGuid, "Executioner");
+        public static Trait Apostle = GuidManager.GetEnumValue<Trait>(pluginGuid, "Apostle");
+        public static Trait Sephirah = GuidManager.GetEnumValue<Trait>(pluginGuid, "Sephirah");
+        public static Trait BlackForest = GuidManager.GetEnumValue<Trait>(pluginGuid, "BlackForest");
+        public static Trait EmeraldCity = GuidManager.GetEnumValue<Trait>(pluginGuid, "EmeraldCity");
+        public static Trait MagicalGirl = GuidManager.GetEnumValue<Trait>(pluginGuid, "MagicalGirl");
+        public static Trait Executioner = GuidManager.GetEnumValue<Trait>(pluginGuid, "Executioner");
 
         [Flags]
         public enum RiskLevel

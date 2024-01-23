@@ -83,7 +83,7 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahYesod", "Yesod", "The head of the Information Department. Incompetence will not be tolerated.",
                 attack: 2, health: 3, blood: 2)
                 .AddAbilities(Ability.Tutor)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             const string triggerText = "The chosen beholds [creature] and is reborn.";
             Witness.ability = AbnormalAbilityHelper.CreateActivatedAbility<Witness>(
                 "sigilWitness",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1).Id;
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2).Id;
         }
     }
     public class Witness : ActivatedSelectSlotBehaviour

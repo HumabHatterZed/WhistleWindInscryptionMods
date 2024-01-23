@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string catName = "Scaredy Cat";
             const string scaredyCat = "scaredyCat";
             const string scaredyCatStrong = "scaredyCatStrong";
-            Trait[] traits = new[] { TraitEmeraldCity };
+            Trait[] traits = new[] { EmeraldCity };
             SpecialTriggeredAbility[] specialAbilities = new[] { Cowardly.specialAbility };
 
             NewCard(scaredyCatStrong, catName,

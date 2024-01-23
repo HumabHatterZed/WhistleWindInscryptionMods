@@ -22,13 +22,13 @@ namespace WhistleWindLobotomyMod.Core
             List<CardInfo> unlockedCards = GetUnlockedModCards(CardMetaCategory.ChoiceNode).FindAll(x => x.GetExtendedProperty("wstl:RiskLevel") == riskLevel);
 
             if (LobotomySaveManager.OwnsApocalypseBird)
-                unlockedCards.RemoveAll(x => x.HasTrait(LobotomyCardManager.TraitBlackForest));
+                unlockedCards.RemoveAll(x => x.HasTrait(LobotomyCardManager.BlackForest));
 
             if (LobotomySaveManager.OwnsJesterOfNihil)
-                unlockedCards.RemoveAll(x => x.HasTrait(LobotomyCardManager.TraitMagicalGirl));
+                unlockedCards.RemoveAll(x => x.HasTrait(LobotomyCardManager.MagicalGirl));
 
             if (LobotomySaveManager.OwnsLyingAdult)
-                unlockedCards.RemoveAll(x => x.HasTrait(LobotomyCardManager.TraitEmeraldCity));
+                unlockedCards.RemoveAll(x => x.HasTrait(LobotomyCardManager.EmeraldCity));
 
             if (unlockedCards.Count == 0)
                 return CardLoader.Clone(CardLoader.GetCardByName("wstl_trainingDummy"));
@@ -56,7 +56,7 @@ namespace WhistleWindLobotomyMod.Core
         public static List<CardInfo> GetSephirahCards()
         {
             List<CardInfo> obtainableCards = new(LobotomyCardManager.AllLobotomyCards);
-            obtainableCards.RemoveAll(x => x.LacksTrait(LobotomyCardManager.TraitSephirah));
+            obtainableCards.RemoveAll(x => x.LacksTrait(LobotomyCardManager.Sephirah));
 
             if (LobotomySaveManager.UnlockedAngela)
                 obtainableCards.Add(CardLoader.GetCardByName("wstl_angela"));

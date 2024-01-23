@@ -14,9 +14,9 @@ namespace WhistleWindLobotomyMod
             const string guardianName = "Guardian Apostle";
             const string apostleGuardian = "apostleGuardian";
             const string apostleGuardianDown = "apostleGuardianDown";
-            Ability[] abilities = new[] { Apostle.ability };
+            Ability[] abilities = new[] { ApostleSigil.ability };
             Tribe[] tribes = new[] { TribeDivine };
-            Trait[] traits = new[] { TraitApostle };
+            Trait[] traits = new[] { Apostle };
             CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
             NewCard(apostleGuardian, guardianName,

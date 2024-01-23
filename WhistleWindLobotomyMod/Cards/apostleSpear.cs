@@ -15,13 +15,13 @@ namespace WhistleWindLobotomyMod
             const string apostleSpear = "apostleSpear";
             const string apostleSpearDown = "apostleSpearDown";
             Tribe[] tribes = new[] { TribeDivine };
-            Trait[] traits = new[] { TraitApostle };
+            Trait[] traits = new[] { Apostle };
             CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
             NewCard(apostleSpear, spearName,
                 attack: 4, health: 6)
                 .SetPortraits(apostleSpear)
-                .AddAbilities(Piercing.ability, Apostle.ability)
+                .AddAbilities(Piercing.ability, ApostleSigil.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances)
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
             NewCard(apostleSpearDown, spearName,
                 attack: 0, health: 1)
                 .SetPortraits(apostleSpearDown)
-                .AddAbilities(Apostle.ability)
+                .AddAbilities(ApostleSigil.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances)

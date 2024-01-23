@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string kingOfGreed = "kingOfGreed";
             SpecialTriggeredAbility[] specialAbilities = new[] { MagicalGirls.specialAbility };
             Tribe[] tribes = new[] { TribeFae };
-            Trait[] traits = new[] { TraitMagicalGirl };
+            Trait[] traits = new[] { MagicalGirl };
 
             CardInfo kingOfGreedCard = NewCard(
                 kingOfGreed, kingName,

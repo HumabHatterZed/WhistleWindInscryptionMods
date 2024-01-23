@@ -38,7 +38,7 @@ namespace WhistleWindLobotomyMod.Patches
                     else
                         validCards = ObtainableLobotomyCards.FindAll(x => x.LacksCardMetaCategory(CardMetaCategory.Rare));
 
-                    validCards.RemoveAll(x => x.HasTrait(TraitSephirah));
+                    validCards.RemoveAll(x => x.HasTrait(Sephirah));
                     validCards.RemoveAll(x => x.onePerDeck && newStarterDeck.Contains(x));
 
                     int randomIdx = SeededRandom.Range(0, validCards.Count, randomSeed++);

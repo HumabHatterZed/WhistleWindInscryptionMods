@@ -846,17 +846,17 @@ namespace WhistleWindLobotomyMod
             #region Boss Dialogue
             CreateDialogueEvents("SephirahHodProspector", new()
             {
-                NewLine("Watch out for that pickaxe.", Emotion.Neutral) },
+                NewLine("Watch out for that pickaxe.", Emotion.Curious) },
                 new() {
-                    new() { NewLine("We've prepared for this.", Emotion.Neutral) },
+                    new() { NewLine("We've prepared for this.", Emotion.Anger) },
                     new() { NewLine("I'll follow your lead.", Emotion.Neutral) }
             });
             CreateDialogueEvents("SephirahHodAngler", new()
             {
-                NewLine("Urk, the smell...", Emotion.Neutral) },
+                NewLine("Urk, the smell...", Emotion.Curious) },
                 new() {
-                    new() { NewLine("Let's get out of here quickly...", Emotion.Neutral) },
-                    new() { NewLine("Don't knock over those buckets.", Emotion.Neutral) }
+                    new() { NewLine("Let's get out of here quickly...", Emotion.Curious) },
+                    new() { NewLine("Don't knock over those buckets.", Emotion.Curious) }
             });
             CreateDialogueEvents("SephirahHodTrapperTrader", new()
             {
@@ -880,11 +880,11 @@ namespace WhistleWindLobotomyMod
             });
             CreateDialogueEvents("SephirahHodApocalypse", new()
             {
-                NewLine("That monster...", Emotion.Neutral),
-                NewLine("Remember our training, please.", Emotion.Curious) },
+                NewLine("That monster...", Emotion.Quiet),
+                NewLine("What do we do?", Emotion.Curious) },
                 new() {
                     new() { NewLine("Keep calm...keep calm...", Emotion.Curious) },
-                    new() { NewLine("It's tough, but not immortal.", Emotion.Anger) }
+                    new() { NewLine("Remember our training.", Emotion.Anger) }
             });
             #endregion
 

@@ -58,7 +58,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public int timesHitThisTurn = 0;
 
         // makes things more difficult based on how much damage is dealt to the boss
-        private readonly int[] ReactiveGates = new int[] { 3, 8, 15 };
+        //private readonly int[] ReactiveGates = new int[] { 3, 8, 15 };
         private int reactiveDifficulty = 0;
         private int ReactiveDifficulty => RunState.Run.DifficultyModifier + reactiveDifficulty;
         private int PhaseDifficulty => 4 - Opponent.NumLives;
@@ -221,6 +221,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 if (target != null && target != BossCard)
                 {
                     killedCard = true;
+                    yield return target.FlipFaceUp(target.FaceDown);
                     yield return target.Die(false, BossCard);
                 }
 
@@ -593,12 +594,16 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     {
                         health++;
                         if (ReactiveDifficulty > 7)
+                        {
+                            attack++;
                             health++;
+                        }
                     }
                     if (SeededRandom.Bool(randomSeed++))
                     {
                         attack++;
-                        health--;
+                        if (ReactiveDifficulty <= 11)
+                            health--;
                     }
                     else
                     {
@@ -609,8 +614,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     }
 
                     clone.baseAttack += attack;
-                    if (clone.baseHealth + health > 0) // health check
-                        clone.baseHealth += health;
+                    clone.baseHealth += health;
+                    if (clone.baseHealth <= 0)
+                        clone.baseHealth = 1;
                 }
                 nextTurn.Add(clone);
             }
@@ -792,7 +798,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 if (giantTargetSlots[0].Contains(target.Slot))
                     return damage * 2;
                 if (giantTargetSlots[1].Contains(target.Slot))
-                    return damage / 2;
+                    return Mathf.Max(1, damage / 2);
             }
             else if (target == BossCard)
             {
@@ -820,7 +826,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             return damage;
         }
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => finalPhase ? int.MaxValue : int.MinValue;
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => (finalPhase && attacker == BossCard) ? int.MaxValue : int.MinValue;
 
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
         {
@@ -886,7 +892,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     // reactive is also increased at combat's end for every 6 damage taken so we account for that
                     reactiveDifficulty += amount - (4 + amount / 6);
 
-                    if (amount > 5 && BossCard.TemporaryMods.Find(x => x.singletonId == "ReactiveSkin") == null)
+                    if (amount > 5 && !BossCard.TemporaryMods.Exists(x => x.singletonId == "ReactiveSkin"))
                     {
                         CardModificationInfo mod = new() { fromCardMerge = true, singletonId = "ReactiveSkin", nonCopyable = true };
                         mod.AddAbilities(ThickSkin.ability, ThickSkin.ability, ThickSkin.ability);

@@ -3,7 +3,7 @@
 
 # Plugin GUID: whistlewind.inscryption.abnormalsigils
 
-## v1.1.0 - Fast and Slow ()
+## v1.1.0 - Fast and Slow (1/22/2024)
 ### 🧱 Structural
 - Reworked how status effects function and their implementation
 ### 🩹 Bug fixes
@@ -21,7 +21,9 @@
 - Fixed sigils that give passive stat buffs not working correctly when stacked
 - Added missing Global Spell support to Scrambler sigil
 - The Train ability no longer affects Giant or Uncuttable cards
-- Fixed a number of abilities breaking visual effects when triggered on a facedown card
+- Fixed a number of abilities' visual effects breaking when triggered on a facedown card
+- Fixed Passing Time stat icon briefly showing numbers when a card is first played
+- Fixed Greedy Healing's death sequence not working correctly
 ### 🔧 Tweaks
 - SniperSelectSlot.AIEvaluate target is now overridable
 - Status effect card mod infos are now nonCopyable
@@ -43,24 +45,27 @@
 - Made a number of tweaks to dialogue
 - Adjusted custom tribe icons' positions
 - Cards with Sigil Power stat icon now display their stats when moused over while in the hand
-### ⚖️ Balancing
-- Reduced Ruler of Frost's activation cost from 3 --> 2 Bones
-- Reduced Rightful Heir ability's starting activation cost from 3 --> 2 Bones
-- Ruler of Frost ability now accounts for the base card having Touch of Death
-- Third Brother now has Sharp Quills instead of Reflector
 - Adjusted Queen Nest description to be clearer on activation requirement: 'card dies' --> 'card is killed'
+### ⚖️ Balancing
+- <span style='color:limegreen'>Reduced Ruler of Frost's activation cost from 3 --> 2 Bones
+- <span style='color:limegreen'>Reduced Rightful Heir ability's starting activation cost from 3 --> 2 Bones
+- <span style='color:limegreen'>Ruler of Frost ability now accounts for the base card having Touch of Death
+- Rebalanced Little Witch's Friend to 1/2, 3 Bones; now has Fae tribe alongside Insect tribe
+- <span style='color:red'>Third Brother now has Sharp Quills instead of Reflector
 - Opponents using the Healer ability will now prioritise cards with 1 Health and depriortise cards at max Health or higher
-- Idol ability no longer affects cards with Made of Stone
-- Corrector ability's temporary mod is now marked as nonCopyable
-- Increased probability of Corrector and Scrambler sigils giving Attack from 33% --> 40%
-- Increased power value of some costs in Corrector ability's calculation
+- <span style='color:red'>Idol ability no longer affects cards with Made of Stone
+- Corrector ability's temporary mod is now marked as 'nonCopyable'
+- <span style='color:limegreen'>Increased probability of Corrector and Scrambler sigils giving Attack from 33% --> 40%
+- <span style='color:limegreen'>Increased power value of some costs in Corrector ability's calculation
     - 4 Energy now counts for 7 pts (from 6)
     - 5 Energy now counts for 9 pts (from 8)
     - 4 Blood now counts for 24 pts (from 20)
     - Blood costs above 5 now use a different formula, resulting in overall higher values (why are your cards over 5 Blood anyway?)
-- Opportunistic ability now triggers even if the target has Sharp Quills or Reflector
-- Opportunistic ability no longer triggers even if the attacker has shields
-- Persistent and Piercing abilities no longer deal additional or overkill damage respectively
+- <span style='color:limegreen'>Opportunistic ability now triggers even if the target has Sharp Quills or Reflector
+- <span style='color:red'>Opportunistic ability no longer triggers even if the attacker has shields
+- <span style='color:red'>Persistent and Piercing abilities no longer deal additional or overkill damage respectively
+- <span style='color:red'>Witness sigil powerlevel increased from 1 --> 2
+- <span style='color:red'>Worker Bees no longer inherit mods from the base card
 ### ➕ Additions
 - Added the following abilities:
     - Binding Strike, Nimble-Footed, High-Strung, Refresh Decks, Return Card To Hand, Persecutor, Left-Veering Strike, Right-Veering Strike

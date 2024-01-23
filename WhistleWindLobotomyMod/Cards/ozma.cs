@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(ozma)
                 .AddAbilities(RightfulHeir.ability)
                 .AddTribes(TribeFae)
-                .AddTraits(TraitEmeraldCity)
+                .AddTraits(EmeraldCity)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Ruina);
         }

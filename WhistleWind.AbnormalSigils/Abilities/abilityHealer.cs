@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionCommunityPatch.Card;
 using System.Collections;
@@ -100,12 +101,12 @@ namespace WhistleWind.AbnormalSigils
 
         public override int AIEvaluateTarget(PlayableCard card, bool positiveEffect)
         {
-            int baseEvaluation = base.AIEvaluateTarget(card, positiveEffect);
-            if (card.Health >= card.MaxHealth)
-                baseEvaluation -= 1000;
+            int baseEvaluation = card.MaxHealth - card.Health;
+            if (card.HasAnyOfTraits(Trait.Terrain))
+                baseEvaluation -= 4;
 
-            else if (card.Health == 1)
-                baseEvaluation += 1000;
+            if (card.Health == 1)
+                baseEvaluation += 6;
 
             return baseEvaluation;
         }

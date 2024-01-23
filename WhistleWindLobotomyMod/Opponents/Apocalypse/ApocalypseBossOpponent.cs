@@ -256,8 +256,10 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             }
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+
             base.SpawnScenery("ForestTableEffects");
             this.sceneryObject.transform.Find("GodRaysEffect").gameObject.SetActive(false);
+            (CabinManager.Instance as CabinManager)?.SetNorthWallHidden(true);
 
             yield return new WaitForSeconds(0.5f);
             AudioController.Instance.PlaySound2D("prospector_trees_enter", MixerGroup.TableObjectsSFX, 0.2f);
@@ -271,7 +273,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 LeshyAnimationController.Instance.head,
                 LeshyAnimationController.Instance.GetBaseHeadPosition(false) + new Vector3(0f, 0f, 2f),
                 0.2f, 0f, Tween.EaseInOut,
-                completeCallback: () => LeshyAnimationController.Instance.head.localPosition += new Vector3(0f, 0f, 18f)
+                completeCallback: () => LeshyAnimationController.Instance.head.localPosition += new Vector3(0f, -20f, 18f)
                 );
 
             yield return new WaitForSeconds(0.75f);

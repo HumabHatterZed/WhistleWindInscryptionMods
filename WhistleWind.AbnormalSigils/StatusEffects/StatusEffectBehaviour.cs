@@ -12,25 +12,28 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         public abstract int SeverityReduction { get; }
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => CanReduceOnUpkeep(playerUpkeep);
-        public virtual bool RespondsToUpkeepInHand(bool playerUpkeep) => CanReduceOnUpkeep(playerUpkeep);
+        public bool RespondsToUpkeepInHand(bool playerUpkeep) => CanReduceOnUpkeep(playerUpkeep);
 
         public override IEnumerator OnUpkeep(bool playerUpkeep) => OnReduceOnUpkeep();
-        public virtual IEnumerator OnUpkeepInHand(bool playerUpkeep) => OnReduceOnUpkeep();
+        public IEnumerator OnUpkeepInHand(bool playerUpkeep) => OnReduceOnUpkeep();
 
-        private bool CanReduceOnUpkeep(bool playerUpkeep)
+        public virtual bool CanReduceOnUpkeep(bool playerUpkeep)
         {
-            Debug.Log($"Reduce? {base.PlayableCard.Info.name} {base.PlayableCard.OpponentCard != playerUpkeep && TurnManager.Instance.TurnNumber > TurnGained}");
+            //Debug.Log($"Reduce? {base.PlayableCard.Info.name} {base.PlayableCard.InHand}: {base.PlayableCard.OpponentCard != playerUpkeep} {TurnManager.Instance.TurnNumber > TurnGained}");
             return base.PlayableCard.OpponentCard != playerUpkeep && TurnManager.Instance.TurnNumber > TurnGained;
         }
-        private IEnumerator OnReduceOnUpkeep()
+        public virtual IEnumerator OnReduceOnUpkeep()
         {
-            Debug.Log($"Reduce: {EffectSeverity} | {EffectSeverity - SeverityReduction}");
+            //Debug.Log($"Reduce: {EffectSeverity} | {EffectSeverity - SeverityReduction}");
+            yield return new WaitForSeconds(0.3f);
             base.PlayableCard.Anim.LightNegationEffect();
             ViewManager.Instance.SwitchToView(base.PlayableCard.InHand ? View.Hand : View.Board);
             yield return new WaitForSeconds(0.2f);
             AddSeverity(-SeverityReduction, true);
             if (EffectSeverity <= 0)
                 Destroy();
+
+            yield return new WaitForSeconds(0.3f);
         }
     }
 

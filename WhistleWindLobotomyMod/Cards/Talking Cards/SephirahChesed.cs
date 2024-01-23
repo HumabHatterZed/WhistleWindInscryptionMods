@@ -97,7 +97,7 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahChesed", "Chesed", "Nothing like a fresh cup of coffee to start your day.",
                 attack: 1, health: 4, energy: 4)
                 .AddAbilities(Healer.ability, Regenerator.ability)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

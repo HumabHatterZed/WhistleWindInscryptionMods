@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(wisdomScarecrow)
                 .AddAbilities(Bloodfiend.ability)
                 .AddTribes(TribeBotanic)
-                .AddTraits(TraitEmeraldCity)
+                .AddTraits(EmeraldCity)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }

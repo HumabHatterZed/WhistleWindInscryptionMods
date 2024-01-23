@@ -3,7 +3,7 @@
 
 # Plugin GUID: whistlewind.inscryption.lobotomycorp
 
-## v2.1.0 - Into the Twilight (?/?/202?)
+## v2.1.0 - Into the Twilight (1/22/2024)
 ### 🩹 Bug fixes
 - Fixed Honoured Monk having the wrong portrait
 - Fixed The Road Home softlocking the game when played by Leshy
@@ -23,6 +23,7 @@
 - Fixed Nothing There evolving immediately upon being revealed
 - Fixed Today's Neutral Expression retaining the Undying sigil when played by the opponent
 - Fixed Luminous Bracelet not showing its stats
+- Fixed Queen of Hatred not recovering from exhaustion
 ### 🔧 Tweaks
 - Twilight starter deck can now be unlocked by completing the Final Apocalypse challenge
 - Minor adjustments to some sequences
@@ -39,30 +40,47 @@
 - Made a number of tweaks to dialogue
 - WhiteNight now uses the Terrain stat layout
 - Improved Adoration special ability's effect
+- Child of the Galaxy is now singleton
+- Modified how Smile special ability behaves on death; does not change the actual effect
 ### ⚖️ Balancing
-- Increased Spider Bud's Health from 2 --> 3
+- <span style='color:limegreen'>Increased Skin Prophecy's Health from 2 --> 3
+- <span style='color:limegreen'>Increased Spider Bud's Health from 2 --> 3
+- <span style='color:limegreen'>Increased Tiphereth A's Health from 2 --> 3
+- <span style='color:limegreen'>Reduced Notes from a Crazed Researcher's cost from 4 --> 3 Bones
 - Rebalanced Express Train to Hell from 0/4, 4 Bones --> 0/1, 2 Energy
 - Rebalanced Der Freischütz from 1/1, Bifurcated Strike, Sniper --> 2/2, Sniper, Persistent
-- Rebalanced Little Red Riding Hooded Mercenary from 2/5, Sniper, Persistent --> 2/6, Sniper
 - Rebalanced We Can Change Anything from 0/2 --> 1/1
 - Rebalanced Nothing There (final) from 9/9, Piercing, Thick Skin x2 --> 8/8, Piercing, Persistent
-- Rebalanced The Snow Queen from 1/2, 5 Bones --> 2/2, 2 Blood
-- Rebalanced Melting Love from 4/3 --> Slimes/6
-- Rebalanced Silent Girl from 2/1, Trifurcated Strike --> 2/2, Persecutor
-- Rebalanced Yesod from 0/1; Hoarder, Corrector --> 2/3, Hoarder
-- Rebalanced Chesed from 0/; Thick Skin, Healer; 1 Blood --> 1/4; Regenerator, Healer; 4 Energy
+- Reworked The Snow Queen from 1/2, 5 Bones --> 2/2, 2 Blood
+- Reworked Melting Love from 4/3 --> Slimes/6
+- Reworked Silent Girl from 2/1, Trifurcated Strike --> 2/2, Persecutor
+- Rebalanced All-Around Helper from 1/3; 4 Energy --> 1/2; 3 Energy
+- Rebalanced The Burrowing Heaven from 1 Blood -> 2 Bones
+- Rebalanced Child of the Galaxy from whatever it was --> 1 Blood, Lonely, targeted spell
+- Reworked Yesod from 0/1; Hoarder, Corrector --> 2/3, Hoarder
+- Reworked Chesed from 0/; Thick Skin, Healer; 1 Blood --> 1/4; Regenerator, Healer; 4 Energy
 - Rebalanced Hokma from 2/3 --> 1/4
+- Rebalanced Angela from 3/3; Ruler of Frost, Unkillable --> 2/3; Ruler of Frost, Persecutor
 - Gebura now has Persistent instead of Piercing
-- Reduced Beauty and the Beast's Power from 1 --> 0
-- Beauty and the Beast now has KillsSurvivors trait
-- Reworked Time Machine ability - now makes you choose a card to remove from your deck, rather than remove a random one
+- <span style='color:red'>Reduced Beauty and the Beast's Power from 1 --> 0
+- <span style='color:red'>Reduced Power of Mountain of Smiling Bodies 2 from 3 --> 2
+- <span style='color:red'>Reduced Power of Mountain of Smiling Bodies 3 from 5 --> 3
+- <span style='color:red'>Mountain of Smiling Bodies now loses 1 Power and 1 Health when reverting to a previous forme
+- <span style='color:red'>Increased Tiphereth B's cost from 2 --> 3 Energy
+- <span style='color:red'>Reduced Big and Will Be Bad Wolf's Health from 4 --> 3
+- <span style='color:red'>Red Riding Hooded Mercenary no longer has Persistent ability
+- <span style='color:red'>Judgement Bird's special ability no longer affects FaceDown cards unless Bird has Persistent
+- <span style='color:limegreen'>Beauty and the Beast now has 'KillsSurvivors' trait
+- <span style='color:limegreen'>Scorched Girl now has 'KillsSurvivors' trait
+- <span style='color:limegreen'>Time Machine now lets you choose one of three cards to remove, rather than doing it randomly
 - Adjusted some encounter blueprints' balance
 - Changed the CardTemple of some cards
 ### ➕ Additions
 - Added Final Apocalypse challenge and boss
 - Added Achievements API support (6 achievements)
-- Added 1 new encounter
-- Added Reskin Sigils config for controlling the names and icons of Sniper and Sentry (true by default)
+- Added 2 new items: Single Recall in a Bottle and Total Recall in a Bottle
+- Added 3 new encounters
+- Added 'Reskin Sigils' config, controlling whether Sentry and Sniper should be renamed and reskinned while this mod is installed
 ### 💣 Removals
 - Removed Magic Bullet special ability
 - Removed unused dialogue events

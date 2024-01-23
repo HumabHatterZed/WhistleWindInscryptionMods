@@ -47,7 +47,12 @@ namespace WhistleWindLobotomyMod
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
                 previous.Mods.Add(cardModificationInfo);
             }
-            yield return Singleton<BoardManager>.Instance.CreateCardInSlot(previous, base.PlayableCard.Slot, 0.15f);
+            previous.Mods.Add(new(-1, -1));
+            if (base.PlayableCard.Slot.Card != null)
+                yield return base.PlayableCard.TransformIntoCard(previous, () => base.PlayableCard.Status.damageTaken = 0);
+            else
+                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(previous, base.PlayableCard.Slot, 0.15f);
+            
             yield return new WaitForSeconds(0.25f);
             yield return DialogueHelper.PlayDialogueEvent("MountainOfBodiesShrink");
         }
