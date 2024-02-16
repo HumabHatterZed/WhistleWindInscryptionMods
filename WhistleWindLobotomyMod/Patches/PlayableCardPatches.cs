@@ -1,7 +1,9 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
+using WhistleWind.Core.Helpers;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 // Patches to make abilities function properly
@@ -18,41 +20,31 @@ namespace WhistleWindLobotomyMod.Patches
         }
 
         [HarmonyPrefix, HarmonyPatch(nameof(PlayableCard.Die))]
-        private static bool ApostleTransformOnDie(ref IEnumerator __result, PlayableCard __instance, bool wasSacrifice, PlayableCard killer)
+        private static bool DontDestroyCardsOnDeath(ref IEnumerator __result, PlayableCard __instance, bool wasSacrifice, PlayableCard killer)
         {
             if (__instance.HasSpecialAbility(Smile.specialAbility) && __instance.Info.name != "wstl_mountainOfBodies")
             {
-                __result = ApostleDie(__instance, wasSacrifice, killer);
+                __result = HelperMethods.DieDontDestroy(__instance, wasSacrifice, killer);
                 return false;
             }
 
-            if (__instance.HasAnyOfAbilities(ApostleSigil.ability, Confession.ability))
+            if (__instance.HasTrait(Apostle))
             {
                 // if killed by WhiteNight or One Sin, die normally
                 if (killer != null && killer.HasAnyOfAbilities(Confession.ability, TrueSaviour.ability))
                     return true;
 
-                bool saviour = BoardManager.Instance.AllSlotsCopy.Exists(x => x.Card?.HasAbility(TrueSaviour.ability) ?? false);
+                bool friendlySaviour = BoardManager.Instance.GetSlotsCopy(!__instance.OpponentCard).Exists(x => x.Card?.HasAbility(TrueSaviour.ability) ?? false);
 
-                // Active Apostles will always be downed
-                // Downed Apostles can't die if WhiteNight is on the board
-                if (!__instance.Info.name.EndsWith("Down") || saviour)
-                    __result = ApostleDie(__instance, wasSacrifice, killer);
-                else
+                // Downed Apostles die normally without an ally WhiteNight
+                // Active Apostles always perform the special death
+                if (__instance.Info.name.EndsWith("Down") && !friendlySaviour)
                     return true;
 
+                __result = HelperMethods.DieDontDestroy(__instance, wasSacrifice, killer);
                 return false;
             }
             return true;
-        }
-        private static IEnumerator ApostleDie(PlayableCard instance, bool wasSacrifice, PlayableCard killer)
-        {
-            // play hit anim then trigger Die (don't actually die though)
-            instance.Anim.PlayHitAnimation();
-            instance.Anim.SetShielded(shielded: false);
-            yield return instance.Anim.ClearLatchAbility();
-            if (instance.TriggerHandler.RespondsToTrigger(Trigger.Die, wasSacrifice, killer))
-                yield return instance.TriggerHandler.OnTrigger(Trigger.Die, wasSacrifice, killer);
         }
     }
 }

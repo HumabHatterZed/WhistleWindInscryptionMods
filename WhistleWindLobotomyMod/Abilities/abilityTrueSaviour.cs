@@ -9,6 +9,7 @@ using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod
 {
@@ -37,22 +38,18 @@ namespace WhistleWindLobotomyMod
             && Singleton<PlayerHand>.Instance.CardsInHand.Count(c => c.Info.name == "wstl_apostleHeretic") >= 0;
         public override IEnumerator OnUpkeep(bool playerUpkeep) => MakeRoomForOneSin();
 
-        public override bool RespondsToResolveOnBoard() => base.Card.OpponentCard;
+        public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard()
         {
-            // Kill non-living/Mule card(s) and transform the rest (excluding One Sin) into Apostles
-            foreach (var slot in Singleton<BoardManager>.Instance.OpponentSlotsCopy.Where(slot => slot.Card != base.Card))
-            {
-                if (slot.Card != null && slot.Card.Info.name != "wstl_oneSin")
-                    yield return SaviourBossUtils.ConvertCardToApostle(slot.Card, base.GetRandomSeed());
-            }
+            yield return base.PreSuccessfulTriggerSequence();
+            yield return SaviourBossUtils.ConvertCardsOnBoard(base.Card.IsPlayerCard(), base.Card, base.GetRandomSeed());
         }
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
             if (otherCard != null && otherCard != base.Card)
             {
-                if (!otherCard.Info.name.StartsWith("wstl_apostle") && otherCard.Info.name != "wstl_oneSin" && otherCard.Info.name != "wstl_hundredsGoodDeeds")
+                if (otherCard.Info.name != SaviourBossUtils.ONESIN_NAME && otherCard.LacksAllAbilities(ApostleSigil.ability, Confession.ability))
                     return base.Card.OnBoard && base.Card.OpponentCard == otherCard.OpponentCard;
             }
             return false;
@@ -81,9 +78,9 @@ namespace WhistleWindLobotomyMod
             if (killer.LacksAbility(Confession.ability))
             {
                 // kill all Apostles
-                foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(x => x.Card != null && x.Card.Info.name.StartsWith("wstl_apostle")))
+                foreach (PlayableCard card in Singleton<BoardManager>.Instance.CardsOnBoard.Where(x => x.HasAbility(ApostleSigil.ability)))
                 {
-                    yield return slot.Card.Die(false, base.Card);
+                    yield return card.Die(false, base.Card);
                 }
             }
 
@@ -108,6 +105,13 @@ namespace WhistleWindLobotomyMod
                     SaveManager.SaveFile.gbcData.currency += excessDamage;
                 else
                     RunState.Run.currency += excessDamage;
+            }
+            else if (CustomBossUtils.FightingCustomBoss())
+            {
+                if (CustomBossUtils.IsCustomBoss<ApocalypseBossOpponent>())
+                {
+                    yield return BoardManager.Instance.CardsOnBoard.Find(x => x.HasAbility(ApocalypseAbility.ability)).TakeDamage(20, base.Card);
+                }
             }
 
             if (killer.LacksAbility(Confession.ability))
@@ -140,24 +144,27 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator MakeRoomForOneSin()
         {
+            if (Singleton<BoardManager>.Instance.GetCards(!base.Card.OpponentCard).Count < 4)
+                yield break;
+
             // If all slots on the owner's side are full
             yield return new WaitForSeconds(0.2f);
-            if (Singleton<BoardManager>.Instance.GetSlots(base.Card.Slot.IsPlayerSlot).Where(s => s.Card != null).Count() == 4)
-            {
-                int randomSeed = base.GetRandomSeed();
-                List<CardSlot> cardsToKill = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).FindAll((CardSlot s) => s.Card != null && s.Card != base.Card);
-                PlayableCard cardToKill = cardsToKill[SeededRandom.Range(0, cardsToKill.Count, randomSeed++)].Card;
-                Singleton<ViewManager>.Instance.SwitchToView(View.Hand);
-                foreach (PlayableCard card in Singleton<PlayerHand>.Instance.CardsInHand.Where(c => c.Info.name == "wstl_apostleHeretic"))
-                    card.Anim.StrongNegationEffect();
 
-                yield return new WaitForSeconds(0.4f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.BoardCentered);
-                cardToKill.Anim.SetShaking(true);
-                yield return cardToKill.Die(false, base.Card);
-                yield return new WaitForSeconds(0.4f);
-                yield return DialogueHelper.PlayDialogueEvent("WhiteNightMakeRoom");
-            }
+            List<PlayableCard> cardsToKill = BoardManager.Instance.GetCards(!base.Card.OpponentCard, (PlayableCard c) => c != base.Card);
+            PlayableCard cardToKill = cardsToKill[SeededRandom.Range(0, cardsToKill.Count, base.GetRandomSeed() + 1)];
+            
+            ViewManager.Instance.SwitchToView(View.Hand);
+            foreach (PlayableCard card in Singleton<PlayerHand>.Instance.CardsInHand.Where(c => c.HasAbility(Confession.ability)))
+                card.Anim.StrongNegationEffect();
+
+            yield return new WaitForSeconds(0.4f);
+
+            ViewManager.Instance.SwitchToView(View.Board);
+            cardToKill.Anim.SetShaking(true);
+            yield return new WaitForSeconds(0.25f);
+            yield return cardToKill.Die(false, base.Card);
+            yield return new WaitForSeconds(0.45f);
+            yield return DialogueHelper.PlayDialogueEvent("WhiteNightMakeRoom");
         }
     }
 }
