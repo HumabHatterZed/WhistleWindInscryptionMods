@@ -12,12 +12,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Slime()
         {
             const string rulebookName = "Made of Slime";
-            const string rulebookDescription = "If this card is not a Slime, take 1 damage at turn's end and transform into a Slime on death. Adjacent cards gain this sigil at the end of the owner's turn.";
+            const string rulebookDescription = "At the end of the owner's turn, give adjacent cards this sigil, and deal 1 damage to this card if it is not a Slime. This card transforms into a Slime on death.";
             const string dialogue = "Its army grows everyday.";
             const string triggerText = "[creature] melts into slime!";
             Slime.ability = AbnormalAbilityHelper.CreateAbility<Slime>(
                 "sigilSlime",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
                 modular: false, opponent: false, canStack: false).Id;
         }
     }
@@ -29,12 +29,21 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
+            if (base.Card.LacksTrait(AbnormalPlugin.LovingSlime))
+            {
+                HelperMethods.ChangeCurrentView(View.Board);
+                yield return base.Card.TakeDamage(1, null);
+            }
+
             // infect adjacent cards
             CardSlot leftSlot = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, true);
             CardSlot rightSlot = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, false);
 
             bool leftValid = CheckIsValid(leftSlot);
             bool rightValid = CheckIsValid(rightSlot);
+
+            if (!leftValid && !rightValid)
+                yield break;
 
             if (leftValid)
             {
@@ -58,9 +67,6 @@ namespace WhistleWind.AbnormalSigils
             }
 
             yield return base.LearnAbility(0.4f);
-
-            if (base.Card.LacksTrait(AbnormalPlugin.LovingSlime))
-                yield return base.Card.TakeDamage(1, null);
         }
 
         private bool CheckIsValid(CardSlot slot)
@@ -76,9 +82,7 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             CardInfo cardInfo = CardLoader.GetCardByName("wstl_meltingLoveMinion").Clone() as CardInfo;
-            cardInfo.baseHealth = Mathf.Max(1, base.Card.MaxHealth - 1);
-
-            foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+            foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll(x => !x.nonCopyable))
             {
                 // Copy merged sigils and the like
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
@@ -92,7 +96,11 @@ namespace WhistleWind.AbnormalSigils
                 cardInfo.Mods.Add(new CardModificationInfo(item));
             }
 
-            yield return BoardManager.Instance.CreateCardInSlot(cardInfo, base.Card.Slot);
+            yield return new WaitForSeconds(0.4f);
+            if (base.Card.Slot.Card != null)
+                yield return base.Card.Slot.Card.TransformIntoCard(cardInfo, () => base.Card.Status.damageTaken = 0);
+            else
+                yield return BoardManager.Instance.CreateCardInSlot(cardInfo, base.Card.Slot);
         }
     }
 }
