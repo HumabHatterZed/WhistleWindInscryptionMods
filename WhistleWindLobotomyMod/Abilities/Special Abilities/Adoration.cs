@@ -14,16 +14,18 @@ namespace WhistleWindLobotomyMod
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "Adoration";
-        public const string rDesc = "At the start of the owner's turn, if Melting Love has lost Health, absorb the Health of adjacent Slime cards until Melting Love is at max Health.";
+        public const string rDesc = "At the start of the owner's turn, if Melting Love is at 1 Health, absorb the Health of adjacent Slime cards until Melting Love is at max Health.";
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep;
 
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            if (base.PlayableCard.Health >= base.PlayableCard.MaxHealth)
+            if (base.PlayableCard.Health >= base.PlayableCard.MaxHealth || base.PlayableCard.Health > 1)
                 yield break;
 
             yield return HelperMethods.ChangeCurrentView(View.Board);
+            base.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.4f);
 
             CardSlot leftSlot = Singleton<BoardManager>.Instance.GetAdjacent(base.PlayableCard.Slot, true);
             CardSlot rightSlot = Singleton<BoardManager>.Instance.GetAdjacent(base.PlayableCard.Slot, false);
@@ -66,7 +68,7 @@ namespace WhistleWindLobotomyMod
                 yield return new WaitForSeconds(0.4f);
                 rightSlot.Card.Status.damageTaken += healAmount;
                 rightSlot.Card.UpdateStatsText();
-                if (leftSlot.Card.Health > 0)
+                if (rightSlot.Card.Health > 0)
                     rightSlot.Card.Anim.PlayHitAnimation();
                 else
                     yield return rightSlot.Card.Die(false);
