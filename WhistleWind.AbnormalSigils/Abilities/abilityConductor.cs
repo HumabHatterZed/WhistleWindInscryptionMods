@@ -73,7 +73,7 @@ namespace WhistleWind.AbnormalSigils
 
             // if adjacent or it's been 2 turns, give Power / 2
             if (base.Card.Slot.GetAdjacentCards().Contains(target) || (turnCount >= 2 && target.OpponentCard == base.Card.OpponentCard))
-                return Mathf.FloorToInt(attack / 2);
+                return Mathf.Max(1, attack / 2);
 
             return 0;
         }
