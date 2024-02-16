@@ -104,7 +104,7 @@ namespace WhistleWind.AbnormalSigils
 
             // give 1 extra Health if there is none present
             if (stats[1] == 0)
-                stats[1]++;
+                stats[1] = 1;
 
             base.Card.AddTemporaryMod(new(stats[0] - base.Card.Attack, stats[1] - base.Card.Health) { nonCopyable = true });
         }

@@ -14,14 +14,6 @@ using WhistleWind.AbnormalSigils.StatusEffects;
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches
 {
-/*    [HarmonyPatch]
-    internal class ModifyGlobalTriggers
-    {
-        private static MethodBase TargetMethods() => typeof(CustomTriggerFinder).GetMethod("FindGlobalTriggers").MakeGenericMethod(typeof(IModifyDamageTaken));
-
-        private static void Postfix(ref )
-    }
-*/
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardAbilityPatches
     {
