@@ -50,7 +50,7 @@ namespace WhistleWindLobotomyMod.Patches
             return false;
         }
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.CreateCard))]
-        private static void UpdatePlagueDoctorAppearance(ref PlayableCard __result)
+        private static void UpdatePlagueDoctorAppearance(PlayableCard __result)
         {
             if (__result?.HasSpecialAbility(Bless.specialAbility) ?? false)
             {
@@ -70,8 +70,8 @@ namespace WhistleWindLobotomyMod.Patches
         }
 
         // Reset board effects for event cards and the Clock for WhiteNight
-        [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.OutroSequence))]
-        private static IEnumerator ResetEffects(IEnumerator enumerator, Opponent __instance)
+        [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.CleanupPhase))]
+        private static IEnumerator ResetEffects(IEnumerator enumerator, TurnManager __instance)
         {
             PreventOpponentDamage = false;
             if (LobotomySaveManager.TriggeredWhiteNightThisBattle)
@@ -95,7 +95,7 @@ namespace WhistleWindLobotomyMod.Patches
             LobotomySaveManager.BoardEffectsEmerald = false;
             LobotomySaveManager.BoardEffectsEntropy = false;
 
-            if (__instance is not PixelOpponent)
+            if (__instance.opponent != null && __instance.opponent is not PixelOpponent)
                 Singleton<TableVisualEffectsManager>.Instance?.ResetTableColors();
 
             AchievementAPI.Unlock(LobotomySaveManager.UnlockedApocalypseBird, AchievementAPI.TheThreeBirds);
