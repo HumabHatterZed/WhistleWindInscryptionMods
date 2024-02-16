@@ -34,7 +34,6 @@ namespace WhistleWindLobotomyMod
     [BepInDependency(AbnormalPlugin.pluginGuid, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.achievements", BepInDependency.DependencyFlags.SoftDependency)]
-
     public partial class LobotomyPlugin : BaseUnityPlugin
     {
         private void Awake()
@@ -71,14 +70,14 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("Loading cards...");
                 AddAppearances();
                 AddCards();
-                Log.LogDebug("Loading starter decks...");
+                //Log.LogDebug("Loading starter decks...");
                 AddStarterDecks();
 
                 Log.LogDebug("Loading encounters...");
                 AddEncounters();
 
-                Log.LogDebug("Loading map nodes...");
-                //AddItems();
+                Log.LogDebug("Loading everything else...");
+                AddItems();
                 AddNodes();
 
                 if (PackAPI.Enabled)
@@ -231,8 +230,9 @@ namespace WhistleWindLobotomyMod
         private void AddEncounters()
         {
             BuildEncounters();
-            for (int i = 0; i < 3; i++)
-                RegionProgression.Instance.regions[i].AddEncounters(ModEncounters[i].ToArray());
+            RegionProgression.Instance.regions[0].AddEncounters(ModEncounters[0].ToArray());
+            RegionProgression.Instance.regions[1].AddEncounters(ModEncounters[1].ToArray());
+            RegionProgression.Instance.regions[2].AddEncounters(ModEncounters[2].ToArray());
         }
 
         private void GenerateDialogueEvents()
@@ -272,6 +272,6 @@ namespace WhistleWindLobotomyMod
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginPrefix = "wstl";
         public const string pluginName = "WhistleWind Lobotomy Mod";
-        private const string pluginVersion = "2.1.0";
+        private const string pluginVersion = "2.1.1";
     }
 }
