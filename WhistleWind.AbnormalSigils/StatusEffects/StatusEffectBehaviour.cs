@@ -71,6 +71,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             base.PlayableCard.RemoveTemporaryMod(mod);
             if (EffectSeverity > 0)
                 base.PlayableCard.AddTemporaryMod(EffectCountMod());
+            else
+                base.PlayableCard.OnStatsChanged();
 
             if (updateDecals)
             {
@@ -78,6 +80,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
                 base.PlayableCard.RemoveTemporaryMod(mod);
                 if (EffectDecalIds().Count > 0)
                     base.PlayableCard.AddTemporaryMod(EffectDecalMod());
+                else
+                    base.PlayableCard.OnStatsChanged();
             }
         }
         public void SetSeverity(int amount, bool updateDecals)
@@ -87,6 +91,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             base.PlayableCard.RemoveTemporaryMod(mod);
             if (EffectSeverity > 0)
                 base.PlayableCard.AddTemporaryMod(EffectCountMod());
+            else
+                base.PlayableCard.OnStatsChanged();
 
             if (updateDecals)
             {
@@ -94,6 +100,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
                 base.PlayableCard.RemoveTemporaryMod(mod);
                 if (EffectDecalIds().Count > 0)
                     base.PlayableCard.AddTemporaryMod(EffectDecalMod());
+                else
+                    base.PlayableCard.OnStatsChanged();
             }
         }
 
