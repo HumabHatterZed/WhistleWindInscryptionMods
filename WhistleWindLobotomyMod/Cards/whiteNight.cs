@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(whiteNight, titleName: "whiteNight_title")
                 .AddAbilities(Ability.Flying, Idol.ability, TrueSaviour.ability)
                 .AddTribes(TribeDivine)
-                .AddTraits(ImmuneToInstaDeath, Trait.Uncuttable, Apostle)
+                .AddTraits(ImmuneToInstaDeath, Trait.Uncuttable)
                 .AddAppearances(ForcedWhiteEmission.appearance, CardAppearanceBehaviour.Appearance.TerrainLayout)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
