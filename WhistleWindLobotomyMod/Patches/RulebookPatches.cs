@@ -131,7 +131,8 @@ namespace WhistleWindLobotomyMod.Patches
             "MoveBeside",
             "Sentry",
             "Sniper",
-            "StrafeSwap"
+            "StrafeSwap",
+            "Transformer"
         };
     }
 }
