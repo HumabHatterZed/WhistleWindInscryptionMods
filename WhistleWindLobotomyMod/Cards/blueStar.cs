@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
 
             CardInfo star2 = NewCard("blueStar2", starName,
-                attack: 0, health: 4, blood: 3)
+                attack: 0, health: 4, blood: 4)
                 .SetPortraits(blueStar)
                 .AddAbilities(Ability.Transformer, Idol.ability)
                 .AddTribes(tribes)
@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod
                 .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
 
             CardInfo star = NewCard(blueStar, starName, "When this is over, let's meet again as stars.",
-                attack: 0, health: 4, blood: 2)
+                attack: 0, health: 4, blood: 3)
                 .SetPortraits(blueStar)
                 .AddAbilities(Ability.Transformer)
                 .AddTribes(tribes)
