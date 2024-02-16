@@ -38,7 +38,6 @@ namespace ModDebuggingMod
         {
             Log = base.Logger;
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
-
             //AddChallenges();
             //ItemDebug();
             Ability_Test();

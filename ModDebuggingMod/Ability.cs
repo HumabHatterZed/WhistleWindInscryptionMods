@@ -1,7 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
+using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod;
 
 namespace ModDebuggingMod
 {
@@ -24,14 +26,20 @@ namespace ModDebuggingMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToUpkeep(bool playerUpkeep)
+        public override bool RespondsToResolveOnBoard() => true;
+        public override IEnumerator OnResolveOnBoard()
         {
-            return playerUpkeep != base.Card.OpponentCard;
+            base.Card.AddStatusEffect<Enchanted>(1);
+            yield break;
         }
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
-            if (base.Card.GetComponent<Evolve>().numTurnsInPlay > 0)
-                yield return base.Card.Die(false);
-        }
+        /*        public override bool RespondsToUpkeep(bool playerUpkeep)
+                {
+                    return playerUpkeep != base.Card.OpponentCard;
+                }
+                public override IEnumerator OnUpkeep(bool playerUpkeep)
+                {
+                    if (base.Card.GetComponent<Evolve>().numTurnsInPlay > 0)
+                        yield return base.Card.Die(false);
+                }*/
     }
 }

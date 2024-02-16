@@ -3,6 +3,31 @@
 
 # Plugin GUID: whistlewind.inscryption.lobotomycorp
 
+## v2.1.1 - Minor Patch (2/?/2024)
+### 🩹 Bug fixes
+- Fixed Plague Doctor portrait not updating correctly in Act 2
+- Fixed Confession sigil causing a death loop when activated
+- Fixed WhiteNight removing the boss card during the Apocalypse Bird fight
+- Fixed Adoration special ability softlocking when the right-adjacent card is killed
+- Fixed Transformer sigil not appearing in the Rulebook
+- Fixed Grave of Cherry Blossoms not having any sigils
+- Fixed custom items not being loaded into the game
+- Grammar fixes for various rulebook entries
+### 🔧 Tweaks
+- Adjusted Scorching Girl's emission sprite
+- Made adjustments to the WhiteNight sequence
+- WhiteNight no longer has the Apostle trait
+- WhiteNight defeat sequence and Time Machine acitvation sequence now have unique behaviour when triggered during custom boss fights
+- (Achievements API only) Changed the names and descriptions of the three hidden achievements, changed them to no longer be hidden.
+### ⚖️ Balancing
+- <span style='color:red'>Increased cost of Blue Star from 2 --> 3 Blood
+- <span style='color:red'>Increased cost of Blue Star (2nd forme) from 3 --> 4 Blood
+- Rebalanced Melting Love from 6 Health, 3 Blood --> 5 Health, 5 Bones
+- Replaced Grave of Cherry Blossoms's sigils (Sharp Quills, Bloodfiend) with Bloodletter
+- Adoration special ability now only triggers at 1 Health
+### ➕ Additions
+- Added support for Pack Management API's encounter pack beta
+
 ## v2.1.0 - Into the Twilight (1/22/2024)
 ### 🩹 Bug fixes
 - Fixed Honoured Monk having the wrong portrait
@@ -58,7 +83,7 @@
 - Rebalanced The Burrowing Heaven from 1 Blood -> 2 Bones
 - Rebalanced Child of the Galaxy from whatever it was --> 1 Blood, Lonely, targeted spell
 - Reworked Yesod from 0/1; Hoarder, Corrector --> 2/3, Hoarder
-- Reworked Chesed from 0/; Thick Skin, Healer; 1 Blood --> 1/4; Regenerator, Healer; 4 Energy
+- Reworked Chesed from 0/5; Thick Skin, Healer; 1 Blood --> 1/4; Regenerator, Healer; 4 Energy
 - Rebalanced Hokma from 2/3 --> 1/4
 - Rebalanced Angela from 3/3; Ruler of Frost, Unkillable --> 2/3; Ruler of Frost, Persecutor
 - Gebura now has Persistent instead of Piercing

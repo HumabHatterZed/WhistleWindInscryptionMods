@@ -37,9 +37,10 @@ namespace WhistleWindLobotomyMod
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !Enraged && GrudgeExists(base.PlayableCard, otherCard);
         public override bool RespondsToResolveOnBoard()
         {
-            return !Enraged && GrudgeExists(base.PlayableCard, BoardManager.Instance.AllSlotsCopy.Find(
-                x => x.Card?.Info.name == (base.PlayableCard.Info.name == HoodName ? WolfName : HoodName))?
-                .Card);
+            PlayableCard otherCard = BoardManager.Instance.CardsOnBoard.Find(
+                x => x != base.PlayableCard && x.Info.name == (base.PlayableCard.Info.name == HoodName ? WolfName : HoodName));
+
+            return !Enraged && GrudgeExists(base.PlayableCard, otherCard);
         }
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
         {

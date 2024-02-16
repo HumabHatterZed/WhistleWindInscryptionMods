@@ -8,6 +8,17 @@ namespace WhistleWind.Core.Helpers
 {
     public static class HelperMethods
     {
+        // play hit anim then trigger Die
+        // doesn't actually destroy the card
+        public static IEnumerator DieDontDestroy(PlayableCard card, bool wasSacrifice, PlayableCard killer)
+        {
+            card.Anim.PlayHitAnimation();
+            card.Anim.SetShielded(shielded: false);
+            yield return card.Anim.ClearLatchAbility();
+            if (card.TriggerHandler.RespondsToTrigger(Trigger.Die, wasSacrifice, killer))
+                yield return card.TriggerHandler.OnTrigger(Trigger.Die, wasSacrifice, killer);
+        }
+
         public static T CopyAbilityBehaviour<T>(T original, GameObject gameObject) where T : AbilityBehaviour
         {
             System.Type type = original.GetType();

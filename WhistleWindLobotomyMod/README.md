@@ -30,13 +30,13 @@ a custom card pack will be created representing this mod. That's all :\).
 This mod adds custom achievements if you're using the [Achievements API](https://inscryption.thunderstore.io/package/Infiniscryption/Achievements/) installed.
 
 ## 💌 Credits/Acknowledgements
-**Audio files ripped from Lobotomy Corporation; all ownership goes to Project Moon.**
+**Custom audio and music taken from Lobotomy Corporation; all ownership goes to Project Moon.**
 
 Artwork and coding:
 - WhistleWind
 
 Testing and Feedback:
-- Orochi Umbra, Rengar, yam the nokia
+- Orochi Umbra, Rengar #1220, yam the nokia, Observateur #3241
 
 ReadMe cost icons:
 - James Veug (from ReadmeMaker)
@@ -148,8 +148,8 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 |⇆ Today's Neutral Look|1/2|<img src='https://i.imgur.com/H6vESv7.png'>|Unkillable|Anthropoid|||
 |⇆ Today's Happy Look|1/3|<img src='https://i.imgur.com/H6vESv7.png'>||Anthropoid|||
 |⇆ Today's Angry Look|2/1|<img src='https://i.imgur.com/H6vESv7.png'>||Anthropoid|||
-|Blue Star|0/4|<img src='https://i.imgur.com/62GUUAC.png'>|Transformer|Divine||Rare|
-|↺ Blue Star|0/4|<img src='https://i.imgur.com/Ckvc6Ww.png'>|Idol, Transformer|Divine|||
+|Blue Star|0/4|<img src='https://i.imgur.com/Ckvc6Ww.png'>|Transformer|Divine||Rare|
+|↺ Blue Star|0/4|<img src='https://i.imgur.com/8SvThbo.png'>|Idol, Transformer|Divine|||
 |↺ Blue Star|4/4|<img src='https://i.imgur.com/8SvThbo.png'>|Omni Strike, Transformer|Divine|||
 |You Must Be Happy|0/2|<img src='https://i.imgur.com/vUBgPOO.png'>|Scrambler|||Target Spell|
 |Luminous Bracelet|0/2|<img src='https://i.imgur.com/9tZzgbv.png'>|Give Stats Sigils, Greedy Healing|||Target Spell|
@@ -169,7 +169,7 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 |Ppodae|1/1|<img src='https://i.imgur.com/UvtK0PY.png'>|Stinky, Fledgling|Canine|||
 |⤷ Ppodae|3/2|<img src='https://i.imgur.com/66XMPEU.png'>|Stinky|Canine|||
 |Parasite Tree|0/3|<img src='https://i.imgur.com/H6vESv7.png'>|Gardener|Botanic|||
-|Melting Love|SL/6|<img src='https://i.imgur.com/Ckvc6Ww.png'>|Made of Slime||Toxic|Rare|
+|Melting Love|SL/5|<img src='https://i.imgur.com/i9oPLUJ.png'>|Made of Slime||Toxic|Rare|
 |Honoured Monk|2/1|<img src='https://i.imgur.com/62GUUAC.png'>|Fledgling|Anthropoid|||
 |⤷ Clouded Monk|4/2|<img src='https://i.imgur.com/62GUUAC.png'>||Anthropoid|||
 |The Servant of Wrath|2/2|<img src='https://i.imgur.com/62GUUAC.png'>|Scorching|Fae|MagicalGirl||

@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "The Sword Sharpened with Tears";
-        public const string rDesc = "Knight of Despair and Magical Girl C will transform when an adjacent card dies.";
+        public const string rDesc = "Knight of Despair and Servant of Wrath will transform when an adjacent card dies.";
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {

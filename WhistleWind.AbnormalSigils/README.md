@@ -58,7 +58,7 @@ Testing and Feedback:
 |Piercing			|✓	|X	|2	|Damage dealt by this card cannot be negated or reduced by sigils such as Armoured or Thick Skin.|
 |Scrambler			|X	|X	|3	|When a card bearing this sigil is sacrificed, give its stats to the sacrificing card then randomise the resulting stats. Works with Spells.|
 |Gardener			|X	|X	|4	|When an allied card is killed, create a Sapling in their place. A Sapling is defined as: 0 Power, 2 Health, Bone Digger.|
-|Made of Slime		|X	|X	|4	|If this card is not a Slime, take 1 damage at turn's end and transform into a Slime on death. Adjacent cards gain this sigil at the end of the owner's turn.|
+|Made of Slime		|X	|X	|5	|If this card is not a Slime, take 1 damage at turn's end and transform into a Slime on death. Adjacent cards gain this sigil at the end of the owner's turn.|
 |Protector			|X	|✓	|3	|Creatures adjacent to this card take 1 less damage when struck.|
 |Alchemist			|X	|X	|3	|Pay 2 Energy to discard your current hand and draw cards equal to the amount you discarded.
 |Nettle Clothes		|X	|X	|5	|When this card is played, fill all empty spaces on the owner's side of the board with random Brothers. This card gains sigils based on allied Brothers.|
@@ -73,6 +73,9 @@ Testing and Feedback:
 |Neutered Latch		|X	|X	|4	|Once per turn, pay [sigilcost:2 Bones] to choose a creature to gain the Neutered sigil, then increase this sigil's activation cost by 2 Bones.|
 |Rightful Heir		|X	|X	|3	|Once per turn, pay [sigilcost:3 Bones] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1 Bone until battle's end. A Pumpkin is defined as: 0 Power, 2 Health, Fledgling.|
 |Greedy Healing		|✓	|X	|3	|At the end of its owner's turn, this card gains 2 Health. If 2 turns pass without this card taking damage, it will die.|
+|Cycler				|✓	|X	|1	|At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board.|
+|Barreler			|✓	|X	|1	|At the end of the owner's turn, this card moves in the sigil's direction to the end of the board, moving any cards in the way.|
+|Bloodletter		|X	|✓	|4	|When a card bearing this sigil is struck nonfatally, absorb 1 Health from the striker.|
 |Left-Veering Strike|X	|X	|0	|A card bearing this sigil will strike the opposing space to the left of the space across from it.|
 |Right-Veering Strike|X	|X	|0	|A card bearing this sigil will strike the opposing space to the right of the space across from it.|
 |Persecutor			|X	|X	|4	|When a card bearing this sigil is played, create a Nail in the adjacent left space and a Hammer in the adjacent right space if they are empty.|
@@ -80,8 +83,6 @@ Testing and Feedback:
 |False Throne		|X	|X	|4	|Once per turn, pay 2 Health to give Neutered to a chosen creature, then create a free, unaltered copy of it in your hand.|
 |Return to Nihil	|X	|X	|5	|At the end of the owner's turn, deal damage to all other cards on the board equal to this card's Power.|
 |Follow the Leader	|X	|X	|2	|At the end of its owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board. Allied creatures towards this card in the sigil's direction as far as possible.|
-|Barreler			|✓	|X	|1	|At the end of the owner's turn, this card moves in the sigil's direction to the end of the board, moving any cards in the way.|
-|Cycler				|✓	|X	|1	|At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board.|
 
 ## Stat Icons
 |Name			|Power	|Health	|Description|

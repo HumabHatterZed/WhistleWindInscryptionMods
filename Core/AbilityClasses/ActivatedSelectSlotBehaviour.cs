@@ -255,13 +255,13 @@ namespace WhistleWind.Core.AbilityClasses
         {
             if (!IsValidTarget(slot) && !Singleton<TextDisplayer>.Instance.Displaying)
             {
-                string dialogue = null;
+                string dialogue;
                 if (slot.Card != null)
                 {
                     if (slot.Card == base.Card)
                         dialogue = SelfTargetDialogue;
                     else
-                        InvalidTargetDialogue(slot); // slot.Card is never null
+                        dialogue = InvalidTargetDialogue(slot); // slot.Card is never null
                 }
                 else
                     dialogue = NullTargetDialogue;

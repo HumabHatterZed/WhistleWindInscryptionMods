@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
 
         public const string rName = "The Homing Instinct";
-        public const string rDesc = "When The Road Home is played, create a Scaredy Cat in your hand. [define:wstl_scaredyCat].";
+        public const string rDesc = "When The Road Home is played, create a Scaredy Cat in your hand. [define:wstl_scaredyCat]";
 
         //internal static Texture PavedSlotTexture => TextureLoader.LoadTextureFromFile(SaveManager.SaveFile.IsPart2 ? "slotPavedRoad_pixel" : "slotPavedRoad");
         //internal static Texture DefaultSlotTexture;

@@ -3,6 +3,21 @@
 
 # Plugin GUID: whistlewind.inscryption.abnormalsigils
 
+## v1.1.1 - Slime and Dine (2/?/2024)
+### 🩹 Bug fixes
+- Fixed activated sigils having no dialogue on selecting invalid target
+### 🔧 Tweaks
+- Changed name of Slimes stat icon --> Loving Slimes
+- Changed icon for Loving Slimes
+- Adjusted OnDie effect of Made of Slime
+### ⚖️ Balancing
+- Apostle sigil now requires WhiteNight to be on the same side of the board in order to trigger invulnerability
+- Conductor sigil now gives a minimum of 1 Power from turns 1 onward
+- Reworked Slimes to SL/2, 3 Bones
+- Slimes created by Made of Slime sigil no longer inherit the parent card's Health and costs
+### ➕ Additions
+- Added Bloodletter ability
+
 ## v1.1.0 - Fast and Slow (1/22/2024)
 ### 🧱 Structural
 - Reworked how status effects function and their implementation

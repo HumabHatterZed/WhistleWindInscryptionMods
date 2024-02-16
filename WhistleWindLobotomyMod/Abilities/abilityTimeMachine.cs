@@ -11,6 +11,8 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod
 {
@@ -39,9 +41,9 @@ namespace WhistleWindLobotomyMod
 
         public override IEnumerator Activate()
         {
-            if (LobotomyPlugin.PreventOpponentDamage)
+            if (LobotomyPlugin.PreventOpponentDamage && !CustomBossUtils.FightingCustomBoss())
             {
-                DialogueHelper.ShowUntilInput("Something prevents its function. You cannot escape this one.");
+                yield return DialogueHelper.ShowUntilInput("Something prevents its function. You cannot escape this one.");
                 yield break;
             }
 
@@ -61,7 +63,7 @@ namespace WhistleWindLobotomyMod
                     "Have I backed you into a corner? Or am I simply boring you?",
                     "I suppose it doesn't matter. I will honour your request.");
 
-            HelperMethods.ChangeCurrentView(View.Default);
+            yield return HelperMethods.ChangeCurrentView(View.Default);
             AudioController.Instance.PlaySound2D("antigravity_elevator_down");
             base.Card.Anim.LightNegationEffect();
             ChangeToActivePortrait();
@@ -178,23 +180,43 @@ namespace WhistleWindLobotomyMod
                 HelperMethods.RemoveCardFromDeck(chosenCardInfo);
 
             yield return new WaitForSeconds(0.5f);
-            HelperMethods.ChangeCurrentView(View.Default, 0f);
+            yield return HelperMethods.ChangeCurrentView(View.Default, 0f);
             yield return DialogueHelper.ShowUntilInput("[c:bR]The Clock[c:] and your [c:bR]" + chosenCardInfo.DisplayedNameLocalized + "[c:] will remain in that abandoned time.", effectFOVOffset: -0.65f, effectEyelidIntensity: 0.4f);
             yield return new WaitForSeconds(0.2f);
         }
 
         private IEnumerator EndBattle()
         {
-            int damage = Singleton<LifeManager>.Instance.DamageUntilPlayerWin;
+            if (!CustomBossUtils.FightingCustomBoss())
+            {
+                int damage = Singleton<LifeManager>.Instance.DamageUntilPlayerWin;
 
-            yield return Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = damage;
-            yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
+                yield return Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = damage;
+                yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
+            }
+            else if (CustomBossUtils.IsCustomBoss<ApocalypseBossOpponent>())
+            {
+                foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard)
+                {
+                    if (card.OpponentCard && card.LacksAbility(ApocalypseAbility.ability))
+                    {
+                        card.RemoveFromBoard(card);
+                    }
+                    else if (!card.OpponentCard && card != base.Card)
+                    {
+                        card.Status.damageTaken = 0;
+                    }
+                }
+                yield return new WaitForSeconds(0.5f);
+                yield return DialogueHelper.ShowUntilInput("You cannot escape so easily.");
+            }
 
             if (SaveManager.SaveFile.IsPart2)
                 LobotomySaveManager.UsedBackwardClockGBC = true;
             else
                 LobotomySaveManager.UsedBackwardClock = true;
 
+            // if the game hasn't ended (eg, fighting a boss)
             if (!TurnManager.Instance.GameEnding && !TurnManager.Instance.GameEnded)
             {
                 yield return new WaitForSeconds(0.4f);
