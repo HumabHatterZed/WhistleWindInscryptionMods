@@ -6,6 +6,7 @@
 ## v1.1.1 - Slime and Dine (2/?/2024)
 ### 🩹 Bug fixes
 - Fixed activated sigils having no dialogue on selecting invalid target
+- Fixed Assimilator's powerlevel being incorrect
 ### 🔧 Tweaks
 - Changed name of Slimes stat icon --> Loving Slimes
 - Changed icon for Loving Slimes

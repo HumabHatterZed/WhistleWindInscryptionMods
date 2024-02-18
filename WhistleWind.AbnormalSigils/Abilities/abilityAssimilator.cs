@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             const string triggerText = "[creature] makes its victim a part of itself.";
             Assimilator.ability = AbnormalAbilityHelper.CreateAbility<Assimilator>(
                 "sigilAssimilator",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
                 modular: false, opponent: true, canStack: true).Id;
         }
     }
