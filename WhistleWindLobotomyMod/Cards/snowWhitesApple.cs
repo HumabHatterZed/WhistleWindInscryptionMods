@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -16,7 +15,7 @@ namespace WhistleWindLobotomyMod
             const string snowWhitesApple = "snowWhitesApple";
 
             NewCard(snowWhitesApple, "Snow White's Apple", "A poisoned apple brought to life, on a fruitless search for its own happily ever after.",
-                attack: 1, health: 1, bones: 3)
+                attack: 1, health: 1, bones: 3, temple: CardTemple.Undead)
                 .SetPortraits(snowWhitesApple)
                 .AddAbilities(Roots.ability)
                 .AddTribes(TribeBotanic)

@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace WhistleWind.Core.Helpers
 {
@@ -29,13 +28,16 @@ namespace WhistleWind.Core.Helpers
 
         public static Texture2D LoadTextureFromFile(string fileName, Assembly target = null)
         {
-            if (fileName == null)
+            if (string.IsNullOrEmpty(fileName))
                 return null;
 
             Assembly targetAssembly = target ?? Assembly.GetCallingAssembly();
             byte[] resourceFile = GetResource(fileName.EndsWith(".png") ? fileName : fileName + ".png", targetAssembly);
             if (resourceFile == null)
+            {
+                //Debug.Log($"Could not get file: [{fileName}]");
                 return null;
+            }
 
             Texture2D texture2D = new(2, 2);
             texture2D.LoadImage(resourceFile);

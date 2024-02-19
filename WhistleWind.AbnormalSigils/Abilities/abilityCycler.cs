@@ -8,8 +8,6 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
-using WhistleWind.Core.Helpers;
-
 namespace WhistleWind.AbnormalSigils
 {
     public partial class AbnormalPlugin

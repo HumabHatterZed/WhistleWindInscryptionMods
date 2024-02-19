@@ -2,9 +2,8 @@
 using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.AbnormalSigils.StatusEffects;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -29,20 +28,19 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
             if (source != null)
-                return source.LacksTrait(AbnormalPlugin.NakedSerpent) && source.GetComponent<Worms>() == null;
+                return source.LacksAllTraits(AbnormalPlugin.NakedSerpent, AbnormalPlugin.ImmuneToAilments);
 
             return false;
         }
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
-            int extraStacks = Mathf.Max(0, base.Card.GetAbilityStacks(ability) - 1);
+            int stacks = base.Card.GetAbilityStacks(ability);
+
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
 
-            source.AddPermanentBehaviour<Worms>();
-            Worms component = source.GetComponent<Worms>();
-            component.effectCount += extraStacks;
-            source.AddTemporaryMods(component.GetEffectDecalMod(), component.GetEffectDecalMod());
+            source.AddStatusEffect<Worms>(stacks, true);
+
             yield return new WaitForSeconds(0.55f);
             yield return base.LearnAbility();
         }

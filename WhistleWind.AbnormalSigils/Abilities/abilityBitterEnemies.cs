@@ -4,10 +4,7 @@ using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
-using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -44,17 +41,14 @@ namespace WhistleWind.AbnormalSigils
             List<CardSlot> slotsToCount = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).FindAll(x => x.Card != null && x.Card.HasAbility(ability));
             slotsToCount.Remove(base.Card.Slot);
 
-            return slotsToCount.Count > 0 ? 1 : 0;
+            return slotsToCount.Count > 0 ? base.Card.GetAbilityStacks(Ability) : 0;
         }
 
         public bool ActivateOnPlay()
         {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.AllSlotsCopy.Where(slot => slot != base.Card.Slot))
-            {
-                if (slot.Card != null && slot.Card.HasAbility(ability))
-                    return true;
-            }
-            return false;
+            return Singleton<BoardManager>.Instance.AllSlotsCopy.Exists(
+                x => x.IsPlayerSlot != base.Card.Slot && x.Card != null && x.Card.HasAbility(Ability)
+                );
         }
     }
 }

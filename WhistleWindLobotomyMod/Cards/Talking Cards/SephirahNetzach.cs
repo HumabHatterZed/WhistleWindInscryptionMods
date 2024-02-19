@@ -4,13 +4,11 @@ using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -78,7 +76,8 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.AnglerBoss, "SephirahNetzachAngler" },
             { Opponent.Type.TrapperTraderBoss, "SephirahNetzachTrapperTrader" },
             { Opponent.Type.LeshyBoss, "SephirahNetzachLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahNetzachRoyal" }
+            { Opponent.Type.RoyalBoss, "SephirahNetzachRoyal" },
+            { ApocalypseBossOpponent.ID, "SephirahNetzachApocalypse" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -93,7 +92,7 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahNetzach", "Netzach", "Despite his lack of motivation, he'll do his best to succeed.",
                 attack: 0, health: 3, blood: 1)
                 .AddAbilities(GreedyHealing.ability, Ability.WhackAMole)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

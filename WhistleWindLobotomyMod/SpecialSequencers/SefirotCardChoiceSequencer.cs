@@ -7,8 +7,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 
@@ -172,18 +172,15 @@ namespace WhistleWindLobotomyMod
             }
             yield return this.AddCardToDeckAndCleanUp(chosenReward);
         }
+
         private List<CardChoice> GenerateSephirahChoices(int randomSeed)
         {
             List<CardChoice> listOfChoices = new();
             List<CardInfo> sephirahCards = LobotomyCardLoader.GetSephirahCards();
-            if (!LobotomySaveManager.UnlockedAngela)
-            {
-                if (sephirahCards.Count >= 3)
-                    sephirahCards.RemoveAll(x => x.name.Equals("wstl_angela"));
 
-                if (sephirahCards.Count <= 3)
-                    LobotomySaveManager.UnlockedAngela = true;
-            }
+            // if the player has 2 sephirah already, unlock Angela and make her a guaranteed choice
+            if (sephirahCards.Count <= 7 && !LobotomySaveManager.UnlockedAngela)
+                listOfChoices.Add(new() { CardInfo = CardLoader.GetCardByName("wstl_angela") });
 
             while (listOfChoices.Count < 3)
             {
@@ -263,7 +260,13 @@ namespace WhistleWindLobotomyMod
             if (DuplicateInDeck(card))
                 SpawnMushroom(originalCardPos);
 
-            yield break;
+            // unlock achievement upon flipping the card
+            if (card.Info.name == "wstl_angela" && !LobotomySaveManager.UnlockedAngela)
+            {
+                yield return new WaitForSeconds(0.25f);
+                LobotomySaveManager.UnlockedAngela = true;
+                LobotomyPlugin.AchievementAPI.Unlock(true, LobotomyPlugin.AchievementAPI.Impuritas);
+            }
         }
         private IEnumerator TutorialTextSequence(SelectableCard card)
         {

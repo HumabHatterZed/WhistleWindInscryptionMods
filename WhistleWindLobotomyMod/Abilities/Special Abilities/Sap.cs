@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod
                 }
 
                 yield return new WaitForSeconds(0.4f);
-                yield return DialogueHelper.PlayDialogueEvent("GiantTreeSapExplode", 0f);
+                yield return DialogueHelper.ShowUntilInput("A strange gurgling sound comes from your beast's stomach.");
 
                 card.Info.SetExtendedProperty("wstl:Sap", true);
             }

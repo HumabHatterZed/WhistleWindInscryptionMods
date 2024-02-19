@@ -4,13 +4,10 @@ using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -78,7 +75,8 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.AnglerBoss, "SephirahMalkuthAngler" },
             { Opponent.Type.TrapperTraderBoss, "SephirahMalkuthTrapperTrader" },
             { Opponent.Type.LeshyBoss, "SephirahMalkuthLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahMalkuthRoyal" }
+            { Opponent.Type.RoyalBoss, "SephirahMalkuthRoyal" },
+            { ApocalypseBossOpponent.ID, "SephirahMalkuthApocalypse" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -93,7 +91,7 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahMalkuth", "Malkuth", "The head of the Control Team, here to assist you any way she can.",
                 attack: 1, health: 1, bones: 3)
                 .AddAbilities(Ability.BuffNeighbours)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

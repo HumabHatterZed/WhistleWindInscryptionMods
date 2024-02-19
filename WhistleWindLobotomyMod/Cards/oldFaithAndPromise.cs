@@ -1,6 +1,4 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
+﻿using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -16,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string oldFaithAndPromise = "oldFaithAndPromise";
 
             NewCard(oldFaithAndPromise, "Old Faith and Promise", "A mysterious marble. Use it without desire or expectation and you may be rewarded.",
-                attack: 0, health: 1, energy: 3)
+                attack: 0, health: 1, energy: 3, temple: CardTemple.Tech)
                 .SetPortraits(oldFaithAndPromise)
                 .AddAbilities(Alchemist.ability)
                 .AddTribes(TribeMechanical)

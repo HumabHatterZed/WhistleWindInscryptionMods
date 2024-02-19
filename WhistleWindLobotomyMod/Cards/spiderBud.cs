@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -15,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string spiderBud = "spiderBud";
 
             NewCard(spiderBud, "Spider Bud", "A grotesque mother of spiders. Its children are small but grow quickly.",
-                attack: 0, health: 2, bones: 4)
+                attack: 0, health: 3, bones: 4)
                 .SetPortraits(spiderBud)
                 .AddAbilities(BroodMother.ability)
                 .AddTribes(Tribe.Insect)

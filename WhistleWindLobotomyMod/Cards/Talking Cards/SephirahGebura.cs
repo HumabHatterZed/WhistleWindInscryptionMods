@@ -1,16 +1,13 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
-using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -73,7 +70,8 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.AnglerBoss, "SephirahGeburaAngler" },
             { Opponent.Type.TrapperTraderBoss, "SephirahGeburaTrapperTrader" },
             { Opponent.Type.LeshyBoss, "SephirahGeburaLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahGeburaRoyal" }
+            { Opponent.Type.RoyalBoss, "SephirahGeburaRoyal" },
+            { ApocalypseBossOpponent.ID, "SephirahGeburaApocalypse" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -87,8 +85,8 @@ namespace WhistleWindLobotomyMod
         {
             NewCard("sephirahGebura", "Gebura", "Head of the Disciplinary Team. A fierce warrior and ally.",
                 attack: 3, health: 5, blood: 3)
-                .AddAbilities(Ability.GainAttackOnKill, Piercing.ability)
-                .AddTraits(TraitSephirah)
+                .AddAbilities(Ability.GainAttackOnKill, Persistent.ability)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

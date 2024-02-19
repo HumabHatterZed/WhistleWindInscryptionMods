@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod
 {
@@ -27,13 +28,9 @@ namespace WhistleWindLobotomyMod
         }
         public static IEnumerator ApocalypseTableEffects()
         {
-            ChangeTableColours(
-                GameColors.Instance.nearBlack, GameColors.Instance.brown, GameColors.Instance.gray,
-                GameColors.Instance.darkRed, GameColors.Instance.glowRed);
-
+            ApocalypseBossUtils.ChangeTableColours();
             yield return ThumpTable();
-
-            AudioController.Instance.StopLoop(1);
+            AudioController.Instance.StopLoop(0);
             AudioController.Instance.SetLoopVolume((Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.25f);
 
             LobotomySaveManager.BoardEffectsApocalypse = true;
@@ -65,8 +62,9 @@ namespace WhistleWindLobotomyMod
 
         private static void ChangeTableColours(Color mainLight, Color cardLight, Color interactableLight, Color slotColour, Color slotGlow)
         {
-            slotColour.a = 0.5f;
-            Singleton<TableVisualEffectsManager>.Instance.ChangeTableColors(mainLight, cardLight, interactableLight, slotColour, slotColour, slotGlow, slotGlow, slotGlow, slotGlow);
+            Color mainSlot = slotColour;
+            mainSlot.a = 0.5f;
+            Singleton<TableVisualEffectsManager>.Instance.ChangeTableColors(mainLight, cardLight, interactableLight, mainSlot, mainLight, interactableLight, slotColour, cardLight, slotGlow);
         }
         private static IEnumerator ThumpTable()
         {

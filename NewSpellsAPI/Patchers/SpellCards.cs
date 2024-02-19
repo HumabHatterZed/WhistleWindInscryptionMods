@@ -112,7 +112,7 @@ namespace Infiniscryption.Spells.Patchers
                     "Spell_Body",
                     "Body Without a Soul",
                     0, 3, // attack/health
-                    "An husk to be used and discarded.")
+                    "A husk to be used and discarded.")
                 .SetDefaultPart1Card()
                 .SetPortrait(AssetHelper.LoadTexture("body"))
                 .SetTargetedSpellStats()

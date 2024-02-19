@@ -1,21 +1,15 @@
 ﻿using DiskCardGame;
+using GBC;
 using HarmonyLib;
+using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
-using InscryptionAPI.Helpers.Extensions;
-using InscryptionCommunityPatch.Card;
-using Pixelplacement;
-using System;
+using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core.Helpers;
-
-using WhistleWind.Core.Helpers;
+using WhistleWind.AbnormalSigils.StatusEffects;
 
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches
@@ -23,75 +17,91 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardAbilityPatches
     {
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
-        private static void ModifyTakenDamage(ref PlayableCard __instance, ref int damage, PlayableCard attacker)
+        #region Lonely ability
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Die))]
+        private static IEnumerator QueuedLonelyCardsOnBoardDie(IEnumerator result, PlayableCard __instance, bool wasSacrifice, PlayableCard killer)
         {
-            bool attackerHasPiercing = attacker != null && attacker.HasAbility(Piercing.ability);
-
-            damage += __instance.Info.GetExtendedPropertyAsInt("wstl:Prudence") ?? 0;
-
-            if (!attackerHasPiercing)
+            if (__instance.OpponentCard && __instance.HasStatusEffect<Pebble>())
             {
-                damage -= __instance.GetAbilityStacks(ThickSkin.ability);
-                damage -= __instance.Slot.GetAdjacentCards().FindAll(x => x.HasAbility(Protector.ability)).Count;
+                if (TurnManager.Instance.Opponent.Queue.Exists(x => x.HasAbility(Lonely.ability)))
+                {
+                    foreach (PlayableCard lonelyCard in TurnManager.Instance.Opponent.Queue.Where(x => x.HasAbility(Lonely.ability)))
+                    {
+                        Lonely component = lonelyCard.GetComponent<Lonely>();
+                        if (component != null && component.RespondsToOtherCardDie(__instance, __instance.Slot, wasSacrifice, killer))
+                            yield return component.OnOtherCardDie(__instance, __instance.Slot, wasSacrifice, killer);
+                    }
+                }
             }
-            else if (__instance.HasShield())
-            {
-                __instance.Status.lostShield = true;
-                __instance.Anim.StrongNegationEffect();
-                if (__instance.Info.name == "MudTurtle")
-                    __instance.SwitchToAlternatePortrait();
-
-                __instance.UpdateFaceUpOnBoardEffects();
-            }
-
-            if (attacker != null)
-            {
-                if (attacker.HasAbility(OneSided.ability) && CheckValidOneSided(attacker, __instance))
-                    damage += attacker.GetAbilityStacks(OneSided.ability);
-            }
-
-            if (damage < 0)
-                damage = 0;
+            yield return result;
         }
 
-        private static bool CheckValidOneSided(PlayableCard attacker, PlayableCard target)
+        [HarmonyPrefix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
+        private static bool QueuedLonelyCardsIncreaseDamage(PlayableCard __instance, ref int damage, PlayableCard attacker)
         {
-            // if target has no Power, if this card can submerge or is facedown (cannot be hit), return true by default
-            if (target.Attack == 0 || attacker.HasAnyOfAbilities(Ability.Submerge, Ability.SubmergeSquid) || attacker.FaceDown)
-                return true;
-
-            // if this card doesn't have Sniper
-            if (attacker.LacksAbility(Ability.Sniper))
+            if (__instance.OpponentCard)
             {
-                // if this card has Bi or Tri Strike, check whether the opponent has it too
-                if (attacker.HasAbility(Ability.SplitStrike) || attacker.HasTriStrike())
-                    return !(target.HasAbility(Ability.SplitStrike) || target.HasTriStrike());
-
-                // otherwise, return whether the opponent can attack this card (won't attack directly or is blocked)
-                return target.CanAttackDirectly(attacker.Slot) || target.AttackIsBlocked(attacker.Slot);
+                if (TurnManager.Instance.Opponent.Queue.Exists(x => x.HasAbility(Lonely.ability)))
+                {
+                    foreach (PlayableCard lonelyCard in TurnManager.Instance.Opponent.Queue.Where(x => x.HasAbility(Lonely.ability)))
+                    {
+                        Lonely component = lonelyCard.GetComponent<Lonely>();
+                        if (component != null && component.RespondsToModifyDamageTaken(__instance, damage, attacker, damage))
+                            damage = component.OnModifyDamageTaken(__instance, damage, attacker, damage);
+                    }
+                }
             }
-            // if the target is opposing this card
-            if (target.Slot == attacker.Slot.opposingSlot)
-                return target.CanAttackDirectly(attacker.Slot) || target.AttackIsBlocked(attacker.Slot);
-
-            // if the target is in an opposing adjacent slot
-            if (Singleton<BoardManager>.Instance.GetAdjacentSlots(attacker.Slot.opposingSlot).Contains(target.Slot))
-                return target.LacksAbility(Ability.SplitStrike) || !target.HasTriStrike();
-
-            // otherwise return true
             return true;
         }
+        #endregion
 
-        #region Neutered patches
+        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
+        private static IEnumerator PiercingIgnoresShields(IEnumerator enumerator, PlayableCard __instance, int damage, PlayableCard attacker)
+        {
+            bool shield = __instance.HasShield();
+            yield return enumerator;
+            // Deal damage after breaking a shield
+            // This will only run if damage > 0 due to API patches so no need to check that
+            if (shield && __instance != null && !__instance.Dead && attacker != null && attacker.HasAbility(Piercing.ability))
+            {
+                if (damage <= 0)
+                    yield break;
+
+                yield return PiercingDamagesThroughShields(__instance, damage, attacker);
+            }
+        }
+
+        private static IEnumerator PiercingDamagesThroughShields(PlayableCard target, int damage, PlayableCard attacker)
+        {
+            // recreate the damage logic since BreakShield breaks out of the method at the end
+            target.Status.damageTaken += damage;
+            target.UpdateStatsText();
+            if (target.Health > 0)
+                target.Anim.PlayHitAnimation();
+
+            if (target.TriggerHandler.RespondsToTrigger(Trigger.TakeDamage, attacker))
+                yield return target.TriggerHandler.OnTrigger(Trigger.TakeDamage, attacker);
+
+            if (target.Health <= 0)
+                yield return target.Die(wasSacrifice: false, attacker);
+
+            if (attacker.TriggerHandler.RespondsToTrigger(Trigger.DealDamage, damage, target))
+                yield return attacker.TriggerHandler.OnTrigger(Trigger.DealDamage, damage, target);
+
+            yield return Singleton<GlobalTriggerHandler>.Instance.TriggerCardsOnBoard(
+                Trigger.OtherCardDealtDamage, false, attacker, attacker.Attack, target);
+
+            yield return CustomTriggerFinder.TriggerInHand<IOnOtherCardDealtDamageInHand>(
+            x => x.RespondsToOtherCardDealtDamageInHand(attacker, attacker.Attack, target),
+                x => x.OnOtherCardDealtDamageInHand(attacker, attacker.Attack, target));
+        }
+
+        #region Neutered ability
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
         private static void ModifyAttackStat(PlayableCard __instance, ref int __result)
         {
-            if (!__instance.OnBoard || __instance.LacksAbility(Neutered.ability))
+            if (__instance.LacksAbility(Neutered.ability))
                 return;
-
-            if (__instance.Info.Attack + __instance.GetPassiveAttackBuffs() > 0)
-                __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
 
             __result = 0;
         }
@@ -108,11 +118,18 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch]
     internal class OtherAbilityPatches
     {
+        [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.QueuedCardIsBlocked))]
+        private static void DontPlayLonelyIfHasFriend(ref bool __result, PlayableCard queuedCard)
+        {
+            if (queuedCard != null && queuedCard.HasAbility(Lonely.ability) && queuedCard.GetComponent<Lonely>().HasFriend)
+                __result = true;
+        }
+
         [HarmonyPostfix, HarmonyPatch(typeof(Deathtouch), nameof(Deathtouch.RespondsToDealDamage))]
         private static void ImmunetoDeathTouch(ref bool __result, int amount, PlayableCard target)
         {
-            if (amount > 0 && target != null && !target.Dead)
-                __result &= target.LacksTrait(AbnormalPlugin.ImmuneToInstaDeath);
+            if (amount > 0 && target != null && !target.Dead && target.HasTrait(AbnormalPlugin.ImmuneToInstaDeath))
+                __result = false;
         }
 
         // Triggers card with Fungal Infector before other cards
@@ -122,7 +139,6 @@ namespace WhistleWind.AbnormalSigils.Patches
             if (trigger == Trigger.TurnEnd)
             {
                 List<PlayableCard> list = Singleton<BoardManager>.Instance.CardsOnBoard;
-
                 if (list.Exists(x => x.HasAbility(Sporogenic.ability)))
                 {
                     yield return __instance.TriggerNonCardReceivers(beforeCards: true, trigger, otherArgs);
@@ -147,5 +163,43 @@ namespace WhistleWind.AbnormalSigils.Patches
             }
             yield return enumerator;
         }
+
+        #region SigilPower
+        [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), "OnCursorEnter")]
+        private static void ShowStatsPlayableCards(PlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, true);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PixelPlayableCard), "OnCursorEnter")]
+        private static void ShowStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, true);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PixelPlayableCard), "OnCursorExit")]
+        private static void HideStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, false);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(MainInputInteractable), "OnCursorExit")]
+        private static void ShowStatsSelectableCards(MainInputInteractable __instance)
+        {
+            if (__instance is PlayableCard)
+            {
+                PlayableCard playableCard = __instance as PlayableCard;
+                UpdatePlayableStatsSpellDisplay(playableCard, false);
+            }
+        }
+
+        internal static void UpdatePlayableStatsSpellDisplay(PlayableCard card, bool showStats)
+        {
+            if (!card.InHand || card.Info.SpecialStatIcon != SigilPower.Icon)
+                return;
+
+            card.RenderInfo.showSpecialStats = showStats;
+            if (showStats)
+            {
+                card.RenderInfo.attack = card.Info.Attack;
+                card.RenderInfo.health = card.Info.Health;
+            }
+
+            card.RenderInfo.attackTextColor = (card.GetPassiveAttackBuffs() + card.GetStatIconAttackBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
+            card.RenderInfo.healthTextColor = (card.GetPassiveHealthBuffs() + card.GetStatIconHealthBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
+            card.RenderCard();
+        }
+        #endregion
     }
 }

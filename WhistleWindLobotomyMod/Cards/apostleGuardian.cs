@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -15,9 +14,9 @@ namespace WhistleWindLobotomyMod
             const string guardianName = "Guardian Apostle";
             const string apostleGuardian = "apostleGuardian";
             const string apostleGuardianDown = "apostleGuardianDown";
-            Ability[] abilities = new[] { Apostle.ability };
+            Ability[] abilities = new[] { ApostleSigil.ability };
             Tribe[] tribes = new[] { TribeDivine };
-            Trait[] traits = new[] { TraitApostle };
+            Trait[] traits = new[] { Apostle };
             CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
             NewCard(apostleGuardian, guardianName,

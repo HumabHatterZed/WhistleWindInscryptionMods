@@ -4,7 +4,7 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AssemblyName>WhistleWindLobotomyMod</AssemblyName>
 		<Description>A mod for Inscryption adding cards and sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina.</Description>
-		<Version>2.0.1</Version>
+		<Version>2.1.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <DebugType>full</DebugType>
@@ -20,7 +20,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Artwork\*.png" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <None Remove="lobmodbosses" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="lobmodbosses" />
+  </ItemGroup>
+  
 	<ItemGroup>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" GeneratePathProperty="true" IncludeAssets="none" />
     <PackageReference Include="BepInEx.Core" Version="5.4.19" GeneratePathProperty="true" IncludeAssets="none" />
@@ -32,7 +40,7 @@
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\WhistleWind.AbnormalSigils\WhistleWind.AbnormalSigils.csproj" />
@@ -50,6 +58,9 @@
     </Reference>
     <Reference Include="Infiniscryption.PackManager" Private="false">
       <HintPath>..\lib\Infiniscryption.PackManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Infiniscryption.Achievements" Private="false">
+      <HintPath>..\lib\Infiniscryption.Achievements.dll</HintPath>
     </Reference>
   </ItemGroup>
 

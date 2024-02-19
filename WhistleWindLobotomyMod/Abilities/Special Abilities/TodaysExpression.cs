@@ -49,6 +49,7 @@ namespace WhistleWindLobotomyMod
                     cardByName = CardLoader.GetCardByName("wstl_todaysShyLookHappy");
                     break;
                 default:
+                    cardByName.abilities.Clear();
                     break;
             }
             yield return base.PlayableCard.TransformIntoCard(cardByName);

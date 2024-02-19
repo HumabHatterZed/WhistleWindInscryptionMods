@@ -2,6 +2,8 @@
 using GBC;
 using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
+using InscryptionCommunityPatch.PixelTutor;
+using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,8 @@ using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents;
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod
 {
@@ -18,7 +21,7 @@ namespace WhistleWindLobotomyMod
         private void Ability_TimeMachine()
         {
             const string rulebookName = "Time Machine";
-            const string rulebookDescription = "End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck at random based on their strength.";
+            const string rulebookDescription = "End the current battle or phase then remove this card from the player's deck. The player must choose an additional card from a selection of 3 to remove from their deck. Selection is based on card power.";
             const string dialogue = "Close your eyes and count to ten.";
 
             TimeMachine.ability = LobotomyAbilityHelper.CreateActivatedAbility<TimeMachine>(
@@ -35,8 +38,15 @@ namespace WhistleWindLobotomyMod
 
         // Failsafe that prevents ability from being used multiple times per run
         public override bool CanActivate() => SaveManager.SaveFile.IsPart2 ? !LobotomySaveManager.UsedBackwardClockGBC : !LobotomySaveManager.UsedBackwardClock;
+
         public override IEnumerator Activate()
         {
+            if (LobotomyPlugin.PreventOpponentDamage && !CustomBossUtils.FightingCustomBoss())
+            {
+                yield return DialogueHelper.ShowUntilInput("Something prevents its function. You cannot escape this one.");
+                yield break;
+            }
+
             // prevent bell-ringing
             TurnManager.Instance.PlayerCanInitiateCombat = false;
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
@@ -53,7 +63,7 @@ namespace WhistleWindLobotomyMod
                     "Have I backed you into a corner? Or am I simply boring you?",
                     "I suppose it doesn't matter. I will honour your request.");
 
-            HelperMethods.ChangeCurrentView(View.Default);
+            yield return HelperMethods.ChangeCurrentView(View.Default);
             AudioController.Instance.PlaySound2D("antigravity_elevator_down");
             base.Card.Anim.LightNegationEffect();
             ChangeToActivePortrait();
@@ -65,77 +75,148 @@ namespace WhistleWindLobotomyMod
             yield return EndBattle();
         }
 
-        private IEnumerator BackwardSequence()
+        private List<CardInfo> GetCardChoices()
         {
-            CardInfo cardToRemove = null;
-            PlayableCard card = null;
+            List<CardInfo> choices = new();
             int randomSeed = base.GetRandomSeed();
-
             List<CardInfo> cardsInDeck = new(SaveManager.SaveFile.IsPart2 ? SaveManager.SaveFile.gbcData.deck.Cards : RunState.DeckList);
             cardsInDeck.Remove(base.Card.Info);
             cardsInDeck.Sort((a, b) => b.PowerLevel - a.PowerLevel);
 
             List<CardInfo> strongCards = cardsInDeck.FindAll(x => x.PowerLevel >= min);
-            if (strongCards.Count > 1)
+            while (choices.Count < 3)
             {
-                strongCards.Sort((a, b) => b.PowerLevel - a.PowerLevel);
-                cardToRemove = SeededRandom.Value(randomSeed++) <= 0.85f ? strongCards[SeededRandom.Range(0, strongCards.Count, randomSeed++)] : strongCards[0];
+                int index = 0;
+                if (strongCards.Count > 0)
+                {
+                    index = SeededRandom.Range(0, strongCards.Count, randomSeed++);
+                    choices.Add(strongCards[index]);
+                    strongCards.RemoveAt(index);
+                }
+                else if (cardsInDeck.Count > 0)
+                {
+                    index = SeededRandom.Range(0, cardsInDeck.Count, randomSeed++);
+                    choices.Add(cardsInDeck[0]);
+                    cardsInDeck.RemoveAt(index);
+                }
+                else
+                    break;
             }
-            else
-                cardToRemove = cardsInDeck[0];
 
-            //LobotomyPlugin.Log.LogInfo($"Start {cardToRemove != null} {cardToRemove?.name}");
-            yield return DialogueManager.PlayDialogueEventSafe("BackwardClockOperate", speaker: DialogueHelper.GBCScrybe());
-
+            return choices;
+        }
+        private IEnumerator RemoveChosenCardFromBoard(CardInfo cardToRemove)
+        {
             if (BoardManager.Instance.PlayerSlotsCopy.Exists(x => x.Card?.Info == cardToRemove || x.Card?.Info.name == cardToRemove.name))
             {
                 // find an exact match with the info; if one doesn't exist, find the name
                 CardSlot boardSlot = BoardManager.Instance.PlayerSlotsCopy.Find(x => x.Card?.Info == cardToRemove);
-                //LobotomyPlugin.Log.LogInfo($"Board {boardSlot?.Card?.Info == cardToRemove} {boardSlot?.Card?.Info.name}");
                 boardSlot ??= BoardManager.Instance.PlayerSlotsCopy.Find(x => x.Card?.Info.name == cardToRemove.name);
-                //LobotomyPlugin.Log.LogInfo($"Board2 {boardSlot?.Card?.Info == cardToRemove} {boardSlot?.Card?.Info.name}");
-                card = boardSlot?.Card;
+                chosenCard = boardSlot?.Card;
             }
             else
             {
                 yield return HelperMethods.ChangeCurrentView(View.Hand);
                 if (PlayerHand.Instance.CardsInHand.Exists(x => x.Info == cardToRemove || x.Info.name == cardToRemove.name))
-                {
-                    card = PlayerHand.Instance.CardsInHand.Find(x => x.Info == cardToRemove);
-                }
+                    chosenCard = PlayerHand.Instance.CardsInHand.Find(x => x.Info == cardToRemove);
+
                 else if (CardDrawPiles.Instance.Deck.Cards.Exists(x => x == cardToRemove || x.name == cardToRemove.name))
                 {
                     CardInfo drawToHand = CardDrawPiles.Instance.Deck.Cards.Find(x => x == cardToRemove);
 
                     yield return CardSpawner.Instance.SpawnCardToHand(drawToHand);
-                    card = PlayerHand.Instance.CardsInHand.Find(x => x.Info == drawToHand);
+                    chosenCard = PlayerHand.Instance.CardsInHand.Find(x => x.Info == drawToHand);
                     yield return new WaitForSeconds(0.5f);
                 }
             }
+        }
+        private IEnumerator ChooseCardForClock(List<CardInfo> choices)
+        {
+            if (SaveManager.SaveFile.IsPart2)
+            {
+                PixelPlayableCard selectedCard = null;
+                yield return PixelBoardManager.Instance.GetComponent<PixelPlayableCardArray>().SelectPixelCardFrom(choices, delegate (PixelPlayableCard x)
+                {
+                    selectedCard = x;
+                });
+
+                Tween.Position(selectedCard.transform, selectedCard.transform.position + Vector3.back * 4f, 0.1f, 0f, Tween.EaseIn);
+                Destroy(selectedCard.gameObject, 0.1f);
+                chosenCardInfo = selectedCard.Info;
+            }
+            else
+            {
+                Singleton<ViewManager>.Instance.SwitchToView(View.DeckSelection, immediate: false, lockAfter: true);
+
+                SelectableCard selectedCard = null;
+                yield return BoardManager.Instance.CardSelector.SelectCardFrom(choices, (CardDrawPiles.Instance as CardDrawPiles3D).Pile, delegate (SelectableCard x)
+                {
+                    selectedCard = x;
+                });
+
+                Tween.Position(selectedCard.transform, selectedCard.transform.position + Vector3.back * 4f, 0.1f, 0f, Tween.EaseIn);
+                Destroy(selectedCard.gameObject, 0.1f);
+                chosenCardInfo = selectedCard.Info;
+
+                Singleton<ViewManager>.Instance.SwitchToView(View.Default);
+            }
+        }
+        private CardInfo chosenCardInfo = null;
+        private PlayableCard chosenCard = null;
+        private IEnumerator BackwardSequence()
+        {
+            List<CardInfo> choices = GetCardChoices();
+
+            //LobotomyPlugin.Log.LogInfo($"Start {cardToRemove != null} {cardToRemove?.name}");
+            yield return DialogueManager.PlayDialogueEventSafe("BackwardClockOperate", speaker: DialogueHelper.GBCScrybe());
+
+            yield return ChooseCardForClock(choices);
+            yield return RemoveChosenCardFromBoard(chosenCardInfo);
 
             base.Card.RemoveFromBoard(true);
-            if (card != null)
-                card.RemoveFromBoard(true);
+            if (chosenCard != null)
+                chosenCard.RemoveFromBoard(true);
             else
-                HelperMethods.RemoveCardFromDeck(cardToRemove);
+                HelperMethods.RemoveCardFromDeck(chosenCardInfo);
 
             yield return new WaitForSeconds(0.5f);
-            HelperMethods.ChangeCurrentView(View.Default, 0f);
-            yield return DialogueHelper.ShowUntilInput("[c:bR]The Clock[c:] and your [c:bR]" + cardToRemove.DisplayedNameLocalized + "[c:] will remain in that abandoned time.", effectFOVOffset: -0.65f, effectEyelidIntensity: 0.4f);
+            yield return HelperMethods.ChangeCurrentView(View.Default, 0f);
+            yield return DialogueHelper.ShowUntilInput("[c:bR]The Clock[c:] and your [c:bR]" + chosenCardInfo.DisplayedNameLocalized + "[c:] will remain in that abandoned time.", effectFOVOffset: -0.65f, effectEyelidIntensity: 0.4f);
             yield return new WaitForSeconds(0.2f);
         }
 
         private IEnumerator EndBattle()
         {
-            int damage = Singleton<LifeManager>.Instance.DamageUntilPlayerWin;
-            yield return Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = damage;
-            yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
+            if (!CustomBossUtils.FightingCustomBoss())
+            {
+                int damage = Singleton<LifeManager>.Instance.DamageUntilPlayerWin;
+
+                yield return Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = damage;
+                yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
+            }
+            else if (CustomBossUtils.IsCustomBoss<ApocalypseBossOpponent>())
+            {
+                foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard)
+                {
+                    if (card.OpponentCard && card.LacksAbility(ApocalypseAbility.ability))
+                    {
+                        card.RemoveFromBoard(card);
+                    }
+                    else if (!card.OpponentCard && card != base.Card)
+                    {
+                        card.Status.damageTaken = 0;
+                    }
+                }
+                yield return new WaitForSeconds(0.5f);
+                yield return DialogueHelper.ShowUntilInput("You cannot escape so easily.");
+            }
 
             if (SaveManager.SaveFile.IsPart2)
                 LobotomySaveManager.UsedBackwardClockGBC = true;
             else
                 LobotomySaveManager.UsedBackwardClock = true;
 
+            // if the game hasn't ended (eg, fighting a boss)
             if (!TurnManager.Instance.GameEnding && !TurnManager.Instance.GameEnded)
             {
                 yield return new WaitForSeconds(0.4f);
@@ -172,8 +253,6 @@ namespace WhistleWindLobotomyMod
                 clone.SetEmissivePortrait(TextureLoader.LoadTextureFromFile(resource));
             }
 
-            //base.Card.ClearAppearanceBehaviours();
-            //base.Card.ApplyAppearanceBehaviours(new() { CardAppearanceBehaviour.Appearance.RareCardBackground });
             base.Card.RenderInfo.forceEmissivePortrait = true;
             base.Card.SetInfo(clone);
         }

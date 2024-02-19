@@ -1,7 +1,4 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 

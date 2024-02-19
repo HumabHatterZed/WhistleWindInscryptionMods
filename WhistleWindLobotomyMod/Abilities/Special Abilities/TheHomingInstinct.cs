@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
 
         public const string rName = "The Homing Instinct";
-        public const string rDesc = "When The Road Home is played, create a Scaredy Cat in your hand. [define:wstl_scaredyCat].";
+        public const string rDesc = "When The Road Home is played, create a Scaredy Cat in your hand. [define:wstl_scaredyCat]";
 
         //internal static Texture PavedSlotTexture => TextureLoader.LoadTextureFromFile(SaveManager.SaveFile.IsPart2 ? "slotPavedRoad_pixel" : "slotPavedRoad");
         //internal static Texture DefaultSlotTexture;
@@ -50,6 +50,10 @@ namespace WhistleWindLobotomyMod
             }
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardToDraw);
             yield return new WaitForSeconds(0.45f);
+            PlayableCard thisCard = PlayerHand.Instance.CardsInHand.Find(x => x.Info.name == CardToDraw.name);
+            if (thisCard != null)
+                yield return thisCard.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard);
+
         }
         private void ModifySpawnedCard(CardInfo card)
         {
@@ -72,39 +76,39 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-/*        [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.SetupPhase))]
-        [HarmonyPostfix]
-        private static void ResetPavedSlots() => PavedSlots.Clear();
+        /*        [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.SetupPhase))]
+                [HarmonyPostfix]
+                private static void ResetPavedSlots() => PavedSlots.Clear();
 
-        [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.CleanupPhase))]
-        [HarmonyPostfix]
-        private static void CleanUpPavedSlots() => ClearPavedRoads();
-        [HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.GetPassiveHealthBuffs))]
-        [HarmonyPostfix]
-        private static void AddBuffForCardSlot(PlayableCard __instance, ref int __result)
-        {
-            if (PavedSlots.Count == 4 && PavedSlots.Contains(__instance.Slot))
-                __result += 2;
-        }
+                [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.CleanupPhase))]
+                [HarmonyPostfix]
+                private static void CleanUpPavedSlots() => ClearPavedRoads();
+                [HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.GetPassiveHealthBuffs))]
+                [HarmonyPostfix]
+                private static void AddBuffForCardSlot(PlayableCard __instance, ref int __result)
+                {
+                    if (PavedSlots.Count == 4 && PavedSlots.Contains(__instance.Slot))
+                        __result += 2;
+                }
 
-        private static void PaveSlot(CardSlot slot)
-        {
-            if (slot == null)
-                return;
-            // if this is a new, unpaved slot
-            if (!PavedSlots.Contains(slot))
-            {
-                PavedSlots.Add(slot);
-                slot.SetTexture(PavedSlotTexture);
-            }
-        }
-        private static void ResetCardSlot(CardSlot slot) => slot.SetTexture(DefaultSlotTexture);
-        private static void ClearPavedRoads()
-        {
-            foreach (CardSlot slot in PavedSlots)
-                ResetCardSlot(slot);
-            PavedSlots.Clear();
-        }*/
+                private static void PaveSlot(CardSlot slot)
+                {
+                    if (slot == null)
+                        return;
+                    // if this is a new, unpaved slot
+                    if (!PavedSlots.Contains(slot))
+                    {
+                        PavedSlots.Add(slot);
+                        slot.SetTexture(PavedSlotTexture);
+                    }
+                }
+                private static void ResetCardSlot(CardSlot slot) => slot.SetTexture(DefaultSlotTexture);
+                private static void ClearPavedRoads()
+                {
+                    foreach (CardSlot slot in PavedSlots)
+                        ResetCardSlot(slot);
+                    PavedSlots.Clear();
+                }*/
     }
     public class RulebookEntryTheHomingInstinct : AbilityBehaviour
     {

@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Triggers;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
@@ -9,7 +10,7 @@ using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public class Apostle : AbilityBehaviour
+    public class ApostleSigil : AbilityBehaviour, IModifyDamageTaken
     {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -43,22 +44,20 @@ namespace WhistleWindLobotomyMod
         }
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            // if killed by WhiteNight or One Sin, do nothing
+            // if killed by WhiteNight or One Sin, die normally
             if (killer != null && killer.HasAnyOfAbilities(Confession.ability, TrueSaviour.ability))
                 yield break;
 
             if (Downed)
             {
-                if (Saviour) // Downed Apostles without WhiteNight just die
-                {
-                    yield return Singleton<BoardManager>.Instance.CreateCardInSlot(base.Card.Info, base.Card.Slot, resolveTriggers: false);
+                // play dialogue if WhiteNight is present (cannot be killed)
+                if (Saviour)
                     yield return DialogueHelper.PlayDialogueEvent("WhiteNightApostleKilledByNull");
-                }
+
                 yield break;
             }
 
             yield return DownApostle();
-
             if (Saviour)
                 yield return DialogueHelper.PlayDialogueEvent("WhiteNightApostleDowned");
         }
@@ -77,7 +76,11 @@ namespace WhistleWindLobotomyMod
 
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
-            yield return base.Card.TransformIntoCard(downedInfo, ResetDamage);
+            if (base.Card.Slot.Card != null)
+                yield return base.Card.Slot.Card.TransformIntoCard(downedInfo, ResetDamage);
+            else
+                yield return BoardManager.Instance.CreateCardInSlot(downedInfo, base.Card.Slot);
+
             yield return new WaitForSeconds(0.5f);
 
         }
@@ -97,6 +100,19 @@ namespace WhistleWindLobotomyMod
         }
 
         private void ResetDamage() => base.Card.Status.damageTaken = 0;
+
+        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        {
+            return base.Card == target && Downed && Saviour;
+        }
+
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        {
+            target.Anim.StrongNegationEffect();
+            return 0;
+        }
+
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
     }
 
     public partial class LobotomyPlugin
@@ -106,9 +122,9 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Apostle";
             const string dialogue = "";
 
-            Apostle.ability = LobotomyAbilityHelper.CreateAbility<Apostle>(
+            ApostleSigil.ability = LobotomyAbilityHelper.CreateAbility<ApostleSigil>(
                 "sigilApostle",
-                rulebookName, "Thou wilt abandon flesh and be born again.", dialogue, powerLevel: -3,
+                rulebookName, "'Thou wilt abandon flesh and be born again.'", dialogue, powerLevel: -3,
                 canStack: false).Id;
         }
     }

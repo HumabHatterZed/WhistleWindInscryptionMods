@@ -1,8 +1,6 @@
 using DiskCardGame;
 using Infiniscryption.Core.Helpers;
-using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
-using System.Linq;
 using UnityEngine;
 
 namespace Infiniscryption.Spells.Sigils
@@ -29,23 +27,19 @@ namespace Infiniscryption.Spells.Sigils
             info.appliesToAttack = true;
             info.appliesToHealth = true;
             info.rulebookName = "Spell (Global)";
-            info.rulebookDescription = "When played, this card will cause an immediate effect and then disappear.";
+            info.rulebookDescription = "When this card is played anywhere on the board, it will cause an immediate effect and then disappear.";
             info.gbcDescription = "GLOBAL SPELL.";
             info.iconGraphic = AssetHelper.LoadTexture("global_spell_stat_icon");
             info.SetPixelIcon(AssetHelper.LoadTexture("global_spell_icon_pixel"));
             info.SetDefaultPart1Ability();
 
-            _icon = StatIconManager.Add(
+            StatIconManager.FullStatIcon full = StatIconManager.Add(
                 InfiniscryptionSpellsPlugin.OriginalPluginGuid,
                 info, typeof(GlobalSpellAbility)
-            ).Id;
+            );
 
-            // Honestly, this should be a trait or something.
-            // But for backwards compatibility, I'm leaving it.
-            _id = StatIconManager.AllStatIcons.FirstOrDefault((StatIconManager.FullStatIcon sii) => sii.Id == Icon).AbilityId;
-
-            System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(SpellBehavior.SpellBackgroundAppearance).TypeHandle);
-            System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(SpellBehavior.RareSpellBackgroundAppearance).TypeHandle);
+            _icon = full.Id;
+            _id = full.AbilityId;
         }
 
         // No stats for these cards!

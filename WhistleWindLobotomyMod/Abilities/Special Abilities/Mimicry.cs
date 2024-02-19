@@ -28,7 +28,16 @@ namespace WhistleWindLobotomyMod
         {
             base.PlayableCard.ClearAppearanceBehaviours();
             CardInfo evolution = CardLoader.GetCardByName("wstl_nothingThereTrue");
-            foreach (Ability item in base.Card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            if (base.PlayableCard.OpponentCard == TurnManager.Instance.IsPlayerTurn)
+            {
+                EvolveParams evolveParams = new()
+                {
+                    turnsToEvolve = 2,
+                    evolution = evolution.evolveParams.evolution,
+                };
+                evolution.evolveParams = evolveParams;
+            }
+            foreach (Ability item in base.Card.Info.Abilities.FindAll(x => x != Ability.NUM_ABILITIES))
             {
                 // Adds base sigils
                 evolution.Mods.Add(new CardModificationInfo(item));
@@ -62,7 +71,7 @@ namespace WhistleWindLobotomyMod
                 CardInfo info = CardLoader.CreateDeathCard(i);
                 list.Add(info);
             }
-            list.RemoveAll((CardInfo x) => x.name == "wstl_nothingThere" || x.name == "!STATIC!GLITCH");
+            list.RemoveAll(x => x.name == "wstl_nothingThere" || x.name == "!STATIC!GLITCH");
             CardInfo disguise = ((list.Count <= 0) ? CardLoader.GetCardByName("wstl_nothingThere") : list[SeededRandom.Range(0, list.Count, SaveManager.SaveFile.GetCurrentRandomSeed())]);
             this.DisguiseAsCard(disguise);
             base.PlayableCard.AddPermanentBehaviour<Mimicry>();

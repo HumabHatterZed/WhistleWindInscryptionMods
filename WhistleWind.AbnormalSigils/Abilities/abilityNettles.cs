@@ -28,13 +28,14 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
+        public override int Priority => int.MaxValue;
         public override bool RespondsToResolveOnBoard() => true;
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
         {
-            return otherCard.OpponentCard == base.Card.OpponentCard && otherCard.HasTrait(AbnormalPlugin.SwanBrother);
+            return otherCard.OpponentCard == base.Card.OpponentCard && otherCard.HasTrait(AbnormalPlugin.SwanBrother) && !otherCard.Dead && otherCard.Health > 0;
         }
-        private List<CardModificationInfo> currentMods = new();
+        private readonly List<CardModificationInfo> CurrentMods = new();
+
         public override IEnumerator OnResolveOnBoard()
         {
             List<CardSlot> validSlots = Singleton<BoardManager>.Instance.GetSlots(!base.Card.OpponentCard).FindAll((CardSlot slot) => !slot.Card && slot.Card != base.Card);
@@ -48,27 +49,18 @@ namespace WhistleWind.AbnormalSigils
                 yield break;
             }
 
-            yield return base.PreSuccessfulTriggerSequence();
-
-            // Create list of all Brothers
-            List<CardInfo> brothers = new()
-            {
-                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother1"),
-                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother2"),
-                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother3"),
-                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother4"),
-                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother5"),
-                CardLoader.GetCardByName("wstl_dreamOfABlackSwanBrother6")
-            };
-
             // Create a unique Brother for each valid slot
             int randomSeed = base.GetRandomSeed();
 
+            // Create list of all Brothers
+            List<CardInfo> brothers = CardManager.AllCardsCopy.FindAll(x => x.HasTrait(AbnormalPlugin.SwanBrother));
+
+            yield return base.PreSuccessfulTriggerSequence();
             foreach (CardSlot slot in validSlots)
             {
-                int seed = SeededRandom.Range(0, brothers.Count, randomSeed++);
-                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(brothers[seed], slot, 0.15f);
-                brothers.RemoveAt(seed);
+                int randomIdx = SeededRandom.Range(0, brothers.Count, randomSeed++);
+                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(brothers[randomIdx], slot, 0.15f);
+                brothers.RemoveAt(randomIdx);
             }
             yield return base.LearnAbility();
         }
@@ -77,10 +69,11 @@ namespace WhistleWind.AbnormalSigils
             yield return base.PreSuccessfulTriggerSequence();
             CardModificationInfo abilityMod = new()
             {
-                singletonId = "wstl:Swan_" + otherCard.Info.name + currentMods.Count(x => x.singletonId.Contains(otherCard.Info.name)),
+                singletonId = "wstl:Swan_" + otherCard.Info.name + CurrentMods.Count(x => x.singletonId.Contains(otherCard.Info.name)),
                 abilities = new() { otherCard.Info.Abilities.Count > 0 ? otherCard.Info.Abilities.First() : Ability.Sharp }
             };
 
+            CurrentMods.Add(abilityMod);
             base.Card.AddTemporaryMod(abilityMod);
         }
 
@@ -90,14 +83,16 @@ namespace WhistleWind.AbnormalSigils
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            CardModificationInfo cardMod = base.Card.TemporaryMods.FirstOrDefault(
-                x => x.singletonId.StartsWith($"wstl:Swan_{card.Info.name}") &&
+            CardModificationInfo cardMod = CurrentMods.Find(
+                x => x.singletonId != null && x.singletonId.StartsWith($"wstl:Swan_{card.Info.name}") &&
                 x.HasAbility(card.Info.Abilities.Count > 0 ? card.Info.Abilities[0] : Ability.Sharp));
 
             if (cardMod == null)
                 yield break;
 
+            CurrentMods.Remove(cardMod);
             base.Card.RemoveTemporaryMod(cardMod);
+
             yield return DialogueHelper.PlayDialogueEvent("NettlesDie");
         }
     }

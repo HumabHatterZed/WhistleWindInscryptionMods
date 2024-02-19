@@ -2,10 +2,10 @@
 using HarmonyLib;
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
-
+using WhistleWindLobotomyMod.Core;
 using static WhistleWindLobotomyMod.Core.LobotomyEncounterManager;
 
-namespace WhistleWindLobotomyMod.Core.Challenges
+namespace WhistleWindLobotomyMod.Challenges
 {
     public static class AbnormalEncounters // taken from infiniscryption
     {

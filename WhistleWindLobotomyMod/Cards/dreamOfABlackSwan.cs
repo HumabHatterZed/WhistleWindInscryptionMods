@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -15,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string dreamOfABlackSwan = "dreamOfABlackSwan";
 
             NewCard(dreamOfABlackSwan, "Dream of a Black Swan", "Sister of six brothers. Tirelessly she worked to protect them, all for naught.",
-                attack: 2, health: 5, blood: 3)
+                attack: 2, health: 5, blood: 3, temple: CardTemple.Wizard)
                 .SetPortraits(dreamOfABlackSwan)
                 .AddAbilities(Nettles.ability)
                 .AddTribes(Tribe.Bird)

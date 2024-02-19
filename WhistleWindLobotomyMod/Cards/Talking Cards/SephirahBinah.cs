@@ -1,16 +1,13 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
-using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -73,7 +70,8 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.AnglerBoss, "SephirahBinahAngler" },
             { Opponent.Type.TrapperTraderBoss, "SephirahBinahTrapperTrader" },
             { Opponent.Type.LeshyBoss, "SephirahBinahLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahBinahRoyal" }
+            { Opponent.Type.RoyalBoss, "SephirahBinahRoyal" },
+            { ApocalypseBossOpponent.ID, "SephirahBinahApocalypse" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -88,7 +86,7 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahBinah", "Binah", "Though not as powerful as she once was, she will still make a great ally.",
                 attack: 3, health: 5, blood: 3)
                 .AddAbilities(Ability.Sniper, Piercing.ability)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

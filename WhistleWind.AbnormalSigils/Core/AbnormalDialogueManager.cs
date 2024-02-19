@@ -8,6 +8,8 @@ namespace WhistleWind.AbnormalSigils.Core
         public static Dictionary<string, List<CustomLine>> EventNames => new()
         {
             { "CopycatFail",
+                new() { "Some things in this world are too unique to replicate." }},
+            { "CopycatDead",
                 new() { "The lie falls apart, revealing your pitiful true self." }},
             { "CourageousFail",
                 new() { "Your creature's consitution is too weak." }},
@@ -17,10 +19,14 @@ namespace WhistleWind.AbnormalSigils.Core
                 new() { "Love yourself." }},
             { "CowardlyWeaken",
                 new() { "Your beast's moxie withers away." }},
+            { "CursedFail",
+                new() { "The curse abates." }},
             { "FrostRulerKiss",
                 new() { "With a single kiss, the Snow Queen froze their hearts." }},
             { "FrostRulerFail",
                 new() { "The snow melts away. Perhaps spring is coming." }},
+            { "LonelyDie",
+                new() { "Why do they always leave?" }},
             { "NettlesDie",
                 new() {
                     "She saw her dear brothers in the distance.",

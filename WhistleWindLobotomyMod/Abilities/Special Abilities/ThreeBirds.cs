@@ -98,7 +98,7 @@ namespace WhistleWindLobotomyMod
 
             if (!SaveManager.SaveFile.IsPart2)
                 yield return BoardEffects.ApocalypseTableEffects();
-            
+
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory3");
 
             CardInfo info = CardLoader.GetCardByName("wstl_apocalypseBird");
@@ -107,18 +107,18 @@ namespace WhistleWindLobotomyMod
                 List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
                 if (validSlots.Count > 0)
                 {
-                    HelperMethods.ChangeCurrentView(View.Board, 0.4f);
+                    yield return HelperMethods.ChangeCurrentView(View.Board, 0.4f);
                     yield return Singleton<BoardManager>.Instance.CreateCardInSlot(info, validSlots[SeededRandom.Range(0, validSlots.Count - 1, RunState.RandomSeed)], resolveTriggers: false);
                 }
                 else
                 {
-                    HelperMethods.ChangeCurrentView(View.OpponentQueue, 0.4f);
+                    yield return HelperMethods.ChangeCurrentView(View.OpponentQueue, 0.4f);
                     yield return HelperMethods.QueueCreatedCard(info);
                 }
             }
             else
             {
-                HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
+                yield return HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
 
                 RunState.Run.playerDeck.AddCard(info);
                 info.cost = 0;

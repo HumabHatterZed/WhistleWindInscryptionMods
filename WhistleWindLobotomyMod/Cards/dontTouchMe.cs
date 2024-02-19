@@ -1,6 +1,4 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
+﻿using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -16,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string dontTouchMe = "dontTouchMe";
 
             NewCard(dontTouchMe, "Don't Touch Me", "Don't touch it.",
-                attack: 0, health: 1, energy: 2)
+                attack: 0, health: 1, energy: 2, temple: CardTemple.Tech)
                 .SetPortraits(dontTouchMe)
                 .AddAbilities(Punisher.ability)
                 .AddTribes(TribeMechanical)

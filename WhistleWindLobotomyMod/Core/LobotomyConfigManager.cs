@@ -20,6 +20,8 @@ namespace WhistleWindLobotomyMod.Core
 
         private ConfigEntry<bool> Config_FoundInGBC;
         public bool GBCPacks => Config_FoundInGBC.Value;
+        private ConfigEntry<bool> Config_ReskinSigils;
+        public bool ReskinSigils => Config_ReskinSigils.Value;
 
         private ConfigEntry<bool> Config_SpecialsInRulebook;
         public bool RevealSpecials => Config_SpecialsInRulebook.Value;
@@ -45,6 +47,9 @@ namespace WhistleWindLobotomyMod.Core
 
         private ConfigEntry<bool> Config_EventFlags;
         public bool EventFlags => Config_EventFlags.Value;
+
+        private ConfigEntry<bool> Config_CustomBosses;
+        public bool CustomBosses => Config_CustomBosses.Value;
 
         #region Gameplay.Nodes
         private ConfigEntry<bool> Config_BoxStart;
@@ -78,6 +83,18 @@ namespace WhistleWindLobotomyMod.Core
         private ConfigEntry<bool> Config_MiracleWorker;
         public bool MiracleWorker => Config_MiracleWorker.Value;
 
+        private ConfigEntry<bool> Config_FinalApocalypse;
+        public bool FinalApocalypse => Config_FinalApocalypse.Value;
+
+        private ConfigEntry<bool> Config_FinalJester;
+        public bool FinalJester => Config_FinalJester.Value;
+
+        private ConfigEntry<bool> Config_FinalEmerald;
+        public bool FinalEmerald => Config_FinalEmerald.Value;
+
+        private ConfigEntry<bool> Config_FinalComing;
+        public bool FinalComing => Config_FinalComing.Value;
+
         #endregion
 
         #region Gameplay.Part1.Cheats
@@ -94,7 +111,9 @@ namespace WhistleWindLobotomyMod.Core
         public bool StartLyingAdult => Config_StartLyingAdult.Value;
 
         #endregion
+
         #endregion
+
         #endregion
 
         #region Gameplay.Other
@@ -116,6 +135,10 @@ namespace WhistleWindLobotomyMod.Core
             Config_FoundInGBC = WstlConfigFile.Bind(
                 "Config", "GBC Packs", true,
                 new ConfigDescription("Allows some cards to be obtainable in Act 2 card packs."));
+
+            Config_ReskinSigils = WstlConfigFile.Bind(
+                "Config", "Reskin Sigils", true,
+                new ConfigDescription("Changes the names and icons of Sniper and Sentry."));
 
             Config_SpecialsInRulebook = WstlConfigFile.Bind(
                 "Config", "Special Abilities in Rulebook", false,
@@ -147,6 +170,10 @@ namespace WhistleWindLobotomyMod.Core
                 "Gameplay", "Unlock All Events", false,
                 new ConfigDescription("Unlocks the event starter decks and challenges for Kaycee's Mod, regardless of whether you've met the requirements."));
 
+            Config_CustomBosses = WstlConfigFile.Bind(
+                "Gameplay", "Random Bosses", false,
+                new ConfigDescription("KCM ONLY - This mod's bosses can be randomly encountered at the end of the first 3 regions."));
+
             Config_StarterDeck = WstlConfigFile.Bind(
                 "Gameplay.Part1", "Starter Deck", 0,
                 new ConfigDescription("Replaces your starting cards with one of this mod's custom decks." +
@@ -175,6 +202,22 @@ namespace WhistleWindLobotomyMod.Core
             Config_MiracleWorker = WstlConfigFile.Bind(
                 "Gameplay.Part1.Challenges", "Miracle Worker", false,
                 new ConfigDescription("Leshy will play Plague Doctor during regular battles. Beware the Clock."));
+
+            Config_FinalApocalypse = WstlConfigFile.Bind(
+                "Gameplay.Part1.Challenges", "Final Apocalypse", false,
+                new ConfigDescription("Leshy will be replaced with the Beast."));
+
+            /*            Config_FinalJester = WstlConfigFile.Bind(
+                            "Gameplay.Part1.Challenges", "Final Laugh", false,
+                            new ConfigDescription("The Fool boss will be stronger and guaranteed to appear."));
+
+                        Config_FinalEmerald = WstlConfigFile.Bind(
+                            "Gameplay.Part1.Challenges", "Final Trick", false,
+                            new ConfigDescription("The Adult boss will be stronger and guaranteed to appear."));
+
+                        Config_FinalComing = WstlConfigFile.Bind(
+                            "Gameplay.Part1.Challenges", "Final Coming", false,
+                            new ConfigDescription("The Saviour boss will be stronger and guaranteed to appear."));*/
 
             Config_BetterRareChances = WstlConfigFile.Bind(
                 "Gameplay.Part1.Cheats", "Better Rare Chances", false,

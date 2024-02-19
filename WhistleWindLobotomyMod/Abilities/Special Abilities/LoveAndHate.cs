@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "In the Name of Love and Hate";
-        public const string rDesc = "When 2 more ally cards have died than opposing cards or vice versa, Magical Girl H will transform then move to the side of the board that lost more cards.";
+        public const string rDesc = "When 2 more ally cards have died than opposing cards or vice versa, Magical Girl will transform then move to the side of the board that lost more cards.";
 
         private int cardDeathBalance; // positive == more ally deaths, negative == more opponent deaths
 
@@ -43,7 +43,7 @@ namespace WhistleWindLobotomyMod
                         base.PlayableCard.RemoveFromBoard();
                         yield return new WaitForSeconds(0.5f);
 
-                        HelperMethods.ChangeCurrentView(View.Hand);
+                        yield return HelperMethods.ChangeCurrentView(View.Hand);
 
                         yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(evolution);
                         yield return new WaitForSeconds(0.45f);

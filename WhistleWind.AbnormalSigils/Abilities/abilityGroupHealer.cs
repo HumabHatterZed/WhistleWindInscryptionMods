@@ -20,7 +20,7 @@ namespace WhistleWind.AbnormalSigils
             GroupHealer.ability = AbnormalAbilityHelper.CreateAbility<GroupHealer>(
                 "sigilGroupHealer",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: true).Id;
         }
     }
     public class GroupHealer : AbilityBehaviour

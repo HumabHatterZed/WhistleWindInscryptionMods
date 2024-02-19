@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
 
         public const string rName = "Blind Rage";
-        public const string rDesc = "Servant of Wrath will target a random space on the board, prioritising occupied spaces.";
+        public const string rDesc = "Servant of Wrath will target a random space on the board when attacking, prioritising occupied spaces.";
 
         private List<CardSlot> GetRandomOccupiedSlot()
         {
@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod
             if (allSlots.Exists(x => x.Card != null))
                 allSlots.RemoveAll(x => x.Card == null);
 
-            int randomSeed = base.GetRandomSeed();
+            int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
             CardSlot slotToAttack = allSlots[SeededRandom.Range(0, allSlots.Count, randomSeed++)];
 
             retval.Add(slotToAttack);
@@ -97,7 +97,7 @@ namespace WhistleWindLobotomyMod
             {
                 Part1SniperVisualizer component = __instance.GetComponent<Part1SniperVisualizer>() ?? __instance.gameObject.AddComponent<Part1SniperVisualizer>();
 
-;                __instance.VisualizeClearSniperAbility();
+                ; __instance.VisualizeClearSniperAbility();
                 component?.VisualizeClearSniperAbility();
             }
         }

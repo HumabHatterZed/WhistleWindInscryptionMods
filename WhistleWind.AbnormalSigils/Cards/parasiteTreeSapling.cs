@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 
 using WhistleWind.Core.Helpers;
 
@@ -14,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
             CreateCard(MakeCard(
                 parasiteTreeSapling,
                 "Sapling",
-                attack: 0, health: 2, bones: 2)
+                attack: 0, health: 2, bones: 1)
                 .SetPortraits(parasiteTreeSapling)
                 .AddAbilities(Ability.BoneDigger)
                 .AddTribes(TribeBotanic)

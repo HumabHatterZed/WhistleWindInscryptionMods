@@ -1,10 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-
-using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -22,10 +19,11 @@ namespace WhistleWindLobotomyMod
 
             CardInfo nothingThereFinalCard = NewCard(
                 nothingThereFinal, nothingName,
-                attack: 9, health: 9, blood: 4)
+                attack: 8, health: 8, blood: 4)
                 .SetPortraits(nothingThereFinal)
-                .AddAbilities(Piercing.ability, ThickSkin.ability, ThickSkin.ability)
+                .AddAbilities(Piercing.ability, Persistent.ability)
                 .SetDefaultEvolutionName(nothingName)
+                .AddAppearances(ForcedEmission.appearance)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
 
@@ -35,6 +33,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(nothingThereEgg)
                 .AddAbilities(abilities)
                 .SetEvolve(nothingThereFinalCard, 1)
+                .AddAppearances(ForcedEmission.appearance)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
 
@@ -45,6 +44,7 @@ namespace WhistleWindLobotomyMod
                 .AddAbilities(abilities)
                 .AddTribes(Tribe.Canine, Tribe.Hooved, Tribe.Reptile)
                 .SetEvolve(nothingThereEggCard, 1)
+                .AddAppearances(ForcedEmission.appearance)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
 

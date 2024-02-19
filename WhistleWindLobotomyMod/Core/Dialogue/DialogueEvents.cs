@@ -60,17 +60,6 @@ namespace WhistleWindLobotomyMod
             CreateDialogueEvents("CrimsonScarWolf", new() {
                 "That familiar red cloth..."
                 });
-            CreateDialogueEvents("DerFreischutzSeventhBullet", new() {
-                "The Devil proposed a childist contract.",
-                "The seventh bullet would pierce the heart of his most beloved.",
-                "On hearing this, the hunter sought and shot everyone he loved."
-                });
-            CreateDialogueEvents("ExpressHellTrainWipe", new() {
-                "The train sounds its mighty horn."
-                });
-            CreateDialogueEvents("GiantTreeSapExplode", new() {
-                "A strange gurgling sound comes from your beast's stomach."
-                });
             CreateDialogueEvents("KingOfGreedTransform", new() {
                 "Desire unfulfilled, the koi continues for Eden."
                 });
@@ -138,7 +127,7 @@ namespace WhistleWindLobotomyMod
             CreateDialogueEvents("ApocalypseBirdStory1", new() {
                 "Once upon a time, [c:bR]three birds[c:] lived happily in the lush Forest with their fellow animals.",
                 "One day a stranger arrived at the Forest. He proclaimed that the Forest would soon be ensared in a bitter conflict.",
-                "One that would only end when everything was devoured by a[c: bR]terrible Beast[c:].",
+                "One that would only end when everything was devoured by a [c:bR]terrible Beast[c:].",
                 "The birds, frightened by this doomsay, sought to prevent conflict from ever breaking out."
                 });
             CreateDialogueEvents("ApocalypseBirdStory2", new() {
@@ -160,6 +149,108 @@ namespace WhistleWindLobotomyMod
                 });
             CreateDialogueEvents("ApocalypseBirdSmall", new() {
                 "[c:bR]Small Bird[c:] punished wrongdoers with his beak."
+                });
+            // boss stuff
+            CreateDialogueEvents("ApocalypseBossPreIntro", new() {
+                "You walk down into a large clearing, the black trees crowding around you.",
+                "An otherworldly roar brings you to attention. The very earth quails in fear as something approaches you.",
+                "Lumbering yet impossibly fast, you find yourself face-to-face with..."
+                },
+                new() {
+                    new() {
+                        "An otherworldly roar shakes you to your core. The forest floor quakes as something approaches you.",
+                        "Lumbering yet impossibly fast, you find yourself face-to-face with..." },
+                });
+            CreateDialogueEvents("ApocalypseBossIntro",
+                new() { "[c:bR]The Beast[c:]." },
+                new() {
+                    new() { "[c:bR]The Beast[c:]." }
+                });
+            CreateDialogueEvents("ApocalypseBossBrokenEggBig",
+                new() { "The far-sighted eyes have been blinded." });
+            CreateDialogueEvents("ApocalypseBossBrokenEggLong",
+                new() { "The head that looked to the cosmos has been lowered." });
+            CreateDialogueEvents("ApocalypseBossBrokenEggSmall",
+                new() { "The mouth that devours everything has been shut." });
+            CreateDialogueEvents("ApocalypseBossTryDirectDamage",
+                new() { "[c:bR]The monster[c:] is not so easily tamed." });
+            CreateDialogueEvents("ApocalypseBossReturnEgg",
+                new() { "Your efforts prove futile." });
+            CreateDialogueEvents("ApocalypseBossBendScales1",
+                new() {
+                    "The Beast is [c:bR]immune to mortal damage[c:].",
+                    "Yet even it has its weaknesses."
+                });
+            CreateDialogueEvents("ApocalypseBossBendScales2",
+                new() { "Gather your courage, and march onward." });
+            CreateDialogueEvents("ApocalypseBossPrelude",
+                new() { "[c:bSG]Into the twilight.[c:]" });
+
+            CreateDialogueEvents("ApocalypseBossMouthPreAttack",
+                new() { "The mouth that devours everything opens." });
+            CreateDialogueEvents("ApocalypseBossMouthPostAttack",
+                new() { "The Small Bird's beak whispered endlessly." });
+            CreateDialogueEvents("ApocalypseBossMouthFailAttack",
+                new() { "The beast's maw snaps shut on empty air." });
+
+            CreateDialogueEvents("ApocalypseBossEyePreAttack",
+                new() { "The Big Bird's eyes imprisoned light..." });
+            CreateDialogueEvents("ApocalypseBossEyePostAttack",
+                new() { "...and they burned like stars." });
+            CreateDialogueEvents("ApocalypseBossEyeFailAttack",
+                new() { "...but there was nothing to behold." });
+
+            CreateDialogueEvents("ApocalypseBossArmsPreAttack",
+                new() { "The Long Bird's arms concealed time..." });
+            CreateDialogueEvents("ApocalypseBossArmsPostAttack",
+                new() { "...yet sins continued day after day." });
+
+            CreateDialogueEvents("ApocalypseBossCardsExhausted",
+                new() { "The Beast senses your hunger, and grows more daring." });
+
+            CreateDialogueEvents("ApocalypseBossFinalPhase",
+                new() { "The Beast begins to grow desperate." });
+
+            CreateDialogueEvents("ApocalypseBossReactive1",
+                new() { "Your power angers the Beast." });
+            CreateDialogueEvents("ApocalypseBossReactive2",
+                new() { "The Beast grows more aggressive." });
+            CreateDialogueEvents("ApocalypseBossReactive3",
+                new() { "The Beast's strength grows beyond imagination..." });
+
+            CreateDialogueEvents("ApocalypseBossReactiveSkin",
+                new() { "The Beast's hide hardens under your creatures' claws." });
+
+            CreateDialogueEvents("ApocalypseBossRecall",
+                new() {
+                    "The Beast and its ilk move quickly and frequently. Use these to reposition your creatures.",
+                    "Returned creatures will have their cost changed based on how recently you played them.",
+                    "Newly played creatures will cost [c:bR]2 Bones[c:] to play again.",
+                    "I will reduce their recall cost over time, until they become [c:bR]free[c:] to replay." },
+                new()
+                {
+                    new() { "Use these to reposition your creatures, for a cost." }
+                });
+            CreateDialogueEvents("ApocalypseBossExhausted",
+                new() { "Why don't we continue a little longer?" });
+            CreateDialogueEvents("ApocalypseBossBoneGain",
+                new() {
+                    "The beast is immune to mortal damage.",
+                    "Excess injury will instead yield you up to [c:bR]2[c:] bones.",
+                    "Don't worry about running dry, the ground you walk on is full of them."
+                },
+                new()
+                {
+                    new() { "The ground is full of bones." }
+                });
+            CreateDialogueEvents("ApocalypseBossFinal",
+                new() {
+                    "Backed into a corner, the Beast releases one final burst of strength."
+                });
+            CreateDialogueEvents("ApocalypseBossFinalTargets",
+                new() {
+                    "When the Beast attacks a space marked in [c:bR]red[c:], it will deal twice the normal damage.",
+                    "When the Beast attacks a space marked in [c:bSG]white[c:], it will deal half the normal damage, but regain vitality."
                 });
         }
         private void Dialogue_JesterOfNihil()
@@ -279,6 +370,16 @@ namespace WhistleWindLobotomyMod
                         NewLine("He reminds me of you", Emotion.Neutral),
                         NewLine("in a way.", Emotion.Laughter) }
             });
+            CreateDialogueEvents("AngelaApocalypse", new()
+            {
+                NewLine("This threat may be beyond you.", Emotion.Neutral) },
+                new () {
+                    new() {
+                        NewLine("We kept them separated for", Emotion.Neutral),
+                        NewLine("this reason, manager.", Emotion.Neutral) },
+                    new() { NewLine("A final trial for you, manager.", Emotion.Neutral) },
+                    new() { NewLine("It has been quite the journey, yes?", Emotion.Neutral) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -394,6 +495,17 @@ namespace WhistleWindLobotomyMod
                 new() {
                     new() { NewLine("A captain of a sunken vessel.", Emotion.Laughter) },
                     new() { NewLine("His crew has no loyalty.", Emotion.Laughter) }
+            });
+            CreateDialogueEvents("SephirahBinahApocalypse", new()
+            {
+                NewLine("You have wandered into a dangerous place.", Emotion.Laughter),
+                NewLine("Do you think yourself immortal?", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("Quite the marvelous beast, isn't it?", Emotion.Laughter) },
+                    new() {
+                        NewLine("You have entered its lair once more.", Emotion.Neutral),
+                        NewLine("You must have a death wish.", Emotion.Laughter) },
+                    new() { NewLine("I do enjoy this place.", Emotion.Surprise) },
             });
             #endregion
 
@@ -511,6 +623,14 @@ namespace WhistleWindLobotomyMod
                 NewLine("A pirate? How fun~", Emotion.Laughter) },
                 new() {
                     new() { NewLine("Watch your head now.", Emotion.Laughter) }
+            });
+            CreateDialogueEvents("SephirahChesedApocalypse", new()
+            {
+                NewLine("This one...", Emotion.Neutral),
+                NewLine("I hope you're prepared.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("I worry you have a death wish.", Emotion.Neutral) },
+                    new() { NewLine("Are we really doing this?", Emotion.Neutral) }
             });
             #endregion
 
@@ -632,6 +752,15 @@ namespace WhistleWindLobotomyMod
                     new() { NewLine("Be quick and avoid those cannons.", Emotion.Neutral) },
                     new() { NewLine("His goons are tougher than they look.", Emotion.Anger) }
             });
+            CreateDialogueEvents("SephirahGeburaApocalypse", new()
+            {
+                NewLine("Why have you come here?", Emotion.Neutral),
+                NewLine("You trying to die?", Emotion.Anger) },
+                new() {
+                    new() { NewLine("Let me handle this.", Emotion.Neutral) },
+                    new() { NewLine("These stupid birds...", Emotion.Anger) },
+                    new() { NewLine("Don't chicken out now.", Emotion.Neutral) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -717,17 +846,17 @@ namespace WhistleWindLobotomyMod
             #region Boss Dialogue
             CreateDialogueEvents("SephirahHodProspector", new()
             {
-                NewLine("Watch out for that pickaxe.", Emotion.Neutral) },
+                NewLine("Watch out for that pickaxe.", Emotion.Curious) },
                 new() {
-                    new() { NewLine("We've prepared for this.", Emotion.Neutral) },
+                    new() { NewLine("We've prepared for this.", Emotion.Anger) },
                     new() { NewLine("I'll follow your lead.", Emotion.Neutral) }
             });
             CreateDialogueEvents("SephirahHodAngler", new()
             {
-                NewLine("Urk, the smell...", Emotion.Neutral) },
+                NewLine("Urk, the smell...", Emotion.Curious) },
                 new() {
-                    new() { NewLine("Let's get out of here quickly...", Emotion.Neutral) },
-                    new() { NewLine("Don't knock over those buckets.", Emotion.Neutral) }
+                    new() { NewLine("Let's get out of here quickly...", Emotion.Curious) },
+                    new() { NewLine("Don't knock over those buckets.", Emotion.Curious) }
             });
             CreateDialogueEvents("SephirahHodTrapperTrader", new()
             {
@@ -748,6 +877,14 @@ namespace WhistleWindLobotomyMod
                 NewLine("A pirate...skeleton?", Emotion.Neutral) },
                 new() {
                     new() { NewLine("Those cannons hurt a lot...", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahHodApocalypse", new()
+            {
+                NewLine("That monster...", Emotion.Quiet),
+                NewLine("What do we do?", Emotion.Curious) },
+                new() {
+                    new() { NewLine("Keep calm...keep calm...", Emotion.Curious) },
+                    new() { NewLine("Remember our training.", Emotion.Anger) }
             });
             #endregion
 
@@ -872,6 +1009,13 @@ namespace WhistleWindLobotomyMod
                         NewLine("The cannons are slow.", Emotion.Neutral),
                         NewLine("We can easily avoid them.", Emotion.Neutral) }
             });
+            CreateDialogueEvents("SephirahHokmaApocalypse", new()
+            {
+                NewLine("Every Goliath has its David.", Emotion.Neutral),
+                NewLine("Have faith in yourself, and in us.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Have faith in yourself and us.", Emotion.Curious) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -995,6 +1139,15 @@ namespace WhistleWindLobotomyMod
                         NewLine("Treat it as another abnormality", Emotion.Neutral),
                         NewLine("and act accordingly!", Emotion.Neutral) }
             });
+            CreateDialogueEvents("SephirahMalkuthApocalypse", new()
+            {
+                NewLine("This thing is huge...", Emotion.Quiet),
+                NewLine("Uh, don't worry!", Emotion.Neutral),
+                NewLine("We can do it!", Emotion.Laughter) },
+                new() {
+                    new() { NewLine("We just need to outlast it...", Emotion.Quiet) },
+                    new() { NewLine("Manage your resources carefully!", Emotion.Anger) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -1109,6 +1262,13 @@ namespace WhistleWindLobotomyMod
                     new() { NewLine("I guess I've seen weirder things.", Emotion.Neutral) },
                     new() { NewLine("Those cannons are pretty slow, huh?", Emotion.Neutral) }
             });
+            CreateDialogueEvents("SephirahNetzachApocalypse", new()
+            {
+                NewLine("What is that thing?", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("I don't need this stress...", Emotion.Neutral) },
+                    new() { NewLine("Why are we back here?", Emotion.Neutral) }
+            });
             #endregion
 
             #region Normal Dialogue
@@ -1220,6 +1380,16 @@ namespace WhistleWindLobotomyMod
                 new() {
                     new() { NewLine("Never was that into pirates.", Emotion.Neutral) },
                     new() { NewLine("This guy can't aim at all.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahTipherethAApocalypse", new()
+            {
+                NewLine("It's massive...", Emotion.Neutral),
+                NewLine("I hope you know", Emotion.Neutral),
+                NewLine("what you're doing.", Emotion.Neutral) },
+                new() {
+                    new() { NewLine("Keep your head on tight, manager.", Emotion.Neutral) },
+                    new() { NewLine("This'll be tough.", Emotion.Neutral) },
+                    new() { NewLine("We'll make it out for sure.", Emotion.Neutral) }
             });
             #endregion
 
@@ -1360,6 +1530,17 @@ namespace WhistleWindLobotomyMod
                 new() {
                     new() { NewLine("His crew seems persuadable.", Emotion.Neutral) },
                     new() { NewLine("Can't say I'm impressed.", Emotion.Neutral) }
+            });
+            CreateDialogueEvents("SephirahYesodApocalypse", new()
+            {
+                NewLine("Don't be intimidated.", Emotion.Neutral),
+                NewLine("Manage your creatures wisely,", Emotion.Neutral),
+                NewLine("and maintain constant fire.", Emotion.Neutral) },
+                new() {
+                    new() {
+                        NewLine("We know its tricks now.", Emotion.Neutral),
+                        NewLine("We are at an advantage.", Emotion.Neutral) },
+                    new() { NewLine("Don't lose your cool now.", Emotion.Neutral) }
             });
             #endregion
 

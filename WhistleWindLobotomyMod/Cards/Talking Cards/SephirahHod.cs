@@ -1,16 +1,13 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
-using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -84,7 +81,8 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.AnglerBoss, "SephirahHodAngler" },
             { Opponent.Type.TrapperTraderBoss, "SephirahHodTrapperTrader" },
             { Opponent.Type.LeshyBoss, "SephirahHodLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahHodRoyal" }
+            { Opponent.Type.RoyalBoss, "SephirahHodRoyal" },
+            { ApocalypseBossOpponent.ID, "SephirahHodApocalypse" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -99,7 +97,7 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahHod", "Hod", "Though death is guaranteed, it never hurts to be prepared, right?",
                 attack: 1, health: 2, bones: 3)
                 .AddAbilities(Protector.ability)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

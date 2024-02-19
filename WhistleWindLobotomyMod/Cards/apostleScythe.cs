@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -16,13 +15,13 @@ namespace WhistleWindLobotomyMod
             const string apostleScythe = "apostleScythe";
             const string apostleScytheDown = "apostleScytheDown";
             Tribe[] tribes = new[] { TribeDivine };
-            Trait[] traits = new[] { TraitApostle };
+            Trait[] traits = new[] { Apostle };
             CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
             NewCard(apostleScythe, scytheName,
                 attack: 2, health: 6)
                 .SetPortraits(apostleScythe)
-                .AddAbilities(Ability.DoubleStrike, Apostle.ability)
+                .AddAbilities(Ability.DoubleStrike, ApostleSigil.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances)
@@ -31,7 +30,7 @@ namespace WhistleWindLobotomyMod
             NewCard(apostleScytheDown, scytheName,
                 attack: 0, health: 1)
                 .SetPortraits(apostleScytheDown)
-                .AddAbilities(Apostle.ability)
+                .AddAbilities(ApostleSigil.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances)

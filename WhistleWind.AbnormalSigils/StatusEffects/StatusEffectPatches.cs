@@ -1,37 +1,57 @@
 ﻿using DiskCardGame;
 using GBC;
-using GracesGames.Common.Scripts;
 using HarmonyLib;
 using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 
 namespace WhistleWind.AbnormalSigils.Core
 {
-    [HarmonyPatch(typeof(CardAbilityIcons))]
+    [HarmonyPatch]
     internal class StatusEffectPatches // Adds extra icon slots for rendering status effects
     {
-        [HarmonyPostfix, HarmonyPatch(nameof(CardAbilityIcons.GetDistinctShownAbilities))]
-        [HarmonyPatch(typeof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix), nameof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix.RenderTemporarySigils))]
-        private static void DontRenderStatusEffectsNormally(ref List<Ability> __result)
+        [HarmonyPrefix, HarmonyPatch(typeof(CreateCardsAdjacent), nameof(CreateCardsAdjacent.ModifySpawnedCard))]
+        private static bool DontInheritStatusEffects(CreateCardsAdjacent __instance, CardInfo card)
         {
-            __result.RemoveAll(x => !string.IsNullOrEmpty(x.GetExtendedProperty("wstl:StatusEffect")));
+            List<Ability> abilities = __instance.Card.Info.Abilities;
+            foreach (CardModificationInfo temporaryMod in __instance.Card.TemporaryMods)
+            {
+                abilities.AddRange(temporaryMod.abilities);
+            }
+            abilities.RemoveAll(x => x == __instance.Ability || StatusEffectManager.AllIconColours.Keys.Contains(x));
+            if (abilities.Count > 4)
+            {
+                abilities.RemoveRange(3, abilities.Count - 4);
+            }
+            CardModificationInfo cardModificationInfo = new()
+            {
+                fromCardMerge = true,
+                abilities = abilities
+            };
+            card.Mods.Add(cardModificationInfo);
+            return false;
+        }
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.GetDistinctShownAbilities))]
+        [HarmonyPatch(typeof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix), nameof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix.RenderTemporarySigils))]
+        private static void DontRenderStatusEffectsNormally(List<Ability> __result)
+        {
+            __result.RemoveAll(x => x.GetExtendedPropertyAsBool("wstl:StatusEffect") == true);
         }
 
-        [HarmonyPrefix, HarmonyPatch(nameof(CardAbilityIcons.UpdateAbilityIcons))]
+        [HarmonyPrefix, HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.UpdateAbilityIcons))]
         private static void AddStatusEffectIcons(CardAbilityIcons __instance)
         {
-            if (__instance && !SaveManager.SaveFile.IsPart2)
+            if (__instance != null && (SaveManager.SaveFile.IsPart1 || SaveManager.SaveFile.IsPart3))
             {
                 StatusEffectAbilityIcons component = __instance.GetComponent<StatusEffectAbilityIcons>();
                 if (component == null)
                 {
                     component = __instance.gameObject.AddComponent<StatusEffectAbilityIcons>();
-                    component.statusEffectMat = new(__instance.defaultIconMat);
+                    component.statusEffectMat = new(__instance.emissiveIconMat ?? __instance.defaultIconMat);
 
                     // create the ability icon groups if they don't exist
                     if (__instance.transform.Find("StatusEffectIcon_1") == null)
@@ -40,71 +60,123 @@ namespace WhistleWind.AbnormalSigils.Core
             }
         }
 
-        [HarmonyPostfix, HarmonyPatch(nameof(CardAbilityIcons.UpdateAbilityIcons))]
+        [HarmonyPostfix, HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.UpdateAbilityIcons))]
         private static void UpdateStatusEffects(CardAbilityIcons __instance, PlayableCard playableCard)
         {
+            if (__instance == null || SaveManager.SaveFile.IsGrimora || SaveManager.SaveFile.IsMagnificus)
+                return;
+
             List<Ability> distinct = GetDistinctStatusEffects(playableCard);
             StatusEffectAbilityIcons controller = __instance.GetComponent<StatusEffectAbilityIcons>();
             controller.abilityIcons.Clear();
 
-            foreach (GameObject obj in controller.statusEffectIconGroups)
-                obj.SetActive(false);
-
-            if (distinct == null || controller.statusEffectIconGroups.Count < distinct.Count)
-                return;
-
-            GameObject group = controller.statusEffectIconGroups[distinct.Count - 1];
-            group.SetActive(true);
-            AbilityIconInteractable[] componentsInChildren = group.GetComponentsInChildren<AbilityIconInteractable>();
-
-            for (int i = 0; i < componentsInChildren.Length; i++)
+            if (SaveManager.SaveFile.IsPart1)
             {
-                Material mat = new(controller.statusEffectMat);
-                mat.color = StatusEffectManager.AllIconColours[distinct[i]];
-                componentsInChildren[i].gameObject.SetActive(true);
-                componentsInChildren[i].SetMaterial(mat);
-                componentsInChildren[i].AssignAbility(distinct[i], playableCard.Info, playableCard);
-                controller.abilityIcons.Add(componentsInChildren[i]);
-                __instance.abilityIcons.Add(componentsInChildren[i]);
+                foreach (AbilityIconInteractable icon in controller.part1AbilityIcons)
+                    icon.gameObject.SetActive(false);
+
+                if (playableCard?.Info.GetExtendedPropertyAsBool("StatusGlow") ?? false)
+                {
+                    playableCard.Info.SetExtendedProperty("StatusGlow", true);
+                    playableCard.RenderInfo.forceEmissivePortrait = false;
+                }
+
+                if (distinct == null || controller.part1AbilityIcons.Count < distinct.Count)
+                    return;
+
+                for (int i = 0; i < controller.part1AbilityIcons.Count; i++)
+                {
+                    if (i < distinct.Count)
+                    {
+                        if (!CardDisplayer3D.EmissionEnabledForCard(playableCard.RenderInfo, playableCard))
+                        {
+                            playableCard.Info.SetExtendedProperty("StatusGlow", true);
+                            playableCard.RenderInfo.forceEmissivePortrait = true;
+                        }
+
+                        Material mat = new(controller.statusEffectMat)
+                        {
+                            color = StatusEffectManager.AllIconColours[distinct[i]]
+                        };
+
+                        controller.part1AbilityIcons[i].gameObject.SetActive(value: true);
+                        controller.part1AbilityIcons[i].SetMaterial(mat);
+                        controller.part1AbilityIcons[i].AssignAbility(distinct[i], playableCard.Info, playableCard);
+                        controller.abilityIcons.Add(controller.part1AbilityIcons[i]);
+                        __instance.abilityIcons.Add(controller.part1AbilityIcons[i]);
+                    }
+                }
+            }
+            else
+            {
+                foreach (GameObject defaultIconGroup in controller.statusEffectIconGroups)
+                    defaultIconGroup.SetActive(false);
+
+                if (distinct == null || controller.statusEffectIconGroups.Count < distinct.Count)
+                    return;
+
+                GameObject group = controller.statusEffectIconGroups[distinct.Count - 1];
+                group.SetActive(true);
+                AbilityIconInteractable[] componentsInChildren = group.GetComponentsInChildren<AbilityIconInteractable>();
+
+                for (int i = 0; i < componentsInChildren.Length; i++)
+                {
+                    Material mat = new(controller.statusEffectMat)
+                    {
+                        color = StatusEffectManager.AllIconColours[distinct[i]]
+                    };
+                    componentsInChildren[i].gameObject.SetActive(true);
+                    componentsInChildren[i].SetMaterial(mat);
+                    componentsInChildren[i].AssignAbility(distinct[i], playableCard.Info, playableCard);
+                    controller.abilityIcons.Add(componentsInChildren[i]);
+                    __instance.abilityIcons.Add(componentsInChildren[i]);
+                }
             }
         }
+
         public static List<Ability> GetDistinctStatusEffects(PlayableCard card)
         {
-            List<Ability> abilities = AbilitiesUtil.GetAbilitiesFromMods(card?.TemporaryMods ?? new());
-            abilities.RemoveAll(x => !StatusEffectManager.AllIconColours.ContainsKey(x));
+            if (card == null)
+                return null;
+
+            List<Ability> abilities = card.GetDisplayedStatusEffects(false);
 
             if (abilities.Count == 0)
                 return null;
 
-            List<Ability> distinct = abilities.Distinct().ToList();
-            if (distinct.Count > 5)
+            // sort by absolute value of power level
+            abilities.Sort((a, b) => Mathf.Abs(AbilitiesUtil.GetInfo(b).powerLevel) - Mathf.Abs(AbilitiesUtil.GetInfo(a).powerLevel));
+            if (abilities.Count > 5)
             {
-                List<int> counts = new();
-                for (int i = 0; i < distinct.Count; i++)
-                {
-                    counts.Add(abilities.FindAll(x => x == distinct[i]).Count);
-                }
-                distinct = counts.Select((ab, index) => new { Ability = (Ability)ab, Index = index })
-                    .OrderBy(x => counts.ElementAtOrDefault(x.Index))
-                    .Select(x => x.Ability).ToList();
-                distinct.RemoveRange(5, distinct.Count - 5);
+                abilities.RemoveRange(4, abilities.Count - 4);
+                abilities.Add(SeeMore.ability);
             }
-            distinct.Sort((a, b) => a.CompareTo(b));
-            return distinct;
+            return abilities;
         }
         private static void AddStatusIconsToCard(StatusEffectAbilityIcons controller, Transform abilityIconParent)
         {
             for (int i = 0; i < 5; i++)
             {
-                GameObject iconGroup = NewIconGroup(controller, abilityIconParent, i + 1);
-                List<Transform> icons = NewIcons(iconGroup, i + 1);
-
-                for (int j = 0; j < icons.Count; j++)
+                if (SaveManager.SaveFile.IsPart1)
                 {
-                    if (SaveManager.SaveFile.IsPart3)
+                    GameObject refIcon = abilityIconParent.Find("CardMergeIcon_1").gameObject;
+                    GameObject newIcon = UnityEngine.Object.Instantiate(refIcon, abilityIconParent);
+                    newIcon.name = $"StatusEffectIcon_{i + 1}";
+                    newIcon.transform.localPosition = new(-0.375f + 0.1875f * i, yPositionPart1, 0f);
+                    newIcon.transform.localScale = LocalScaleBase3D;
+                    var component = newIcon.GetComponent<AbilityIconInteractable>();
+                    component.OriginalLocalPosition = newIcon.transform.localPosition;
+                    controller.part1AbilityIcons.Add(component);
+                    newIcon.SetActive(false);
+                }
+                else
+                {
+                    GameObject iconGroup = NewIconGroup(controller, abilityIconParent, i + 1);
+                    List<Transform> icons = NewIcons(iconGroup, i + 1);
+                    for (int j = 0; j < icons.Count; j++)
+                    {
                         icons[j].localPosition = new(-0.5f + 0.1f * j, yPositionPart3, 0f);
-                    else
-                        icons[j].localPosition = new(-0.375f + 0.1875f * j, yPositionPart1, 0f);
+                    }
                 }
             }
         }
@@ -130,7 +202,6 @@ namespace WhistleWind.AbnormalSigils.Core
             }
 
             // change the names and scale
-            // keep z scale at 1 to not mess with icon interactiveness
             foreach (Transform icon in icons)
             {
                 icon.name = "StatusEffectIcon";
@@ -140,6 +211,7 @@ namespace WhistleWind.AbnormalSigils.Core
             return icons;
         }
 
+        // keep z scale at 1 to not mess with icon interactiveness
         private static readonly Vector3 LocalScaleBase3D = new(0.20f, 0.15f, 1f);
         private const float yPositionPart1 = 0.22f;
         private const float yPositionPart3 = 1f;
@@ -224,6 +296,9 @@ namespace WhistleWind.AbnormalSigils.Core
             new Type[] { typeof(List<Ability>), typeof(PlayableCard) })]
         private static void RenderPixelStatusEffects(PixelCardAbilityIcons __instance, PlayableCard card)
         {
+            if (__instance == null || card == null)
+                return;
+
             List<Ability> distinct = StatusEffectPatches.GetDistinctStatusEffects(card);
             PixelStatusEffectAbilityIcons controller = __instance.GetComponent<PixelStatusEffectAbilityIcons>();
 

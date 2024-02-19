@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -19,7 +18,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(punishingBird)
                 .AddAbilities(Ability.Flying, Punisher.ability)
                 .AddTribes(Tribe.Bird)
-                .AddTraits(TraitBlackForest)
+                .AddTraits(BlackForest)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }

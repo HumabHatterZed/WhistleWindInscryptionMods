@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
@@ -50,7 +51,10 @@ namespace WhistleWind.AbnormalSigils
         // Gives +1 Power if on board and target card is on same side of the board
         public int GetPassiveAttackBuff(PlayableCard target)
         {
-            return this.Card.OnBoard && target.OpponentCard == this.Card.OpponentCard && target != base.Card ? 1 : 0;
+            if (!this.Card.OnBoard || target.OpponentCard != this.Card.OpponentCard || target == base.Card)
+                return 0;
+
+            return base.Card.GetAbilityStacks(Ability);
         }
     }
 }

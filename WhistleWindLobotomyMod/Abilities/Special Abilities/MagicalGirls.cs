@@ -120,18 +120,18 @@ namespace WhistleWindLobotomyMod
                 List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
                 if (validSlots.Count > 0)
                 {
-                    HelperMethods.ChangeCurrentView(View.Board, 0.4f);
+                    yield return HelperMethods.ChangeCurrentView(View.Board, 0.4f);
                     yield return Singleton<BoardManager>.Instance.CreateCardInSlot(info, validSlots[SeededRandom.Range(0, validSlots.Count - 1, RunState.RandomSeed)], resolveTriggers: false);
                 }
                 else
                 {
-                    HelperMethods.ChangeCurrentView(View.OpponentQueue, 0.4f);
+                    yield return HelperMethods.ChangeCurrentView(View.OpponentQueue, 0.4f);
                     yield return HelperMethods.QueueCreatedCard(info);
                 }
             }
             else
             {
-                HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
+                yield return HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
 
                 // add the card to the player's deck (this adds a clone so we can modify it after-the-fact for this battle only)
                 RunState.Run.playerDeck.AddCard(info);
@@ -144,7 +144,7 @@ namespace WhistleWindLobotomyMod
 
             yield return new WaitForSeconds(0.2f);
             yield return DialogueHelper.PlayDialogueEvent("JesterOfNihilOutro");
-            HelperMethods.ChangeCurrentView(View.Default);
+            yield return HelperMethods.ChangeCurrentView(View.Default);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
         }

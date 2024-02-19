@@ -5,14 +5,15 @@ using InscryptionCommunityPatch.Card;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.Core;
+using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod;
 using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static InscryptionCommunityPatch.Card.SniperFix;
 
 // custom version of the Sniper fix that adds Marksman compatibility and the special behaviour of Blue Star and Judgement Bird
-namespace WhistleWind.AbnormalSigils.Patches
+namespace WhistleWindLobotomyMod.Patches
 {
     [HarmonyPatch]
     internal class ExtendedSniperLogicPatches
@@ -24,175 +25,165 @@ namespace WhistleWind.AbnormalSigils.Patches
         [HarmonyPatch(typeof(Part1SniperVisualizer), nameof(Part1SniperVisualizer.VisualizeConfirmSniperAbility))]
         private static bool PerformHanging(CardSlot targetSlot)
         {
-            if (targetSlot.Card?.TemporaryMods.Exists(x => x.singletonId == executeId) ?? false)
+            if ((targetSlot.Card?.TemporaryMods.Exists(x => x.singletonId == executeId) ?? false) && !ImmuneToHanging(targetSlot))
                 targetSlot.Card.Anim.SetMarkedForSacrifice(marked: true);
 
-            return true;
-        }
-        [HarmonyPrefix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.SniperAttack))]
-        private static bool OverrideSniperSequence(CombatPhaseManager instance, CardSlot slot, ref IEnumerator __result)
-        {
-            if (IsJudgementBird(slot) || IsEnraged(slot) || IsRaging(slot))
-            {
-                __result = WstlSniperSequence(instance, slot);
-                return false;
-            }
             return true;
         }
         [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.WillDieFromSharp))]
         private static void AddExtraChecks(CardSlot slot, ref bool __result)
         {
             // Judgement Bird does not trigger OnDealDamage or OnTakeDamage
-            if (IsJudgementBird(slot))
+            if (IsExecutioner(slot))
                 __result = false;
         }
-        private static IEnumerator WstlSniperSequence(CombatPhaseManager instance, CardSlot slot)
-        {
-            List<CardSlot> opposingSlots = new(); // the slots to attacks
-            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView, false, false);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
-            int numAttacks = GetAttackCount(slot.Card);
-            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.ChoosingSlotViewMode, false);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
-            Part1SniperVisualizer visualizer = null;
-            if (SaveManager.SaveFile.IsPart1)
-                visualizer = instance.GetComponent<Part1SniperVisualizer>() ?? instance.gameObject.AddComponent<Part1SniperVisualizer>();
 
-            if (IsRaging(slot))
+        [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.DoSniperLogic))]
+        private static IEnumerator CustomSniperLogic(
+            IEnumerator enumerator, CombatPhaseManager instance, Part1SniperVisualizer visualizer,
+            List<CardSlot> opposingSlots, CardSlot attackingSlot, int numAttacks)
+        {
+            if (attackingSlot.Card == null)
             {
-                opposingSlots = slot.Card.GetOpposingSlots();
+                yield return enumerator;
+                yield break;
+            }
+            if (IsRaging(attackingSlot)) // if raging, target random slots
+            {
+                opposingSlots.AddRange(attackingSlot.Card.GetOpposingSlots());
                 for (int i = 0; i < opposingSlots.Count; i++)
                 {
                     instance.VisualizeConfirmSniperAbility(opposingSlots[i]);
                     visualizer?.VisualizeConfirmSniperAbility(opposingSlots[i]);
                 }
+                yield break;
             }
-            else
+            if (IsEnraged(attackingSlot)) // if enraged, target the rival if they exist
             {
-                CardSlot enragedTarget = null;
-                if (IsEnraged(slot))
+                string nameToFind = "wstl_redHoodedMercenary";
+                if (attackingSlot.Card.Info.name == nameToFind)
+                    nameToFind = "wstl_willBeBadWolf";
+
+                CardSlot enragedTarget = BoardManager.Instance.AllSlotsCopy.Find(x => x.Card?.Info.name == nameToFind);
+                if (enragedTarget != null)
                 {
-                    string nameToFind;
-                    if (slot.Card.Info.name == "wstl_redHoodedMercenary")
-                        nameToFind = "wstl_willBeBadWolf";
-                    else
-                        nameToFind = "wstl_redHoodedMercenary";
+                    for (int i = 0; i < numAttacks; i++)
+                        opposingSlots.Add(enragedTarget);
 
-                    enragedTarget = BoardManager.Instance.AllSlotsCopy.Find(x => x.Card?.Info.name == nameToFind);
-                    if (enragedTarget != null)
-                    {
-                        for (int i = 0; i < numAttacks; i++)
-                            opposingSlots.Add(enragedTarget);
-
-                        instance.VisualizeConfirmSniperAbility(enragedTarget);
-                        visualizer?.VisualizeConfirmSniperAbility(enragedTarget);
-                    }
-                }
-
-                if (enragedTarget == null)
-                {
-                    if (slot.Card.OpponentCard)
-                        yield return WstlOpponentLogic(instance, visualizer, opposingSlots, slot, numAttacks);
-                    else
-                        yield return WstlPlayerLogic(instance, visualizer, opposingSlots, slot, numAttacks);
+                    instance.VisualizeConfirmSniperAbility(enragedTarget);
+                    visualizer?.VisualizeConfirmSniperAbility(enragedTarget);
+                    yield break;
                 }
             }
 
-            Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;
-            foreach (CardSlot opposingSlot in opposingSlots)
+            yield return enumerator;
+        }
+        [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.DoAttackTargetSlotsLogic))]
+        private static IEnumerator CustomOpposingSlotsLogic(IEnumerator enumerator, CardSlot attackingSlot, CardSlot opposingSlot)
+        {
+            if (!IsExecutioner(attackingSlot) || !CanTargetFaceDown(opposingSlot, attackingSlot.Card) ||
+                ImmuneToHanging(opposingSlot) || attackingSlot.Card.AttackIsBlocked(opposingSlot))
             {
-                Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
-                if (IsJudgementBird(slot) && opposingSlot.Card != null && !ImmuneToHanging(opposingSlot) && !slot.Card.AttackIsBlocked(opposingSlot))
-                {
-                    opposingSlot.Card.FlipFaceDown(false);
-                    opposingSlot.Card.Anim.StrongNegationEffect();
-                    yield return new WaitForSeconds(0.4f);
-                    yield return Execution(opposingSlot.Card);
-                }
-                else
-                    yield return instance.SlotAttackSlot(slot, opposingSlot, opposingSlots.Count > 1 ? 0.1f : 0f);
+                yield return enumerator;
+                yield break;
             }
-            instance.VisualizeClearSniperAbility();
-            visualizer?.VisualizeClearSniperAbility();
-            yield break;
+
+            Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);
+            yield return opposingSlot.Card.FlipFaceDown(false);
+            opposingSlot.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.4f);
+            yield return Execution(opposingSlot.Card);
         }
 
-        private static IEnumerator WstlPlayerLogic(CombatPhaseManager instance, Part1SniperVisualizer visualizer,
-        List<CardSlot> opposingSlots, CardSlot slot, int numAttacks)
+        [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.PlayerTargetSelectedCallback))]
+        private static void CustomTargetCallback(CardSlot targetSlot, CardSlot attackingSlot)
         {
-            for (int i = 0; i < numAttacks; i++)
-            {
-                instance.VisualizeStartSniperAbility(slot);
-                visualizer?.VisualizeStartSniperAbility(slot);
-                CardSlot cardSlot = Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot;
-                if (cardSlot != null && opposingSlots.Contains(cardSlot))
-                {
-                    instance.VisualizeAimSniperAbility(slot, cardSlot);
-                    visualizer?.VisualizeAimSniperAbility(slot, cardSlot);
-                }
-                List<CardSlot> list = Singleton<BoardManager>.Instance.OpponentSlotsCopy;
-                yield return Singleton<BoardManager>.Instance.ChooseTarget(list, list,
-                    delegate (CardSlot s)
-                    {
-                        opposingSlots.Add(s);
-                        if (IsJudgementBird(slot) && !ImmuneToHanging(s))
-                            s.Card.AddTemporaryMod(new() { singletonId = executeId });
+            if (IsExecutioner(attackingSlot) && CanTargetFaceDown(targetSlot, attackingSlot.Card) && !ImmuneToHanging(targetSlot))
+                targetSlot.Card.AddTemporaryMod(new() { singletonId = executeId });
+        }
 
-                        instance.VisualizeConfirmSniperAbility(s);
-                        visualizer?.VisualizeConfirmSniperAbility(s);
-                    }, null, delegate (CardSlot s)
-                    {
-                        InteractionCursor.Instance.ForceCursorType(ImmuneToHanging(s) ? CursorType.Target : CursorType.Sacrifice);
-                        instance.VisualizeAimSniperAbility(slot, s);
-                        visualizer?.VisualizeAimSniperAbility(slot, s);
-                    }, () => false, CursorType.Target);
+        [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.PlayerSlotCursorEnterCallback))]
+        private static void CustomCursorEnterCallback(CardSlot targetSlot, CardSlot attackingSlot)
+        {
+            if (IsExecutioner(attackingSlot))
+                InteractionCursor.Instance.ForceCursorType(
+                    (CanTargetFaceDown(targetSlot, attackingSlot.Card) && ImmuneToHanging(targetSlot)) ? CursorType.Target : CursorType.Sacrifice);
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.GetValidTargets))]
+        private static void CustomSniperTargets(ref List<CardSlot> __result, bool playerIsAttacker, CardSlot attackingSlot)
+        {
+            if (attackingSlot.Card.HasStatusEffect<Enchanted>(true)) // ensure Sniper cards are affected by Enchanted
+            {
+                List<CardSlot> slots = BoardManager.Instance.AllSlotsCopy.FindAll(x => x.Card != null && x.Card.HasAbility(Dazzling.ability));
+                // if there's a target card that this card can hit
+                if (slots.Count > 0 && slots.Exists(x => !attackingSlot.Card.CanAttackDirectly(x)))
+                {
+                    __result = slots.FindAll(x => !attackingSlot.Card.CanAttackDirectly(x));
+                    return;
+                }
+            }
+            if (!playerIsAttacker && (attackingSlot.Card?.HasStatusEffect<Sin>() ?? false)) // Snipers with Sin can target any card on the board
+            {
+                __result = BoardManager.Instance.AllSlotsCopy;
+                __result.Remove(attackingSlot);
+                __result.RemoveAll(x => x.Card == (TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer).BossCard);
             }
         }
-        private static IEnumerator WstlOpponentLogic(CombatPhaseManager instance, Part1SniperVisualizer visualizer,
-        List<CardSlot> opposingSlots, CardSlot slot, int numAttacks)
+
+        [HarmonyPostfix, HarmonyPatch(typeof(SniperFix), nameof(SniperFix.OpponentSelectTargetSlot))]
+        private static void CustomSelectTargetSlot(ref CardSlot __result, List<CardSlot> opposingSlots, List<PlayableCard> playerCards, CardSlot attackingSlot, int numAttacks)
         {
-            List<CardSlot> playerSlots = Singleton<BoardManager>.Instance.PlayerSlotsCopy;
-            List<PlayableCard> playerCards = playerSlots.FindAll(x => x.Card != null).ConvertAll((x) => x.Card);
             bool anyCards = playerCards.Count > 0;
+            if (attackingSlot.Card == null || !anyCards)
+                return;
 
-            for (int i = 0; i < numAttacks; i++)
+            int sinCount = attackingSlot.Card.GetStatusEffectStacks<Sin>();
+            if (sinCount > 0)
             {
-                CardSlot attackSlot = slot.opposingSlot;
-                if (anyCards)
+                List<CardSlot> filteredSlots = new()
+                        {
+                            GetStrongestKillableCard(anyCards, playerCards, opposingSlots, attackingSlot, numAttacks)?.Slot,
+                            GetFirstStrongestAttackableCard(anyCards, playerCards, opposingSlots, attackingSlot, numAttacks)?.Slot,
+                            GetFirstStrongestAttackableCardNoPreferences(anyCards, playerCards, opposingSlots, attackingSlot, numAttacks)?.Slot,
+                            __result
+                        };
+                // remove null slots and sort by lowest sin count
+                filteredSlots.RemoveAll(x => x == null);
+                filteredSlots.Sort((a, b) => (a.Card?.GetStatusEffectStacks<Sin>() ?? 0) - (b.Card?.GetStatusEffectStacks<Sin>() ?? 0));
+
+                if (filteredSlots.Exists(x => x.Card != null))
                 {
-                    PlayableCard strongestKillable = GetStrongestKillableCard(anyCards, playerCards, opposingSlots, slot, numAttacks);
-                    PlayableCard strongestAttackable = GetFirstStrongestAttackableCard(anyCards, playerCards, opposingSlots, slot, numAttacks);
-                    PlayableCard strongestAttackableNoPreferences = GetFirstStrongestAttackableCardNoPreferences(anyCards, playerCards, opposingSlots, slot, numAttacks);
-
-                    if (CanWin(opposingSlots, playerSlots, slot, numAttacks))
-                        attackSlot = GetFirstAvailableOpenSlot(opposingSlots, playerSlots, slot, numAttacks);
-                    else if (strongestKillable != null)
-                        attackSlot = strongestKillable.Slot;
-                    else if (strongestAttackable != null)
-                        attackSlot = strongestAttackable.Slot;
-                    else if (strongestAttackableNoPreferences != null)
-                        attackSlot = strongestAttackableNoPreferences.Slot;
+                    if (sinCount >= 5) // if we have 5+ Sin, target the card with the lowest sin count
+                        __result = filteredSlots[0];
+                    else // otherwise target a card whose sin count will go over 5, otherwise default logic
+                        __result = filteredSlots.Find(x => x.Card.GetStatusEffectStacks<Sin>() + sinCount >= 5) ?? __result;
                 }
-
-                opposingSlots.Add(attackSlot);
-                if (IsJudgementBird(slot) && !ImmuneToHanging(attackSlot))
-                    attackSlot.Card.AddTemporaryMod(new() { singletonId = executeId });
-
-                instance.VisualizeConfirmSniperAbility(attackSlot);
-                visualizer?.VisualizeConfirmSniperAbility(attackSlot);
-                yield return new WaitForSeconds(0.25f);
             }
         }
-        private static bool ImmuneToHanging(CardSlot slot) => slot.Card?.HasAnyOfTraits(Trait.Terrain, Trait.Pelt, AbnormalPlugin.ImmuneToInstaDeath) ?? true;
-        private static bool IsJudgementBird(CardSlot slot) => slot.Card.HasTrait(LobotomyCardManager.TraitExecutioner);
+
+        private static bool ImmuneToHanging(CardSlot slot)
+        {
+            if (slot.Card != null)
+                return slot.Card.HasAbility(Ability.MadeOfStone) || slot.Card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt, AbnormalPlugin.ImmuneToInstaDeath);
+
+            return true;
+        }
+        private static bool CanTargetFaceDown(CardSlot target, PlayableCard attackingCard)
+        {
+            if (target.Card != null && target.Card.FaceDown)
+                return attackingCard.HasAbility(Persistent.ability);
+
+            return true;
+        }
+        private static bool IsExecutioner(CardSlot slot) => slot.Card && slot.Card.HasTrait(LobotomyCardManager.Executioner);
         private static bool IsEnraged(CardSlot slot) => slot.Card.GetComponent<CrimsonScar>()?.Enraged ?? false;
         private static bool IsRaging(CardSlot slot) => slot.Card.HasSpecialAbility(BlindRage.specialAbility);
         private static IEnumerator Execution(PlayableCard target)
         {
             target.Anim.PlaySacrificeSound();
             target.Anim.DeactivateSacrificeHoverMarker();
-            yield return target.Die(wasSacrifice: false);
+            yield return target.Die(false);
         }
     }
 }

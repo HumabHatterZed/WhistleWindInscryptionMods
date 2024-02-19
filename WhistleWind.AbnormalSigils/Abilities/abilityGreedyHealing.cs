@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
             GreedyHealing.ability = AbnormalAbilityHelper.CreateAbility<GreedyHealing>(
                 "sigilGreedyHealing",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
-                modular: true, opponent: false, canStack: false).Id;
+                modular: true, opponent: true, canStack: false).Id;
         }
     }
     public class GreedyHealing : AbilityBehaviour
@@ -41,13 +41,13 @@ namespace WhistleWind.AbnormalSigils
             // flip up
             yield return base.Card.FlipFaceDown(false);
 
-            if (turnCount < 2)
+            if (turnCount < 3)
             {
                 base.Card.Anim.LightNegationEffect();
                 base.Card.HealDamage(2);
                 yield return new WaitForSeconds(0.3f);
                 yield return base.LearnAbility();
-                
+
                 // if we were submerged at the start, resubmerge
                 yield return base.Card.FlipFaceDown(faceDown);
                 yield break;
@@ -55,9 +55,11 @@ namespace WhistleWind.AbnormalSigils
 
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
-                yield return base.Card.TakeDamage(Mathf.Min(-1, -base.Card.Health * i), null);
+                base.Card.Status.damageTaken -= Mathf.Max(1, base.Card.Health) * (i + 1);
+                base.Card.UpdateStatsText();
+                base.Card.Anim.PlayHitAnimation();
                 yield return new WaitForSeconds(0.2f);
             }
             yield return base.Card.Die(false, null);

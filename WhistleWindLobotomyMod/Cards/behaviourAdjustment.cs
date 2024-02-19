@@ -1,6 +1,4 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
+﻿using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -16,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string behaviourAdjustment = "behaviourAdjustment";
 
             NewCard(behaviourAdjustment, "Behaviour Adjustment", "A device made to 'fix' errant beasts. Its idea of 'fixing' might not be yours, however.",
-                attack: 0, health: 1, blood: 3)
+                attack: 0, health: 1, energy: 3, temple: CardTemple.Tech)
                 .SetPortraits(behaviourAdjustment)
                 .AddAbilities(Corrector.ability)
                 .AddTribes(TribeMechanical)

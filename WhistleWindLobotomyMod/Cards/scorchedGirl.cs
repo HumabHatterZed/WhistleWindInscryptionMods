@@ -1,9 +1,6 @@
-﻿using DiskCardGame;
-using System.Collections.Generic;
+﻿using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using InscryptionAPI.Card;
-
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -20,6 +17,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(scorchedGirl)
                 .AddAbilities(Volatile.ability)
                 .AddTribes(TribeAnthropoid)
+                .AddTraits(DiskCardGame.Trait.KillsSurvivors)
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
         }
     }

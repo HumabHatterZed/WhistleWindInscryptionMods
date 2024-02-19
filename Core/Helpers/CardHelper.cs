@@ -1,16 +1,29 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 namespace WhistleWind.Core.Helpers
 {
     public static class CardHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
+        public static CardModificationInfo FullClone(this CardModificationInfo modToClone)
+        {
+            CardModificationInfo clone = modToClone.Clone() as CardModificationInfo;
+            clone.SetAttackAndHealth(modToClone.attackAdjustment, modToClone.healthAdjustment)
+                .SetCosts(modToClone.bloodCostAdjustment, modToClone.bonesCostAdjustment, modToClone.energyCostAdjustment)
+                .SetSingletonId(modToClone.singletonId)
+                .SetNameReplacement(modToClone.nameReplacement);
+            clone.fromCardMerge = modToClone.fromCardMerge;
+            clone.fromDuplicateMerge = modToClone.fromDuplicateMerge;
+            clone.fromLatch = modToClone.fromLatch;
+            clone.fromTotem = modToClone.fromTotem;
+            clone.fromOverclock = modToClone.fromOverclock;
+            clone.bountyHunterInfo = modToClone.bountyHunterInfo;
+            clone.buildACardPortraitInfo = modToClone.buildACardPortraitInfo;
+            clone.deathCardInfo = modToClone.deathCardInfo;
+            return clone;
+        }
         public static CardInfo NewCard(
             bool addToAPI, string modPrefix,
             string cardName, string displayName = null, string description = null,
@@ -37,11 +50,11 @@ namespace WhistleWind.Core.Helpers
         {
             Texture2D portraitTex = TextureLoader.LoadTextureFromFile(portraitName);
             // if a custom emission name isn't provided, default to the filename [portraitName]_emission
-            Texture2D emissionTex = TextureLoader.LoadTextureFromFile(emissionName ?? $"{portraitName}_emission");
+            Texture2D emissionTex = emissionName == "" ? null : TextureLoader.LoadTextureFromFile(emissionName ?? $"{portraitName}_emission");
             // if a custom pixel name isn't provided, default to the filename [portraitName]_pixel
-            Texture2D pixelTex = TextureLoader.LoadTextureFromFile(pixelPortraitName ?? $"{portraitName}_pixel");
+            Texture2D pixelTex = pixelPortraitName == "" ? null : TextureLoader.LoadTextureFromFile(pixelPortraitName ?? $"{portraitName}_pixel");
             Texture2D altTex = null, altEmissionTex = null;
-            Texture2D titleTex = TextureLoader.LoadTextureFromFile(titleName);
+            Texture2D titleTex = titleName != null ? TextureLoader.LoadTextureFromFile(titleName) : null;
             if (!string.IsNullOrEmpty(altPortraitName))
             {
                 altTex = TextureLoader.LoadTextureFromFile(altPortraitName);

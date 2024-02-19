@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -16,10 +15,10 @@ namespace WhistleWindLobotomyMod
             const string servantName = "The Servant of Wrath";
             const string magicalGirlClover = "magicalGirlClover";
             const string servantOfWrath = "servantOfWrath";
-            Trait[] traits = new[] { TraitMagicalGirl };
+            Trait[] traits = new[] { MagicalGirl };
 
             NewCard(servantOfWrath, servantName,
-                attack: 3, health: 2, blood: 2)
+                attack: 3, health: 2, blood: 2, temple: CardTemple.Wizard)
                 .SetPortraits(servantOfWrath)
                 .AddAbilities(Ability.DoubleStrike, Persistent.ability)
                 .AddSpecialAbilities(BlindRage.specialAbility)
@@ -28,8 +27,8 @@ namespace WhistleWindLobotomyMod
                 .SetOnePerDeck()
                 .Build(cardType: ModCardType.Ruina);
 
-            NewCard(magicalGirlClover,servantName, "Blind protector of another world.",
-                attack: 2, health: 2, blood: 2)
+            NewCard(magicalGirlClover, servantName, "Blind protector of another world.",
+                attack: 2, health: 2, blood: 2, temple: CardTemple.Wizard)
                 .SetPortraits(magicalGirlClover)
                 .AddAbilities(Scorching.ability)
                 .AddSpecialAbilities(SwordWithTears.specialAbility)

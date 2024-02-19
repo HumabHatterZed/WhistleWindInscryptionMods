@@ -60,7 +60,7 @@ namespace WhistleWindLobotomyMod
 
             if (base.PlayableCard.OpponentCard)
             {
-                foreach (PlayableCard card in Singleton<Opponent>.Instance.Queue.Where(x => x.HasTrait(LobotomyCardManager.TraitEmeraldCity)))
+                foreach (PlayableCard card in Singleton<Opponent>.Instance.Queue.Where(x => x.HasTrait(LobotomyCardManager.EmeraldCity)))
                 {
                     if (!cardsOnBoard.Contains(card))
                     {
@@ -71,7 +71,7 @@ namespace WhistleWindLobotomyMod
             }
             else
             {
-                foreach (PlayableCard card in PlayerHand.Instance.CardsInHand.Where(x => x.HasTrait(LobotomyCardManager.TraitEmeraldCity)))
+                foreach (PlayableCard card in PlayerHand.Instance.CardsInHand.Where(x => x.HasTrait(LobotomyCardManager.EmeraldCity)))
                 {
                     if (!cardsOnBoard.Contains(card))
                     {

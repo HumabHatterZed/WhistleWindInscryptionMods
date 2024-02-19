@@ -4,13 +4,11 @@ using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -83,7 +81,8 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.AnglerBoss, "SephirahChesedAngler" },
             { Opponent.Type.TrapperTraderBoss, "SephirahChesedTrapperTrader" },
             { Opponent.Type.LeshyBoss, "SephirahChesedLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahChesedRoyal" }
+            { Opponent.Type.RoyalBoss, "SephirahChesedRoyal" },
+            { ApocalypseBossOpponent.ID, "SephirahChesedApocalypse" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -96,9 +95,9 @@ namespace WhistleWindLobotomyMod
         private void Card_Chesed()
         {
             NewCard("sephirahChesed", "Chesed", "Nothing like a fresh cup of coffee to start your day.",
-                attack: 0, health: 4, blood: 1)
-                .AddAbilities(Healer.ability, ThickSkin.ability)
-                .AddTraits(TraitSephirah)
+                attack: 1, health: 4, energy: 4)
+                .AddAbilities(Healer.ability, Regenerator.ability)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

@@ -1,6 +1,5 @@
-﻿using DiskCardGame;
+﻿using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 
 using WhistleWind.Core.Helpers;
 
@@ -13,9 +12,11 @@ namespace WhistleWind.AbnormalSigils
             const string meltingLoveMinion = "meltingLoveMinion";
             CreateCard(MakeCard(
                 cardName: meltingLoveMinion,
-                "Slime")
+                "Slime", attack: 0, health: 2, bones: 3)
                 .SetPortraits(meltingLoveMinion)
-                .AddAbilities(Slime.ability));
+                .SetStatIcon(SlimeIcon.Icon)
+                .AddAbilities(Slime.ability)
+                .AddTraits(LovingSlime));
         }
     }
 }

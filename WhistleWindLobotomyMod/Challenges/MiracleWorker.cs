@@ -1,14 +1,11 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Ascension;
-using InscryptionAPI.Card;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 
-
-namespace WhistleWindLobotomyMod.Core.Challenges
+namespace WhistleWindLobotomyMod.Challenges
 {
     public static class MiracleWorker
     {
@@ -30,7 +27,7 @@ namespace WhistleWindLobotomyMod.Core.Challenges
         }
 
         private static readonly Opponent.Type[] BLACKLISTED_OPPONENTS = new Opponent.Type[] {
-            
+
         };
 
         [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]

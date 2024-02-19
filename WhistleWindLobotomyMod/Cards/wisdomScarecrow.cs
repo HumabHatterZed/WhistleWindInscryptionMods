@@ -1,6 +1,4 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
+﻿using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
@@ -17,11 +15,11 @@ namespace WhistleWindLobotomyMod
             const string wisdomScarecrow = "wisdomScarecrow";
 
             NewCard(wisdomScarecrow, "Scarecrow Searching for Wisdom", "A hollow-headed scarecrow. Blood soaks its straw limbs.",
-                attack: 1, health: 1, bones: 4)
+                attack: 1, health: 1, bones: 4, temple: CardTemple.Undead)
                 .SetPortraits(wisdomScarecrow)
                 .AddAbilities(Bloodfiend.ability)
                 .AddTribes(TribeBotanic)
-                .AddTraits(TraitEmeraldCity)
+                .AddTraits(EmeraldCity)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }

@@ -1,10 +1,8 @@
-﻿using DiskCardGame;
-using GBC;
-using InscryptionAPI.Card;
-using InscryptionAPI.PixelCard;
+﻿using InscryptionAPI.PixelCard;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod
 {
@@ -20,15 +18,16 @@ namespace WhistleWindLobotomyMod
         public static Appearance appearance;
         public override Sprite OverridePixelPortrait()
         {
-            return LobotomyPlugin.UpdateDoctorPixelPortrait(LobotomyConfigManager.Instance.NumOfBlessings);
+            int blessings = SaviourBossUtils.Blessings(base.Card);
+            return LobotomyPlugin.UpdateDoctorPixelPortrait(blessings);
         }
         public override void ApplyAppearance()
         {
-            int blessings = base.Card.Info.Mods.Exists(x => x.singletonId == "wstl:MiracleWorkerChallenge") ?
-                LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.Instance.NumOfBlessings;
-            
+            int blessings = SaviourBossUtils.Blessings(base.Card);
             base.Card.RenderInfo.portraitOverride = LobotomyPlugin.PlagueDoctorPortraits[Mathf.Min(11, blessings)];
-            base.Card.RenderInfo.forceEmissivePortrait |= blessings >= 11;
+            base.Card.RenderInfo.forceEmissivePortrait = base.Card.RenderInfo.forceEmissivePortrait || blessings >= 11;
         }
+        public override void OnPreRenderCard() => ApplyAppearance();
+        public override void ResetAppearance() => base.Card.RenderInfo.portraitOverride = null;
     }
 }

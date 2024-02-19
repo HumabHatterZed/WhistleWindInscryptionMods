@@ -1,10 +1,13 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
+using static UnityStandardAssets.ImageEffects.BloomOptimized;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Copycat()
         {
             const string rulebookName = "Copycat";
-            const string rulebookDescription = "This gains the sigils and stats of the first card to be played in the opposing space.";
+            const string rulebookDescription = "[creature] will transform into a copy of the first creature that opposes it.";
             const string dialogue = "A near perfect impersonation.";
             const string triggerText = "[creature] tries to mimick the opposing creature.";
             Copycat.ability = AbnormalAbilityHelper.CreateAbility<Copycat>(
@@ -26,23 +29,66 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
+        public override int Priority => -1;
 
-        bool isACopy = false;
-        private CardInfo baseInfo;
+        bool copiedCard = false;
+        private CardInfo originalCardInfo = null;
 
-        private void Start() => baseInfo = base.Card.Info.Clone() as CardInfo;
+        private void Start()
+        {
+            if (base.Card == null || originalCardInfo != null)
+                return;
 
-        public override bool RespondsToResolveOnBoard() => base.Card.OpposingCard() != null;
-        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard.Slot == base.Card.OpposingSlot() && !isACopy;
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && isACopy;
+            originalCardInfo = base.Card.Info.Clone() as CardInfo;
+        }
+        public override bool RespondsToResolveOnBoard() => !copiedCard && base.Card.OpposingCard() != null;
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard)
+        {
+            if (!copiedCard && otherCard != null && otherCard == base.Card.OpposingCard())
+                return true;
+
+            return false;
+        }
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => copiedCard && !wasSacrifice;
         public override IEnumerator OnResolveOnBoard()
         {
-            yield return base.PreSuccessfulTriggerSequence();
-            yield return base.Card.TransformIntoCard(CopyInfo(base.Card.OpposingCard().Info), NegateCopycat);
-            yield return base.LearnAbility(0.5f);
+            if (!CanCopyCard(base.Card.OpposingCard()))
+            {
+                base.Card.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.4f);
+                yield return DialogueHelper.PlayDialogueEvent("CopycatFail");
+                yield break;
+            }
+
+            PlayableCard card = base.Card; // store the playable card here to prevent null errors
+            yield return TransformIntoCopy(base.Card.OpposingCard());
+            if (card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard))
+            {
+                yield return new WaitForSeconds(0.4f);
+                foreach (var trigger in card.TriggerHandler.GetAllReceivers().Where(x => x != null && x.RespondsToResolveOnBoard()))
+                    yield return trigger.OnResolveOnBoard();
+
+            }
         }
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
         {
+            if (CanCopyCard(base.Card.OpposingCard()))
+            {
+                yield return TransformIntoCopy(otherCard);
+                yield break;
+            }
+            // if cannot copy card
+            base.Card.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(0.4f);
+            yield return DialogueHelper.PlayDialogueEvent("CopycatFail");
+        }
+        private IEnumerator TransformIntoCopy(PlayableCard otherCard)
+        {
+            // copy temporary mods
+            foreach (CardModificationInfo mod in otherCard.TemporaryMods)
+            {
+                tempMods.Add(mod.FullClone());
+            }
             yield return base.PreSuccessfulTriggerSequence();
             yield return base.Card.TransformIntoCard(CopyInfo(otherCard.Info), NegateCopycat);
             yield return base.LearnAbility(0.5f);
@@ -50,26 +96,33 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             base.Card.Anim.StrongNegationEffect();
-            base.Card.SetInfo(baseInfo);
+            base.Card.SetInfo(originalCardInfo);
             yield return new WaitForSeconds(0.55f);
 
-            yield return DialogueHelper.PlayDialogueEvent("CopycatFail");
+            yield return DialogueHelper.PlayDialogueEvent("CopycatDead");
         }
-        private CardInfo CopyInfo(CardInfo cardToCopy)
+        private CardInfo CopyInfo(CardInfo cloneCardInfo)
         {
-            CardInfo newInfo = baseInfo.Clone() as CardInfo;
-            newInfo.baseAttack = cardToCopy.baseAttack;
-            newInfo.baseHealth = cardToCopy.baseHealth;
-            newInfo.Mods = new(base.Card.Info.Mods);
-            foreach (CardModificationInfo mod in cardToCopy.Mods.FindAll(x => !x.nonCopyable))
-                newInfo.Mods.Add(mod.Clone() as CardModificationInfo);
-
-            return newInfo;
+            CardInfo evolutionCardInfo = cloneCardInfo.Clone() as CardInfo;
+            CardModificationInfo mod = new()
+            {
+                nameReplacement = "False " + cloneCardInfo.DisplayedNameLocalized,
+                abilities = new(originalCardInfo.DefaultAbilities)
+            };
+            mod.abilities.Remove(this.Ability);
+            evolutionCardInfo.Mods.Add(mod);
+            return evolutionCardInfo;
         }
+        private readonly List<CardModificationInfo> tempMods = new();
         private void NegateCopycat()
         {
-            isACopy = true;
-            base.Card.AddTemporaryMod(new() { negateAbilities = new() { ability } });
+            copiedCard = true;
+
+            if (base.Card.Health == 0)
+                base.Card.Status.damageTaken = 0;
+
+            base.Card.AddTemporaryMod(new() { negateAbilities = new() { this.Ability } });
         }
+        private bool CanCopyCard(PlayableCard card) => card.LacksAllTraits(Trait.Giant, Trait.Uncuttable);
     }
 }

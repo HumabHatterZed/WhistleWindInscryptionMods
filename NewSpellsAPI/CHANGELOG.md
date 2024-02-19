@@ -1,7 +1,35 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
-## 1.1.3 (6/7/2023)
-- Fixed Global Spells behaving like Targeted Spells
+<details>
+<summary>View changelog</summary>
+
+## 1.2.4 (1/16/2024)
+- Fixed Blood-costing spell cards not being playable even when there are sufficient sacrifices and targets
+
+## 1.2.3 (12/24/2023)
+- Queued spell cards can now be prevented from being played by patching Opponent.QueuedCardIsBlocked
+- Made UpdateStatsSpellDisplay and UpdatePlayableStatsSpellDisplay public
+
+## 1.2.2 (12/3/2023)
+- Fixed stat spell cards' health not being coloured correctly during battle
+- Opponent stat spell cards now reveal their stats when played
+- Queued stat spell cards now reveal their stats when moused over
+- Adjusted when the target icons created by opponent target spells disappear
+
+## 1.2.1 (11/29/2023)
+- Mousing over a stat spell card will reveal the card's stats
+
+## 1.2.0 (11/16/2023)
+- Rewrote stat spell logic to -hopefully- be quicker/less laggy
+- Added Instant Global Spells, which replicate the original global spell behaviour (played immediately on selection)
+- Added SetInstaGlobalSpell() and SetInstaGlobalSpellStats()
+- Tweaked Spell stat icon descriptions to differentiate between instant and regular Global Spells
+
+## 1.1.3 (9/28/2023)
+- Fixed a few typos
+- Fixed example sigils activating incorrectly when attached to non-Spell cards
+- Added helper extension AbilityInfo.SetCanMerge() for controlling whether sigils should be transferrable or not - true by default
+- Added new config AllowCardMerge for controlling whether spell cards can gain or transfer sigils - true by default
 - Tweaked Act 2 descriptions for Targeted and Global Spells.
 
 ## 1.1.2 (6/1/2023)
@@ -29,6 +57,7 @@
 - Spell cards no longer force the player to play them if selected
 - Minor code optimisations
 - Minor changes to some dialogue
+</details>
 
 #
 

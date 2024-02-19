@@ -1,6 +1,4 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
+﻿using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -16,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string snowQueen = "snowQueen";
 
             NewCard(snowQueen, "The Snow Queen", "A queen from far away. Those who enter her palace never leave.",
-                attack: 1, health: 2, bones: 5)
+                attack: 2, health: 2, blood: 2, temple: CardTemple.Wizard)
                 .SetPortraits(snowQueen)
                 .AddAbilities(FrostRuler.ability)
                 .AddTribes(TribeFae)

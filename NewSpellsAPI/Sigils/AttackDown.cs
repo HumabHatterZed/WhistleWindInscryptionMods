@@ -16,7 +16,7 @@ namespace Infiniscryption.Spells.Sigils
         public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
-            if (slot.Card != null && slot.Card.Attack > 0)
+            if (base.Card.Info.IsSpell() && slot.Card != null && slot.Card.Attack > 0)
                 return base.Card.OpponentCard != slot.Card.OpponentCard;
 
             return false;

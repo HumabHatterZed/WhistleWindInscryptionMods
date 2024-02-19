@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 
 using WhistleWind.Core.Helpers;
 
@@ -17,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
             CreateCard(MakeCard(
                 ozmaPumpkinJack,
                 "Jack",
-                attack: 2, health: 2, blood: 1)
+                attack: 2, health: 2)
                 .SetPortraits(ozmaPumpkinJack)
                 .AddAbilities(Cursed.ability)
                 .AddTribes(tribes));

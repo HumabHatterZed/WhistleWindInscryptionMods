@@ -21,13 +21,13 @@ namespace WhistleWindLobotomyMod.Patches
                 __result.RemoveAll(x => x.name.Equals("wstl_backwardClock"));
 
             if (LobotomySaveManager.OwnsApocalypseBird)
-                __result.RemoveAll(x => x.HasTrait(LobotomyCardManager.TraitBlackForest));
+                __result.RemoveAll(x => x.HasTrait(LobotomyCardManager.BlackForest));
 
             if (LobotomySaveManager.OwnsJesterOfNihil)
-                __result.RemoveAll(x => x.HasTrait(LobotomyCardManager.TraitMagicalGirl));
+                __result.RemoveAll(x => x.HasTrait(LobotomyCardManager.MagicalGirl));
 
             if (LobotomySaveManager.OwnsLyingAdult)
-                __result.RemoveAll(x => x.HasTrait(LobotomyCardManager.TraitEmeraldCity));
+                __result.RemoveAll(x => x.HasTrait(LobotomyCardManager.EmeraldCity));
 
             __result = CardLoader.RemoveDeckSingletonsIfInDeck(__result);
         }

@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -44,7 +43,7 @@ namespace WhistleWind.AbnormalSigils
                 "Third Brother",
                 attack: 0, health: 2, blood: 1)
                 .SetPortraits(dreamOfABlackSwanBrother3)
-                .AddAbilities(Reflector.ability)
+                .AddAbilities(Ability.Sharp)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances));

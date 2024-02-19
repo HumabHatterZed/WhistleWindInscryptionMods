@@ -1,7 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -26,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 .AddSpecialAbilities(specialAbilities)
                 .AddTraits(Trait.Goat)
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
-            
+
             NewCard(bloodBath1, bathName,
                 attack: 0, health: 1, blood: 1)
                 .SetPortraits(bloodBath1)

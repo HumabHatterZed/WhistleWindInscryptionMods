@@ -1,16 +1,13 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
-using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -73,7 +70,8 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.AnglerBoss, "SephirahYesodAngler" },
             { Opponent.Type.TrapperTraderBoss, "SephirahYesodTrapperTrader" },
             { Opponent.Type.LeshyBoss, "SephirahYesodLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahYesodRoyal" }
+            { Opponent.Type.RoyalBoss, "SephirahYesodRoyal" },
+            { ApocalypseBossOpponent.ID, "SephirahYesodApocalypse" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -83,9 +81,9 @@ namespace WhistleWindLobotomyMod
         private void Card_Yesod()
         {
             NewCard("sephirahYesod", "Yesod", "The head of the Information Department. Incompetence will not be tolerated.",
-                attack: 0, health: 1, blood: 2)
-                .AddAbilities(Ability.Tutor, Corrector.ability)
-                .AddTraits(TraitSephirah)
+                attack: 2, health: 3, blood: 2)
+                .AddAbilities(Ability.Tutor)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

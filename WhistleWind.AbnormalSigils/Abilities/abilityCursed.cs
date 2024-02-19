@@ -30,13 +30,20 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
             if (!wasSacrifice && killer != null && !killer.Dead && killer.Health != 0)
-                return killer.LacksAbility(Ability.MadeOfStone) && killer.LacksAllTraits(Trait.Giant, Trait.Uncuttable);
+                return killer.LacksAbility(Ability.MadeOfStone);
 
             return false;
         }
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
+            if (killer.HasAnyOfTraits(Trait.Giant, Trait.Uncuttable))
+            {
+                killer.Anim.StrongNegationEffect();
+                yield return new WaitForSeconds(0.4f);
+                yield return DialogueHelper.PlayDialogueEvent("CursedFail");
+                yield break;
+            }
             yield return PreSuccessfulTriggerSequence();
             yield return HelperMethods.ChangeCurrentView(View.Board);
             yield return new WaitForSeconds(0.2f);
@@ -44,6 +51,7 @@ namespace WhistleWind.AbnormalSigils
             yield return new WaitForSeconds(0.55f);
             yield return killer.TransformIntoCard(this.Card.Info);
             killer.Status.damageTaken = 0;
+            killer.TemporaryMods.RemoveAll(x => x.nonCopyable || !x.fromTotem);
             yield return new WaitForSeconds(0.4f);
             yield return LearnAbility();
         }

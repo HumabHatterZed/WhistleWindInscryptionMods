@@ -1,5 +1,7 @@
-﻿/*using DiskCardGame;
+﻿using DiskCardGame;
 using InscryptionAPI.Ascension;
+using InscryptionAPI.Helpers;
+using System.Reflection;
 using WhistleWind.Core.Helpers;
 
 namespace ModDebuggingMod
@@ -31,34 +33,40 @@ namespace ModDebuggingMod
         public static AscensionChallenge Id23 { get; private set; }
         public static AscensionChallenge Id24 { get; private set; }
 
-        public static void AddChallenges()
+        public void AddChallenges()
         {
-            int num = 1;
-            Id1 = ChallengeManager.Add(pluginGuid, "Challenge1", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge1__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge1__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id2 = ChallengeManager.Add(pluginGuid, "Challenge2", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge2__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge2__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id3 = ChallengeManager.Add(pluginGuid, "Challenge3", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge3__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge3__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id4 = ChallengeManager.Add(pluginGuid, "Challenge4", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge4__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge4__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id5 = ChallengeManager.Add(pluginGuid, "Challenge5", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge5__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge5__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id6 = ChallengeManager.Add(pluginGuid, "Challenge6", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge6__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge6__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id7 = ChallengeManager.Add(pluginGuid, "Challenge7", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge7__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge7__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id8 = ChallengeManager.Add(pluginGuid, "Challenge8", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge8__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge8__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id9 = ChallengeManager.Add(pluginGuid, "Challenge9", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge9__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge9__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id10 = ChallengeManager.Add(pluginGuid, "Challenge10", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge91__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge91__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id11 = ChallengeManager.Add(pluginGuid, "Challenge11", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge911__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge911__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id12 = ChallengeManager.Add(pluginGuid, "Challenge12", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge912__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge912__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id13 = ChallengeManager.Add(pluginGuid, "Challenge13", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge913__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge913__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id14 = ChallengeManager.Add(pluginGuid, "Challenge14", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge914__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge914__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id15 = ChallengeManager.Add(pluginGuid, "Challenge15", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge915__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge915__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id16 = ChallengeManager.Add(pluginGuid, "Challenge16", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge916__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge916__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id17 = ChallengeManager.Add(pluginGuid, "Challenge17", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge917__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge917__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id18 = ChallengeManager.Add(pluginGuid, "Challenge18", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge918__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge918__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id19 = ChallengeManager.Add(pluginGuid, "Challenge19", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge919__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge919__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id20 = ChallengeManager.Add(pluginGuid, "Challenge20", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge920__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge920__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id21 = ChallengeManager.Add(pluginGuid, "Challenge21", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge921__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge921__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id22 = ChallengeManager.Add(pluginGuid, "Challenge22", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge922__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge922__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id23 = ChallengeManager.Add(pluginGuid, "Challenge23", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge923__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge923__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
-            Id24 = ChallengeManager.Add(pluginGuid, "Challenge24", "Challenge1", 50, TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge924__1_), TextureLoader.LoadTextureFromBytes(Properties.Resources.challenge924__2_)).SetAppearancesInChallengeScreen(num).Challenge.challengeType;
+            int num = 2;
+            Id1 = AddDebug("Challenge1", "challenge1_1.png", "challenge1_2.png", num);
+
+            /*Id2 = AddDebug("Challenge2", "challenge2__1_.png", "challenge2__2_.png", num);
+            Id3 = AddDebug("Challenge3", "challenge3__1_.png", "challenge3__2_.png", num);
+            Id4 = AddDebug("Challenge4", "challenge4__1_.png", "challenge4__2_.png", num);
+            Id5 = AddDebug("Challenge5", "challenge5__1_.png", "challenge5__2_.png", num);
+            Id6 = AddDebug("Challenge6", "challenge6__1_.png", "challenge6__2_.png", num);
+            Id7 = AddDebug("Challenge7", "challenge7__1_.png", "challenge7__2_.png", num);
+            Id8 = AddDebug("Challenge8", "challenge8__1_.png", "challenge8__2_.png", num);
+            Id9 = AddDebug("Challenge9", "challenge9__1_.png", "challenge9__2_.png", num);
+            Id10 = AddDebug("Challenge10", "challenge91__1_.png", "challenge91__2_.png", num);
+            Id11 = AddDebug("Challenge11", "challenge911__1_.png", "challenge911__2_.png", num);
+            Id12 = AddDebug("Challenge12", "challenge912__1_.png", "challenge912__2_.png", num);
+            Id13 = AddDebug("Challenge13", "challenge913__1_.png", "challenge913__2_.png", num);
+            Id14 = AddDebug("Challenge14", "challenge914__1_.png", "challenge914__2_.png", num);
+            Id15 = AddDebug("Challenge15", "challenge915__1_.png", "challenge915__2_.png", num);
+            Id16 = AddDebug("Challenge16", "challenge916__1_.png", "challenge916__2_.png", num);
+            Id17 = AddDebug("Challenge17", "challenge917__1_.png", "challenge917__2_.png", num);
+            Id18 = AddDebug("Challenge18", "challenge918__1_.png", "challenge918__2_.png", num);
+            Id19 = AddDebug("Challenge19", "challenge919__1_.png", "challenge919__2_.png", num);
+            Id20 = AddDebug("Challenge20", "challenge920__1_.png", "challenge920__2_.png", num);
+            Id21 = AddDebug("Challenge21", "challenge921__1_.png", "challenge921__2_.png", num);
+            Id22 = AddDebug("Challenge22", "challenge922__1_.png", "challenge922__2_.png", num); 
+            Id23 = AddDebug("Challenge23", "challenge923__1_.png", "challenge923__2_.png", num);
+            Id24 = AddDebug("Challenge24", "challenge924__1_.png", "challenge924__2_.png", num);*/
+        }
+        private AscensionChallenge AddDebug(string name, string tex1, string tex2, int num)
+        {
+            Assembly ass = Assembly.GetExecutingAssembly();
+            return ChallengeManager.Add(pluginGuid, name, name, 50, TextureHelper.GetImageAsTexture(tex1, ass), TextureHelper.GetImageAsTexture(tex2, ass), 0, num > 1)
+                .SetAppearancesInChallengeScreen (num).Challenge.challengeType;
         }
     }
 }
-*/

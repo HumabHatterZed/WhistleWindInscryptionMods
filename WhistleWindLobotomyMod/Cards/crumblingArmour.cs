@@ -1,6 +1,4 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
+﻿using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -15,7 +13,7 @@ namespace WhistleWindLobotomyMod
             const string crumblingArmour = "crumblingArmour";
 
             NewCard(crumblingArmour, "Crumbling Armour", "A suit of armour that rewards the brave and punishes the cowardly.",
-                attack: 0, health: 3, bones: 4)
+                attack: 0, health: 3, bones: 4, temple: CardTemple.Undead)
                 .SetPortraits(crumblingArmour)
                 .AddAbilities(Courageous.ability)
                 .SetTerrain(false)

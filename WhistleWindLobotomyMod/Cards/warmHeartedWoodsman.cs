@@ -1,6 +1,4 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
+﻿using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
@@ -21,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(warmHeartedWoodsman)
                 .AddAbilities(Woodcutter.ability)
                 .AddTribes(TribeMechanical)
-                .AddTraits(TraitEmeraldCity)
+                .AddTraits(EmeraldCity)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }

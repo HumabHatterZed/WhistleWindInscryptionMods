@@ -1,14 +1,60 @@
 using DiskCardGame;
-using GBC;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace WhistleWind.Core.Helpers
 {
     public static class HelperMethods
     {
+        // play hit anim then trigger Die
+        // doesn't actually destroy the card
+        public static IEnumerator DieDontDestroy(PlayableCard card, bool wasSacrifice, PlayableCard killer)
+        {
+            card.Anim.PlayHitAnimation();
+            card.Anim.SetShielded(shielded: false);
+            yield return card.Anim.ClearLatchAbility();
+            if (card.TriggerHandler.RespondsToTrigger(Trigger.Die, wasSacrifice, killer))
+                yield return card.TriggerHandler.OnTrigger(Trigger.Die, wasSacrifice, killer);
+        }
+
+        public static T CopyAbilityBehaviour<T>(T original, GameObject gameObject) where T : AbilityBehaviour
+        {
+            System.Type type = original.GetType();
+            Component component = gameObject.AddComponent(type);
+            System.Reflection.FieldInfo[] fields = type.GetFields();
+            foreach (System.Reflection.FieldInfo field in fields)
+            {
+                if (!field.IsLiteral)// && !field.IsInitOnly) // don't mess with constants
+                    field.SetValue(component, field.GetValue(original));
+            }
+            return component as T;
+        }
+        public static T CopySpecialCardBehaviour<T>(T original, GameObject gameObject) where T : SpecialCardBehaviour
+        {
+            System.Type type = original.GetType();
+            Component component = gameObject.AddComponent(type);
+            System.Reflection.FieldInfo[] fields = type.GetFields();
+            foreach (System.Reflection.FieldInfo field in fields)
+            {
+                if (!field.IsLiteral)// && !field.IsInitOnly) // don't mess with constants
+                    field.SetValue(component, field.GetValue(original));
+            }
+            return component as T;
+        }
+        public static IEnumerator HealCard(CardSlot slot, float postWait = 0.1f, Action<CardSlot> onHealCallback = null)
+        {
+            bool faceDown = slot.Card.FaceDown;
+            yield return slot.Card.FlipFaceUp(faceDown);
+            slot.Card.Anim.LightNegationEffect();
+            slot.Card.HealDamage(2);
+            onHealCallback?.Invoke(slot);
+            yield return new WaitForSeconds(postWait);
+            yield return slot.Card.FlipFaceDown(faceDown);
+            if (faceDown)
+                yield return new WaitForSeconds(0.4f);
+        }
         public static void RemoveCardFromDeck(CardInfo info)
         {
             if (SaveManager.SaveFile.IsPart2)
@@ -24,9 +70,9 @@ namespace WhistleWind.Core.Helpers
                     RunState.Run.playerDeck.RemoveCardByName(info.name);
             }
         }
-        public static IEnumerator FlipFaceUp(this PlayableCard card, bool faceDown, float wait = 0.3f)
+        public static IEnumerator FlipFaceUp(this PlayableCard card, bool alreadyFaceDown, float wait = 0.3f)
         {
-            if (!faceDown)
+            if (!alreadyFaceDown)
                 yield break;
 
             card.SetFaceDown(false);
@@ -84,14 +130,14 @@ namespace WhistleWind.Core.Helpers
             else
             {
                 CardSlot index = openSlots[SeededRandom.Range(0, openSlots.Count, randomSeed++)];
+                ViewManager.Instance.SwitchToView(View.OpponentQueue);
                 yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(cardToQueue, index);
                 if (triggerResolve)
                 {
-                    PlayableCard card = Singleton<TurnManager>.Instance.Opponent.Queue.Find(x => x.Info == cardToQueue);
-                    if (card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard))
+                    PlayableCard card = Singleton<TurnManager>.Instance.Opponent.Queue.FindLast(x => x.Info.name == cardToQueue.name);
+                    if (card != null && card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard))
                         yield return card.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard);
 
-                    yield return Singleton<GlobalTriggerHandler>.Instance.TriggerCardsOnBoard(Trigger.OtherCardResolve, false, card);
                 }
             }
             yield return new WaitForSeconds(0.45f);

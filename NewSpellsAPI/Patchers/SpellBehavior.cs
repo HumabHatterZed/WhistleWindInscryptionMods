@@ -13,6 +13,30 @@ using UnityEngine;
 
 namespace Infiniscryption.Spells.Patchers
 {
+    public class Act1QueuedCardInteractable : MainInputInteractable
+    {
+        public HighlightedInteractable queueSlot;
+        public PlayableCard playableCard;
+
+        public void QueueCursorEnter()
+        {
+            if (playableCard?.QueuedSlot == null)
+            {
+                playableCard = null;
+                return;
+            }
+            SpellBehavior.UpdatePlayableStatsSpellDisplay(playableCard, true);
+        }
+        public void QueueCursorExit()
+        {
+            if (playableCard?.QueuedSlot == null)
+            {
+                playableCard = null;
+                return;
+            }
+            SpellBehavior.UpdatePlayableStatsSpellDisplay(playableCard, false);
+        }
+    }
     public static class SpellBehavior
     {
         #region CardAppearanceBehaviours
@@ -37,9 +61,11 @@ namespace Infiniscryption.Spells.Patchers
         #endregion
 
         #region Spell Helpers
-        public static bool IsGlobalSpell(this CardInfo card) => card.HasSpecialAbility(GlobalSpellAbility.ID);
+        public static bool IsGlobalSpell(this CardInfo card) => card.HasAnyOfSpecialAbilities(GlobalSpellAbility.ID, InstaGlobalSpellAbility.ID);
+        public static bool IsInstaGlobalSpell(this CardInfo card) => card.HasSpecialAbility(InstaGlobalSpellAbility.ID);
         public static bool IsTargetedSpell(this CardInfo card) => card.HasSpecialAbility(TargetedSpellAbility.ID);
         public static bool IsSpell(this CardInfo card) => card.IsTargetedSpell() || card.IsGlobalSpell();
+        public static bool IsSpellShowStats(this CardInfo card) => card.IsSpell() && !card.hideAttackAndHealth;
         #endregion
 
         #region Target Validators
@@ -136,58 +162,109 @@ namespace Infiniscryption.Spells.Patchers
         #endregion
 
         #region Stat Spell Patches
-        // this allows the card's stats to be displayed as-is in-battle
-        [HarmonyPatch(typeof(VariableStatBehaviour), nameof(VariableStatBehaviour.UpdateStats))]
-        [HarmonyPrefix]
-        public static bool ShowStatsWhenInHand(ref VariableStatBehaviour __instance)
+        public static bool NotStatsSpellInfo(CardInfo info) => info == null || !info.IsSpellShowStats();
+
+        public static void UpdateStatsSpellDisplay<T>(T card, bool showStats) where T : Card
         {
-            // if a spell that displays stats, show when in hand or on board
-            if (__instance.PlayableCard.Info.IsSpell() && !__instance.PlayableCard.Info.hideAttackAndHealth)
+            if (NotStatsSpellInfo(card.Info))
+                return;
+
+            card.RenderInfo.showSpecialStats = showStats;
+            if (showStats)
             {
-                bool handOrBoard = __instance.PlayableCard.InHand || __instance.PlayableCard.OnBoard;
-                int[] array = new int[2];
-                if (handOrBoard)
-                {
-                    array = __instance.GetStatValues();
-                    __instance.statsMod.attackAdjustment = array[0];
-                    __instance.statsMod.healthAdjustment = array[1];
-                    __instance.PlayableCard.RenderInfo.showSpecialStats = handOrBoard;
-                }
-                // call this every 1 second to minimise lag
-                if (__instance.prevOnBoard != __instance.PlayableCard.OnBoard || (handOrBoard && Environment.TickCount % 50 == 0))
-                {
-                    __instance.PlayableCard.OnStatsChanged();
-                }
-                __instance.prevStatValues = array;
-                __instance.prevOnBoard = __instance.PlayableCard.OnBoard;
-                return false;
+                card.RenderInfo.attack = card.Info.Attack;
+                card.RenderInfo.health = card.Info.Health;
             }
-            return true;
+
+            card.RenderInfo.attackTextColor = card.RenderInfo.attack > 0 ? GameColors.Instance.darkBlue : Color.black;
+            card.RenderInfo.healthTextColor = card.RenderInfo.health > 0 ? GameColors.Instance.darkBlue : Color.black;
+            card.RenderCard();
+        }
+        public static void UpdatePlayableStatsSpellDisplay(PlayableCard card, bool showStats)
+        {
+            if (NotStatsSpellInfo(card.Info))
+                return;
+
+            card.RenderInfo.showSpecialStats = showStats;
+            if (showStats)
+            {
+                card.RenderInfo.attack = card.Info.Attack;
+                card.RenderInfo.health = card.Info.Health;
+            }
+
+            card.RenderInfo.attackTextColor = (card.GetPassiveAttackBuffs() + card.GetStatIconAttackBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
+            card.RenderInfo.healthTextColor = (card.GetPassiveHealthBuffs() + card.GetStatIconHealthBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
+            card.RenderCard();
         }
 
+        // these allow the player to view a stat spell's stats when hovering over a card - how fancy~
+        [HarmonyPostfix, HarmonyPatch(typeof(SelectableCard), "OnCursorEnter")]
+        private static void ShowStatsSelectableCards(SelectableCard __instance) => UpdateStatsSpellDisplay(__instance, true);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), "OnCursorEnter")]
+        private static void ShowStatsPlayableCards(PlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, true);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PixelSelectableCard), "OnCursorEnter")]
+        private static void ShowStatsPixelSelectableCards(PixelSelectableCard __instance) => UpdateStatsSpellDisplay(__instance, true);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PixelPlayableCard), "OnCursorEnter")]
+        private static void ShowStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, true);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PixelSelectableCard), "OnCursorExit")]
+        private static void HideStatsPixelSelectableCards(PixelSelectableCard __instance) => UpdateStatsSpellDisplay(__instance, false);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(PixelPlayableCard), "OnCursorExit")]
+        private static void HideStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, false);
+
+        [HarmonyPostfix, HarmonyPatch(typeof(MainInputInteractable), "OnCursorExit")]
+        private static void ShowStatsSelectableCards(MainInputInteractable __instance)
+        {
+            if (__instance is SelectableCard)
+            {
+                SelectableCard card = __instance as SelectableCard;
+                UpdateStatsSpellDisplay(card, false);
+            }
+            else if (__instance is PlayableCard)
+            {
+                PlayableCard playableCard = __instance as PlayableCard;
+                UpdatePlayableStatsSpellDisplay(playableCard, false);
+            }
+        }
+        [HarmonyPostfix, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.QueueCardForSlot))]
+        private static void ShowStatsSelectableCards(PlayableCard card)
+        {
+            if (SaveManager.SaveFile.IsPart2 || NotStatsSpellInfo(card.Info))
+                return;
+
+            HighlightedInteractable queueSlot = BoardManager3D.Instance.opponentQueueSlots[card.QueuedSlot.Index];
+            Act1QueuedCardInteractable interactable = queueSlot.GetComponent<Act1QueuedCardInteractable>();
+            if (interactable == null)
+            {
+                interactable = queueSlot.gameObject.AddComponent<Act1QueuedCardInteractable>();
+                queueSlot.CursorEntered += x => interactable.QueueCursorEnter();
+                queueSlot.CursorExited += x => interactable.QueueCursorExit();
+            }
+            interactable.playableCard = card;
+        }
         // method for adding show-stats spells to the campfire list of valid cards
-        // not patched automatically
-        public static void AllowStatBoostForSpells(ref List<CardInfo> __result)
+        // not patched automatically; stat spells need to be able to stat boost in the first place
+        public static void AllowStatBoostForSpells(List<CardInfo> __result)
         {
             List<CardInfo> deckList = new(RunState.DeckList);
-            if (deckList.Exists(dl => dl.HasAnyOfSpecialAbilities(TargetedSpellAbility.ID, GlobalSpellAbility.ID)))
-            {
-                deckList.RemoveAll(ci => ci.LacksAllSpecialAbilities(TargetedSpellAbility.ID, GlobalSpellAbility.ID));
-                deckList.RemoveAll(ci => ci.hideAttackAndHealth || (ci.baseAttack == 0 && ci.baseHealth == 0));
-                __result.AddRange(deckList);
-            }
+            deckList.RemoveAll(ci => __result.Contains(ci) || !ci.IsSpellShowStats() || (ci.baseAttack == 0 && ci.baseHealth == 0));
+            __result.AddRange(deckList);
         }
         #endregion
 
         #region Main Spell Patches
         // First: we don't need room on board
-        [HarmonyPatch(typeof(BoardManager), "SacrificesCreateRoomForCard")]
-        [HarmonyPrefix]
+        [HarmonyPrefix, HarmonyPatch(typeof(BoardManager), "SacrificesCreateRoomForCard")]
         public static bool SpellsDoNotNeedSpace(PlayableCard card, BoardManager __instance, List<CardSlot> sacrifices, ref bool __result)
         {
-            if (!card || !card.Info.IsSpell())
+            if (card == null || !card.Info.IsSpell())
                 return true;
 
+            // if the spell costs no blood, we don't need to bother with this
             if (card.Info.BloodCost <= 0)
             {
                 __result = true;
@@ -195,18 +272,20 @@ namespace Infiniscryption.Spells.Patchers
             }
 
             // iterate through each slot that hasn't been selected for sacrifice
-            // to determine if there will still be valid targets afterwards
-            foreach (CardSlot slot in __instance.AllSlotsCopy
-                .Where(asc => (asc.Card != null && asc.Card.HasAbility(Ability.Sacrificial)) || !sacrifices.Contains(asc)))
+            // to determine if there will still be valid targets after sacrifices
+            foreach (CardSlot slot in __instance.AllSlotsCopy)
             {
-                if (slot.IsValidTarget(card))
+                if (!sacrifices.Contains(slot) || (slot.Card != null && slot.Card.HasAbility(Ability.Sacrificial)))
                 {
+                    if (!slot.IsValidTarget(card))
+                        continue;
+
                     __result = true;
-                    break;
+                    return false;
                 }
             }
 
-            return false;
+            return true;
         }
 
         // Next, there has to be at least one slot (for targeted spells)
@@ -245,12 +324,8 @@ namespace Infiniscryption.Spells.Patchers
             yield return new WaitWhile(() => Singleton<PlayerHand>.Instance.ChoosingSlot);
 
             Singleton<PlayerHand>.Instance.OnSelectSlotStartedForCard(card);
-
-            if (Singleton<RuleBookController>.Instance != null)
-                Singleton<RuleBookController>.Instance.SetShown(shown: false);
-
+            Singleton<RuleBookController>.Instance?.SetShown(shown: false);
             Singleton<BoardManager>.Instance.CancelledSacrifice = false;
-
             Singleton<PlayerHand>.Instance.choosingSlotCard = card;
 
             if (card != null && card.Anim != null)
@@ -271,39 +346,40 @@ namespace Infiniscryption.Spells.Patchers
 
             // All card slots
             List<CardSlot> allSlots = Singleton<BoardManager>.Instance.AllSlotsCopy;
-
             if (!Singleton<BoardManager>.Instance.CancelledSacrifice)
             {
-                IEnumerator chooseSlotEnumerator = Singleton<BoardManager>.Instance.ChooseSlot(allSlots, !requiresSacrifices);
-                chooseSlotEnumerator.MoveNext();
-
-                // Mark which slots can be targeted before letting the code continue
-                foreach (CardSlot slot in allSlots)
+                bool canPlayCard = true;
+                if (!card.Info.IsInstaGlobalSpell())
                 {
-                    bool isValidTarget;
-                    if (card.Info.IsTargetedSpell())
-                        isValidTarget = slot.IsValidTarget(card);
+                    IEnumerator chooseSlotEnumerator = Singleton<BoardManager>.Instance.ChooseSlot(allSlots, !requiresSacrifices);
+                    chooseSlotEnumerator.MoveNext();
+
+                    // Mark which slots can be targeted before letting the code continue
+                    foreach (CardSlot slot in allSlots)
+                    {
+                        bool isValidTarget = !card.Info.IsTargetedSpell() || slot.IsValidTarget(card);
+
+                        slot.SetEnabled(isValidTarget);
+                        slot.ShowState(isValidTarget ? HighlightedInteractable.State.Interactable : HighlightedInteractable.State.NonInteractable);
+                        slot.Chooseable = isValidTarget;
+                    }
+
+                    yield return chooseSlotEnumerator.Current; // not sure why this is separate, but it was like this in the original soo
+                    while (chooseSlotEnumerator.MoveNext()) // Run through the rest of the code to determine what slot has been targeted
+                        yield return chooseSlotEnumerator.Current;
+
+                    // Act 2 has some ManagedUpdate bull making things not do the do
+                    // so we check if the current interactable is A) a CardSlot and B) a valid target
+                    if (SaveManager.SaveFile.IsPart2 && InputButtons.GetButtonDown(Button.Select) && card.Info.IsTargetedSpell())
+                    {
+                        canPlayCard = (Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot).IsValidTarget(card, true);
+                    }
                     else
-                        isValidTarget = true;
-
-                    slot.SetEnabled(isValidTarget);
-                    slot.ShowState(isValidTarget ? HighlightedInteractable.State.Interactable : HighlightedInteractable.State.NonInteractable);
-                    slot.Chooseable = isValidTarget;
+                    {
+                        // if we didn't cancel placement
+                        canPlayCard = !Singleton<BoardManager>.Instance.cancelledPlacementWithInput;
+                    }
                 }
-                yield return chooseSlotEnumerator.Current;
-
-                // Run through the rest of the code to determine what slot has been targeted
-                while (chooseSlotEnumerator.MoveNext())
-                    yield return chooseSlotEnumerator.Current;
-
-                bool canPlayCard = false;
-
-                // Act 2 has some ManagedUpdate bull making things not do the do
-                // so we go like this and it works, yeah
-                if (SaveManager.SaveFile.IsPart2 && InputButtons.GetButtonDown(Button.Select))
-                    canPlayCard = (Singleton<InteractionCursor>.Instance.CurrentInteractable as CardSlot).IsValidTarget(card, true);
-                else
-                    canPlayCard = !Singleton<BoardManager>.Instance.cancelledPlacementWithInput;
 
                 if (canPlayCard)
                 {
@@ -336,7 +412,6 @@ namespace Infiniscryption.Spells.Patchers
                             foreach (CardSlot slot in resolveSlots)
                             {
                                 card.Slot = slot;
-
                                 IEnumerator resolveTrigger = card.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard, Array.Empty<object>());
                                 for (bool active = true; active;)
                                 {
@@ -416,6 +491,24 @@ namespace Infiniscryption.Spells.Patchers
 
             yield break;
         }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(CardMergeSequencer), nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
+        private static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result)
+        {
+            __result.RemoveAll(x => x.Abilities.Exists(x => !x.CanMerge()));
+            if (InfiniscryptionSpellsPlugin.SpellMerge)
+                __result.RemoveAll(x => x.IsSpell());
+        }
+
+        // Prevents card from being merged / gaining sigils
+        [HarmonyPostfix, HarmonyPatch(typeof(CardMergeSequencer), nameof(CardMergeSequencer.GetValidCardsForHost))]
+        private static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
+        {
+            __result.RemoveAll(x => x.Abilities.Exists(x => !x.CanMerge()));
+            if (InfiniscryptionSpellsPlugin.SpellMerge)
+                __result.RemoveAll(x => x.IsSpell());
+        }
+
         #endregion
 
         #region Opponent Spell Patches
@@ -449,6 +542,9 @@ namespace Infiniscryption.Spells.Patchers
                         if (targetPlayer)
                             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
 
+                        if (card.Info.IsSpellShowStats())
+                            UpdatePlayableStatsSpellDisplay(card, true);
+
                     }, delegate
                     {
                         card.Anim.PlayRiffleSound();
@@ -469,7 +565,7 @@ namespace Infiniscryption.Spells.Patchers
                     else
                         resolveSlots = new List<CardSlot>() { null }; // For global spells, just resolve once, globally
 
-                    if (!card.Info.IsGlobalSpell())
+                    if (card.Info.IsTargetedSpell())
                     {
                         foreach (CardSlot resolveTarget in resolveSlots)
                         {
@@ -479,16 +575,13 @@ namespace Infiniscryption.Spells.Patchers
                             visualiser?.VisualizeConfirmSniperAbility(resolveTarget);
                             yield return new WaitForSeconds(0.1f);
                         }
-                        yield return new WaitForSeconds(0.2f);
+                        yield return new WaitForSeconds(0.4f);
                     }
 
                     for (int i = 0; i < resolveSlots.Count; i++)
                     {
                         card.Slot = resolveSlots[i];
                         IEnumerator resolveTrigger = card.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard, Array.Empty<object>());
-
-                        if (visualiser?.sniperIcons.Count > i && visualiser?.sniperIcons[i] != null)
-                            visualiser?.CleanUpTargetIcon(visualiser?.sniperIcons[i]);
 
                         for (bool active = true; active;)
                         {
@@ -504,6 +597,9 @@ namespace Infiniscryption.Spells.Patchers
                             if (active) // Yielding and other loop logic is moved outside of the try-catch
                                 yield return resolveTrigger.Current;
                         }
+
+                        if (visualiser?.sniperIcons.Count > i && visualiser?.sniperIcons[i] != null)
+                            visualiser?.CleanUpTargetIcon(visualiser?.sniperIcons[i]);
 
                         card.Slot = null;
                     }
@@ -566,47 +662,49 @@ namespace Infiniscryption.Spells.Patchers
             if (__instance.Queue.Count <= 0)
                 yield break;
 
-            if (__instance.Queue.Any(x => x.Info.IsSpell()))
+            if (!__instance.Queue.Exists(x => x.Info.IsSpell()))
             {
-                List<PlayableCard> queuedCards = new(__instance.Queue);
-
-                yield return __instance.VisualizePrePlayQueuedCards();
-                List<PlayableCard> playedCards = new();
-
-                queuedCards.Sort((PlayableCard a, PlayableCard b) => a.QueuedSlot.Index - b.QueuedSlot.Index);
-
-                // play non-spell cards first - this is just the vanilla code
-                foreach (PlayableCard queuedCard in queuedCards.Where(qc => !qc.Info.IsSpell()))
-                {
-                    if (!__instance.QueuedCardIsBlocked(queuedCard))
-                    {
-                        CardSlot queuedSlot = queuedCard.QueuedSlot;
-                        queuedCard.QueuedSlot = null;
-                        if (queuedCard != null)
-                            queuedCard.OnPlayedFromOpponentQueue();
-
-                        yield return Singleton<BoardManager>.Instance.ResolveCardOnBoard(queuedCard, queuedSlot, tweenLength);
-                        playedCards.Add(queuedCard);
-                    }
-                }
-                foreach (PlayableCard queuedCard in queuedCards.Where(qc => qc.Info.IsSpell()))
-                {
-                    // spell cards don't need space to be played
-                    CardSlot queuedSlot = queuedCard.QueuedSlot;
-                    queuedCard.QueuedSlot = null;
-                    if (queuedCard != null)
-                        queuedCard.OnPlayedFromOpponentQueue();
-
-                    yield return Singleton<BoardManager>.Instance.ResolveCardOnBoard(queuedCard, queuedSlot, tweenLength);
-                    playedCards.Add(queuedCard);
-                }
-                __instance.Queue.RemoveAll((PlayableCard x) => playedCards.Contains(x));
-                yield return new WaitForSeconds(0.5f);
+                yield return enumerator;
                 yield break;
             }
-            else
-                yield return enumerator;
+
+            yield return __instance.VisualizePrePlayQueuedCards();
+            List<PlayableCard> playedCards = new(), queuedCards = new(__instance.Queue);
+            queuedCards.Sort((PlayableCard a, PlayableCard b) => a.QueuedSlot.Index - b.QueuedSlot.Index);
+
+            // play non-spell cards before spell cards
+            foreach (PlayableCard queuedCard in queuedCards.Where(qc => !qc.Info.IsSpell()))
+            {
+                if (__instance.QueuedCardIsBlocked(queuedCard))
+                    continue;
+
+                CardSlot queuedSlot = queuedCard.QueuedSlot;
+                queuedCard.QueuedSlot = null;
+                queuedCard?.OnPlayedFromOpponentQueue();
+                yield return Singleton<BoardManager>.Instance.ResolveCardOnBoard(queuedCard, queuedSlot, tweenLength);
+                playedCards.Add(queuedCard);
+            }
+            foreach (PlayableCard queuedCard in queuedCards.Where(qc => qc.Info.IsSpell()))
+            {
+                if (__instance.QueuedCardIsBlocked(queuedCard))
+                    continue;
+
+                CardSlot queuedSlot = queuedCard.QueuedSlot;
+                queuedCard.QueuedSlot = null;
+                queuedCard?.OnPlayedFromOpponentQueue();
+                yield return Singleton<BoardManager>.Instance.ResolveCardOnBoard(queuedCard, queuedSlot, tweenLength);
+                playedCards.Add(queuedCard);
+            }
+            __instance.Queue.RemoveAll(playedCards.Contains);
+            yield return new WaitForSeconds(0.5f);
         }
+        [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.QueuedCardIsBlocked))]
+        private static void QueuedSpellsCantBeBlocked(ref bool __result, PlayableCard queuedCard)
+        {
+            if (queuedCard != null && queuedCard.Info.IsSpell())
+                __result = false;
+        }
+
         public static CardSlot OpponentGetTargetSlot(List<CardSlot> validTargets)
         {
             CardSlot selectedSlot = null;

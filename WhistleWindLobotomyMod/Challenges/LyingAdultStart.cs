@@ -1,9 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 
-
-namespace WhistleWindLobotomyMod.Core.Challenges
+namespace WhistleWindLobotomyMod.Challenges
 {
     public static class LyingAdultStart
     {

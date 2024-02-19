@@ -7,6 +7,7 @@ namespace WhistleWind.AbnormalSigils.Core
     public class StatusEffectAbilityIcons : ManagedBehaviour
     {
         public List<GameObject> statusEffectIconGroups = new();
+        public List<AbilityIconInteractable> part1AbilityIcons = new();
         public List<AbilityIconInteractable> abilityIcons = new();
         public Material statusEffectMat = null;
     }

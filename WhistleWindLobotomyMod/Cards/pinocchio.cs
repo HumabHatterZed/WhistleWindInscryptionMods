@@ -1,6 +1,4 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
+﻿using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -16,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string pinocchio = "pinocchio";
 
             NewCard(pinocchio, "Pinocchio", "A wooden doll that mimics the beasts it encounters. Can you see through its lie?",
-                attack: 0, health: 1, bones: 1)
+                attack: 0, health: 1, bones: 1, temple: CardTemple.Undead)
                 .SetPortraits(pinocchio)
                 .AddAbilities(Copycat.ability)
                 .AddTribes(TribeBotanic)

@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -14,13 +13,14 @@ namespace WhistleWindLobotomyMod
         private void Card_ChildOfTheGalaxy_O0155()
         {
             const string childOfTheGalaxy = "childOfTheGalaxy";
-            
-            NewCard(childOfTheGalaxy, "Child of the Galaxy", "A small child longing for a friend. Will you be his?",
-                attack: 1, health: 1, blood: 1)
+
+            NewCard(childOfTheGalaxy, "Child of the Galaxy", "A small child longing for an eternal friend. Will you be his?",
+                attack: 0, health: 0, blood: 1, temple: CardTemple.Wizard)
                 .SetPortraits(childOfTheGalaxy)
-                .AddAbilities(FlagBearer.ability, Ability.BoneDigger)
-                .AddTribes(TribeAnthropoid)
-                .SetDefaultEvolutionName("Teen of the Galaxy")
+                .AddAbilities(Lonely.ability)
+                .SetSpellType(SpellType.Targeted)
+                .AddMetaCategories(CannotGiveSigils)
+                .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }
     }

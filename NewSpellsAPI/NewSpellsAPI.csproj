@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Infiniscryption.Spells</AssemblyName>
     <Description>An updated version of Infiniscryption's Spell Card Toolkit with new features and general improvements.</Description>
-    <Version>1.1.3</Version>
+    <Version>1.2.4</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <DebugType>full</DebugType>
@@ -36,7 +36,6 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /Y $(TargetPath) ..\Compiled\" />
     <Exec Command="xcopy /Y $(TargetPath) ..\lib\" />
   </Target>
 </Project>

@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -20,7 +19,7 @@ namespace WhistleWindLobotomyMod
             SpecialTriggeredAbility[] specialAbilities = new[] { Smile.specialAbility };
 
             NewCard(mountainOfBodies3, displayName: mountainName,
-                attack: 5, health: 1, blood: 3)
+                attack: 3, health: 1, blood: 3, temple: CardTemple.Undead)
                 .SetPortraits(mountainOfBodies3)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(specialAbilities)
@@ -28,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
 
             NewCard(mountainOfBodies2, displayName: mountainName,
-                attack: 3, health: 1, blood: 2)
+                attack: 2, health: 1, blood: 2, temple: CardTemple.Undead)
                 .SetPortraits(mountainOfBodies2)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(specialAbilities)

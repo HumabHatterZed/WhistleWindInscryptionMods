@@ -16,8 +16,8 @@ namespace WhistleWind.AbnormalSigils
             const string triggerText = "[creature] makes its victim a part of itself.";
             Assimilator.ability = AbnormalAbilityHelper.CreateAbility<Assimilator>(
                 "sigilAssimilator",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
-                modular: false, opponent: false, canStack: true).Id;
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
+                modular: false, opponent: true, canStack: true).Id;
         }
     }
     public class Assimilator : AbilityBehaviour
@@ -25,20 +25,18 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private readonly CardModificationInfo mod = new(1, 1);
-
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             return killer == base.Card && !base.Card.Dead;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            yield return PreSuccessfulTriggerSequence();
-            yield return new WaitForSeconds(0.2f);
-            base.Card.AddTemporaryMod(mod);
-
-            base.Card.Anim.StrongNegationEffect();
-            yield return LearnAbility(0.4f);
+            yield return base.PreSuccessfulTriggerSequence();
+            yield return new WaitForSeconds(0.3f);
+            base.Card.AddTemporaryMod(new(1, 1));
+            base.Card.Anim.LightNegationEffect();
+            yield return new WaitForSeconds(0.3f);
+            yield return base.LearnAbility();
         }
     }
 }

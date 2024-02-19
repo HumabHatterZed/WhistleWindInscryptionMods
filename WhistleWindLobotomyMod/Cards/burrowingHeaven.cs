@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -15,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string burrowingHeaven = "burrowingHeaven";
 
             NewCard(burrowingHeaven, "The Burrowing Heaven", "Don't look away. Contain it in your sight.",
-                attack: 0, health: 1, blood: 1)
+                attack: 0, health: 1, bones: 2)
                 .SetPortraits(burrowingHeaven)
                 .AddAbilities(Ability.GuardDog, Ability.Sentry)
                 .AddTribes(TribeDivine)

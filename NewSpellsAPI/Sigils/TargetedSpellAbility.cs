@@ -28,7 +28,7 @@ namespace Infiniscryption.Spells.Sigils
             info.appliesToAttack = true;
             info.appliesToHealth = true;
             info.rulebookName = "Spell (Targeted)";
-            info.rulebookDescription = "When played, this card will target and affect a chosen space on the board and then disappear.";
+            info.rulebookDescription = "When this card is played, it will target and affect a chosen space on the board and then disappear.";
             info.gbcDescription = "TARGETED SPELL.";
             info.iconGraphic = AssetHelper.LoadTexture("targeted_spell_stat_icon");
             info.SetPixelIcon(AssetHelper.LoadTexture("targeted_spell_icon_pixel"));

@@ -8,10 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Challenges;
 using WhistleWindLobotomyMod.Core.Helpers;
-
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
@@ -314,7 +313,7 @@ namespace WhistleWindLobotomyMod
             if (!LobotomySaveManager.LearnedAbnormalChoice)
             {
                 Singleton<TextDisplayer>.Instance.Clear();
-                yield return new WaitForSeconds(0.15f);
+                yield return HelperMethods.ChangeCurrentView(View.Default);
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(
                     "The creature rises from the well and joins your caravan. Ignoring the cries from the well, you hastily continue on.",
                     0f, 0.4f, Emotion.Neutral);

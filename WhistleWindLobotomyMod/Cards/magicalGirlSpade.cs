@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -17,10 +16,10 @@ namespace WhistleWindLobotomyMod
             const string knightOfDespair = "knightOfDespair";
             const string magicalGirlSpade = "magicalGirlSpade";
             Tribe[] tribes = new[] { TribeFae };
-            Trait[] traits = new[] { TraitMagicalGirl };
+            Trait[] traits = new[] { MagicalGirl };
 
             NewCard(knightOfDespair, knightName,
-                attack: 1, health: 4, blood: 2)
+                attack: 1, health: 4, blood: 2, temple: CardTemple.Wizard)
                 .SetPortraits(knightOfDespair)
                 .AddAbilities(Ability.SplitStrike, Piercing.ability)
                 .AddTribes(tribes)
@@ -29,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             NewCard(magicalGirlSpade, knightName, "A loyal knight fighting to protect those close to her.",
-                attack: 1, health: 4, blood: 2)
+                attack: 1, health: 4, blood: 2, temple: CardTemple.Wizard)
                 .SetPortraits(magicalGirlSpade)
                 .AddAbilities(Protector.ability)
                 .AddSpecialAbilities(SwordWithTears.specialAbility)

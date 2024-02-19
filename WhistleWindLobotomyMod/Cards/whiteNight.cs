@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -20,8 +19,8 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(whiteNight, titleName: "whiteNight_title")
                 .AddAbilities(Ability.Flying, Idol.ability, TrueSaviour.ability)
                 .AddTribes(TribeDivine)
-                .AddTraits(ImmuneToInstaDeath, Trait.Uncuttable, TraitApostle)
-                .AddAppearances(ForcedWhiteEmission.appearance)
+                .AddTraits(ImmuneToInstaDeath, Trait.Uncuttable)
+                .AddAppearances(ForcedWhiteEmission.appearance, CardAppearanceBehaviour.Appearance.TerrainLayout)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
         }

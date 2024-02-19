@@ -1,7 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -18,7 +16,7 @@ namespace WhistleWindLobotomyMod
             NewCard(redHoodedMercenary, "Little Red Riding Hooded Mercenary", "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.",
                 attack: 2, health: 5, blood: 3)
                 .SetPortraits(redHoodedMercenary)
-                .AddAbilities(Ability.Sniper, Persistent.ability)
+                .AddAbilities(Ability.Sniper)
                 .AddSpecialAbilities(CrimsonScar.specialAbility)
                 .AddTribes(TribeAnthropoid)
                 .SetDefaultEvolutionName("Red Riding Hooded Mercenary")

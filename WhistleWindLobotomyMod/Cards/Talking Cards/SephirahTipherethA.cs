@@ -1,16 +1,13 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
-using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -79,7 +76,8 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.AnglerBoss, "SephirahTipherethAAngler" },
             { Opponent.Type.TrapperTraderBoss, "SephirahTipherethATrapperTrader" },
             { Opponent.Type.LeshyBoss, "SephirahTipherethALeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahTipherethARoyal" }
+            { Opponent.Type.RoyalBoss, "SephirahTipherethARoyal" },
+            { ApocalypseBossOpponent.ID, "SephirahTipherethAApocalypse" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -94,7 +92,7 @@ namespace WhistleWindLobotomyMod
             NewCard("sephirahTipherethA", "Tiphereth", "One of a pair of twins. Don't underestimate her capabilities.",
                 attack: 1, health: 2, energy: 3)
                 .AddAbilities(GiftGiver.ability)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .SetExtendedProperty("wstl:GiftGiver", "wstl_sephirahTipherethB")
                 .Build();

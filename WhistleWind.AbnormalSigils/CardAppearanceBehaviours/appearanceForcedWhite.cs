@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
         public override void ApplyAppearance()
         {
             base.Card.RenderInfo.forceEmissivePortrait = true;
-            // base.Card.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
+            base.Card.StatsLayer.SetEmissionColor(GameColors.Instance.brightNearWhite);
         }
     }
 }

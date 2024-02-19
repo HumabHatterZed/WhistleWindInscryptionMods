@@ -1,6 +1,4 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
+﻿using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -16,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string expressHellTrain = "expressHellTrain";
 
             NewCard(expressHellTrain, "Express Train to Hell", "When the time comes, the train will sound its mighty horn.",
-                attack: 0, health: 4, bones: 4)
+                attack: 0, health: 1, energy: 2, temple: CardTemple.Undead)
                 .SetPortraits(expressHellTrain)
                 .AddAbilities(TheTrain.ability)
                 .AddTribes(TribeMechanical)

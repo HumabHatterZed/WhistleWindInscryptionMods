@@ -2,11 +2,8 @@
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
-using InscryptionAPI.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -26,7 +23,7 @@ namespace WhistleWindLobotomyMod.Core
         {
             return CardHelper.NewCard(false, pluginPrefix, cardName, displayName, description, attack, health, blood, bones, energy, temple: temple);
         }
-        
+
         public static CardInfo Build(
             this CardInfo cardInfo,
             ChoiceType choiceType = ChoiceType.None,
@@ -64,18 +61,9 @@ namespace WhistleWindLobotomyMod.Core
                 cardInfo.RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
             }
 
-            if (LobotomyConfigManager.Instance.GBCPacks && cardInfo.pixelPortrait != null)
-            {
-                CardTemple temple = cardInfo.temple;
-                if (cardInfo.IsOfTribe(AbnormalPlugin.TribeFae))
-                    temple = CardTemple.Wizard;
-                else if (cardInfo.IsOfTribe(AbnormalPlugin.TribeMechanical))
-                    temple = CardTemple.Tech;
-
-                // make it available in packs and appear in the collection menu
-                if (canBeObtained)
-                    cardInfo.SetGBCPlayable(temple);
-            }
+            // make it available in packs and appear in the collection menu
+            if (LobotomyConfigManager.Instance.GBCPacks && cardInfo.pixelPortrait != null && canBeObtained)
+                cardInfo.AddMetaCategories(CardMetaCategory.GBCPack, CardMetaCategory.GBCPlayable);
 
             if (canBeObtained && cardInfo.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.Rare))
                 ObtainableLobotomyCards.Add(cardInfo);
@@ -85,35 +73,32 @@ namespace WhistleWindLobotomyMod.Core
             return cardInfo;
         }
 
-        public static CardInfo SetSpellType(this CardInfo cardInfo, SpellType spellType, bool showStats = false)
+        public static CardInfo SetSpellType(this CardInfo cardInfo, SpellType spellType)
         {
-            if (spellType == SpellType.Global)
-            {
-                if (!showStats)
-                    cardInfo.SetGlobalSpell();
-                else
-                    cardInfo.SetGlobalSpellStats();
-            }
-            else
-            {
-                if (!showStats)
-                    cardInfo.SetTargetedSpell();
-                else
-                    cardInfo.SetTargetedSpellStats();
-            }
-
             switch (spellType)
             {
                 case SpellType.Global:
+                    cardInfo.SetGlobalSpell();
                     cardInfo.SetNodeRestrictions(true, true, true, true);
                     break;
+                case SpellType.GlobalStats:
+                    cardInfo.SetGlobalSpellStats();
+                    cardInfo.SetNodeRestrictions(true, true, false, true);
+                    break;
+                case SpellType.GlobalSigils:
+                    cardInfo.SetGlobalSpell();
+                    cardInfo.SetNodeRestrictions(true, false, true, true);
+                    break;
                 case SpellType.Targeted:
+                    cardInfo.SetTargetedSpell();
                     cardInfo.SetNodeRestrictions(false, true, true, false);
                     break;
                 case SpellType.TargetedStats:
+                    cardInfo.SetTargetedSpellStats();
                     cardInfo.SetNodeRestrictions(false, true, false, false);
                     break;
                 case SpellType.TargetedSigils:
+                    cardInfo.SetTargetedSpell();
                     cardInfo.SetNodeRestrictions(false, false, true, false);
                     break;
             }
@@ -135,12 +120,12 @@ namespace WhistleWindLobotomyMod.Core
         public static readonly List<CardInfo> AllLobotomyCards = new();
         public static readonly List<CardInfo> ObtainableLobotomyCards = new();
 
-        public static Trait TraitApostle = GuidManager.GetEnumValue<Trait>(pluginGuid, "ApostleTrait");
-        public static Trait TraitSephirah = GuidManager.GetEnumValue<Trait>(pluginGuid, "SephirahTrait");
-        public static Trait TraitBlackForest = GuidManager.GetEnumValue<Trait>(pluginGuid, "BlackForestTrait");
-        public static Trait TraitEmeraldCity = GuidManager.GetEnumValue<Trait>(pluginGuid, "EmeraldCityTrait");
-        public static Trait TraitMagicalGirl = GuidManager.GetEnumValue<Trait>(pluginGuid, "MagicalGirlTrait");
-        public static Trait TraitExecutioner = GuidManager.GetEnumValue<Trait>(pluginGuid, "Executioner");
+        public static Trait Apostle = GuidManager.GetEnumValue<Trait>(pluginGuid, "Apostle");
+        public static Trait Sephirah = GuidManager.GetEnumValue<Trait>(pluginGuid, "Sephirah");
+        public static Trait BlackForest = GuidManager.GetEnumValue<Trait>(pluginGuid, "BlackForest");
+        public static Trait EmeraldCity = GuidManager.GetEnumValue<Trait>(pluginGuid, "EmeraldCity");
+        public static Trait MagicalGirl = GuidManager.GetEnumValue<Trait>(pluginGuid, "MagicalGirl");
+        public static Trait Executioner = GuidManager.GetEnumValue<Trait>(pluginGuid, "Executioner");
 
         [Flags]
         public enum RiskLevel
@@ -166,10 +151,11 @@ namespace WhistleWindLobotomyMod.Core
         {
             None,
             Global,
+            GlobalStats,
+            GlobalSigils,
             Targeted,
             TargetedStats,
-            TargetedSigils,
-            TargetedStatsSigils
+            TargetedSigils
         }
     }
 }

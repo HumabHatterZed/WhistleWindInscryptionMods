@@ -4,13 +4,11 @@ using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -78,7 +76,8 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.AnglerBoss, "AngelaAngler" },
             { Opponent.Type.TrapperTraderBoss, "AngelaTrapperTrader" },
             { Opponent.Type.LeshyBoss, "AngelaLeshy" },
-            { Opponent.Type.RoyalBoss, "AngelaRoyal" }
+            { Opponent.Type.RoyalBoss, "AngelaRoyal" },
+            { ApocalypseBossOpponent.ID, "AngelaApocalypse" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -91,9 +90,9 @@ namespace WhistleWindLobotomyMod
         private void Card_Angela()
         {
             NewCard("angela", "Angela", "A trustworthy AI assistant. You will trust her with your life.",
-                attack: 3, health: 3, energy: 6)
-                .AddAbilities(FrostRuler.ability, Ability.DrawCopyOnDeath)
-                .AddTraits(TraitSephirah)
+                attack: 2, health: 3, energy: 6)
+                .AddAbilities(FrostRuler.ability, Persecutor.ability)
+                .AddTraits()
                 .SetOnePerDeck()
                 .Build();
         }

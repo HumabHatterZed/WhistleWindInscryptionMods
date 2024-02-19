@@ -15,63 +15,36 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.CanBeSacrificed), MethodType.Getter)]
         private static void CannotSacrificeApostles(PlayableCard __instance, ref bool __result)
         {
-            if (__instance.HasTrait(TraitApostle))
+            if (__instance.HasTrait(Apostle))
                 __result = false;
         }
 
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
-        private static void DownedTrueApostlesAreImmortal(PlayableCard __instance, ref int damage)
-        {
-            if (__instance != null && __instance.HasAbility(Apostle.ability))
-            {
-                // Downed Apostles don't take damage if WhiteNight exists as an ally
-                bool saviour = BoardManager.Instance.GetSlotsCopy(!__instance.OpponentCard).Exists(x => x.Card?.HasAbility(TrueSaviour.ability) ?? false);
-
-                if (saviour && __instance.Info.name.Contains("Down"))
-                {
-                    __instance.Anim.StrongNegationEffect();
-                    damage = 0;
-                }
-            }
-        }
-
         [HarmonyPrefix, HarmonyPatch(nameof(PlayableCard.Die))]
-        private static bool ApostleTransformOnDie(ref IEnumerator __result, PlayableCard __instance, bool wasSacrifice, PlayableCard killer)
+        private static bool DontDestroyCardsOnDeath(ref IEnumerator __result, PlayableCard __instance, bool wasSacrifice, PlayableCard killer)
         {
-            if (__instance.HasAbility(Apostle.ability))
+            if (__instance.HasSpecialAbility(Smile.specialAbility) && __instance.Info.name != "wstl_mountainOfBodies")
+            {
+                __result = HelperMethods.DieDontDestroy(__instance, wasSacrifice, killer);
+                return false;
+            }
+
+            if (__instance.HasTrait(Apostle))
             {
                 // if killed by WhiteNight or One Sin, die normally
                 if (killer != null && killer.HasAnyOfAbilities(Confession.ability, TrueSaviour.ability))
                     return true;
 
-                bool saviour = BoardManager.Instance.GetSlotsCopy(!__instance.OpponentCard).Exists(x => x.Card?.HasAbility(TrueSaviour.ability) ?? false);
+                bool friendlySaviour = BoardManager.Instance.GetSlotsCopy(!__instance.OpponentCard).Exists(x => x.Card?.HasAbility(TrueSaviour.ability) ?? false);
 
-                // Downed Apostles can't die if WhiteNight is an ally
-                // Active Apostles will always be downed
-                if (__instance.Info.name.Contains("Down"))
-                {
-                    if (saviour)
-                        __result = ApostleDie(__instance, wasSacrifice, killer);
-                    else
-                        return true;
-                }
-                else
-                    __result = ApostleDie(__instance, wasSacrifice, killer);
+                // Downed Apostles die normally without an ally WhiteNight
+                // Active Apostles always perform the special death
+                if (__instance.Info.name.EndsWith("Down") && !friendlySaviour)
+                    return true;
 
+                __result = HelperMethods.DieDontDestroy(__instance, wasSacrifice, killer);
                 return false;
             }
             return true;
-        }
-        private static IEnumerator ApostleDie(PlayableCard instance, bool wasSacrifice, PlayableCard killer)
-        {
-            // play hit anim then trigger Die
-            instance.Anim.PlayHitAnimation();
-            instance.Anim.SetShielded(shielded: false);
-            yield return instance.Anim.ClearLatchAbility();
-            if (instance.TriggerHandler.RespondsToTrigger(Trigger.Die, wasSacrifice, killer))
-                yield return instance.TriggerHandler.OnTrigger(Trigger.Die, wasSacrifice, killer);
-
-            yield break;
         }
     }
 }

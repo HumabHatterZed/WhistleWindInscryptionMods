@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
         public int GetPassiveAttackBuff(PlayableCard target)
         {
             if (this.Card.OnBoard && target.OpponentCard != base.Card.OpponentCard)
-                return -1;
+                return target.LacksAbility(Ability.MadeOfStone) ? -base.Card.GetAbilityStacks(Ability) : 0;
 
             return 0;
         }

@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
@@ -15,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string catName = "Scaredy Cat";
             const string scaredyCat = "scaredyCat";
             const string scaredyCatStrong = "scaredyCatStrong";
-            Trait[] traits = new[] { TraitEmeraldCity };
+            Trait[] traits = new[] { EmeraldCity };
             SpecialTriggeredAbility[] specialAbilities = new[] { Cowardly.specialAbility };
 
             NewCard(scaredyCatStrong, catName,

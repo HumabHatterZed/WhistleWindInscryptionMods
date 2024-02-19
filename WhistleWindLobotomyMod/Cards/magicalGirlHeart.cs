@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -17,12 +16,12 @@ namespace WhistleWindLobotomyMod
             const string magicalGirlHeart = "magicalGirlHeart";
             const string queenOfHatred = "queenOfHatred";
             const string queenOfHatredTired = "queenOfHatredTired";
-            SpecialTriggeredAbility[] specialAbilities = new[] { QueenOfHateExhaustion.specialAbility }; 
+            SpecialTriggeredAbility[] specialAbilities = new[] { QueenOfHateExhaustion.specialAbility };
             Tribe[] tribes = new[] { TribeFae, Tribe.Reptile };
-            Trait[] traits = new[] { TraitMagicalGirl };
+            Trait[] traits = new[] { MagicalGirl };
 
             NewCard(queenOfHatredTired, queenName,
-                attack: 0, health: 2, blood: 1)
+                attack: 0, health: 2, blood: 1, temple: CardTemple.Wizard)
                 .SetPortraits(queenOfHatredTired)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
@@ -31,7 +30,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             NewCard(queenOfHatred, queenName,
-                attack: 8, health: 2, blood: 1)
+                attack: 8, health: 2, blood: 1, temple: CardTemple.Wizard)
                 .SetPortraits(queenOfHatred)
                 .AddAbilities(Piercing.ability, OneSided.ability)
                 .AddSpecialAbilities(specialAbilities)
@@ -41,7 +40,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             NewCard(magicalGirlHeart, "Magical Girl", "A hero of love and justice. She will aid you on your journey.",
-                attack: 1, health: 2, blood: 1)
+                attack: 1, health: 2, blood: 1, temple: CardTemple.Wizard)
                 .SetPortraits(magicalGirlHeart)
                 .AddAbilities(OneSided.ability)
                 .AddSpecialAbilities(LoveAndHate.specialAbility)

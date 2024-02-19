@@ -2,14 +2,12 @@
 using BepInEx.Logging;
 using DiskCardGame;
 using HarmonyLib;
-using Infiniscryption.Spells;
-using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
+using InscryptionAPI.Pelts;
 using InscryptionAPI.Regions;
 using System.Collections.Generic;
 using System.Reflection;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod;
 using static InscryptionAPI.Encounters.EncounterManager;
@@ -32,22 +30,23 @@ namespace ModDebuggingMod
             New("DebugEncounter")
                     .AddDominantTribes(Tribe.Canine)
                     .AddTurns(
-                    CreateTurn("wstl_redHoodedMercenary", "wstl_willBeBadWolf"),
-                    CreateTurn("Squirrel", "Squirrel", "Squirrel", "Squirrel")
+                    CreateTurn()
+                    //CreateTurn("wstlcard", "wstlcard", "wstlcard", "wstlcard")
                     );
 
         private void Awake()
         {
             Log = base.Logger;
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
-
-            // AddChallenges();
-            ItemDebug();
+            //AddChallenges();
+            //ItemDebug();
             Ability_Test();
             CARD_DEBUG();
             //DebugEncounters();
             //ModifyCardList();
 
+            //PeltManager.New(pluginGuid, CardLoader.GetCardByName("Squirrel"), 0, 0, 4, () => CardManager.AllCardsCopy);
+            
             StarterDeckHelper.AddStarterDeck("wstl", "DEBUG HUG", "starterDeckMagicalGirls", 0, cardNames: new()
             {
                 "Squirrel",
@@ -66,8 +65,9 @@ namespace ModDebuggingMod
                 {
                     if (card.name == "Squirrel")
                     {
+                        card.AddTraits(Trait.Gem);
                         //card.SetPixelAlternatePortrait(TextureLoader.LoadTextureFromFile("allAroundHelper_emission"));
-                        //card.abilities = new() { Piercing.ability };
+                        //card.abilities = new() { Reflector.ability };
                         //card.SetEvolve(CardLoader.GetCardByName("wstl_apostleMoleman"), 1)
                         //.SetHideStats()
                         //.SetBaseAttackAndHealth(0, 7)

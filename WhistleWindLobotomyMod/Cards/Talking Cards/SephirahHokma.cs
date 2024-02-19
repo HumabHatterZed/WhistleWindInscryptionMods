@@ -1,16 +1,13 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.TalkingCards;
-using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -68,7 +65,8 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.AnglerBoss, "SephirahHokmaAngler" },
             { Opponent.Type.TrapperTraderBoss, "SephirahHokmaTrapperTrader" },
             { Opponent.Type.LeshyBoss, "SephirahHokmaLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahHokmaRoyal" }
+            { Opponent.Type.RoyalBoss, "SephirahHokmaRoyal" },
+            { ApocalypseBossOpponent.ID, "SephirahHokmaApocalypse" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -81,9 +79,9 @@ namespace WhistleWindLobotomyMod
         private void Card_Hokma()
         {
             NewCard("sephirahHokma", "Hokma", "All things will happen in time. Just have faith.",
-                attack: 2, health: 3, bones: 2)
+                attack: 1, health: 4, blood: 2)
                 .AddAbilities(NeuteredLatch.ability)
-                .AddTraits(TraitSephirah)
+                .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
         }

@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -12,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_RightfulHeir()
         {
             const string rulebookName = "Rightful Heir";
-            const string rulebookDescription = "Once per turn, pay [sigilcost:3 Bones] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1 Bone until battle's end. [define:wstl_ozmaPumpkin]";
+            const string rulebookDescription = "Once per turn, pay [sigilcost:1 Bone] to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1. [define:wstl_ozmaPumpkin]";
             const string dialogue = "All she has left now are her children.";
             const string triggerText = "[creature] turns the creature into a pumpkin.";
             RightfulHeir.ability = AbnormalAbilityHelper.CreateActivatedAbility<RightfulHeir>(
@@ -25,12 +26,22 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override string InvalidTargetDialogue => "That card is fine as it is.";
+        public override string InvalidTargetDialogue(CardSlot slot)
+        {
+            if (slot.Card.Info.name.Contains("ozmaPumpkin"))
+                return "No need, it's already perfect.";
+            return "That card is fine as it is.";
+        }
         public override int TurnDelay => 1;
-        public override int StartingBonesCost => 3;
+        public override int StartingBonesCost => 1;
         public override int OnActivateBonesCostMod => 1;
-        public override bool CardSlotCanBeTargeted(CardSlot slot) => slot.Card != base.Card;
-        public override bool CardIsNotValid(PlayableCard card) => card.Info.name.Contains("ozmaPumpkin");
+        public override bool IsValidTarget(CardSlot slot)
+        {
+            if (!base.IsValidTarget(slot))
+                return false;
+
+            return slot.Card.LacksAllTraits(Trait.Giant, Trait.Uncuttable) && !slot.Card.Info.name.Contains("ozmaPumpkin");
+        }
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => false;
         public override IEnumerator OnValidTargetSelected(CardSlot slot)

@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -20,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 .AddAbilities(Cycler.ability)
                 .AddSpecialAbilities(ThreeBirds.specialAbility)
                 .AddTribes(Tribe.Bird)
-                .AddTraits(TraitBlackForest)
+                .AddTraits(BlackForest)
                 .SetDefaultEvolutionName("Bigger Bird")
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
