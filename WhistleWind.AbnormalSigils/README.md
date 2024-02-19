@@ -45,7 +45,7 @@ Testing and Feedback:
 |Bitter Enemies		|✓	|✓	|1	|This card gains 1 Power for each other card on the board that also bears this sigil.|
 |Courageous			|X	|X	|3	|Creatures adjacent to this card lose up to 2 Health. For each point of Heath lost, the affected creature gains 1 Power. This effect cannot kill cards.|
 |Serpent's Nest		|✓	|X	|2	|When a card bearing this sigil is struck, the striker gains 1 Worms.|
-|Assimilator		|X	|✓	|4	|When this card kills an opposing card, it gains 1 Power and 1 Health.|
+|Assimilator		|X	|✓	|5	|When this card kills an opposing card, it gains 1 Power and 1 Health.|
 |Group Healer		|X	|X	|4	|At the start of its owner's turn, this card will heal all allies that have taken damage by 1 Health.|
 |Reflector			|✓	|X	|2	|When this card is struck, the striker is dealt damage equal to the striker's Power.|
 |Flag Bearer		|X	|✓	|3	|While this card is on the board, adjacent creatures gain 2 Health.|
@@ -86,6 +86,7 @@ Testing and Feedback:
 
 ## Stat Icons
 |Name			|Power	|Health	|Description|
+|:--------------|:-----:|:-----:|:----------|
 |Passing Time	|✓		|X		|The value represented with this sigil will be equal to the number of turns that have passed since this card was placed on the board.|
 |Sigil Power	|✓		|✓		|The value represented with this sigil will be equal to the power level of this card's strongest sigil.|
 |Slimes			|✓		|X		|The value represented by this sigil will be equal to the number of Slimes that the owner has on their side of the table.|
