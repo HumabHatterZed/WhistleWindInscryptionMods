@@ -13,6 +13,16 @@ namespace WhistleWindLobotomyMod.Patches
     [HarmonyPatch]
     internal class OpponentPatches
     {
+        [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.QueueCard))]
+        private static IEnumerator TransformCowardlyCat(IEnumerator result, Opponent __instance, CardInfo cardInfo, CardSlot slot)
+        {
+            yield return result;
+            if (cardInfo.HasSpecialAbility(Cowardly.specialAbility))
+            {
+                PlayableCard card = __instance.Queue.Find(x => x.QueuedSlot == slot);
+                yield return Cowardly.CheckTransform(card);
+            }
+        }
         // fixes Trapper-Trader boss fight not using all lobotomy cards
         [HarmonyPrefix, HarmonyPatch(typeof(TradeCardsForPelts), nameof(TradeCardsForPelts.GenerateTradeCardsWithCostTier))]
         private static bool FixTrapperTrapperBoss(int numCards, int tier, int randomSeed, ref List<CardInfo> __result)

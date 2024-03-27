@@ -24,34 +24,49 @@ namespace WhistleWindLobotomyMod
         public override bool RespondsToResolveOnBoard() => true;
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => otherCard.OpponentCard == base.PlayableCard.OpponentCard;
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => playerTurnEnd != base.PlayableCard.OpponentCard;
-        public override IEnumerator OnResolveOnBoard() => CheckTransform();
-        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => CheckTransform();
-        public IEnumerator OnBellRung(bool playerCombatPhase) => CheckTransform();
-        private IEnumerator CheckTransform()
+        public override IEnumerator OnResolveOnBoard() => CheckTransform(base.PlayableCard);
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => CheckTransform(base.PlayableCard);
+        public IEnumerator OnBellRung(bool playerCombatPhase) => CheckTransform(base.PlayableCard);
+        public override bool RespondsToDrawn() => true;
+        public override IEnumerator OnDrawn()
         {
-            List<CardSlot> slots = BoardManager.Instance.GetSlotsCopy(!base.PlayableCard.OpponentCard)
-                .Where(x => x.Card != null && x.Card != base.Card && x.Card.LacksTrait(Trait.Structure)).ToList();
+            ViewManager.Instance.SwitchToView(View.Hand);
+            yield return CheckTransform(base.PlayableCard);
+        }
+        public static IEnumerator CheckTransform(PlayableCard card)
+        {
+            List<CardSlot> slots = BoardManager.Instance.GetSlotsCopy(!card.OpponentCard)
+                .Where(x => x.Card != null && x.Card != card && x.Card.LacksTrait(Trait.Structure)).ToList();
 
             CardInfo transformation = null;
             System.Action action = null;
             if (slots.Count > 0)
             {
-                if (base.PlayableCard.Info.name == "wstl_scaredyCat")
-                    transformation = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_scaredyCatStrong");
+                if (card.Info.name == "wstl_scaredyCat")
+                    transformation = HelperMethods.GetInfoWithMods(card, "wstl_scaredyCatStrong");
             }
-            else if (base.PlayableCard.Info.name == "wstl_scaredyCatStrong")
+            else if (card.Info.name == "wstl_scaredyCatStrong")
             {
                 // reset damage taken if we're changing to the weak forme, since it has less Health
-                transformation = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_scaredyCat");
-                action = () => base.PlayableCard.Status.damageTaken = 0;
+                transformation = HelperMethods.GetInfoWithMods(card, "wstl_scaredyCat");
+                action = () => card.Status.damageTaken = 0;
             }
 
             if (transformation != null)
             {
-                if (base.PlayableCard.InHand)
-                    yield return base.PlayableCard.TransformIntoCardAboveHand(transformation, action);
+                if (card.InHand)
+                    yield return card.TransformIntoCardAboveHand(transformation, action);
+                else if (card.OnBoard)
+                    yield return card.TransformIntoCard(transformation, action);
                 else
-                    yield return base.PlayableCard.TransformIntoCard(transformation, action);
+                {
+                    Singleton<ViewManager>.Instance.SwitchToView(View.OpponentQueue);
+                    yield return new WaitForSeconds(0.15f);
+                    card.Anim.PlayTransformAnimation();
+                    yield return new WaitForSeconds(0.15f);
+                    card.SetInfo(transformation);
+                    action?.Invoke();
+                }
 
                 yield return new WaitForSeconds(0.5f);
             }

@@ -35,11 +35,10 @@ namespace WhistleWindLobotomyMod
             ModifySpawnedCard(CardToDraw);
 
             if (base.PlayableCard.OpponentCard)
-                yield return HelperMethods.QueueCreatedCard(CardToDraw, true);
+                yield return HelperMethods.QueueCreatedCard(CardToDraw);
             else
                 yield return CreateDrawnCard(CardToDraw);
         }
-        //public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard) => base.OnOtherCardAssignedToSlot(otherCard);
         private IEnumerator CreateDrawnCard(CardInfo CardToDraw)
         {
             if (Singleton<ViewManager>.Instance.CurrentView != View.Default)
@@ -50,9 +49,6 @@ namespace WhistleWindLobotomyMod
             }
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardToDraw);
             yield return new WaitForSeconds(0.45f);
-            PlayableCard thisCard = PlayerHand.Instance.CardsInHand.Find(x => x.Info.name == CardToDraw.name);
-            if (thisCard != null)
-                yield return thisCard.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard);
 
         }
         private void ModifySpawnedCard(CardInfo card)
