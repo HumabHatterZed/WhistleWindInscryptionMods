@@ -116,7 +116,7 @@ namespace WhistleWind.Core.Helpers
             }
         }
 
-        public static IEnumerator QueueCreatedCard(CardInfo cardToQueue, bool triggerResolve = false)
+        public static IEnumerator QueueCreatedCard(CardInfo cardToQueue)
         {
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
             List<CardSlot> openSlots = Singleton<BoardManager>.Instance.OpponentSlotsCopy.FindAll(s => !Singleton<TurnManager>.Instance.Opponent.QueuedSlots.Contains(s));
@@ -132,13 +132,6 @@ namespace WhistleWind.Core.Helpers
                 CardSlot index = openSlots[SeededRandom.Range(0, openSlots.Count, randomSeed++)];
                 ViewManager.Instance.SwitchToView(View.OpponentQueue);
                 yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(cardToQueue, index);
-                if (triggerResolve)
-                {
-                    PlayableCard card = Singleton<TurnManager>.Instance.Opponent.Queue.FindLast(x => x.Info.name == cardToQueue.name);
-                    if (card != null && card.TriggerHandler.RespondsToTrigger(Trigger.ResolveOnBoard))
-                        yield return card.TriggerHandler.OnTrigger(Trigger.ResolveOnBoard);
-
-                }
             }
             yield return new WaitForSeconds(0.45f);
         }

@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
@@ -71,7 +72,7 @@ namespace WhistleWind.AbnormalSigils
 
         private bool CheckIsValid(CardSlot slot)
         {
-            if (slot?.Card != null && slot.Card.LacksAbility(this.Ability) && slot.Card.LacksAllTraits(Trait.Pelt, Trait.Uncuttable, Trait.Giant))
+            if (slot?.Card != null && slot.Card.LacksAbility(this.Ability) && slot.Card.LacksAllTraits(Trait.Pelt, Trait.Terrain, Trait.Uncuttable, Trait.Giant))
             {
                 return slot.Card.LacksTrait(AbnormalPlugin.LovingSlime);
             }
@@ -81,8 +82,8 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && base.Card.LacksTrait(AbnormalPlugin.LovingSlime);
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            CardInfo cardInfo = CardLoader.GetCardByName("wstl_meltingLoveMinion").Clone() as CardInfo;
-            foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll(x => !x.nonCopyable))
+            CardInfo cardInfo = CardLoader.GetCardByName("wstl_meltingLoveMinion");
+            foreach (CardModificationInfo item in base.Card.Info.Mods.Where(x => !x.nonCopyable))
             {
                 // Copy merged sigils and the like
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
@@ -91,16 +92,14 @@ namespace WhistleWind.AbnormalSigils
                 cardInfo.Mods.Add(cardModificationInfo);
             }
             // Copy base sigils
-            foreach (Ability item in base.Card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            foreach (Ability item in base.Card.Info.DefaultAbilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
             {
-                cardInfo.Mods.Add(new CardModificationInfo(item));
+                cardInfo.Mods.Add(new CardModificationInfo(item) { nonCopyable = true });
             }
 
             yield return new WaitForSeconds(0.4f);
-            if (base.Card.Slot.Card != null)
-                yield return base.Card.Slot.Card.TransformIntoCard(cardInfo, () => base.Card.Status.damageTaken = 0);
-            else
-                yield return BoardManager.Instance.CreateCardInSlot(cardInfo, base.Card.Slot);
+            if (base.Card != null)
+                yield return base.Card.TransformIntoCard(cardInfo, () => base.Card.Status.damageTaken = 0);
         }
     }
 }

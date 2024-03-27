@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
@@ -28,7 +29,7 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             if (fromCombat && card.OpponentCard == base.Card.OpponentCard && (deathSlot.Card == null || deathSlot.Card.Dead))
-                return base.Card.OnBoard && !card.Info.name.Equals("wstl_parasiteTreeSapling");
+                return card != base.Card && base.Card.OnBoard && !card.Info.name.Equals("wstl_parasiteTreeSapling");
 
             return false;
         }
@@ -47,17 +48,16 @@ namespace WhistleWind.AbnormalSigils
         private IEnumerator SpawnCardOnSlot(PlayableCard card, CardSlot slot)
         {
             CardInfo minion = CardLoader.GetCardByName("wstl_parasiteTreeSapling");
-            foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
+            foreach (CardModificationInfo item in card.Info.Mods.Where((CardModificationInfo x) => !x.nonCopyable))
             {
                 // Adds merged sigils
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
-                cardModificationInfo.fromCardMerge = true;
                 minion.Mods.Add(cardModificationInfo);
             }
-            foreach (Ability item in card.Info.Abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            // Adds base sigils
+            foreach (Ability item in card.Info.DefaultAbilities.Where((Ability x) => x != Ability.NUM_ABILITIES))
             {
-                // Adds base sigils
-                minion.Mods.Add(new CardModificationInfo(item));
+                minion.Mods.Add(new CardModificationInfo(item) { nonCopyable = true });
             }
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(minion, slot, 0.15f);
         }

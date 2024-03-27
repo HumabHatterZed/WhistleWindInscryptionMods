@@ -83,7 +83,7 @@ namespace WhistleWind.AbnormalSigils
                 minion.Mods.Add(cardModificationInfo);
             }
 
-            foreach (Ability item in base.PlayableCard.Info.abilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
+            foreach (Ability item in base.PlayableCard.Info.DefaultAbilities.FindAll((Ability x) => x != Ability.NUM_ABILITIES))
                 minion.Mods.Add(new CardModificationInfo(item)); // Add base sigils
 
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(minion, base.PlayableCard.Slot, 0.15f);
