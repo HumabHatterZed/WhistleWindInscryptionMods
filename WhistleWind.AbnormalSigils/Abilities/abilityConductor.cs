@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Conductor()
         {
             const string rulebookName = "Conductor";
-            const string rulebookDescription = "The effect of this sigil will change over the next 3 turns. This turn: do nothing.";
+            const string rulebookDescription = "The effect of this sigil will change over the next 3 turns while this card is on the board.";
             const string dialogue = "From break and ruin, the most beautiful performance begins.";
             const string triggerText = "[creature] plays a quiet symphony.";
             Conductor.ability = AbnormalAbilityHelper.CreateAbility<Conductor>(
@@ -60,10 +60,10 @@ namespace WhistleWind.AbnormalSigils
         public int GetPassiveAttackBuff(PlayableCard target)
         {
             // if not on board, target is base, target is opposing, or count is 0
-            if (!base.Card.OnBoard || target == base.Card || turnCount == 0)
+            if (target == base.Card || turnCount == 0 || !base.Card.OnBoard)
                 return 0;
 
-            int attack = base.Card.Attack;
+            int attack = base.Card.Info.Attack;
             if (target.HasTrait(AbnormalPlugin.Orchestral))
                 attack++;
 
@@ -71,9 +71,11 @@ namespace WhistleWind.AbnormalSigils
             if (turnCount >= 3)
                 return attack;
 
-            // if adjacent or it's been 2 turns, give Power / 2
-            if (base.Card.Slot.GetAdjacentCards().Contains(target) || (turnCount >= 2 && target.OpponentCard == base.Card.OpponentCard))
-                return Mathf.Max(1, attack / 2);
+            if (turnCount >= 2 && target.OpponentCard == base.Card.OpponentCard)
+                return attack / 2;
+
+            if (base.Card.Slot.GetAdjacentCards().Contains(target))
+                return attack / 2;
 
             return 0;
         }

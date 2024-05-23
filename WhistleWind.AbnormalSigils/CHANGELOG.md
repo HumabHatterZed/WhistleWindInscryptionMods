@@ -3,17 +3,29 @@
 
 # Plugin GUID: whistlewind.inscryption.abnormalsigils
 
-## v1.1.1 - Slime and Dine (2/?/2024)
+## v1.1.2 - Minor patch (5/23/2024)
+### 🩹 Bug fixes
+- Fixed Conductor sigil crashing the game when multiple copies are on the same side of the board
+- Adjusted Conductor sigil's Rulebook descriptions
+### 🔧 Tweaks
+- The Mechanical tribe is now replaced with the Machine tribe if Tribal Libary (sic) is installed (previously replaced with the Android tribe)
+- If Tribal Libary is installed, the icon and rewardback for the Guardian, Plant, Machine, Humanoid, and Fairy tribes will be replaced with custom ones
+### ⚖️ Balancing
+- Power given by the Conductor sigil is no longer affected by temporary mods or other passive attack sigils
+- Reverted previous change to Conductor sigil - no longer gives a minimum of 1 Power
+
+## v1.1.1 - Slime and Dine (2/19/2024)
 ### 🩹 Bug fixes
 - Fixed activated sigils having no dialogue on selecting invalid target
 - Fixed Assimilator's powerlevel being incorrect
+- Fixed Gardener sigil activating when the base card is killed
+- Fixed Made of Slime sigil affecting Terrain cards
+- Fixed Made of Slime and Gardener interaction where created cards would double their sigil amount when killed
 ### 🔧 Tweaks
 - Changed name of Slimes stat icon --> Loving Slimes
 - Changed icon for Loving Slimes
 - Adjusted OnDie effect of Made of Slime
 ### ⚖️ Balancing
-- Apostle sigil now requires WhiteNight to be on the same side of the board in order to trigger invulnerability
-- Conductor sigil now gives a minimum of 1 Power from turns 1 onward
 - Reworked Slimes to SL/2, 3 Bones
 - Slimes created by Made of Slime sigil no longer inherit the parent card's Health and costs
 ### ➕ Additions

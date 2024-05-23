@@ -5,6 +5,7 @@ using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
+using InscryptionAPI.Helpers;
 using InscryptionAPI.PixelCard;
 using InscryptionAPI.Resource;
 using Sirenix.Utilities;
@@ -89,16 +90,21 @@ namespace WhistleWind.AbnormalSigils
             else
             {
                 Texture2D anthro = TextureLoader.LoadTextureFromFile("tribeAnthropoid.png");
+                Texture2D anthroBack = TextureLoader.LoadTextureFromFile("tribeAnthropoid_reward.png");
                 Texture2D botanical = TextureLoader.LoadTextureFromFile("tribeBotanic.png");
+                Texture2D botanicalBack = TextureLoader.LoadTextureFromFile("tribeBotanic_reward.png");
                 Texture2D divine = TextureLoader.LoadTextureFromFile("tribeDivine.png");
+                Texture2D divineBack = TextureLoader.LoadTextureFromFile("tribeDivine_reward.png");
                 Texture2D fae = TextureLoader.LoadTextureFromFile("tribeFae.png");
+                Texture2D faeBack = TextureLoader.LoadTextureFromFile("tribeFae_reward.png");
                 Texture2D mechanic = TextureLoader.LoadTextureFromFile("tribeMechanical.png");
+                Texture2D mechanicBack = TextureLoader.LoadTextureFromFile("tribeMechanical_reward.png");
 
-                TribeAnthropoid = TribeManager.Add(pluginGuid, "AnthropoidTribe", anthro, true, TextureLoader.LoadTextureFromFile("tribeAnthropoid_reward.png"));
-                TribeBotanic = TribeManager.Add(pluginGuid, "BotanicalTribe", botanical, true, TextureLoader.LoadTextureFromFile("tribeBotanic_reward.png"));
-                TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", divine, true, TextureLoader.LoadTextureFromFile("tribeDivine_reward.png"));
-                TribeFae = TribeManager.Add(pluginGuid, "FaerieTribe", fae, true, TextureLoader.LoadTextureFromFile("tribeFae_reward.png"));
-                TribeMechanical = TribeManager.Add(pluginGuid, "MechanicalTribe", mechanic, true, TextureLoader.LoadTextureFromFile("tribeMechanical_reward.png"));
+                TribeAnthropoid = TribeManager.Add(pluginGuid, "AnthropoidTribe", anthro, true, anthroBack);
+                TribeBotanic = TribeManager.Add(pluginGuid, "BotanicalTribe", botanical, true, botanicalBack);
+                TribeDivine = TribeManager.Add(pluginGuid, "DivineTribe", divine, true, divineBack);
+                TribeFae = TribeManager.Add(pluginGuid, "FaerieTribe", fae, true, faeBack);
+                TribeMechanical = TribeManager.Add(pluginGuid, "MechanicalTribe", mechanic, true, mechanicBack);
             }
         }
 
@@ -243,8 +249,49 @@ namespace WhistleWind.AbnormalSigils
                 TribeDivine = TribalLibary.Plugin.guardianTribe;
                 TribeFae = TribalLibary.Plugin.fairyTribe;
                 TribeAnthropoid = TribalLibary.Plugin.humanoidTribe;
-                TribeMechanical = TribalLibary.Plugin.androidTribe;
+                TribeMechanical = TribalLibary.Plugin.machineTribe;
                 TribeBotanic = TribalLibary.Plugin.plantTribe;
+
+                int numChanged = 0;
+                foreach (TribeManager.TribeInfo tribeInfo in TribeManager.NewTribes)
+                {
+                    if (numChanged >= 5)
+                        break;
+
+                    if (tribeInfo.guid == "tribes.libary")
+                    {
+                        if (tribeInfo.tribe == TribeDivine)
+                        {
+                            tribeInfo.icon = TextureLoader.LoadTextureFromFile("tribeDivine.png").ConvertTexture();
+                            tribeInfo.cardback = TextureLoader.LoadTextureFromFile("tribeDivine_reward.png");
+                            numChanged++;
+                        }
+                        else if (tribeInfo.tribe == TribeFae)
+                        {
+                            tribeInfo.icon = TextureLoader.LoadTextureFromFile("tribeFae.png").ConvertTexture();
+                            tribeInfo.cardback = TextureLoader.LoadTextureFromFile("tribeFae_reward.png");
+                            numChanged++;
+                        }
+                        else if (tribeInfo.tribe == TribeAnthropoid)
+                        {
+                            tribeInfo.icon = TextureLoader.LoadTextureFromFile("tribeAnthropoid.png").ConvertTexture();
+                            tribeInfo.cardback = TextureLoader.LoadTextureFromFile("tribeAnthropoid_reward.png");
+                            numChanged++;
+                        }
+                        else if (tribeInfo.tribe == TribeMechanical)
+                        {
+                            tribeInfo.icon = TextureLoader.LoadTextureFromFile("tribeMechanical.png").ConvertTexture();
+                            tribeInfo.cardback = TextureLoader.LoadTextureFromFile("tribeMechanical_reward.png");
+                            numChanged++;
+                        }
+                        else if (tribeInfo.tribe == TribeBotanic)
+                        {
+                            tribeInfo.icon = TextureLoader.LoadTextureFromFile("tribeBotanic.png").ConvertTexture();
+                            tribeInfo.cardback = TextureLoader.LoadTextureFromFile("tribeBotanic_reward.png");
+                            numChanged++;
+                        }
+                    }
+                }
             }
 
         }

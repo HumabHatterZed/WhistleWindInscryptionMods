@@ -13,7 +13,15 @@ Also includes:
 
 ### Tribal Libary (sic)
 If you have [Tribal Libary](https://inscryption.thunderstore.io/package/The_Unwanted_but_Useful_Libraries/Tribal_Libary/) installed,
-my custom Tribes will be replaced with equivalents from Tribal Libary.
+this mod's Tribes will be internally replaced with equivalent Tribes from Tribal Libary as follows:
+
+- Anthropoid -> Humanoid
+- Botanical -> Plant
+- Divine -> Guardian
+- Fae -> Fairy
+- Mechanical -> Machine
+
+The equivalent Tribal Tribes' icon textures will be overridden with the textures from this mod.
 
 ## 💌 Credits/Acknowledgements
 Artwork and coding:
@@ -29,6 +37,7 @@ Testing and Feedback:
 |:-|:-:|:-:|:-:|:--|
 |Punisher			|X	|X	|4	|When a card bearing this sigil is struck, the striker is killed.|
 |Bloodfiend			|✓	|✓	|3	|When this card deals damage, it gains 1 Health.|
+|Bloodletter		|X	|✓	|4	|When a card bearing this sigil is struck with a nonfatal attack, absorb 1 Health from the striker..|
 |Martyr				|✓	|✓	|1	|When a card bearing this sigil dies, all allied creatures gain 2 Health.|
 |Aggravating		|X	|✓	|-3	|While this card is on the board, all opposing creatures gain 1 Power.|
 |Team Leader		|X	|✓	|5	|While this card is on the board, all allied creatures gain 1 Power.|

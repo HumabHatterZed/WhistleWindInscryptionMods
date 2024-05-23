@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Bloodletter()
         {
             const string rulebookName = "Bloodletter";
-            const string rulebookDescription = "When this card deals damage, it gains 1 Health.";
+            const string rulebookDescription = "When a [creature] is struck with a nonfatal attack, absorb 1 Health from the striker.";
             const string dialogue = "The blood runs warm with sweet vitality.";
             const string triggerText = "[creature] absorbs nutrients!";
             Bloodletter.ability = AbnormalAbilityHelper.CreateAbility<Bloodletter>(
