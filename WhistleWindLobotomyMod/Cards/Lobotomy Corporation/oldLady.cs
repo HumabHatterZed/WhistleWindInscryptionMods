@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string oldLady = "oldLady";
 
             NewCard(oldLady, "Old Lady", "An aged storyteller. She can tell you any tale, even those that can't exist.",
-                attack: 1, health: 2, bones: 2)
+                attack: 1, health: 2, bones: 4)
                 .SetPortraits(oldLady)
                 .AddAbilities(Ability.DebuffEnemy)
                 .AddTribes(TribeAnthropoid)
