@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhistleWind.AbnormalSigils"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhistleWindLobotomyMod", "WhistleWindLobotomyMod\WhistleWindLobotomyMod.csproj", "{919B91D1-93D2-454B-AA9C-F76C022BF07F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BonnieBakingPack", "BonnieBakingPack\BonnieBakingPack.csproj", "{6F55F5F3-6091-4403-B439-156BF77E26EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,9 @@ Global
 		{919B91D1-93D2-454B-AA9C-F76C022BF07F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{919B91D1-93D2-454B-AA9C-F76C022BF07F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{919B91D1-93D2-454B-AA9C-F76C022BF07F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F55F5F3-6091-4403-B439-156BF77E26EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F55F5F3-6091-4403-B439-156BF77E26EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F55F5F3-6091-4403-B439-156BF77E26EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

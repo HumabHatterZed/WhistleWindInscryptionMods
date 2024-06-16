@@ -1,0 +1,9 @@
+{
+	"name": "Bonnie_s_Baking_Pack",
+	"version_number": "0.0.1",
+	"website_url": "https://github.com/HumabHatterZed/WhistleWindInscryptionMods",
+	"description": "Bake delicious pastries and gather fresh ingredients in this small card pack for Inscryption! Compatible with Grimora, P03, and Magnificus Mods.",
+	"dependencies": [
+		"API_dev-API-2.19.4"
+	]
+}

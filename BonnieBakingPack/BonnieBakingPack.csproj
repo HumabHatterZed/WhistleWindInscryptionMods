@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>BonnieBakingPack</AssemblyName>
+    <Description>Bake delicious pastries and gather fresh ingredients in this small card pack for Inscryption!</Description>
+    <Version>0.0.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\*.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\*.png" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.Core" Version="5.4.19" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
+    <PackageReference Include="Inscryption.GameLibs" Version="1.9.0-r.0" />
+    <PackageReference Include="UnityEngine.Modules" Version="2019.4.24" IncludeAssets="compile" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="InscryptionAPI" Private="false">
+      <HintPath>..\lib\InscryptionAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="Infiniscryption.PackManager" Private="false">
+      <HintPath>..\lib\Infiniscryption.PackManager.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+</Project>
