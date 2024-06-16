@@ -18,6 +18,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 70,
                 TextureLoader.LoadTextureFromFile("ascensionFinalApocalypse.png"),
                 TextureLoader.LoadTextureFromFile("ascensionFinalApocalypse_activated.png"), 0)
+                .SetBoss(true)
                 .SetFlags("ModdedFinalBoss")
                 .SetIncompatibleChallengeGetter(x =>
                 (from x2 in x
