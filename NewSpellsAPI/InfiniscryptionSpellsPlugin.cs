@@ -7,6 +7,7 @@ using Infiniscryption.Spells.Patchers;
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Infiniscryption.Spells
@@ -20,7 +21,7 @@ namespace Infiniscryption.Spells
 
         public const string PluginGuid = "zorro.inscryption.infiniscryption.spells";
         internal const string PluginName = "New Infiniscryption Spells";
-        internal const string PluginVersion = "1.2.4";
+        internal const string PluginVersion = "1.2.5";
         internal const string CardPrefix = "ZSPL";
 
         internal static ManualLogSource Log;
@@ -80,27 +81,26 @@ namespace Infiniscryption.Spells
             // This makes sure that all cards with the spell special ability are properly given all of the various components of a spell
             CardManager.ModifyCardList += delegate (List<CardInfo> cards)
             {
-                foreach (CardInfo card in cards)
+                foreach (CardInfo card in cards.Where(x => x.IsSpell()))
                 {
                     if (card.IsTargetedSpell() && card.SpecialStatIcon != TargetedSpellAbility.Icon)
-                    {
                         card.SetTargetedSpell();
-                        if (!card.hideAttackAndHealth && (card.baseHealth > 0 || card.baseAttack > 0))
-                            card.SetHideStats(false);
-                    }
 
-                    if (card.IsGlobalSpell() && (card.SpecialStatIcon != GlobalSpellAbility.Icon || card.SpecialStatIcon != InstaGlobalSpellAbility.Icon))
+                    else if (card.IsInstaGlobalSpell() && card.specialStatIcon != InstaGlobalSpellAbility.Icon)
+                        card.SetInstaGlobalSpell();
+
+                    else if (card.IsGlobalSpell() && card.specialStatIcon == GlobalSpellAbility.Icon)
+                        card.SetGlobalSpell();
+
+                    if (!card.hideAttackAndHealth && (card.baseHealth != 0 || card.baseAttack != 0))
                     {
-                        if (card.IsInstaGlobalSpell())
-                            card.SetInstaGlobalSpell();
-                        else
-                            card.SetGlobalSpell();
+                        if (card.GetExtendedPropertyAsBool("Spells:NegativeStats") == null && (card.baseHealth < 0 || card.baseAttack < 0))
+                            card.SetNegativeStats();
 
-                        // if show stats
-                        if (!card.hideAttackAndHealth && (card.baseHealth > 0 || card.baseAttack > 0))
-                            card.SetHideStats(false);
-
+                        card.SetHideStats(false);
                     }
+
+
                 }
                 return cards;
             };

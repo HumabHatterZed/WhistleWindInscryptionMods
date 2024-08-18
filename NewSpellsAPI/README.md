@@ -12,7 +12,7 @@ New additions and features include:
 This mod is meant to **replace** the original version, not be used alongside it.
 Installing both will likely cause problems!!
 
-#
+##
 
 This mod contains special abilities that allow you to create a new type of card called a 'spell'. Spells are cards that:
 
@@ -24,30 +24,45 @@ There are also some additional sigils in this pack that might be useful for you 
 
 There are two main types of spells:
 
-**Targeted Spells:** These have an effect on one specific space on the board. Use this type if you want to use sigils like 'Direct Damage' (included in this pack) or something like the Beaver's dam creation ability.
+#### Targeted Spells
+These affect a specific space on the board that is selected by the player (or opponent AI).
 
-**Global Spells:** These have an immediate, global effect when played. If you attach a sigil that expects to be in a specific slot on board, there may be unexpected behavior. For example, the Beaver's dam ability will more than likely give Leshy a free dam.
+Use this type if you want to use sigils like 'Direct Damage' (included in this pack) or something like the Beaver's dam creation ability.
 
-#
+#### Global Spells
+These have an immediate, board-wide effect when played, and can be played on any board space.
+
+If you attach a sigil that expects to be in a specific slot on board, there may be unexpected behavior.
+For example, the Beaver's dam ability will more than likely give Leshy a free dam.
+
+##
 
 There are additionally two sub-types of spells:
 
-**Insta-Global Spells:** A variant of global spells that trigger immediately upon being selected (unless they cost Blood).
+#### Instant Global Spells
+A variant of global spells that trigger immediately upon being selected in the hand, unless they cost Blood to play.
 
-**Stat Spells:** A variant of spells that show their stats when moused over. Can be applied to targeted and both kinds of global spells.
+#### Stat Spells
+By setting a spell card's `hideAttackAndHealth` field to 'false' (or using one of the mod's extension methods),
+you can make the card's stats display whenever you hover over it.
+
+Use this if you want to create a spell whose effect depends on its stats, or are using this mod's Give Stats ability.
+
+
+You can also make spell cards show negative stat values by setting the card's extended property `Spells:NegativeStats` to 'true'.
 
 ## Credits
-Original mod by DivisionByZ0rro.
+Original mod by [divisionbyz0rro](https://inscryption.thunderstore.io/package/Infiniscryption).
 
 This mod would not be possible without signifcant contributions from the Inscryption Modding discord channel.
 
 Pixel icons were contributed by [Arakulele](https://inscryption.thunderstore.io/package/Arackulele/).
 
 ## Does this pack add any cards?
-It can, but it doesn't by default. If you want my example cards added to the card pool, go to the config file 'zorro.infiniscryption.sigils.cfg' and set 'AddCards' to true.
+It can, but it doesn't by default.
+If you want the example cards added to the card pool, go to the config file `zorro.infiniscryption.sigils.cfg` and set 'AddCards' to true.
 
 This will add the following cards:
-
 - **Kettle of Avarice**: 1 Blood, draws two cards.
 - **Anger of the Gods**: 1 Blood, destroys all creatures on board (Rare).
 - **Lightning**: 1 Blood, deals 2 damage to a card slot.
@@ -59,7 +74,7 @@ This will add the following cards:
 - **Soul Without a Body**: 1 Blood, gives its sigils to a target card.
 - **Body Without a Soul**: 2 Bones, gives its stats to a target card.
 - **Another's Desire**: 1 Blood, gives its stats and sigils to a target card.
-- **Hope**: 2 Bones, gives its stats to all player cards.
+- **Hope**: 2 Bones, gives its stats to all cards on the owner's side of the board.
 
 These cards are not meant to be balanced, but rather to demonstrate how the mod works (hence why they are not added by default).
 
@@ -114,7 +129,7 @@ So, for example:
 Note that abilities that modify the way cards attack (custom "strike" sigils) are not supported - only Split-, Tri-, and AllStrike.
 
 ## Adding a spell through the API
-The best way to add a spell using the API is to also create a reference to this mod's DLL in your project and use the custom extension method helpers "SetGlobalSpell()" or "SetTargetedSpell()" to turn a card into a spell:
+The best way to add a spell using the API is to also create a reference to this mod's DLL in your project and use the custom extension method helpers `SetGlobalSpell()` or `SetTargetedSpell()` to turn a card into a spell:
 
 ```c#
 using InscryptionAPI;
@@ -135,9 +150,13 @@ CardManager.New("Spell_Lightning", "Lightning", 0, 0, "A perfectly serviceable a
            .AddAbilities(DirectDamage.AbilityID, DirectDamage.AbilityID);
 ```
 
-With the new version, you can use "SetTargetedSpellStats()" and "SetGlobalSpellStats()" to create a spell that displays its stats.
-
-Additionally, if you want to make sure your card can NEVER be buffed, you can use "SetNeverBoostStats()" to mark your card as always being ineligible for stat buffing.
+Additional extension method helpers for C#:
+- **SetInstaGlobalSpell():** Marks a card as an instant global spell.
+- **SetTargetedSpellStats():** Marks a card as a targeted spell that displays its stats.
+- **SetGlobalSpellStats():** Marks a card as a global spell that displays its stats.
+- **SetInstaGlobalSpellStats():** Marks a card as an instant spell that displays its stats.
+- **SetNegativeStats:** Allows stat spells to have negative attack or health values.
+- **SetNeverBoostStats:** Prevents a card from being boosted at the campfire (this is only possible if enabled in the config).
 
 ## Adding a spell through JSON Loader
 To add a spell using JSON loader, you simply need to add either the global spell or the targeted spell special ability to the card:
@@ -156,8 +175,11 @@ To add a spell using JSON loader, you simply need to add either the global spell
 }
 ```
 
-Spell cards with a Health or Attack above 0 will automatically be converted to stat spells;
+Spell cards with a Health or Attack above or below 0 will automatically be converted to stat spells;
 this can be disabled by setting the CardInfo's "hideAttackAndHealth" to "true" when creating your card.
+
+If you want your spell card to be able to display negative stat values, or want to disable this behaviour,
+set the extended property `Spells:NegativeStats` to 'false'.
 
 To create a spell card that can never be buffed at the campfire, you need to add this mod's special Trait:
 ```json

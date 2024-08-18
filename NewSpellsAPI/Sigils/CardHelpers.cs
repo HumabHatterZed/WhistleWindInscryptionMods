@@ -92,11 +92,23 @@ namespace Infiniscryption.Spells.Sigils
             return abilities;
         }
 
+        public static AbilityManager.FullAbility SetCanMerge(this AbilityManager.FullAbility info, bool canMerge = true)
+        {
+            info.SetExtendedProperty("Spells:CanMerge", canMerge);
+            return info;
+        }
         public static AbilityInfo SetCanMerge(this AbilityInfo info, bool canMerge = true)
         {
             info.SetExtendedProperty("Spells:CanMerge", canMerge);
             return info;
         }
+
+        public static CardInfo SetNegativeStats(this CardInfo info, bool negativeStats = true)
+        {
+            info.SetExtendedProperty("Spells:NegativeStats", negativeStats);
+            return info;
+        }
+
         public static bool CanMerge(this AbilityInfo info)
         {
             return info.GetExtendedPropertyAsBool("Spells:CanMerge") ?? true;

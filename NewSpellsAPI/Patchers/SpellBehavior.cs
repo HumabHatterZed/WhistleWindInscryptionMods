@@ -25,7 +25,7 @@ namespace Infiniscryption.Spells.Patchers
                 playableCard = null;
                 return;
             }
-            SpellBehavior.UpdatePlayableStatsSpellDisplay(playableCard, true);
+            SpellBehavior.UpdateStatsSpellDisplay(playableCard, true);
         }
         public void QueueCursorExit()
         {
@@ -34,7 +34,7 @@ namespace Infiniscryption.Spells.Patchers
                 playableCard = null;
                 return;
             }
-            SpellBehavior.UpdatePlayableStatsSpellDisplay(playableCard, false);
+            SpellBehavior.UpdateStatsSpellDisplay(playableCard, false);
         }
     }
     public static class SpellBehavior
@@ -162,39 +162,50 @@ namespace Infiniscryption.Spells.Patchers
         #endregion
 
         #region Stat Spell Patches
-        public static bool NotStatsSpellInfo(CardInfo info) => info == null || !info.IsSpellShowStats();
-
-        public static void UpdateStatsSpellDisplay<T>(T card, bool showStats) where T : Card
+        public static bool StatsSpellInfo(CardInfo info) => info != null && info.IsSpellShowStats();
+        public static void UpdateStatsSpellDisplay(Card card, bool showStats)
         {
-            if (NotStatsSpellInfo(card.Info))
+            if (!StatsSpellInfo(card.Info))
                 return;
 
             card.RenderInfo.showSpecialStats = showStats;
-            if (showStats)
-            {
-                card.RenderInfo.attack = card.Info.Attack;
-                card.RenderInfo.health = card.Info.Health;
-            }
-
-            card.RenderInfo.attackTextColor = card.RenderInfo.attack > 0 ? GameColors.Instance.darkBlue : Color.black;
-            card.RenderInfo.healthTextColor = card.RenderInfo.health > 0 ? GameColors.Instance.darkBlue : Color.black;
             card.RenderCard();
         }
-        public static void UpdatePlayableStatsSpellDisplay(PlayableCard card, bool showStats)
-        {
-            if (NotStatsSpellInfo(card.Info))
-                return;
 
-            card.RenderInfo.showSpecialStats = showStats;
-            if (showStats)
+        public static Color GBCGreenText = new (0.1f, .6f, 0.3f);
+        [HarmonyPrefix, HarmonyPatch(typeof(Card), nameof(Card.RenderCard))]
+        private static bool UpdateSpellStatsDisplay(Card __instance)
+        {
+            if (StatsSpellInfo(__instance.Info))
             {
-                card.RenderInfo.attack = card.Info.Attack;
-                card.RenderInfo.health = card.Info.Health;
+                if (__instance is PlayableCard play)
+                {
+                    __instance.RenderInfo.attack = play.Attack;
+                    __instance.RenderInfo.health = play.Health;
+                }
+                else
+                {
+                    __instance.RenderInfo.attack = __instance.Info.Attack;
+                    __instance.RenderInfo.health = __instance.Info.Health;
+                }
+
+                Color positive = SaveManager.SaveFile.IsPart2 ? GBCGreenText : GameColors.Instance.darkBlue;
+                if (__instance.RenderInfo.attack < 0)
+                    __instance.RenderInfo.attackTextColor = GameColors.Instance.darkFuschia;
+                else if (__instance.RenderInfo.attack > 0)
+                    __instance.RenderInfo.attackTextColor = positive;
+                else
+                    __instance.RenderInfo.attackTextColor = Color.black;
+
+                if (__instance.RenderInfo.health < 0)
+                    __instance.RenderInfo.healthTextColor = GameColors.Instance.darkFuschia;
+                else if (__instance.RenderInfo.health > 0)
+                    __instance.RenderInfo.healthTextColor = positive;
+                else
+                    __instance.RenderInfo.healthTextColor = Color.black;
             }
 
-            card.RenderInfo.attackTextColor = (card.GetPassiveAttackBuffs() + card.GetStatIconAttackBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
-            card.RenderInfo.healthTextColor = (card.GetPassiveHealthBuffs() + card.GetStatIconHealthBuffs() != 0) ? GameColors.Instance.darkBlue : Color.black;
-            card.RenderCard();
+            return true;
         }
 
         // these allow the player to view a stat spell's stats when hovering over a card - how fancy~
@@ -202,24 +213,28 @@ namespace Infiniscryption.Spells.Patchers
         private static void ShowStatsSelectableCards(SelectableCard __instance) => UpdateStatsSpellDisplay(__instance, true);
 
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), "OnCursorEnter")]
-        private static void ShowStatsPlayableCards(PlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, true);
+        private static void ShowStatsPlayableCards(PlayableCard __instance) => UpdateStatsSpellDisplay(__instance, true);
 
         [HarmonyPostfix, HarmonyPatch(typeof(PixelSelectableCard), "OnCursorEnter")]
         private static void ShowStatsPixelSelectableCards(PixelSelectableCard __instance) => UpdateStatsSpellDisplay(__instance, true);
 
         [HarmonyPostfix, HarmonyPatch(typeof(PixelPlayableCard), "OnCursorEnter")]
-        private static void ShowStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, true);
+        private static void ShowStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdateStatsSpellDisplay(__instance, true);
 
         [HarmonyPostfix, HarmonyPatch(typeof(PixelSelectableCard), "OnCursorExit")]
         private static void HideStatsPixelSelectableCards(PixelSelectableCard __instance) => UpdateStatsSpellDisplay(__instance, false);
 
         [HarmonyPostfix, HarmonyPatch(typeof(PixelPlayableCard), "OnCursorExit")]
-        private static void HideStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdatePlayableStatsSpellDisplay(__instance, false);
+        private static void HideStatsPixelPlayableCards(PixelPlayableCard __instance) => UpdateStatsSpellDisplay(__instance, false);
 
         [HarmonyPostfix, HarmonyPatch(typeof(MainInputInteractable), "OnCursorExit")]
         private static void ShowStatsSelectableCards(MainInputInteractable __instance)
         {
-            if (__instance is SelectableCard)
+            if (__instance is Card card)
+                UpdateStatsSpellDisplay(card, false);
+            return;
+
+/*            if (__instance is SelectableCard)
             {
                 SelectableCard card = __instance as SelectableCard;
                 UpdateStatsSpellDisplay(card, false);
@@ -228,12 +243,13 @@ namespace Infiniscryption.Spells.Patchers
             {
                 PlayableCard playableCard = __instance as PlayableCard;
                 UpdatePlayableStatsSpellDisplay(playableCard, false);
-            }
+            }*/
         }
+
         [HarmonyPostfix, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.QueueCardForSlot))]
         private static void ShowStatsSelectableCards(PlayableCard card)
         {
-            if (SaveManager.SaveFile.IsPart2 || NotStatsSpellInfo(card.Info))
+            if (SaveManager.SaveFile.IsPart2 || !StatsSpellInfo(card.Info))
                 return;
 
             HighlightedInteractable queueSlot = BoardManager3D.Instance.opponentQueueSlots[card.QueuedSlot.Index];
@@ -246,14 +262,68 @@ namespace Infiniscryption.Spells.Patchers
             }
             interactable.playableCard = card;
         }
-        // method for adding show-stats spells to the campfire list of valid cards
-        // not patched automatically; stat spells need to be able to stat boost in the first place
+
+        /// <summary>
+        /// Method that allows stat spells to be boosted at the campfire.
+        /// Only patched if this behaviour is enabled in the configs.
+        /// </summary>
+        /// <param name="__result"></param>
         public static void AllowStatBoostForSpells(List<CardInfo> __result)
         {
             List<CardInfo> deckList = new(RunState.DeckList);
-            deckList.RemoveAll(ci => __result.Contains(ci) || !ci.IsSpellShowStats() || (ci.baseAttack == 0 && ci.baseHealth == 0));
+            deckList.RemoveAll(ci => __result.Contains(ci) || !ci.IsSpellShowStats()
+                || (ci.baseAttack <= 0 && ci.baseHealth <= 0 && !(ci.GetExtendedPropertyAsBool("Spells:NegativeStats") ?? false))
+                || ci.HasTrait(Trait.Terrain));
+            
             __result.AddRange(deckList);
         }
+
+        [HarmonyPrefix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.Attack), MethodType.Getter)]
+        public static bool AllowNegativeAttack(ref int __result, PlayableCard __instance)
+        {
+            if (__instance.Info.GetExtendedPropertyAsBool("Spells:NegativeStats") ?? false)
+            {
+                __result = __instance.Info.Attack + __instance.GetAttackModifications() + __instance.GetPassiveAttackBuffs();
+                return false;
+            }
+            return true;
+        }
+        [HarmonyPrefix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.Health), MethodType.Getter)]
+        public static bool AllowNegativeHealth(ref int __result, PlayableCard __instance)
+        {
+            if (__instance.Info.GetExtendedPropertyAsBool("Spells:NegativeStats") ?? false)
+            {
+                __result = __instance.MaxHealth - __instance.Status.damageTaken;
+                return false;
+            }
+            return true;
+        }
+
+        [HarmonyPrefix, HarmonyPatch(typeof(CardDisplayer3D), nameof(CardDisplayer3D.SetStatsText))]
+        public static bool NegativeStatsText(CardDisplayer3D __instance, int attack, int health)
+        {
+            if (__instance.info.GetExtendedPropertyAsBool("Spells:NegativeStats") ?? false)
+            {
+                __instance.attackText.text = attack.ToString();
+                __instance.healthText.text = health.ToString();
+                return false;
+            }
+            return true;
+        }
+        [HarmonyPrefix, HarmonyPatch(typeof(PixelCardDisplayer), nameof(PixelCardDisplayer.SetStatsText))]
+        public static bool NegativeStatsTextPixel(PixelCardDisplayer __instance, int attack, int health)
+        {
+            if (__instance.info.GetExtendedPropertyAsBool("Spells:NegativeStats") ?? false)
+            {
+                __instance.attackText?.SetText(attack.ToString());
+                __instance.healthText?.SetText(health.ToString());
+                __instance.queuedAttackText?.SetText(attack.ToString());
+                __instance.queuedHealthText?.SetText(health.ToString());
+                return false;
+            }
+            return true;
+        }
+
         #endregion
 
         #region Main Spell Patches
@@ -497,7 +567,7 @@ namespace Infiniscryption.Spells.Patchers
         {
             __result.RemoveAll(x => x.Abilities.Exists(x => !x.CanMerge()));
             if (InfiniscryptionSpellsPlugin.SpellMerge)
-                __result.RemoveAll(x => x.IsSpell());
+                __result.RemoveAll(x => x.IsSpell() && x.hideAttackAndHealth);
         }
 
         // Prevents card from being merged / gaining sigils
@@ -543,7 +613,7 @@ namespace Infiniscryption.Spells.Patchers
                             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
 
                         if (card.Info.IsSpellShowStats())
-                            UpdatePlayableStatsSpellDisplay(card, true);
+                            UpdateStatsSpellDisplay(card, true);
 
                     }, delegate
                     {

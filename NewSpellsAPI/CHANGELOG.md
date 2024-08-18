@@ -3,42 +3,57 @@
 <details>
 <summary>View changelog</summary>
 
-## 1.2.4 (1/16/2024)
+## 1.2.5 (Aug 11, 2024)
+- Fixed Terrain stat spells being boostable at the campfire
+- Fixed stat spells not colouring their stat values correctly in the hand
+- Added support for negative value stat spell cards
+- Added abstract 'GiveAbility' class
+- Reduced 'Give Stats' ability powerlevel from 4 -> 2
+- Reduced 'Give Sigils' ability powerlevel from 4 --> 3
+- Reduced 'Give Stats and Sigils' ability powerlevel from 8 --> 5
+- 'Give Sigils' and 'Give Stats and Sigils' now only give up to 4 of the spell card's sigils
+- 'Give' abilities are now stackable
+- 'Give' abilities now inherit from the GiveAbility class
+- 'Give' abilities are now marked with the extended property 'Spells:GiveAbility'
+- Opponents now follow the same logic as the player when playing negative 'Give' spells
+- Stat spells in Act 2 now display positive values as green instead of blue
+
+## 1.2.4 (Jan 16, 2024)
 - Fixed Blood-costing spell cards not being playable even when there are sufficient sacrifices and targets
 
-## 1.2.3 (12/24/2023)
+## 1.2.3 (Dec 24, 2023)
 - Queued spell cards can now be prevented from being played by patching Opponent.QueuedCardIsBlocked
 - Made UpdateStatsSpellDisplay and UpdatePlayableStatsSpellDisplay public
 
-## 1.2.2 (12/3/2023)
+## 1.2.2 (Dec 3, 2023)
 - Fixed stat spell cards' health not being coloured correctly during battle
 - Opponent stat spell cards now reveal their stats when played
 - Queued stat spell cards now reveal their stats when moused over
 - Adjusted when the target icons created by opponent target spells disappear
 
-## 1.2.1 (11/29/2023)
+## 1.2.1 (Nov 29, 2023)
 - Mousing over a stat spell card will reveal the card's stats
 
-## 1.2.0 (11/16/2023)
+## 1.2.0 (Nov 16, 2023)
 - Rewrote stat spell logic to -hopefully- be quicker/less laggy
 - Added Instant Global Spells, which replicate the original global spell behaviour (played immediately on selection)
 - Added SetInstaGlobalSpell() and SetInstaGlobalSpellStats()
 - Tweaked Spell stat icon descriptions to differentiate between instant and regular Global Spells
 
-## 1.1.3 (9/28/2023)
+## 1.1.3 (Sept 9, 2023)
 - Fixed a few typos
 - Fixed example sigils activating incorrectly when attached to non-Spell cards
 - Added helper extension AbilityInfo.SetCanMerge() for controlling whether sigils should be transferrable or not - true by default
 - Added new config AllowCardMerge for controlling whether spell cards can gain or transfer sigils - true by default
 - Tweaked Act 2 descriptions for Targeted and Global Spells.
 
-## 1.1.2 (6/1/2023)
+## 1.1.2 (June 1, 2023)
 - Fixed Spells not working correctly in Act 2
 
-## 1.1.1 (5/20/2023)
+## 1.1.1 (May 20, 2023)
 - Fixed Give Stats giving the wrong stats
 
-## 1.1.0 (2/4/2023)
+## 1.1.0 (Feb 4, 2023)
 - Added opponent support for spell cards and all built-in sigils
 - Added Global Spell support for ability 'Gain Control'
 - Fixed Targeted Spells always being playable if they have the ability Brittle
@@ -47,7 +62,7 @@
 - Reduced how long 'Gain Control' takes to finish moving a card
 - 'Attack Down' can no longer be used on cards with 0 Power
 
-## 1.0.0 (1/28/2023)
+## 1.0.0 (Jan 28, 2023)
 - Added 3 new sigils: Give Stats, Give Sigils, Give Stats and Sigils
 - Added 4 new cards: Soul Without a Body, Body Without a Soul, Desire, Hope
 - Added new compatibility to some sigils so they work with regular cards and global spell cards

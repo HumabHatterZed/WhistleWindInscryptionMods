@@ -1,9 +1,9 @@
 {
   "name": "New_Spell_Card_Toolkit",
-  "version_number": "1.2.4",
+  "version_number": "1.2.5",
   "website_url": "https://github.com/HumabHatterZed/WhistleWindInscryptionMods",
-  "description": "The official-ish continuation of Infiniscryption's Spell Card Toolkit, with new features and improvements.",
+  "description": "The official continuation of Infiniscryption's Spell Card Toolkit, with new features and improvements.",
   "dependencies": [
-    "API_dev-API-2.19.0"
+    "API_dev-API-2.20.0"
   ]
 }
