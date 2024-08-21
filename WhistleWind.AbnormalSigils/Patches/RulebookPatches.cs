@@ -8,13 +8,14 @@ using System.Text;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using static InscryptionAPI.Card.AbilityManager;
+using static InscryptionAPI.Card.StatIconManager;
 
 namespace WhistleWind.AbnormalSigils.Patches
 {
     [HarmonyPatch]
     internal class RulebookPatches
     {
-        [HarmonyPatch(typeof(RuleBookController))]
+/*        [HarmonyPatch(typeof(RuleBookController))]
         private static class RulebookControllerPatches
         {
             private static bool changedRulebook = false;
@@ -37,15 +38,6 @@ namespace WhistleWind.AbnormalSigils.Patches
             {
                 if (card != null)
                 {
-                    if (card.HasAbility(Conductor.ability))
-                    {
-                        var component = card.GetComponent<Conductor>();
-                        if (!component || component.turnCount == 0)
-                            return true;
-
-                        AbilitiesUtil.GetInfo(DynamicDescs[0]).rulebookDescription = ConductorDescriptions[Mathf.Min(2, component.turnCount - 1)];
-                        changedRulebook = true;
-                    }
                     if (card.GetDisplayedStatusEffects(false).Count > 5)
                     {
                         List<Ability> abilities = card.GetDisplayedStatusEffects(false);
@@ -57,59 +49,60 @@ namespace WhistleWind.AbnormalSigils.Patches
                 }
                 return true;
             }
-        }
+        }*/
 
 
-        [HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
-        [HarmonyPostfix]
-        private static void StatusShouldBeAddedRegularly(int abilityIndex, AbilityMetaCategory rulebookCategory, ref bool __result)
+        [HarmonyPrefix, HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
+        private static bool StatusShouldBeAddedRegularly(int abilityIndex, AbilityMetaCategory rulebookCategory, ref bool __result)
         {
             if ((Ability)abilityIndex == SeeMore.ability)
+            {
                 __result = false;
+                return false;
+            }
 
-            if (StatusEffectManager.AllStatusEffects.Exists(x => x.IconId == (Ability)abilityIndex && !x.AddNormalRulebookEntry))
+            if (StatusEffectManager.AllStatusEffects.EffectByIcon((Ability)abilityIndex)?.SigilRulebookEntry == false)
+            {
                 __result = false;
+                return false;
+            }
+
+            return true;
         }
+
         [HarmonyPatch(typeof(RuleBookInfo), "ConstructPageData", new Type[] { typeof(AbilityMetaCategory) })]
         [HarmonyPostfix]
         private static void FixRulebook(AbilityMetaCategory metaCategory, RuleBookInfo __instance, ref List<RuleBookPageInfo> __result)
         {
-            List<FullAbility> newAbilities = AllAbilities.FindAll(x => !BaseGameAbilities.Contains(x));
-            if (newAbilities.Count <= 0)
+            //List<FullAbility> newAbilities = AllAbilities.FindAll(x => !BaseGameAbilities.Contains(x));
+            if (StatusEffectManager.AllStatusEffects.Count == 0)
                 return;
 
-            foreach (PageRangeInfo pageRangeInfo in __instance.pageRanges)
+            foreach (PageRangeInfo pageRangeInfo in __instance.pageRanges.Where(x => x.type == PageRangeType.Abilities))
             {
-                // regular abilities
-                if (pageRangeInfo.type != PageRangeType.Abilities)
-                    continue;
-
+                int curPageNum = 1;
                 int insertPosition = __result.FindLastIndex(rbi => rbi.pagePrefab == pageRangeInfo.rangePrefab) + 1;
-                int curPageNum = (int)Ability.NUM_ABILITIES;
-                List<FullAbility> addedAbilities = newAbilities.Where(x => __instance.AbilityShouldBeAdded((int)x.Id, metaCategory)).ToList();
-                curPageNum += addedAbilities.Count + 1;
-
-                List<StatusEffectManager.FullStatusEffect> statuses = new(StatusEffectManager.AllStatusEffects);
-                if (SaveManager.SaveFile.IsPart1)
-                    statuses.RemoveAll(x => !x.statusMetaCategories.Contains(StatusEffectManager.StatusMetaCategory.Part1StatusEffect));
+                List<StatusEffectManager.FullStatusEffect> statuses = StatusEffectManager.AllStatusEffects.Where(x => x.IconInfo.metaCategories.Contains(metaCategory)).ToList();
+/*                if (SaveManager.SaveFile.IsPart1)
+                    statuses.RemoveAll(x => !x.IconInfo.metaCategories.Contains(AbilityMetaCategory.Part1Rulebook));
 
                 else if (SaveManager.SaveFile.IsPart3)
-                    statuses.RemoveAll(x => !x.statusMetaCategories.Contains(StatusEffectManager.StatusMetaCategory.Part3StatusEffect));
+                    statuses.RemoveAll(x => !x.IconInfo.metaCategories.Contains(AbilityMetaCategory.Part3Rulebook));
 
                 else if (SaveManager.SaveFile.IsGrimora)
-                    statuses.RemoveAll(x => !x.statusMetaCategories.Contains(StatusEffectManager.StatusMetaCategory.GrimoraStatusEffect));
+                    statuses.RemoveAll(x => !x.IconInfo.metaCategories.Contains(AbilityMetaCategory.GrimoraRulebook));
 
                 else if (SaveManager.SaveFile.IsMagnificus)
-                    statuses.RemoveAll(x => !x.statusMetaCategories.Contains(StatusEffectManager.StatusMetaCategory.MagnificusStatusEffect));
-
-                foreach (var status in statuses)
+                    statuses.RemoveAll(x => !x.IconInfo.metaCategories.Contains(AbilityMetaCategory.MagnificusRulebook));
+*/
+                foreach (StatusEffectManager.FullStatusEffect status in statuses)
                 {
                     RuleBookPageInfo info = new()
                     {
                         pagePrefab = pageRangeInfo.rangePrefab,
-                        headerText = string.Format(Localization.Translate("APPENDIX XII, SUBSECTION II - STATUS EFFECTS {0}"), curPageNum)
+                        headerText = string.Format(Localization.Translate("APPENDIX XII, SUBSECTION C - STATUS EFFECTS {0}"), curPageNum)
                     };
-                    __instance.FillAbilityPage(info, pageRangeInfo, (int)status.IconId);
+                    __instance.FillAbilityPage(info, pageRangeInfo, (int)status.IconInfo.ability);
                     __result.Insert(insertPosition, info);
                     curPageNum += 1;
                     insertPosition += 1;
@@ -118,7 +111,7 @@ namespace WhistleWind.AbnormalSigils.Patches
                 RuleBookPageInfo seeMore = new()
                 {
                     pagePrefab = pageRangeInfo.rangePrefab,
-                    headerText = string.Format(Localization.Translate("APPENDIX XII, SUBSECTION II - STATUS EFFECTS {0}"), curPageNum)
+                    headerText = string.Format(Localization.Translate("APPENDIX XII, SUBSECTION C - STATUS EFFECTS {0}"), curPageNum)
                 };
                 __instance.FillAbilityPage(seeMore, pageRangeInfo, (int)SeeMore.ability);
                 __result.Insert(insertPosition, seeMore);

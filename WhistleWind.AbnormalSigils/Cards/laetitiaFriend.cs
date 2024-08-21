@@ -10,13 +10,12 @@ namespace WhistleWind.AbnormalSigils
         private void Card_LaetitiaFriend_O0167()
         {
             const string laetitiaFriend = "laetitiaFriend";
-            CreateCard(MakeCard(
-                cardName: laetitiaFriend,
-                "Little Witch's Friend",
-                attack: 1, health: 2, bones: 3)
-                .SetPortraits(laetitiaFriend)
-                .AddTribes(AbnormalPlugin.TribeFae, Tribe.Insect)
-                .SetDefaultEvolutionName("Little Witch's Big Friend"));
+
+            CardManager.New(pluginPrefix, laetitiaFriend, "Wee Witch's Friend", 2, 2)
+                .SetBonesCost(4)
+                .SetPortraits(Assembly, laetitiaFriend)
+                .AddTribes(TribeFae)
+                .SetDefaultEvolutionName("Wee Witch's Big Friend");
         }
     }
 }

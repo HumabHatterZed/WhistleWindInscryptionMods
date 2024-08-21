@@ -13,22 +13,16 @@ namespace WhistleWind.AbnormalSigils
             const string ozmaPumpkin = "ozmaPumpkin";
             Tribe[] tribes = new[] { TribeBotanic };
 
-            CreateCard(MakeCard(
-                ozmaPumpkinJack,
-                "Jack",
-                attack: 2, health: 2)
-                .SetPortraits(ozmaPumpkinJack)
+            CardInfo jack = CardManager.New(pluginPrefix, ozmaPumpkinJack, "Jack", 2, 2)
+                .SetPortraits(Assembly, ozmaPumpkinJack)
                 .AddAbilities(Cursed.ability)
-                .AddTribes(tribes));
+                .AddTribes(tribes);
 
-            CreateCard(MakeCard(
-                ozmaPumpkin,
-                "Pumpkin",
-                attack: 0, health: 2)
-                .SetPortraits(ozmaPumpkin)
+            CardManager.New(pluginPrefix, ozmaPumpkin, "Pumpkin", 0, 2)
+                .SetPortraits(Assembly, ozmaPumpkin)
                 .AddAbilities(Ability.Evolve)
                 .AddTribes(tribes)
-                .SetEvolve("wstl_ozmaPumpkinJack", 2));
+                .SetEvolve(jack, 2);
         }
     }
 }

@@ -10,12 +10,10 @@ namespace WhistleWind.AbnormalSigils
         private void Card_QueenBeeWorker_T0450()
         {
             const string queenBeeWorker = "queenBeeWorker";
-            CreateCard(MakeCard(
-                queenBeeWorker,
-                "Worker Bee",
-                attack: 1, health: 1, bones: 1)
-                .SetPortraits(queenBeeWorker)
-                .AddTribes(Tribe.Insect));
+            CardManager.New(pluginPrefix, queenBeeWorker, "Worker Bee", 1, 1)
+                .SetBonesCost(1)
+                .SetPortraits(Assembly, queenBeeWorker)
+                .AddTribes(Tribe.Insect);
         }
     }
 }

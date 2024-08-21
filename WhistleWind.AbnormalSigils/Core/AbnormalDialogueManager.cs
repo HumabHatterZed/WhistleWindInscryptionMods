@@ -7,6 +7,17 @@ namespace WhistleWind.AbnormalSigils.Core
     {
         public static Dictionary<string, List<CustomLine>> EventNames => new()
         {
+            { "LearnStatusEffects",
+                new() {
+                    "Ah, this beast has been afflicted with a [c:bR]status effect[c:].",
+                    "When this battle ends, it will be cleared from its host." }
+            },
+            { "LearnStatusEffectsOverflow",
+                new() {
+                    "It seems this beast is laden with too many [c:bR]status effects[c:].",
+                    "You can see the excess by interacting with the rightmost status." }
+            },
+
             { "CopycatFail",
                 new() { "Some things in this world are too unique to replicate." }},
             { "CopycatDead",
@@ -28,12 +39,7 @@ namespace WhistleWind.AbnormalSigils.Core
             { "LonelyDie",
                 new() { "Why do they always leave?" }},
             { "NettlesDie",
-                new() {
-                    "She saw her dear brothers in the distance.",
-                    "Her family that needed the nettle clothing to be free of the curse.",
-                    "She fell to the ground, vomiting ooze like the rest of [c:bR]the City[c:]." }},
-            { "NettlesFail",
-                new() { "The lake ripples gently. As if a number of swans just took flight." }},
+                new() { "These clothes were meant to free us of the curse." }},
             { "RegeneratorOverheal",
                 new() { "The punishment for greed is getting everything you wanted." }},
             { "SerpentsNestInfection",

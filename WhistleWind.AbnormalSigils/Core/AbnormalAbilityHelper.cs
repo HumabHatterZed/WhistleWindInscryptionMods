@@ -12,8 +12,12 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
 {
     public static class AbnormalAbilityHelper
     {
+        public static bool IsConductor(this PlayableCard card)
+        {
+            return card.HasAnyOfAbilities(Conductor.ability, MovementOne.ability, MovementTwo.ability, MovementThree.ability, MovementFour.ability, MovementFive.ability);
+        }
         /// <summary>
-        /// Returns whether Opportunistic/OneSided can trigger during an attack.
+        /// If true, Opportunistic's effect can trigger against the target card.
         /// </summary>
         /// <param name="attacker">The card with Opportunistic.</param>
         /// <param name="target">The card being targeted.</param>
@@ -22,12 +26,10 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             if (target == null)
                 return false;
 
-            // target cannot attack on its turn
-            if (target.Attack == 0 || target.HasAbility(Neutered.ability))
+            if (target.Attack == 0 || target.HasAbility(Neutered.ability)) // target cannot attack on its turn
                 return true;
 
-            // attacker is not being targeted
-            if (!target.GetOpposingSlots().Contains(attacker.Slot))
+            if (!target.GetOpposingSlots().Contains(attacker.Slot)) // attacker is not being targeted
                 return true;
 
             // if target can hit us
@@ -38,7 +40,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
                     return false;
 
                 // target cannot hit facedown/submerged cards, Repulsive cards, or Loose Tail cards with their tail intact
-                return attacker.FaceDown || attacker.HasAbility(Ability.PreventAttack) || (attacker.HasAbility(Ability.TailOnHit) && !attacker.Status.lostTail);
+                return attacker.FaceDown || attacker.HasAbility(Ability.PreventAttack);
             }
             return true; // target cannot hit us
         }
@@ -69,22 +71,15 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             string rulebookName, string rulebookDescription,
             string dialogue = null, string triggerText = null,
             int powerLevel = 0,
-            bool modular = false, bool special = false,
-            bool opponent = false, bool canStack = false,
-            bool unobtainable = false,
-            bool flipY = false, string flipTextureName = null)
+            bool canStack = false, bool modular = false, bool opponent = false,
+            bool unobtainable = false, bool special = false)
             where T : AbilityBehaviour
         {
-            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            info.CheckModularity(unobtainable, special, modular, AbilityGroup.Normal);
-
-            return AbilityHelper.CreateAbility<T>(
-                info, pluginGuid,
-                abilityName,
-                rulebookName, rulebookDescription,
-                dialogue, triggerText,
-                powerLevel,
-                opponent, canStack, false, false, flipY, flipTextureName);
+            bool addToRulebook = AddToRulebook(AbilityGroup.Normal, unobtainable, special);
+            bool forceModular = ForceModularity(AbilityGroup.Normal, modular, unobtainable, special);
+            return AbilityHelper.New<T>(pluginGuid,
+                abilityName, rulebookName, rulebookDescription, powerLevel, addToRulebook, dialogue, triggerText,
+                canStack, forceModular, opponent);
         }
 
         public static FullAbility CreateActivatedAbility<T>(
@@ -93,42 +88,45 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             string dialogue = null, string triggerText = null,
             int powerLevel = 0,
             bool special = false, bool unobtainable = false)
-            where T : ExtendedActivatedAbilityBehaviour
+            where T : AbilityBehaviour
         {
-            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            info.CheckModularity(unobtainable, special, false, AbilityGroup.Activated);
-
-            return AbilityHelper.CreateActivatedAbility<T>(
-                info, pluginGuid,
-                abilityName,
-                rulebookName, rulebookDescription,
-                dialogue, triggerText,
-                powerLevel);
+            bool addToRulebook = AddToRulebook(AbilityGroup.Activated, unobtainable, special);
+            bool forceModular = ForceModularity(AbilityGroup.Activated, false, unobtainable, special);
+            return AbilityHelper.NewActivated<T>(pluginGuid, abilityName, rulebookName, rulebookDescription, powerLevel, addToRulebook, dialogue, triggerText,
+                false, forceModular);
         }
 
-        private static AbilityInfo CheckModularity(this AbilityInfo info, bool unobtainable, bool special, bool makeModular, AbilityGroup defaultGroup)
+        private static bool AddToRulebook(AbilityGroup defaultGroup, bool rulebookOnly, bool special)
         {
-            if (ForceDisable.HasFlag(AbilityGroup.All) ||
-                ForceDisable.HasFlags(AbilityGroup.Normal, AbilityGroup.Activated, AbilityGroup.Special))
-                return info;
+            if (ForceDisable.HasFlag(AbilityGroup.All) || ForceDisable.HasFlags(AbilityGroup.Normal, AbilityGroup.Activated, AbilityGroup.Special))
+                return false;
 
-            if (unobtainable)
-                info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
-            else if (special && !ForceDisable.HasFlag(AbilityGroup.Special))
-            {
-                info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
+            if (rulebookOnly)
+                return true;
 
-                if (ForceModular.HasFlag(AbilityGroup.All) || ForceModular.HasFlag(AbilityGroup.Special))
-                    info.AddMetaCategories(AbilityMetaCategory.Part1Modular);
-            }
-            else if (!ForceDisable.HasFlag(defaultGroup))
-            {
-                info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
+            if (special && ForceDisable.HasFlag(AbilityGroup.Special))
+                return false;
 
-                if (makeModular || ForceModular.HasFlag(AbilityGroup.All) || ForceModular.HasFlag(defaultGroup))
-                    info.AddMetaCategories(AbilityMetaCategory.Part1Modular);
-            }
-            return info;
+            if (ForceDisable.HasFlag(defaultGroup))
+                return false;
+
+            return true;
+        }
+        private static bool ForceModularity(AbilityGroup defaultGroup, bool defaultModular, bool rulebookOnly, bool special)
+        {
+            if (ForceModular.HasFlag(AbilityGroup.All) || ForceModular.HasFlags(AbilityGroup.Normal, AbilityGroup.Activated, AbilityGroup.Special))
+                return true;
+
+            if (rulebookOnly)
+                return false;
+
+            if (special && ForceModular.HasFlag(AbilityGroup.Special))
+                return true;
+
+            if (ForceModular.HasFlag(defaultGroup))
+                return true;
+
+            return defaultModular;
         }
 
         private static AbilityGroup ForceModular => AbnormalConfigManager.Instance.MakeModular;

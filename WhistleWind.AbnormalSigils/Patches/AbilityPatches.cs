@@ -17,44 +17,6 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardAbilityPatches
     {
-        #region Lonely ability
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Die))]
-        private static IEnumerator QueuedLonelyCardsOnBoardDie(IEnumerator result, PlayableCard __instance, bool wasSacrifice, PlayableCard killer)
-        {
-            if (__instance.OpponentCard && __instance.HasStatusEffect<Pebble>())
-            {
-                if (TurnManager.Instance.Opponent.Queue.Exists(x => x.HasAbility(Lonely.ability)))
-                {
-                    foreach (PlayableCard lonelyCard in TurnManager.Instance.Opponent.Queue.Where(x => x.HasAbility(Lonely.ability)))
-                    {
-                        Lonely component = lonelyCard.GetComponent<Lonely>();
-                        if (component != null && component.RespondsToOtherCardDie(__instance, __instance.Slot, wasSacrifice, killer))
-                            yield return component.OnOtherCardDie(__instance, __instance.Slot, wasSacrifice, killer);
-                    }
-                }
-            }
-            yield return result;
-        }
-
-        [HarmonyPrefix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
-        private static bool QueuedLonelyCardsIncreaseDamage(PlayableCard __instance, ref int damage, PlayableCard attacker)
-        {
-            if (__instance.OpponentCard)
-            {
-                if (TurnManager.Instance.Opponent.Queue.Exists(x => x.HasAbility(Lonely.ability)))
-                {
-                    foreach (PlayableCard lonelyCard in TurnManager.Instance.Opponent.Queue.Where(x => x.HasAbility(Lonely.ability)))
-                    {
-                        Lonely component = lonelyCard.GetComponent<Lonely>();
-                        if (component != null && component.RespondsToModifyDamageTaken(__instance, damage, attacker, damage))
-                            damage = component.OnModifyDamageTaken(__instance, damage, attacker, damage);
-                    }
-                }
-            }
-            return true;
-        }
-        #endregion
-
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
         private static IEnumerator PiercingIgnoresShields(IEnumerator enumerator, PlayableCard __instance, int damage, PlayableCard attacker)
         {

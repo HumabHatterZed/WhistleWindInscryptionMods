@@ -3,6 +3,69 @@
 
 # Plugin GUID: whistlewind.inscryption.abnormalsigils
 
+## v2.0.0 - ()
+### 🧱 Structural
+- Overhauled status effects
+    - Renamed several fields and methods
+    - Improved status effect icon appearances and implementation
+    - Status effects now have max trigger priority
+- Custom CardMetaCategories are now Traits, added blacklist functionality
+- Modified how cards and abilities are created
+- Changed how Speed is calculated to be independent of Bind and Haste components
+### 🔧 Tweaks
+- Changed Conductor sigil's behaviour
+- Changed Conductor sigil's icons
+- Redid Pebble status effect's behaviour
+- Changed Lonely sigil's icons
+- Renamed Lonely to Pebble Giver
+- Updated descriptions for status effects to use similar technical language
+- Updated icons for Rightful Heir sigil to reflect its activation cost
+- Updated artwork for Jack
+- Updated dialogue when a Brother card dies to be shorter
+- Updated dialogue for Ruler of Frost when there are no valid targets
+- Made slight modification to Bloodletter description
+- Renamed Refresh Decks sigil to Grand Reopening
+- Renamed Status Effect Overflow sigil to See More
+- Renamed Return Card to Hand sigil to Creature Retrieval
+- Renamed Flagellated status effect to Flagellation
+- Renamed Little Witch's Friend card to "Wee Witch's Friend"
+- Spore Mold Creature renamed to Spore Mold Beast
+- Spore Mold Creatures now inherit the name of the card they were created from
+- Frozen Heart card is now considered Terrain
+- Sigils that inherit from ActivatedSelectSlotBehaviour are now usable by the opponent on upkeep
+- Sigil Power stat icon no longer gives a minimum of 1 Health.
+### 🩹 Bug fixes
+- Fixed activated select slot sigils triggering when there are no valid targets on the board
+- Fixed Witness sigil using an outdated description
+### ⚖️ Balancing
+- Lonely - reduced powerlevel from 3 -> 2
+- Bloodfiend - reduced powerlevel from 3 -> 2
+- Gift Giver - increased powerlevel from 3 -> 4
+- Bloodletter - reduced powerlevel from 4 -> 3
+- Opportunistic - changed to activate against cards with Loose Tail and an intact tail status
+- Refresh Deck - changed to discard the player's current hand and draw a new opening hand after resetting the deck piles
+- Nettle Clothes - reduced powerlevel from 5 -> 4
+- Nettle Clothes - changed to only create Brothers in adjacent slots rather than all friendly slots
+- Witness - reduced activation cost from 2 Bones -> 1 Bone
+- Ruler of Frost - targeting cards now requires an additional 2 Bones
+- Ruler of Frost - no longer affects Terrain and Pelt cards
+- Spores - reduced powerlevel from -1 -> 0
+- Little Witch's Friend - rebalanced from 1/2, 3 Bones -> 1/1, 2 Bones, Detonator
+- Little Witch's Friend - no longer possesses the Insect tribe
+- Block of Ice - no longer possesses Mighty Leap sigil
+- First Brother - replaced Double Strike with Persistent
+- All Brothers - rebalanced to 1 Health and no play cost
+- Adjusted powerlevels of status effects
+### ➕ Additions
+- Added dialogue for when first encountering a status effect
+- Added dialogue explaining status overflow
+- Added extension methods for clearing status effects from a card
+- Added custom trigger IOnStatusEffectAdded
+- Added X new sigils:
+    - Damsel, Abusive
+- Added X new status effects:
+    - Fervent Adoration, Grief
+
 ## v1.1.2 - Minor patch (5/23/2024)
 ### 🩹 Bug fixes
 - Fixed Conductor sigil crashing the game when multiple copies are on the same side of the board
@@ -75,25 +138,25 @@
 - Cards with Sigil Power stat icon now display their stats when moused over while in the hand
 - Adjusted Queen Nest description to be clearer on activation requirement: 'card dies' --> 'card is killed'
 ### ⚖️ Balancing
-- <span style='color:limegreen'>Reduced Ruler of Frost's activation cost from 3 --> 2 Bones
-- <span style='color:limegreen'>Reduced Rightful Heir ability's starting activation cost from 3 --> 2 Bones
-- <span style='color:limegreen'>Ruler of Frost ability now accounts for the base card having Touch of Death
+- Reduced Ruler of Frost's activation cost from 3 --> 2 Bones
+- Reduced Rightful Heir ability's starting activation cost from 3 --> 2 Bones
+- Ruler of Frost ability now accounts for the base card having Touch of Death
 - Rebalanced Little Witch's Friend to 1/2, 3 Bones; now has Fae tribe alongside Insect tribe
-- <span style='color:red'>Third Brother now has Sharp Quills instead of Reflector
+- Third Brother now has Sharp Quills instead of Reflector
 - Opponents using the Healer ability will now prioritise cards with 1 Health and depriortise cards at max Health or higher
-- <span style='color:red'>Idol ability no longer affects cards with Made of Stone
+- Idol ability no longer affects cards with Made of Stone
 - Corrector ability's temporary mod is now marked as 'nonCopyable'
-- <span style='color:limegreen'>Increased probability of Corrector and Scrambler sigils giving Attack from 33% --> 40%
-- <span style='color:limegreen'>Increased power value of some costs in Corrector ability's calculation
+- Increased probability of Corrector and Scrambler sigils giving Attack from 33% --> 40%
+- Increased power value of some costs in Corrector ability's calculation
     - 4 Energy now counts for 7 pts (from 6)
     - 5 Energy now counts for 9 pts (from 8)
     - 4 Blood now counts for 24 pts (from 20)
     - Blood costs above 5 now use a different formula, resulting in overall higher values (why are your cards over 5 Blood anyway?)
-- <span style='color:limegreen'>Opportunistic ability now triggers even if the target has Sharp Quills or Reflector
-- <span style='color:red'>Opportunistic ability no longer triggers even if the attacker has shields
-- <span style='color:red'>Persistent and Piercing abilities no longer deal additional or overkill damage respectively
-- <span style='color:red'>Witness sigil powerlevel increased from 1 --> 2
-- <span style='color:red'>Worker Bees no longer inherit mods from the base card
+- Opportunistic ability now triggers even if the target has Sharp Quills or Reflector
+- Opportunistic ability no longer triggers even if the attacker has shields
+- Persistent and Piercing abilities no longer deal additional or overkill damage respectively
+- Witness sigil powerlevel increased from 1 --> 2
+- Worker Bees no longer inherit mods from the base card
 ### ➕ Additions
 - Added the following abilities:
     - Binding Strike, Nimble-Footed, High-Strung, Refresh Decks, Return Card To Hand, Persecutor, Left-Veering Strike, Right-Veering Strike

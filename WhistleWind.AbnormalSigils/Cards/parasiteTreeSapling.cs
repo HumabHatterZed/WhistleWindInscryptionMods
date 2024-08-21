@@ -10,14 +10,12 @@ namespace WhistleWind.AbnormalSigils
         private void Card_ParasiteTreeSapling_D04108()
         {
             const string parasiteTreeSapling = "parasiteTreeSapling";
-            CreateCard(MakeCard(
-                parasiteTreeSapling,
-                "Sapling",
-                attack: 0, health: 2, bones: 1)
-                .SetPortraits(parasiteTreeSapling)
+            CardManager.New(pluginPrefix, parasiteTreeSapling, "Sapling", 0, 2)
+                .SetBonesCost(1)
+                .SetPortraits(Assembly, parasiteTreeSapling)
                 .AddAbilities(Ability.BoneDigger)
                 .AddTribes(TribeBotanic)
-                .SetTerrain());
+                .SetTerrain();
         }
     }
 }

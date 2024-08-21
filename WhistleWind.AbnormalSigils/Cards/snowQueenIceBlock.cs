@@ -11,20 +11,14 @@ namespace WhistleWind.AbnormalSigils
             const string snowQueenIceBlock = "snowQueenIceBlock";
             const string snowQueenIceHeart = "snowQueenIceHeart";
 
-            CreateCard(MakeCard(
-                snowQueenIceBlock,
-                "Block of Ice",
-                attack: 0, health: 2)
-                .SetPortraits(snowQueenIceBlock)
-                .AddAbilities(Ability.Reach)
-                .SetTerrain());
+            CardManager.New(pluginPrefix, snowQueenIceBlock, "Block of Ice", 0, 2)
+                .SetPortraits(Assembly, snowQueenIceBlock)
+                .SetTerrain();
 
-            CreateCard(MakeCard(
-                snowQueenIceHeart,
-                "Frozen Heart",
-                attack: 0, health: 1)
-                .SetPortraits(snowQueenIceHeart)
-                .AddAbilities(FrozenHeart.ability));
+            CardManager.New(pluginPrefix, snowQueenIceHeart, "Frozen Heart", 0, 1)
+                .SetPortraits(Assembly, snowQueenIceHeart)
+                .AddAbilities(FrozenHeart.ability)
+                .SetTerrain();
         }
     }
 }

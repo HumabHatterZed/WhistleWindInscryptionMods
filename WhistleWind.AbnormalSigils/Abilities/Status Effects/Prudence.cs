@@ -2,14 +2,17 @@
 using InscryptionAPI.Triggers;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.StatusEffects;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
     public class Prudence : StatusEffectBehaviour, IModifyDamageTaken
     {
+        public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
+        public override Ability IconAbility => iconId;
+        public override SpecialTriggeredAbility StatusEffect => specialAbility;
 
-        public override string CardModSingletonName => "prudence";
 
         public override List<string> EffectDecalIds() => new();
 
@@ -20,7 +23,7 @@ namespace WhistleWind.AbnormalSigils
 
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
-            damage += EffectSeverity;
+            damage += EffectPotency;
             return damage;
         }
 
@@ -30,14 +33,16 @@ namespace WhistleWind.AbnormalSigils
     {
         private void StatusEffect_Prudence()
         {
-            const string rName = "Flagellated";
-            const string rDesc = "When this card is struck, take damage equal to this status effect.";
+            const string rName = "Flagellation";
+            const string rDesc = "When this card is struck, receive additional damage equal to its Flagellation.";
+            StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Prudence>(
+                pluginGuid, rName, rDesc, -1, GameColors.Instance.lightPurple,
+                TextureLoader.LoadTextureFromFile("sigilPrudence.png", Assembly),
+                TextureLoader.LoadTextureFromFile("sigilPrudence_pixel.png", Assembly))
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
 
-            Prudence.specialAbility = StatusEffectManager.NewStatusEffect<Prudence>(
-                pluginGuid, rName, rDesc,
-                iconTexture: "sigilPrudence.png", pixelIconTexture: "sigilPrudence_pixel.png",
-                powerLevel: -3, iconColour: GameColors.Instance.lightPurple,
-                categories: new() { StatusEffectManager.StatusMetaCategory.Part1StatusEffect }).BehaviourId;
+            Prudence.specialAbility = data.Id;
+            Prudence.iconId = data.IconInfo.ability;
         }
     }
 }

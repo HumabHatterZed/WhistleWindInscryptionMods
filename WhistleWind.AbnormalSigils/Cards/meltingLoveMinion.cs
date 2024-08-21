@@ -10,13 +10,12 @@ namespace WhistleWind.AbnormalSigils
         private void Card_MeltingLoveMinion_D03109()
         {
             const string meltingLoveMinion = "meltingLoveMinion";
-            CreateCard(MakeCard(
-                cardName: meltingLoveMinion,
-                "Slime", attack: 0, health: 2, bones: 3)
-                .SetPortraits(meltingLoveMinion)
+            CardManager.New(pluginPrefix, meltingLoveMinion, "Slime", 0, 2)
+                .SetBonesCost(3)
+                .SetPortraits(Assembly, meltingLoveMinion)
                 .SetStatIcon(SlimeIcon.Icon)
                 .AddAbilities(Slime.ability)
-                .AddTraits(LovingSlime));
+                .AddTraits(LovingSlime);
         }
     }
 }

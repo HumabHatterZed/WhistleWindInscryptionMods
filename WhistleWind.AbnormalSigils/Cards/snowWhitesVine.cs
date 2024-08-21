@@ -10,14 +10,10 @@ namespace WhistleWind.AbnormalSigils
         private void Card_SnowWhitesVine_F0442()
         {
             const string snowWhitesVine = "snowWhitesVine";
-            CreateCard(MakeCard(
-                cardName: snowWhitesVine,
-                "Thorny Vines",
-                attack: 0, health: 1)
-                .SetPortraits(snowWhitesVine)
-                .AddAbilities(Ability.Sharp)
+            CardManager.New(pluginPrefix, snowWhitesVine, "Thorny Vines", 0, 1)
+                .SetPortraits(Assembly, snowWhitesVine)
                 .AddTribes(TribeBotanic)
-                .SetTerrain());
+                .SetTerrain();
         }
     }
 }

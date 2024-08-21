@@ -8,12 +8,14 @@ using InscryptionAPI.Guid;
 using InscryptionAPI.Helpers;
 using InscryptionAPI.PixelCard;
 using InscryptionAPI.Resource;
+using InscryptionAPI.Slots;
 using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
+using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -28,10 +30,12 @@ namespace WhistleWind.AbnormalSigils
     {
         public const string pluginGuid = "whistlewind.inscryption.abnormalsigils";
         public const string pluginPrefix = "wstl";
+        public const string pluginPrefixGBC = "wstlGBC";
         public const string pluginName = "Abnormal Sigils";
-        private const string pluginVersion = "1.1.1";
+        private const string pluginVersion = "2.0.0";
 
         internal static ManualLogSource Log;
+        internal static Assembly Assembly;
         private static readonly Harmony HarmonyInstance = new(pluginGuid);
 
         public static Tribe TribeDivine;
@@ -49,23 +53,23 @@ namespace WhistleWind.AbnormalSigils
         public static Trait Orchestral = GuidManager.GetEnumValue<Trait>(pluginGuid, "Orchestral");
         public static Trait ImmuneToAilments = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToAilments");
 
-        public static CardMetaCategory CannotGiveSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGiveSigils");
-        public static CardMetaCategory CannotGainSigils = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotGainSigils");
-        public static CardMetaCategory CannotBoostStats = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotBoostStats");
-        public static CardMetaCategory CannotCopyCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "CannotCopyCard");
+        public static Trait CannotGiveSigils = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotGiveSigils");
+        public static Trait CannotGainSigils = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotGainSigils");
+        public static Trait CannotBoostStats = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotBoostStats");
+        public static Trait CannotCopyCard = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotCopyCard");
 
         private void OnDisable() => HarmonyInstance.UnpatchSelf();
-
         private void Awake()
         {
             Log = base.Logger;
+            Assembly = Assembly.GetExecutingAssembly();
             AbnormalConfigManager.Instance.BindConfig();
 
             if (!AbnormalConfigManager.Instance.EnableMod)
                 Logger.LogWarning($"{pluginName} is disabled in the configuration. This will likely break things.");
             else
             {
-                HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+                HarmonyInstance.PatchAll(Assembly);
 
                 AddResources();
                 AbnormalDialogueManager.GenerateDialogueEvents();
@@ -82,7 +86,6 @@ namespace WhistleWind.AbnormalSigils
         }
         private void InitTribes()
         {
-            Log.LogDebug("Loading tribes...");
             if (TribalAPI.Enabled)
             {
                 TribalAPI.UseTribalTribes();
@@ -142,9 +145,9 @@ namespace WhistleWind.AbnormalSigils
         {
             AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
             {
-                var stoneInfo = abilities.Find(x => x.Info.name == "MadeOfStone").Info;
-                stoneInfo.rulebookDescription = "A card bearing this sigil is immune to the effects of Touch of Death, Stinky, Punisher, Cursed, and Idol.";
+                abilities.Find(x => x.Info.name == "MadeOfStone").Info.rulebookDescription = "A [creature] is immune to the effects of Touch of Death, Stinky, Punisher, Cursed, and Idol.";
 
+                StatusEffectManager.SyncStatusEffects();
                 return abilities;
             };
 
@@ -155,7 +158,10 @@ namespace WhistleWind.AbnormalSigils
             Ability_Aggravating();
             Ability_TeamLeader();
             Ability_Idol();
+            
             Ability_Conductor();
+            StatusEffect_Fervent();
+
             Ability_Woodcutter();
             Ability_FrozenHeart();
             Ability_FrostRuler();
@@ -196,9 +202,10 @@ namespace WhistleWind.AbnormalSigils
 
             Ability_Witness();
             StatusEffect_Prudence();
+
             Ability_Corrector();
 
-            // v2.0
+            // v2.0L
             Ability_ThickSkin();
             Ability_OneSided();
             Ability_Copycat();
@@ -209,15 +216,13 @@ namespace WhistleWind.AbnormalSigils
             Ability_GreedyHealing();
             Ability_Cycler();
             Ability_Barreler();
-
             Ability_Bloodletter();
-
             Ability_LeftStrike();
             Ability_RightStrike();
 
             Ability_NimbleFoot();
-            StatusEffect_Haste();
             Ability_HighStrung();
+            StatusEffect_Haste();
 
             Ability_BindingStrike();
             StatusEffect_Bind();
@@ -225,6 +230,11 @@ namespace WhistleWind.AbnormalSigils
             Ability_Persecutor();
             Ability_Lonely();
             StatusEffect_Pebble();
+            StatusEffect_Grief();
+
+            // 2.0A
+            Ability_Damsel();
+            Ability_Abusive();
 
             // Specials
             Ability_FalseThrone();
@@ -233,8 +243,17 @@ namespace WhistleWind.AbnormalSigils
             Ability_ReturnCard();
             Ability_RefreshDecks();
             Ability_SeeMore();
+
+            SlotModificationManager.New(pluginGuid, "Test", typeof(Test), TextureLoader.LoadTextureFromFile("slotPavedRoad.png", Assembly))
+                .SetRulebook("Paved Road", "A space with this effect will look neat and cool and awesome", TextureLoader.LoadTextureFromFile("slotPavedRoad1.png", Assembly), SlotModificationManager.ModificationMetaCategory.Part1Rulebook);
+
+            //SlotModificationManager.SyncSlotModificationList();
         }
 
+        public class Test :SlotModificationBehaviour
+        {
+
+        }
         public static class SpellAPI
         {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.spells");
@@ -252,60 +271,27 @@ namespace WhistleWind.AbnormalSigils
                 TribeMechanical = TribalLibary.Plugin.machineTribe;
                 TribeBotanic = TribalLibary.Plugin.plantTribe;
 
-                int numChanged = 0;
-                foreach (TribeManager.TribeInfo tribeInfo in TribeManager.NewTribes)
-                {
-                    if (numChanged >= 5)
-                        break;
+                TribeManager.TribeInfo divineTribe = TribeManager.NewTribes.FirstOrDefault(x => x.tribe == TribeDivine);
+                divineTribe.icon = TextureHelper.GetImageAsTexture("tribeDivine.png", Assembly).ConvertTexture();
+                divineTribe.cardback = TextureHelper.GetImageAsTexture("tribeDivine_reward.png");
 
-                    if (tribeInfo.guid == "tribes.libary")
-                    {
-                        if (tribeInfo.tribe == TribeDivine)
-                        {
-                            tribeInfo.icon = TextureLoader.LoadTextureFromFile("tribeDivine.png").ConvertTexture();
-                            tribeInfo.cardback = TextureLoader.LoadTextureFromFile("tribeDivine_reward.png");
-                            numChanged++;
-                        }
-                        else if (tribeInfo.tribe == TribeFae)
-                        {
-                            tribeInfo.icon = TextureLoader.LoadTextureFromFile("tribeFae.png").ConvertTexture();
-                            tribeInfo.cardback = TextureLoader.LoadTextureFromFile("tribeFae_reward.png");
-                            numChanged++;
-                        }
-                        else if (tribeInfo.tribe == TribeAnthropoid)
-                        {
-                            tribeInfo.icon = TextureLoader.LoadTextureFromFile("tribeAnthropoid.png").ConvertTexture();
-                            tribeInfo.cardback = TextureLoader.LoadTextureFromFile("tribeAnthropoid_reward.png");
-                            numChanged++;
-                        }
-                        else if (tribeInfo.tribe == TribeMechanical)
-                        {
-                            tribeInfo.icon = TextureLoader.LoadTextureFromFile("tribeMechanical.png").ConvertTexture();
-                            tribeInfo.cardback = TextureLoader.LoadTextureFromFile("tribeMechanical_reward.png");
-                            numChanged++;
-                        }
-                        else if (tribeInfo.tribe == TribeBotanic)
-                        {
-                            tribeInfo.icon = TextureLoader.LoadTextureFromFile("tribeBotanic.png").ConvertTexture();
-                            tribeInfo.cardback = TextureLoader.LoadTextureFromFile("tribeBotanic_reward.png");
-                            numChanged++;
-                        }
-                    }
-                }
+                TribeManager.TribeInfo faeTribe = TribeManager.NewTribes.FirstOrDefault(x => x.tribe == TribeFae);
+                faeTribe.icon = TextureHelper.GetImageAsTexture("tribeFae.png", Assembly).ConvertTexture();
+                faeTribe.cardback = TextureHelper.GetImageAsTexture("tribeFae_reward.png", Assembly);
+
+                TribeManager.TribeInfo anthropoidTribe = TribeManager.NewTribes.FirstOrDefault(x => x.tribe == TribeAnthropoid);
+                anthropoidTribe.icon = TextureHelper.GetImageAsTexture("tribeAnthropoid.png", Assembly).ConvertTexture();
+                anthropoidTribe.cardback = TextureHelper.GetImageAsTexture("tribeAnthropoid_reward.png", Assembly);
+
+                TribeManager.TribeInfo mechanicalTribe = TribeManager.NewTribes.FirstOrDefault(x => x.tribe == TribeMechanical);
+                mechanicalTribe.icon = TextureHelper.GetImageAsTexture("tribeMechanical.png", Assembly).ConvertTexture();
+                mechanicalTribe.cardback = TextureHelper.GetImageAsTexture("tribeMechanical_reward.png", Assembly);
+
+                TribeManager.TribeInfo botanicTribe = TribeManager.NewTribes.FirstOrDefault(x => x.tribe == TribeBotanic);
+                botanicTribe.icon = TextureHelper.GetImageAsTexture("tribeBotanic.png", Assembly).ConvertTexture();
+                botanicTribe.cardback = TextureHelper.GetImageAsTexture("tribeBotanic_reward.png", Assembly);
             }
 
         }
-
-        public static CardInfo MakeCard(
-            string cardName, string displayName = null,
-            string description = null,
-            int attack = 0, int health = 0,
-            int blood = 0, int bones = 0, int energy = 0
-            )
-        {
-            return CardHelper.NewCard(false, pluginPrefix, cardName, displayName, description, attack, health, blood, bones, energy);
-        }
-
-        public static void CreateCard(CardInfo cardInfo) => CardManager.Add(pluginPrefix, cardInfo);
     }
 }

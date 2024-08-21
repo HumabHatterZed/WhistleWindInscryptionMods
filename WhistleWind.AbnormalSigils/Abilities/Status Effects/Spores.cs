@@ -10,26 +10,30 @@ namespace WhistleWind.AbnormalSigils
 {
     public class Spores : StatusEffectBehaviour
     {
+        public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
-
-        public override string CardModSingletonName => "spore";
+        public override Ability IconAbility => iconId;
+        public override SpecialTriggeredAbility StatusEffect => specialAbility;
 
         public override List<string> EffectDecalIds()
         {
             return new()
             {
-                "decalSpore_" + Mathf.Min(2, EffectSeverity - 1)
+                "decalSpore_" + Mathf.Min(2, EffectPotency - 1)
             };
         }
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard && base.PlayableCard.OpponentCard != playerUpkeep;
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.PlayableCard && base.PlayableCard.OpponentCard != playerTurnEnd;
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && EffectSeverity > 0;
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !wasSacrifice && EffectPotency > 0;
 
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
             yield return HelperMethods.ChangeCurrentView(View.Board);
-            yield return base.PlayableCard.TakeDamageTriggerless(EffectSeverity, null);
+            base.PlayableCard.Anim.StrongNegationEffect();
+            base.PlayableCard.HealDamage(-EffectPotency);
+            if (base.PlayableCard.Health <= 0)
+                yield return base.PlayableCard.Die(false, null);
             yield return new WaitForSeconds(0.4f);
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
@@ -46,9 +50,9 @@ namespace WhistleWind.AbnormalSigils
             yield return HelperMethods.ChangeCurrentView(View.Board);
             base.PlayableCard.Anim.LightNegationEffect();
 
-            AddSeverity(newSpore, false);
-            if (EffectSeverity <= 3)
-                base.PlayableCard.AddTemporaryMod(EffectDecalMod());
+            ModifyPotency(newSpore, false);
+            if (EffectPotency <= 3)
+                base.PlayableCard.AddTemporaryMod(GetStatusDecalsMod(true));
 
             yield return new WaitForSeconds(0.2f);
         }
@@ -58,8 +62,9 @@ namespace WhistleWind.AbnormalSigils
                 yield break;
 
             CardInfo minion = CardLoader.GetCardByName("wstl_theLittlePrinceMinion");
-            CardModificationInfo stats = new(EffectSeverity, EffectSeverity)
+            CardModificationInfo stats = new(EffectPotency, EffectPotency)
             {
+                nameReplacement = base.PlayableCard.Info.DisplayedNameLocalized,
                 bloodCostAdjustment = base.PlayableCard.Info.BloodCost,
                 bonesCostAdjustment = base.PlayableCard.Info.BonesCost,
                 energyCostAdjustment = base.PlayableCard.Info.EnergyCost,
@@ -94,13 +99,15 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Spores()
         {
             const string rName = "Spores";
-            const string rDesc = "At the start of its owner's turn, this card takes damage equal to its Spores. Upon dying, create a Spore Mold Creature with stats equal to its Spores.";
+            const string rDesc = "At the end of its owner's turn, this card takes damage equal to its Spores. When this card perishes, create a Spore Mold Beast in its place with stats equal to its Spores.";
+            StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Spores>(
+                pluginGuid, rName, rDesc, -1, GameColors.Instance.brightBlue,
+                TextureLoader.LoadTextureFromFile("sigilSpores.png", Assembly),
+                TextureLoader.LoadTextureFromFile("sigilSpores_pixel.png", Assembly))
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
 
-            Spores.specialAbility = StatusEffectManager.NewStatusEffect<Spores>(
-                pluginGuid, rName, rDesc,
-                iconTexture: "sigilSpores", pixelIconTexture: "sigilSpores_pixel",
-                powerLevel: -2, iconColour: GameColors.Instance.darkBlue,
-                categories: new() { StatusEffectManager.StatusMetaCategory.Part1StatusEffect }).BehaviourId;
+            Spores.specialAbility = data.Id;
+            Spores.iconId = data.IconInfo.ability;
         }
     }
 }

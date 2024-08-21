@@ -9,13 +9,10 @@ namespace WhistleWind.AbnormalSigils
         private void Card_TheLittlePrinceMinion_O0466()
         {
             const string theLittlePrinceMinion = "theLittlePrinceMinion";
-
-            CreateCard(MakeCard(
-                cardName: theLittlePrinceMinion,
-                "Spore Mold Creature")
-                .SetPortraits(theLittlePrinceMinion)
+            CardManager.New(pluginPrefix, theLittlePrinceMinion, "Spore Mold Beast", 0, 0)
+                .SetPortraits(Assembly, theLittlePrinceMinion)
                 .AddTribes(TribeBotanic)
-                .AddTraits(SporeFriend));
+                .AddTraits(SporeFriend);
         }
     }
 }
