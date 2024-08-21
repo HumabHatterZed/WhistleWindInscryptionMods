@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 using WhistleWind.Core.Helpers;
@@ -14,15 +15,12 @@ namespace WhistleWind.AbnormalSigils
         public override SpecialStatIcon IconType => icon;
         public override int[] GetStatValues()
         {
-            List<AbilityInfo> infos = AbilityManager.AllAbilityInfos
-                .FindAll(x => base.PlayableCard.AllAbilities().Contains(x.ability) && x.ability != Ability.RandomAbility);
-
+            List<AbilityInfo> infos = base.PlayableCard.AllAbilities().Where(x => x != Ability.RandomAbility).Select(AbilityManager.AllAbilityInfos.AbilityByID).ToList();
             if (infos.Count == 0)
                 return new int[2] { 0, 0 };
 
             infos.Sort((AbilityInfo a, AbilityInfo b) => b.powerLevel - a.powerLevel);
-
-            return new int[2] { infos[0].powerLevel, Mathf.Max(1, infos[0].powerLevel) };
+            return new int[2] { infos[0].powerLevel, infos[0].powerLevel };
         }
     }
 
