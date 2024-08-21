@@ -10,39 +10,18 @@ namespace WhistleWindLobotomyMod.Core.Helpers
 {
     public static class LobotomyAbilityHelper // Base code taken from GrimoraMod and SigilADay_julienperge
     {
-        public static FullAbility CreateAbility<T>(
-            string textureName,
-            string rulebookName, string rulebookDescription,
-            string dialogue = null, string triggerText = null,
-            int powerLevel = 0, bool canStack = false)
-            where T : AbilityBehaviour
-        {
-            return AbilityHelper.CreateAbility<T>(
-                pluginGuid, textureName,
-                rulebookName, rulebookDescription,
-                dialogue, triggerText,
-                powerLevel, false, canStack, foundInRulebook: true);
-        }
         public static FullAbility CreateActivatedAbility<T>(
             string textureName,
             string rulebookName, string rulebookDescription,
             string dialogue = null, string triggerText = null,
             int powerLevel = 0)
             where T : ActivatedAbilityBehaviour
-        {
-            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
-
-            return AbilityHelper.CreateActivatedAbility<T>(
-                info, pluginGuid, textureName,
-                rulebookName, rulebookDescription,
-                dialogue, triggerText, powerLevel);
+        {   
+            return AbilityHelper.NewActivated<T>(null, pluginGuid, textureName, rulebookName, rulebookDescription, powerLevel, true, dialogue, triggerText);
         }
-        public static FullAbility CreateRulebookAbility<T>(string rulebookName, string rulebookDescription)
-            where T : AbilityBehaviour
+        public static FullAbility CreateRulebookAbility<T>(string rulebookName, string rulebookDescription) where T : AbilityBehaviour
         {
-            return AbilityHelper.CreateFillerAbility<T>(
-                pluginGuid, "sigilAbnormality", rulebookName, rulebookDescription);
+            return AbilityHelper.NewFiller<T>(pluginGuid, "sigilAbnormality", rulebookName, rulebookDescription);
         }
 
         public static SpecialTriggeredAbilityManager.FullSpecialTriggeredAbility CreatePaperTalkingCard<T>(string rulebookName)

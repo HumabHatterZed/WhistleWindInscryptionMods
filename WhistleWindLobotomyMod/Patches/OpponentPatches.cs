@@ -62,16 +62,14 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.CreateCard))]
         private static void UpdatePlagueDoctorAppearance(PlayableCard __result)
         {
-            if (__result?.HasSpecialAbility(Bless.specialAbility) ?? false)
-            {
+            if (__result != null && __result.HasSpecialAbility(Bless.specialAbility))
                 __result.UpdateAppearanceBehaviours();
-            }
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(SceneLoader), nameof(SceneLoader.Load))]
         private static void ResetTriggers()
         {
-            PreventOpponentDamage = false;
+            //PreventOpponentDamage = false;
             if (LobotomySaveManager.OpponentBlessings > 11)
                 LobotomySaveManager.OpponentBlessings = 11;
 
@@ -83,7 +81,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.CleanupPhase))]
         private static IEnumerator ResetEffects(IEnumerator enumerator, TurnManager __instance)
         {
-            PreventOpponentDamage = false;
+            //PreventOpponentDamage = false;
             if (LobotomySaveManager.TriggeredWhiteNightThisBattle)
             {
                 LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");

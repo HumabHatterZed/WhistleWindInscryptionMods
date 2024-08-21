@@ -7,6 +7,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -55,23 +56,24 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public override string OnDrawnDialogueId => "SephirahYesodDrawn";
-        public override string OnAttackedDialogueId => "SephirahYesodHurt";
-        public override string OnSacrificedDialogueId => "SephirahYesodSacrificed";
-        public override string OnBecomeSelectableNegativeDialogueId => "SephirahYesodSelectableBad";
-        public override string OnBecomeSelectablePositiveDialogueId => "SephirahYesodSelectableGood";
-        public override string OnPlayFromHandDialogueId => "SephirahYesodPlayed";
-        public override string OnSelectedForCardRemoveDialogueId => "SephirahYesodSelectableBad";
-        public override string OnSelectedForCardMergeDialogueId => "SephirahYesodGivenSigil";
-        public override string OnSelectedForDeckTrialDialogueId => "SephirahYesodTrial";
+        public override string OnDrawnDialogueId => "YesodDrawn";
+        public override string OnAttackedDialogueId => "YesodHurt";
+        public override string OnSacrificedDialogueId => "YesodSacrificed";
+        public override string OnBecomeSelectableNegativeDialogueId => "YesodSelectableBad";
+        public override string OnBecomeSelectablePositiveDialogueId => "YesodSelectableGood";
+        public override string OnPlayFromHandDialogueId => "YesodPlayed";
+        public override string OnSelectedForCardRemoveDialogueId => "YesodSelectableBad";
+        public override string OnSelectedForCardMergeDialogueId => "YesodGivenSigil";
+        public override string OnSelectedForDeckTrialDialogueId => "YesodTrial";
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahYesodProspector" },
-            { Opponent.Type.AnglerBoss, "SephirahYesodAngler" },
-            { Opponent.Type.TrapperTraderBoss, "SephirahYesodTrapperTrader" },
-            { Opponent.Type.LeshyBoss, "SephirahYesodLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahYesodRoyal" },
-            { ApocalypseBossOpponent.ID, "SephirahYesodApocalypse" }
+            { Opponent.Type.ProspectorBoss, "YesodProspector" },
+            { Opponent.Type.AnglerBoss, "YesodAngler" },
+            { Opponent.Type.TrapperTraderBoss, "YesodTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "YesodLeshy" },
+            { Opponent.Type.RoyalBoss, "YesodRoyal" },
+            { CustomOpponentUtils.ApocalypseBossID, "YesodApocalypse" },
+            { OrdealUtils.OpponentID, "YesodOrdeal" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -80,7 +82,7 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_Yesod() => TalkingCardYesod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardYesod>("Yesod").Id;
         private void Card_Yesod()
         {
-            NewCard("sephirahYesod", "Yesod", "The head of the Information Department. Incompetence will not be tolerated.",
+            NewCard("sephirahYesod", "Yesod", "A stickler for rules, he'll ensure your beasts' compliance.",
                 attack: 2, health: 3, blood: 2)
                 .AddAbilities(Ability.Tutor)
                 .AddTraits(Sephirah)

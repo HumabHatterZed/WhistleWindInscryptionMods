@@ -7,6 +7,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -66,23 +67,24 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public override string OnDrawnDialogueId => "SephirahHodDrawn";
-        public override string OnAttackedDialogueId => "SephirahHodHurt";
-        public override string OnSacrificedDialogueId => "SephirahHodSacrificed";
-        public override string OnBecomeSelectableNegativeDialogueId => "SephirahHodSelectableBad";
-        public override string OnBecomeSelectablePositiveDialogueId => "SephirahHodSelectableGood";
-        public override string OnPlayFromHandDialogueId => "SephirahHodPlayed";
-        public override string OnSelectedForCardRemoveDialogueId => "SephirahHodSelectableBad";
-        public override string OnSelectedForCardMergeDialogueId => "SephirahHodGivenSigil";
-        public override string OnSelectedForDeckTrialDialogueId => "SephirahHodTrial";
+        public override string OnDrawnDialogueId => "HodDrawn";
+        public override string OnAttackedDialogueId => "HodHurt";
+        public override string OnSacrificedDialogueId => "HodSacrificed";
+        public override string OnBecomeSelectableNegativeDialogueId => "HodSelectableBad";
+        public override string OnBecomeSelectablePositiveDialogueId => "HodSelectableGood";
+        public override string OnPlayFromHandDialogueId => "HodPlayed";
+        public override string OnSelectedForCardRemoveDialogueId => "HodSelectableBad";
+        public override string OnSelectedForCardMergeDialogueId => "HodGivenSigil";
+        public override string OnSelectedForDeckTrialDialogueId => "HodTrial";
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahHodProspector" },
-            { Opponent.Type.AnglerBoss, "SephirahHodAngler" },
-            { Opponent.Type.TrapperTraderBoss, "SephirahHodTrapperTrader" },
-            { Opponent.Type.LeshyBoss, "SephirahHodLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahHodRoyal" },
-            { ApocalypseBossOpponent.ID, "SephirahHodApocalypse" }
+            { Opponent.Type.ProspectorBoss, "HodProspector" },
+            { Opponent.Type.AnglerBoss, "HodAngler" },
+            { Opponent.Type.TrapperTraderBoss, "HodTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "HodLeshy" },
+            { Opponent.Type.RoyalBoss, "HodRoyal" },
+            { CustomOpponentUtils.ApocalypseBossID, "HodApocalypse" },
+            { OrdealUtils.OpponentID, "HodOrdeal" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -94,7 +96,7 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Hod()
         {
-            NewCard("sephirahHod", "Hod", "Though death is guaranteed, it never hurts to be prepared, right?",
+            NewCard("sephirahHod", "Hod", "Timid she may be, she will still try her hardest.",
                 attack: 1, health: 2, bones: 3)
                 .AddAbilities(Protector.ability)
                 .AddTraits(Sephirah)

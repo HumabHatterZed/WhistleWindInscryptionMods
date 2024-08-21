@@ -8,6 +8,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -34,17 +35,17 @@ namespace WhistleWindLobotomyMod
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1", "talkingAngelaEyesClosed1"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1"),
                         mouth: MakeFaceAnim("talkingAngelaMouthOpen1", "talkingAngelaMouthClosed1"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1", "talkingAngelaEyesClosed1"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1"),
                         mouth: MakeFaceAnim("talkingAngelaMouthOpen2", "talkingAngelaMouthClosed2"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Curious,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesClosed2", "talkingAngelaEyesClosed2"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed2"),
                         mouth: MakeFaceAnim("talkingAngelaMouthClosed1", "talkingAngelaMouthClosed1"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Surprise,
@@ -54,7 +55,7 @@ namespace WhistleWindLobotomyMod
                         emission: emissionMain),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesClosed3", "talkingAngelaEyesClosed3"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed3"),
                         mouth: MakeFaceAnim("talkingAngelaMouthClosed1", "talkingAngelaMouthClosed1"),
                         emission: GeneratePortrait.EmptyPortraitTuple)
                 };
@@ -77,7 +78,8 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.TrapperTraderBoss, "AngelaTrapperTrader" },
             { Opponent.Type.LeshyBoss, "AngelaLeshy" },
             { Opponent.Type.RoyalBoss, "AngelaRoyal" },
-            { ApocalypseBossOpponent.ID, "AngelaApocalypse" }
+            { CustomOpponentUtils.ApocalypseBossID, "AngelaApocalypse" },
+            { OrdealUtils.OpponentID, "AngelaOrdeal" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -89,7 +91,7 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Angela()
         {
-            NewCard("angela", "Angela", "A trustworthy AI assistant. You will trust her with your life.",
+            NewCard("angela", "Angela", null,
                 attack: 2, health: 3, energy: 6)
                 .AddAbilities(FrostRuler.ability, Persecutor.ability)
                 .AddTraits()

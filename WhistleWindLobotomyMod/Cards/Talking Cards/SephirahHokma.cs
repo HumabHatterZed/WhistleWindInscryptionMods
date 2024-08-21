@@ -7,6 +7,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -50,23 +51,24 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public override string OnDrawnDialogueId => "SephirahHokmaDrawn";
-        public override string OnAttackedDialogueId => "SephirahHokmaHurt";
-        public override string OnSacrificedDialogueId => "SephirahHokmaSacrificed";
-        public override string OnBecomeSelectableNegativeDialogueId => "SephirahHokmaSelectableBad";
-        public override string OnBecomeSelectablePositiveDialogueId => "SephirahHokmaSelectableGood";
-        public override string OnPlayFromHandDialogueId => "SephirahHokmaPlayed";
-        public override string OnSelectedForCardRemoveDialogueId => "SephirahHokmaSelectableBad";
-        public override string OnSelectedForCardMergeDialogueId => "SephirahHokmaGivenSigil";
-        public override string OnSelectedForDeckTrialDialogueId => "SephirahHokmaTrial";
+        public override string OnDrawnDialogueId => "HokmaDrawn";
+        public override string OnAttackedDialogueId => "HokmaHurt";
+        public override string OnSacrificedDialogueId => "HokmaSacrificed";
+        public override string OnBecomeSelectableNegativeDialogueId => "HokmaSelectableBad";
+        public override string OnBecomeSelectablePositiveDialogueId => "HokmaSelectableGood";
+        public override string OnPlayFromHandDialogueId => "HokmaPlayed";
+        public override string OnSelectedForCardRemoveDialogueId => "HokmaSelectableBad";
+        public override string OnSelectedForCardMergeDialogueId => "HokmaGivenSigil";
+        public override string OnSelectedForDeckTrialDialogueId => "HokmaTrial";
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahHokmaProspector" },
-            { Opponent.Type.AnglerBoss, "SephirahHokmaAngler" },
-            { Opponent.Type.TrapperTraderBoss, "SephirahHokmaTrapperTrader" },
-            { Opponent.Type.LeshyBoss, "SephirahHokmaLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahHokmaRoyal" },
-            { ApocalypseBossOpponent.ID, "SephirahHokmaApocalypse" }
+            { Opponent.Type.ProspectorBoss, "HokmaProspector" },
+            { Opponent.Type.AnglerBoss, "HokmaAngler" },
+            { Opponent.Type.TrapperTraderBoss, "HokmaTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "HokmaLeshy" },
+            { Opponent.Type.RoyalBoss, "HokmaRoyal" },
+            { CustomOpponentUtils.ApocalypseBossID, "HokmaApocalypse" },
+            { OrdealUtils.OpponentID, "HokmaOrdeal" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }

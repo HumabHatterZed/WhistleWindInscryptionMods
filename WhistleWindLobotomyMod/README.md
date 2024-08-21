@@ -27,7 +27,8 @@ If you have [Pack Management API](https://inscryption.thunderstore.io/package/In
 a custom card pack will be created representing this mod. That's all :\).
 
 ### Achievements API
-This mod adds custom achievements if you're using the [Achievements API](https://inscryption.thunderstore.io/package/Infiniscryption/Achievements/) installed.
+If you have [Achievements API](https://inscryption.thunderstore.io/package/Infiniscryption/Achievements/) installed,
+you will be able to unlock 11 different achievements.
 
 ## 💌 Credits/Acknowledgements
 **Custom audio and music taken from Lobotomy Corporation; all ownership goes to Project Moon.**
@@ -193,22 +194,30 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 
 |NAME|DESCRIPTION|
 |:---|:----------|
-|Time Machine|Activate: End the current battle or phase and remove this card from the player's deck. Remove an additional card from the deck based on their power level.||
-|Apostle|*Thou wilt abandon flesh and be born again.*||
-|True Saviour|*My story is nowhere, unknown to all.*||
-|Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*||
+|Bone Meal|When a card bearing this sigil is played, spend half of the owner's current Bones, rounded down.|
+|Time Machine|Activate: End the current battle then remove this card from the player's deck. Choose an additional card to remove from your deck. Effect differs during certain battles.|
+|Apostle|*Thou wilt abandon flesh and be born again.*|
+|True Saviour|*My story is nowhere, unknown to all.*|
+|Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|
+|Monster in the Black Forest|'Once upon a time, three birds lived happily in the lush forest...'|
+|Big Eyes|While this card is on the board, all creatures on the board are unaffected by Power-changing effects.|
+|Small Beak|At the start of the turn, target a random lane on the board.  At the start of the next turn, kill all cards in the targeted lane, excluding this card.|
+|Long Arms|This card is immune to status ailments. Time Machine cannot be activated.|
+|Dazzling|The turn after this card is played, inflict up to 3 other cards on the board with Enchanted. This card takes no damage from Enchanted cards.|
+|Misdeeds|Whenever this card takes damage, gain 1 Power until the end of the owner's turn.|
+|Unjust Scale|At the end of the owner's turn, inflict 1 Sin on all other cards. At the start of owner's turn, kill all other cards with 3+ Sin.|
 </details>
 
-## ⚜️ Special/Hidden Abilities
+## ⚜️ Hidden Abilities and Status Effects
 Many of this mod's cards have hidden abilities to help re-create the abnormalities' original mechanics.
 
-Below is a list of these hidden abilities and how they're triggered
+Below is a list of these abilities and what activates them, as well as a list of this mod's status effects:
 
 <details>
-<summary>View Special Abilities</summary>
+<summary>View Hidden Abilities and Statuses</summary>
 
-|NAME|Card|TRIGGER|
-|:---|:---|:------|
+|Name|Trigger|
+|:-|:-|
 |Adoration							|When this card's Health is low during upkeep.		|
 |Justice							|When an adjacent card dies.						|
 |Blind Rage							|When this card attacks.							|
@@ -229,28 +238,33 @@ Below is a list of these hidden abilities and how they're triggered
 |Smile								|When this card kills another card.					|
 |Sound of a Star					|When this card attacks.							|
 |Crimson Scar						|When a specific card resolves on the board.		|
+
+|Name|Description|
+|:-|:-|
+|Enchanted|This card will only target cards with the Dazzling sigil, dying upon striking one. At the start of the owner's next turn, lose 1 Enchanted.|
+|Sin|When this card deals damage to another creature, transfer 1 Sin to that card.|
 </details>
 
 ## 🗃️ Starter Decks
 <details>
 <summary>View Cards</summary>
 
-- \* = If 'DisableRuina' is active in the config, these cards will be replaced by a different card.
+- \* = If the 'DisableRuina' config is set to True, these cards will be replaced with a non-Ruina card.
 - S = Special requirement to unlock (can be changed in the config settings)
 
 |NAME|CARDS|UNLOCK LVL|
 |:---|:----|:--------:|
-|Random Mod Cards|3+ random mod cards																  |0|
-|First Day		 |One Sin and Hundreds of Good Deeds<br>Fairy Festival<br>Old Lady					  |0|
-|Lonely Friends	 |Scorched Girl<br>Laetitia<br>Child of the Galaxy									  |2|
-|Blood Machines	 |We Can Change Anything<br>Singing Machine<br>All-Around Helper					  |4|
-|People Pleasers |Today's Shy Look<br>Pinocchio*<br>Behaviour Adjustment							  |5|
-|Freak Show		 |Beauty and the Beast<br>Void Dream<br>Queen Bee									  |6|
-|Apocrypha		 |Fragment of the Universe<br>Skin Prophecy<br>Price of Silence*					  |7|
-|Keter			 |Bloodbath<br>The Burrowing Heaven<br>The Snow Queen								  |8|
-|Road to Oz		 |The Road Home*<br>Scarecrow Searching for Wisdom<br>Warm-Hearted Woodsman<br>Ozma*  |S|
-|Magical Girls!	 |The Knight of Despair<br>Magical Girl H<br>The King of Greed<br>The Servant of Wrath*S|
-|Twilight		 |Punishing Bird<br>Big Bird<br>Judgement Bird										  |S|
+|Random Mod Cards|3+ random mod cards																|0|
+|First Day		 |One Sin and Hundreds of Good Deeds<br>Fairy Festival<br>Old Lady					|0|
+|Lonely Friends	 |Scorched Girl<br>Laetitia<br>Child of the Galaxy									|2|
+|Blood Machines	 |We Can Change Anything<br>Singing Machine<br>All-Around Helper					|4|
+|People Pleasers |Today's Shy Look<br>Pinocchio*<br>Behaviour Adjustment							|5|
+|Freak Show		 |Beauty and the Beast<br>Void Dream<br>Queen Bee									|6|
+|Apocrypha		 |Fragment of the Universe<br>Skin Prophecy<br>Price of Silence*					|7|
+|Keter			 |Bloodbath<br>The Burrowing Heaven<br>The Snow Queen								|8|
+|Road to Oz		 |???\*<br>???<br>???<br>???*														|S|
+|Magical Girls!	 |???<br>???<br>???<br>???*															|S|
+|Twilight		 |???<br>???<br>???																	|S|
 </details>
 
 ## 💀 Challenges and Cheats
@@ -259,9 +273,10 @@ Below is a list of these hidden abilities and how they're triggered
 
 |NAME				|PTS	|DESCRIPTION|
 |:------------------|:----:|:----------|
-|Abnormal Encounters|15		|All regular battles will only use abnormality cards.			|
-|Abnormal Bosses	|20		|Bosses will only play abnormality cards.						|
-|Miracle Worker		|12		|Leshy will play Plague Doctor against you. Beware the Clock.	|
+|Abnormal Encounters|15		|Only Abnormality cards will be used during non-boss battles.	|
+|Abnormal Bosses	|20		|Only Abnormality cards will be used during boss battles.		|
+|All Ordeals		|20		|All non-boss battles are replaced with Ordeals.				|
+|Miracle Worker		|36		|Leshy will play Plague Doctor against you. Beware the Clock.	|
 |Final Apocalypse	|70		|Leshy is replaced as the final boss of the run with the Beast.	|
 |Better Rare Chances|-10	|Rare cards are more likely to appear at abnormal choice nodes.	|
 |Start with a Beast |-15	|Start your run with Apocalypse Bird in your deck.				|
@@ -269,24 +284,52 @@ Below is a list of these hidden abilities and how they're triggered
 |Start with a Liar  |-15	|Start your run with Adult Who Tells Lies in your deck.			|
 </details>
 
-## 🎰 Abnormality Card Choice Node
-This special node can be found randomly after battles, and draws exclusively from this mod's pool of cards.
+## Nodes
 
-All obtainable cards in this mod have an internal Risk Level (Zayin, Teth, He, Waw, Aleph) based on their relative power level.
-For each card choice, the game chooses a random Risk Level (based on the below probabilities) then selects a random card that has that Risk Level.
+### Ordeals
+Ordeals are a unique battle type that require you to defeat a set number of enemies in order to win.
 
-There's a low chance that instead of a regular card, you'll instead be offered a Rare card.
-This is a separate probability roll that occurs after the initial roll, and it doesn't take Risk Level into account when determining which card to offer.
+During an Ordeal, you cannot beat the opponent by dealing direct damage to them.
+While you can still deal direct damage, the scale will not tip beyond +4, and half of any excess direct damage you deal will be instead converted into Bones.
 
-|Map #|Zayin|Teth|He|Waw|**Rare**|
-|:-:|:-:|:-:|:-:|:-:|:-:|
-|1|40%|30%|20%|10%|**0%/*2%***|
-|2|30%|30%|20%|20%|**2%/*5%***|
-|3|25%|25%|25%|25%|**5%/*10%***|
+Ordeals come in four different difficulty levels: Dawn, Noon, Dusk, and Midnight; and each one pull from a pool of possible Ordeal types.
+There are six types in total, each featuring a different theme and set of enemies and mechanics.
 
-* Probability with the Better Rare Chances Cheat enabled
+|Difficulty|Possible Ordeals|
+|:-|:-|
+|Dawn	|Green, Crimson, Violet, Amber|
+|Noon	|Green, Crimson, Violet, Indigo|
+|Dusk	|Green, Crimson, Amber|
+|Midnight|Green, Violet, Amber|
 
-## 🎰 Seiphirah Card Choice Node
+The possible difficulties you can encounter depends on the region, with higher difficulties becoming more frequent as you progress through a run.
+An Ordeal's difficulty can be determined by looking at its map node, though you need to enter the battle to know its type.
+
+In total, there are eight different Ordeal nodes you can encounter, one for each difficulty plus an equivalent Totem variant.
+
+### 🎰 Abnormality Card Choice Node
+A unique card choice node that exclusively offers Abnormality cards based on their Risk Level.
+
+Risk Level is an internal designation that broadly correlates to how powerful a card is.
+From least to most powerful, they are: Zayin, Teth, He, Waw, and Aleph.
+
+Rather than randomly choosing three cards from the entire pool of obtainable cards, the game will instead select three random Risk Levels to draw cards from.
+The probabilities for each Risk Level are based on the current region, with higher levels becoming more common as you progress (see below table).
+
+There is a separate chance that instead of a regular card, you will be offered a Rare card instead (maximum of one per node).
+Rare cards are not selected based on their Risk Level.
+
+|Region|Zayin|Teth|He|Waw|**Rare**|
+|:-:|:-|:-|:-|:-|:-|
+|0|35%|35%|20%|10%|**0% (2%\)**|
+|1|20%|30%|30%|20%|**2% (5%\)**|
+|2|25%|25%|25%|25%|**5% (10%\)**|
+
+( ) Probability with Better Rare Chances anti-challenge active
+
+Note that Aleph-level cards are all Rare, and that these probabilities are rolled three times for each card choice.
+
+### 🎰 Seiphirah Card Choice Node
 This special node can be found randomly after battles, and draws from a pool of unique talking cards.
 These talking cards are based on the Sephirah (plus Angela) of Lobotomy Corporation.
 If all talking cards have been obtained in a single run, then this node will offer 3 random death cards instead.
@@ -314,24 +357,16 @@ This mod contains a number of configuration options, many of which recreate KCM-
 Check this mod's configuration file for more information.
 
 ## 🕓 Closing Notes
-An unknown yet familiar forest...
 
-I hope y'all enjoy the new boss I cooked up!
-It was very fun working on it, from the coding to the animation, to the...well bug hunting wasn't fun, but everything else was!
-It was an interesting challenge implementing Ruina mechanics into Inscryption - I don't think I did a super good job in some departments, but hopefully the rest makes up for it!
-Difficulty was a problem, as it always is, but I think I did a decent job.
+Another update, this time featuring the WonderLab abnormalities and the Ordeals!
 
-I have a few other bosses in mind, though only one of them is planned at the moment.
-The other two will have to languish for now.
 
-Outside of bosses, I do have one other card expansion for WonderLab, and then maybe some based on Limbus Company.
 
-For now, I'm going to take a break from this mod for a bit and start work on one based off Bonnie's Bakery.
+Outside the new content, I also took the time to go back and clean up some of the older and messier code,
+which if anything will make building off of it easier to manage.
 
-It'll be smaller in scale, but hopefully once I'm done with that I can come back to this one with a bit more enthusiasm than I can currently muster (burnout's a punk).
-
-So to summarise plans for this mod:
-- Second boss
+So to summarise current plans for this mod:
 - WonderLab expansion
-- Limbus Seasons 1 + 2?
-- Third and fourth bosses?
+- Second boss
+
+Whether or not these come to fruition is entirely arbitrary, but the WonderLab expansion is already semi-in-progress.

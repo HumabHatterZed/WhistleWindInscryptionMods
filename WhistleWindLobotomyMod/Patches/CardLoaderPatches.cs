@@ -13,9 +13,8 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CardLoader.GetUnlockedCards))]
         private static void RemoveUniqueCards(ref List<CardInfo> __result, CardMetaCategory category, CardTemple temple)
         {
-            // since some of the cards aren't of the Nature temple, we need to manually add those
-            List<CardInfo> nonTempleCards = LobotomyCardManager.ObtainableLobotomyCards.FindAll(x => x.HasCardMetaCategory(category) && x.temple != temple);
-            __result.AddRange(nonTempleCards);
+            if (temple != CardTemple.Nature)
+                return;
 
             if (LobotomySaveManager.UsedBackwardClock)
                 __result.RemoveAll(x => x.name.Equals("wstl_backwardClock"));

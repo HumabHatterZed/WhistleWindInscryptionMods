@@ -14,6 +14,7 @@ namespace WhistleWindLobotomyMod.Core
 {
     public static class LobotomyCardManager // Base code taken from GrimoraMod and SigilADay_julienperge
     {
+        public static CardInfo NewP03()
         public static CardInfo NewCard(
             string cardName, string displayName = null,
             string description = null,
@@ -21,7 +22,7 @@ namespace WhistleWindLobotomyMod.Core
             int blood = 0, int bones = 0, int energy = 0,
             CardTemple temple = CardTemple.Nature)
         {
-            return CardHelper.NewCard(false, pluginPrefix, cardName, displayName, description, attack, health, blood, bones, energy, temple: temple);
+            return CardHelper.New(cardName, displayName, description, attack, health, blood, bones, energy, temple: temple);
         }
 
         public static CardInfo Build(
@@ -29,7 +30,7 @@ namespace WhistleWindLobotomyMod.Core
             ChoiceType choiceType = ChoiceType.None,
             RiskLevel riskLevel = RiskLevel.None,
             ModCardType cardType = ModCardType.None,
-            bool nonChoice = false
+            bool nonChoice = false, bool gbc = false
             )
         {
             // if this is an event card
@@ -37,39 +38,44 @@ namespace WhistleWindLobotomyMod.Core
             bool riskDisabled = riskLevel != RiskLevel.None && DisabledRiskLevels.HasFlag(riskLevel);
             bool donatorDisabled = LobotomyConfigManager.Instance.NoDonators && cardType.HasFlag(ModCardType.Donator);
             bool ruinaDisabled = LobotomyConfigManager.Instance.NoRuina && cardType.HasFlag(ModCardType.Ruina);
-
-            bool canBeObtained = choiceType != ChoiceType.None && !nonChoice && !AllCardsDisabled && !riskDisabled && !eventCard && !donatorDisabled && !ruinaDisabled;
-
-            cardInfo.SetChoiceType(choiceType, !canBeObtained);
+            bool wonderLabDisabled = false && cardType.HasFlag(ModCardType.WonderLab);
+            
+            bool canBeObtained = choiceType != ChoiceType.None && !nonChoice && !AllCardsDisabled && !riskDisabled && !eventCard && !donatorDisabled && !ruinaDisabled && !wonderLabDisabled;
 
             // Add KillsSurvivors trait to cards with Deathtouch or Punisher
             if (cardInfo.HasAnyOfAbilities(Punisher.ability, Ability.Deathtouch))
                 cardInfo.AddTraits(Trait.KillsSurvivors);
 
-            // set risk level
-            if (riskLevel != RiskLevel.None && canBeObtained)
-                cardInfo.SetExtendedProperty("wstl:RiskLevel", riskLevel.ToString());
-
             // add the event card background
             if (eventCard)
             {
-                if (choiceType == ChoiceType.Rare)
-                    cardInfo.AddAppearances(RareEventBackground.appearance);
-                else
-                    cardInfo.AddAppearances(EventBackground.appearance);
-
+                cardInfo.AddAppearances(choiceType == ChoiceType.Rare ? RareEventBackground.appearance : EventBackground.appearance);
                 cardInfo.RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
             }
+            else
+            {
+                cardInfo.SetChoiceType(choiceType, !canBeObtained);
+            }
 
-            // make it available in packs and appear in the collection menu
-            if (LobotomyConfigManager.Instance.GBCPacks && cardInfo.pixelPortrait != null && canBeObtained)
-                cardInfo.AddMetaCategories(CardMetaCategory.GBCPack, CardMetaCategory.GBCPlayable);
+            if (canBeObtained)
+            {
+                // set risk level
+                if (riskLevel != RiskLevel.None)
+                    cardInfo.SetExtendedProperty("wstl:RiskLevel", riskLevel.ToString());
 
-            if (canBeObtained && cardInfo.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.Rare))
-                ObtainableLobotomyCards.Add(cardInfo);
+                if (gbc)
+                {
+                    if (LobotomyConfigManager.Instance.GBCPacks)
+                        cardInfo.AddMetaCategories(CardMetaCategory.GBCPack, CardMetaCategory.GBCPlayable);
 
-            AllLobotomyCards.Add(cardInfo);
+                    PixelLobotomyCards.Add(cardInfo);
+                }
+                else if (cardInfo.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.Rare))
+                    Act1LobotomyCards.Add(cardInfo);
+            }
+
             CardManager.Add(pluginPrefix, cardInfo);
+            AllLobotomyCards.Add(cardInfo);
             return cardInfo;
         }
 
@@ -107,18 +113,25 @@ namespace WhistleWindLobotomyMod.Core
         public static CardInfo SetNodeRestrictions(this CardInfo card, bool cannotGiveSigils, bool cannotGainSigils, bool cannotBuffStats, bool cannotCopyCard)
         {
             if (cannotGiveSigils)
-                card.AddMetaCategories(AbnormalPlugin.CannotGiveSigils);
+                card.AddTraits(AbnormalPlugin.CannotGiveSigils);
             if (cannotGainSigils)
-                card.AddMetaCategories(AbnormalPlugin.CannotGainSigils);
+                card.AddTraits(AbnormalPlugin.CannotGainSigils);
             if (cannotBuffStats)
-                card.AddMetaCategories(AbnormalPlugin.CannotBoostStats);
+                card.AddTraits(AbnormalPlugin.CannotBoostStats);
             if (cannotCopyCard)
-                card.AddMetaCategories(AbnormalPlugin.CannotCopyCard);
+                card.AddTraits(AbnormalPlugin.CannotCopyCard);
             return card;
         }
 
+        public static readonly List<CardInfo> Act1LobotomyCards = new();
+        public static readonly List<CardInfo> GBCLobotomyCards = new();
+        public static readonly List<CardInfo> Act3LobotomyCards = new();
+        public static readonly List<CardInfo> GrimoraLobotomyCards = new();
+        public static readonly List<CardInfo> PixelLobotomyCards = new();
+
         public static readonly List<CardInfo> AllLobotomyCards = new();
-        public static readonly List<CardInfo> ObtainableLobotomyCards = new();
+
+        public static List<CardInfo> ObtainableLobotomyCards => new(SaveManager.SaveFile.IsPart1 ? Act1LobotomyCards : PixelLobotomyCards);
 
         public static Trait Apostle = GuidManager.GetEnumValue<Trait>(pluginGuid, "Apostle");
         public static Trait Sephirah = GuidManager.GetEnumValue<Trait>(pluginGuid, "Sephirah");
@@ -144,7 +157,8 @@ namespace WhistleWindLobotomyMod.Core
             None = 0,           // Default, nothing special
             Donator = 1,        // Donator class, can be removed from card choice
             EventCard = 2,      // Event background, only obtained through special methods
-            Ruina = 4           // From Ruina expansion
+            Ruina = 4,          // From Ruina expansion
+            WonderLab = 8       // From WonderLab expansion
         }
 
         public enum SpellType

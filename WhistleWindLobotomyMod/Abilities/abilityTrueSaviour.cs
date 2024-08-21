@@ -88,30 +88,28 @@ namespace WhistleWindLobotomyMod
 
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
 
-            if (!LobotomyPlugin.PreventOpponentDamage)
+            if (TurnManager.Instance.Opponent is LobotomyBossOpponent opp)
             {
-                SpecialBattleSequencer specialSequence = null;
-                var combatManager = Singleton<CombatPhaseManager>.Instance;
-
+                if (opp.PreventInstantWin(false, base.Card.Slot))
+                    yield return opp.OnInstantWinPrevented(false, base.Card.Slot);
+                else
+                    yield return opp.OnInstantWinTriggered(false, base.Card.Slot);
+            }
+            else
+            {
+                CombatPhaseManager combatManager = Singleton<CombatPhaseManager>.Instance;
                 yield return combatManager.DamageDealtThisPhase += 33;
 
                 int excessDamage = Singleton<LifeManager>.Instance.Balance + combatManager.DamageDealtThisPhase - 5;
                 int damage = combatManager.DamageDealtThisPhase - excessDamage;
 
                 yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damage, damage, toPlayer: false);
-                yield return combatManager.VisualizeExcessLethalDamage(excessDamage, specialSequence);
+                yield return combatManager.VisualizeExcessLethalDamage(excessDamage, null);
 
                 if (SaveManager.SaveFile.IsPart2)
                     SaveManager.SaveFile.gbcData.currency += excessDamage;
                 else
                     RunState.Run.currency += excessDamage;
-            }
-            else if (CustomBossUtils.FightingCustomBoss())
-            {
-                if (CustomBossUtils.IsCustomBoss<ApocalypseBossOpponent>())
-                {
-                    yield return BoardManager.Instance.CardsOnBoard.Find(x => x.HasAbility(ApocalypseAbility.ability)).TakeDamage(20, base.Card);
-                }
             }
 
             if (killer.LacksAbility(Confession.ability))

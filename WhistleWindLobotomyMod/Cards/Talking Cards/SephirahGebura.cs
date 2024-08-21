@@ -7,6 +7,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -55,23 +56,24 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public override string OnDrawnDialogueId => "SephirahGeburaDrawn";
-        public override string OnAttackedDialogueId => "SephirahGeburaHurt";
-        public override string OnSacrificedDialogueId => "SephirahGeburaSacrificed";
-        public override string OnBecomeSelectableNegativeDialogueId => "SephirahGeburaSelectableBad";
-        public override string OnBecomeSelectablePositiveDialogueId => "SephirahGeburaSelectableGood";
-        public override string OnPlayFromHandDialogueId => "SephirahGeburaPlayed";
-        public override string OnSelectedForCardRemoveDialogueId => "SephirahGeburaSelectableBad";
-        public override string OnSelectedForCardMergeDialogueId => "SephirahGeburaGivenSigil";
-        public override string OnSelectedForDeckTrialDialogueId => "SephirahGeburaTrial";
+        public override string OnDrawnDialogueId => "GeburaDrawn";
+        public override string OnAttackedDialogueId => "GeburaHurt";
+        public override string OnSacrificedDialogueId => "GeburaSacrificed";
+        public override string OnBecomeSelectableNegativeDialogueId => "GeburaSelectableBad";
+        public override string OnBecomeSelectablePositiveDialogueId => "GeburaSelectableGood";
+        public override string OnPlayFromHandDialogueId => "GeburaPlayed";
+        public override string OnSelectedForCardRemoveDialogueId => "GeburaSelectableBad";
+        public override string OnSelectedForCardMergeDialogueId => "GeburaGivenSigil";
+        public override string OnSelectedForDeckTrialDialogueId => "GeburaTrial";
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahGeburaProspector" },
-            { Opponent.Type.AnglerBoss, "SephirahGeburaAngler" },
-            { Opponent.Type.TrapperTraderBoss, "SephirahGeburaTrapperTrader" },
-            { Opponent.Type.LeshyBoss, "SephirahGeburaLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahGeburaRoyal" },
-            { ApocalypseBossOpponent.ID, "SephirahGeburaApocalypse" }
+            { Opponent.Type.ProspectorBoss, "GeburaProspector" },
+            { Opponent.Type.AnglerBoss, "GeburaAngler" },
+            { Opponent.Type.TrapperTraderBoss, "GeburaTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "GeburaLeshy" },
+            { Opponent.Type.RoyalBoss, "GeburaRoyal" },
+            { CustomOpponentUtils.ApocalypseBossID, "GeburaApocalypse" },
+            { OrdealUtils.OpponentID, "GeburaOrdeal" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -83,7 +85,7 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Gebura()
         {
-            NewCard("sephirahGebura", "Gebura", "Head of the Disciplinary Team. A fierce warrior and ally.",
+            NewCard("sephirahGebura", "Gebura", "Though not as strong as she once was, she will still make for a powerful ally.",
                 attack: 3, health: 5, blood: 3)
                 .AddAbilities(Ability.GainAttackOnKill, Persistent.ability)
                 .AddTraits(Sephirah)

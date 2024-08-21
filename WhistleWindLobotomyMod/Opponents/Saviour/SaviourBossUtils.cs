@@ -150,7 +150,7 @@ namespace WhistleWindLobotomyMod.Opponents
             saviourRegion.boardLightColor = new(5f, 0.6f, 0.3f, 1f);
             saviourRegion.cardsLightColor = new(0.4f, 0.66f, 0.2f, 1f);
             saviourRegion.dominantTribes = new() { AbnormalPlugin.TribeDivine };
-            saviourRegion.bosses = new() { SaviourBossOpponent.ID };
+            //saviourRegion.bosses = new() { SaviourBossOpponent.ID };
             saviourRegion.fogAlpha = 1f;
             saviourRegion.fogEnabled = true;
             saviourRegion.fogProfile = ScriptableObject.CreateInstance<VolumetricFogAndMist.VolumetricFogProfile>();
@@ -191,13 +191,13 @@ namespace WhistleWindLobotomyMod.Opponents
                 },
                 new()
                 {
-                    new BossBattleNodeData
+/*                    new BossBattleNodeData
                     {
                         bossType = SaviourBossOpponent.ID,
                         specialBattleId = SaviourBattleSequencer.ID,
                         difficulty = 20,
                         position = new(0.5f, 1.66f)
-                    }
+                    }*/
                 }
             };
             return saviourRegion;

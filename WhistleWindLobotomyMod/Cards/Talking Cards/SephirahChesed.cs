@@ -8,6 +8,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -66,23 +67,24 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public override string OnDrawnDialogueId => "SephirahChesedDrawn";
-        public override string OnAttackedDialogueId => "SephirahChesedHurt";
-        public override string OnSacrificedDialogueId => "SephirahChesedSacrificed";
-        public override string OnBecomeSelectableNegativeDialogueId => "SephirahChesedSelectableBad";
-        public override string OnBecomeSelectablePositiveDialogueId => "SephirahChesedSelectableGood";
-        public override string OnPlayFromHandDialogueId => "SephirahChesedPlayed";
-        public override string OnSelectedForCardRemoveDialogueId => "SephirahChesedSelectableBad";
-        public override string OnSelectedForCardMergeDialogueId => "SephirahChesedGivenSigil";
-        public override string OnSelectedForDeckTrialDialogueId => "SephirahChesedTrial";
+        public override string OnDrawnDialogueId => "ChesedDrawn";
+        public override string OnAttackedDialogueId => "ChesedHurt";
+        public override string OnSacrificedDialogueId => "ChesedSacrificed";
+        public override string OnBecomeSelectableNegativeDialogueId => "ChesedSelectableBad";
+        public override string OnBecomeSelectablePositiveDialogueId => "ChesedSelectableGood";
+        public override string OnPlayFromHandDialogueId => "ChesedPlayed";
+        public override string OnSelectedForCardRemoveDialogueId => "ChesedSelectableBad";
+        public override string OnSelectedForCardMergeDialogueId => "ChesedGivenSigil";
+        public override string OnSelectedForDeckTrialDialogueId => "ChesedTrial";
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahChesedProspector" },
-            { Opponent.Type.AnglerBoss, "SephirahChesedAngler" },
-            { Opponent.Type.TrapperTraderBoss, "SephirahChesedTrapperTrader" },
-            { Opponent.Type.LeshyBoss, "SephirahChesedLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahChesedRoyal" },
-            { ApocalypseBossOpponent.ID, "SephirahChesedApocalypse" }
+            { Opponent.Type.ProspectorBoss, "ChesedProspector" },
+            { Opponent.Type.AnglerBoss, "ChesedAngler" },
+            { Opponent.Type.TrapperTraderBoss, "ChesedTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "ChesedLeshy" },
+            { Opponent.Type.RoyalBoss, "ChesedRoyal" },
+            { CustomOpponentUtils.ApocalypseBossID, "ChesedApocalypse" },
+            { OrdealUtils.OpponentID, "ChesedOrdeal" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }

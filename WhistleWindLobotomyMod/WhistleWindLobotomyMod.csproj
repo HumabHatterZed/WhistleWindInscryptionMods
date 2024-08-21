@@ -4,7 +4,7 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AssemblyName>WhistleWindLobotomyMod</AssemblyName>
 		<Description>A mod for Inscryption adding cards and sigils based on the abnormalities from Lobotomy Corporation and Library of Ruina.</Description>
-		<Version>2.1.1</Version>
+		<Version>2.2.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <DebugType>full</DebugType>
@@ -61,6 +61,12 @@
     </Reference>
     <Reference Include="Infiniscryption.Achievements" Private="false">
       <HintPath>..\lib\Infiniscryption.Achievements.dll</HintPath>
+    </Reference>
+    <Reference Include="GrimoraMod" Private="false">
+      <HintPath>..\lib\GrimoraMod.dll</HintPath>
+    </Reference>
+    <Reference Include="Infiniscryption.P03KayceeRun" Private="false">
+      <HintPath>..\lib\Infiniscryption.P03KayceeRun.dll</HintPath>
     </Reference>
   </ItemGroup>
 

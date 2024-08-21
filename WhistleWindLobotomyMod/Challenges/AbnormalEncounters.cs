@@ -17,11 +17,13 @@ namespace WhistleWindLobotomyMod.Challenges
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 "Abnormal Encounters",
-                "All regular battles will only use abnormality cards.",
+                "Only Abnormality cards will be used during non-boss battles.",
                 15,
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters"),
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters_activated")
-                ).Challenge.challengeType;
+                )
+                .SetIncompatibleChallengeGetterStatic(AllOrdeals.Id)
+                .Challenge.challengeType;
 
             // Do later?
             /*CardManager.ModifyCardList += delegate (List<CardInfo> cards)

@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
                 .SetPortraits(childOfTheGalaxy)
                 .AddAbilities(Lonely.ability)
                 .SetSpellType(SpellType.Targeted)
-                .AddMetaCategories(CannotGiveSigils)
+                .AddTraits(CannotGiveSigils)
                 .SetOnePerDeck()
                 .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
         }

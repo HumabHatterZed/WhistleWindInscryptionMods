@@ -51,7 +51,7 @@ namespace WhistleWindLobotomyMod
         private void StatusEffect_Enchanted()
         {
             const string rName = "Enchanted";
-            const string rDesc = "This card will target cards with the Dazzling sigil, dealing no damage to them and dying after attacking. At the start of the owner's next turn, lose 1 stack of this effect.";
+            const string rDesc = "This card will only target cards with the Dazzling sigil, dying upon striking one. At the start of the owner's next turn, lose 1 Enchanted.";
 
             Enchanted.specialAbility = StatusEffectManager.NewStatusEffect<Enchanted>(
                 pluginGuid, rName, rDesc,

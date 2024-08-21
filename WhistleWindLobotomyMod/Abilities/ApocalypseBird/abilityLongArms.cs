@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Long Arms";
             LongArms.ability = LobotomyAbilityHelper.CreateAbility<LongArms>(
                 "sigilLongArms", rulebookName,
-                "This card is immune to status ailments.",
+                "This card is immune to status ailments. Time Machine cannot be activated.",
                 null, powerLevel: 0,
                 canStack: false).Id;
         }

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod.Patches
             int randomSeed = SaveFile.IsAscension ? AscensionSaveData.Data.currentRunSeed : (SaveManager.SaveFile.pastRuns.Count * 1000);
 
             // if all cards are disabled and this starter deck has mod cards in it, replace them mod death cards
-            if (LobotomyPlugin.AllCardsDisabled && starterDeck.Exists(x => AllLobotomyCards.Contains(x)))
+            if (LobotomyPlugin.AllCardsDisabled && starterDeck.Exists(AllLobotomyCards.Contains))
             {
                 for (int i = 0; i < starterDeck.Count; i++)
                 {

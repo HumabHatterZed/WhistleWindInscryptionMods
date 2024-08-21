@@ -13,94 +13,98 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public static class Scrybes
     {
-        internal static class PackAPI
-        {
-            internal static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
-            internal static void CreateCardPack()
-            {
-                Log.LogDebug("PackManager is installed.");
-                PackInfo pack = PackManager.GetPackInfo<PackInfo>(pluginPrefix);
-                pack.Title = pluginName;
-                pack.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack"));
-                pack.Description = $"A set of {ObtainableLobotomyCards.Count} cards based on the abnormalities from Lobotomy Corporation and Library of Ruina.";
-                pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+        internal static bool GrimoraEnabled => Chainloader.PluginInfos.ContainsKey("arackulele.inscryption.grimoramod");
+        internal static bool P03Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.p03kayceerun");
+    }
 
-                EncounterPackInfo encounterPack = PackManager.GetPackInfo<EncounterPackInfo>(pluginPrefix);
-                encounterPack.Title = pluginName;
-                //encounterPack.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack"));
-                encounterPack.Description = "A set of [summary] exclusively featuring abnormalities and related phenomena.";
-                encounterPack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
-            }
+    public static class PackAPI
+    {
+        internal static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
+        internal static void CreateCardPack()
+        {
+            PackInfo pack = PackManager.GetPackInfo<PackInfo>(pluginPrefix);
+            pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+            pack.Title = pluginName;
+            pack.Description = $"A set of 90 cards based on the abnormalities from Lobotomy Corporation and Library of Ruina.";
+            pack.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack"));
+
+            /*                EncounterPackInfo encounterPack = PackManager.GetPackInfo<EncounterPackInfo>(pluginPrefix);
+                            encounterPack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+                            encounterPack.Title = pluginName;
+                            encounterPack.Description = "A set of [summary] exclusively featuring abnormalities and related phenomena.";*/
+            //encounterPack.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack"));
+
         }
+    }
 
-        internal static class AchievementAPI
+    public static class AchievementAPI
+    {
+        internal static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.achievements");
+
+        // bosses
+        internal static Achievement ThroughTheTwilight;
+        internal static Achievement WhereAllPathsLead;
+        internal static Achievement EndOfTheRoad;
+        internal static Achievement ParadiseLost;
+
+        // event decks
+        internal static Achievement TheThreeBirds;
+        internal static Achievement MagicalGirls;
+        internal static Achievement YellowBrickRoad;
+
+        // ordeals
+        internal static Achievement FullMoon;
+        internal static Achievement Fruition;
+
+        // other
+        internal static Achievement Blessing;
+        internal static Achievement Impuritas;
+
+        public static void CreateAchievements()
         {
-            internal static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.achievements");
+            ModdedAchievementManager.AchievementGroup grp = ModdedAchievementManager.NewGroup(pluginGuid, "WhistleWind Lobotomy Mod", TextureLoader.LoadTextureFromFile("achievementBox.png")).ID;
 
-            // bosses
-            internal static Achievement ThroughTheTwilight;
-            internal static Achievement WhereAllPathsLead;
-            internal static Achievement EndOfTheRoad;
-            internal static Achievement ParadiseLost;
+            ThroughTheTwilight = ModdedAchievementManager.New(pluginGuid, "Through the Twilight", "Survive the apocalypse and defeat the Beast.",
+                false, grp, TextureLoader.LoadTextureFromFile("achievementBossTwilight.png")).ID;
 
-            // event decks
-            internal static Achievement TheThreeBirds;
-            internal static Achievement MagicalGirls;
-            internal static Achievement YellowBrickRoad;
+            /*                WhereAllPathsLead = ModdedAchievementManager.New(pluginGuid, "Where All Paths Lead", "Hold on to hope and defeat the Fool.",
+                                false, grp, TextureLoader.LoadTextureFromFile("achievementBossJester.png")).ID;*/
 
-            // other
-            internal static Achievement Blessing;
-            internal static Achievement Impuritas;
+            /*                EndOfTheRoad = ModdedAchievementManager.New(pluginGuid, "End of the Road", "Keep your wits and defeat the Adult.",
+                                false, grp, TextureLoader.LoadTextureFromFile("achievementBossEmerald.png")).ID;*/
 
-            internal static void CreateAchievements()
-            {
-                Log.LogDebug("Achievements API is installed.");
-                ModdedAchievementManager.AchievementGroup grp = ModdedAchievementManager.NewGroup(pluginGuid, "WhistleWind Lobotomy Mod", TextureLoader.LoadTextureFromFile("achievementBox.png")).ID;
+            /*                ParadiseLost = ModdedAchievementManager.New(pluginGuid, "Paradise Lost", "Reject His gifts and delay the Saviour.",
+                                false, grp, TextureLoader.LoadTextureFromFile("achievementBossSaviour.png")).ID;*/
 
-                ThroughTheTwilight = ModdedAchievementManager.New(pluginGuid, "Through the Twilight", "Survive the apocalypse and defeat the Beast.",
-                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossTwilight.png")).ID;
+            FullMoon = ModdedAchievementManager.New(pluginGuid, "Our Work", "Complete a Midnight Ordeal.",
+                false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;
 
-                /*                WhereAllPathsLead = ModdedAchievementManager.New(pluginGuid, "Where All Paths Lead", "Hold on to hope and defeat the Fool.",
-                                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossJester.png")).ID;
+            /*                Fruition = ModdedAchievementManager.New(pluginGuid, "The Trials", "Complete the Ordeals of White.",
+                                false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;*/
 
-                                EndOfTheRoad = ModdedAchievementManager.New(pluginGuid, "End of the Road", "Keep your wits and defeat the Adult.",
-                                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossEmerald.png")).ID;
+            Impuritas = ModdedAchievementManager.New(pluginGuid, "Impuritas Civitatis", "Meet Angela at a Sephirot choice node.",
+                false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;
 
-                                ParadiseLost = ModdedAchievementManager.New(pluginGuid, "Paradise Lost", "Reject His gifts and delay the Saviour.",
-                                    false, grp, TextureLoader.LoadTextureFromFile("achievementBossSaviour.png")).ID;*/
+            TheThreeBirds = ModdedAchievementManager.New(pluginGuid, "Three Birds", "Gather the guardians of the Black Forest.",
+                false, grp, TextureLoader.LoadTextureFromFile("achievementTwilight.png")).ID;
 
-                Impuritas = ModdedAchievementManager.New(pluginGuid, "Impuritas Civitatis", "Meet Angela at a Sephirot choice node.",
-                    false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;
+            MagicalGirls = ModdedAchievementManager.New(pluginGuid, "Full House", "Unite the four magical girls.",
+                false, grp, TextureLoader.LoadTextureFromFile("achievementMagicalGirls.png")).ID;
 
-                const string ThreeBirds = "Three Birds";
-                const string ThreeBirdsDesc = "Gather the guardians of the Black Forest.";
-                TheThreeBirds = ModdedAchievementManager.New(pluginGuid, ThreeBirds, ThreeBirdsDesc, false, grp, TextureLoader.LoadTextureFromFile("achievementTwilight.png")).ID;
+            YellowBrickRoad = ModdedAchievementManager.New(pluginGuid, "Yellow Brick Road", "Reunite five long-lost friends.",
+                false, grp, TextureLoader.LoadTextureFromFile("achievementRoadToOz.png")).ID;
 
-                //LobotomyTranslator.TranslateToFrench("ThreeBirdsAchievement", ThreeBirds, "Trois Oiseaux");
-                //LobotomyTranslator.TranslateToFrench("ThreeBirdsAchievementDesc", ThreeBirdsDesc, "Rassembler les gardiens de la Forêt Noire.");
+            Blessing = ModdedAchievementManager.New(pluginGuid, "Blessing", "You witnessed His coming.",
+                true, grp, TextureLoader.LoadTextureFromFile("achievementBlessing.png")).ID;
 
-                MagicalGirls = ModdedAchievementManager.New(pluginGuid, "Full House", "Bring all of the magical girls together.",
-                    false, grp, TextureLoader.LoadTextureFromFile("achievementMagicalGirls.png")).ID;
-
-                YellowBrickRoad = ModdedAchievementManager.New(pluginGuid, "Yellow Brick Road", "Reunite a group of long-lost friends.",
-                    false, grp, TextureLoader.LoadTextureFromFile("achievementRoadToOz.png")).ID;
-
-                const string BlessingName = "Blessing";
-                const string BlessingNameDesc = "You witnessed His coming.";
-                Blessing = ModdedAchievementManager.New(pluginGuid, BlessingName, BlessingNameDesc, true, grp, TextureLoader.LoadTextureFromFile("achievementBlessing.png")).ID;
-
-                //LobotomyTranslator.TranslateToFrench("BlessingAchievement", BlessingName, "Bénédiction");
-                //LobotomyTranslator.TranslateToFrench("BlessingAchievementDesc", BlessingNameDesc, "Vous avez été témoin de Sa venue.");
-
-                HarmonyInstance.PatchAll(typeof(AchievementPatches));
-            }
-            internal static void Unlock(bool prerequisite, Achievement achievement)
-            {
-                if (Enabled && prerequisite)
-                    AchievementManager.Unlock(achievement);
-            }
+            LobotomyPlugin.HarmonyInstance.PatchAll(typeof(AchievementPatches));
+        }
+        internal static void Unlock(bool prerequisite, Achievement achievement)
+        {
+            if (Enabled && prerequisite)
+                AchievementManager.Unlock(achievement);
         }
     }
 }

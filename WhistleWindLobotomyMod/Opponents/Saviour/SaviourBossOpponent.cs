@@ -1,4 +1,4 @@
-﻿using DiskCardGame;
+﻿/*using DiskCardGame;
 using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace WhistleWindLobotomyMod.Opponents.Saviour
 {
     public class SaviourBossOpponent : Part1BossOpponent
     {
-        public static readonly Opponent.Type ID;/* = OpponentManager.Add(
+        public static readonly Opponent.Type ID;*//* = OpponentManager.Add(
             LobotomyPlugin.pluginGuid, "SaviourBossOpponent",
             SaviourBattleSequencer.ID, typeof(SaviourBossOpponent), new()
             {
@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod.Opponents.Saviour
                 TextureLoader.LoadTextureFromFile("nodeApocalypseBoss2"),
                 TextureLoader.LoadTextureFromFile("nodeApocalypseBoss3"),
                 TextureLoader.LoadTextureFromFile("nodeApocalypseBoss4")
-            }).Id;*/
+            }).Id;*//*
 
         public override int StartingLives => 3;
         public override bool GiveCurrencyOnDefeat => false;
@@ -205,7 +205,7 @@ namespace WhistleWindLobotomyMod.Opponents.Saviour
 
             yield return base.FaceZoomSequence();
             // create WhiteNight object
-            saviourAnimation = Instantiate(CustomBossUtils.apocalypsePrefab, new Vector3(0.3f, 5.5f, 4.5f), Quaternion.identity);
+            saviourAnimation = Instantiate(CustomOpponentUtils.apocalypsePrefab, new Vector3(0.3f, 5.5f, 4.5f), Quaternion.identity);
             saviourAnimation.name = "SaviourBoss";
 
             MasterAnimator = saviourAnimation.GetComponent<Animator>();
@@ -326,4 +326,4 @@ namespace WhistleWindLobotomyMod.Opponents.Saviour
             }
         }
     }
-}
+}*/

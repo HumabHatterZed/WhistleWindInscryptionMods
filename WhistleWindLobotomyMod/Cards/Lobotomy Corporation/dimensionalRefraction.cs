@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
             const string dimensionalRefraction = "dimensionalRefraction";
 
             NewCard(dimensionalRefraction, "Dimensional Refraction Variant", "A strange phenomenon. Or rather, the creature is the phenomena in and of itself.",
-                attack: 0, health: 0, blood: 2)
+                attack: 0, health: 1, blood: 2)
                 .SetPortraits(dimensionalRefraction)
                 .AddAbilities(Ability.RandomAbility)
                 .SetStatIcon(SigilPower.Icon)

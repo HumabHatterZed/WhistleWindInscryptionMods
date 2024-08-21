@@ -1,5 +1,8 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers;
+//using InscryptionAPI.Slots;
+using InscryptionAPI.Triggers;
 using System.Collections;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
@@ -29,7 +32,9 @@ namespace ModDebuggingMod
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard()
         {
-            base.Card.AddStatusEffect<Enchanted>(1);
+            //yield return Card.Slot.SetSlotModification(PavedSlot.ID);
+            //Card.Slot.GetSlotModification();
+            //base.Card.AddStatusEffect<Enchanted>(1);
             yield break;
         }
         /*        public override bool RespondsToUpkeep(bool playerUpkeep)
@@ -42,4 +47,27 @@ namespace ModDebuggingMod
                         yield return base.Card.Die(false);
                 }*/
     }
+/*    public class PavedSlot : SlotModificationGainAbilityBehaviour, IPassiveAttackBuff
+    {
+        public static readonly SlotModificationManager.ModificationType ID = SlotModificationManager.New(
+            "MyPluginGuid",
+            "PavedSlot",
+            typeof(PavedSlot),
+            TextureHelper.GetImageAsTexture("slotPavedRoad.png", typeof(PavedSlot).Assembly),
+            TextureHelper.GetImageAsTexture("slotPavedRoad_pixel.png", typeof(PavedSlot).Assembly)
+        );
+
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => playerTurnEnd == Slot.IsPlayerSlot;
+
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
+        {
+            if (Slot.Card != null)
+                yield return Slot.Card.TakeDamage(1, null);
+        }
+        public int GetPassiveAttackBuff(PlayableCard target)
+        {
+            return Slot.Card == target ? 1 : 0;
+        }
+        protected override Ability AbilityToGain => Ability.Sharp;
+    }*/
 }

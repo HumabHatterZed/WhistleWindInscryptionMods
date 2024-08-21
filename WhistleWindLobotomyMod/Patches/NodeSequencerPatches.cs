@@ -32,14 +32,14 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
         private static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result)
         {
-            RemoveInvalidCards(__result, AbnormalPlugin.CannotGiveSigils);
+            RemoveInvalidCards(__result);
         }
 
         // Prevents card from being merged / gaining sigils
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForHost))]
         private static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
         {
-            RemoveInvalidCards(__result, AbnormalPlugin.CannotGainSigils);
+            RemoveInvalidCards(__result);
         }
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.ModifyHostCard))]
         private static void AddSapSpecialAbility(CardInfo hostCardInfo, CardInfo sacrificeCardInfo)
@@ -48,10 +48,9 @@ namespace WhistleWindLobotomyMod.Patches
                 RunState.Run.playerDeck.ModifyCard(hostCardInfo, new() { specialAbilities = { Sap.specialAbility } });
         }
 
-        internal static void RemoveInvalidCards(List<CardInfo> result, CardMetaCategory metaToRemove)
+        internal static void RemoveInvalidCards(List<CardInfo> result)
         {
-            result.RemoveAll(x => x.HasCardMetaCategory(metaToRemove)
-            || x.HasSpecialAbility(Mimicry.specialAbility)
+            result.RemoveAll(x => x.HasSpecialAbility(Mimicry.specialAbility)
             || x.HasAnyOfAbilities(TheTrain.ability, TimeMachine.ability));
         }
     }
@@ -63,7 +62,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CardStatBoostSequencer.GetValidCards))]
         private static void RemoveFromValidCardsForStatBoost(ref List<CardInfo> __result)
         {
-            CardMergePatches.RemoveInvalidCards(__result, AbnormalPlugin.CannotBoostStats);
+            CardMergePatches.RemoveInvalidCards(__result);
         }
     }
     [HarmonyPatch(typeof(CopyCardSequencer))]
@@ -72,7 +71,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(CopyCardSequencer.GetValidCards))]
         private static void RemoveFromValidCardsForCopyCard(ref List<CardInfo> __result)
         {
-            CardMergePatches.RemoveInvalidCards(__result, AbnormalPlugin.CannotCopyCard);
+            CardMergePatches.RemoveInvalidCards(__result);
         }
     }
 }

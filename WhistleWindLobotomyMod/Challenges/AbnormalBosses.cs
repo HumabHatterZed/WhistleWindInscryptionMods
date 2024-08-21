@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod.Challenges
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 "Abnormal Bosses",
-                "Vanilla bosses will play Abnormalities during their battles.",
+                "Only Abnormality cards will be used during boss battles.",
                 20,
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses"),
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses_activated")

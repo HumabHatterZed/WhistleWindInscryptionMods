@@ -8,6 +8,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -61,23 +62,24 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public override string OnDrawnDialogueId => "SephirahNetzachDrawn";
-        public override string OnAttackedDialogueId => "SephirahNetzachHurt";
-        public override string OnSacrificedDialogueId => "SephirahNetzachSacrificed";
-        public override string OnBecomeSelectableNegativeDialogueId => "SephirahNetzachSelectableBad";
-        public override string OnBecomeSelectablePositiveDialogueId => "SephirahNetzachSelectableGood";
-        public override string OnPlayFromHandDialogueId => "SephirahNetzachPlayed";
-        public override string OnSelectedForCardRemoveDialogueId => "SephirahNetzachSelectableBad";
-        public override string OnSelectedForCardMergeDialogueId => "SephirahNetzachGivenSigil";
-        public override string OnSelectedForDeckTrialDialogueId => "SephirahNetzachTrial";
+        public override string OnDrawnDialogueId => "NetzachDrawn";
+        public override string OnAttackedDialogueId => "NetzachHurt";
+        public override string OnSacrificedDialogueId => "NetzachSacrificed";
+        public override string OnBecomeSelectableNegativeDialogueId => "NetzachSelectableBad";
+        public override string OnBecomeSelectablePositiveDialogueId => "NetzachSelectableGood";
+        public override string OnPlayFromHandDialogueId => "NetzachPlayed";
+        public override string OnSelectedForCardRemoveDialogueId => "NetzachSelectableBad";
+        public override string OnSelectedForCardMergeDialogueId => "NetzachGivenSigil";
+        public override string OnSelectedForDeckTrialDialogueId => "NetzachTrial";
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahNetzachProspector" },
-            { Opponent.Type.AnglerBoss, "SephirahNetzachAngler" },
-            { Opponent.Type.TrapperTraderBoss, "SephirahNetzachTrapperTrader" },
-            { Opponent.Type.LeshyBoss, "SephirahNetzachLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahNetzachRoyal" },
-            { ApocalypseBossOpponent.ID, "SephirahNetzachApocalypse" }
+            { Opponent.Type.ProspectorBoss, "NetzachProspector" },
+            { Opponent.Type.AnglerBoss, "NetzachAngler" },
+            { Opponent.Type.TrapperTraderBoss, "NetzachTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "NetzachLeshy" },
+            { Opponent.Type.RoyalBoss, "NetzachRoyal" },
+            { CustomOpponentUtils.ApocalypseBossID, "NetzachApocalypse" },
+            { OrdealUtils.OpponentID, "NetzachOrdeal" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -89,7 +91,7 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Netzach()
         {
-            NewCard("sephirahNetzach", "Netzach", "Despite his lack of motivation, he'll do his best to succeed.",
+            NewCard("sephirahNetzach", "Netzach", "Unmotivated and unwilling. Surely there are others you can choose?",
                 attack: 0, health: 3, blood: 1)
                 .AddAbilities(GreedyHealing.ability, Ability.WhackAMole)
                 .AddTraits(Sephirah)

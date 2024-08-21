@@ -22,14 +22,14 @@ namespace WhistleWindLobotomyMod
 
             CardInfo infoO = NewCard(doubtO, "Doubt δ",
                 attack: 2, health: 4, energy: 4)
-                //.SetPortraits(doubtO)
+                .SetPortraits(doubtO)
                 .AddAbilities(Piercing.ability, Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
                 .Build();
 
             CardInfo infoY = NewCard(doubtY, "Doubt γ",
                 attack: 1, health: 3, energy: 3)
-                //.SetPortraits(doubtY)
+                .SetPortraits(doubtY)
                 .AddAbilities(Piercing.ability, Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
                 .SetEvolve(infoO, 1)
@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod
 
             CardInfo infoB = NewCard(doubtB, "Doubt β",
                 attack: 1, health: 2, energy: 2)
-                //.SetPortraits(doubtB)
+                .SetPortraits(doubtB)
                 .AddAbilities(Piercing.ability, Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
                 .SetEvolve(infoY, 1)
@@ -45,7 +45,7 @@ namespace WhistleWindLobotomyMod
 
             NewCard(doubtA, "Doubt α",
                 attack: 1, health: 1, energy: 2)
-                //.SetPortraits(doubtA)
+                .SetPortraits(doubtA)
                 .AddAbilities(Piercing.ability, Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
                 .SetEvolve(infoB, 1)
@@ -53,22 +53,22 @@ namespace WhistleWindLobotomyMod
 
             NewCard(processUnderstanding, "Process of Understanding",
                 attack: 3, health: 4, energy: 4)
-                //.SetPortraits(processUnderstanding)
+                .SetPortraits(processUnderstanding)
                 .AddAbilities(Piercing.ability, Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
                 .Build();
 
             NewCard(whereWeReach, "Where We Must Reach",
-                attack: 1, health: 1, energy: 5)
-                //.SetPortraits(whereWeReach)
+                attack: 0, health: 15, energy: 5)
+                .SetPortraits(whereWeReach)
                 .AddAbilities(Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Trait.Structure)
                 .Build();
 
             NewCard(lastHelix, "Last Helix",
-                attack: 1, health: 1, energy: 6)
-                //.SetPortraits(lastHelix)
+                attack: 1, health: 35, energy: 6)
+                .SetPortraits(lastHelix)
                 .AddAbilities(Piercing.ability, Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Trait.Uncuttable, Trait.Structure, Trait.Giant)

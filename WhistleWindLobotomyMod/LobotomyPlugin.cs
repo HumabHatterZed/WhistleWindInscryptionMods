@@ -1,10 +1,7 @@
 ﻿using BepInEx;
-using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using DiskCardGame;
 using HarmonyLib;
-using Infiniscryption.Achievements;
-using Infiniscryption.PackManagement;
 using Infiniscryption.Spells;
 using InscryptionAPI;
 using InscryptionAPI.Card;
@@ -16,6 +13,7 @@ using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Challenges;
@@ -34,6 +32,8 @@ namespace WhistleWindLobotomyMod
     [BepInDependency(AbnormalPlugin.pluginGuid, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.achievements", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("arackulele.inscryption.grimoramod", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("zorro.inscryption.infiniscryption.p03kayceerun", BepInDependency.DependencyFlags.SoftDependency)]
     public partial class LobotomyPlugin : BaseUnityPlugin
     {
         private void Awake()
@@ -45,7 +45,7 @@ namespace WhistleWindLobotomyMod
                 Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
             else
             {
-                PreventOpponentDamage = false;
+                //PreventOpponentDamage = false;
                 DisabledRiskLevels = LobotomyConfigManager.Instance.NoRisk;
                 AllCardsDisabled = DisabledRiskLevels.HasFlag(RiskLevel.All) || DisabledRiskLevels.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
 
@@ -55,7 +55,7 @@ namespace WhistleWindLobotomyMod
                 if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
                     LobotomyConfigManager.Instance.SetBlessings(11);
 
-                CustomBossUtils.InitBossObjects();
+                CustomOpponentUtils.InitBossObjects();
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
 
                 Log.LogDebug("Loading dialogue...");
@@ -70,11 +70,11 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("Loading cards...");
                 AddAppearances();
                 AddCards();
-                //Log.LogDebug("Loading starter decks...");
                 AddStarterDecks();
 
                 Log.LogDebug("Loading encounters...");
                 AddEncounters();
+                OrdealUtils.InitOrdeals();
 
                 Log.LogDebug("Loading everything else...");
                 AddItems();
@@ -108,7 +108,7 @@ namespace WhistleWindLobotomyMod
                 if (LobotomyConfigManager.Instance.NoRuina)
                     Log.LogWarning("Disable Ruina is set to [true]. Some cards have been removed from the pool of obtainable cards.");
 
-                Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
+                Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{Act1LobotomyCards.Count}]|[{PixelLobotomyCards.Count}] obtainable cards.");
             }
             Log.LogInfo($"The Clock is at [{LobotomyConfigManager.Instance.NumOfBlessings}].");
         }
@@ -181,6 +181,7 @@ namespace WhistleWindLobotomyMod
                 };
             }
 
+            Ability_BoneMeal();
             Ability_TimeMachine();
             Ability_Apostle();
             Ability_TrueSaviour();
@@ -215,6 +216,7 @@ namespace WhistleWindLobotomyMod
             BetterRareChances.Register();
 
             MiracleWorker.Register(HarmonyInstance);
+            AllOrdeals.Register(HarmonyInstance);
             AbnormalBosses.Register(HarmonyInstance);
             AbnormalEncounters.Register(HarmonyInstance);
         }
@@ -240,7 +242,7 @@ namespace WhistleWindLobotomyMod
             DialogueEventsManager.DialogueEvents ??= new();
             DialogueEventsManager.RepeatDialogueEvents ??= new();
 
-            AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Dialogue")).ForEach(mi => mi.Invoke(this, null));
+            AccessTools.GetDeclaredMethods(typeof(LobotomyDialogue)).Where(mi => mi.Name.StartsWith("Dialogue")).ForEach(mi => mi.Invoke(new LobotomyDialogue(), null));
 
             foreach (KeyValuePair<string, List<CustomLine>> dialogue in DialogueEventsManager.DialogueEvents)
             {
@@ -259,19 +261,24 @@ namespace WhistleWindLobotomyMod
         }
         public static bool AllCardsDisabled { get; internal set; }
         public static RiskLevel DisabledRiskLevels { get; internal set; }
-        public static bool PreventOpponentDamage { get; internal set; }
 
         public static readonly StoryEvent ApocalypseBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "ApocalpyseBossDefeated");
         public static readonly StoryEvent JesterBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "JesterBossDefeated");
         public static readonly StoryEvent EmeraldBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "EmeraldBossDefeated");
         public static readonly StoryEvent SaviourBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "SaviourBossDefeated");
 
-        private static readonly Harmony HarmonyInstance = new(pluginGuid);
+        public static readonly StoryEvent OrdealDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "OrdealDefeated");
+
+        internal static readonly Harmony HarmonyInstance = new(pluginGuid);
         internal static ManualLogSource Log;
 
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginPrefix = "wstl";
+        public const string pluginPrefixGBC = "wstlGBC";
+        public const string pluginPrefixP03 = "wstlP03";
+        public const string pluginPrefixGrimora = "wstlGrimora";
+
         public const string pluginName = "WhistleWind Lobotomy Mod";
-        private const string pluginVersion = "2.1.1";
+        private const string pluginVersion = "2.2.0";
     }
 }

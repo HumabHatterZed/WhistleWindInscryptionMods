@@ -7,6 +7,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -55,23 +56,24 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public override string OnDrawnDialogueId => "SephirahBinahDrawn";
-        public override string OnAttackedDialogueId => "SephirahBinahHurt";
-        public override string OnSacrificedDialogueId => "SephirahBinahSacrificed";
-        public override string OnBecomeSelectableNegativeDialogueId => "SephirahBinahSelectableBad";
-        public override string OnBecomeSelectablePositiveDialogueId => "SephirahBinahSelectableGood";
-        public override string OnPlayFromHandDialogueId => "SephirahBinahPlayed";
-        public override string OnSelectedForCardRemoveDialogueId => "SephirahBinahSelectableBad";
-        public override string OnSelectedForCardMergeDialogueId => "SephirahBinahGivenSigil";
-        public override string OnSelectedForDeckTrialDialogueId => "SephirahBinahTrial";
+        public override string OnDrawnDialogueId => "BinahDrawn";
+        public override string OnAttackedDialogueId => "BinahHurt";
+        public override string OnSacrificedDialogueId => "BinahSacrificed";
+        public override string OnBecomeSelectableNegativeDialogueId => "BinahSelectableBad";
+        public override string OnBecomeSelectablePositiveDialogueId => "BinahSelectableGood";
+        public override string OnPlayFromHandDialogueId => "BinahPlayed";
+        public override string OnSelectedForCardRemoveDialogueId => "BinahSelectableBad";
+        public override string OnSelectedForCardMergeDialogueId => "BinahGivenSigil";
+        public override string OnSelectedForDeckTrialDialogueId => "BinahTrial";
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahBinahProspector" },
-            { Opponent.Type.AnglerBoss, "SephirahBinahAngler" },
-            { Opponent.Type.TrapperTraderBoss, "SephirahBinahTrapperTrader" },
-            { Opponent.Type.LeshyBoss, "SephirahBinahLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahBinahRoyal" },
-            { ApocalypseBossOpponent.ID, "SephirahBinahApocalypse" }
+            { Opponent.Type.ProspectorBoss, "BinahProspector" },
+            { Opponent.Type.AnglerBoss, "BinahAngler" },
+            { Opponent.Type.TrapperTraderBoss, "BinahTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "BinahLeshy" },
+            { Opponent.Type.RoyalBoss, "BinahRoyal" },
+            { CustomOpponentUtils.ApocalypseBossID, "BinahApocalypse" },
+            { OrdealUtils.OpponentID, "BinahOrdeal" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -83,7 +85,7 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Binah()
         {
-            NewCard("sephirahBinah", "Binah", "Though not as powerful as she once was, she will still make a great ally.",
+            NewCard("sephirahBinah", "Binah", "Callous and sadistic, she seems keen on seeing your struggles in person.",
                 attack: 3, health: 5, blood: 3)
                 .AddAbilities(Ability.Sniper, Piercing.ability)
                 .AddTraits(Sephirah)

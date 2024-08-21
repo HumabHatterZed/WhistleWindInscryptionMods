@@ -12,6 +12,7 @@ namespace WhistleWindLobotomyMod
             const string RANDOM_PLACEHOLDER = "RANDOM_PLACEHOLDER";
             NewCard(RANDOM_PLACEHOLDER)
                 .SetPortraits(RANDOM_PLACEHOLDER)
+                .AddAbilities(DiskCardGame.Ability.RandomAbility)
                 .SetStatIcon(SigilPower.Icon)
                 .Build(nonChoice: true);
         }

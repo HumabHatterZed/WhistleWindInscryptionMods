@@ -13,15 +13,15 @@ using WhistleWindLobotomyMod.Opponents.Apocalypse;
 namespace WhistleWindLobotomyMod.Patches
 {
     [HarmonyPatch]
-    internal static class CustomBossPatches
+    internal static class CustomOpponentPatches
     {
         [HarmonyPostfix]
         [HarmonyPatch(typeof(CardDrawPiles), nameof(CardDrawPiles.DrawCardFromDeck))]
         [HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawFromSidePile))]
-        private static IEnumerator RefreshDecksForCustomBosses(IEnumerator enumerator, CardDrawPiles __instance)
+        private static IEnumerator RefreshDeckDuringOrdeals(IEnumerator enumerator, CardDrawPiles __instance)
         {
             yield return enumerator;
-            if (!CustomBossUtils.FightingCustomBoss())
+            if (!CustomOpponentUtils.FightingCustomOpponent(true))
                 yield break;
 
             if (__instance.Exhausted && !PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == "wstl_REFRESH_DECKS"))
@@ -39,7 +39,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(Part1GameFlowManager), nameof(Part1GameFlowManager.KillPlayerSequence))]
         private static IEnumerator CustomKillPlayerSequences(IEnumerator enumerator)
         {
-            if (!CustomBossUtils.FightingCustomBoss())
+            if (!CustomOpponentUtils.FightingCustomOpponent(true))
             {
                 yield return enumerator;
                 yield break;
@@ -47,7 +47,7 @@ namespace WhistleWindLobotomyMod.Patches
             Singleton<PlayerHand>.Instance.SetShown(shown: false);
             AudioSource reachSound = AudioController.Instance.PlaySound2D("eyes_opening", MixerGroup.TableObjectsSFX, 0.75f);
             yield return new WaitForSeconds(0.5f);
-            if (CustomBossUtils.IsCustomBoss<ApocalypseBossOpponent>())
+            if (CustomOpponentUtils.IsCustomBoss<ApocalypseBossOpponent>())
                 ApocalypseBossUtils.KillPlayerSequence();
 
             yield return new WaitForSeconds(2.75f);
@@ -74,9 +74,9 @@ namespace WhistleWindLobotomyMod.Patches
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(CardDrawPiles), nameof(CardDrawPiles.ExhaustedSequence))]
-        private static IEnumerator GiantCardsGainStarvation(IEnumerator enumerator, CardDrawPiles __instance)
+        private static IEnumerator CustomBossExhaustionSequence(IEnumerator enumerator, CardDrawPiles __instance)
         {
-            if (!CustomBossUtils.FightingCustomBoss() || TurnManager.Instance.Opponent.NumLives > 1)
+            if (!CustomOpponentUtils.FightingCustomOpponent(true) || TurnManager.Instance.Opponent.NumLives > 1)
             {
                 yield return enumerator;
                 yield break;
@@ -88,16 +88,16 @@ namespace WhistleWindLobotomyMod.Patches
             CardSlot giantCardSlot = BoardManager.Instance.OpponentSlotsCopy.Find(x => x.Card != null && x.Card.HasTrait(Trait.Giant));
             if (giantCardSlot != null)
             {
-                if (CustomBossUtils.IsCustomBoss<ApocalypseBossOpponent>())
+                if (CustomOpponentUtils.IsCustomBoss<ApocalypseBossOpponent>())
                     yield return ApocalypseBossUtils.ExhaustedSequence(__instance, giantCardSlot);
                 // other bosses
             }
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowResetSequence))]
-        private static IEnumerator DontResetScales(IEnumerator enumerator)
+        private static IEnumerator CustomOpponentsDontResetScales(IEnumerator enumerator)
         {
-            if (CustomBossUtils.FightingCustomBoss())
+            if (CustomOpponentUtils.FightingCustomOpponent(false))
                 yield break;
 
             yield return enumerator;
@@ -106,7 +106,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager3D), nameof(CombatPhaseManager3D.VisualizeCardAttackingDirectly))]
         private static IEnumerator FixGiantCardAnimation(IEnumerator enumerator, CombatPhaseManager3D __instance, CardSlot attackingSlot, CardSlot targetSlot, int damage)
         {
-            if (!CustomBossUtils.FightingCustomBoss() || !CustomBossUtils.IsCustomBoss<ApocalypseBossOpponent>() || attackingSlot.Card.LacksTrait(Trait.Giant))
+            if (!CustomOpponentUtils.FightingCustomOpponent(true) || !CustomOpponentUtils.IsCustomBoss<ApocalypseBossOpponent>() || attackingSlot.Card.LacksTrait(Trait.Giant))
             {
                 yield return enumerator;
                 yield break;
@@ -137,18 +137,16 @@ namespace WhistleWindLobotomyMod.Patches
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager3D), nameof(CombatPhaseManager3D.VisualizeCardAttackingDirectly))]
-        private static IEnumerator GainBonesFromDirectDamage(IEnumerator enumerator, CardSlot attackingSlot, CardSlot targetSlot, int damage)
+        private static IEnumerator GiveBonesFromExcessScaleDamage(IEnumerator enumerator, CardSlot attackingSlot, CardSlot targetSlot, int damage)
         {
-            if (!CustomBossUtils.FightingCustomBoss() || !attackingSlot.IsPlayerSlot)
+            if (!attackingSlot.IsPlayerSlot || !CustomOpponentUtils.FightingCustomOpponent(false) || !CustomOpponentUtils.DirectDamageGivesBones())
             {
                 yield return enumerator;
                 yield break;
             }
 
-            bool doScaleDamage = LifeManager.Instance.DamageUntilPlayerWin > 1;
             int bonesToGive = damage - (LifeManager.Instance.DamageUntilPlayerWin - 1);
-
-            // deal scale damage
+            bool doScaleDamage = LifeManager.Instance.DamageUntilPlayerWin > 1;
             if (doScaleDamage)
                 yield return enumerator;
 
@@ -156,7 +154,10 @@ namespace WhistleWindLobotomyMod.Patches
             if (bonesToGive <= 0)
                 yield break;
 
-            bonesToGive = Mathf.Min(2, bonesToGive);
+            // actual amount of Bones given is half the excess damage, minimum of 1 (max of 2 for bosses)
+            bonesToGive = (bonesToGive + 1) / 2;
+            if (CustomOpponentUtils.FightingCustomOpponent(true) && bonesToGive > 2)
+                bonesToGive = 2;
 
             if (doScaleDamage)
                 DigUpBones(bonesToGive, targetSlot);
@@ -206,7 +207,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(BleachPotItem), nameof(BleachPotItem.GetValidOpponentSlots))]
         private static void CannotBleachCustomBosses(ref List<CardSlot> __result)
         {
-            if (!CustomBossUtils.FightingCustomBoss())
+            if (!CustomOpponentUtils.FightingCustomOpponent(true))
                 return;
 
             __result.RemoveAll(x => x.Card.HasTrait(Trait.Uncuttable));
@@ -220,7 +221,7 @@ namespace WhistleWindLobotomyMod.Patches
                 if (SaveFile.IsAscension)
                 {
                     if (AscensionSaveData.Data.ChallengeIsActive(FinalApocalypse.Id))
-                        __result = CustomBossUtils.apocalypseRegion;
+                        __result = CustomOpponentUtils.apocalypseRegion;
                     /*                else if (AscensionSaveData.Data.ChallengeIsActive(FinalComing.Id))
                                         __result = CustomBossUtils.saviourRegion;
                                     else if (AscensionSaveData.Data.ChallengeIsActive(FinalTrick.Id))
@@ -230,7 +231,7 @@ namespace WhistleWindLobotomyMod.Patches
                 }
                 else if (LobotomyConfigManager.Instance.FinalApocalypse)
                 {
-                    __result = CustomBossUtils.apocalypseRegion;
+                    __result = CustomOpponentUtils.apocalypseRegion;
                 }
             }
         }

@@ -1,10 +1,10 @@
-﻿using DiskCardGame;
+﻿/*using DiskCardGame;
 
 namespace WhistleWindLobotomyMod.Opponents.Saviour
 {
     public class SaviourBattleSequencer : Part1BossBattleSequencer
     {
-        public static readonly string ID;/* = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "SaviourBattleSequencer", typeof(SaviourBattleSequencer)).Id;*/
+        public static readonly string ID;*//* = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "SaviourBattleSequencer", typeof(SaviourBattleSequencer)).Id;*//*
         public override Opponent.Type BossType => SaviourBossOpponent.ID;
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.ApocalypseBossDefeated;
         private SaviourBossOpponent Opponent => TurnManager.Instance.Opponent as SaviourBossOpponent;
@@ -16,4 +16,4 @@ namespace WhistleWindLobotomyMod.Opponents.Saviour
         private int reactiveDifficulty = 0;
         private int ReactiveDifficulty => RunState.Run.DifficultyModifier + reactiveDifficulty;
     }
-}
+}*/

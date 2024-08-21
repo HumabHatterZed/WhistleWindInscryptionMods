@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "Concord";
-        public const string rDesc = "When Yang is adjacent to Yin, activate a special sequence.";
+        public const string rDesc = "When Yang is adjacent to Yin, invert the scales.";
         public override bool RespondsToResolveOnBoard() => true;
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard.Info.name == "wstl_yin";
         public override IEnumerator OnResolveOnBoard()

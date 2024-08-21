@@ -17,9 +17,10 @@ namespace WhistleWindLobotomyMod.Core
 
             return CardLoader.Clone(unlockedCards[SeededRandom.Range(0, unlockedCards.Count, randomSeed)]);
         }
-        public static CardInfo GetRandomChoosableModCard(int randomSeed, string riskLevel)
+        public static CardInfo GetRandomChoosableModCard(int randomSeed, int riskLevel)
         {
-            List<CardInfo> unlockedCards = GetUnlockedModCards(CardMetaCategory.ChoiceNode).FindAll(x => x.GetExtendedProperty("wstl:RiskLevel") == riskLevel);
+            string riskName = riskLevel switch { 4 => "Aleph", 3 => "Waw", 2 => "He", 1 => "Teth", _ => "Zayin "};
+            List<CardInfo> unlockedCards = GetUnlockedModCards(CardMetaCategory.ChoiceNode).FindAll(x => x.GetExtendedProperty("wstl:RiskLevel") == riskName);
 
             if (LobotomySaveManager.OwnsApocalypseBird)
                 unlockedCards.RemoveAll(x => x.HasTrait(LobotomyCardManager.BlackForest));

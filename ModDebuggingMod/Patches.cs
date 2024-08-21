@@ -2,6 +2,7 @@
 using HarmonyLib;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace ModDebuggingMod
@@ -28,8 +29,8 @@ namespace ModDebuggingMod
             __instance.PredefinedNodes = nodes;
         }
 
-        [HarmonyPatch(typeof(Part3SaveData), nameof(Part3SaveData.Initialize))]
-        private static void Postfix(ref Part3SaveData __instance)
+        //[HarmonyPatch(typeof(Part3SaveData), nameof(Part3SaveData.Initialize))]
+        private static void ModifyPart3Deck(ref Part3SaveData __instance)
         {
             __instance.deck.Cards.Clear();
             __instance.deck.AddCard(CardLoader.GetCardByName("Squirrel"));
@@ -62,25 +63,25 @@ namespace ModDebuggingMod
         private static GainConsumablesNodeData ItemNode => new();
         private static BossBattleNodeData ApocalypseNode => new()
         {
-            bossType = ApocalypseBossOpponent.ID,
+            bossType = CustomOpponentUtils.ApocalypseBossID,
             specialBattleId = ApocalypseBattleSequencer.ID,
             difficulty = 20
         };
         private static BossBattleNodeData JesterNode => new()
         {
-            bossType = ApocalypseBossOpponent.ID,
+            bossType = CustomOpponentUtils.ApocalypseBossID,
             specialBattleId = ApocalypseBattleSequencer.ID,
             difficulty = 20
         };
         private static BossBattleNodeData EmeraldNode => new()
         {
-            bossType = ApocalypseBossOpponent.ID,
+            bossType = CustomOpponentUtils.ApocalypseBossID,
             specialBattleId = ApocalypseBattleSequencer.ID,
             difficulty = 20
         };
         private static BossBattleNodeData RaptureNode => new()
         {
-            bossType = ApocalypseBossOpponent.ID,
+            bossType = CustomOpponentUtils.ApocalypseBossID,
             specialBattleId = ApocalypseBattleSequencer.ID,
             difficulty = 20
         };

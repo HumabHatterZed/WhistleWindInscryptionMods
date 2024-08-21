@@ -7,6 +7,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -61,23 +62,24 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public override string OnDrawnDialogueId => "SephirahTipherethADrawn";
-        public override string OnAttackedDialogueId => "SephirahTipherethAHurt";
-        public override string OnSacrificedDialogueId => "SephirahTipherethASacrificed";
-        public override string OnBecomeSelectableNegativeDialogueId => "SephirahTipherethASelectableBad";
-        public override string OnBecomeSelectablePositiveDialogueId => "SephirahTipherethASelectableGood";
-        public override string OnPlayFromHandDialogueId => "SephirahTipherethAPlayed";
-        public override string OnSelectedForCardRemoveDialogueId => "SephirahTipherethASelectableBad";
-        public override string OnSelectedForCardMergeDialogueId => "SephirahTipherethAGivenSigil";
-        public override string OnSelectedForDeckTrialDialogueId => "SephirahTipherethATrial";
+        public override string OnDrawnDialogueId => "TipherethADrawn";
+        public override string OnAttackedDialogueId => "TipherethAHurt";
+        public override string OnSacrificedDialogueId => "TipherethASacrificed";
+        public override string OnBecomeSelectableNegativeDialogueId => "TipherethASelectableBad";
+        public override string OnBecomeSelectablePositiveDialogueId => "TipherethASelectableGood";
+        public override string OnPlayFromHandDialogueId => "TipherethAPlayed";
+        public override string OnSelectedForCardRemoveDialogueId => "TipherethASelectableBad";
+        public override string OnSelectedForCardMergeDialogueId => "TipherethAGivenSigil";
+        public override string OnSelectedForDeckTrialDialogueId => "TipherethATrial";
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahTipherethAProspector" },
-            { Opponent.Type.AnglerBoss, "SephirahTipherethAAngler" },
-            { Opponent.Type.TrapperTraderBoss, "SephirahTipherethATrapperTrader" },
-            { Opponent.Type.LeshyBoss, "SephirahTipherethALeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahTipherethARoyal" },
-            { ApocalypseBossOpponent.ID, "SephirahTipherethAApocalypse" }
+            { Opponent.Type.ProspectorBoss, "TipherethAProspector" },
+            { Opponent.Type.AnglerBoss, "TipherethAAngler" },
+            { Opponent.Type.TrapperTraderBoss, "TipherethATrapperTrader" },
+            { Opponent.Type.LeshyBoss, "TipherethALeshy" },
+            { Opponent.Type.RoyalBoss, "TipherethARoyal" },
+            { CustomOpponentUtils.ApocalypseBossID, "TipherethAApocalypse" },
+            { OrdealUtils.OpponentID, "TipherethAOrdeal" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
@@ -89,7 +91,7 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_TipherethA()
         {
-            NewCard("sephirahTipherethA", "Tiphereth", "One of a pair of twins. Don't underestimate her capabilities.",
+            NewCard("sephirahTipherethA", "Tiphereth", "A foul-mouthed child. She's never seen without her brother.",
                 attack: 1, health: 2, energy: 3)
                 .AddAbilities(GiftGiver.ability)
                 .AddTraits(Sephirah)

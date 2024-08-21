@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Unjust Scale";
             UnjustScale.ability = LobotomyAbilityHelper.CreateAbility<UnjustScale>(
                 "sigilUnjustScale", rulebookName,
-                "At the end of the owner's turn, inflict 1 Sin on all other cards. At the start of owner's turn, kill all other cards with 3+ Sin.",
+                "At the end of the owner's turn, inflict 1 Sin on all other cards. At the start of the owner's turn, kill cards with 3+ Sin. If Long Arms is defeated, this effect changes.",
                 null, powerLevel: 0,
                 canStack: false).Id;
         }

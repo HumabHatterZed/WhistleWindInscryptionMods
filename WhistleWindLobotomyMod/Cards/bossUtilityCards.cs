@@ -1,8 +1,10 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
+using InscryptionAPI.Regions;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -30,9 +32,9 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             NewCard(REFRESHDECKS, "Reshuffle Decks",
-                attack: 0, health: 0, energy: 6)
+                attack: 0, health: 0, energy: 0)
                 .SetPortraits(REFRESHDECKS, "", "")
-                .AddAbilities(RefreshDecks.ability)
+                .AddAbilities(RefreshDecks.ability, BoneMeal.ability)
                 .SetGlobalSpell()
                 .Build();
 

@@ -2,8 +2,10 @@
 using HarmonyLib;
 using InscryptionAPI.Ascension;
 using System.Collections.Generic;
+using System.Linq;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod.Challenges
 {
@@ -18,7 +20,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 LobotomyPlugin.pluginGuid,
                 "Miracle Worker",
                 "Leshy will play Plague Doctor against you. Beware the Clock.",
-                60,
+                33,
                 TextureLoader.LoadTextureFromFile("ascensionMiracleWorker"),
                 TextureLoader.LoadTextureFromFile("ascensionMiracleWorker_activated")
                 ).Challenge.challengeType;
@@ -27,14 +29,14 @@ namespace WhistleWindLobotomyMod.Challenges
         }
 
         private static readonly Opponent.Type[] BLACKLISTED_OPPONENTS = new Opponent.Type[] {
-
+            CustomOpponentUtils.SaviourBossID
         };
 
         [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]
         [HarmonyPostfix]
         private static void AddPlagueDoctor(ref Opponent __result)
         {
-            if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id) : LobotomyConfigManager.Instance.MiracleWorker)
+            if (!BLACKLISTED_OPPONENTS.Contains(__result.OpponentType) && SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id) : LobotomyConfigManager.Instance.MiracleWorker)
             {
                 List<List<CardInfo>> turnPlan = new(__result.TurnPlan);
                 CardInfo doctorInfo = CardLoader.GetCardByName("wstl_plagueDoctor");
@@ -50,7 +52,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 }
                 // insert plague doctor into a random turn or make a new turn and insert it randomly into the plan
                 if (validIdxs.Count > 0)
-                    turnPlan[SeededRandom.Range(0, validIdxs.Count, randomSeed++)].Add(doctorInfo);
+                    turnPlan[validIdxs[SeededRandom.Range(0, validIdxs.Count, randomSeed++)]].Add(doctorInfo);
                 else
                     turnPlan.Insert(SeededRandom.Range(0, turnPlan.Count, randomSeed++), new() { doctorInfo });
 

@@ -1,42 +1,43 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Dialogue;
+using InscryptionAPI.Encounters;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod.Opponents
 {
     [HarmonyPatch]
-    public static class CustomBossUtils
+    public static class CustomOpponentUtils
     {
-        public enum LobotomyBoss
-        {
-            Apocalypse,
-            Saviour,
-            Adult,
-            Jester
-        }
-        public static bool FightingCustomBoss()
+        public static bool FightingCustomOpponent(bool bossOnly)
         {
             if (TurnManager.Instance?.Opponent != null)
             {
-                if (TurnManager.Instance.Opponent is ApocalypseBossOpponent)
-                    return true;
-                // add other bosses later
+                if (bossOnly)
+                    return TurnManager.Instance.Opponent is LobotomyBossOpponent;
+                else
+                    return TurnManager.Instance.Opponent is LobotomyBossOpponent || TurnManager.Instance.Opponent is OrdealOpponent;
             }
             return false;
         }
-        public static bool IsCustomBoss<T>() where T : Part1BossOpponent
+
+        public static bool DirectDamageGivesBones()
+        {
+            if (TurnManager.Instance.SpecialSequencer != null)
+            {
+                return (TurnManager.Instance.SpecialSequencer as LobotomyBattleSequencer).DirectDamageGivesBones;
+            }
+            return false;
+        }
+        public static bool IsCustomBoss<T>() where T : LobotomyBossOpponent
         {
             return TurnManager.Instance.Opponent is T;
-        }
-        public static T AsCustomBoss<T>() where T : Part1BossOpponent
-        {
-            return TurnManager.Instance.Opponent as T;
         }
 
         [HarmonyPrefix, HarmonyPatch(typeof(AudioController), nameof(AudioController.GetAudioClip))]
@@ -66,6 +67,12 @@ namespace WhistleWindLobotomyMod.Opponents
                 bossBundle.LoadAsset<AudioClip>("second_trumpet_main_loop")
             };
 
+            ApocalypseBossID = OpponentManager.Add(
+                LobotomyPlugin.pluginGuid, "ApocalypseBossOpponent",
+                ApocalypseBattleSequencer.ID, typeof(ApocalypseBossOpponent),
+                NodeHelper.GetNodeTextureList("nodeApocalypseBoss1", "nodeApocalypseBoss2", "nodeApocalypseBoss3", "nodeApocalypseBoss4")
+                ).Id;
+
             apocalypseRegion = ApocalypseBossUtils.CreateRegion();
             DialogueManager.GenerateRegionIntroductionEvent(LobotomyPlugin.pluginGuid, apocalypseRegion, new()
             {
@@ -86,10 +93,21 @@ namespace WhistleWindLobotomyMod.Opponents
         public static RegionData adultRegion;
         public static RegionData jesterRegion;
 
+        public static Opponent.Type ApocalypseBossID { get; private set; }
+        public static Opponent.Type SaviourBossID { get; private set; }
+
         public static AssetBundle bossBundle;
         public static GameObject apocalypsePrefab;
 
         public static List<AudioClip> bossSFX;
         public static List<AudioClip> bossLoop;
+
+        public enum LobotomyBoss
+        {
+            Apocalypse,
+            Saviour,
+            Adult,
+            Jester
+        }
     }
 }

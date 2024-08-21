@@ -67,11 +67,14 @@ namespace WhistleWindLobotomyMod
             }
             else
             {
-                foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Where(x => x.HasAbility(ApostleSigil.ability)))
+                for (int i = 0; i < 3; i++)
                 {
-                    int damageToDeal = card.MaxHealth / 3;
-                    yield return card.TakeDamage(damageToDeal, base.Card);
-                    yield return new WaitForSeconds(0.2f);
+                    foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Where(x => x.HasAbility(ApostleSigil.ability)))
+                    {
+                        int damageToDeal = card.MaxHealth / 3;
+                        yield return card.TakeDamage(damageToDeal, base.Card);
+                        yield return new WaitForSeconds(0.2f);
+                    }
                 }
             }
 

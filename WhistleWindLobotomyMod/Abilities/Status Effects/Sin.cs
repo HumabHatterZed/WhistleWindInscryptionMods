@@ -20,8 +20,8 @@ namespace WhistleWindLobotomyMod
         public override bool RespondsToUpkeep(bool playerUpkeep)
         {
             // remove Sin when Long Arms is broken
-            if (CustomBossUtils.FightingCustomBoss() && TurnManager.Instance.Opponent is ApocalypseBossOpponent opp)
-                return opp.BattleSequence.DisabledEggEffects.Contains(ActiveEggEffect.LongArms) && base.PlayableCard.OpponentCard != playerUpkeep;
+            if (CustomOpponentUtils.FightingCustomOpponent(true) && TurnManager.Instance.Opponent is ApocalypseBossOpponent opp)
+                return opp.BattleSequencer.DisabledEggEffects.Contains(ActiveEggEffect.LongArms) && base.PlayableCard.OpponentCard != playerUpkeep;
 
             return false;
         }
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
         public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && target != null && EffectSeverity > 0;
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
-            target.AddStatusEffect<Sin>(1);
+            yield return target.AddStatusEffect<Sin>(1);
             AddSeverity(-1, false);
             yield break;
         }

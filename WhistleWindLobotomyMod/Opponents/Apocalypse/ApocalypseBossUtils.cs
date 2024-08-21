@@ -66,7 +66,7 @@ namespace WhistleWindLobotomyMod.Opponents
             apocalypseRegion.boardLightColor = new(0f, 0.3f, 0f, 1f);
             apocalypseRegion.cardsLightColor = new(0.2f, 0.33f, 0f, 1f);
             apocalypseRegion.dominantTribes = new() { Tribe.Bird };
-            apocalypseRegion.bosses = new() { ApocalypseBossOpponent.ID };
+            apocalypseRegion.bosses = new() { CustomOpponentUtils.ApocalypseBossID };
             apocalypseRegion.fillerScenery = new() { new FillerSceneryEntry() { data = trapper.scarceScenery[1].data } };
             apocalypseRegion.fogAlpha = 0.75f;
             apocalypseRegion.fogEnabled = true;
@@ -94,7 +94,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 {
                     new BossBattleNodeData
                     {
-                        bossType = ApocalypseBossOpponent.ID,
+                        bossType = CustomOpponentUtils.ApocalypseBossID,
                         specialBattleId = ApocalypseBattleSequencer.ID,
                         difficulty = 20,
                         position = new(0.5f, 0.86f)

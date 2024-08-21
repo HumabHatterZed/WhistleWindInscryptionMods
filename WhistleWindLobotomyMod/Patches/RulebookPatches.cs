@@ -48,9 +48,9 @@ namespace WhistleWindLobotomyMod.Patches
                         AbilitiesUtil.GetInfo(DynamicAbilities[2]).rulebookDescription = $"While {card.Info.DisplayedNameLocalized} is on the board, remove ally Terrain and Pelt cards and transform the rest into random Apostles.";
                         AbilitiesUtil.GetInfo(DynamicAbilities[3]).rulebookDescription = "Kill WhiteNight and all Apostles on the board then deal 33 direct damage.";
                     }
-                    if (CustomBossUtils.FightingCustomBoss())
+                    if (CustomOpponentUtils.FightingCustomOpponent(true))
                     {
-                        if (CustomBossUtils.IsCustomBoss<ApocalypseBossOpponent>())
+                        if (CustomOpponentUtils.IsCustomBoss<ApocalypseBossOpponent>())
                         {
                             changedRulebook = true;
                             AbilitiesUtil.GetInfo(DynamicAbilities[4]).rulebookDescription = TurnManager.Instance.Opponent.NumLives switch

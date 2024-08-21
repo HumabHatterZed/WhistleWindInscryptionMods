@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod.Patches
         {
             if (TurnManager.Instance?.Opponent != null && TurnManager.Instance.Opponent is ApocalypseBossOpponent boss)
             {
-                if (boss.BattleSequence.ActiveEggEffect == ActiveEggEffect.BigEyes)
+                if (boss.BattleSequencer.ActiveEggEffect == ActiveEggEffect.BigEyes)
                     __result = -1; // easiest way to change the colour
             }
         }
@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod.Patches
         {
             if (TurnManager.Instance?.Opponent != null && TurnManager.Instance.Opponent is ApocalypseBossOpponent boss)
             {
-                if (boss.BattleSequence.ActiveEggEffect == ActiveEggEffect.BigEyes)
+                if (boss.BattleSequencer.ActiveEggEffect == ActiveEggEffect.BigEyes)
                     __result = Mathf.Max(0, __instance.Info.Attack);
             }
         }
@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(MapDataReader), nameof(MapDataReader.SpawnMapObjects))]
         private static void MakeTheBlackForestBlack(MapDataReader __instance)
         {
-            if (RunState.CurrentMapRegion == null || RunState.CurrentMapRegion != CustomBossUtils.apocalypseRegion)
+            if (RunState.CurrentMapRegion == null || RunState.CurrentMapRegion != CustomOpponentUtils.apocalypseRegion)
                 return;
 
             foreach (var i in __instance.scenery)

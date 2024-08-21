@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -60,23 +61,24 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public override string OnDrawnDialogueId => "SephirahMalkuthDrawn";
-        public override string OnAttackedDialogueId => "SephirahMalkuthHurt";
-        public override string OnSacrificedDialogueId => "SephirahMalkuthSacrificed";
-        public override string OnBecomeSelectableNegativeDialogueId => "SephirahMalkuthSelectableBad";
-        public override string OnBecomeSelectablePositiveDialogueId => "SephirahMalkuthSelectableGood";
-        public override string OnPlayFromHandDialogueId => "SephirahMalkuthPlayed";
-        public override string OnSelectedForCardRemoveDialogueId => "SephirahMalkuthSelectableBad";
-        public override string OnSelectedForCardMergeDialogueId => "SephirahMalkuthGivenSigil";
-        public override string OnSelectedForDeckTrialDialogueId => "SephirahMalkuthTrial";
+        public override string OnDrawnDialogueId => "MalkuthDrawn";
+        public override string OnAttackedDialogueId => "MalkuthHurt";
+        public override string OnSacrificedDialogueId => "MalkuthSacrificed";
+        public override string OnBecomeSelectableNegativeDialogueId => "MalkuthSelectableBad";
+        public override string OnBecomeSelectablePositiveDialogueId => "MalkuthSelectableGood";
+        public override string OnPlayFromHandDialogueId => "MalkuthPlayed";
+        public override string OnSelectedForCardRemoveDialogueId => "MalkuthSelectableBad";
+        public override string OnSelectedForCardMergeDialogueId => "MalkuthGivenSigil";
+        public override string OnSelectedForDeckTrialDialogueId => "MalkuthTrial";
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new()
         {
-            { Opponent.Type.ProspectorBoss, "SephirahMalkuthProspector" },
-            { Opponent.Type.AnglerBoss, "SephirahMalkuthAngler" },
-            { Opponent.Type.TrapperTraderBoss, "SephirahMalkuthTrapperTrader" },
-            { Opponent.Type.LeshyBoss, "SephirahMalkuthLeshy" },
-            { Opponent.Type.RoyalBoss, "SephirahMalkuthRoyal" },
-            { ApocalypseBossOpponent.ID, "SephirahMalkuthApocalypse" }
+            { Opponent.Type.ProspectorBoss, "MalkuthProspector" },
+            { Opponent.Type.AnglerBoss, "MalkuthAngler" },
+            { Opponent.Type.TrapperTraderBoss, "MalkuthTrapperTrader" },
+            { Opponent.Type.LeshyBoss, "MalkuthLeshy" },
+            { Opponent.Type.RoyalBoss, "MalkuthRoyal" },
+            { CustomOpponentUtils.ApocalypseBossID, "MalkuthApocalypse" },
+            { OrdealUtils.OpponentID, "MalkuthOrdeal" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }

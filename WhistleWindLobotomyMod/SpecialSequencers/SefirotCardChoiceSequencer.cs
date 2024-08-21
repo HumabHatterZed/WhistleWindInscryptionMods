@@ -35,53 +35,21 @@ namespace WhistleWindLobotomyMod
                 main = GenerationType.None;
                 extra = GenerationType.None;
             }
-            NodeHelper.CreateNode("wstlSefirotCardChoiceNode", typeof(SefirotCardChoiceSequencer), animationFrames,
+            NodeHelper.CreateNode("SefirotCardChoice", typeof(SefirotCardChoiceSequencer), animationFrames,
                 main, extraGenType: extra);
         }
     }
     // Pulled wholesale from CardSingleChoicesSequencer and CardChoiceSequencer
-    public class SefirotCardChoiceSequencer : CustomCardChoiceNodeSequencer
+    public class SefirotCardChoiceSequencer : CardSingleChoicesSequencer, ICustomNodeSequencer, IInherit
     {
-        protected CardPile modDeckPile = SpecialNodeHandler.Instance.cardChoiceSequencer.deckPile;
-        protected GamepadGridControl modGamepadGrid = SpecialNodeHandler.Instance.cardChoiceSequencer.gamepadGrid;
-
-        public ViewController.ControlMode viewControlMode = ViewController.ControlMode.CardChoice;
-        public MainInputInteractable modRerollInteractable = SpecialNodeHandler.Instance.cardChoiceSequencer.rerollInteractable;
-        private Animator modRerollAnim = SpecialNodeHandler.Instance.cardChoiceSequencer.rerollAnim;
-        private readonly bool showMushrooms = true;
-        private readonly List<GameObject> mushrooms = new();
-        private SelectableCard chosenReward;
-        private bool choicesRerolled;
-        private Vector3 basePosition;
-        private void Start()
-        {
-            // Sets up the clover and the basePosition,
-            // which just makes sure that when you're moving b/t your deck and the choices it doesn't get funky
-            if (modRerollInteractable != null)
-            {
-                MainInputInteractable mainInputInteractable = modRerollInteractable;
-                mainInputInteractable.CursorSelectEnded = (Action<MainInputInteractable>)Delegate.Combine(mainInputInteractable.CursorSelectEnded, (Action<MainInputInteractable>)delegate
-                {
-                    this.OnRerollChoices();
-                });
-                MainInputInteractable mainInputInteractable2 = modRerollInteractable;
-                mainInputInteractable2.CursorEntered = (Action<MainInputInteractable>)Delegate.Combine(mainInputInteractable2.CursorEntered, (Action<MainInputInteractable>)delegate
-                {
-                    this.OnCursorEnterRerollInteractable();
-                });
-            }
-            this.basePosition = base.transform.position;
-        }
-        // The framework code, basically
-        // This is essentially ChooseCards from CardChoiceSequencer plus the code of deckpile.DestroyCards()
-        public override IEnumerator DoCustomSequence(CustomSpecialNodeData choicesData)
+        public IEnumerator DoCustomSequence(CustomSpecialNodeData choicesData)
         {
             // Spawns the rulebook and deck before the dialogue starts
-            if (modGamepadGrid != null)
-                modGamepadGrid.enabled = true;
+            if (gamepadGrid != null)
+                gamepadGrid.enabled = true;
 
             Singleton<TableRuleBook>.Instance.SetOnBoard(onBoard: true);
-            base.StartCoroutine(modDeckPile.SpawnCards(SaveManager.SaveFile.CurrentDeck.Cards.Count));
+            base.StartCoroutine(deckPile.SpawnCards(SaveManager.SaveFile.CurrentDeck.Cards.Count));
 
             // First-time dialogue for the node
             if (!DialogueEventsData.EventIsPlayed("SefirotChoiceNodeIntro"))
@@ -93,23 +61,23 @@ namespace WhistleWindLobotomyMod
 
             Singleton<ViewManager>.Instance.SwitchToView(this.choicesView, immediate: false, lockAfter: true);
             yield return this.CardSelectionSequence(choicesData);
-            if (modGamepadGrid != null)
-                modGamepadGrid.enabled = false;
+            if (gamepadGrid != null)
+                gamepadGrid.enabled = false;
 
             yield return new WaitForSeconds(0.75f);
-            yield return modDeckPile.DestroyCards();
+            yield return deckPile.DestroyCards();
         }
         public override IEnumerator CardSelectionSequence(SpecialNodeData choicesData)
         {
-            if (StoryEventsData.EventCompleted(StoryEvent.CloverFound) && modRerollInteractable != null)
+            if (StoryEventsData.EventCompleted(StoryEvent.CloverFound) && rerollInteractable != null)
             {
                 if (!AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.NoClover))
                 {
-                    modRerollInteractable.gameObject.SetActive(value: true);
-                    modRerollInteractable.SetEnabled(enabled: false);
+                    rerollInteractable.gameObject.SetActive(value: true);
+                    rerollInteractable.SetEnabled(enabled: false);
                     CustomCoroutine.WaitThenExecute(1f, delegate
                     {
-                        modRerollInteractable.SetEnabled(enabled: true);
+                        rerollInteractable.SetEnabled(enabled: true);
                     });
                 }
                 ChallengeActivationUI.TryShowActivation(AscensionChallenge.NoClover);
@@ -139,7 +107,7 @@ namespace WhistleWindLobotomyMod
                     card.SetEnabled(enabled: false);
                     card.ChoiceInfo = cardChoice;
                     if (cardChoice.CardInfo != null)
-                        card.Initialize(cardChoice.CardInfo, OnRewardChosen, OnCardFlipped, startFlipped: true, base.OnCardInspected);
+                        card.Initialize(cardChoice.CardInfo, this.OnRewardChosen, this.OnCardFlipped, startFlipped: true, base.OnCardInspected);
 
                     SpecialCardBehaviour[] components = card.GetComponents<SpecialCardBehaviour>();
                     for (int j = 0; j < components.Length; j++)
@@ -201,40 +169,34 @@ namespace WhistleWindLobotomyMod
             }
             return new(listOfChoices.Randomize());
         }
-        private IEnumerator AddCardToDeckAndCleanUp(SelectableCard card)
+
+        private new IEnumerator AddCardToDeckAndCleanUp(SelectableCard card)
         {
             CleanUpRerollItem();
             Singleton<RuleBookController>.Instance.SetShown(shown: false);
-            yield return RewardChosenSequence(card);
+            yield return this.RewardChosenSequence(card);
             LobotomySaveManager.LearnedSefirotChoice = true;
             AddChosenCardToDeck();
             Singleton<TextDisplayer>.Instance.Clear();
             yield return new WaitForSeconds(0.1f);
         }
-        private IEnumerator RewardChosenSequence(SelectableCard card)
+        private new IEnumerator RewardChosenSequence(SelectableCard card)
         {
             card.OnCardAddedToDeck();
             float num = !LobotomySaveManager.LearnedSefirotChoice ? 0.5f : 0f;
-
-            modDeckPile.MoveCardToPile(card, flipFaceDown: true, num);
+            deckPile.MoveCardToPile(card, flipFaceDown: true, num);
             yield return new WaitForSeconds(num);
             if (!LobotomySaveManager.LearnedSefirotChoice)
             {
                 Singleton<TextDisplayer>.Instance.Clear();
                 yield return new WaitForSeconds(0.15f);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("The Sephirah agrees, and the others continue their separate way.", 0f, 0.4f, Emotion.Neutral);
-                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("Before they go, they promise to see you again.", 0f, 0.4f, Emotion.Neutral);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("As soon as you make your choice, a thick fog envelops the others.", 0f, 0.4f, Emotion.Neutral);
+                yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("When it clears, they have vanished without a trace.", 0f, 0.4f, Emotion.Neutral);
             }
         }
-        private void AddChosenCardToDeck()
+        private new void OnRewardChosen(SelectableCard card)
         {
-            modDeckPile.AddToPile(this.chosenReward.transform);
-            SaveManager.SaveFile.CurrentDeck.AddCard(this.chosenReward.Info);
-            AnalyticsManager.SendCardPickedEvent(this.chosenReward.Info.name);
-        }
-        private void OnRewardChosen(SelectableCard card)
-        {
-            if (!LobotomySaveManager.LearnedAbnormalChoice && !this.AllCardsFlippedUp())
+            if (!LobotomySaveManager.LearnedAbnormalChoice && !AllCardsFlippedUp())
                 HintsHandler.OnClickCardChoiceWhileOtherFlipped();
 
             else if (chosenReward == null)
@@ -243,20 +205,20 @@ namespace WhistleWindLobotomyMod
                 chosenReward = card;
             }
         }
-        private void OnCardFlipped(SelectableCard card)
+        private new void OnCardFlipped(SelectableCard card)
         {
             card.SetLocalPosition(Vector3.zero, 0f, immediate: true);
             if (Singleton<InteractionCursor>.Instance.CurrentInteractable == card)
                 base.OnCardInspected(card);
 
             if (card.Info != null)
-                base.StartCoroutine(RegularChoiceFlipped(card));
+                base.StartCoroutine(this.RegularChoiceFlipped(card));
 
         }
-        private IEnumerator RegularChoiceFlipped(SelectableCard card)
+        private new IEnumerator RegularChoiceFlipped(SelectableCard card)
         {
             Vector3 originalCardPos = card.transform.position;
-            yield return TutorialTextSequence(card);
+            yield return this.TutorialTextSequence(card);
             if (DuplicateInDeck(card))
                 SpawnMushroom(originalCardPos);
 
@@ -268,11 +230,10 @@ namespace WhistleWindLobotomyMod
                 LobotomyPlugin.AchievementAPI.Unlock(true, LobotomyPlugin.AchievementAPI.Impuritas);
             }
         }
-        private IEnumerator TutorialTextSequence(SelectableCard card)
+        private new IEnumerator TutorialTextSequence(SelectableCard card)
         {
-            var component = card.GetComponent<CustomPaperTalkingCard>();
-
-            if (component)
+            CustomPaperTalkingCard component = card.GetComponent<CustomPaperTalkingCard>();
+            if (component != null)
                 component.CurrentDialogueSequence = base.StartCoroutine(Singleton<TalkingCardDialogueHandler>.Instance.DialogueSequence($"{card.Info.name.Split('_')[1]}Choice", component));
 
             if (!string.IsNullOrEmpty(card.Info.description) && !ProgressionData.IntroducedCard(card.Info))
@@ -284,87 +245,43 @@ namespace WhistleWindLobotomyMod
                 if (!LobotomySaveManager.LearnedAbnormalChoice && this.AllCardsFlippedUp())
                 {
                     yield return new WaitForSeconds(0.25f);
-                    Singleton<TextDisplayer>.Instance.ShowMessage("You may ask [c:bR]1[c:] to join you. The others will continue on their own.");
+                    Singleton<TextDisplayer>.Instance.ShowMessage("Only [c:bR]1[c:] may join you at this time.");
                 }
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             }
-            if (component)
+            if (component != null)
             {
                 yield return new WaitUntil(() => !component.PlayingDialogue);
                 component.CurrentDialogueSequence = null;
             }
         }
-        private bool AllCardsFlippedUp() => !selectableCards.Exists((SelectableCard x) => x.Flipped);
-        private bool DuplicateInDeck(SelectableCard card)
-        {
-            if (card != null && card.Info != null && !card.Info.name.ToLowerInvariant().Contains("deathcard"))
-                return SaveManager.SaveFile.CurrentDeck.Cards.Exists((CardInfo x) => x.name == card.Info.name);
 
-            return false;
-        }
-        private void CleanUpCards(bool doTween = true)
+        public void Inherit(CustomSpecialNodeData nodeData)
         {
-            base.ResetLocalRotations();
-            this.CleanupMushrooms();
-            foreach (SelectableCard selectableCard in base.selectableCards)
-            {
-                selectableCard.SetInteractionEnabled(interactionEnabled: false);
-                if (selectableCard != this.chosenReward)
-                {
-                    if (doTween)
-                        Tween.Position(selectableCard.transform, selectableCard.transform.position + Vector3.forward * 20f, 0.5f, 0f, Tween.EaseInOut);
+            CardSingleChoicesSequencer inheritTarget = SpecialNodeHandler.Instance.cardChoiceSequencer;
+            base.transform.position = inheritTarget.transform.position;
+            base.transform.rotation = Quaternion.Euler(inheritTarget.transform.rotation.eulerAngles);
 
-                    Destroy(selectableCard.gameObject, doTween ? 0.5f : 0f);
-                }
-            }
-            base.selectableCards.Clear();
-        }
-        private void OnRerollChoices()
-        {
-            choicesRerolled = true;
-            CleanUpRerollItem();
-        }
-        private void OnCursorEnterRerollInteractable() => modRerollAnim.Play("shake", 0, 0f);
-        private void CleanUpRerollItem()
-        {
-            if (modRerollInteractable != null && modRerollInteractable.gameObject.activeSelf)
+            if (inheritTarget.deckPile != null)
             {
-                modRerollInteractable.SetEnabled(enabled: false);
-                modRerollAnim.Play("exit", 0, 0f);
-                CustomCoroutine.WaitThenExecute(0.25f, delegate
-                {
-                    modRerollInteractable.gameObject.SetActive(value: false);
-                });
+                deckPile = Instantiate(inheritTarget.deckPile, inheritTarget.deckPile.transform.position, inheritTarget.deckPile.transform.rotation);
+                deckPile.transform.parent = base.transform;
             }
-        }
-        private void SpawnMushroom(Vector3 cardPosition)
-        {
-            if (showMushrooms && selectableCards.Count > 0)
+
+            selectableCardPrefab = inheritTarget.selectableCardPrefab;
+            if (inheritTarget.gamepadGrid != null)
             {
-                GameObject gameObject = UnityEngine.Object.Instantiate(ResourceBank.Get<GameObject>("Prefabs/SpecialNodeSequences/Mushroom_CardChoice"));
-                gameObject.transform.parent = base.transform;
-                gameObject.transform.position = cardPosition + Vector3.back * 1.1f;
-                gameObject.transform.eulerAngles = new Vector3(CustomRandom.RandomBetween(10f, 30f), CustomRandom.RandomBetween(-50f, 50f), 0f);
-                gameObject.transform.localScale = Vector3.one * 0.35f;
-                AudioController.Instance.PlaySound3D("small_mushroom_grow", MixerGroup.TableObjectsSFX, gameObject.transform.position, 0.5f, 0f, new AudioParams.Pitch(AudioParams.Pitch.Variation.Small));
-                mushrooms.Add(gameObject);
+                gamepadGrid = Instantiate(inheritTarget.gamepadGrid, inheritTarget.gamepadGrid.transform.position, inheritTarget.gamepadGrid.transform.rotation);
+                gamepadGrid.transform.parent = base.transform;
             }
-        }
-        private void CleanupMushrooms()
-        {
-            if (!showMushrooms)
-                return;
-            foreach (GameObject mushroom in mushrooms)
+
+            if (inheritTarget.rerollInteractable != null)
             {
-                if (mushroom != null)
-                {
-                    AudioController.Instance.PlaySound3D("small_mushroom_shrink", MixerGroup.TableObjectsSFX, mushroom.transform.position, 0.5f, 0f, new AudioParams.Pitch(AudioParams.Pitch.Variation.Small), new AudioParams.Repetition(0.1f));
-                    mushroom.GetComponent<MushroomInteractable>().SetEnabled(enabled: false);
-                    mushroom.GetComponentInChildren<Animator>().Play("mushroom_shrink", 0, 0f);
-                    UnityEngine.Object.Destroy(mushroom, 1f);
-                }
+                rerollInteractable = Instantiate(inheritTarget.rerollInteractable, inheritTarget.rerollInteractable.transform.position, inheritTarget.rerollInteractable.transform.rotation);
+                rerollInteractable.transform.parent = base.transform;
+
+                rerollAnim = rerollInteractable.transform.GetComponentInChildren<Animator>();
             }
-            mushrooms.Clear();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace WhistleWindLobotomyMod
 
             CardInfo skeleton = NewCard(
                 "SKELETON_SHRIMP", "Skeleton Shrimp",
-                attack: 2, health: 1)
+                attack: 2, health: 1, bones: 5)
                 .SetPortraits("skeleton_shrimp")
                 .AddAbilities(Ability.Brittle, Ability.IceCube)
                 .SetIceCube(can)

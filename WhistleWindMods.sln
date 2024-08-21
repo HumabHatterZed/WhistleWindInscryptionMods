@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhistleWind.AbnormalSigils"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhistleWindLobotomyMod", "WhistleWindLobotomyMod\WhistleWindLobotomyMod.csproj", "{919B91D1-93D2-454B-AA9C-F76C022BF07F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BonnieBakingPack", "BonnieBakingPack\BonnieBakingPack.csproj", "{6F55F5F3-6091-4403-B439-156BF77E26EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BonniesBakingPack", "BonnieBakingPack\BonniesBakingPack.csproj", "{6F55F5F3-6091-4403-B439-156BF77E26EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "Dazzling";
             Dazzling.ability = LobotomyAbilityHelper.CreateAbility<Dazzling>(
                 "sigilDazzling", rulebookName,
-                "The turn after this card is played, inflict up to 3 other cards on the board with Enchanted.",
+                "The turn after this card is played, inflict up to 3 other cards on the board with Enchanted. This card takes no damage from Enchanted cards.",
                 "Like moths to a flame.", powerLevel: 0,
                 canStack: false).Id;
         }
