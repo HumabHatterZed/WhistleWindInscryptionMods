@@ -22,38 +22,19 @@ namespace WhistleWind.AbnormalSigils
                 modular: false, opponent: true, canStack: false).Id;
         }
     }
-    public class MindFlayer : AbilityBehaviour
+    public class MindFlayer : AbilityBehaviour, IModifyDamageTaken
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null;
+        public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
-            if (!wasSacrifice && killer != null && !killer.Dead && killer.Health != 0)
-                return killer.LacksAbility(Ability.MadeOfStone);
-
-            return false;
+            yield return target.AddStatusEffect<Sinking>((base.Card.Health + 1) / 2);
+            yield return base.LearnAbility(0.3f);
         }
 
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
-            if (killer.HasAnyOfTraits(Trait.Giant, Trait.Uncuttable))
-            {
-                killer.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.4f);
-                yield return DialogueHelper.PlayDialogueEvent("MindFlayerFail");
-                yield break;
-            }
-            yield return PreSuccessfulTriggerSequence();
-            yield return HelperMethods.ChangeCurrentView(View.Board);
-            yield return new WaitForSeconds(0.2f);
-            killer.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.55f);
-            yield return killer.TransformIntoCard(this.Card.Info);
-            killer.Status.damageTaken = 0;
-            killer.TemporaryMods.RemoveAll(x => x.nonCopyable || !x.fromTotem);
-            yield return new WaitForSeconds(0.4f);
-            yield return LearnAbility();
-        }
+        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => attacker == base.Card;
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => 0;
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => -1000;
     }
 }
