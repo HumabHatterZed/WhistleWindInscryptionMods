@@ -1,19 +1,74 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace WhistleWind.Core.Helpers
 {
-    public static class CardHelper // Base code taken from GrimoraMod and SigilADay_julienperge
+    public static class CardHelper
     {
+        private const string _EMISSION = "_emission.png";
+        public const string _PIXEL = "_pixel.png";
+        public const string _PNG = ".png";
+
+        public static CardInfo SetPortraits(this CardInfo info, Assembly targetAssembly, string portraitName, string emissionName = null, string pixelPortraitName = null)
+        {
+            emissionName ??= portraitName + _EMISSION;
+            pixelPortraitName ??= portraitName + _PIXEL;
+            portraitName += _PNG;
+
+            info.SetPortrait(TextureLoader.LoadTextureFromFile(portraitName, targetAssembly));
+
+            Texture2D tex = TextureLoader.LoadTextureFromFile(emissionName, targetAssembly);
+            if (tex != null)
+                info.SetEmissivePortrait(tex);
+
+            Texture2D tex2 = TextureLoader.LoadTextureFromFile(pixelPortraitName, targetAssembly);
+            if (tex2 != null)
+                info.SetPixelPortrait(tex2);
+
+            return info;
+        }
+        public static CardInfo SetAltPortraits(this CardInfo info, Assembly targetAssembly, string portraitName, string emissionName = null, string pixelPortraitName = null)
+        {
+            emissionName ??= portraitName + _EMISSION;
+            pixelPortraitName ??= portraitName + _PIXEL;
+            portraitName += _PNG;
+
+            info.SetAltPortrait(TextureLoader.LoadTextureFromFile(portraitName, targetAssembly));
+
+            Texture2D tex = TextureLoader.LoadTextureFromFile(emissionName, targetAssembly);
+            if (tex != null)
+                info.SetEmissiveAltPortrait(tex);
+
+            Texture2D tex2 = TextureLoader.LoadTextureFromFile(pixelPortraitName, targetAssembly);
+            if (tex2 != null)
+                info.SetPixelAlternatePortrait(tex2);
+
+            return info;
+        }
+
+        public static CardInfo SetChoiceType(this CardInfo cardInfo, ChoiceType cardChoice, bool nonChoice = false)
+        {
+            if (cardChoice == ChoiceType.Common && !nonChoice)
+            {
+                cardInfo.SetDefaultPart1Card();
+            }
+            else if (cardChoice == ChoiceType.Rare)
+            {
+                cardInfo.SetRare().RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
+                
+                if (nonChoice) cardInfo.RemoveCardMetaCategories(CardMetaCategory.Rare);
+            }
+
+            return cardInfo;
+        }
+
         public static CardModificationInfo FullClone(this CardModificationInfo modToClone)
         {
             CardModificationInfo clone = modToClone.Clone() as CardModificationInfo;
-            clone.SetAttackAndHealth(modToClone.attackAdjustment, modToClone.healthAdjustment)
-                .SetCosts(modToClone.bloodCostAdjustment, modToClone.bonesCostAdjustment, modToClone.energyCostAdjustment)
-                .SetSingletonId(modToClone.singletonId)
-                .SetNameReplacement(modToClone.nameReplacement);
             clone.fromCardMerge = modToClone.fromCardMerge;
             clone.fromDuplicateMerge = modToClone.fromDuplicateMerge;
             clone.fromLatch = modToClone.fromLatch;
@@ -22,77 +77,13 @@ namespace WhistleWind.Core.Helpers
             clone.bountyHunterInfo = modToClone.bountyHunterInfo;
             clone.buildACardPortraitInfo = modToClone.buildACardPortraitInfo;
             clone.deathCardInfo = modToClone.deathCardInfo;
-            return clone;
-        }
-        public static CardInfo NewCard(
-            bool addToAPI, string modPrefix,
-            string cardName, string displayName = null, string description = null,
-            int attack = 0, int health = 0,
-            int blood = 0, int bones = 0, int energy = 0, List<GemType> gems = null,
-            CardTemple temple = CardTemple.Nature)
-        {
-            if (addToAPI)
-                return CardManager.New(modPrefix, cardName, displayName, attack, health, description).SetCost(blood, bones, energy, gems);
-            else
-            {
-                CardInfo cardInfo = ScriptableObject.CreateInstance<CardInfo>()
-                    .SetName(cardName, modPrefix)
-                    .SetBasic(displayName, attack, health, description)
-                    .SetCost(blood, bones, energy)
-                    .SetCardTemple(temple);
-                return cardInfo;
-            }
+
+            return clone.SetAttackAndHealth(modToClone.attackAdjustment, modToClone.healthAdjustment)
+                .SetCosts(modToClone.bloodCostAdjustment, modToClone.bonesCostAdjustment, modToClone.energyCostAdjustment)
+                .SetSingletonId(modToClone.singletonId)
+                .SetNameReplacement(modToClone.nameReplacement);
         }
 
-        public static CardInfo SetPortraits(this CardInfo cardInfo,
-            string portraitName, string emissionName = null, string pixelPortraitName = null,
-            string altPortraitName = null, string altEmissionName = null, string titleName = null)
-        {
-            Texture2D portraitTex = TextureLoader.LoadTextureFromFile(portraitName);
-            // if a custom emission name isn't provided, default to the filename [portraitName]_emission
-            Texture2D emissionTex = emissionName == "" ? null : TextureLoader.LoadTextureFromFile(emissionName ?? $"{portraitName}_emission");
-            // if a custom pixel name isn't provided, default to the filename [portraitName]_pixel
-            Texture2D pixelTex = pixelPortraitName == "" ? null : TextureLoader.LoadTextureFromFile(pixelPortraitName ?? $"{portraitName}_pixel");
-            Texture2D altTex = null, altEmissionTex = null;
-            Texture2D titleTex = titleName != null ? TextureLoader.LoadTextureFromFile(titleName) : null;
-            if (!string.IsNullOrEmpty(altPortraitName))
-            {
-                altTex = TextureLoader.LoadTextureFromFile(altPortraitName);
-                altEmissionTex = TextureLoader.LoadTextureFromFile(altEmissionName ?? $"{altPortraitName}_emission");
-            }
-            if (portraitTex != null)
-                cardInfo.SetPortrait(portraitTex);
-            if (emissionTex != null)
-                cardInfo.SetEmissivePortrait(emissionTex);
-            if (pixelTex != null)
-                cardInfo.SetPixelPortrait(pixelTex);
-            if (altTex != null)
-                cardInfo.SetAltPortrait(altTex);
-            if (altEmissionTex != null)
-                cardInfo.SetEmissiveAltPortrait(altEmissionTex);
-            if (titleTex != null)
-                cardInfo.titleGraphic = titleTex;
-
-            return cardInfo;
-        }
-
-        public static CardInfo SetChoiceType(this CardInfo cardInfo, ChoiceType cardChoice, bool nonChoice = false)
-        {
-            if (cardChoice == ChoiceType.Common && !nonChoice)
-                cardInfo.AddMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.TraderOffer);
-            else if (cardChoice == ChoiceType.Rare)
-            {
-                cardInfo
-                    .SetRare()
-                    .RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
-                if (nonChoice)
-                    cardInfo.RemoveCardMetaCategories(CardMetaCategory.Rare);
-            }
-
-            return cardInfo;
-        }
-
-        public static List<CardInfo> RemoveOwnedSingletons() => CardLoader.RemoveDeckSingletonsIfInDeck(CardManager.AllCardsCopy);
         public static CardAppearanceBehaviourManager.FullCardAppearanceBehaviour CreateAppearance<T>(string pluginGuid, string name)
             where T : CardAppearanceBehaviour
         {

@@ -14,9 +14,9 @@ namespace WhistleWind.Core.Helpers
         /// Checks if the inputted dialogue event has been played, then plays it if it hasn't been yet.
         /// </summary>
         /// <param name="name">Name of dialogue event to play.</param>
-        public static IEnumerator PlayDialogueEvent(string name, float waitFor = 0.2f, PlayableCard card = null)
+        public static IEnumerator PlayDialogueEvent(string name, float waitFor = 0.2f, PlayableCard card = null, bool repeatLines = false)
         {
-            if (!DialogueEventsData.EventIsPlayed(name))
+            if (!DialogueEventsData.EventIsPlayed(name) || repeatLines)
             {
                 if (!SaveManager.SaveFile.IsPart2)
                     yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent(name, TextDisplayer.MessageAdvanceMode.Input);
@@ -27,7 +27,8 @@ namespace WhistleWind.Core.Helpers
                         name, (TextBox.Style)temple, GBCScrybe(temple));
                 }
 
-                yield return new WaitForSeconds(waitFor);
+                if (waitFor > 0f)
+                    yield return new WaitForSeconds(waitFor);
             }
         }
 

@@ -1,15 +1,24 @@
 using DiskCardGame;
+using InscryptionAPI.Card;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace WhistleWind.Core.Helpers
 {
     public static class HelperMethods
     {
-        // play hit anim then trigger Die
-        // doesn't actually destroy the card
+        public static bool IsCardInfoOrCopy(CardInfo parentInfo, CardInfo compareInfo)
+        {
+            if (parentInfo != null && compareInfo != null && parentInfo.name == compareInfo.name)
+            {
+                return (parentInfo.Mods.Count == 0 && compareInfo.Mods.Count == 0) || parentInfo.Mods.Intersect(compareInfo.Mods).Any();
+            }
+            return false;
+        }
+        // plays hit anim then triggers Die, doesn't destroy the card object
         public static IEnumerator DieDontDestroy(PlayableCard card, bool wasSacrifice, PlayableCard killer)
         {
             card.Anim.PlayHitAnimation();
@@ -59,15 +68,15 @@ namespace WhistleWind.Core.Helpers
         {
             if (SaveManager.SaveFile.IsPart2)
             {
-                SaveManager.SaveFile.gbcData.deck.RemoveCard(info);
+                SaveManager.SaveFile.CurrentDeck.RemoveCard(info);
                 SaveManager.SaveFile.gbcData.collection.RemoveCardByName(info.name);
             }
             else
             {
-                if (RunState.Run.playerDeck.Cards.Contains(info))
-                    RunState.Run.playerDeck.RemoveCard(info);
+                if (SaveManager.SaveFile.CurrentDeck.Cards.Contains(info))
+                    SaveManager.SaveFile.CurrentDeck.RemoveCard(info);
                 else
-                    RunState.Run.playerDeck.RemoveCardByName(info.name);
+                    SaveManager.SaveFile.CurrentDeck.RemoveCardByName(info.name);
             }
         }
         public static IEnumerator FlipFaceUp(this PlayableCard card, bool alreadyFaceDown, float wait = 0.3f)
