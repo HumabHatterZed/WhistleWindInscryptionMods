@@ -2,9 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>BonnieBakingPack</AssemblyName>
+    <AssemblyName>BonniesBakingPack</AssemblyName>
     <Description>Bake delicious pastries and gather fresh ingredients in this small card pack for Inscryption!</Description>
     <Version>0.0.1</Version>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +23,15 @@
 
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\bonk.ogg" />
+    <None Remove="bonniebaking" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="bonniebaking" />
   </ItemGroup>
   
   <ItemGroup>
@@ -31,8 +46,17 @@
     <Reference Include="InscryptionAPI" Private="false">
       <HintPath>..\lib\InscryptionAPI.dll</HintPath>
     </Reference>
+    <Reference Include="Infiniscryption.Spells" Private="false">
+      <HintPath>..\lib\Infiniscryption.Spells.dll</HintPath>
+    </Reference>
     <Reference Include="Infiniscryption.PackManager" Private="false">
       <HintPath>..\lib\Infiniscryption.PackManager.dll</HintPath>
+    </Reference>
+    <Reference Include="GrimoraMod" Private="false">
+      <HintPath>..\lib\GrimoraMod.dll</HintPath>
+    </Reference>
+    <Reference Include="Infiniscryption.P03KayceeRun" Private="false">
+      <HintPath>..\lib\Infiniscryption.P03KayceeRun.dll</HintPath>
     </Reference>
   </ItemGroup>
   
