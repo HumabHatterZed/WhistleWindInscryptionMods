@@ -22,38 +22,18 @@ namespace WhistleWind.AbnormalSigils
                 modular: false, opponent: true, canStack: true).Id;
         }
     }
-    public class Driver : AbilityBehaviour
+    public class Driver : AbilityBehaviour, IModifyDamageTaken
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
-        {
-            if (!wasSacrifice && killer != null && !killer.Dead && killer.Health != 0)
-                return killer.LacksAbility(Ability.MadeOfStone);
 
-            return false;
+        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        {
+            return target.Status.damageTaken > 0 && attacker == base.Card;
         }
 
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
-        {
-            if (killer.HasAnyOfTraits(Trait.Giant, Trait.Uncuttable))
-            {
-                killer.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.4f);
-                yield return DialogueHelper.PlayDialogueEvent("DriverFail");
-                yield break;
-            }
-            yield return PreSuccessfulTriggerSequence();
-            yield return HelperMethods.ChangeCurrentView(View.Board);
-            yield return new WaitForSeconds(0.2f);
-            killer.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(0.55f);
-            yield return killer.TransformIntoCard(this.Card.Info);
-            killer.Status.damageTaken = 0;
-            killer.TemporaryMods.RemoveAll(x => x.nonCopyable || !x.fromTotem);
-            yield return new WaitForSeconds(0.4f);
-            yield return LearnAbility();
-        }
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => damage + 1;
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
     }
 }
