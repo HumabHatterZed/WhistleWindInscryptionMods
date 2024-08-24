@@ -32,14 +32,6 @@ namespace WhistleWind.AbnormalSigils
 
             Bind.specialAbility = data.Id;
             Bind.iconId = data.IconInfo.ability;
-
-            const string desc = "Determines the order that cards will attack during combat. Player-owned cards have a base Speed of 3 while opponent-owned cards have a base Speed of 0.";
-            StatusEffectManager.New<Bind>(
-                pluginGuid, "Speed", desc, 0, GameColors.Instance.orange,
-                TextureLoader.LoadTextureFromFile("sigilSpeed.png", Assembly),
-                null)
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect)
-                .IconInfo.SetPassive();
         }
     }
 }

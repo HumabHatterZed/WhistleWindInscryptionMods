@@ -20,8 +20,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Artwork\*.png" />
   </ItemGroup>
-  
-	<ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" GeneratePathProperty="true" IncludeAssets="none" />
     <PackageReference Include="BepInEx.Core" Version="5.4.19" GeneratePathProperty="true" IncludeAssets="none" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" GeneratePathProperty="true" IncludeAssets="none" />

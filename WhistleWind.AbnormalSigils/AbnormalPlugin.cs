@@ -8,6 +8,7 @@ using InscryptionAPI.Guid;
 using InscryptionAPI.Helpers;
 using InscryptionAPI.PixelCard;
 using InscryptionAPI.Resource;
+using InscryptionAPI.RuleBook;
 using InscryptionAPI.Slots;
 using Sirenix.Utilities;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
+using WhistleWind.AbnormalSigils.Patches;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
@@ -158,10 +160,10 @@ namespace WhistleWind.AbnormalSigils
             Ability_Aggravating();
             Ability_TeamLeader();
             Ability_Idol();
-            
-            Ability_Conductor();
-            StatusEffect_Fervent();
 
+            StatusEffect_Fervent();
+            Ability_Conductor();
+            
             Ability_Woodcutter();
             Ability_FrozenHeart();
             Ability_FrostRuler();
@@ -174,9 +176,9 @@ namespace WhistleWind.AbnormalSigils
             Ability_Persistent();
             Ability_Courageous();
 
-            Ability_SerpentsNest();
             StatusEffect_Worms();
-
+            Ability_SerpentsNest();
+            
             Ability_Assimilator();
             Ability_GroupHealer();
             Ability_Reflector();
@@ -197,11 +199,11 @@ namespace WhistleWind.AbnormalSigils
             Ability_Alchemist();
             Ability_Nettles();
 
-            Ability_Sporogenic();
             StatusEffect_Spores();
-
-            Ability_Witness();
+            Ability_Sporogenic();
+            
             StatusEffect_Prudence();
+            Ability_Witness();
 
             Ability_Corrector();
 
@@ -220,21 +222,28 @@ namespace WhistleWind.AbnormalSigils
             Ability_LeftStrike();
             Ability_RightStrike();
 
+            StatusEffect_Haste();
             Ability_NimbleFoot();
             Ability_HighStrung();
-            StatusEffect_Haste();
 
-            Ability_BindingStrike();
             StatusEffect_Bind();
+            Ability_BindingStrike();
             
             Ability_Persecutor();
-            Ability_Lonely();
+
             StatusEffect_Pebble();
             StatusEffect_Grief();
+            Ability_Lonely();
 
             // 2.0A
             Ability_Damsel();
             Ability_Abusive();
+            Ability_Wedge();
+            Ability_Driver();
+            Ability_Unyielding();
+
+            StatusEffect_Sinking();
+            Ability_MindFlayer();
 
             // Specials
             Ability_FalseThrone();
@@ -247,7 +256,7 @@ namespace WhistleWind.AbnormalSigils
             SlotModificationManager.New(pluginGuid, "Test", typeof(Test), TextureLoader.LoadTextureFromFile("slotPavedRoad.png", Assembly))
                 .SetRulebook("Paved Road", "A space with this effect will look neat and cool and awesome", TextureLoader.LoadTextureFromFile("slotPavedRoad1.png", Assembly), SlotModificationManager.ModificationMetaCategory.Part1Rulebook);
 
-            //SlotModificationManager.SyncSlotModificationList();
+            RulebookPatches.AddStatusEntries();
         }
 
         public class Test :SlotModificationBehaviour

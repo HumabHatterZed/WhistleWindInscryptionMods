@@ -15,6 +15,18 @@ namespace WhistleWind.Core.Helpers
             bool canStack = false, bool modular = false, bool opponent = false)
             where T : AbilityBehaviour
         {
+            Texture2D icon = TextureLoader.LoadTextureFromFile(abilityName + CardHelper._PNG);
+            Texture2D pixel = TextureLoader.LoadTextureFromFile(abilityName + CardHelper._PIXEL);
+            return New<T>(pluginGuid, rulebookName, rulebookDescription, icon, powerLevel, foundInRulebook, pixel, dialogue, triggerText, canStack, modular, opponent);
+        }
+
+        public static AbilityManager.FullAbility New<T>(
+            string pluginGuid, string rulebookName, string rulebookDescription,
+            Texture2D icon, int powerLevel, bool foundInRulebook,
+            Texture2D pixelIcon = null, string dialogue = null, string triggerText = null,
+            bool canStack = false, bool modular = false, bool opponent = false)
+            where T : AbilityBehaviour
+        {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.SetBasic(rulebookName, rulebookDescription, dialogue, triggerText, powerLevel)
                 .SetCanStack(canStack)
@@ -24,12 +36,11 @@ namespace WhistleWind.Core.Helpers
 
             if (modular) info.AddMetaCategories(AbilityMetaCategory.Part1Modular);
 
-            Texture2D pixel = TextureLoader.LoadTextureFromFile(abilityName + CardHelper._PIXEL);
-            if (pixel != null)
-                info.SetPixelAbilityIcon(pixel);
+            if (pixelIcon != null) info.SetPixelAbilityIcon(pixelIcon);
 
-            return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromFile(abilityName + CardHelper._PNG));
+            return AbilityManager.Add(pluginGuid, info, typeof(T), icon);
         }
+
         public static AbilityManager.FullAbility NewActivated<T>(
             string pluginGuid, string abilityName, string rulebookName, string rulebookDescription,
             int powerLevel, bool foundInRulebook, string dialogue = null, string triggerText = null,
@@ -49,109 +60,16 @@ namespace WhistleWind.Core.Helpers
             info.SetPassive();
             return New<T>(pluginGuid, abilityName, rulebookName, rulebookDescription, 0, true);
         }
-        /*        public static AbilityManager.FullAbility CreateAbility<T>(
-                    string pluginGuid,
-                    string abilityName,
-                    string rulebookName, string rulebookDescription,
-                    string dialogue = null, string triggerText = null,
-                    int powerLevel = 0,
-                    bool opponent = false,
-                    bool canStack = false,
-                    bool modular = false,
-                    bool foundInRulebook = false,
-                    bool flipY = false, string flipTextureName = null)
-                    where T : AbilityBehaviour
-                {
-                    AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-                    return CreateAbility<T>(
-                        info, pluginGuid,
-                        abilityName,
-                        rulebookName, rulebookDescription,
-                        dialogue, triggerText,
-                        powerLevel,
-                        opponent, canStack,
-                        modular, foundInRulebook,
-                        flipY, flipTextureName);
-                }*/
-        /*        public static AbilityManager.FullAbility CreateAbility<T>(
-                    AbilityInfo info,
-                    string pluginGuid,
-                    string abilityName,
-                    string rulebookName, string rulebookDescription,
-                    string dialogue = null, string triggerText = null,
-                    int powerLevel = 0,
-                    bool opponent = false,
-                    bool canStack = false,
-                    bool modular = false,
-                    bool foundInRulebook = false,
-                    bool flipY = false, string flipTextureName = null)
-                    where T : AbilityBehaviour
-                {
-                    info.SetBasicInfo(rulebookName, rulebookDescription, dialogue, triggerText, powerLevel)
-                        .SetOpponentUsable(opponent)
-                        .SetCanStack(canStack, canStack);
+        public static AbilityManager.FullAbility NewFiller<T>(
+            string pluginGuid, Texture2D icon,
+            string rulebookName, string rulebookDescription)
+            where T : AbilityBehaviour
+        {
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+            info.SetPassive();
+            return New<T>(pluginGuid, rulebookName, rulebookDescription, icon, 0, true);
+        }
 
-                    info.flipYIfOpponent = flipY;
-
-                    Texture2D pixelTex = TextureLoader.LoadTextureFromFile($"{abilityName}_pixel.png");
-                    if (pixelTex != null)
-                        info.SetPixelAbilityIcon(pixelTex);
-
-                    if (foundInRulebook)
-                        info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
-
-                    if (modular)
-                        info.AddMetaCategories(AbilityMetaCategory.Part1Modular);
-
-                    AbilityManager.FullAbility ability = AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromFile(abilityName + ".png"));
-
-                    if (flipTextureName != null)
-                        ability.SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile($"{flipTextureName}"));
-
-                    return ability;
-                }*/
-        /*        public static AbilityManager.FullAbility CreateActivatedAbility<T>(
-                    string pluginGuid,
-                    string abilityName,
-                    string rulebookName, string rulebookDescription,
-                    string dialogue = null, string triggerText = null,
-                    int powerLevel = 0)
-                {
-                    AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-                    return CreateActivatedAbility<T>(
-                        info, pluginGuid,
-                        abilityName,
-                        rulebookName, rulebookDescription,
-                        dialogue, triggerText,
-                        powerLevel);
-                }*/
-        /*        public static AbilityManager.FullAbility CreateActivatedAbility<T>(
-                    AbilityInfo info, string pluginGuid,
-                    string abilityName,
-                    string rulebookName, string rulebookDescription,
-                    string dialogue = null, string triggerText = null,
-                    int powerLevel = 0) where T : AbilityBehaviour
-                {
-                    AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-                    info.SetActivated();
-
-                    return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromFile($"{abilityName}.png"));
-                }*/
-
-        /*        public static AbilityManager.FullAbility CreateFillerAbility<T>(
-                    AbilityInfo info,
-                    string pluginGuid,
-                    string abilityName,
-                    string rulebookName, string rulebookDescription)
-                    where T : AbilityBehaviour
-                {
-                    info.SetBasicInfo(rulebookName, rulebookDescription);
-                    info.SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile($"{abilityName}_pixel.png"));
-                    info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
-                    info.SetPassive();
-
-                    return AbilityManager.Add(pluginGuid, info, typeof(T), TextureLoader.LoadTextureFromFile($"{abilityName}.png"));
-                }*/
         public static StatIconManager.FullStatIcon CreateStatIcon<T>(
             string pluginGuid,
             string abilityName,
@@ -163,18 +81,15 @@ namespace WhistleWind.Core.Helpers
             statIconInfo.rulebookName = name;
             statIconInfo.rulebookDescription = description;
             statIconInfo.gbcDescription = description;
-            statIconInfo.appliesToAttack = attack;
-            statIconInfo.appliesToHealth = health;
+            statIconInfo.SetAppliesToStats(attack, health);
             statIconInfo.SetDefaultPart1Ability();
 
             Texture2D iconTex = TextureLoader.LoadTextureFromFile($"{abilityName}.png");
             Texture2D pixelTex = TextureLoader.LoadTextureFromFile($"{abilityName}_pixel.png");
 
-            if (iconTex != null)
-                statIconInfo.SetIcon(iconTex);
+            if (iconTex != null) statIconInfo.SetIcon(iconTex);
 
-            if (pixelTex != null)
-                statIconInfo.SetPixelIcon(pixelTex);
+            if (pixelTex != null) statIconInfo.SetPixelIcon(pixelTex);
 
             return StatIconManager.Add(pluginGuid, statIconInfo, typeof(T));
         }

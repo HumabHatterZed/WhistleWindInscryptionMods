@@ -20,11 +20,11 @@ namespace WhistleWind.AbnormalSigils
 
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
-            base.Card.HealDamage(-EffectPotency);
+            base.PlayableCard.HealDamage(-EffectPotency);
             base.DestroyStatusEffect();
-            if (base.Card.Health >= 0)
+            if (base.PlayableCard.Health >= 0)
             {
-                yield return base.Card.Die(false, source);
+                yield return base.PlayableCard.Die(false, source);
             }
             yield break;
         }
