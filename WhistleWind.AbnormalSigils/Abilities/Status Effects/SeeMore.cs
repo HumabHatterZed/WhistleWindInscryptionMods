@@ -22,7 +22,7 @@ namespace WhistleWind.AbnormalSigils
             info.metaCategories.Clear();
             SeeMore.ability = info.ability;
 
-            const string desc = "Determines the order that cards will attack during combat. Player-owned cards have a base Speed of 3 while opponent-owned cards have a base Speed of 0.";
+            const string desc = "Determines the order cards attack in during combat. Player-owned cards have a base Speed of 3 while opponent-owned cards have a base Speed of 0.";
             AbilityInfo info2 = AbilityHelper.NewFiller<Speed>(
                 pluginGuid, TextureLoader.LoadTextureFromFile("sigilSpeed.png", Assembly), "Speed", desc)
                 .Info.SetPassive();

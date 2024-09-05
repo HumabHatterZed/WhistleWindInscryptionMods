@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Rulebook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
-    public class Bind : ModifyOnUpkeepStatusEffectBehaviour/*, IGetAttackingSlots*/
+    public class Bind : ModifyOnUpkeepStatusEffectBehaviour
     {
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
@@ -23,7 +24,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Bind()
         {
             const string rName = "Bind";
-            const string rDesc = "This card's Speed is reduced by this effect's Potency. At the start of the owner's next turn, remove this effect.";
+            const string rDesc = "A card bearing this effect loses Speed equal to its Bind. At the start of the owner's next turn, remove this effect.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Bind>(
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.orange,
                 TextureLoader.LoadTextureFromFile("sigilBind.png", Assembly),
@@ -32,6 +33,7 @@ namespace WhistleWind.AbnormalSigils
 
             Bind.specialAbility = data.Id;
             Bind.iconId = data.IconInfo.ability;
+            data.IconInfo.SetAbilityRedirect("Speed", Speed.ability, GameColors.Instance.orange);
         }
     }
 }

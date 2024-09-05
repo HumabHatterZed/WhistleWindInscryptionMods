@@ -34,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Prudence()
         {
             const string rName = "Flagellation";
-            const string rDesc = "When this card is struck, receive additional damage equal to its Flagellation.";
+            const string rDesc = "When a card bearing this status is struck, take additional damage equal to its Flagellation.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Prudence>(
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.lightPurple,
                 TextureLoader.LoadTextureFromFile("sigilPrudence.png", Assembly),

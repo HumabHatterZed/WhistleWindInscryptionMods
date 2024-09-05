@@ -43,21 +43,22 @@ namespace WhistleWind.AbnormalSigils
 
             yield return DialogueHelper.PlayDialogueEvent("LonelyDie", card: base.PlayableCard);
         }
+        internal static StatusEffectManager.FullStatusEffect data;
     }
     public partial class AbnormalPlugin
     {
         private void StatusEffect_Pebble()
         {
             const string rName = "Pebble";
-            const string rDesc = "At the start and end of its owner's turn, this card regains 1 Health. When this card perishes, inflict Grief on all allied creatures.";
-            StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Pebble>(
+            const string rDesc = "At the start and end of the owner's turn, a card bearing this effect regains 1 Health. When this card perishes, inflict Grief on all allied creatures.";
+            Pebble.data = StatusEffectManager.New<Pebble>(
                 pluginGuid, rName, rDesc, 2, GameColors.Instance.nearWhite,
                 TextureLoader.LoadTextureFromFile("sigilPebble.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilPebble_pixel.png", Assembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
 
-            Pebble.specialAbility = data.Id;
-            Pebble.iconId = data.IconInfo.ability;
+            Pebble.specialAbility = Pebble.data.Id;
+            Pebble.iconId = Pebble.data.IconInfo.ability;
         }
     }
 }

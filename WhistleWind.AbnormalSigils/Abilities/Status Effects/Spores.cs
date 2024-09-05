@@ -99,7 +99,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Spores()
         {
             const string rName = "Spores";
-            const string rDesc = "At the end of its owner's turn, this card takes damage equal to its Spores. When this card perishes, create a Spore Mold Beast in its place with stats equal to its Spores.";
+            const string rDesc = "At the end of the owner's turn, a card bearing this effect takes damage equal to its Spores. When this card perishes, create a Spore Mold Beast in its place with stats equal to its Spores.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Spores>(
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.brightBlue,
                 TextureLoader.LoadTextureFromFile("sigilSpores.png", Assembly),

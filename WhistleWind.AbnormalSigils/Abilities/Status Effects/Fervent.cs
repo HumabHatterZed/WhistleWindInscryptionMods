@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Rulebook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace WhistleWind.AbnormalSigils
 {
     public class Fervent : StatusEffectBehaviour, ISetupAttackSequence, IOnOtherCardDieInHand
     {
+        internal static StatusEffectManager.FullStatusEffect data;
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
         public override Ability IconAbility => iconId;
@@ -57,7 +59,7 @@ namespace WhistleWind.AbnormalSigils
                 bool faceDown = base.PlayableCard.FaceDown;
                 yield return base.PlayableCard.FlipFaceUp(faceDown);
                 base.PlayableCard.Anim.StrongNegationEffect();
-                base.DestroyStatusEffect();
+                yield return base.RemoveFromCard(true);
                 yield return new WaitForSeconds(0.4f);
                 yield return base.PlayableCard.FlipFaceDown(faceDown);
 
@@ -79,7 +81,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Fervent()
         {
             const string rName = "Fervent Adoration";
-            const string rDesc = "If there is an ongoing Movement, this card will strike at a random space, prioritising cards with this effect and ignoring cards performing a Movement. Otherwise, lose this effect.";
+            const string rDesc = "While there is a Movement, a card bearing this effect will strike at random spaces, prioritising other cards with this effect. If there is no Movement, remove this effect.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Fervent>(
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.nearBlack,
                 TextureLoader.LoadTextureFromFile("sigilFervent.png", Assembly),
@@ -88,6 +90,7 @@ namespace WhistleWind.AbnormalSigils
 
             Fervent.specialAbility = data.Id;
             Fervent.iconId = data.IconInfo.ability;
+            Fervent.data = data;
         }
     }
 }

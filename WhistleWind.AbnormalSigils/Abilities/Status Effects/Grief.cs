@@ -1,4 +1,6 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionAPI.Rulebook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,15 +27,23 @@ namespace WhistleWind.AbnormalSigils
             return 0;
         }
 
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
+        {
+            return otherCard.OpponentCard == base.PlayableCard.OpponentCard && otherCard.HasStatusEffect<Pebble>();
+        }
+        public override IEnumerator OnOtherCardResolve(PlayableCard otherCard)
+        {
+            base.PlayableCard.Anim.StrongNegationEffect();
+            yield return base.RemoveFromCard(true);
+            yield return new WaitForSeconds(0.3f);
+        }
         public override bool RespondsToStatusEffectAdded(PlayableCard target, int amount, StatusEffectBehaviour statusEffect, bool alreadyHasStatus)
         {
             return target.OpponentCard == base.PlayableCard.OpponentCard && statusEffect.StatusEffect == Pebble.specialAbility;
         }
         public override IEnumerator OnStatusEffectAdded(PlayableCard target, int amount, StatusEffectBehaviour statusEffect, bool alreadyHasStatus)
         {
-            base.PlayableCard.Anim.StrongNegationEffect();
-            base.DestroyStatusEffect();
-            yield return new WaitForSeconds(0.3f);
+            yield return this.OnOtherCardResolve(null);
         }
     }
     public partial class AbnormalPlugin
@@ -41,7 +51,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Grief()
         {
             const string rName = "Grief";
-            const string rDesc = "This card loses Power equal to its Grief. At the start of the owner's turn, if there is no allied card with Pebble, gain 1 Grief. Otherwise, remove this effect.";
+            const string rDesc = "A card bearing this effect loses Power equal to its Grief. If there is an ally card with Pebble, remove this effect. Otherwise, gain 1 Grief at the start of the owner's turn.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Grief>(
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.nearWhite,
                 TextureLoader.LoadTextureFromFile("sigilGrief.png", Assembly),
@@ -50,6 +60,8 @@ namespace WhistleWind.AbnormalSigils
 
             Grief.specialAbility = data.Id;
             Grief.iconId = data.IconInfo.ability;
+            data.IconInfo.SetAbilityRedirect("Pebble", Pebble.iconId, GameColors.Instance.gray);
+            Pebble.data.IconInfo.SetAbilityRedirect("Grief", Grief.iconId, new(0.25f, 0.25f, 0.25f));
         }
     }
 }

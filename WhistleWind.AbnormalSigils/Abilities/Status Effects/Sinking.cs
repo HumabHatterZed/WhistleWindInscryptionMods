@@ -9,7 +9,7 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
-    public class Sinking : StatusEffectBehaviour
+    public class Sinking : StatusEffectBehaviour, IPassiveAttackBuff, IModifyDamageTaken
     {
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
@@ -20,26 +20,27 @@ namespace WhistleWind.AbnormalSigils
 
         public override IEnumerator OnTakeDamage(PlayableCard source)
         {
-            base.PlayableCard.HealDamage(-EffectPotency);
-            base.DestroyStatusEffect();
-            if (base.PlayableCard.Health >= 0)
-            {
-                yield return base.PlayableCard.Die(false, source);
-            }
+            yield return base.RemoveFromCard(true);
             yield break;
         }
+
+        public int GetPassiveAttackBuff(PlayableCard target) => target == base.PlayableCard ? -EffectPotency : 0;
+
+        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => target == base.PlayableCard;
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => damage + EffectPotency;
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
     }
     public partial class AbnormalPlugin
     {
         private void StatusEffect_Sinking()
         {
             const string rName = "Sinking";
-            const string rDesc = "This card loses Power equal to its Sinking. When this card is struck, take additional damage equal to its Sinking then remove this effect.";
+            const string rDesc = "A card bearing this effect loses Power equal to its Sinking. When this card is struck, lose Health equal to its Sinking then remove this effect.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Sinking>(
-                pluginGuid, rName, rDesc, 2, GameColors.Instance.nearWhite,
+                pluginGuid, rName, rDesc, 2, GameColors.Instance.glowSeafoam,
                 TextureLoader.LoadTextureFromFile("sigilSinking.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilSinking_pixel.png", Assembly))
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.MagnificusStatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.Part3StatusEffect);
 
             Sinking.specialAbility = data.Id;
             Sinking.iconId = data.IconInfo.ability;

@@ -1,4 +1,6 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionAPI.Rulebook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,7 +24,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Haste()
         {
             const string rName = "Haste";
-            const string rDesc = "This card's Speed is raised by this effect's Potency. At the start of the owner's next turn, remove this effect.";
+            const string rDesc = "A card bearing this effect gains Speed equal to its Haste. At the start of the owner's next turn, remove this effect.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Haste>(
                 pluginGuid, rName, rDesc, 1, GameColors.Instance.orange,
                 TextureLoader.LoadTextureFromFile("sigilHaste.png", Assembly),
@@ -31,6 +33,7 @@ namespace WhistleWind.AbnormalSigils
 
             Haste.specialAbility = data.Id;
             Haste.iconId = data.IconInfo.ability;
+            data.IconInfo.SetAbilityRedirect("Speed", Speed.ability, GameColors.Instance.orange);
         }
     }
 }

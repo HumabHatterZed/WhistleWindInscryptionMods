@@ -90,14 +90,25 @@ namespace WhistleWind.AbnormalSigils
 
         public List<CardSlot> GetOpposingSlots(List<CardSlot> originalSlots, List<CardSlot> otherAddedSlots)
         {
-            List<CardSlot> allySlots = Singleton<BoardManager>.Instance.GetSlotsCopy(!base.PlayableCard.OpponentCard);
-            allySlots.Remove(base.PlayableCard.Slot);
+            List<CardSlot> slots = new();
+            List<PlayableCard> allyCards = Singleton<BoardManager>.Instance.GetCards(!base.PlayableCard.OpponentCard);
+            allyCards.Remove(base.PlayableCard);
 
             // if there are other cards, target them exclusively
-            if (allySlots.Exists(x => x.Card))
-                allySlots.RemoveAll(x => !x.Card);
-
-            return new() { allySlots[SeededRandom.Range(0, allySlots.Count - 1, base.GetRandomSeed())] };
+            if (allyCards.Count > 0)
+            {
+                List<PlayableCard> cards = new(allyCards);
+                cards.RemoveAll(x => x.HasAnyOfTraits(Trait.Terrain, Trait.Pelt));
+                if (cards.Count > 0)
+                {
+                    slots.Add(cards[SeededRandom.Range(0, cards.Count, base.GetRandomSeed())].Slot);
+                }
+                else
+                {
+                    slots.Add(allyCards[SeededRandom.Range(0, allyCards.Count, base.GetRandomSeed())].Slot);
+                }
+            }
+            return slots;
         }
     }
     public partial class AbnormalPlugin
@@ -105,9 +116,9 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Worms()
         {
             const string rName = "Worms";
-            const string rDesc = "At the start of its owner's turn, this card gains 1 Worms. At 5+ Worms, target allied cards with a chance to inflict 1 Worms with each strike.";
+            const string rDesc = "At the start of the owner's turn, a card bearing this effect gains 1 Worms. At 5+ Worms, target ally creatures with a chance to inflict 1 Worms with each strike.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Worms>(
-                pluginGuid, rName, rDesc, -2, GameColors.Instance.lightBrown,
+                pluginGuid, rName, rDesc, -1, GameColors.Instance.lightBrown,
                 TextureLoader.LoadTextureFromFile("sigilWorms.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilWorms_pixel.png", Assembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
