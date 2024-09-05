@@ -12,8 +12,8 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Ability_BitterEnemies()
         {
-            const string rulebookName = "Bitter Enemies";
-            const string rulebookDescription = "This card gains 1 Power for each other card on the board that also bears this sigil.";
+            const string rulebookName = "Vendetta";
+            const string rulebookDescription = "[creature] gains 1 Power for every opposing creature that also bears this sigil.";
             const string dialogue = "A bitter grudge laid bare.";
 
             BitterEnemies.ability = AbnormalAbilityHelper.CreateAbility<BitterEnemies>(
@@ -35,20 +35,15 @@ namespace WhistleWind.AbnormalSigils
         // Gives +1 Attack to all cards with Bitter Enemies when two or more exist on the board (including the base)
         public int GetPassiveAttackBuff(PlayableCard target)
         {
-            if (!this.Card.OnBoard || target == base.Card || target.Info.LacksAbility(ability))
+            if (!this.Card.OnBoard || target.OpponentCard == base.Card.OpponentCard || target.Info.LacksAbility(ability) || target == base.Card)
                 return 0;
 
-            List<CardSlot> slotsToCount = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).FindAll(x => x.Card != null && x.Card.HasAbility(ability));
-            slotsToCount.Remove(base.Card.Slot);
-
-            return slotsToCount.Count > 0 ? base.Card.GetAbilityStacks(Ability) : 0;
+            return BoardManager.Instance.GetCards(target.OpponentCard, x => x.HasAbility(this.Ability)).Count;
         }
 
         public bool ActivateOnPlay()
         {
-            return Singleton<BoardManager>.Instance.AllSlotsCopy.Exists(
-                x => x.IsPlayerSlot != base.Card.Slot && x.Card != null && x.Card.HasAbility(Ability)
-                );
+            return BoardManager.Instance.GetCards(base.Card.OpponentCard, x => x.HasAbility(this.Ability)).Count > 0;
         }
     }
 }
