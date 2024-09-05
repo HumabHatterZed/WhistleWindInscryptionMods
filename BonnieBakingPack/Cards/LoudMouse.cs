@@ -45,7 +45,7 @@ namespace BonniesBakingPack
             }
             else
             {
-                bot.AddAbilities(Ability.DeathShield, Ability.BuffNeighbours);
+                bot.AddAbilities(Ability.BuffEnemy, Ability.Submerge);
             }
         }
     }

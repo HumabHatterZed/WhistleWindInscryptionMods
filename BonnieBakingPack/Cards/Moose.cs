@@ -35,15 +35,15 @@ namespace BonniesBakingPack
             }
 
 
-            CardInfo bot = CardManager.New(pluginPrefix, "moosebot", "M.0053", 1, 3)
+            CardInfo bot = CardManager.New(pluginPrefix, "digitalMhoost", "Digital Mhoost", 1, 3)
                 .SetDefaultPart3Card().AddP03()
-                .SetEnergyCost(4)
-                .SetPortrait(GetTexture("moose.png"));
+                .SetBonesCost(4)
+                .SetPortrait(GetTexture("moosebot.png"));
 
             if (ScrybeCompat.P03Enabled)
             {
                 Ability ability = ScrybeCompat.GetP03Ability("Phase Through");
-                bot.AddAbilities(ability).AddMetaCategories(ScrybeCompat.NatureRegion);
+                bot.AddAbilities(ability).AddMetaCategories(ScrybeCompat.UndeadRegion);
             }
             else
             {

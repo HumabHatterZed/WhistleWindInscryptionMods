@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,22 @@ namespace BonniesBakingPack
             else
             {
                 killer.AddAbilities(Ability.DoubleStrike);
+            }
+
+            CardInfo bot = CardManager.New(pluginPrefix, "phoneMouse", "Mouse Phone", 0, 0)
+                .SetDefaultPart3Card().AddP03()
+                .SetEnergyCost(1)
+                .SetPortrait(GetTexture("phoneMouse.png"))
+                .SetGlobalSpell();
+
+            if (ScrybeCompat.P03Enabled)
+            {
+                Ability ability = ScrybeCompat.GetP03Ability("Tinkerer");
+                bot.AddAbilities(ability).AddMetaCategories(ScrybeCompat.NeutralRegion);
+            }
+            else
+            {
+                bot.AddAbilities(Ability.DrawRandomCardOnDeath);
             }
         }
     }

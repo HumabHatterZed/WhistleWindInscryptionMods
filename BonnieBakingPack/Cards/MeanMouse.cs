@@ -34,6 +34,23 @@ namespace BonniesBakingPack
             {
                 napper.AddAbilities(Ability.DrawRabbits);
             }
+
+            CardInfo bot = CardManager.New(pluginPrefix, "anonymouse", "Anonymouse", 1, 2)
+                .SetDefaultPart3Card().AddP03()
+                .SetEnergyCost(4)
+                .SetPortrait(GetTexture("anonymouse.png"));
+            ScrybeCompat.SetFuel(bot, 2);
+
+            if (ScrybeCompat.P03Enabled)
+            {
+                Ability ability = ScrybeCompat.GetP03Ability("Fire Strike When Fueled");
+                Ability ability2 = ScrybeCompat.GetP03Ability("Fuel Siphon");
+                bot.AddAbilities(ability, ability2).AddMetaCategories(ScrybeCompat.NeutralRegion);
+            }
+            else
+            {
+                bot.AddAbilities(Ability.TailOnHit);
+            }
         }
     }
 }

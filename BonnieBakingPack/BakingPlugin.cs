@@ -143,7 +143,6 @@ namespace BonniesBakingPack
             AudioClips = new()
             {
                 bundle.LoadAsset<AudioClip>("bonnie_bonk"),
-                bundle.LoadAsset<AudioClip>("frying_pan_02"),
                 bundle.LoadAsset<AudioClip>("panda_gun")
             };
 
@@ -160,6 +159,7 @@ namespace BonniesBakingPack
             internal static CardMetaCategory NatureRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "NatureRegionCards");
             internal static CardMetaCategory TechRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "TechRegionCards");
             internal static CardMetaCategory WizardRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "WizardRegionCards");
+            internal static CardMetaCategory UndeadRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "UndeadRegionCards");
 
             internal static bool GrimoraEnabled => Chainloader.PluginInfos.ContainsKey(GrimoraGuid);
             internal static bool P03Enabled => Chainloader.PluginInfos.ContainsKey(P03Guid);

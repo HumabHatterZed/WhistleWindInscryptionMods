@@ -5,6 +5,7 @@ using InscryptionAPI.Helpers;
 using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Animation;
 using InscryptionAPI.TalkingCards.Create;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static BonniesBakingPack.BakingPlugin;
@@ -13,6 +14,23 @@ namespace BonniesBakingPack
 {
     public class BunnieAbility : CustomPaperTalkingCard
     {
+        public override bool RespondsToDealDamage(int amount, PlayableCard target)
+        {
+            return true;
+        }
+        public override IEnumerator OnDealDamage(int amount, PlayableCard target)
+        {
+            if (SaveManager.SaveFile.IsPart2)
+            {
+                AudioController.Instance.PlaySound2D("bonnie_bonk", MixerGroup.None, 0.35f);
+            }
+            else
+            {
+                AudioController.Instance.PlaySound3D("bonnie_bonk", MixerGroup.None, base.Card.transform.position);
+            }
+            
+            return base.OnDealDamage(amount, target);
+        }
         public override string CardName => "bbp_bunnie";
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1f, voiceSoundPitch: 1.4f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
