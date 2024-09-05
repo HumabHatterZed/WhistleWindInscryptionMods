@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Rulebook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
@@ -20,7 +21,8 @@ namespace WhistleWind.AbnormalSigils
             const string triggerText = "The music shall perforate your entire being.";
             MovementFour.ability = AbilityHelper.NewFiller<MovementFour>(
                 pluginGuid, "sigilMovementFour", rulebookName, rulebookDescription)
-                .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false).SetPowerlevel(5).ability;
+                .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false).SetPowerlevel(5)
+                .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed).ability;
         }
     }
     public class MovementFour : ConductorMovementBase

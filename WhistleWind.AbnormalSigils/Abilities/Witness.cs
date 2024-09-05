@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Rulebook;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
@@ -17,7 +18,8 @@ namespace WhistleWind.AbnormalSigils
             const string triggerText = "Behold [creature] and be reborn.";
             Witness.ability = AbnormalAbilityHelper.CreateActivatedAbility<Witness>(
                 "sigilWitness",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2).Id;
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2)
+                .SetAbilityRedirect("Flagellation", Prudence.iconId, GameColors.Instance.red).Id;
         }
     }
     public class Witness : ActivatedSelectSlotBehaviour

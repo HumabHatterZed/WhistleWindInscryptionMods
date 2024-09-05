@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Rulebook;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -19,7 +20,8 @@ namespace WhistleWind.AbnormalSigils
             Sporogenic.ability = AbnormalAbilityHelper.CreateAbility<Sporogenic>(
                 "sigilSporogenic",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: false, opponent: true, canStack: true).Id;
+                modular: false, opponent: true, canStack: true)
+                .SetAbilityRedirect("Spores", Spores.iconId, GameColors.Instance.blue).Id;
         }
     }
     public class Sporogenic : AbilityBehaviour

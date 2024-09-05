@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Rulebook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
@@ -20,7 +21,8 @@ namespace WhistleWind.AbnormalSigils
             const string triggerText = "The performance does not end. And Da capo. And Da capo al Fine.";
             MovementFive.ability = AbilityHelper.NewFiller<MovementFive>(
                 pluginGuid, "sigilMovementFive", rulebookName, rulebookDescription)
-                .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false).SetPowerlevel(5).ability;
+                .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false)
+                .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed).SetPowerlevel(5).ability;
         }
     }
     public class MovementFive : ConductorMovementBase

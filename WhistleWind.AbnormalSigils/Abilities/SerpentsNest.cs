@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Rulebook;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -18,7 +19,8 @@ namespace WhistleWind.AbnormalSigils
             SerpentsNest.ability = AbnormalAbilityHelper.CreateAbility<SerpentsNest>(
                 "sigilSerpentsNest",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: false, opponent: true, canStack: true).Id;
+                modular: false, opponent: true, canStack: true)
+                .SetAbilityRedirect("Worms", Worms.iconId, GameColors.Instance.brownOrange).Id;
         }
     }
     public class SerpentsNest : AbilityBehaviour

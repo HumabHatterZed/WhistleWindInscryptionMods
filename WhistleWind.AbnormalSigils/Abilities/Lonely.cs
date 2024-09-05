@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Rulebook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace WhistleWind.AbnormalSigils
             Lonely.ability = AbnormalAbilityHelper.CreateAbility<Lonely>(
                 "sigilLonely",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: false).SetAbilityRedirect("Pebble", Pebble.iconId, GameColors.Instance.gray).Id;
         }
     }
     public class Lonely : AbilityBehaviour

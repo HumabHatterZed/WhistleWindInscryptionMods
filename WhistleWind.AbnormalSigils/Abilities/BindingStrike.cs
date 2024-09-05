@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Rulebook;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -17,7 +18,8 @@ namespace WhistleWind.AbnormalSigils
             BindingStrike.ability = AbnormalAbilityHelper.CreateAbility<BindingStrike>(
                 "sigilBindingStrike",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: false, opponent: true, canStack: false).Id;
+                modular: false, opponent: true, canStack: false)
+                .SetAbilityRedirect("Bind", Bind.iconId, GameColors.Instance.orange).Id;
         }
     }
     public class BindingStrike : AbilityBehaviour

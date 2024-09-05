@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Rulebook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace WhistleWind.AbnormalSigils
             MovementOne.ability = AbilityHelper.NewFiller<MovementOne>(
                 pluginGuid, "sigilMovementOne", rulebookName, rulebookDescription)
                 .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false).SetPowerlevel(3).ability;
+
+            Fervent.data.IconInfo.SetAbilityRedirect("Movement", MovementOne.ability, GameColors.Instance.gray);
         }
     }
     public class MovementOne : ConductorMovementBase

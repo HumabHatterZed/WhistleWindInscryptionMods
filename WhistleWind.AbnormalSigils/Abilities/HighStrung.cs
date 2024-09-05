@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Rulebook;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -16,7 +17,8 @@ namespace WhistleWind.AbnormalSigils
             HighStrung.ability = AbnormalAbilityHelper.CreateAbility<HighStrung>(
                 "sigilHighStrung",
                 rulebookName, rulebookDescription, powerLevel: 2,
-                modular: true, opponent: true, canStack: false).Id;
+                modular: true, opponent: true, canStack: false)
+                .SetAbilityRedirect("Haste", Haste.iconId, GameColors.Instance.orange).Id;
         }
     }
     public class HighStrung : AbilityBehaviour
