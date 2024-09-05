@@ -95,7 +95,7 @@ namespace WhistleWind.AbnormalSigils
             }
 
             // if there are other cards to move
-            if (allySlots.FindAll(x => x.Card != null && x.Card != base.Card).Count > 0)
+            if (allySlots.FindAll(x => x.Card != null && x.Card != base.Card && x.Card.LacksAbility(Unyielding.ability)).Count > 0)
             {
                 yield return base.PreSuccessfulTriggerSequence();
                 yield return base.LearnAbility();
