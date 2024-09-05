@@ -1,122 +1,68 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
-using static InscryptionAPI.Card.AbilityManager;
-using static InscryptionAPI.Card.StatIconManager;
 
 namespace WhistleWind.AbnormalSigils.Patches
 {
     [HarmonyPatch]
     internal class RulebookPatches
     {
-/*        [HarmonyPatch(typeof(RuleBookController))]
-        private static class RulebookControllerPatches
+        internal static void AddStatusEntries()
         {
-            private static bool changedRulebook = false;
-            // Reset the descriptions of WhiteNight-related abilities
-            [HarmonyPrefix, HarmonyPatch(nameof(RuleBookController.SetShown))]
-            public static bool ResetAlteredDescriptions(bool shown)
+            RuleBookManager.New(
+                modGuid: AbnormalPlugin.pluginGuid,
+                pageType: PageRangeType.Abilities,
+                subsectionName: "Status Effects",
+                getInsertPositionFunc: GetInsertPosition,
+                createPagesFunc: CreatePages);
+        }
+
+        private static int GetInsertPosition(PageRangeInfo pageRangeInfo, List<RuleBookPageInfo> pages)
+        {
+            return pages.FindLastIndex(rbi => rbi.pagePrefab == pageRangeInfo.rangePrefab) + 1;
+        }
+        private static List<RuleBookPageInfo> CreatePages(RuleBookInfo instance, PageRangeInfo currentRange, AbilityMetaCategory metaCategory)
+        {
+            List<RuleBookPageInfo> retval = new();
+            List<StatusEffectManager.FullStatusEffect> statuses = StatusEffectManager.AllStatusEffects.Where(
+                x => x.IconInfo.metaCategories.Contains(metaCategory)
+                ).ToList();
+
+            foreach (StatusEffectManager.FullStatusEffect statusEffect in statuses)
             {
-                if (!shown && changedRulebook)
-                {
-                    for (int i = 0; i < DynamicDescs.Count; i++)
-                        AbilitiesUtil.GetInfo(DynamicDescs[i]).ResetDescription();
-
-                    changedRulebook = false;
-                }
-
-                return true;
+                RuleBookPageInfo page = new();
+                instance.FillAbilityPage(page, currentRange, (int)statusEffect.IconInfo.ability);
+                retval.Add(page);
             }
-            [HarmonyPrefix, HarmonyPatch(nameof(RuleBookController.OpenToAbilityPage))]
-            private static bool OpenToAbilityPage(PlayableCard card)
-            {
-                if (card != null)
-                {
-                    if (card.GetDisplayedStatusEffects(false).Count > 5)
-                    {
-                        List<Ability> abilities = card.GetDisplayedStatusEffects(false);
-                        abilities.Sort((a, b) => Mathf.Abs(AbilitiesUtil.GetInfo(b).powerLevel) - Mathf.Abs(AbilitiesUtil.GetInfo(a).powerLevel));
-                        abilities.RemoveRange(0, 4);
-                        AbilitiesUtil.GetInfo(DynamicDescs[1]).rulebookDescription = StatusOverflow(card, abilities);
-                        changedRulebook = true;
-                    }
-                }
-                return true;
-            }
-        }*/
 
+            RuleBookPageInfo page2 = new();
+            instance.FillAbilityPage(page2, currentRange, (int)Speed.ability);
+            retval.Add(page2);
+
+            RuleBookPageInfo page3 = new();
+            instance.FillAbilityPage(page3, currentRange, (int)SeeMore.ability);
+            retval.Add(page3);
+
+            return retval;
+        }
 
         [HarmonyPrefix, HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
         private static bool StatusShouldBeAddedRegularly(int abilityIndex, AbilityMetaCategory rulebookCategory, ref bool __result)
         {
-            if ((Ability)abilityIndex == SeeMore.ability)
-            {
-                __result = false;
-                return false;
-            }
-
             if (StatusEffectManager.AllStatusEffects.EffectByIcon((Ability)abilityIndex)?.SigilRulebookEntry == false)
             {
-                __result = false;
-                return false;
+                return __result = false;
             }
-
             return true;
         }
 
-        [HarmonyPatch(typeof(RuleBookInfo), "ConstructPageData", new Type[] { typeof(AbilityMetaCategory) })]
-        [HarmonyPostfix]
-        private static void FixRulebook(AbilityMetaCategory metaCategory, RuleBookInfo __instance, ref List<RuleBookPageInfo> __result)
-        {
-            //List<FullAbility> newAbilities = AllAbilities.FindAll(x => !BaseGameAbilities.Contains(x));
-            if (StatusEffectManager.AllStatusEffects.Count == 0)
-                return;
-
-            foreach (PageRangeInfo pageRangeInfo in __instance.pageRanges.Where(x => x.type == PageRangeType.Abilities))
-            {
-                int curPageNum = 1;
-                int insertPosition = __result.FindLastIndex(rbi => rbi.pagePrefab == pageRangeInfo.rangePrefab) + 1;
-                List<StatusEffectManager.FullStatusEffect> statuses = StatusEffectManager.AllStatusEffects.Where(x => x.IconInfo.metaCategories.Contains(metaCategory)).ToList();
-/*                if (SaveManager.SaveFile.IsPart1)
-                    statuses.RemoveAll(x => !x.IconInfo.metaCategories.Contains(AbilityMetaCategory.Part1Rulebook));
-
-                else if (SaveManager.SaveFile.IsPart3)
-                    statuses.RemoveAll(x => !x.IconInfo.metaCategories.Contains(AbilityMetaCategory.Part3Rulebook));
-
-                else if (SaveManager.SaveFile.IsGrimora)
-                    statuses.RemoveAll(x => !x.IconInfo.metaCategories.Contains(AbilityMetaCategory.GrimoraRulebook));
-
-                else if (SaveManager.SaveFile.IsMagnificus)
-                    statuses.RemoveAll(x => !x.IconInfo.metaCategories.Contains(AbilityMetaCategory.MagnificusRulebook));
-*/
-                foreach (StatusEffectManager.FullStatusEffect status in statuses)
-                {
-                    RuleBookPageInfo info = new()
-                    {
-                        pagePrefab = pageRangeInfo.rangePrefab,
-                        headerText = string.Format(Localization.Translate("APPENDIX XII, SUBSECTION C - STATUS EFFECTS {0}"), curPageNum)
-                    };
-                    __instance.FillAbilityPage(info, pageRangeInfo, (int)status.IconInfo.ability);
-                    __result.Insert(insertPosition, info);
-                    curPageNum += 1;
-                    insertPosition += 1;
-                }
-
-                RuleBookPageInfo seeMore = new()
-                {
-                    pagePrefab = pageRangeInfo.rangePrefab,
-                    headerText = string.Format(Localization.Translate("APPENDIX XII, SUBSECTION C - STATUS EFFECTS {0}"), curPageNum)
-                };
-                __instance.FillAbilityPage(seeMore, pageRangeInfo, (int)SeeMore.ability);
-                __result.Insert(insertPosition, seeMore);
-            }
-        }
         private static string StatusOverflow(PlayableCard card, List<Ability> distinct)
         {
             StringBuilder sb = new();
@@ -133,17 +79,5 @@ namespace WhistleWind.AbnormalSigils.Patches
 
             return sb.ToString();
         }
-
-        private static readonly List<Ability> DynamicDescs = new()
-        {
-            Conductor.ability,
-            SeeMore.ability
-        };
-        private static readonly List<string> ConductorDescriptions = new()
-        {
-            "Adjacent creatures gain Power equal to half this card's base Power, rounded down. This effect changes next turn.",
-            "Allied creatures on the board gain Power equal to half this card's base Power, rounded down. This effect changes next turn.",
-            "All other creatures on the board gain Power equal to this card's Power."
-        };
     }
 }
