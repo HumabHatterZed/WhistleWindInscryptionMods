@@ -26,7 +26,7 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        private readonly string altDialogue = "The Woodcutter stuffs the melted heart into his chest.";
+        private readonly string altDialogue = "The Woodcutter stuffs the melted heart into its chest.";
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
             return !wasSacrifice && killer != null;
@@ -36,7 +36,7 @@ namespace WhistleWind.AbnormalSigils
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.2f);
             killer.Anim.LightNegationEffect();
-            if (killer.Info.name == "wstl_warmHeartedWoodsman")
+            if (killer.HasAbility(Woodcutter.ability))
             {
                 killer.HealDamage(4);
                 if (!base.HasLearned)
