@@ -232,18 +232,6 @@ namespace Infiniscryption.Spells.Patchers
         {
             if (__instance is Card card)
                 UpdateStatsSpellDisplay(card, false);
-            return;
-
-/*            if (__instance is SelectableCard)
-            {
-                SelectableCard card = __instance as SelectableCard;
-                UpdateStatsSpellDisplay(card, false);
-            }
-            else if (__instance is PlayableCard)
-            {
-                PlayableCard playableCard = __instance as PlayableCard;
-                UpdatePlayableStatsSpellDisplay(playableCard, false);
-            }*/
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.QueueCardForSlot))]
@@ -267,7 +255,6 @@ namespace Infiniscryption.Spells.Patchers
         /// Method that allows stat spells to be boosted at the campfire.
         /// Only patched if this behaviour is enabled in the configs.
         /// </summary>
-        /// <param name="__result"></param>
         public static void AllowStatBoostForSpells(List<CardInfo> __result)
         {
             List<CardInfo> deckList = new(RunState.DeckList);
@@ -288,6 +275,7 @@ namespace Infiniscryption.Spells.Patchers
             }
             return true;
         }
+
         [HarmonyPrefix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.Health), MethodType.Getter)]
         public static bool AllowNegativeHealth(ref int __result, PlayableCard __instance)
         {
@@ -310,6 +298,7 @@ namespace Infiniscryption.Spells.Patchers
             }
             return true;
         }
+
         [HarmonyPrefix, HarmonyPatch(typeof(PixelCardDisplayer), nameof(PixelCardDisplayer.SetStatsText))]
         public static bool NegativeStatsTextPixel(PixelCardDisplayer __instance, int attack, int health)
         {
