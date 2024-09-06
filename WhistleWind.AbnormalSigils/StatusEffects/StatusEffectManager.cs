@@ -49,6 +49,11 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             {
                 return new(this.ModGUID, this.RulebookName, this.Behaviour, this.Id, this.Icon, this.IconInfo);
             }
+
+            internal void SetAbilityRedirect()
+            {
+                throw new NotImplementedException();
+            }
         }
 
         internal static readonly ObservableCollection<FullStatusEffect> NewStatusEffects = new();
@@ -265,41 +270,35 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             return retainStacks ? abilities : abilities.Distinct().ToList();
         }
 
-        public static bool RemoveStatusEffect(this PlayableCard card, SpecialTriggeredAbility id)
+        public static IEnumerator RemoveStatusEffect(this PlayableCard card, SpecialTriggeredAbility id)
         {
             StatusEffectBehaviour status = card.GetStatusEffect(id);
             if (status != null)
             {
-                status.DestroyStatusEffect();
-                return true;
+                yield return status.RemoveFromCard(true);
             }
-            return false;
         }
-        public static bool RemoveStatusEffects(this PlayableCard card)
+        public static IEnumerator RemoveStatusEffects(this PlayableCard card)
         {
             List<StatusEffectBehaviour> statuses = card.GetStatusEffects();
             if (statuses.Count > 0)
             {
                 for (int i = 0; i < statuses.Count; i++)
-                    statuses[i].DestroyStatusEffect(false);
+                    yield return statuses[i].RemoveFromCard(true, false);
 
                 card.RenderCard();
-                return true;
             }
-            return false;
         }
-        public static bool RemoveStatusEffects(this PlayableCard card, bool positiveEffects)
+        public static IEnumerator RemoveStatusEffects(this PlayableCard card, bool positiveEffects)
         {
             List<StatusEffectBehaviour> statuses = card.GetStatusEffects(positiveEffects);
             if (statuses.Count > 0)
             {
                 for (int i = 0; i < statuses.Count; i++)
-                    statuses[i].DestroyStatusEffect(false);
+                    yield return statuses[i].RemoveFromCard(true, false);
 
                 card.RenderCard();
-                return true;
             }
-            return false;
         }
     }
 

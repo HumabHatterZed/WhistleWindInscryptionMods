@@ -36,7 +36,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
             base.ModifyPotency(PotencyModification, true);
             if (EffectPotency <= 0)
-                base.DestroyStatusEffect();
+                yield return base.RemoveFromCard(true);
 
             yield return new WaitForSeconds(0.3f);
         }

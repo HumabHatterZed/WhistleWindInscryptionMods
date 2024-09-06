@@ -3,18 +3,19 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using static UnityEngine.UIElements.StyleVariableResolver;
 
 namespace WhistleWind.AbnormalSigils.StatusEffects
 {
-    public abstract class StatusEffectBehaviour : SpecialCardBehaviour, IOnStatusEffectAdded
+    public abstract class StatusEffectBehaviour : SpecialCardBehaviour, IOnStatusEffectAdded, IOnStatusEffectRemoved
     {
-        private int _priority = int.MaxValue;
         public const string _DECAL = "_decal";
         public const string STATUS_ = "status_";
 
+        private int _priority = int.MaxValue;
         public override int Priority => _priority;
 
         public int TurnGained = -1;
@@ -32,6 +33,15 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             return false;
         }
         public virtual IEnumerator OnStatusEffectAdded(PlayableCard target, int amount, StatusEffectBehaviour statusEffect, bool alreadyHasStatus)
+        {
+            yield break;
+        }
+        public virtual bool RespondsToStatusEffectRemoved(PlayableCard target, StatusEffectBehaviour statusEffect)
+        {
+            return false;
+        }
+
+        public virtual IEnumerator OnStatusEffectRemoved(PlayableCard target, StatusEffectBehaviour statusEffect)
         {
             yield break;
         }
@@ -120,8 +130,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             return retval;
         }
 
-
-        public void DestroyStatusEffect(bool updateDisplay = true)
+        public IEnumerator RemoveFromCard(bool triggerOnRemoved, bool updateDisplay = true)
         {
             List<CardModificationInfo> mods = base.PlayableCard.TemporaryMods.Where(x => x.specialAbilities.Contains(this.StatusEffect)).ToList();
             foreach (CardModificationInfo mod in mods)
@@ -130,6 +139,13 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             }
             if (updateDisplay)
                 base.PlayableCard.OnStatsChanged();
+
+            if (triggerOnRemoved)
+            {
+                yield return CustomTriggerFinder.TriggerAll<IOnStatusEffectRemoved>(false,
+                    x => x.RespondsToStatusEffectRemoved(base.PlayableCard, this),
+                    x => x.OnStatusEffectRemoved(base.PlayableCard, this));
+            }
 
             base.Destroy();
         }

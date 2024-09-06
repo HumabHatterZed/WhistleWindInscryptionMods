@@ -43,7 +43,7 @@ namespace WhistleWind.AbnormalSigils.Core
                 controller = __instance.gameObject.AddComponent<StatusEffectIconsManager>();
                 controller.statusEffectMat = __instance.emissiveIconMat ?? __instance.defaultIconMat;
                 if (__instance.transform.Find("StatusEffectIcons_1") == null)
-                    AddStatusIconsToCard(controller, __instance.transform);
+                    AddStatusIconsToCard(controller, __instance.transform, __instance.defaultIconGroups.Count);
             }
             __instance.abilityIcons.RemoveAll(controller.abilityIcons.Contains);
             controller.abilityIcons.Clear();
@@ -136,9 +136,9 @@ namespace WhistleWind.AbnormalSigils.Core
 
         private const string SEEMORE = "SeeMore";
 
-        private static void AddStatusIconsToCard(StatusEffectIconsManager controller, Transform abilityIconParent)
+        private static void AddStatusIconsToCard(StatusEffectIconsManager controller, Transform abilityIconParent, int defaultIconCount)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < Mathf.Min(5, defaultIconCount); i++)
             {
                 GameObject iconGroup = NewIconGroup(controller, abilityIconParent, i + 1);
                 List<Transform> icons = NewIcons(iconGroup, i + 1);
