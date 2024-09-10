@@ -40,7 +40,6 @@ namespace WhistleWindLobotomyMod
         {
             Log = base.Logger;
             LobotomyConfigManager.Instance.BindConfig();
-
             if (!LobotomyConfigManager.Instance.ModEnabled)
                 Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
             else
@@ -159,23 +158,26 @@ namespace WhistleWindLobotomyMod
             {
                 AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
                 {
-                    var sniperInfo = abilities.Find(x => x.Info.name == "Sniper").Info;
-                    var sentryInfo = abilities.Find(x => x.Info.name == "Sentry").Info;
-                    var transformInfo = abilities.Find(x => x.Info.name == "Transformer").Info;
-
-                    sniperInfo.rulebookName = "Marksman";
-                    sniperInfo.SetAbilityLearnedDialogue("Your beast strikes with precision.")
+                    abilities.AbilityByID(Ability.Sniper).Info
+                        .SetRulebookName("Marksman")
+                        .SetAbilityLearnedDialogue("Your beast strikes with precision.")
                         .SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman"))
                         .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel"));
 
-                    sentryInfo.rulebookName = "Quick Draw";
-                    sentryInfo.SetAbilityLearnedDialogue("The early bird gets the worm.")
+                    abilities.AbilityByID(Ability.Sentry).Info
+                        .SetRulebookName("Quick Draw")
+                        .SetAbilityLearnedDialogue("The early bird gets the worm.")
                         .SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw"))
                         .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel"))
                         .SetCanStack()
                         .SetFlipYIfOpponent();
 
-                    transformInfo.rulebookDescription = "A card bearing this sigil will transform into an alternate forme after 1 turn on the board.";
+                    abilities.AbilityByID(Ability.Transformer).Info
+                        .SetRulebookDescription("[creature] will transform into a different form after 1 turn on the board.");
+
+                    abilities.AbilityByID(Ability.ExplodeOnDeath).Info
+                        .SetRulebookName("Volatile")
+                        .SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilVolatile_flipped.png", assembly));
 
                     return abilities;
                 };
@@ -270,6 +272,7 @@ namespace WhistleWindLobotomyMod
         public static readonly StoryEvent OrdealDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "OrdealDefeated");
 
         internal static readonly Harmony HarmonyInstance = new(pluginGuid);
+        internal static readonly Assembly assembly = typeof(LobotomyPlugin).Assembly;
         internal static ManualLogSource Log;
 
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";

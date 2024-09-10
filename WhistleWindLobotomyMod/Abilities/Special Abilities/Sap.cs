@@ -10,8 +10,6 @@ namespace WhistleWindLobotomyMod
 {
     public class Sap : SpecialCardBehaviour
     {
-        public SpecialTriggeredAbility SpecialAbility => specialAbility;
-
         public static SpecialTriggeredAbility specialAbility;
 
         public const string rName = "Sap";
@@ -29,19 +27,30 @@ namespace WhistleWindLobotomyMod
                 sacrificeCount = 0;
                 PlayableCard card = Singleton<BoardManager>.Instance.CurrentSacrificeDemandingCard;
                 card.Anim.StrongNegationEffect();
-                if (!card.HasAbility(Volatile.ability))
+                if (card.LacksAbility(Ability.ExplodeOnDeath))
                 {
-                    card.Status.hiddenAbilities.Add(Volatile.ability);
-                    card.AddTemporaryMod(new(Volatile.ability));
+                    card.Status.hiddenAbilities.Add(Ability.ExplodeOnDeath);
+                    card.AddTemporaryMod(new(Ability.ExplodeOnDeath));
                 }
-
+                card.AddPermanentBehaviour<SapDetonator>();
                 yield return new WaitForSeconds(0.4f);
                 yield return DialogueHelper.ShowUntilInput("A strange gurgling sound comes from your beast's stomach.");
-
-                card.Info.SetExtendedProperty("wstl:Sap", true);
             }
             else
                 sacrificeCount++;
+        }
+    }
+    public class SapDetonator : SpecialCardBehaviour
+    {
+        public static SpecialTriggeredAbility specialAbility;
+        public override int Priority => 1000;
+        public override bool RespondsToResolveOnBoard() => true;
+        public override IEnumerator OnResolveOnBoard()
+        {
+            yield return new WaitForSeconds(0.2f);
+            base.PlayableCard.Anim.LightNegationEffect();
+            yield return new WaitForSeconds(0.3f);
+            yield return base.PlayableCard.Die(false, null);
         }
     }
     public class RulebookEntrySap : AbilityBehaviour
@@ -51,9 +60,11 @@ namespace WhistleWindLobotomyMod
     }
     public partial class LobotomyPlugin
     {
-        private void Rulebook_Sap()
-            => RulebookEntrySap.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySap>(Sap.rName, Sap.rDesc).Id;
+        private void Rulebook_Sap() => RulebookEntrySap.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySap>(Sap.rName, Sap.rDesc).Id;
         private void SpecialAbility_Sap()
-            => Sap.specialAbility = AbilityHelper.CreateSpecialAbility<Sap>(pluginGuid, Sap.rName).Id;
+        {
+            Sap.specialAbility = AbilityHelper.CreateSpecialAbility<Sap>(pluginGuid, Sap.rName).Id;
+            SapDetonator.specialAbility = AbilityHelper.CreateSpecialAbility<SapDetonator>(pluginGuid, "SapDetonator").Id;
+        }
     }
 }

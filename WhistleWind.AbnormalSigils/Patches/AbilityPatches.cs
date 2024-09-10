@@ -80,6 +80,19 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch]
     internal class OtherAbilityPatches
     {
+        [HarmonyPostfix, HarmonyPatch(typeof(ExplodeOnDeath), nameof(ExplodeOnDeath.BombCard))]
+        private static IEnumerator Act1Detonator(IEnumerator result, PlayableCard target, PlayableCard attacker)
+        {
+            if (!SaveManager.SaveFile.IsPart1)
+            {
+                yield return new WaitForSeconds(0.25f);
+                yield return target.TakeDamage(10, attacker);
+            }
+            else
+            {
+                yield return result;
+            }
+        }
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.QueuedCardIsBlocked))]
         private static void DontPlayLonelyIfHasFriend(ref bool __result, PlayableCard queuedCard)
         {
