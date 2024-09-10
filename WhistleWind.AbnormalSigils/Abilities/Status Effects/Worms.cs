@@ -121,7 +121,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.lightBrown,
                 TextureLoader.LoadTextureFromFile("sigilWorms.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilWorms_pixel.png", Assembly))
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect);
 
             Worms.specialAbility = data.Id;
             Worms.iconId = data.IconInfo.ability;

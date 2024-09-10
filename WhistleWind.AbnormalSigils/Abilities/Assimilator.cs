@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -17,7 +17,10 @@ namespace WhistleWind.AbnormalSigils
             Assimilator.ability = AbnormalAbilityHelper.CreateAbility<Assimilator>(
                 "sigilAssimilator",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
-                modular: false, opponent: true, canStack: true).Id;
+                modular: false, opponent: true, canStack: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Assimilator : AbilityBehaviour

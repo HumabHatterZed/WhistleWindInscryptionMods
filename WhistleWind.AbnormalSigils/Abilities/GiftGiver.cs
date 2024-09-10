@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.AbilityClasses;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -19,7 +20,10 @@ namespace WhistleWind.AbnormalSigils
             GiftGiver.ability = AbnormalAbilityHelper.CreateAbility<GiftGiver>(
                 "sigilGiftGiver",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
-                modular: false, opponent: true, canStack: false).Id;
+                modular: false, opponent: true, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class GiftGiver : OpponentDrawCreatedCard

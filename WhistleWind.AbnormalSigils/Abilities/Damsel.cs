@@ -23,7 +23,10 @@ namespace WhistleWind.AbnormalSigils
             Damsel.ability = AbnormalAbilityHelper.CreateAbility<Damsel>(
                 "sigilDamsel",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     [HarmonyPatch]

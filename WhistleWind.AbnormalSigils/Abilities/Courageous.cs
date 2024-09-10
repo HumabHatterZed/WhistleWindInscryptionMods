@@ -20,7 +20,10 @@ namespace WhistleWind.AbnormalSigils
             Courageous.ability = AbnormalAbilityHelper.CreateAbility<Courageous>(
                 "sigilCourageous",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: false, opponent: true, canStack: false).Id;
+                modular: false, opponent: true, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Courageous : AbilityBehaviour

@@ -3,7 +3,7 @@ using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -18,7 +18,10 @@ namespace WhistleWind.AbnormalSigils
             FlagBearer.ability = AbnormalAbilityHelper.CreateAbility<FlagBearer>(
                 "sigilFlagBearer",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: false, opponent: false, canStack: true).Id;
+                modular: false, opponent: false, canStack: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class FlagBearer : AbilityBehaviour, IPassiveHealthBuff

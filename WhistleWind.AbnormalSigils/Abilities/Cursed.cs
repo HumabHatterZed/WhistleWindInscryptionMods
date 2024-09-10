@@ -19,7 +19,10 @@ namespace WhistleWind.AbnormalSigils
             Cursed.ability = AbnormalAbilityHelper.CreateAbility<Cursed>(
                 "sigilCursed",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 0,
-                modular: true, opponent: false, canStack: false).Id;
+                modular: true, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Cursed : AbilityBehaviour

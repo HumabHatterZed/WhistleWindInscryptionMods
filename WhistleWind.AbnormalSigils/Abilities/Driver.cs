@@ -1,6 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
+using Pixelplacement.TweenSystem;
+using Pixelplacement;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -13,33 +16,31 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Ability_Driver()
         {
-            const string rulebookName = "Driven In";
-            const string rulebookDescription = "[creature] deals 1 additional damage when striking injured creatures.";
-            const string dialogue = "A ferocious onslaught.";
-            const string triggerText = "[creature] won't let its target go!";
+            const string rulebookName = "Pin Down";
+            const string rulebookDescription = "Creatures struck by [creature] gain Unyielding.";
+            const string dialogue = "Like a bug to a board.";
+            const string triggerText = "[creature] pins its prey.";
             Driver.ability = AbnormalAbilityHelper.CreateAbility<Driver>(
                 "sigilDriver",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
-                modular: false, opponent: true, canStack: true).Id;
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
+                modular: true, opponent: true, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
-    public class Driver : AbilityBehaviour, IModifyDamageTaken
+
+    public class Driver : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && target.Status.damageTaken > 0;
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && !target.Dead && target.LacksAbility(Unyielding.ability) && !target.HasTrait(Trait.Uncuttable);
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
+            yield return base.PreSuccessfulTriggerSequence();
+            target.AddTemporaryMod(new(Unyielding.ability) { fromCardMerge = true });
             yield return base.LearnAbility(0.3f);
         }
-        
-        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
-        {
-            return target.Status.damageTaken > 0 && attacker == base.Card;
-        }
-
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => damage + 1;
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
     }
 }

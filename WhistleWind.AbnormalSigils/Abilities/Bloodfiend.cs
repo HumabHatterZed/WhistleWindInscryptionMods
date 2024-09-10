@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -18,7 +18,10 @@ namespace WhistleWind.AbnormalSigils
             Bloodfiend.ability = AbnormalAbilityHelper.CreateAbility<Bloodfiend>(
                 "sigilBloodfiend",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: true, opponent: true, canStack: true).Id;
+                modular: true, opponent: true, canStack: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Bloodfiend : AbilityBehaviour

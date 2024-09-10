@@ -132,28 +132,21 @@ namespace WhistleWind.AbnormalSigils
                 }
             }
         }
-        private void AddSpecialAbilities()
-        {
-            AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
 
-            StatIcon_Time();
-            StatIcon_SigilPower();
-            StatIcon_Slime();
-            StatIcon_Nihil();
-        }
         private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
         private void AddCards() => AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
         private void AddAbilities()
         {
             AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
             {
-                abilities.Find(x => x.Info.name == "MadeOfStone").Info.rulebookDescription = "A [creature] is immune to the effects of Touch of Death, Stinky, Punisher, Cursed, and Idol.";
-
+                abilities.AbilityByID(Ability.MadeOfStone).Info
+                    .SetRulebookDescription("A [creature] is immune to the effects of Touch of Death, Stinky, Punisher, Cursed, and Idol.");
+                
                 StatusEffectManager.SyncStatusEffects();
                 return abilities;
             };
 
-            // v1.0
+            #region 1.0L
             Ability_Punisher();
             Ability_Bloodfiend();
             Ability_Martyr();
@@ -187,15 +180,15 @@ namespace WhistleWind.AbnormalSigils
             Ability_TheTrain();
             Ability_Scorching();
             Ability_Regenerator();
-            Ability_Volatile();
             Ability_GiftGiver();
             Ability_Piercing();
             Ability_Scrambler();
             Ability_Gardener();
             Ability_Slime();
             Ability_Protector();
+            #endregion
 
-            // v1.1
+            #region v1.1L
             Ability_Alchemist();
             Ability_Nettles();
 
@@ -206,8 +199,9 @@ namespace WhistleWind.AbnormalSigils
             Ability_Witness();
 
             Ability_Corrector();
+            #endregion
 
-            // v2.0L
+            #region v2.0L
             Ability_ThickSkin();
             Ability_OneSided();
             Ability_Copycat();
@@ -218,6 +212,9 @@ namespace WhistleWind.AbnormalSigils
             Ability_GreedyHealing();
             Ability_Cycler();
             Ability_Barreler();
+            #endregion
+
+            #region v1.1
             Ability_Bloodletter();
             Ability_LeftStrike();
             Ability_RightStrike();
@@ -234,8 +231,9 @@ namespace WhistleWind.AbnormalSigils
             StatusEffect_Pebble();
             StatusEffect_Grief();
             Ability_Lonely();
+            #endregion
 
-            // 2.0A
+            #region v2.0
             Ability_Damsel();
             Ability_Abusive();
             Ability_Wedge();
@@ -243,26 +241,35 @@ namespace WhistleWind.AbnormalSigils
             Ability_Unyielding();
 
             StatusEffect_Sinking();
-            Ability_MindFlayer();
+            Ability_MindStrike();
 
-            // Specials
+            Slot_Flooded();
+            Ability_Spilling();
+            #endregion
+
+            #region Special
             Ability_FalseThrone();
             Ability_ReturnToNihil();
 
             Ability_ReturnCard();
             Ability_RefreshDecks();
             Ability_SeeMore();
+            #endregion
 
-            SlotModificationManager.New(pluginGuid, "Test", typeof(Test), TextureLoader.LoadTextureFromFile("slotPavedRoad.png", Assembly))
-                .SetRulebook("Paved Road", "A space with this effect will look neat and cool and awesome", TextureLoader.LoadTextureFromFile("slotPavedRoad1.png", Assembly), SlotModificationManager.ModificationMetaCategory.Part1Rulebook);
-
-            RulebookPatches.AddStatusEntries();
+            StatusEffectPages.AddStatusEntries();
+            MechanicPages.AddMechanicEntries();
         }
 
-        public class Test :SlotModificationBehaviour
+        private void AddSpecialAbilities()
         {
+            AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
 
+            StatIcon_Time();
+            StatIcon_SigilPower();
+            StatIcon_Slime();
+            StatIcon_Nihil();
         }
+
         public static class SpellAPI
         {
             public static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.spells");

@@ -12,31 +12,47 @@
 - Custom CardMetaCategories are now Traits, added blacklist functionality
 - Modified how cards and abilities are created
 - Changed how Speed is calculated to be independent of Bind and Haste components
+- Most abilities now have rulebook entries in Act 3, Grimora, and Magnificus's acts - abilities not fully tested for these acts, expect bugs
+- Changed Left-Veering and Right-Veering Strike to use GetOpposingSlots instead of SetUpAttackSequence
+- Changed Woodcutter to inherit from Sentry
 ### 🔧 Tweaks
-- Changed Conductor sigil's behaviour
-- Changed Conductor sigil's icons
+- Overhauled behaviour of Conductor sigil
+- Overhauled behaviour of Barreler sigil
+- Changed icons for Conductor sigil
+- Changed icons for Barreler sigil
 - Redid Pebble status effect's behaviour
 - Changed Lonely sigil's icons
 - Renamed Lonely to Pebble Giver
 - Updated descriptions for status effects to use similar technical language
 - Updated icons for Rightful Heir sigil to reflect its activation cost
 - Updated artwork for Jack
+- Update Flagellation icons
+- Updated See More icons
+- Updated Assimilator sigil icon
+- Updated Haste and Bind icons
 - Updated dialogue when a Brother card dies to be shorter
 - Updated dialogue for Ruler of Frost when there are no valid targets
-- Made slight modification to Bloodletter description
+- Made modifications to various sigil descriptions
 - Renamed Refresh Decks sigil to Grand Reopening
 - Renamed Status Effect Overflow sigil to See More
 - Renamed Return Card to Hand sigil to Creature Retrieval
 - Renamed Flagellated status effect to Flagellation
+- Renamed Bitter Enemies sigil to Vendetta
 - Renamed Little Witch's Friend card to "Wee Witch's Friend"
 - Spore Mold Creature renamed to Spore Mold Beast
 - Spore Mold Creatures now inherit the name of the card they were created from
 - Frozen Heart card is now considered Terrain
 - Sigils that inherit from ActivatedSelectSlotBehaviour are now usable by the opponent on upkeep
-- Sigil Power stat icon no longer gives a minimum of 1 Health.
+- Sigil Power stat icon no longer gives a minimum of 1 Health
+- Frozen Heart sigil will now give double Health to any card with Woodcutter, not just cards with a specific name
+- Barreler sigil now displaces moved cards randomly
 ### 🩹 Bug fixes
 - Fixed activated select slot sigils triggering when there are no valid targets on the board
 - Fixed Witness sigil using an outdated description
+- Fixed Worms status effect not letting Infested cards attack the right-most ally card
+- Fixed Bitter Enemies sigil using an incorrect description
+- Fixed Alchemist sigil breaking in Act 2 when trying to activate after the deck is exhausted
+- Fixed False Throne altering persistent CardModificationInfos
 ### ⚖️ Balancing
 - Lonely - reduced powerlevel from 3 -> 2
 - Bloodfiend - reduced powerlevel from 3 -> 2
@@ -47,15 +63,18 @@
 - Nettle Clothes - reduced powerlevel from 5 -> 4
 - Nettle Clothes - changed to only create Brothers in adjacent slots rather than all friendly slots
 - Witness - reduced activation cost from 2 Bones -> 1 Bone
-- Ruler of Frost - targeting cards now requires an additional 2 Bones
+- Ruler of Frost - targeting cards now requires an additional 2 Bones - empty spaces still cost 2 Bones to target
 - Ruler of Frost - no longer affects Terrain and Pelt cards
+- Healer - now removes a random negative status effect from targeted cards
+- Binding Strike - Bind inflicted is now equal to half the attacking card's powerlevel
 - Spores - reduced powerlevel from -1 -> 0
+- Worms - Infested cards now deprioritise Terrain and Pelt cards
+- Worms - increased powerlevel from -2 -> -1
 - Little Witch's Friend - rebalanced from 1/2, 3 Bones -> 1/1, 2 Bones, Detonator
 - Little Witch's Friend - no longer possesses the Insect tribe
 - Block of Ice - no longer possesses Mighty Leap sigil
 - First Brother - replaced Double Strike with Persistent
 - All Brothers - rebalanced to 1 Health and no play cost
-- Adjusted powerlevels of status effects
 ### ➕ Additions
 - Added dialogue for when first encountering a status effect
 - Added dialogue explaining status overflow
@@ -65,7 +84,8 @@
     - Damsel, Abusive
 - Added X new status effects:
     - Fervent Adoration, Grief
-
+### 💣 Removals
+- Removed Volatile sigil
 ## v1.1.2 - Minor patch (5/23/2024)
 ### 🩹 Bug fixes
 - Fixed Conductor sigil crashing the game when multiple copies are on the same side of the board

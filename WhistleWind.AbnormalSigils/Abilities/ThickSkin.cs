@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -18,7 +18,10 @@ namespace WhistleWind.AbnormalSigils
             ThickSkin.ability = AbnormalAbilityHelper.CreateAbility<ThickSkin>(
                 "sigilThickSkin",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: true, opponent: false, canStack: true).Id;
+                modular: true, opponent: false, canStack: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class ThickSkin : AbilityBehaviour, IModifyDamageTaken

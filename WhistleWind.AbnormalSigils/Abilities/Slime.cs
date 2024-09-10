@@ -13,13 +13,16 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Slime()
         {
             const string rulebookName = "Made of Slime";
-            const string rulebookDescription = "At the end of the owner's turn, give adjacent cards this sigil, and deal 1 damage to this card if it is not a Slime. This card transforms into a Slime on death.";
+            const string rulebookDescription = "At the end of the owner's turn, creatures adjacent to [creature] gain this sigil. If this card is not a Slime, also take 1 damage and transform into a Slime on death.";
             const string dialogue = "Its army grows everyday.";
             const string triggerText = "[creature] melts into slime!";
             Slime.ability = AbnormalAbilityHelper.CreateAbility<Slime>(
                 "sigilSlime",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Slime : AbilityBehaviour

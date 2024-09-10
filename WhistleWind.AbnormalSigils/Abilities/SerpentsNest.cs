@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Rulebook;
+using InscryptionAPI.RuleBook;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -20,7 +21,10 @@ namespace WhistleWind.AbnormalSigils
                 "sigilSerpentsNest",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: true, canStack: true)
-                .SetAbilityRedirect("Worms", Worms.iconId, GameColors.Instance.brownOrange).Id;
+                .SetAbilityRedirect("Worms", Worms.iconId, GameColors.Instance.brownOrange)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class SerpentsNest : AbilityBehaviour

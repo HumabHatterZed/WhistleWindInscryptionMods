@@ -1,6 +1,9 @@
 ﻿using DiskCardGame;
+using EasyFeedback.APIs;
 using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
@@ -14,12 +17,16 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FalseThrone()
         {
             const string rulebookName = "False Throne";
-            const string rulebookDescription = "Once per turn, pay 1 Health to give Neutered to a chosen creature, then create a free, unaltered copy of it in your hand.";
+            const string rulebookDescription = "Once per turn, pay 1 Health to give Neutered to a chosen creature and create a costless, unaltered copy of it in your hand.";
             const string dialogue = "A simple little magic trick.";
             const string triggerText = "[creature] gives a false present to the chosen creature.";
             FalseThrone.ability = AbnormalAbilityHelper.CreateActivatedAbility<FalseThrone>(
                 "sigilFalseThrone",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5, special: true).Id;
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4, special: true)
+                .SetAbilityRedirect("Neutered", Neutered.ability, GameColors.Instance.gray)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class FalseThrone : ActivatedSelectSlotBehaviour
@@ -42,6 +49,8 @@ namespace WhistleWind.AbnormalSigils
             if (slot != null && slot.Card != null)
             {
                 CardInfo cardInfo = slot.Card.Info.Clone() as CardInfo;
+                cardInfo.Mods.Clear();
+                base.Card.Info.Mods.ForEach(x => cardInfo.Mods.Add(x.FullClone()));
                 foreach (CardModificationInfo mod in cardInfo.Mods)
                 {
                     mod.bloodCostAdjustment = 0;
@@ -49,7 +58,6 @@ namespace WhistleWind.AbnormalSigils
                     mod.energyCostAdjustment = 0;
                     mod.addGemCost = new();
                 }
-                cardInfo.SetCost(0, 0, 0, new());
 
                 slot.Card.Anim.LightNegationEffect();
                 slot.Card.AddTemporaryMod(new(LatchAbility) { singletonId = "wstl:EmeraldNeuter" });

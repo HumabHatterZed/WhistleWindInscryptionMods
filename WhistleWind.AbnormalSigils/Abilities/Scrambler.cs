@@ -24,7 +24,10 @@ namespace WhistleWind.AbnormalSigils
             Scrambler.ability = AbnormalAbilityHelper.CreateAbility<Scrambler>(
                 "sigilScrambler",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Scrambler : AbilityBehaviour

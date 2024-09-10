@@ -43,7 +43,11 @@ namespace WhistleWind.AbnormalSigils.Core
             { "RegeneratorOverheal",
                 new() { "The punishment for greed is getting everything you wanted." }},
             { "SerpentsNestInfection",
-                new() { "A new nest is born." }}
+                new() { "A new nest is born." }},
+            { "ScorchingExtinguished",
+                new() { "The flood waters extinguish the raging fire." }},
+            { "FloodedSlotDried",
+                new() { "The water evaporates in the scorching heat." }}
         };
 
         public static void GenerateDialogueEvents()

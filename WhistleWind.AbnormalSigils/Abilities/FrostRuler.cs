@@ -20,7 +20,10 @@ namespace WhistleWind.AbnormalSigils
             const string triggerText = "[creature] freezes the path.";
             FrostRuler.ability = AbnormalAbilityHelper.CreateActivatedAbility<FrostRuler>(
                 "sigilFrostRuler",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4).Id;
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
 

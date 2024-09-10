@@ -20,28 +20,25 @@ namespace WhistleWind.AbnormalSigils
             LeftStrike.ability = AbnormalAbilityHelper.CreateAbility<LeftStrike>(
                 "sigilLeftStrike",
                 rulebookName, rulebookDescription, powerLevel: 0,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
-    public class LeftStrike : AbilityBehaviour, ISetupAttackSequence
+    public class LeftStrike : AbilityBehaviour, IGetOpposingSlots
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
+        public bool RemoveDefaultAttackSlot() => true;
+        public bool RespondsToGetOpposingSlots() => true;
+        public List<CardSlot> GetOpposingSlots(List<CardSlot> originalSlots, List<CardSlot> otherAddedSlots)
         {
-            currentSlots.Remove(base.Card.OpposingSlot());
+            List<CardSlot> retval = new();
             if (base.Card.OpposingSlot().GetAdjacent(true) != null)
-                currentSlots.Add(base.Card.OpposingSlot().GetAdjacent(true));
-
-            return currentSlots;
-        }
-
-        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot) => 0;
-
-        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
-            return card == base.Card && modType == OpposingSlotTriggerPriority.Normal;
+                retval.Add(base.Card.OpposingSlot().GetAdjacent(true));
+            return retval;
         }
     }
 }

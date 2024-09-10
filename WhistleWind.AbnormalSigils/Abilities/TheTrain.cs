@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -18,7 +19,10 @@ namespace WhistleWind.AbnormalSigils
             TheTrain.ability = AbnormalAbilityHelper.CreateAbility<TheTrain>(
                 "sigilTheTrain",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
-                special: true).Id;
+                special: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class TheTrain : AbilityBehaviour
@@ -26,7 +30,6 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
         public override bool RespondsToResolveOnBoard() => true;
-        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnResolveOnBoard()
         {
             Singleton<ViewManager>.Instance.SwitchToView(Singleton<BoardManager>.Instance.CombatView);

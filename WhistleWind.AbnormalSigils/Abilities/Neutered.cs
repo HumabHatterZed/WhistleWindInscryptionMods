@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -10,11 +11,14 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Neutered()
         {
             const string rulebookName = "Neutered";
-            const string rulebookDescription = "[creature] has its Power reduced to 0. At the start of the owner's turn, remove this sigil.";
+            const string rulebookDescription = "[creature] has its Power reduced to 0. At the start of the owner's next turn, remove this sigil.";
             Neutered.ability = AbnormalAbilityHelper.CreateAbility<Neutered>(
                 "sigilNeutered",
                 rulebookName, rulebookDescription, powerLevel: -2,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Neutered : AbilityBehaviour

@@ -20,14 +20,8 @@ namespace WhistleWind.AbnormalSigils
             AbilityInfo info = AbilityHelper.NewFiller<SeeMore>(pluginGuid, "sigilSeeMore", rulebookName, rulebookDescription)
                 .Info.SetPassive(false).SetActivated().SetCanStack().SetHasColorOverride(true, GameColors.Instance.nearBlack);
             info.metaCategories.Clear();
-            SeeMore.ability = info.ability;
 
-            const string desc = "Determines the order cards attack in during combat. Player-owned cards have a base Speed of 3 while opponent-owned cards have a base Speed of 0.";
-            AbilityInfo info2 = AbilityHelper.NewFiller<Speed>(
-                pluginGuid, TextureLoader.LoadTextureFromFile("sigilSpeed.png", Assembly), "Speed", desc)
-                .Info.SetPassive();
-            info2.metaCategories.Clear();
-            Speed.ability = info2.ability;
+            SeeMore.ability = info.ability;
         }
     }
     public class SeeMore : ActivatedAbilityBehaviour

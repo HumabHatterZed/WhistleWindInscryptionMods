@@ -4,6 +4,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.AbilityClasses;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -12,13 +13,16 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_QueenNest()
         {
             const string rulebookName = "Queen Nest";
-            const string rulebookDescription = "Whenever another card is killed, create a Worker Bee in your hand. [define:wstl_queenBeeWorker]";
+            const string rulebookDescription = "While [creature] is on the board, create a Worker Bee in your hand whenever another card perishes. [define:wstl_queenBeeWorker]";
             const string dialogue = "For the hive.";
             const string triggerText = "Another worker is born to serve [creature].";
             QueenNest.ability = AbnormalAbilityHelper.CreateAbility<QueenNest>(
                 "sigilQueenNest",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
-                modular: false, opponent: true, canStack: false).Id;
+                modular: false, opponent: true, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class QueenNest : OpponentDrawCreatedCard

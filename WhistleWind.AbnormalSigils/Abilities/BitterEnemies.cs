@@ -5,6 +5,7 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -19,7 +20,10 @@ namespace WhistleWind.AbnormalSigils
             BitterEnemies.ability = AbnormalAbilityHelper.CreateAbility<BitterEnemies>(
                 "sigilBitterEnemies",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: true, opponent: true, canStack: false).Id;
+                modular: true, opponent: true, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class BitterEnemies : AbilityBehaviour, IPassiveAttackBuff

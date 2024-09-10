@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Rulebook;
+using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -56,7 +56,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.nearWhite,
                 TextureLoader.LoadTextureFromFile("sigilGrief.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilGrief_pixel.png", Assembly))
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect);
 
             Grief.specialAbility = data.Id;
             Grief.iconId = data.IconInfo.ability;

@@ -4,7 +4,7 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -19,7 +19,10 @@ namespace WhistleWind.AbnormalSigils
             Aggravating.ability = AbnormalAbilityHelper.CreateAbility<Aggravating>(
                 "sigilAggravating",
                 rulebookName, rulebookDescription, dialogue, powerLevel: -3,
-                modular: false, opponent: true, canStack: true).Id;
+                modular: false, opponent: true, canStack: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .Id;
         }
     }
     public class Aggravating : AbilityBehaviour, IPassiveAttackBuff

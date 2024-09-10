@@ -4,7 +4,7 @@ using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,13 +13,16 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Protector()
         {
             const string rulebookName = "Protector";
-            const string rulebookDescription = "Creatures adjacent to this card take 1 less damage when struck.";
+            const string rulebookDescription = "Creatures adjacent to [creature] take 1 less damage when struck.";
             const string dialogue = "Your beast shields its ally against the blow.";
             const string triggerText = "[creature] shields its friend!";
             Protector.ability = AbnormalAbilityHelper.CreateAbility<Protector>(
                 "sigilProtector",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
-                modular: false, opponent: true, canStack: true).Id;
+                modular: false, opponent: true, canStack: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Protector : AbilityBehaviour, IModifyDamageTaken

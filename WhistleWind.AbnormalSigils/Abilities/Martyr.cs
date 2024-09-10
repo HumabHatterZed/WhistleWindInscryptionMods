@@ -21,7 +21,10 @@ namespace WhistleWind.AbnormalSigils
             Martyr.ability = AbnormalAbilityHelper.CreateAbility<Martyr>(
                 "sigilMartyr",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
-                modular: true, opponent: false, canStack: true).Id;
+                modular: true, opponent: false, canStack: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Martyr : AbilityBehaviour // original code taken from SigilADay - julianperge
@@ -42,18 +45,8 @@ namespace WhistleWind.AbnormalSigils
             yield return new WaitForSeconds(0.1f);
             foreach (PlayableCard card in validCards)
             {
-                // remove all negative effects
-                List<StatusEffectBehaviour> negativeEffects = card.GetStatusEffects(false);
-                List<CardModificationInfo> negativeAbilities = card.TemporaryMods.FindAll(x => x.IsStatusMod(false));
-
-                for (int i = 0; i < negativeEffects.Count; i++)
-                    Destroy(negativeEffects[i]);
-
-                yield return HelperMethods.HealCard(card.Slot, negativeAbilities.Count > 0 ? 0.15f : 0.1f, (CardSlot s) =>
-                {
-                    if (negativeAbilities.Count > 0)
-                        s.Card.RemoveTemporaryMods(negativeAbilities.ToArray());
-                });
+                yield return HelperMethods.HealCard(card, 0.1f);
+                yield return card.RemoveStatusEffects(false);
             }
             yield return base.LearnAbility(0.25f);
         }

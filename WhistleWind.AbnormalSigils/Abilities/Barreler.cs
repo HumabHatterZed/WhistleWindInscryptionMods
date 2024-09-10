@@ -1,12 +1,12 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
-using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -15,13 +15,16 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Barreler()
         {
             const string rulebookName = "Barreler";
-            const string rulebookDescription = "At the end of the owner's turn, this card moves in the sigil's direction to the end of the board, moving any cards in the way.";
-            const string dialogue = "Make room.";
-            const string triggerText = "[creature] moves to the end of the board, tossing anything in its way.";
+            const string rulebookDescription = "At the end of the owner's turn, this card moves in the sigil's direction through other cards to the furthest empty space.";
+            const string dialogue = "This beast is in quite the rush.";
+            const string triggerText = "[creature] barrels on through!";
             Barreler.ability = AbnormalAbilityHelper.CreateAbility<Barreler>(
                 "sigilBarreler",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
-                modular: true, opponent: true).Id;
+                modular: true, opponent: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
 
@@ -29,96 +32,81 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
+
         public override IEnumerator DoStrafe(CardSlot toLeft, CardSlot toRight)
         {
-            if (base.Card.HasTrait(Trait.Giant)) // do nothing for giant cards
-                yield break;
-
-            List<CardSlot> allySlots = BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard);
-            CardSlot oldSlot = base.Card.Slot;
-
-            CardSlot destination;
-            bool destinationValid;
-
-            // if slot exists and card is empty
-            bool canMoveLeft = toLeft != null;
-            bool canMoveRight = toRight != null;
+            // if this card can move at least one slot in either direction
+            bool canMoveLeft = toLeft != null && GetFurthestEmptySlot(true, toLeft) != null;
+            bool canMoveRight = toRight != null && GetFurthestEmptySlot(false, toRight) != null;
 
             // switch direction if we can't move
             if (base.movingLeft && !canMoveLeft)
                 base.movingLeft = false;
+
             if (!base.movingLeft && !canMoveRight)
                 base.movingLeft = true;
 
-            // flip card
-            base.Card.RenderInfo.SetAbilityFlipped(Ability, base.movingLeft);
-            base.Card.RenderInfo.flippedPortrait = base.movingLeft && base.Card.Info.flipPortraitForStrafe;
-            base.Card.RenderCard();
-
-            // different destination and validation if we're looping or moving normally
-            destination = base.movingLeft ? allySlots.First() : allySlots.Last();
-            destinationValid = destination != null && oldSlot != null;
-
-            if (destination != null && destinationValid)
+            
+            bool destinationValid = canMoveLeft || canMoveRight;
+            if (destinationValid)
             {
-                yield return SwapSlots(destination, oldSlot, allySlots);
+                CardSlot destination = GetFurthestEmptySlot(base.movingLeft, base.movingLeft ? toLeft : toRight);
+                yield return BarrelThroughCards(base.movingLeft, destination);
+                yield return base.PreSuccessfulTriggerSequence();
+                yield return base.LearnAbility();
             }
             else
             {
                 base.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.15f);
             }
-
-            if (destination != null && destinationValid) // end of sequence
-            {
-                yield return base.PreSuccessfulTriggerSequence();
-                yield return base.LearnAbility();
-            }
         }
-        private IEnumerator SwapSlots(CardSlot destination, CardSlot originalSlot, List<CardSlot> boardSlots)
+        private IEnumerator BarrelThroughCards(bool movingLeft, CardSlot destination)
         {
-            List<CardSlot> cardSlotsCopy = new(boardSlots);
-            if (base.movingLeft)
-                cardSlotsCopy.Reverse();
-
-            List<CardSlot> orderedSlots = cardSlotsCopy.FindAll(x => base.movingLeft ? x.Index < originalSlot.Index : x.Index > originalSlot.Index);
-
-            Dictionary<PlayableCard, CardSlot> swappedCards = new();
-            CardSlot slotToMoveTo = originalSlot;
-            foreach (CardSlot slot in orderedSlots)
+            List<CardSlot> barrelSlots = BoardManager.Instance.GetCardSlots(!base.Card.OpponentCard, x => x.Card != null);
+            if (movingLeft)
             {
-                if (slot.Card != null)
-                {
-                    PlayableCard swappedCard = slot.Card;
-                    float x = (swappedCard.Slot.transform.position.x + slotToMoveTo.transform.position.x) / 2f;
-                    float y = swappedCard.transform.position.y + 0.35f;
-                    float z = swappedCard.transform.position.z;
-                    Tween.Position(swappedCard.transform, new Vector3(x, y, z), 0.3f, slot.Index * 0.01f, Tween.EaseOut);
-                    swappedCards.Add(swappedCard, slotToMoveTo);
-                }
-                slotToMoveTo = slot;
-            }
-
-            yield return MoveToAdjacentSlot(base.Card, destination, true);
-
-            foreach (KeyValuePair<PlayableCard, CardSlot> pair in swappedCards)
-            {
-                if (pair.Key != null && pair.Key.NotDead())
-                    yield return Singleton<BoardManager>.Instance.AssignCardToSlot(pair.Key, pair.Value);
-            }
-        }
-        private IEnumerator MoveToAdjacentSlot(PlayableCard target, CardSlot destination, bool destinationValid)
-        {
-            if (destination != null && destinationValid)
-            {
-                yield return Singleton<BoardManager>.Instance.AssignCardToSlot(target, destination);
-                yield return new WaitForSeconds(0.25f);
+                barrelSlots.RemoveAll(x => x.Index >= base.Card.Slot.Index || x.Index <= destination.Index);
+                barrelSlots.Reverse();
             }
             else
             {
-                target.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.15f);
+                barrelSlots.RemoveAll(x => x.Index <= base.Card.Slot.Index || x.Index >= destination.Index);
             }
+
+            base.Card.RenderInfo.SetAbilityFlipped(this.Ability, base.movingLeft);
+            base.Card.RenderInfo.flippedPortrait = base.movingLeft && base.Card.Info.flipPortraitForStrafe;
+            base.Card.RenderCard();
+            base.Card.Anim.StrongNegationEffect();
+            CardSlot oldSlot = base.Card.Slot;
+            yield return Singleton<BoardManager>.Instance.AssignCardToSlot(base.Card, destination);
+            foreach (CardSlot slot in barrelSlots)
+            {
+                slot.Card.Anim.PlayQuickRiffleSound();
+                slot.Card.Anim.PlayTransformAnimation();
+                yield return new WaitForSeconds(0.02f);
+            }
+            yield return this.PostSuccessfulMoveSequence(oldSlot);
+            yield return new WaitForSeconds(0.25f);
+        }
+        private bool CardCanBePassedThrough(PlayableCard card) => card != null && card.LacksAbility(Unyielding.ability);
+        private CardSlot GetFurthestEmptySlot(bool movingLeft, CardSlot slotToCheck, List<CardSlot> possibleValidSlots = null)
+        {
+            possibleValidSlots ??= new();
+            if (slotToCheck.Card == null)
+            {
+                possibleValidSlots.Add(slotToCheck);
+            }
+            else if (!CardCanBePassedThrough(slotToCheck.Card))
+            {
+                return possibleValidSlots.LastOrDefault();
+            }
+
+            CardSlot adjacent = slotToCheck.GetAdjacent(movingLeft);
+            if (adjacent != null)
+                return GetFurthestEmptySlot(movingLeft, adjacent, possibleValidSlots);
+
+            return possibleValidSlots.LastOrDefault();
         }
     }
 }

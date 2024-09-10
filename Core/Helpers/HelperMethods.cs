@@ -52,15 +52,15 @@ namespace WhistleWind.Core.Helpers
             }
             return component as T;
         }
-        public static IEnumerator HealCard(CardSlot slot, float postWait = 0.1f, Action<CardSlot> onHealCallback = null)
+        public static IEnumerator HealCard(PlayableCard card, float postWait = 0.1f, Action<PlayableCard> onHealCallback = null)
         {
-            bool faceDown = slot.Card.FaceDown;
-            yield return slot.Card.FlipFaceUp(faceDown);
-            slot.Card.Anim.LightNegationEffect();
-            slot.Card.HealDamage(2);
-            onHealCallback?.Invoke(slot);
+            bool faceDown  = card.FaceDown;
+            yield return card.FlipFaceUp(faceDown);
+            card.Anim.LightNegationEffect();
+            card.HealDamage(2);
+            onHealCallback?.Invoke(card);
             yield return new WaitForSeconds(postWait);
-            yield return slot.Card.FlipFaceDown(faceDown);
+            yield return card.FlipFaceDown(faceDown);
             if (faceDown)
                 yield return new WaitForSeconds(0.4f);
         }

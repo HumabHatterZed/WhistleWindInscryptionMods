@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -18,7 +19,10 @@ namespace WhistleWind.AbnormalSigils
             Persistent.ability = AbnormalAbilityHelper.CreateAbility<Persistent>(
                 "sigilPersistent",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: true, opponent: true, canStack: false).Id;
+                modular: true, opponent: true, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Persistent : AbilityBehaviour, IOnPreSlotAttackSequence, IOnPostSlotAttackSequence

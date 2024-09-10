@@ -51,7 +51,7 @@ namespace WhistleWind.AbnormalSigils
         {
             const string rulebookName = "Grand Reopening";
             RefreshDecks.ability = AbnormalAbilityHelper.CreateAbility<RefreshDecks>(
-                "sigilRefreshDecks", rulebookName, "When this card is played, discard your current hand, then reshuffle both draw piles and draw a new opening hand.",
+                "sigilRefreshDecks", rulebookName, "When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand.",
                 null, powerLevel: 0, canStack: false).Id;
         }
     }

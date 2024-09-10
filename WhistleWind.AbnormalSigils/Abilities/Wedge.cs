@@ -1,11 +1,15 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
+using Pixelplacement.TweenSystem;
+using Pixelplacement;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
+using InscryptionAPI.Helpers.Extensions;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,39 +17,39 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Ability_Wedge()
         {
-            const string rulebookName = "Drive It In";
-            const string rulebookDescription = "When [creature] strikes an opposing creature, both it and this card gain Unyielding then this sigil is replaced with Driven In.";
-            const string dialogue = "A hard beginning blow.";
-            const string triggerText = "[creature] drives into its prey.";
+            const string rulebookName = "Shove Aside";
+            const string rulebookDescription = "Creatures struck by [creature] are pushed to an adjacent space.";
+            const string dialogue = "How rude.";
             Wedge.ability = AbnormalAbilityHelper.CreateAbility<Wedge>(
                 "sigilWedge",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: false, opponent: true, canStack: true).Id;
+                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                modular: true, opponent: true, canStack: false).Id;
         }
     }
-    public class Wedge : AbilityBehaviour, IModifyDamageTaken
+
+    public class Wedge : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToDealDamage(int amount, PlayableCard target) => amount > 0 && target.Status.damageTaken < 1;
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && !target.Dead && target.LacksAbility(Unyielding.ability) && !target.HasTrait(Trait.Giant);
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
-            target.AddTemporaryMod(new(Unyielding.ability) { singletonId = $"DriverTarget_{target.Slot.Index}" });
-            base.Card.AddTemporaryMod(new(Driver.ability)
-            {
-                negateAbilities = new() { this.Ability },
-                singletonId = $"Driver_{base.Card.Slot.Index}"
-            });
-            yield return base.LearnAbility(0.3f);
-        }
-        
-        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
-        {
-            return target.Status.damageTaken < 1 && attacker == base.Card;
-        }
+            CardSlot left = target.Slot.GetAdjacent(true);
+            CardSlot right = target.Slot.GetAdjacent(false);
+            bool leftOpen = left != null && left.Card == null;
+            bool rightOpen = right != null && right.Card == null;
 
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => damage + 1;
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
+            if (!leftOpen && !rightOpen)
+            {
+                yield break;
+            }
+
+            yield return base.PreSuccessfulTriggerSequence();
+            target.Anim.StrongNegationEffect();
+            yield return BoardManager.Instance.AssignCardToSlot(target, leftOpen ? left : right);
+            yield return new WaitForSeconds(0.3f);
+            yield return base.LearnAbility();
+        }
     }
 }

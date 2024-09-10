@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_GroupHealer()
         {
             const string rulebookName = "Group Healer";
-            const string rulebookDescription = "At the start of its owner's turn, this card will heal all allies that have taken damage by 1 Health.";
+            const string rulebookDescription = "At the start of the owner's turn, [creature] will heal all injured allies by 1 Health.";
             const string dialogue = "You only delay the inevitable.";
             const string triggerText = "[creature] heals all its friends.";
             GroupHealer.ability = AbnormalAbilityHelper.CreateAbility<GroupHealer>(

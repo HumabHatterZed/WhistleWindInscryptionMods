@@ -1,10 +1,11 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Rulebook;
+using InscryptionAPI.RuleBook;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,13 +14,16 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_BindingStrike()
         {
             const string rulebookName = "Binding Strike";
-            const string rulebookDescription = "When [creature] strikes an opposing creature, inflict Bind equal to twice this card's Power.";
-            const string dialogue = "Your beast falls behind the pack.";
+            const string rulebookDescription = "When [creature] strikes an opposing creature, inflict Bind equal to half this card's power level for this turn and next turn.";
+            const string dialogue = "The beast has been slowed, if only temporarily.";
             BindingStrike.ability = AbnormalAbilityHelper.CreateAbility<BindingStrike>(
                 "sigilBindingStrike",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: false, opponent: true, canStack: false)
-                .SetAbilityRedirect("Bind", Bind.iconId, GameColors.Instance.orange).Id;
+                .SetAbilityRedirect("Bind", Bind.iconId, GameColors.Instance.orange)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class BindingStrike : AbilityBehaviour
@@ -40,7 +44,7 @@ namespace WhistleWind.AbnormalSigils
         private IEnumerator AddBindToCard(PlayableCard card)
         {
             card.Anim.LightNegationEffect();
-            card.AddStatusEffectToFaceDown<Bind>((base.Card.PowerLevel  + 1) / 2, modifyTurnGained: (int i) => i + 1);
+            yield return card.AddStatusEffectToFaceDown<Bind>(base.Card.PowerLevel / 2, modifyTurnGained: (int i) => i + 1);
             yield return new WaitForSeconds(0.1f);
         }
     }

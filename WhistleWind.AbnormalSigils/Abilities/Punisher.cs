@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -18,7 +18,10 @@ namespace WhistleWind.AbnormalSigils
             Punisher.ability = AbnormalAbilityHelper.CreateAbility<Punisher>(
                 "sigilPunisher",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
-                modular: false, opponent: true, canStack: false).Id;
+                modular: false, opponent: true, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Punisher : AbilityBehaviour

@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -11,13 +11,16 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Reflector()
         {
             const string rulebookName = "Reflector";
-            const string rulebookDescription = "When this card is struck, the striker is dealt damage equal to the striker's Power.";
+            const string rulebookDescription = "When [creature] is struck, the striker is dealt damage equal to its own Power.";
             const string dialogue = "What goes around comes around.";
             const string triggerText = "[creature] returns the damage.";
             Reflector.ability = AbnormalAbilityHelper.CreateAbility<Reflector>(
                 "sigilReflector",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: true, opponent: true, canStack: false).Id;
+                modular: true, opponent: true, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Reflector : AbilityBehaviour

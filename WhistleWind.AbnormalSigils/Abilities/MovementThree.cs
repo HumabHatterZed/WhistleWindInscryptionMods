@@ -20,6 +20,9 @@ namespace WhistleWind.AbnormalSigils
             const string triggerText = "The orchestra gives impetus to the music, bringing the entire world to its demise.";
             MovementThree.ability = AbilityHelper.NewFiller<MovementThree>(
                 pluginGuid, "sigilMovementThree", rulebookName, rulebookDescription)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook()
                 .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false).SetPowerlevel(5).ability;
         }
     }

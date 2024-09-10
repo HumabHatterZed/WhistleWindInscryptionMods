@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.Rulebook;
+using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -86,7 +86,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.nearBlack,
                 TextureLoader.LoadTextureFromFile("sigilFervent.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilFervent_pixel.png", Assembly))
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect);
 
             Fervent.specialAbility = data.Id;
             Fervent.iconId = data.IconInfo.ability;

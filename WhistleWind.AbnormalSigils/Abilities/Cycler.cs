@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -21,7 +22,10 @@ namespace WhistleWind.AbnormalSigils
             Cycler.ability = AbnormalAbilityHelper.CreateAbility<Cycler>(
                 "sigilCycler",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
-                modular: true, opponent: true).Id;
+                modular: true, opponent: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
 

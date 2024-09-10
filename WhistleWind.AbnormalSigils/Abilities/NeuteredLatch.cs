@@ -3,6 +3,7 @@ using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.AbilityClasses;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -16,7 +17,10 @@ namespace WhistleWind.AbnormalSigils
             const string triggerText = "[creature] prevents the chosen creature from attacking.";
             NeuteredLatch.ability = AbnormalAbilityHelper.CreateActivatedAbility<NeuteredLatch>(
                 "sigilNeuteredLatch",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4).Id;
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class NeuteredLatch : ActivatedSelectSlotBehaviour

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -18,7 +18,10 @@ namespace WhistleWind.AbnormalSigils
             ReturnToNihil.ability = AbnormalAbilityHelper.CreateAbility<ReturnToNihil>(
                 "sigilReturnToNihil",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 5,
-                modular: false, special: true, opponent: false, canStack: false).Id;
+                modular: false, special: true, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class ReturnToNihil : AbilityBehaviour

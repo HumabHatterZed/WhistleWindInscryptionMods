@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Rulebook;
+using InscryptionAPI.RuleBook;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_HighStrung()
         {
             const string rulebookName = "High-Strung";
-            const string rulebookDescription = "At the end of the owner's turn, [creature] gains Haste equal to twice the opposing card's Power.";
+            const string rulebookDescription = "At the end of the owner's turn, [creature] gains Haste equal to the opposing creature's power level.";
             HighStrung.ability = AbnormalAbilityHelper.CreateAbility<HighStrung>(
                 "sigilHighStrung",
                 rulebookName, rulebookDescription, powerLevel: 2,
@@ -29,7 +29,7 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => !playerTurnEnd && base.Card.OpposingCard() != null;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            int stacks = base.Card.OpposingCard().Attack * 2;
+            int stacks = base.Card.OpposingCard().PowerLevel;
             if (stacks == 0)
                 yield break;
 

@@ -4,7 +4,7 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -19,7 +19,10 @@ namespace WhistleWind.AbnormalSigils
             Idol.ability = AbnormalAbilityHelper.CreateAbility<Idol>(
                 "sigilIdol",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 5,
-                modular: false, opponent: false, canStack: true).Id;
+                modular: false, opponent: false, canStack: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Idol : AbilityBehaviour, IPassiveAttackBuff

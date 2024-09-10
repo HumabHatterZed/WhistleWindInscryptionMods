@@ -26,9 +26,6 @@ namespace WhistleWind.AbnormalSigils.Patches
             // This will only run if damage > 0 due to API patches so no need to check that
             if (shield && __instance != null && !__instance.Dead && attacker != null && attacker.HasAbility(Piercing.ability))
             {
-                if (damage <= 0)
-                    yield break;
-
                 yield return PiercingDamagesThroughShields(__instance, damage, attacker);
             }
         }
@@ -83,7 +80,7 @@ namespace WhistleWind.AbnormalSigils.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(ExplodeOnDeath), nameof(ExplodeOnDeath.BombCard))]
         private static IEnumerator Act1Detonator(IEnumerator result, PlayableCard target, PlayableCard attacker)
         {
-            if (!SaveManager.SaveFile.IsPart1)
+            if (SaveManager.SaveFile.IsPart1)
             {
                 yield return new WaitForSeconds(0.25f);
                 yield return target.TakeDamage(10, attacker);

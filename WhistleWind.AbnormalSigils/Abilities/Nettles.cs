@@ -22,7 +22,10 @@ namespace WhistleWind.AbnormalSigils
             Nettles.ability = AbnormalAbilityHelper.CreateAbility<Nettles>(
                 "sigilNettles",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Nettles : AbilityBehaviour

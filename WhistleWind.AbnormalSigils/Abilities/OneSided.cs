@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -12,12 +12,15 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_OneSided()
         {
             const string rulebookName = "Opportunistic";
-            const string rulebookDescription = "[creature] deals 1 additional damage to opposing cards that cannot attack this card during their own turn.";
+            const string rulebookDescription = "[creature] deals 1 additional damage when striking creatures that cannot attack it.";
             const string dialogue = "A cheap hit.";
             OneSided.ability = AbnormalAbilityHelper.CreateAbility<OneSided>(
                 "sigilOneSided",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
                 modular: true, opponent: true, canStack: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook()
                 .Info.SetFlipYIfOpponent().ability;
         }
     }

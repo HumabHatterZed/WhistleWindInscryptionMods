@@ -4,7 +4,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,13 +13,16 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Gardener()
         {
             const string rulebookName = "Gardener";
-            const string rulebookDescription = "When an allied card is killed, create a Sapling in their place. [define:wstl_parasiteTreeSapling]";
+            const string rulebookDescription = "While [creature] is on the board, create a Sapling whenever an ally card perishes. [define:wstl_parasiteTreeSapling]";
             const string dialogue = "They proliferate and become whole. Can you feel it?";
             const string triggerText = "A sapling grows out of the dead card's corpse.";
             Gardener.ability = AbnormalAbilityHelper.CreateAbility<Gardener>(
                 "sigilGardener",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 4,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Gardener : AbilityBehaviour

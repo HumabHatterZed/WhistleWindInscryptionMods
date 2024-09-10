@@ -102,9 +102,26 @@ namespace WhistleWind.Core.Helpers
             info.rulebookName = name;
             info.rulebookDescription = desc;
             info.SetAbilityLearnedDialogue(dialogue);
+            Debug.Log($"Dialogue: {info.abilityLearnedDialogue != null}");
             info.triggerText = triggerText;
             info.powerLevel = powerLevel;
             return info;
+        }
+
+        public static AbilityManager.FullAbility SetPart3Rulebook(this AbilityManager.FullAbility full)
+        {
+            full.Info.AddMetaCategories(AbilityMetaCategory.Part3Rulebook);
+            return full;
+        }
+        public static AbilityManager.FullAbility SetGrimoraRulebook(this AbilityManager.FullAbility full)
+        {
+            full.Info.AddMetaCategories(AbilityMetaCategory.GrimoraRulebook);
+            return full;
+        }
+        public static AbilityManager.FullAbility SetMagnificusRulebook(this AbilityManager.FullAbility full)
+        {
+            full.Info.AddMetaCategories(AbilityMetaCategory.MagnificusRulebook);
+            return full;
         }
     }
 }

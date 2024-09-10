@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Rulebook;
+using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using UnityEngine;
@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_MindStrike()
         {
             const string rulebookName = "Mind Strike";
-            const string rulebookDescription = "When [creature] strikes another creature, deal no damage and inflict Sinking equal to half this card's Health, rounded up.";
+            const string rulebookDescription = "When [creature] strikes another creature, deal no damage and instead inflict Sinking equal to half this card's Health, rounded up.";
             const string dialogue = "Why destroy the flesh when you can destroy the mind?";
             const string triggerText = "[creature] deals emotional damage!";
             MindStrike.ability = AbnormalAbilityHelper.CreateAbility<MindStrike>(

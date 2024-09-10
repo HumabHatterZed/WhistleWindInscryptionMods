@@ -18,7 +18,10 @@ namespace WhistleWind.AbnormalSigils
             FrozenHeart.ability = AbnormalAbilityHelper.CreateAbility<FrozenHeart>(
                 "sigilFrozenHeart",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: -1,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class FrozenHeart : AbilityBehaviour

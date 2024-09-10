@@ -2,6 +2,7 @@
 using EasyFeedback.APIs;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
 using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +24,10 @@ namespace WhistleWind.AbnormalSigils
             Unyielding.ability = AbnormalAbilityHelper.CreateAbility<Unyielding>(
                 "sigilUnyielding",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 1,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     [HarmonyPatch]

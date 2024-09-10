@@ -1,10 +1,12 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.Patches;
 using WhistleWind.AbnormalSigils.StatusEffects;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -13,12 +15,15 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_NimbleFoot()
         {
             const string rulebookName = "Nimble-Footed";
-            string rulebookDescription = "At the start of the owner's turn, this <color=#00a602>card</color> <color=#008b02>gains</color> <color=\"green\">2</color> Haste.";
-            rulebookDescription = "At the start of the owner's turn, this card gains 1 Haste. Whenever this card moves to a new space, gain 1 additional Haste.";
+            const string rulebookDescription = "At the start of the owner's turn, [creature] gains Haste equal to 1 plus the number of times it has moved on the board.";
             NimbleFoot.ability = AbnormalAbilityHelper.CreateAbility<NimbleFoot>(
                 "sigilNimbleFoot",
                 rulebookName, rulebookDescription, powerLevel: 1,
-                modular: true, opponent: true, canStack: false).Id;//.SetTextRedirect("Haste", Haste.iconId).Id;
+                modular: true, opponent: true, canStack: false)
+                .SetAbilityRedirect("Haste", Haste.iconId, GameColors.Instance.orange)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class NimbleFoot : AbilityBehaviour

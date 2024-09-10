@@ -3,7 +3,7 @@ using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -18,7 +18,10 @@ namespace WhistleWind.AbnormalSigils
             Bloodletter.ability = AbnormalAbilityHelper.CreateAbility<Bloodletter>(
                 "sigilBloodletter",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
-                modular: false, opponent: true, canStack: true).Id;
+                modular: false, opponent: true, canStack: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Bloodletter : AbilityBehaviour

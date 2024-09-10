@@ -4,6 +4,6 @@
 	"website_url": "https://github.com/HumabHatterZed/WhistleWindInscryptionMods",
 	"description": "A collection of sigils based on the abnormalities from Lobotomy Corporation and associated media. Includes custom Tribes, Traits and more!",
 	"dependencies": [
-		"API_dev-API-2.20.0"
+		"API_dev-API-2.22.0"
 	]
 }

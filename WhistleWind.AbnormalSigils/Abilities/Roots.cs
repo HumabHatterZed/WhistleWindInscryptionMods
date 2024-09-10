@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -9,13 +9,16 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Roots()
         {
             const string rulebookName = "Roots";
-            const string rulebookDescription = "When this card is played, create Thorny Vines on adjacent empty spaces. [define:wstl_snowWhitesVine]";
+            const string rulebookDescription = "When [creature] is played, create Thorny Vines on adjacent empty spaces. [define:wstl_snowWhitesVine]";
             const string dialogue = "Resentment bursts forth like a weed.";
             const string triggerText = "Sharp thorns shoot out around [creature]!";
             Roots.ability = AbnormalAbilityHelper.CreateAbility<Roots>(
                 "sigilRoots",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
-                modular: true, opponent: true, canStack: false).Id;
+                modular: true, opponent: true, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Roots : CreateCardsAdjacent
