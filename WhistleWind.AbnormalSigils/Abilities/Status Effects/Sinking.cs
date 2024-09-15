@@ -35,9 +35,9 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Sinking()
         {
             const string rName = "Sinking";
-            const string rDesc = "A card bearing this effect loses Power equal to its Sinking. When this card is struck, lose Health equal to its Sinking then remove this effect.";
+            const string rDesc = "A card bearing this effect loses Power equal to its Sinking. When this card is struck, take damage equal to its Sinking then remove this effect.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Sinking>(
-                pluginGuid, rName, rDesc, 2, GameColors.Instance.glowSeafoam,
+                pluginGuid, rName, rDesc, -2, GameColors.Instance.glowSeafoam,
                 TextureLoader.LoadTextureFromFile("sigilSinking.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilSinking_pixel.png", Assembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.MagnificusStatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.Part3StatusEffect);

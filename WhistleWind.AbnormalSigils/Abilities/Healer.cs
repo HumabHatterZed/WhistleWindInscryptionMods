@@ -17,13 +17,16 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Healer()
         {
             const string rulebookName = "Healer";
-            const string rulebookDescription = "At the end of your turn, you may choose one of your other cards to gain 2 Health and lose a random negative status effect.";
+            const string rulebookDescription = "At the end of the owner's turn, they may choose one of their other cards to gain 1 Health and lose a random negative status effect.";
             const string dialogue = "Never underestimate the importance of a healer.";
             const string triggerText = "[creature] heals the chosen creature!";
             Healer.ability = AbnormalAbilityHelper.CreateAbility<Healer>(
                 "sigilHealer",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Healer : SniperSelectSlot
@@ -42,7 +45,7 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) => base.SelectionSequence();
 
-        public override IEnumerator OnValidTargetSelected(CardSlot slot) => HelperMethods.HealCard(slot.Card, onHealCallback: delegate (PlayableCard c)
+        public override IEnumerator OnValidTargetSelected(CardSlot slot) => HelperMethods.HealCard(1, slot.Card, onHealCallback: delegate (PlayableCard c)
         {
             List<StatusEffectBehaviour> statuses = c.GetStatusEffects(false);
             if (statuses.Count > 0)
@@ -90,7 +93,7 @@ namespace WhistleWind.AbnormalSigils
             instance.VisualizeConfirmSniperAbility(randSlot);
             visualiser?.VisualizeConfirmSniperAbility(randSlot);
             yield return new WaitForSeconds(0.25f);
-            yield return HelperMethods.HealCard(randSlot.Card);
+            yield return HelperMethods.HealCard(1, randSlot.Card);
             instance.VisualizeClearSniperAbility();
             visualiser?.VisualizeClearSniperAbility();
 

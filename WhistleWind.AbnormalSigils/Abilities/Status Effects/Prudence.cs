@@ -39,7 +39,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.lightPurple,
                 TextureLoader.LoadTextureFromFile("sigilPrudence.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilPrudence_pixel.png", Assembly))
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect);
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.MagnificusStatusEffect);
 
             Prudence.specialAbility = data.Id;
             Prudence.iconId = data.IconInfo.ability;

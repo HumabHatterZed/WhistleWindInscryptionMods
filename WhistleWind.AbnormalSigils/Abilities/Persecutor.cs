@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Persecutor()
         {
             const string rulebookName = "Persecutor";
-            const string rulebookDescription = "When a card bearing this sigil is played, create a Nail in the adjacent left space and a Hammer in the adjacent right space if they are empty.";
+            const string rulebookDescription = "When [creature] is played, create a Nail in the adjacent left space and a Hammer in the adjacent right space if they are empty.";
             const string dialogue = "Are you guilty of having a closed heart?";
             const string triggerText = "[creature] reveals its hidden tools!";
             Persecutor.ability = AbnormalAbilityHelper.CreateAbility<Persecutor>(

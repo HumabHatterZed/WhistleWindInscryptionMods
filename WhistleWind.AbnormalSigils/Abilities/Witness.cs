@@ -5,6 +5,7 @@ using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.AbilityClasses;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -19,7 +20,10 @@ namespace WhistleWind.AbnormalSigils
             Witness.ability = AbnormalAbilityHelper.CreateActivatedAbility<Witness>(
                 "sigilWitness",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2)
-                .SetAbilityRedirect("Flagellation", Prudence.iconId, GameColors.Instance.red).Id;
+                .SetAbilityRedirect("Flagellation", Prudence.iconId, GameColors.Instance.red)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Witness : ActivatedSelectSlotBehaviour

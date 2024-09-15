@@ -16,28 +16,32 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Abusive()
         {
             const string rulebookName = "Abusive";
-            const string rulebookDescription = "At the end of the owner's turn, [creature] will strike adjacent creatures that failed to strike another card during combat.";
+            const string rulebookDescription = "At the end of the owner's turn, [creature] will strike adjacent creatures that failed to deal any damage during combat.";
             const string dialogue = "This beast will not tolerate 'laziness'.";
             const string triggerText = "[creature] 'motivates' lazy beasts.";
             Abusive.ability = AbnormalAbilityHelper.CreateAbility<Abusive>(
                 "sigilAbusive",
                 rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: -3,
-                modular: false, opponent: false, canStack: false).Id;
+                modular: false, opponent: false, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Abusive : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override int Priority => -10; // trigger after TailOnHit
 
         private readonly List<PlayableCard> CardsAttackedThisTurn = new();
 
-        public override bool RespondsToCardGettingAttacked(PlayableCard source) => base.Card.Slot.GetAdjacentCards().Contains(source);
-        public override IEnumerator OnCardGettingAttacked(PlayableCard card)
+        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+            => attacker.OpponentCard == slot.IsPlayerSlot && base.Card.Slot.GetAdjacentCards().Contains(attacker);
+
+        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
-            CardsAttackedThisTurn.Add(card);
-            return base.OnCardGettingAttacked(card);
+            CardsAttackedThisTurn.Add(attacker);
+            return base.OnCardGettingAttacked(attacker);
         }
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;

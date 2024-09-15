@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace WhistleWind.AbnormalSigils.Core
         {
             List<RuleBookPageInfo> retval = new();
             List<StatusEffectManager.FullStatusEffect> statuses = StatusEffectManager.AllStatusEffects.Where(
-                x => x.IconInfo.metaCategories.Contains(metaCategory)
+                x => x.IconInfo.HasMetaCategory(metaCategory)
                 ).ToList();
 
             foreach (StatusEffectManager.FullStatusEffect statusEffect in statuses)
@@ -66,7 +67,7 @@ namespace WhistleWind.AbnormalSigils.Core
         [HarmonyPrefix, HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]
         private static bool StatusShouldBeAddedRegularly(int abilityIndex, AbilityMetaCategory rulebookCategory, ref bool __result)
         {
-            if (StatusEffectManager.AllStatusEffects.EffectByIcon((Ability)abilityIndex)?.SigilRulebookEntry == false)
+            if (StatusEffectManager.AllStatusEffects.EffectByIcon((Ability)abilityIndex) != null)
             {
                 return __result = false;
             }

@@ -29,7 +29,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginGuid, rName, rDesc, 1, GameColors.Instance.orange,
                 TextureLoader.LoadTextureFromFile("sigilHaste.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilHaste_pixel.png", Assembly))
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect);
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.MagnificusStatusEffect);
 
             Haste.specialAbility = data.Id;
             Haste.iconId = data.IconInfo.ability;

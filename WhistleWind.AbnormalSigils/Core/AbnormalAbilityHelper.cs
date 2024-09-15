@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
     {
         public static bool IsConductor(this PlayableCard card)
         {
-            return card.HasAnyOfAbilities(Conductor.ability, MovementOne.ability, MovementTwo.ability, MovementThree.ability, MovementFour.ability, MovementFive.ability);
+            return card.HasTrait(Orchestral) || card.HasAnyOfAbilities(Conductor.ability, MovementOne.ability, MovementTwo.ability, MovementThree.ability, MovementFour.ability, MovementFive.ability);
         }
         /// <summary>
         /// If true, Opportunistic's effect can trigger against the target card.

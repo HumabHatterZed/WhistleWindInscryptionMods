@@ -32,7 +32,6 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             public Texture Icon;
             public AbilityInfo IconInfo;
 
-            public bool SigilRulebookEntry;
             public List<StatusMetaCategory> statusMetaCategories = new();
 
             public FullStatusEffect(string modGuid, string rulebookName, Type type, SpecialTriggeredAbility id, Texture icon, AbilityInfo iconInfo)
@@ -113,11 +112,6 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         {
             effect.IconInfo.AddMetaCategories(categories.Convert(x => (AbilityMetaCategory)x).ToArray());
             return effect;
-        }
-        public static FullStatusEffect SetSigilEntry(this FullStatusEffect statusEffect, bool setSigilEntry = true)
-        {
-            statusEffect.SigilRulebookEntry = setSigilEntry;
-            return statusEffect;
         }
 
         public static AbilityInfo SetStatusEffect(this AbilityInfo info, Color colourOverride)
@@ -270,6 +264,14 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             return retainStacks ? abilities : abilities.Distinct().ToList();
         }
 
+        public static IEnumerator RemoveStatusEffect<T>(this PlayableCard card) where T : StatusEffectBehaviour
+        {
+            StatusEffectBehaviour status = card.GetStatusEffect<T>();
+            if (status != null)
+            {
+                yield return status.RemoveFromCard(true);
+            }
+        }
         public static IEnumerator RemoveStatusEffect(this PlayableCard card, SpecialTriggeredAbility id)
         {
             StatusEffectBehaviour status = card.GetStatusEffect(id);

@@ -56,7 +56,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.nearWhite,
                 TextureLoader.LoadTextureFromFile("sigilGrief.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilGrief_pixel.png", Assembly))
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect);
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.MagnificusStatusEffect);
 
             Grief.specialAbility = data.Id;
             Grief.iconId = data.IconInfo.ability;

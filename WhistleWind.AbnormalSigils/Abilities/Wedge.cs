@@ -23,7 +23,10 @@ namespace WhistleWind.AbnormalSigils
             Wedge.ability = AbnormalAbilityHelper.CreateAbility<Wedge>(
                 "sigilWedge",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: true, opponent: true, canStack: false).Id;
+                modular: true, opponent: true, canStack: false)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
 

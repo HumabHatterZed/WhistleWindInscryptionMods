@@ -86,7 +86,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.nearBlack,
                 TextureLoader.LoadTextureFromFile("sigilFervent.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilFervent_pixel.png", Assembly))
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect);
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.MagnificusStatusEffect);
 
             Fervent.specialAbility = data.Id;
             Fervent.iconId = data.IconInfo.ability;

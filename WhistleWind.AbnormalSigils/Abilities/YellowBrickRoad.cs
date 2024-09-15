@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -19,7 +20,10 @@ namespace WhistleWind.AbnormalSigils
             const string dialogue = "Let's go, together.";
             const string triggerText = "[creature] leads your creatures forward.";
             YellowBrickRoad.ability = AbnormalAbilityHelper.CreateAbility<YellowBrickRoad>(
-                "sigilYellowBrickRoad", rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2, special: true).Id;
+                "sigilYellowBrickRoad", rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2, special: true)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
 

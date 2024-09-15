@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.AbnormalSigils.StatusEffects;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -18,7 +19,10 @@ namespace WhistleWind.AbnormalSigils
                 "sigilHighStrung",
                 rulebookName, rulebookDescription, powerLevel: 2,
                 modular: true, opponent: true, canStack: false)
-                .SetAbilityRedirect("Haste", Haste.iconId, GameColors.Instance.orange).Id;
+                .SetAbilityRedirect("Haste", Haste.iconId, GameColors.Instance.orange)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class HighStrung : AbilityBehaviour

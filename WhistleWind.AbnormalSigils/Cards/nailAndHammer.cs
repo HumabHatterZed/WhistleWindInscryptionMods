@@ -18,7 +18,7 @@ namespace WhistleWind.AbnormalSigils
 
             CardManager.New(pluginPrefix, hammer, "Hammer", 1, 2)
                 .SetPortraits(Assembly, hammer)
-                .AddAbilities(Ability.MadeOfStone, LeftStrike.ability);
+                .AddAbilities(Driver.ability, LeftStrike.ability);
         }
     }
 }

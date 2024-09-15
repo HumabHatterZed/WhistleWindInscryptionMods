@@ -52,12 +52,12 @@ namespace WhistleWind.Core.Helpers
             }
             return component as T;
         }
-        public static IEnumerator HealCard(PlayableCard card, float postWait = 0.1f, Action<PlayableCard> onHealCallback = null)
+        public static IEnumerator HealCard(int amount, PlayableCard card, float postWait = 0.1f, Action<PlayableCard> onHealCallback = null)
         {
             bool faceDown  = card.FaceDown;
             yield return card.FlipFaceUp(faceDown);
             card.Anim.LightNegationEffect();
-            card.HealDamage(2);
+            card.HealDamage(amount);
             onHealCallback?.Invoke(card);
             yield return new WaitForSeconds(postWait);
             yield return card.FlipFaceDown(faceDown);
@@ -115,12 +115,12 @@ namespace WhistleWind.Core.Helpers
             }
             return cardByName;
         }
-        public static IEnumerator ChangeCurrentView(View view, float startDelay = 0.2f, float endDelay = 0.2f)
+        public static IEnumerator ChangeCurrentView(View view, float startDelay = 0.2f, float endDelay = 0.2f, bool lockAfter = false)
         {
             if (Singleton<ViewManager>.Instance.CurrentView != view)
             {
                 yield return new WaitForSeconds(startDelay);
-                Singleton<ViewManager>.Instance.SwitchToView(view);
+                Singleton<ViewManager>.Instance.SwitchToView(view, lockAfter: lockAfter);
                 yield return new WaitForSeconds(endDelay);
             }
         }

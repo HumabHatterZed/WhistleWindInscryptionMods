@@ -12,7 +12,10 @@ namespace WhistleWind.Core.Helpers
         private const string _EMISSION = "_emission.png";
         public const string _PIXEL = "_pixel.png";
         public const string _PNG = ".png";
-
+        
+        /// <remarks>
+        /// portraitName must not end with a file extension.
+        /// </remarks>
         public static CardInfo SetPortraits(this CardInfo info, Assembly targetAssembly, string portraitName, string emissionName = null, string pixelPortraitName = null)
         {
             emissionName ??= portraitName + _EMISSION;
@@ -49,18 +52,23 @@ namespace WhistleWind.Core.Helpers
 
             return info;
         }
-
-        public static CardInfo SetChoiceType(this CardInfo cardInfo, ChoiceType cardChoice, bool nonChoice = false)
+        public static CardInfo SetTitle(this CardInfo info, Assembly asm, string fileName)
         {
-            if (cardChoice == ChoiceType.Common && !nonChoice)
+            info.titleGraphic = TextureLoader.LoadTextureFromFile(fileName, asm);
+            return info;
+        }
+        public static CardInfo SetCardType(this CardInfo cardInfo, CardType cardChoice, bool availableAsCardChoice = true)
+        {
+            if (cardChoice == CardType.Common && availableAsCardChoice)
             {
                 cardInfo.SetDefaultPart1Card();
             }
-            else if (cardChoice == ChoiceType.Rare)
+            else if (cardChoice == CardType.Rare)
             {
                 cardInfo.SetRare().RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
                 
-                if (nonChoice) cardInfo.RemoveCardMetaCategories(CardMetaCategory.Rare);
+                if (!availableAsCardChoice)
+                    cardInfo.RemoveCardMetaCategories(CardMetaCategory.Rare);
             }
 
             return cardInfo;
@@ -90,7 +98,7 @@ namespace WhistleWind.Core.Helpers
             return CardAppearanceBehaviourManager.Add(pluginGuid, name, typeof(T));
         }
 
-        public enum ChoiceType
+        public enum CardType
         {
             None,
             Common,

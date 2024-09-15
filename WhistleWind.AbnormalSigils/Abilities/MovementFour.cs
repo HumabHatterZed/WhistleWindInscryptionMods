@@ -21,6 +21,9 @@ namespace WhistleWind.AbnormalSigils
             const string triggerText = "The music shall perforate your entire being.";
             MovementFour.ability = AbilityHelper.NewFiller<MovementFour>(
                 pluginGuid, "sigilMovementFour", rulebookName, rulebookDescription)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook()
                 .Info.SetAbilityLearnedDialogue(triggerText).SetGBCTriggerText(triggerText).SetPassive(false).SetPowerlevel(5)
                 .SetAbilityRedirect("Fervent Adoration", Fervent.iconId, GameColors.Instance.darkRed).ability;
         }

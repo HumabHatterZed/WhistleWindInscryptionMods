@@ -42,7 +42,7 @@ namespace WhistleWind.AbnormalSigils
             {
                 if (card.Health < card.MaxHealth)
                 {
-                    yield return HelperMethods.HealCard(card);
+                    yield return HelperMethods.HealCard(1, card);
                 }
             }
 

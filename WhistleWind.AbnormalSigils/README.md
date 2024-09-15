@@ -31,6 +31,8 @@ Testing and Feedback:
 - Orochi Umbra
 
 ## ✨ Abilities
+<details>
+<summary>View Abilities</summary>
 \*Modular means that the sigil can be found on Totem bases.
 
 |Name|Totem|Stacks|Power|Description
@@ -42,10 +44,10 @@ Aggravating			|X|✓|-3	|While this card is on the board, all opposing creatures
 Team Leader			|X|✓|5	|While this card is on the board, all allied creatures gain 1 Power.
 Idol				|X|✓|5	|While this card is on the board, all opposing creatures lose 1 Power.
 Conductor			|X|X|3	|When a card bearing this sigil is played, begin Movement 1: Adagio.
-First Movement: Adagio|X|X|3  |Creatures adjacent to a card bearing this sigil gain 1 Power. At the start of the owner's next turn, begin the Second Movement: Sostenuto.
-Second Movement: Sostenuto|X|X|5  |Allied creatures gain 1 Power. At the start of the owner's next turn, begin the Third Movement: Accelerando.
-Third Movement: Accelerando|X|X|5  |All other creatures on the board gain 1 Power. At the start of the owner's next turn, begin the Fourth Movement: Stringendo.
-Fourth Movement: Stringendo|X|X|5  |All other creatures on the board gain 2 Power and Fervent Adoration. At the start of the owner's next turn, begin the Finale.
+First Movement: Adagio		|X|X|3  |Creatures adjacent to a card bearing this sigil gain 1 Power. At the start of the owner's next turn, begin the Second Movement: Sostenuto.
+Second Movement: Sostenuto	|X|X|5  |Allied creatures gain 1 Power. At the start of the owner's next turn, begin the Third Movement: Accelerando.
+Third Movement: Accelerando	|X|X|5  |All other creatures on the board gain 1 Power. At the start of the owner's next turn, begin the Fourth Movement: Stringendo.
+Fourth Movement: Stringendo	|X|X|5  |All other creatures on the board gain 2 Power and Fervent Adoration. At the start of the owner's next turn, begin the Finale.
 Finale			    |X|X|5  |All other creatures on the board gain 3 Power and Fervent Adoration. At the start of the owner's next turn, this card will perish.
 Woodcutter			|X|X|4	|When a creature moves into the space opposite this card, they take damage equal to this card's Power.
 Frozen Heart		|X|X|-1	|When a card bearing this sigil dies, the killer gains 2 Health.
@@ -53,12 +55,12 @@ Ruler of Frost		|X|X|4	|Once per turn, pay 2 Bones to choose a space on the boar
 Roots				|✓|X|3	|When a card bearing this sigil is played, create Thorny Vines on adjacent empty spaces. A Thorny Vines is defined as: 0 Power, 1 Health, Sharp Quills.
 Broodmother			|X|X|3	|When a card bearing this sigil is struck, create a Spiderling in your hand. A spiderling is defined as: 0 Power, 1 Health, Fledgling.
 Cursed				|✓|X|0	|When a card bearing this sigil dies, the killer transforms into a copy of this card.
-Healer				|X|X|2	|At the end of your turn, you may choose one of your other cards to gain 2 Health and lose a random negative status effect.
+Healer				|X|X|2	|At the end of the owner's turn, they may choose one of their other cards to gain 1 Health and lose a random negative status effect.
 Queen Nest			|X|X|4	|While a card bearing this sigil is on the board, create a Worker Bee in your hand whenever another card perishes. A Worker Bee is defined as: 1 Power, 1 Health.
 Vendetta			|✓|X|2	|A card bearing this sigil gains 1 Power for every opposing creature that also bears this sigil.
 Courageous			|X|X|3	|Creatures adjacent to this card lose up to 2 Health. For each point of Heath lost, the affected creature gains 1 Power. This effect cannot kill cards.
 Serpent's Nest		|✓|X|2	|When a card bearing this sigil is struck, the striker gains 1 Worms.
-Assimilator			|X|✓|5	|When this card kills an opposing card, it gains 1 Power and 1 Health.
+Assimilator			|X|✓|4	|When a card bearing this sigil attacks an opposing creature and it perishes, this card gains 1 Power and 1 Health.
 Group Healer		|X|X|4	|At the start of the owner's turn, a card bearing this sigil will heal all injured allies by 1 Health.
 Reflector			|✓|X|2	|When a card bearing this sigil is struck, the striker is dealt damage equal to its own Power.
 Flag Bearer			|X|✓|3	|While this card is on the board, adjacent creatures gain 2 Health.
@@ -85,7 +87,7 @@ Follow the Leader	|X|X|2	|At the end of the owner's turn, this card moves in the
 Neutered			|X|X|-2	|A card bearing this sigil has its Power reduced to 0. At the start of the owner's next turn, remove this sigil.
 Neutered Latch		|X|X|4	|Once per turn, pay 2 Bones to choose a creature to gain the Neutered sigil, then increase this sigil's activation cost by 2 Bones.
 Rightful Heir		|X|X|3	|Once per turn, pay 3 Bones to transform a chosen creature into a Pumpkin, then increase this sigil's activation cost by 1 Bone until battle's end. A Pumpkin is defined as: 0 Power, 2 Health, Fledgling.
-Greedy Healing		|✓|X|3	|At the end of the owner's turn, this card gains 2 Health. If 2 turns pass without this card taking damage, it will die.
+Greedy Healing		|✓|X|2	|At the end of the owner's turn, this card gains 2 Health. If 2 turns pass without this card taking damage, it will die.
 Cycler				|✓|X|1	|At the end of the owner's turn, this card moves in the sigil's direction, looping around the owner's side of the board.
 Barreler			|✓|X|1	|At the end of the owner's turn, this card moves in the sigil's direction through other cards to the furthest empty space.
 Bloodletter			|X|✓|3	|When a card bearing this sigil is struck by a non-lethal attack, absorb 1 Health from the striker.
@@ -96,31 +98,41 @@ High-Strung			|X|X|2	|At the end of the owner's turn, a card bearing this sigil 
 Binding Strike		|X|X|2	|When a card bearing this sigil strikes an opposing creature, inflict Bind equal to half this card's power level for this turn and next turn.
 Persecutor			|X|X|4	|When a card bearing this sigil is played, create a Nail in the adjacent left space and a Hammer in the adjacent right space if they are empty.
 Pebble Giver		|X|X|2	|Choose one of your cards to gain Pebble unless a card with Pebble already exists, then return this card to your hand.
+False Throne		|X|X|4	|Once per turn, pay 1 Health to give Neutered to a chosen creature and create a costless, unaltered copy of it in your hand.
+Return to Nihil		|X|X|5	|At the end of the owner's turn, all other cards on the board take damage equal to this card's Power.
+Creature Retrieval	|X|X|0	|Return the selected card to your hand with its current status retained and its play cost changed to 0-2 Bones based on how recently it was played.
+Grand Reopening		|X|X|0	|When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand.
 Damsel				|X|X|3  |Creatures adjacent to a card bearing this sigil will redirect their attacks to any creatures targeting this card.
-Abusive				|X|X|-3 |At the end of the owner's turn, a card bearing this sigil will strike adjacent creatures that failed to strike another card during combat.
+Abusive				|X|X|-3 |At the end of the owner's turn, a card bearing this sigil will strike adjacent creatures that failed to deal any damage during combat.
 Shove Aside			|✓|X|2	|Creatures struck by a card bearing this sigil are pushed to an adjacent space.
 Pin Down			|✓|X|1	|Creatures struck by a card bearing this sigil gain Unyielding.
 Mind Strike			|X|X|2	|When a card bearing this sigil strikes another creature, deal no damage and instead inflict Sinking equal to half this card's Health, rounded up.
 Spilling			|X|X|0	|When a card bearing this sigil perishes, Flood all spaces on the board based on their distance from this card and extinguish Scorching cards.
-False Throne		|X|X|4	|Once per turn, pay 1 Health to give Neutered to a chosen creature and create a costless, unaltered copy of it in your hand.
-Return to Nihil		|X|X|5	|At the end of the owner's turn, deal damage to all other cards on the board equal to this card's Power.
-Creature Retrieval	|X|X|0	|Return the selected card to your hand with its current status retained and its play cost changed to 0-2 Bones based on how recently it was played.
-Grand Reopening		|X|X|0	|When this card is played, discard your current hand and reshuffle both draw piles, then draw a new opening hand.
+Flower Queen		|X|X|3	|At the end of the owner's turn, a card bearing this sigil Blooms the opposing space.
+Healing Strike		|X|X|-2	|Creatures struck by a card bearing this sigil take no damage and instead regain Health equal to the damage dealt.
+Finger Tapping		|X|X|4	|When a card bearing this sigil is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike, Sniper
+</details>
 
-## Stat Icons
+### ⁉️ Stat Icons
+<details>
+<summary>View Stat Icons</summary>
 |Name			|ATK	|HP	|Description
 :-|:-:|:-:|:-
 Passing Time	|✓|X|The value represented with this sigil will be equal to the number of turns that have passed since this card was placed on the board.
-Sigil Power	|✓|✓|The value represented with this sigil will be equal to the power level of this card's strongest sigil.
+Sigil Power		|✓|✓|The value represented with this sigil will be equal to the power level of this card's strongest sigil.
 Slimes			|✓|X|The value represented by this sigil will be equal to the number of Slimes that the owner has on their side of the table.
 Nihil			|✓|X|The value represented by this sigil will be equal to the number of empty spaces on the board.
+Flower Power	|✓|X|The value represented with this sigil will be equal to number of Flower cards and Blooming spaces on the board.
+</details>
 
-### Status Effects
+### 🌀 Status Effects
 Status effects are a unique kind of special ability that is displayed on the card.
 Status effects are intended to be inflicted onto cards, behaving like temporary abilities.
 
 This library adds several of these on its own, but you can create your own using the StatusEffectManager.
 
+<details>
+<summary>View Status Effects</summary>
 |Name|Power|Description
 |:-|-:|:-
 Fervent Adoration|-2|If there is an ongoing Movement, this card will strike at a random space, prioritising cards with this effect and ignoring cards performing a Movement. Otherwise, lose this effect.
@@ -131,11 +143,24 @@ Haste|1|This card's Speed is raised by this effect's Potency. At the start of th
 Bind|-1|This card's Speed is reduced by this effect's Potency. At the start of the owner's next turn, remove this effect.
 Pebble|2|At the start and end of the owner's turn, this card regains 1 Health. When this card perishes, inflict Grief on all allied creatures.
 Grief|-1|This card loses Power equal to its Grief. At the start of the owner's turn, if there is no allied card with Pebble, gain 1 Grief. Otherwise, remove this effect.
-Sinking|
-## Tribes, Traits, and Others
-Tribes: Anthropoid, Botanic, Divine, Fae, Mechanial
+Sinking|-2|A card bearing this effect loses Power equal to its Sinking. When this card is struck, take damage equal to its Sinking then remove this effect.
+</details>
 
-### Traits
+## 🎴 Slot Modifications
+Name|Description
+:-|:-
+Flooded|At the end of the opponent's turn, deal 1 damage to cards occupying this space, then reduce this effect's Severity by 1. Cards that are airborne or face down are unaffected.
+Blooming|At the end of the owner's turn, cards occupying this space are transformed into Flowers if they are close to death. A Flower is defined as: 1 Power, 1 Health, Healing Strike.
+
+## 📚 Other
+### 🐺 Tribes
+- Anthropoid
+- Botanic
+- Divine
+- Fae
+- Mechanical
+
+### 📕 Traits
 Note that the description is only how they're used in this mod; you can use them for other things if you wanted.
 - Boneless - This card will not drop bones when killed
 - SwanBrother - This card will give its first sigil to cards bearing Nettle Clothes
@@ -144,13 +169,13 @@ Note that the description is only how they're used in this mod; you can use them
 - LovingSlime - This card is immune to the Made of Slime ability
 - ImmunetoInstaDeath - This card is immune to insta-kill abilities Touch of Death and Punisher
 
-### CardMetaCategories
+### 📘 CardMetaCategories
 - CannotGiveSigils - This card cannot be sacrificed for card merging
 - CannotGainSigils - This card cannot be a host for card merging
 - CannotBoostStats - This card cannot be used at the campfire
 - CannotCopyCard - This card cannot be painted by Goobert
 
-### CardAppearanceBehaviours
+### 📙 CardAppearanceBehaviours
 - AlternateBattlePortrait - This card will switch to its alternate portrait during card battles (works in Act 2 if an alternate pixel portrait exists)
 - ForcedEmission - This card's emission is always on
 - ForcedWhiteEmission - This card's emission is always on and lit using white light
@@ -173,17 +198,19 @@ This overrides any settings in Make Modular.
 Forces abilities to be modular based on type group, meaning they can be found on totem bases.
 
 ## 🕓 Closing Notes
-You ever create a nice, functional system and you think to yourself "Wow this is such a nice, functional system! It's so intuitive to use too!"
-And then like a month later, you decide "I can make this better. All I need to do is completely recreate the whole dang thing!"
-Anyways, I decided to spin off the sigils from my Lobotomy Mod into their own mod, on the off chance someone wants to just use my very niche sigils (and maybe the other stuff included).
+Pretty major changes this time around. Status effects are now much stabler than before - they even work in other Acts!
+The biggest boon was the addition of rulebook redirects in the API; the biggest flaw with status effects in my opinion was the inability to see what they did until they were actually applied to a card.
+I'd actually been working on this sort of redirect system for a while now, but couldn't figure it out until recently when I decided to move all my work over to the API.
+I hope you find the redirects as cool as I do!
 
-Ended up reworking quite a few of my sigils, overall I think I made them more interesting to use and hopefully gave them more general utility.
-Had a lot of fun making all of them!
+For other changes with this update, I ended up reworking some sigils that I was dissatisfied with for various reasons.
+I'm quite satisfied with how the reworks came out, let me know what you think of them!
 
-Status effects were a particular challenge to make, but fortunately my experience working on the API helped me rig something functional together.
-It's super unintuitive in its current state, but I didn't design it with public use in mind so...whoops.
-I may end up spinning it off into its own mod once I inevitably rework how they're created and implemented.
-In other news, Project Moon released an entirely new game in the time it took me to release Lobotomy mod 2.0, so there's already some potential ideas for future status effects in the future~.
+And finally and perhaps most pertinent for players - new sigils!
+Wanted to put together a more varied selection of effects, so we've got more status effects, some slot modifications, and some more esoteric abilities.
+If you're familiar with Project Moon you'll probably recognise the inspiration for several of them, and since I work on this mod in tandem with the main content mod you can probably guess what expansions I'm working on ;).
 
-And yes, I'll eventually make cards/abilities based off the Limbus abnormalities, why wouldn't I subject myself to more of this work?
-Real life's made for functional, well-adjusted people, I don't need to figure out how to cook for myself! Two cheese sticks and an apple for lunch, s'il vous plaît.
+Speaking of Lobotomy Mod, expect some major internal refactoring for that mod as well.
+Not sure how radical the changes will be, but I do want to make a token effort at least to make all my mods multi-Act compatible.
+
+That's all for now, until next time!

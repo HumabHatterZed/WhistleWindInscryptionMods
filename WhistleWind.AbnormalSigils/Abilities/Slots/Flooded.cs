@@ -15,31 +15,34 @@ namespace WhistleWind.AbnormalSigils
         private void Slot_Flooded()
         {
             const string rulebookName = "Flooded";
-            const string rulebookDescription = "At the end of the opponent's turn, deal 1 damage to cards occupying this space, then reduce this slot's Severity by 1. Cards that are airborne or face down are unaffected.";
+            const string rulebookDescription = "At the end of the opponent's turn, deal 1 damage to cards occupying this space, then reduce this effect's Severity by 1. Cards that are airborne or face down are unaffected.";
             
             Dictionary<CardTemple, Texture2D> slotTextures = SlotHelper.BuildTextureDictionary(
                 TextureLoader.LoadTextureFromFile("slotFlooded_act1.png", Assembly),
                 TextureLoader.LoadTextureFromFile("slotFlooded_act3.png", Assembly),
-                TextureLoader.LoadTextureFromFile("slotFlooded_grimora.png", Assembly)
+                TextureLoader.LoadTextureFromFile("slotFlooded_grimora.png", Assembly),
+                TextureLoader.LoadTextureFromFile("slotFlooded_magnificus.png", Assembly)
+                );
+            
+            Dictionary<CardTemple, Texture2D> slotTextures2 = SlotHelper.BuildTextureDictionary(
+                TextureLoader.LoadTextureFromFile("slotFlooded_act1_2.png", Assembly),
+                TextureLoader.LoadTextureFromFile("slotFlooded_act3_2.png", Assembly),
+                TextureLoader.LoadTextureFromFile("slotFlooded_grimora_2.png", Assembly),
+                TextureLoader.LoadTextureFromFile("slotFlooded_magnificus_2.png", Assembly)
                 );
 
-            FloodedSlot.Id = SlotModificationManager.New(pluginGuid, "FloodedSlot", typeof(FloodedSlot),
-                slotTextures,
+            FloodedSlot.Id = SlotModificationManager.New(pluginGuid, "FloodedSlot", typeof(FloodedSlot), slotTextures,
                 SlotModificationManager.BuildAct2SpriteSetFromSpriteSheetTexture(TextureLoader.LoadTextureFromFile("slotFlooded_pixel.png", Assembly))
-                ).SetRulebook(rulebookName, rulebookDescription,
+                )
+                .SetRulebook(rulebookName, rulebookDescription,
                     TextureLoader.LoadTextureFromFile("slotFlooded_rulebook.png", Assembly),
                     SlotModificationManager.ModificationMetaCategory.Part1Rulebook,
                     SlotModificationManager.ModificationMetaCategory.Part3Rulebook,
                     SlotModificationManager.ModificationMetaCategory.GrimoraRulebook,
                     SlotModificationManager.ModificationMetaCategory.MagnificusRulebook
-                )
-                .SetRulebookP03Sprite(slotTextures[CardTemple.Tech]);
-            
-            Dictionary<CardTemple, Texture2D> slotTextures2 = SlotHelper.BuildTextureDictionary(
-                TextureLoader.LoadTextureFromFile("slotFlooded_act1_2.png", Assembly),
-                TextureLoader.LoadTextureFromFile("slotFlooded_act3_2.png", Assembly),
-                TextureLoader.LoadTextureFromFile("slotFlooded_grimora_2.png", Assembly)
-                );
+                    )
+                .SetRulebookP03Sprite(slotTextures[CardTemple.Tech])
+                .SetRulebookGrimoraSprite(TextureLoader.LoadTextureFromFile("slotFlooded_rulebook_grimora.png", Assembly));
 
             FloodedSlotShallow.Id = SlotModificationManager.New(pluginGuid, "FloodedSlotShallow", typeof(FloodedSlotShallow),
                 slotTextures2,

@@ -32,7 +32,6 @@ namespace WhistleWind.AbnormalSigils
     {
         public const string pluginGuid = "whistlewind.inscryption.abnormalsigils";
         public const string pluginPrefix = "wstl";
-        public const string pluginPrefixGBC = "wstlGBC";
         public const string pluginName = "Abnormal Sigils";
         private const string pluginVersion = "2.0.0";
 
@@ -53,6 +52,7 @@ namespace WhistleWind.AbnormalSigils
         public static Trait LovingSlime = GuidManager.GetEnumValue<Trait>(pluginGuid, "LovingSlime");
         public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
         public static Trait Orchestral = GuidManager.GetEnumValue<Trait>(pluginGuid, "Orchestral");
+        public static Trait BloomingFlower = GuidManager.GetEnumValue<Trait>(pluginGuid, "BloomingFlower");
         public static Trait ImmuneToAilments = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToAilments");
 
         public static Trait CannotGiveSigils = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotGiveSigils");
@@ -139,10 +139,8 @@ namespace WhistleWind.AbnormalSigils
         {
             AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
             {
-                abilities.AbilityByID(Ability.MadeOfStone).Info
-                    .SetRulebookDescription("A [creature] is immune to the effects of Touch of Death, Stinky, Punisher, Cursed, and Idol.");
-                
                 StatusEffectManager.SyncStatusEffects();
+                abilities.AbilityByID(Ability.MadeOfStone).Info.SetRulebookDescription("A [creature] is immune to the effects of Touch of Death, Stinky, Punisher, Cursed, and Idol.");
                 return abilities;
             };
 
@@ -233,6 +231,15 @@ namespace WhistleWind.AbnormalSigils
             Ability_Lonely();
             #endregion
 
+            #region Special
+            Ability_FalseThrone();
+            Ability_ReturnToNihil();
+
+            Ability_ReturnCard();
+            Ability_RefreshDecks();
+            Ability_SeeMore();
+            #endregion
+
             #region v2.0
             Ability_Damsel();
             Ability_Abusive();
@@ -245,15 +252,12 @@ namespace WhistleWind.AbnormalSigils
 
             Slot_Flooded();
             Ability_Spilling();
-            #endregion
 
-            #region Special
-            Ability_FalseThrone();
-            Ability_ReturnToNihil();
+            Slot_Blooming();
+            Ability_FlowerQueen();
 
-            Ability_ReturnCard();
-            Ability_RefreshDecks();
-            Ability_SeeMore();
+            Ability_HealingStrike();
+            Ability_FingerTapping();
             #endregion
 
             StatusEffectPages.AddStatusEntries();
@@ -263,11 +267,7 @@ namespace WhistleWind.AbnormalSigils
         private void AddSpecialAbilities()
         {
             AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
-
-            StatIcon_Time();
-            StatIcon_SigilPower();
-            StatIcon_Slime();
-            StatIcon_Nihil();
+            AccessTools.GetDeclaredMethods(typeof(AbnormalPlugin)).Where(mi => mi.Name.StartsWith("StatIcon")).ForEach(mi => mi.Invoke(this, null));
         }
 
         public static class SpellAPI

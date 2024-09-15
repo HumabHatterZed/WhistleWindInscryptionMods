@@ -44,7 +44,7 @@ namespace WhistleWind.AbnormalSigils
             slots.Sort((CardSlot a, CardSlot b) => GetSlotDistance(a) - GetSlotDistance(b));
 
             base.StartCoroutine(PlayTruncatedOceanSound());
-            yield return base.Card.Slot.SetSlotModification(FloodedSlotShallow.Id);
+            yield return base.Card.Slot.SetSlotModification(FloodedSlot.Id);
             yield return new WaitForSeconds(0.25f);
             for (int i = 0; i < slots.Count; i++)
             {

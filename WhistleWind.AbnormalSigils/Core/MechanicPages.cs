@@ -21,12 +21,6 @@ namespace WhistleWind.AbnormalSigils.Core
         internal static void AddMechanicEntries()
         {
             CreateNewMechanicPage(
-                "Status Effects",
-                "A status effect is a temporary sigil that is applied to cards during combat. These do not count as normal sigils.",
-                StatusEffectManager.AllStatusEffects.EffectByID(Haste.specialAbility).Icon
-            );
-
-            CreateNewMechanicPage(
                 "Speed",
                 "Determines the order cards attack in during combat. Player-owned cards have a base Speed of 3 while opponent-owned cards have a base Speed of 0.",
                 TextureLoader.LoadTextureFromFile("sigilSpeed.png", AbnormalPlugin.Assembly)

@@ -22,7 +22,11 @@ namespace WhistleWind.AbnormalSigils
             Lonely.ability = AbnormalAbilityHelper.CreateAbility<Lonely>(
                 "sigilLonely",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
-                modular: false, opponent: false, canStack: false).SetAbilityRedirect("Pebble", Pebble.iconId, GameColors.Instance.gray).Id;
+                modular: false, opponent: false, canStack: false)
+                .SetAbilityRedirect("Pebble", Pebble.iconId, GameColors.Instance.gray)
+                .SetPart3Rulebook()
+                .SetGrimoraRulebook()
+                .SetMagnificusRulebook().Id;
         }
     }
     public class Lonely : AbilityBehaviour

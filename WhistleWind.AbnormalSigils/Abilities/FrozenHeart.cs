@@ -12,12 +12,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FrozenHeart()
         {
             const string rulebookName = "Frozen Heart";
-            const string rulebookDescription = "When [creature] perishes, the killer gains 2 Health.";
+            const string rulebookDescription = "When [creature] perishes, the killer gains 1 Power and 1 Health.";
             const string dialogue = "Spring arrives with blossoming roses.";
             const string triggerText = "[creature] releases warm life.";
             FrozenHeart.ability = AbnormalAbilityHelper.CreateAbility<FrozenHeart>(
                 "sigilFrozenHeart",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: -1,
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: -3,
                 modular: false, opponent: false, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
@@ -41,7 +41,7 @@ namespace WhistleWind.AbnormalSigils
             killer.Anim.LightNegationEffect();
             if (killer.HasAbility(Woodcutter.ability))
             {
-                killer.HealDamage(4);
+                killer.AddTemporaryMod(new(2, 2));
                 if (!base.HasLearned)
                 {
                     base.SetLearned();
@@ -50,7 +50,7 @@ namespace WhistleWind.AbnormalSigils
             }
             else
             {
-                killer.HealDamage(2);
+                killer.AddTemporaryMod(new(1, 1));
                 yield return base.LearnAbility(0.4f);
             }
             yield return new WaitForSeconds(0.2f);

@@ -29,7 +29,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.orange,
                 TextureLoader.LoadTextureFromFile("sigilBind.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilBind_pixel.png", Assembly))
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect);
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.MagnificusStatusEffect, StatusMetaCategory.MagnificusStatusEffect);
 
             Bind.specialAbility = data.Id;
             Bind.iconId = data.IconInfo.ability;

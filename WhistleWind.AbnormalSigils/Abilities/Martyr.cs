@@ -45,7 +45,7 @@ namespace WhistleWind.AbnormalSigils
             yield return new WaitForSeconds(0.1f);
             foreach (PlayableCard card in validCards)
             {
-                yield return HelperMethods.HealCard(card, 0.1f);
+                yield return HelperMethods.HealCard(2, card, 0.1f);
                 yield return card.RemoveStatusEffects(false);
             }
             yield return base.LearnAbility(0.25f);

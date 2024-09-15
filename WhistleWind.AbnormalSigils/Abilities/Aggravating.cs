@@ -22,6 +22,7 @@ namespace WhistleWind.AbnormalSigils
                 modular: false, opponent: true, canStack: true)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
+                .SetMagnificusRulebook()
                 .Id;
         }
     }

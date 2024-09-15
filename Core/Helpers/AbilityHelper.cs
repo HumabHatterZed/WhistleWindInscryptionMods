@@ -102,7 +102,6 @@ namespace WhistleWind.Core.Helpers
             info.rulebookName = name;
             info.rulebookDescription = desc;
             info.SetAbilityLearnedDialogue(dialogue);
-            Debug.Log($"Dialogue: {info.abilityLearnedDialogue != null}");
             info.triggerText = triggerText;
             info.powerLevel = powerLevel;
             return info;

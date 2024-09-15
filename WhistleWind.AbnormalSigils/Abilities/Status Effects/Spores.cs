@@ -104,7 +104,7 @@ namespace WhistleWind.AbnormalSigils
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.brightBlue,
                 TextureLoader.LoadTextureFromFile("sigilSpores.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilSpores_pixel.png", Assembly))
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect);
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.MagnificusStatusEffect);
 
             Spores.specialAbility = data.Id;
             Spores.iconId = data.IconInfo.ability;
