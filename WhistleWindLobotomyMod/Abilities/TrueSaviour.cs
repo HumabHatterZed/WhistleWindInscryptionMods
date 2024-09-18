@@ -20,10 +20,8 @@ namespace WhistleWindLobotomyMod
             const string rulebookName = "True Saviour";
             const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
 
-            TrueSaviour.ability = LobotomyAbilityHelper.CreateAbility<TrueSaviour>(
-                "sigilTrueSaviour",
-                rulebookName, "'My story is nowhere, unknown to all.'", dialogue, powerLevel: -3,
-                canStack: false).Id;
+            TrueSaviour.ability = AbilityHelper.New<TrueSaviour>(pluginGuid,
+                "sigilTrueSaviour", rulebookName, "'My story is nowhere, unknown to all.'", powerLevel: -3, true, dialogue).Id;
         }
     }
     public class TrueSaviour : AbilityBehaviour
