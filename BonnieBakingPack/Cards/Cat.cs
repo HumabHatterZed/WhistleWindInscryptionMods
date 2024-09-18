@@ -24,6 +24,23 @@ namespace BonniesBakingPack
                 .SetPortraitAndEmission(GetTexture("nine.png"), GetTexture("nine_emission.png"))
                 .AddAbilities(Ability.DrawCopyOnDeath)
                 .AddSpecialAbilities(NineAbility.SpecialAbility);
+
+            CardInfo bot = CardManager.New(pluginPrefix, "felinebot", "F4T C47", 0, 2)
+                .SetDefaultPart3Card().AddP03()
+                .SetBloodCost(1)
+                .SetPortrait(GetTexture("felinebot.png"));
+
+            if (ScrybeCompat.P03Enabled)
+            {
+                Ability ability = ScrybeCompat.GetP03Ability("Macabre Growth");
+                Ability ability2 = ScrybeCompat.GetP03Ability("Mine Cryptocurrency");
+                bot.AddMetaCategories(ScrybeCompat.NeutralRegion);
+                bot.AddAbilities(ability, ability2);
+            }
+            else
+            {
+                bot.AddAbilities(Ability.ActivatedStatsUp);
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ namespace BonniesBakingPack
                 ghool.AddAbilities(Ability.CorpseEater);
             }
 
-            CardInfo bot1 = CardManager.New(pluginPrefix, "minorMousebot", "Minnor M0U53", 1, 1)
+            CardInfo bot1 = CardManager.New(pluginPrefix, "minorMousebot", "Litle M0U53", 1, 1)
                 .SetDefaultPart3Card().AddP03()
                 .SetEnergyCost(3)
                 .SetPortrait(GetTexture("minorMousebot.png"))
