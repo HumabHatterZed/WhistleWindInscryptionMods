@@ -28,9 +28,9 @@ namespace WhistleWindLobotomyMod.Patches
         private static bool FixTrapperTrapperBoss(int numCards, int tier, int randomSeed, ref List<CardInfo> __result)
         {
             bool flag = tier > 0;
-            tier = Mathf.Max(1, tier);
+            int tier2 = Mathf.Max(1, tier);
             List<CardInfo> learnedCards = CardLoader.LearnedCards;
-            learnedCards.RemoveAll(x => (!LobotomyCardManager.ObtainableLobotomyCards.Contains(x) && x.temple != 0) || x.CostTier != tier || x.Abilities.Exists(a => !AbilitiesUtil.GetInfo(a).opponentUsable));
+            learnedCards.RemoveAll(x => (!LobotomyCardManager.ObtainableLobotomyCards.Contains(x) && x.temple != 0) || x.CostTier != tier2 || x.Abilities.Exists(a => !AbilitiesUtil.GetInfo(a).opponentUsable));
             if (!ProgressionData.LearnedMechanic(MechanicsConcept.Bones))
                 learnedCards.RemoveAll((CardInfo x) => x.BonesCost > 0);
 
@@ -39,7 +39,7 @@ namespace WhistleWindLobotomyMod.Patches
             {
                 CardInfo cardByName;
                 CardModificationInfo cardModificationInfo;
-                if (tier == 2)
+                if (tier2 == 2)
                 {
                     cardByName = CardLoader.GetCardByName("Snapper");
                     cardModificationInfo = new CardModificationInfo(Ability.Sharp);

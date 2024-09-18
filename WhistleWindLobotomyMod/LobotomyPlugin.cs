@@ -44,8 +44,14 @@ namespace WhistleWindLobotomyMod
                 Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
             else
             {
-                //PreventOpponentDamage = false;
-                DisabledRiskLevels = LobotomyConfigManager.Instance.NoRisk;
+                if (LobotomyConfigManager.Instance.NoRisk == RiskLevel.All)
+                {
+                    DisabledRiskLevels = RiskLevel.Zayin & RiskLevel.Teth & RiskLevel.He & RiskLevel.Waw & RiskLevel.Aleph;
+                }
+                else
+                {
+                    DisabledRiskLevels = LobotomyConfigManager.Instance.NoRisk;
+                }
                 AllCardsDisabled = DisabledRiskLevels.HasFlag(RiskLevel.All) || DisabledRiskLevels.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
 
                 if (LobotomySaveManager.OpponentBlessings > 11)
@@ -107,7 +113,7 @@ namespace WhistleWindLobotomyMod
                 if (LobotomyConfigManager.Instance.NoRuina)
                     Log.LogWarning("Disable Ruina is set to [true]. Some cards have been removed from the pool of obtainable cards.");
 
-                Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{Act1LobotomyCards.Count}]|[{PixelLobotomyCards.Count}] obtainable cards.");
+                Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{BaseModCards.Count} | {WonderLabCards.Count} | {LimbusCards.Count}] obtainable cards.");
             }
             Log.LogInfo($"The Clock is at [{LobotomyConfigManager.Instance.NumOfBlessings}].");
         }
@@ -147,9 +153,12 @@ namespace WhistleWindLobotomyMod
 
             if (AllCardsDisabled)
             {
-                Log.LogInfo("All mod cards are disabled, adding Standard Training-Dummy Rabbit as a fallback to prevent issues.");
-                ObtainableLobotomyCards.Clear();
-                ObtainableLobotomyCards.Add(CardLoader.GetCardByName("wstl_trainingDummy"));
+                Log.LogInfo("All mod cards are disabled, adding [Standard Training-Dummy Rabbit] as a fallback card.");
+                ObtainableLobotomyCards = new() { AllLobotomyCards.Find(x => x.name == "wstl_trainingDummy") };
+            }
+            else
+            {
+                ObtainableLobotomyCards = AllLobotomyCards.Where(x => x.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.Rare)).ToList();
             }
         }
         private void AddAbilities()
@@ -162,7 +171,8 @@ namespace WhistleWindLobotomyMod
                         .SetRulebookName("Marksman")
                         .SetAbilityLearnedDialogue("Your beast strikes with precision.")
                         .SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman"))
-                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel"));
+                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel"))
+                        .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
                     abilities.AbilityByID(Ability.Sentry).Info
                         .SetRulebookName("Quick Draw")
@@ -170,14 +180,17 @@ namespace WhistleWindLobotomyMod
                         .SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw"))
                         .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel"))
                         .SetCanStack()
-                        .SetFlipYIfOpponent();
+                        .SetFlipYIfOpponent()
+                        .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
                     abilities.AbilityByID(Ability.Transformer).Info
-                        .SetRulebookDescription("[creature] will transform into a different form after 1 turn on the board.");
+                        .SetRulebookDescription("[creature] will transform into a different form after 1 turn on the board.")
+                        .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
                     abilities.AbilityByID(Ability.ExplodeOnDeath).Info
                         .SetRulebookName("Volatile")
-                        .SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilVolatile_flipped.png", assembly));
+                        .SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilVolatile_flipped.png", ModAssembly))
+                        .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
                     return abilities;
                 };
@@ -198,6 +211,7 @@ namespace WhistleWindLobotomyMod
             Ability_LongArms();
             Ability_UnjustScale();
             StatusEffect_Sin();
+            Ability_GiantBlocker();
 
             if (LobotomyConfigManager.Instance.RevealSpecials)
             {
@@ -225,9 +239,9 @@ namespace WhistleWindLobotomyMod
         private void AddItems()
         {
             // Enkephalin box - max out and recharge energy
-            // Loving Slime - +1 Thick Skin to a card
             // Pebble - Gives Pebble effect to a card
-            // Accelerator - Gives card +X Speed
+            // Accelerator - Gives card +X Haste
+            // Decelerator - Gives card +X Bind
             Item_RecallBottle();
         }
 
@@ -272,16 +286,15 @@ namespace WhistleWindLobotomyMod
         public static readonly StoryEvent OrdealDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "OrdealDefeated");
 
         internal static readonly Harmony HarmonyInstance = new(pluginGuid);
-        internal static readonly Assembly assembly = typeof(LobotomyPlugin).Assembly;
+        internal static readonly Assembly ModAssembly = typeof(LobotomyPlugin).Assembly;
         internal static ManualLogSource Log;
 
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginPrefix = "wstl";
-        public const string pluginPrefixGBC = "wstlGBC";
-        public const string pluginPrefixP03 = "wstlP03";
-        public const string pluginPrefixGrimora = "wstlGrimora";
+        public const string wonderlabPrefix = "wstl_WL";
+        public const string limbusPrefix = "wstl_LiC";
 
         public const string pluginName = "WhistleWind Lobotomy Mod";
-        private const string pluginVersion = "2.2.0";
+        private const string pluginVersion = "3.0.0";
     }
 }

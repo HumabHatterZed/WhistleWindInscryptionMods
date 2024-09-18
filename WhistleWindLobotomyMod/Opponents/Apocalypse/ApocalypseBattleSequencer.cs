@@ -126,7 +126,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     yield return new WaitForSeconds(0.1f);
                     specialTargetSlots[i].Card.Anim.StrongNegationEffect();
 
-                    yield return specialTargetSlots[i].Card.AddStatusEffectFlipCard<Enchanted>(enchantCount, modifyTurnGained: (int turn) => turn + 1); // increase the turn gained by 1 so it disappears at the correct time
+                    yield return specialTargetSlots[i].Card.AddStatusEffectToFaceDown<Enchanted>(enchantCount, modifyTurnGained: (int turn) => turn + 1); // increase the turn gained by 1 so it disappears at the correct time
                     CleanUpTargetIcon(targetIcons[i]);
                 }
 
@@ -214,7 +214,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         private IEnumerator ArmAttackSequence()
         {
             List<PlayableCard> cardsOnBoard = BoardManager.Instance.CardsOnBoard;
-            cardsOnBoard.RemoveAll(x => x == null || x.GetStatusEffectStacks<Sin>() < 3);
+            cardsOnBoard.RemoveAll(x => x == null || x.GetStatusEffectPotency<Sin>() < 3);
             cardsOnBoard.Remove(BossCard);
             if (cardsOnBoard.Count == 0)
                 yield break;
@@ -466,7 +466,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                             if (!c.FaceDown)
                                 c.Anim.StrongNegationEffect();
 
-                            yield return c.AddStatusEffectFlipCard<Sin>(1);
+                            yield return c.AddStatusEffectToFaceDown<Sin>(1);
                             yield return new WaitForSeconds(0.1f);
                         }
                         break;
@@ -600,10 +600,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             Action transformCallback = () =>
             {
                 UpdateCounter(); // update the turn counter and clear all negative statuses
-                
-                if (BossCard.ClearStatusEffects(false))
-                    BossCard.Anim.LightNegationEffect();
-
                 List<CardModificationInfo> negativeAbilities = BossCard.TemporaryMods.FindAll(x => x.IsStatusMod(false));
                 if (negativeAbilities.Count > 0)
                     BossCard.RemoveTemporaryMods(negativeAbilities.ToArray());
@@ -633,6 +629,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             ClearTempMods();
             yield return BossCard.TransformIntoCard(bossEggInfo, transformCallback);
             yield return new WaitForSeconds(0.4f);
+            yield return BossCard.RemoveStatusEffects();
 
             // if we're switching due to losing a life, reset the turn plan and create the next turn plan
             if (lostLife)

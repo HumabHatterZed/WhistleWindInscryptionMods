@@ -138,7 +138,7 @@ namespace WhistleWindLobotomyMod.Patches
             if (attackingSlot.Card == null || !anyCards)
                 return;
 
-            int sinCount = attackingSlot.Card.GetStatusEffectStacks<Sin>();
+            int sinCount = attackingSlot.Card.GetStatusEffectPotency<Sin>();
             if (sinCount > 0)
             {
                 List<CardSlot> filteredSlots = new()
@@ -150,14 +150,14 @@ namespace WhistleWindLobotomyMod.Patches
                         };
                 // remove null slots and sort by lowest sin count
                 filteredSlots.RemoveAll(x => x == null);
-                filteredSlots.Sort((a, b) => (a.Card?.GetStatusEffectStacks<Sin>() ?? 0) - (b.Card?.GetStatusEffectStacks<Sin>() ?? 0));
+                filteredSlots.Sort((a, b) => (a.Card?.GetStatusEffectPotency<Sin>() ?? 0) - (b.Card?.GetStatusEffectPotency<Sin>() ?? 0));
 
                 if (filteredSlots.Exists(x => x.Card != null))
                 {
                     if (sinCount >= 5) // if we have 5+ Sin, target the card with the lowest sin count
                         __result = filteredSlots[0];
                     else // otherwise target a card whose sin count will go over 5, otherwise default logic
-                        __result = filteredSlots.Find(x => x.Card.GetStatusEffectStacks<Sin>() + sinCount >= 5) ?? __result;
+                        __result = filteredSlots.Find(x => x.Card.GetStatusEffectPotency<Sin>() + sinCount >= 5) ?? __result;
                 }
             }
         }

@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             int powerLevel = 0)
             where T : ActivatedAbilityBehaviour
         {   
-            return AbilityHelper.NewActivated<T>(null, pluginGuid, textureName, rulebookName, rulebookDescription, powerLevel, true, dialogue, triggerText);
+            return AbilityHelper.NewActivated<T>(pluginGuid, textureName, rulebookName, rulebookDescription, powerLevel, true, dialogue, triggerText);
         }
         public static FullAbility CreateRulebookAbility<T>(string rulebookName, string rulebookDescription) where T : AbilityBehaviour
         {

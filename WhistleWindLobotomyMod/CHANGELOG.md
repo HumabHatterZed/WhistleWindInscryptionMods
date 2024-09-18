@@ -9,42 +9,58 @@
 - Refactored card and ability creation
 - Changed internal name of Abnormal card choice to 'AbnormalCardChoice'
 - Changed internal name of Sefirot card choice to 'SefirotCardChoice'
-- Changed internal names of Sefirot dialogue events to remove the 'Sephirah' prefix
+- Changed internal names of Sefirot dialogue events to no longer include the 'Sephirah' prefix
 - Separated cards into Act 1 and non-Act 1 versions under different prefixes - non-Act 1 versions use the 'wstlGBC' prefix
+- Detonator sigil is now re-rethemed to Volatile if config 'ReskinSigils' is set to true
+- Changed how cards are internally handled to allow to use game systems
 ### 🩹 Bug fixes
 - Fixed Miracle Worker challenge trying to modify full turns in the turn plan
 - Fixed Apocalypse boss 'ReactiveSkin' mechanic making the boss invinicible
 - Fixed certain Apocalypse boss mechanics and effects triggering at incorrect times
 - Fixed Time Machine being inconsistent when removing cards from the deck
 - Fixed Time Machine sometimes presenting the activating card as a choice
+- Fixed Time Machine activating when no cards can be removed
 - Partially fixed mod cards appearing in unsupported acts
 ### 🔧 Tweaks
-- Made adjustments to some dialogue
-- Final Apocalyse challenge's icon now takes up an entire menu column
-- Adjusted descriptions of Abnormal Bosses and Abnormal Encounters challenges to better clarify their effect
-- Adjusted description of Unjust Scales to indicate its effect can change
+- Redid artwork for Nameless Fetus
+- Modified some dialogue
+- Changed Final Apocalypse challenge icon to occupy the entire column
+- Clarified description of 'Abnormal Bosses' and 'Abnormal Encounters' challenges
+- Clarified description of Unjust Scales sigil
 - Clarified description of Concord special ability
 - Changed weights used in the Abnormal Choice Node for Risk Levels, new weights for each region tier are:
     - Tier 0: (40%, 30%, 20%, 10%) -> (35%, 35%, 20%, 10%)
     - Tier 1: (30%, 30%, 20%, 20%) -> (20%, 30%, 30%, 20%)
     - Tier 2: Unchanged
-- Improved Time Machine activation sequence
-- Changed how Time Machine determines card choices
-- Time Machine no longer activates if the player's deck has no other cards to remove
-- RANDOM_PLACEHOLDER card now has Amorphous
+- Time Machine - Improved activation sequence
+- Time Machine - Adjusted how card options are chosen by the game
+- Changed evolution name for Apocalypse Bird
+- Changed evolution name for You're Bald...
+- RANDOM_PLACEHOLDER card now has Amorphous sigil
+- Funeral of the Dead Butterflies now belongs to the Undead temple
+- Giant Tree Sap is no longer singleton
+- Apocalypse boss: Separated behaviour of Unjust Scales during the final phase into its own sigil
+- Apocalypse boss: boss cards are no longer considered Terrain
 - Apocalypse boss: cards now move in a random order
 - Apocalypse boss: Time Machine cannot be activated while Long Arms is undefeated
 - Apocalypse boss: Playing Refresh Decks now gives you Single Recall and Total Recall
 - Apocalypse boss: Defeating Long Arms will remove all remaining Sin from cards on the board and in the hand
-- Achievements API: Adjusted the description of several achievements to be clearer on how to achieve them
+- Achievements API: Adjusted the description of several achievements to be clearer on how to unlock them
 ### ⚖️ Balancing
 - Overhauled encounters
-- Skeleton Shrimp now cost 5 Bones to play
+- Beauty and the Beast - changed play cost from 1 Blood -> 1 Bone
+- Melting Love - increased play cost from 5 Bones -> 7 Bones
+- Red Riding Hooded Mercenary - now possesses Vendetta sigil
+- Big and Will Be Bad Wolf - now possesses Vendetta sigil
+- Big and Will Be Bad Wolf - rebalanced from 3/3 -> 2/4
+- Skeleton Shrimp - changed play cost from free -> 5 Bones
 - Reshuffle Decks card now possesses the Bone Meal sigil
 - Reduced points of Miracle Worker from 60 -> 36
+- Time Machine - effect now changes during custom boss fights (Final Apocalypse, etc.)
+- Apocalypse Bird - no longer possesses Made of Stone sigil
 - Apocalypse boss: Adjusted reactive difficulty thresholds
+- Apocalypse boss: Long Arms phase now disables turn skipping
 - Apocalypse boss: Final phase forme gains 1 additional base Power above a certain difficulty threshold
-- Apocalypse boss: Activating Time Machine sigil now resets the current phase and removes all non-boss enemy cards
 ### ➕ Additions
 - Added XX cards
     - Green Ordeal cards, 
@@ -53,7 +69,8 @@
 - Added Ordeal battles (see ReadMe for more info)
 - Added All Ordeals challenge
 - Achievements API: Added 1 new achievement
-
+### 💣 Removals
+- Removed unused asset files
 ## v2.1.1 - Minor Patch (2/19/2024)
 ### 🩹 Bug fixes
 - Fixed Plague Doctor portrait not updating correctly in Act 2

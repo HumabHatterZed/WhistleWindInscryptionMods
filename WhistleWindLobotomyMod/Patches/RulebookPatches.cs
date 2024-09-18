@@ -45,8 +45,8 @@ namespace WhistleWindLobotomyMod.Patches
                     {
                         changedRulebook = true;
                         AbilitiesUtil.GetInfo(DynamicAbilities[1]).rulebookDescription = "[creature] will enter a downed state instead of dying. Downed creatures are invulnerable under special conditions.";
-                        AbilitiesUtil.GetInfo(DynamicAbilities[2]).rulebookDescription = $"While {card.Info.DisplayedNameLocalized} is on the board, remove ally Terrain and Pelt cards and transform the rest into random Apostles.";
-                        AbilitiesUtil.GetInfo(DynamicAbilities[3]).rulebookDescription = "Kill WhiteNight and all Apostles on the board then deal 33 direct damage.";
+                        AbilitiesUtil.GetInfo(DynamicAbilities[2]).rulebookDescription = $"While [creature] is on the board, remove Terrain and Pelt cards from the owner's side of the board and transform the rest into random Apostles.";
+                        AbilitiesUtil.GetInfo(DynamicAbilities[3]).rulebookDescription = "Kill WhiteNight and all Apostles on the board then deal 33 direct damage to the opponent.";
                     }
                     if (CustomOpponentUtils.FightingCustomOpponent(true))
                     {
@@ -61,10 +61,6 @@ namespace WhistleWindLobotomyMod.Patches
                             AppendToBaseDescription(5, GetApocalypseThresholds());
                             AppendToBaseDescription(6, GetApocalypseThresholds());
                             AppendToBaseDescription(7, GetApocalypseThresholds());
-
-                            if (TurnManager.Instance.Opponent.NumLives == 1)
-                                AbilitiesUtil.GetInfo(DynamicAbilities[8]).rulebookDescription =
-                                    "At the end of the owner's turn, deal direct damage to the owner proportional to how much damage this card received during the turn.";
                         }
                     }
                 }
@@ -103,8 +99,7 @@ namespace WhistleWindLobotomyMod.Patches
             ApocalypseAbility.ability,
             BigEyes.ability,
             SmallBeak.ability,
-            LongArms.ability,
-            UnjustScale.ability
+            LongArms.ability
         };
 
         [HarmonyPostfix, HarmonyPatch(typeof(RuleBookInfo), nameof(RuleBookInfo.AbilityShouldBeAdded))]

@@ -8,7 +8,7 @@ using InscryptionAPI.Localizing;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Patches;
-using static WhistleWind.AbnormalSigils.AbnormalPlugin;
+
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
@@ -24,11 +24,21 @@ namespace WhistleWindLobotomyMod
         internal static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
         internal static void CreateCardPack()
         {
-            PackInfo pack = PackManager.GetPackInfo<PackInfo>(pluginPrefix);
+            PackManager.AddProtectedMetacategory(EventCard);
+            PackManager.AddProtectedMetacategory(RuinaCard);
+            PackManager.AddProtectedMetacategory(DonatorCard);
+
+            PackInfo pack = PackManager.GetPackInfo<PackInfo>(LobotomyPlugin.limbusPrefix);
             pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
-            pack.Title = pluginName;
-            pack.Description = $"A set of 90 cards based on the abnormalities from Lobotomy Corporation and Library of Ruina.";
+            pack.Title = "World of L Corp HQ";
+            pack.Description = $"A set of {BaseModCards.Count} abnormalities hailing from L Corp HQ and the Library.";
             pack.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack"));
+
+            PackInfo pack2 = PackManager.GetPackInfo<PackInfo>(LobotomyPlugin.wonderlabPrefix);
+            pack2.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+            pack2.Title = "World of L Corp Branches";
+            pack2.Description = $"A set of {WonderLabCards.Count} abnormalities primarily originating from Branch O-5681.";
+            pack2.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack2"));
 
             /*                EncounterPackInfo encounterPack = PackManager.GetPackInfo<EncounterPackInfo>(pluginPrefix);
                             encounterPack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
@@ -64,9 +74,9 @@ namespace WhistleWindLobotomyMod
 
         public static void CreateAchievements()
         {
-            ModdedAchievementManager.AchievementGroup grp = ModdedAchievementManager.NewGroup(pluginGuid, "WhistleWind Lobotomy Mod", TextureLoader.LoadTextureFromFile("achievementBox.png")).ID;
+            ModdedAchievementManager.AchievementGroup grp = ModdedAchievementManager.NewGroup(LobotomyPlugin.pluginGuid, "WhistleWind Lobotomy Mod", TextureLoader.LoadTextureFromFile("achievementBox.png")).ID;
 
-            ThroughTheTwilight = ModdedAchievementManager.New(pluginGuid, "Through the Twilight", "Survive the apocalypse and defeat the Beast.",
+            ThroughTheTwilight = ModdedAchievementManager.New(LobotomyPlugin.pluginGuid, "Through the Twilight", "Survive the apocalypse and defeat the Beast.",
                 false, grp, TextureLoader.LoadTextureFromFile("achievementBossTwilight.png")).ID;
 
             /*                WhereAllPathsLead = ModdedAchievementManager.New(pluginGuid, "Where All Paths Lead", "Hold on to hope and defeat the Fool.",
@@ -78,25 +88,25 @@ namespace WhistleWindLobotomyMod
             /*                ParadiseLost = ModdedAchievementManager.New(pluginGuid, "Paradise Lost", "Reject His gifts and delay the Saviour.",
                                 false, grp, TextureLoader.LoadTextureFromFile("achievementBossSaviour.png")).ID;*/
 
-            FullMoon = ModdedAchievementManager.New(pluginGuid, "Our Work", "Complete a Midnight Ordeal.",
+            FullMoon = ModdedAchievementManager.New(LobotomyPlugin.pluginGuid, "Our Work", "Complete a Midnight Ordeal.",
                 false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;
 
             /*                Fruition = ModdedAchievementManager.New(pluginGuid, "The Trials", "Complete the Ordeals of White.",
                                 false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;*/
 
-            Impuritas = ModdedAchievementManager.New(pluginGuid, "Impuritas Civitatis", "Meet Angela at a Sephirot choice node.",
+            Impuritas = ModdedAchievementManager.New(LobotomyPlugin.pluginGuid, "Impuritas Civitatis", "Meet Angela at a Sephirot choice node.",
                 false, grp, TextureLoader.LoadTextureFromFile("achievementImpuritas.png")).ID;
 
-            TheThreeBirds = ModdedAchievementManager.New(pluginGuid, "Three Birds", "Gather the guardians of the Black Forest.",
+            TheThreeBirds = ModdedAchievementManager.New(LobotomyPlugin.pluginGuid, "Three Birds", "Gather the guardians of the Black Forest.",
                 false, grp, TextureLoader.LoadTextureFromFile("achievementTwilight.png")).ID;
 
-            MagicalGirls = ModdedAchievementManager.New(pluginGuid, "Full House", "Unite the four magical girls.",
+            MagicalGirls = ModdedAchievementManager.New(LobotomyPlugin.pluginGuid, "Full House", "Unite the four magical girls.",
                 false, grp, TextureLoader.LoadTextureFromFile("achievementMagicalGirls.png")).ID;
 
-            YellowBrickRoad = ModdedAchievementManager.New(pluginGuid, "Yellow Brick Road", "Reunite five long-lost friends.",
+            YellowBrickRoad = ModdedAchievementManager.New(LobotomyPlugin.pluginGuid, "Yellow Brick Road", "Reunite five long-lost friends.",
                 false, grp, TextureLoader.LoadTextureFromFile("achievementRoadToOz.png")).ID;
 
-            Blessing = ModdedAchievementManager.New(pluginGuid, "Blessing", "You witnessed His coming.",
+            Blessing = ModdedAchievementManager.New(LobotomyPlugin.pluginGuid, "Blessing", "You witnessed His coming.",
                 true, grp, TextureLoader.LoadTextureFromFile("achievementBlessing.png")).ID;
 
             LobotomyPlugin.HarmonyInstance.PatchAll(typeof(AchievementPatches));

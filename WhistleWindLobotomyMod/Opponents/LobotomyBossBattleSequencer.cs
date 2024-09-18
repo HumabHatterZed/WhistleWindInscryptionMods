@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
+using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
@@ -77,8 +78,9 @@ namespace WhistleWindLobotomyMod.Opponents
         public IEnumerator MoveOpponentCards()
         {
             List<PlayableCard> cards = BoardManager.Instance.GetOpponentCards();
-            if (cards.Count == 4)
+            if (cards.Count == 4) // if the board is full
                 yield break;
+            cards.RemoveAll(x => x.HasAbility(Unyielding.ability));
 
             yield return HelperMethods.ChangeCurrentView(View.Board, 0f);
             int rand = base.GetRandomSeed() + TurnNumber;

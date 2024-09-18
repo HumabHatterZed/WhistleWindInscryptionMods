@@ -167,7 +167,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return new WaitForSeconds(1.5f);
             yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBrokenEggLong", TextDisplayer.MessageAdvanceMode.Input);
             foreach (PlayableCard card in BoardManager.Instance.CardsOnBoard.Concat(PlayerHand.Instance.CardsInHand))
-                card.RemoveStatusEffect<Sin>();
+                yield return card.RemoveStatusEffect<Sin>();
         }
 
         private IEnumerator StartGiantPhase()
@@ -334,14 +334,12 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     {
                         if (slot2.Card != null)
                         {
-                            if (!slot2.Card.ClearStatusEffects(false))
-                                slot2.Card.OnStatsChanged();
+                            yield return slot2.Card.RemoveStatusEffects(false);
                         }
                     }
                     foreach (PlayableCard card in PlayerHand.Instance.CardsInHand)
                     {
-                        if (!card.ClearStatusEffects(false))
-                            card.OnStatsChanged();
+                        yield return card.RemoveStatusEffects(false);
                     }
 
                     yield return new WaitForSeconds(0.5f);

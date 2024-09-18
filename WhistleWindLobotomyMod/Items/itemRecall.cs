@@ -12,11 +12,6 @@ using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public class RecallBottle
-    {
-
-    }
-
     public partial class LobotomyPlugin
     {
         private void Item_RecallBottle()

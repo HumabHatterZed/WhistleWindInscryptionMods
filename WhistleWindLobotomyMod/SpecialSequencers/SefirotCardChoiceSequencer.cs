@@ -227,7 +227,7 @@ namespace WhistleWindLobotomyMod
             {
                 yield return new WaitForSeconds(0.25f);
                 LobotomySaveManager.UnlockedAngela = true;
-                LobotomyPlugin.AchievementAPI.Unlock(true, LobotomyPlugin.AchievementAPI.Impuritas);
+                AchievementAPI.Unlock(true, AchievementAPI.Impuritas);
             }
         }
         private new IEnumerator TutorialTextSequence(SelectableCard card)

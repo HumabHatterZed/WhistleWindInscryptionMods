@@ -108,13 +108,13 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 |Forsaken Murderer|4/1|<img src='https://i.imgur.com/66XMPEU.png'>||Anthropoid|||
 |Child of the Galaxy|0/0|<img src='https://i.imgur.com/H6vESv7.png'>|Lonely|Anthropoid||Spell|
 |Punishing Bird|1/1|<img src='https://i.imgur.com/H6vESv7.png'>|Punisher, Airborne|Bird|Toxic, BlackForest|Singleton|
-|Little Red Riding Hooded Mercenary|2/5|<img src='https://i.imgur.com/Ckvc6Ww.png'>|Sniper|Anthropoid|||
-|Big And Will Be Bad Wolf|3/3|<img src='https://i.imgur.com/Ckvc6Ww.png'>|Assimilator|Canine|||
+|Little Red Riding Hooded Mercenary|2/5|<img src='https://i.imgur.com/Ckvc6Ww.png'>|Sniper, Vendetta|Anthropoid|||
+|Big And Will Be Bad Wolf|2/4|<img src='https://i.imgur.com/Ckvc6Ww.png'>|Assimilator, Vendetta|Canine|||
 |You're Bald...|0/2|<img src='https://i.imgur.com/vUBgPOO.png'>|Fecundity||||
 |Fragment of the Universe|1/2|<img src='https://i.imgur.com/H6vESv7.png'>|Piercing|Divine|||
 |Crumbling Armour|0/3|<img src='https://i.imgur.com/UvtK0PY.png'>|Courageous||Terrain||
 |Judgement Bird|1/1|<img src='https://i.imgur.com/62GUUAC.png'>|Sniper|Bird|BlackForest|Singleton|
-|Apocalypse Bird|3/12|<img src='https://i.imgur.com/8SvThbo.png'>|Omni Strike, Bi Strike, Made of Stone|Bird||Event, Singleton|
+|Apocalypse Bird|3/9|<img src='https://i.imgur.com/8SvThbo.png'>|Omni Strike, Bi Strike|Bird||Event, Singleton|
 |The King of Greed|0/2|<img src='https://i.imgur.com/H6vESv7.png'>|Fledgling|Fae|MagicalGirl|Singleton|
 |⤷ The King of Greed|2/5|<img src='https://i.imgur.com/H6vESv7.png'>|Cycler|Fae|MagicalGirl|Singleton|
 |The Little Prince|1/4|<img src='https://i.imgur.com/62GUUAC.png'>|Sporogenic|Botanic|||
@@ -200,12 +200,13 @@ Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public
 |True Saviour|*My story is nowhere, unknown to all.*|
 |Confession and Pentinence|*Activate: Keep faith with unwavering resolve.*|
 |Monster in the Black Forest|'Once upon a time, three birds lived happily in the lush forest...'|
-|Big Eyes|While this card is on the board, all creatures on the board are unaffected by Power-changing effects.|
-|Small Beak|At the start of the turn, target a random lane on the board.  At the start of the next turn, kill all cards in the targeted lane, excluding this card.|
-|Long Arms|This card is immune to status ailments. Time Machine cannot be activated.|
+|Big Eyes|While a card bearing this sigil is on the board, all creatures are unaffected by Power-changing effects.|
+|Small Beak|At the start of the player's turn, target a random lane on the board.  At the start of the player's next turn, kill all cards in the targeted lane, excluding this card.|
+|Long Arms|A card bearing this sigil is immune to status ailments. While this card is on the board, time cannot be altered.|
 |Dazzling|The turn after this card is played, inflict up to 3 other cards on the board with Enchanted. This card takes no damage from Enchanted cards.|
-|Misdeeds|Whenever this card takes damage, gain 1 Power until the end of the owner's turn.|
+|Misdeeds Not Allowed!|Whenever a card bearing this sigil takes damage, gain 1 Power until the end of the owner's turn.|
 |Unjust Scale|At the end of the owner's turn, inflict 1 Sin on all other cards. At the start of owner's turn, kill all other cards with 3+ Sin.|
+|Soulbound Flesh|At the end of the owner's turn, deal direct damage to the owner proportional to how much damage this card received during the turn.
 </details>
 
 ## ⚜️ Hidden Abilities and Status Effects

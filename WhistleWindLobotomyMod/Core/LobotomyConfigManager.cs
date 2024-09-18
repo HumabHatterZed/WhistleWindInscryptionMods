@@ -130,7 +130,7 @@ namespace WhistleWindLobotomyMod.Core
         {
             Config_ModEnabled = WstlConfigFile.Bind(
                 "Config", "Enable", true,
-                new ConfigDescription("Enables this mod's content."));
+                new ConfigDescription("Enables this mod's content. If false, content will still load but be unavailable through normal means."));
 
             Config_FoundInGBC = WstlConfigFile.Bind(
                 "Config", "GBC Packs", true,
@@ -142,7 +142,7 @@ namespace WhistleWindLobotomyMod.Core
 
             Config_SpecialsInRulebook = WstlConfigFile.Bind(
                 "Config", "Special Abilities in Rulebook", false,
-                new ConfigDescription("Adds Rulebook entries for hidden abilities, describing their effect and what card possesses it."));
+                new ConfigDescription("Adds Rulebook entries for hidden abilities, describing their effect and what cards possess it."));
 
             Config_NoRisk = WstlConfigFile.Bind(
                 "Config.Cards", "Disable Cards", LobotomyCardManager.RiskLevel.None,
@@ -164,7 +164,7 @@ namespace WhistleWindLobotomyMod.Core
 
             Config_StarterDeckSize = WstlConfigFile.Bind(
                 "Gameplay", "Extra Random Cards", 0,
-                new ConfigDescription("Adds more cards to the 3 Random Mod Cards starter decks in Part 1 and Kaycee's Mod."));
+                new ConfigDescription("Adds more cards to the 'Random' starter deck."));
 
             Config_EventFlags = WstlConfigFile.Bind(
                 "Gameplay", "Unlock All Events", false,
@@ -179,7 +179,7 @@ namespace WhistleWindLobotomyMod.Core
                 new ConfigDescription("Replaces your starting cards with one of this mod's custom decks." +
                 "\n0 - Default Deck" +
                 "\n1 - Random Mod Deck (3-12)" +
-                "\n2 - 3 Random Mod Cards" +
+                "\n2 - Random Mod Cards" +
                 "\n3 - One Sin, Fairy Festival, Old Lady" +
                 "\n4 - Scorched Girl, Laetitia, Child of the Galaxy" +
                 "\n5 - We Can Change Anything, All-Around Helper, Singing Machine" +
