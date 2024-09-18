@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -14,11 +15,9 @@ namespace WhistleWindLobotomyMod
         private void Ability_BigEyes()
         {
             const string rulebookName = "Big Eyes";
-            BigEyes.ability = LobotomyAbilityHelper.CreateAbility<BigEyes>(
-                "sigilBigEyes", rulebookName,
-                "While this card is on the board, all creatures on the board are unaffected by Power-changing effects.",
-                null, powerLevel: 0,
-                canStack: false).Id;
+            BigEyes.ability = AbilityHelper.New<BigEyes>(pluginGuid, "sigilBigEyes", rulebookName,
+                "While [creature] is on the board, all creatures are unaffected by Power-changing effects.",
+                0, true).Id;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 
@@ -14,12 +15,10 @@ namespace WhistleWindLobotomyMod
     {
         private void Ability_Misdeeds()
         {
-            const string rulebookName = "Misdeeds Not Allowed";
-            Misdeeds.ability = LobotomyAbilityHelper.CreateAbility<Misdeeds>(
-                "sigilMisdeeds", rulebookName,
-                "Whenever this card takes damage, gain 1 Power until the end of the owner's turn.",
-                null, powerLevel: 0,
-                canStack: false).Id;
+            const string rulebookName = "Misdeeds Not Allowed!";
+            Misdeeds.ability = AbilityHelper.New<Misdeeds>(pluginGuid, "sigilMisdeeds", rulebookName,
+                "Whenever [creature] takes damage, gain 1 Power until the end of the owner's turn.",
+                0, true).Id;
         }
     }
 }

@@ -2,6 +2,7 @@
 using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections.Generic;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
@@ -55,10 +56,9 @@ namespace WhistleWindLobotomyMod
         private void Ability_Apocalypse()
         {
             const string rulebookName = "Monster in the Black Forest";
-            ApocalypseAbility.ability = LobotomyAbilityHelper.CreateAbility<ApocalypseAbility>(
-                "sigilApocalypse", rulebookName,
-                "'Once upon a time, three birds lived happily in the lush forest...'",
-                "The three birds, now one, wandered vainly looking for the monster.", powerLevel: 0, canStack: false).Id;
+            ApocalypseAbility.ability = AbilityHelper.New<ApocalypseAbility>(pluginGuid, "sigilApocalypse", rulebookName,
+                "'Once upon a time, three birds lived happily in the lush forest...'", 0, true,
+                "The three birds, now one, wandered vainly looking for the monster.").Id;
         }
     }
 }

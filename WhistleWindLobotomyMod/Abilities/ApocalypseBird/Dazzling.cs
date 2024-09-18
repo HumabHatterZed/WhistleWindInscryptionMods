@@ -1,8 +1,10 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 
@@ -39,11 +41,10 @@ namespace WhistleWindLobotomyMod
         private void Ability_Dazzling()
         {
             const string rulebookName = "Dazzling";
-            Dazzling.ability = LobotomyAbilityHelper.CreateAbility<Dazzling>(
-                "sigilDazzling", rulebookName,
+            Dazzling.ability = AbilityHelper.New<Dazzling>(pluginGuid, "sigilDazzling", rulebookName,
                 "The turn after this card is played, inflict up to 3 other cards on the board with Enchanted. This card takes no damage from Enchanted cards.",
-                "Like moths to a flame.", powerLevel: 0,
-                canStack: false).Id;
+                0, true, "Like moths to a flame.")
+                .SetAbilityRedirect("Enchanted", Enchanted.iconId, GameColors.Instance.gold).Id;
         }
     }
 }
