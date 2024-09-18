@@ -7,7 +7,6 @@ namespace WhistleWindLobotomyMod
     public class DragonHead : SpecialCardBehaviour
     {
         public static SpecialTriggeredAbility specialAbility;
-        public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public override bool RespondsToOtherCardResolve(PlayableCard otherCard) =>
             otherCard != base.PlayableCard;// && base.PlayableCard.Info.name != "wstl_yinYangBody";
