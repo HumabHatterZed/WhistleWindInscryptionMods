@@ -13,9 +13,9 @@ namespace WhistleWindLobotomyMod
         {
             const string theNakedWorm = "theNakedWorm";
 
-            NewCard(theNakedWorm, "Naked Worm", "It can enter your body through any aperture.",
-                attack: 1, health: 1)
-                .SetPortraits(theNakedWorm)
+            CardManager.New(pluginPrefix, theNakedWorm, "Naked Worm",
+                attack: 1, health: 1, "It can enter your body through any aperture.")
+                .SetPortraits(ModAssembly, theNakedWorm)
                 .AddTribes(Tribe.Insect)
                 .AddTraits(NakedSerpent)
                 .Build();

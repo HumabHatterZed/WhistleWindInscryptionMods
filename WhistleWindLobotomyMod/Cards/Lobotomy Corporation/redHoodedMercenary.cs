@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -13,14 +14,15 @@ namespace WhistleWindLobotomyMod
         {
             const string redHoodedMercenary = "redHoodedMercenary";
 
-            NewCard(redHoodedMercenary, "Little Red Riding Hooded Mercenary", "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.",
-                attack: 2, health: 5, blood: 3)
-                .SetPortraits(redHoodedMercenary)
-                .AddAbilities(Ability.Sniper)
+            CardManager.New(pluginPrefix, redHoodedMercenary, "Little Red Riding Hooded Mercenary",
+                attack: 2, health: 5, "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.")
+                .SetBloodCost(3)
+                .SetPortraits(ModAssembly, redHoodedMercenary)
+                .AddAbilities(Ability.Sniper, BitterEnemies.ability)
                 .AddSpecialAbilities(CrimsonScar.specialAbility)
                 .AddTribes(TribeAnthropoid)
                 .SetDefaultEvolutionName("Red Riding Hooded Mercenary")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

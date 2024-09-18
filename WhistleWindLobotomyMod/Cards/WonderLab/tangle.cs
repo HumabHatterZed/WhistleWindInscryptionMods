@@ -13,11 +13,11 @@ namespace WhistleWindLobotomyMod
         {
             const string tangle = "tangle";
             
-            NewCard(tangle, "Tangle",
-                attack: 0, health: 0, bones: 0)
-                .SetPortraits(tangle)
+            CardManager.New(wonderlabPrefix, tangle, "Tangle",
+                attack: 0, health: 0)
+                .SetPortraits(ModAssembly, tangle)
                 .AddAbilities()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth, ModCardType.WonderLab);
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }
 }

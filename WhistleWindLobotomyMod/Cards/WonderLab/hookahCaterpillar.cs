@@ -12,23 +12,24 @@ namespace WhistleWindLobotomyMod
     {
         private void XCard_HookahCaterpillar()
         {
-            const string hookahCaterpillar = "hookahCaterpillar";
-            const string hookahButterfly = "hookahButterfly";
+            const string hookahCaterpillar = "hookahCaterpillar", hookahButterfly = "hookahButterfly";
 
-            CardInfo butterfly = NewCard(hookahButterfly, "Hookah Butterfly",
-                attack: 2, health: 3, energy: 6)
-                .SetPortraits(hookahButterfly)
+            CardInfo butterfly = CardManager.New(wonderlabPrefix, hookahButterfly, "Hookah Butterfly",
+                attack: 2, health: 3)
+                .SetEnergyCost(6)
+                .SetPortraits(ModAssembly, hookahButterfly)
                 .AddAbilities(ReturnToNihil.ability)
                 .AddTribes(Tribe.Insect)
-                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
+                .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            NewCard(hookahCaterpillar, "Hookah Caterpillar",
-                attack: 0, health: 3, energy: 3)
-                .SetPortraits(hookahCaterpillar)
+            CardManager.New(wonderlabPrefix, hookahCaterpillar, "Hookah Caterpillar",
+                attack: 0, health: 3)
+                .SetEnergyCost(3)
+                .SetPortraits(ModAssembly, hookahCaterpillar)
                 .AddAbilities(Scorching.ability, Ability.Evolve)
                 .SetEvolve(butterfly, 2)
                 .AddTribes(Tribe.Insect)
-                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Waw, ModCardType.WonderLab);
+                .Build(CardHelper.CardType.Rare, RiskLevel.Waw, true);
         }
     }
 }

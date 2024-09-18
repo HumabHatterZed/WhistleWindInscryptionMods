@@ -13,11 +13,11 @@ namespace WhistleWindLobotomyMod
         {
             const string nobodyIs = "nobodyIs";
             
-            NewCard(nobodyIs, "Nobody Is",
-                attack: 0, health: 0, bones: 0)
-                .SetPortraits(nobodyIs)
+            CardManager.New(wonderlabPrefix, nobodyIs, "Nobody Is",
+                attack: 0, health: 0)
+                .SetPortraits(ModAssembly, nobodyIs)
                 .AddAbilities()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.WonderLab);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

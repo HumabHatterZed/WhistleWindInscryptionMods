@@ -13,11 +13,12 @@ namespace WhistleWindLobotomyMod
         {
             const string meatLantern = "meatLantern";
 
-            NewCard(meatLantern, "Meat Lantern", "A beautiful flower attached to a mysterious creature.",
-                attack: 1, health: 2, blood: 2)
-                .SetPortraits(meatLantern)
+            CardManager.New(pluginPrefix, meatLantern, "Meat Lantern",
+                attack: 1, health: 2, "A beautiful flower attached to a mysterious creature.")
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, meatLantern)
                 .AddAbilities(Ability.Reach, Punisher.ability)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }
 }

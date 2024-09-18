@@ -10,32 +10,53 @@ namespace WhistleWindLobotomyMod
     {
         private void Card_ApocalypseBirdMinions()
         {
-            const string eyeballChick = "eyeballChick";
-            const string forestKeeper = "forestKeeper";
-            const string runawayBird = "runawayBird";
-
-            NewCard(eyeballChick, "Eyeball Chick",
-                attack: 2, health: 1, blood: 2)
-                .SetPortraits(eyeballChick)
+            const string eyeballChick = "eyeballChick", forestKeeper = "forestKeeper", runawayBird = "runawayBird";
+            CardManager.New(pluginPrefix, eyeballChick, "Eyeball Chick",
+                attack: 2, health: 1)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, eyeballChick)
                 .AddAbilities(BindingStrike.ability, Piercing.ability)
                 .AddTribes(Tribe.Bird)
                 .AddAppearances(ForcedEmission.appearance)
                 .Build();
+            CardManager.New(pluginPrefix, "eyeballChick_mook", "Eyeball Chick",
+                attack: 2, health: 1)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, eyeballChick)
+                .AddAbilities(BindingStrike.ability, Piercing.ability)
+                .AddTribes(Tribe.Bird)
+                .Build();
 
-            NewCard(forestKeeper, "Keeper of the Black Forest",
-                attack: 1, health: 2, blood: 2)
-                .SetPortraits(forestKeeper)
+            CardManager.New(pluginPrefix, forestKeeper, "Keeper of the Black Forest",
+                attack: 1, health: 2)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, forestKeeper)
                 .AddAbilities(Ability.GainAttackOnKill)
                 .AddTribes(Tribe.Bird)
                 .AddAppearances(ForcedEmission.appearance)
                 .Build();
+            CardManager.New(pluginPrefix, "forestKeeper_mook", "Keeper of the Black Forest",
+                attack: 1, health: 2)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, forestKeeper)
+                .AddAbilities(Ability.GainAttackOnKill)
+                .AddTribes(Tribe.Bird)
+                .Build();
 
-            NewCard(runawayBird, "Runaway Bird",
-                attack: 1, health: 2, blood: 2)
-                .SetPortraits(runawayBird)
+            CardManager.New(pluginPrefix, runawayBird, "Runaway Bird",
+                attack: 1, health: 2)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, runawayBird)
                 .AddAbilities(HighStrung.ability, Persistent.ability)
                 .AddTribes(Tribe.Bird)
                 .AddAppearances(ForcedEmission.appearance)
+                .Build();
+            CardManager.New(pluginPrefix, "runawayBird_mook", "Runaway Bird",
+                attack: 1, health: 2)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, runawayBird)
+                .AddAbilities(HighStrung.ability, Persistent.ability)
+                .AddTribes(Tribe.Bird)
                 .Build();
         }
     }

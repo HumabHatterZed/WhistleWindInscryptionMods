@@ -13,13 +13,15 @@ namespace WhistleWindLobotomyMod
         {
             const string snowQueen = "snowQueen";
 
-            NewCard(snowQueen, "The Snow Queen", "A queen from far away. Those who enter her palace never leave.",
-                attack: 2, health: 2, blood: 2, temple: CardTemple.Wizard)
-                .SetPortraits(snowQueen)
+            CardManager.New(pluginPrefix, snowQueen, "The Snow Queen",
+                attack: 2, health: 2, "A queen from far away. Those who enter her palace never leave.")
+                .SetBloodCost(2)
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortraits(ModAssembly, snowQueen)
                 .AddAbilities(FrostRuler.ability)
                 .AddTribes(TribeFae)
                 .SetDefaultEvolutionName("The Snow Empress")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
 }

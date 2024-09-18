@@ -13,13 +13,14 @@ namespace WhistleWindLobotomyMod
         {
             const string theNakedNest = "theNakedNest";
 
-            NewCard(theNakedNest, "The Naked Nest", "They can enter your body through any aperture.",
-                attack: 0, health: 3, bones: 4)
-                .SetPortraits(theNakedNest)
+            CardManager.New(pluginPrefix, theNakedNest, "The Naked Nest",
+                attack: 0, health: 3, "They can enter your body through any aperture.")
+                .SetBonesCost(4)
+                .SetPortraits(ModAssembly, theNakedNest)
                 .AddAbilities(SerpentsNest.ability)
                 .AddTraits(Trait.KillsSurvivors)
                 .SetDefaultEvolutionName("The Elder Naked Nest")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

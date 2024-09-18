@@ -14,13 +14,14 @@ namespace WhistleWindLobotomyMod
         {
             const string derFreischutz = "derFreischutz";
 
-            NewCard(derFreischutz, "Der Freischütz", "A friendly hunter to some, a cruel gunsman to others. His bullets always hit their mark.",
-                attack: 2, health: 2, blood: 2)
-                .SetPortraits(derFreischutz)
+            CardManager.New(pluginPrefix, derFreischutz, "Der Freischütz",
+                attack: 2, health: 2, "A friendly hunter to some, a cruel gunsman to others. His bullets always hit their mark.")
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, derFreischutz)
                 .AddAbilities(Ability.Sniper, Persistent.ability)
                 .AddTribes(TribeFae)
                 .SetDefaultEvolutionName("Der Ältere Freischütz")
-                .Build(CardHelper.ChoiceType.Rare, RiskLevel.He);
+                .Build(CardHelper.CardType.Rare, RiskLevel.He, true);
         }
     }
 }

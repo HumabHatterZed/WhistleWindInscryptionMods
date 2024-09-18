@@ -13,13 +13,14 @@ namespace WhistleWindLobotomyMod
         {
             const string dimensionalRefraction = "dimensionalRefraction";
 
-            NewCard(dimensionalRefraction, "Dimensional Refraction Variant", "A strange phenomenon. Or rather, the creature is the phenomena in and of itself.",
-                attack: 0, health: 1, blood: 2)
-                .SetPortraits(dimensionalRefraction)
+            CardManager.New(pluginPrefix, dimensionalRefraction, "Dimensional Refraction Variant",
+                attack: 0, health: 1, "A strange phenomenon. Or rather, the creature is the phenomena in and of itself.")
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, dimensionalRefraction)
                 .AddAbilities(Ability.RandomAbility)
                 .SetStatIcon(SigilPower.Icon)
                 .SetDefaultEvolutionName("4th Dimensional Refraction Variant")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

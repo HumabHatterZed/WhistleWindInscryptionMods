@@ -14,14 +14,16 @@ namespace WhistleWindLobotomyMod
         {
             const string wisdomScarecrow = "wisdomScarecrow";
 
-            NewCard(wisdomScarecrow, "Scarecrow Searching for Wisdom", "A hollow-headed scarecrow. Blood soaks its straw limbs.",
-                attack: 1, health: 1, bones: 4, temple: CardTemple.Undead)
-                .SetPortraits(wisdomScarecrow)
+            CardManager.New(pluginPrefix, wisdomScarecrow, "Scarecrow Searching for Wisdom",
+                attack: 1, health: 1, "A hollow-headed scarecrow. Blood soaks its straw limbs.")
+                .SetBonesCost(4)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(ModAssembly, wisdomScarecrow)
                 .AddAbilities(Bloodfiend.ability)
                 .AddTribes(TribeBotanic)
                 .AddTraits(EmeraldCity)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
 }

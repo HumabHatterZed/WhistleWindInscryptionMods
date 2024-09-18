@@ -13,14 +13,16 @@ namespace WhistleWindLobotomyMod
         {
             const string expressHellTrain = "expressHellTrain";
 
-            NewCard(expressHellTrain, "Express Train to Hell", "When the time comes, the train will sound its mighty horn.",
-                attack: 0, health: 1, energy: 2, temple: CardTemple.Undead)
-                .SetPortraits(expressHellTrain)
+            CardManager.New(pluginPrefix, expressHellTrain, "Express Train to Hell",
+                attack: 0, health: 1, "When the time comes, the train will sound its mighty horn.")
+                .SetEnergyCost(2)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(ModAssembly, expressHellTrain)
                 .AddAbilities(TheTrain.ability)
                 .AddTribes(TribeMechanical)
                 .SetTerrain()
                 .SetDefaultEvolutionName("Express Train to Turbo Hell")
-                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Rare, RiskLevel.Waw, true);
         }
     }
 }

@@ -90,8 +90,9 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Malkuth()
         {
-            NewCard("sephirahMalkuth", "Malkuth", "The head of the Control Team, here to assist you any way she can.",
-                attack: 1, health: 1, bones: 3)
+            CardManager.New(pluginPrefix, "sephirahMalkuth", "Malkuth",
+                attack: 1, health: 1, "The head of the Control Team, here to assist you any way she can.")
+                .SetBonesCost(3)
                 .AddAbilities(Ability.BuffNeighbours)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()

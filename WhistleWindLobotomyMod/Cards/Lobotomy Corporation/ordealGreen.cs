@@ -20,58 +20,70 @@ namespace WhistleWindLobotomyMod
             const string whereWeReach = "whereWeReach";
             const string lastHelix = "lastHelix";
 
-            CardInfo infoO = NewCard(doubtO, "Doubt δ",
-                attack: 2, health: 4, energy: 4)
-                .SetPortraits(doubtO)
+            CardInfo infoO = CardManager.New(pluginPrefix, doubtO, "Doubt δ",
+                attack: 2, health: 4)
+                .SetEnergyCost(4)
+                .SetPortraits(ModAssembly, doubtO)
                 .AddAbilities(Piercing.ability, Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
+                .AddTraits(Ordeal)
                 .Build();
 
-            CardInfo infoY = NewCard(doubtY, "Doubt γ",
-                attack: 1, health: 3, energy: 3)
-                .SetPortraits(doubtY)
+            CardInfo infoY = CardManager.New(pluginPrefix, doubtY, "Doubt γ",
+                attack: 1, health: 3)
+                .SetEnergyCost(3)
+                .SetPortraits(ModAssembly, doubtY)
                 .AddAbilities(Piercing.ability, Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
                 .SetEvolve(infoO, 1)
+                .AddTraits(Ordeal)
                 .Build();
 
-            CardInfo infoB = NewCard(doubtB, "Doubt β",
-                attack: 1, health: 2, energy: 2)
-                .SetPortraits(doubtB)
+            CardInfo infoB = CardManager.New(pluginPrefix, doubtB, "Doubt β",
+                attack: 1, health: 2)
+                .SetEnergyCost(2)
+                .SetPortraits(ModAssembly, doubtB)
                 .AddAbilities(Piercing.ability, Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
                 .SetEvolve(infoY, 1)
+                .AddTraits(Ordeal)
                 .Build();
 
-            NewCard(doubtA, "Doubt α",
-                attack: 1, health: 1, energy: 2)
-                .SetPortraits(doubtA)
+            CardManager.New(pluginPrefix, doubtA, "Doubt α",
+                attack: 1, health: 1)
+                .SetEnergyCost(2)
+                .SetPortraits(ModAssembly, doubtA)
                 .AddAbilities(Piercing.ability, Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
                 .SetEvolve(infoB, 1)
+                .AddTraits(Ordeal)
                 .Build();
 
-            NewCard(processUnderstanding, "Process of Understanding",
-                attack: 3, health: 4, energy: 4)
-                .SetPortraits(processUnderstanding)
+            CardManager.New(pluginPrefix, processUnderstanding, "Process of Understanding",
+                attack: 3, health: 4)
+                .SetEnergyCost(4)
+                .SetPortraits(ModAssembly, processUnderstanding)
                 .AddAbilities(Piercing.ability, Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
+                .AddTraits(Ordeal)
                 .Build();
 
-            NewCard(whereWeReach, "Where We Must Reach",
-                attack: 0, health: 15, energy: 5)
-                .SetPortraits(whereWeReach)
+            CardManager.New(pluginPrefix, whereWeReach, "Where We Must Reach",
+                attack: 0, health: 15)
+                .SetEnergyCost(5)
+                .SetPortraits(ModAssembly, whereWeReach)
                 .AddAbilities(Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
-                .AddTraits(Trait.Structure)
+                .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure)
                 .Build();
 
-            NewCard(lastHelix, "Last Helix",
-                attack: 1, health: 35, energy: 6)
-                .SetPortraits(lastHelix)
+            CardManager.New(pluginPrefix, lastHelix, "Last Helix",
+                attack: 1, health: 35)
+                .SetEnergyCost(6)
+                .SetPortraits(ModAssembly, lastHelix)
                 .AddAbilities(Piercing.ability, Ability.MadeOfStone)
                 .AddTribes(TribeMechanical)
-                .AddTraits(Trait.Uncuttable, Trait.Structure, Trait.Giant)
+                .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, Trait.Giant)
                 .Build();
         }
     }

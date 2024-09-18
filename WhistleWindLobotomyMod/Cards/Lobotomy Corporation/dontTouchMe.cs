@@ -13,14 +13,16 @@ namespace WhistleWindLobotomyMod
         {
             const string dontTouchMe = "dontTouchMe";
 
-            NewCard(dontTouchMe, "Don't Touch Me", "Don't touch it.",
-                attack: 0, health: 1, energy: 2, temple: CardTemple.Tech)
-                .SetPortraits(dontTouchMe)
+            CardManager.New(pluginPrefix, dontTouchMe, "Don't Touch Me",
+                attack: 0, health: 1, "Don't touch it.")
+                .SetEnergyCost(2)
+                .SetCardTemple(CardTemple.Tech)
+                .SetPortraits(ModAssembly, dontTouchMe)
                 .AddAbilities(Punisher.ability)
                 .AddTribes(TribeMechanical)
                 .SetTerrain()
                 .SetDefaultEvolutionName("Please Don't Touch Me")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
+                .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
     }
 }

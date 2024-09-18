@@ -13,16 +13,17 @@ namespace WhistleWindLobotomyMod
         {
             const string bigBird = "bigBird";
 
-            NewCard(bigBird, "Big Bird", "Its eyes light up the darkness like stars.",
-                attack: 2, health: 4, blood: 2)
-                .SetPortraits(bigBird)
+            CardManager.New(pluginPrefix, bigBird, "Big Bird",
+                attack: 2, health: 4, "Its eyes light up the darkness like stars.")
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, bigBird)
                 .AddAbilities(Cycler.ability)
                 .AddSpecialAbilities(ThreeBirds.specialAbility)
                 .AddTribes(Tribe.Bird)
                 .AddTraits(BlackForest)
                 .SetDefaultEvolutionName("Bigger Bird")
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

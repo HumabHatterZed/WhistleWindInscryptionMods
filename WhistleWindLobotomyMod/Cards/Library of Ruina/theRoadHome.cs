@@ -14,15 +14,18 @@ namespace WhistleWindLobotomyMod
         {
             const string theRoadHome = "theRoadHome";
 
-            NewCard(theRoadHome, "The Road Home", "A young girl on a quest to return home with her friends.",
-                attack: 1, health: 1, blood: 1, temple: CardTemple.Wizard)
-                .SetPortraits(theRoadHome)
+            CardManager.New(pluginPrefix, theRoadHome, "The Road Home",
+                attack: 1, health: 1, "A young girl on a quest to return home with her friends.")
+                .SetBloodCost(1)
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortraits(ModAssembly, theRoadHome)
                 .AddAbilities(YellowBrickRoad.ability)
                 .AddSpecialAbilities(TheHomingInstinct.specialAbility, YellowBrick.specialAbility)
                 .AddTribes(TribeFae)
                 .AddTraits(EmeraldCity)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He, ModCardType.Ruina);
+                .AddMetaCategories(RuinaCard)
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
 }

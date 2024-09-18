@@ -12,12 +12,13 @@ namespace WhistleWindLobotomyMod
         {
             const string heartOfAspiration = "heartOfAspiration";
 
-            NewCard(heartOfAspiration, "The Heart of Aspiration", "A heart without an owner. It emboldens those nearby.",
-                attack: 1, health: 2, blood: 1)
-                .SetPortraits(heartOfAspiration)
+            CardManager.New(pluginPrefix, heartOfAspiration, "The Heart of Aspiration",
+                attack: 1, health: 2, "A heart without an owner. It emboldens those nearby.")
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, heartOfAspiration)
                 .AddAbilities(Ability.BuffNeighbours)
                 .SetDefaultEvolutionName("The Elder Heart of Aspiration")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }
 }

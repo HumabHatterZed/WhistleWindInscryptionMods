@@ -13,12 +13,13 @@ namespace WhistleWindLobotomyMod
         {
             const string drownedSisters = "drownedSisters";
             
-            NewCard(drownedSisters, "The Drowned Sisters",
-                attack: 0, health: 2, bones: 2)
-                .SetPortraits(drownedSisters)
+            CardManager.New(wonderlabPrefix, drownedSisters, "The Drowned Sisters",
+                attack: 0, health: 2)
+                .SetBonesCost(2)
+                .SetPortraits(ModAssembly, drownedSisters)
                 .AddAbilities(Ability.DebuffEnemy)
                 .AddTribes(AbnormalPlugin.TribeAnthropoid)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth, ModCardType.WonderLab);
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }
 }

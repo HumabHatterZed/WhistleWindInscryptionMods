@@ -19,23 +19,25 @@ namespace WhistleWindLobotomyMod
             Trait[] traits = new[] { Apostle };
             CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
-            NewCard(apostleGuardian, guardianName,
+            CardManager.New(pluginPrefix, apostleGuardian, guardianName,
                 attack: 4, health: 6)
-                .SetPortraits(apostleGuardian)
+                .SetPortraits(ModAssembly, apostleGuardian)
                 .AddAbilities(abilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances)
-                .Build(cardType: ModCardType.EventCard);
+                .SetEventCard(false)
+                .Build();
 
-            NewCard(apostleGuardianDown, guardianName,
+            CardManager.New(pluginPrefix, apostleGuardianDown, guardianName,
                 attack: 0, health: 1)
-                .SetPortraits(apostleGuardianDown)
+                .SetPortraits(ModAssembly, apostleGuardianDown)
                 .AddAbilities(abilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .AddAppearances(appearances)
-                .Build(cardType: ModCardType.EventCard);
+                .SetEventCard(false)
+                .Build();
         }
     }
 }

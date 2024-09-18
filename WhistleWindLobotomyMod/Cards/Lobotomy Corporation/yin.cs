@@ -13,14 +13,15 @@ namespace WhistleWindLobotomyMod
         {
             const string yin = "yin";
 
-            NewCard(yin, "Yin", "A black pendant in search of its missing half.",
-                attack: 2, health: 3, blood: 2)
-                .SetPortraits(yin, altPortraitName: "yinAlt")
-                .SetPixelAlternatePortrait(TextureLoader.LoadTextureFromFile("yinAlt_pixel.png"))
+            CardManager.New(pluginPrefix, yin, "Yin",
+                attack: 2, health: 3, "A black pendant in search of its missing half.")
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, yin)
+                .SetAltPortraits(ModAssembly, "yinAlt")
                 .AddAbilities(Ability.Strafe, Ability.Submerge)
                 .AddAppearances(AlternateBattlePortrait.appearance)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

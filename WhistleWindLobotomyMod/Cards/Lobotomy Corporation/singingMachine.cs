@@ -13,13 +13,15 @@ namespace WhistleWindLobotomyMod
         {
             const string singingMachine = "singingMachine";
 
-            NewCard(singingMachine, "Singing Machine", "A wind-up music machine. The song it plays is to die for.",
-                attack: 0, health: 4, blood: 1, temple: CardTemple.Tech)
-                .SetPortraits(singingMachine)
+            CardManager.New(pluginPrefix, singingMachine, "Singing Machine",
+                attack: 0, health: 4, "A wind-up music machine. The song it plays is to die for.")
+                .SetBloodCost(1)
+                .SetCardTemple(CardTemple.Tech)
+                .SetPortraits(ModAssembly, singingMachine)
                 .AddAbilities(TeamLeader.ability, Aggravating.ability)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Orchestral)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
 }

@@ -16,16 +16,18 @@ namespace WhistleWindLobotomyMod
             Ability[] abilities = new[] { Ability.Strafe, GiftGiver.ability };
             Tribe[] tribes = new[] { Tribe.Hooved };
 
-            NewCard(rudoltaSleigh, sleighName, "A grotesque effigy of a reindeer. With its infinite hate, it bequeaths gifts onto you.",
-                attack: 2, health: 3, blood: 2)
-                .SetPortraits(rudoltaSleigh)
+            CardManager.New(pluginPrefix, rudoltaSleigh, sleighName,
+                attack: 2, health: 3, "A grotesque effigy of a reindeer. With its infinite hate, it bequeaths gifts onto you.")
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, rudoltaSleigh)
                 .AddAbilities(abilities)
                 .AddTribes(tribes)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
 
-            NewCard("RUDOLTA_MULE", sleighName,
-                attack: 2, health: 3, blood: 2)
-                .SetPortraits(rudoltaSleigh)
+            CardManager.New(pluginPrefix, "RUDOLTA_MULE", sleighName,
+                attack: 2, health: 3)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, rudoltaSleigh)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(SpecialTriggeredAbility.PackMule)
                 .AddTribes(tribes)

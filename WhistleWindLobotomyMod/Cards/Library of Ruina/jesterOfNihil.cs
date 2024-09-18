@@ -14,9 +14,10 @@ namespace WhistleWindLobotomyMod
         {
             const string jesterOfNihil = "jesterOfNihil";
 
-            NewCard(jesterOfNihil, "The Jester of Nihil",
-                attack: 0, health: 7, bones: 8)
-                .SetPortraits(jesterOfNihil)
+            CardManager.New(pluginPrefix, jesterOfNihil, "The Jester of Nihil",
+                attack: 0, health: 7)
+                .SetBonesCost(8)
+                .SetPortraits(ModAssembly, jesterOfNihil)
                 .AddAbilities(ReturnToNihil.ability)
                 .AddSpecialAbilities(BoardEffects.specialAbility)
                 .SetStatIcon(Nihil.Icon)
@@ -25,7 +26,9 @@ namespace WhistleWindLobotomyMod
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .SetNodeRestrictions(true, false, false, true)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.Ruina | ModCardType.EventCard);
+                .SetEventCard(true)
+                .AddMetaCategories(RuinaCard)
+                .Build();
         }
     }
 }

@@ -91,8 +91,9 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Angela()
         {
-            NewCard("angela", "Angela", null,
-                attack: 2, health: 3, energy: 6)
+            CardManager.New(pluginPrefix, "angela", "Angela",
+                attack: 2, health: 3)
+                .SetEnergyCost(6)
                 .AddAbilities(FrostRuler.ability, Persecutor.ability)
                 .AddTraits()
                 .SetOnePerDeck()

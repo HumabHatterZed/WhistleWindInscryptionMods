@@ -14,16 +14,18 @@ namespace WhistleWindLobotomyMod
             const string censored = "censored";
             const string censoredMinion = "censoredMinion";
 
-            NewCard(censored, name, "It's best you never learn what it looks like.",
-                attack: 4, health: 4, blood: 3)
-                .SetPortraits(censored)
+            CardManager.New(pluginPrefix, censored, name,
+                attack: 4, health: 4, "It's best you never learn what it looks like.")
+                .SetBloodCost(3)
+                .SetPortraits(ModAssembly, censored)
                 .AddAbilities(Bloodfiend.ability)
                 .AddSpecialAbilities(CensoredSpecial.specialAbility)
                 .SetDefaultEvolutionName("CENSORED CENSORED")
-                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
+                .Build(CardHelper.CardType.Rare, RiskLevel.Aleph, true);
 
-            NewCard(censoredMinion, name)
-                .SetPortraits(censoredMinion)
+            CardManager.New(pluginPrefix, censoredMinion, name,
+                attack: 0, health: 0)
+                .SetPortraits(ModAssembly, censoredMinion)
                 .SetDefaultEvolutionName("CENSORED CENSORED")
                 .Build();
         }

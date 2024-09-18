@@ -85,8 +85,9 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Binah()
         {
-            NewCard("sephirahBinah", "Binah", "Callous and sadistic, she seems keen on seeing your struggles in person.",
-                attack: 3, health: 5, blood: 3)
+            CardManager.New(pluginPrefix, "sephirahBinah", "Binah",
+                attack: 3, health: 5, "Callous and sadistic, she seems keen on seeing your struggles in person.")
+                .SetBloodCost(3)
                 .AddAbilities(Ability.Sniper, Piercing.ability)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()

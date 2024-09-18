@@ -13,12 +13,14 @@ namespace WhistleWindLobotomyMod
         {
             const string silentGirl = "silentGirl";
 
-            NewCard(silentGirl, "Silent Girl", "A girl hiding a hammer and nail behind her back.",
-                attack: 2, health: 2, blood: 2)
-                .SetPortraits(silentGirl)
+            CardManager.New(pluginPrefix, silentGirl, "Silent Girl",
+                attack: 2, health: 2, "A girl hiding a hammer and nail behind her back.")
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, silentGirl)
                 .AddAbilities(Persecutor.ability)
                 .AddTribes(TribeAnthropoid)
-                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Teth, ModCardType.Ruina);
+                .AddMetaCategories(RuinaCard)
+                .Build(CardHelper.CardType.Rare, RiskLevel.Teth, true);
         }
     }
 }

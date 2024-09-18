@@ -14,14 +14,15 @@ namespace WhistleWindLobotomyMod
         {
             const string warmHeartedWoodsman = "warmHeartedWoodsman";
 
-            NewCard(warmHeartedWoodsman, "Warm-Hearted Woodsman", "A tin woodsman on the search for a heart. Perhaps you can give him yours.",
-                attack: 2, health: 3, blood: 2)
-                .SetPortraits(warmHeartedWoodsman)
+            CardManager.New(pluginPrefix, warmHeartedWoodsman, "Warm-Hearted Woodsman",
+                attack: 2, health: 3, "A tin woodsman in search of a heart. Perhaps you can give him yours.")
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, warmHeartedWoodsman)
                 .AddAbilities(Woodcutter.ability)
                 .AddTribes(TribeMechanical)
                 .AddTraits(EmeraldCity)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
 }

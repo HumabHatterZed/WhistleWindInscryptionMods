@@ -13,24 +13,28 @@ namespace WhistleWindLobotomyMod
         private void Card_Nosferatu_F01113()
         {
             const string nosferatuName = "Nosferatu";
-            const string nosferatu = "nosferatu";
-            const string nosferatuBeast = "nosferatuBeast";
+            const string nosferatu = "nosferatu", nosferatuBeast = "nosferatuBeast";
             Tribe[] tribes = new[] { TribeFae };
 
-            CardInfo beast = NewCard(nosferatuBeast, nosferatuName,
-                attack: 3, health: 1, blood: 2, temple: CardTemple.Undead)
-                .SetPortraits(nosferatuBeast)
+            CardInfo beast = CardManager.New(pluginPrefix, nosferatuBeast, nosferatuName,
+                attack: 3, health: 1)
+                .SetBloodCost(2)
+                .SetCardTemple(CardTemple.Undead).SetPortraits(ModAssembly, nosferatuBeast)
                 .AddAbilities(Bloodfiend.ability, Bloodfiend.ability)
                 .AddTribes(tribes)
-                .Build(cardType: ModCardType.Ruina);
+                .AddMetaCategories(RuinaCard)
+                .Build();
 
-            NewCard(nosferatu, nosferatuName, "A creature of the night, noble and regal. Will you help sate its thirst?",
-                attack: 2, health: 1, blood: 2, temple: CardTemple.Undead)
-                .SetPortraits(nosferatu)
+            CardManager.New(pluginPrefix, nosferatu, nosferatuName,
+                attack: 2, health: 1, "A creature of the night, noble and regal. Will you help sate its thirst?")
+                .SetBloodCost(2)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(ModAssembly, nosferatu)
                 .AddAbilities(Ability.Evolve, Bloodfiend.ability)
                 .AddTribes(tribes)
                 .SetEvolve(beast, 1)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Ruina);
+                .AddMetaCategories(RuinaCard)
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

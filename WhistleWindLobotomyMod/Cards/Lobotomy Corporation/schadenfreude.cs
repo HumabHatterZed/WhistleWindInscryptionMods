@@ -13,13 +13,14 @@ namespace WhistleWindLobotomyMod
         {
             const string schadenfreude = "schadenfreude";
 
-            NewCard(schadenfreude, "Schadenfreude", "A strange machine. You can feel someone's persistent gaze through the keyhole.",
-                attack: 1, health: 1, energy: 3)
-                .SetPortraits(schadenfreude)
+            CardManager.New(pluginPrefix, schadenfreude, "Schadenfreude",
+                attack: 1, health: 1, "A strange machine. You can feel someone's persistent gaze through the keyhole.")
+                .SetEnergyCost(3)
+                .SetPortraits(ModAssembly, schadenfreude)
                 .AddAbilities(Ability.Sentry)
                 .AddTribes(TribeMechanical)
                 .SetDefaultEvolutionName("Große Schadenfreude")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
 }

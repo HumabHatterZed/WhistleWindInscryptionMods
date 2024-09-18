@@ -13,11 +13,11 @@ namespace WhistleWindLobotomyMod
         {
             const string bottleOfTears = "bottleOfTears";
             
-            NewCard(bottleOfTears, "Bottle of Tears",
-                attack: 0, health: 0, bones: 0)
-                .SetPortraits(bottleOfTears)
-                .AddAbilities()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin, ModCardType.WonderLab);
+            CardManager.New(wonderlabPrefix, bottleOfTears, "Bottle of Tears",
+                attack: 0, health: 0)
+                .SetPortraits(ModAssembly, bottleOfTears)
+                .AddAbilities(Spilling.ability, Ability.Morsel)
+                .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
     }
 }

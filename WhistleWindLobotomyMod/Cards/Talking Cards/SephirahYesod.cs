@@ -82,8 +82,9 @@ namespace WhistleWindLobotomyMod
         private void SpecialAbility_Yesod() => TalkingCardYesod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardYesod>("Yesod").Id;
         private void Card_Yesod()
         {
-            NewCard("sephirahYesod", "Yesod", "A stickler for rules, he'll ensure your beasts' compliance.",
-                attack: 2, health: 3, blood: 2)
+            CardManager.New(pluginPrefix, "sephirahYesod", "Yesod",
+                attack: 2, health: 3, "A stickler for rules, he'll ensure your beasts' compliance.")
+                .SetBloodCost(2)
                 .AddAbilities(Ability.Tutor)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()

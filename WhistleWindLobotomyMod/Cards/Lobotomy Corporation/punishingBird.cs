@@ -13,14 +13,15 @@ namespace WhistleWindLobotomyMod
         {
             const string punishingBird = "punishingBird";
 
-            NewCard(punishingBird, "Punishing Bird", "A small bird on a mission to punish evildoers.",
-                attack: 1, health: 1, blood: 1)
-                .SetPortraits(punishingBird)
+            CardManager.New(pluginPrefix, punishingBird, "Punishing Bird",
+                attack: 1, health: 1, "A small bird on a mission to punish evildoers.")
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, punishingBird)
                 .AddAbilities(Ability.Flying, Punisher.ability)
                 .AddTribes(Tribe.Bird)
                 .AddTraits(BlackForest)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }
 }

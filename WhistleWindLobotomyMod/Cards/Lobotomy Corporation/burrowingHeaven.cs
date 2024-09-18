@@ -13,13 +13,14 @@ namespace WhistleWindLobotomyMod
         {
             const string burrowingHeaven = "burrowingHeaven";
 
-            NewCard(burrowingHeaven, "The Burrowing Heaven", "Don't look away. Contain it in your sight.",
-                attack: 0, health: 1, bones: 2)
-                .SetPortraits(burrowingHeaven)
+            CardManager.New(pluginPrefix, burrowingHeaven, "The Burrowing Heaven",
+                attack: 0, health: 1, "Don't look away. Contain it in your sight.")
+                .SetBonesCost(2)
+                .SetPortraits(ModAssembly, burrowingHeaven)
                 .AddAbilities(Ability.GuardDog, Ability.Sentry)
                 .AddTribes(TribeDivine)
                 .SetDefaultEvolutionName("The Elder Burrowing Heaven")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

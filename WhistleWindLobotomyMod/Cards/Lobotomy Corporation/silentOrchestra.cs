@@ -15,22 +15,23 @@ namespace WhistleWindLobotomyMod
             const string silentOrchestra = "silentOrchestra";
             const string silentEnsemble = "silentEnsemble";
 
-            NewCard(silentEnsemble, "Chairs",
+            CardManager.New(pluginPrefix, silentEnsemble, "Chairs",
                 attack: 0, health: 3)
-                .SetPortraits(silentEnsemble)
+                .SetPortraits(ModAssembly, silentEnsemble)
                 .AddAbilities(Ability.BuffNeighbours)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(Orchestral)
                 .Build();
 
-            NewCard(silentOrchestra, "The Silent Orchestra", "Soon, the song none can hear but all can listen to will begin.",
-                attack: 2, health: 6, blood: 3)
-                .SetPortraits(silentOrchestra)
+            CardManager.New(pluginPrefix, silentOrchestra, "The Silent Orchestra",
+                attack: 2, health: 6, "Soon, the song none can hear but all can listen to will begin.")
+                .SetBloodCost(3)
+                .SetPortraits(ModAssembly, silentOrchestra)
                 .AddAbilities(Conductor.ability)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(Orchestral)
                 .SetDefaultEvolutionName("The Grand Silent Orchestra")
-                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
+                .Build(CardHelper.CardType.Rare, RiskLevel.Aleph, true);
         }
     }
 }

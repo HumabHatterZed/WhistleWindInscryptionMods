@@ -13,13 +13,14 @@ namespace WhistleWindLobotomyMod
         {
             const string oldLady = "oldLady";
 
-            NewCard(oldLady, "Old Lady", "An aged storyteller. She can tell you any tale, even those that can't exist.",
-                attack: 1, health: 2, bones: 4)
-                .SetPortraits(oldLady)
+            CardManager.New(pluginPrefix, oldLady, "Old Lady",
+                attack: 1, health: 2, "An aged storyteller. She can tell you any tale, even those that can't exist.")
+                .SetBonesCost(4)
+                .SetPortraits(ModAssembly, oldLady)
                 .AddAbilities(Ability.DebuffEnemy)
                 .AddTribes(TribeAnthropoid)
                 .SetDefaultEvolutionName("Elderly Lady")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }
 }

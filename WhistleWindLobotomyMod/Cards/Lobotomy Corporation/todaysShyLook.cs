@@ -21,18 +21,20 @@ namespace WhistleWindLobotomyMod
             Tribe[] tribes = new[] { TribeAnthropoid };
             Trait[] traits = new[] { Trait.DeathcardCreationNonOption };
 
-            NewCard(todaysShyLook, lookName, description,
-                attack: 1, health: 2, blood: 1)
-                .SetPortraits(todaysShyLook)
+            CardManager.New(pluginPrefix, todaysShyLook, lookName,
+                attack: 1, health: 2, description)
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, todaysShyLook)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .SetDefaultEvolutionName(evolveName)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw); ;
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true); ;
 
-            NewCard("todaysShyLookNeutral", lookName, description,
-                attack: 1, health: 2, blood: 1)
-                .SetPortraits(todaysShyLook)
+            CardManager.New(pluginPrefix, "todaysShyLookNeutral", lookName,
+                attack: 1, health: 2, description)
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, todaysShyLook)
                 .AddAbilities(Ability.DrawCopyOnDeath)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
@@ -40,18 +42,20 @@ namespace WhistleWindLobotomyMod
                 .SetDefaultEvolutionName(evolveName)
                 .Build();
 
-            NewCard(todaysShyLookHappy, "Today's Happy Look", description,
-                attack: 1, health: 3, blood: 1)
-                .SetPortraits(todaysShyLookHappy)
+            CardManager.New(pluginPrefix, todaysShyLookHappy, "Today's Happy Look",
+                attack: 1, health: 3, description)
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, todaysShyLookHappy)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .SetDefaultEvolutionName("Tomorrow's Happy Look")
                 .Build();
 
-            NewCard(todaysShyLookAngry, "Today's Angry Look", description,
-                attack: 2, health: 1, blood: 1)
-                .SetPortraits(todaysShyLookAngry)
+            CardManager.New(pluginPrefix, todaysShyLookAngry, "Today's Angry Look",
+                attack: 2, health: 1, description)
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, todaysShyLookAngry)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)

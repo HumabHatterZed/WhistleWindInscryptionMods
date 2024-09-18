@@ -13,13 +13,15 @@ namespace WhistleWindLobotomyMod
         {
             const string notesFromResearcher = "notesFromResearcher";
 
-            NewCard(notesFromResearcher, "Notes from a Crazed Researcher", "An insane garble of guilty confessions and incoherent gibberish.",
-                attack: 2, health: 0, bones: 3, temple: CardTemple.Undead)
-                .SetPortraits(notesFromResearcher)
+            CardManager.New(pluginPrefix, notesFromResearcher, "Notes from a Crazed Researcher",
+                attack: 2, health: 0, "An insane garble of guilty confessions and incoherent gibberish.")
+                .SetBonesCost(3)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(ModAssembly, notesFromResearcher)
                 .AddAbilities(Ability.Brittle, GiveStatsSigils.AbilityID)
                 .SetSpellType(SpellType.TargetedStats)
                 .SetDefaultEvolutionName("Frantic Notes from a Crazed Researcher")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
 }

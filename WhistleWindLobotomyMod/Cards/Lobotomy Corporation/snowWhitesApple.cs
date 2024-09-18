@@ -14,14 +14,16 @@ namespace WhistleWindLobotomyMod
         {
             const string snowWhitesApple = "snowWhitesApple";
 
-            NewCard(snowWhitesApple, "Snow White's Apple", "A poisoned apple brought to life, on a fruitless search for its own happily ever after.",
-                attack: 1, health: 1, bones: 3, temple: CardTemple.Undead)
-                .SetPortraits(snowWhitesApple)
+            CardManager.New(pluginPrefix, snowWhitesApple, "Snow White's Apple",
+                attack: 1, health: 1, "A poisoned apple brought to life, on a fruitless search for its own happily ever after.")
+                .SetBonesCost(3)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(ModAssembly, snowWhitesApple)
                 .AddAbilities(Roots.ability)
                 .AddTribes(TribeBotanic)
                 .AddTraits(Trait.KillsSurvivors)
                 .SetDefaultEvolutionName("Snow White's Rotted Apple")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

@@ -13,11 +13,12 @@ namespace WhistleWindLobotomyMod
         {
             const string piscineMermaid = "piscineMermaid";
             
-            NewCard(piscineMermaid, "Piscine Mermaid",
-                attack: 1, health: 1, blood: 1)
-                .SetPortraits(piscineMermaid)
+            CardManager.New(wonderlabPrefix, piscineMermaid, "Piscine Mermaid",
+                attack: 1, health: 1)
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, piscineMermaid)
                 .AddAbilities(GiftGiver.ability, Ability.Submerge)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He, ModCardType.WonderLab);
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
 }

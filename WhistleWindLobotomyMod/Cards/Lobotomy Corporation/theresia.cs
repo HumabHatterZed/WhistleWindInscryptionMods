@@ -13,12 +13,14 @@ namespace WhistleWindLobotomyMod
         {
             const string theresia = "theresia";
 
-            NewCard(theresia, "Theresia", "An old music box. It plays a familiar melody.",
-                attack: 0, health: 2, energy: 2, temple: CardTemple.Tech)
-                .SetPortraits(theresia)
+            CardManager.New(pluginPrefix, theresia, "Theresia",
+                attack: 0, health: 2, "An old music box. It plays a familiar melody.")
+                .SetEnergyCost(2)
+                .SetCardTemple(CardTemple.Tech)
+                .SetPortraits(ModAssembly, theresia)
                 .AddAbilities(Healer.ability)
                 .AddTribes(TribeMechanical)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }
 }

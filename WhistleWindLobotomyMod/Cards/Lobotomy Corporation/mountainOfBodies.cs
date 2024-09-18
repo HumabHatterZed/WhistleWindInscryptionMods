@@ -18,29 +18,35 @@ namespace WhistleWindLobotomyMod
             Ability[] abilities = new[] { Assimilator.ability };
             SpecialTriggeredAbility[] specialAbilities = new[] { Smile.specialAbility };
 
-            NewCard(mountainOfBodies3, displayName: mountainName,
-                attack: 3, health: 1, blood: 3, temple: CardTemple.Undead)
-                .SetPortraits(mountainOfBodies3)
+            CardManager.New(pluginPrefix, mountainOfBodies3, displayName: mountainName,
+                attack: 3, health: 1)
+                .SetBloodCost(3)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(ModAssembly, mountainOfBodies3)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(specialAbilities)
                 .SetDefaultEvolutionName(mountainName)
-                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
+                .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            NewCard(mountainOfBodies2, displayName: mountainName,
-                attack: 2, health: 1, blood: 2, temple: CardTemple.Undead)
-                .SetPortraits(mountainOfBodies2)
+            CardManager.New(pluginPrefix, mountainOfBodies2, displayName: mountainName,
+                attack: 2, health: 1)
+                .SetBloodCost(2)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(ModAssembly, mountainOfBodies2)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(specialAbilities)
                 .SetDefaultEvolutionName(mountainName)
-                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
+                .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            NewCard(mountainOfBodies, mountainName, "A mass grave, melted and congealed into one eternally hungry beast.",
-                attack: 2, health: 1, blood: 2, temple: CardTemple.Undead)
-                .SetPortraits(mountainOfBodies)
+            CardManager.New(pluginPrefix, mountainOfBodies, mountainName,
+                attack: 2, health: 1, "A mass grave, melted and congealed into one eternally hungry beast.")
+                .SetBloodCost(2)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(ModAssembly, mountainOfBodies)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(specialAbilities)
                 .SetDefaultEvolutionName(mountainName)
-                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
+                .Build(CardHelper.CardType.Rare, RiskLevel.Aleph, true);
         }
     }
 }

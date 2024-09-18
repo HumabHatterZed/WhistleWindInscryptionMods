@@ -13,13 +13,14 @@ namespace WhistleWindLobotomyMod
         {
             const string theFirebird = "theFirebird";
 
-            NewCard(theFirebird, "The Firebird", "A bird that longs for the thrill of being hunted.",
-                attack: 2, health: 3, blood: 2)
-                .SetPortraits(theFirebird)
+            CardManager.New(pluginPrefix, theFirebird, "The Firebird",
+                attack: 2, health: 3, "A bird that longs for the thrill of being hunted.")
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, theFirebird)
                 .AddAbilities(Scorching.ability, Ability.Flying)
                 .AddTribes(Tribe.Bird)
                 .SetDefaultEvolutionName("The Grand Firebird")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

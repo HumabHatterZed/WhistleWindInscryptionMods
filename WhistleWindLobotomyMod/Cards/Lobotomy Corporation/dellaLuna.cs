@@ -13,13 +13,15 @@ namespace WhistleWindLobotomyMod
         {
             const string dellaLuna = "dellaLuna";
 
-            NewCard(dellaLuna, "Il Pianto della Luna", "In reality, man despairs at [c:bR]the moon[c:].",
-                attack: 2, health: 7, blood: 3)
-                .SetPortraits(dellaLuna)
+            CardManager.New(pluginPrefix, dellaLuna, "Il Pianto della Luna",
+                attack: 2, health: 7, "In reality, man despairs at [c:bR]the moon[c:].")
+                .SetBloodCost(3)
+                .SetPortraits(ModAssembly, dellaLuna)
                 .AddAbilities(GroupHealer.ability)
                 .AddTribes(Tribe.Bird)
+                .AddMetaCategories(DonatorCard)
                 .SetDefaultEvolutionName("Il Pianto della Luna Maggiore")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Donator);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

@@ -17,45 +17,49 @@ namespace WhistleWindLobotomyMod
             const string nothingThereFinal = "nothingThereFinal";
             Ability[] abilities = new[] { Ability.Evolve };
 
-            CardInfo nothingThereFinalCard = NewCard(
+            CardInfo nothingThereFinalCard = CardManager.New(pluginPrefix, 
                 nothingThereFinal, nothingName,
-                attack: 8, health: 8, blood: 4)
-                .SetPortraits(nothingThereFinal)
+                attack: 8, health: 8)
+                .SetBloodCost(4)
+                .SetPortraits(ModAssembly, nothingThereFinal)
                 .AddAbilities(Piercing.ability, Persistent.ability)
                 .SetDefaultEvolutionName(nothingName)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
+                .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            CardInfo nothingThereEggCard = NewCard(
+            CardInfo nothingThereEggCard = CardManager.New(pluginPrefix, 
                 nothingThereEgg, "An Egg",
-                attack: 0, health: 3, blood: 2)
-                .SetPortraits(nothingThereEgg)
+                attack: 0, health: 3)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, nothingThereEgg)
                 .AddAbilities(abilities)
                 .SetEvolve(nothingThereFinalCard, 1)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
+                .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            NewCard(
+            CardManager.New(pluginPrefix, 
                 nothingThereTrue, nothingName,
-                attack: 3, health: 3, blood: 2)
-                .SetPortraits(nothingThereTrue)
+                attack: 3, health: 3)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, nothingThereTrue)
                 .AddAbilities(abilities)
                 .AddTribes(Tribe.Canine, Tribe.Hooved, Tribe.Reptile)
                 .SetEvolve(nothingThereEggCard, 1)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
+                .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            NewCard(nothingThere, "Yumi", "I don't remember this challenger...",
-                attack: 1, health: 1, blood: 2)
-                .SetPortraits(nothingThere)
+            CardManager.New(pluginPrefix, nothingThere, "Yumi",
+                attack: 1, health: 1, "I don't remember this challenger...")
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, nothingThere)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(Mimicry.specialAbility)
                 .AddTraits(Trait.DeathcardCreationNonOption)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Aleph);
+                .Build(CardHelper.CardType.Rare, RiskLevel.Aleph, true);
         }
     }
 }

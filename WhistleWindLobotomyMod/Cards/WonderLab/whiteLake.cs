@@ -13,12 +13,13 @@ namespace WhistleWindLobotomyMod
         {
             const string whiteLake = "whiteLake";
             
-            NewCard(whiteLake, "White Lake",
-                attack: 1, health: 5, blood: 2)
-                .SetPortraits(whiteLake)
-                .AddAbilities()
+            CardManager.New(wonderlabPrefix, whiteLake, "White Lake",
+                attack: 1, health: 3)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, whiteLake)
+                .AddAbilities(Damsel.ability)
                 .AddTribes(AbnormalPlugin.TribeFae)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He, ModCardType.WonderLab);
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
 }

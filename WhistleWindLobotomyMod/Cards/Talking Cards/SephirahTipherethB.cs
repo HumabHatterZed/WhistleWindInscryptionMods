@@ -68,8 +68,9 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_TipherethB()
         {
-            NewCard("sephirahTipherethB", "Tiphereth",
-                attack: 0, health: 1, energy: 3)
+            CardManager.New(pluginPrefix, "sephirahTipherethB", "Tiphereth",
+                attack: 0, health: 1)
+                .SetEnergyCost(3)
                 .AddAbilities(Ability.DrawCopyOnDeath, Ability.LatchDeathShield)
                 .SetOnePerDeck()
                 .Build();

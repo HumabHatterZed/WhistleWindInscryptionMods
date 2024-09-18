@@ -12,12 +12,14 @@ namespace WhistleWindLobotomyMod
         {
             const string crumblingArmour = "crumblingArmour";
 
-            NewCard(crumblingArmour, "Crumbling Armour", "A suit of armour that rewards the brave and punishes the cowardly.",
-                attack: 0, health: 3, bones: 4, temple: CardTemple.Undead)
-                .SetPortraits(crumblingArmour)
+            CardManager.New(pluginPrefix, crumblingArmour, "Crumbling Armour",
+                attack: 0, health: 3, "A suit of armour that rewards the brave and punishes the cowardly.")
+                .SetBonesCost(4)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(ModAssembly, crumblingArmour)
                 .AddAbilities(Courageous.ability)
-                .SetTerrain(false)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .SetTerrain(true)
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }
 }

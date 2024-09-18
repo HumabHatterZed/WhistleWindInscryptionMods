@@ -17,20 +17,24 @@ namespace WhistleWindLobotomyMod
             Tribe[] tribes = new[] { TribeDivine };
 
 
-            CardInfo fleshIdolGoodCard = NewCard("fleshIdolGood", idolName,
-                attack: 0, health: 4, bones: 2, temple: CardTemple.Undead)
-                .SetPortraits(fleshIdol)
+            CardInfo fleshIdolGoodCard = CardManager.New(pluginPrefix, "fleshIdolGood", idolName,
+                attack: 0, health: 4)
+                .SetBonesCost(2)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(ModAssembly, fleshIdol)
                 .AddAbilities(TeamLeader.ability, TeamLeader.ability, Ability.Transformer)
                 .AddTribes(tribes)
                 .Build();
 
-            CardInfo fleshIdolCard = NewCard(fleshIdol, idolName, "Prayer inevitably ends with the worshipper's despair.",
-                attack: 0, health: 4, bones: 2, temple: CardTemple.Undead)
-                .SetPortraits(fleshIdol)
+            CardInfo fleshIdolCard = CardManager.New(pluginPrefix, fleshIdol, idolName,
+                attack: 0, health: 4, "Prayer inevitably ends with the worshipper's despair.")
+                .SetBonesCost(2)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(ModAssembly, fleshIdol)
                 .AddAbilities(Aggravating.ability, Ability.Transformer)
                 .AddTribes(tribes)
                 .SetEvolve(fleshIdolGoodCard, 2)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
 
             fleshIdolGoodCard.SetEvolve(fleshIdolCard, 1);
         }

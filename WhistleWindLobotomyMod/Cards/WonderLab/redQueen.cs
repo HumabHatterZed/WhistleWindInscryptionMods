@@ -13,12 +13,13 @@ namespace WhistleWindLobotomyMod
         {
             const string redQueen = "redQueen";
             
-            NewCard(redQueen, "Red Queen",
-                attack: 2, health: 2, blood: 2)
-                .SetPortraits(redQueen)
+            CardManager.New(wonderlabPrefix, redQueen, "Red Queen",
+                attack: 2, health: 2)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, redQueen)
                 .AddAbilities(Ability.BuffNeighbours)
                 .AddTribes(AbnormalPlugin.TribeFae)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth, ModCardType.WonderLab);
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }
 }

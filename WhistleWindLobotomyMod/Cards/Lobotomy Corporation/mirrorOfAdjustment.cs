@@ -13,14 +13,15 @@ namespace WhistleWindLobotomyMod
         {
             const string mirrorOfAdjustment = "mirrorOfAdjustment";
 
-            NewCard(mirrorOfAdjustment, "The Mirror of Adjustment", "A mirror that reflects nothing on its surface.",
-                attack: 0, health: 1, blood: 1)
-                .SetPortraits(mirrorOfAdjustment)
+            CardManager.New(pluginPrefix, mirrorOfAdjustment, "The Mirror of Adjustment",
+                attack: 0, health: 1, "A mirror that reflects nothing on its surface.")
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, mirrorOfAdjustment)
                 .AddAbilities(Woodcutter.ability)
                 .SetStatIcon(SpecialStatIcon.Mirror)
                 .SetTerrain(false)
                 .SetDefaultEvolutionName("The Grand Mirror of Adjustment")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
+                .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
     }
 }

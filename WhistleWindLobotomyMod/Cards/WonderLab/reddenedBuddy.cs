@@ -13,11 +13,11 @@ namespace WhistleWindLobotomyMod
         {
             const string reddenedBuddy = "reddenedBuddy";
             
-            NewCard(reddenedBuddy, "Reddened Buddy",
-                attack: 0, health: 0, bones: 0)
-                .SetPortraits(reddenedBuddy)
+            CardManager.New(wonderlabPrefix, reddenedBuddy, "Reddened Buddy",
+                attack: 0, health: 0)
+                .SetPortraits(ModAssembly, reddenedBuddy)
                 .AddAbilities()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He, ModCardType.WonderLab);
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
 }

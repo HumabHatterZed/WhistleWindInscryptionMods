@@ -13,12 +13,13 @@ namespace WhistleWindLobotomyMod
         {
             const string pygmalion = "pygmalion";
             
-            NewCard(pygmalion, "Pygmalion",
-                attack: 2, health: 6, blood: 3)
-                .SetPortraits(pygmalion)
-                .AddAbilities(Ability.Sniper, Ability.WhackAMole)
+            CardManager.New(wonderlabPrefix, pygmalion, "Pygmalion",
+                attack: 3, health: 4)
+                .SetBloodCost(3)
+                .SetPortraits(ModAssembly, pygmalion)
+                .AddAbilities(FingerTapping.ability)
                 .AddTribes(AbnormalPlugin.TribeAnthropoid, AbnormalPlugin.TribeBotanic)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.WonderLab);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

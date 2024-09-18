@@ -13,12 +13,13 @@ namespace WhistleWindLobotomyMod
         {
             const string fairyFestival = "fairyFestival";
 
-            NewCard(fairyFestival, "Fairy Festival", "Everything will be peaceful while you're under the fairies' care.",
-                attack: 1, health: 1, blood: 1)
-                .SetPortraits(fairyFestival)
+            CardManager.New(pluginPrefix, fairyFestival, "Fairy Festival",
+                attack: 1, health: 1, "Everything will be peaceful while you're under the fairies' care.")
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, fairyFestival)
                 .AddAbilities(Bloodfiend.ability)
                 .AddTribes(TribeFae)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
+                .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
     }
 }

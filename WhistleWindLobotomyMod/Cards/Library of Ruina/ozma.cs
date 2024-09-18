@@ -14,14 +14,17 @@ namespace WhistleWindLobotomyMod
         {
             const string ozma = "ozma";
 
-            NewCard(ozma, "Ozma", "The former ruler of a far away land, now reduced to this.",
-                attack: 1, health: 2, blood: 1, temple: CardTemple.Wizard)
-                .SetPortraits(ozma)
+            CardManager.New(pluginPrefix, ozma, "Ozma",
+                attack: 1, health: 2, "The former ruler of a far away land, now reduced to this.")
+                .SetBloodCost(1)
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortraits(ModAssembly, ozma)
                 .AddAbilities(RightfulHeir.ability)
                 .AddTribes(TribeFae)
                 .AddTraits(EmeraldCity)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Ruina);
+                .AddMetaCategories(RuinaCard)
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

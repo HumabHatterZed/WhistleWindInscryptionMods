@@ -12,13 +12,15 @@ namespace WhistleWindLobotomyMod
         {
             const string funeralOfButterflies = "funeralOfButterflies";
 
-            NewCard(funeralOfButterflies, "Funeral of the Dead Butterflies", "The coffin is a tribute to the fallen. A memorial to those who can't return home.",
-                attack: 1, health: 3, blood: 2)
-                .SetPortraits(funeralOfButterflies)
+            CardManager.New(pluginPrefix, funeralOfButterflies, "Funeral of the Dead Butterflies",
+                attack: 1, health: 3, "The coffin is a tribute to the fallen. A memorial to those who can't return home.")
+                .SetBloodCost(2)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(ModAssembly, funeralOfButterflies)
                 .AddAbilities(Ability.DoubleStrike)
                 .AddTribes(Tribe.Insect)
                 .SetDefaultEvolutionName("2nd Funeral of the Dead Butterflies")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
 }

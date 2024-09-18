@@ -80,8 +80,9 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Hokma()
         {
-            NewCard("sephirahHokma", "Hokma", "All things will happen in time. Just have faith.",
-                attack: 1, health: 4, blood: 2)
+            CardManager.New(pluginPrefix, "sephirahHokma", "Hokma",
+                attack: 1, health: 4, "All things will happen in time. Just have faith.")
+                .SetBloodCost(2)
                 .AddAbilities(NeuteredLatch.ability)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()

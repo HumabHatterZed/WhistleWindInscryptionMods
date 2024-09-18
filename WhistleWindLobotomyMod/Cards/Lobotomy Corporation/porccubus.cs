@@ -13,12 +13,13 @@ namespace WhistleWindLobotomyMod
         {
             const string porccubus = "porccubus";
 
-            NewCard(porccubus, "Porccubus", "A prick from one of its quills creates a deadly euphoria.",
-                attack: 1, health: 1, bones: 5)
-                .SetPortraits(porccubus)
+            CardManager.New(pluginPrefix, porccubus, "Porccubus",
+                attack: 1, health: 1, "A prick from one of its quills creates a deadly euphoria.")
+                .SetBonesCost(5)
+                .SetPortraits(ModAssembly, porccubus)
                 .AddAbilities(Ability.Deathtouch)
                 .AddTribes(TribeBotanic)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.He);
+                .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }
 }

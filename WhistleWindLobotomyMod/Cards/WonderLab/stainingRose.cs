@@ -13,13 +13,14 @@ namespace WhistleWindLobotomyMod
         {
             const string stainingRose = "stainingRose";
             
-            NewCard(stainingRose, "Staining Rose",
+            CardManager.New(wonderlabPrefix, stainingRose, "Staining Rose",
                 attack: 0, health: 0)
-                .SetPortraits(stainingRose)
+                .SetPortraits(ModAssembly, stainingRose)
                 .AddAbilities()
-                .SetGlobalSpell()
+                .SetInstaGlobalSpell()
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.None, RiskLevel.Zayin, ModCardType.WonderLab);
+                .SetNodeRestrictions(true, true, true, true)
+                .Build();
         }
     }
 }

@@ -12,15 +12,18 @@ namespace WhistleWindLobotomyMod
         {
             const string backwardClock = "backwardClock";
 
-            NewCard(backwardClock, "Backward Clock", "A clock to rewind your wasted time. Will you pay the toll?",
-                attack: 0, health: 1, energy: 2, temple: CardTemple.Tech)
-                .SetPortraits(backwardClock, "backwardClock_emission_0")
+            CardManager.New(pluginPrefix, backwardClock, "Backward Clock",
+                attack: 0, health: 1, "A clock to rewind your wasted time. Will you pay the toll?")
+                .SetEnergyCost(2)
+                .SetCardTemple(CardTemple.Tech)
+                .SetPortraits(ModAssembly, backwardClock, "backwardClock_emission_0")
                 .AddAbilities(TimeMachine.ability)
                 .AddTraits(Trait.DeathcardCreationNonOption)
                 .SetTerrain()
                 .SetNodeRestrictions(true, true, true, true)
+                .AddMetaCategories(DonatorCard)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Waw, ModCardType.Donator);
+                .Build(CardHelper.CardType.Rare, RiskLevel.Waw, true);
         }
     }
 }

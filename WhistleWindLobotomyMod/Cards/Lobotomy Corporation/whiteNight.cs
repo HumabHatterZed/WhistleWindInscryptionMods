@@ -14,15 +14,17 @@ namespace WhistleWindLobotomyMod
         {
             const string whiteNight = "whiteNight";
 
-            NewCard(whiteNight, "WhiteNight", "The time has come.",
-                attack: 0, health: 66)
-                .SetPortraits(whiteNight, titleName: "whiteNight_title")
+            CardManager.New(pluginPrefix, whiteNight, "WhiteNight",
+                attack: 0, health: 66, "The time has come.")
+                .SetPortraits(ModAssembly, whiteNight)
+                .SetTitle(ModAssembly, "whiteNight_title.png")
                 .AddAbilities(Ability.Flying, Idol.ability, TrueSaviour.ability)
                 .AddTribes(TribeDivine)
                 .AddTraits(ImmuneToInstaDeath, Trait.Uncuttable)
                 .AddAppearances(ForcedWhiteEmission.appearance, CardAppearanceBehaviour.Appearance.TerrainLayout)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard);
+                .SetEventCard(true)
+                .Build();
         }
     }
 }

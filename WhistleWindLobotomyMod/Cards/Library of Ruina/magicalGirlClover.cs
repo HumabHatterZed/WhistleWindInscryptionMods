@@ -17,25 +17,31 @@ namespace WhistleWindLobotomyMod
             const string servantOfWrath = "servantOfWrath";
             Trait[] traits = new[] { MagicalGirl };
 
-            NewCard(servantOfWrath, servantName,
-                attack: 3, health: 2, blood: 2, temple: CardTemple.Wizard)
-                .SetPortraits(servantOfWrath)
+            CardManager.New(pluginPrefix, servantOfWrath, servantName,
+                attack: 3, health: 2)
+                .SetBloodCost(2)
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortraits(ModAssembly, servantOfWrath)
                 .AddAbilities(Ability.DoubleStrike, Persistent.ability)
                 .AddSpecialAbilities(BlindRage.specialAbility)
                 .AddTribes(TribeFae, Tribe.Reptile)
                 .AddTraits(traits)
                 .SetOnePerDeck()
-                .Build(cardType: ModCardType.Ruina);
+                .AddMetaCategories(RuinaCard)
+                .Build();
 
-            NewCard(magicalGirlClover, servantName, "Blind protector of another world.",
-                attack: 2, health: 2, blood: 2, temple: CardTemple.Wizard)
-                .SetPortraits(magicalGirlClover)
+            CardManager.New(pluginPrefix, magicalGirlClover, servantName,
+                attack: 2, health: 2, "Blind protector of another world, betrayed by their closest friend.")
+                .SetBloodCost(2)
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortraits(ModAssembly, magicalGirlClover)
                 .AddAbilities(Scorching.ability)
-                .AddSpecialAbilities(SwordWithTears.specialAbility)
+                .AddSpecialAbilities(CloverCompanion.specialAbility)
                 .AddTribes(TribeFae)
                 .AddTraits(traits)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Ruina);
+                .AddMetaCategories(RuinaCard)
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

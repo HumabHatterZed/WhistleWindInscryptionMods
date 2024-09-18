@@ -12,14 +12,15 @@ namespace WhistleWindLobotomyMod
         {
             const string judgementBird = "judgementBird";
 
-            NewCard(judgementBird, "Judgement Bird", "A long bird that judges sinners with swift efficiency. It alone is above consequences.",
-                attack: 1, health: 1, blood: 2)
-                .SetPortraits(judgementBird)
+            CardManager.New(pluginPrefix, judgementBird, "Judgement Bird",
+                attack: 1, health: 1, "A long-necked bird that swiftly judges sinners, guilty or no.")
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, judgementBird)
                 .AddAbilities(Ability.Sniper)
                 .AddTribes(Tribe.Bird)
                 .AddTraits(BlackForest, Executioner)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

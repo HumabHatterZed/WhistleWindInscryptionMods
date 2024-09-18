@@ -12,15 +12,16 @@ namespace WhistleWindLobotomyMod
         {
             const string yang = "yang";
 
-            NewCard(yang, "Yang", "A white pendant that heals those nearby.",
-                attack: 0, health: 3, blood: 1)
-                .SetPortraits(yang, altPortraitName: "yangAlt")
-                .SetPixelAlternatePortrait(TextureLoader.LoadTextureFromFile("yangAlt_pixel.png"))
+            CardManager.New(pluginPrefix, yang, "Yang",
+                attack: 0, health: 3, "A white pendant that heals those nearby.")
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, yang)
+                .SetAltPortraits(ModAssembly, "yangAlt")
                 .AddAbilities(Regenerator.ability)
                 .AddSpecialAbilities(Concord.specialAbility)
                 .AddAppearances(AlternateBattlePortrait.appearance)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

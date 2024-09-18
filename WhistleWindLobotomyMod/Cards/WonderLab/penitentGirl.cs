@@ -13,11 +13,12 @@ namespace WhistleWindLobotomyMod
         {
             const string penitentGirl = "penitentGirl";
             
-            NewCard(penitentGirl, "The Penitent Girl",
-                attack: 0, health: 1, bones: 3)
-                .SetPortraits(penitentGirl)
+            CardManager.New(wonderlabPrefix, penitentGirl, "The Penitent Girl",
+                attack: 0, health: 1)
+                .SetBonesCost(3)
+                .SetPortraits(ModAssembly, penitentGirl)
                 .AddAbilities(Ability.Sharp, Ability.Sharp)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin, ModCardType.WonderLab);
+                .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
     }
 }

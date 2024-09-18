@@ -13,11 +13,12 @@ namespace WhistleWindLobotomyMod
         {
             const string mySweetHome = "mySweetHome";
             
-            NewCard(mySweetHome, "My Sweet Home",
-                attack: 0, health: 2, blood: 1)
-                .SetPortraits(mySweetHome)
+            CardManager.New(wonderlabPrefix, mySweetHome, "My Sweet Home",
+                attack: 0, health: 2)
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, mySweetHome)
                 .AddAbilities(Ability.MadeOfStone, Ability.Reach)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth, ModCardType.WonderLab);
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }
     }
 }

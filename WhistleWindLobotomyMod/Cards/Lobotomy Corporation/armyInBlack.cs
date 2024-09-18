@@ -14,17 +14,19 @@ namespace WhistleWindLobotomyMod
             const string blackName = "Army in Black";
             const string armyInBlack = "armyInBlack";
 
-            NewCard(armyInBlack, blackName,
-                attack: 3, health: 3, blood: 2)
-                .SetPortraits(armyInBlack)
-                .AddAbilities(Volatile.ability, Ability.Brittle)
-                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
+            CardManager.New(pluginPrefix, armyInBlack, blackName,
+                attack: 3, health: 3)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, armyInBlack)
+                .AddAbilities(Ability.ExplodeOnDeath, Ability.Brittle)
+                .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            NewCard("armyInBlackSpell", blackName)
-                .SetPortraits(armyInBlack)
-                .AddAbilities(Volatile.ability)
+            CardManager.New(pluginPrefix, "armyInBlackSpell", blackName,
+                attack: 0, health: 0)
+                .SetPortraits(ModAssembly, armyInBlack)
+                .AddAbilities(Ability.ExplodeOnDeath)
                 .SetSpellType(SpellType.Targeted)
-                .Build(CardHelper.ChoiceType.Rare, nonChoice: true);
+                .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
         }
     }
 }

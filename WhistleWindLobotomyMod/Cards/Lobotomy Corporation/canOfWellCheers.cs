@@ -13,29 +13,31 @@ namespace WhistleWindLobotomyMod
         {
             const string canOfWellCheers = "canOfWellCheers";
 
-            CardInfo can = NewCard(
+            CardInfo can = CardManager.New(pluginPrefix, 
                 "CRUMPLED_CAN", "Crumpled Can of WellCheers",
                 attack: 0, health: 1)
-                .SetPortraits("skeleton_can")
+                .SetPortraits(ModAssembly, "skeleton_can")
                 .SetTerrain()
                 .SetDefaultEvolutionName("Rusted Can of WellCheers")
                 .Build();
 
-            CardInfo skeleton = NewCard(
+            CardInfo skeleton = CardManager.New(pluginPrefix, 
                 "SKELETON_SHRIMP", "Skeleton Shrimp",
-                attack: 2, health: 1, bones: 5)
-                .SetPortraits("skeleton_shrimp")
-                .AddAbilities(Ability.Brittle, Ability.IceCube)
+                attack: 2, health: 1)
+                .SetBonesCost(5)
+                .SetPortraits(ModAssembly, "skeleton_shrimp")
+                .AddAbilities(Ability.IceCube, Ability.Brittle)
                 .SetIceCube(can)
                 .Build();
 
-            NewCard(canOfWellCheers, "Opened Can of WellCheers", "A vending machine dispensing ocean soda.",
-                attack: 1, health: 1, blood: 1)
-                .SetPortraits(canOfWellCheers)
+            CardManager.New(pluginPrefix, canOfWellCheers, "Opened Can of WellCheers",
+                attack: 1, health: 1, "A vending machine dispensing ocean soda.")
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, canOfWellCheers)
                 .AddAbilities(Ability.Strafe, Ability.Submerge)
                 .AddTribes(TribeMechanical)
                 .SetIceCube(skeleton)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
+                .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
     }
 }

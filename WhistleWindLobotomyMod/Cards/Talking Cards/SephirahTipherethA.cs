@@ -91,8 +91,9 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_TipherethA()
         {
-            NewCard("sephirahTipherethA", "Tiphereth", "A foul-mouthed child. She's never seen without her brother.",
-                attack: 1, health: 2, energy: 3)
+            CardManager.New(pluginPrefix, "sephirahTipherethA", "Tiphereth",
+                attack: 1, health: 2, "A foul-mouthed child. She's never seen without her brother.")
+                .SetEnergyCost(3)
                 .AddAbilities(GiftGiver.ability)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()

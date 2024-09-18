@@ -12,11 +12,13 @@ namespace WhistleWindLobotomyMod
         {
             const string trainingDummy = "trainingDummy";
 
-            NewCard(trainingDummy, "Standard Training-Dummy Rabbit", "A beast in the shape of a training dummy. The safest of these abnormal creatures.",
-                attack: 0, health: 2, energy: 1, temple: CardTemple.Tech)
-                .SetPortraits(trainingDummy)
+            CardManager.New(pluginPrefix, trainingDummy, "Standard Training-Dummy Rabbit",
+                attack: 0, health: 2, "A beast in the shape of a training dummy. The safest of these abnormal creatures.")
+                .SetEnergyCost(1)
+                .SetCardTemple(CardTemple.Tech)
+                .SetPortraits(ModAssembly, trainingDummy)
                 .AddTribes(TribeMechanical)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
+                .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
     }
 }

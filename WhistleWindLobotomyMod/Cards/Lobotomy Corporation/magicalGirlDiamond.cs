@@ -19,10 +19,12 @@ namespace WhistleWindLobotomyMod
             Tribe[] tribes = new[] { TribeFae };
             Trait[] traits = new[] { MagicalGirl };
 
-            CardInfo kingOfGreedCard = NewCard(
+            CardInfo kingOfGreedCard = CardManager.New(pluginPrefix, 
                 kingOfGreed, kingName,
-                attack: 2, health: 5, blood: 1, temple: CardTemple.Wizard)
-                .SetPortraits(kingOfGreed)
+                attack: 2, health: 5)
+                .SetBloodCost(1)
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortraits(ModAssembly, kingOfGreed)
                 .AddAbilities(Cycler.ability)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
@@ -30,16 +32,18 @@ namespace WhistleWindLobotomyMod
                 .SetOnePerDeck()
                 .Build();
 
-            NewCard(magicalGirlDiamond, kingName, "A girl encased in hardened amber. Happiness trapped by greed.",
-                attack: 0, health: 2, blood: 1, temple: CardTemple.Wizard)
-                .SetPortraits(magicalGirlDiamond)
+            CardManager.New(pluginPrefix, magicalGirlDiamond, kingName,
+                attack: 0, health: 2, "A girl encased in hardened amber. Happiness trapped by greed.")
+                .SetBloodCost(1)
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortraits(ModAssembly, magicalGirlDiamond)
                 .AddAbilities(Ability.Evolve)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .SetOnePerDeck()
                 .SetEvolve(kingOfGreedCard, 1)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

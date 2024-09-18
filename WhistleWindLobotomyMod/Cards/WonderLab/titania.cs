@@ -12,19 +12,13 @@ namespace WhistleWindLobotomyMod
         private void XCard_Titania()
         {
             const string titania = "titania";
-            const string oberon = "oberon";
-
-            NewCard(titania, "Titania", "The queen of faeries, searching always for her traitorous husband.",
-                attack: 1, health: 4, blood: 2)
-                .SetPortraits(titania)
+            CardManager.New(wonderlabPrefix, titania, "Titania",
+                attack: 0, health: 4, "The queen of faeries, searching always for her traitorous husband.")
+                .SetBloodCost(1)
+                .SetStatIcon(FlowerPower.Icon)
+                .SetPortraits(ModAssembly, titania)
                 .AddAbilities(Ability.StrafeSwap)
-                .Build(CardHelper.ChoiceType.Rare, RiskLevel.Aleph, ModCardType.WonderLab);
-
-            NewCard(oberon, "Oberon",
-                attack: 1, health: 4, blood: 2)
-                .SetPortraits(oberon)
-                .AddAbilities(Ability.StrafeSwap)
-                .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.EventCard, nonChoice: true);
+                .Build(CardHelper.CardType.Rare, RiskLevel.Aleph, true);
         }
     }
 }

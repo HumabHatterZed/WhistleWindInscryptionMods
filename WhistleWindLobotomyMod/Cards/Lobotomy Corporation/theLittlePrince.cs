@@ -13,14 +13,15 @@ namespace WhistleWindLobotomyMod
         {
             const string theLittlePrince = "theLittlePrince";
 
-            NewCard(theLittlePrince, "The Little Prince", "A giant mushroom chunk. A mist of spores surrounds it.",
-                attack: 1, health: 4, blood: 2)
-                .SetPortraits(theLittlePrince)
+            CardManager.New(pluginPrefix, theLittlePrince, "The Little Prince",
+                attack: 1, health: 4, "A giant mushroom chunk. A mist of spores surrounds it.")
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, theLittlePrince)
                 .AddAbilities(Sporogenic.ability)
                 .AddTribes(TribeBotanic)
                 .AddTraits(SporeFriend)
                 .SetDefaultEvolutionName("The Little King")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

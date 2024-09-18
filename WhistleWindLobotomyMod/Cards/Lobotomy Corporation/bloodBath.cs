@@ -18,31 +18,35 @@ namespace WhistleWindLobotomyMod
             Ability[] abilities = new[] { Ability.TripleBlood };
             SpecialTriggeredAbility[] specialAbilities = new[] { WristCutter.specialAbility };
 
-            NewCard(bloodBath, bathName, "A tub of blood. The hands of people you once loved wait inside.",
-                attack: 0, health: 1, blood: 1)
-                .SetPortraits(bloodBath)
+            CardManager.New(pluginPrefix, bloodBath, bathName,
+                attack: 0, health: 1, "A bathtub of full of blood. Do you recognise the hands of your loved ones?")
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, bloodBath)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTraits(Trait.Goat)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Teth);
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
 
-            NewCard(bloodBath1, bathName,
-                attack: 0, health: 1, blood: 1)
-                .SetPortraits(bloodBath1)
+            CardManager.New(pluginPrefix, bloodBath1, bathName,
+                attack: 0, health: 1)
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, bloodBath1)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(specialAbilities)
                 .Build();
 
-            NewCard(bloodBath2, bathName,
-                attack: 0, health: 2, blood: 1)
-                .SetPortraits(bloodBath2)
+            CardManager.New(pluginPrefix, bloodBath2, bathName,
+                attack: 0, health: 2)
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, bloodBath2)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(specialAbilities)
                 .SetStatIcon(SpecialStatIcon.SacrificesThisTurn)
                 .Build();
 
-            NewCard(bloodBath3, bathName,
-                attack: 1, health: 2, blood: 2)
-                .SetPortraits(bloodBath3)
+            CardManager.New(pluginPrefix, bloodBath3, bathName,
+                attack: 1, health: 2)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, bloodBath3)
                 .AddAbilities(Ability.TripleBlood, Ability.QuadrupleBones)
                 .SetStatIcon(SpecialStatIcon.SacrificesThisTurn)
                 .Build();

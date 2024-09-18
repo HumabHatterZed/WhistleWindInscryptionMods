@@ -15,19 +15,25 @@ namespace WhistleWindLobotomyMod
             const string cloudedMonk = "cloudedMonk";
             Tribe[] tribes = new[] { TribeAnthropoid };
 
-            CardInfo cloudedMonkCard = NewCard(cloudedMonk, "Clouded Monk",
-                attack: 4, health: 2, blood: 2, temple: CardTemple.Wizard)
-                .SetPortraits(cloudedMonk)
+            CardInfo cloudedMonkCard = CardManager.New(pluginPrefix, cloudedMonk, "Clouded Monk",
+                attack: 4, health: 2)
+                .SetBloodCost(2)
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortraits(ModAssembly, cloudedMonk)
                 .AddTribes(tribes)
-                .Build(cardType: ModCardType.Donator);
+                .AddMetaCategories(DonatorCard)
+                .Build();
 
-            NewCard(honouredMonk, "Honoured Monk", "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...",
-                attack: 2, health: 1, blood: 2, temple: CardTemple.Wizard)
-                .SetPortraits(honouredMonk)
+            CardManager.New(pluginPrefix, honouredMonk, "Honoured Monk",
+                attack: 2, health: 1, "A monk seeking enlightenment through good deeds. But surely there's a quicker way to nirvana...")
+                .SetBloodCost(2)
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortraits(ModAssembly, honouredMonk)
                 .AddAbilities(Ability.Evolve)
                 .AddTribes(tribes)
                 .SetEvolve(cloudedMonkCard, 1)
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw, ModCardType.Donator);
+                .AddMetaCategories(DonatorCard)
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

@@ -12,12 +12,13 @@ namespace WhistleWindLobotomyMod
         {
             const string dreamingCurrent = "dreamingCurrent";
 
-            NewCard(dreamingCurrent, "The Dreaming Current", "A sickly child. Everyday it was fed candy that let it see the ocean.",
-                attack: 4, health: 2, blood: 3)
-                .SetPortraits(dreamingCurrent)
+            CardManager.New(pluginPrefix, dreamingCurrent, "The Dreaming Current",
+                attack: 4, health: 2, "A sickly child that was fed candy that let it see the ocean.")
+                .SetBloodCost(3)
+                .SetPortraits(ModAssembly, dreamingCurrent)
                 .AddAbilities(Ability.Submerge, Ability.StrafeSwap)
                 .SetDefaultEvolutionName("The Elder Dreaming Current")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Waw);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }

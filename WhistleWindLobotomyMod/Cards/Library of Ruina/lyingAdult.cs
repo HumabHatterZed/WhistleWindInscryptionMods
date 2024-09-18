@@ -13,15 +13,18 @@ namespace WhistleWindLobotomyMod
         {
             const string lyingAdult = "lyingAdult";
 
-            NewCard(lyingAdult, "The Adult Who Tells Lies",
-                attack: 1, health: 5, blood: 2)
-                .SetPortraits(lyingAdult)
+            CardManager.New(pluginPrefix, lyingAdult, "The Adult Who Tells Lies",
+                attack: 1, health: 5)
+                .SetBloodCost(2)
+                .SetPortraits(ModAssembly, lyingAdult)
                 .AddAbilities(FalseThrone.ability)
                 .AddSpecialAbilities(BoardEffects.specialAbility)
                 .AddTribes(TribeAnthropoid)
                 .AddAppearances(ForcedWhiteEmission.appearance)
                 .SetOnePerDeck()
-                .Build(CardHelper.ChoiceType.Rare, cardType: ModCardType.Ruina | ModCardType.EventCard);
+                .SetEventCard(true)
+                .AddMetaCategories(RuinaCard)
+                .Build();
         }
     }
 }

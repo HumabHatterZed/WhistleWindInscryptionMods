@@ -96,8 +96,9 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Chesed()
         {
-            NewCard("sephirahChesed", "Chesed", "Nothing like a fresh cup of coffee to start your day.",
-                attack: 1, health: 4, energy: 4)
+            CardManager.New(pluginPrefix, "sephirahChesed", "Chesed",
+                attack: 1, health: 4, "Nothing like a fresh cup of coffee to start your day.")
+                .SetEnergyCost(4)
                 .AddAbilities(Healer.ability, Regenerator.ability)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()

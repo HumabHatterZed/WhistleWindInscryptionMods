@@ -85,8 +85,9 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Gebura()
         {
-            NewCard("sephirahGebura", "Gebura", "Though not as strong as she once was, she will still make for a powerful ally.",
-                attack: 3, health: 5, blood: 3)
+            CardManager.New(pluginPrefix, "sephirahGebura", "Gebura",
+                attack: 3, health: 5, "Though not as strong as she once was, she will still make for a powerful ally.")
+                .SetBloodCost(3)
                 .AddAbilities(Ability.GainAttackOnKill, Persistent.ability)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()

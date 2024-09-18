@@ -96,8 +96,9 @@ namespace WhistleWindLobotomyMod
         }
         private void Card_Hod()
         {
-            NewCard("sephirahHod", "Hod", "Timid she may be, she will still try her hardest.",
-                attack: 1, health: 2, bones: 3)
+            CardManager.New(pluginPrefix, "sephirahHod", "Hod",
+                attack: 1, health: 2, "Timid she may be, she will still try her hardest.")
+                .SetBonesCost(3)
                 .AddAbilities(Protector.ability)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()

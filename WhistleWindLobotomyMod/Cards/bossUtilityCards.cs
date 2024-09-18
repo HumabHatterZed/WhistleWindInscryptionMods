@@ -17,37 +17,41 @@ namespace WhistleWindLobotomyMod
             const string RETURNALL = "RETURN_CARD_ALL";
             const string REFRESHDECKS = "REFRESH_DECKS";
 
-            NewCard(RETURNONE, "Single Recall",
-                attack: 0, health: 0, energy: 1)
-                .SetPortraits(RETURNONE, "", "")
-                .AddAbilities(Ability.DrawCopyOnDeath, ReturnCard.ability)
+            CardManager.New(pluginPrefix, RETURNONE, "Single Recall",
+                attack: 0, health: 0)
+                .SetEnergyCost(1)
+                .SetPortraits(ModAssembly, RETURNONE, "", "")
+                .AddAbilities(ReturnCard.ability, Ability.DrawCopyOnDeath)
                 .SetTargetedSpell()
                 .Build();
 
-            NewCard(RETURNALL, "Total Recall",
-                attack: 0, health: 0, energy: 3)
-                .SetPortraits(RETURNALL, "", "")
-                .AddAbilities(Ability.DrawCopyOnDeath, ReturnCard.ability)
+            CardManager.New(pluginPrefix, RETURNALL, "Total Recall",
+                attack: 0, health: 0)
+                .SetEnergyCost(3)
+                .SetPortraits(ModAssembly, RETURNALL, "", "")
+                .AddAbilities(ReturnCard.ability, Ability.DrawCopyOnDeath)
                 .SetGlobalSpell()
                 .Build();
 
-            NewCard(REFRESHDECKS, "Reshuffle Decks",
-                attack: 0, health: 0, energy: 0)
-                .SetPortraits(REFRESHDECKS, "", "")
+            CardManager.New(pluginPrefix, REFRESHDECKS, "Reshuffle Decks",
+                attack: 0, health: 0)
+                .SetPortraits(ModAssembly, REFRESHDECKS, "", "")
                 .AddAbilities(RefreshDecks.ability, BoneMeal.ability)
                 .SetGlobalSpell()
                 .Build();
 
-            NewCard("RETURN_CARD_WEAK", "Single Recall",
-                attack: 0, health: 0, energy: 1)
-                .SetPortraits(RETURNONE, "", "")
+            CardManager.New(pluginPrefix, "RETURN_CARD_WEAK", "Single Recall",
+                attack: 0, health: 0)
+                .SetEnergyCost(1)
+                .SetPortraits(ModAssembly, RETURNONE, "", "")
                 .AddAbilities(ReturnCard.ability)
                 .SetTargetedSpell()
                 .Build();
 
-            NewCard("RETURN_CARD_ALL_WEAK", "Total Recall",
-                attack: 0, health: 0, energy: 3)
-                .SetPortraits(RETURNALL, "", "")
+            CardManager.New(pluginPrefix, "RETURN_CARD_ALL_WEAK", "Total Recall",
+                attack: 0, health: 0)
+                .SetEnergyCost(3)
+                .SetPortraits(ModAssembly, RETURNALL, "", "")
                 .AddAbilities(ReturnCard.ability)
                 .SetGlobalSpell()
                 .Build();

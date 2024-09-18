@@ -12,12 +12,13 @@ namespace WhistleWindLobotomyMod
         {
             const string youreBald = "youreBald";
 
-            NewCard(youreBald, "You're Bald...", "I've always wondered what it's like to be bald.",
-                attack: 0, health: 2, energy: 2)
-                .SetPortraits(youreBald)
+            CardManager.New(pluginPrefix, youreBald, "You're Bald...",
+                attack: 0, health: 2, "I've always wondered what it's like to be bald.")
+                .SetEnergyCost(2)
+                .SetPortraits(ModAssembly, youreBald)
                 .AddAbilities(Ability.DrawCopy)
-                .SetDefaultEvolutionName("You're Extra Bald...")
-                .Build(CardHelper.ChoiceType.Common, RiskLevel.Zayin);
+                .SetDefaultEvolutionName("You're Really Bald...")
+                .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
     }
 }
