@@ -21,30 +21,15 @@ namespace ModDebuggingMod
         {
             //MyTestCost.Init();
 
-            CardInfo info = CardHelper.NewCard(true, "wstl", "wstlcard", "Debug",
-                attack: 10, health: 100, blood: 0, bones: 0, energy: 0, gems: new() { })
+            CardInfo info = CardManager.New("wstl", "wstlcard", "Debug",
+                attack: 10, health: 100)
+                .SetCost(0, 0, 0)
                 .AddAbilities(NimbleFoot.ability, Test.ability)
-                .SetGemsCost(GemType.Green, GemType.Green, /*GemType.Green, GemType.Green,*/ /*GemType.Orange*//*, GemType.Orange, GemType.Orange*/ GemType.Blue)
                 //.AddSpecialAbilities(BlindRage.specialAbility)
                 //.SetTransformerCardId("Squirrel")
                 .SetEvolve("Squirrel", 1)
-                .SetPortraits("misterWin_grimora", emissionName: "misterWin_grimora_emission", pixelPortraitName: "buffBell.png")
+                .SetPortraits(typeof(Plugin).Assembly, "misterWin_grimora", emissionName: "misterWin_grimora_emission", pixelPortraitName: "buffBell.png")
                 ;
-
-            //LocalizationManager.Translate(pluginGuid, "MYDEBT", "Debug", "Omelette du Fromagge", Language.French);
-            return;
-            //info.AddAppearances(ForcedWhiteEmission.appearance);
-            info.SetCustomCost<InscryptionCommunityPatch.Tests.TestCost>(2);
-            info.AddMetaCategories(CardMetaCategory.ChoiceNode);
-            return;
-            CardInfo info2 = CardHelper.NewCard(true, "wstl", "wstlcard2", "Debug2",
-                attack: 100, health: 10, blood: 0, bones: 0, energy: 0, gems: new() { })
-                .SetPortraits("misterWin_grimora", emissionName: "misterWin_grimora_emission", pixelPortraitName: "buffBell.png")
-                ;
-
-            //info.AddAppearances(ForcedWhiteEmission.appearance);
-            info2.SetCustomCost<MyTestCost>(4);
-            info2.AddMetaCategories(CardMetaCategory.ChoiceNode);
         }
     }
 

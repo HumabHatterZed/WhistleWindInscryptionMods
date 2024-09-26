@@ -18,10 +18,10 @@ namespace ModDebuggingMod
             const string rulebookDescription = "When [creature] dies, the killer transforms into a copy of this card.";
             const string dialogue = "The curse continues unabated.";
             const string triggerText = "[creature] passes the curse on.";
-            Test.ability = AbilityHelper.CreateAbility<Test>(
+            Test.ability = AbilityHelper.New<Test>(
                 pluginGuid, "sigilCursed",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 0,
-                modular: true, opponent: false, canStack: true).Id;//.Info.SetHideSingleStacks().ability;
+                rulebookName, rulebookDescription, 0, true, dialogue, triggerText,
+                modular: true, opponent: false, canStack: true).Id;
         }
     }
     public class Test : AbilityBehaviour
