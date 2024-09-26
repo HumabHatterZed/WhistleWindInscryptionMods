@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod.Patches
         private static void RemoveUniqueCards(ref List<CardInfo> __result, CardMetaCategory category, CardTemple temple)
         {
             List<CardInfo> result = new(__result);
-            __result.AddRange(LobotomyCardManager.ObtainableLobotomyCards.Where(x => x.HasCardMetaCategory(category) && x.temple == temple && !result.Contains(x)));
+            __result.AddRange(LobotomyCardManager.ObtainableLobotomyCards.Where(x => x.HasCardMetaCategory(category) && x.temple != temple && !result.Contains(x)));
             
             if (LobotomySaveManager.UsedBackwardClock)
                 __result.RemoveAll(x => x.name.Equals("wstl_backwardClock"));
