@@ -30,8 +30,8 @@ namespace WhistleWindLobotomyMod.Challenges
                 "Abnormal Bosses",
                 "Only Abnormality cards will be used during boss battles.",
                 20,
-                TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses"),
-                TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses_activated")
+                TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses.png"),
+                TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses_activated.png")
                 ).Challenge.challengeType;
 
             harmony.PatchAll(typeof(AbnormalBosses));

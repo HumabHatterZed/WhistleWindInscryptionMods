@@ -40,8 +40,8 @@ namespace WhistleWindLobotomyMod.Challenges
                 "Final Laugh",
                 "Leshy is replaced as the final boss of the run with the Fool.",
                 50,
-                TextureLoader.LoadTextureFromFile("ascensionJesterStart"),
-                TextureLoader.LoadTextureFromFile("ascensionJesterStart_activated"), 0)
+                TextureLoader.LoadTextureFromFile("ascensionJesterStart.png"),
+                TextureLoader.LoadTextureFromFile("ascensionJesterStart_activated.png"), 0)
                 .SetFlags("ModdedFinalBoss")
                 .SetIncompatibleChallengeGetter(x =>
                 (from x2 in x
@@ -63,8 +63,8 @@ namespace WhistleWindLobotomyMod.Challenges
                 "Final Trick",
                 "The Adult boss will be stronger and guaranteed to appear.",
                 50,
-                TextureLoader.LoadTextureFromFile("ascensionLiarStart"),
-                TextureLoader.LoadTextureFromFile("ascensionLiarStart_activated"), 0)
+                TextureLoader.LoadTextureFromFile("ascensionLiarStart.png"),
+                TextureLoader.LoadTextureFromFile("ascensionLiarStart_activated.png"), 0)
                 .SetFlags("ModdedFinalBoss")
                 .SetIncompatibleChallengeGetter(x =>
                 (from x2 in x
@@ -86,8 +86,8 @@ namespace WhistleWindLobotomyMod.Challenges
                 "Final Coming",
                 "The Saviour boss will be stronger and guaranteed to appear.",
                 70,
-                TextureLoader.LoadTextureFromFile("ascensionRaptureStart"),
-                TextureLoader.LoadTextureFromFile("ascensionRaptureStart_activated"), 0)
+                TextureLoader.LoadTextureFromFile("ascensionRaptureStart.png"),
+                TextureLoader.LoadTextureFromFile("ascensionRaptureStart_activated.png"), 0)
                 .SetFlags("ModdedFinalBoss")
                 .SetIncompatibleChallengeGetter(x =>
                 (from x2 in x

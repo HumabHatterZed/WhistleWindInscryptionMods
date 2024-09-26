@@ -24,58 +24,58 @@ namespace WhistleWindLobotomyMod
                     randomCards.Add("wstl_RANDOM_PLACEHOLDER");
             }
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Random Mod Cards", "starterDeckRandom", 0, cardNames: randomCards);
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Random Mod Cards", "starterDeckRandom.png", 0, cardNames: randomCards);
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "First Day", "starterDeckControl", 0, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "First Day", "starterDeckControl.png", 0, cardNames: new() {
                 "wstl_oneSin",
                 "wstl_fairyFestival",
                 "wstl_oldLady" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Lonely Friends", "starterDeckChildren", 2, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Lonely Friends", "starterDeckChildren.png", 2, cardNames: new() {
                 "wstl_scorchedGirl",
                 "wstl_laetitia",
                 "wstl_childOfTheGalaxy" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Blood Machines", "starterDeckBloodMachines", 4, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Blood Machines", "starterDeckBloodMachines.png", 4, cardNames: new() {
                 "wstl_weCanChangeAnything",
                 "wstl_singingMachine",
                 "wstl_allAroundHelper" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "People Pleasers", "starterDeckPeoplePleasers", 5, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "People Pleasers", "starterDeckPeoplePleasers.png", 5, cardNames: new() {
                 "wstl_todaysShyLook",
                 LobotomyConfigManager.Instance.NoRuina ? "wstl_mirrorOfAdjustment" : "wstl_pinocchio",
                 "wstl_behaviourAdjustment" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Freak Show", "starterDeckFreakShow", 6, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Freak Show", "starterDeckFreakShow.png", 6, cardNames: new() {
                 "wstl_voidDream",
                 "wstl_beautyAndBeast",
                 "wstl_queenBee" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Apocrypha", "starterDeckApocrypha", 7, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Apocrypha", "starterDeckApocrypha.png", 7, cardNames: new() {
                 "wstl_fragmentOfUniverse",
                 "wstl_skinProphecy",
                 LobotomyConfigManager.Instance.NoRuina ? "wstl_mhz176" : "wstl_priceOfSilence" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Keter", "starterDeckKeter", 8, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Keter", "starterDeckKeter.png", 8, cardNames: new() {
                 "wstl_bloodBath",
                 "wstl_burrowingHeaven",
                 "wstl_snowQueen" });
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Road to Oz", "starterDeckFairyTale", 0, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Road to Oz", "starterDeckFairyTale.png", 0, cardNames: new() {
                 LobotomyConfigManager.Instance.NoRuina ? "wstl_laetitia" : "wstl_theRoadHome",
                 "wstl_warmHeartedWoodsman",
                 "wstl_wisdomScarecrow",
                 LobotomyConfigManager.Instance.NoRuina ? "wstl_snowWhitesApple" : "wstl_ozma" },
                 customUnlock: dummy => LobotomySaveManager.UnlockedLyingAdult || LobotomyConfigManager.Instance.EventFlags);
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Magical Girls!", "starterDeckMagicalGirls", 0, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Magical Girls!", "starterDeckMagicalGirls.png", 0, cardNames: new() {
                 "wstl_magicalGirlSpade",
                 "wstl_magicalGirlHeart",
                 "wstl_magicalGirlDiamond",
                 LobotomyConfigManager.Instance.NoRuina ? "wstl_voidDream" : "wstl_magicalGirlClover" },
                 customUnlock: dummy => LobotomySaveManager.UnlockedJesterOfNihil || LobotomyConfigManager.Instance.EventFlags);
 
-            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Twilight", "starterDeckBlackForest", 0, cardNames: new() {
+            StarterDeckHelper.AddStarterDeck(pluginPrefix, "Twilight", "starterDeckBlackForest.png", 0, cardNames: new() {
                 "wstl_punishingBird",
                 "wstl_bigBird",
                 "wstl_judgementBird" },

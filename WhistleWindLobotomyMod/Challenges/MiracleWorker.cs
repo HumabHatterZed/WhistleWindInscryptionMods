@@ -21,8 +21,8 @@ namespace WhistleWindLobotomyMod.Challenges
                 "Miracle Worker",
                 "Leshy will play Plague Doctor against you. Beware the Clock.",
                 33,
-                TextureLoader.LoadTextureFromFile("ascensionMiracleWorker"),
-                TextureLoader.LoadTextureFromFile("ascensionMiracleWorker_activated")
+                TextureLoader.LoadTextureFromFile("ascensionMiracleWorker.png"),
+                TextureLoader.LoadTextureFromFile("ascensionMiracleWorker_activated.png")
                 ).Challenge.challengeType;
 
             harmony.PatchAll(typeof(MiracleWorker));

@@ -28,35 +28,35 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromFile("talkingAngelaBody", new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim("talkingAngelaEmission");
+                Sprite face = LoadSpriteFromFile("talkingAngelaBody.png", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingAngelaEmission.png");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingAngelaMouthOpen1", "talkingAngelaMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingAngelaMouthOpen1.png", "talkingAngelaMouthClosed1.png"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingAngelaMouthOpen2", "talkingAngelaMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingAngelaMouthOpen2.png", "talkingAngelaMouthClosed2.png"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Curious,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesClosed2"),
-                        mouth: MakeFaceAnim("talkingAngelaMouthClosed1", "talkingAngelaMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed2.png"),
+                        mouth: MakeFaceAnim("talkingAngelaMouthClosed1.png", "talkingAngelaMouthClosed1.png"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Surprise,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesOpen1", "talkingAngelaEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingAngelaMouthClosed1", "talkingAngelaMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesOpen1.png", "talkingAngelaEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingAngelaMouthClosed1.png", "talkingAngelaMouthClosed1.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim("talkingAngelaEyesClosed3"),
-                        mouth: MakeFaceAnim("talkingAngelaMouthClosed1", "talkingAngelaMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingAngelaEyesClosed3.png"),
+                        mouth: MakeFaceAnim("talkingAngelaMouthClosed1.png", "talkingAngelaMouthClosed1.png"),
                         emission: GeneratePortrait.EmptyPortraitTuple)
                 };
             }

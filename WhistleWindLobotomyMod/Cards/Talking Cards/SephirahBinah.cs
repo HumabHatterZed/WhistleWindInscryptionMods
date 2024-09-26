@@ -27,30 +27,30 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromFile("talkingBinahBody", new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim("talkingBinahEmission");
+                Sprite face = LoadSpriteFromFile("talkingBinahBody.png", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingBinahEmission.png");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim("talkingBinahEyesOpen1", "talkingBinahEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingBinahMouthOpen1", "talkingBinahMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingBinahEyesOpen1.png", "talkingBinahEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingBinahMouthOpen1.png", "talkingBinahMouthClosed1.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Surprise,
                         face: face,
-                        eyes: MakeFaceAnim("talkingBinahEyesOpen3", "talkingBinahEyesClosed3"),
-                        mouth: MakeFaceAnim("talkingBinahMouthOpen2", "talkingBinahMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingBinahEyesOpen3.png", "talkingBinahEyesClosed3.png"),
+                        mouth: MakeFaceAnim("talkingBinahMouthOpen2.png", "talkingBinahMouthClosed2.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim("talkingBinahEyesOpen1", "talkingBinahEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingBinahMouthOpen2", "talkingBinahMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingBinahEyesOpen1.png", "talkingBinahEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingBinahMouthOpen2.png", "talkingBinahMouthClosed2.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim("talkingBinahEyesOpen2", "talkingBinahEyesOpen2"),
-                        mouth: MakeFaceAnim("talkingBinahMouthClosed1", "talkingBinahMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingBinahEyesOpen2.png", "talkingBinahEyesOpen2.png"),
+                        mouth: MakeFaceAnim("talkingBinahMouthClosed1.png", "talkingBinahMouthClosed1.png"),
                         emission: emissionMain)
                 };
             }

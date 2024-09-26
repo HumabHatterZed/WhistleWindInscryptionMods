@@ -17,8 +17,8 @@ namespace WhistleWindLobotomyMod.Challenges
                 "Better Rare Chances",
                 "Rare cards are more likely to appear at abnormal choice nodes.",
                 -10,
-                TextureLoader.LoadTextureFromFile("ascensionBetterRareChances"),
-                TextureLoader.LoadTextureFromFile("ascensionBetterRareChances_activated")
+                TextureLoader.LoadTextureFromFile("ascensionBetterRareChances.png"),
+                TextureLoader.LoadTextureFromFile("ascensionBetterRareChances_activated.png")
                 ).Challenge.challengeType;
         }
     }

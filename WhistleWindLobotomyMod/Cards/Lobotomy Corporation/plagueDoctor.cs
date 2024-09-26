@@ -46,11 +46,11 @@ namespace WhistleWindLobotomyMod
         }
         public static Sprite UpdateDoctorPortrait(int key)
         {
-            Sprite retval = TextureLoader.LoadSpriteFromFile(GetDoctorName(key));
+            Sprite retval = TextureLoader.LoadSpriteFromFile(GetDoctorName(key) + ".png");
             retval.name = GetDoctorName(key) + "_portrait";
             return retval;
         }
-        public static Sprite UpdateDoctorPixelPortrait(int key) => TextureLoader.LoadSpriteFromFile(GetDoctorName(key) + "_pixel");
+        public static Sprite UpdateDoctorPixelPortrait(int key) => TextureLoader.LoadSpriteFromFile(GetDoctorName(key) + "_pixel.png");
         public static Sprite UpdateDoctorEmission(int key)
         {
             string portraitName = key switch
@@ -60,7 +60,7 @@ namespace WhistleWindLobotomyMod
                 11 => "plagueDoctor11",
                 _ => plagueDoctor,
             };
-            return TextureLoader.LoadSpriteFromFile(portraitName + "_emission");
+            return TextureLoader.LoadSpriteFromFile(portraitName + "_emission.png");
         }
         private static string GetDoctorName(int key)
         {

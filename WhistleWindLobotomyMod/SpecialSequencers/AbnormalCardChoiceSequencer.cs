@@ -20,8 +20,8 @@ namespace WhistleWindLobotomyMod
     public class AbnormalCardChoiceSequencer : CardSingleChoicesSequencer, ICustomNodeSequencer, IInherit
     {
         // Pulled wholesale from Cardbase and CardChoiceSequencer
-        private readonly Texture2D RewardBackRare = TextureLoader.LoadTextureFromFile("abnormalRewardBackRare");
-        private readonly Texture2D RewardBack = TextureLoader.LoadTextureFromFile("abnormalRewardBack");
+        private readonly Texture2D RewardBackRare = TextureLoader.LoadTextureFromFile("abnormalRewardBackRare.png");
+        private readonly Texture2D RewardBack = TextureLoader.LoadTextureFromFile("abnormalRewardBack.png");
 
         public IEnumerator DoCustomSequence(CustomSpecialNodeData choicesData)
         {

@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             Assembly asm = Assembly.GetCallingAssembly();
             for (int i = 0; i < 4; i++)
             {
-                retval.Add(TextureLoader.LoadTextureFromFile(animationName[i], asm));
+                retval.Add(TextureLoader.LoadTextureFromFile(animationName[i] + ".png", asm));
             }
             return retval;
         }
@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             List<Texture2D> nodeAnimation = new();
             if (animationFrames.Count != 4)
             {
-                Texture2D defaultTexture = TextureLoader.LoadTextureFromFile("sigilAbnormality");
+                Texture2D defaultTexture = TextureLoader.LoadTextureFromFile("sigilAbnormality.png");
                 for (int i = 0; i < 4; i++)
                 {
                     nodeAnimation.Add(defaultTexture);

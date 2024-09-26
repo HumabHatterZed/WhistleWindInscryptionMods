@@ -27,36 +27,36 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromFile("talkingTipherethABody", new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim("talkingTipherethAEmission1");
-                FaceAnim emissionSurprise = MakeFaceAnim("talkingTipherethAEmission2");
+                Sprite face = LoadSpriteFromFile("talkingTipherethABody.png", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingTipherethAEmission1.png");
+                FaceAnim emissionSurprise = MakeFaceAnim("talkingTipherethAEmission2.png");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen1", "talkingTipherethAEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen1", "talkingTipherethAMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen1.png", "talkingTipherethAEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen1.png", "talkingTipherethAMouthClosed1.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen1", "talkingTipherethAEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen2", "talkingTipherethAMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen1.png", "talkingTipherethAEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen2.png", "talkingTipherethAMouthClosed2.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Surprise,
                         face: face,
-                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen2", "talkingTipherethAEyesClosed2"),
-                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen3", "talkingTipherethAMouthClosed3"),
+                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen2.png", "talkingTipherethAEyesClosed2.png"),
+                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen3.png", "talkingTipherethAMouthClosed3.png"),
                         emission: emissionSurprise),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen3", "talkingTipherethAEyesClosed3"),
-                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen4", "talkingTipherethAMouthClosed4"),
+                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen3.png", "talkingTipherethAEyesClosed3.png"),
+                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen4.png", "talkingTipherethAMouthClosed4.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Quiet,
                         face: face,
-                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen4", "talkingTipherethAEyesClosed4"),
-                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen5", "talkingTipherethAMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingTipherethAEyesOpen4.png", "talkingTipherethAEyesClosed4.png"),
+                        mouth: MakeFaceAnim("talkingTipherethAMouthOpen5.png", "talkingTipherethAMouthClosed1.png"),
                         emission: emissionMain),
                 };
             }

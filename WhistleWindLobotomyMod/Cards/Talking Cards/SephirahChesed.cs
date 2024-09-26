@@ -28,40 +28,40 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromFile("talkingChesedBody", new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim("talkingChesedEmission");
+                Sprite face = LoadSpriteFromFile("talkingChesedBody.png", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingChesedEmission.png");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim("talkingChesedEyesOpen1", "talkingChesedEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingChesedMouthOpen1", "talkingChesedMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen1.png", "talkingChesedEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen1.png", "talkingChesedMouthClosed1.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Surprise,
                         face: face,
-                        eyes: MakeFaceAnim("talkingChesedEyesOpen3", "talkingChesedEyesClosed3"),
-                        mouth: MakeFaceAnim("talkingChesedMouthOpen2", "talkingChesedMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen3.png", "talkingChesedEyesClosed3.png"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen2.png", "talkingChesedMouthClosed2.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Curious,
                         face: face,
-                        eyes: MakeFaceAnim("talkingChesedEyesOpen2", "talkingChesedEyesClosed2"),
-                        mouth: MakeFaceAnim("talkingChesedMouthOpen2", "talkingChesedMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen2.png", "talkingChesedEyesClosed2.png"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen2.png", "talkingChesedMouthClosed2.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim("talkingChesedEyesOpen1", "talkingChesedEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingChesedMouthOpen2", "talkingChesedMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen1.png", "talkingChesedEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen2.png", "talkingChesedMouthClosed2.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Quiet,
                         face: face,
-                        eyes: MakeFaceAnim("talkingChesedEyesClosed1", "talkingChesedEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingChesedMouthOpen2", "talkingChesedMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingChesedEyesClosed1.png", "talkingChesedEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen2.png", "talkingChesedMouthClosed2.png"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim("talkingChesedEyesOpen2", "talkingChesedEyesClosed2"),
-                        mouth: MakeFaceAnim("talkingChesedMouthOpen3", "talkingChesedMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingChesedEyesOpen2.png", "talkingChesedEyesClosed2.png"),
+                        mouth: MakeFaceAnim("talkingChesedMouthOpen3.png", "talkingChesedMouthClosed1.png"),
                         emission: emissionMain)
                 };
             }

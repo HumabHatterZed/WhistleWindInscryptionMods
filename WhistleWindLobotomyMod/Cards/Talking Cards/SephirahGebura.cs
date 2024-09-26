@@ -27,30 +27,30 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromFile("talkingGeburaBody", new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim("talkingGeburaEmission");
+                Sprite face = LoadSpriteFromFile("talkingGeburaBody.png", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingGeburaEmission.png");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim("talkingGeburaEyesOpen1", "talkingGeburaEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingGeburaMouthOpen1", "talkingGeburaMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingGeburaEyesOpen1.png", "talkingGeburaEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingGeburaMouthOpen1.png", "talkingGeburaMouthClosed1.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Curious,
                         face: face,
-                        eyes: MakeFaceAnim("talkingGeburaEyesOpen2", "talkingGeburaEyesClosed2"),
-                        mouth: MakeFaceAnim("talkingGeburaMouthOpen2", "talkingGeburaMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingGeburaEyesOpen2.png", "talkingGeburaEyesClosed2.png"),
+                        mouth: MakeFaceAnim("talkingGeburaMouthOpen2.png", "talkingGeburaMouthClosed1.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim("talkingGeburaEyesOpen1", "talkingGeburaEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingGeburaMouthOpen3", "talkingGeburaMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingGeburaEyesOpen1.png", "talkingGeburaEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingGeburaMouthOpen3.png", "talkingGeburaMouthClosed2.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim("talkingGeburaEyesOpen3", "talkingGeburaEyesClosed3"),
-                        mouth: MakeFaceAnim("talkingGeburaMouthOpen4", "talkingGeburaMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingGeburaEyesOpen3.png", "talkingGeburaEyesClosed3.png"),
+                        mouth: MakeFaceAnim("talkingGeburaMouthOpen4.png", "talkingGeburaMouthClosed1.png"),
                         emission: emissionMain)
                 };
             }

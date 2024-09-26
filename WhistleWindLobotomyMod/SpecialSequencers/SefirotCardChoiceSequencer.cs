@@ -115,7 +115,7 @@ namespace WhistleWindLobotomyMod
                         components[j].OnShownForCardChoiceNode();
                     }
 
-                    card.SetCardback(TextureLoader.LoadTextureFromFile("sefirotRewardBack"));
+                    card.SetCardback(TextureLoader.LoadTextureFromFile("sefirotRewardBack.png"));
                     card.SetFaceDown(faceDown: true, immediate: true);
 
                     Vector3 position = card.transform.position;

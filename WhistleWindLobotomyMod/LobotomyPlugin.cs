@@ -39,6 +39,7 @@ namespace WhistleWindLobotomyMod
         private void Awake()
         {
             Log = base.Logger;
+            ModAssembly = Assembly.GetExecutingAssembly();
             LobotomyConfigManager.Instance.BindConfig();
             if (!LobotomyConfigManager.Instance.ModEnabled)
                 Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
@@ -137,16 +138,11 @@ namespace WhistleWindLobotomyMod
         }
         private void AddCards()
         {
-            CardManager.ModifyCardList += delegate (List<CardInfo> cards)
+            foreach (CardInfo card in CardManager.AllCardsCopy.Where(c => c.GetModTag() == "whistlewind.inscryption.abnormalsigils"))
             {
-                foreach (CardInfo card in cards.Where(c => c.GetModTag() == "whistlewind.inscryption.abnormalsigils"))
-                {
-                    if (!AllLobotomyCards.Contains(card))
-                        AllLobotomyCards.Add(card);
-                }
-                return cards;
-            };
-
+                if (!AllLobotomyCards.Contains(card))
+                    AllLobotomyCards.Add(card);
+            }
             AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
             AddCustomDeathCards();
             CreateTalkingCards();
@@ -170,15 +166,15 @@ namespace WhistleWindLobotomyMod
                     abilities.AbilityByID(Ability.Sniper).Info
                         .SetRulebookName("Marksman")
                         .SetAbilityLearnedDialogue("Your beast strikes with precision.")
-                        .SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman"))
-                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel"))
+                        .SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman.png"))
+                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel.png"))
                         .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
                     abilities.AbilityByID(Ability.Sentry).Info
                         .SetRulebookName("Quick Draw")
                         .SetAbilityLearnedDialogue("The early bird gets the worm.")
-                        .SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw"))
-                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel"))
+                        .SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw.png"))
+                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel.png"))
                         .SetCanStack()
                         .SetFlipYIfOpponent()
                         .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
@@ -286,7 +282,7 @@ namespace WhistleWindLobotomyMod
         public static readonly StoryEvent OrdealDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "OrdealDefeated");
 
         internal static readonly Harmony HarmonyInstance = new(pluginGuid);
-        internal static readonly Assembly ModAssembly = typeof(LobotomyPlugin).Assembly;
+        internal static Assembly ModAssembly { get; private set; }
         internal static ManualLogSource Log;
 
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";

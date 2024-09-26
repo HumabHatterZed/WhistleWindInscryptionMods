@@ -224,10 +224,10 @@ namespace WhistleWindLobotomyMod
             CardInfo clone = base.Card.Info.Clone() as CardInfo;
 
             if (SaveManager.SaveFile.IsPart2)
-                clone.SetPixelPortrait(TextureLoader.LoadSpriteFromFile($"backwardClock_pixel_{rand}"));
+                clone.SetPixelPortrait(TextureLoader.LoadSpriteFromFile($"backwardClock_pixel_{rand}.png"));
             else
             {
-                clone.SetEmissivePortrait(TextureLoader.LoadTextureFromFile($"backwardClock_emission_{rand}"));
+                clone.SetEmissivePortrait(TextureLoader.LoadTextureFromFile($"backwardClock_emission_{rand}.png"));
                 base.Card.RenderInfo.forceEmissivePortrait = true;
             }
             

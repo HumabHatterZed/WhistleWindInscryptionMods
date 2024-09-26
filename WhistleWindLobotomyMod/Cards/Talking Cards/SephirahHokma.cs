@@ -27,25 +27,25 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromFile("talkingHokmaBody", new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim("talkingHokmaEmission");
+                Sprite face = LoadSpriteFromFile("talkingHokmaBody.png", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingHokmaEmission.png");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim("talkingHokmaEyesOpen1", "talkingHokmaEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingHokmaMouthOpen1", "talkingHokmaMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingHokmaEyesOpen1.png", "talkingHokmaEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingHokmaMouthOpen1.png", "talkingHokmaMouthClosed1.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim("talkingHokmaEyesOpen1", "talkingHokmaEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingHokmaMouthOpen2", "talkingHokmaMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingHokmaEyesOpen1.png", "talkingHokmaEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingHokmaMouthOpen2.png", "talkingHokmaMouthClosed2.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim("talkingHokmaEyesOpen2", "talkingHokmaEyesOpen2"),
-                        mouth: MakeFaceAnim("talkingHokmaMouthClosed1", "talkingHokmaMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingHokmaEyesOpen2.png", "talkingHokmaEyesOpen2.png"),
+                        mouth: MakeFaceAnim("talkingHokmaMouthClosed1.png", "talkingHokmaMouthClosed1.png"),
                         emission: emissionMain)
                 };
             }

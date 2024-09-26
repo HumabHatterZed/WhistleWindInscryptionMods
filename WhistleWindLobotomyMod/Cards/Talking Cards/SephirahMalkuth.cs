@@ -27,35 +27,35 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromFile("talkingMalkuthBody", new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim("talkingMalkuthEmission");
+                Sprite face = LoadSpriteFromFile("talkingMalkuthBody.png", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingMalkuthEmission.png");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim("talkingMalkuthEyesOpen1", "talkingMalkuthEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingMalkuthMouthOpen1", "talkingMalkuthMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingMalkuthEyesOpen1.png", "talkingMalkuthEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingMalkuthMouthOpen1.png", "talkingMalkuthMouthClosed1.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Surprise,
                         face: face,
-                        eyes: MakeFaceAnim("talkingMalkuthEyesOpen1", "talkingMalkuthEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingMalkuthMouthOpen4", "talkingMalkuthMouthClosed3"),
+                        eyes: MakeFaceAnim("talkingMalkuthEyesOpen1.png", "talkingMalkuthEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingMalkuthMouthOpen4.png", "talkingMalkuthMouthClosed3.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim("talkingMalkuthEyesClosed1", "talkingMalkuthEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingMalkuthMouthOpen3", "talkingMalkuthMouthClosed3"),
+                        eyes: MakeFaceAnim("talkingMalkuthEyesClosed1.png", "talkingMalkuthEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingMalkuthMouthOpen3.png", "talkingMalkuthMouthClosed3.png"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Quiet,
                         face: face,
-                        eyes: MakeFaceAnim("talkingMalkuthEyesOpen1", "talkingMalkuthEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingMalkuthMouthOpen2", "talkingMalkuthMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingMalkuthEyesOpen1.png", "talkingMalkuthEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingMalkuthMouthOpen2.png", "talkingMalkuthMouthClosed2.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim("talkingMalkuthEyesOpen2", "talkingMalkuthEyesClosed2"),
-                        mouth: MakeFaceAnim("talkingMalkuthMouthOpen1", "talkingMalkuthMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingMalkuthEyesOpen2.png", "talkingMalkuthEyesClosed2.png"),
+                        mouth: MakeFaceAnim("talkingMalkuthMouthOpen1.png", "talkingMalkuthMouthClosed1.png"),
                         emission: emissionMain)
                 };
             }

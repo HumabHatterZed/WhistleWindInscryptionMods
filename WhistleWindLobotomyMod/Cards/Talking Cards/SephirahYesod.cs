@@ -27,30 +27,30 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromFile("talkingYesodBody", new(0.5f, 0f));
-                FaceAnim emission = MakeFaceAnim("talkingYesodEyesEmission");
+                Sprite face = LoadSpriteFromFile("talkingYesodBody.png", new(0.5f, 0f));
+                FaceAnim emission = MakeFaceAnim("talkingYesodEyesEmission.png");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim("talkingYesodEyesOpen1", "talkingYesodEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingYesodMouthOpen1", "talkingYesodMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingYesodEyesOpen1.png", "talkingYesodEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingYesodMouthOpen1.png", "talkingYesodMouthClosed1.png"),
                         emission: emission),
                     new(emotion: Emotion.Curious,
                         face: face,
-                        eyes: MakeFaceAnim("talkingYesodEyesOpen2", "talkingYesodEyesClosed2"),
-                        mouth: MakeFaceAnim("talkingYesodMouthOpen2", "talkingYesodMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingYesodEyesOpen2.png", "talkingYesodEyesClosed2.png"),
+                        mouth: MakeFaceAnim("talkingYesodMouthOpen2.png", "talkingYesodMouthClosed1.png"),
                         emission: emission),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim("talkingYesodEyesOpen3", "talkingYesodEyesClosed3"),
-                        mouth: MakeFaceAnim("talkingYesodMouthOpen2", "talkingYesodMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingYesodEyesOpen3.png", "talkingYesodEyesClosed3.png"),
+                        mouth: MakeFaceAnim("talkingYesodMouthOpen2.png", "talkingYesodMouthClosed1.png"),
                         emission: emission),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim("talkingYesodEyesOpen1", "talkingYesodEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingYesodMouthOpen3", "talkingYesodMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingYesodEyesOpen1.png", "talkingYesodEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingYesodMouthOpen3.png", "talkingYesodMouthClosed2.png"),
                         emission: emission)
                 };
             }

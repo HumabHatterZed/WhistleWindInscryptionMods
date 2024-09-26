@@ -19,8 +19,8 @@ namespace WhistleWindLobotomyMod.Challenges
                 "Abnormal Encounters",
                 "Only Abnormality cards will be used during non-boss battles.",
                 15,
-                TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters"),
-                TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters_activated")
+                TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters.png"),
+                TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters_activated.png")
                 )
                 .SetIncompatibleChallengeGetterStatic(AllOrdeals.Id)
                 .Challenge.challengeType;

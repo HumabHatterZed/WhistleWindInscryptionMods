@@ -26,25 +26,25 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromFile("talkingTipherethBBody", new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim("talkingTipherethBEmission");
+                Sprite face = LoadSpriteFromFile("talkingTipherethBBody.png", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingTipherethBEmission.png");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim("talkingTipherethBEyesOpen1", "talkingTipherethBEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingTipherethBMouthOpen1", "talkingTipherethBMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingTipherethBEyesOpen1.png", "talkingTipherethBEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingTipherethBMouthOpen1.png", "talkingTipherethBMouthClosed1.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim("talkingTipherethBEyesOpen1", "talkingTipherethBEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingTipherethBMouthOpen2", "talkingTipherethBMouthClosed2"),
+                        eyes: MakeFaceAnim("talkingTipherethBEyesOpen1.png", "talkingTipherethBEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingTipherethBMouthOpen2.png", "talkingTipherethBMouthClosed2.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Quiet,
                         face: face,
-                        eyes: MakeFaceAnim("talkingTipherethBEyesOpen2", "talkingTipherethBEyesOpen2"),
-                        mouth: MakeFaceAnim("talkingTipherethBMouthClosed1", "talkingTipherethBMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingTipherethBEyesOpen2.png", "talkingTipherethBEyesOpen2.png"),
+                        mouth: MakeFaceAnim("talkingTipherethBMouthClosed1.png", "talkingTipherethBMouthClosed1.png"),
                         emission: GeneratePortrait.EmptyPortraitTuple)
                 };
             }

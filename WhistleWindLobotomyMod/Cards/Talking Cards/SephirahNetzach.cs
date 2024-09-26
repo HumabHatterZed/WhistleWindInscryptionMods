@@ -28,35 +28,35 @@ namespace WhistleWindLobotomyMod
         {
             get
             {
-                Sprite face = LoadSpriteFromFile("talkingNetzachBody", new(0.5f, 0f));
-                FaceAnim emissionMain = MakeFaceAnim("talkingNetzachEmission");
+                Sprite face = LoadSpriteFromFile("talkingNetzachBody.png", new(0.5f, 0f));
+                FaceAnim emissionMain = MakeFaceAnim("talkingNetzachEmission.png");
 
                 return new()
                 {
                     new(emotion: Emotion.Neutral,
                         face: face,
-                        eyes: MakeFaceAnim("talkingNetzachEyesOpen1", "talkingNetzachEyesClosed1"),
-                        mouth: MakeFaceAnim("talkingNetzachMouthOpen1", "talkingNetzachMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingNetzachEyesOpen1.png", "talkingNetzachEyesClosed1.png"),
+                        mouth: MakeFaceAnim("talkingNetzachMouthOpen1.png", "talkingNetzachMouthClosed1.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Surprise,
                         face: face,
-                        eyes: MakeFaceAnim("talkingNetzachEyesOpen5", "talkingNetzachEyesClosed5"),
-                        mouth: MakeFaceAnim("talkingNetzachMouthOpen5", "talkingNetzachMouthClosed5"),
+                        eyes: MakeFaceAnim("talkingNetzachEyesOpen5.png", "talkingNetzachEyesClosed5.png"),
+                        mouth: MakeFaceAnim("talkingNetzachMouthOpen5.png", "talkingNetzachMouthClosed5.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Laughter,
                         face: face,
-                        eyes: MakeFaceAnim("talkingNetzachEyesOpen3", "talkingNetzachEyesClosed3"),
-                        mouth: MakeFaceAnim("talkingNetzachMouthOpen4", "talkingNetzachMouthClosed4"),
+                        eyes: MakeFaceAnim("talkingNetzachEyesOpen3.png", "talkingNetzachEyesClosed3.png"),
+                        mouth: MakeFaceAnim("talkingNetzachMouthOpen4.png", "talkingNetzachMouthClosed4.png"),
                         emission: emissionMain),
                     new(emotion: Emotion.Quiet,
                         face: face,
-                        eyes: MakeFaceAnim("talkingNetzachEyesClosed3", "talkingNetzachEyesClosed3"),
-                        mouth: MakeFaceAnim("talkingNetzachMouthOpen3", "talkingNetzachMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingNetzachEyesClosed3.png", "talkingNetzachEyesClosed3.png"),
+                        mouth: MakeFaceAnim("talkingNetzachMouthOpen3.png", "talkingNetzachMouthClosed1.png"),
                         emission: GeneratePortrait.EmptyPortraitTuple),
                     new(emotion: Emotion.Anger,
                         face: face,
-                        eyes: MakeFaceAnim("talkingNetzachEyesOpen2", "talkingNetzachEyesClosed2"),
-                        mouth: MakeFaceAnim("talkingNetzachMouthOpen2", "talkingNetzachMouthClosed1"),
+                        eyes: MakeFaceAnim("talkingNetzachEyesOpen2.png", "talkingNetzachEyesClosed2.png"),
+                        mouth: MakeFaceAnim("talkingNetzachMouthOpen2.png", "talkingNetzachMouthClosed1.png"),
                         emission: emissionMain)
                 };
             }

@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod.Challenges
                 "Start with a Beast",
                 "Start your run with Apocalypse Bird in your deck.",
                 -15,
-                TextureLoader.LoadTextureFromFile("ascensionBeastStart"),
-                TextureLoader.LoadTextureFromFile("ascensionBeastStart_activated"), 0)
+                TextureLoader.LoadTextureFromFile("ascensionBeastStart.png"),
+                TextureLoader.LoadTextureFromFile("ascensionBeastStart_activated.png"), 0)
                 .SetCustomUnlock(dummy => LobotomySaveManager.UnlockedApocalypseBird || LobotomyConfigManager.Instance.EventFlags)
                 .Challenge.challengeType;
         }
