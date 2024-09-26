@@ -1,11 +1,8 @@
 ﻿using BepInEx.Bootstrap;
-using DiskCardGame;
 using Infiniscryption.Achievements;
 using Infiniscryption.PackManagement;
 using InscryptionAPI.Card;
-using InscryptionAPI.Encounters;
-using InscryptionAPI.Localizing;
-using WhistleWind.AbnormalSigils;
+using System.Linq;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Patches;
 
@@ -28,17 +25,23 @@ namespace WhistleWindLobotomyMod
             PackManager.AddProtectedMetacategory(RuinaCard);
             PackManager.AddProtectedMetacategory(DonatorCard);
 
-            PackInfo pack = PackManager.GetPackInfo<PackInfo>(LobotomyPlugin.limbusPrefix);
+            PackInfo pack = PackManager.GetPackInfo<PackInfo>(LobotomyPlugin.pluginPrefix);
             pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             pack.Title = "World of L Corp HQ";
-            pack.Description = $"A set of {BaseModCards.Count} abnormalities hailing from L Corp HQ and the Library.";
-            pack.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack"));
+            pack.Description = $"A set of {BaseModCards.Count(x => x.HasAnyOfCardMetaCategories(DiskCardGame.CardMetaCategory.ChoiceNode, DiskCardGame.CardMetaCategory.Rare))} abnormalities hailing from L Corp HQ and the Library.";
+            pack.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack.png"));
 
             PackInfo pack2 = PackManager.GetPackInfo<PackInfo>(LobotomyPlugin.wonderlabPrefix);
             pack2.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             pack2.Title = "World of L Corp Branches";
-            pack2.Description = $"A set of {WonderLabCards.Count} abnormalities primarily originating from Branch O-5681.";
-            pack2.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack2"));
+            pack2.Description = $"A set of {WonderLabCards.Count(x => x.HasAnyOfCardMetaCategories(DiskCardGame.CardMetaCategory.ChoiceNode, DiskCardGame.CardMetaCategory.Rare))} abnormalities primarily originating from Branch O-5681.";
+            pack2.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack2.png"));
+
+            /*PackInfo pack3 = PackManager.GetPackInfo<PackInfo>(LobotomyPlugin.limbusPrefix);
+            pack3.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+            pack3.Title = "World of Limbus Company";
+            pack3.Description = $"A set of {LimbusCards.Count} abnormalities as recorded by the LCB manager.";
+            pack3.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack2.png"));*/
 
             /*                EncounterPackInfo encounterPack = PackManager.GetPackInfo<EncounterPackInfo>(pluginPrefix);
                             encounterPack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
