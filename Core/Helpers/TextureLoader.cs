@@ -34,9 +34,9 @@ namespace WhistleWind.Core.Helpers
             return texture2D;
         }
 
-        public static Sprite LoadSpriteFromFile(string fileName, Vector2? vector = null)
+        public static Sprite LoadSpriteFromFile(string fileName, Vector2? vector = null, Assembly asm = null)
         {
-            Texture2D texture = LoadTextureFromFile(fileName);
+            Texture2D texture = LoadTextureFromFile(fileName, asm);
             if (texture == null)
                 return null;
 

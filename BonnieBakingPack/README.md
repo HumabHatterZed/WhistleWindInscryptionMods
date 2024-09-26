@@ -9,14 +9,22 @@ This mod is also compatible with GrimoraMod and P03 in Kaycee's Mod, and include
 These cards can be obtained in Act 1 by enabling them in the config file.
 
 ## Compatibility
-**GrimoraMod** - Spooky variants of the main cards will appear in the mod.
+**GrimoraMod** - Spooky variants of the main cards will appear in the mod, as well as a custom starter deck.
 
-**P03 in Kaycee's Mod** - Tech variants of the main cards will appear in the mod.
+**P03 in Kaycee's Mod** - Robotic variants of the main cards will appear in the mod, as well as a custom starter deck.
 
 **Tribal Libary (sic)** - Mouse cards will gain the Vermin tribe and cat cards will gain the Feline tribe.
 
 **Bundle of Totems** - Mouse cards will gain the Vermin tribe and cat cards will gain the Feline tribe (overrides Tribal Libary).
 
+## Configuration
+**Acts for Leshy Cards** - Adds Leshy cards to the given Acts.
+
+**Acts for P03 Cards** - Adds P03 cards to the given Acts. Note that they will have different abilities if P03 in KCM is not installed.
+
+**Acts for Grimora Cards** - Adds Grimora cards to the given Acts. Note that they will have different abilities if GrimoraMod is not installed.
+
+**Bingus Flubbed It** - Has Bingus been played for the first time?
 ## Cards
 <details>
 <summary>Main Set</summary>
@@ -68,19 +76,19 @@ These cards can be obtained in Act 1 by enabling them in the config file.
 
 |Name|Atk/HP|Cost|Sigils|Traits
 |:-|:-:
-|Minnor M0U53|1/1|<img src='https://i.imgur.com/9tZzgbv.png'>|Transforms When Powered|Juvenile
+|Litle M0U53|1/1|<img src='https://i.imgur.com/9tZzgbv.png'>|Transforms When Powered|Juvenile
 |M0U53|2/4|<img src='https://i.imgur.com/mBwmFpx.png'>|
-|Alarm M0U53|1/6|<img src='https://i.imgur.com/H6vESv7.png'>|Annoying
+|Anonymouse|1/2|<img src='https://i.imgur.com/OYmdUg3.png'>|Fire Strike When Fueled, Fuel Siphon
 |Steambot Willy|3/1|<img src='https://i.imgur.com/mBwmFpx.png'>|Conduit Protector, Waterborne|Rare
-|Mouse Phone|1/6|<img src='https://i.imgur.com/9tZzgbv.png'>|Gift Bearer
-|Beta M0U53|1/6|<img src='https://i.imgur.com/H6vESv7.png'>|Evolve
+|Mouse Phone|0/0|<img src='https://i.imgur.com/C22peXt.png'>|Tinkerer|Spell
 |Cop.stable|1/1|<img src='https://i.imgur.com/9tZzgbv.png'>|Electric
-|C47|0/2|<img src='https://i.imgur.com/beJhD7d.png'>|Morsel
-|Bunbot|1/2|<img src='https://i.imgur.com/OYmdUg3.png'>|Hopper, Flammable
-|D09|1/5|<img src='https://i.imgur.com/62GUUAC.png'>|Mighty Leap, Sprinter
+|FAT C4T|0/2|<img src='https://i.imgur.com/H6vESv7.png'>|Macabre Growth, Mine Cryptocurrency
+|Bunbot|1/3|<img src='https://i.imgur.com/JmoIiwV.png'>|Hopper, Flammable
+|K9|0/2|<img src='https://i.imgur.com/9tZzgbv.png'>|Launch Self, Solar Heart
 |Pardan Panda|1/2|<img src='https://i.imgur.com/JmoIiwV.png'>|Touch of Death, Nerf This!
-|M.0053|1/3|<img src='https://i.imgur.com/OYmdUg3.png'>|Phase Through
-|Pirate|2/4|<img src='https://i.imgur.com/62GUUAC.png'>|Rampager, Waterborne
+|Digital Mhoost|1/3|<img src='https://i.imgur.com/UvtK0PY.png'>|Phase Through
+|Trojan|0/2|<img src='https://i.imgur.com/vUBgPOO.png'>|Armour Giver, Shield Absorption
+|Default User|0/1|<img src='https://i.imgur.com/9tZzgbv.png'>|Button Pusher
 |The Lady Complete|2/1|<img src='https://i.imgur.com/cVoD0p2.png'><img src='https://i.imgur.com/WnaCjEY.png'><img src='https://i.imgur.com/VohLYjY.png'>|Emerald Blessing, Orange Mox Printer, Purist With Blue|Rare, Unique
 </details>
 
@@ -92,6 +100,10 @@ These cards can be obtained in Act 1 by enabling them in the config file.
 |Bony Baking Pack|
 |:-|
 |White Bonut<br>White Bonut<br>Ghool Mouse<br>Mousenapper<br>Killer Mouse|
+
+|Bot Baking Pack|
+|:-|
+|Mouse Phone<br>Anonymouse<br>Cop.stable<br>Cop.stable|
 
 ## Credits
 **WhistleWind** - Artwork and programming

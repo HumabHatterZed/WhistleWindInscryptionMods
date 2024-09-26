@@ -22,6 +22,7 @@ namespace BonniesBakingPack
                 .SetAbilityLearnedDialogue(dialogue)
                 .SetPowerlevel(4)
                 .SetPixelAbilityIcon(GetTexture("sigilFreshIngredients_pixel.png"))
+                .AddMetaCategories(AbilityMetaCategory.Part1Rulebook, AbilityMetaCategory.Part3Rulebook)
                 .ability;
         }
     }
@@ -42,15 +43,7 @@ namespace BonniesBakingPack
 
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.3f);
-            CardInfo info = CardLoader.GetCardByName(SeededRandom.Range(0, 6, base.GetRandomSeed()) switch
-            {
-                0 => "bbp_pastry",
-                1 => "bbp_whiteDonut",
-                2 => "bbp_meetBun",
-                3 => "bbp_scones",
-                4 => "bbp_eggTart",
-                _ => "bbp_redVelvet"
-            });
+            CardInfo info = CardLoader.GetCardByName(FreshFood.GetRandomFoodName(base.GetRandomSeed()));
             ViewManager.Instance.SwitchToView(View.Hand);
             yield return new WaitForSeconds(0.2f);
             yield return CardSpawner.Instance.SpawnCardToHand(info);

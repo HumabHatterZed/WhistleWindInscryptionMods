@@ -8,8 +8,7 @@ namespace BonniesBakingPack
     {
         private void CreateProtagonists()
         {
-            // ???
-            CardManager.New(pluginPrefix, "protagonist", "???", 1, 2, "A mysterious person with a bad habit of sticking their nose where it shouldn't be.")
+            CardInfo protag = CardManager.New(pluginPrefix, "protagonist", "???", 1, 2, "A mysterious person with a bad habit of sticking their nose where it shouldn't be.")
                 .SetDefaultPart1Card().AddAct1()
                 .SetBloodCost(2)
                 .SetPortraitAndEmission(GetTexture("protagonist.png"), GetTexture("protagonist_emission.png"))
@@ -22,9 +21,15 @@ namespace BonniesBakingPack
                 .SetBonesCost(4)
                 .SetPortraitAndEmission(GetTexture("unknownWarrior.png"), GetTexture("unknownWarrior_emission.png"));
 
+            CardInfo bot = CardManager.New(pluginPrefix, "defaultUser", "Default User", 0, 1)
+                .SetDefaultPart3Card().AddP03()
+                .SetEnergyCost(3)
+                .SetPortrait(GetTexture("defaultUser.png"))
+                .AddAbilities(ScrybeCompat.GetP03Ability("Button Pusher", Ability.DrawCopy));
+
             if (ScrybeCompat.GrimoraEnabled)
             {
-                Ability ability = ScrybeCompat.GetGrimoraAbility("Malnourishment");
+                Ability ability = ScrybeCompat.GetGrimoraAbility("Malnourishment", Ability.None);
                 warrior.AddAbilities(Ability.ActivatedStatsUp, ability);
             }
             else
@@ -32,19 +37,15 @@ namespace BonniesBakingPack
                 warrior.AddAbilities(Ability.DeathShield);
             }
 
-            CardInfo bot = CardManager.New(pluginPrefix, "defaultUser", "Default User", 0, 1)
-                .SetDefaultPart3Card().AddP03()
-                .SetEnergyCost(3)
-                .SetPortrait(GetTexture("defaultUser.png"));
-
             if (ScrybeCompat.P03Enabled)
             {
-                Ability ability = ScrybeCompat.GetP03Ability("Button Pusher");
-                bot.AddAbilities(ability).AddMetaCategories(ScrybeCompat.NeutralRegion);
-            }
-            else
-            {
-                bot.AddAbilities(Ability.DrawCopy);
+                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
+                    protag.AddMetaCategories(ScrybeCompat.NatureRegion);
+
+                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
+                    warrior.AddMetaCategories(ScrybeCompat.UndeadRegion);
+
+                bot.AddMetaCategories(ScrybeCompat.NeutralRegion);
             }
         }
     }

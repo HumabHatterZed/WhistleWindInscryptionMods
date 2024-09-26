@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using UnityEngine;
 
 namespace BonniesBakingPack
 {
@@ -13,7 +14,7 @@ namespace BonniesBakingPack
         private void CreatePhoneMice()
         {
             // Phone Mouse
-            CardManager.New(pluginPrefix, "mousePhone", "Phone Mouse", 0, 2, "A chatty little rodent. When it dies, backup follows swiftly.")
+            CardInfo phone = CardManager.New(pluginPrefix, "mousePhone", "Phone Mouse", 0, 2, "A chatty little rodent. When it dies, backup follows swiftly.")
                 .SetDefaultPart1Card().AddAct1()
                 .SetEnergyCost(3)
                 .SetPortraitAndEmission(GetTexture("mousePhone.png"), GetTexture("mousePhone_emission.png"))
@@ -27,10 +28,18 @@ namespace BonniesBakingPack
                 .SetPortraitAndEmission(GetTexture("killerMouse.png"), GetTexture("killerMouse_emission.png"))
                 .SetPixelPortrait(GetTexture("killerMouse_pixel.png"));
 
+            CardInfo bot = CardManager.New(pluginPrefix, "phoneMouse", "Mouse Phone", 0, 0)
+                .SetDefaultPart3Card().AddP03()
+                .SetEnergyCost(1)
+                .SetPortrait(GetTexture("phoneMouse.png"))
+                .SetPixelPortrait(GetTexture("phoneMouse_pixel.png"))
+                .SetGlobalSpell()
+                .AddAbilities(ScrybeCompat.GetP03Ability("Tinkerer", Ability.DrawRandomCardOnDeath));
+
             if (ScrybeCompat.GrimoraEnabled)
             {
-                Ability ability = ScrybeCompat.GetGrimoraAbility("Slasher");
-                Ability ability2 = ScrybeCompat.GetGrimoraAbility("Haunting Call");
+                Ability ability = ScrybeCompat.GetGrimoraAbility("Slasher", Ability.None);
+                Ability ability2 = ScrybeCompat.GetGrimoraAbility("Haunting Call", Ability.None);
                 killer.AddAbilities(ability, ability2);
             }
             else
@@ -38,20 +47,15 @@ namespace BonniesBakingPack
                 killer.AddAbilities(Ability.DoubleStrike);
             }
 
-            CardInfo bot = CardManager.New(pluginPrefix, "phoneMouse", "Mouse Phone", 0, 0)
-                .SetDefaultPart3Card().AddP03()
-                .SetEnergyCost(1)
-                .SetPortrait(GetTexture("phoneMouse.png"))
-                .SetGlobalSpell();
-
             if (ScrybeCompat.P03Enabled)
             {
-                Ability ability = ScrybeCompat.GetP03Ability("Tinkerer");
-                bot.AddAbilities(ability).AddMetaCategories(ScrybeCompat.NeutralRegion);
-            }
-            else
-            {
-                bot.AddAbilities(Ability.DrawRandomCardOnDeath);
+                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
+                    phone.AddMetaCategories(ScrybeCompat.NatureRegion);
+
+                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
+                    killer.AddMetaCategories(ScrybeCompat.UndeadRegion);
+
+                bot.AddMetaCategories(ScrybeCompat.NeutralRegion);
             }
         }
     }

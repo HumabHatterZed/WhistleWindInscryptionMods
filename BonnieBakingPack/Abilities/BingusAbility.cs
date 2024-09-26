@@ -74,7 +74,9 @@ namespace BonniesBakingPack
             yield return new WaitForSeconds(2f);
             yield return new WaitUntil(() => lastSave != SaveManager.lastSaveTime);
             BakingPlugin.Log.LogError("BingusReferenceException: Object reference not set to an instance of a non-bingus object\nStack trace:\nBonniesBakingPack.bingus+<IAmAHacker>d__5.MoveNext :3 (at <7ec68bbingus44is17coming4to31yourhouse322e>:0)\nUnityEngine.DoxPlayerReal.InvokeMoveOut (System.Collections.IEnumerator enumerator, System.IntPtr playersHomeAddress) (at <3f8c3579heres23bingus9afcaaf82e>:0)");
-            Application.Quit();
+            FrameLoopManager.Instance.SetIterationDisabled(disabled: false);
+            MenuController.ReturnToStartScreen();
+            MenuController.LoadGameFromMenu(newGameGBC: false);
         }
 
         private IEnumerator BingusAllOverThePlace(bool crashingTheGame)

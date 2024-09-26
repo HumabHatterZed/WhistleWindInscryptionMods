@@ -26,6 +26,7 @@ namespace BonniesBakingPack
                 .SetPowerlevel(3)
                 .SetActivated()
                 .SetPixelAbilityIcon(GetTexture("sigilFreshFood_pixel.png"))
+                .AddMetaCategories(AbilityMetaCategory.Part1Rulebook, AbilityMetaCategory.Part3Rulebook)
                 .ability;
         }
     }
@@ -74,19 +75,38 @@ namespace BonniesBakingPack
         public override IEnumerator OnDrawn()
         {
             yield return new WaitForSeconds(0.1f);
-            CardInfo info = CardLoader.GetCardByName(SeededRandom.Range(0, 6, base.GetRandomSeed()) switch
-            {
-                0 => "bbp_pastry",
-                1 => "bbp_whiteDonut",
-                2 => "bbp_meetBun",
-                3 => "bbp_scones",
-                4 => "bbp_eggTart",
-                _ => "bbp_redVelvet"
-            });
+            CardInfo info = CardLoader.GetCardByName(GetRandomFoodName(base.GetRandomSeed()));
             yield return CardSpawner.Instance.SpawnCardToHand(info);
             yield return base.LearnAbility(0.5f);
         }
-
+        public static string GetRandomFoodName(int randomSeed)
+        {
+            int val = SeededRandom.Range(0, 6, randomSeed);
+            if (SaveManager.SaveFile.IsPart3)
+            {
+                return val switch
+                {
+                    0 => "bbp_pastry_act3",
+                    1 => "bbp_whiteDonut_act3",
+                    2 => "bbp_meetBun_act3",
+                    3 => "bbp_scones_act3",
+                    4 => "bbp_eggTart_act3",
+                    _ => "bbp_redVelvet_act3"
+                };
+            }
+            else
+            {
+                return val switch
+                {
+                    0 => "bbp_pastry",
+                    1 => "bbp_whiteDonut",
+                    2 => "bbp_meetBun",
+                    3 => "bbp_scones",
+                    4 => "bbp_eggTart",
+                    _ => "bbp_redVelvet"
+                };
+            }
+        }
     }
     public class CreateBunnieTrigger : NonCardTriggerReceiver
     {
@@ -97,7 +117,6 @@ namespace BonniesBakingPack
         public override bool TriggerBeforeCards => true;
         public void Initialise(PlayableCard parent)
         {
-
             opponent = parent.OpponentCard;
             cardmods = new(parent.Info.Mods);
             turnCreated = TurnManager.Instance.TurnNumber;
@@ -108,7 +127,7 @@ namespace BonniesBakingPack
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            CardInfo cardInfo = CardLoader.GetCardByName("bbp_bunnie");
+            CardInfo cardInfo = SaveManager.SaveFile.IsPart3 ? CardLoader.GetCardByName("bbp_bunnie_act3") : CardLoader.GetCardByName("bbp_bunnie");
             cardInfo.Mods = cardmods;
             if (opponent)
             {

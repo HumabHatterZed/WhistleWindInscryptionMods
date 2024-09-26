@@ -152,21 +152,43 @@ namespace BonniesBakingPack
         [HarmonyPostfix, HarmonyPatch(typeof(CardLoader), nameof(CardLoader.GetUnlockedCards))]
         private static void AddNonAct1CardsToAct1(ref List<CardInfo> __result, CardMetaCategory category, CardTemple temple)
         {
-            if (temple != CardTemple.Nature)
-                return;
+            List<CardInfo> result = new(__result);
+            if (temple == CardTemple.Nature)
+            {
+                if (BakingPlugin.OverrideAct3.Value.HasFlag(BakingPlugin.ActOverride.Act1))
+                    __result.AddRange(BakingPlugin.P03Cards.Where(x => x.HasCardMetaCategory(category) && !result.Contains(x)));
 
-            if (BakingPlugin.GrimoraAct1.Value)
-                __result.AddRange(BakingPlugin.GrimoraCards.Where(x => x.HasCardMetaCategory(category)));
-            
-            if (BakingPlugin.P03Act1.Value)
-                __result.AddRange(BakingPlugin.P03Cards.Where(x => x.HasCardMetaCategory(category)));
+                if (BakingPlugin.OverrideGrimora.Value.HasFlag(BakingPlugin.ActOverride.Act1))
+                    __result.AddRange(BakingPlugin.GrimoraCards.Where(x => x.HasCardMetaCategory(category) && !result.Contains(x)));
+            }
+            else
+            {
+                __result.RemoveAll(x => x.name == "bbp_bingus");
+                if (temple == CardTemple.Undead)
+                {
+                    if (BakingPlugin.OverrideAct1.Value.HasFlag(BakingPlugin.ActOverride.ActGrimora))
+                        __result.AddRange(BakingPlugin.Act1Cards.Where(x => x.HasCardMetaCategory(category) && !result.Contains(x)));
+
+                    if (BakingPlugin.OverrideAct3.Value.HasFlag(BakingPlugin.ActOverride.ActGrimora))
+                        __result.AddRange(BakingPlugin.P03Cards.Where(x => x.HasCardMetaCategory(category) && !result.Contains(x)));
+                }
+                else if (temple == CardTemple.Tech)
+                {
+                    if (BakingPlugin.OverrideAct1.Value.HasFlag(BakingPlugin.ActOverride.Act3))
+                        __result.AddRange(BakingPlugin.Act1Cards.Where(x => x.HasCardMetaCategory(category) && !result.Contains(x)));
+
+                    if (BakingPlugin.OverrideGrimora.Value.HasFlag(BakingPlugin.ActOverride.Act3))
+                        __result.AddRange(BakingPlugin.GrimoraCards.Where(x => x.HasCardMetaCategory(category) && !result.Contains(x)));
+                }
+            }
+
+            __result = CardLoader.RemoveDeckSingletonsIfInDeck(__result);
 
             // double chance of bingus
-            if (category == CardMetaCategory.Rare && SaveManager.SaveFile.CurrentDeck.Cards.Exists(x => x.name == "bbp_bonnie"))
+            if (temple == CardTemple.Nature && category == CardMetaCategory.Rare && SaveManager.SaveFile.CurrentDeck.Cards.Exists(x => x.name == "bbp_bonnie"))
             {
                 CardInfo bingus = __result.Find(x => x.name == "bbp_bingus");
-                if (bingus != null)
-                    __result.Add(bingus);
+                if (bingus != null) __result.Add(bingus);
             }
         }
         [HarmonyPrefix, HarmonyPatch(typeof(DeckInfo), nameof(DeckInfo.AddCard))]

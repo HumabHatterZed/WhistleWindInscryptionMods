@@ -22,6 +22,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static BonniesBakingPack.BakingPlugin;
 
 namespace BonniesBakingPack
 {
@@ -30,8 +31,9 @@ namespace BonniesBakingPack
     [BepInDependency(InfiniscryptionSpellsPlugin.PluginGuid, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("Lily.BOT", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("tribes.libary", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInDependency("arackulele.inscryption.grimoramod", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInDependency("zorro.inscryption.infiniscryption.p03kayceerun", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(ScrybeCompat.GrimoraGuid, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(ScrybeCompat.P03Sigil, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(ScrybeCompat.P03Guid, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
     public partial class BakingPlugin : BaseUnityPlugin
     {
@@ -40,6 +42,8 @@ namespace BonniesBakingPack
             CreateFood();
             CreateBonnie();
             CreateBunnie();
+            CreateBonnieDisk();
+            CreateBunnieDisk();
             CreateBingus();
             CreateMice();
             CreateMeanMice();
@@ -84,17 +88,23 @@ namespace BonniesBakingPack
             Log = base.Logger;
             Configs = base.Config;
             Assembly = Assembly.GetExecutingAssembly();
-            BingusCrash = Config.Bind("General", "Bingus Flubbed It", false, "If false, Bingus will 'crash' the game the next time she's played. This cannot corrupt your save, but will waste your time.");
-            GrimoraAct1 = Config.Bind("Compatibility", "Grimora in Act 1", false, "Adds the GrimoraMod cards to Act 1 with different abilities where applicable.");
-            P03Act1 = Config.Bind("Compatibility", "P03 in Act 1", false, "Adds the P03 in KCM cards to Act 1 with different abilities where applicable.");
-
+            BingusCrash = Config.Bind("General", "Bingus Flubbed It", false, "Has Bingus been played for the first time?");
+            OverrideAct1 = Config.Bind("Compatibility", "Acts for Leshy Cards", ActOverride.Act1, "Adds Leshy cards to the given Acts.");
+            OverrideAct3 = Config.Bind("Compatibility", "Acts for P03 Cards", ActOverride.Act3, "Adds P03 cards to the given Acts. Note that they will have different abilities if P03 in KCM is not installed.");
+            OverrideGrimora = Config.Bind("Compatibility", "Acts for Grimora Cards", ActOverride.ActGrimora, "Adds Grimora cards to the given Acts. Note that they will have different abilities if GrimoraMod is not installed.");
+            
             HarmonyInstance.PatchAll(Assembly);
             if (ScrybeCompat.GrimoraEnabled)
             {
                 HarmonyInstance.PatchAll(typeof(GrimoraPatches));
             }
+            if (ScrybeCompat.P03SigilsEnabled)
+            {
+                HarmonyInstance.PatchAll(typeof(P03Patches));
+            }
 
             AddAbilities();
+            LadyAbility.Add();
             AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
             {
                 abilities.Find(x => x.Id == Ability.DrawCopyOnDeath).Info.AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
@@ -103,35 +113,46 @@ namespace BonniesBakingPack
 
                 if (ScrybeCompat.GrimoraEnabled)
                 {
-                    abilities.Find(x => x.ModGUID == "arackulele.inscryption.grimoramod" && x.Info.rulebookName == "Haunting Call")?.Info.SetPixelAbilityIcon(GetTexture("hauntingCall_pixel.png"));
-                    abilities.Find(x => x.ModGUID == "arackulele.inscryption.grimoramod" && x.Info.rulebookName == "Skin Crawler")?.Info.SetPixelAbilityIcon(GetTexture("skinCrawler_pixel.png"));
-                    abilities.Find(x => x.ModGUID == "arackulele.inscryption.grimoramod" && x.Info.rulebookName == "Slasher")?.Info.SetPixelAbilityIcon(GetTexture("slasher_pixel.png"));
+                    abilities.Find(x => x.Id == ScrybeCompat.GetGrimoraAbility("Haunting Call", Ability.None))?.Info.SetPixelAbilityIcon(GetTexture("hauntingCall_pixel.png"));
+                    abilities.Find(x => x.Id == ScrybeCompat.GetGrimoraAbility("Skin Crawler", Ability.None))?.Info.SetPixelAbilityIcon(GetTexture("skinCrawler_pixel.png"));
+                    abilities.Find(x => x.Id == ScrybeCompat.GetGrimoraAbility("Slasher", Ability.None))?.Info.SetPixelAbilityIcon(GetTexture("slasher_pixel.png"));
+                }
+                if (ScrybeCompat.P03SigilsEnabled)
+                {
+                    abilities.Find(x => x.Id == ScrybeCompat.GetP03Ability("Fire Strike When Fueled", Ability.None))?.Info.SetPixelAbilityIcon(GetTexture("fireWhenFueled_pixel.png"));
+                    abilities.Find(x => x.Id == ScrybeCompat.GetP03Ability("Fuel Siphon", Ability.None))?.Info.SetPixelAbilityIcon(GetTexture("fuelSiphon_pixel.png"));
+                    abilities.Find(x => x.Id == ScrybeCompat.GetP03Ability("Electric", Ability.None))?.Info.SetPixelAbilityIcon(GetTexture("electric_pixel.png"));
+                    abilities.Find(x => x.Id == ScrybeCompat.GetP03Ability("Tinkerer", Ability.None))?.Info.SetPixelAbilityIcon(GetTexture("tinkerer_pixel.png"));
                 }
 
                 return abilities;
             };
-            LadyAbility.Add();
+            
             AddCards();
-
-            StarterDeckManager.FullStarterDeck vanilla = StarterDeckManager.New(pluginGuid, "Basic Baking Pack",
+            StarterDeckManager.New(pluginGuid, "Basic Baking Pack",
                 GetTexture("starterDeck.png"), new string[3] { "bbp_bonnie", "bbp_meetBun", "bbp_whiteDonut" }
                 );
 
-            StarterDeckManager.FullStarterDeck grimora = StarterDeckManager.New(pluginGuid, "Bony Baking Pack",
-                GetTexture("starterDeck2.png"), new string[5] { "bbp_whiteDonut_grimora", "bbp_whiteDonut_grimora", "bbp_mouseGhool", "bbp_mousenapper", "bbp_killerMouse" }
+            StarterDeckManager.New(pluginGuid, "Bot Baking Pack",
+                GetTexture("starterDeck3.png"), new string[4] { "bbp_phoneMouse", "bbp_anonymouse", "bbp_copstable", "bbp_copstable" }
                 );
 
-            StarterDeckManager.FullStarterDeck p03 = StarterDeckManager.New(pluginGuid, "Bot Baking Pack",
-                GetTexture("starterDeck3.png"), new string[4] { "bbp_ghoolMouse", "bbp_skelemouse", "bbp_mousenapper", "bbp_killerMouse" }
+            StarterDeckManager.New(pluginGuid, "Bony Baking Pack",
+                GetTexture("starterDeck2.png"), new string[5] { "bbp_whiteDonut_grimora", "bbp_whiteDonut_grimora", "bbp_mouseGhool", "bbp_mousenapper", "bbp_killerMouse" }
                 );
 
             StarterDeckManager.ModifyDeckList += delegate (List<StarterDeckManager.FullStarterDeck> decks)
             {
-                if (!ScrybeCompat.GrimoraEnabled && !GrimoraAct1.Value)
+                if (!ScrybeCompat.GrimoraEnabled)
+                {
                     decks.RemoveAll(x => x.Info.title == "Bony Baking Pack");
+                }
 
-                if (!ScrybeCompat.P03Enabled && !P03Act1.Value)
+                if (!ScrybeCompat.P03Enabled)
+                {
                     decks.RemoveAll(x => x.Info.title == "Bot Baking Pack");
+
+                }   
 
                 return decks;
             };
@@ -153,6 +174,7 @@ namespace BonniesBakingPack
         {
             internal const string P03Guid = "zorro.inscryption.infiniscryption.p03kayceerun";
             internal const string P03Sigil = "zorro.inscryption.infiniscryption.p03sigillibrary";
+            internal const string P03Exp3 = "zorro.inscryption.infiniscryption.p03expansionpack3";
             internal const string GrimoraGuid = "arackulele.inscryption.grimoramod";
 
             internal static CardMetaCategory NeutralRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "NeutralRegionCards");
@@ -163,11 +185,45 @@ namespace BonniesBakingPack
 
             internal static bool GrimoraEnabled => Chainloader.PluginInfos.ContainsKey(GrimoraGuid);
             internal static bool P03Enabled => Chainloader.PluginInfos.ContainsKey(P03Guid);
+            internal static bool P03SigilsEnabled => Chainloader.PluginInfos.ContainsKey(P03Sigil);
 
-            internal static Ability GetGrimoraAbility(string rulebookName) => GuidManager.GetEnumValue<Ability>(GrimoraGuid, rulebookName);
-            internal static Ability GetP03Ability(string rulebookName) => GuidManager.GetEnumValue<Ability>(P03Sigil, rulebookName);
+            internal static Ability GetGrimoraAbility(string rulebookName, Ability fallback)
+            {
+                if (GrimoraEnabled)
+                    return GuidManager.GetEnumValue<Ability>(GrimoraGuid, rulebookName);
 
-            internal static CardTemple GrimoraScreenState => ScreenManagement.ScreenState;
+                return fallback;
+            }
+            internal static Ability GetP03Ability(string rulebookName, Ability fallback)
+            {
+                if (P03SigilsEnabled)
+                {
+                    return GuidManager.GetEnumValue<Ability>(P03Sigil, rulebookName);
+                }
+
+                return fallback;
+            }
+            internal static Ability GetP03RunAbility(string rulebookName, Ability fallback)
+            {
+                if (P03Enabled)
+                    return GuidManager.GetEnumValue<Ability>(P03Guid, rulebookName);
+
+                return fallback;
+            }
+            internal static Ability GetP03ExpAbility(string rulebookName, Ability fallback)
+            {
+                if (P03Enabled)
+                    return GuidManager.GetEnumValue<Ability>(P03Exp3, rulebookName);
+
+                return fallback;
+            }
+            internal static Opponent.Type GetP03Boss(string name, Opponent.Type fallback)
+            {
+                if (P03Enabled)
+                    return GuidManager.GetEnumValue<Opponent.Type>(P03Guid, name);
+
+                return fallback;
+            }
 
             internal static void SetFuel(CardInfo card, int fuel)
             {
@@ -177,9 +233,7 @@ namespace BonniesBakingPack
             {
                 card.AddPart3Decal(decal);
             }
-            internal static string LowerSceneName() => SceneManager.GetActiveScene().name?.ToLowerInvariant();
         }
-
         internal static class PackAPI
         {
             internal static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
@@ -195,6 +249,7 @@ namespace BonniesBakingPack
                 pack.SplitPackByCardTemple = true;
             }
         }
+
         internal static Texture2D GetTexture(string fileName) => TextureHelper.GetImageAsTexture(fileName, Assembly);
         internal static FaceAnim MakeFaceAnim(string openName, string closedName = null)
         {
@@ -220,8 +275,18 @@ namespace BonniesBakingPack
         public static readonly List<CardInfo> P03Cards = new();
 
         internal static ConfigEntry<bool> BingusCrash;
-        internal static ConfigEntry<bool> GrimoraAct1;
-        internal static ConfigEntry<bool> P03Act1;
+        internal static ConfigEntry<ActOverride> OverrideAct1;
+        internal static ConfigEntry<ActOverride> OverrideAct3;
+        internal static ConfigEntry<ActOverride> OverrideGrimora;
+
+        [Flags]
+        internal enum ActOverride
+        {
+            None = 1,
+            Act1 = 2,
+            Act3 = 4,
+            ActGrimora = 8
+        }
         //internal static ConfigEntry<bool> BonnieInP03;
 
         internal static List<AudioClip> AudioClips;

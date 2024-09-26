@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using UnityEngine;
 
 namespace BonniesBakingPack
 {
@@ -18,7 +19,7 @@ namespace BonniesBakingPack
                 .SetPortraitAndEmission(GetTexture("mouse.png"), GetTexture("mouse_emission.png"))
                 .SetPixelPortrait(GetTexture("mouse_pixel.png"));
 
-            CardManager.New(pluginPrefix, "skelemouse", "Skelemouse", 1, 1, "JUST A REGULAR SKELETON MOUSE.")
+            CardInfo skele = CardManager.New(pluginPrefix, "skelemouse", "Skelemouse", 1, 1, "JUST A REGULAR SKELETON MOUSE.")
                 .SetDefaultPart1Card().AddGrimora()
                 .SetBonesCost(1)
                 .SetPortraitAndEmission(GetTexture("skelemouse.png"), GetTexture("skelemouse_emission.png"))
@@ -31,6 +32,12 @@ namespace BonniesBakingPack
 
             if (ScrybeCompat.P03Enabled)
             {
+                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
+                    mouse.AddMetaCategories(ScrybeCompat.NatureRegion);
+
+                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
+                    skele.AddMetaCategories(ScrybeCompat.UndeadRegion);
+
                 bot.AddMetaCategories(ScrybeCompat.NatureRegion);
             }
             CreateShoolMice(mouse, bot);

@@ -58,6 +58,9 @@
     <Reference Include="Infiniscryption.P03KayceeRun" Private="false">
       <HintPath>..\lib\Infiniscryption.P03KayceeRun.dll</HintPath>
     </Reference>
+    <Reference Include="Infiniscryption.P03SigilLibrary" Private="false">
+      <HintPath>..\lib\Infiniscryption.P03SigilLibrary.dll</HintPath>
+    </Reference>
   </ItemGroup>
   
 </Project>

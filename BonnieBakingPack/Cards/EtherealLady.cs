@@ -3,6 +3,7 @@ using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace BonniesBakingPack
 {
@@ -11,7 +12,7 @@ namespace BonniesBakingPack
         private void CreateEtherealLadies()
         {
             // The Ethereal Lady
-            CardManager.New(pluginPrefix, "etherealLady", "Ethereal Lady", 3, 1, "Under her protection, there will be no misery or strife.")
+            CardInfo lady = CardManager.New(pluginPrefix, "etherealLady", "Ethereal Lady", 3, 1, "Under her protection, there will be no misery or strife.")
                 .SetDefaultPart1Card().AddAct1().SetRare()
                 .SetBloodCost(3)
                 .SetPortraitAndEmission(GetTexture("etherealLady.png"), GetTexture("etherealLady_emission.png"))
@@ -26,35 +27,31 @@ namespace BonniesBakingPack
                 .SetBonesCost(0).SetEnergyCost(6)
                 .SetPortraitAndEmission(GetTexture("eternalLady.png"), GetTexture("eternalLady_emission.png"))
                 .AddTraits(Trait.DeathcardCreationNonOption)
+                .AddAbilities(Ability.DrawCopyOnDeath, ScrybeCompat.GetGrimoraAbility("Sculptor", Ability.BuffNeighbours))
                 .SetOnePerDeck();
-
-            if (ScrybeCompat.GrimoraEnabled)
-            {
-                Ability ability = ScrybeCompat.GetGrimoraAbility("Sculptor");
-                queen.AddAbilities(ability, Ability.DrawCopyOnDeath);
-            }
-            else
-            {
-                queen.AddAbilities(Ability.DrawCopyOnDeath, Ability.BuffNeighbours);
-            }
 
             CardInfo bot = CardManager.New(pluginPrefix, "completeLady", "The Lady Complete", 2, 1)
                 .SetDefaultPart3Card().AddP03().SetRare()
                 .SetGemsCost(GemType.Green, GemType.Orange, GemType.Blue)
                 .SetPortraitAndEmission(GetTexture("completeLady.png"), GetTexture("completeLady_decal.png"))
+                .AddAppearances(LadyAbility.CardAppearance)
+                .AddTraits(Trait.DeathcardCreationNonOption)
+                .AddAbilities(
+                    ScrybeCompat.GetP03Ability("Purist With Blue", Ability.TriStrike),
+                    ScrybeCompat.GetP03Ability("Orange Mox Printer", Ability.DebuffEnemy),
+                    ScrybeCompat.GetP03Ability("Emerald Blessing", Ability.MadeOfStone))
                 .SetOnePerDeck();
 
             if (ScrybeCompat.P03Enabled)
             {
-                Ability ability = ScrybeCompat.GetP03Ability("Purist With Blue");
-                Ability ability2 = ScrybeCompat.GetP03Ability("Orange Mox Printer");
-                Ability ability3 = ScrybeCompat.GetP03Ability("Emerald Blessing");
-                bot.AddAbilities(ability3, ability2, ability).AddMetaCategories(ScrybeCompat.WizardRegion);
+                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
+                    lady.AddMetaCategories(ScrybeCompat.NatureRegion);
+
+                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
+                    queen.AddMetaCategories(ScrybeCompat.UndeadRegion);
+
+                bot.AddMetaCategories(ScrybeCompat.WizardRegion);
                 ScrybeCompat.AddPart3Decal(bot, bot.GetEmissivePortrait().texture);
-            }
-            else
-            {
-                bot.AddAbilities(Ability.TriStrike, Ability.DebuffEnemy, Ability.MadeOfStone);
             }
         }
     }

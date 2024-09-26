@@ -3,6 +3,7 @@ using InscryptionAPI.Card;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace BonniesBakingPack
 {
@@ -11,7 +12,7 @@ namespace BonniesBakingPack
         private void CreateBunnies()
         {
             // Bunny
-            CardManager.New(pluginPrefix, "bunny", "Bunny", 1, 2, "A delivery driver with a missing sister. Perhaps you've seen her?")
+            CardInfo bunny = CardManager.New(pluginPrefix, "bunny", "Bunny", 1, 2, "A delivery driver with a missing sister. Perhaps you've seen her?")
                 .SetDefaultPart1Card().AddAct1()
                 .SetBloodCost(1)
                 .SetPortraitAndEmission(GetTexture("bunny.png"), GetTexture("bunny_emission.png"))
@@ -22,32 +23,29 @@ namespace BonniesBakingPack
                 .SetDefaultPart1Card().AddGrimora()
                 .SetBonesCost(2).SetEnergyCost(2)
                 .SetPortraitAndEmission(GetTexture("duckit.png"), GetTexture("duckit_emission.png"))
-                .AddSpecialAbilities(DuckRabbitAbility.SpecialAbility);
+                .AddSpecialAbilities(DuckRabbitAbility.SpecialAbility)
+                .AddAbilities(
+                    ScrybeCompat.GetGrimoraAbility("Random Ability", Ability.RandomAbility)
+                    );
 
-            if (ScrybeCompat.GrimoraEnabled)
-            {
-                Ability ability = ScrybeCompat.GetGrimoraAbility("Random Ability");
-                duck.AddAbilities(ability);
-            }
-            else
-            {
-                duck.AddAbilities(Ability.RandomAbility);
-            }
-
-            CardInfo bot = CardManager.New(pluginPrefix, "bunbot", "Bunbot", 1, 2)
+            CardInfo bot = CardManager.New(pluginPrefix, "bunbot", "Bunbot", 1, 3)
                 .SetDefaultPart3Card().AddP03()
-                .SetEnergyCost(4)
-                .SetPortrait(GetTexture("bunbot.png"));
+                .SetEnergyCost(5)
+                .SetPortrait(GetTexture("bunbot.png"))
+                .AddAbilities(
+                    ScrybeCompat.GetP03Ability("Hopper", Ability.ExplodeOnDeath),
+                    ScrybeCompat.GetP03Ability("Flammable", Ability.Strafe)
+                    );
 
             if (ScrybeCompat.P03Enabled)
             {
-                Ability ability = ScrybeCompat.GetP03Ability("Hopper");
-                Ability ability2 = ScrybeCompat.GetP03Ability("Flammable");
-                bot.AddAbilities(ability, ability2).AddMetaCategories(ScrybeCompat.NatureRegion);
-            }
-            else
-            {
-                bot.AddAbilities(Ability.Strafe, Ability.ExplodeOnDeath);
+                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
+                    bunny.AddMetaCategories(ScrybeCompat.NatureRegion);
+
+                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
+                    duck.AddMetaCategories(ScrybeCompat.UndeadRegion);
+
+                bot.AddMetaCategories(ScrybeCompat.NatureRegion);
             }
         }
     }

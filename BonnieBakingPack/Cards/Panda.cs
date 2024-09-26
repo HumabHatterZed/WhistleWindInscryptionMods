@@ -4,6 +4,7 @@ using InscryptionAPI.Guid;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace BonniesBakingPack
 {
@@ -11,8 +12,7 @@ namespace BonniesBakingPack
     {
         private void CreatePandas()
         {
-            // Panda
-            CardManager.New(pluginPrefix, "panda", "Panda", 1, 2, "A detective on the hunt for a killer. Armed and dangerous.")
+            CardInfo panda = CardManager.New(pluginPrefix, "panda", "Panda", 1, 2, "A detective on the hunt for a killer. Armed and dangerous.")
                 .SetDefaultPart1Card().AddAct1()
                 .SetCost(1, 3)
                 .SetPortraitAndEmission(GetTexture("panda.png"), GetTexture("panda_emission.png"))
@@ -27,17 +27,8 @@ namespace BonniesBakingPack
                 .SetBonesCost(4)
                 .SetPortraitAndEmission(GetTexture("deadtective.png"), GetTexture("deadtective_emission.png"))
                 .SetAltPortrait(GetTexture("deadtective_alt.png")).SetEmissiveAltPortrait(GetTexture("deadtective_alt_emission.png"))
-                .AddSpecialAbilities(PandaAbility.SpecialAbility);
-
-            if (ScrybeCompat.GrimoraEnabled)
-            {
-                Ability ability = ScrybeCompat.GetGrimoraAbility("Soul Shot");
-                dead.AddAbilities(ability);
-            }
-            else
-            {
-                dead.AddAbilities(Ability.ActivatedDealDamage);
-            }
+                .AddSpecialAbilities(PandaAbility.SpecialAbility)
+                .AddAbilities(ScrybeCompat.GetGrimoraAbility("Soul Shot", Ability.ActivatedDealDamage));
 
             CardInfo bot = CardManager.New(pluginPrefix, "pandat", "Pardan Panda", 1, 2)
                 .SetDefaultPart3Card().AddP03()
@@ -48,7 +39,13 @@ namespace BonniesBakingPack
 
             if (ScrybeCompat.P03Enabled)
             {
-                Ability ability2 = ScrybeCompat.GetP03Ability("Nerf This!");
+                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
+                    panda.AddMetaCategories(ScrybeCompat.NatureRegion);
+
+                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
+                    dead.AddMetaCategories(ScrybeCompat.UndeadRegion);
+
+                Ability ability2 = ScrybeCompat.GetP03Ability("Nerf This!", Ability.None);
                 CardAppearanceBehaviour.Appearance app = GuidManager.GetEnumValue<CardAppearanceBehaviour.Appearance>(ScrybeCompat.P03Guid, "ForceRevolverAppearance");
                 bot.AddAbilities(Ability.Deathtouch, ability2).AddMetaCategories(ScrybeCompat.NatureRegion).AddAppearances(app);
             }

@@ -21,6 +21,8 @@ namespace BonniesBakingPack
             BingusAbility.SpecialAbility = SpecialTriggeredAbilityManager.Add(pluginGuid, "BingusAbility", typeof(BingusAbility)).Id;
             BonnieAbility.SpecialAbility = SpecialTriggeredAbilityManager.Add(pluginGuid, "BonnieAbility", typeof(BonnieAbility)).Id;
             BunnieAbility.SpecialAbility = SpecialTriggeredAbilityManager.Add(pluginGuid, "BunnieAbility", typeof(BunnieAbility)).Id;
+            BonnieDiskAbility.SpecialAbility = SpecialTriggeredAbilityManager.Add(pluginGuid, "BonnieDiskAbility", typeof(BonnieDiskAbility)).Id;
+            BunnieDiskAbility.SpecialAbility = SpecialTriggeredAbilityManager.Add(pluginGuid, "BunnieDiskAbility", typeof(BunnieDiskAbility)).Id;
 
             PandaAbility.SpecialAbility = SpecialTriggeredAbilityManager.Add(pluginGuid, "PandaAbility", typeof(PandaAbility)).Id;
             NineAbility.SpecialAbility = SpecialTriggeredAbilityManager.Add(pluginGuid, "NineAbility", typeof(NineAbility)).Id;
