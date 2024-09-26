@@ -22,9 +22,6 @@ namespace WhistleWind.AbnormalSigils
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
                 .SetMagnificusRulebook().Id;
-
-            Debug.Log($"{AbilitiesUtil.GetInfo(FlowerQueen.ability).rulebookName} {AbilitiesUtil.GetInfo(FlowerQueen.ability).HasMetaCategory(AbilityMetaCategory.AscensionUnlocked)}");
-            AbilitiesUtil.GetInfo(FlowerQueen.ability).metaCategories.ForEach(x => Debug.Log(x));
         }
     }
     public class HealingStrike : AbilityBehaviour

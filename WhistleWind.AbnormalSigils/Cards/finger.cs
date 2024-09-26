@@ -10,7 +10,7 @@ namespace WhistleWind.AbnormalSigils
         private void Card_Finger()
         {
             const string finger = "finger";
-            CardManager.New(pluginPrefix, finger, "Wee Witch's Friend", 1, 1)
+            CardManager.New(pluginPrefix, finger, "Finger", 1, 1)
                 .SetPortraits(Assembly, finger)
                 .AddAbilities(Ability.Sniper, MindStrike.ability);
         }
