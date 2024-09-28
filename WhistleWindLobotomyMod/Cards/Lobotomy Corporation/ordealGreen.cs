@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
             const string lastHelix = "lastHelix";
 
             CardInfo infoO = CardManager.New(pluginPrefix, doubtO, "Doubt O",
-                attack: 2, health: 4)
+                attack: 2, health: 3)
                 .SetEnergyCost(4)
                 .SetPortraits(ModAssembly, doubtO)
                 .SetTitle(ModAssembly, "doubtO_title.png")
