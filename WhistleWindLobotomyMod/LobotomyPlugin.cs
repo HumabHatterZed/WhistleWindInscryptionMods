@@ -200,13 +200,17 @@ namespace WhistleWindLobotomyMod
 
             Ability_Apocalypse();
             Ability_BigEyes();
-            Ability_Dazzling();
+
             StatusEffect_Enchanted();
+            Ability_Dazzling();
+            
             Ability_SmallBeak();
             Ability_Misdeeds();
             Ability_LongArms();
-            Ability_UnjustScale();
+
             StatusEffect_Sin();
+            Ability_UnjustScale();
+            
             Ability_GiantBlocker();
 
             if (LobotomyConfigManager.Instance.RevealSpecials)
