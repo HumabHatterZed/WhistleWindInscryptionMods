@@ -32,10 +32,10 @@ namespace BonniesBakingPack
                 .AddAbilities(Ability.QuadrupleBones)
                 .SetTerrain(false);
 
-            CardManager.New(pluginPrefix, "whiteDonut_act3", "White Noise", 1, 1, "")
-                .SetBonesCost(5)
+            CardManager.New(pluginPrefix, "whiteDonut_act3", "White Noise", 0, 1, "")
+                .SetBonesCost(3)
                 .SetPortrait(GetTexture("whiteDonut_act3.png"))
-                .AddAbilities(ScrybeCompat.GetP03Ability("Apotheosis", Ability.RandomAbility));
+                .AddAbilities(GiveSigils.AbilityID, ScrybeCompat.GetP03Ability("Apotheosis", Ability.RandomAbility));
 
             CardManager.New(pluginPrefix, "whiteDonut_grimora", "White Bonut", 0, 1, "")
                 .SetBonesCost(1).SetCardTemple(CardTemple.Undead)
@@ -54,7 +54,7 @@ namespace BonniesBakingPack
             CardManager.New(pluginPrefix, "pastry_act3", "PasteMe!", 0, 0, "")
                 .SetEnergyCost(4)
                 .SetPortrait(GetTexture("pastry_act3.png"))
-                .AddAbilities(ScrybeCompat.GetP03ExpAbility("Sticker Lord", Ability.DrawRabbits))
+                .AddAbilities(ScrybeCompat.GetP03ExpAbility("Sticker Lord", ScrybeCompat.GetP03Ability("Fully Loaded", Ability.DrawRabbits)))
                 .SetTargetedSpell();
 
             CardManager.New(pluginPrefix, "meetBun", "Meet Bun", 0, 1, "")
