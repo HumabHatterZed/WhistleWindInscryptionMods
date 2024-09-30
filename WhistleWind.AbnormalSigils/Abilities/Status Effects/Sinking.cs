@@ -28,7 +28,7 @@ namespace WhistleWind.AbnormalSigils
 
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => target == base.PlayableCard;
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => damage + EffectPotency;
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => -9000;
     }
     public partial class AbnormalPlugin
     {
