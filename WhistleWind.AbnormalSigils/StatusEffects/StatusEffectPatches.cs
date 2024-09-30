@@ -2,6 +2,7 @@
 using GBC;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,15 @@ namespace WhistleWind.AbnormalSigils.Core
     [HarmonyPatch]
     internal class StatusEffectPatches // Adds extra icon slots for rendering status effects
     {
+        [HarmonyPrefix, HarmonyPatch(typeof(RuleBookController), nameof(RuleBookController.OpenToAbilityPage))]
+        private static bool FixOpenToStatusEffectsPage(ref string abilityName)
+        {
+            if (int.TryParse(abilityName, out int ability) && StatusEffectManager.AllStatusEffects.EffectByIcon((Ability)ability) != null)
+            {
+                abilityName = "[API_Status Effects]" + abilityName;
+            }
+            return true;
+        }
         [HarmonyPostfix]
         [HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.GetDistinctShownAbilities))]
         [HarmonyPatch(typeof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix), nameof(InscryptionCommunityPatch.Card.TempModPixelSigilsFix.RenderTemporarySigils))]
@@ -42,8 +52,9 @@ namespace WhistleWind.AbnormalSigils.Core
             {
                 controller = __instance.gameObject.AddComponent<StatusEffectIconsManager>();
                 controller.statusEffectMat = __instance.emissiveIconMat ?? __instance.defaultIconMat;
+
                 if (__instance.transform.Find("StatusEffectIcons_1") == null)
-                    AddStatusIconsToCard(controller, __instance.transform, __instance.defaultIconGroups.Count);
+                    AddStatusIconsToCard(controller, __instance.transform, __instance.defaultIconGroups.Count, playableCard);
             }
             __instance.abilityIcons.RemoveAll(controller.abilityIcons.Contains);
             controller.abilityIcons.Clear();
@@ -65,7 +76,7 @@ namespace WhistleWind.AbnormalSigils.Core
                 icon.gameObject.SetActive(true);
                 icon.SetMaterial(new(__instance.defaultIconMat)
                 {
-                    color = AbilitiesUtil.GetInfo(distinct[i]).colorOverride, // SetColour doesn't work for some reason???
+                    color = !SaveManager.SaveFile.IsGrimora ? AbilitiesUtil.GetInfo(distinct[i]).colorOverride : Color.grey, // SetColour doesn't work for some reason???
                 });
 
                 icon.AssignAbility(distinct[i], playableCard.Info, playableCard);
@@ -136,7 +147,7 @@ namespace WhistleWind.AbnormalSigils.Core
 
         private const string SEEMORE = "SeeMore";
 
-        private static void AddStatusIconsToCard(StatusEffectIconsManager controller, Transform abilityIconParent, int defaultIconCount)
+        private static void AddStatusIconsToCard(StatusEffectIconsManager controller, Transform abilityIconParent, int defaultIconCount, PlayableCard card)
         {
             for (int i = 0; i < Mathf.Min(5, defaultIconCount); i++)
             {
@@ -144,33 +155,47 @@ namespace WhistleWind.AbnormalSigils.Core
                 List<Transform> icons = NewIcons(iconGroup, i + 1);
                 for (int j = 0; j < icons.Count; j++)
                 {
+                    Renderer iconRenderer = icons[j].GetComponent<Renderer>();
                     AbilityIconInteractable interactable = icons[j].GetComponent<AbilityIconInteractable>();
-                    icons[j].transform.localScale = LocalScaleBase3D;
 
                     if (SaveManager.SaveFile.IsPart1)
                     {
-                        icons[j].localPosition = new(-0.375f + 0.1875f * j, yPositionPart1, 0f);
-
+                        icons[j].localPosition = new(-0.375f + 0.1875f * j, 0.2f, 0f);
+                        icons[j].transform.localScale = new(0.15f, 0.10f, 1f);
+                        
                         GameObject back = GameObject.Instantiate(abilityIconParent.Find("CardMergeIcon_1/Back").gameObject, icons[j]);
                         back.name = "Back";
                         back.transform.localScale = new(1.5f, 1.5f, 1f);
 
-                        Renderer rend1 = icons[j].transform.GetComponent<Renderer>();
-                        Renderer rend = back.transform.GetComponent<Renderer>();
-                        rend.material.mainTexture = StatusEffectManager.StatusEffectPatch;
+                        Renderer backRenderer = back.GetComponent<Renderer>();
+                        backRenderer.material.mainTexture = StatusEffectManager.StatusEffectPatch;
 
-                        rend.sortingLayerID = rend1.sortingLayerID;
-                        rend.sortingOrder = rend1.sortingOrder;
+                        backRenderer.sortingLayerID = iconRenderer.sortingLayerID;
+                        backRenderer.sortingOrder = iconRenderer.sortingOrder;
                         
-                        GameObject.Destroy(back.transform.GetComponent<AbilityIconInteractable>());
-                        GameObject.Destroy(back.transform.GetComponent<BoxCollider>());
+                        GameObject.Destroy(back.GetComponent<AbilityIconInteractable>());
+                        GameObject.Destroy(back.GetComponent<BoxCollider>());
+                    }
+                    else if (SaveManager.SaveFile.IsGrimora)
+                    {
+                        icons[j].localPosition = new(-0.475f + 0.1875f * j, 0.3f, -0.1f);
+                        icons[j].transform.localScale = LocalScaleBase3D;
+
+                        /*GameObject back = new("Back", typeof(MeshRenderer));
+                        back.transform.SetParent(icons[j].transform);
+                        back.transform.localPosition = Vector3.zero;
+                        back.layer = icons[j].gameObject.layer;
+                        MeshRenderer backRenderer = back.GetComponent<MeshRenderer>();
+                        backRenderer.material.mainTexture = StatusEffectManager.StatusEffectPatch;
+                        backRenderer.sortingGroupID = iconRenderer.sortingGroupID;
+                        backRenderer.sortingOrder = iconRenderer.sortingOrder;*/
                     }
                     else
                     {
-                        icons[j].localPosition = new(-0.5f + 0.1f * j, yPositionPart3, 0f);
+                        icons[j].localPosition = new(-0.5f, 1f - 0.15f * j, 0f);
+                        icons[j].transform.localScale = LocalScaleBase3D;
                     }
 
-                    
                     interactable.OriginalLocalPosition = icons[j].localPosition;
                 }
             }
@@ -204,9 +229,7 @@ namespace WhistleWind.AbnormalSigils.Core
         }
 
         // keep z scale at 1 to not mess with icon interactiveness
-        private static readonly Vector3 LocalScaleBase3D = new(0.15f, 0.10f, 1f);
-        private const float yPositionPart1 = 0.20f;
-        private const float yPositionPart3 = 1f;
+        private static readonly Vector3 LocalScaleBase3D = new(0.2f, 0.2f, 1f);
 
         [HarmonyPrefix, HarmonyPatch(typeof(CreateCardsAdjacent), nameof(CreateCardsAdjacent.ModifySpawnedCard))]
         private static bool ModifyInheritedEffects(CreateCardsAdjacent __instance, CardInfo card)
