@@ -16,7 +16,7 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.Core
 {
-    internal class MechanicPages
+    public static class MechanicPages
     {
         internal static void AddMechanicEntries()
         {
