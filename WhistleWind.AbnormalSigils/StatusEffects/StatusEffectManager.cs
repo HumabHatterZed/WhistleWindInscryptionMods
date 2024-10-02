@@ -34,6 +34,8 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
             public List<StatusMetaCategory> statusMetaCategories = new();
 
+            public bool Irremovable = false;
+
             public FullStatusEffect(string modGuid, string rulebookName, Type type, SpecialTriggeredAbility id, Texture icon, AbilityInfo iconInfo)
             {
                 this.ModGUID = modGuid;
@@ -46,12 +48,11 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
             public FullStatusEffect Clone()
             {
-                return new(this.ModGUID, this.RulebookName, this.Behaviour, this.Id, this.Icon, this.IconInfo);
-            }
-
-            internal void SetAbilityRedirect()
-            {
-                throw new NotImplementedException();
+                return new(this.ModGUID, this.RulebookName, this.Behaviour, this.Id, this.Icon, this.IconInfo)
+                {
+                    statusMetaCategories = new(this.statusMetaCategories),
+                    Irremovable = this.Irremovable
+                };
             }
         }
 
@@ -113,7 +114,11 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             effect.IconInfo.AddMetaCategories(categories.Convert(x => (AbilityMetaCategory)x).ToArray());
             return effect;
         }
-
+        public static FullStatusEffect SetIrremovable(this FullStatusEffect effect, bool irremovable)
+        {
+            effect.Irremovable = irremovable;
+            return effect;
+        }
         public static AbilityInfo SetStatusEffect(this AbilityInfo info, Color colourOverride)
         {
             return info.SetHasColorOverride(true, colourOverride).SetExtendedProperty(STATUS_EFFECT_PROPERTY, true);
@@ -267,13 +272,16 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         public static IEnumerator RemoveStatusEffect<T>(this PlayableCard card) where T : StatusEffectBehaviour
         {
             StatusEffectBehaviour status = card.GetStatusEffect<T>();
-            if (status != null)
+            if (status != null && !AllStatusEffects.EffectByID(status.StatusEffect).Irremovable)
             {
                 yield return status.RemoveFromCard(true);
             }
         }
         public static IEnumerator RemoveStatusEffect(this PlayableCard card, SpecialTriggeredAbility id)
         {
+            if (AllStatusEffects.EffectByID(id).Irremovable)
+                yield break;
+
             StatusEffectBehaviour status = card.GetStatusEffect(id);
             if (status != null)
             {
@@ -283,6 +291,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         public static IEnumerator RemoveStatusEffects(this PlayableCard card)
         {
             List<StatusEffectBehaviour> statuses = card.GetStatusEffects();
+            statuses.RemoveAll(x => AllStatusEffects.EffectByID(x.StatusEffect).Irremovable);
             if (statuses.Count > 0)
             {
                 for (int i = 0; i < statuses.Count; i++)
@@ -294,6 +303,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         public static IEnumerator RemoveStatusEffects(this PlayableCard card, bool positiveEffects)
         {
             List<StatusEffectBehaviour> statuses = card.GetStatusEffects(positiveEffects);
+            statuses.RemoveAll(x => AllStatusEffects.EffectByID(x.StatusEffect).Irremovable);
             if (statuses.Count > 0)
             {
                 for (int i = 0; i < statuses.Count; i++)
