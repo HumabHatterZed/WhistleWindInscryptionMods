@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod.Opponents
             sequence.drewInitialHand = true;
         }
     }
-    public abstract class LobotomyBossBattleSequencer : LobotomyBattleSequencer, IModifyDamageTaken, IOnPreScalesChangedRef
+    public abstract class LobotomyBossBattleSequencer : LobotomyBattleSequencer, IModifyDamageTaken
     {
         public PlayableCard BossCard = null;
 
@@ -172,24 +172,6 @@ namespace WhistleWindLobotomyMod.Opponents
         #endregion
 
         #region Triggers
-        public virtual bool RespondsToPreScalesChanged(int damage, int numWeights, bool toPlayer) => !toPlayer && PreventScaleDamage;
-        public virtual int OnPreScalesChanged(int damage, ref int numWeights, ref bool toPlayer)
-        {
-            if (LifeManager.Instance.DamageUntilPlayerWin == 1)
-                return numWeights = 0;
-
-            if (damage >= LifeManager.Instance.DamageUntilPlayerWin)
-            {
-                numWeights = Mathf.Min(LifeManager.Instance.DamageUntilPlayerWin - 1, numWeights);
-                return LifeManager.Instance.DamageUntilPlayerWin - 1;
-            }
-
-            return damage;
-        }
-        
-        public bool RespondsToPreScalesChangedRef(int damage, int numWeights, bool toPlayer) => RespondsToPreScalesChanged(damage, numWeights, toPlayer);
-        public int CollectPreScalesChangedRef(int damage, ref int numWeights, ref bool toPlayer) => OnPreScalesChanged(damage, ref numWeights, ref toPlayer);
-
         public virtual bool RespondsToModifyDamage(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => true;
         public virtual int OnModifyDamage(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
