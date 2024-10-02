@@ -1,9 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using InscryptionAPI.Card;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
-using static UnityEngine.UIElements.StyleVariableResolver;
 
 namespace WhistleWind.AbnormalSigils
 {

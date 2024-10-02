@@ -50,10 +50,10 @@ namespace WhistleWind.AbnormalSigils
         public static Trait NakedSerpent = GuidManager.GetEnumValue<Trait>(pluginGuid, "NakedSerpent");
         public static Trait SporeFriend = GuidManager.GetEnumValue<Trait>(pluginGuid, "SporeFriend");
         public static Trait LovingSlime = GuidManager.GetEnumValue<Trait>(pluginGuid, "LovingSlime");
-        public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
         public static Trait Orchestral = GuidManager.GetEnumValue<Trait>(pluginGuid, "Orchestral");
         public static Trait BloomingFlower = GuidManager.GetEnumValue<Trait>(pluginGuid, "BloomingFlower");
         public static Trait ImmuneToAilments = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToAilments");
+        public static Trait ImmuneToInstaDeath = GuidManager.GetEnumValue<Trait>(pluginGuid, "ImmuneToInstaDeath");
 
         public static Trait CannotGiveSigils = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotGiveSigils");
         public static Trait CannotGainSigils = GuidManager.GetEnumValue<Trait>(pluginGuid, "CannotGainSigils");
@@ -258,6 +258,14 @@ namespace WhistleWind.AbnormalSigils
 
             Ability_HealingStrike();
             Ability_FingerTapping();
+
+            StatusEffect_Decay();
+            Ability_StartingDecay();
+            Ability_Understanding();
+
+            Ability_Bleachproof();
+            Ability_Challenging();
+
             #endregion
 
             StatusEffectPages.AddStatusEntries();

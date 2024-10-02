@@ -110,7 +110,10 @@ Mind Strike			|X|X|2	|When a card bearing this sigil strikes another creature, d
 Spilling			|X|X|0	|When a card bearing this sigil perishes, Flood all spaces on the board based on their distance from this card and extinguish Scorching cards.
 Flower Queen		|X|X|3	|At the end of the owner's turn, a card bearing this sigil Blooms the opposing space.
 Healing Strike		|X|X|-2	|Creatures struck by a card bearing this sigil take no damage and instead regain Health equal to the damage dealt.
-Finger Tapping		|X|X|4	|When a card bearing this sigil is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike, Sniper
+Finger Tapping		|X|X|4	|When a card bearing this sigil is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike, Sniper.
+Imminent Decay		|X|✓|-3	|When a card bearing this sigil is played, it gains 1 Decay for each stack of this sigil.
+Understanding		|X|X|2	|If a card bearing this sigil perishes from the effect of Decay, deal 4 damage to each opposing creature and 4 direct damage to their owner.
+Incomprehensible	|X|X|3	|At the end of the owner's turn, a card bearing this sigil deals 2 damage to each opposing creature and 2 direct damage to their owner.
 </details>
 
 ### ⁉️ Stat Icons
@@ -143,7 +146,8 @@ Haste|1|This card's Speed is raised by this effect's Potency. At the start of th
 Bind|-1|This card's Speed is reduced by this effect's Potency. At the start of the owner's next turn, remove this effect.
 Pebble|2|At the start and end of the owner's turn, this card regains 1 Health. When this card perishes, inflict Grief on all allied creatures.
 Grief|-1|This card loses Power equal to its Grief. At the start of the owner's turn, if there is no allied card with Pebble, gain 1 Grief. Otherwise, remove this effect.
-Sinking|-2|A card bearing this effect loses Power equal to its Sinking. When this card is struck, take damage equal to its Sinking then remove this effect.
+Sinking|-1|A card bearing this effect loses Power equal to its Sinking. When this card is struck, take damage equal to its Sinking then remove this effect.
+Decay|-3|At the start of the owner's turn, reduce this effect's Potency by 1. A card bearing this effect will perish when its Potency reaches 0.
 </details>
 
 ## 🎴 Slot Modifications
@@ -154,11 +158,11 @@ Blooming|At the end of the owner's turn, cards occupying this space are transfor
 
 ## 📚 Other
 ### 🐺 Tribes
-- Anthropoid
-- Botanic
-- Divine
-- Fae
-- Mechanical
+- Anthropoid - humans and humanoids
+- Botanic - plants, fungi, and other technically-not-plants
+- Divine - godly or other religious artefacts and entities
+- Fae - magical creatures that may or may not be humanoid
+- Mechanical - machines and other technology
 
 ### 📕 Traits
 Note that the description is only how they're used in this mod; you can use them for other things if you wanted.

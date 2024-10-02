@@ -87,14 +87,17 @@
 - Added dialogue explaining status overflow
 - Added extension methods for clearing status effects from a card
 - Added custom trigger IOnStatusEffectAdded
-- Added 10+ sigils:
-    - Damsel, Abusive, Shove Aside, Pin Down, Mind Strike, Unyielding, Spilling, Flower Queen, Healing Strike, Finger Tapping
+- Status effect's can now be marked Irremovable
+- Added 14+ sigils:
+    - Damsel, Abusive, Shove Aside, Pin Down, Mind Strike, Unyielding, Spilling, Flower Queen, Healing Strike, Finger Tapping, Imminent Decay, Understanding, Bleachproof, Challenging
 - Added 1 stat icons:
     - Flower Power
-- Added 3 status effects:
-    - Fervent Adoration, Grief, Sinking
+- Added 4+ status effects:
+    - Fervent Adoration, Grief, Sinking, Decay
 - Added 2 slot modifications:
     - Flooded, Blooming
+- Added 2 additional Traits:
+    - ImmuneToAilments, BloomingFlower
 ### 💣 Removals
 - Removed Volatile sigil
 ## v1.1.2 - Minor patch (5/23/2024)
