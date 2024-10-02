@@ -53,7 +53,7 @@ namespace WhistleWindLobotomyMod
             const string rDesc = "When this card deals damage to another creature, transfer 1 Sin to that card.";
 
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Sin>(
-                pluginGuid, rName, rDesc, -3, GameColors.Instance.gold,
+                pluginGuid, rName, rDesc, 0, GameColors.Instance.gold,
                 TextureLoader.LoadTextureFromFile("sigilUnjustScale.png", ModAssembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
 
