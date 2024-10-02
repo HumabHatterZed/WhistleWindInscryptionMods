@@ -30,7 +30,7 @@ namespace WhistleWind.AbnormalSigils
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null;
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && target.LacksTrait(AbnormalPlugin.ImmuneToAilments);
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
             yield return target.AddStatusEffect<Sinking>((base.Card.Health + 1) / 2);
