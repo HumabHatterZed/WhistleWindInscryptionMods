@@ -33,7 +33,7 @@ namespace WhistleWind.AbnormalSigils
 
             Haste.specialAbility = data.Id;
             Haste.iconId = data.IconInfo.ability;
-            data.IconInfo.SetAbilityRedirect("Speed", Speed.ability, GameColors.Instance.orange);
+            data.IconInfo.SetUniqueRedirect("Speed", "wstl:Mechanic_Speed", GameColors.Instance.orange);
         }
     }
 }

@@ -67,14 +67,14 @@
 - Nettle Clothes - changed to only create Brothers in adjacent slots rather than all friendly slots
 - Witness - reduced activation cost from 2 Bones -> 1 Bone
 - Ruler of Frost - targeting cards now requires an additional 2 Bones - empty spaces still cost 2 Bones to target
-- Ruler of Frost - no longer affects Terrain and Pelt cards
+- Ruler of Frost - kill effect no longer affects Terrain and Pelt cards
 - Frozen Heart - changed to give 1 Power and 1 Health instead of 2 Health
 - Frozen Heart - reduced powerlevel from -1 -> -3
 - Healer - now removes a random negative status effect from targeted cards
 - Healer - reduced health gained from 2 -> 1
 - Binding Strike - Bind inflicted is now equal to half the attacking card's powerlevel
 - Spores - reduced powerlevel from -1 -> 0
-- Worms - Infested cards now deprioritise Terrain and Pelt cards
+- Worms - Infested cards now deprioritise Terrain and Pelt cards when targeting
 - Worms - increased powerlevel from -2 -> -1
 - Little Witch's Friend - rebalanced from 1/2, 3 Bones -> 1/1, 2 Bones, Detonator
 - Little Witch's Friend - no longer possesses the Insect tribe
@@ -86,18 +86,36 @@
 - Added dialogue for when first encountering a status effect
 - Added dialogue explaining status overflow
 - Added extension methods for clearing status effects from a card
-- Added custom trigger IOnStatusEffectAdded
-- Status effect's can now be marked Irremovable
-- Added 14+ sigils:
-    - Damsel, Abusive, Shove Aside, Pin Down, Mind Strike, Unyielding, Spilling, Flower Queen, Healing Strike, Finger Tapping, Imminent Decay, Understanding, Bleachproof, Challenging
+- Added custom trigger interface IOnStatusEffectAdded
+- Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
+- Added 14 sigils:
+    - Damsel
+    - Abusive
+    - Shove Aside
+    - Pin Down
+    - Mind Strike
+    - Unyielding
+    - Spilling
+    - Flower Queen
+    - Healing Strike
+    - Finger Tapping
+    - Imminent Decay
+    - Understanding
+    - Bleachproof
+    - Elite
 - Added 1 stat icons:
     - Flower Power
-- Added 4+ status effects:
-    - Fervent Adoration, Grief, Sinking, Decay
+- Added 4 status effects:
+    - Fervent Adoration
+    - Grief
+    - Sinking
+    - Decay
 - Added 2 slot modifications:
-    - Flooded, Blooming
-- Added 2 additional Traits:
-    - ImmuneToAilments, BloomingFlower
+    - Flooded
+    - Blooming
+- Added 2 Traits:
+    - ImmuneToAilments
+    - BloomingFlower
 ### 💣 Removals
 - Removed Volatile sigil
 ## v1.1.2 - Minor patch (5/23/2024)

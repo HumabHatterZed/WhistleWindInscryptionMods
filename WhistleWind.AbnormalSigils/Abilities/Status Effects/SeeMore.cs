@@ -47,10 +47,4 @@ namespace WhistleWind.AbnormalSigils
             yield break;
         }
     }
-
-    public class Speed : AbilityBehaviour
-    {
-        public static Ability ability;
-        public override Ability Ability => ability;
-    }
 }
