@@ -223,7 +223,7 @@ namespace BonniesBakingPack
         [HarmonyPrefix, HarmonyPatch(typeof(CardChoicesSequencer), nameof(CardChoicesSequencer.ExamineCardWithDialogue))]
         private static bool ExamineBingusWithDialogue(SelectableCard card, ref string message)
         {
-            if (card.Info.HasSpecialAbility(BingusAbility.SpecialAbility) && BakingPlugin.BingusCrash.Value)
+            if (card?.Info != null && card.Info.HasSpecialAbility(BingusAbility.SpecialAbility) && BakingPlugin.BingusCrash.Value)
             {
                 message = "Bingus wants to apologise for bingusing your game. She hopes you'll give her another chance.";
             }
