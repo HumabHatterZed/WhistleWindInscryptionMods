@@ -14,8 +14,8 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Ability_Challenging()
         {
-            const string rulebookName = "Challenging";
-            const string rulebookDescription = "[creature] is considered Made of Stone and Bleachproof.";
+            const string rulebookName = "Elite";
+            const string rulebookDescription = "[creature] is considered as having Made of Stone and Bleachproof.";
             Challenging.ability = AbnormalAbilityHelper.CreateAbility<Challenging>(
                 "sigilChallenging",
                 rulebookName, rulebookDescription, powerLevel: 4,
