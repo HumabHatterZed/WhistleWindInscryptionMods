@@ -17,8 +17,8 @@ namespace WhistleWindLobotomyMod
 
             CardManager.New(pluginPrefix, bigEgg, "Aspect of Big Bird",
                 attack: 1, health: 100)
-                .SetPortraits(ModAssembly, "bigBird", "bigBird_emission", "")
-                .AddAbilities(ApocalypseAbility.ability, BigEyes.ability, Dazzling.ability, Ability.MadeOfStone)
+                .SetPortraits(ModAssembly, "bigBird", "bigBird_emission.png", "")
+                .AddAbilities(ApocalypseAbility.ability, BigEyes.ability, Dazzling.ability, Challenging.ability)
                 .AddTraits(traits)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetEventCard(false)
@@ -26,8 +26,8 @@ namespace WhistleWindLobotomyMod
 
             CardManager.New(pluginPrefix, littleEgg, "Aspect of Small Bird",
                 attack: 1, health: 100)
-                .SetPortraits(ModAssembly, "punishingBird", "punishingBird_boss_emission", "")
-                .AddAbilities(ApocalypseAbility.ability, SmallBeak.ability, Misdeeds.ability, Ability.MadeOfStone)
+                .SetPortraits(ModAssembly, "punishingBird", "punishingBird_boss_emission.png", "")
+                .AddAbilities(ApocalypseAbility.ability, SmallBeak.ability, Misdeeds.ability, Challenging.ability)
                 .AddTraits(traits)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetEventCard(false)
@@ -35,8 +35,8 @@ namespace WhistleWindLobotomyMod
 
             CardManager.New(pluginPrefix, longEgg, "Aspect of Long Bird",
                 attack: 1, health: 100)
-                .SetPortraits(ModAssembly, "judgementBird", "judgementBird_boss_emission", "")
-                .AddAbilities(ApocalypseAbility.ability, LongArms.ability, UnjustScale.ability, Ability.MadeOfStone)
+                .SetPortraits(ModAssembly, "judgementBird", "judgementBird_boss_emission.png", "")
+                .AddAbilities(ApocalypseAbility.ability, LongArms.ability, UnjustScale.ability, Challenging.ability)
                 .AddTraits(traits)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetEventCard(false)
@@ -44,7 +44,7 @@ namespace WhistleWindLobotomyMod
 
             CardManager.New(pluginPrefix, "!GIANTCARD_ApocalypseBird", "",
                 attack: 2, health: 40)
-                .AddAbilities(ApocalypseAbility.ability, GiantBlocker.ability, Ability.Reach, Ability.MadeOfStone)
+                .AddAbilities(ApocalypseAbility.ability, GiantBlocker.ability, Ability.Reach, Challenging.ability)
                 .AddTraits(Trait.Uncuttable, Trait.Giant, AbnormalPlugin.ImmuneToInstaDeath)
                 .AddSpecialAbilities(SpecialTriggeredAbility.GiantCard)
                 .AddAppearances(GiantBirdAppearance.appearance)
