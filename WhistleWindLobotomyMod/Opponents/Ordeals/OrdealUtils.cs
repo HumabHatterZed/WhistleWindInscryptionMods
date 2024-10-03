@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
+using System;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
@@ -20,9 +21,9 @@ namespace WhistleWindLobotomyMod
         public static Texture2D[] MidnightAnim;
         public static Texture2D[] MidnightTotemAnim;
 
-        public static OrdealColour ChooseOrdealColourFromPossibilities(params OrdealColour[] possibleOrdeals)
+        public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals)
         {
-            return possibleOrdeals[Random.Range(0, possibleOrdeals.Length - 1)];
+            return possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length - 1)];
         }
 
         internal static void InitOrdeals()
@@ -45,10 +46,11 @@ namespace WhistleWindLobotomyMod
     public class OrdealBattleNodeData : CardBattleNodeData
     {
         public bool totemOpponent;
-        public OrdealColour ordealColour;
+        public int severity;
+        public OrdealType ordealType;
     }
-
-    public enum OrdealColour
+    
+    public enum OrdealType
     {
         Green = 0,  // G G G G
         Crimson = 1,// C C C _
