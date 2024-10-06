@@ -14,7 +14,7 @@ namespace WhistleWind.Core.Helpers
         public const string _PNG = ".png";
         
         /// <remarks>
-        /// portraitName must not end with a file extension.
+        /// portraitName must not end with a file extension. emissionName and pixelPortrait must end with a file extension if not null.
         /// </remarks>
         public static CardInfo SetPortraits(this CardInfo info, Assembly targetAssembly, string portraitName, string emissionName = null, string pixelPortraitName = null)
         {
