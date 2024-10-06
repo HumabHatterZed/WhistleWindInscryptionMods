@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             CardInfo infoY = CardManager.New(pluginPrefix, doubtY, "Doubt Y",
-                attack: 1, health: 3)
+                attack: 2, health: 2)
                 .SetEnergyCost(3)
                 .SetPortraits(ModAssembly, doubtY)
                 .SetTitle(ModAssembly, "doubtY_title.png")
