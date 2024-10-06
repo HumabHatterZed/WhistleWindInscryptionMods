@@ -8,13 +8,12 @@ namespace WhistleWindLobotomyMod.Opponents
 {
     public abstract class LobotomyBattleSequencer : BossBattleSequencer, IOnPreScalesChangedRef
     {
+        public int currentExcessBones = 0;
+        public bool drewInitialHand = false;
+
         public virtual bool PreventScaleDamage { get; set; } = true;
         public virtual bool DirectDamageGivesBones { get; set; } = true;
         public virtual int MaxExcessBones { get; } = 8;
-
-        public int currentExcessBones = 0;
-
-        public bool drewInitialHand = false;
 
         public virtual IEnumerator PreDrawOpeningHand()
         {

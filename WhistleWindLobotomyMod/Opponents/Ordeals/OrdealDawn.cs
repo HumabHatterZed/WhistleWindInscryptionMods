@@ -5,86 +5,212 @@ using InscryptionAPI.Encounters;
 using System;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod
 {
+    /// <summary>
+    /// Appears in R0, R1
+    /// Difficulty range: (1 - 4, 5 - 10) +[0,2]
+    /// </summary>
     public class OrdealDawn : OrdealBattleSequencer
     {
         public static readonly string ID = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealDawn", typeof(OrdealDawn)).Id;
 
-        public override Dictionary<OrdealType, List<string>> OrdealCards => throw new NotImplementedException();
-
-        /*public override Dictionary<OrdealType, List<Tuple<string, int>>> OrdealPointValues => new() {
-            { OrdealType.Green, new() {
-                new("wstl_doubtA", 1),
-                new("wstl_doubtB", 1),
-                new("wstl_doubtY", 1),
-                new("wstl_doubtO", 1) }},
-            { OrdealType.Violet, new() {
-                new("wstl_fruitUnderStanding", 1) }},
-            { OrdealType.Crimson, new() {
-                new("wstl_skinCheers", 1) }},
-            { OrdealType.Amber, new() {
-                new("wstl_perfectFood", 1) }},
-            { OrdealType.Indigo, new() {
-                new("wstl_sweeper", 1) }},
-            { OrdealType.White, new() {
-                new("wstl_fixerRed", 1),
-                new("wstl_fixerWhite", 1),
-                new("wstl_fixerBlack", 1) }}
-        };
-        public override int GetRequiredPointsForPlayerWin(int difficultyMod, int currentRegionTier)
-        {
-            return ordealType switch
-            {
-                OrdealType.Green => 6 + difficultyMod,
-                OrdealType.Violet => 3 + (difficultyMod + currentRegionTier) / 2,
-                OrdealType.Crimson => 3 + difficultyMod + currentRegionTier,
-                OrdealType.Amber => 7 + difficultyMod + currentRegionTier,
-                OrdealType.Indigo => 4 + difficultyMod,
-                _ => 1,
-            };
-        }*/
-
         public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
         {
-            /*List<Tuple<string, int>> template1 = new()
+            switch (ordealType)
             {
-                new(CardNameOrReplacement("wstl_doubtA", "wstl_doubtB", 10), 1)
-            };
-            List<Tuple<string, int>> template2 = new()
-            {
-                new(CardNameOrReplacement("wstl_doubtA", "wstl_doubtB", 11), 1),
-                new(CardNameOrReplacement("wstl_doubtA", "wstl_doubtB", 11), 1)
-            };
-            List<Tuple<string, int>> template3 = new()
-            {
-                new(CardNameOrReplacement("wstl_doubtB", "wstl_doubtY", 13), 1),
-                new(CardNameOrReplacement("wstl_doubtY", "wstl_doubtO", 13), 1)
-            };
-            List<Tuple<string, int>> template4 = new()
-            {
-                new(CardNameOrReplacement("wstl_doubtB", "wstl_doubtY", 12), 1),
-                new("wstl_doubtO", 1)
-            };
-            templateTurns.Add(template1);
-            templateTurns.Add(template2);
-            templateTurns.Add(template3);
-            templateTurns.Add(template4);*/
+                case OrdealType.Green:
+                    ConstructGreenDawn(encounterData);
+                    break;
+                case OrdealType.Violet:
+                    ConstructVioletDawn(encounterData);
+                    break;
+                case OrdealType.Crimson:
+                    ConstructCrimsonDawn(encounterData);
+                    break;
+                case OrdealType.Amber:
+                    ConstructAmberDawn(encounterData);
+                    break;
+                default:
+                    ConstructWhiteDawn(encounterData);
+                    break;
+            }
 
-            /*encounterData.Blueprint.AddTurns(
-                EncounterManager.CreateTurn(EncounterManager.NewCardBlueprint(template1[0].Item1), EncounterManager.NewCardBlueprint(template1[1].Item1)),
-                EncounterManager.CreateTurn(),
-                EncounterManager.CreateTurn(EncounterManager.NewCardBlueprint(template2[1].Item1), EncounterManager.NewCardBlueprint(template2[1].Item1), EncounterManager.NewCardBlueprint(template2[2].Item1)),
-                EncounterManager.CreateTurn(),
-                EncounterManager.CreateTurn(EncounterManager.NewCardBlueprint(template3[0].Item1), EncounterManager.NewCardBlueprint(template3[1].Item1)),
-                EncounterManager.CreateTurn(),
-                EncounterManager.CreateTurn(EncounterManager.NewCardBlueprint(template4[0].Item1), EncounterManager.NewCardBlueprint(template4[1].Item1), EncounterManager.NewCardBlueprint(template4[2].Item1))
-                );
-*/
-            encounterData.Blueprint.turns.Randomize();
             return encounterData;
+        }
+        /// <summary>
+        /// D | Turn 1 | Turn 2 | Turn 3 | Turn 4 | ## | HP | Atk
+        /// 0 | A      | A      | A A    | -      | 4  | 4  | 4
+        /// 3 | A      | A A    | B A    | -      | 5  | 6  | 5
+        /// 5 | A A    | B A    | B B    | Y      | 7  | 11 | 8
+        /// 7 | A A    | B A    | B B A  | O      | 8  | 13 | 9
+        /// 9 | A A    | B B A  | B Y B  | O Y    | 10 | 18 | 13
+        /// </summary>
+        private void ConstructGreenDawn(EncounterData encounterData)
+        {
+            List<EncounterBlueprintData.CardBlueprint> turn1 = new()
+            {
+                EncounterManager.NewCardBlueprint("wstl_doubtA")
+            };
+            List<EncounterBlueprintData.CardBlueprint> turn2 = new()
+            {
+                HelperMethods.NewDifficultyCard("wstl_doubtA", "wstl_doubtB", 5)
+            };
+            List<EncounterBlueprintData.CardBlueprint> turn3 = new()
+            {
+                HelperMethods.NewDifficultyCard("wstl_doubtA", "wstl_doubtB", 3)
+            };
+            List<EncounterBlueprintData.CardBlueprint> turn4 = new();
+
+            if (encounterData.Difficulty >= 3)
+            {
+                turn2.Add(HelperMethods.NewDifficultyCard("wstl_doubtA", "wstl_doubtB", 9));
+            }
+            if (encounterData.Difficulty >= 5)
+            {
+                turn1.Add(EncounterManager.NewCardBlueprint("wstl_doubtA"));
+                turn3.Add(HelperMethods.NewDifficultyCard("wstl_doubtB", "wstl_doubtY", 9));
+                turn4.Add(HelperMethods.NewDifficultyCard("wstl_doubtY", "wstl_doubtO", 7));
+                if (encounterData.Difficulty >= 7)
+                {
+                    turn3.Add(HelperMethods.NewDifficultyCard("wstl_doubtA", "wstl_doubtB", 9));
+                    if (encounterData.Difficulty >= 9)
+                    {
+                        turn2.Add(EncounterManager.NewCardBlueprint("wstl_doubtA"));
+                        turn4.Add(EncounterManager.NewCardBlueprint("wstl_doubtY"));
+                    }
+                }
+            }
+            else
+            {
+                turn3.Add(EncounterManager.NewCardBlueprint("wstl_doubtA"));
+            }
+
+            encounterData.Blueprint.AddTurns(turn1, turn2, turn3, turn4);
+        }
+        /// <summary>
+        /// D | Turn 1 | Turn 2 | Turn 3 | ## | HP | Atk
+        /// 0 | F      |        | F F    | 3  | 12 | 0
+        /// 5 | F      | F      | F F    | 4  | 16 | 0
+        /// 9 | F F    | F F    | F F    | 6  | 24 | 0
+        /// </summary>
+        private void ConstructVioletDawn(EncounterData encounterData)
+        {
+            List<EncounterBlueprintData.CardBlueprint> turn1 = new()
+            {
+                EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding")
+            };
+            List<EncounterBlueprintData.CardBlueprint> turn2 = new();
+            List<EncounterBlueprintData.CardBlueprint> turn3 = new()
+            {
+                EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding")
+            };
+
+            if (encounterData.Difficulty >= 5)
+            {
+                turn3.Add(EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding"));
+                if (encounterData.Difficulty >= 9)
+                {
+                    turn1.Add(EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding"));
+                    turn2.Add(EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding"));
+                    turn3.Add(EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding"));
+                }
+            }
+
+            encounterData.Blueprint.AddTurns(turn1, turn2, turn3);
+        }
+        /// <summary>
+        /// D | Turn 1 | Turn 2 | Turn 3 | ## | HP | Atk
+        /// 0 | C C    |        | C      | 3  | 9  | 3
+        /// 5 | C C    |        | C C    | 4  | 12 | 4
+        /// 9 | C C C  |        | C C C  | 6  | 24 | 6
+        /// </summary>
+        private void ConstructCrimsonDawn(EncounterData encounterData)
+        {
+            List<EncounterBlueprintData.CardBlueprint> turn1 = new()
+            {
+                EncounterManager.NewCardBlueprint("wstl_skinCheers"),
+                EncounterManager.NewCardBlueprint("wstl_skinCheers")
+            };
+            List<EncounterBlueprintData.CardBlueprint> turn2 = new();
+            List<EncounterBlueprintData.CardBlueprint> turn3 = new()
+            {
+                EncounterManager.NewCardBlueprint("wstl_skinCheers")
+            };
+
+            if (encounterData.Difficulty >= 5)
+            {
+                turn3.Add(EncounterManager.NewCardBlueprint("wstl_skinCheers"));
+                if (encounterData.Difficulty >= 9)
+                {
+                    turn1.Add(EncounterManager.NewCardBlueprint("wstl_skinCheers"));
+                    turn3.Add(EncounterManager.NewCardBlueprint("wstl_skinCheers"));
+                }
+            }
+
+            encounterData.Blueprint.AddTurns(turn1, turn2, turn3);
+        }
+        /// <summary>
+        /// D | Turn 1 | Turn 2 | Turn 3 | Turn 4 | ## | HP | Atk
+        /// 0 | P      | P P    | P      | P P    | 6  | 6  | 6
+        /// 5 | P P    | P P    | P      | P P P  | 8  | 8  | 8
+        /// 7 | P P    | P P P  | P P    | P P P P| 11 | 11 | 11
+        /// </summary>
+        private void ConstructAmberDawn(EncounterData encounterData)
+        {
+            List<EncounterBlueprintData.CardBlueprint> turn1 = new()
+            {
+                EncounterManager.NewCardBlueprint("wstl_perfectFood")
+            };
+            List<EncounterBlueprintData.CardBlueprint> turn2 = new()
+            {
+                EncounterManager.NewCardBlueprint("wstl_perfectFood"),
+                EncounterManager.NewCardBlueprint("wstl_perfectFood")
+            };
+            List<EncounterBlueprintData.CardBlueprint> turn3 = new()
+            {
+                EncounterManager.NewCardBlueprint("wstl_perfectFood")
+            };
+            List<EncounterBlueprintData.CardBlueprint> turn4 = new()
+            {
+                EncounterManager.NewCardBlueprint("wstl_perfectFood"),
+                EncounterManager.NewCardBlueprint("wstl_perfectFood")
+            };
+            if (encounterData.Difficulty >= 5)
+            {
+                turn1.Add(EncounterManager.NewCardBlueprint("wstl_perfectFood"));
+                turn4.Add(EncounterManager.NewCardBlueprint("wstl_perfectFood"));
+                if (encounterData.Difficulty >= 7)
+                {
+                    turn2.Add(EncounterManager.NewCardBlueprint("wstl_perfectFood"));
+                    turn3.Add(EncounterManager.NewCardBlueprint("wstl_perfectFood"));
+                    turn4.Add(EncounterManager.NewCardBlueprint("wstl_perfectFood"));
+                }
+            }
+
+            encounterData.Blueprint.AddTurns(turn1, turn2, turn3, turn4);
+        }
+        /// <summary>
+        /// D | Turn 1 | Turn 2 | Turn 3 | ## | HP | Atk
+        /// 0 | C C    |        | C      | 3  | 9  | 3
+        /// 5 | C C    |        | C C    | 4  | 12 | 4
+        /// 9 | C C C  |        | C C C  | 6  | 24 | 6
+        /// </summary>
+        private void ConstructWhiteDawn(EncounterData encounterData)
+        {
+            List<EncounterBlueprintData.CardBlueprint> turn1 = new()
+            {
+                EncounterManager.NewCardBlueprint(UnityEngine.Random.RandomRangeInt(0, 3) switch
+                {
+                    0 => "wstl_fixerWhite",
+                    1 => "wstl_fixerBlack",
+                    _ => "wstl_fixerRed"
+                })
+            };
+            encounterData.Blueprint.AddTurns(turn1);
         }
     }
 }

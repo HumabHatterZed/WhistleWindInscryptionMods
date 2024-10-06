@@ -8,6 +8,11 @@ using static InscryptionAPI.Encounters.EncounterManager;
 
 namespace WhistleWindLobotomyMod.Core
 {
+    /// <summary>
+    /// Difficulty Ranges (no modifier)
+    /// R0: (1,4) R1: (5,10) R2: (11,14) R3: (17,20)[boss region]
+    /// Difficulty formula: RunState.Run.regionTier * 6 + (y + 1) / 3 - 1; where y = (0,14) and regionTier = (0,3)[3=bosss]
+    /// </summary>
     public static class LobotomyEncounterManager
     {
         public static void BuildEncounters()
