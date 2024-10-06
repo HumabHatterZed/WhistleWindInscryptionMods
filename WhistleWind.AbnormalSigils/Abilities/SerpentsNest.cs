@@ -34,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToTakeDamage(PlayableCard source)
         {
             if (source != null)
-                return source.LacksAllTraits(AbnormalPlugin.NakedSerpent, AbnormalPlugin.ImmuneToAilments);
+                return source.LacksAllTraits(AbnormalPlugin.NakedSerpent, AbnormalPlugin.ImmuneToAilments) && source.LacksAbility(Ability.MadeOfStone);
 
             return false;
         }
