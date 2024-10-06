@@ -265,6 +265,8 @@ namespace WhistleWind.AbnormalSigils
 
             Ability_Bleachproof();
             Ability_Challenging();
+            Ability_Pleasure();
+            Ability_InfiniteShield();
 
             #endregion
 

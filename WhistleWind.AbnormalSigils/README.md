@@ -113,7 +113,10 @@ Healing Strike		|X|X|-2	|Creatures struck by a card bearing this sigil take no d
 Finger Tapping		|X|X|4	|When a card bearing this sigil is played, create Fingers on adjacent empty spaces. A Finger is defined as: 1 Power, 1 Health, Mind Strike, Sniper.
 Imminent Decay		|X|✓|-3	|When a card bearing this sigil is played, it gains 1 Decay for each stack of this sigil.
 Understanding		|X|X|2	|If a card bearing this sigil perishes from the effect of Decay, deal 4 damage to each opposing creature and 4 direct damage to their owner.
-Incomprehensible	|X|X|3	|At the end of the owner's turn, a card bearing this sigil deals 2 damage to each opposing creature and 2 direct damage to their owner.
+Bleachproof			|X|X|2	|A card bearing this sigil cannot have its sigils removed by the Bleach Pot.
+Elite				|X|X|4	|A card bearing this sigil is considered as having Made of Stone and Bleachproof.
+Pleasure			|X|X|3	|
+Unbreakable Defence	|X|X|5	|A card bearing this sigil prevents all damage dealt to it. All cards behave as if this card took damage.
 </details>
 
 ### ⁉️ Stat Icons

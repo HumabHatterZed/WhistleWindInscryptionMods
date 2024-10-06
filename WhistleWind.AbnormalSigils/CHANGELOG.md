@@ -76,6 +76,7 @@
 - Spores - reduced powerlevel from -1 -> 0
 - Worms - Infested cards now deprioritise Terrain and Pelt cards when targeting
 - Worms - increased powerlevel from -2 -> -1
+- Worms - no longer affects cards with Made of Stone
 - Little Witch's Friend - rebalanced from 1/2, 3 Bones -> 1/1, 2 Bones, Detonator
 - Little Witch's Friend - no longer possesses the Insect tribe
 - Hammer - replaced Made of Stone with Pin Down
@@ -103,6 +104,7 @@
     - Understanding
     - Bleachproof
     - Elite
+    - Pleasure
 - Added 1 stat icons:
     - Flower Power
 - Added 4 status effects:
@@ -116,6 +118,9 @@
 - Added 2 Traits:
     - ImmuneToAilments
     - BloomingFlower
+- Added 2 card appearances:
+    - ForcedGreenEmission
+    - ForcedPurpleEmission
 ### 💣 Removals
 - Removed Volatile sigil
 ## v1.1.2 - Minor patch (5/23/2024)
