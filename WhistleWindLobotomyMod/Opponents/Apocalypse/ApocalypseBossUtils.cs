@@ -26,26 +26,6 @@ namespace WhistleWindLobotomyMod.Opponents
                 GameColors.Instance.lightGray);
         }
 
-        internal static void KillPlayerSequence()
-        {
-            ApocalypseBossOpponent opponent = TurnManager.Instance.Opponent as ApocalypseBossOpponent;
-            opponent.MasterAnimator.SetTrigger("KillPlayer");
-            opponent.MasterAnimator.SetLayerWeight(1, 0f);
-            opponent.MasterAnimator.SetLayerWeight(2, 0f);
-            opponent.MasterAnimator.SetLayerWeight(3, 0f);
-            opponent.MasterAnimator.SetLayerWeight(4, 0f);
-        }
-        internal static IEnumerator ExhaustedSequence(CardDrawPiles instance, CardSlot giantSlot)
-        {
-            if (instance.turnsSinceExhausted == 0)
-                yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossCardsExhausted", TextDisplayer.MessageAdvanceMode.Input);
-
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board, immediate: false, lockAfter: true);
-            yield return new WaitForSeconds(0.25f);
-            giantSlot.Card.AddTemporaryMod(new CardModificationInfo(1, 0));
-            giantSlot.Card.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(1f);
-        }
         internal static EncounterBlueprintData CreateStartingBlueprint()
         {
             string minion = (TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer).ActiveEggMinion;

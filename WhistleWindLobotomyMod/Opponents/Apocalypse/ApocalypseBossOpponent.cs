@@ -29,6 +29,30 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         private const float BG_VOLUME = 0.3f;
 
+        public override bool RespondsToExhaustSequence(CardDrawPiles drawPiles, PlayableCard giantOpponentCard) => NumLives == 1 && giantOpponentCard != null;
+        public override bool RespondsToKillPlayerSequence() => true;
+        public override IEnumerator ExhaustSequence(CardDrawPiles drawPiles, PlayableCard giantOpponentCard)
+        {
+            if (drawPiles.turnsSinceExhausted == 0)
+                yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossCardsExhausted", TextDisplayer.MessageAdvanceMode.Input);
+
+            Singleton<ViewManager>.Instance.SwitchToView(View.Board, immediate: false, lockAfter: true);
+            yield return new WaitForSeconds(0.25f);
+            giantOpponentCard.AddTemporaryMod(new CardModificationInfo(1, 0));
+            giantOpponentCard.Anim.StrongNegationEffect();
+            yield return new WaitForSeconds(1f);
+        }
+        public override IEnumerator KillPlayerSequence()
+        {
+            ApocalypseBossOpponent opponent = TurnManager.Instance.Opponent as ApocalypseBossOpponent;
+            opponent.MasterAnimator.SetTrigger("KillPlayer");
+            opponent.MasterAnimator.SetLayerWeight(1, 0f);
+            opponent.MasterAnimator.SetLayerWeight(2, 0f);
+            opponent.MasterAnimator.SetLayerWeight(3, 0f);
+            opponent.MasterAnimator.SetLayerWeight(4, 0f);
+            yield break;
+        }
+
         public override IEnumerator DefeatedPlayerSequence()
         {
             BattleSequencer.CleanupTargetIcons();

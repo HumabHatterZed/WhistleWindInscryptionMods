@@ -25,19 +25,11 @@ namespace WhistleWindLobotomyMod.Opponents
             yield break;
         }
 
-        public override IEnumerator PlayerCombatEnd()
+        public virtual bool RespondsToPreScalesChangedRef(int damage, int numWeights, bool toPlayer)
         {
-            yield return base.PlayerCombatEnd();
-            currentExcessBones = 0;
+            return !toPlayer && PreventScaleDamage;
         }
-        public override IEnumerator OpponentCombatEnd()
-        {
-            yield return base.OpponentCombatEnd();
-            currentExcessBones = 0;
-        }
-
-        public virtual bool RespondsToPreScalesChanged(int damage, int numWeights, bool toPlayer) => !toPlayer && PreventScaleDamage;
-        public virtual int OnPreScalesChanged(int damage, ref int numWeights, ref bool toPlayer)
+        public virtual int CollectPreScalesChangedRef(int damage, ref int numWeights, ref bool toPlayer)
         {
             if (LifeManager.Instance.DamageUntilPlayerWin == 1)
                 return numWeights = 0;
@@ -50,7 +42,16 @@ namespace WhistleWindLobotomyMod.Opponents
 
             return damage;
         }
-        public bool RespondsToPreScalesChangedRef(int damage, int numWeights, bool toPlayer) => RespondsToPreScalesChanged(damage, numWeights, toPlayer);
-        public int CollectPreScalesChangedRef(int damage, ref int numWeights, ref bool toPlayer) => OnPreScalesChanged(damage, ref numWeights, ref toPlayer);
+
+        public override IEnumerator PlayerCombatEnd()
+        {
+            yield return base.PlayerCombatEnd();
+            currentExcessBones = 0;
+        }
+        public override IEnumerator OpponentCombatEnd()
+        {
+            yield return base.OpponentCombatEnd();
+            currentExcessBones = 0;
+        }
     }
 }

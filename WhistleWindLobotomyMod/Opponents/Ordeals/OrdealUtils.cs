@@ -1,7 +1,11 @@
 ﻿using DiskCardGame;
+using EasyFeedback.APIs;
+using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
 
@@ -21,11 +25,18 @@ namespace WhistleWindLobotomyMod
         public static Texture2D[] MidnightAnim;
         public static Texture2D[] MidnightTotemAnim;
 
-        public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals)
-        {
-            return possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length - 1)];
-        }
+        public static Texture2D[] OrdealNodeMats;
 
+        public const string ORDEAL_GIVES_POINTS = "wstl:Ordeal_GivesPoints";
+
+        public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals) => possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length - 1)];
+    
+        public static void AddPointsValueToCard(CardInfo info, int points)
+        {
+            CardModificationInfo mod = new() { singletonId = ORDEAL_GIVES_POINTS };
+            mod.SetExtendedProperty(ORDEAL_GIVES_POINTS, points);
+            info.Mods.Add(mod);
+        }
         internal static void InitOrdeals()
         {
             OpponentID = OpponentManager.Add(
@@ -40,16 +51,25 @@ namespace WhistleWindLobotomyMod
             DuskTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealDuskTotem1", "nodeOrdealDuskTotem2", "nodeOrdealDuskTotem3", "nodeOrdealDuskTotem4").ToArray();
             MidnightAnim = NodeHelper.GetNodeTextureList("nodeOrdealMidnight1", "nodeOrdealMidnight2", "nodeOrdealMidnight3", "nodeOrdealMidnight4").ToArray();
             MidnightTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealMidnightTotem1", "nodeOrdealMidnightTotem2", "nodeOrdealMidnightTotem3", "nodeOrdealMidnightTotem4").ToArray();
+
+            OrdealNodeMats = new Texture2D[6] {
+                TextureLoader.LoadTextureFromFile("scratched_green.png", LobotomyPlugin.ModAssembly),
+                TextureLoader.LoadTextureFromFile("scratched_purple.png", LobotomyPlugin.ModAssembly),
+                TextureLoader.LoadTextureFromFile("scratched_red.png", LobotomyPlugin.ModAssembly),
+                TextureLoader.LoadTextureFromFile("scratched_orange.png", LobotomyPlugin.ModAssembly),
+                TextureLoader.LoadTextureFromFile("scratched_blue.png", LobotomyPlugin.ModAssembly),
+                TextureLoader.LoadTextureFromFile("scratched_white.png", LobotomyPlugin.ModAssembly)
+            };
         }
     }
 
     public class OrdealBattleNodeData : CardBattleNodeData
     {
         public bool totemOpponent;
-        public int severity;
+        public int tier;
         public OrdealType ordealType;
     }
-    
+
     public enum OrdealType
     {
         Green = 0,  // G G G G

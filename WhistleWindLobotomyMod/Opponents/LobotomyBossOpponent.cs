@@ -9,16 +9,46 @@ using EncounterBuilder = DiskCardGame.EncounterBuilder;
 
 namespace WhistleWindLobotomyMod.Opponents
 {
-    public abstract class LobotomyBossOpponent : Part1BossOpponent
+    public abstract class LobotomyBossOpponent : Part1BossOpponent, IKillPlayerSequence, IExhaustSequence, IPreventInstantWin
     {
         public abstract Opponent.Type ID { get; }
-        public override string DefeatedPlayerDialogue => "";
         public override bool GiveCurrencyOnDefeat => false;
+
+        public Animator MasterAnimator;
+        public GameObject bossObjectAnimation;
 
         public List<Ability> bossTotemAbilities = new();
 
-        public GameObject bossObjectAnimation;
-        public Animator MasterAnimator;
+        public virtual bool PreventInstantWin(bool timeMachine, CardSlot triggeringSlot)
+        {
+            return false;
+        }
+        public virtual IEnumerator OnInstantWinPrevented(bool timeMachine, CardSlot triggeringSlot)
+        {
+            yield break;
+        }
+        public virtual IEnumerator OnInstantWinTriggered(bool timeMachine, CardSlot triggeringSlot)
+        {
+            yield break;
+        }
+
+        public virtual bool RespondsToExhaustSequence(CardDrawPiles drawPiles, PlayableCard giantOpponentCard)
+        {
+            return false;
+        }
+        public virtual IEnumerator ExhaustSequence(CardDrawPiles drawPiles, PlayableCard giantOpponentCard)
+        {
+            yield break;
+        }
+
+        public virtual bool RespondsToKillPlayerSequence()
+        {
+            return false;
+        }
+        public virtual IEnumerator KillPlayerSequence()
+        {
+            yield break;
+        }
 
         public override IEnumerator IntroSequence(EncounterData encounter)
         {
@@ -100,19 +130,6 @@ namespace WhistleWindLobotomyMod.Opponents
             Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.2f);
             this.totem.SetEffectsActive(false, lightActive: true);
             AudioController.Instance.PlaySound2D("metal_object_up#2", MixerGroup.TableObjectsSFX, 1f, 0.25f);
-        }
-
-        public virtual bool PreventInstantWin(bool timeMachine, CardSlot triggeringSlot)
-        {
-            return true;
-        }
-        public virtual IEnumerator OnInstantWinPrevented(bool timeMachine, CardSlot triggeringSlot)
-        {
-            yield break;
-        }
-        public virtual IEnumerator OnInstantWinTriggered(bool timeMachine, CardSlot triggeringSlot)
-        {
-            yield break;
         }
     }
 }

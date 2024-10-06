@@ -2,6 +2,7 @@
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhistleWindLobotomyMod.Challenges;
 
@@ -70,7 +71,7 @@ namespace WhistleWindLobotomyMod.Opponents
                         break;
                 }*/
 
-                switch (ordealNodeData.severity)
+                switch (ordealNodeData.tier)
                 {
                     case 1:
                         ordealNodeData.specialBattleId = OrdealNoon.ID;
@@ -94,85 +95,102 @@ namespace WhistleWindLobotomyMod.Opponents
                 {
                     sprite.textureFrames[i] = nodeAnimation[i];
                 }
+
+                sprite.r.material.mainTexture = ordealNodeData.ordealType switch
+                {
+                    OrdealType.Green => OrdealUtils.OrdealNodeMats[0],
+                    OrdealType.Violet => OrdealUtils.OrdealNodeMats[1],
+                    OrdealType.Crimson => OrdealUtils.OrdealNodeMats[2],
+                    OrdealType.Amber => OrdealUtils.OrdealNodeMats[3],
+                    OrdealType.Indigo => OrdealUtils.OrdealNodeMats[4],
+                    _ => OrdealUtils.OrdealNodeMats[5]
+                };
+
                 sprite.IterateFrame();
             }
         }
         [HarmonyPostfix, HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.CreateNode))]
-        private static void AddOrdealNode(ref NodeData __result, int mapLength)
+        private static void AddOrdealNode(ref NodeData __result, List<NodeData> previousNodes, int mapLength)
         {
             if (__result is not CardBattleNodeData || __result.gridY + 1 >= mapLength)
                 return;
 
-            // if the check passes, turn one of the battle nodes into an Ordeal
-            if (AscensionSaveData.Data.ChallengeIsActive(AllOrdeals.Id) || UnityEngine.Random.value > 0.81f - RunState.Run.DifficultyModifier * 0.061f)
+            bool addOrdeal = AscensionSaveData.Data.ChallengeIsActive(AllOrdeals.Id);
+            if (!addOrdeal)
             {
-                float randomValue = UnityEngine.Random.value;
-                OrdealBattleNodeData data = new()
-                {
-                    id = __result.id,
-                    gridX = __result.gridX,
-                    gridY = __result.gridY,
-                    connectedNodes = __result.connectedNodes,
-                    totemOpponent = __result is TotemBattleNodeData
-                };
-                switch (RunState.Run.regionTier)
-                {
-                    case 0:
-                        LobotomyPlugin.Log.LogDebug($"Region 0");
-                        if (randomValue <= 0.79f - RunState.Run.DifficultyModifier * 0.02f)
-                        {
-                            AssignOrdealDataToNode(data, 0); // dawn
-                        }
-                        else
-                        {
-                            AssignOrdealDataToNode(data, 1, true); // noon, no indigo
-                        }
-                        break;
-
-                    case 1:
-                        LobotomyPlugin.Log.LogDebug($"Region 1");
-                        if (randomValue <= 0.55f - RunState.Run.DifficultyModifier * 0.024f)
-                        {
-                            AssignOrdealDataToNode(data, 0); // dawn
-                        }
-                        else if (randomValue <= 0.88f - RunState.Run.DifficultyModifier * 0.0247f)
-                        {
-                            AssignOrdealDataToNode(data, 1); // noon
-                        }
-                        else
-                        {
-                            AssignOrdealDataToNode(data, 2); // dusk
-                        }
-                        break;
-
-                    case 2:
-                        LobotomyPlugin.Log.LogDebug($"Region 2");
-                        if (randomValue <= 0.53f - RunState.Run.DifficultyModifier * 0.026f)
-                        {
-                            AssignOrdealDataToNode(data, 1); // noon
-                        }
-                        else if (randomValue <= 0.93f - RunState.Run.DifficultyModifier * 0.029f)
-                        {
-                            AssignOrdealDataToNode(data, 2); // dusk
-                        }
-                        else
-                        {
-                            AssignOrdealDataToNode(data, 3); // midnight
-                        }
-                        break;
-                }
-
-                __result = data;
+                int numOfPreviousOrdeals = previousNodes.Count(x => x is OrdealBattleNodeData);
+                addOrdeal = UnityEngine.Random.value > 0.75f + numOfPreviousOrdeals * 0.01f - RunState.Run.DifficultyModifier * 0.023f;
             }
+
+            if (!addOrdeal) return;
+
+            // if the check passes, turn this battle node into an Ordeal node
+            float randomValue = UnityEngine.Random.value;
+            OrdealBattleNodeData data = new()
+            {
+                id = __result.id,
+                gridX = __result.gridX,
+                gridY = __result.gridY,
+                connectedNodes = __result.connectedNodes,
+                totemOpponent = __result is TotemBattleNodeData
+            };
+            // determine the type and tier of the Ordeal based on the region
+            switch (RunState.Run.regionTier)
+            {
+                case 0:
+                    LobotomyPlugin.Log.LogDebug($"Region 0");
+                    if (randomValue <= 0.79f - RunState.Run.DifficultyModifier * 0.02f)
+                    {
+                        AssignOrdealDataToNode(data, 0); // dawn
+                    }
+                    else
+                    {
+                        AssignOrdealDataToNode(data, 1, true); // noon, no indigo
+                    }
+                    break;
+
+                case 1:
+                    LobotomyPlugin.Log.LogDebug($"Region 1");
+                    if (randomValue <= 0.55f - RunState.Run.DifficultyModifier * 0.024f)
+                    {
+                        AssignOrdealDataToNode(data, 0); // dawn
+                    }
+                    else if (randomValue <= 0.88f - RunState.Run.DifficultyModifier * 0.0247f)
+                    {
+                        AssignOrdealDataToNode(data, 1); // noon
+                    }
+                    else
+                    {
+                        AssignOrdealDataToNode(data, 2); // dusk
+                    }
+                    break;
+
+                case 2:
+                    LobotomyPlugin.Log.LogDebug($"Region 2");
+                    if (randomValue <= 0.53f - RunState.Run.DifficultyModifier * 0.026f)
+                    {
+                        AssignOrdealDataToNode(data, 1); // noon
+                    }
+                    else if (randomValue <= 0.93f - RunState.Run.DifficultyModifier * 0.029f)
+                    {
+                        AssignOrdealDataToNode(data, 2); // dusk
+                    }
+                    else
+                    {
+                        AssignOrdealDataToNode(data, 3); // midnight
+                    }
+                    break;
+            }
+
+            __result = data;
         }
-        private static void AssignOrdealDataToNode(OrdealBattleNodeData ordealNodeData, int difficulty, bool removeIndigo = false)
+        private static void AssignOrdealDataToNode(OrdealBattleNodeData ordealNodeData, int tier, bool removeIndigo = false)
         {
-            ordealNodeData.severity = difficulty;
-            switch (difficulty)
+            ordealNodeData.tier = tier;
+            switch (tier)
             {
                 case 1:
                     LobotomyPlugin.Log.LogDebug($"Noon");
-                    ordealNodeData.specialBattleId = OrdealNoon.ID;
                     if (removeIndigo)
                         ordealNodeData.ordealType = OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet);
                     else
@@ -180,17 +198,14 @@ namespace WhistleWindLobotomyMod.Opponents
                     break;
                 case 2:
                     LobotomyPlugin.Log.LogDebug($"Dusk");
-                    ordealNodeData.specialBattleId = OrdealDusk.ID;
                     ordealNodeData.ordealType = OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Amber);
                     break;
                 case 3:
                     LobotomyPlugin.Log.LogDebug($"Midnight");
-                    ordealNodeData.specialBattleId = OrdealMidnight.ID;
                     ordealNodeData.ordealType = OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Violet, OrdealType.Amber);
                     break;
                 default:
                     LobotomyPlugin.Log.LogDebug($"Dawn");
-                    ordealNodeData.specialBattleId = OrdealDawn.ID;
                     ordealNodeData.ordealType = OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Amber);
                     break;
             }

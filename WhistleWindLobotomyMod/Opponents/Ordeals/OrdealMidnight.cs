@@ -19,6 +19,9 @@ namespace WhistleWindLobotomyMod
     public class OrdealMidnight : OrdealBattleSequencer
     {
         public static readonly string ID = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealMidnight", typeof(OrdealMidnight)).Id;
+
+        public override Dictionary<OrdealType, List<string>> OrdealCards => throw new NotImplementedException();
+
         public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
         {
             return encounterData;
