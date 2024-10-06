@@ -39,12 +39,14 @@
 - RANDOM_PLACEHOLDER card now has Amorphous sigil
 - Funeral of the Dead Butterflies now belongs to the Undead temple
 - Giant Tree Sap is no longer singleton
-- Apocalypse boss: Separated behaviour of Unjust Scales during the final phase into its own sigil
-- Apocalypse boss: boss cards are no longer considered Terrain
-- Apocalypse boss: cards now move in a random order
-- Apocalypse boss: Time Machine cannot be activated while Long Arms is undefeated
-- Apocalypse boss: Playing Refresh Decks now gives you Single Recall and Total Recall
-- Apocalypse boss: Defeating Long Arms will remove all remaining Sin from cards on the board and in the hand
+- Final Apocalypse
+    - Separated behaviour of Unjust Scales during the final phase into its own sigil
+    - Boss cards are no longer considered Terrain
+    - Opponent cards now move in a random order
+    - Time Machine cannot be activated while Long Arms is undefeated
+    - Defeating Long Arms will now remove all remaining Sin from cards on the board and in the hand
+    - Changed how bleach pot is handled, added Challenging sigil to boss cards
+    - Bones gained from excess direct damage are now capped at 8 per turn
 - Achievements API: Adjusted the description of several achievements to be clearer on how to unlock them
 ### ⚖️ Balancing
 - Overhauled encounters
@@ -57,10 +59,11 @@
 - Reshuffle Decks card now possesses the Bone Meal sigil
 - Reduced points of Miracle Worker from 60 -> 36
 - Time Machine - effect now changes during custom boss fights (Final Apocalypse, etc.)
-- Apocalypse Bird - no longer possesses Made of Stone sigil
+- Apocalypse Bird (card) - no longer possesses Made of Stone sigil
 - Apocalypse boss: Adjusted reactive difficulty thresholds
 - Apocalypse boss: Long Arms phase now disables turn skipping
 - Apocalypse boss: Final phase forme gains 1 additional base Power above a certain difficulty threshold
+- Apocalypse boss: Sin can no longer be removed by certain effects like Martyr
 ### ➕ Additions
 - Added XX cards
     - Green Ordeal cards, 

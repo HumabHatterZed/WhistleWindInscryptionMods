@@ -85,6 +85,7 @@ namespace WhistleWindLobotomyMod
                 Log.LogDebug("Loading everything else...");
                 AddItems();
                 AddNodes();
+                OrdealPages.AddPages();
 
                 if (PackAPI.Enabled)
                     PackAPI.CreateCardPack();
@@ -197,6 +198,11 @@ namespace WhistleWindLobotomyMod
             Ability_Apostle();
             Ability_TrueSaviour();
             Ability_Confession();
+
+            Ability_Life();
+            Ability_Harmony();
+            Ability_Food();
+            Ability_Survival();
 
             Ability_Apocalypse();
             Ability_BigEyes();

@@ -35,8 +35,9 @@ namespace WhistleWindLobotomyMod
 
             CardManager.New(pluginPrefix, REFRESHDECKS, "Reshuffle Decks",
                 attack: 0, health: 0)
+                .SetEnergyCost(6)
                 .SetPortraits(ModAssembly, REFRESHDECKS, "", "")
-                .AddAbilities(RefreshDecks.ability, BoneMeal.ability)
+                .AddAbilities(RefreshDecks.ability)
                 .SetGlobalSpell()
                 .Build();
 
