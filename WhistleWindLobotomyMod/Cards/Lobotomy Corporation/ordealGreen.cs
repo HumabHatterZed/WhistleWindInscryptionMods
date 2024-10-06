@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
             const string doubtB = "doubtB";
             const string doubtY = "doubtY";
             const string doubtO = "doubtO";
-            const string processUnderstanding = "processUnderstanding";
+            const string doubtProcess = "doubtProcess";
             const string whereWeReach = "whereWeReach";
             const string lastHelix = "lastHelix";
 
@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
                 .SetEnergyCost(4)
                 .SetPortraits(ModAssembly, doubtO)
                 .SetTitle(ModAssembly, "doubtO_title.png")
-                .AddAbilities(Piercing.ability, Ability.MadeOfStone)
+                .AddAbilities(Piercing.ability, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal)
@@ -36,7 +36,7 @@ namespace WhistleWindLobotomyMod
                 .SetEnergyCost(3)
                 .SetPortraits(ModAssembly, doubtY)
                 .SetTitle(ModAssembly, "doubtY_title.png")
-                .AddAbilities(Piercing.ability, Ability.MadeOfStone)
+                .AddAbilities(Piercing.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
                 .SetEvolve(infoO, 1)
@@ -48,7 +48,7 @@ namespace WhistleWindLobotomyMod
                 .SetEnergyCost(2)
                 .SetPortraits(ModAssembly, doubtB)
                 .SetTitle(ModAssembly, "doubtB_title.png")
-                .AddAbilities(Piercing.ability, Ability.MadeOfStone)
+                .AddAbilities(Piercing.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
                 .SetEvolve(infoY, 1)
@@ -60,38 +60,41 @@ namespace WhistleWindLobotomyMod
                 .SetEnergyCost(2)
                 .SetPortraits(ModAssembly, doubtA)
                 .SetTitle(ModAssembly, "doubtA_title.png")
-                .AddAbilities(Piercing.ability, Ability.MadeOfStone)
+                .AddAbilities(Piercing.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
                 .SetEvolve(infoB, 1)
                 .AddTraits(Ordeal)
                 .Build();
 
-            CardManager.New(pluginPrefix, processUnderstanding, "Process of Understanding",
-                attack: 3, health: 4)
+            CardManager.New(pluginPrefix, doubtProcess, "Process of Understanding",
+                attack: 2, health: 4)
                 .SetEnergyCost(4)
-                .SetPortraits(ModAssembly, processUnderstanding)
-                .AddAbilities(Piercing.ability, Ability.MadeOfStone)
+                .SetPortraits(ModAssembly, doubtProcess)
+                .AddAbilities(Piercing.ability, Ability.Sentry, Ability.MadeOfStone)
+                .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal)
                 .Build();
 
             CardManager.New(pluginPrefix, whereWeReach, "Where We Must Reach",
-                attack: 0, health: 15)
+                attack: 0, health: 10)
                 .SetEnergyCost(5)
                 .SetPortraits(ModAssembly, whereWeReach)
-                .AddAbilities(Ability.MadeOfStone)
+                .AddAbilities(Life.ability, Challenging.ability)
+                .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
-                .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure)
+                .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
                 .Build();
 
             CardManager.New(pluginPrefix, lastHelix, "Last Helix",
                 attack: 1, health: 35)
                 .SetEnergyCost(6)
                 .SetPortraits(ModAssembly, lastHelix)
-                .AddAbilities(Piercing.ability, Ability.MadeOfStone)
+                .AddAbilities(Piercing.ability, Ability.Reach, Challenging.ability)
+                .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
-                .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, Trait.Giant)
+                .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, Trait.Giant, ImmuneToInstaDeath)
                 .Build();
         }
     }
