@@ -1,5 +1,6 @@
 using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Encounters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,11 @@ namespace WhistleWind.Core.Helpers
 {
     public static class HelperMethods
     {
+        public static EncounterBlueprintData.CardBlueprint NewDifficultyCard(string card, string replacement, int difficultyReq)
+        {
+            return EncounterManager.NewCardBlueprint(card, difficultyReplace: true, difficultyReplaceReq: difficultyReq, replacement: replacement);
+        }
+
         public static bool IsCardInfoOrCopy(CardInfo parentInfo, CardInfo compareInfo)
         {
             if (parentInfo != null && compareInfo != null && parentInfo.name == compareInfo.name)
