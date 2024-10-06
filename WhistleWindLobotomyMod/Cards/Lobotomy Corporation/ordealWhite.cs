@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             const string fixerBlack = "fixerBlack";
             const string fixerPale = "fixerPale";
 
-            CardInfo red2 = CardManager.New(pluginPrefix, fixerRed, "Red Fixer",
+            CardInfo red2 = CardManager.New(pluginPrefix, "fixerRed2", "Red Fixer",
                 attack: 5, health: 17)
                 .SetEnergyCost(6)
                 .SetPortraits(ModAssembly, fixerRed)
@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
             red2.SetEvolve(red, 2);
 
-            CardInfo white2 = CardManager.New(pluginPrefix, fixerWhite, "White Fixer",
+            CardInfo white2 = CardManager.New(pluginPrefix, "fixerWhite2", "White Fixer",
                 attack: 0, health: 20)
                 .SetBloodCost(2)
                 .SetPortraits(ModAssembly, "fixerWhite2")
@@ -63,7 +63,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
             white2.SetEvolve(white, 2);
 
-            CardInfo black2 = CardManager.New(pluginPrefix, fixerBlack, "Black Fixer",
+            CardInfo black2 = CardManager.New(pluginPrefix, "fixerBlack2", "Black Fixer",
                 attack: 2, health: 17)
                 .SetBloodCost(3)
                 .SetPortraits(ModAssembly, fixerBlack)
@@ -85,7 +85,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
             black2.SetEvolve(black, 2);
 
-            CardInfo pale2 = CardManager.New(pluginPrefix, fixerPale, "Pale Fixer",
+            CardInfo pale2 = CardManager.New(pluginPrefix, "fixerPale2", "Pale Fixer",
                 attack: 2, health: 15)
                 .SetBloodCost(3)
                 .SetPortraits(ModAssembly, fixerPale)
