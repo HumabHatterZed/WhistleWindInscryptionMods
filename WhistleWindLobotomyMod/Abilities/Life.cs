@@ -67,7 +67,7 @@ namespace WhistleWindLobotomyMod
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Life";
-            info.rulebookDescription = "At the start of every other turn for the owner, create a random Doubt or Process of Understanding in empty adjacent spaces.";
+            info.rulebookDescription = "At the start of every other turn for the owner, this card creates a random Doubt or Process of Understanding in empty adjacent spaces.";
             info.powerLevel = 4;
             Life.ability = AbilityManager.Add(pluginGuid, info, typeof(Life), TextureLoader.LoadTextureFromFile("sigilLife.png")).Id;
         }
