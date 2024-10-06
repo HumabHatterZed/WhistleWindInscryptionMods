@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Understanding()
         {
             const string rulebookName = "Understanding";
-            const string rulebookDescription = "If [creature] perishes from the effect of Decay, deal 2 damage to each opposing creature and 2 direct damage to their owner.";
+            const string rulebookDescription = "If [creature] perishes from the effect of Decay, deal 4 damage to each opposing creature and 2 direct damage to their owner.";
             const string dialogue = "Too slow.";
             Understanding.ability = AbnormalAbilityHelper.CreateAbility<Understanding>(
                 "sigilUnderstanding",
@@ -38,9 +38,9 @@ namespace WhistleWind.AbnormalSigils
         {
             foreach (PlayableCard card in BoardManager.Instance.GetCards(base.Card.OpponentCard))
             {
-                yield return card.TakeDamage(2, null);
+                yield return card.TakeDamage(4, null);
             }
-            yield return LifeManager.Instance.ShowDamageSequence(2, 2, base.Card.OpponentCard);
+            yield return LifeManager.Instance.ShowDamageSequence(4, 4, base.Card.OpponentCard);
             if (!base.HasLearned)
             {
                 base.SetLearned();
