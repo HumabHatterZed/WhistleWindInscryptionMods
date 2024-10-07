@@ -265,7 +265,7 @@ namespace WhistleWind.AbnormalSigils
 
             Ability_Bleachproof();
             Ability_Challenging();
-            Ability_Pleasure();
+            Ability_Withering();
             Ability_InfiniteShield();
             Ability_ExplosiveOpening();
 

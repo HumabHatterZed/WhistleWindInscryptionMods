@@ -12,21 +12,21 @@ namespace WhistleWind.AbnormalSigils
 {
     public partial class AbnormalPlugin
     {
-        private void Ability_Pleasure()
+        private void Ability_WIthering()
         {
-            const string rulebookName = "Pleasure";
+            const string rulebookName = "Withering";
             const string rulebookDescription = "At the end of the owner's turn, [creature] deals 1 direct damage to the opposing side.";
             const string dialogue = "Tick tock.";
-            Pleasure.ability = AbnormalAbilityHelper.CreateAbility<Pleasure>(
+            Withering.ability = AbnormalAbilityHelper.CreateAbility<Withering>(
                 "sigilPleasure",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: false, opponent: false, canStack: false)
+                modular: false, opponent: false, canStack: true)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Pleasure : AbilityBehaviour
+    public class Withering : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;

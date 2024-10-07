@@ -18,15 +18,27 @@ namespace WhistleWindLobotomyMod
             const string skinHarmony = "skinHarmony";
             const string skinClimax = "skinClimax";
 
+            CardInfo cheer2 = CardManager.New(pluginPrefix, skinCheers, "Cheers for the Beginning",
+                attack: 0, health: 3)
+                .SetBloodCost(1)
+                .SetPortraits(ModAssembly, skinCheers)
+                .SetTitle(ModAssembly, "skinCheers_title.png")
+                .AddAbilities(Withering.ability, Withering.ability, Ability.ExplodeOnDeath, Unyielding.ability)
+                .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
+                .AddTribes(TribeFae)
+                .AddTraits(Ordeal)
+                .Build();
+
             CardInfo cheer = CardManager.New(pluginPrefix, skinCheers, "Cheers for the Beginning",
                 attack: 0, health: 3)
                 .SetBloodCost(1)
                 .SetPortraits(ModAssembly, skinCheers)
                 .SetTitle(ModAssembly, "skinCheers_title.png")
-                .AddAbilities(Pleasure.ability, Ability.ExplodeOnDeath, Unyielding.ability)
+                .AddAbilities(Withering.ability, Ability.Evolve, Ability.ExplodeOnDeath)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)
                 .AddTraits(Ordeal)
+                .SetEvolve(cheer2, 3)
                 .Build();
 
             CardInfo harmony = CardManager.New(pluginPrefix, skinHarmony, "Harmony of Skin",
