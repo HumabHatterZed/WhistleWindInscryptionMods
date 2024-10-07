@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Pleasure()
         {
             const string rulebookName = "Pleasure";
-            const string rulebookDescription = "At the end of the owner's turn, [creature] deals 1 direct damage to the opponent.";
+            const string rulebookDescription = "At the end of the owner's turn, [creature] deals 1 direct damage to the opposing side.";
             const string dialogue = "Tick tock.";
             Pleasure.ability = AbnormalAbilityHelper.CreateAbility<Pleasure>(
                 "sigilPleasure",

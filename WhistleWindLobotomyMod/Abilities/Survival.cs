@@ -67,7 +67,7 @@ namespace WhistleWindLobotomyMod
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Survival";
-            info.rulebookDescription = "At the start of every other turn for the owner, this card creates a Food Chain empty adjacent spaces. [define:wstl_foodChain]";
+            info.rulebookDescription = "At the start of every other turn for the owner, this card creates a Food Chain in empty adjacent spaces. [define:wstl_foodChain]";
             info.powerLevel = 4;
             Survival.ability = AbilityManager.Add(pluginGuid, info, typeof(Survival), TextureLoader.LoadTextureFromFile("sigilSurvival.png")).Id;
         }
