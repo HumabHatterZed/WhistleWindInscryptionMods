@@ -9,7 +9,7 @@ using EncounterBuilder = DiskCardGame.EncounterBuilder;
 
 namespace WhistleWindLobotomyMod.Opponents
 {
-    public abstract class LobotomyBossOpponent : Part1BossOpponent, IKillPlayerSequence, IExhaustSequence, IPreventInstantWin
+    public abstract class LobotomyBossOpponent : Part1BossOpponent, IKillPlayerSequence, ICustomExhaustSequence, IPreventInstantWin
     {
         public abstract Opponent.Type ID { get; }
         public override bool GiveCurrencyOnDefeat => false;
@@ -32,11 +32,11 @@ namespace WhistleWindLobotomyMod.Opponents
             yield break;
         }
 
-        public virtual bool RespondsToExhaustSequence(CardDrawPiles drawPiles, PlayableCard giantOpponentCard)
+        public virtual bool RespondsToCustomExhaustSequence(CardDrawPiles drawPiles)
         {
             return false;
         }
-        public virtual IEnumerator ExhaustSequence(CardDrawPiles drawPiles, PlayableCard giantOpponentCard)
+        public virtual IEnumerator DoCustomExhaustSequence(CardDrawPiles drawPiles)
         {
             yield break;
         }

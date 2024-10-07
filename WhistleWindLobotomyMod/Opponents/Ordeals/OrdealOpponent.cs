@@ -14,7 +14,7 @@ using EncounterBuilder = DiskCardGame.EncounterBuilder;
 namespace WhistleWindLobotomyMod.Opponents
 {
     // accounts for totem variant
-    public class OrdealOpponent : Part1Opponent, IKillPlayerSequence, IExhaustSequence, IPreventInstantWin
+    public class OrdealOpponent : Part1Opponent, IKillPlayerSequence, IPreventInstantWin, ICustomExhaustSequence
     {
         public bool totemOpponent;
         private Color totemGlowColour;
@@ -33,11 +33,12 @@ namespace WhistleWindLobotomyMod.Opponents
             yield break;
         }
 
-        public bool RespondsToExhaustSequence(CardDrawPiles drawPiles, PlayableCard giantOpponentCard)
+        public virtual bool RespondsToCustomExhaustSequence(CardDrawPiles drawPiles)
         {
             return false;
         }
-        public IEnumerator ExhaustSequence(CardDrawPiles drawPiles, PlayableCard giantOpponentCard)
+
+        public virtual IEnumerator DoCustomExhaustSequence(CardDrawPiles drawPiles)
         {
             yield break;
         }
@@ -49,6 +50,17 @@ namespace WhistleWindLobotomyMod.Opponents
         public virtual IEnumerator KillPlayerSequence()
         {
             yield break;
+        }
+
+        /// <summary>
+        /// Insert empty turns when the queue is full so we don't skip over any cards
+        /// </summary>
+        public override IEnumerator QueueNewCards(bool doTween = true, bool changeView = true)
+        {
+            if (NumTurnsTaken < TurnPlan.Count && Queue.Count == 4)
+                TurnPlan.Insert(NumTurnsTaken, new());
+
+            yield return base.QueueNewCards(doTween, changeView);
         }
 
         public override IEnumerator IntroSequence(EncounterData encounter)

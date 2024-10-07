@@ -15,41 +15,6 @@ namespace WhistleWindLobotomyMod.Patches
     [HarmonyPatch]
     internal static class CustomOpponentPatches
     {
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(CardDrawPiles), nameof(CardDrawPiles.DrawCardFromDeck))]
-        [HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawFromSidePile))]
-        private static IEnumerator RefreshDeckBeforeExhaustion(IEnumerator enumerator, CardDrawPiles __instance)
-        {
-            yield return enumerator;
-            if (!CustomOpponentUtils.FightingCustomOpponent(true))
-                yield break;
-
-            if (__instance.Exhausted && !PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == "wstl_REFRESH_DECKS"))
-            {
-                yield return new WaitForSeconds(0.4f);
-                ViewManager.Instance.SwitchToView(View.Hand);
-                yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_REFRESH_DECKS"));
-                yield return new WaitForSeconds(0.4f);
-                yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossExhausted", TextDisplayer.MessageAdvanceMode.Input);
-            }
-
-        }
-
-        [HarmonyPrefix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowDamageSequence))]
-        private static bool DontChangeViewOnZeroDamage(int damage, int numWeights, ref bool changeView)
-        {
-            if (CustomOpponentUtils.FightingCustomOpponent(false) && TurnManager.Instance.SpecialSequencer is LobotomyBattleSequencer seq && seq != null)
-            {
-                if (LifeManager.Instance.DamageUntilPlayerWin == 1 || (damage >= LifeManager.Instance.DamageUntilPlayerWin && Mathf.Min(LifeManager.Instance.DamageUntilPlayerWin - 1, numWeights) == 0))
-                {
-                    changeView = false;
-                }
-            }
-            
-            return true;
-        }
-
-        #region Custom boss sequences
         [HarmonyPostfix, HarmonyPatch(typeof(Part1GameFlowManager), nameof(Part1GameFlowManager.KillPlayerSequence))]
         private static IEnumerator CustomKillPlayerSequences(IEnumerator enumerator)
         {
@@ -89,23 +54,39 @@ namespace WhistleWindLobotomyMod.Patches
             }
         }
 
-        [HarmonyPostfix, HarmonyPatch(typeof(CardDrawPiles), nameof(CardDrawPiles.ExhaustedSequence))]
-        private static IEnumerator CustomBossExhaustionSequence(IEnumerator enumerator, CardDrawPiles __instance)
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(CardDrawPiles), nameof(CardDrawPiles.DrawCardFromDeck))]
+        [HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawFromSidePile))]
+        private static IEnumerator RefreshDeckBeforeExhaustion(IEnumerator enumerator, CardDrawPiles __instance)
         {
-            if (TurnManager.Instance.Opponent is IExhaustSequence exhaustSeq && exhaustSeq != null)
+            yield return enumerator;
+            if (!CustomOpponentUtils.FightingCustomOpponent(true))
+                yield break;
+
+            if (__instance.Exhausted && !PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == "wstl_REFRESH_DECKS"))
             {
-                CardSlot giantCardSlot = BoardManager.Instance.OpponentSlotsCopy.Find(x => x.Card != null && x.Card.HasTrait(Trait.Giant));
-                if (exhaustSeq.RespondsToExhaustSequence(__instance, giantCardSlot.Card))
+                yield return new WaitForSeconds(0.4f);
+                ViewManager.Instance.SwitchToView(View.Hand);
+                yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_REFRESH_DECKS"));
+                yield return new WaitForSeconds(0.4f);
+                yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossExhausted", TextDisplayer.MessageAdvanceMode.Input);
+            }
+
+        }
+
+        [HarmonyPrefix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowDamageSequence))]
+        private static bool DontChangeViewOnZeroDamage(int damage, int numWeights, ref bool changeView)
+        {
+            if (CustomOpponentUtils.FightingCustomOpponent(false) && TurnManager.Instance.SpecialSequencer is LobotomyBattleSequencer seq && seq != null)
+            {
+                if (LifeManager.Instance.DamageUntilPlayerWin == 1 || (damage >= LifeManager.Instance.DamageUntilPlayerWin && Mathf.Min(LifeManager.Instance.DamageUntilPlayerWin - 1, numWeights) == 0))
                 {
-                    Singleton<ViewManager>.Instance.SwitchToView(View.CardPiles, immediate: false, lockAfter: true);
-                    yield return new WaitForSeconds(1f);
-                    yield return exhaustSeq.ExhaustSequence(__instance, giantCardSlot.Card);
-                    yield break;
+                    changeView = false;
                 }
             }
-            yield return enumerator;
+            
+            return true;
         }
-        #endregion
 
         [HarmonyPostfix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowResetSequence))]
         private static IEnumerator CustomOpponentsDontResetScales(IEnumerator enumerator)

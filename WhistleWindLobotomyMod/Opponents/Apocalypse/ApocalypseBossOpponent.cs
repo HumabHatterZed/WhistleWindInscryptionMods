@@ -29,19 +29,20 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         private const float BG_VOLUME = 0.3f;
 
-        public override bool RespondsToExhaustSequence(CardDrawPiles drawPiles, PlayableCard giantOpponentCard) => NumLives == 1 && giantOpponentCard != null;
-        public override bool RespondsToKillPlayerSequence() => true;
-        public override IEnumerator ExhaustSequence(CardDrawPiles drawPiles, PlayableCard giantOpponentCard)
+        public override bool RespondsToCustomExhaustSequence(CardDrawPiles drawPiles) => NumLives == 1 && BattleSequencer.BossCard != null;
+        public override IEnumerator DoCustomExhaustSequence(CardDrawPiles drawPiles)
         {
             if (drawPiles.turnsSinceExhausted == 0)
                 yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossCardsExhausted", TextDisplayer.MessageAdvanceMode.Input);
 
             Singleton<ViewManager>.Instance.SwitchToView(View.Board, immediate: false, lockAfter: true);
             yield return new WaitForSeconds(0.25f);
-            giantOpponentCard.AddTemporaryMod(new CardModificationInfo(1, 0));
-            giantOpponentCard.Anim.StrongNegationEffect();
+            BattleSequencer.BossCard.AddTemporaryMod(new CardModificationInfo(1, 0));
+            BattleSequencer.BossCard.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(1f);
         }
+
+        public override bool RespondsToKillPlayerSequence() => true;
         public override IEnumerator KillPlayerSequence()
         {
             ApocalypseBossOpponent opponent = TurnManager.Instance.Opponent as ApocalypseBossOpponent;

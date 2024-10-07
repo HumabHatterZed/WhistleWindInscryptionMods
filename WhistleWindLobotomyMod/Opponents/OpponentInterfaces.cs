@@ -14,11 +14,7 @@ namespace WhistleWindLobotomyMod.Opponents
         public bool RespondsToKillPlayerSequence();
         public IEnumerator KillPlayerSequence();
     }
-    public interface IExhaustSequence
-    {
-        public bool RespondsToExhaustSequence(CardDrawPiles drawPiles, PlayableCard giantOpponentCard);
-        public IEnumerator ExhaustSequence(CardDrawPiles drawPiles, PlayableCard giantOpponentCard);
-    }
+    
     public interface IPreventInstantWin
     {
         public bool PreventInstantWin(bool timeMachine, CardSlot triggeringSlot);

@@ -25,7 +25,7 @@ namespace WhistleWind.AbnormalSigils
         }
     }
     [HarmonyPatch]
-    public class InfiniteShield : DamageShieldBehaviour
+    public class InfiniteShield : DamageShieldBehaviour, IShieldPreventedDamage
     {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -39,26 +39,26 @@ namespace WhistleWind.AbnormalSigils
             return base.OnTurnEnd(playerTurnEnd);
         }
 
-        [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.TakeDamage))]
-        private static IEnumerator TriggerDamageOnShieldBreak(IEnumerator result, PlayableCard __instance, int damage, PlayableCard attacker)
+        public bool RespondsToShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) => target == base.Card;
+        public IEnumerator OnShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker)
         {
-            if (__instance.HasAbility(InfiniteShield.ability))
+            numShields = StartingNumShields;
+
+            if (target.TriggerHandler.RespondsToTrigger(Trigger.TakeDamage, attacker))
             {
-                if (__instance.TriggerHandler.RespondsToTrigger(Trigger.TakeDamage, attacker))
-                {
-                    yield return __instance.TriggerHandler.OnTrigger(Trigger.TakeDamage, attacker);
-                }
-                if (attacker != null)
-                {
-                    if (attacker.TriggerHandler.RespondsToTrigger(Trigger.DealDamage, damage, __instance))
-                    {
-                        yield return attacker.TriggerHandler.OnTrigger(Trigger.DealDamage, damage, __instance);
-                    }
-                    yield return Singleton<GlobalTriggerHandler>.Instance.TriggerCardsOnBoard(Trigger.OtherCardDealtDamage, false, attacker, attacker.Attack, __instance);
-                }
-                yield return CustomTriggerFinder.TriggerInHand((IOnOtherCardDealtDamageInHand x) => x.RespondsToOtherCardDealtDamageInHand(attacker, attacker.Attack, __instance), (IOnOtherCardDealtDamageInHand x) => x.OnOtherCardDealtDamageInHand(attacker, attacker.Attack, __instance));
+                yield return target.TriggerHandler.OnTrigger(Trigger.TakeDamage, attacker);
             }
-            yield return result;
+            if (attacker != null)
+            {
+                if (attacker.TriggerHandler.RespondsToTrigger(Trigger.DealDamage, damage, target))
+                {
+                    yield return attacker.TriggerHandler.OnTrigger(Trigger.DealDamage, damage, target);
+                }
+                yield return Singleton<GlobalTriggerHandler>.Instance.TriggerCardsOnBoard(Trigger.OtherCardDealtDamage, false, attacker, attacker.Attack, target);
+            }
+            yield return CustomTriggerFinder.TriggerInHand((IOnOtherCardDealtDamageInHand x) => x.RespondsToOtherCardDealtDamageInHand(attacker, attacker.Attack, target), (IOnOtherCardDealtDamageInHand x) => x.OnOtherCardDealtDamageInHand(attacker, attacker.Attack, target));
         }
+
+        public int ShieldPreventedDamagePriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
     }
 }
