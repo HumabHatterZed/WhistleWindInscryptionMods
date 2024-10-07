@@ -40,7 +40,7 @@ namespace WhistleWindLobotomyMod
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Harmony";
-            info.rulebookDescription = "When [creature] dies, two Cheers for the Beginning are created on the owner's side of the board [define:wstl_cheersBeginning]";
+            info.rulebookDescription = "When [creature] dies, two Cheers for the Beginning are created on the owner's side of the board [define:wstl_skinCheers]";
             info.powerLevel = 3;
             HarmonyAbility.ability = AbilityManager.Add(pluginGuid, info, typeof(HarmonyAbility), TextureLoader.LoadTextureFromFile("sigilHarmony.png")).Id;
         }
