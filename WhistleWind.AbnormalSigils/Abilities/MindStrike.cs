@@ -36,8 +36,8 @@ namespace WhistleWind.AbnormalSigils
             yield return target.AddStatusEffect<Sinking>((base.Card.Health + 1) / 2);
             yield return base.LearnAbility(0.3f);
         }
-        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => attacker == base.Card && !target.HasStatusEffect<Sinking>();
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => 0;
+        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => attacker == base.Card;
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => !target.HasStatusEffect<Sinking>() ? 0 : Mathf.Min(0, damage - base.Card.Attack);
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => -1000;
     }
 }
