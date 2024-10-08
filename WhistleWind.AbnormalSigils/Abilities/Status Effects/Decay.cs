@@ -16,8 +16,9 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnModifyOnUpkeep()
         {
             yield return base.OnModifyOnUpkeep();
-            if (PotencyModification <= 0)
+            if (EffectPotency <= 0)
             {
+                AbnormalPlugin.Log.LogInfo("Kill");
                 yield return base.PlayableCard.Die(false, base.PlayableCard);
             }
         }
@@ -29,7 +30,7 @@ namespace WhistleWind.AbnormalSigils
             const string rName = "Decay";
             const string rDesc = "At the start of the owner's turn, reduce this effect's Potency by 1. A card bearing this effect will perish when its Potency reaches 0.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Decay>(
-                pluginGuid, rName, rDesc, -3, GameColors.Instance.darkPurple,
+                pluginGuid, rName, rDesc, -3, GameColors.Instance.lightPurple,
                 TextureLoader.LoadTextureFromFile("sigilDecay.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilDecay_pixel.png", Assembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.MagnificusStatusEffect, StatusMetaCategory.MagnificusStatusEffect)
