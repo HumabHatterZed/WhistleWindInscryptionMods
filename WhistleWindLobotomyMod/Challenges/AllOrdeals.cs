@@ -30,8 +30,8 @@ namespace WhistleWindLobotomyMod.Challenges
                 "All Ordeals",
                 "All non-boss battles are replaced with Ordeals.",
                 20,
-                TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses.png"),
-                TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses_activated.png")
+                TextureLoader.LoadTextureFromFile("ascensionOrdeals.png"),
+                TextureLoader.LoadTextureFromFile("ascensionOrdeals_activated.png")
                 )
                 .SetIncompatibleChallengeGetterStatic(AbnormalEncounters.Id)
                 .Challenge.challengeType;

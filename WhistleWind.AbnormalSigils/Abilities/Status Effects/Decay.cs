@@ -18,7 +18,6 @@ namespace WhistleWind.AbnormalSigils
             yield return base.OnModifyOnUpkeep();
             if (EffectPotency <= 0)
             {
-                AbnormalPlugin.Log.LogInfo("Kill");
                 yield return base.PlayableCard.Die(false, base.PlayableCard);
             }
         }
