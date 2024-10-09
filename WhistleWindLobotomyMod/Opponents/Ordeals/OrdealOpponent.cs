@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Helpers.Extensions;
 using System;
@@ -63,6 +64,12 @@ namespace WhistleWindLobotomyMod.Opponents
             yield return base.QueueNewCards(doTween, changeView);
         }
 
+        public override void ModifyQueuedCard(PlayableCard card)
+        {
+            base.ModifyQueuedCard(card);
+            BattleSequencer.ModifyQueuedCard(card);
+        }
+
         public override IEnumerator IntroSequence(EncounterData encounter)
         {
             totemOpponent = encounter.opponentTotem != null;
@@ -77,13 +84,15 @@ namespace WhistleWindLobotomyMod.Opponents
             };
 
             AudioController.Instance.SetLoopVolume(0.5f * (Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.5f);
-            if (totemOpponent)
-                yield return base.AssembleTotem(encounter.opponentTotem, Vector3.zero, Vector3.zero, totemGlowColour, true);
 
             AudioController.Instance.SetLoopAndPlay("red_noise", 1);
             AudioController.Instance.SetLoopVolumeImmediate(0.3f, 1);
             this.SetSceneEffectsShown(true);
             yield return new WaitForSeconds(1f);
+            
+            if (totemOpponent)
+                yield return base.AssembleTotem(encounter.opponentTotem, Vector3.zero, Vector3.zero, totemGlowColour, true);
+
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             yield return new WaitForSeconds(0.25f);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;

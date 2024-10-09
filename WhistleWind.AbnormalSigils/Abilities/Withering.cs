@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
 {
     public partial class AbnormalPlugin
     {
-        private void Ability_WIthering()
+        private void Ability_Withering()
         {
             const string rulebookName = "Withering";
             const string rulebookDescription = "At the end of the owner's turn, [creature] deals 1 direct damage to the opposing side.";

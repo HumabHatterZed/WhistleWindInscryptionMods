@@ -15,25 +15,6 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Opponents
 {
-    [HarmonyPatch]
-    internal static class LobotomyBossSetUpPatch
-    {
-        [HarmonyPostfix, HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawOpeningHand))]
-        public static IEnumerator CallPostDrawOpeningHand(IEnumerator enumerator)
-        {
-            LobotomyBattleSequencer sequence = TurnManager.Instance.SpecialSequencer as LobotomyBattleSequencer;
-            if (!SaveManager.SaveFile.IsPart1 || sequence == null)
-            {
-                yield return enumerator;
-                yield break;
-            }
-
-            yield return sequence.PreDrawOpeningHand();
-            yield return enumerator;
-            yield return sequence.PostDrawOpeningHand();
-            sequence.drewInitialHand = true;
-        }
-    }
     public abstract class LobotomyBossBattleSequencer : LobotomyBattleSequencer, IModifyDamageTaken
     {
         public PlayableCard BossCard = null;
@@ -48,16 +29,7 @@ namespace WhistleWindLobotomyMod.Opponents
         public bool finalPhase = false;
         public bool changeToNextPhase = false;
 
-        public GameObject targetIconPrefab;
-        public readonly List<GameObject> targetIcons = new();
-        
         public virtual int BossHealthThreshold(int remainingLives) => -1;
-
-        public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData)
-        {
-            targetIconPrefab = ResourceBank.Get<GameObject>("Prefabs/Cards/SpecificCardModels/CannonTargetIcon");
-            return base.BuildCustomEncounter(nodeData);
-        }
 
         public void IncrementStatsThisTurn(int timesHit, int damageTaken)
         {
@@ -142,35 +114,6 @@ namespace WhistleWindLobotomyMod.Opponents
         }
         #endregion
 
-        #region Target icons
-        public void CreateTargetIcon(CardSlot targetSlot, Color materialColour = default)
-        {
-            GameObject gameObject = Instantiate(targetIconPrefab, targetSlot.transform);
-            gameObject.transform.localPosition = new Vector3(0f, 0.25f, 0f);
-            gameObject.transform.localRotation = Quaternion.identity;
-
-            if (materialColour != default)
-                gameObject.GetComponentInChildren<MeshRenderer>().material.color = materialColour;
-
-            targetIcons.Add(gameObject);
-        }
-        public void CleanupTargetIcons()
-        {
-            targetIcons.ForEach(delegate (GameObject x)
-            {
-                if (x != null) CleanUpTargetIcon(x);
-            });
-            targetIcons.Clear();
-        }
-        public void CleanUpTargetIcon(GameObject icon)
-        {
-            Tween.LocalScale(icon.transform, Vector3.zero, 0.1f, 0f, Tween.EaseIn, Tween.LoopType.None, null, delegate
-            {
-                Destroy(icon);
-            });
-        }
-        #endregion
-
         #region Triggers
         public virtual bool RespondsToModifyDamage(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => true;
         public virtual int OnModifyDamage(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
@@ -212,6 +155,26 @@ namespace WhistleWindLobotomyMod.Opponents
             yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD"));
             yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD_ALL"));
             yield return new WaitForSeconds(0.4f);
+        }
+    }
+
+    [HarmonyPatch]
+    internal static class LobotomyBossSetUpPatch
+    {
+        [HarmonyPostfix, HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawOpeningHand))]
+        public static IEnumerator CallPostDrawOpeningHand(IEnumerator enumerator)
+        {
+            LobotomyBattleSequencer sequence = TurnManager.Instance.SpecialSequencer as LobotomyBattleSequencer;
+            if (!SaveManager.SaveFile.IsPart1 || sequence == null)
+            {
+                yield return enumerator;
+                yield break;
+            }
+
+            yield return sequence.PreDrawOpeningHand();
+            yield return enumerator;
+            yield return sequence.PostDrawOpeningHand();
+            sequence.drewInitialHand = true;
         }
     }
 }

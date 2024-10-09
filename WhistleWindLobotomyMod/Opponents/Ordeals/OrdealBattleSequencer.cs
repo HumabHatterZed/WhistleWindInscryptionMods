@@ -17,6 +17,10 @@ namespace WhistleWindLobotomyMod.Opponents
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.OrdealDefeated;
         public abstract EncounterData ConstructOrdealBlueprint(EncounterData encounterData);
 
+        public virtual void ModifyQueuedCard(PlayableCard card)
+        {
+
+        }
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData)
         {
             if (nodeData is not OrdealBattleNodeData ordealData)
@@ -32,7 +36,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 Blueprint = EncounterManager.New("", false).SetDifficulty(0, 20),
                 Difficulty = ordealData.difficulty + RunState.Run.DifficultyModifier
             };
-
+            LobotomyPlugin.Log.LogInfo($"Diff: {encounterData.Difficulty}");
             switch (ordealType)
             {
                 case OrdealType.Green:
@@ -56,26 +60,32 @@ namespace WhistleWindLobotomyMod.Opponents
                 encounterData.opponentTotem = EncounterBuilder.BuildOpponentTotem(encounterData.Blueprint.dominantTribes[0], nodeData.difficulty + RunState.Run.DifficultyModifier, encounterData.Blueprint.redundantAbilities);
 
             ConstructOrdealBlueprint(encounterData);
-            
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, encounterData.Difficulty, false);
             return encounterData;
         }
-        public override bool RespondsToTurnEnd(bool playerTurnEnd) => PlayerHasDefeatedOrdeal();
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) => card.OpponentCard && PlayerHasDefeatedOrdeal();
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd) // if the last Ordeal card has been killed, end the encounter
+        
+        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) => card.HasTrait(LobotomyCardManager.Ordeal);
+
+        // if the last Ordeal card has been killed, end the encounter
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => !playerTurnEnd;
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            Opponent.NumLives--;
-            yield return Opponent.LifeLostSequence();
-            yield return OpponentLifeLost();
-            if (Opponent.NumLives > 0)
+            if (PlayerHasDefeatedOrdeal())
             {
-                yield return LifeManager.Instance.ShowResetSequence();
+                Opponent.NumLives--;
+                LifeManager.Instance.OpponentDamage = 9999;
+                yield return Opponent.LifeLostSequence();
+                yield return OpponentLifeLost();
+                if (Opponent.NumLives > 0)
+                {
+                    yield return LifeManager.Instance.ShowResetSequence();
+                }
+                yield return Opponent.PostResetScalesSequence();
             }
-            yield return Opponent.PostResetScalesSequence();
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) => OnTurnEnd(false);
 
-        public bool PlayerHasDefeatedOrdeal()
+        public virtual bool PlayerHasDefeatedOrdeal()
         {
             bool ordealsOnBoard = BoardManager.Instance.GetOpponentCards(x => !x.Dead && x.HasTrait(LobotomyCardManager.Ordeal)).Count > 0;
             bool ordealsInQueue = TurnManager.Instance.Opponent.Queue.Exists(x => x.HasTrait(LobotomyCardManager.Ordeal));

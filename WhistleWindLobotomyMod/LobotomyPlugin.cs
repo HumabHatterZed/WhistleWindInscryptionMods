@@ -187,6 +187,7 @@ namespace WhistleWindLobotomyMod
                     abilities.AbilityByID(Ability.ExplodeOnDeath).Info
                         .SetRulebookName("Volatile")
                         .SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilVolatile_flipped.png", ModAssembly))
+                        .SetFlipYIfOpponent(false)
                         .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
 
                     return abilities;

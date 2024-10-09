@@ -22,18 +22,19 @@ namespace WhistleWindLobotomyMod
                 .SetBonesCost(4)
                 .SetPortraits(ModAssembly, fruitUnderstanding)
                 .SetTitle(ModAssembly, "fruitUnderstanding_title.png")
-                .AddAbilities(StartingDecay.ability, Understanding.ability, Challenging.ability)
+                .AddAbilities(StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
-                .AddTraits(Ordeal, ImmuneToInstaDeath)
+                .AddTraits(Ordeal)
                 .Build();
 
             CardInfo love = CardManager.New(pluginPrefix, grantUsLove, "Grant Us Love",
-                attack: 1, health: 8)
+                attack: 1, health: 10)
                 .SetBonesCost(12)
                 .SetPortraits(ModAssembly, grantUsLove)
-                .AddAbilities(Ability.AllStrike, Ability.Evolve, Challenging.ability)
+                .AddAbilities(Ability.AllStrike, ExplosiveOpening.ability, Ability.Evolve, Challenging.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
+                .AddSpecialAbilities(MiniGiantCard.Id)
                 .AddTribes(TribeDivine)
                 .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
                 .Build();
