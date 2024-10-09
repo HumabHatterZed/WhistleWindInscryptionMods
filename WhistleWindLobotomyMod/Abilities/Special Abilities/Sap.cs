@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         public static SpecialTriggeredAbility specialAbility;
 
         public const string rName = "Sap";
-        public const string rDesc = "Whenever Giant Tree Sap is sacrificed, there is an increasing chance the sacrificing card will explode.";
+        public const string rDesc = "Whenever Giant Tree Sap is sacrificed, there is a chance the sacrificing card will explode on resolve. This chance increases with every sacrifice.";
 
         private int sacrificeCount = 0;
 
