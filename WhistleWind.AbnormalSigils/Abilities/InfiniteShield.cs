@@ -45,9 +45,11 @@ namespace WhistleWind.AbnormalSigils
             numShields = StartingNumShields;
 
             if (target.TriggerHandler.RespondsToTrigger(Trigger.TakeDamage, attacker))
-            {
                 yield return target.TriggerHandler.OnTrigger(Trigger.TakeDamage, attacker);
-            }
+
+            if (target.Health <= 0)
+                yield return target.Die(wasSacrifice: false, attacker);
+
             if (attacker != null)
             {
                 if (attacker.TriggerHandler.RespondsToTrigger(Trigger.DealDamage, damage, target))

@@ -14,8 +14,8 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_BindingStrike()
         {
             const string rulebookName = "Binding Strike";
-            const string rulebookDescription = "When [creature] strikes an opposing creature, inflict Bind equal to half this card's power level for this turn and next turn.";
-            const string dialogue = "The beast has been slowed, if only temporarily.";
+            const string rulebookDescription = "When [creature] strikes an opposing creature, inflict Bind this turn and next turn equal to half this card's power level.";
+            const string dialogue = "The creature has been slowed, if only temporarily.";
             BindingStrike.ability = AbnormalAbilityHelper.CreateAbility<BindingStrike>(
                 "sigilBindingStrike",
                 rulebookName, rulebookDescription, dialogue, powerLevel: 2,
