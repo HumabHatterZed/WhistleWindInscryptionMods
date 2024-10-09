@@ -2,10 +2,10 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWind.AbnormalSigils
 {
+    // for triggering special card behaviour in Healer
     public abstract class TransformOnAdjacentDeath : SpecialCardBehaviour
     {
         public abstract string CardToTransformInto { get; }

@@ -17,7 +17,6 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            // return true if the target was in an adjacent slot
             if (base.PlayableCard.OnBoard && fromCombat)
                 return card.OpponentCard == base.PlayableCard.OpponentCard;
 
@@ -26,7 +25,7 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             deaths++;
-            if (deaths != 3)
+            if (deaths < 3)
                 yield break;
 
             yield return new WaitForSeconds(0.15f);
