@@ -17,45 +17,6 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardAbilityPatches
     {
-        [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.TakeDamage))]
-        private static IEnumerator PiercingIgnoresShields(IEnumerator enumerator, PlayableCard __instance, int damage, PlayableCard attacker)
-        {
-            bool shield = __instance.HasShield();
-            yield return enumerator;
-            // Deal damage after breaking a shield
-            // This will only run if damage > 0 due to API patches so no need to check that
-            if (shield && __instance != null && !__instance.Dead && attacker != null && attacker.HasAbility(Piercing.ability))
-            {
-                yield return PiercingDamagesThroughShields(__instance, damage, attacker);
-            }
-        }
-
-        private static IEnumerator PiercingDamagesThroughShields(PlayableCard target, int damage, PlayableCard attacker)
-        {
-            // recreate the damage logic since BreakShield breaks out of the method at the end
-            target.Status.damageTaken += damage;
-            target.UpdateStatsText();
-            if (target.Health > 0)
-                target.Anim.PlayHitAnimation();
-
-            if (target.TriggerHandler.RespondsToTrigger(Trigger.TakeDamage, attacker))
-                yield return target.TriggerHandler.OnTrigger(Trigger.TakeDamage, attacker);
-
-            if (target.Health <= 0)
-                yield return target.Die(wasSacrifice: false, attacker);
-
-            if (attacker.TriggerHandler.RespondsToTrigger(Trigger.DealDamage, damage, target))
-                yield return attacker.TriggerHandler.OnTrigger(Trigger.DealDamage, damage, target);
-
-            yield return Singleton<GlobalTriggerHandler>.Instance.TriggerCardsOnBoard(
-                Trigger.OtherCardDealtDamage, false, attacker, attacker.Attack, target);
-
-            yield return CustomTriggerFinder.TriggerInHand<IOnOtherCardDealtDamageInHand>(
-            x => x.RespondsToOtherCardDealtDamageInHand(attacker, attacker.Attack, target),
-                x => x.OnOtherCardDealtDamageInHand(attacker, attacker.Attack, target));
-        }
-
-        #region Neutered ability
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
         private static void ModifyAttackStat(PlayableCard __instance, ref int __result)
         {
@@ -71,7 +32,6 @@ namespace WhistleWind.AbnormalSigils.Patches
             if (__instance.HasAbility(Neutered.ability))
                 __instance.RenderInfo.attackTextColor = GameColors.Instance.darkBlue;
         }
-        #endregion
     }
 
     [HarmonyPatch]
@@ -90,6 +50,7 @@ namespace WhistleWind.AbnormalSigils.Patches
                 yield return result;
             }
         }
+
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.QueuedCardIsBlocked))]
         private static void DontPlayLonelyIfHasFriend(ref bool __result, PlayableCard queuedCard)
         {
