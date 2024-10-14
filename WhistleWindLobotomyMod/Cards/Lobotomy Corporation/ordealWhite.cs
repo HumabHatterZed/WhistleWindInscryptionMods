@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
             const string fixerPale = "fixerPale";
 
             CardInfo red2 = CardManager.New(pluginPrefix, "fixerRed2", "Red Fixer",
-                attack: 5, health: 17)
+                attack: 5, health: 15)
                 .SetEnergyCost(6)
                 .SetPortraits(ModAssembly, fixerRed)
                 .AddAbilities(Ability.AllStrike, Piercing.ability, Ability.Transformer, Challenging.ability)
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             CardInfo red = CardManager.New(pluginPrefix, fixerRed, "Red Fixer",
-                attack: 1, health: 17)
+                attack: 1, health: 15)
                 .SetEnergyCost(6)
                 .SetPortraits(ModAssembly, fixerRed)
                 .AddAbilities(Ability.Transformer, Challenging.ability)
@@ -42,7 +42,7 @@ namespace WhistleWindLobotomyMod
             red2.SetEvolve(red, 2);
 
             CardInfo white2 = CardManager.New(pluginPrefix, "fixerWhite2", "White Fixer",
-                attack: 0, health: 20)
+                attack: 0, health: 18)
                 .SetBloodCost(2)
                 .SetPortraits(ModAssembly, "fixerWhite2")
                 .AddAbilities(InfiniteShield.ability, Reflector.ability, Ability.Transformer, Challenging.ability)
@@ -52,7 +52,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             CardInfo white = CardManager.New(pluginPrefix, fixerWhite, "White Fixer",
-                attack: 2, health: 20)
+                attack: 2, health: 18)
                 .SetBloodCost(2)
                 .SetPortraits(ModAssembly, fixerWhite)
                 .AddAbilities(MindStrike.ability, Ability.Transformer, Challenging.ability)
@@ -64,7 +64,7 @@ namespace WhistleWindLobotomyMod
             white2.SetEvolve(white, 2);
 
             CardInfo black2 = CardManager.New(pluginPrefix, "fixerBlack2", "Black Fixer",
-                attack: 2, health: 17)
+                attack: 2, health: 15)
                 .SetBloodCost(3)
                 .SetPortraits(ModAssembly, fixerBlack)
                 .AddAbilities(TeamLeader.ability, Ability.Transformer, Challenging.ability)
@@ -74,7 +74,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             CardInfo black = CardManager.New(pluginPrefix, fixerBlack, "Black Fixer",
-                attack: 2, health: 17)
+                attack: 2, health: 15)
                 .SetBloodCost(3)
                 .SetPortraits(ModAssembly, fixerBlack)
                 .AddAbilities(Ability.Transformer, Challenging.ability)
@@ -86,7 +86,7 @@ namespace WhistleWindLobotomyMod
             black2.SetEvolve(black, 2);
 
             CardInfo pale2 = CardManager.New(pluginPrefix, "fixerPale2", "Pale Fixer",
-                attack: 2, health: 15)
+                attack: 2, health: 12)
                 .SetBloodCost(3)
                 .SetPortraits(ModAssembly, fixerPale)
                 .AddAbilities(Ability.Sniper, Persistent.ability, Ability.Transformer, Challenging.ability)
@@ -96,7 +96,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             CardInfo pale = CardManager.New(pluginPrefix, fixerPale, "Pale Fixer",
-                attack: 2, health: 15)
+                attack: 2, health: 12)
                 .SetBloodCost(3)
                 .SetPortraits(ModAssembly, fixerPale)
                 .AddAbilities(Persistent.ability, Ability.Transformer, Challenging.ability)
@@ -106,6 +106,16 @@ namespace WhistleWindLobotomyMod
                 .SetEvolve(pale2, 2)
                 .Build();
             pale2.SetEvolve(pale, 2);
+
+            CardInfo claw = CardManager.New(pluginPrefix, "claw", "The Claw",
+                attack: 2, health: 30)
+                .SetBloodCost(3)
+                .SetPortraits(ModAssembly, "claw")
+                .AddAbilities(Piercing.ability, Persistent.ability, Challenging.ability)
+                .AddAppearances(ForcedWhiteEmission.appearance)
+                .AddTribes(TribeAnthropoid)
+                .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
+                .Build();
         }
     }
 }

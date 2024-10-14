@@ -88,7 +88,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             CardManager.New(pluginPrefix, lastHelix, "Last Helix",
-                attack: 1, health: 35)
+                attack: 0, health: 35)
                 .SetEnergyCost(6)
                 .SetPortraits(ModAssembly, lastHelix)
                 .AddAbilities(Piercing.ability, Ability.Reach, Challenging.ability)

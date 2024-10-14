@@ -48,6 +48,7 @@
 - Changed tje order in which cards are damaged by Return to Nihil sigil
 - Frozen Heart sigil will now give double Health to any card with Woodcutter, not just cards with a specific name
 - Barreler sigil now displaces moved cards randomly
+- Piercing sigil now implements IShieldPreventedDamage
 ### 🩹 Bug fixes
 - Fixed activated select slot sigils triggering when there are no valid targets on the board
 - Fixed Witness sigil using an outdated description
@@ -89,7 +90,7 @@
 - Added extension methods for clearing status effects from a card
 - Added custom trigger interface IOnStatusEffectAdded
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
-- Added 14 sigils:
+- Added 15 sigils:
     - Damsel
     - Abusive
     - Shove Aside
@@ -104,7 +105,8 @@
     - Understanding
     - Bleachproof
     - Elite
-    - Pleasure
+    - Withering
+    - Explosive Opening
 - Added 1 stat icons:
     - Flower Power
 - Added 4 status effects:
@@ -123,6 +125,7 @@
     - ForcedPurpleEmission
 ### 💣 Removals
 - Removed Volatile sigil
+- Removed unnecessary ability patches
 ## v1.1.2 - Minor patch (5/23/2024)
 ### 🩹 Bug fixes
 - Fixed Conductor sigil crashing the game when multiple copies are on the same side of the board

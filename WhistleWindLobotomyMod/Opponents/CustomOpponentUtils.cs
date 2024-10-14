@@ -27,14 +27,6 @@ namespace WhistleWindLobotomyMod.Opponents
             return false;
         }
 
-        public static bool DirectDamageGivesBones()
-        {
-            if (TurnManager.Instance.SpecialSequencer != null)
-            {
-                return (TurnManager.Instance.SpecialSequencer as LobotomyBattleSequencer).DirectDamageGivesBones;
-            }
-            return false;
-        }
         public static bool IsCustomBoss<T>() where T : LobotomyBossOpponent
         {
             return TurnManager.Instance.Opponent is T;
@@ -74,6 +66,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 ).Id;
 
             apocalypseRegion = ApocalypseBossUtils.CreateRegion();
+            whiteOrdealRegion = OrdealUtils.CreateWhiteOrdealRegion();
             DialogueManager.GenerateRegionIntroductionEvent(LobotomyPlugin.pluginGuid, apocalypseRegion, new()
             {
                 "Your journey has brought here, to a dark, oppressive forest.",
@@ -89,6 +82,7 @@ namespace WhistleWindLobotomyMod.Opponents
         }
 
         public static RegionData apocalypseRegion;
+        public static RegionData whiteOrdealRegion;
         public static RegionData saviourRegion;
         public static RegionData adultRegion;
         public static RegionData jesterRegion;

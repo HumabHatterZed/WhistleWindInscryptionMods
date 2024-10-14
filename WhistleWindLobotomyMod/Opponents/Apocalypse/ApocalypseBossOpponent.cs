@@ -124,7 +124,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return BoardManager.Instance.OpponentSlotsCopy[0].Card.Die(false, playSound: false);
             yield return new WaitForSeconds(1f);
 
-            BattleSequencer.PreventScaleDamage = false;
+            BattleSequencer.HighestPositiveScaleBalance = 5;
             int damage = Singleton<LifeManager>.Instance.DamageUntilPlayerWin - 1;
             yield return LifeManager.Instance.ShowDamageSequence(damage, damage, false);
             yield return new WaitForSeconds(1f);
@@ -295,9 +295,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return new WaitForSeconds(0.2f);
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossBendScales1");
 
-            int damageThreshold = LifeManager.Instance.DamageUntilPlayerWin - 1;
-            yield return LifeManager.Instance.ShowDamageSequence(damageThreshold, 1, toPlayer: false);
-            BattleSequencer.PreventScaleDamage = true;
+            yield return LifeManager.Instance.ShowDamageSequence(BattleSequencer.HighestPositiveScaleBalance, 1, toPlayer: false);
             yield return new WaitForSeconds(0.5f);
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossBendScales2");
 

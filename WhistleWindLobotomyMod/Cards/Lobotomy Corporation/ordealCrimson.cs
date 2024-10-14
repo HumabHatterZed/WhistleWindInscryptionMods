@@ -18,44 +18,32 @@ namespace WhistleWindLobotomyMod
             const string skinHarmony = "skinHarmony";
             const string skinClimax = "skinClimax";
 
-            CardInfo cheer2 = CardManager.New(pluginPrefix, skinCheers, "Cheers for the Beginning",
-                attack: 0, health: 3)
-                .SetBloodCost(1)
-                .SetPortraits(ModAssembly, skinCheers)
-                .SetTitle(ModAssembly, "skinCheers_title.png")
-                .AddAbilities(Withering.ability, Withering.ability, Ability.ExplodeOnDeath, Unyielding.ability)
-                .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
-                .AddTribes(TribeFae)
-                .AddTraits(Ordeal)
-                .Build();
-
             CardInfo cheer = CardManager.New(pluginPrefix, skinCheers, "Cheers for the Beginning",
                 attack: 0, health: 3)
                 .SetBloodCost(1)
                 .SetPortraits(ModAssembly, skinCheers)
                 .SetTitle(ModAssembly, "skinCheers_title.png")
-                .AddAbilities(Withering.ability, Ability.Evolve, Ability.ExplodeOnDeath)
+                .AddAbilities(Withering.ability, Ability.Strafe, Ability.ExplodeOnDeath)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)
                 .AddTraits(Ordeal)
-                .SetEvolve(cheer2, 3)
                 .Build();
 
             CardInfo harmony = CardManager.New(pluginPrefix, skinHarmony, "Harmony of Skin",
-                attack: 2, health: 5)
+                attack: 1, health: 4)
                 .SetBloodCost(2)
                 .SetPortraits(ModAssembly, skinHarmony)
-                .AddAbilities(HarmonyAbility.ability, Challenging.ability)
+                .AddAbilities(HarmonyAbility.ability, Ability.StrafeSwap, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)
                 .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)
                 .Build();
 
             CardInfo struggle = CardManager.New(pluginPrefix, skinClimax, "Struggle at the Climax",
-                attack: 3, health: 8)
+                attack: 3, health: 5)
                 .SetBloodCost(3)
                 .SetPortraits(ModAssembly, skinClimax)
-                .AddAbilities(Ability.IceCube, Challenging.ability)
+                .AddAbilities(Ability.IceCube, Cycler.ability, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeFae)
                 .AddTraits(Ordeal, Trait.Uncuttable, ImmuneToInstaDeath)

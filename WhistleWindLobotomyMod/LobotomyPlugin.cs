@@ -230,6 +230,7 @@ namespace WhistleWindLobotomyMod
         {
             //FinalComing.Register();
             FinalApocalypse.Register();
+            FinalOrdeal.Register();
             //FinalJester.Register();
             //FinalTrick.Register();
 
@@ -239,6 +240,7 @@ namespace WhistleWindLobotomyMod
             BetterRareChances.Register();
 
             MiracleWorker.Register(HarmonyInstance);
+            BossOrdeals.Register();
             AllOrdeals.Register(HarmonyInstance);
             AbnormalBosses.Register(HarmonyInstance);
             AbnormalEncounters.Register(HarmonyInstance);

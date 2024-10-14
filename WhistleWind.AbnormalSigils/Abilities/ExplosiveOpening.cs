@@ -77,10 +77,7 @@ namespace WhistleWind.AbnormalSigils
             targets.ForEach(x => x.Anim.PlayHitAnimation());
             for (int i = 0; i < targets.Count; i++)
             {
-                targets[i].Anim.PlayHitAnimation();
-                
-                if (i < bombs.Count)
-                    Destroy(bombs[i]);
+                if (i < bombs.Count) Destroy(bombs[i]);
 
                 yield return targets[i].TakeDamage(10, slot.Card);
             }

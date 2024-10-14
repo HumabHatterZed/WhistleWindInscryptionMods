@@ -91,7 +91,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowResetSequence))]
         private static IEnumerator CustomOpponentsDontResetScales(IEnumerator enumerator)
         {
-            if (CustomOpponentUtils.FightingCustomOpponent(false))
+            if (CustomOpponentUtils.FightingCustomOpponent(true))
                 yield break;
 
             yield return enumerator;
@@ -130,73 +130,6 @@ namespace WhistleWindLobotomyMod.Patches
             });
         }
 
-        #region Excess Bones
-        [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager3D), nameof(CombatPhaseManager3D.VisualizeCardAttackingDirectly))]
-        private static IEnumerator GiveBonesFromExcessScaleDamage(IEnumerator enumerator, CardSlot attackingSlot, CardSlot targetSlot, int damage)
-        {
-            if (targetSlot.IsPlayerSlot || TurnManager.Instance.SpecialSequencer is not LobotomyBattleSequencer seq || seq == null || !seq.DirectDamageGivesBones)
-            {
-                yield return enumerator;
-                yield break;
-            }
-
-            bool doScaleDamage = LifeManager.Instance.DamageUntilPlayerWin > 1;
-            if (doScaleDamage) yield return enumerator;
-
-            // if there's no excess scale damage or we've reched the max allowed amount of excess bones
-            int bonesToGive = Mathf.Min(2, (damage - (LifeManager.Instance.DamageUntilPlayerWin - 1) + 1) / 2);
-            if (bonesToGive <= 0 || (bonesToGive + seq.currentExcessBones) >= seq.MaxExcessBones)
-                yield break;
-
-            if (doScaleDamage)
-            {
-                DigUpBones(bonesToGive, targetSlot);
-            }
-            else // if we didn't perform the regular sequence
-            {
-                attackingSlot.Card.Anim.PlayAttackAnimation(attackPlayer: attackingSlot.IsPlayerSlot, targetSlot, delegate
-                {
-                    DigUpBones(bonesToGive, targetSlot);
-                });
-            }
-
-            if (!DialogueEventsData.EventIsPlayed("ApocalypseBossBoneGain"))
-            {
-                yield return new WaitForSeconds(0.5f);
-                yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBoneGain", TextDisplayer.MessageAdvanceMode.Input);
-            }
-        }
-
-        private static void DigUpBones(int bonesToGive, CardSlot targetSlot)
-        {
-            ResourcesManager.Instance.PlayerBones += bonesToGive;
-            Singleton<TableVisualEffectsManager>.Instance?.ThumpTable(0.075f * (float)Mathf.Min(10, bonesToGive));
-
-            for (int i = 0; i < bonesToGive; i++)
-            {
-                Part1ResourcesManager manager = ResourcesManager.Instance as Part1ResourcesManager;
-                GameObject gameObject = GameObject.Instantiate(manager.boneTokenPrefab);
-                BoneTokenInteractable component = gameObject.GetComponent<BoneTokenInteractable>();
-                Rigidbody tokenRB = gameObject.GetComponent<Rigidbody>();
-                Vector3 vector = new(0f, 0f, 0.75f);
-
-                tokenRB.Sleep();
-                gameObject.transform.position = targetSlot.transform.position + vector + new Vector3(i * 0.1f, 0f, i * 0.1f);
-                gameObject.transform.eulerAngles = UnityEngine.Random.insideUnitSphere;
-
-                Vector3 endValue = manager.GetRandomLandingPosition() + Vector3.up;
-                Tween.Position(component.transform, endValue, 0.25f, 0.5f, Tween.EaseInOut, Tween.LoopType.None, null, delegate
-                {
-                    tokenRB.WakeUp();
-                    manager.PushTokenDown(tokenRB);
-                });
-
-                manager.boneTokens.Add(component);
-                manager.isOrganized = false;
-            }
-        }
-        #endregion
-
         [HarmonyPostfix, HarmonyPatch(typeof(RunState), nameof(RunState.CurrentMapRegion), MethodType.Getter)]
         private static void ReplaceFinalWithCustomBossRegion(ref RegionData __result)
         {
@@ -206,6 +139,8 @@ namespace WhistleWindLobotomyMod.Patches
                 {
                     if (AscensionSaveData.Data.ChallengeIsActive(FinalApocalypse.Id))
                         __result = CustomOpponentUtils.apocalypseRegion;
+                    else if (AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id))
+                        __result = CustomOpponentUtils.whiteOrdealRegion;
                     /*                else if (AscensionSaveData.Data.ChallengeIsActive(FinalComing.Id))
                                         __result = CustomBossUtils.saviourRegion;
                                     else if (AscensionSaveData.Data.ChallengeIsActive(FinalTrick.Id))

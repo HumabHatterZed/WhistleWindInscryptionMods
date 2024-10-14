@@ -2,6 +2,7 @@
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Triggers;
 using System.Collections;
 using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
@@ -12,15 +13,33 @@ namespace WhistleWindLobotomyMod.Opponents
     public abstract class OrdealBattleSequencer : LobotomyBattleSequencer
     {
         public OrdealType ordealType;
+        private int TotalExcessDamageDealt = 0;
         public OrdealOpponent Opponent => TurnManager.Instance.Opponent as OrdealOpponent;
         public override Opponent.Type BossType => OrdealUtils.OpponentID;
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.OrdealDefeated;
+        public override int HighestPositiveScaleBalance { get => 4; set => base.HighestPositiveScaleBalance = value; }
+        
         public abstract EncounterData ConstructOrdealBlueprint(EncounterData encounterData);
 
         public virtual void ModifyQueuedCard(PlayableCard card)
         {
 
         }
+
+        public override IEnumerator PreCleanUp()
+        {
+            if (TotalExcessDamageDealt > 0)
+            {
+                ViewManager.Instance.SwitchToView(View.Default);
+                yield return Singleton<CombatPhaseManager>.Instance.VisualizeExcessLethalDamage(TotalExcessDamageDealt, this);
+            }
+        }
+        public override void DigUpBones(int damage, int bonesToGive, CardSlot targetSlot)
+        {
+            TotalExcessDamageDealt += damage - bonesToGive;
+            base.DigUpBones(damage, bonesToGive, targetSlot);
+        }
+
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData)
         {
             if (nodeData is not OrdealBattleNodeData ordealData)
@@ -72,6 +91,7 @@ namespace WhistleWindLobotomyMod.Opponents
         {
             if (PlayerHasDefeatedOrdeal())
             {
+                LobotomyPlugin.Log.LogDebug("Defeated Ordeal.");
                 Opponent.NumLives--;
                 LifeManager.Instance.OpponentDamage = 9999;
                 yield return Opponent.LifeLostSequence();

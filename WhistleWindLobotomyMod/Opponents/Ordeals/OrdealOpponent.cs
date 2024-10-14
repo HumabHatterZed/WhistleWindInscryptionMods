@@ -19,6 +19,8 @@ namespace WhistleWindLobotomyMod.Opponents
     {
         public bool totemOpponent;
         private Color totemGlowColour;
+
+        public override bool GiveCurrencyOnDefeat => false; // excess damage is still counted even with a cap in place, so we give currency AFTER the Ordeal ends
         public static OrdealBattleSequencer BattleSequencer => TurnManager.Instance.SpecialSequencer as OrdealBattleSequencer;
 
         public virtual bool PreventInstantWin(bool timeMachine, CardSlot triggeringSlot)
@@ -122,6 +124,7 @@ namespace WhistleWindLobotomyMod.Opponents
             yield return new WaitForSeconds(0.15f);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
+            Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
         }
 
         private void SetSceneEffectsShown(bool showEffects)

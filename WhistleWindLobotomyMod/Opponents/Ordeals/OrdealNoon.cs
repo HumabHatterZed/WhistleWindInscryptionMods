@@ -1,4 +1,4 @@
-﻿using DiskCardGame;
+﻿/*using DiskCardGame;
 using GrimoraMod.Extensions;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Nodes;
@@ -42,11 +42,12 @@ namespace WhistleWindLobotomyMod
             if (loveSlots[1].Card != null)
                 yield return BoardManager.Instance.OpponentSlotsCopy[loveSlots[1].Index + 1].Card.Die(false);
 
-            yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_grantUsLove"), loveSlots[0]);
-
-            loveSlots = null;
             CameraEffects.Instance.Shake(1f, 0.75f);
-            yield return new WaitForSeconds(1.5f);
+            yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_grantUsLove"), loveSlots[0]);
+            yield return new WaitForSeconds(0.2f);
+            AudioController.Instance.PlaySound3D("map_slam", MixerGroup.TableObjectsSFX, Singleton<BoardManager>.Instance.transform.position);
+            yield return new WaitForSeconds(1f);
+            loveSlots = null;
         }
         public override bool PlayerHasDefeatedOrdeal() => loveSlots != null ? false : base.PlayerHasDefeatedOrdeal();
 
@@ -104,51 +105,47 @@ namespace WhistleWindLobotomyMod
         }
 
         /// <summary>
-        /// D | Turn 1 | Turn 2 | Turn 3 | Turn 4 | ## | HP | Atk
-        /// 5 | F      | F      | F      | G      | 4  | 12 | 0
-        /// 8 | F      | F F    | G      | -      | 4  | 12 | 0
-        /// 
-        /// Grant Us Love is manually added to the board after all Fruit have been defeated
+        /// D | Turn 1 | Turn 3 | Turn 4 | ## | HP | Atk
+        /// 5 | H H    | -      | -      | 2  | 12 | 0
+        /// 7 | H H    | -      | H H    | 4  | 12 | 0
+        /// 9 | H H    | H H    | -      | 4  | 16 | 0
         /// </summary>
-/*        private void ConstructVioletNoon(EncounterData encounterData)
-        {
-            List<EncounterBlueprintData.CardBlueprint> turn1 = new();
-            List<EncounterBlueprintData.CardBlueprint> turn2 = new();
-            List<EncounterBlueprintData.CardBlueprint> turn3 = new();
-
-            if (encounterData.Difficulty < 8)
-            {
-                turn1.Add(HelperMethods.NewCardWithMods("wstl_fruitUnderstanding",
-                    new CardModificationInfo() { abilities = new() { StartingDecay.ability, StartingDecay.ability } }
-                    ));
-                turn2.Add(HelperMethods.NewCardWithMods("wstl_fruitUnderstanding",
-                    new CardModificationInfo() { abilities = new() { StartingDecay.ability } }
-                    ));
-                turn3.Add(HelperMethods.NewCardWithMods("wstl_fruitUnderstanding",
-                    new CardModificationInfo() { abilities = new() { StartingDecay.ability } }
-                    ));
-                encounterData.Blueprint.AddTurns(turn1, turn2, turn3, new());
-            }
-            else
-            {
-                turn1.Add(HelperMethods.NewCardWithMods("wstl_fruitUnderstanding",
-                    new CardModificationInfo() { abilities = new() { StartingDecay.ability } }
-                    ));
-                turn2.Add(HelperMethods.NewCardWithMods("wstl_fruitUnderstanding",
-                    new CardModificationInfo() { abilities = new() { StartingDecay.ability } }
-                    ));
-                turn3.Add(HelperMethods.NewCardWithMods("wstl_fruitUnderstanding"));
-                
-            }
-            encounterData.Blueprint.AddTurns(turn1, turn2, turn3);
-        }*/
         private void ConstructCrimsonNoon(EncounterData encounterData)
         {
+            List<EncounterBlueprintData.CardBlueprint> turn1 = new()
+            {
+                EncounterManager.NewCardBlueprint("wst_skinHarmony"),
+                EncounterManager.NewCardBlueprint("wst_skinHarmony")
+            };
+            encounterData.Blueprint.AddTurn(turn1);
+            if (encounterData.Difficulty >= 7)
+            {
+                List<EncounterBlueprintData.CardBlueprint> turn2 = new()
+                {
+                    EncounterManager.NewCardBlueprint("wst_skinHarmony"),
+                    EncounterManager.NewCardBlueprint("wst_skinHarmony")
+                };
+                int turnNum = 4 - (encounterData.Difficulty - 5) / 2;
+                for (int i = 0; i < turnNum; i++)
+                    encounterData.Blueprint.AddTurn();
 
+                encounterData.Blueprint.AddTurn(turn2);
+            }
         }
         private void ConstructIndigoNoon(EncounterData encounterData)
         {
+            int numTurns = (encounterData.Difficulty + 1) / 2;
+            for (int i = 0; i < numTurns; i++)
+            {
+                if (i % 2 == 0) encounterData.Blueprint.AddTurn();
 
+                List<EncounterBlueprintData.CardBlueprint> turn = new()
+                {
+                    EncounterManager.NewCardBlueprint("wstl_sweeper"),
+                    EncounterManager.NewCardBlueprint("wstl_sweeper")
+                };
+                encounterData.Blueprint.AddTurn(turn);
+            }
         }
         private void ConstructWhiteNoon(EncounterData encounterData)
         {
@@ -193,4 +190,4 @@ namespace WhistleWindLobotomyMod
             return encounterData;
         }
     }
-}
+}*/

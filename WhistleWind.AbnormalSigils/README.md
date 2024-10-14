@@ -95,7 +95,7 @@ Left-Veering Strike	|X|X|0	|A card bearing this sigil will strike the opposing s
 Right-Veering Strike|X|X|0	|A card bearing this sigil will strike the opposing space to the right of the space across from it.
 Nimble-Footed		|X|X|1	|At the start of the owner's turn, this card gains 1 Haste. Whenever this card moves to a new space, gain 1 additional Haste.
 High-Strung			|X|X|2	|At the end of the owner's turn, a card bearing this sigil gains Haste equal to the opposing creature's power level.
-Binding Strike		|X|X|2	|When a card bearing this sigil strikes an opposing creature, inflict Bind equal to half this card's power level for this turn and next turn.
+Binding Strike		|X|X|2	|When a card bearing this sigil strikes an opposing creature, inflict Bind this turn and next turn equal to half this card's power level.
 Persecutor			|X|X|4	|When a card bearing this sigil is played, create a Nail in the adjacent left space and a Hammer in the adjacent right space if they are empty.
 Pebble Giver		|X|X|2	|Choose one of your cards to gain Pebble unless a card with Pebble already exists, then return this card to your hand.
 False Throne		|X|X|4	|Once per turn, pay 1 Health to give Neutered to a chosen creature and create a costless, unaltered copy of it in your hand.
@@ -115,8 +115,9 @@ Imminent Decay		|X|✓|-3	|When a card bearing this sigil is played, it gains 1 
 Understanding		|X|X|2	|If a card bearing this sigil perishes from the effect of Decay, deal 4 damage to each opposing creature and 4 direct damage to their owner.
 Bleachproof			|X|X|2	|A card bearing this sigil cannot have its sigils removed by the Bleach Pot.
 Elite				|X|X|4	|A card bearing this sigil is considered as having Made of Stone and Bleachproof.
-Pleasure			|X|X|3	|
+Withering			|X|X|3	|At the end of the owner's turn, a card bearing this sigil deals 1 direct damage to the opposing side.
 Unbreakable Defence	|X|X|5	|A card bearing this sigil prevents all damage dealt to it. All cards behave as if this card took damage.
+Explosive Opening	|X|X|1	|When this card is played, adjacent and opposing cards are dealt 10 damage.
 </details>
 
 ### ⁉️ Stat Icons

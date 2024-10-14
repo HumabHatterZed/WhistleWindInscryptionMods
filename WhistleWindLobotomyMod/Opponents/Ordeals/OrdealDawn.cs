@@ -1,4 +1,4 @@
-﻿using DiskCardGame;
+﻿/*using DiskCardGame;
 using EasyFeedback.APIs;
 using Infiniscryption.P03KayceeRun.Encounters;
 using InscryptionAPI.Encounters;
@@ -246,4 +246,4 @@ namespace WhistleWindLobotomyMod
             return encounterData;
         }
     }
-}
+}*/

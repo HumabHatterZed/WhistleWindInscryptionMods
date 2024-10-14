@@ -20,6 +20,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public static readonly string ID = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "ApocalypseBattleSequencer", typeof(ApocalypseBattleSequencer)).Id;
         public override Opponent.Type BossType => CustomOpponentUtils.ApocalypseBossID;
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.ApocalypseBossDefeated;
+        public override int HighestPositiveScaleBalance { get => 4; set => base.HighestPositiveScaleBalance = value; }
         private ApocalypseBossOpponent BossOpponent => TurnManager.Instance.Opponent as ApocalypseBossOpponent;
 
         private readonly Dictionary<ActiveEggEffect, string[]> AllBossPhases = new()
@@ -820,9 +821,19 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             }
         }
         
-        public bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) => true;
-        public IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage)
+        public override bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) => true;
+        public override IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage)
         {
+            if (base.RespondsToCardDealtDamageDirectly(attacker, opposingSlot, damage))
+            {
+                yield return base.OnCardDealtDamageDirectly(attacker, opposingSlot, damage);
+                if (!DialogueEventsData.EventIsPlayed("ApocalypseBossBoneGain"))
+                {
+                    yield return new WaitForSeconds(0.5f);
+                    yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBoneGain", TextDisplayer.MessageAdvanceMode.Input);
+                }
+            }
+
             if (finalPhase && attacker == BossCard)
             {
                 if (giantTargetSlots[1].Contains(opposingSlot))

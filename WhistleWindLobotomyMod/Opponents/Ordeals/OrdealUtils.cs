@@ -5,9 +5,11 @@ using InscryptionAPI.Encounters;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod
 {
@@ -27,21 +29,80 @@ namespace WhistleWindLobotomyMod
 
         public static Texture2D[] OrdealNodeMats;
 
-        public const string ORDEAL_GIVES_POINTS = "wstl:Ordeal_GivesPoints";
+        public static readonly string GreenDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenDawn", typeof(OrdealGreenDawn)).Id;
+        public static readonly string GreenNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenNoon", typeof(OrdealGreenNoon)).Id;
+        public static readonly string GreenDusk = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenDusk", typeof(OrdealGreenDusk)).Id;
+        public static readonly string GreenMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenDawn", typeof(OrdealGreenMidnight)).Id;
+        
+        public static readonly string VioletDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealVioletDawn", typeof(OrdealVioletDawn)).Id;
+        public static readonly string VioletNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealVioletNoon", typeof(OrdealVioletNoon)).Id;
+        public static readonly string VioletMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealVioletMidnight", typeof(OrdealVioletMidnight)).Id;
+
+        public static readonly string CrimsonDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealCrimsonDawn", typeof(OrdealCrimsonDawn)).Id;
+        public static readonly string CrimsonNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealCrimsonNoon", typeof(OrdealCrimsonNoon)).Id;
+        public static readonly string CrimsonDusk = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealCrimsonDusk", typeof(OrdealCrimsonDusk)).Id;
+
+        public static readonly string AmberDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealAmberDawn", typeof(OrdealAmberDawn)).Id;
+        public static readonly string AmberDusk = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealAmberDusk", typeof(OrdealAmberDusk)).Id;
+        public static readonly string AmberMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealAmberMidnight", typeof(OrdealAmberMidnight)).Id;
+
+        public static readonly string IndigoNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealIndigoNoon", typeof(OrdealIndigoNoon)).Id;
+
+        public static readonly string WhiteOrdeal = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealWhite", typeof(OrdealWhite)).Id;
+
 
         public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals) => possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length - 1)];
-    
-        public static void AddPointsValueToCard(CardInfo info, int points)
+
+        internal static RegionData CreateWhiteOrdealRegion()
         {
-            CardModificationInfo mod = new() { singletonId = ORDEAL_GIVES_POINTS };
-            mod.SetExtendedProperty(ORDEAL_GIVES_POINTS, points);
-            info.Mods.Add(mod);
+            RegionData trapper = RegionProgression.Instance.regions[2];
+            RegionData leshy = RegionProgression.Instance.ascensionFinalRegion;
+
+            RegionData whiteOrdealRegion = ScriptableObject.CreateInstance<RegionData>();
+            whiteOrdealRegion.name = "wstl_day_46";
+            whiteOrdealRegion.boardLightColor = new(6f, 0.6f, 0.6f, 1f);
+            whiteOrdealRegion.cardsLightColor = new(0.4f, 0.4f, 0.4f, 1f);
+            whiteOrdealRegion.dominantTribes = new() { AbnormalPlugin.TribeAnthropoid };
+            whiteOrdealRegion.bosses = new() { OpponentID };
+            whiteOrdealRegion.fogAlpha = 0.75f;
+            whiteOrdealRegion.fogEnabled = true;
+            whiteOrdealRegion.fogProfile = ScriptableObject.CreateInstance<VolumetricFogAndMist.VolumetricFogProfile>();
+            whiteOrdealRegion.fogProfile.color = new(0.7f, 0.7f, 0.7f, 1f);
+            whiteOrdealRegion.fogProfile.lightColor = new(0.7f, 0.7f, 0.7f, 1f);
+            whiteOrdealRegion.fogProfile.specularColor = new(0.7f, 0.7f, 0.7f, 1f);
+            whiteOrdealRegion.mapAlbedo = leshy.mapAlbedo;
+            whiteOrdealRegion.mapEmission = leshy.mapEmission;
+            whiteOrdealRegion.mapEmissionColor = leshy.mapEmissionColor;
+            whiteOrdealRegion.predefinedNodes = ScriptableObject.CreateInstance<PredefinedNodes>();
+            whiteOrdealRegion.predefinedNodes.nodeRows = new()
+            {
+                new() {
+                    new NodeData { position = new(0.5f, 0.42f) }
+                },
+                new()
+                {
+                    new CardMergeNodeData { position = new(0.315f, 0.65f) },
+                    new GainConsumablesNodeData { position = new(0.435f, 0.64f) },
+                    new TradePeltsNodeData { position = new(0.565f, 0.66f) },
+                    new BuildTotemNodeData { position = new(0.685f, 0.64f) }
+                },
+                new()
+                {
+                    new BossBattleNodeData
+                    {
+                        bossType = OpponentID,
+                        specialBattleId = WhiteOrdeal,
+                        difficulty = 20,
+                        position = new(0.5f, 0.86f)
+                    }
+                }
+            };
+            return whiteOrdealRegion;
         }
+
         internal static void InitOrdeals()
         {
-            OpponentID = OpponentManager.Add(
-                LobotomyPlugin.pluginGuid, "OrdealOpponent",
-                null, typeof(OrdealOpponent), null).Id;
+            OpponentID = OpponentManager.Add(LobotomyPlugin.pluginGuid, "OrdealOpponent", null, typeof(OrdealOpponent), null).Id;
 
             DawnAnim = NodeHelper.GetNodeTextureList("nodeOrdealDawn1", "nodeOrdealDawn2", "nodeOrdealDawn3", "nodeOrdealDawn4").ToArray();
             DawnTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealDawnTotem1", "nodeOrdealDawnTotem2", "nodeOrdealDawnTotem3", "nodeOrdealDawnTotem4").ToArray();

@@ -16,10 +16,8 @@ using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod
 {
-    public class OrdealMidnight : OrdealBattleSequencer
+    public class OrdealVioletMidnight : OrdealBattleSequencer
     {
-        public static readonly string ID = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealMidnight", typeof(OrdealMidnight)).Id;
-
         public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
         {
             return encounterData;

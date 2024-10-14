@@ -23,40 +23,68 @@ namespace WhistleWindLobotomyMod.Opponents
                 // region 1: dawn
                 // region 2: noon
                 // region 3: dusk
-                switch (ordealNodeData.tier)
+                nodeAnimation = ordealNodeData.tier switch
                 {
-                    case 1:
-                        ordealNodeData.specialBattleId = OrdealNoon.ID;
-                        nodeAnimation = ordealNodeData.totemOpponent ? OrdealUtils.NoonTotemAnim : OrdealUtils.NoonAnim;
-                        break;
-                    case 2:
-                        ordealNodeData.specialBattleId = OrdealDusk.ID;
-                        nodeAnimation = ordealNodeData.totemOpponent ? OrdealUtils.DuskTotemAnim : OrdealUtils.DuskAnim;
-                        break;
-                    case 3:
-                        ordealNodeData.specialBattleId = OrdealMidnight.ID;
-                        nodeAnimation = ordealNodeData.totemOpponent ? OrdealUtils.MidnightTotemAnim : OrdealUtils.MidnightAnim;
-                        break;
-                    default:
-                        ordealNodeData.specialBattleId = OrdealDawn.ID;
-                        nodeAnimation = ordealNodeData.totemOpponent ? OrdealUtils.DawnTotemAnim : OrdealUtils.DawnAnim;
-                        break;
-                }
+                    1 => ordealNodeData.totemOpponent ? OrdealUtils.NoonTotemAnim : OrdealUtils.NoonAnim,
+                    2 => ordealNodeData.totemOpponent ? OrdealUtils.DuskTotemAnim : OrdealUtils.DuskAnim,
+                    3 => ordealNodeData.totemOpponent ? OrdealUtils.MidnightTotemAnim : OrdealUtils.MidnightAnim,
+                    _ => ordealNodeData.totemOpponent ? OrdealUtils.DawnTotemAnim : OrdealUtils.DawnAnim,
+                };
 
                 for (int i = 0; i < sprite.textureFrames.Count; i++)
                 {
                     sprite.textureFrames[i] = nodeAnimation[i];
                 }
 
-                sprite.r.material.mainTexture = ordealNodeData.ordealType switch
+                // recolour the sprite's mask based on the ordeal colour - also assign the correct battle id for the given the colour and tier
+                switch (ordealNodeData.ordealType)
                 {
-                    OrdealType.Green => OrdealUtils.OrdealNodeMats[0],
-                    OrdealType.Violet => OrdealUtils.OrdealNodeMats[1],
-                    OrdealType.Crimson => OrdealUtils.OrdealNodeMats[2],
-                    OrdealType.Amber => OrdealUtils.OrdealNodeMats[3],
-                    OrdealType.Indigo => OrdealUtils.OrdealNodeMats[4],
-                    _ => OrdealUtils.OrdealNodeMats[5]
-                };
+                    case OrdealType.Green:
+                        sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[0];
+                        ordealNodeData.specialBattleId = ordealNodeData.tier switch
+                        {
+                            1 => OrdealUtils.GreenNoon,
+                            2 => OrdealUtils.GreenDusk,
+                            3 => OrdealUtils.GreenMidnight,
+                            _ => OrdealUtils.GreenDawn
+                        };
+                        break;
+                    case OrdealType.Violet:
+                        sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[1];
+                        ordealNodeData.specialBattleId = ordealNodeData.tier switch
+                        {
+                            1 => OrdealUtils.VioletNoon,
+                            3 => OrdealUtils.VioletMidnight,
+                            _ => OrdealUtils.VioletDawn
+                        };
+                        break;
+                    case OrdealType.Crimson:
+                        sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[2];
+                        ordealNodeData.specialBattleId = ordealNodeData.tier switch
+                        {
+                            1 => OrdealUtils.CrimsonNoon,
+                            2 => OrdealUtils.CrimsonDusk,
+                            _ => OrdealUtils.CrimsonDawn
+                        };
+                        break;
+                    case OrdealType.Amber:
+                        sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[3];
+                        ordealNodeData.specialBattleId = ordealNodeData.tier switch
+                        {
+                            2 => OrdealUtils.AmberDusk,
+                            3 => OrdealUtils.AmberMidnight,
+                            _ => OrdealUtils.AmberDawn
+                        };
+                        break;
+                    case OrdealType.Indigo:
+                        sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[4];
+                        ordealNodeData.specialBattleId = OrdealUtils.IndigoNoon;
+                        break;
+                    default:
+                        sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[5];
+                        ordealNodeData.specialBattleId = OrdealUtils.WhiteOrdeal;
+                        break;
+                }
 
                 sprite.IterateFrame();
             }
@@ -64,59 +92,71 @@ namespace WhistleWindLobotomyMod.Opponents
         [HarmonyPostfix, HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.CreateNode))]
         private static void AddOrdealNode(ref NodeData __result, List<NodeData> previousNodes, int mapLength)
         {
-            if (__result is not CardBattleNodeData || __result.gridY + 1 >= mapLength)
-                return;
-
-            bool addOrdeal = AscensionSaveData.Data.ChallengeIsActive(AllOrdeals.Id);
-            if (!addOrdeal)
+            if (__result is CardBattleNodeData nodeData)
             {
-                int numOfPreviousOrdeals = previousNodes.Count(x => x is OrdealBattleNodeData);
-                addOrdeal = UnityEngine.Random.value > 0.75f + numOfPreviousOrdeals * 0.01f - RunState.Run.DifficultyModifier * 0.023f;
+                if (RunState.Run.regionTier == 3 && AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id))
+                    return;
+
+                if (__result.gridY + 1 < mapLength && !AscensionSaveData.Data.ChallengeIsActive(BossOrdeals.Id))
+                    return;
+
+                bool addOrdeal = AscensionSaveData.Data.ChallengeIsActive(AllOrdeals.Id);
                 addOrdeal = true; // debug
-            }
+                if (!addOrdeal)
+                {
+                    int numOfPreviousOrdeals = previousNodes.Count(x => x is OrdealBattleNodeData);
+                    addOrdeal = UnityEngine.Random.value > 0.75f + numOfPreviousOrdeals * 0.01f - RunState.Run.DifficultyModifier * 0.023f;
+                }
 
-            if (!addOrdeal) return;
+                if (!addOrdeal) return;
 
-            // if the check passes, turn this battle node into an Ordeal node
-            float randomValue = UnityEngine.Random.value;
-            OrdealBattleNodeData data = new()
-            {
-                id = __result.id,
-                gridX = __result.gridX,
-                gridY = __result.gridY,
-                difficulty = (__result as CardBattleNodeData).difficulty,
-                connectedNodes = __result.connectedNodes,
-                totemOpponent = __result is TotemBattleNodeData
-            };
+                // if the check passes, turn this battle node into an Ordeal node
+                float randomValue = UnityEngine.Random.value;
+                OrdealBattleNodeData data = new()
+                {
+                    id = __result.id,
+                    gridX = __result.gridX,
+                    gridY = __result.gridY,
+                    difficulty = (__result as CardBattleNodeData).difficulty,
+                    connectedNodes = __result.connectedNodes
+                };
 
-            if (true) // debug, force ordeal
-            {
-                data.tier = 1;
-                data.ordealType = OrdealType.Violet;
+                if (__result is BossBattleNodeData)
+                    data.totemOpponent = AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems);
+                else
+                    data.totemOpponent = __result is TotemBattleNodeData;
+
+                if (true) // debug, force ordeal
+                {
+                    data.tier = 0;
+                    data.ordealType = OrdealType.Crimson;
+                    __result = data;
+                    return;
+                }
+
+                // determine the type and tier of the Ordeal based on the region
+                switch (RunState.Run.regionTier)
+                {
+                    case 3:
+                        LobotomyPlugin.Log.LogDebug($"Region 3");
+                        AssignOrdealDataToNode(data, 3);
+                        break;
+                    case 2:
+                        LobotomyPlugin.Log.LogDebug($"Region 2");
+                        AssignOrdealDataToNode(data, 2);
+                        break;
+                    case 1:
+                        LobotomyPlugin.Log.LogDebug($"Region 1");
+                        AssignOrdealDataToNode(data, 1);
+                        break;
+                    default:
+                        LobotomyPlugin.Log.LogDebug($"Region 0");
+                        AssignOrdealDataToNode(data, 0);
+                        break;
+                }
+
                 __result = data;
-                return;
             }
-
-            // determine the type and tier of the Ordeal based on the region
-            switch (RunState.Run.regionTier)
-            {
-                case 0:
-                    LobotomyPlugin.Log.LogDebug($"Region 0");
-                    AssignOrdealDataToNode(data, 0);
-                    break;
-
-                case 1:
-                    LobotomyPlugin.Log.LogDebug($"Region 1");
-                    AssignOrdealDataToNode(data, 1);
-                    break;
-
-                case 2:
-                    LobotomyPlugin.Log.LogDebug($"Region 2");
-                    AssignOrdealDataToNode(data, 2);
-                    break;
-            }
-
-            __result = data;
         }
         private static void AssignOrdealDataToNode(OrdealBattleNodeData ordealNodeData, int tier)
         {
