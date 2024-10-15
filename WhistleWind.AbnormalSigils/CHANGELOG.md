@@ -88,6 +88,7 @@
 - Added dialogue for when first encountering a status effect
 - Added dialogue explaining status overflow
 - Added extension methods for clearing status effects from a card
+- Added custom rulebook pages 'Mechanics'
 - Added custom trigger interface IOnStatusEffectAdded
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
 - Added 15 sigils:

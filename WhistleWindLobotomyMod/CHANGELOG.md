@@ -68,9 +68,10 @@
 - Added XX cards
     - Green Ordeal cards, 
 - Added XX abilities
-    - Bone Meal
+    - Bone Meal, Food, Life, Harmony, The Tower
 - Added Ordeal battles (see ReadMe for more info)
-- Added All Ordeals challenge
+- Added 3 challenges
+    - All Ordeals, Boss Ordeals, Final Ordeals
 - Achievements API: Added 1 new achievement
 ### 💣 Removals
 - Removed unused asset files

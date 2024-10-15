@@ -85,16 +85,19 @@ namespace WhistleWindLobotomyMod
                 .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
+                .SetTerrain()
                 .Build();
 
             CardManager.New(pluginPrefix, lastHelix, "Last Helix",
-                attack: 0, health: 35)
+                attack: 0, health: 25)
                 .SetEnergyCost(6)
-                .SetPortraits(ModAssembly, lastHelix)
-                .AddAbilities(Piercing.ability, Ability.Reach, Challenging.ability)
-                .AddAppearances(ForcedGreenEmission.appearance)
+                //.SetPortraits(ModAssembly, lastHelix)
+                .AddAbilities(Piercing.ability, Ability.Reach, Tower.ability, Challenging.ability)
+                .AddAppearances(ForcedGreenEmission.appearance, MiniGiantPortrait.appearance)
                 .AddTribes(TribeMechanical)
+                .AddSpecialAbilities(MiniGiantCard.Id)
                 .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, Trait.Giant, ImmuneToInstaDeath)
+                //.SetTerrain()
                 .Build();
         }
     }

@@ -31,7 +31,7 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
 
         // maybe not actually infinite
-        public override int StartingNumShields => 9000;
+        public override int StartingNumShields => 9999;
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => playerTurnEnd != base.Card.OpponentCard;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {

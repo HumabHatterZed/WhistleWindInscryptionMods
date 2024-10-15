@@ -43,7 +43,7 @@ namespace WhistleWind.AbnormalSigils
             slots.Remove(base.Card.Slot);
             slots.Sort((CardSlot a, CardSlot b) => GetSlotDistance(a) - GetSlotDistance(b));
 
-            base.StartCoroutine(PlayTruncatedOceanSound());
+            base.StartCoroutine(HelperMethods.PlayTruncated3DSound("ocean_fall", 0.1f, base.Card));
             yield return base.Card.Slot.SetSlotModification(FloodedSlot.Id);
             yield return new WaitForSeconds(0.25f);
             for (int i = 0; i < slots.Count; i++)
@@ -71,13 +71,6 @@ namespace WhistleWind.AbnormalSigils
         private int GetSlotDistance(CardSlot slot)
         {
             return (base.Card.OpponentCard != slot.IsPlayerSlot ? 0 : 1) + Mathf.Abs(base.Card.Slot.Index - slot.Index);
-        }
-
-        private IEnumerator PlayTruncatedOceanSound()
-        {
-            AudioSource ocean = AudioController.Instance.PlaySound3D("ocean_fall", MixerGroup.TableObjectsSFX, base.Card.Slot.transform.position, skipToTime: 0.1f);
-            yield return new WaitUntil(() => ocean.time >= (ocean.clip.length * 0.15f));
-            ocean.Stop();
         }
     }
 }

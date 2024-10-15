@@ -5,6 +5,7 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.Patches;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
@@ -33,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
 
             Haste.specialAbility = data.Id;
             Haste.iconId = data.IconInfo.ability;
-            data.IconInfo.SetUniqueRedirect("Speed", "wstl:Mechanic_Speed", GameColors.Instance.orange);
+            data.IconInfo.SetMechanicRedirect("Speed", "Speed", GameColors.Instance.orange);
         }
     }
 }

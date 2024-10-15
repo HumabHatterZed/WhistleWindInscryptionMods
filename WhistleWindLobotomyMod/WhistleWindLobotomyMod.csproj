@@ -70,10 +70,6 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Abilities\Ordeals\" />
-  </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /Y $(ProjectDir)\..\lib\*.dll $(TargetDir)" />
     <Exec Command="$(PkgILRepack)\tools\ILRepack /out:..\Compiled\$(AssemblyName).dll $(TargetPath) ../Compiled/WhistleWind.Core.dll /lib:$(TargetDir)" />

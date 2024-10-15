@@ -65,6 +65,11 @@ namespace WhistleWindLobotomyMod.Opponents
 
             yield return base.QueueNewCards(doTween, changeView);
         }
+        public override void ModifySpawnedCard(PlayableCard card)
+        {
+            base.ModifySpawnedCard(card);
+            BattleSequencer.ModifySpawnedCard(card);
+        }
 
         public override void ModifyQueuedCard(PlayableCard card)
         {

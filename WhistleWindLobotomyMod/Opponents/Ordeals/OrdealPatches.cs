@@ -94,10 +94,8 @@ namespace WhistleWindLobotomyMod.Opponents
         {
             if (__result is CardBattleNodeData nodeData)
             {
-                if (RunState.Run.regionTier == 3 && AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id))
-                    return;
-
-                if (__result.gridY + 1 < mapLength && !AscensionSaveData.Data.ChallengeIsActive(BossOrdeals.Id))
+                // if this is the last node and we aren't overriding boss nodes
+                if (nodeData.gridY + 1 >= mapLength && !AscensionSaveData.Data.ChallengeIsActive(BossOrdeals.Id))
                     return;
 
                 bool addOrdeal = AscensionSaveData.Data.ChallengeIsActive(AllOrdeals.Id);
@@ -117,19 +115,19 @@ namespace WhistleWindLobotomyMod.Opponents
                     id = __result.id,
                     gridX = __result.gridX,
                     gridY = __result.gridY,
-                    difficulty = (__result as CardBattleNodeData).difficulty,
+                    difficulty = nodeData.difficulty,
                     connectedNodes = __result.connectedNodes
                 };
 
-                if (__result is BossBattleNodeData)
+                if (__result is BossBattleNodeData boss && boss.bossType == Opponent.Type.LeshyBoss)
                     data.totemOpponent = AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems);
                 else
                     data.totemOpponent = __result is TotemBattleNodeData;
 
                 if (true) // debug, force ordeal
                 {
-                    data.tier = 0;
-                    data.ordealType = OrdealType.Crimson;
+                    data.tier = 3;
+                    data.ordealType = OrdealType.Green;
                     __result = data;
                     return;
                 }

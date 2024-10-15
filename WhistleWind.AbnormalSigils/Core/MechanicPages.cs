@@ -63,5 +63,14 @@ namespace WhistleWind.AbnormalSigils.Core
         }
 
         internal static ObservableCollection<Tuple<RuleBookPageInfo, string, string, Texture>> NewMechanicPages = new();
+
+        public static AbilityManager.FullAbility SetMechanicRedirect(this AbilityManager.FullAbility ability, string redirect, string pageName, Color redirectColour)
+        {
+            return ability.SetUniqueRedirect(redirect, "wstl:Mechanic_" + pageName, redirectColour);
+        }
+        public static AbilityInfo SetMechanicRedirect(this AbilityInfo ability, string redirect, string pageName, Color redirectColour)
+        {
+            return ability.SetUniqueRedirect(redirect, "wstl:Mechanic_" + pageName, redirectColour);
+        }
     }
 }

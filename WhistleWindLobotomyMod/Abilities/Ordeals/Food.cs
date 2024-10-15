@@ -16,18 +16,20 @@ namespace WhistleWindLobotomyMod
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        private bool hasResolved = false;
+        
+        private CardSlot oldSlot;
 
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard()
         {
-            hasResolved = true;
+            oldSlot = base.Card.Slot;
             return base.OnResolveOnBoard();
         }
-        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => hasResolved && otherCard == base.Card;
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard == base.Card && oldSlot != null;
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
         {
-            return base.OnOtherCardAssignedToSlot(otherCard);
+            if (oldSlot.Card == null)
+                yield return oldSlot.CreateCardInSlot(CardLoader.GetCardByName("wstl_perfectFood"));
         }
     }
 

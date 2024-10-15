@@ -25,7 +25,10 @@ namespace WhistleWindLobotomyMod.Opponents
         {
 
         }
+        public virtual void ModifySpawnedCard(PlayableCard card)
+        {
 
+        }
         public override IEnumerator PreCleanUp()
         {
             if (TotalExcessDamageDealt > 0)

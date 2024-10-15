@@ -204,6 +204,7 @@ namespace WhistleWindLobotomyMod
             Ability_Harmony();
             Ability_Food();
             Ability_Survival();
+            Ability_Tower();
 
             Ability_Apocalypse();
             Ability_BigEyes();

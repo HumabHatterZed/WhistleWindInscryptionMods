@@ -11,6 +11,13 @@ namespace WhistleWind.Core.Helpers
 {
     public static class HelperMethods
     {
+        public static IEnumerator PlayTruncated3DSound(string soundId, float skipToTime, PlayableCard card)
+        {
+            AudioSource ocean = AudioController.Instance.PlaySound3D(soundId, MixerGroup.TableObjectsSFX, card.Slot.transform.position, skipToTime: skipToTime);
+            yield return new WaitUntil(() => ocean.time >= (ocean.clip.length * 0.15f));
+            ocean.Stop();
+        }
+
         public static EncounterBlueprintData.CardBlueprint NewDifficultyCard(string card, string replacement, int difficultyReq)
         {
             return EncounterManager.NewCardBlueprint(card, difficultyReplace: true, difficultyReplaceReq: difficultyReq, replacement: replacement);
