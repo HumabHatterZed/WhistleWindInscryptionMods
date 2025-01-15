@@ -19,7 +19,7 @@ namespace BonniesBakingPack
                 .SetPixelPortrait(GetTexture("bunny_pixel.png"))
                 .AddAbilities(Ability.GainBattery);
 
-            CardInfo duck = CardManager.New(pluginPrefix, "duckit", "Duckit", 1, 2, "AN ENIGMATIC, TWO-FACED CREATURE. PERHAPS YOU KNOW ITS TRUE IDENTITY?")
+            CardInfo duck = CardManager.New(pluginPrefixG, "duckit", "Duckit", 1, 2, "AN ENIGMATIC, TWO-FACED CREATURE. PERHAPS YOU KNOW ITS TRUE IDENTITY?")
                 .SetDefaultPart1Card().AddGrimora()
                 .SetBonesCost(2).SetEnergyCost(2)
                 .SetPortraitAndEmission(GetTexture("duckit.png"), GetTexture("duckit_emission.png"))
@@ -28,23 +28,19 @@ namespace BonniesBakingPack
                     ScrybeCompat.GetGrimoraAbility("Random Ability", Ability.RandomAbility)
                     );
 
-            CardInfo bot = CardManager.New(pluginPrefix, "bunbot", "Bunbot", 1, 3)
+            CardInfo bot = CardManager.New(pluginPrefix3, "bunbot", "Bunbot", 2, 1)
                 .SetDefaultPart3Card().AddP03()
-                .SetEnergyCost(5)
+                .SetEnergyCost(4)
                 .SetPortrait(GetTexture("bunbot.png"))
                 .AddAbilities(
-                    ScrybeCompat.GetP03Ability("Hopper", Ability.ExplodeOnDeath),
-                    ScrybeCompat.GetP03Ability("Flammable", Ability.Strafe)
+                    ScrybeCompat.GetP03Ability("Hopper", Ability.Strafe),
+                    ScrybeCompat.GetP03Ability("Flammable", Ability.ExplodeOnDeath)
                     );
 
             if (ScrybeCompat.P03Enabled)
             {
-                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
-                    bunny.AddMetaCategories(ScrybeCompat.NatureRegion);
-
-                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
-                    duck.AddMetaCategories(ScrybeCompat.UndeadRegion);
-
+                bunny.AddMetaCategories(ScrybeCompat.NatureRegion);
+                duck.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NatureRegion);
             }
         }

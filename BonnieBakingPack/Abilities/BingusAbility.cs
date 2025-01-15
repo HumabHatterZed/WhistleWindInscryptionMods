@@ -236,7 +236,7 @@ namespace BonniesBakingPack
 
         public override int[] GetStatValues()
         {
-            return new int[] { int.MaxValue / 4, int.MaxValue / 4 };
+            return new int[] { 62123, 62123 };
         }
     }
 }

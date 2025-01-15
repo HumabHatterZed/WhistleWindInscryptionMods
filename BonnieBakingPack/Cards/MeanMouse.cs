@@ -20,30 +20,24 @@ namespace BonniesBakingPack
                 .SetPixelPortrait(GetTexture("mouseMean_pixel.png"))
                 .AddAbilities(Ability.Sentry);
 
-            CardInfo napper = CardManager.New(pluginPrefix, "mousenapper", "Mousenapper", 1, 2, "DON'T GET TOO CLOSE TO THIS MOUSE.")
+            CardInfo napper = CardManager.New(pluginPrefixG, "mousenapper", "Mousenapper", 1, 2, "DON'T GET TOO CLOSE TO THIS MOUSE.")
                 .SetDefaultPart1Card().AddGrimora()
                 .SetBonesCost(4)
                 .SetPortraitAndEmission(GetTexture("mousenapper.png"), GetTexture("mousenapper_emission.png"))
                 .SetPixelPortrait(GetTexture("mousenapper_pixel.png"))
                 .AddAbilities(ScrybeCompat.GetGrimoraAbility("Hook Line And Sinker", Ability.DrawRabbits));
 
-            CardInfo bot = CardManager.New(pluginPrefix, "anonymouse", "Anonymouse", 1, 2)
+            CardInfo bot = CardManager.New(pluginPrefix3, "anonymouse", "Anonymouse", 1, 1)
                 .SetDefaultPart3Card().AddP03()
-                .SetEnergyCost(4)
+                .SetEnergyCost(2)
                 .SetPortrait(GetTexture("anonymouse.png"))
                 .SetPixelPortrait(GetTexture("anonymouse_pixel.png"))
-                .AddAbilities(ScrybeCompat.GetP03Ability("Fire Strike When Fueled", Ability.TailOnHit));
+                .AddAbilities(ScrybeCompat.GetP03Ability("Arsonist", Ability.TailOnHit));
 
-            ScrybeCompat.SetFuel(bot, 2);
             if (ScrybeCompat.P03Enabled)
             {
-                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
-                    mean.AddMetaCategories(ScrybeCompat.NatureRegion);
-
-                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
-                    napper.AddMetaCategories(ScrybeCompat.UndeadRegion);
-
-                bot.AddAbilities(ScrybeCompat.GetP03Ability("Fuel Siphon", Ability.None));
+                mean.AddMetaCategories(ScrybeCompat.NatureRegion);
+                napper.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NeutralRegion);
             }
         }

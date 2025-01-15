@@ -19,10 +19,11 @@ namespace BonniesBakingPack
                 .SetTargetedSpellStats()
                 .SetTerrain(false);
 
-            CardManager.New(pluginPrefix, "redVelvet_act3", "Extra RAM", 0, 0, "")
-                .SetBonesCost(2)
+            // Act 3
+            CardManager.New(pluginPrefix3, "redVelvet", "Extra RAM", 0, 0, "")
+                .SetBonesCost(2).SetCardTemple(CardTemple.Tech)
                 .SetPortrait(GetTexture("redVelvet_act3.png"))
-                .AddAbilities(ScrybeCompat.GetP03Ability("Upgrade!", Ability.GainBattery))
+                .AddAbilities(ScrybeCompat.GetP03Ability("Upgrade", Ability.GainBattery))
                 .SetTargetedSpell();
 
             CardManager.New(pluginPrefix, "whiteDonut", "White Donut", 0, 1, "")
@@ -32,12 +33,43 @@ namespace BonniesBakingPack
                 .AddAbilities(Ability.QuadrupleBones)
                 .SetTerrain(false);
 
-            CardManager.New(pluginPrefix, "whiteDonut_act3", "White Noise", 0, 1, "")
-                .SetBonesCost(3)
-                .SetPortrait(GetTexture("whiteDonut_act3.png"))
-                .AddAbilities(GiveSigils.AbilityID, ScrybeCompat.GetP03Ability("Apotheosis", Ability.RandomAbility));
+            // Act 3
+            CardInfo red = CardManager.New(pluginPrefix3, "whiteDonut_red", "Red Noise", 0, 1, "")
+                .SetBonesCost(2).SetCardTemple(CardTemple.Tech)
+                .SetPortrait(GetTexture("whiteDonut_act3.png")).SetEmissivePortrait(GetTexture("whiteDonut_act3_red.png"))
+                .AddAbilities(Ability.GainGemOrange, ScrybeCompat.GetP03Ability("Magic Dust", Ability.DrawRandomCardOnDeath))
+                .SetGlobalSpell();
 
-            CardManager.New(pluginPrefix, "whiteDonut_grimora", "White Bonut", 0, 1, "")
+            // Act 3
+            CardInfo green = CardManager.New(pluginPrefix3, "whiteDonut_green", "Green Noise", 0, 1, "")
+                .SetBonesCost(2).SetCardTemple(CardTemple.Tech)
+                .SetPortrait(GetTexture("whiteDonut_act3.png")).SetEmissivePortrait(GetTexture("whiteDonut_act3_green.png"))
+                .AddAbilities(Ability.GainGemGreen, ScrybeCompat.GetP03Ability("Magic Dust", Ability.DrawRandomCardOnDeath))
+                .SetGlobalSpell();
+
+            // Act 3
+            CardInfo blue = CardManager.New(pluginPrefix3, "whiteDonut_blue", "Blue Noise", 0, 1, "")
+                .SetBonesCost(2).SetCardTemple(CardTemple.Tech)
+                .SetPortrait(GetTexture("whiteDonut_act3.png")).SetEmissivePortrait(GetTexture("whiteDonut_act3_blue.png"))
+                .AddAbilities(Ability.GainGemBlue, ScrybeCompat.GetP03Ability("Magic Dust", Ability.DrawRandomCardOnDeath))
+                .SetGlobalSpell();
+
+            // Act 3
+            CardInfo white = CardManager.New(pluginPrefix3, "whiteDonut", "White Noise", 0, 1, "")
+                .SetBonesCost(4).SetCardTemple(CardTemple.Tech)
+                .SetPortrait(GetTexture("whiteDonut_act3.png"))
+                .AddAbilities(Ability.GainGemTriple, ScrybeCompat.GetP03Ability("Magic Dust", Ability.DrawRandomCardOnDeath))
+                .SetGlobalSpell();
+
+            if (ScrybeCompat.P03Enabled)
+            {
+                ScrybeCompat.AddPart3Decal(red, red.GetEmissivePortrait().texture);
+                ScrybeCompat.AddPart3Decal(green, green.GetEmissivePortrait().texture);
+                ScrybeCompat.AddPart3Decal(blue, blue.GetEmissivePortrait().texture);
+            }
+
+            // Grimora
+            CardManager.New(pluginPrefixG, "whiteDonut", "White Bonut", 0, 1, "")
                 .SetBonesCost(1).SetCardTemple(CardTemple.Undead)
                 .SetPortraitAndEmission(GetTexture("whiteDonut_grimora.png"), GetTexture("whiteDonut_grimora_emission.png"))
                 .SetPixelPortrait(GetTexture("whiteDonut_pixel.png"))
@@ -51,11 +83,11 @@ namespace BonniesBakingPack
                 .SetTargetedSpellStats()
                 .SetTerrain(false);
 
-            CardManager.New(pluginPrefix, "pastry_act3", "PasteMe!", 0, 0, "")
-                .SetEnergyCost(4)
+            // Act 3
+            CardManager.New(pluginPrefix3, "pastry", "PasteMe!", 0, 1, "")
+                .SetBonesCost(3).SetCardTemple(CardTemple.Tech)
                 .SetPortrait(GetTexture("pastry_act3.png"))
-                .AddAbilities(ScrybeCompat.GetP03ExpAbility("Sticker Lord", ScrybeCompat.GetP03Ability("Fully Loaded", Ability.DrawRabbits)))
-                .SetTargetedSpell();
+                .AddAbilities(GiveStats.AbilityID, ScrybeCompat.GetP03Ability("Iterate", Ability.DrawCopy));
 
             CardManager.New(pluginPrefix, "meetBun", "Meet Bun", 0, 1, "")
                 .SetBonesCost(3)
@@ -64,11 +96,11 @@ namespace BonniesBakingPack
                 .AddAbilities(Ability.TripleBlood)
                 .AddTraits(Trait.Goat);
 
-            CardManager.New(pluginPrefix, "meetBun_act3", "M33T BUN", 0, 1, "")
-                .SetBonesCost(2)
+            // Act 3
+            CardManager.New(pluginPrefix3, "meetBun", "M33T BUN", 0, 1, "")
+                .SetBonesCost(3).SetCardTemple(CardTemple.Tech)
                 .SetPortrait(GetTexture("meetBun_act3.png"))
-                .AddAbilities(GiveSigils.AbilityID, ScrybeCompat.GetP03Ability("Full of Blood", Ability.Morsel))
-                .SetTargetedSpell();
+                .AddAbilities(ScrybeCompat.GetP03Ability("Fully Loaded", Ability.DebuffEnemy), ScrybeCompat.GetP03Ability("Full of Blood", Ability.TripleBlood));
 
             CardManager.New(pluginPrefix, "scones", "Scones", 0, 1, "")
                 .SetBonesCost(1)
@@ -78,10 +110,10 @@ namespace BonniesBakingPack
                 .SetTargetedSpellStats()
                 .SetTerrain(false);
 
-            CardManager.New(pluginPrefix, "scones_act3", "S Cones", 0, 2, "")
-                .SetEnergyCost(1)
-                .SetPortrait(GetTexture("scones_act3.png"))
-                .AddAbilities(Ability.Reach);
+            // Act 3
+            CardManager.New(pluginPrefix3, "scones", "Safety Cones", 0, 3, "")
+                .SetBonesCost(3).SetCardTemple(CardTemple.Tech)
+                .SetPortrait(GetTexture("scones_act3.png"));
 
             CardManager.New(pluginPrefix, "eggTart", "Egg Tart", 0, 2, "")
                 .SetBonesCost(2)
@@ -90,10 +122,11 @@ namespace BonniesBakingPack
                 .AddAbilities(Ability.GainBattery)
                 .SetTerrain(false);
 
-            CardManager.New(pluginPrefix, "eggTart_act3", "Egg.txt", 0, 0, "")
-                .SetEnergyCost(2)
+            // Act 3
+            CardManager.New(pluginPrefix3, "eggTart", "Egg.txt", 0, 0, "")
+                .SetBonesCost(3).SetCardTemple(CardTemple.Tech)
                 .SetPortrait(GetTexture("eggTart_act3.png"))
-                .AddAbilities(ScrybeCompat.GetP03Ability("Slime Vandal", Ability.CreateEgg))
+                .AddAbilities(ScrybeCompat.GetP03Ability("Full of Guts", Ability.GainBattery))
                 .SetGlobalSpell();
         }
     }

@@ -3,7 +3,6 @@ using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using DiskCardGame;
-using GrimoraMod;
 using HarmonyLib;
 using Infiniscryption.P03KayceeRun.Cards;
 using Infiniscryption.PackManagement;
@@ -13,28 +12,22 @@ using InscryptionAPI.Ascension;
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
 using InscryptionAPI.Helpers;
-using InscryptionAPI.Sound;
 using InscryptionAPI.TalkingCards.Create;
-using Sirenix.Utilities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using static BonniesBakingPack.BakingPlugin;
 
 namespace BonniesBakingPack
 {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
     [BepInDependency(InscryptionAPIPlugin.ModGUID, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(InfiniscryptionSpellsPlugin.PluginGuid, BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("Lily.BOT", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("tribes.libary", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(ScrybeCompat.GrimoraGuid, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(ScrybeCompat.P03Sigil, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(ScrybeCompat.P03Guid, BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
     public partial class BakingPlugin : BaseUnityPlugin
     {
         private void AddCards()
@@ -75,7 +68,7 @@ namespace BonniesBakingPack
             {
                 foreach (CardInfo info in Act1Cards)
                 {
-                    if (info.name.StartsWith("bbp_mouse"))
+                    if (info.name.StartsWith("bbp_act1_mouse"))
                         info.tribes = new() { rodent };
                     else if (info.name.EndsWith("cat") || info.name.EndsWith("pirate"))
                         info.tribes = new() { feline };
@@ -88,10 +81,9 @@ namespace BonniesBakingPack
             Log = base.Logger;
             Configs = base.Config;
             Assembly = Assembly.GetExecutingAssembly();
+
+            SplitByAct = Config.Bind("General", "All Acts", false, "Should each Scrybe's card pack be choosable in any act?");
             BingusCrash = Config.Bind("General", "Bingus Flubbed It", false, "Has Bingus been played for the first time?");
-            OverrideAct1 = Config.Bind("Compatibility", "Acts for Leshy Cards", ActOverride.Act1, "Adds Leshy cards to the given Acts.");
-            OverrideAct3 = Config.Bind("Compatibility", "Acts for P03 Cards", ActOverride.Act3, "Adds P03 cards to the given Acts. Note that they will have different abilities if P03 in KCM is not installed.");
-            OverrideGrimora = Config.Bind("Compatibility", "Acts for Grimora Cards", ActOverride.ActGrimora, "Adds Grimora cards to the given Acts. Note that they will have different abilities if GrimoraMod is not installed.");
             
             HarmonyInstance.PatchAll(Assembly);
             if (ScrybeCompat.GrimoraEnabled)
@@ -101,6 +93,8 @@ namespace BonniesBakingPack
             if (ScrybeCompat.P03SigilsEnabled)
             {
                 HarmonyInstance.PatchAll(typeof(P03Patches));
+                BonnieAct3.Register();
+                HarmonyInstance.PatchAll(typeof(BonnieAct3));
             }
 
             AddAbilities();
@@ -130,15 +124,15 @@ namespace BonniesBakingPack
             
             AddCards();
             StarterDeckManager.New(pluginGuid, "Basic Baking Pack",
-                GetTexture("starterDeck.png"), new string[3] { "bbp_bonnie", "bbp_meetBun", "bbp_whiteDonut" }
-                );
-
-            StarterDeckManager.New(pluginGuid, "Bot Baking Pack",
-                GetTexture("starterDeck3.png"), new string[4] { "bbp_phoneMouse", "bbp_anonymouse", "bbp_copstable", "bbp_copstable" }
+                GetTexture("starterDeck.png"), new string[3] { "bbp_act1_bonnie", "bbp_act1_meetBun", "bbp_act1_whiteDonut" }
                 );
 
             StarterDeckManager.New(pluginGuid, "Bony Baking Pack",
-                GetTexture("starterDeck2.png"), new string[5] { "bbp_whiteDonut_grimora", "bbp_whiteDonut_grimora", "bbp_mouseGhool", "bbp_mousenapper", "bbp_killerMouse" }
+                GetTexture("starterDeck2.png"), new string[5] { "bbp_grimora_whiteDonut", "bbp_grimora_whiteDonut", "bbp_grimora_mouseGhool", "bbp_grimora_mousenapper", "bbp_grimora_killerMouse" }
+                );
+
+            StarterDeckManager.New(pluginGuid, "Bot Baking Pack",
+                GetTexture("starterDeck3.png"), new string[4] { "bbp_act3_phoneMouse", "bbp_act3_anonymouse", "bbp_act3_copstable", "bbp_act3_copstable" }
                 );
 
             StarterDeckManager.ModifyDeckList += delegate (List<StarterDeckManager.FullStarterDeck> decks)
@@ -151,14 +145,12 @@ namespace BonniesBakingPack
                 if (!ScrybeCompat.P03Enabled)
                 {
                     decks.RemoveAll(x => x.Info.title == "Bot Baking Pack");
-
                 }   
 
                 return decks;
             };
 
-            if (PackAPI.Enabled)
-                PackAPI.CreateCardPack();
+            CreateCardPack();
 
             AssetBundle bundle = AssetBundle.LoadFromStream(Assembly.GetManifestResourceStream("BonniesBakingPack.bonniebaking"));
             AudioClips = new()
@@ -174,7 +166,6 @@ namespace BonniesBakingPack
         {
             internal const string P03Guid = "zorro.inscryption.infiniscryption.p03kayceerun";
             internal const string P03Sigil = "zorro.inscryption.infiniscryption.p03sigillibrary";
-            internal const string P03Exp3 = "zorro.inscryption.infiniscryption.p03expansionpack3";
             internal const string GrimoraGuid = "arackulele.inscryption.grimoramod";
 
             internal static CardMetaCategory NeutralRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "NeutralRegionCards");
@@ -186,6 +177,10 @@ namespace BonniesBakingPack
             internal static bool GrimoraEnabled => Chainloader.PluginInfos.ContainsKey(GrimoraGuid);
             internal static bool P03Enabled => Chainloader.PluginInfos.ContainsKey(P03Guid);
             internal static bool P03SigilsEnabled => Chainloader.PluginInfos.ContainsKey(P03Sigil);
+
+            public static bool IsP03Run => P03Enabled && SaveFile.IsAscension && SaveManager.SaveFile.IsPart3;
+            public static bool IsGrimoraRun => GrimoraEnabled && SaveFile.IsAscension && SaveManager.SaveFile.IsGrimora;
+            internal static bool IsMagnificusRun => false; // sub
 
             internal static Ability GetGrimoraAbility(string rulebookName, Ability fallback)
             {
@@ -210,13 +205,6 @@ namespace BonniesBakingPack
 
                 return fallback;
             }
-            internal static Ability GetP03ExpAbility(string rulebookName, Ability fallback)
-            {
-                if (P03Enabled)
-                    return GuidManager.GetEnumValue<Ability>(P03Exp3, rulebookName);
-
-                return fallback;
-            }
             internal static Opponent.Type GetP03Boss(string name, Opponent.Type fallback)
             {
                 if (P03Enabled)
@@ -234,19 +222,40 @@ namespace BonniesBakingPack
                 card.AddPart3Decal(decal);
             }
         }
-        internal static class PackAPI
+        private static void CreateCardPack()
         {
-            internal static bool Enabled => Chainloader.PluginInfos.ContainsKey("zorro.inscryption.infiniscryption.packmanager");
-            internal static void CreateCardPack()
+            PackInfo act1Pack = PackManager.GetPackInfo<PackInfo>(pluginPrefix);
+            act1Pack.Title = pluginName;
+            act1Pack.SetTexture(TextureHelper.GetImageAsTexture("bbp_pack.png", Assembly));
+            act1Pack.Description = $"14 delicious ingredients for all your pastry-making needs!";
+            act1Pack.ValidFor.Clear();
+            act1Pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+
+            PackInfo pack2 = PackManager.GetPackInfo<PackInfo>(pluginPrefixG);
+            pack2.Title = "Bonnie's Bony Pack";
+            pack2.SetTexture(TextureHelper.GetImageAsTexture("bbp_pack_grimora.png", Assembly));
+            pack2.Description = $"14 devilish ingredients for all your grave-raising needs! Now featuring ghosts and ghoulies!";
+            pack2.ValidFor.Clear();
+            pack2.ValidFor.Add(PackInfo.PackMetacategory.GrimoraPack);
+
+            PackInfo pack3 = PackManager.GetPackInfo<PackInfo>(pluginPrefix3);
+            pack3.Title = "Bonnie's Bot Pack";
+            pack3.SetTexture(TextureHelper.GetImageAsTexture("bbp_pack_act3.png", Assembly));
+            pack3.Description = $"14 dismantled ingredients for all your manufacturing needs! Allergy warning: contains nuts and bolts.";
+            pack3.ValidFor.Clear();
+            pack3.ValidFor.Add(PackInfo.PackMetacategory.P03Pack);
+
+            if (SplitByAct.Value)
             {
-                PackInfo pack = PackManager.GetPackInfo<PackInfo>(pluginPrefix);
-                pack.Title = pluginName;
-                pack.SetTexture(TextureHelper.GetImageAsTexture("bbp_pack.png", Assembly));
-                pack.Description = $"14 delicious ingredients for all your pastry-making needs, be they organic, undead, or robotic!";
-                pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
-                pack.ValidFor.Add(PackInfo.PackMetacategory.GrimoraPack);
-                pack.ValidFor.Add(PackInfo.PackMetacategory.P03Pack);
-                pack.SplitPackByCardTemple = true;
+                Debug.Log("All");
+                act1Pack.ValidFor.Add(PackInfo.PackMetacategory.GrimoraPack);
+                act1Pack.ValidFor.Add(PackInfo.PackMetacategory.P03Pack);
+
+                pack2.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+                pack2.ValidFor.Add(PackInfo.PackMetacategory.P03Pack);
+
+                pack3.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+                pack3.ValidFor.Add(PackInfo.PackMetacategory.GrimoraPack);
             }
         }
 
@@ -275,19 +284,7 @@ namespace BonniesBakingPack
         public static readonly List<CardInfo> P03Cards = new();
 
         internal static ConfigEntry<bool> BingusCrash;
-        internal static ConfigEntry<ActOverride> OverrideAct1;
-        internal static ConfigEntry<ActOverride> OverrideAct3;
-        internal static ConfigEntry<ActOverride> OverrideGrimora;
-
-        [Flags]
-        internal enum ActOverride
-        {
-            None = 1,
-            Act1 = 2,
-            Act3 = 4,
-            ActGrimora = 8
-        }
-        //internal static ConfigEntry<bool> BonnieInP03;
+        internal static ConfigEntry<bool> SplitByAct;
 
         internal static List<AudioClip> AudioClips;
 
@@ -297,9 +294,13 @@ namespace BonniesBakingPack
         internal static ConfigFile Configs;
 
         public const string pluginGuid = "whistlewind.inscryption.bonniesbakingpack";
-        public const string pluginPrefix = "bbp";
+        public const string pluginPrefix = "bbp_act1";
+        public const string pluginPrefixG = "bbp_grimora";
+        public const string pluginPrefix3 = "bbp_act3";
+        public const string pluginPrefixM = "bbp_magnificus";
+
         public const string pluginName = "Bonnie's Baking Pack";
-        private const string pluginVersion = "0.0.1";
+        private const string pluginVersion = "1.0.0";
     }
 
     internal static class Extensions

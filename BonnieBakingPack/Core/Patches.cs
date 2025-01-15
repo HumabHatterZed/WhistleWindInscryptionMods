@@ -2,6 +2,7 @@
 using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using DiskCardGame;
+using GBC;
 using GrimoraMod;
 using HarmonyLib;
 using Infiniscryption.PackManagement;
@@ -14,6 +15,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using static BonniesBakingPack.BakingPlugin;
+using static Infiniscryption.P03KayceeRun.BattleMods.BattleModManager;
 
 namespace BonniesBakingPack
 {
@@ -30,7 +33,7 @@ namespace BonniesBakingPack
             {
                 if (attacker.HasSpecialAbility(PandaAbility.SpecialAbility))
                 {
-                    __instance.Info.Mods.Add(new() { singletonId = "BBP_Sound:panda_gun" });
+                    __instance.Info.Mods.Add(new() { singletonId = "BBP_Sound:panda_gun" }); // since PlayHit doesn't track the attacker, we do that here
                 }
                 else
                 {
@@ -142,61 +145,21 @@ namespace BonniesBakingPack
             }
         }
         [HarmonyPostfix, HarmonyPatch(typeof(GravestoneRenderStatsLayer), nameof(GravestoneRenderStatsLayer.RenderCard))]
-        private static void PrefixChangeEmissionColorBasedOnModSingletonId(GravestoneRenderStatsLayer __instance, ref CardRenderInfo info)
+        private static void AkaMousoEmission(GravestoneRenderStatsLayer __instance, ref CardRenderInfo info)
         {
             if (info.baseInfo.name == "bbp_akaMouso")
             {
                 __instance.SetEmissionColor(new UnityEngine.Color(1f, 0f, 0f));
             }
         }
-        [HarmonyPostfix, HarmonyPatch(typeof(CardLoader), nameof(CardLoader.GetUnlockedCards))]
-        private static void AddNonAct1CardsToAct1(ref List<CardInfo> __result, CardMetaCategory category, CardTemple temple)
-        {
-            List<CardInfo> result = new(__result);
-            if (temple == CardTemple.Nature)
-            {
-                if (BakingPlugin.OverrideAct3.Value.HasFlag(BakingPlugin.ActOverride.Act1))
-                    __result.AddRange(BakingPlugin.P03Cards.Where(x => x.HasCardMetaCategory(category) && !result.Contains(x)));
 
-                if (BakingPlugin.OverrideGrimora.Value.HasFlag(BakingPlugin.ActOverride.Act1))
-                    __result.AddRange(BakingPlugin.GrimoraCards.Where(x => x.HasCardMetaCategory(category) && !result.Contains(x)));
-            }
-            else
-            {
-                __result.RemoveAll(x => x.name == "bbp_bingus");
-                if (temple == CardTemple.Undead)
-                {
-                    if (BakingPlugin.OverrideAct1.Value.HasFlag(BakingPlugin.ActOverride.ActGrimora))
-                        __result.AddRange(BakingPlugin.Act1Cards.Where(x => x.HasCardMetaCategory(category) && !result.Contains(x)));
-
-                    if (BakingPlugin.OverrideAct3.Value.HasFlag(BakingPlugin.ActOverride.ActGrimora))
-                        __result.AddRange(BakingPlugin.P03Cards.Where(x => x.HasCardMetaCategory(category) && !result.Contains(x)));
-                }
-                else if (temple == CardTemple.Tech)
-                {
-                    if (BakingPlugin.OverrideAct1.Value.HasFlag(BakingPlugin.ActOverride.Act3))
-                        __result.AddRange(BakingPlugin.Act1Cards.Where(x => x.HasCardMetaCategory(category) && !result.Contains(x)));
-
-                    if (BakingPlugin.OverrideGrimora.Value.HasFlag(BakingPlugin.ActOverride.Act3))
-                        __result.AddRange(BakingPlugin.GrimoraCards.Where(x => x.HasCardMetaCategory(category) && !result.Contains(x)));
-                }
-            }
-
-            __result = CardLoader.RemoveDeckSingletonsIfInDeck(__result);
-
-            // double chance of bingus
-            if (temple == CardTemple.Nature && category == CardMetaCategory.Rare && SaveManager.SaveFile.CurrentDeck.Cards.Exists(x => x.name == "bbp_bonnie"))
-            {
-                CardInfo bingus = __result.Find(x => x.name == "bbp_bingus");
-                if (bingus != null) __result.Add(bingus);
-            }
-        }
         [HarmonyPrefix, HarmonyPatch(typeof(DeckInfo), nameof(DeckInfo.AddCard))]
         private static void AddNineMod(CardInfo card)
         {
             if (card.name == "bbp_nine" && !card.Mods.Exists(x => x.singletonId == NineAbility.NINE_LIVES_ID))
                 card.Mods.Add(new() { singletonId = NineAbility.NINE_LIVES_ID });
         }
+
         [HarmonyPostfix, HarmonyPatch(typeof(ActivatedDealDamage), nameof(ActivatedDealDamage.Activate))]
         private static IEnumerator PandaShootOnActivatedDamage(IEnumerator enumerator, ActivatedDealDamage __instance)
         {

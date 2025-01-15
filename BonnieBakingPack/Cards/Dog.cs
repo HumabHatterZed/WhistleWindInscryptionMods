@@ -18,13 +18,13 @@ namespace BonniesBakingPack
                 .SetPixelPortrait(GetTexture("dog_pixel.png"))
                 .AddAbilities(Ability.GuardDog, Ability.Reach);
 
-            CardInfo doggone = CardManager.New(pluginPrefix, "doggone", "Doggone", 0, 2, "AN INSUBSTANTIAL EXISTENCE WHOSE ONLY CLAIM TO MEMORY IS THE SPACE IT TAKES UP. SURPRISINGLY SOLID.")
+            CardInfo doggone = CardManager.New(pluginPrefixG, "doggone", "Doggone", 0, 2, "AN INSUBSTANTIAL EXISTENCE WHOSE ONLY CLAIM TO MEMORY IS THE SPACE IT TAKES UP. SURPRISINGLY SOLID.")
                 .SetDefaultPart1Card().AddGrimora()
                 .SetEnergyCost(2)
                 .SetPortraitAndEmission(GetTexture("doggone.png"), GetTexture("doggone_emission.png"))
                 .AddAbilities(Ability.GuardDog, Ability.Reach);
 
-            CardInfo bot = CardManager.New(pluginPrefix, "dogbot", "K9", 0, 2)
+            CardInfo bot = CardManager.New(pluginPrefix3, "dogbot", "K9", 0, 2)
                 .SetDefaultPart3Card().AddP03()
                 .SetEnergyCost(3)
                 .SetPortrait(GetTexture("dogbot.png"))
@@ -35,13 +35,9 @@ namespace BonniesBakingPack
 
             if (ScrybeCompat.P03Enabled)
             {
-                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
-                    dog.AddMetaCategories(ScrybeCompat.NatureRegion);
-
-                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
-                    doggone.AddMetaCategories(ScrybeCompat.UndeadRegion);
-
-                bot.AddMetaCategories(ScrybeCompat.NeutralRegion);
+                dog.AddMetaCategories(ScrybeCompat.NatureRegion);
+                doggone.AddMetaCategories(ScrybeCompat.UndeadRegion);
+                bot.AddMetaCategories(ScrybeCompat.TechRegion);
             }
         }
     }

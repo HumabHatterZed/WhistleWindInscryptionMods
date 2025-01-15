@@ -81,31 +81,78 @@ namespace BonniesBakingPack
         }
         public static string GetRandomFoodName(int randomSeed)
         {
-            int val = SeededRandom.Range(0, 6, randomSeed);
-            if (SaveManager.SaveFile.IsPart3)
+            int val = 0;
+            List<string> possibleFoodPool = new()
             {
-                return val switch
-                {
-                    0 => "bbp_pastry_act3",
-                    1 => "bbp_whiteDonut_act3",
-                    2 => "bbp_meetBun_act3",
-                    3 => "bbp_scones_act3",
-                    4 => "bbp_eggTart_act3",
-                    _ => "bbp_redVelvet_act3"
-                };
-            }
-            else
+                "bbp_pastry",
+                "bbp_whiteDonut",
+                "bbp_meetBun",
+                "bbp_scones",
+                "bbp_eggTart",
+                "bbp_redVelvet",
+                "bbp_pastry_act3",
+                "n_act3", // placeholder, will be replaced with a valid name if chosen
+                "bbp_meetBun_act3",
+                "bbp_scones_act3",
+                "bbp_eggTart_act3",
+                "bbp_redVelvet_act3"
+            };
+
+            if (!BakingPlugin.SplitByAct.Value)
             {
-                return val switch
+                if (SaveManager.SaveFile.IsPart1)
                 {
-                    0 => "bbp_pastry",
-                    1 => "bbp_whiteDonut",
-                    2 => "bbp_meetBun",
-                    3 => "bbp_scones",
-                    4 => "bbp_eggTart",
-                    _ => "bbp_redVelvet"
-                };
+                    possibleFoodPool.RemoveAll(x => x.StartsWith("bbp_act3"));
+                }
+                else if (SaveManager.SaveFile.IsPart3)
+                {
+                    possibleFoodPool.RemoveAll(x => !x.StartsWith("bbp_act3"));
+                }
             }
+
+            // remove cards that are useless to the player every now and then
+            // makes this ability a tad more consistent in utility
+            if (SeededRandom.Bool(++randomSeed))
+            {
+                List<CardInfo> deck = CardDrawPiles.Instance.Deck.Cards.Concat(PlayerHand.Instance.CardsInHand.Select(x => x.Info)).ToList();
+
+                if (!deck.Exists(x => x.GemsCost.Count > 0))
+                {
+                    possibleFoodPool.Remove("n_act3");
+                }
+                if (!deck.Exists(x => x.BloodCost > 0))
+                {
+                    possibleFoodPool.Remove("bbp_meetBun");
+                }
+            }
+
+
+            string chosenFood = possibleFoodPool[SeededRandom.Range(0, possibleFoodPool.Count, randomSeed)];
+            if (chosenFood.Equals("n_act3"))
+            {
+                chosenFood = GetRandomNoise(randomSeed);
+            }
+
+            return chosenFood;
+        }
+        private static string GetRandomNoise(int randomSeed)
+        {
+            int val = SeededRandom.Range(0, 7, ++randomSeed);
+
+            if (val <= 1)
+            {
+                return "bbp_whiteDonut_act3_red";
+            }
+            if (val <= 3)
+            {
+                return "bbp_whiteDonut_act3_blue";
+            }
+            if (val <= 5)
+            {
+                return "bbp_whiteDonut_act3_green";
+            }
+
+            return "bbp_whiteDonut_act3";
         }
     }
     public class CreateBunnieTrigger : NonCardTriggerReceiver

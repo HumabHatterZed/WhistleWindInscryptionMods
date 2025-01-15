@@ -22,7 +22,7 @@ namespace BonniesBakingPack
                 .AddSpecialAbilities(PandaAbility.SpecialAbility)
                 .AddAbilities(Ability.Deathtouch);
 
-            CardInfo dead = CardManager.New(pluginPrefix, "deadtective", "Deadtective", 1, 1, "A DETECTIVE THAT WAS HUNTED BY A KILLER. ARMLESS YET DANGEROUS.")
+            CardInfo dead = CardManager.New(pluginPrefixG, "deadtective", "Deadtective", 1, 1, "A DETECTIVE THAT WAS HUNTED BY A KILLER. ARMLESS YET DANGEROUS.")
                 .SetDefaultPart1Card().AddGrimora()
                 .SetBonesCost(4)
                 .SetPortraitAndEmission(GetTexture("deadtective.png"), GetTexture("deadtective_emission.png"))
@@ -30,24 +30,22 @@ namespace BonniesBakingPack
                 .AddSpecialAbilities(PandaAbility.SpecialAbility)
                 .AddAbilities(ScrybeCompat.GetGrimoraAbility("Soul Shot", Ability.ActivatedDealDamage));
 
-            CardInfo bot = CardManager.New(pluginPrefix, "pandat", "Pardan Panda", 1, 2)
+            CardInfo bot = CardManager.New(pluginPrefix3, "pandat", "Pardan Panda", 2, 3)
                 .SetDefaultPart3Card().AddP03()
-                .SetEnergyCost(5)
+                .SetEnergyCost(6)
+                .SetRare()
                 .SetPortrait(GetTexture("pandat.png"))
                 .SetAltPortrait(GetTexture("pandat_alt.png"))
                 .AddSpecialAbilities(PandaAbility.SpecialAbility);
 
             if (ScrybeCompat.P03Enabled)
             {
-                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
-                    panda.AddMetaCategories(ScrybeCompat.NatureRegion);
-
-                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
-                    dead.AddMetaCategories(ScrybeCompat.UndeadRegion);
+                panda.AddMetaCategories(ScrybeCompat.NatureRegion);
+                dead.AddMetaCategories(ScrybeCompat.UndeadRegion);
 
                 Ability ability2 = ScrybeCompat.GetP03Ability("Nerf This!", Ability.None);
                 CardAppearanceBehaviour.Appearance app = GuidManager.GetEnumValue<CardAppearanceBehaviour.Appearance>(ScrybeCompat.P03Guid, "ForceRevolverAppearance");
-                bot.AddAbilities(Ability.Deathtouch, ability2).AddMetaCategories(ScrybeCompat.NatureRegion).AddAppearances(app);
+                bot.AddAbilities(Ability.Deathtouch, ability2).AddMetaCategories(ScrybeCompat.TechRegion).AddAppearances(app);
             }
             else
             {

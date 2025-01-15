@@ -31,7 +31,7 @@ namespace BonniesBakingPack
             
             return base.OnDealDamage(amount, target);
         }
-        public override string CardName => "bbp_bunnie";
+        public override string CardName => "bbp_act1_bunnie";
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1f, voiceSoundPitch: 1.4f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 

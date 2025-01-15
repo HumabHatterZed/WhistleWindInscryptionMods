@@ -13,7 +13,7 @@ namespace BonniesBakingPack
 {
     public class BonnieDiskAbility : CustomDiskTalkingCard
     {
-        public override string CardName => "bbp_bonnie_act3";
+        public override string CardName => "bbp_act3_bonnie";
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.6f, voiceSoundPitch: 1.6f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
@@ -85,13 +85,13 @@ namespace BonniesBakingPack
     {
         private void CreateBonnieDisk()
         {
-            CardManager.New(pluginPrefix, "bonnie_act3", "Bonnie", 1, 1)
+            CardInfo bonnie = CardManager.New(pluginPrefix3, "bonnie", "Bonnie", 1, 1)
                 .SetBloodCost(1).AddP03().SetRare()
                 .SetPixelPortrait(GetTexture("bonnie_pixel.png"))
                 .AddAbilities(FreshFood.ability)
                 .AddTraits(Trait.KillsSurvivors)
                 .SetOnePerDeck();
-
+            
             TalkingCardManager.New<BonnieDiskAbility>();
 
             DialogueManager.GenerateEvent(pluginGuid, "BonniePhotographer", new() {

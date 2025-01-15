@@ -32,7 +32,7 @@ namespace BonniesBakingPack
             
             return base.OnDealDamage(amount, target);
         }
-        public override string CardName => "bbp_bunnie_act3";
+        public override string CardName => "bbp_act3_bunnie";
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1f, voiceSoundPitch: 1.4f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
@@ -85,7 +85,7 @@ namespace BonniesBakingPack
     {
         private void CreateBunnieDisk()
         {
-            CardManager.New(pluginPrefix, "bunnie_act3", "Bunnie", 2, 2, "")
+            CardManager.New(pluginPrefix3, "bunnie", "Bunnie", 2, 2, "")
                 .SetBloodCost(1).AddP03().SetRare()
                 .AddAbilities(FreshIngredients.ability)
                 .AddTraits(Trait.KillsSurvivors)

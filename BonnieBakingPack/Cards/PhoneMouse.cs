@@ -22,13 +22,13 @@ namespace BonniesBakingPack
                 .AddAbilities(Ability.DrawRandomCardOnDeath)
                 .AddTraits(Trait.SatisfiesRingTrial);
 
-            CardInfo killer = CardManager.New(pluginPrefix, "killerMouse", "Killer Mouse", 1, 2, "DEATH FOLLOWS SWIFTLY WHEN THIS STABBY LITTLE MOUSE COMES A-CALLING.")
+            CardInfo killer = CardManager.New(pluginPrefixG, "killerMouse", "Killer Mouse", 1, 2, "DEATH FOLLOWS SWIFTLY WHEN THIS STABBY LITTLE MOUSE COMES A-CALLING.")
                 .SetDefaultPart1Card().AddGrimora()
                 .SetEnergyCost(3)
                 .SetPortraitAndEmission(GetTexture("killerMouse.png"), GetTexture("killerMouse_emission.png"))
                 .SetPixelPortrait(GetTexture("killerMouse_pixel.png"));
 
-            CardInfo bot = CardManager.New(pluginPrefix, "phoneMouse", "Mouse Phone", 0, 0)
+            CardInfo bot = CardManager.New(pluginPrefix3, "phoneMouse", "Mouse Phone", 0, 0)
                 .SetDefaultPart3Card().AddP03()
                 .SetEnergyCost(1)
                 .SetPortrait(GetTexture("phoneMouse.png"))
@@ -49,12 +49,8 @@ namespace BonniesBakingPack
 
             if (ScrybeCompat.P03Enabled)
             {
-                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
-                    phone.AddMetaCategories(ScrybeCompat.NatureRegion);
-
-                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
-                    killer.AddMetaCategories(ScrybeCompat.UndeadRegion);
-
+                phone.AddMetaCategories(ScrybeCompat.NatureRegion);
+                killer.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NeutralRegion);
             }
         }

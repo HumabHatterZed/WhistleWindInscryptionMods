@@ -21,13 +21,13 @@ namespace BonniesBakingPack
                 .AddTraits(Trait.Wolf)
                 .AddAbilities(Ability.CorpseEater);
 
-            CardInfo spirit = CardManager.New(pluginPrefix, "spiritWolf", "Spirit Wolf", 2, 1, "THE DEGENERATED SPIRIT OF A ONCE-FEARSOME PREDATOR OF THE FOREST.")
+            CardInfo spirit = CardManager.New(pluginPrefixG, "spiritWolf", "Spirit Wolf", 2, 1, "THE DEGENERATED SPIRIT OF A ONCE-FEARSOME PREDATOR OF THE FOREST.")
                 .SetDefaultPart1Card().AddGrimora()
                 .SetEnergyCost(4)
                 .SetPortraitAndEmission(GetTexture("spiritWolf.png"), GetTexture("spiritWolf_emission.png"))
                 .AddTraits(Trait.Wolf);
 
-            CardInfo bot = CardManager.New(pluginPrefix, "copstable", "Cop.stable", 1, 1)
+            CardInfo bot = CardManager.New(pluginPrefix3, "copstable", "Cop.stable", 1, 1)
                 .SetDefaultPart3Card().AddP03()
                 .SetEnergyCost(3)
                 .SetPortrait(GetTexture("firewolf.png"))
@@ -36,13 +36,9 @@ namespace BonniesBakingPack
 
             if (ScrybeCompat.P03Enabled)
             {
-                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
-                    wolf.AddMetaCategories(ScrybeCompat.NatureRegion);
-
-                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
-                    spirit.AddMetaCategories(ScrybeCompat.UndeadRegion);
-
-                bot.AddMetaCategories(ScrybeCompat.NeutralRegion);
+                wolf.AddMetaCategories(ScrybeCompat.NatureRegion);
+                spirit.AddMetaCategories(ScrybeCompat.UndeadRegion);
+                bot.AddMetaCategories(ScrybeCompat.TechRegion);
             }
         }
     }

@@ -27,9 +27,9 @@ namespace BonniesBakingPack
                     emission: GeneratePortrait.EmptyPortraitTuple)
             };
             FaceInfo faceInfo = new(voiceId: "female1_voice");
-            FaceData bingusFace = new("bbp_bingus", emotionData, faceInfo);
+            FaceData bingusFace = new("bbp_act1_bingus", emotionData, faceInfo);
 
-            CardManager.New(pluginPrefix, "bingus", "Bingus", 62123, 62123, "I must admit I do not know what this thing is.")
+            CardManager.New(pluginPrefix, "bingus", "Bingus", 0, 0, "I must admit I do not know what this thing is.")
                 .SetPixelPortrait(GetTexture("bingus_pixel.png"))
                 .SetRare().RemoveAppearances(CardAppearanceBehaviour.Appearance.RareCardBackground)
                 .SetStatIcon(BingusStatIcon.Icon)

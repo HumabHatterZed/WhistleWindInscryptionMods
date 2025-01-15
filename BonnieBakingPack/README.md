@@ -1,17 +1,18 @@
 # Bonnie's Baking Pack
 
-Step into the kitchen with this delicious pack of 14 cards based on the indie game Bonnie's Bakery!
-Featuring iconic characters such as Panda, Cat, and of course Phone Mouse, this mod is sure to satiate your appetite for simple and clean card fun!
+Step into the kitchen with this delicious pack of 14+ cards based on the indie game Bonnie's Bakery!
+Featuring iconic named characters such as Panda, Cat, and of course... Phone Mouse.
+No matter your favourite character, this mod is sure to satiate your appetite for delicious, home-made fun!
 
 Includes 1 starter deck chock full of savory ingredients to help you get started on your baking journey.
 
-This mod is also compatible with GrimoraMod and P03 in Kaycee's Mod, and includes rethemed and retooled cards for use in those mods.
-These cards can be obtained in Act 1 by enabling them in the config file.
+This mod also includes rethemed cards for GrimoraMod and P03 in Kaycee's Mod, retooled and rebalanced to fit with each Act!
+These cards can be obtained in Act 1 by changing the config file, and vice versa.
 
 ## Compatibility
 **GrimoraMod** - Spooky variants of the main cards will appear in the mod, as well as a custom starter deck.
 
-**P03 in Kaycee's Mod** - Robotic variants of the main cards will appear in the mod, as well as a custom starter deck.
+**P03 in Kaycee's Mod** - Robotic variants of the main cards will appear in the mod, as well as a custom starter deck. Includes a challenge to add Bonnie as a card choice.
 
 **Tribal Libary (sic)** - Mouse cards will gain the Vermin tribe and cat cards will gain the Feline tribe.
 
@@ -78,18 +79,18 @@ These cards can be obtained in Act 1 by enabling them in the config file.
 |:-|:-:
 |Litle M0U53|1/1|<img src='https://i.imgur.com/9tZzgbv.png'>|Transforms When Powered|Juvenile
 |M0U53|2/4|<img src='https://i.imgur.com/mBwmFpx.png'>|
-|Anonymouse|1/2|<img src='https://i.imgur.com/OYmdUg3.png'>|Fire Strike When Fueled, Fuel Siphon
-|Steambot Willy|3/1|<img src='https://i.imgur.com/mBwmFpx.png'>|Conduit Protector, Waterborne|Rare
+|Anonymouse|1/1|<img src='https://i.imgur.com/vUBgPOO.png'>|Arsonist
+|Steambot Willy|3/1|<img src='https://i.imgur.com/OYmdUg3.png'>|Fuel Strike, Waterborne|Rare, Fuel (3)
 |Mouse Phone|0/0|<img src='https://i.imgur.com/C22peXt.png'>|Tinkerer|Spell
 |Cop.stable|1/1|<img src='https://i.imgur.com/9tZzgbv.png'>|Electric
-|FAT C4T|0/2|<img src='https://i.imgur.com/H6vESv7.png'>|Macabre Growth, Mine Cryptocurrency
-|Bunbot|1/3|<img src='https://i.imgur.com/JmoIiwV.png'>|Hopper, Flammable
+|FAT C4T|0/2|<img src='https://i.imgur.com/9tZzgbv.png'>|Null Conduit, Mine Cryptocurrency
+|Bunbot|2/1|<img src='https://i.imgur.com/OYmdUg3.png'>|Hopper, Flammable
 |K9|0/2|<img src='https://i.imgur.com/9tZzgbv.png'>|Launch Self, Solar Heart
-|Pardan Panda|1/2|<img src='https://i.imgur.com/JmoIiwV.png'>|Touch of Death, Nerf This!
-|Digital Mhoost|1/3|<img src='https://i.imgur.com/UvtK0PY.png'>|Phase Through
+|Pardan Panda|2/3|<img src='https://i.imgur.com/mBwmFpx.png'>|Touch of Death, Nerf This!|Rare
+|Digital Mhoost|1/2|<img src='https://i.imgur.com/9tZzgbv.png'>|Phase Through
 |Trojan|0/2|<img src='https://i.imgur.com/vUBgPOO.png'>|Armour Giver, Shield Absorption
-|Default User|0/1|<img src='https://i.imgur.com/9tZzgbv.png'>|Button Pusher
-|The Lady Complete|2/1|<img src='https://i.imgur.com/cVoD0p2.png'><img src='https://i.imgur.com/WnaCjEY.png'><img src='https://i.imgur.com/VohLYjY.png'>|Emerald Blessing, Orange Mox Printer, Purist With Blue|Rare, Unique
+|Default User|0/1|<img src='https://i.imgur.com/9tZzgbv.png'>|Rubber Stamp
+|Administrator|1/3|<img src='https://i.imgur.com/OYmdUg3.png'>|Button Pusher, Combat Research|Rare, Unique
 </details>
 
 ## Starter Decks
@@ -103,7 +104,7 @@ These cards can be obtained in Act 1 by enabling them in the config file.
 
 |Bot Baking Pack|
 |:-|
-|Mouse Phone<br>Anonymouse<br>Cop.stable<br>Cop.stable|
+|Mouse Phone<br>Anonymouse<br>Cop.stable<br>Pardan Panda|
 
 ## Credits
 **WhistleWind** - Artwork and programming

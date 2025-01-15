@@ -16,16 +16,16 @@ namespace BonniesBakingPack
                 .SetPixelPortrait(GetTexture("protagonist_pixel.png"))
                 .AddAbilities(Ability.Tutor);
 
-            CardInfo warrior = CardManager.New(pluginPrefix, "unknownWarrior", "Unknown Soldier", 2, 2, "A MYSTERIOUS SOLDIER, KNOWN ONLY TO GOD.")
+            CardInfo warrior = CardManager.New(pluginPrefixG, "unknownWarrior", "Unknown Soldier", 2, 2, "A MYSTERIOUS SOLDIER, KNOWN ONLY TO GOD.")
                 .SetDefaultPart1Card().AddGrimora()
                 .SetBonesCost(4)
                 .SetPortraitAndEmission(GetTexture("unknownWarrior.png"), GetTexture("unknownWarrior_emission.png"));
 
-            CardInfo bot = CardManager.New(pluginPrefix, "defaultUser", "Default User", 0, 1)
+            CardInfo bot = CardManager.New(pluginPrefix3, "defaultUser", "Default User", 0, 1)
                 .SetDefaultPart3Card().AddP03()
                 .SetEnergyCost(3)
                 .SetPortrait(GetTexture("defaultUser.png"))
-                .AddAbilities(ScrybeCompat.GetP03Ability("Button Pusher", Ability.DrawCopy));
+                .AddAbilities(ScrybeCompat.GetP03Ability("Rubber Stamp", Ability.DrawCopy));
 
             if (ScrybeCompat.GrimoraEnabled)
             {
@@ -39,12 +39,8 @@ namespace BonniesBakingPack
 
             if (ScrybeCompat.P03Enabled)
             {
-                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
-                    protag.AddMetaCategories(ScrybeCompat.NatureRegion);
-
-                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
-                    warrior.AddMetaCategories(ScrybeCompat.UndeadRegion);
-
+                protag.AddMetaCategories(ScrybeCompat.NatureRegion);
+                warrior.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NeutralRegion);
             }
         }

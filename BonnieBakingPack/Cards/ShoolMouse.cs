@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
+using MonoMod.RuntimeDetour;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,14 +20,14 @@ namespace BonniesBakingPack
                 .AddAbilities(Ability.Evolve)
                 .AddTraits(Trait.Juvenile).SetEvolve(mouse, 1);
 
-            CardInfo ghool = CardManager.New(pluginPrefix, "mouseGhool", "Ghool Mouse", 0, 1, "A SKITTISH MOUSE, SPIRITLESS AND HOLLOW.")
+            CardInfo ghool = CardManager.New(pluginPrefixG, "mouseGhool", "Ghool Mouse", 0, 1, "A SKITTISH MOUSE, SPIRITLESS AND HOLLOW.")
                 .SetDefaultPart1Card().AddGrimora()
                 .SetBonesCost(3)
                 .SetPortraitAndEmission(GetTexture("mouseGhool.png"), GetTexture("mouseGhool_emission.png"))
                 .SetPixelPortrait(GetTexture("mouseGhool_pixel.png"))
                 .AddAbilities(ScrybeCompat.GetGrimoraAbility("Skin Crawler", Ability.CorpseEater));
 
-            CardInfo bot1 = CardManager.New(pluginPrefix, "minorMousebot", "Litle M0U53", 1, 1)
+            CardInfo bot1 = CardManager.New(pluginPrefix3, "minorMousebot", "Litle M0U53", 1, 1)
                 .SetDefaultPart3Card().AddP03()
                 .SetEnergyCost(3)
                 .SetPortrait(GetTexture("minorMousebot.png"))
@@ -36,12 +37,8 @@ namespace BonniesBakingPack
 
             if (ScrybeCompat.P03Enabled)
             {
-                if (OverrideAct1.Value.HasFlag(ActOverride.Act3))
-                    shool.AddMetaCategories(ScrybeCompat.NatureRegion);
-
-                if (OverrideGrimora.Value.HasFlag(ActOverride.Act3))
-                    ghool.AddMetaCategories(ScrybeCompat.UndeadRegion);
-
+                shool.AddMetaCategories(ScrybeCompat.NatureRegion);
+                ghool.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot1.AddMetaCategories(ScrybeCompat.NatureRegion);
             }
         }

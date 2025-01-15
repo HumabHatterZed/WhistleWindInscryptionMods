@@ -13,7 +13,7 @@ namespace BonniesBakingPack
 {
     public class BonnieAbility : CustomPaperTalkingCard
     {
-        public override string CardName => "bbp_bonnie";
+        public override string CardName => "bbp_act1_bonnie";
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.6f, voiceSoundPitch: 1.6f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
