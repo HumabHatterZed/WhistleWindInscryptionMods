@@ -22,10 +22,12 @@
   </ItemGroup>
   
   <ItemGroup>
+    <None Remove="lobmodassets" />
     <None Remove="lobmodbosses" />
   </ItemGroup>
   
   <ItemGroup>
+    <EmbeddedResource Include="lobmodassets" />
     <EmbeddedResource Include="lobmodbosses" />
   </ItemGroup>
   

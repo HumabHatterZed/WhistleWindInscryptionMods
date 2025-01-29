@@ -1,14 +1,8 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
-using Infiniscryption.P03KayceeRun.Encounters;
 using InscryptionAPI.Encounters;
-using System;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Opponents;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Opponents
 {
     /// <summary>
     /// Appears in R0

@@ -1,16 +1,8 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
-using InscryptionAPI.Helpers.Extensions;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.XR.Tango;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using EncounterBuilder = DiskCardGame.EncounterBuilder;
 
 namespace WhistleWindLobotomyMod.Opponents
 {
@@ -77,9 +69,20 @@ namespace WhistleWindLobotomyMod.Opponents
             BattleSequencer.ModifyQueuedCard(card);
         }
 
+        public override IEnumerator LifeLostSequence()
+        {
+            Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
+            yield return new WaitForSeconds(0.25f);
+            yield return DialogueHelper.PlayDialogueEvent("DefeatedOrdealOpponent");
+        }
+
         public override IEnumerator IntroSequence(EncounterData encounter)
         {
             totemOpponent = encounter.opponentTotem != null;
+            OrdealBannerManager.Instance.UpdateBanner(BattleSequencer.ordealType, BattleSequencer.ordealTier);
+            OrdealCounterManager.Instance.UpdateConsole(BattleSequencer.ordealTier, BattleSequencer.MinNumCardsRequired);
+            AudioController.Instance.FadeOutLoop(0.1f, 0, 1);
+
             totemGlowColour = BattleSequencer.ordealType switch
             {
                 OrdealType.Green => GameColors.Instance.darkLimeGreen,
@@ -87,33 +90,41 @@ namespace WhistleWindLobotomyMod.Opponents
                 OrdealType.Crimson => GameColors.Instance.glowRed,
                 OrdealType.Amber => GameColors.Instance.orange,
                 OrdealType.Indigo => GameColors.Instance.blue,
-                _ => GameColors.Instance.gray
+                _ => GameColors.Instance.gray,
             };
-
-            AudioController.Instance.SetLoopVolume(0.5f * (Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.5f);
-
-            AudioController.Instance.SetLoopAndPlay("red_noise", 1);
-            AudioController.Instance.SetLoopVolumeImmediate(0.3f, 1);
+            base.StartCoroutine(DisplayBanner(BattleSequencer.ordealType, true));
             this.SetSceneEffectsShown(true);
-            yield return new WaitForSeconds(1f);
-            
+            //AudioController.Instance.SetLoopAndPlay("first_warning", 1);
+            //AudioController.Instance.SetLoopVolumeImmediate(0.3f, 0.8f);
+            OrdealCounterManager.Instance.SetShown(true);
+            yield return new WaitForSeconds(1.5f);
+
             if (totemOpponent)
                 yield return base.AssembleTotem(encounter.opponentTotem, Vector3.zero, Vector3.zero, totemGlowColour, true);
 
-            Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-            yield return new WaitForSeconds(0.25f);
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
+            if (!ProgressionData.LearnedMechanic(OrdealUtils.OrdealBattle))
+            {
+                yield return new WaitUntil(() => !OrdealBannerManager.Instance.Displaying);
+                ViewManager.Instance.SwitchToView(View.Default);
+                yield return new WaitForSeconds(0.5f);
+                yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("OrdealFirstIntro", TextDisplayer.MessageAdvanceMode.Input);
+                ProgressionData.SetMechanicLearned(OrdealUtils.OrdealBattle);
+            }
+            yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, startDelay: 0f);
+            OrdealCounterManager.Instance.EnableConsole(true);
+            yield return new WaitForSeconds(1f);
+            ViewManager.Instance.SwitchToView(View.Default);
+            yield return new WaitForSeconds(0.2f);
+
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
-        public override IEnumerator LifeLostSequence()
-        {
-            Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
-            yield return new WaitForSeconds(0.25f);
-            yield return DialogueHelper.PlayDialogueEvent("DefeatedOrdealOpponent");
-        }
+
         public override IEnumerator OutroSequence(bool wasDefeated)
         {
-            yield return new WaitForSeconds(0.5f);
+            OrdealBannerManager.Instance.UpdateBannerOutro(BattleSequencer.ordealType, BattleSequencer.ordealTier);
+            base.StartCoroutine(DisplayBanner(BattleSequencer.ordealType, false));
+            yield return new WaitForSeconds(2f);
             if (totemOpponent)
             {
                 Singleton<ViewManager>.Instance.SwitchToView(View.OpponentTotem, immediate: false, lockAfter: true);
@@ -121,15 +132,49 @@ namespace WhistleWindLobotomyMod.Opponents
                 Singleton<OpponentAnimationController>.Instance.SetLookTarget(base.totem.transform, Vector3.up * 2f + Vector3.back * 2f);
                 yield return base.DisassembleTotem();
             }
-            AudioController.Instance.StopLoop(1);
-            AudioController.Instance.SetLoopVolume((Singleton<GameFlowManager>.Instance as Part1GameFlowManager).GameTableLoopVolume, 0.25f);
+            AudioController.Instance.FadeOutLoop(0.5f, 0, 1);
             this.SetSceneEffectsShown(showEffects: false);
-            yield return new WaitForSeconds(0.7f);
-            Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-            yield return new WaitForSeconds(0.15f);
+            yield return HelperMethods.ChangeCurrentView(View.Default, 0.7f);
+            OrdealCounterManager.Instance.EnableConsole(false);
+            yield return new WaitForSeconds(0.25f);
+            OrdealCounterManager.Instance.SetShown(false);
+            yield return new WaitForSeconds(1.5f);
+
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
             Singleton<InteractionCursor>.Instance.InteractionDisabled = true;
+        }
+
+        private IEnumerator DisplayBanner(OrdealType ordeal, bool intro)
+        {
+            LobotomyPlugin.Log.LogInfo($"DisplayBanner [{ordeal}] Intro:{intro}");
+            string audioName = ordeal.ToString() + "_" + (intro ? "start" : "end");
+            AudioController.Instance.PlaySound2D(audioName, MixerGroup.TableObjectsSFX);
+            OrdealBannerManager.Instance.ShowBanner();
+            yield return new WaitForSeconds(3f);
+
+            /*OrdealBannerManager.Instance.UpdateBanner(OrdealType.White, 0);
+            yield return new WaitForSeconds(3f);
+            OrdealBannerManager.Instance.UpdateBannerOutro(OrdealType.White, 0);
+            yield return new WaitForSeconds(3f);
+
+            OrdealBannerManager.Instance.UpdateBanner(OrdealType.White, 1);
+            yield return new WaitForSeconds(3f);
+            OrdealBannerManager.Instance.UpdateBannerOutro(OrdealType.White, 1);
+            yield return new WaitForSeconds(3f);
+
+            OrdealBannerManager.Instance.UpdateBanner(OrdealType.White, 2);
+            yield return new WaitForSeconds(3f);
+            OrdealBannerManager.Instance.UpdateBannerOutro(OrdealType.White, 2);
+            yield return new WaitForSeconds(3f);
+
+            OrdealBannerManager.Instance.UpdateBanner(OrdealType.White, 3);
+            yield return new WaitForSeconds(3f);
+            OrdealBannerManager.Instance.UpdateBannerOutro(OrdealType.White, 3);
+            yield return new WaitForSeconds(3f);*/
+
+            OrdealBannerManager.Instance.HideBanner();
+            yield return new WaitForSeconds(2f);
         }
 
         private void SetSceneEffectsShown(bool showEffects)

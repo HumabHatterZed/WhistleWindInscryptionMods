@@ -1,22 +1,20 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
-using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
-using System;
-using System.Collections.Generic;
+using InscryptionAPI.Guid;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Opponents;
-using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Opponents
 {
     // Ordeals require you to defeat a certain number of opponent cards; they utilise card repositioning, deck renewal, and bone harvesting
     public static class OrdealUtils
     {
         public static Opponent.Type OpponentID { get; internal set; }
+
+        public static MechanicsConcept OrdealBattle = GuidManager.GetEnumValue<MechanicsConcept>(LobotomyPlugin.pluginGuid, "OrdealBattle");
 
         public static Texture2D[] DawnAnim;
         public static Texture2D[] DawnTotemAnim;
@@ -32,8 +30,8 @@ namespace WhistleWindLobotomyMod
         public static readonly string GreenDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenDawn", typeof(OrdealGreenDawn)).Id;
         public static readonly string GreenNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenNoon", typeof(OrdealGreenNoon)).Id;
         public static readonly string GreenDusk = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenDusk", typeof(OrdealGreenDusk)).Id;
-        public static readonly string GreenMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenDawn", typeof(OrdealGreenMidnight)).Id;
-        
+        public static readonly string GreenMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealGreenMidnight", typeof(OrdealGreenMidnight)).Id;
+
         public static readonly string VioletDawn = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealVioletDawn", typeof(OrdealVioletDawn)).Id;
         public static readonly string VioletNoon = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealVioletNoon", typeof(OrdealVioletNoon)).Id;
         public static readonly string VioletMidnight = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealVioletMidnight", typeof(OrdealVioletMidnight)).Id;
@@ -50,8 +48,66 @@ namespace WhistleWindLobotomyMod
 
         public static readonly string WhiteOrdeal = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "OrdealWhite", typeof(OrdealWhite)).Id;
 
+        public static AudioClip[] OrdealSFX;
 
+        public static View ViewCounter = GuidManager.GetEnumValue<View>(LobotomyPlugin.pluginGuid, "ViewCounter");
+
+        public static bool OpponentIsOrdeal() => TurnManager.Instance.Opponent != null && TurnManager.Instance.Opponent is OrdealOpponent;
         public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals) => possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length - 1)];
+
+        public static string GetOrdealIntroDescription(OrdealType type, int tier)
+        {
+            return LobotomyDialogue.BannerIntroDescriptions[type][tier];
+        }
+        public static string GetOrdealOutroDescription(OrdealType type, int tier)
+        {
+            return LobotomyDialogue.BannerOutroDescriptions[type][tier];
+        }
+
+        internal static void InitOrdeals()
+        {
+            OpponentID = OpponentManager.Add(LobotomyPlugin.pluginGuid, "OrdealOpponent", null, typeof(OrdealOpponent), null).Id;
+
+            DawnAnim = NodeHelper.GetNodeTextureList("nodeOrdealDawn1", "nodeOrdealDawn2", "nodeOrdealDawn3", "nodeOrdealDawn4").ToArray();
+            DawnTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealDawnTotem1", "nodeOrdealDawnTotem2", "nodeOrdealDawnTotem3", "nodeOrdealDawnTotem4").ToArray();
+            NoonAnim = NodeHelper.GetNodeTextureList("nodeOrdealNoon1", "nodeOrdealNoon2", "nodeOrdealNoon3", "nodeOrdealNoon4").ToArray();
+            NoonTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealNoonTotem1", "nodeOrdealNoonTotem2", "nodeOrdealNoonTotem3", "nodeOrdealNoonTotem4").ToArray();
+            DuskAnim = NodeHelper.GetNodeTextureList("nodeOrdealDusk1", "nodeOrdealDusk2", "nodeOrdealDusk3", "nodeOrdealDusk4").ToArray();
+            DuskTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealDuskTotem1", "nodeOrdealDuskTotem2", "nodeOrdealDuskTotem3", "nodeOrdealDuskTotem4").ToArray();
+            MidnightAnim = NodeHelper.GetNodeTextureList("nodeOrdealMidnight1", "nodeOrdealMidnight2", "nodeOrdealMidnight3", "nodeOrdealMidnight4").ToArray();
+            MidnightTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealMidnightTotem1", "nodeOrdealMidnightTotem2", "nodeOrdealMidnightTotem3", "nodeOrdealMidnightTotem4").ToArray();
+
+            OrdealCounterManager.dawnSprite = AssetManager.AssetBundle.LoadAsset<Sprite>("ordeal_counter_dawn");
+            OrdealCounterManager.noonSprite = AssetManager.AssetBundle.LoadAsset<Sprite>("ordeal_counter_noon");
+            OrdealCounterManager.duskSprite = AssetManager.AssetBundle.LoadAsset<Sprite>("ordeal_counter_dusk");
+            OrdealCounterManager.midnightSprite = AssetManager.AssetBundle.LoadAsset<Sprite>("ordeal_counter_midnight");
+
+            OrdealNodeMats = [
+                TextureLoader.LoadTextureFromFile("scratched_green.png", LobotomyPlugin.ModAssembly),
+                TextureLoader.LoadTextureFromFile("scratched_red.png", LobotomyPlugin.ModAssembly),
+                TextureLoader.LoadTextureFromFile("scratched_purple.png", LobotomyPlugin.ModAssembly),
+                TextureLoader.LoadTextureFromFile("scratched_orange.png", LobotomyPlugin.ModAssembly),
+                TextureLoader.LoadTextureFromFile("scratched_blue.png", LobotomyPlugin.ModAssembly),
+                TextureLoader.LoadTextureFromFile("scratched_white.png", LobotomyPlugin.ModAssembly)
+            ];
+
+            OrdealSFX = [
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("Green_start"),
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("Green_end"),
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("Crimson_start"),
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("Crimson_end"),
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("Violet_start"),
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("Violet_end"),
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("Amber_start"),
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("Amber_end"),
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("Indog_start"),
+                AssetManager.AssetBundle.LoadAsset<AudioClip>("Indigo_end")/*,
+                AssetManager.BossBundle.LoadAsset<AudioClip>("White_start"),
+                AssetManager.BossBundle.LoadAsset<AudioClip>("White_end")*/
+            ];
+
+            AssetManager.sfxClips.AddRange(OrdealSFX);
+        }
 
         internal static RegionData CreateWhiteOrdealRegion()
         {
@@ -98,29 +154,6 @@ namespace WhistleWindLobotomyMod
                 }
             };
             return whiteOrdealRegion;
-        }
-
-        internal static void InitOrdeals()
-        {
-            OpponentID = OpponentManager.Add(LobotomyPlugin.pluginGuid, "OrdealOpponent", null, typeof(OrdealOpponent), null).Id;
-
-            DawnAnim = NodeHelper.GetNodeTextureList("nodeOrdealDawn1", "nodeOrdealDawn2", "nodeOrdealDawn3", "nodeOrdealDawn4").ToArray();
-            DawnTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealDawnTotem1", "nodeOrdealDawnTotem2", "nodeOrdealDawnTotem3", "nodeOrdealDawnTotem4").ToArray();
-            NoonAnim = NodeHelper.GetNodeTextureList("nodeOrdealNoon1", "nodeOrdealNoon2", "nodeOrdealNoon3", "nodeOrdealNoon4").ToArray();
-            NoonTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealNoonTotem1", "nodeOrdealNoonTotem2", "nodeOrdealNoonTotem3", "nodeOrdealNoonTotem4").ToArray();
-            DuskAnim = NodeHelper.GetNodeTextureList("nodeOrdealDusk1", "nodeOrdealDusk2", "nodeOrdealDusk3", "nodeOrdealDusk4").ToArray();
-            DuskTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealDuskTotem1", "nodeOrdealDuskTotem2", "nodeOrdealDuskTotem3", "nodeOrdealDuskTotem4").ToArray();
-            MidnightAnim = NodeHelper.GetNodeTextureList("nodeOrdealMidnight1", "nodeOrdealMidnight2", "nodeOrdealMidnight3", "nodeOrdealMidnight4").ToArray();
-            MidnightTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealMidnightTotem1", "nodeOrdealMidnightTotem2", "nodeOrdealMidnightTotem3", "nodeOrdealMidnightTotem4").ToArray();
-
-            OrdealNodeMats = new Texture2D[6] {
-                TextureLoader.LoadTextureFromFile("scratched_green.png", LobotomyPlugin.ModAssembly),
-                TextureLoader.LoadTextureFromFile("scratched_purple.png", LobotomyPlugin.ModAssembly),
-                TextureLoader.LoadTextureFromFile("scratched_red.png", LobotomyPlugin.ModAssembly),
-                TextureLoader.LoadTextureFromFile("scratched_orange.png", LobotomyPlugin.ModAssembly),
-                TextureLoader.LoadTextureFromFile("scratched_blue.png", LobotomyPlugin.ModAssembly),
-                TextureLoader.LoadTextureFromFile("scratched_white.png", LobotomyPlugin.ModAssembly)
-            };
         }
     }
 

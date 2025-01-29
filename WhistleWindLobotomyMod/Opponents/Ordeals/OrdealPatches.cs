@@ -1,9 +1,10 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Challenges;
 
 namespace WhistleWindLobotomyMod.Opponents
@@ -11,6 +12,97 @@ namespace WhistleWindLobotomyMod.Opponents
     [HarmonyPatch]
     internal class OrdealPatches
     {
+        /// <remarks>
+        /// Use to guarantee the sequence works correctly (account for turn skipping)
+        /// </remarks>
+        [HarmonyPrefix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.PlayerTurn))]
+        private static bool ResetOrdealKillCountEachTurn(TurnManager __instance)
+        {
+            if (OrdealUtils.OpponentIsOrdeal())
+                (__instance.SpecialSequencer as OrdealBattleSequencer).amountKilledThisTurn = 0;
+
+            return true;
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.OpponentTurn))]
+        private static IEnumerator UpdateOrdealAmountLeft(IEnumerator enumerator, TurnManager __instance)
+        {
+            yield return enumerator;
+
+            if (OrdealUtils.OpponentIsOrdeal() && __instance.SpecialSequencer is OrdealBattleSequencer seq)
+            {
+                yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, 0.5f);
+                yield return OrdealCounterManager.Instance.UpdateAmountLeft(seq.amountKilledThisTurn, 0.25f);
+                if (OrdealCounterManager.Instance.amountLeft <= 0 && !seq.PlayerHasDefeatedOrdeal())
+                {
+                    yield return TextDisplayer.Instance.PlayDialogueEvent("OrdealDefeatedCardsLeft", TextDisplayer.MessageAdvanceMode.Input);
+                }
+                yield return 0.5f;
+            }
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(ViewController), nameof(ViewController.SwitchToControlMode))]
+        private static void AllowMoveToCounterView(ViewController __instance, ViewController.ControlMode mode)
+        {
+            switch (mode)
+            {
+                case ViewController.ControlMode.CardGameDefault:
+                    AddOrdealViewControls(__instance, true);
+                    break;
+                case ViewController.ControlMode.CardGameChoosingSlot:
+                    AddOrdealViewControls(__instance, false);
+                    break;
+                case ViewController.ControlMode.CardGameChooseDraw:
+                    AddOrdealViewControls(__instance, false);
+                    break;
+            }
+        }
+        private static void AddOrdealViewControls(ViewController instance, bool addSideControls)
+        {
+            if (!instance.allowedViews.Contains(OrdealUtils.ViewCounter))
+                instance.allowedViews.Add(OrdealUtils.ViewCounter);
+
+            if (!instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Exists(x => x.from == OrdealUtils.ViewCounter))
+            {
+                instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(
+                    new ViewController.ViewTransitionInput(View.OpponentQueue, OrdealUtils.ViewCounter, Button.LookUp));
+
+                instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(
+                    new ViewController.ViewTransitionInput(OrdealUtils.ViewCounter, View.OpponentQueue, Button.LookDown));
+
+                if (addSideControls)
+                {
+                    instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(
+                        new ViewController.ViewTransitionInput(OrdealUtils.ViewCounter, View.Consumables, Button.LookRight));
+
+                    instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(
+                        new ViewController.ViewTransitionInput(OrdealUtils.ViewCounter, View.Scales, Button.LookLeft));
+                }
+            }
+        }
+        [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.ScalesTippedToOpponent))]
+        private static void ValidateOrdealCompletion(TurnManager __instance, ref bool __result)
+        {
+            if (!OrdealUtils.OpponentIsOrdeal())
+                return;
+
+            if ((__instance.SpecialSequencer as OrdealBattleSequencer).PlayerHasDefeatedOrdeal())
+                __result = true;
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(ViewManager), nameof(ViewManager.GetViewInfo))]
+        private static void CustomViewForCounter(ref ViewInfo __result, View view)
+        {
+            if (view == OrdealUtils.ViewCounter)
+            {
+                __result = new()
+                {
+                    camPosition = new Vector3(0f, 7.65f, -5.15f),
+                    fov = 35f
+                };
+            }
+        }
+
         [HarmonyPostfix, HarmonyPatch(typeof(MapDataReader), nameof(MapDataReader.SpawnAndPlaceElement))]
         private static void ConstructOrdealNode(ref GameObject __result, MapElementData data)
         {
@@ -37,58 +129,41 @@ namespace WhistleWindLobotomyMod.Opponents
                 }
 
                 // recolour the sprite's mask based on the ordeal colour - also assign the correct battle id for the given the colour and tier
-                switch (ordealNodeData.ordealType)
+                sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[(int)ordealNodeData.ordealType];
+                ordealNodeData.specialBattleId = ordealNodeData.ordealType switch
                 {
-                    case OrdealType.Green:
-                        sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[0];
-                        ordealNodeData.specialBattleId = ordealNodeData.tier switch
-                        {
-                            1 => OrdealUtils.GreenNoon,
-                            2 => OrdealUtils.GreenDusk,
-                            3 => OrdealUtils.GreenMidnight,
-                            _ => OrdealUtils.GreenDawn
-                        };
-                        break;
-                    case OrdealType.Violet:
-                        sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[1];
-                        ordealNodeData.specialBattleId = ordealNodeData.tier switch
-                        {
-                            1 => OrdealUtils.VioletNoon,
-                            3 => OrdealUtils.VioletMidnight,
-                            _ => OrdealUtils.VioletDawn
-                        };
-                        break;
-                    case OrdealType.Crimson:
-                        sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[2];
-                        ordealNodeData.specialBattleId = ordealNodeData.tier switch
-                        {
-                            1 => OrdealUtils.CrimsonNoon,
-                            2 => OrdealUtils.CrimsonDusk,
-                            _ => OrdealUtils.CrimsonDawn
-                        };
-                        break;
-                    case OrdealType.Amber:
-                        sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[3];
-                        ordealNodeData.specialBattleId = ordealNodeData.tier switch
-                        {
-                            2 => OrdealUtils.AmberDusk,
-                            3 => OrdealUtils.AmberMidnight,
-                            _ => OrdealUtils.AmberDawn
-                        };
-                        break;
-                    case OrdealType.Indigo:
-                        sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[4];
-                        ordealNodeData.specialBattleId = OrdealUtils.IndigoNoon;
-                        break;
-                    default:
-                        sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[5];
-                        ordealNodeData.specialBattleId = OrdealUtils.WhiteOrdeal;
-                        break;
-                }
-
+                    OrdealType.Green => ordealNodeData.tier switch
+                    {
+                        1 => OrdealUtils.GreenNoon,
+                        2 => OrdealUtils.GreenDusk,
+                        3 => OrdealUtils.GreenMidnight,
+                        _ => OrdealUtils.GreenDawn
+                    },
+                    OrdealType.Violet => ordealNodeData.tier switch
+                    {
+                        1 => OrdealUtils.VioletNoon,
+                        3 => OrdealUtils.VioletMidnight,
+                        _ => OrdealUtils.VioletDawn
+                    },
+                    OrdealType.Crimson => ordealNodeData.tier switch
+                    {
+                        1 => OrdealUtils.CrimsonNoon,
+                        2 => OrdealUtils.CrimsonDusk,
+                        _ => OrdealUtils.CrimsonDawn
+                    },
+                    OrdealType.Amber => ordealNodeData.tier switch
+                    {
+                        2 => OrdealUtils.AmberDusk,
+                        3 => OrdealUtils.AmberMidnight,
+                        _ => OrdealUtils.AmberDawn
+                    },
+                    OrdealType.Indigo => OrdealUtils.IndigoNoon,
+                    _ => OrdealUtils.WhiteOrdeal
+                };
                 sprite.IterateFrame();
             }
         }
+
         [HarmonyPostfix, HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.CreateNode))]
         private static void AddOrdealNode(ref NodeData __result, List<NodeData> previousNodes, int mapLength)
         {
@@ -126,7 +201,7 @@ namespace WhistleWindLobotomyMod.Opponents
 
                 if (true) // debug, force ordeal
                 {
-                    data.tier = 3;
+                    data.tier = 0;
                     data.ordealType = OrdealType.Green;
                     __result = data;
                     return;

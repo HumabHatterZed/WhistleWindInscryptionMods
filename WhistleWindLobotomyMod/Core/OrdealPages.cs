@@ -1,12 +1,13 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.RuleBook;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
-using System.Collections.ObjectModel;
-using System.Linq;
+using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod
 {
@@ -15,9 +16,12 @@ namespace WhistleWindLobotomyMod
         // 008b02
         internal static void AddPages()
         {
-            MechanicPages.CreateNewMechanicPage("Ordeal", "An encounter where combatants must kill their opponent's cards in order to win. Direct damage dealt is converted into a maximum of 8 Bones at the end of the combat phase.", OrdealUtils.NoonAnim[0]);
+            MechanicPages.CreateNewMechanicPage("Ordeal", "An encounter wherein you must kill all of Leshy's cards in order to win. Direct damage you deal above the maximum scale value is converted into a maximum of 8 Bones at the end of the combat phase.", OrdealUtils.NoonAnim[0]);
 
             CreateNewPage("The Ordeals of Green", "Mechanical beings with piercing weaponry. Can appear at Dawn, Noon, Dusk, or Midnight.", null);
+
+            CreateNewPage("Light at the End", "Targets one space on the board at a time. All cards occupying that space will be destroyed, and its owner will take 3 damage.", null);
+
             CreateNewPage("The Ordeals of Violet", "Divine beings that directly target your mind and body. Can appear at Dawn, Noon, or Midnight.", null);
             CreateNewPage("The Ordeals of Crimson", "Fae-like beings that multiply as they are struck down. Can appear at Dawn, Noon, or Dusk.", null);
             CreateNewPage("The Ordeals of Amber", "Insectoid creatures that burrow and consume endlessly. Can appear at Dawn, Dusk, or Midnight.", null);

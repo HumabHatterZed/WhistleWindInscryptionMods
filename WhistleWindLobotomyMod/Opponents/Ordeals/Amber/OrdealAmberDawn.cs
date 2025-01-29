@@ -1,14 +1,8 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
-using Infiniscryption.P03KayceeRun.Encounters;
 using InscryptionAPI.Encounters;
-using System;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Opponents;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Opponents
 {
     /// <summary>
     /// Appears in R0
@@ -21,7 +15,7 @@ namespace WhistleWindLobotomyMod
     /// 4 | P P P  | P P P  | P P P  | P P P  | 12 | 12 | 12
     /// 5 | P P P  | P P P P| P P P  | P P P P| 14 | 14 | 14
     /// </summary>
-    public class OrdealAmberDusk : OrdealBattleSequencer
+    public class OrdealAmberDawn : OrdealBattleSequencer
     {
         public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
         {

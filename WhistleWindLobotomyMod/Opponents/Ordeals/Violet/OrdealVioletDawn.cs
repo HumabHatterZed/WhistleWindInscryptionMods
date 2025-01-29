@@ -1,14 +1,10 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using Infiniscryption.P03KayceeRun.Encounters;
 using InscryptionAPI.Encounters;
-using System;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Opponents;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Opponents
 {
     /// <summary>
     /// Appears in R0
@@ -51,10 +47,10 @@ namespace WhistleWindLobotomyMod
             List<EncounterBlueprintData.CardBlueprint> turn2 = new() {
                 EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding")
             };
-            List<EncounterBlueprintData.CardBlueprint> turn3 = new() { 
+            List<EncounterBlueprintData.CardBlueprint> turn3 = new() {
                 EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding")
             };
-            
+
             if (encounterData.Difficulty >= maxDifficultyNoModifier + 2)
                 turn2.Add(EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding"));
 

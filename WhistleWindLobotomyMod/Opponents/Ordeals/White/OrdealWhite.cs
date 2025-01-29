@@ -1,16 +1,11 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using Infiniscryption.P03KayceeRun.Encounters;
 using InscryptionAPI.Encounters;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Opponents;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Opponents
 {
     /// <summary>
     /// Appears as special boss
@@ -114,7 +109,7 @@ namespace WhistleWindLobotomyMod
             possibleFixers.Randomize();
 
             Opponent.TurnPlan.Add(new());
-            Opponent.TurnPlan.Add(new() { CardLoader.GetCardByName(possibleFixers[0])});
+            Opponent.TurnPlan.Add(new() { CardLoader.GetCardByName(possibleFixers[0]) });
             Opponent.TurnPlan.Add(new());
             Opponent.TurnPlan.Add(new());
             Opponent.TurnPlan.Add(new() { CardLoader.GetCardByName(possibleFixers[1]) });

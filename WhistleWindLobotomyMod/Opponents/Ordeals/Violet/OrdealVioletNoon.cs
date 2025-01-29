@@ -1,23 +1,10 @@
 ﻿using DiskCardGame;
-using GrimoraMod.Extensions;
-using InscryptionAPI.Encounters;
-using InscryptionAPI.Nodes;
-using InscryptionAPI.TalkingCards;
-using Pixelplacement;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Opponents;
-using WhistleWindLobotomyMod.Opponents.Apocalypse;
-using WhistleWindLobotomyMod.Opponents.Prospector;
 
-namespace WhistleWindLobotomyMod
+namespace WhistleWindLobotomyMod.Opponents
 {
     /// <summary>
     /// Appears in R1
@@ -98,6 +85,7 @@ namespace WhistleWindLobotomyMod
         }
         public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
         {
+            targetIconPrefab = AssetManager.warningTargetPrefab;
             base.ConstructVioletDawn(encounterData, 9);
             return encounterData;
         }

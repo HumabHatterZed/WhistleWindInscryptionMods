@@ -13,12 +13,10 @@ using Sirenix.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Opponents;
 using static DialogueEvent;
 using static InscryptionAPI.Dialogue.DialogueManager;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
@@ -30,8 +28,8 @@ namespace WhistleWindLobotomyMod
     [BepInDependency(InscryptionAPIPlugin.ModGUID, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(InfiniscryptionSpellsPlugin.PluginGuid, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(AbnormalPlugin.pluginGuid, BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("zorro.inscryption.infiniscryption.achievements", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInDependency("zorro.inscryption.infiniscryption.achievements", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("arackulele.inscryption.grimoramod", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.p03kayceerun", BepInDependency.DependencyFlags.SoftDependency)]
     public partial class LobotomyPlugin : BaseUnityPlugin
@@ -42,59 +40,59 @@ namespace WhistleWindLobotomyMod
             ModAssembly = Assembly.GetExecutingAssembly();
             LobotomyConfigManager.Instance.BindConfig();
             if (!LobotomyConfigManager.Instance.ModEnabled)
+            {
                 Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
+                return;
+            }
+
+            if (LobotomyConfigManager.Instance.NoRisk == RiskLevel.All)
+            {
+                DisabledRiskLevels = RiskLevel.Zayin & RiskLevel.Teth & RiskLevel.He & RiskLevel.Waw & RiskLevel.Aleph;
+            }
             else
             {
-                if (LobotomyConfigManager.Instance.NoRisk == RiskLevel.All)
-                {
-                    DisabledRiskLevels = RiskLevel.Zayin & RiskLevel.Teth & RiskLevel.He & RiskLevel.Waw & RiskLevel.Aleph;
-                }
-                else
-                {
-                    DisabledRiskLevels = LobotomyConfigManager.Instance.NoRisk;
-                }
-                AllCardsDisabled = DisabledRiskLevels.HasFlag(RiskLevel.All) || DisabledRiskLevels.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
-
-                if (LobotomySaveManager.OpponentBlessings > 11)
-                    LobotomySaveManager.OpponentBlessings = 11;
-
-                if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
-                    LobotomyConfigManager.Instance.SetBlessings(11);
-
-                CustomOpponentUtils.InitBossObjects();
-                HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
-
-                Log.LogDebug("Loading dialogue...");
-                GenerateDialogueEvents();
-
-                AddChallenges();
-
-                Log.LogDebug("Loading abilities...");
-                AddAbilities();
-                AddSpecialAbilities();
-
-                Log.LogDebug("Loading cards...");
-                AddAppearances();
-                AddCards();
-                AddStarterDecks();
-
-                Log.LogDebug("Loading encounters...");
-                AddEncounters();
-                OrdealUtils.InitOrdeals();
-
-                Log.LogDebug("Loading everything else...");
-                AddItems();
-                AddNodes();
-                OrdealPages.AddPages();
-
-                if (PackAPI.Enabled)
-                    PackAPI.CreateCardPack();
-
-                if (AchievementAPI.Enabled)
-                    AchievementAPI.CreateAchievements();
-
-                Log.LogInfo($"Plugin loaded! Let's get to work manager!");
+                DisabledRiskLevels = LobotomyConfigManager.Instance.NoRisk;
             }
+            AllCardsDisabled = DisabledRiskLevels.HasFlag(RiskLevel.All) || DisabledRiskLevels.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
+
+            if (LobotomySaveManager.OpponentBlessings > 11)
+                LobotomySaveManager.OpponentBlessings = 11;
+
+            if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
+                LobotomyConfigManager.Instance.SetBlessings(11);
+
+            AssetManager.Initialise();
+            HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+
+            Log.LogDebug("Loading dialogue...");
+            GenerateDialogueEvents();
+
+            AddChallenges();
+
+            Log.LogDebug("Loading abilities...");
+            AddAbilities();
+            AddSpecialAbilities();
+
+            Log.LogDebug("Loading cards...");
+            AddAppearances();
+            AddCards();
+            AddStarterDecks();
+
+            Log.LogDebug("Loading encounters...");
+            AddEncounters();
+
+            Log.LogDebug("Loading everything else...");
+            AddItems();
+            AddNodes();
+            OrdealPages.AddPages();
+
+            if (PackAPI.Enabled)
+                PackAPI.CreateCardPack();
+
+            if (AchievementAPI.Enabled)
+                AchievementAPI.CreateAchievements();
+
+            Log.LogInfo($"Plugin loaded! Let's get to work manager!");
         }
 
         private void Start()
@@ -211,14 +209,14 @@ namespace WhistleWindLobotomyMod
 
             StatusEffect_Enchanted();
             Ability_Dazzling();
-            
+
             Ability_SmallBeak();
             Ability_Misdeeds();
             Ability_LongArms();
 
             StatusEffect_Sin();
             Ability_UnjustScale();
-            
+
             Ability_GiantBlocker();
 
             if (LobotomyConfigManager.Instance.RevealSpecials)
