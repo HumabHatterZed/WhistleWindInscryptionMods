@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(MapDataReader), nameof(MapDataReader.SpawnMapObjects))]
         private static void MakeTheBlackForestBlack(MapDataReader __instance)
         {
-            if (RunState.CurrentMapRegion == null || RunState.CurrentMapRegion != CustomOpponentUtils.apocalypseRegion)
+            if (RunState.CurrentMapRegion == null || RunState.CurrentMapRegion != LobOpponentUtils.apocalypseRegion)
                 return;
 
             foreach (var i in __instance.scenery)

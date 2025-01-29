@@ -3,7 +3,6 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
-using Pixelplacement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,13 +11,14 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 {
     public class ApocalypseBattleSequencer : LobotomyBossBattleSequencer, IOnCardDealtDamageDirectly, IModifyDirectDamage
     {
         public static readonly string ID = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "ApocalypseBattleSequencer", typeof(ApocalypseBattleSequencer)).Id;
-        public override Opponent.Type BossType => CustomOpponentUtils.ApocalypseBossID;
+        public override Opponent.Type BossType => LobOpponentUtils.ApocalypseBossID;
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.ApocalypseBossDefeated;
         public override int HighestPositiveScaleBalance { get => 4; set => base.HighestPositiveScaleBalance = value; }
         private ApocalypseBossOpponent BossOpponent => TurnManager.Instance.Opponent as ApocalypseBossOpponent;
@@ -208,7 +208,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return new WaitForSeconds(0.5f);
             yield return DialogueHelper.PlayDialogueEvent(killedCard ? "ApocalypseBossMouthPostAttack" : "ApocalypseBossMouthFailAttack",
                 0f, repeatLines: !seenMouthAttack);
-            
+
             yield return BossOpponent.ResetToIdle();
             seenMouthAttack = true;
         }
@@ -617,7 +617,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             CardInfo bossEggInfo = CardLoader.GetCardByName(AllBossPhases[ActiveEggEffect][1]);
             if (ReactiveDifficulty > 4)
                 bossEggInfo.Mods.Add(new(1, 0) { singletonId = "ReactiveStrength", nonCopyable = true });
-            
+
             switch (ActiveEggEffect)
             {
                 case ActiveEggEffect.BigEyes: // if we're changing to Big Eyes, update the attack colours
@@ -659,7 +659,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData)
         {
             ChangeActiveEggEffect();
-            bossMouthPrefab = CustomOpponentUtils.bossBundle.LoadAsset<GameObject>("ApocalypseMouth");
+            bossMouthPrefab = AssetManager.BossBundle.LoadAsset<GameObject>("ApocalypseMouth");
 
             EncounterData data = base.BuildCustomEncounter(nodeData);
             CardInfo startingEgg = CardLoader.GetCardByName(AllBossPhases[ActiveEggEffect][1]);
@@ -687,7 +687,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             LobotomyPlugin.Log.LogDebug($"[ApocalypseBoss] {reactiveDifficulty} (+{amount})");
             Singleton<CameraEffects>.Instance.Shake(0.5f, 0.25f);
             BossCard.Anim.StrongNegationEffect();
-            
+
             if (ReactiveDifficulty > 3 && BossCard.Info.Mods.Exists(x => x.singletonId == "ReactiveStrength"))
             {
                 BossCard.Info.Mods.Add(new(1, 0) { singletonId = "ReactiveStrength", nonCopyable = true });
@@ -774,7 +774,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             if (target == BossCard)
             {
                 IncrementStatsThisTurn(1, amount);
-                
+
                 if (ActiveEggEffect == ActiveEggEffect.SmallBeak)
                     BossCard.AddTemporaryMod(new(timesHitThisTurn, 0) { singletonId = "SmallBeak" });
 
@@ -783,7 +783,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 {
                     CardModificationInfo skinMod = BossCard.TemporaryMods.Find(x => x.singletonId == "ReactiveSkin");
                     bool alreadyReacted = skinMod != null;
-                    
+
                     if (!alreadyReacted)
                     {
                         skinMod = new()
@@ -820,7 +820,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 AudioController.Instance.SetLoopVolume(0.1f, 1f);
             }
         }
-        
+
         public override bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) => true;
         public override IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage)
         {

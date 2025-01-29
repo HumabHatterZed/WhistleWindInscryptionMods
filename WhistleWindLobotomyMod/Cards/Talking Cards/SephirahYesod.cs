@@ -4,11 +4,9 @@ using InscryptionAPI.TalkingCards;
 using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
-using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -72,7 +70,7 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.TrapperTraderBoss, "YesodTrapperTrader" },
             { Opponent.Type.LeshyBoss, "YesodLeshy" },
             { Opponent.Type.RoyalBoss, "YesodRoyal" },
-            { CustomOpponentUtils.ApocalypseBossID, "YesodApocalypse" },
+            { LobOpponentUtils.ApocalypseBossID, "YesodApocalypse" },
             { OrdealUtils.OpponentID, "YesodOrdeal" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();

@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
-using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +12,7 @@ using WhistleWindLobotomyMod.Opponents.Apocalypse;
 namespace WhistleWindLobotomyMod.Patches
 {
     [HarmonyPatch]
-    internal static class CustomOpponentPatches
+    internal static class LobOpponentPatches
     {
         [HarmonyPostfix, HarmonyPatch(typeof(Part1GameFlowManager), nameof(Part1GameFlowManager.KillPlayerSequence))]
         private static IEnumerator CustomKillPlayerSequences(IEnumerator enumerator)
@@ -60,7 +59,7 @@ namespace WhistleWindLobotomyMod.Patches
         private static IEnumerator RefreshDeckBeforeExhaustion(IEnumerator enumerator, CardDrawPiles __instance)
         {
             yield return enumerator;
-            if (!CustomOpponentUtils.FightingCustomOpponent(true))
+            if (!LobOpponentUtils.FightingCustomOpponent(true))
                 yield break;
 
             if (__instance.Exhausted && !PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == "wstl_REFRESH_DECKS"))
@@ -77,21 +76,21 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPrefix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowDamageSequence))]
         private static bool DontChangeViewOnZeroDamage(int damage, int numWeights, ref bool changeView)
         {
-            if (CustomOpponentUtils.FightingCustomOpponent(false) && TurnManager.Instance.SpecialSequencer is LobotomyBattleSequencer seq && seq != null)
+            if (LobOpponentUtils.FightingCustomOpponent(false) && TurnManager.Instance.SpecialSequencer is LobotomyBattleSequencer seq && seq != null)
             {
                 if (LifeManager.Instance.DamageUntilPlayerWin == 1 || (damage >= LifeManager.Instance.DamageUntilPlayerWin && Mathf.Min(LifeManager.Instance.DamageUntilPlayerWin - 1, numWeights) == 0))
                 {
                     changeView = false;
                 }
             }
-            
+
             return true;
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowResetSequence))]
         private static IEnumerator CustomOpponentsDontResetScales(IEnumerator enumerator)
         {
-            if (CustomOpponentUtils.FightingCustomOpponent(true))
+            if (LobOpponentUtils.FightingCustomOpponent(true))
                 yield break;
 
             yield return enumerator;
@@ -100,7 +99,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager3D), nameof(CombatPhaseManager3D.VisualizeCardAttackingDirectly))]
         private static IEnumerator FixGiantCardAnimation(IEnumerator enumerator, CombatPhaseManager3D __instance, CardSlot attackingSlot, CardSlot targetSlot, int damage)
         {
-            if (!CustomOpponentUtils.FightingCustomOpponent(true) || !CustomOpponentUtils.IsCustomBoss<ApocalypseBossOpponent>() || attackingSlot.Card.LacksTrait(Trait.Giant))
+            if (!LobOpponentUtils.FightingCustomOpponent(true) || !LobOpponentUtils.IsCustomBoss<ApocalypseBossOpponent>() || attackingSlot.Card.LacksTrait(Trait.Giant))
             {
                 yield return enumerator;
                 yield break;
@@ -138,9 +137,9 @@ namespace WhistleWindLobotomyMod.Patches
                 if (SaveFile.IsAscension)
                 {
                     if (AscensionSaveData.Data.ChallengeIsActive(FinalApocalypse.Id))
-                        __result = CustomOpponentUtils.apocalypseRegion;
-                    else if (AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id))
-                        __result = CustomOpponentUtils.whiteOrdealRegion;
+                        __result = LobOpponentUtils.apocalypseRegion;
+                    /*else if (AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id))
+                        __result = LobOpponentUtils.whiteOrdealRegion;*/
                     /*                else if (AscensionSaveData.Data.ChallengeIsActive(FinalComing.Id))
                                         __result = CustomBossUtils.saviourRegion;
                                     else if (AscensionSaveData.Data.ChallengeIsActive(FinalTrick.Id))
@@ -150,7 +149,7 @@ namespace WhistleWindLobotomyMod.Patches
                 }
                 else if (LobotomyConfigManager.Instance.FinalApocalypse)
                 {
-                    __result = CustomOpponentUtils.apocalypseRegion;
+                    __result = LobOpponentUtils.apocalypseRegion;
                 }
             }
         }

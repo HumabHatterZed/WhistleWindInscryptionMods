@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod.Challenges
 {
@@ -29,7 +28,7 @@ namespace WhistleWindLobotomyMod.Challenges
         }
 
         private static readonly Opponent.Type[] BLACKLISTED_OPPONENTS = new Opponent.Type[] {
-            CustomOpponentUtils.SaviourBossID
+            //LobOpponentUtils.SaviourBossID
         };
 
         [HarmonyPatch(typeof(Opponent), nameof(Opponent.SpawnOpponent))]

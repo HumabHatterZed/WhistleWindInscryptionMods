@@ -9,7 +9,6 @@ using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
-using WhistleWindLobotomyMod.Opponents.Apocalypse;
 using static WhistleWind.Core.Helpers.TextureLoader;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -78,7 +77,7 @@ namespace WhistleWindLobotomyMod
             { Opponent.Type.TrapperTraderBoss, "NetzachTrapperTrader" },
             { Opponent.Type.LeshyBoss, "NetzachLeshy" },
             { Opponent.Type.RoyalBoss, "NetzachRoyal" },
-            { CustomOpponentUtils.ApocalypseBossID, "NetzachApocalypse" },
+            { LobOpponentUtils.ApocalypseBossID, "NetzachApocalypse" },
             { OrdealUtils.OpponentID, "NetzachOrdeal" }
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();

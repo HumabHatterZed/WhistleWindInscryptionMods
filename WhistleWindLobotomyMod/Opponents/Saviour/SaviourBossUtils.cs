@@ -5,12 +5,10 @@ using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Regions;
 using Pixelplacement;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Opponents.Saviour;
 
 namespace WhistleWindLobotomyMod.Opponents
 {

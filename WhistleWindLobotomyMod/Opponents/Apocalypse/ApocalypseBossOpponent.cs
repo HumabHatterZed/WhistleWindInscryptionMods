@@ -1,7 +1,4 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using InscryptionAPI.Encounters;
-using InscryptionAPI.Nodes;
 using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,14 +8,12 @@ using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 {
     public class ApocalypseBossOpponent : LobotomyBossOpponent
     {
-        public override Type ID => CustomOpponentUtils.ApocalypseBossID;
+        public override Type ID => LobOpponentUtils.ApocalypseBossID;
         public override int StartingLives => 4;
         public override string DefeatedPlayerDialogue => "Twilight falls...";
         public override Color InteractablesGlowColor => GameColors.Instance.gold;
@@ -259,7 +254,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             AudioController.Instance.PlaySound2D("bird_roar", MixerGroup.TableObjectsSFX);
             yield return base.FaceZoomSequence();
 
-            bossObjectAnimation = Instantiate(CustomOpponentUtils.apocalypsePrefab, new Vector3(0.3f, 5.5f, 4.5f), Quaternion.identity);
+            bossObjectAnimation = Instantiate(LobOpponentUtils.apocalypseBossPrefab, new Vector3(0.3f, 5.5f, 4.5f), Quaternion.identity);
             bossObjectAnimation.name = "ApocalypseBoss";
 
             MasterAnimator = bossObjectAnimation.GetComponent<Animator>();
@@ -312,7 +307,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         {
             if (timeMachine)
                 return !BattleSequencer.DisabledEggEffects.Contains(ActiveEggEffect.LongArms);
-            
+
             return true;
         }
         public override IEnumerator OnInstantWinPrevented(bool timeMachine, CardSlot triggeringSlot)
@@ -336,7 +331,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
                     BattleSequencer.mouthIcons.Clear();
                     BattleSequencer.UpdateCounter();
-                    
+
                     foreach (PlayableCard item in Queue)
                     {
                         GlitchOutAssetEffect.GlitchModel(item.StatsLayer.transform);
@@ -352,17 +347,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                             GlitchOutAssetEffect.GlitchModel(card.StatsLayer.transform);
                             yield return new WaitForSeconds(0.1f);
                         }
-                    }
-                    foreach (CardSlot slot2 in BoardManager.Instance.PlayerSlotsCopy)
-                    {
-                        if (slot2.Card != null)
-                        {
-                            yield return slot2.Card.RemoveStatusEffects(false);
-                        }
-                    }
-                    foreach (PlayableCard card in PlayerHand.Instance.CardsInHand)
-                    {
-                        yield return card.RemoveStatusEffects(false);
                     }
 
                     yield return new WaitForSeconds(0.5f);

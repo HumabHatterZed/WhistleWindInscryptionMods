@@ -1,7 +1,7 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Dialogue;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
-using System.Collections;
 using UnityEngine;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
@@ -46,7 +46,7 @@ namespace WhistleWindLobotomyMod.Opponents
             apocalypseRegion.boardLightColor = new(0f, 0.3f, 0f, 1f);
             apocalypseRegion.cardsLightColor = new(0.2f, 0.33f, 0f, 1f);
             apocalypseRegion.dominantTribes = new() { Tribe.Bird };
-            apocalypseRegion.bosses = new() { CustomOpponentUtils.ApocalypseBossID };
+            apocalypseRegion.bosses = new() { LobOpponentUtils.ApocalypseBossID };
             apocalypseRegion.fillerScenery = new() { new FillerSceneryEntry() { data = trapper.scarceScenery[1].data } };
             apocalypseRegion.fogAlpha = 0.75f;
             apocalypseRegion.fogEnabled = true;
@@ -74,13 +74,27 @@ namespace WhistleWindLobotomyMod.Opponents
                 {
                     new BossBattleNodeData
                     {
-                        bossType = CustomOpponentUtils.ApocalypseBossID,
+                        bossType = LobOpponentUtils.ApocalypseBossID,
                         specialBattleId = ApocalypseBattleSequencer.ID,
                         difficulty = 20,
                         position = new(0.5f, 0.86f)
                     }
                 }
             };
+
+            DialogueManager.GenerateRegionIntroductionEvent(LobotomyPlugin.pluginGuid, apocalypseRegion, new()
+            {
+                "Your journey has brought here, to a dark, oppressive forest.",
+                "The sky above you is an inky void, empty of even a single star.",
+                "A horrible roar rattles your bones, and a fearful chill overcomes you.",
+                "Somewhere beyond the dark trees, there's a monster.",
+                "[c:bR]A monster in the Black Forest.[c:]"
+            }, new() { new() {
+                "Your journey has brought here, to an unknown yet familiar forest.",
+                "Somewhere beyond the dark trees, you know, there's a monster.",
+                "[c:bR]A monster in the Black Forest.[c:]"
+            }});
+
             return apocalypseRegion;
         }
     }
