@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod
             const string nothingThereFinal = "nothingThereFinal";
             Ability[] abilities = new[] { Ability.Evolve };
 
-            CardInfo nothingThereFinalCard = CardManager.New(pluginPrefix, 
+            CardInfo nothingThereFinalCard = CardManager.New(pluginPrefix,
                 nothingThereFinal, nothingName,
                 attack: 8, health: 8)
                 .SetBloodCost(4)
@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 .SetOnePerDeck()
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            CardInfo nothingThereEggCard = CardManager.New(pluginPrefix, 
+            CardInfo nothingThereEggCard = CardManager.New(pluginPrefix,
                 nothingThereEgg, "An Egg",
                 attack: 0, health: 3)
                 .SetBloodCost(2)
@@ -39,7 +39,7 @@ namespace WhistleWindLobotomyMod
                 .SetOnePerDeck()
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            CardManager.New(pluginPrefix, 
+            CardManager.New(pluginPrefix,
                 nothingThereTrue, nothingName,
                 attack: 3, health: 3)
                 .SetBloodCost(2)

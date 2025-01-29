@@ -1,9 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Guid;
-using MonoMod.RuntimeDetour;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace BonniesBakingPack
 {

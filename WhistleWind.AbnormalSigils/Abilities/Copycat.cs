@@ -7,7 +7,6 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
-using static UnityStandardAssets.ImageEffects.BloomOptimized;
 
 namespace WhistleWind.AbnormalSigils
 {

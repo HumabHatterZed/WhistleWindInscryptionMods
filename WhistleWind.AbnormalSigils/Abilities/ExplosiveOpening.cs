@@ -27,7 +27,7 @@ namespace WhistleWind.AbnormalSigils
                 .SetGrimoraRulebook()
                 .SetMagnificusRulebook();
             ab.SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilExplosiveOpening_flipped.png"));
-            
+
             ExplosiveOpening.ability = ab.Id;
         }
     }
@@ -42,7 +42,7 @@ namespace WhistleWind.AbnormalSigils
         {
             base.Card.Anim.LightNegationEffect();
             yield return base.PreSuccessfulTriggerSequence();
-            
+
             yield return ExplodeFromSlots(base.Card.Slot);
             yield return base.LearnAbility(0.25f);
         }

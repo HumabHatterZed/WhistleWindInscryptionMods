@@ -1,8 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
 using WhistleWind.Core.Helpers;
@@ -59,7 +57,7 @@ namespace WhistleWind.AbnormalSigils
                 {
                     if (!SaveManager.SaveFile.IsPart2)
                         CardDrawPiles3D.Instance.Pile.Draw();
-                    
+
                     CardDrawPiles.Instance.DrawCardFromDeck();
                 }
                 else if (!SaveManager.SaveFile.IsPart2 && CardDrawPiles3D.Instance.SideDeck.CardsInDeck > 0)

@@ -1,8 +1,6 @@
 ﻿using DiskCardGame;
-using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.RuleBook;
-using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

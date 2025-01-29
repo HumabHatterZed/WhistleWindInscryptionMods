@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
@@ -12,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void XCard_BottleOfTears()
         {
             const string bottleOfTears = "bottleOfTears";
-            
+
             CardManager.New(wonderlabPrefix, bottleOfTears, "Bottle of Tears",
                 attack: 0, health: 0)
                 .SetPortraits(ModAssembly, bottleOfTears)

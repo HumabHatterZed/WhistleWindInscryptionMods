@@ -1,5 +1,4 @@
-﻿using BonniesBakingPack;
-using DiskCardGame;
+﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Dialogue;
 using InscryptionAPI.Helpers;
@@ -29,7 +28,7 @@ namespace BonniesBakingPack
             {
                 AudioController.Instance.PlaySound3D("bonnie_bonk", MixerGroup.None, base.Card.transform.position);
             }
-            
+
             return base.OnDealDamage(amount, target);
         }
         public override string CardName => "bbp_act3_bunnie";
@@ -106,7 +105,7 @@ namespace BonniesBakingPack
             DialogueManager.GenerateEvent(pluginGuid, "BunnieTelegrapher", new() { NewLine("Just another bot.", Emotion.Neutral) },
                             new() {
                     new() { NewLine("I kinda feel bad...", Emotion.Neutral) },
-                    new() { NewLine("How much is crypto worth?", Emotion.Neutral) } 
+                    new() { NewLine("How much is crypto worth?", Emotion.Neutral) }
                 });
 
             DialogueManager.GenerateEvent(pluginGuid, "BunnieCanvas", new() { NewLine("How passé.", Emotion.Neutral) },

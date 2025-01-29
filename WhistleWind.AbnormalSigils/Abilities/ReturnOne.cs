@@ -7,7 +7,6 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
-using static UnityEngine.UI.Image;
 
 
 namespace WhistleWind.AbnormalSigils

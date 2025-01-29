@@ -2,10 +2,8 @@
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
-using InscryptionAPI.Slots;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 

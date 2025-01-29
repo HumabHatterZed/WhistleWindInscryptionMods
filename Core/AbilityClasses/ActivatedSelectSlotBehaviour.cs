@@ -26,7 +26,7 @@ namespace WhistleWind.Core.AbilityClasses
             {
                 if (LatchAbility != Ability.None)
                     return !slot.Card.TemporaryMods.Exists(m => m.fromLatch);
-                
+
                 return true;
             }
             return false;
@@ -272,7 +272,7 @@ namespace WhistleWind.Core.AbilityClasses
             }
 
             int num = slot.Card.PowerLevel;
-            
+
             if (slot.Card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt))
                 num = 10 * (!positiveEffect ? 1 : -1);
 
@@ -283,7 +283,7 @@ namespace WhistleWind.Core.AbilityClasses
 
             return num + randomVariation;
         }
-        
+
         private static GameObject _clawPrefab; // store claw prefab here
         private static GameObject ClawPrefab // claw prefab we'll be referencing
         {

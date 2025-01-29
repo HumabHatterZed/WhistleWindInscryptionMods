@@ -4,7 +4,6 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System;
 using System.Collections.Generic;
-using WhistleWind.AbnormalSigils.StatusEffects;
 
 namespace WhistleWind.AbnormalSigils.Patches
 {

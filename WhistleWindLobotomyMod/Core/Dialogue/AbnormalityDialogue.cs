@@ -1,6 +1,4 @@
-﻿using DiskCardGame;
-using static WhistleWind.Core.Helpers.DialogueHelper;
-using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
+﻿using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 
 namespace WhistleWindLobotomyMod
 {

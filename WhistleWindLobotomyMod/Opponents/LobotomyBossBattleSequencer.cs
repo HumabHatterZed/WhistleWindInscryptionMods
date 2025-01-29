@@ -1,7 +1,5 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
-using InscryptionAPI.Card;
-using InscryptionAPI.Encounters;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using Pixelplacement;
@@ -9,7 +7,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.XR.Tango;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 

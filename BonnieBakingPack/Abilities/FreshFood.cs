@@ -1,7 +1,5 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
 using InscryptionAPI.Helpers.Extensions;
 using Pixelplacement;
 using System.Collections;
@@ -40,7 +38,7 @@ namespace BonniesBakingPack
         {
             bool satUp = false;
             bool moveLeft = base.Card.Slot.Index < 2;
-            
+
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.LightNegationEffect();
             yield return new WaitForSeconds(0.4f);

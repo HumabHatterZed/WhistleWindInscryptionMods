@@ -8,15 +8,13 @@ using InscryptionAPI.Guid;
 using InscryptionAPI.Helpers;
 using InscryptionAPI.PixelCard;
 using InscryptionAPI.Resource;
-using InscryptionAPI.RuleBook;
-using InscryptionAPI.Slots;
 using Sirenix.Utilities;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core;
-using WhistleWind.AbnormalSigils.Patches;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
@@ -27,7 +25,6 @@ namespace WhistleWind.AbnormalSigils
     [BepInDependency("community.inscryption.patch", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.spells", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("tribes.libary", BepInDependency.DependencyFlags.SoftDependency)]
-
     public partial class AbnormalPlugin : BaseUnityPlugin
     {
         public const string pluginGuid = "whistlewind.inscryption.abnormalsigils";
@@ -65,6 +62,8 @@ namespace WhistleWind.AbnormalSigils
         {
             Log = base.Logger;
             Assembly = Assembly.GetExecutingAssembly();
+            InitAssetBundle();
+
             AbnormalConfigManager.Instance.BindConfig();
 
             if (!AbnormalConfigManager.Instance.EnableMod)
@@ -154,7 +153,7 @@ namespace WhistleWind.AbnormalSigils
 
             StatusEffect_Fervent();
             Ability_Conductor();
-            
+
             Ability_Woodcutter();
             Ability_FrozenHeart();
             Ability_FrostRuler();
@@ -169,7 +168,7 @@ namespace WhistleWind.AbnormalSigils
 
             StatusEffect_Worms();
             Ability_SerpentsNest();
-            
+
             Ability_Assimilator();
             Ability_GroupHealer();
             Ability_Reflector();
@@ -192,7 +191,7 @@ namespace WhistleWind.AbnormalSigils
 
             StatusEffect_Spores();
             Ability_Sporogenic();
-            
+
             StatusEffect_Prudence();
             Ability_Witness();
 
@@ -223,7 +222,7 @@ namespace WhistleWind.AbnormalSigils
 
             StatusEffect_Bind();
             Ability_BindingStrike();
-            
+
             Ability_Persecutor();
 
             StatusEffect_Pebble();
@@ -318,7 +317,15 @@ namespace WhistleWind.AbnormalSigils
                 botanicTribe.icon = TextureHelper.GetImageAsTexture("tribeBotanic.png", Assembly).ConvertTexture();
                 botanicTribe.cardback = TextureHelper.GetImageAsTexture("tribeBotanic_reward.png", Assembly);
             }
+        }
 
+        internal static AssetBundle AssetBundle { get; private set; }
+        internal static RuntimeAnimatorController MiniGiantAnimator { get; private set; }
+        internal static void InitAssetBundle()
+        {
+            using Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WhistleWind.AbnormalSigils.abnormalsigils");
+            AssetBundle = AssetBundle.LoadFromStream(stream);
+            MiniGiantAnimator = AssetBundle.LoadAsset<RuntimeAnimatorController>("Card_MiniGiant");
         }
     }
 }

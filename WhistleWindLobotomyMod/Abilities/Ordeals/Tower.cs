@@ -1,16 +1,10 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
-using InscryptionAPI.Helpers.Extensions;
-using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents;
 
 
 namespace WhistleWindLobotomyMod
@@ -24,7 +18,7 @@ namespace WhistleWindLobotomyMod
 
         public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
         {
-            return card == base.Card && base.Card.HasTrait(Trait.Giant) && modType == OpposingSlotTriggerPriority.Normal;
+            return card == base.Card && modType == OpposingSlotTriggerPriority.Normal;
         }
 
         public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
@@ -32,10 +26,10 @@ namespace WhistleWindLobotomyMod
             OrdealGreenMidnight sequencer = TurnManager.Instance.SpecialSequencer as OrdealGreenMidnight;
             List<CardSlot> slots = new()
             {
-                sequencer.target1
+                sequencer.target1 ?? card.OpposingSlot()
             };
             doubleDirectDamage = sequencer.target1 == null && sequencer.target2 == null;
-            
+
             if (!doubleDirectDamage)
                 slots.Add(sequencer.target2);
 
@@ -58,7 +52,7 @@ namespace WhistleWindLobotomyMod
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "The Tower";
-            info.rulebookDescription = "[creature] begins in an inactive state. When this sigil's count reaches 0, enter an active state and target two opposing spaces each turn. Cards occupying targeted spaces will be destroyed.";
+            info.rulebookDescription = "This card changes state when this sigil's count reaches 0. In an active state, create two Lights on the opposing side of the board.";
             info.powerLevel = 5;
             Tower.ability = AbilityManager.Add(pluginGuid, info, typeof(Tower), TextureLoader.LoadTextureFromFile("sigilTower.png")).Id;
         }

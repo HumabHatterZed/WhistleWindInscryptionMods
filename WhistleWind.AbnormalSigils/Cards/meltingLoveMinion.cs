@@ -1,5 +1,4 @@
-﻿using Infiniscryption.Spells.Sigils;
-using InscryptionAPI.Card;
+﻿using InscryptionAPI.Card;
 
 using WhistleWind.Core.Helpers;
 

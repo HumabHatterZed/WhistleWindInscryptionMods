@@ -1,15 +1,6 @@
-﻿using BepInEx.Bootstrap;
-using DiskCardGame;
-using Infiniscryption.Achievements;
-using Infiniscryption.PackManagement;
-using InscryptionAPI.Card;
-using System.Collections.Generic;
-using WhistleWind.AbnormalSigils;
+﻿using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Patches;
-using static WhistleWind.AbnormalSigils.AbnormalPlugin;
-using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {

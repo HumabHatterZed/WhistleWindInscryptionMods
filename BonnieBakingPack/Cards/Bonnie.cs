@@ -184,7 +184,7 @@ namespace BonniesBakingPack
 
             DialogueManager.GenerateEvent(pluginGuid, "BonnieLeshy", new() {
                 NewLine("So he's the one controlling all this?", Emotion.Quiet) },
-                new() { 
+                new() {
                     new() { NewLine("Let me help!", Emotion.Neutral) },
                     new() { NewLine("So he's, like, a tree?", Emotion.Quiet) },
                     new() {NewLine("Let's kick the moon's butt!", Emotion.Laughter) }
@@ -199,7 +199,7 @@ namespace BonniesBakingPack
                 });
 
             //DialogueManager.GenerateEvent(pluginGuid, "Bonnie", new(), new() { new() });
-            
+
             /*DialogueManager.GenerateEvent(pluginGuid, "BonnieStatBoost", new() {
                 "Shortly after leaving the camp, you hear a familiar voice behind you.",
                 "Bonnie rejoins your caravan, only slightly singed.",

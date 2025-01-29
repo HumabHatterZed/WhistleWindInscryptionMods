@@ -3,7 +3,6 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod

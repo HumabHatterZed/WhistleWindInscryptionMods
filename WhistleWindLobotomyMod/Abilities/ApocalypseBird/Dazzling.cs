@@ -5,7 +5,6 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 
 namespace WhistleWindLobotomyMod

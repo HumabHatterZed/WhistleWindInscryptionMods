@@ -1,5 +1,4 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
+﻿using InscryptionAPI.Card;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils

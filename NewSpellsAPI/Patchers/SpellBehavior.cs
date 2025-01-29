@@ -172,7 +172,7 @@ namespace Infiniscryption.Spells.Patchers
             card.RenderCard();
         }
 
-        public static Color GBCGreenText = new (0.1f, .6f, 0.3f);
+        public static Color GBCGreenText = new(0.1f, .6f, 0.3f);
         [HarmonyPrefix, HarmonyPatch(typeof(Card), nameof(Card.RenderCard))]
         private static bool UpdateSpellStatsDisplay(Card __instance)
         {
@@ -261,7 +261,7 @@ namespace Infiniscryption.Spells.Patchers
             deckList.RemoveAll(ci => __result.Contains(ci) || !ci.IsSpellShowStats()
                 || (ci.baseAttack <= 0 && ci.baseHealth <= 0 && !(ci.GetExtendedPropertyAsBool("Spells:NegativeStats") ?? false))
                 || ci.HasTrait(Trait.Terrain));
-            
+
             __result.AddRange(deckList);
         }
 

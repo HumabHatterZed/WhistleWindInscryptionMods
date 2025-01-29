@@ -8,7 +8,7 @@ namespace WhistleWind.AbnormalSigils.Core
     {
         public List<GameObject> statusEffectIconGroups = new();
         public readonly List<AbilityIconInteractable> part1AbilityIcons = new();
-        
+
         public List<AbilityIconInteractable> abilityIcons = new();
         public Material statusEffectMat = null;
 

@@ -1,11 +1,5 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Encounters;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.XR.Tango;
-using WhistleWind.AbnormalSigils;
-using EncounterBuilder = DiskCardGame.EncounterBuilder;
 
 namespace WhistleWindLobotomyMod.Opponents
 {
@@ -14,7 +8,7 @@ namespace WhistleWindLobotomyMod.Opponents
         public bool RespondsToKillPlayerSequence();
         public IEnumerator KillPlayerSequence();
     }
-    
+
     public interface IPreventInstantWin
     {
         public bool PreventInstantWin(bool timeMachine, CardSlot triggeringSlot);

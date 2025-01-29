@@ -2,7 +2,6 @@
 using InscryptionAPI.Ascension;
 using InscryptionAPI.Helpers;
 using System.Reflection;
-using WhistleWind.Core.Helpers;
 
 namespace ModDebuggingMod
 {
@@ -36,7 +35,7 @@ namespace ModDebuggingMod
         public void AddChallenges()
         {
             Id1 = AddDebug("Challenge1Boss", "challenge1_1.png", "challenge1_2.png", 1, 5, true);
-            
+
             //Id2 = AddDebug("Challenge2", "challenge2 (1).png", "challenge2 (2).png", 1, 0);
             //Id3 = AddDebug("Challenge3", "challenge3 (1).png", "challenge3 (2).png", 1, 0);
             //Id4 = AddDebug("Challenge4Boss", "challenge4 (1).png", "challenge4 (2).png", 1, 0, true);

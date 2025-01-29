@@ -35,7 +35,7 @@ namespace WhistleWind.AbnormalSigils
         {
             if (otherCard == base.Card && base.Card.Slot.GetSlotModification() != SlotModificationManager.ModificationType.NoModification)
                 return FloodedSlot.CardIsGrounded(base.Card);
-            
+
             return false;
         }
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
@@ -44,7 +44,7 @@ namespace WhistleWind.AbnormalSigils
             if (mod == FloodedSlot.Id)
             {
                 yield return ExtinguishCard(base.Card, true);
-                
+
             }
             else if (mod == FloodedSlotShallow.Id)
             {

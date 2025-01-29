@@ -84,7 +84,7 @@ namespace BonniesBakingPack
 
             SplitByAct = Config.Bind("General", "All Acts", false, "Should each Scrybe's card pack be choosable in any act?");
             BingusCrash = Config.Bind("General", "Bingus Flubbed It", false, "Has Bingus been played for the first time?");
-            
+
             HarmonyInstance.PatchAll(Assembly);
             if (ScrybeCompat.GrimoraEnabled)
             {
@@ -121,7 +121,7 @@ namespace BonniesBakingPack
 
                 return abilities;
             };
-            
+
             AddCards();
             StarterDeckManager.New(pluginGuid, "Basic Baking Pack",
                 GetTexture("starterDeck.png"), new string[3] { "bbp_act1_bonnie", "bbp_act1_meetBun", "bbp_act1_whiteDonut" }
@@ -145,7 +145,7 @@ namespace BonniesBakingPack
                 if (!ScrybeCompat.P03Enabled)
                 {
                     decks.RemoveAll(x => x.Info.title == "Bot Baking Pack");
-                }   
+                }
 
                 return decks;
             };
@@ -316,7 +316,7 @@ namespace BonniesBakingPack
         {
             if (!BakingPlugin.GrimoraCards.Contains(info))
                 BakingPlugin.GrimoraCards.Add(info);
-            
+
             if (BakingPlugin.ScrybeCompat.GrimoraEnabled)
             {
                 info.AddMetaCategories(GuidManager.GetEnumValue<CardMetaCategory>("arackulele.inscryption.grimoramod", "GrimoraModChoiceNode"));

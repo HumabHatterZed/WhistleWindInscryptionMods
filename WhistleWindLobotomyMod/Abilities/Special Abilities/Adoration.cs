@@ -57,13 +57,13 @@ namespace WhistleWindLobotomyMod
                 base.Card.Anim.LightNegationEffect();
                 base.PlayableCard.HealDamage(healAmount);
                 yield return new WaitForSeconds(0.2f);
-                    
+
             }
             // if rightValid and we still have missing health, absorb from the right card as well
             if (rightValid && missingHealth > 0)
             {
                 int healAmount = (rightSlot.Card.Health - missingHealth) > 0 ? missingHealth : rightSlot.Card.Health;
-                
+
                 rightSlot.Card.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
                 rightSlot.Card.Status.damageTaken += healAmount;

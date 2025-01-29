@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         {
             const string canOfWellCheers = "canOfWellCheers";
 
-            CardInfo can = CardManager.New(pluginPrefix, 
+            CardInfo can = CardManager.New(pluginPrefix,
                 "CRUMPLED_CAN", "Crumpled Can of WellCheers",
                 attack: 0, health: 1)
                 .SetPortraits(ModAssembly, "skeleton_can")
@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 .SetDefaultEvolutionName("Rusted Can of WellCheers")
                 .Build();
 
-            CardInfo skeleton = CardManager.New(pluginPrefix, 
+            CardInfo skeleton = CardManager.New(pluginPrefix,
                 "SKELETON_SHRIMP", "Skeleton Shrimp",
                 attack: 2, health: 1)
                 .SetBonesCost(5)

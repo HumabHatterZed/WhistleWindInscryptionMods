@@ -1,9 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
 
 namespace BonniesBakingPack
 {
@@ -18,7 +14,7 @@ namespace BonniesBakingPack
                 .SetPortraitAndEmission(GetTexture("mouseLoud.png"), GetTexture("mouseLoud_emission.png"))
                 .SetPixelPortrait(GetTexture("mouseLoud_pixel.png"))
                 .AddAbilities(Ability.BuffEnemy);
-            
+
             CardInfo aka = CardManager.New(pluginPrefixG, "akaMouso", "Aka Mouso", 2, 2, "RED PAPER OR BLUE PAPER?")
                 .SetDefaultPart1Card().AddGrimora()
                 .SetEnergyCost(5)

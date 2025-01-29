@@ -7,9 +7,7 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents;
-using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod
 {
@@ -148,7 +146,7 @@ namespace WhistleWindLobotomyMod
 
             List<PlayableCard> cardsToKill = BoardManager.Instance.GetCards(!base.Card.OpponentCard, (PlayableCard c) => c != base.Card);
             PlayableCard cardToKill = cardsToKill[SeededRandom.Range(0, cardsToKill.Count, base.GetRandomSeed() + 1)];
-            
+
             ViewManager.Instance.SwitchToView(View.Hand);
             foreach (PlayableCard card in Singleton<PlayerHand>.Instance.CardsInHand.Where(c => c.HasAbility(Confession.ability)))
                 card.Anim.StrongNegationEffect();

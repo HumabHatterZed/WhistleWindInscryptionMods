@@ -1,8 +1,5 @@
 ﻿using DiskCardGame;
 using GBC;
-using InscryptionAPI.Helpers;
-using InscryptionAPI.Items;
-using InscryptionAPI.Items.Extensions;
 using InscryptionAPI.Saves;
 using InscryptionAPI.Slots;
 using System.Collections.Generic;

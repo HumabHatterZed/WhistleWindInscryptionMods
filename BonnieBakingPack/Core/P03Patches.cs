@@ -1,19 +1,6 @@
-﻿using BepInEx;
-using BepInEx.Bootstrap;
-using BepInEx.Logging;
-using DiskCardGame;
-using GBC;
+﻿using DiskCardGame;
 using HarmonyLib;
 using Infiniscryption.P03SigilLibrary.Sigils;
-using Infiniscryption.PackManagement;
-using InscryptionAPI;
-using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using UnityEngine;
 
 namespace BonniesBakingPack
 {

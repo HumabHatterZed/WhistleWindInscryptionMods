@@ -1,18 +1,10 @@
-﻿using BepInEx;
-using BepInEx.Bootstrap;
-using BepInEx.Logging;
-using DiskCardGame;
+﻿using DiskCardGame;
 using GrimoraMod;
 using HarmonyLib;
-using Infiniscryption.PackManagement;
-using InscryptionAPI;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using UnityEngine;
 
 namespace BonniesBakingPack
 {
@@ -22,7 +14,7 @@ namespace BonniesBakingPack
         private static IEnumerator DeadtectiveDealDamage(IEnumerator enumerator, ActivatedDealDamageGrimora __instance)
         {
             bool panda = __instance.Card.HasSpecialAbility(PandaAbility.SpecialAbility);
-            
+
             if (panda) __instance.Card.SwitchToAlternatePortrait();
             yield return enumerator;
             if (panda) __instance.Card.SwitchToDefaultPortrait();

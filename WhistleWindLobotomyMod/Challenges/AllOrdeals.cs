@@ -1,19 +1,7 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Ascension;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Opponents.Angler;
-using WhistleWindLobotomyMod.Opponents.Leshy;
-using WhistleWindLobotomyMod.Opponents.PirateSkull;
-using WhistleWindLobotomyMod.Opponents.Prospector;
-using WhistleWindLobotomyMod.Opponents.TrapperTrader;
 
 
 namespace WhistleWindLobotomyMod.Challenges

@@ -2,15 +2,10 @@
 using GBC;
 using HarmonyLib;
 using InscryptionAPI.Card;
-using InscryptionAPI.RuleBook;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
-using static InscryptionAPI.Slots.SlotModificationManager;
 
 namespace WhistleWind.AbnormalSigils.Core
 {
@@ -85,7 +80,7 @@ namespace WhistleWind.AbnormalSigils.Core
                 controller.abilityIcons.Add(icon);
             }
         }
-        
+
         public static List<Ability> GetDistinctStatusEffects(PlayableCard card)
         {
             if (card == null)
@@ -120,7 +115,7 @@ namespace WhistleWind.AbnormalSigils.Core
                         {
                             behav.AllPages.Add(newPage, new());
                         }
-                        
+
                         behav.AllPages[newPage].Add(abilities[i]);
                         if (behav.AllPages[newPage].Count == 4)
                         {
@@ -162,7 +157,7 @@ namespace WhistleWind.AbnormalSigils.Core
                     {
                         icons[j].localPosition = new(-0.375f + 0.1875f * j, 0.2f, 0f);
                         icons[j].transform.localScale = new(0.15f, 0.10f, 1f);
-                        
+
                         GameObject back = GameObject.Instantiate(abilityIconParent.Find("CardMergeIcon_1/Back").gameObject, icons[j]);
                         back.name = "Back";
                         back.transform.localScale = new(1.5f, 1.5f, 1f);
@@ -172,7 +167,7 @@ namespace WhistleWind.AbnormalSigils.Core
 
                         backRenderer.sortingLayerID = iconRenderer.sortingLayerID;
                         backRenderer.sortingOrder = iconRenderer.sortingOrder;
-                        
+
                         GameObject.Destroy(back.GetComponent<AbilityIconInteractable>());
                         GameObject.Destroy(back.GetComponent<BoxCollider>());
                     }

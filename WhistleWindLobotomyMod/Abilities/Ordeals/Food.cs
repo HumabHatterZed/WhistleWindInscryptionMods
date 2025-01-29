@@ -1,13 +1,9 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 
 namespace WhistleWindLobotomyMod
@@ -16,7 +12,7 @@ namespace WhistleWindLobotomyMod
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        
+
         private CardSlot oldSlot;
 
         public override bool RespondsToResolveOnBoard() => true;

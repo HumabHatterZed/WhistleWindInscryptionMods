@@ -1,6 +1,5 @@
 using DiskCardGame;
 using Infiniscryption.Core.Helpers;
-using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +20,7 @@ namespace Infiniscryption.Spells.Sigils
             List<Ability> shownAbilitiesOnTarget = CardHelpers.GetDistinctShownAbilities(card.Info, card.TemporaryMods, card.Status.hiddenAbilities);
             if (shownAbilitiesOnTarget.Count > MaxSigilsToGive)
                 yield break;
-            
+
             List<Ability> abilitiesToAdd = base.Card.AllAbilities();
             abilitiesToAdd.RemoveAll(ab => ab.GetExtendedPropertyAsBool("Spells:GiveAbility") == true);
 

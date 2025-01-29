@@ -4,7 +4,6 @@ using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
-using InscryptionAPI.Pelts;
 using InscryptionAPI.Regions;
 using System.Collections.Generic;
 using System.Reflection;
@@ -46,7 +45,7 @@ namespace ModDebuggingMod
             //ModifyCardList();
 
             //PeltManager.New(pluginGuid, CardLoader.GetCardByName("Squirrel"), 0, 0, 4, () => CardManager.AllCardsCopy);
-            
+
             StarterDeckHelper.AddStarterDeck("wstl", "DEBUG HUG", "starterDeckMagicalGirls.png", 0, cardNames: new()
             {
                 "Squirrel",

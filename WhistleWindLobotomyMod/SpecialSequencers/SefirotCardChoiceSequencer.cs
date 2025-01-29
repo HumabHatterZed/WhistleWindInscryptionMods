@@ -2,7 +2,6 @@
 using InscryptionAPI.Nodes;
 using InscryptionAPI.TalkingCards;
 using Pixelplacement;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

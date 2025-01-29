@@ -44,7 +44,7 @@ namespace WhistleWindLobotomyMod
             {
                 if (SaveManager.SaveFile.IsPart2)
                     return !LobotomySaveManager.UsedBackwardClockGBC;
-                
+
                 return !LobotomySaveManager.UsedBackwardClock;
             }
             return false;
@@ -55,7 +55,7 @@ namespace WhistleWindLobotomyMod
             if (TurnManager.Instance.Opponent is LobotomyBossOpponent opp && opp.PreventInstantWin(true, base.Card.Slot))
             {
                 base.Card.Anim.StrongNegationEffect();
-                yield return opp.OnInstantWinPrevented(true,base.Card.Slot);
+                yield return opp.OnInstantWinPrevented(true, base.Card.Slot);
                 yield break;
             }
 
@@ -230,7 +230,7 @@ namespace WhistleWindLobotomyMod
                 clone.SetEmissivePortrait(TextureLoader.LoadTextureFromFile($"backwardClock_emission_{rand}.png"));
                 base.Card.RenderInfo.forceEmissivePortrait = true;
             }
-            
+
             base.Card.SetInfo(clone);
         }
     }

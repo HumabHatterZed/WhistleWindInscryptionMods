@@ -28,7 +28,7 @@ namespace BonniesBakingPack
             {
                 AudioController.Instance.PlaySound3D("bonnie_bonk", MixerGroup.None, base.Card.transform.position);
             }
-            
+
             return base.OnDealDamage(amount, target);
         }
         public override string CardName => "bbp_act1_bunnie";

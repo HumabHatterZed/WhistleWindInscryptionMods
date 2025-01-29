@@ -1,15 +1,11 @@
-﻿using BepInEx.Bootstrap;
-using DiskCardGame;
-using Infiniscryption.PackManagement;
+﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Guid;
 using InscryptionAPI.Helpers;
-using InscryptionAPI.TalkingCards.Create;
 using InscryptionAPI.TalkingCards;
-using System;
+using InscryptionAPI.TalkingCards.Animation;
+using InscryptionAPI.TalkingCards.Create;
 using System.Collections.Generic;
 using UnityEngine;
-using InscryptionAPI.TalkingCards.Animation;
 
 namespace BonniesBakingPack
 {
@@ -18,7 +14,7 @@ namespace BonniesBakingPack
         private void CreateBingus()
         {
             Sprite face = TextureHelper.GetImageAsTexture("bingus.png", Assembly).ConvertTexture(new(0.5f, 0f));
-            List <EmotionData> emotionData = new()
+            List<EmotionData> emotionData = new()
             {
                 new(emotion: 0,
                     face: face,
@@ -35,7 +31,7 @@ namespace BonniesBakingPack
                 .SetStatIcon(BingusStatIcon.Icon)
                 .AddTraits(Trait.KillsSurvivors, Trait.DeathcardCreationNonOption, Trait.LikesHoney, Trait.Lice, Trait.Uncuttable)
                 .SetOnePerDeck();
-            
+
             TalkingCardManager.Create(bingusFace, BingusAbility.SpecialAbility);
         }
     }

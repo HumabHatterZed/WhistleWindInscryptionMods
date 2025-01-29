@@ -7,13 +7,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
-using System.Xml.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Card.AbilityManager;
 using static InscryptionAPI.Card.SpecialTriggeredAbilityManager;
-using static InscryptionAPI.Slots.SlotModificationManager;
 
 namespace WhistleWind.AbnormalSigils.StatusEffects
 {
@@ -22,7 +19,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         public class FullStatusEffect
         {
             public string ModGUID;
-            
+
             public string RulebookName;
 
             public Type Behaviour;
@@ -160,7 +157,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         public static IEnumerator AddStatusEffect<T>(this PlayableCard card, int amount, bool updateDecals = false, Func<int, int> modifyTurnGained = null)
             where T : StatusEffectBehaviour
         {
-            
+
             T component = card.GetComponent<T>();
             bool firstStack = component == null;
             if (firstStack)

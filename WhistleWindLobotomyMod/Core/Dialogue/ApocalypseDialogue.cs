@@ -1,9 +1,4 @@
-﻿using DiskCardGame;
-using HarmonyLib;
-using Sirenix.Utilities;
-using System.Linq;
-using static WhistleWind.Core.Helpers.DialogueHelper;
-using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
+﻿using static WhistleWindLobotomyMod.Core.DialogueEventsManager;
 
 namespace WhistleWindLobotomyMod
 {

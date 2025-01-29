@@ -1,15 +1,10 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.RuleBook;
-using InscryptionAPI.Triggers;
-using Pixelplacement.TweenSystem;
-using Pixelplacement;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
 using WhistleWind.Core.Helpers;
-using InscryptionAPI.Helpers.Extensions;
 
 namespace WhistleWind.AbnormalSigils
 {

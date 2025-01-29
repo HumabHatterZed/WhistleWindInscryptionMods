@@ -3,7 +3,6 @@ using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;

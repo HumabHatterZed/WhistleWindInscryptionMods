@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
@@ -12,7 +11,7 @@ namespace WhistleWindLobotomyMod
         private void XCard_DrownedSisters()
         {
             const string drownedSisters = "drownedSisters";
-            
+
             CardManager.New(wonderlabPrefix, drownedSisters, "The Drowned Sisters",
                 attack: 0, health: 2)
                 .SetBonesCost(2)

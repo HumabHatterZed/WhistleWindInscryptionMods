@@ -1,8 +1,6 @@
 using DiskCardGame;
 using Infiniscryption.Core.Helpers;
-using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,7 +85,7 @@ namespace Infiniscryption.Spells.Sigils
             else
             {
                 card.AddTemporaryMod(baseMod);
-            } 
+            }
         }
 
         public static void Register()

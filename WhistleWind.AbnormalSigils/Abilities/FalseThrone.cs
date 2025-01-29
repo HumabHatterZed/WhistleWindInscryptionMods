@@ -1,9 +1,7 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 

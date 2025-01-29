@@ -1,17 +1,11 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
 using InscryptionAPI.RuleBook;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Text;
 using UnityEngine;
-using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.Core
@@ -40,7 +34,7 @@ namespace WhistleWind.AbnormalSigils.Core
             return pages.FindLastIndex(rbi => rbi.pagePrefab == RuleBookController.Instance.bookInfo.pageRanges.Find(x => x.type == PageRangeType.Items).rangePrefab) + 1;
         }
         private static List<RuleBookPageInfo> CreatePages(RuleBookInfo instance, PageRangeInfo currentRange, AbilityMetaCategory metaCategory) => NewMechanicPages.Select(x => x.Item1).ToList();
-        
+
         private static void FillPage(RuleBookPage page, string pageId, object[] otherArgs)
         {
             if (page is AbilityPage abilityPage)

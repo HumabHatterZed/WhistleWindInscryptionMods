@@ -1,12 +1,10 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Triggers;
 using Pixelplacement;
-using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static InscryptionAPI.Slots.SlotModificationManager;
 
 namespace BonniesBakingPack
 {

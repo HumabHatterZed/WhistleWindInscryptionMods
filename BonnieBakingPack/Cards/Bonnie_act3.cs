@@ -91,7 +91,7 @@ namespace BonniesBakingPack
                 .AddAbilities(FreshFood.ability)
                 .AddTraits(Trait.KillsSurvivors)
                 .SetOnePerDeck();
-            
+
             TalkingCardManager.New<BonnieDiskAbility>();
 
             DialogueManager.GenerateEvent(pluginGuid, "BonniePhotographer", new() {

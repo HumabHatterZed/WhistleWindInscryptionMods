@@ -5,7 +5,6 @@ using InscryptionAPI.Triggers;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 
 namespace WhistleWindLobotomyMod

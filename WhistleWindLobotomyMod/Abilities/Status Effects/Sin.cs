@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod

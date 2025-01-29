@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.RuleBook;
 using InscryptionAPI.Slots;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,14 +15,14 @@ namespace WhistleWind.AbnormalSigils
         {
             const string rulebookName = "Flooded";
             const string rulebookDescription = "At the end of the opponent's turn, deal 1 damage to cards occupying this space, then reduce this effect's Severity by 1. Cards that are airborne or face down are unaffected.";
-            
+
             Dictionary<CardTemple, Texture2D> slotTextures = SlotHelper.BuildTextureDictionary(
                 TextureLoader.LoadTextureFromFile("slotFlooded_act1.png", Assembly),
                 TextureLoader.LoadTextureFromFile("slotFlooded_act3.png", Assembly),
                 TextureLoader.LoadTextureFromFile("slotFlooded_grimora.png", Assembly),
                 TextureLoader.LoadTextureFromFile("slotFlooded_magnificus.png", Assembly)
                 );
-            
+
             Dictionary<CardTemple, Texture2D> slotTextures2 = SlotHelper.BuildTextureDictionary(
                 TextureLoader.LoadTextureFromFile("slotFlooded_act1_2.png", Assembly),
                 TextureLoader.LoadTextureFromFile("slotFlooded_act3_2.png", Assembly),

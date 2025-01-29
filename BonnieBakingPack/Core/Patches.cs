@@ -1,22 +1,9 @@
-﻿using BepInEx;
-using BepInEx.Bootstrap;
-using BepInEx.Logging;
-using DiskCardGame;
-using GBC;
-using GrimoraMod;
+﻿using DiskCardGame;
 using HarmonyLib;
-using Infiniscryption.PackManagement;
-using InscryptionAPI;
 using InscryptionAPI.Card;
-using InscryptionAPI.Dialogue;
-using InscryptionAPI.Helpers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using UnityEngine;
-using static BonniesBakingPack.BakingPlugin;
-using static Infiniscryption.P03KayceeRun.BattleMods.BattleModManager;
 
 namespace BonniesBakingPack
 {
@@ -112,19 +99,19 @@ namespace BonniesBakingPack
             __result.RemoveAll(x => x.name.StartsWith("bbp") && x.onePerDeck);
         }
 
-/*        [HarmonyPostfix, HarmonyPatch(typeof(CardStatBoostSequencer), nameof(CardStatBoostSequencer.StatBoostSequence), MethodType.Enumerator)]
-        private static IEnumerator ReturnBonnieToDeck(IEnumerator enumerator)
-        {
-            bool hasBonnie = SaveManager.SaveFile.CurrentDeck.cardIds.Contains("bbp_bonnie");
-            Debug.Log($"{hasBonnie}");
-            yield return enumerator;
-            if (hasBonnie && !SaveManager.SaveFile.CurrentDeck.cardIds.Contains("bbp_bonnie"))
-            {
-                Debug.Log($"dck");
-                SaveManager.SaveFile.CurrentDeck.AddCard(CardLoader.GetCardByName("bbp_bonnie"));
-                yield return TextDisplayer.Instance.PlayDialogueEvent("BonnieStatBoost");
-            }
-        }*/
+        /*        [HarmonyPostfix, HarmonyPatch(typeof(CardStatBoostSequencer), nameof(CardStatBoostSequencer.StatBoostSequence), MethodType.Enumerator)]
+                private static IEnumerator ReturnBonnieToDeck(IEnumerator enumerator)
+                {
+                    bool hasBonnie = SaveManager.SaveFile.CurrentDeck.cardIds.Contains("bbp_bonnie");
+                    Debug.Log($"{hasBonnie}");
+                    yield return enumerator;
+                    if (hasBonnie && !SaveManager.SaveFile.CurrentDeck.cardIds.Contains("bbp_bonnie"))
+                    {
+                        Debug.Log($"dck");
+                        SaveManager.SaveFile.CurrentDeck.AddCard(CardLoader.GetCardByName("bbp_bonnie"));
+                        yield return TextDisplayer.Instance.PlayDialogueEvent("BonnieStatBoost");
+                    }
+                }*/
 
         [HarmonyPostfix, HarmonyPatch(typeof(PlayerHand), nameof(PlayerHand.PlayCardOnSlot))]
         private static IEnumerator RemoveBingusInHand(IEnumerator enumerator, PlayerHand __instance, PlayableCard card, CardSlot slot)

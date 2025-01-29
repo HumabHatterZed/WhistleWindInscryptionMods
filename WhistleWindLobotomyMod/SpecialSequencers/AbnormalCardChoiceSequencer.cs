@@ -1,12 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Nodes;
 using Pixelplacement;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Challenges;
@@ -81,7 +78,7 @@ namespace WhistleWindLobotomyMod
                 randomSeed *= 2;
                 float x = (choices.Count - 1) * -0.75f;
                 base.selectableCards = base.SpawnCards(choices.Count, base.transform, new Vector3(x, 5.01f, 0f));
-                
+
                 // spawn selectable cards
                 for (int i = 0; i < choices.Count; i++)
                 {
@@ -139,12 +136,12 @@ namespace WhistleWindLobotomyMod
 
                 // if this is a duplicate card, generate a new card
                 while (listOfChoices.Exists((CardChoice x) => x.CardInfo.name == card.name))
-                    {
-                        int riskLevel2 = GetRiskLevel(randomSeed++, regionTier);
-                        card = overrideWithRare ? LobotomyCardLoader.GetRandomRareModCard(randomSeed++) : LobotomyCardLoader.GetRandomChoosableModCard(randomSeed++, riskLevel2);
-                    }
-                    cardChoice.CardInfo = card;
-                    listOfChoices.Add(cardChoice);
+                {
+                    int riskLevel2 = GetRiskLevel(randomSeed++, regionTier);
+                    card = overrideWithRare ? LobotomyCardLoader.GetRandomRareModCard(randomSeed++) : LobotomyCardLoader.GetRandomChoosableModCard(randomSeed++, riskLevel2);
+                }
+                cardChoice.CardInfo = card;
+                listOfChoices.Add(cardChoice);
             }
             return new List<CardChoice>(listOfChoices.Randomize());
         }

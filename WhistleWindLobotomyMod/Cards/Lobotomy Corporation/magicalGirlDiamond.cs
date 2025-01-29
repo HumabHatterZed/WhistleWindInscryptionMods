@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
             Tribe[] tribes = new[] { TribeFae };
             Trait[] traits = new[] { MagicalGirl };
 
-            CardInfo kingOfGreedCard = CardManager.New(pluginPrefix, 
+            CardInfo kingOfGreedCard = CardManager.New(pluginPrefix,
                 kingOfGreed, kingName,
                 attack: 2, health: 5)
                 .SetBloodCost(1)

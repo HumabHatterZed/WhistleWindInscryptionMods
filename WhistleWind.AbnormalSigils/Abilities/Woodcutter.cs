@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Triggers;
 using System.Collections;
-using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
@@ -24,7 +23,7 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    
+
     public class Woodcutter : Sentry, IModifyDamageTaken
     {
         public static Ability ability;

@@ -1,7 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
-using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
@@ -12,7 +10,7 @@ namespace WhistleWind.Core.Helpers
         private const string _EMISSION = "_emission.png";
         public const string _PIXEL = "_pixel.png";
         public const string _PNG = ".png";
-        
+
         /// <remarks>
         /// portraitName must not end with a file extension. emissionName and pixelPortrait must end with a file extension if not null.
         /// </remarks>
@@ -66,7 +64,7 @@ namespace WhistleWind.Core.Helpers
             else if (cardChoice == CardType.Rare)
             {
                 cardInfo.SetRare().RemoveAppearances(CardAppearanceBehaviour.Appearance.TerrainBackground);
-                
+
                 if (!availableAsCardChoice)
                     cardInfo.RemoveCardMetaCategories(CardMetaCategory.Rare);
             }

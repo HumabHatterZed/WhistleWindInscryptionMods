@@ -2,7 +2,6 @@
 using HarmonyLib;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
-using System.Text;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Opponents;
 using WhistleWindLobotomyMod.Opponents.Apocalypse;
@@ -48,9 +47,9 @@ namespace WhistleWindLobotomyMod.Patches
                         AbilitiesUtil.GetInfo(DynamicAbilities[2]).rulebookDescription = $"While [creature] is on the board, remove Terrain and Pelt cards from the owner's side of the board and transform the rest into random Apostles.";
                         AbilitiesUtil.GetInfo(DynamicAbilities[3]).rulebookDescription = "Kill WhiteNight and all Apostles on the board then deal 33 direct damage to the opponent.";
                     }
-                    if (CustomOpponentUtils.FightingCustomOpponent(true))
+                    if (LobOpponentUtils.FightingCustomOpponent(true))
                     {
-                        if (CustomOpponentUtils.IsCustomBoss<ApocalypseBossOpponent>())
+                        if (LobOpponentUtils.IsCustomBoss<ApocalypseBossOpponent>())
                         {
                             changedRulebook = true;
                             AbilitiesUtil.GetInfo(DynamicAbilities[4]).rulebookDescription = TurnManager.Instance.Opponent.NumLives switch
@@ -79,14 +78,14 @@ namespace WhistleWindLobotomyMod.Patches
                 return ApocalypseThresholdString;
 
             return " Upon reaching 80/60/40 Health, permanently disable this effect then switch phase.";
-/*            StringBuilder builder = new(" Upon reaching ");
-            ApocalypseBattleSequencer sequence = CustomBossUtils.AsCustomBoss<ApocalypseBossOpponent>().BattleSequence;
-            builder.Append(sequence.BossHealthThreshold(4))
-                .Append("/").Append(sequence.BossHealthThreshold(3))
-                .Append("/").Append(sequence.BossHealthThreshold(2))
-                .Append(" Health, permanently disable this effect then switch phase.");
+            /*            StringBuilder builder = new(" Upon reaching ");
+                        ApocalypseBattleSequencer sequence = CustomBossUtils.AsCustomBoss<ApocalypseBossOpponent>().BattleSequence;
+                        builder.Append(sequence.BossHealthThreshold(4))
+                            .Append("/").Append(sequence.BossHealthThreshold(3))
+                            .Append("/").Append(sequence.BossHealthThreshold(2))
+                            .Append(" Health, permanently disable this effect then switch phase.");
 
-            return ApocalypseThresholdString = builder.ToString();*/
+                        return ApocalypseThresholdString = builder.ToString();*/
         }
 
         internal static string ApocalypseThresholdString = null;

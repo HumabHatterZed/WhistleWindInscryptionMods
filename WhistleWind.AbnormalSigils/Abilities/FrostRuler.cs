@@ -38,7 +38,7 @@ namespace WhistleWind.AbnormalSigils
 
             if (slot.Card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt))
                 return "The cold cannot turn one without a heart. Choose another.";
-            
+
             return "Frost cannot penetrate this one. Choose another.";
         }
         public override int StartingBonesCost => 2;
@@ -90,7 +90,7 @@ namespace WhistleWind.AbnormalSigils
                 yield return slot.Card.Die(false, base.Card);
                 if (slot.Card == null)
                     yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_snowQueenIceHeart"), slot, 0.15f);
-                
+
                 yield return new WaitForSeconds(0.6f);
                 yield return DialogueHelper.PlayDialogueEvent("FrostRulerKiss");
             }
@@ -112,7 +112,7 @@ namespace WhistleWind.AbnormalSigils
             {
                 if (base.Card.OpponentCard || ResourcesManager.Instance.PlayerBones > 3)
                     return slot.Card.LacksAllTraits(Trait.Uncuttable, Trait.Terrain, Trait.Pelt, Trait.Giant) && slot.Card.LacksAbility(Scorching.ability);
-                
+
                 return false;
             }
             return true;

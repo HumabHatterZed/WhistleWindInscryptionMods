@@ -1,5 +1,4 @@
-﻿using InscryptionAPI.Helpers;
-using InscryptionAPI.TalkingCards.Create;
+﻿using InscryptionAPI.TalkingCards.Create;
 using System.IO;
 using System.Linq;
 using System.Reflection;

@@ -2,7 +2,6 @@
 using HarmonyLib;
 using WhistleWindLobotomyMod.Core;
 using static WhistleWindLobotomyMod.Core.LobotomySaveManager;
-using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Patches
 {

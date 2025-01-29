@@ -1,9 +1,7 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
 using System.Collections;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core.Helpers;
 
 
 namespace WhistleWindLobotomyMod

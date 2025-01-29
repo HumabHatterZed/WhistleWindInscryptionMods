@@ -3,7 +3,6 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
-using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 

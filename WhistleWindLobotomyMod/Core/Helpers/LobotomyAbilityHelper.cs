@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using UnityEngine;
 using WhistleWind.Core.Helpers;
 
 using static InscryptionAPI.Card.AbilityManager;
@@ -16,7 +15,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             string dialogue = null, string triggerText = null,
             int powerLevel = 0)
             where T : ActivatedAbilityBehaviour
-        {   
+        {
             return AbilityHelper.NewActivated<T>(pluginGuid, textureName, rulebookName, rulebookDescription, powerLevel, true, dialogue, triggerText);
         }
         public static FullAbility CreateRulebookAbility<T>(string rulebookName, string rulebookDescription) where T : AbilityBehaviour

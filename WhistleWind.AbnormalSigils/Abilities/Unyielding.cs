@@ -1,9 +1,5 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using HarmonyLib;
-using InscryptionAPI.Card;
-using InscryptionAPI.RuleBook;
-using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,7 +69,7 @@ namespace WhistleWind.AbnormalSigils
                     ability.Card.Anim.StrongNegationEffect();
                 }
             }
-            
+
             if (slotToReturnTo != null)
             {
                 ability.Card.SetIsOpponentCard(!slotToReturnTo.IsPlayerSlot);

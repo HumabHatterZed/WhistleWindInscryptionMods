@@ -1,5 +1,4 @@
-﻿using DiskCardGame;
-using InscryptionAPI.Card;
+﻿using InscryptionAPI.Card;
 
 using WhistleWind.Core.Helpers;
 
@@ -11,7 +10,7 @@ namespace WhistleWind.AbnormalSigils
         {
             const string nail = "nail";
             const string hammer = "hammer";
-            
+
             CardManager.New(pluginPrefix, nail, "Nail", 1, 2)
                 .SetPortraits(Assembly, nail)
                 .AddAbilities(Piercing.ability, RightStrike.ability);

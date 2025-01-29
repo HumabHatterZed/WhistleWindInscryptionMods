@@ -1,5 +1,4 @@
 using DiskCardGame;
-using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using System;
 using System.Collections;
@@ -67,7 +66,7 @@ namespace WhistleWind.Core.Helpers
         }
         public static IEnumerator HealCard(int amount, PlayableCard card, float postWait = 0.1f, Action<PlayableCard> onHealCallback = null)
         {
-            bool faceDown  = card.FaceDown;
+            bool faceDown = card.FaceDown;
             yield return card.FlipFaceUp(faceDown);
             card.Anim.LightNegationEffect();
             card.HealDamage(amount);

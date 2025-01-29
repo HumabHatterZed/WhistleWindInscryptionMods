@@ -1,9 +1,6 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Card;
-using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 
@@ -50,7 +47,7 @@ namespace WhistleWind.AbnormalSigils
             base.Card.Anim.StrongNegationEffect();
             base.Card.AddTemporaryMod(CreateConductorMod(MovementOne.ability));
             yield return new WaitForSeconds(0.4f);
-            
+
         }
 
         public static CardModificationInfo CreateConductorMod(Ability newMovement)

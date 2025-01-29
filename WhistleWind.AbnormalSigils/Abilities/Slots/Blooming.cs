@@ -1,6 +1,5 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.RuleBook;
 using InscryptionAPI.Slots;
 using System.Collections;
 using System.Collections.Generic;

@@ -2,7 +2,6 @@
 using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
 using System.Collections.Generic;
-using System.Reflection;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 

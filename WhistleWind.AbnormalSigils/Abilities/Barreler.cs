@@ -46,7 +46,7 @@ namespace WhistleWind.AbnormalSigils
             if (!base.movingLeft && !canMoveRight)
                 base.movingLeft = true;
 
-            
+
             bool destinationValid = canMoveLeft || canMoveRight;
             if (destinationValid)
             {

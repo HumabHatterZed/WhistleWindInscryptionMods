@@ -4,7 +4,6 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Regions;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod.Opponents;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
