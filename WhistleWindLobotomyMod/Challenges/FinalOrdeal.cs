@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
 using InscryptionAPI.Ascension;
 using System.Linq;
 using WhistleWind.Core.Helpers;
@@ -12,6 +11,7 @@ namespace WhistleWindLobotomyMod.Challenges
 
         internal static void Register()
         {
+            return;
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 "Final Ordeals",

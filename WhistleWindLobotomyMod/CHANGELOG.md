@@ -1,80 +1,78 @@
-<details>
-<summary>View Changelog</summary>
-
 # Plugin GUID: whistlewind.inscryption.lobotomycorp
 
 ## v3.0.0 - Wondrous Ordeals ()
 ### 🧱 Structural
-- Refactored all custom opponents and sequencers
-- Refactored card and ability creation
+- Achievements API is now a required dependency
+- Created secondary versions of all obtainable cards for Act 2 to prevent any multi-Act Temple nonsense
 - Changed internal name of Abnormal card choice to 'AbnormalCardChoice'
 - Changed internal name of Sefirot card choice to 'SefirotCardChoice'
-- Changed internal names of Sefirot dialogue events to no longer include the 'Sephirah' prefix
-- Separated cards into Act 1 and non-Act 1 versions under different prefixes - non-Act 1 versions use the 'wstlGBC' prefix
+- Changed internal names of Sefirot-related dialogue events to remove the 'Sephirah' prefix
 - Detonator sigil is now re-rethemed to Volatile if config 'ReskinSigils' is set to true
-- Changed how cards are internally handled to allow to use game systems
-### 🩹 Bug fixes
-- Fixed Miracle Worker challenge trying to modify full turns in the turn plan
-- Fixed Apocalypse boss 'ReactiveSkin' mechanic making the boss invinicible
-- Fixed certain Apocalypse boss mechanics and effects triggering at incorrect times
-- Fixed Time Machine being inconsistent when removing cards from the deck
-- Fixed Time Machine sometimes presenting the activating card as a choice
-- Fixed Time Machine activating when no cards can be removed
-- Partially fixed mod cards appearing in unsupported acts
-### 🔧 Tweaks
-- Redid artwork for Nameless Fetus
+- Refactored custom opponents and sequencers
+- Refactored card and ability creation
+- Removed unused asset files
+### Apocalypse Boss
+- Fixed boss card becoming invincible when too much damage is dealt to it
+- Fixed certain fight mechanics and effects triggering at incorrect times
+- Added Challenging sigil to boss cards
+- Boss cards are no longer considered Terrain
+- Bones gained from excess direct damage are now capped at 8 per turn
+- Modified description of Unjust Scales sigil for clarity
+- Unjust Scales sigil no longer changes behaviour and description during the final phase - split into own sigil
+- Movement order of opponent cards is now randomised each turn
+- Hourglass item can no longer be used during the Long Arms phase
+- Sin can no longer be removed by certain effects like Martyr
+- Sin is now automatically removed from cards when Long Arms is defeated
+- Time Machine cannot be activated unless Long Arms is defeated
+- Time Machine now removes non-boss opponent cards from the board, changes current active phase
+- Adjusted reactive difficulty thresholds
+- Final phase can gain 1 additional base Power when above certain difficulty threshold
+### Time Machine
+- Fixed selected cards not being correctly removed from the deck
+- Fixed the activating card being a possible choice for removal
+- Can no longer activate if no other cards exist in the deck
+- Improved activation sequence
+- Changed how card choices are determined
+- Effect now changes during custom boss fights (Final Apocalypse, etc.)
+### Ordeals
+- Added Ordeal nodes
+- Added XX cards
+- Added XX abilities
+- Added XX challenges
+- Modified some encounters to use Ordeal cards as opponents
+### General
+- Fixed Miracle Worker challenge trying to insert Plague Doctor into turns with 4 cards
 - Modified some dialogue
-- Changed Final Apocalypse challenge icon to occupy the entire column
-- Clarified description of 'Abnormal Bosses' and 'Abnormal Encounters' challenges
-- Clarified description of Unjust Scales sigil
-- Clarified description of Concord special ability
-- Changed weights used in the Abnormal Choice Node for Risk Levels, new weights for each region tier are:
+- Updated artwork for Nameless Fetus
+- Final Apocalypse challenge icon now occupys an entire column on the selection menu
+- Modified descriptions of 'Abnormal Bosses' and 'Abnormal Encounters' challenges for clarity
+- Modified description of Concord special ability for clarity
+- Changed weights used in the Abnormal Choice Node for card choices in each region tier:
+    - Key: (Zayin, Teth, He, Waw, Aleph), weakest to strongest
     - Tier 0: (40%, 30%, 20%, 10%) -> (35%, 35%, 20%, 10%)
     - Tier 1: (30%, 30%, 20%, 20%) -> (20%, 30%, 30%, 20%)
     - Tier 2: Unchanged
-- Time Machine - Improved activation sequence
-- Time Machine - Adjusted how card options are chosen by the game
+- Reduced points of Miracle Worker challenge from 60 -> 33
 - Changed evolution name for Apocalypse Bird
 - Changed evolution name for You're Bald...
-- RANDOM_PLACEHOLDER card now has Amorphous sigil
+- Random Starter Deck: placeholder sprites now have a '?' in the sigil space
 - Funeral of the Dead Butterflies now belongs to the Undead temple
-- Giant Tree Sap is no longer singleton
-- Final Apocalypse
-    - Separated behaviour of Unjust Scales during the final phase into its own sigil
-    - Boss cards are no longer considered Terrain
-    - Opponent cards now move in a random order
-    - Time Machine cannot be activated while Long Arms is undefeated
-    - Defeating Long Arms will now remove all remaining Sin from cards on the board and in the hand
-    - Changed how bleach pot is handled, added Challenging sigil to boss cards
-    - Bones gained from excess direct damage are now capped at 8 per turn
-- Achievements API: Adjusted the description of several achievements to be clearer on how to unlock them
-### ⚖️ Balancing
-- Overhauled encounters
-- Beauty and the Beast - changed play cost from 1 Blood -> 1 Bone
-- Melting Love - increased play cost from 5 Bones -> 7 Bones
-- Red Riding Hooded Mercenary - now possesses Vendetta sigil
-- Big and Will Be Bad Wolf - now possesses Vendetta sigil
-- Big and Will Be Bad Wolf - rebalanced from 3/3 -> 2/4
-- Skeleton Shrimp - changed play cost from free -> 5 Bones
-- Reshuffle Decks card now possesses the Bone Meal sigil
-- Reduced points of Miracle Worker from 60 -> 36
-- Time Machine - effect now changes during custom boss fights (Final Apocalypse, etc.)
-- Apocalypse Bird (card) - no longer possesses Made of Stone sigil
-- Apocalypse boss: Adjusted reactive difficulty thresholds
-- Apocalypse boss: Long Arms phase now disables turn skipping
-- Apocalypse boss: Final phase forme gains 1 additional base Power above a certain difficulty threshold
-- Apocalypse boss: Sin can no longer be removed by certain effects like Martyr
-### ➕ Additions
-- Added XX cards
-    - Green Ordeal cards, 
-- Added XX abilities
-    - Bone Meal, Food, Life, Harmony, The Tower
-- Added Ordeal battles (see ReadMe for more info)
-- Added 3 challenges
-    - All Ordeals, Boss Ordeals, Final Ordeals
+### Balancing
+- Giant Tree Sap: No longer considered singleton/unique
+- <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
+- <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
+- Red Riding Hooded Mercenary: now possesses Vendetta sigil
+- Big and Will Be Bad Wolf: now possesses Vendetta sigil
+- Big and Will Be Bad Wolf: rebalanced from 3/3 -> 2/4
+- <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
+- <span style='color:#DE6080'>Reshuffle Decks card now possesses the Bone Meal sigil
+- <span style='color:#DE6080'>Apocalypse Bird card: no longer possesses Made of Stone sigil
+### Mod Compatibility
+- Pack Manager API: Updated pack artwork for card pack
+- Pack Manager API: Updated encounter pack
 - Achievements API: Added 1 new achievement
-### 💣 Removals
-- Removed unused asset files
+- Achievements API: Modified several achievement descriptions to better indicate how to unlock them
+
 ## v2.1.1 - Minor Patch (2/19/2024)
 ### 🩹 Bug fixes
 - Fixed Plague Doctor portrait not updating correctly in Act 2
@@ -93,8 +91,8 @@
 - WhiteNight defeat sequence and Time Machine acitvation sequence now have unique behaviour when triggered during custom boss fights
 - (Achievements API only) Changed the names and descriptions of the three hidden achievements, changed them to no longer be hidden.
 ### ⚖️ Balancing
-- <span style='color:red'>Increased cost of Blue Star from 2 -> 3 Blood
-- <span style='color:red'>Increased cost of Blue Star (2nd forme) from 3 -> 4 Blood
+- <span style='color:#DE6080'>Increased cost of Blue Star from 2 -> 3 Blood
+- <span style='color:#DE6080'>Increased cost of Blue Star (2nd forme) from 3 -> 4 Blood
 - Rebalanced Melting Love from 6 Health, 3 Blood -> 5 Health, 5 Bones
 - Replaced Grave of Cherry Blossoms's sigils (Sharp Quills, Bloodfiend) with Bloodletter
 - Apostle sigil now requires WhiteNight to be on the same side of the board as the base card in order to trigger invulnerability
@@ -142,10 +140,10 @@
 - Child of the Galaxy is now singleton
 - Modified how Smile special ability behaves on death; does not change the actual effect
 ### ⚖️ Balancing
-- <span style='color:limegreen'>Increased Skin Prophecy's Health from 2 -> 3
-- <span style='color:limegreen'>Increased Spider Bud's Health from 2 -> 3
-- <span style='color:limegreen'>Increased Tiphereth A's Health from 2 -> 3
-- <span style='color:limegreen'>Reduced Notes from a Crazed Researcher's cost from 4 -> 3 Bones
+- <span style='color:#2084A0'>Increased Skin Prophecy's Health from 2 -> 3
+- <span style='color:#2084A0'>Increased Spider Bud's Health from 2 -> 3
+- <span style='color:#2084A0'>Increased Tiphereth A's Health from 2 -> 3
+- <span style='color:#2084A0'>Reduced Notes from a Crazed Researcher's cost from 4 -> 3 Bones
 - Rebalanced Express Train to Hell from 0/4, 4 Bones -> 0/1, 2 Energy
 - Rebalanced Der Freischütz from 1/1, Bifurcated Strike, Sniper -> 2/2, Sniper, Persistent
 - Rebalanced We Can Change Anything from 0/2 -> 1/1
@@ -161,17 +159,17 @@
 - Rebalanced Hokma from 2/3 -> 1/4
 - Rebalanced Angela from 3/3; Ruler of Frost, Unkillable -> 2/3; Ruler of Frost, Persecutor
 - Gebura now has Persistent instead of Piercing
-- <span style='color:red'>Reduced Beauty and the Beast's Power from 1 -> 0
-- <span style='color:red'>Reduced Power of Mountain of Smiling Bodies 2 from 3 -> 2
-- <span style='color:red'>Reduced Power of Mountain of Smiling Bodies 3 from 5 -> 3
-- <span style='color:red'>Mountain of Smiling Bodies now loses 1 Power and 1 Health when reverting to a previous forme
-- <span style='color:red'>Increased Tiphereth B's cost from 2 -> 3 Energy
-- <span style='color:red'>Reduced Big and Will Be Bad Wolf's Health from 4 -> 3
-- <span style='color:red'>Red Riding Hooded Mercenary no longer has Persistent ability
-- <span style='color:red'>Judgement Bird's special ability no longer affects FaceDown cards unless Bird has Persistent
-- <span style='color:limegreen'>Beauty and the Beast now has 'KillsSurvivors' trait
-- <span style='color:limegreen'>Scorched Girl now has 'KillsSurvivors' trait
-- <span style='color:limegreen'>Time Machine now lets you choose one of three cards to remove, rather than doing it randomly
+- <span style='color:#DE6080'>Reduced Beauty and the Beast's Power from 1 -> 0
+- <span style='color:#DE6080'>Reduced Power of Mountain of Smiling Bodies 2 from 3 -> 2
+- <span style='color:#DE6080'>Reduced Power of Mountain of Smiling Bodies 3 from 5 -> 3
+- <span style='color:#DE6080'>Mountain of Smiling Bodies now loses 1 Power and 1 Health when reverting to a previous forme
+- <span style='color:#DE6080'>Increased Tiphereth B's cost from 2 -> 3 Energy
+- <span style='color:#DE6080'>Reduced Big and Will Be Bad Wolf's Health from 4 -> 3
+- <span style='color:#DE6080'>Red Riding Hooded Mercenary no longer has Persistent ability
+- <span style='color:#DE6080'>Judgement Bird's special ability no longer affects FaceDown cards unless Bird has Persistent
+- <span style='color:#2084A0'>Beauty and the Beast now has 'KillsSurvivors' trait
+- <span style='color:#2084A0'>Scorched Girl now has 'KillsSurvivors' trait
+- <span style='color:#2084A0'>Time Machine now lets you choose one of three cards to remove, rather than doing it randomly
 - Adjusted some encounter blueprints' balance
 - Changed the CardTemple of some cards
 ### ➕ Additions
@@ -693,6 +691,3 @@ Note that in the future, updates and changes to modded sigils will be found in t
 - 71 Cards
 - 38 Abilities
 - 13 Special abilities
-
-</details>
-</details>

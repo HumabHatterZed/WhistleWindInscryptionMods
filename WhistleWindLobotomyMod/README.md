@@ -36,8 +36,8 @@ you will be able to unlock 11 different achievements.
 Artwork and coding:
 - WhistleWind
 
-Testing and Feedback:
-- Orochi Umbra, Rengar #1220, yam the nokia, Observateur #3241
+Testing and feedback:
+- Orochi Umbra, Rengar #1220, yam the nokia, Observateur #3241, valikin
 
 ReadMe cost icons:
 - James Veug (from ReadmeMaker)

@@ -63,25 +63,25 @@ namespace ModDebuggingMod
         private static GainConsumablesNodeData ItemNode => new();
         private static BossBattleNodeData ApocalypseNode => new()
         {
-            bossType = CustomOpponentUtils.ApocalypseBossID,
+            bossType = LobOpponentUtils.ApocalypseBossID,
             specialBattleId = ApocalypseBattleSequencer.ID,
             difficulty = 20
         };
         private static BossBattleNodeData JesterNode => new()
         {
-            bossType = CustomOpponentUtils.ApocalypseBossID,
+            bossType = LobOpponentUtils.ApocalypseBossID,
             specialBattleId = ApocalypseBattleSequencer.ID,
             difficulty = 20
         };
         private static BossBattleNodeData EmeraldNode => new()
         {
-            bossType = CustomOpponentUtils.ApocalypseBossID,
+            bossType = LobOpponentUtils.ApocalypseBossID,
             specialBattleId = ApocalypseBattleSequencer.ID,
             difficulty = 20
         };
         private static BossBattleNodeData RaptureNode => new()
         {
-            bossType = CustomOpponentUtils.ApocalypseBossID,
+            bossType = LobOpponentUtils.ApocalypseBossID,
             specialBattleId = ApocalypseBattleSequencer.ID,
             difficulty = 20
         };

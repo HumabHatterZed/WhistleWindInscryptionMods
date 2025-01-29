@@ -1,17 +1,12 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.CardCosts;
-using InscryptionAPI.Guid;
 using InscryptionAPI.Helpers;
-using InscryptionAPI.Localizing;
 using InscryptionCommunityPatch;
 using InscryptionCommunityPatch.Card;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
-using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
-using WhistleWindLobotomyMod;
 
 namespace ModDebuggingMod
 {
@@ -23,8 +18,8 @@ namespace ModDebuggingMod
 
             CardInfo info = CardManager.New("wstl", "wstlcard", "Debug",
                 attack: 10, health: 100)
-                .SetCost(0, 0, 0)
-                .AddAbilities(NimbleFoot.ability, Test.ability)
+                //.SetCost(0, 0, 0, new List<GemType>() { GemType.Blue, GemType.Blue, GemType.Green, GemType.Green, GemType.Green, GemType.Green, GemType.Orange })
+                .AddAbilities(Test.ability)
                 //.AddSpecialAbilities(BlindRage.specialAbility)
                 //.SetTransformerCardId("Squirrel")
                 .SetEvolve("Squirrel", 1)
