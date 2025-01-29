@@ -42,31 +42,27 @@ namespace WhistleWind.AbnormalSigils
     [HarmonyPatch]
     internal class MiniGiantPatches
     {
-        [HarmonyPostfix, HarmonyPatch(typeof(CardSpawner), nameof(CardSpawner.SpawnPlayableCard))]
-        private static void ResizeMiniGiantCard(CardInfo info, PlayableCard __result)
+        [HarmonyPrefix, HarmonyPatch(typeof(CardSpawner), nameof(CardSpawner.SpawnPlayableCard))]
+        private static bool ResizeMiniGiantCard(CardInfo info, ref PlayableCard __result)
         {
             if (!info.HasSpecialAbility(MiniGiantCard.Id))
-                return;
+                return true;
+
+            AbnormalPlugin.Log.LogDebug("SpawnPlayableCard: MiniGiant");
+            GameObject go = GameObject.Instantiate(CardSpawner.Instance.PlayableCardPrefab);
+            __result = go.GetComponent<PlayableCard>();
+            __result.SetInfo(info);
 
             Transform child = SaveManager.SaveFile.IsGrimora ? __result.transform.GetChild(0) : __result.transform;
-            if (info.HasTrait(Trait.Giant))
-            {
-                if (SaveManager.SaveFile.IsGrimora)
-                    child.localPosition = new Vector3(0.3f, 0f, 0f);
-                else
-                    child.localPosition = new Vector3(-0.3f, 0.025f, 0f);
 
-                child.localScale = new Vector3(0.485f, 1f, 1f);
-            }
+            if (SaveManager.SaveFile.IsGrimora)
+                child.localPosition = new Vector3(-0.7f, 1.05f, 0f);
             else
-            {
-                if (SaveManager.SaveFile.IsGrimora)
-                    child.localPosition = new Vector3(-0.7f, 1.05f, 0f);
-                else
-                    child.localPosition = new Vector3(0.7f, 0.025f, 1.05f);
+                child.localPosition = new Vector3(0.7f, 0.025f, 1.05f);
 
-                child.localScale = new Vector3(2.1f, 2.1f, 1f);
-            }
+            child.localScale = new Vector3(2.1f, 2.1f, 1f);
+            __result.Anim.Anim.runtimeAnimatorController = AbnormalPlugin.MiniGiantAnimator;
+            return false;
         }
 
         [HarmonyTranspiler, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.AssignCardToSlot), MethodType.Enumerator)]
@@ -93,48 +89,13 @@ namespace WhistleWind.AbnormalSigils
 
         private static Vector3 ModifyFinalLocalPosition(BoardManager instance, PlayableCard card)
         {
-            if (card.Info.HasSpecialAbility(MiniGiantCard.Id))
-            {
-                if (card.HasTrait(Trait.Giant))
-                {
-                    if (SaveManager.SaveFile.IsGrimora)
-                        return new Vector3(0.3f, 0f, 0f);
-                    else
-                        return new Vector3(-0.3f, 0.025f, 0f);
-                }
-                else
-                {
-                    if (SaveManager.SaveFile.IsGrimora)
-                        return new Vector3(-0.7f, 1.05f, 0f);
-                    else
-                        return new Vector3(0.7f, 0.025f, 1.05f);
-                }
-            }
-            return Vector3.up * (instance.SlotHeightOffset + card.SlotHeightOffset);
-        }
+            if (!card.Info.HasSpecialAbility(MiniGiantCard.Id))
+                return Vector3.up * (instance.SlotHeightOffset + card.SlotHeightOffset);
 
-        [HarmonyPrefix, HarmonyPatch(typeof(CardAbilityIcons), nameof(CardAbilityIcons.UpdateAbilityIcons))]
-        private static void FixAbilityIcons(CardAbilityIcons __instance, CardInfo info)
-        {
-            if (info.LacksSpecialAbility(MiniGiantCard.Id) || info.LacksTrait(Trait.Giant))
-                return;
-
-            //__instance.transform.localScale = new(1f, 0.485f, 1f);
-            Transform fourGroup = __instance.transform.Find("DefaultIcons_4Abilities");
-
-            Transform child1 = fourGroup.GetChild(0);
-            child1.localPosition = new(-0.12f, 0.16f, 0f);
-            child1.GetComponent<BoxCollider>().size = new(1.25f, 0.6f, 1f);
-            //child1.localScale = new(0.2f, 0.2f, 1f);
-            Transform child2 = fourGroup.GetChild(1);
-            child2.localPosition = new(0.12f, 0.16f, 0f);
-            //child2.localScale = new(0.2f, 0.2f, 1f);
-            Transform child3 = fourGroup.GetChild(2);
-            child3.localPosition = new(-0.12f, -0.135f, 0f);
-            //child3.localScale = new(0.2f, 0.2f, 1f);
-            Transform child4 = fourGroup.GetChild(3);
-            child4.localPosition = new(0.12f, -0.135f, 0f);
-            //child4.localScale = new(0.2f, 0.2f, 1f);
+            if (SaveManager.SaveFile.IsGrimora)
+                return new Vector3(-0.7f, 1.05f, 0f);
+            else
+                return new Vector3(0.7f, 0.025f, 1.05f);
         }
     }
 

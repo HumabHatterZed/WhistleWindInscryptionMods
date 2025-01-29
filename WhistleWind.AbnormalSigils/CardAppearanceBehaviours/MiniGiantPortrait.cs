@@ -1,7 +1,4 @@
 ﻿using DiskCardGame;
-using GBC;
-using InscryptionAPI.Card;
-using InscryptionAPI.PixelCard;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
@@ -14,14 +11,20 @@ namespace WhistleWind.AbnormalSigils
             MiniGiantPortrait.appearance = CardHelper.CreateAppearance<MiniGiantPortrait>(pluginGuid, "MiniGiantPortrait").Id;
         }
     }
-    public class MiniGiantPortrait : PixelAppearanceBehaviour
+    public class MiniGiantPortrait : GiantAnimatedPortrait
     {
         public static Appearance appearance;
 
         public override void ApplyAppearance()
         {
-            if (base.Card.Info.HasTrait(Trait.Giant))
-                base.ApplyAppearance();
+            base.Card.RenderInfo.prefabPortrait = base.Card.Info.AnimatedPortrait;
+            base.Card.RenderInfo.hidePortrait = true;
+        }
+
+        public override RenderLiveStatsLayer AddStatsLayerComponent(GameObject statsLayerObj)
+        {
+            RenderLiveStatsLayer renderLiveStatsLayer = statsLayerObj.AddComponent<RenderLiveStatsLayer>();
+            return renderLiveStatsLayer;
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using DiskCardGame;
-using EasyFeedback.APIs;
 using InscryptionAPI.Card;
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Card.AbilityManager;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -12,6 +9,11 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
 {
     public static class AbnormalAbilityHelper
     {
+        public static CardInfo SetMiniGiant(this CardInfo info)
+        {
+            return info.AddSpecialAbilities(MiniGiantCard.Id).AddAppearances(MiniGiantPortrait.appearance).AddTraits(Trait.Giant);
+        }
+
         public static bool IsConductor(this PlayableCard card)
         {
             return card.HasTrait(Orchestral) || card.HasAnyOfAbilities(Conductor.ability, MovementOne.ability, MovementTwo.ability, MovementThree.ability, MovementFour.ability, MovementFive.ability);

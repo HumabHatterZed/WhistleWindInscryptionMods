@@ -1,8 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
-
+using WhistleWindLobotomyMod.Opponents;
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -90,14 +91,14 @@ namespace WhistleWindLobotomyMod
 
             CardManager.New(pluginPrefix, lastHelix, "Last Helix",
                 attack: 0, health: 25)
-                .SetEnergyCost(6)
-                //.SetPortraits(ModAssembly, lastHelix)
+                .SetPortraits(ModAssembly, lastHelix)
                 .AddAbilities(Piercing.ability, Ability.Reach, Tower.ability, Challenging.ability)
-                .AddAppearances(ForcedGreenEmission.appearance, MiniGiantPortrait.appearance)
+                .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
-                .AddSpecialAbilities(MiniGiantCard.Id)
-                .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, Trait.Giant, ImmuneToInstaDeath)
-                //.SetTerrain()
+                .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
+                .SetAnimatedPortrait(LobOpponentUtils.helixBossPrefab)
+                .SetTerrain(true)
+                .SetMiniGiant()
                 .Build();
         }
     }
