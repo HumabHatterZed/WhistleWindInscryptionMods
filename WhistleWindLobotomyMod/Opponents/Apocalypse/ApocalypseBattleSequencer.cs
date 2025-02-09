@@ -418,11 +418,34 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             CreateNextTurnPlan();
         }
+
+        public IEnumerator OpponentTurnEndUpdateEffects()
+        {
+            ClearTempMods();
+            bool addedReactive = false;
+            if (timesHitThisTurn > 2) // if the boss has been hit 3+ times in a single turn
+            {
+                addedReactive = true;
+                reactiveDifficulty += timesHitThisTurn - 2;
+            }
+
+            if (damageTakenThisTurn > 5) // if the boss took 6+ damage in a single turn
+            {
+                addedReactive = true;
+                reactiveDifficulty += damageTakenThisTurn / 6;
+            }
+
+            if (addedReactive)
+                yield return OnReactiveDifficultyIncreased(0);
+        }
         public override IEnumerator OpponentCombatEnd()
         {
             // if the player is dead
             if (LifeManager.Instance.Balance <= -5)
                 yield break;
+
+            yield return OpponentTurnEndUpdateEffects();
+
 
             ClearTempMods();
             bool addedReactive = false;
