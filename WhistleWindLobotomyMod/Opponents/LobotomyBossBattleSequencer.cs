@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
+using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Opponents
@@ -46,69 +47,33 @@ namespace WhistleWindLobotomyMod.Opponents
         #region Card movement
         public IEnumerator MoveOpponentCards()
         {
-            List<PlayableCard> cards = BoardManager.Instance.GetOpponentCards();
-            if (cards.Count == 4) // if the board is full
-                yield break;
-            cards.RemoveAll(x => x.HasAbility(Unyielding.ability));
-
-            yield return HelperMethods.ChangeCurrentView(View.Board, 0f);
             int rand = base.GetRandomSeed() + TurnNumber;
+            List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
 
-            if (damageTakenThisTurn > 0 || changeToNextPhase || SeededRandom.Bool(rand++))
-            {
-                yield return MoveToNewSlot(BossCard);
-                cards.Remove(BossCard);
-            }
-
-            // random chance of each card moving
-            for (int i = 0; i < cards.Count; i++)
+            for (int i = 0; i < slots.Count; i++)
             {
                 if (SeededRandom.Bool(rand++))
                 {
-                    PlayableCard card = cards.GetSeededRandom(rand++);
-                    yield return MoveToNewSlot(card, cards.Count > 1 ? 0.2f : 0.4f);
-                    cards.Remove(card);
+                    slots.Remove(slots[i]);
                 }
             }
-        }
-        private IEnumerator MoveToNewSlot(PlayableCard card, float waitAfter = 0.4f, bool raiseAboveBoard = true)
-        {
-            List<CardSlot> openSlots = BoardManager.Instance.GetOpponentOpenSlots();
-            if (openSlots.Count == 0)
+
+            if (!slots.Contains(BossCard.Slot)) // check if we need to override the boss card's movement
             {
-                BossCard?.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(waitAfter);
-                yield break;
-            }
-            openSlots.Sort((a, b) =>
-            ((b.opposingSlot.Card?.CanAttackDirectly(card.Slot) ?? true) ? 0 : b.opposingSlot.Card.Attack)
-            - ((a.opposingSlot.Card?.CanAttackDirectly(card.Slot) ?? true) ? 0 : a.opposingSlot.Card.Attack));
-
-            CardSlot newSlot = card.HasAbility(HighStrung.ability)
-                ? openSlots[SeededRandom.Range(0, openSlots.Count, base.GetRandomSeed() + TurnManager.Instance.TurnNumber)]
-                : openSlots.Last();
-
-            yield return new WaitForSeconds(0.05f);
-            GameObject gameObject = GameObject.Instantiate(targetIconPrefab, newSlot.transform);
-            gameObject.transform.localPosition = new Vector3(0f, 0.25f, 0f);
-            gameObject.transform.localRotation = Quaternion.identity;
-
-            if (raiseAboveBoard)
-            {
-                float x = (newSlot.transform.position.x + card.Slot.transform.position.x) / 2f;
-                float y = newSlot.transform.position.y + 0.5f;
-                float z = newSlot.transform.position.z;
-
-                Tween.Position(card.transform, new Vector3(x, y, z), 0.2f, 0f, Tween.EaseOut);
+                if (damageTakenThisTurn > 0 || changeToNextPhase || SeededRandom.Bool(rand++))
+                    slots.Add(BossCard.Slot);
             }
 
-            yield return new WaitForSeconds(0.4f);
-            yield return Singleton<BoardManager>.Instance.AssignCardToSlot(card, newSlot, tweenCompleteCallback: () =>
+            yield return HelperMethods.ChangeCurrentView(View.Board, 0f);
+            yield return CardScramble.RandomiseCardsInSlots(slots, rand, sortPredicate: delegate (CardSlot s)
             {
-                CleanUpTargetIcon(gameObject);
+                if (s == BossCard.Slot)
+                    return 1000;
+
+                return s.Card.HasAbility(HighStrung.ability) ? 100 : 0;
             });
-            yield return new WaitForSeconds(waitAfter);
         }
+
         #endregion
 
         #region Triggers

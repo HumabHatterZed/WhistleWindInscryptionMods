@@ -20,6 +20,7 @@
 - Modified description of Unjust Scales sigil for clarity
 - Unjust Scales sigil no longer changes behaviour and description during the final phase - split into own sigil
 - Movement order of opponent cards is now randomised each turn
+- Modified movement sequence for opponent cards
 - Hourglass item can no longer be used during the Long Arms phase
 - Sin can no longer be removed by certain effects like Martyr
 - Sin is now automatically removed from cards when Long Arms is defeated

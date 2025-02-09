@@ -4,6 +4,7 @@ using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core;
 
 namespace WhistleWindLobotomyMod.Opponents
 {
@@ -52,14 +53,12 @@ namespace WhistleWindLobotomyMod.Opponents
 
         public void CreateTargetIcon(CardSlot targetSlot, Color materialColour = default)
         {
-            GameObject gameObject = Instantiate(targetIconPrefab, targetSlot.transform);
-            gameObject.transform.localPosition = new Vector3(0f, 0.25f, 0f);
-            gameObject.transform.localRotation = Quaternion.identity;
-
-            if (materialColour != default)
-                gameObject.GetComponentInChildren<MeshRenderer>().material.color = materialColour;
-
+            GameObject gameObject = TargetIconHelper.CreateTargetIcon(targetSlot, materialColour);
             targetIcons.Add(gameObject);
+        }
+        public void CleanUpTargetIcon(GameObject icon)
+        {
+            TargetIconHelper.CleanUpTargetIcon(icon);
         }
         public void CleanupTargetIcons()
         {
@@ -68,13 +67,6 @@ namespace WhistleWindLobotomyMod.Opponents
                 if (x != null) CleanUpTargetIcon(x);
             });
             targetIcons.Clear();
-        }
-        public void CleanUpTargetIcon(GameObject icon)
-        {
-            Tween.LocalScale(icon.transform, Vector3.zero, 0.1f, 0f, Tween.EaseIn, Tween.LoopType.None, null, delegate
-            {
-                Destroy(icon);
-            });
         }
 
         public override IEnumerator PlayerCombatEnd()
