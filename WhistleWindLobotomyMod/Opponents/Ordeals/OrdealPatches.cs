@@ -44,6 +44,9 @@ namespace WhistleWindLobotomyMod.Opponents
         [HarmonyPostfix, HarmonyPatch(typeof(ViewController), nameof(ViewController.SwitchToControlMode))]
         private static void AllowMoveToCounterView(ViewController __instance, ViewController.ControlMode mode)
         {
+            if (!OrdealUtils.OpponentIsOrdeal())
+                return;
+
             switch (mode)
             {
                 case ViewController.ControlMode.CardGameDefault:
@@ -59,6 +62,9 @@ namespace WhistleWindLobotomyMod.Opponents
         }
         private static void AddOrdealViewControls(ViewController instance, bool addSideControls)
         {
+            if (!OrdealUtils.OpponentIsOrdeal())
+                return;
+
             if (!instance.allowedViews.Contains(OrdealUtils.ViewCounter))
                 instance.allowedViews.Add(OrdealUtils.ViewCounter);
 
