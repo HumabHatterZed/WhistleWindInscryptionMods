@@ -2,6 +2,7 @@
 using InscryptionAPI.Triggers;
 using System.Collections;
 using UnityEngine;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils.StatusEffects
 {
@@ -25,16 +26,14 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
         public virtual IEnumerator OnModifyOnUpkeep()
         {
             //Debug.Log($"Modify: {EffectPotency} | {EffectPotency + PotencyModification}");
-            yield return new WaitForSeconds(0.3f);
-            base.PlayableCard.Anim.LightNegationEffect();
-            ViewManager.Instance.SwitchToView(base.PlayableCard.InHand ? View.Hand : View.Board);
-            yield return new WaitForSeconds(0.2f);
+            yield return HelperMethods.ChangeCurrentView(base.PlayableCard.InHand ? View.Hand : View.Board);
 
+            base.PlayableCard.Anim.LightNegationEffect();
             base.ModifyPotency(PotencyModification, true);
             if (EffectPotency <= 0)
                 yield return base.RemoveFromCard(true);
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }
