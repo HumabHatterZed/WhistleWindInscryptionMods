@@ -57,7 +57,7 @@ These cards can be obtained in Act 1 by changing the config file, and vice versa
 |Name|Atk/HP|Cost|Sigils|Traits
 |:-|:-:
 |Ghool Mouse|0/1|<img src='https://i.imgur.com/XmTnHld.png'>|Skin Crawler
-|Skelemouse|1/1|<img src='https://i.imgur.com/GeMgIce.png'>|Brittle
+|Skelemouse|1/1||Brittle
 |Mousenapper|1/2|<img src='https://i.imgur.com/UvtK0PY.png'>|Hook Line and Sinker
 |Killer Mouse|1/2|<img src='https://i.imgur.com/9tZzgbv.png'>|Slasher, Haunting Call
 |Aka Mouso|2/2|<img src='https://i.imgur.com/JmoIiwV.png'>|Alternating Strike

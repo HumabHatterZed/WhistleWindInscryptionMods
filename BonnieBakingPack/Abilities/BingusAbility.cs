@@ -49,7 +49,7 @@ namespace BonniesBakingPack
         public override bool RespondsToPlayFromHand() => true;
         public override IEnumerator OnPlayFromHand()
         {
-            SaveManager.SaveFile.CurrentDeck.RemoveCardByName("bbp_bingus");
+            SaveManager.SaveFile.CurrentDeck.RemoveCardByName("bbp_act1_bingus");
             if (!BakingPlugin.BingusCrash.Value)
             {
                 base.StartCoroutine(BingusAllOverThePlace(true));
@@ -128,7 +128,7 @@ namespace BonniesBakingPack
                         card.UnassignFromSlot();
                         card.StartCoroutine(card.DestroyWhenStackIsClear());
                     }
-                    yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName("bbp_bingus"), slot, 0f);
+                    yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName("bbp_act1_bingus"), slot, 0f);
                 }
             }
         }
@@ -153,7 +153,7 @@ namespace BonniesBakingPack
                         break;
                     }
 
-                    CardInfo info = CardLoader.GetCardByName("bbp_bingus");
+                    CardInfo info = CardLoader.GetCardByName("bbp_act1_bingus");
                     if (removedInfos.Count > 0)
                     {
                         info.Mods = removedInfos[0].Mods;
@@ -171,7 +171,7 @@ namespace BonniesBakingPack
             {
                 if (Random.RandomRangeInt(0, 3) == 0)
                 {
-                    CardInfo newInfo = CardLoader.GetCardByName("bbp_bingus");
+                    CardInfo newInfo = CardLoader.GetCardByName("bbp_act1_bingus");
                     newInfo.Mods = new(CardDrawPiles3D.Instance.Deck.cards[i].Mods)
                     {
                         new() { nameReplacement = CardDrawPiles3D.Instance.Deck.cards[i].DisplayedNameLocalized + " Bingus" }
@@ -183,7 +183,7 @@ namespace BonniesBakingPack
             {
                 if (Random.RandomRangeInt(0, 3) == 0)
                 {
-                    CardInfo newInfo = CardLoader.GetCardByName("bbp_bingus");
+                    CardInfo newInfo = CardLoader.GetCardByName("bbp_act1_bingus");
                     newInfo.Mods = new(CardDrawPiles3D.Instance.SideDeck.cards[i].Mods)
                     {
                         new() { nameReplacement = CardDrawPiles3D.Instance.SideDeck.cards[i].DisplayedNameLocalized + " Bingus" }

@@ -20,7 +20,7 @@ namespace BonniesBakingPack
 
             CardInfo queen = CardManager.New(pluginPrefixG, "eternalLady", "Our Eternal Lady", 1, 1, "UNDER HER CARE THERE WILL BE NO SUFFERING OR DEATH.")
                 .SetDefaultPart1Card().AddGrimora().SetRare()
-                .SetBonesCost(0).SetEnergyCost(6)
+                .SetEnergyCost(6)
                 .SetPortraitAndEmission(GetTexture("eternalLady.png"), GetTexture("eternalLady_emission.png"))
                 .AddTraits(Trait.DeathcardCreationNonOption)
                 .AddAbilities(Ability.DrawCopyOnDeath, ScrybeCompat.GetGrimoraAbility("Sculptor", Ability.BuffNeighbours))

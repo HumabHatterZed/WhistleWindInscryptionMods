@@ -39,7 +39,7 @@ namespace BonniesBakingPack
         [HarmonyPostfix, HarmonyPatch(typeof(ElectricChairSequencer), "GetValidCards")]
         private static void RemoveEternalLady(ref List<CardInfo> __result)
         {
-            __result.RemoveAll(x => x.name == "bbp_eternalLady");
+            __result.RemoveAll(x => x.name == "bbp_grimora_eternalLady");
         }
     }
 }

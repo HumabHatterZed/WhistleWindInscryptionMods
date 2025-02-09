@@ -82,18 +82,18 @@ namespace BonniesBakingPack
             int val = 0;
             List<string> possibleFoodPool = new()
             {
-                "bbp_pastry",
-                "bbp_whiteDonut",
-                "bbp_meetBun",
-                "bbp_scones",
-                "bbp_eggTart",
-                "bbp_redVelvet",
-                "bbp_pastry_act3",
+                "bbp_act1_pastry",
+                "bbp_act1_whiteDonut",
+                "bbp_act1_meetBun",
+                "bbp_act1_scones",
+                "bbp_act1_eggTart",
+                "bbp_act1_redVelvet",
+                "bbp_act3_pastry",
                 "n_act3", // placeholder, will be replaced with a valid name if chosen
-                "bbp_meetBun_act3",
-                "bbp_scones_act3",
-                "bbp_eggTart_act3",
-                "bbp_redVelvet_act3"
+                "bbp_act3_meetBun",
+                "bbp_act3_scones",
+                "bbp_act3_eggTart",
+                "bbp_act3_redVelvet"
             };
 
             if (!BakingPlugin.SplitByAct.Value)
@@ -120,7 +120,7 @@ namespace BonniesBakingPack
                 }
                 if (!deck.Exists(x => x.BloodCost > 0))
                 {
-                    possibleFoodPool.Remove("bbp_meetBun");
+                    possibleFoodPool.Remove("bbp_act1_meetBun");
                 }
             }
 
@@ -139,18 +139,18 @@ namespace BonniesBakingPack
 
             if (val <= 1)
             {
-                return "bbp_whiteDonut_act3_red";
+                return "bbp_act3_whiteDonut_red";
             }
             if (val <= 3)
             {
-                return "bbp_whiteDonut_act3_blue";
+                return "bbp_act3_whiteDonut_blue";
             }
             if (val <= 5)
             {
-                return "bbp_whiteDonut_act3_green";
+                return "bbp_act3_whiteDonut_green";
             }
 
-            return "bbp_whiteDonut_act3";
+            return "bbp_act3_whiteDonut";
         }
     }
     public class CreateBunnieTrigger : NonCardTriggerReceiver
@@ -172,7 +172,7 @@ namespace BonniesBakingPack
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            CardInfo cardInfo = SaveManager.SaveFile.IsPart3 ? CardLoader.GetCardByName("bbp_bunnie_act3") : CardLoader.GetCardByName("bbp_bunnie");
+            CardInfo cardInfo = SaveManager.SaveFile.IsPart3 ? CardLoader.GetCardByName("bbp_act3_bunnie") : CardLoader.GetCardByName("bbp_act1_bunnie");
             cardInfo.Mods = cardmods;
             if (opponent)
             {

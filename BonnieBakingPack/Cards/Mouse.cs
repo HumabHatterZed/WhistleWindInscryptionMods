@@ -16,7 +16,6 @@ namespace BonniesBakingPack
 
             CardInfo skele = CardManager.New(pluginPrefixG, "skelemouse", "Skelemouse", 1, 1, "JUST A REGULAR SKELETON MOUSE.")
                 .SetDefaultPart1Card().AddGrimora()
-                .SetBonesCost(1)
                 .SetPortraitAndEmission(GetTexture("skelemouse.png"), GetTexture("skelemouse_emission.png"))
                 .AddAbilities(Ability.Brittle);
 

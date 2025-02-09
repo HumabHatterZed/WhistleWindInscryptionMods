@@ -16,13 +16,13 @@ namespace BonniesBakingPack
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.TakeDamage))]
         private static IEnumerator ChangeHitSound(IEnumerator enumerator, PlayableCard __instance, int damage, PlayableCard attacker)
         {
-            if (attacker != null && attacker.HasAnyOfSpecialAbilities(PandaAbility.SpecialAbility, BunnieAbility.SpecialAbility))
+            if (attacker != null)
             {
                 if (attacker.HasSpecialAbility(PandaAbility.SpecialAbility))
                 {
                     __instance.Info.Mods.Add(new() { singletonId = "BBP_Sound:panda_gun" }); // since PlayHit doesn't track the attacker, we do that here
                 }
-                else
+                else if (attacker.HasSpecialAbility(BunnieAbility.SpecialAbility))
                 {
                     __instance.Info.Mods.Add(new() { singletonId = "BBP_Sound:bonnie_bonk" });
                 }
@@ -69,14 +69,14 @@ namespace BonniesBakingPack
         [HarmonyPostfix, HarmonyPatch(typeof(DrawRandomCardOnDeath), nameof(DrawRandomCardOnDeath.CardToDraw), MethodType.Getter)]
         private static void PhoneMouseCallsThePopo(DrawRandomCardOnDeath __instance, ref CardInfo __result)
         {
-            if (__instance.Card?.Info.name == "bbp_mousePhone")
-                __result = CardLoader.GetCardByName("bbp_policeWolf");
+            if (__instance.Card?.Info.name == "bbp_act1_mousePhone")
+                __result = CardLoader.GetCardByName("bbp_act1_policeWolf");
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(CardDisplayer3D), nameof(CardDisplayer3D.DisplaySpecialStatIcons))]
         private static void BingusIsInfinite(CardDisplayer3D __instance, PlayableCard playableCard)
         {
-            if (__instance.info.name == "bbp_bingus")
+            if (__instance.info.name == "bbp_act1_bingus")
             {
                 __instance.SetHealthAndAttackIconsActive(true, true);
                 __instance.StatIcons.AssignStatIcon(BingusStatIcon.Icon, playableCard);
@@ -86,7 +86,7 @@ namespace BonniesBakingPack
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.CanBeSacrificed), MethodType.Getter)]
         private static void NoSacForBingus(PlayableCard __instance, ref bool __result)
         {
-            if (__instance.Info.name == "bbp_bingus")
+            if (__instance.Info.name == "bbp_act1_bingus")
                 __result = false;
         }
 
@@ -134,7 +134,7 @@ namespace BonniesBakingPack
         [HarmonyPostfix, HarmonyPatch(typeof(GravestoneRenderStatsLayer), nameof(GravestoneRenderStatsLayer.RenderCard))]
         private static void AkaMousoEmission(GravestoneRenderStatsLayer __instance, ref CardRenderInfo info)
         {
-            if (info.baseInfo.name == "bbp_akaMouso")
+            if (info.baseInfo.name == "bbp_grimora_akaMouso")
             {
                 __instance.SetEmissionColor(new UnityEngine.Color(1f, 0f, 0f));
             }
@@ -143,7 +143,7 @@ namespace BonniesBakingPack
         [HarmonyPrefix, HarmonyPatch(typeof(DeckInfo), nameof(DeckInfo.AddCard))]
         private static void AddNineMod(CardInfo card)
         {
-            if (card.name == "bbp_nine" && !card.Mods.Exists(x => x.singletonId == NineAbility.NINE_LIVES_ID))
+            if (card.name == "bbp_grimora_nine" && !card.Mods.Exists(x => x.singletonId == NineAbility.NINE_LIVES_ID))
                 card.Mods.Add(new() { singletonId = NineAbility.NINE_LIVES_ID });
         }
 
