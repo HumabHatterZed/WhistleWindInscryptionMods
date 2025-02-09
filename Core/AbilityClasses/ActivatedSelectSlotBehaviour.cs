@@ -14,7 +14,7 @@ namespace WhistleWind.Core.AbilityClasses
     /// <summary>
     /// Logic for activated abilities that have the player select a slot to be targeted.
     /// </summary>
-    public abstract class ActivatedSelectSlotBehaviour : ExtendedActivatedAbilityBehaviour
+    public abstract class ActivatedSelectSlotBehaviour : DelayedActivatedAbilityBehaviour
     {
         public CardSlot selectedSlot = null;
         public List<CardSlot> ValidTargets => BoardManager.Instance.AllSlotsCopy.Where(x => IsValidTarget(x)).ToList();
@@ -39,9 +39,6 @@ namespace WhistleWind.Core.AbilityClasses
         public virtual Ability LatchAbility => Ability.None;
         private bool ShowLatch => LatchAbility != Ability.None;
 
-        private int turnDelay = 0;
-        public virtual int TurnDelay => -1;// by default, can always activate
-
         public virtual IEnumerator OnValidTargetSelected(CardSlot slot)
         {
             // Perform latch logic by default
@@ -57,26 +54,7 @@ namespace WhistleWind.Core.AbilityClasses
         }
         public virtual IEnumerator OnPostValidTargetSelected(CardSlot slot = null) { yield break; }
 
-        public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep;
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
-            if (turnDelay > 0) // if turnDelay is above 0, reduce it by 1
-            {
-                turnDelay--;
-                if (turnDelay == 0 && !base.Card.OpponentCard)
-                {
-                    yield return HelperMethods.ChangeCurrentView(View.Board);
-                    base.Card.Anim.LightNegationEffect();
-                    yield return new WaitForSeconds(0.2f);
-                }
-            }
-
-            if (base.Card.OpponentCard && CanActivate() /*&& SeededRandom.Bool(base.GetRandomSeed())*/)
-            {
-                yield return Activate();
-            }
-        }
-        public override bool CanActivate() => turnDelay <= 0 && ValidTargets.Count > 0;
+        public override bool CanActivate() => base.CanActivate() && ValidTargets.Count > 0;
         public override IEnumerator Activate()
         {
             yield return base.PreSuccessfulTriggerSequence();
@@ -168,11 +146,9 @@ namespace WhistleWind.Core.AbilityClasses
             Singleton<ViewManager>.Instance.Controller.SwitchToControlMode(Singleton<BoardManager>.Instance.DefaultViewMode, false);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             yield return new WaitForSeconds(0.2f);
-
-            if (turnDelay == 0) // reset the turn delay
-                turnDelay = TurnDelay;
-
+            yield return base.Activate();
             yield return OnPostValidTargetSelected(selectedSlot);
+
             if (!base.Card.OpponentCard)
                 yield return HelperMethods.ChangeCurrentView(View.Default);
         }
@@ -221,7 +197,7 @@ namespace WhistleWind.Core.AbilityClasses
         }
         private void OnInvalidTarget(CardSlot slot)
         {
-            if (!IsValidTarget(slot) && !Singleton<TextDisplayer>.Instance.Displaying)
+            if (!Singleton<TextDisplayer>.Instance.Displaying)
             {
                 string dialogue;
                 if (slot.Card != null)
