@@ -1,12 +1,21 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
+using Sirenix.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WhistleWind.AbnormalSigils.Patches
 {
+    public class SpeedQueueSlot
+    {
+        public CardSlot slot;
+        public int numSlotsToAdd;
+        public bool attackedThisTurn;
+    }
     [HarmonyPatch]
     public static class SpeedPatch
     {
@@ -19,69 +28,181 @@ namespace WhistleWind.AbnormalSigils.Patches
             { true, new() },
             { false, new() }
         };
+
+        public static readonly Dictionary<CardSlot, int> QueuedSlots = new();
+
         [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.CleanupPhase))]
         private static void CleanUpSlotsQueuedForTurn()
         {
+            CheckSpeed = true;
             SlotsQueuedForTurn[true].Clear();
             SlotsQueuedForTurn[false].Clear();
         }
-        [HarmonyPostfix, HarmonyPatch(typeof(DoCombatPhasePatches), nameof(DoCombatPhasePatches.ModifyAttackingSlots))]
-        private static void SortByCardSpeed(List<CardSlot> __result, bool playerIsAttacker)
+
+        private static bool CheckSpeed = true;
+        private static readonly List<CardSlot> AlreadyAttacked = new();
+
+        public static List<CardSlot> HandleSpeedModifications(List<CardSlot> result, bool playerIsAttacker)
         {
-            if (playerIsAttacker)
+            if (!CheckSpeed || result.Count == 0) // prevent recursion
+                return result;
+
+            CheckSpeed = false;
+            List<CardSlot> cardsAttackingThisTurn = new();
+            List<CardSlot> playerCardsResult = DoCombatPhasePatches.ModifyAttackingSlots(true);
+            List<CardSlot> opponentCardsResult = DoCombatPhasePatches.ModifyAttackingSlots(false);
+            CheckSpeed = true;
+
+            List<CardSlot> allCardsResult = playerCardsResult.Concat(opponentCardsResult).ToList();
+            allCardsResult.RemoveAll(x => x.Card == null || x.Card.Attack == 0 || AlreadyAttacked.Contains(x));
+
+            AbnormalPlugin.Log.LogDebug($"[SpeedLogic] Results: {allCardsResult.Count} AlreadyAttacked: {AlreadyAttacked.Count}");
+            if (allCardsResult.Count == 0)
             {
-                foreach (CardSlot slot in BoardManager.Instance.PlayerSlotsCopy)
-                {
-                    if (CardSpeed(slot) < 0) // if a player card has negative Speed, queue them for the opponent's turn
-                    {
-                        int numToAddToOpponentTurn = __result.RemoveAll(x => x == slot);
-                        if (numToAddToOpponentTurn > 0)
-                        {
-                            AbnormalPlugin.Log.LogDebug($"[SpeedLogic] Queuing player slot [{slot.Index}] for opponent's turn, amount [{numToAddToOpponentTurn}]");
-                            SlotsQueuedForTurn[false].Add(new(slot.Index, numToAddToOpponentTurn));
-                        }
-                    }
-                }
-                foreach (Tuple<int, int> slotQueuedForTurn in SlotsQueuedForTurn[true])
-                {
-                    CardSlot slot = BoardManager.Instance.OpponentSlotsCopy.Find(x => x.Index == slotQueuedForTurn.Item1);
-                    if (!__result.Contains(slot))
-                    {
-                        AbnormalPlugin.Log.LogDebug($"Adding queued opponent slot {slot.Index} to player's turn, amount {slotQueuedForTurn.Item2}");
-                        for (int i = 0; i < slotQueuedForTurn.Item2; i++)
-                            __result.Add(slot);
-                    }
-                }
-                SlotsQueuedForTurn[true].Clear();
-            }
-            else
-            {
-                foreach (CardSlot slot in BoardManager.Instance.OpponentSlotsCopy)
-                {
-                    if (CardSpeed(slot) > 3) // if an opponent has positive speed, queue them for the player's turn
-                    {
-                        int numToAddToPlayerTurn = __result.RemoveAll(x => x == slot);
-                        if (numToAddToPlayerTurn > 0)
-                        {
-                            AbnormalPlugin.Log.LogDebug($"[SpeedLogic] Queuing opponent slot [{slot.Index}] for player's turn, amount [{numToAddToPlayerTurn}]");
-                            SlotsQueuedForTurn[true].Add(new(slot.Index, numToAddToPlayerTurn));
-                        }
-                    }
-                }
-                foreach (Tuple<int, int> slotQueuedForTurn in SlotsQueuedForTurn[false])
-                {
-                    CardSlot slot = BoardManager.Instance.PlayerSlotsCopy.Find(x => x.Index == slotQueuedForTurn.Item1);
-                    if (!__result.Contains(slot))
-                    {
-                        AbnormalPlugin.Log.LogDebug($"Adding queued player slot {slot.Index} to opponent's turn, amount {slotQueuedForTurn.Item2}");
-                        for (int i = 0; i < slotQueuedForTurn.Item2; i++)
-                            __result.Add(slot);
-                    }
-                }
-                SlotsQueuedForTurn[false].Clear();
+                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Zero attackers");
+                return cardsAttackingThisTurn;
             }
 
-            __result.Sort((CardSlot a, CardSlot b) => CardSpeed(b) - CardSpeed(a));
+            allCardsResult.Sort((CardSlot a, CardSlot b) => CardSpeed(b) - CardSpeed(a));
+
+            // cards already played have been filtered out, so return the remainder for the opponent's turn
+            if (!playerIsAttacker)
+            {
+                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Opponent's turn.");
+                return allCardsResult;
+            }
+
+            List<CardSlot> distinctResults = allCardsResult.Distinct().ToList();
+
+            int lowestPlayerSpeed = CardSpeed(distinctResults.LastOrDefault(x => x.IsPlayerSlot));
+            int highestOpponentSpeed = CardSpeed(distinctResults.FirstOrDefault(x => !x.IsPlayerSlot));
+
+            // if the slowest player matches the fastest opponent or it faster, return vanilla order
+            // also captures results where cards are all the same speed
+            if (lowestPlayerSpeed >= highestOpponentSpeed)
+            {
+                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Player faster/equal than opponent");
+                return result;
+            }
+
+            int highestPlayerSpeed = CardSpeed(distinctResults.First(x => x.IsPlayerSlot));
+            int lowestOpponentSpeed = CardSpeed(distinctResults.Last(x => !x.IsPlayerSlot));
+
+            // if all opponents are faster than the player, reverse the attacker order
+            if (lowestOpponentSpeed > highestPlayerSpeed)
+            {
+                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Opponent outspeeds player");
+                return allCardsResult.Where(x => !x.IsPlayerSlot).ToList();
+            }
+
+            List<CardSlot> opponentsOutspeedFastest = allCardsResult.FindAll(x => !x.IsPlayerSlot && CardSpeed(x) > highestPlayerSpeed);
+            allCardsResult.RemoveAll(opponentsOutspeedFastest.Contains);
+
+            List<CardSlot> fastestPlayers = allCardsResult.FindAll(x => x.IsPlayerSlot && CardSpeed(x) == highestPlayerSpeed);
+            allCardsResult.RemoveAll(fastestPlayers.Contains);
+
+            List<CardSlot> cardsOutspeedSlowest = allCardsResult.FindAll(x => CardSpeed(x) > lowestPlayerSpeed);
+            allCardsResult.RemoveAll(cardsOutspeedSlowest.Contains);
+
+            cardsAttackingThisTurn.AddRange(opponentsOutspeedFastest);
+            cardsAttackingThisTurn.AddRange(fastestPlayers);
+
+            if (cardsOutspeedSlowest.Count > 0)
+            {
+                List<CardSlot> positiveOutspeed = cardsOutspeedSlowest.FindAll(x => CardSpeed(x) >= 0);
+                cardsOutspeedSlowest.RemoveAll(positiveOutspeed.Contains);
+
+                if (positiveOutspeed.Count > 0) // only add positive speed cards
+                {
+                    cardsAttackingThisTurn.AddRange(positiveOutspeed);
+                }
+                else // lowest player is negative, add any cards that outspeed it
+                {
+                    cardsAttackingThisTurn.AddRange(cardsOutspeedSlowest);
+                }
+
+                bool outspeedsAreNegative = cardsOutspeedSlowest.All(x => CardSpeed(x) <= 0);
+
+                // if slowest player is neutral or all cards outspeeding it are at most neutral, add slowest speed
+                if (lowestPlayerSpeed >= 0)
+                {
+                    AbnormalPlugin.Log.LogDebug("[SpeedLogic] Add slowest player slots");
+
+                    List<CardSlot> playerNeutralSpeed = allCardsResult.FindAll(x => CardSpeed(x) == lowestPlayerSpeed);
+                    allCardsResult.RemoveAll(playerNeutralSpeed.Contains);
+
+                    cardsAttackingThisTurn.AddRange(playerNeutralSpeed);
+                }
+
+
+
+                /*List<CardSlot> opponentsOutspeedPositive = cardsOutspeedSlowest.FindAll(x => !x.IsPlayerSlot && CardSpeed(x) > 0);
+                if (opponentsOutspeedPositive.Count > 0)
+                {
+                    AbnormalPlugin.Log.LogDebug("[SpeedLogic] Opponents positive outspeed slowest");
+                    cardsAttackingThisTurn.AddRange(opponentsOutspeedPositive);
+                }
+
+                if (lowestPlayerSpeed >= 0)
+                {
+                    List<CardSlot> playerNeutralSpeed = allCardsResult.FindAll(x => x.IsPlayerSlot && CardSpeed(x) == lowestPlayerSpeed);
+                    allCardsResult.RemoveAll(playerNeutralSpeed.Contains);
+
+                    cardsAttackingThisTurn.AddRange(playerNeutralSpeed);
+                }*/
+            }
+
+            /*List<int> distinctSpeeds = distinctResults.Select(CardSpeed).ToList(); // already sorted from high to low
+            List<CardSlot> fastestCards = allCardsResult.Where(x => CardSpeed(x) == distinctSpeeds[0]).ToList();
+
+            List<CardSlot> secondFastestCards = allCardsResult.Where(x => CardSpeed(x) == distinctSpeeds[1]).ToList();
+            if (false && distinctSpeeds.Count == 2)
+            {
+                if (distinctSpeeds[0] <= 0)
+                {
+                    AbnormalPlugin.Log.LogDebug("[SpeedLogic] Fastest cards neutral or negative");
+                    return fastestCards.Where(x => x.IsPlayerSlot).ToList();
+                }
+                cardsAttackingThisTurn.AddRange(fastestCards);
+                if (distinctSpeeds[1] >= 0)
+                {
+                    AbnormalPlugin.Log.LogDebug("[SpeedLogic] Second fastest neutral or positive");
+                    cardsAttackingThisTurn.AddRange(secondFastestCards.Where(x => x.IsPlayerSlot));
+                }
+            }
+            else // greater than 2
+            {
+
+            }*/
+
+            cardsAttackingThisTurn.Sort((CardSlot a, CardSlot b) => CardSpeed(b) - CardSpeed(a));
+            return cardsAttackingThisTurn;
+        }
+
+        [HarmonyPrefix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.PlayerTurn))]
+        private static bool ResetCardsAlreadyAttacked()
+        {
+            AlreadyAttacked.Clear();
+            return true;
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(DoCombatPhasePatches), nameof(DoCombatPhasePatches.ModifyAttackingSlots))]
+        private static void SortByCardSpeed(ref List<CardSlot> __result, bool playerIsAttacker)
+        {
+            if (CheckSpeed)
+            {
+                int or = __result.Count;
+                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Start: " + playerIsAttacker);
+                __result = HandleSpeedModifications(__result, playerIsAttacker);
+                if (playerIsAttacker)
+                {
+                    //AbnormalPlugin.Log.LogDebug("[SpeedLogic] AlreadyAttacked");
+                    AlreadyAttacked.AddRange(__result);
+                }
+
+                AbnormalPlugin.Log.LogDebug($"[SpeedLogic] Old: {or} New: {__result.Count}");
+            }
+            return;
         }
 
         /// <summary>
@@ -92,13 +213,12 @@ namespace WhistleWind.AbnormalSigils.Patches
         /// <param name="slot"></param>
         public static int CardSpeed(CardSlot slot)
         {
-            if (slot.Card == null)
-                return 0;
+            if (slot?.Card == null)
+                return -9000;
 
-            int cardSpeed = slot.Card.OpponentCard ? 0 : 3;
-            cardSpeed -= slot.Card.GetAbilityStacks(Bind.iconId);
+            int cardSpeed = 0;
             cardSpeed += slot.Card.GetAbilityStacks(Haste.iconId);
-
+            cardSpeed -= slot.Card.GetAbilityStacks(Bind.iconId);
             return cardSpeed;
         }
     }

@@ -11,7 +11,7 @@
     - Status effects now have max trigger priority
 - Added functionality for node-related Traits
 - Modified how cards and abilities are created
-- Changed how Speed is calculated to be independent of Bind and Haste components
+- Modified how speed is calculated, read the Speed description for more information
 - Most abilities now have rulebook entries in Act 3, Grimora, and Magnificus's acts - abilities not fully tested for these acts, expect bugs
 - Changed Left-Veering and Right-Veering Strike to use GetOpposingSlots instead of SetUpAttackSequence
 - Changed Woodcutter to inherit from Sentry
@@ -22,6 +22,7 @@
 - Changed icons for Conductor sigil
 - Changed icons for Barreler sigil
 - Changed Lonely sigil's icons
+- Sped up status effect gaining/losing sequence
 - Renamed Lonely to Pebble Giver
 - Updated descriptions for status effects to use similar technical language
 - Updated icons for Rightful Heir sigil to reflect its activation cost
@@ -49,6 +50,7 @@
 - Frozen Heart sigil will now give double Health to any card with Woodcutter, not just cards with a specific name
 - Barreler sigil now displaces moved cards randomly
 - Piercing sigil now implements IShieldPreventedDamage
+- Haste gained from High Strung is now applied on each player's turn rather than on round's end
 ### 🩹 Bug fixes
 - Fixed activated select slot sigils triggering when there are no valid targets on the board
 - Fixed Witness sigil using an outdated description
@@ -56,8 +58,10 @@
 - Fixed Bitter Enemies sigil using an incorrect description
 - Fixed Alchemist sigil breaking in Act 2 when trying to activate after the deck is exhausted
 - Fixed False Throne altering persistent CardModificationInfos
+- Fixed Haste gained from High Strung being inconsistent in when it's removed from the card
 - Fixed learned ability dialogue not triggering
 ### ⚖️ Balancing
+- Modified logic for opponent activated sigils to be based on sigil power level
 - Lonely - reduced powerlevel from 3 -> 2
 - Bloodfiend - reduced powerlevel from 3 -> 2
 - Gift Giver - increased powerlevel from 3 -> 4
@@ -73,7 +77,6 @@
 - Frozen Heart - reduced powerlevel from -1 -> -3
 - Healer - now removes a random negative status effect from targeted cards
 - Healer - reduced health gained from 2 -> 1
-- Binding Strike - Bind inflicted is now equal to half the attacking card's powerlevel
 - Spores - reduced powerlevel from -1 -> 0
 - Worms - Infested cards now deprioritise Terrain and Pelt cards when targeting
 - Worms - increased powerlevel from -2 -> -1
@@ -85,6 +88,7 @@
 - First Brother - replaced Double Strike with Persistent
 - All Brother cards - removed play cost, reduced Health to 1
 ### ➕ Additions
+- Added TargetIconHelper - contains helper methods for creating target icons in Act 1
 - Added dialogue for when first encountering a status effect
 - Added dialogue explaining status overflow
 - Added extension methods for clearing status effects from a card
@@ -108,6 +112,7 @@
     - Elite
     - Withering
     - Explosive Opening
+    - Board Panic
 - Added 1 stat icons:
     - Flower Power
 - Added 4 status effects:

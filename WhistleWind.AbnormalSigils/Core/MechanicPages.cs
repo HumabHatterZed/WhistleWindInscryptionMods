@@ -16,7 +16,7 @@ namespace WhistleWind.AbnormalSigils.Core
         {
             CreateNewMechanicPage(
                 "Speed",
-                "Determines the order that cards attack in during combat. Player-owned cards have a base Speed of 3 while opponent-owned cards have a base Speed of 0.",
+                "Determines the order that cards attack in during combat. All cards have a base Speed of 0, with movement priority to player-owned cards.",
                 TextureLoader.LoadTextureFromFile("sigilSpeed.png", AbnormalPlugin.Assembly)
             );
 
