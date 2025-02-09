@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_HighStrung()
         {
             const string rulebookName = "High-Strung";
-            const string rulebookDescription = "At the end of the owner's turn, [creature] gains Haste equal to the opposing creature's power level.";
+            const string rulebookDescription = "At the end of the owner's turn, [creature] gains Haste equal to the opposing creature's Attack.";
             HighStrung.ability = AbnormalAbilityHelper.CreateAbility<HighStrung>(
                 "sigilHighStrung",
                 rulebookName, rulebookDescription, powerLevel: 2,
@@ -30,21 +30,27 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd) => !playerTurnEnd && base.Card.OpposingCard() != null;
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            int stacks = base.Card.OpposingCard().PowerLevel;
-            if (stacks == 0)
+            if (base.Card.OpposingCard() == null || base.Card.OpposingCard().Attack == 0)
                 yield break;
 
+            int stacks = base.Card.OpposingCard().Attack;
             yield return base.PreSuccessfulTriggerSequence();
+            yield return base.Card.RemoveStatusEffect<Haste>();
             yield return AddHasteToCard(stacks);
             yield return base.LearnAbility(0.4f);
         }
         private IEnumerator AddHasteToCard(int stacks)
         {
+            yield return HelperMethods.ChangeCurrentView(View.Board);
             base.Card.Anim.LightNegationEffect();
-            yield return base.Card.AddStatusEffect<Haste>(stacks, false);
+            yield return base.Card.AddStatusEffect<Haste>(stacks, false, modifyTurnGained: delegate (int turnNum)
+            {
+                return turnNum + 1;
+            });
+
             yield return new WaitForSeconds(0.1f);
         }
     }
