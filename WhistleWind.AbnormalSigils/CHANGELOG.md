@@ -112,7 +112,7 @@
     - Elite
     - Withering
     - Explosive Opening
-    - Board Panic
+    - Board Shuffle
 - Added 1 stat icons:
     - Flower Power
 - Added 4 status effects:

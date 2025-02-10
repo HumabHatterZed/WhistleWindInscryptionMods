@@ -18,14 +18,13 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Ability_CardScramble()
         {
-            return;
-            const string rulebookName = "Chaos Shuffle";
+            const string rulebookName = "Board Shuffle";
             const string rulebookDescription = "Pay 3 Energy to shuffle all creatures on the board.";
             const string dialogue = "What a mess.";
             CardScramble.ability = AbnormalAbilityHelper.CreateAbility<CardScramble>(
-                "sigilBarreler",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
-                modular: true, opponent: true)
+                "sigilCardScramble",
+                rulebookName, rulebookDescription, dialogue, powerLevel: 4,
+                modular: false, opponent: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
                 .SetMagnificusRulebook().Id;

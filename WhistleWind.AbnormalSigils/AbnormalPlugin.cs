@@ -267,6 +267,7 @@ namespace WhistleWind.AbnormalSigils
             Ability_Withering();
             Ability_InfiniteShield();
             Ability_ExplosiveOpening();
+            Ability_CardScramble();
 
             #endregion
 
