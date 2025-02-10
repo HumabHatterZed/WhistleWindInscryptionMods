@@ -65,7 +65,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             if (lowestOpponentSpeed > highestPlayerSpeed)
             {
                 AbnormalPlugin.Log.LogDebug("[SpeedLogic] Opponent outspeeds player");
-                return allCardsResult.Where(x => !x.IsPlayerSlot).ToList();
+                return allCardsResult;
             }
 
             List<CardSlot> opponentsOutspeedFastest = allCardsResult.FindAll(x => !x.IsPlayerSlot && CardSpeed(x) > highestPlayerSpeed);
