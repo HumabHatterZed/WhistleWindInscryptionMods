@@ -274,6 +274,15 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
                 yield return status.RemoveFromCard(true);
             }
         }
+        public static void RemoveStatusEffect<T>(this PlayableCard card, int potency, bool updateDecals = false) where T : StatusEffectBehaviour
+        {
+            StatusEffectBehaviour status = card.GetStatusEffect<T>();
+            if (status != null && !AllStatusEffects.EffectByID(status.StatusEffect).Irremovable)
+            {
+                status.ModifyPotency(-potency, updateDecals);
+            }
+        }
+
         public static IEnumerator RemoveStatusEffect(this PlayableCard card, SpecialTriggeredAbility id)
         {
             if (AllStatusEffects.EffectByID(id).Irremovable)
