@@ -19,7 +19,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Bind()
         {
             const string rName = "Bind";
-            const string rDesc = "A card bearing this effect loses Speed equal to its Bind. At the start of the owner's next turn, remove this effect.";
+            const string rDesc = "A card bearing this effect loses Speed equal to its Bind. At the end of the owner's turn, remove this effect.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Bind>(
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.orange,
                 TextureLoader.LoadTextureFromFile("sigilBind.png", Assembly),

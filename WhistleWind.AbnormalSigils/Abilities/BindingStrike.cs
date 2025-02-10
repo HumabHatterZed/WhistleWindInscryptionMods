@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_BindingStrike()
         {
             const string rulebookName = "Binding Strike";
-            const string rulebookDescription = "When [creature] strikes an opposing creature, inflict Bind this turn and next turn equal to twice this card's Attack.";
+            const string rulebookDescription = "When [creature] strikes an opposing creature, inflict Bind this turn and next turn equal to card's Attack.";
             const string dialogue = "The creature has been slowed, if only temporarily.";
             BindingStrike.ability = AbnormalAbilityHelper.CreateAbility<BindingStrike>(
                 "sigilBindingStrike",
@@ -44,7 +44,7 @@ namespace WhistleWind.AbnormalSigils
         private IEnumerator AddBindToCard(PlayableCard card)
         {
             card.Anim.LightNegationEffect();
-            yield return card.AddStatusEffectToFaceDown<Bind>(base.Card.Attack * 2, modifyTurnGained: (int i) => i + 1);
+            yield return card.AddStatusEffectToFaceDown<Bind>(base.Card.Attack, modifyTurnGained: (int i) => i + 1);
             yield return new WaitForSeconds(0.1f);
         }
     }

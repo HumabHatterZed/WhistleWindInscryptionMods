@@ -21,7 +21,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Haste()
         {
             const string rName = "Haste";
-            const string rDesc = "A card bearing this effect gains Speed equal to its Haste. At the start of the owner's next turn, remove this effect.";
+            const string rDesc = "A card bearing this effect gains Speed equal to its Haste. At the end of the owner's turn, remove this effect.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Haste>(
                 pluginGuid, rName, rDesc, 1, GameColors.Instance.orange,
                 TextureLoader.LoadTextureFromFile("sigilHaste.png", Assembly),
