@@ -1,18 +1,20 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using System.Collections;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
-    public class Haste : ModifyOnUpkeepStatusEffectBehaviour/*, IGetAttackingSlots, IOnPostSlotAttackSequence*/
+    public class Haste : ModifyOnTurnEndStatusEffectBehaviour
     {
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
         public override Ability IconAbility => iconId;
         public override SpecialTriggeredAbility StatusEffect => specialAbility;
         public override int PotencyModification => -EffectPotency;
+
     }
     public partial class AbnormalPlugin
     {

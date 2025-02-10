@@ -6,7 +6,7 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
 {
-    public class Bind : ModifyOnUpkeepStatusEffectBehaviour
+    public class Bind : ModifyOnTurnEndStatusEffectBehaviour
     {
         public static Ability iconId;
         public static SpecialTriggeredAbility specialAbility;
