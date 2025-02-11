@@ -89,22 +89,32 @@ namespace BonniesBakingPack
                 "bbp_act1_eggTart",
                 "bbp_act1_redVelvet",
                 "bbp_act3_pastry",
-                "n_act3", // placeholder, will be replaced with a valid name if chosen
+                "bbp_act3", // placeholder, will be replaced with a valid name if chosen
                 "bbp_act3_meetBun",
                 "bbp_act3_scones",
                 "bbp_act3_eggTart",
-                "bbp_act3_redVelvet"
+                "bbp_act3_redVelvet",
+                "bbp_grimora_redVelvet",
+                "bbp_grimora_pastry",
+                "bbp_grimora_whiteDonut",
+                "bbp_grimora_meetBun",
+                "bbp_grimora_scones",
+                "bbp_grimora_eggTart"
             };
 
             if (!BakingPlugin.SplitByAct.Value)
             {
                 if (SaveManager.SaveFile.IsPart1)
                 {
-                    possibleFoodPool.RemoveAll(x => x.StartsWith("bbp_act3"));
+                    possibleFoodPool.RemoveAll(x => !x.StartsWith("bbp_act1"));
                 }
                 else if (SaveManager.SaveFile.IsPart3)
                 {
                     possibleFoodPool.RemoveAll(x => !x.StartsWith("bbp_act3"));
+                }
+                else if (SaveManager.SaveFile.IsGrimora)
+                {
+                    possibleFoodPool.RemoveAll(x => !x.StartsWith("bbp_grimora"));
                 }
             }
 
@@ -116,7 +126,7 @@ namespace BonniesBakingPack
 
                 if (!deck.Exists(x => x.GemsCost.Count > 0))
                 {
-                    possibleFoodPool.Remove("n_act3");
+                    possibleFoodPool.Remove("bbp_act3");
                 }
                 if (!deck.Exists(x => x.BloodCost > 0))
                 {
@@ -126,7 +136,7 @@ namespace BonniesBakingPack
 
 
             string chosenFood = possibleFoodPool[SeededRandom.Range(0, possibleFoodPool.Count, randomSeed)];
-            if (chosenFood.Equals("n_act3"))
+            if (chosenFood.Equals("bbp_act3"))
             {
                 chosenFood = GetRandomNoise(randomSeed);
             }
@@ -172,7 +182,21 @@ namespace BonniesBakingPack
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            CardInfo cardInfo = SaveManager.SaveFile.IsPart3 ? CardLoader.GetCardByName("bbp_act3_bunnie") : CardLoader.GetCardByName("bbp_act1_bunnie");
+            string infoName;
+            if (SaveManager.SaveFile.IsPart3)
+            {
+                infoName = "bbp_act3_bunnie";
+            }
+            else if (SaveManager.SaveFile.IsGrimora)
+            {
+                infoName = "bbp_grimora_bunnie";
+            }
+            else
+            {
+                infoName = "bbp_act1_bunnie";
+            }
+
+            CardInfo cardInfo = CardLoader.GetCardByName(infoName);
             cardInfo.Mods = cardmods;
             if (opponent)
             {

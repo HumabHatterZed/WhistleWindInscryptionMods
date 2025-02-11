@@ -35,6 +35,7 @@ namespace BonniesBakingPack
             CreateFood();
             CreateBonnie();
             CreateBunnie();
+            CreateBonnieGrimora();
             CreateBonnieDisk();
             CreateBunnieDisk();
             CreateBingus();
@@ -300,7 +301,7 @@ namespace BonniesBakingPack
         public const string pluginPrefixM = "bbp_magnificus";
 
         public const string pluginName = "Bonnie's Baking Pack";
-        private const string pluginVersion = "1.0.1";
+        private const string pluginVersion = "1.1.0";
     }
 
     internal static class Extensions

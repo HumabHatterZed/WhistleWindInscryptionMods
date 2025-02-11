@@ -1,5 +1,10 @@
 # Plugin GUID: whistlewind.inscryption.bonniesbakingpack
 
+## v1.1.0 - Cooking with Mox ()
+- Fixed stray pixel on Egg Tart artwork
+- Added 14 cards for Magnificus Mod
+- Added Bonnie variant for GrimoraMod
+
 ## v1.0.1 - Food Inspection (Feb 8, 2025)
 - Fixed Bonnie's abilities not working
 - Fixed various errors relating to incorrect internal names
