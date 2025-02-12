@@ -28,6 +28,7 @@ namespace BonniesBakingPack
     [BepInDependency(ScrybeCompat.GrimoraGuid, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(ScrybeCompat.P03Sigil, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(ScrybeCompat.P03Guid, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(ScrybeCompat.MagnificusGuid, BepInDependency.DependencyFlags.SoftDependency)]
     public partial class BakingPlugin : BaseUnityPlugin
     {
         private void AddCards()
@@ -136,6 +137,10 @@ namespace BonniesBakingPack
                 GetTexture("starterDeck3.png"), new string[4] { "bbp_act3_phoneMouse", "bbp_act3_anonymouse", "bbp_act3_copstable", "bbp_act3_copstable" }
                 );
 
+            StarterDeckManager.New(pluginGuid, "Bauble Baking Pack",
+                GetTexture("starterDeck4.png"), new string[4] { "bbp_act3_phoneMouse", "bbp_act3_anonymouse", "bbp_act3_copstable", "bbp_act3_copstable" }
+                );
+
             StarterDeckManager.ModifyDeckList += delegate (List<StarterDeckManager.FullStarterDeck> decks)
             {
                 if (!ScrybeCompat.GrimoraEnabled)
@@ -146,6 +151,11 @@ namespace BonniesBakingPack
                 if (!ScrybeCompat.P03Enabled)
                 {
                     decks.RemoveAll(x => x.Info.title == "Bot Baking Pack");
+                }
+
+                if (!ScrybeCompat.MagnificusEnabled)
+                {
+                    decks.RemoveAll(x => x.Info.title == "Bauble Baking Pack");
                 }
 
                 return decks;
@@ -168,6 +178,7 @@ namespace BonniesBakingPack
             internal const string P03Guid = "zorro.inscryption.infiniscryption.p03kayceerun";
             internal const string P03Sigil = "zorro.inscryption.infiniscryption.p03sigillibrary";
             internal const string GrimoraGuid = "arackulele.inscryption.grimoramod";
+            internal const string MagnificusGuid = "silenceman.inscryption.magnificusmod";
 
             internal static CardMetaCategory NeutralRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "NeutralRegionCards");
             internal static CardMetaCategory NatureRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "NatureRegionCards");
@@ -175,6 +186,7 @@ namespace BonniesBakingPack
             internal static CardMetaCategory WizardRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "WizardRegionCards");
             internal static CardMetaCategory UndeadRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "UndeadRegionCards");
 
+            internal static bool MagnificusEnabled => Chainloader.PluginInfos.ContainsKey(MagnificusGuid);
             internal static bool GrimoraEnabled => Chainloader.PluginInfos.ContainsKey(GrimoraGuid);
             internal static bool P03Enabled => Chainloader.PluginInfos.ContainsKey(P03Guid);
             internal static bool P03SigilsEnabled => Chainloader.PluginInfos.ContainsKey(P03Sigil);
@@ -246,17 +258,30 @@ namespace BonniesBakingPack
             pack3.ValidFor.Clear();
             pack3.ValidFor.Add(PackInfo.PackMetacategory.P03Pack);
 
+            PackInfo packM = PackManager.GetPackInfo<PackInfo>(pluginPrefixM);
+            packM.Title = "Bonnie's Bauble Pack";
+            packM.SetTexture(TextureHelper.GetImageAsTexture("bbp_pack_magnificus.png", Assembly));
+            packM.Description = $"14 dazzling ingredients for all your thaumoturgical needs!";
+            packM.ValidFor.Clear();
+            packM.ValidFor.Add(PackInfo.PackMetacategory.MagnificusPack);
+
             if (SplitByAct.Value)
             {
-                Debug.Log("All");
                 act1Pack.ValidFor.Add(PackInfo.PackMetacategory.GrimoraPack);
                 act1Pack.ValidFor.Add(PackInfo.PackMetacategory.P03Pack);
+                act1Pack.ValidFor.Add(PackInfo.PackMetacategory.MagnificusPack);
 
                 pack2.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
                 pack2.ValidFor.Add(PackInfo.PackMetacategory.P03Pack);
+                pack2.ValidFor.Add(PackInfo.PackMetacategory.MagnificusPack);
 
                 pack3.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
                 pack3.ValidFor.Add(PackInfo.PackMetacategory.GrimoraPack);
+                pack3.ValidFor.Add(PackInfo.PackMetacategory.MagnificusPack);
+
+                packM.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
+                packM.ValidFor.Add(PackInfo.PackMetacategory.GrimoraPack);
+                packM.ValidFor.Add(PackInfo.PackMetacategory.P03Pack);
             }
         }
 
@@ -283,6 +308,7 @@ namespace BonniesBakingPack
         public static readonly List<CardInfo> Act1Cards = new();
         public static readonly List<CardInfo> GrimoraCards = new();
         public static readonly List<CardInfo> P03Cards = new();
+        public static readonly List<CardInfo> MagnificusCards = new();
 
         internal static ConfigEntry<bool> BingusCrash;
         internal static ConfigEntry<bool> SplitByAct;
@@ -320,7 +346,7 @@ namespace BonniesBakingPack
 
             if (BakingPlugin.ScrybeCompat.GrimoraEnabled)
             {
-                info.AddMetaCategories(GuidManager.GetEnumValue<CardMetaCategory>("arackulele.inscryption.grimoramod", "GrimoraModChoiceNode"));
+                info.AddMetaCategories(GuidManager.GetEnumValue<CardMetaCategory>(BakingPlugin.ScrybeCompat.GrimoraGuid, "GrimoraModChoiceNode"));
             }
 
             return info.AddMetaCategories(CardMetaCategory.TraderOffer).SetCardTemple(CardTemple.Undead);
@@ -331,6 +357,13 @@ namespace BonniesBakingPack
                 BakingPlugin.P03Cards.Add(info);
 
             return info.AddMetaCategories(CardMetaCategory.TraderOffer).SetCardTemple(CardTemple.Tech);
+        }
+        internal static CardInfo AddMagnificus(this CardInfo info)
+        {
+            if (!BakingPlugin.MagnificusCards.Contains(info))
+                BakingPlugin.MagnificusCards.Add(info);
+
+            return info.AddMetaCategories(CardMetaCategory.TraderOffer).SetCardTemple(CardTemple.Wizard);
         }
     }
 }
