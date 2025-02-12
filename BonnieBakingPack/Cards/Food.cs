@@ -25,7 +25,7 @@ namespace BonniesBakingPack
 
             // Grimora
             CardManager.New(pluginPrefixG, "redVelvet", "Dread Velvet", 1, 0, "")
-                .SetBonesCost(2)
+                .SetBonesCost(3)
                 .SetPortraitAndEmission(GetTexture("redVelvet_grimora.png"), GetTexture("redVelvet_grimora_emission.png"))
                 .AddAbilities(GiveStats.AbilityID)
                 .SetTargetedSpellStats()
@@ -98,7 +98,7 @@ namespace BonniesBakingPack
 
             // Grimora
             CardManager.New(pluginPrefixG, "pastry", "Pastry", 0, 2, "")
-                .SetBonesCost(2)
+                .SetBonesCost(3)
                 .SetPortrait(GetTexture("pastry_grimora.png"), GetTexture("pastry_grimora_emission.png"))
                 .AddAbilities(GiveStats.AbilityID)
                 .SetTargetedSpellStats()
