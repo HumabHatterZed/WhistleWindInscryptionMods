@@ -8,6 +8,7 @@ namespace BonniesBakingPack
     {
         private void CreateFood()
         {
+            // Act 1
             CardManager.New(pluginPrefix, "redVelvet", "Red Velvet", 1, 0, "")
                 .SetBonesCost(2)
                 .SetPortrait(GetTexture("redVelvet.png"))
@@ -82,6 +83,7 @@ namespace BonniesBakingPack
                 .AddAbilities(Ability.QuadrupleBones)
                 .SetTerrain(true);
 
+            // Act 1
             CardManager.New(pluginPrefix, "pastry", "Pastry", 0, 2, "")
                 .SetBonesCost(2)
                 .SetPortrait(GetTexture("pastry.png"))
@@ -104,6 +106,7 @@ namespace BonniesBakingPack
                 .SetTargetedSpellStats()
                 .SetTerrain(false);
 
+            // Act 1
             CardManager.New(pluginPrefix, "meetBun", "Meet Bun", 0, 1, "")
                 .SetBonesCost(3)
                 .SetPortrait(GetTexture("meetBun.png"))
@@ -118,10 +121,11 @@ namespace BonniesBakingPack
                 .AddAbilities(ScrybeCompat.GetP03Ability("Fully Loaded", Ability.DebuffEnemy), ScrybeCompat.GetP03Ability("Full of Blood", Ability.TripleBlood));
 
             // Grimora
-            CardManager.New(pluginPrefixG, "meetBun", "Meet Bun", 0, 2, "")
-                .SetBonesCost(3)
+            CardManager.New(pluginPrefixG, "meetBun", "Meet Bun", 0, 0, "")
+                .SetBonesCost(1)
                 .SetPortraitAndEmission(GetTexture("meetBun_grimora.png"), GetTexture("meetBun_grimora_emission.png"))
                 .AddAbilities(ScrybeCompat.GetGrimoraAbility("Spirit Bearer", Ability.GainBattery))
+                .SetGlobalSpell()
                 .SetTerrain(false);
 
             // Act 1
@@ -140,7 +144,7 @@ namespace BonniesBakingPack
 
             // Grimora
             CardManager.New(pluginPrefixG, "scones", "Scones", 0, 1, "")
-                .SetBonesCost(1)
+                .SetBonesCost(2)
                 .AddAbilities(Ability.DoubleDeath)
                 .SetPortraitAndEmission(GetTexture("scones_grimora.png"), GetTexture("scones_grimora_emission.png"))
                 .SetTerrain(false);
@@ -160,10 +164,10 @@ namespace BonniesBakingPack
                 .SetGlobalSpell();
 
             // Grimora
-            CardManager.New(pluginPrefixG, "eggTart", "Egg Tart", 0, 2, "")
+            CardManager.New(pluginPrefixG, "eggTart", "Egg Tart", 0, 1, "")
                 .SetBonesCost(2)
                 .SetPortraitAndEmission(GetTexture("eggTart_grimora.png"), GetTexture("eggTart_grimora_emission.png"))
-                .AddAbilities(ScrybeCompat.GetGrimoraAbility("Soul Sucker", Ability.GainBattery))
+                .AddAbilities(Ability.DebuffEnemy)
                 .SetTerrain(false);
         }
     }

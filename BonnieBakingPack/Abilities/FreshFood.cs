@@ -217,6 +217,13 @@ namespace BonniesBakingPack
                 yield return CardSpawner.Instance.SpawnCardToHand(cardInfo);
             }
 
+            if (infoName.Equals("bbp_grimora_bunnie") && !ProgressionData.IntroducedCard(cardInfo))
+            {
+                yield return new WaitForSeconds(0.2f);
+                yield return TextDisplayer.Instance.ShowThenClear(cardInfo.description, 3f);
+                ProgressionData.SetCardIntroduced(cardInfo);
+
+            }
             Destroy();
         }
     }

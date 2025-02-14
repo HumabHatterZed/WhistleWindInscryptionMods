@@ -4,6 +4,7 @@
 - Fixed stray pixel on Egg Tart artwork
 - Added 14 cards for Magnificus Mod
 - Added Bonnie variant for GrimoraMod
+- Added Skelemouse challenge to Grimora
 
 ## v1.0.1 - Food Inspection (Feb 8, 2025)
 - Fixed Bonnie's abilities not working

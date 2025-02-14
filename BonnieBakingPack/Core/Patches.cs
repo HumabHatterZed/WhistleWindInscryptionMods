@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using Sirenix.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace BonniesBakingPack
                 {
                     __instance.Info.Mods.Add(new() { singletonId = "BBP_Sound:panda_gun" }); // since PlayHit doesn't track the attacker, we do that here
                 }
-                else if (attacker.HasSpecialAbility(BunnieAbility.SpecialAbility))
+                else if (attacker.Info.name.FastEndsWith("bunnie"))
                 {
                     __instance.Info.Mods.Add(new() { singletonId = "BBP_Sound:bonnie_bonk" });
                 }

@@ -7,17 +7,17 @@ namespace BonniesBakingPack
     {
         private void CreateBonnieGrimora()
         {
-            CardInfo bon = CardManager.New(pluginPrefixG, "bonnie", "Bonnie", 1, 1, "A WICKEDDDDKIND  GIRL WIT H FRIENDLLY INTENTIONNS. .")
+            CardInfo bon = CardManager.New(pluginPrefixG, "bonnie", "Leela", 1, 1, "AMIDST ALL THESE MONSTERS AND GHOULS, THIS HUMAN FITS RIGHT IN.")
                 .SetRare().AddGrimora()
-                .SetBloodCost(2)
+                .SetBloodCost(1)
                 .SetPortraitAndEmission(GetTexture("bonnie_grimora.png"), GetTexture("bonnie_grimora_emission.png"))
                 .SetPixelPortrait(GetTexture("bonnie_grimora_pixel.png"))
                 .AddAbilities(FreshFood.ability)
                 .SetOnePerDeck();
 
-            CardInfo bon2 = CardManager.New(pluginPrefixG, "bunnie", "Leppy", 2, 2, "A WICKED HEAT BURNS IN ME. MY TEETH BURROW INTO SOFT NECK AND GLORIOUS LIFE PAINTS MY CHEST. MY MUSCLES GROW TENSE AND I BITE DOWN. HARDER, HARDER, HARDER. UNTIL THE FLESH SEPARATES FROM THE BONE. A CRESCENDO. LIGHTS DANCE ACROSS MY VISION AND LIFE MIXES WITH CLEAR ECTASY, ALL FLOWING DOWN FROM ME. THE HEAT LEAVES ME ONCE MORE. BUT NEVER FOR LONG. I WISH IT WOULD LEAVE ME. I WISH I COULD LIVE AMONG THE SHEEP AS A DEFANGED WOLF. I LONG FOR ITS RETURN. I LONG FOR THE TASTE OF SWEET CANDY BETWEEN MY LIPS, YOUR SKIN BETWEEN MY NAILS AND YOUR EYES LIKE A FISH WITHOUT WATER. GUILT AND PLEASURE FIGHT WITHIN ME. MY SPINE SHIVERS FROM THEIR PASSIONATE CLASH. THE HEAT HAS LEFT. BUT NEVER FOR LONG.")
+            CardInfo bon2 = CardManager.New(pluginPrefixG, "bunnie", "Leppy", 2, 2, "A WICKED HEAT BURNS IN ME. MY FINGERS DIG INTO YOUR NECK, YOUR SKIN BETWEEN MY NAILS, AS GLORIOUS LIFE FORMS A HALO BENEATH YOU. MY MUSCLES TENSE AND SHUDDER ATOP YOU AS YOU WHIMPER BENEATH ME. SO FRAIL AND HELPLESS, LIKE A LITTLE BUNNY. THE HEAT GROWS UNBEARABLE AND I BITE DOWN INTO YOU. HARDER, HARDER, HARDER. THE TASTE OF YOU PAINTS MY MOUTH AS THE GOODNESS WITHIN YOU SPILLS INSIDE ME. YOUR LIMP PAWS BEAT AGAINST ME, DRUMMING IN TUNE WITH MY RACING HEART. I PRESS MYSELF AGAINST YOU, FLESH GRINDING AGAINST SQUIRMING FLESH. THE HEAT BUILDS, HIGHER AND HIGHER UNTIL IT SNAPS WITHIN ME. YOUR LIFE MIXES WITH MY PLEASURE, TRACING RIVERS DOWN MY SHIVERING THIGHS. YOUR TASTE LINGERS IN MY MOUTH, TUFTS OF BLOODIED FUR BETWEEN MY TEETH, YOUR DULL EYES DROWNING IN SALT WATER. THE HEAT HAS LEFT. BUT NEVER FOR LONG.")
                 .SetDefaultPart1Card().AddGrimora()
-                .SetBloodCost(2)
+                .SetBloodCost(1)
                 .SetPortraitAndEmission(GetTexture("bunnie_grimora.png"), GetTexture("bunnie_grimora_emission.png"))
                 .AddAbilities(FreshIngredients.ability)
                 .SetOnePerDeck();
