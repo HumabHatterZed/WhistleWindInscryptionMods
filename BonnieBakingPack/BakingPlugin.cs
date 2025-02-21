@@ -13,9 +13,11 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
 using InscryptionAPI.Helpers;
 using InscryptionAPI.TalkingCards.Create;
+using MagnificusMod;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using static InscryptionAPI.Slots.SlotModificationManager;
 
 namespace BonniesBakingPack
 {
@@ -97,6 +99,10 @@ namespace BonniesBakingPack
                 HarmonyInstance.PatchAll(typeof(P03Patches));
                 BonnieAct3.Register();
                 HarmonyInstance.PatchAll(typeof(BonnieAct3));
+            }
+            if (ScrybeCompat.MagnificusEnabled)
+            {
+                HarmonyInstance.PatchAll(typeof(MagnificusPatches));
             }
 
             AddAbilities();
@@ -218,6 +224,13 @@ namespace BonniesBakingPack
 
                 return fallback;
             }
+            internal static Ability GetMagnificusAbility(string rulebookName, Ability fallback)
+            {
+                if (MagnificusEnabled)
+                    return GuidManager.GetEnumValue<Ability>(MagnificusGuid, rulebookName);
+
+                return fallback;
+            }
             internal static Opponent.Type GetP03Boss(string name, Opponent.Type fallback)
             {
                 if (P03Enabled)
@@ -234,6 +247,32 @@ namespace BonniesBakingPack
             {
                 card.AddPart3Decal(decal);
             }
+
+            internal static void SetManaCost(CardInfo card, int manaCost)
+            {
+                card.SetBloodCost(manaCost);
+                card.SetExtendedProperty("ManaCost", true);
+            }
+            internal static CardInfo SetMagnificusSpell(CardInfo info)
+            {
+                info.SetExtendedProperty("TargetedSpell", true);
+                info.AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout);
+                info.AddTraits(Trait.EatsWarrens);
+                return info;
+            }
+
+            internal static Assembly MagnificusAsm
+            {
+                get
+                {
+                    if (_magnificusAsm == null)
+                    {
+                        _magnificusAsm = Assembly.GetAssembly(typeof(SigilCode.MoxCycling));
+                    }
+                    return _magnificusAsm;
+                }
+            }
+            private static Assembly _magnificusAsm = null;
         }
         private static void CreateCardPack()
         {
@@ -286,6 +325,8 @@ namespace BonniesBakingPack
         }
 
         internal static Texture2D GetTexture(string fileName) => TextureHelper.GetImageAsTexture(fileName, Assembly);
+        internal static Texture2D GetTexture(string fileName, Assembly asm) => TextureHelper.GetImageAsTexture(fileName, asm);
+
         internal static FaceAnim MakeFaceAnim(string openName, string closedName = null)
         {
             Texture2D openTex = GetTexture(openName);

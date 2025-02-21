@@ -26,6 +26,12 @@ namespace BonniesBakingPack
                 .SetPortrait(GetTexture("defaultUser.png"))
                 .AddAbilities(ScrybeCompat.GetP03Ability("Rubber Stamp", Ability.DrawCopy));
 
+            CardInfo forgotten = CardManager.New(pluginPrefixM, "forgotten", "Forgotten Subject", 2, 1, "Some poor, nameless fool; now reduced to a bitter shade.")
+                .SetDefaultPart1Card().AddMagnificus()
+                .SetGemsCost(GemType.Orange, GemType.Orange)
+                .SetPortrait(GetTexture("protagonist_magnificus.png"))
+                .AddAbilities(Ability.DoubleStrike, ScrybeCompat.GetMagnificusAbility("Fading", Ability.Brittle));
+
             if (ScrybeCompat.GrimoraEnabled)
             {
                 Ability ability = ScrybeCompat.GetGrimoraAbility("Malnourishment", Ability.None);

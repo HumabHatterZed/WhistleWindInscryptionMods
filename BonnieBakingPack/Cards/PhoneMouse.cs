@@ -31,6 +31,12 @@ namespace BonniesBakingPack
                 .SetGlobalSpell()
                 .AddAbilities(ScrybeCompat.GetP03Ability("Tinkerer", Ability.DrawRandomCardOnDeath));
 
+            CardInfo gem = CardManager.New(pluginPrefixM, "witness", "Witness", 0, 2, "A spineless rat. Lacking in any courage, it will call on others to help instead.")
+                .SetDefaultPart1Card().AddMagnificus()
+                .SetGemsCost(GemType.Green)
+                .SetPortrait(GetTexture("witness.png"))
+                .AddAbilities(ScrybeCompat.GetP03Ability("Dead Draw", Ability.DrawRandomCardOnDeath));
+
             if (ScrybeCompat.GrimoraEnabled)
             {
                 Ability ability = ScrybeCompat.GetGrimoraAbility("Slasher", Ability.None);

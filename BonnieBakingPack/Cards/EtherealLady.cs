@@ -46,13 +46,17 @@ namespace BonniesBakingPack
                 bot.AddMetaCategories(ScrybeCompat.TechRegion);
             }
 
-            /*CardInfo gem = CardManager.New(pluginPrefixM, "completeLady", "The Lady Complete", 2, 1)
-                .SetDefaultPart3Card().SetRare()
+            CardInfo gem = CardManager.New(pluginPrefixM, "completeLady", "The Lady Complete", 1, 2, "A portrait of perfection, none will ever compare to such beauty.")
+                .SetRare().AddMagnificus()
                 .SetGemsCost(GemType.Green, GemType.Orange, GemType.Blue)
-                .SetPortraitAndEmission(GetTexture("completeLady.png"), GetTexture("completeLady_decal.png"))
-                .AddAppearances(LadyAbility.CardAppearance)
+                .SetPortrait(GetTexture("completeLady.png"))
+                .AddAbilities(
+                    ScrybeCompat.GetMagnificusAbility("Stimulation", Ability.DebuffEnemy),
+                    ScrybeCompat.GetMagnificusAbility("Stimulation (Health)", Ability.DebuffEnemy),
+                    ScrybeCompat.GetMagnificusAbility("Purist", Ability.DebuffEnemy)
+                    )
                 .AddTraits(Trait.DeathcardCreationNonOption)
-                .SetOnePerDeck();*/
+                .SetOnePerDeck();
         }
     }
 }

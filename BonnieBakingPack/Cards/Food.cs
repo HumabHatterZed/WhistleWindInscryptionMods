@@ -26,11 +26,18 @@ namespace BonniesBakingPack
 
             // Grimora
             CardManager.New(pluginPrefixG, "redVelvet", "Dread Velvet", 1, 0, "")
-                .SetBonesCost(3)
+                .SetBonesCost(3).SetCardTemple(CardTemple.Undead)
                 .SetPortraitAndEmission(GetTexture("redVelvet_grimora.png"), GetTexture("redVelvet_grimora_emission.png"))
                 .AddAbilities(GiveStats.AbilityID)
                 .SetTargetedSpellStats()
                 .SetTerrain(false);
+
+            // magnificus
+            CardManager.New(pluginPrefixM, "redVelvet", "Ruby Velvet", 0, 1, "")
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortrait(GetTexture("redVelvet_magnificus.png"))
+                .AddAbilities(Ability.GainGemOrange)
+                .SetTraits(Trait.Gem);
 
             // Act 1
             CardManager.New(pluginPrefix, "whiteDonut", "White Donut", 0, 1, "")
@@ -83,6 +90,13 @@ namespace BonniesBakingPack
                 .AddAbilities(Ability.QuadrupleBones)
                 .SetTerrain(true);
 
+            // Magnificus
+            CardManager.New(pluginPrefixM, "whiteDonut", "Sapphire Donut", 0, 1, "")
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortrait(GetTexture("whiteDonut_magnificus.png"))
+                .AddAbilities(Ability.GainGemBlue)
+                .AddTraits(Trait.Gem);
+
             // Act 1
             CardManager.New(pluginPrefix, "pastry", "Pastry", 0, 2, "")
                 .SetBonesCost(2)
@@ -100,11 +114,19 @@ namespace BonniesBakingPack
 
             // Grimora
             CardManager.New(pluginPrefixG, "pastry", "Pastry", 0, 2, "")
-                .SetBonesCost(3)
+                .SetBonesCost(3).SetCardTemple(CardTemple.Undead)
                 .SetPortrait(GetTexture("pastry_grimora.png"), GetTexture("pastry_grimora_emission.png"))
                 .AddAbilities(GiveStats.AbilityID)
                 .SetTargetedSpellStats()
                 .SetTerrain(false);
+
+            // Magnificus
+            CardInfo bluePastry = CardManager.New(pluginPrefixM, "pastry", "Booby-Trapped Pastry", 0, 1, "")
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortrait(GetTexture("pastry_magnificus.png"))
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Steel Trap", Ability.SteelTrap));
+
+            ScrybeCompat.SetManaCost(bluePastry, 1);
 
             // Act 1
             CardManager.New(pluginPrefix, "meetBun", "Meet Bun", 0, 1, "")
@@ -121,12 +143,19 @@ namespace BonniesBakingPack
                 .AddAbilities(ScrybeCompat.GetP03Ability("Fully Loaded", Ability.DebuffEnemy), ScrybeCompat.GetP03Ability("Full of Blood", Ability.TripleBlood));
 
             // Grimora
-            CardManager.New(pluginPrefixG, "meetBun", "Meet Bun", 0, 0, "")
-                .SetBonesCost(1)
+            CardManager.New(pluginPrefixG, "meetBun", "Drippy Meet Bun", 0, 0, "")
+                .SetBonesCost(1).SetCardTemple(CardTemple.Undead)
                 .SetPortraitAndEmission(GetTexture("meetBun_grimora.png"), GetTexture("meetBun_grimora_emission.png"))
                 .AddAbilities(ScrybeCompat.GetGrimoraAbility("Spirit Bearer", Ability.GainBattery))
                 .SetGlobalSpell()
                 .SetTerrain(false);
+
+            CardInfo rubyMeet = CardManager.New(pluginPrefixM, "meetBun", "Gooey Meet Bun", 0, 2, "")
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortrait(GetTexture("meetBun_magnificus.png"))
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Gooey", Ability.DebuffEnemy));
+
+            ScrybeCompat.SetManaCost(rubyMeet, 1);
 
             // Act 1
             CardManager.New(pluginPrefix, "scones", "Scones", 0, 1, "")
@@ -141,14 +170,23 @@ namespace BonniesBakingPack
             CardManager.New(pluginPrefix3, "scones", "Safety Cones", 0, 3, "")
                 .SetBonesCost(3).SetCardTemple(CardTemple.Tech)
                 .SetPortrait(GetTexture("scones_act3.png"));
-
+            
             // Grimora
             CardManager.New(pluginPrefixG, "scones", "Scones", 0, 1, "")
-                .SetBonesCost(2)
+                .SetBonesCost(2).SetCardTemple(CardTemple.Undead)
                 .AddAbilities(Ability.DoubleDeath)
                 .SetPortraitAndEmission(GetTexture("scones_grimora.png"), GetTexture("scones_grimora_emission.png"))
                 .SetTerrain(false);
 
+            // Magnificus
+            CardInfo moxScones = CardManager.New(pluginPrefixM, "scones", "Mox Scones", 0, 1, "")
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortrait(GetTexture("scones_magnificus.png"))
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Mox Cycle", Ability.GemsDraw));
+
+            ScrybeCompat.SetManaCost(moxScones, 1);
+
+            // Act 1
             CardManager.New(pluginPrefix, "eggTart", "Egg Tart", 0, 2, "")
                 .SetBonesCost(2)
                 .SetPortrait(GetTexture("eggTart.png"))
@@ -165,10 +203,17 @@ namespace BonniesBakingPack
 
             // Grimora
             CardManager.New(pluginPrefixG, "eggTart", "Egg Tart", 0, 1, "")
-                .SetBonesCost(2)
+                .SetBonesCost(2).SetCardTemple(CardTemple.Undead)
                 .SetPortraitAndEmission(GetTexture("eggTart_grimora.png"), GetTexture("eggTart_grimora_emission.png"))
                 .AddAbilities(Ability.DebuffEnemy)
                 .SetTerrain(false);
+
+            // Magnificus
+            CardManager.New(pluginPrefixM, "eggTart", "Emerald Egg Tart", 0, 1, "")
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortrait(GetTexture("eggTart_magnificus.png"))
+                .AddAbilities(Ability.GainGemGreen)
+                .AddTraits(Trait.Gem);
         }
     }
 }

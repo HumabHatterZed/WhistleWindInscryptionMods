@@ -99,7 +99,13 @@ namespace BonniesBakingPack
                 "bbp_grimora_whiteDonut",
                 "bbp_grimora_meetBun",
                 "bbp_grimora_scones",
-                "bbp_grimora_eggTart"
+                "bbp_grimora_eggTart",
+                "bbp_magnificus_redVelvet",
+                "bbp_magnificus_pastry",
+                "bbp_magnificus_whiteDonut",
+                "bbp_magnificus_meetBun",
+                "bbp_magnificus_scones",
+                "bbp_magnificus_eggTart"
             };
 
             if (!BakingPlugin.SplitByAct.Value)
@@ -127,7 +133,26 @@ namespace BonniesBakingPack
                 if (!deck.Exists(x => x.GemsCost.Count > 0))
                 {
                     possibleFoodPool.Remove("bbp_act3");
+                    possibleFoodPool.Remove("bbp_magnificus_redVelvet");
+                    possibleFoodPool.Remove("bbp_magnificus_whiteDonut");
+                    possibleFoodPool.Remove("bbp_magnificus_eggTart");
                 }
+                else if (SaveManager.SaveFile.IsMagnificus || BakingPlugin.SplitByAct.Value)
+                {
+                    if (deck.Select(x => x.GemsCost?.Count(x => x == GemType.Orange) ?? 0).Sum() == 0)
+                    {
+                        possibleFoodPool.Remove("bbp_magnificus_redVelvet");
+                    }
+                    if (deck.Select(x => x.GemsCost?.Count(x => x == GemType.Blue) ?? 0).Sum() == 0)
+                    {
+                        possibleFoodPool.Remove("bbp_magnificus_whiteDonut");
+                    }
+                    if (deck.Select(x => x.GemsCost?.Count(x => x == GemType.Green) ?? 0).Sum() == 0)
+                    {
+                        possibleFoodPool.Remove("bbp_magnificus_eggTart");
+                    }
+                }
+
                 if (!deck.Exists(x => x.BloodCost > 0))
                 {
                     possibleFoodPool.Remove("bbp_act1_meetBun");
