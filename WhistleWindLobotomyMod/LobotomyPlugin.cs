@@ -215,8 +215,6 @@ namespace WhistleWindLobotomyMod
             StatusEffect_Sin();
             Ability_UnjustScale();
 
-            Ability_GiantBlocker();
-
             if (LobotomyConfigManager.Instance.RevealSpecials)
             {
                 Log.LogDebug("Adding rulebook entries for special abilities.");
