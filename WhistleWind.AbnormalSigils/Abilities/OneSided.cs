@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using Core.AbilityClasses;
+using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Triggers;
 using System.Collections;
@@ -24,30 +25,33 @@ namespace WhistleWind.AbnormalSigils
                 .Info.SetFlipYIfOpponent().ability;
         }
     }
-    public class OneSided : AbilityBehaviour, IModifyDamageTaken
+    public class OneSided : ModifyDamageDealtAbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
         private bool activate = false;
 
-        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        public override bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
             return base.Card == attacker && AbnormalAbilityHelper.SimulateOneSidedAttack(base.Card, target);
         }
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        public override int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
             activate = true;
             return damage + 1;
         }
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
+        public override int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
 
-        public override bool RespondsToDealDamage(int amount, PlayableCard target) => activate;
+        public override bool RespondsToDealDamage(int amount, PlayableCard target) => target != null && amount > 0;
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
-            activate = false;
             yield return base.PreSuccessfulTriggerSequence();
-            yield return base.LearnAbility(0.4f);
+            if (activate)
+            {
+                activate = false;
+                yield return base.LearnAbility(0.4f);
+            }
         }
     }
 }

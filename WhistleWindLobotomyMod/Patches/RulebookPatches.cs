@@ -55,7 +55,7 @@ namespace WhistleWindLobotomyMod.Patches
                             AbilitiesUtil.GetInfo(DynamicAbilities[4]).rulebookDescription = TurnManager.Instance.Opponent.NumLives switch
                             {
                                 1 => "At the end of combat, this card will mark random spaces with coloured targets, then attack those spaces on its next turn. Red: this card's damage is doubled; White: this card's damage is halved and it heals equal to its Power; Yellow: no special effect.",
-                                _ => "Every 3 turns, change the active egg effect. On the final phase, this sigil changes behaviour. Opponent cards may move at the end of the turn. This card cannot go below 90/60/30 Health."
+                                _ => "Every 3 turns, change the active egg effect. On the final phase, this sigil changes behaviour. Opponent cards may move at the end of the turn. This card cannot go below 80/60/40 Health."
                             };
                             AppendToBaseDescription(5, GetApocalypseThresholds());
                             AppendToBaseDescription(6, GetApocalypseThresholds());
@@ -77,15 +77,7 @@ namespace WhistleWindLobotomyMod.Patches
             if (ApocalypseThresholdString != null)
                 return ApocalypseThresholdString;
 
-            return " Upon reaching 80/60/40 Health, permanently disable this effect then switch phase.";
-            /*            StringBuilder builder = new(" Upon reaching ");
-                        ApocalypseBattleSequencer sequence = CustomBossUtils.AsCustomBoss<ApocalypseBossOpponent>().BattleSequence;
-                        builder.Append(sequence.BossHealthThreshold(4))
-                            .Append("/").Append(sequence.BossHealthThreshold(3))
-                            .Append("/").Append(sequence.BossHealthThreshold(2))
-                            .Append(" Health, permanently disable this effect then switch phase.");
-
-                        return ApocalypseThresholdString = builder.ToString();*/
+            return ApocalypseThresholdString = " Upon reaching 80/60/40 Health, permanently disable this effect then switch phase.";
         }
 
         internal static string ApocalypseThresholdString = null;
@@ -113,6 +105,7 @@ namespace WhistleWindLobotomyMod.Patches
 
             __result = true;
         }
+
         private static readonly List<string> abilityNames = new()
         {
             "BoneDigger",

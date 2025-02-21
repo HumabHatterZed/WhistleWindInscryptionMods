@@ -17,7 +17,7 @@ namespace ModDebuggingMod
             //MyTestCost.Init();
 
             CardInfo info = CardManager.New("wstl", "wstlcard", "Debug",
-                attack: 10, health: 100)
+                attack: 1, health: 100)
                 //.SetCost(0, 0, 0, new List<GemType>() { GemType.Blue, GemType.Blue, GemType.Green, GemType.Green, GemType.Green, GemType.Green, GemType.Orange })
                 .AddAbilities(Test.ability)
                 //.AddSpecialAbilities(BlindRage.specialAbility)

@@ -27,7 +27,7 @@ namespace ModDebuggingMod
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return (Object)(object)killer == (Object)(object)base.Card;
+            return false && (Object)(object)killer == (Object)(object)base.Card;
         }
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
@@ -46,7 +46,7 @@ namespace ModDebuggingMod
             //target.RenderCard();
         }
 
-        public override bool RespondsToResolveOnBoard() => true;
+        public override bool RespondsToResolveOnBoard() => false;
         public override IEnumerator OnResolveOnBoard()
         {
             for (int i = 0; i < 20; i++)

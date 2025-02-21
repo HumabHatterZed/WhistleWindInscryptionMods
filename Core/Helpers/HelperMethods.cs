@@ -10,6 +10,60 @@ namespace WhistleWind.Core.Helpers
 {
     public static class HelperMethods
     {
+        public static bool CompareSingleton(string id, string comparer)
+        {
+            return !String.IsNullOrEmpty(id) && id == comparer;
+        }
+        public static bool StartsWithSingleton(string id, string comparer)
+        {
+            return !String.IsNullOrEmpty(id) && id.StartsWith(comparer);
+        }
+        public static bool EndsWithSingleton(string id, string comparer)
+        {
+            return !String.IsNullOrEmpty(id) && id.EndsWith(comparer);
+        }
+
+        public static bool CardEquals(CardInfo baseInfo, CardInfo comparer)
+        {
+            if (baseInfo.name == comparer.name)
+            {
+                if (baseInfo.Attack == comparer.Attack && baseInfo.Health == comparer.Health)
+                {
+                    return baseInfo.Abilities.SequenceEqual(comparer.Abilities);
+                }
+            }
+            return false;
+        }
+
+        public static bool CardModEquals(CardModificationInfo baseMod, CardModificationInfo comparer)
+        {
+            if (baseMod.singletonId.Equals(comparer.singletonId))
+            {
+                return baseMod.attackAdjustment == comparer.attackAdjustment &&
+                    baseMod.healthAdjustment == comparer.healthAdjustment &&
+                    baseMod.bloodCostAdjustment == comparer.bloodCostAdjustment &&
+                    baseMod.bonesCostAdjustment == comparer.bonesCostAdjustment &&
+                    baseMod.energyCostAdjustment == comparer.energyCostAdjustment &&
+                    baseMod.fromCardMerge == comparer.fromCardMerge &&
+                    baseMod.fromTotem == comparer.fromTotem &&
+                    baseMod.fromOverclock == comparer.fromOverclock &&
+                    baseMod.fromDuplicateMerge == comparer.fromDuplicateMerge &&
+                    baseMod.fromLatch == comparer.fromLatch &&
+                    (baseMod.abilities?.SequenceEqual(comparer.abilities) ?? baseMod.abilities == comparer.abilities) &&
+                    baseMod.statIcon == comparer.statIcon &&
+                    (baseMod.addGemCost?.SequenceEqual(comparer.addGemCost) ?? baseMod.addGemCost == comparer.addGemCost) &&
+                    (baseMod.specialAbilities?.SequenceEqual(comparer.specialAbilities) ?? baseMod.specialAbilities == comparer.specialAbilities) &&
+                    baseMod.nameReplacement.Equals(comparer.nameReplacement) &&
+                    (baseMod.DecalIds?.SequenceEqual(comparer.DecalIds) ?? baseMod.DecalIds == comparer.DecalIds) &&
+                    baseMod.buildACardPortraitInfo?.spriteIndices == comparer.buildACardPortraitInfo?.spriteIndices &&
+                    baseMod.bountyHunterInfo?.faceIndex == comparer.bountyHunterInfo?.faceIndex &&
+                    baseMod.bountyHunterInfo?.dialogueIndex == comparer.bountyHunterInfo?.dialogueIndex &&
+                    baseMod.bountyHunterInfo?.hatIndex == comparer.bountyHunterInfo?.hatIndex &&
+                    baseMod.bountyHunterInfo?.eyesIndex == comparer.bountyHunterInfo?.eyesIndex;
+            }
+            return false;
+        }
+
         public static IEnumerator PlayTruncated3DSound(string soundId, float skipToTime, PlayableCard card)
         {
             AudioSource ocean = AudioController.Instance.PlaySound3D(soundId, MixerGroup.TableObjectsSFX, card.Slot.transform.position, skipToTime: skipToTime);

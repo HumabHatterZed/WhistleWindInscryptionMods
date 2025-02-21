@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Driver()
         {
             const string rulebookName = "Pin Down";
-            const string rulebookDescription = "Creatures struck by [creature] gain Unyielding.";
+            const string rulebookDescription = "Creatures struck by [creature] gain Unyielding and lose Airborne.";
             const string dialogue = "Like a bug to a board.";
             const string triggerText = "[creature] pins its prey.";
             Driver.ability = AbnormalAbilityHelper.CreateAbility<Driver>(
@@ -34,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnDealDamage(int amount, PlayableCard target)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            target.AddTemporaryMod(new(Unyielding.ability) { fromCardMerge = true });
+            target.AddTemporaryMod(new(Unyielding.ability) { fromCardMerge = true, negateAbilities = new() { Ability.Flying }, nonCopyable = true });
             yield return base.LearnAbility(0.3f);
         }
     }

@@ -4,7 +4,7 @@ using InscryptionAPI.Slots;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Slot_Flooded()
         {
             const string rulebookName = "Flooded";
-            const string rulebookDescription = "At the end of the opponent's turn, deal 1 damage to cards occupying this space, then reduce this effect's Severity by 1. Cards that are airborne or face down are unaffected.";
+            const string rulebookDescription = "At the end of the round, deal 1 damage to cards occupying this space that aren't Airborne or face down, then reduce this effect's Severity by 1.";
 
             Dictionary<CardTemple, Texture2D> slotTextures = SlotHelper.BuildTextureDictionary(
                 TextureLoader.LoadTextureFromFile("slotFlooded_act1.png", Assembly),
@@ -51,20 +51,12 @@ namespace WhistleWind.AbnormalSigils
         }
     }
 
-    public class FloodedSlot : SlotModificationBehaviour
+    public class FloodedSlot : SlotModificationBehaviour, IOnRoundEnd
     {
         public static SlotModificationManager.ModificationType Id;
 
         public int Severity = 1;
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd) => !playerTurnEnd;
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
-            if (base.Slot.Card != null && !CardIsGrounded(base.Slot.Card))
-            {
-                yield return base.Slot.Card.TakeDamage(1, null);
-            }
-        }
         public override bool RespondsToUpkeep(bool playerUpkeep) => playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
@@ -75,20 +67,21 @@ namespace WhistleWind.AbnormalSigils
         {
             return !card.FaceDown && card.LacksAbility(Ability.Flying);
         }
+
+        public bool RespondsToRoundEnd(bool opponentTurnSkipped) => base.Slot.Card != null && !CardIsGrounded(base.Slot.Card);
+        public IEnumerator OnRoundEnd(bool opponentTurnSkipped) => base.Slot.Card.TakeDamage(1, null);
+        public int RoundEndPriority(bool opponentTurnSkipped) => 0;
     }
-    public class FloodedSlotShallow : SlotModificationBehaviour
+
+    public class FloodedSlotShallow : SlotModificationBehaviour, IOnRoundEnd
     {
         public static SlotModificationManager.ModificationType Id;
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd) => !playerTurnEnd && base.Slot.Card != null;
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
-        {
-            if (!base.Slot.Card.FaceDown && base.Slot.Card.LacksAbility(Ability.Flying) && base.Slot.Card.LacksTrait(Trait.Uncuttable))
-            {
-                yield return base.Slot.Card.TakeDamage(1, null);
-            }
-        }
         public override bool RespondsToUpkeep(bool playerUpkeep) => playerUpkeep;
         public override IEnumerator OnUpkeep(bool playerUpkeep) => base.Slot.SetSlotModification(SlotModificationManager.ModificationType.NoModification);
+
+        public bool RespondsToRoundEnd(bool opponentTurnSkipped) => base.Slot.Card != null && !FloodedSlot.CardIsGrounded(base.Slot.Card);
+        public IEnumerator OnRoundEnd(bool opponentTurnSkipped) => base.Slot.Card.TakeDamage(1, null);
+        public int RoundEndPriority(bool opponentTurnSkipped) => 0;
     }
 }

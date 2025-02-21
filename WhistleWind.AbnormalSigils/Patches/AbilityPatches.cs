@@ -2,10 +2,12 @@
 using GBC;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using InscryptionAPI.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.AbnormalSigils.Core;
 
 // Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches
@@ -13,6 +15,7 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch(typeof(PlayableCard))]
     internal class PlayableCardAbilityPatches
     {
+        [HarmonyPriority(Priority.Last)]
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
         private static void ModifyAttackStat(PlayableCard __instance, ref int __result)
         {
@@ -22,6 +25,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             __result = 0;
         }
 
+        [HarmonyPriority(Priority.Last)]
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.OnStatsChanged))]
         private static void NeuteredColourChange(PlayableCard __instance)
         {
@@ -33,6 +37,28 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch]
     internal class OtherAbilityPatches
     {
+        [HarmonyPrefix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.Opponent))]
+        private static bool CacheOpponentTurnSkipped(ref bool __state)
+        {
+            __state = TurnManager.Instance.Opponent.SkipNextTurn;
+            return true;
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.OpponentTurn))]
+        private static IEnumerator TriggerOnTurnEnd(IEnumerator result, bool __state)
+        {
+            yield return result;
+
+            List<IOnRoundEnd> onRoundEnd = CustomTriggerFinder.FindGlobalTriggers<IOnRoundEnd>(true).ToList();
+            onRoundEnd.Sort((a, b) => b.RoundEndPriority(__state) - a.RoundEndPriority(__state));
+
+            foreach (IOnRoundEnd trigger in onRoundEnd)
+            {
+                if (trigger.RespondsToRoundEnd(__state))
+                    yield return trigger.OnRoundEnd(__state);
+            }
+        }
+
         [HarmonyPostfix, HarmonyPatch(typeof(ExplodeOnDeath), nameof(ExplodeOnDeath.BombCard))]
         private static IEnumerator Act1Detonator(IEnumerator result, PlayableCard target, PlayableCard attacker)
         {

@@ -9,21 +9,29 @@
     - Renamed several fields and methods
     - Improved status effect icon appearances and implementation
     - Status effects now have max trigger priority
-- Added functionality for node-related Traits
+- Added additional functionality for node-related Traits
 - Modified how cards and abilities are created
 - Modified how speed is calculated, read the Speed description for more information
 - Most abilities now have rulebook entries in Act 3, Grimora, and Magnificus's acts - abilities not fully tested for these acts, expect bugs
 - Changed Left-Veering and Right-Veering Strike to use GetOpposingSlots instead of SetUpAttackSequence
 - Changed Woodcutter to inherit from Sentry
 ### 🔧 Tweaks
-- Overhauled behaviour of Conductor sigil
-- Overhauled behaviour of Barreler sigil
+- Overhauled Conductor sigil
+- Overhauled Barreler sigil
+- Overhauled Bitter Enemies (Vendetta) sigil
 - Overhauled Pebble status effect
+- Replaced dialogue for when a Brother card dies while a card with Nettle Clothes is on the board
+- Renamed Refresh Decks sigil to Grand Reopening
+- Renamed Status Effect Overflow sigil to See More
+- Renamed Return Card to Hand sigil to Creature Retrieval
+- Renamed Flagellated status effect to Flagellation
+- Renamed Bitter Enemies sigil to Vendetta
+- Renamed Little Witch's Friend to "Wee Witch's Friend"
+- Renamed Lonely sigil to Pebble Giver
+- Renamed Spore Mold Creature to Spore Mold Beast
 - Changed icons for Conductor sigil
 - Changed icons for Barreler sigil
 - Changed Lonely sigil's icons
-- Sped up status effect gaining/losing sequence
-- Renamed Lonely to Pebble Giver
 - Updated descriptions for status effects to use similar technical language
 - Updated icons for Rightful Heir sigil to reflect its activation cost
 - Updated artwork for Jack
@@ -33,15 +41,9 @@
 - Updated Flagellation status effect icons
 - Updated Haste and Bind statis effect icons
 - Updated dialogue for Ruler of Frost when there are no valid targets
-- Redid dialogue for when a Brother card dies while a card with Nettle Clothes is on the board
 - Updated sigil descriptions to be more concise, follow similar formatting
-- Renamed Refresh Decks sigil to Grand Reopening
-- Renamed Status Effect Overflow sigil to See More
-- Renamed Return Card to Hand sigil to Creature Retrieval
-- Renamed Flagellated status effect to Flagellation
-- Renamed Bitter Enemies sigil to Vendetta
-- Renamed Little Witch's Friend card to "Wee Witch's Friend"
-- Spore Mold Creature renamed to Spore Mold Beast
+- Sigils that modify the base card's attack when it attacks now briefly indicate the final damage value when attacking
+- Sped up sequence when gaining or losing a status effect
 - Spore Mold Creatures now inherit the name of the card they were created from
 - Frozen Heart card is now considered Terrain
 - Sigils that inherit from ActivatedSelectSlotBehaviour are now usable by the opponent on upkeep
@@ -93,7 +95,7 @@
 - Added dialogue explaining status overflow
 - Added extension methods for clearing status effects from a card
 - Added custom rulebook pages 'Mechanics'
-- Added custom trigger interface IOnStatusEffectAdded
+- Added custom trigger interfaces IOnStatusEffectAdded, IOnRoundEnd
 - Status effect's can now be marked Irremovable, preventing their removable using the RemoveStatusEffect(s) extension methods
 - Added 15 sigils:
     - Damsel
@@ -113,6 +115,7 @@
     - Withering
     - Explosive Opening
     - Board Shuffle
+    - Soulbound Flesh
 - Added 1 stat icons:
     - Flower Power
 - Added 4 status effects:

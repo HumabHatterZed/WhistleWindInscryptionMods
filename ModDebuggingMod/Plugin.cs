@@ -6,6 +6,7 @@ using InscryptionAPI.Card;
 using InscryptionAPI.Encounters;
 using InscryptionAPI.Regions;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod;
@@ -14,6 +15,7 @@ using static InscryptionAPI.Encounters.EncounterManager;
 namespace ModDebuggingMod
 {
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
+
     [BepInDependency(LobotomyPlugin.pluginGuid, BepInDependency.DependencyFlags.HardDependency)]
 
     public partial class Plugin : BaseUnityPlugin
@@ -29,8 +31,8 @@ namespace ModDebuggingMod
             New("DebugEncounter")
                     .AddDominantTribes(Tribe.Canine)
                     .AddTurns(
-                    CreateTurn()
-                    //CreateTurn("wstlcard", "wstlcard", "wstlcard", "wstlcard")
+                    CreateTurn("wstlcard", "wstlcard", "wstlcard", "wstlcard"),
+                    CreateTurn("wstlcard", "wstlcard", "wstlcard", "wstlcard")
                     );
 
         private void Awake()
@@ -41,6 +43,7 @@ namespace ModDebuggingMod
             //ItemDebug();
             Ability_Test();
             CARD_DEBUG();
+            //PrintCardsToConsole("mag");
             //DebugEncounters();
             //ModifyCardList();
 
@@ -86,6 +89,39 @@ namespace ModDebuggingMod
             {
                 RegionProgression.Instance.regions[i].encounters.Clear();
                 RegionProgression.Instance.regions[i].encounters = new() { ModdingEncounter() };
+            }
+        }
+
+        private void PrintCardsToConsole(string pluginPrefix)
+        {
+            foreach (CardInfo info in CardManager.AllCardsCopy.Where(x => x.ModPrefixIs(pluginPrefix)))
+            {
+                string gems = "";
+                foreach (GemType type in info.gemsCost)
+                {
+                    gems += type.ToString() + " ";
+                }
+
+                Log.LogInfo($"Card: {info.name} ({info.displayedName}) Rare: {info.HasCardMetaCategory(CardMetaCategory.Rare)}");
+                Log.LogInfo($"- Stats: {info.Attack}/{info.Health}");
+                if (info.SpecialStatIcon != SpecialStatIcon.None)
+                {
+                    StatIconInfo stat = StatIconInfo.GetIconInfo(info.SpecialStatIcon);
+                    Log.LogInfo($"- Stat Icon: {stat.rulebookName} ({stat.iconType}) {stat.appliesToAttack}/{stat.appliesToHealth}");
+                }
+                Log.LogInfo($"- Blood: {info.cost}");
+                Log.LogInfo($"- Bones: {info.bonesCost}");
+                Log.LogInfo($"- Energy: {info.energyCost}");
+                Log.LogInfo($"- Gems: {gems}");
+                if (info.Abilities.Count > 0)
+                {
+                    Log.LogInfo("Abilities:");
+                    foreach (Ability ability in info.Abilities)
+                    {
+                        Log.LogInfo($"- {AbilitiesUtil.GetInfo(ability).rulebookName} ({ability})");
+                    }
+                }
+                Log.LogInfo("\n");
             }
         }
     }

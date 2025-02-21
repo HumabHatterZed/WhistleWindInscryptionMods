@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using Core.AbilityClasses;
+using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.RuleBook;
 using InscryptionAPI.Triggers;
@@ -24,7 +25,7 @@ namespace WhistleWind.AbnormalSigils
                 .AddMetaCategories(AbilityMetaCategory.GrimoraRulebook, AbilityMetaCategory.MagnificusRulebook, AbilityMetaCategory.Part3Rulebook).ability;
         }
     }
-    public class MindStrike : AbilityBehaviour, IModifyDamageTaken
+    public class MindStrike : ModifyDamageDealtAbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
@@ -34,8 +35,9 @@ namespace WhistleWind.AbnormalSigils
             yield return target.AddStatusEffect<Sinking>((base.Card.Health + 1) / 2);
             yield return base.LearnAbility(0.3f);
         }
-        public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => attacker == base.Card;
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => !target.HasStatusEffect<Sinking>() ? 0 : Mathf.Min(0, damage - base.Card.Attack);
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => -1000;
+
+        public override bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => attacker == base.Card;
+        public override int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => !target.HasStatusEffect<Sinking>() ? 0 : Mathf.Min(0, damage - base.Card.Attack);
+        public override int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => -1000;
     }
 }

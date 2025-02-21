@@ -89,9 +89,7 @@ namespace WhistleWindLobotomyMod
             if (PackAPI.Enabled)
                 PackAPI.CreateCardPack();
 
-            if (AchievementAPI.Enabled)
-                AchievementAPI.CreateAchievements();
-
+            AchievementAPI.CreateAchievements();
             Log.LogInfo($"Plugin loaded! Let's get to work manager!");
         }
 
