@@ -9,6 +9,20 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
 {
     public static class AbnormalAbilityHelper
     {
+        public static CardInfo SetBoneless(this CardInfo info)
+        {
+            info.AddTraits(Boneless);
+            if (info.HasCardMetaCategory(CardMetaCategory.Rare))
+            {
+                info.AddAppearances(RareBonelessCardBackground.appearance);
+            }
+            else
+            {
+                info.AddAppearances(BonelessCardBackground.appearance);
+            }
+
+            return info;
+        }
         public static CardInfo SetMiniGiant(this CardInfo info)
         {
             return info.AddSpecialAbilities(MiniGiantCard.Id).AddAppearances(MiniGiantPortrait.appearance).AddTraits(Trait.Giant);

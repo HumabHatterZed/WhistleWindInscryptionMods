@@ -15,11 +15,11 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FlowerQueen()
         {
             const string rulebookName = "Flower Queen";
-            const string rulebookDescription = "At the end of the owner's turn, [creature] Blooms the opposing space.";
+            const string rulebookDescription = "At the end of the owner's turn, this card moves in the sigil's direction and Blooms its old space.";
             const string dialogue = "From fertile flesh, a garden will soon bloom.";
             FlowerQueen.ability = AbnormalAbilityHelper.CreateAbility<FlowerQueen>(
                 "sigilFlowerQueen",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: true, canStack: false)
                 .SetSlotRedirect("Blooms", BloomingSlot.Id, Color.green)
                 .SetPart3Rulebook()
@@ -27,19 +27,18 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class FlowerQueen : AbilityBehaviour
+    public class FlowerQueen : Strafe
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
-        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
+        public override IEnumerator PostSuccessfulMoveSequence(CardSlot oldSlot)
         {
-            if (base.Card.OpposingSlot().GetSlotModification() == BloomingSlot.Id)
+            if (oldSlot.GetSlotModification() == BloomingSlot.Id)
                 yield break;
 
             yield return base.PreSuccessfulTriggerSequence();
-            yield return base.Card.OpposingSlot().SetSlotModification(BloomingSlot.Id);
+            oldSlot.SetSlotModification(BloomingSlot.Id);
             yield return base.LearnAbility(0.5f);
         }
     }

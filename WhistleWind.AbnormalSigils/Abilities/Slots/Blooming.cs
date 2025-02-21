@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Slot_Blooming()
         {
             const string rulebookName = "Blooming";
-            const string rulebookDescription = "At the start of the owner's turn, cards occupying this space are transformed into Flowers if they are close to death. A Flower is defined as: 1 Power, 1 Health, Healing Strike.";
+            const string rulebookDescription = "At the end of the owner's turn, siphon 1 Health from the opposing card. If this space is occupied, restore 1 Health. Otherwise create a Flower.";
 
             Texture2D texture = TextureLoader.LoadTextureFromFile("slotBlooming_act1.png", Assembly);
             Dictionary<CardTemple, Texture2D> slotTextures = SlotHelper.BuildTextureDictionary(
@@ -37,17 +37,33 @@ namespace WhistleWind.AbnormalSigils
     public class BloomingSlot : SlotModificationBehaviour
     {
         public static SlotModificationManager.ModificationType Id;
-        public override bool RespondsToUpkeep(bool playerUpkeep) => base.Slot.Card != null && playerUpkeep == base.Slot.IsPlayerSlot;
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
+
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Slot.IsPlayerSlot == playerTurnEnd && base.Slot.opposingSlot.Card != null;
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
-            if (base.Slot.Card.Health == 1 || base.Slot.Card.Health <= base.Slot.Card.MaxHealth / 3)
+            base.Slot.opposingSlot.Card.Anim.LightNegationEffect();
+            base.Slot.opposingSlot.Card.HealDamage(-1);
+            yield return new WaitForSeconds(0.2f);
+            if (base.Slot.Card != null)
             {
-                if (base.Slot.Card.LacksAllTraits(Trait.Terrain, AbnormalPlugin.BloomingFlower, AbnormalPlugin.ImmuneToInstaDeath, Trait.Giant))
+                base.Slot.Card.Anim.LightNegationEffect();
+                if (base.Slot.Card.Health < base.Slot.Card.MaxHealth)
                 {
-                    yield return base.Slot.Card.TransformIntoCard(CardLoader.GetCardByName("wstl_flower"));
-                    yield return new WaitForSeconds(0.4f);
+                    base.Slot.Card.HealDamage(1);
                 }
             }
+            else
+            {
+                yield return base.Slot.Card.TransformIntoCard(CardLoader.GetCardByName("wstl_flower"));
+                
+            }
+
+            if (base.Slot.opposingSlot.Card.Health == 0)
+            {
+                yield return base.Slot.opposingSlot.Card.Die(false, null);
+            }
+
+            yield return new WaitForSeconds(0.4f);
         }
     }
 }

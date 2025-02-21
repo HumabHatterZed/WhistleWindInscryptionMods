@@ -1,6 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-
+using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -16,14 +16,16 @@ namespace WhistleWind.AbnormalSigils
                 .AddTribes(TribeBotanic)
                 .AddAbilities(HealingStrike.ability, Ability.Brittle)
                 .AddTraits(BloomingFlower)
-                .SetTerrain(false);
+                .SetBoneless()
+                .AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout);
 
-            CardManager.New(pluginPrefix, flower, "Flower", 1, 1)
+            CardManager.New(pluginPrefix, flower, "Flower", 0, 1)
                 .SetPortraits(Assembly, flower)
                 .AddTribes(TribeBotanic)
-                .AddAbilities(HealingStrike.ability)
+                .AddAbilities(Ethereal.ability)
                 .AddTraits(BloomingFlower)
-                .SetTerrain(false);
+                .SetBoneless()
+                .AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout);
         }
     }
 }
