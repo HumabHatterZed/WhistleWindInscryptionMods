@@ -20,6 +20,7 @@
 - Overhauled Barreler sigil
 - Overhauled Bitter Enemies (Vendetta) sigil
 - Overhauled Pebble status effect
+- Adjusted descriptions of Persistent and Piercing sigils to account for new sigil effects
 - Replaced dialogue for when a Brother card dies while a card with Nettle Clothes is on the board
 - Renamed Refresh Decks sigil to Grand Reopening
 - Renamed Status Effect Overflow sigil to See More

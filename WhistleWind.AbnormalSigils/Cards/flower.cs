@@ -9,20 +9,11 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Card_Flower()
         {
-            const string flower = "flower", flowerP = "flowerEphemeral";
-
-            CardManager.New(pluginPrefix, flowerP, "Ephemeral Flower", 1, 1)
-                .SetPortraits(Assembly, flower)
-                .AddTribes(TribeBotanic)
-                .AddAbilities(HealingStrike.ability, Ability.Brittle)
-                .AddTraits(BloomingFlower)
-                .SetBoneless()
-                .AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout);
+            const string flower = "flower";
 
             CardManager.New(pluginPrefix, flower, "Flower", 0, 1)
                 .SetPortraits(Assembly, flower)
                 .AddTribes(TribeBotanic)
-                .AddAbilities(Ethereal.ability)
                 .AddTraits(BloomingFlower)
                 .SetBoneless()
                 .AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout);
