@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using System;
 using WhistleWind.Core.Helpers;
 using static InscryptionAPI.Card.AbilityManager;
@@ -67,7 +68,8 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
         /// <param name="target">The card being targeted.</param>
         public static bool SimulatePersistentAttack(PlayableCard attacker, PlayableCard target)
         {
-            if (target == null)
+            // Damsel ally override Persistent behaviour
+            if (target == null || attacker.Slot.GetAdjacentCards().Exists(x => x != null && x.HasAbility(Damsel.ability)))
                 return false;
 
             // if attacker can hit the target

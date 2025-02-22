@@ -17,12 +17,10 @@ namespace WhistleWind.AbnormalSigils.Patches
     {
         [HarmonyPriority(Priority.Last)]
         [HarmonyPostfix, HarmonyPatch(nameof(PlayableCard.Attack), MethodType.Getter)]
-        private static void ModifyAttackStat(PlayableCard __instance, ref int __result)
+        private static void NeuteredModifyAttackStat(PlayableCard __instance, ref int __result)
         {
-            if (__instance.LacksAbility(Neutered.ability))
-                return;
-
-            __result = 0;
+            if (__instance.HasAbility(Neutered.ability))
+                __result = 0;
         }
 
         [HarmonyPriority(Priority.Last)]
