@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Slot_Blooming()
         {
             const string rulebookName = "Blooming";
-            const string rulebookDescription = "At the end of the owner's turn, siphon 1 Health from the opposing card. If this space is occupied, restore 1 Health. Otherwise create a Flower.";
+            const string rulebookDescription = "At the end of the owner's turn, siphon 1 Health from the opposing card. If this space is occupied, the occupying card regains 1 Health.";
 
             Texture2D texture = TextureLoader.LoadTextureFromFile("slotBlooming_act1.png", Assembly);
             Dictionary<CardTemple, Texture2D> slotTextures = SlotHelper.BuildTextureDictionary(
@@ -51,11 +51,6 @@ namespace WhistleWind.AbnormalSigils
                 {
                     base.Slot.Card.HealDamage(1);
                 }
-            }
-            else
-            {
-                yield return base.Slot.Card.TransformIntoCard(CardLoader.GetCardByName("wstl_flower"));
-                
             }
 
             if (base.Slot.opposingSlot.Card.Health == 0)
