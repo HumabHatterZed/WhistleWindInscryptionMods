@@ -1,7 +1,9 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.RuleBook;
 using InscryptionAPI.Slots;
-
+using System.Linq;
+using UnityEngine;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWind.AbnormalSigils
@@ -11,18 +13,11 @@ namespace WhistleWind.AbnormalSigils
         public static SpecialStatIcon icon;
         public static SpecialStatIcon Icon => icon;
         public override SpecialStatIcon IconType => icon;
+        private int[] statValue = new int[2] { 0, 0 };
         public override int[] GetStatValues()
         {
-            int num = 0;
-            foreach (CardSlot slot in BoardManager.Instance.AllSlotsCopy)
-            {
-                if (slot.Card != null && slot.Card.HasTrait(AbnormalPlugin.BloomingFlower))
-                    num++;
-
-                if (slot.GetSlotModification() == BloomingSlot.Id)
-                    num++;
-            }
-            return new int[2] { num, 0 };
+            statValue[0] = BoardManager.Instance.AllSlotsCopy.Count(x => x.GetSlotModification() == BloomingSlot.Id);
+            return statValue;
         }
     }
 
@@ -31,9 +26,10 @@ namespace WhistleWind.AbnormalSigils
         private void StatIcon_FlowerPower()
         {
             const string rulebookName = "Flower Power";
-            const string rulebookDescription = "The value represented with this sigil will be equal to number of Flower cards and Blooming spaces on the board.";
+            const string rulebookDescription = "The value represented with this sigil will be equal to the number of Blooming spaces on the board.";
             FlowerPower.icon = AbilityHelper.CreateStatIcon<FlowerPower>(
-                pluginGuid, "sigilFlowerPower", rulebookName, rulebookDescription, true, false).Id;
+                pluginGuid, "sigilFlowerPower", rulebookName, rulebookDescription, true, false)
+                .SetSlotRedirect("Blooming", BloomingSlot.Id, Color.green).Id;
         }
     }
 }
