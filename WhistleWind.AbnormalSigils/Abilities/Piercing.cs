@@ -13,8 +13,8 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Piercing()
         {
             const string rulebookName = "Piercing";
-            const string rulebookDescription = "[creature] will strike through shields. Damage dealt by this card cannot be reduced.";
-            const string dialogue = "Your beast runs mine through.";
+            const string rulebookDescription = "[creature] will strike through armoured cards. Opposing cards cannot reduce damage dealt by this card.";
+            const string dialogue = "Even the thickest hide can be run through.";
 
             Piercing.ability = AbnormalAbilityHelper.CreateAbility<Piercing>(
                 "sigilPiercing",
@@ -41,14 +41,21 @@ namespace WhistleWind.AbnormalSigils
         }
 
         public bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => attacker == base.Card && damage < originalDamage;
-        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => originalDamage;
+        public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
+        {
+            if (base.Card.LacksAbility(MindStrike.ability))
+            {
+                return originalDamage;
+            }
+            return 0; // account for Mind Strike not dealing damage
+        }
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => -1000;
 
         public bool RespondsToShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker) => attacker == base.Card;
 
         public IEnumerator OnShieldPreventedDamage(PlayableCard target, int damage, PlayableCard attacker)
         {
-            // recreates TakeDamage logic
+            // recreate TakeDamage logic
             target.Status.damageTaken += damage;
             target.UpdateStatsText();
             if (target.Health > 0)

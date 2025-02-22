@@ -17,26 +17,25 @@ namespace WhistleWind.AbnormalSigils.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.CanAttackDirectly))]
         private static void AllowAttackingSubmerged(PlayableCard __instance, CardSlot opposingSlot, ref bool __result)
         {
-            // if we're already attacking the card or we lack Persistent
-            if (!__result || __instance.LacksAbility(Persistent.ability))
-                return;
+            if (opposingSlot.Card != null)
+            {
+                if (opposingSlot.Card.HasAbility(Ethereal.ability)) // Ethereal cards cannot be hit normally
+                {
+                    __result = true;
+                }
 
-            // Persistent can attack facedown cards
-            if (opposingSlot.Card != null && opposingSlot.Card.FaceDown)
-                __result = false;
+                if (__instance.HasAbility(Persistent.ability)) // Persistent cards can always hit cards unless it has Flying and they can't Reach
+                {
+                    __result = __instance.HasAbility(Ability.Flying) && opposingSlot.Card.LacksAbility(Ability.Reach);
+                }
+            }
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.AttackIsBlocked))]
         private static void NotAffectedByRepulsive(PlayableCard __instance, CardSlot opposingSlot, ref bool __result)
         {
-            if (!__result || __instance.LacksAbility(Persistent.ability))
-                return;
-
-            if (opposingSlot.Card != null && opposingSlot.Card.HasAbility(Ability.PreventAttack))
-            {
-                if (__instance.LacksAbility(Ability.Flying) || opposingSlot.Card.HasAbility(Ability.Reach))
-                    __result = false;
-            }
+            if (__instance.HasAbility(Persistent.ability))
+                __result = false;
         }
 
         [HarmonyPrefix, HarmonyPatch(typeof(CombatPhaseManager), nameof(CombatPhaseManager.SlotAttackSlot))]
