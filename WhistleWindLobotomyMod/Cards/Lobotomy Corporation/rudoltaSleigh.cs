@@ -7,27 +7,28 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_Rudolta_F0249()
+        public const string rudoltaSleigh = "wstl_rudoltaSleigh";
+        private static void Rudolta_F0249()
         {
-            const string sleighName = "Rudolta of the Sleigh";
-            const string rudoltaSleigh = "rudoltaSleigh";
+            string sleighName = "Rudolta of the Sleigh";
+            string textureName = "rudoltaSleigh";
             Ability[] abilities = new[] { Ability.Strafe, GiftGiver.ability };
             Tribe[] tribes = new[] { Tribe.Hooved };
 
-            CardManager.New(pluginPrefix, rudoltaSleigh, sleighName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, rudoltaSleigh, sleighName,
                 attack: 2, health: 3, "A grotesque effigy of a reindeer. With its infinite hate, it bequeaths gifts onto you.")
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, rudoltaSleigh)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(abilities)
                 .AddTribes(tribes)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
 
-            CardManager.New(pluginPrefix, "RUDOLTA_MULE", sleighName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, "RUDOLTA_MULE", sleighName,
                 attack: 2, health: 3)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, rudoltaSleigh)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(SpecialTriggeredAbility.PackMule)
                 .AddTribes(tribes)

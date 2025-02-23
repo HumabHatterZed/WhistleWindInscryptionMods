@@ -57,13 +57,13 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_Sap() => RulebookEntrySap.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySap>(Sap.rName, Sap.rDesc).Id;
-        private void SpecialAbility_Sap()
+        private static void Rulebook_Sap() => RulebookEntrySap.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySap>(Sap.rName, Sap.rDesc).Id;
+        private static void AddSpecial_Sap()
         {
-            Sap.specialAbility = AbilityHelper.CreateSpecialAbility<Sap>(pluginGuid, Sap.rName).Id;
-            SapDetonator.specialAbility = AbilityHelper.CreateSpecialAbility<SapDetonator>(pluginGuid, "SapDetonator").Id;
+            Sap.specialAbility = AbilityHelper.CreateSpecialAbility<Sap>(LobotomyPlugin.pluginGuid, Sap.rName).Id;
+            SapDetonator.specialAbility = AbilityHelper.CreateSpecialAbility<SapDetonator>(LobotomyPlugin.pluginGuid, "SapDetonator").Id;
         }
     }
 }

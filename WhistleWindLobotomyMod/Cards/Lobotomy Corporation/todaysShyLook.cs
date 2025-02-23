@@ -7,34 +7,38 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_TodaysShyLook_O0192()
+        public const string todaysShyLook = "wstl_todaysShyLook";
+        public const string todaysShyLookNeutral = "wstl_todaysShyLookNeutral";
+        public const string todaysShyLookHappy = "wstl_todaysShyLookHappy";
+        public const string todaysShyLookAngry = "wstl_todaysShyLookAngry";
+        private static void TodaysShyLook_O0192()
         {
-            const string lookName = "Today's Shy Look";
-            const string description = "An indecisive creature. Her expression is different whenever you draw her.";
-            const string evolveName = "Tomorrow's Shy Look";
-            const string todaysShyLook = "todaysShyLook";
-            const string todaysShyLookHappy = "todaysShyLookHappy";
-            const string todaysShyLookAngry = "todaysShyLookAngry";
+            string lookName = "Today's Shy Look";
+            string description = "An indecisive creature. Her expression is different whenever you draw her.";
+            string evolveName = "Tomorrow's Shy Look";
+            string textureName = "todaysShyLook";
+            string textureName2 = "todaysShyLookAngry";
+            string textureName3 = "todaysShyLookHappy";
             SpecialTriggeredAbility[] specialAbilities = new[] { TodaysExpression.specialAbility };
             Tribe[] tribes = new[] { TribeAnthropoid };
             Trait[] traits = new[] { Trait.DeathcardCreationNonOption };
 
-            CardManager.New(pluginPrefix, todaysShyLook, lookName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, todaysShyLook, lookName,
                 attack: 1, health: 2, description)
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, todaysShyLook)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .SetDefaultEvolutionName(evolveName)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true); ;
 
-            CardManager.New(pluginPrefix, "todaysShyLookNeutral", lookName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, todaysShyLookNeutral, lookName,
                 attack: 1, health: 2, description)
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, todaysShyLook)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.DrawCopyOnDeath)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
@@ -42,20 +46,20 @@ namespace WhistleWindLobotomyMod
                 .SetDefaultEvolutionName(evolveName)
                 .Build();
 
-            CardManager.New(pluginPrefix, todaysShyLookHappy, "Today's Happy Look",
+            CardManager.New(LobotomyPlugin.pluginPrefix, todaysShyLookHappy, "Today's Happy Look",
                 attack: 1, health: 3, description)
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, todaysShyLookHappy)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
                 .SetDefaultEvolutionName("Tomorrow's Happy Look")
                 .Build();
 
-            CardManager.New(pluginPrefix, todaysShyLookAngry, "Today's Angry Look",
+            CardManager.New(LobotomyPlugin.pluginPrefix, todaysShyLookAngry, "Today's Angry Look",
                 attack: 2, health: 1, description)
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, todaysShyLookAngry)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)

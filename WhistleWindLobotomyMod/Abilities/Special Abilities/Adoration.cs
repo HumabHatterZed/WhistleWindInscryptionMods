@@ -86,11 +86,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_Adoration()
+        private static void Rulebook_Adoration()
             => RulebookEntryAdoration.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryAdoration>(Adoration.rName, Adoration.rDesc).Id;
-        private void SpecialAbility_Adoration()
-            => Adoration.specialAbility = AbilityHelper.CreateSpecialAbility<Adoration>(pluginGuid, Adoration.rName).Id;
+        private static void AddSpecial_Adoration()
+            => Adoration.specialAbility = AbilityHelper.CreateSpecialAbility<Adoration>(LobotomyPlugin.pluginGuid, Adoration.rName).Id;
     }
 }

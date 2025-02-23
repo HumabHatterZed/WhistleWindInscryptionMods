@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
@@ -16,12 +17,12 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            return killer == base.PlayableCard && !base.PlayableCard.Dead && base.PlayableCard.Info.name != "wstl_mountainOfBodies3";
+            return killer == base.PlayableCard && !base.PlayableCard.Dead && base.PlayableCard.Info.name != Cards.mountainOfBodies3;
         }
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            CardInfo evolution = CardLoader.GetCardByName(base.PlayableCard.Info.name == "wstl_mountainOfBodies" ? "wstl_mountainOfBodies2" : "wstl_mountainOfBodies3");
+            CardInfo evolution = CardLoader.GetCardByName(base.PlayableCard.Info.HasCardMetaCategory(CardMetaCategory.Rare) ? Cards.mountainOfBodies2 : Cards.mountainOfBodies3);
             yield return new WaitForSeconds(0.25f);
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
@@ -35,12 +36,12 @@ namespace WhistleWindLobotomyMod
 
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer)
         {
-            return !wasSacrifice && base.PlayableCard.Info.name != "wstl_mountainOfBodies";
+            return !wasSacrifice && base.PlayableCard.Info.LacksCardMetaCategory(CardMetaCategory.Rare);
         }
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
-            CardInfo previous = CardLoader.GetCardByName(base.PlayableCard.Info.name == "wstl_mountainOfBodies2" ? "wstl_mountainOfBodies" : "wstl_mountainOfBodies2");
+            CardInfo previous = CardLoader.GetCardByName(base.PlayableCard.Info.name == Cards.mountainOfBodies2 ? (SaveManager.SaveFile.IsPart1 ? Cards.mountainOfBodies : Cards.mountainOfBodiesPixel) : Cards.mountainOfBodies2);
             yield return new WaitForSeconds(0.25f);
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
@@ -62,11 +63,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_Smile()
+        private static void Rulebook_Smile()
             => RulebookEntrySmile.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntrySmile>(Smile.rName, Smile.rDesc).Id;
-        private void SpecialAbility_Smile()
-            => Smile.specialAbility = AbilityHelper.CreateSpecialAbility<Smile>(pluginGuid, Smile.rName).Id;
+        private static void AddSpecial_Smile()
+            => Smile.specialAbility = AbilityHelper.CreateSpecialAbility<Smile>(LobotomyPlugin.pluginGuid, Smile.rName).Id;
     }
 }

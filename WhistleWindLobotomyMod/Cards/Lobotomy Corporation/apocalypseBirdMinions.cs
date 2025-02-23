@@ -6,56 +6,67 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ApocalypseBirdMinions()
+        public const string eyeballChick = "wstl_eyeballChick";
+        public const string forestKeeper = "wstl_forestKeeper";
+        public const string runawayBird = "wstl_runawayBird";
+        public const string eyeballChick_mook = "wstl_eyeballChick_mook";
+        public const string forestKeeper_mook = "wstl_forestKeeper_mook";
+        public const string runawayBird_mook = "wstl_runawayBird_mook";
+        private static void ApocalypseBirdMinions()
         {
-            const string eyeballChick = "eyeballChick", forestKeeper = "forestKeeper", runawayBird = "runawayBird";
-            CardManager.New(pluginPrefix, eyeballChick, "Eyeball Chick",
+            string textureName = "eyeballChick";
+            string textureName2 = "forestKeeper";
+            string textureName3 = "runawayBird";
+            string name = "Eyeball Chick";
+            string name2 = "Keeper of the Black Forest";
+            string name3 = "Runaway Bird";
+            CardManager.New(LobotomyPlugin.pluginPrefix, eyeballChick, name,
                 attack: 2, health: 1)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, eyeballChick)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(BindingStrike.ability, Piercing.ability)
                 .AddTribes(Tribe.Bird)
                 .AddAppearances(ForcedEmission.appearance)
                 .Build();
-            CardManager.New(pluginPrefix, "eyeballChick_mook", "Eyeball Chick",
+            CardManager.New(LobotomyPlugin.pluginPrefix, eyeballChick_mook, name,
                 attack: 2, health: 1)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, eyeballChick)
-                .AddAbilities(BindingStrike.ability, Piercing.ability)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(BindingStrike.ability)
                 .AddTribes(Tribe.Bird)
                 .Build();
 
-            CardManager.New(pluginPrefix, forestKeeper, "Keeper of the Black Forest",
+            CardManager.New(LobotomyPlugin.pluginPrefix, forestKeeper, name2,
                 attack: 1, health: 2)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, forestKeeper)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Ability.GainAttackOnKill)
                 .AddTribes(Tribe.Bird)
                 .AddAppearances(ForcedEmission.appearance)
                 .Build();
-            CardManager.New(pluginPrefix, "forestKeeper_mook", "Keeper of the Black Forest",
+            CardManager.New(LobotomyPlugin.pluginPrefix, forestKeeper_mook, name2,
                 attack: 1, health: 2)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, forestKeeper)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Ability.GainAttackOnKill)
                 .AddTribes(Tribe.Bird)
                 .Build();
 
-            CardManager.New(pluginPrefix, runawayBird, "Runaway Bird",
+            CardManager.New(LobotomyPlugin.pluginPrefix, runawayBird, name3,
                 attack: 1, health: 2)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, runawayBird)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
                 .AddAbilities(HighStrung.ability, Persistent.ability)
                 .AddTribes(Tribe.Bird)
                 .AddAppearances(ForcedEmission.appearance)
                 .Build();
-            CardManager.New(pluginPrefix, "runawayBird_mook", "Runaway Bird",
+            CardManager.New(LobotomyPlugin.pluginPrefix, runawayBird_mook, name3,
                 attack: 1, health: 2)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, runawayBird)
-                .AddAbilities(HighStrung.ability, Persistent.ability)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
+                .AddAbilities(HighStrung.ability)
                 .AddTribes(Tribe.Bird)
                 .Build();
         }

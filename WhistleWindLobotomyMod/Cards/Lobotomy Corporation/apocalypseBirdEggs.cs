@@ -6,43 +6,43 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ApocalypseBirdEggs()
+        public const string bigEgg = "wstl_apocalypseEgg_big";
+        public const string littleEgg = "wstl_apocalypseEgg_small";
+        public const string longEgg = "wstl_apocalypseEgg_long";
+        private static void ApocalypseBirdEggs()
         {
-            const string bigEgg = "apocalypseEgg_big";
-            const string littleEgg = "apocalypseEgg_small";
-            const string longEgg = "apocalypseEgg_long";
             Trait[] traits = new Trait[2] { Trait.Uncuttable, AbnormalPlugin.ImmuneToInstaDeath };
 
-            CardManager.New(pluginPrefix, bigEgg, "Aspect of Big Bird",
+            CardManager.New(LobotomyPlugin.pluginPrefix, bigEgg, "Aspect of Big Bird",
                 attack: 1, health: 100)
-                .SetPortraits(ModAssembly, "bigBird", "bigBird_emission.png", "")
+                .SetPortraits(LobotomyPlugin.ModAssembly, "bigBird", "bigBird_emission.png", "")
                 .AddAbilities(ApocalypseAbility.ability, BigEyes.ability, Dazzling.ability, Challenging.ability)
                 .AddTraits(traits)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetEventCard(false)
                 .Build();
 
-            CardManager.New(pluginPrefix, littleEgg, "Aspect of Small Bird",
+            CardManager.New(LobotomyPlugin.pluginPrefix, littleEgg, "Aspect of Small Bird",
                 attack: 1, health: 100)
-                .SetPortraits(ModAssembly, "punishingBird", "punishingBird_boss_emission.png", "")
+                .SetPortraits(LobotomyPlugin.ModAssembly, "punishingBird", "punishingBird_boss_emission.png", "")
                 .AddAbilities(ApocalypseAbility.ability, SmallBeak.ability, Misdeeds.ability, Challenging.ability)
                 .AddTraits(traits)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetEventCard(false)
                 .Build();
 
-            CardManager.New(pluginPrefix, longEgg, "Aspect of Long Bird",
+            CardManager.New(LobotomyPlugin.pluginPrefix, longEgg, "Aspect of Long Bird",
                 attack: 1, health: 100)
-                .SetPortraits(ModAssembly, "judgementBird", "judgementBird_boss_emission.png", "")
+                .SetPortraits(LobotomyPlugin.ModAssembly, "judgementBird", "judgementBird_boss_emission.png", "")
                 .AddAbilities(ApocalypseAbility.ability, LongArms.ability, UnjustScale.ability, Challenging.ability)
                 .AddTraits(traits)
                 .AddAppearances(ForcedEmission.appearance)
                 .SetEventCard(false)
                 .Build();
 
-            CardManager.New(pluginPrefix, "!GIANTCARD_ApocalypseBird", "",
+            CardManager.New(LobotomyPlugin.pluginPrefix, "!GIANTCARD_ApocalypseBird", "",
                 attack: 2, health: 40)
                 .AddAbilities(ApocalypseAbility.ability, SoulboundFlesh.ability, Ability.Reach, Challenging.ability)
                 .AddTraits(Trait.Uncuttable, Trait.Giant, AbnormalPlugin.ImmuneToInstaDeath)

@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_BigBird_O0240()
+        public const string bigBird = "wstl_bigBird";
+        private static void BigBird_O0240()
         {
-            const string bigBird = "bigBird";
-
-            CardManager.New(pluginPrefix, bigBird, "Big Bird",
+            string textureName = "bigBird";
+            CardManager.New(LobotomyPlugin.pluginPrefix, bigBird, "Big Bird",
                 attack: 2, health: 4, "Its eyes light up the darkness like stars.")
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, bigBird)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Cycler.ability)
                 .AddSpecialAbilities(ThreeBirds.specialAbility)
                 .AddTribes(Tribe.Bird)

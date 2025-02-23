@@ -6,15 +6,28 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ScorchedGirl_F0102()
+        public const string scorchedGirl = "wstl_scorchedGirl";
+        private static void ScorchedGirl_F0102()
         {
-            const string scorchedGirl = "scorchedGirl";
-            CardManager.New(pluginPrefix, scorchedGirl, "Scorched Girl",
-                attack: 1, health: 1, "Though there's nothing left to burn, the fire won't go out.")
+            string name = "Scorched Girl";
+            string desc = "Though there's nothing left to burn, the fire won't go out.";
+            string textureName = "scorchedGirl";
+            CardManager.New(LobotomyPlugin.pluginPrefix, scorchedGirl, name,
+                attack: 1, health: 1, desc)
                 .SetBonesCost(2)
-                .SetPortraits(ModAssembly, scorchedGirl)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Ability.ExplodeOnDeath)
+                .AddTribes(TribeAnthropoid)
+                .AddTraits(Trait.KillsSurvivors)
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 1, health: 1, desc)
+                .SetBonesCost(2)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.ExplodeOnDeath)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(Trait.KillsSurvivors)

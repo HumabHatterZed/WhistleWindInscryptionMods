@@ -8,16 +8,15 @@ using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Ability_Confession()
+        private static void AddConfession()
         {
             const string rulebookName = "Confession and Pentinence";
             const string dialogue = "[c:bG]Keep faith with unwavering resolve.[c:]";
 
             Confession.ability = LobotomyAbilityHelper.CreateActivatedAbility<Confession>(
-                "sigilConfession",
-                rulebookName, "Keep faith with unwavering resolve.", dialogue, powerLevel: -3).Id;
+                "sigilConfession", rulebookName, "Keep faith with unwavering resolve.", dialogue, powerLevel: -3).Id;
         }
     }
     public class Confession : ActivatedAbilityBehaviour

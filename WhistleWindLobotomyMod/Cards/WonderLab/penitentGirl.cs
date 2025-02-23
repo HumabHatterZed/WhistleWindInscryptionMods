@@ -5,16 +5,17 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_PenitentGirl()
+        public const string penitentGirl = "wstl_penitentGirl";
+        private static void PenitentGirl()
         {
-            const string penitentGirl = "penitentGirl";
-
-            CardManager.New(wonderlabPrefix, penitentGirl, "The Penitent Girl",
+            return;
+            string textureName = "penitentGirl";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, penitentGirl, "The Penitent Girl",
                 attack: 0, health: 1)
                 .SetBonesCost(3)
-                .SetPortraits(ModAssembly, penitentGirl)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Sharp, Ability.Sharp)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }

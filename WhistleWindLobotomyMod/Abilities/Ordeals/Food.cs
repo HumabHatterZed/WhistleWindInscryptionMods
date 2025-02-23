@@ -8,6 +8,18 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
+    public partial class Abilities
+    {
+        private static void AddFood()
+        {
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+            info.rulebookName = "Food";
+            info.rulebookDescription = "Whenever [creature] moves to a new space, create a Perfect Food in the old space. [define:wstl_perfectFood]";
+            info.powerLevel = 3;
+            Food.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Food), TextureLoader.LoadTextureFromFile("sigilFood.png")).Id;
+        }
+    }
+
     public class Food : AbilityBehaviour
     {
         public static Ability ability;
@@ -26,18 +38,6 @@ namespace WhistleWindLobotomyMod
         {
             if (oldSlot.Card == null)
                 yield return oldSlot.CreateCardInSlot(CardLoader.GetCardByName("wstl_perfectFood"));
-        }
-    }
-
-    public partial class LobotomyPlugin
-    {
-        private void Ability_Food()
-        {
-            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            info.rulebookName = "Food";
-            info.rulebookDescription = "Whenever [creature] moves to a new space, create a Perfect Food in the old space. [define:wstl_perfectFood]";
-            info.powerLevel = 3;
-            Food.ability = AbilityManager.Add(pluginGuid, info, typeof(Food), TextureLoader.LoadTextureFromFile("sigilFood.png")).Id;
         }
     }
 }

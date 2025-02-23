@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
 {
     public class TalkingCardAngela : CustomPaperTalkingCard
     {
-        public override string CardName => "wstl_angela";
+        public override string CardName => Cards.angela;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.6f, voiceSoundPitch: 1f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
@@ -82,21 +82,25 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void SpecialAbility_Angela()
+        public const string angela = "wstl_angela";
+        private static void Angela()
         {
-            TalkingCardAngela.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardAngela>("Angela").Id;
-        }
-        private void Card_Angela()
-        {
-            CardManager.New(pluginPrefix, "angela", "Angela",
+            CardManager.New(LobotomyPlugin.pluginPrefix, angela, "Angela",
                 attack: 2, health: 3)
                 .SetEnergyCost(6)
                 .AddAbilities(FrostRuler.ability, Persecutor.ability)
                 .AddTraits()
                 .SetOnePerDeck()
                 .Build();
+        }
+    }
+    public partial class Abilities
+    {
+        private static void AddSpecial_Angela()
+        {
+            TalkingCardAngela.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardAngela>("Angela").Id;
         }
     }
 }

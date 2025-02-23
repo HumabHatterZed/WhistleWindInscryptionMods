@@ -7,29 +7,30 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ScaredyCat_F02115()
+        public const string scaredyCat = "wstl_scaredyCat";
+        public const string scaredyCatStrong = "wstl_scaredyCatStrong";
+        private static void ScaredyCat_F02115()
         {
-            const string catName = "Scaredy Cat";
-            const string scaredyCat = "scaredyCat";
-            const string scaredyCatStrong = "scaredyCatStrong";
+            string textureName = "scaredyCatStrong";
+            string textureName2 = "scaredyCat";
             Trait[] traits = new[] { EmeraldCity };
             SpecialTriggeredAbility[] specialAbilities = new[] { Cowardly.specialAbility };
 
-            CardManager.New(pluginPrefix, scaredyCatStrong, catName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, scaredyCatStrong, "Scaredy Cat",
                 attack: 2, health: 6)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, scaredyCatStrong)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTraits(traits)
                 .AddMetaCategories(RuinaCard)
                 .Build();
 
-            CardManager.New(pluginPrefix, scaredyCat, catName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, scaredyCat, "Scaredy Cat",
                 attack: 0, health: 1)
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, scaredyCat)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddSpecialAbilities(specialAbilities)
                 .AddTraits(traits)
                 .AddMetaCategories(RuinaCard)

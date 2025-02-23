@@ -11,14 +11,14 @@ using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Ability_TrueSaviour()
+        private static void AddTrueSaviour()
         {
             const string rulebookName = "True Saviour";
             const string dialogue = "[c:bR]I am death and life. Darkness and light.[c:]";
 
-            TrueSaviour.ability = AbilityHelper.New<TrueSaviour>(pluginGuid,
+            TrueSaviour.ability = AbilityHelper.New<TrueSaviour>(LobotomyPlugin.pluginGuid,
                 "sigilTrueSaviour", rulebookName, "'My story is nowhere, unknown to all.'", powerLevel: -3, true, dialogue).Id;
         }
     }

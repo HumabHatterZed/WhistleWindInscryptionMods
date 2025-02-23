@@ -8,17 +8,27 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ShelterFrom27March_T0982()
+        public const string shelterFrom27March = "wstl_shelterFrom27March";
+        private static void ShelterFrom27March_T0982()
         {
-            const string shelterFrom27March = "shelterFrom27March";
+            string name = "Shelter From the 27th of March";
+            string desc = "It makes itself the safest place in the world by altering the reality around it.";
+            string textureName = "shelterFrom27March";
+            CardManager.New(LobotomyPlugin.pluginPrefix, shelterFrom27March, name,
+                attack: 0, health: 0, desc)
+                .SetEnergyCost(3)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(GiveSigils.AbilityID, Ability.PreventAttack, Aggravating.ability)
+                .SetSpellType(SpellType.TargetedSigils)
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw);
 
-            CardManager.New(pluginPrefix, shelterFrom27March, "Shelter From the 27th of March",
-                attack: 0, health: 0, "It makes itself the safest place in the world by altering the reality around it.")
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 0, health: 0, desc)
                 .SetEnergyCost(3)
                 .SetCardTemple(CardTemple.Tech)
-                .SetPortraits(ModAssembly, shelterFrom27March)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(GiveSigils.AbilityID, Ability.PreventAttack, Aggravating.ability)
                 .SetSpellType(SpellType.TargetedSigils)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);

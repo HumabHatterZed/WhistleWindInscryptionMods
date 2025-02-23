@@ -42,7 +42,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             }
             if (extraGenType == GenerationType.None)
             {
-                return NewNodeManager.New(pluginGuid, name, generationType, T, nodeAnimation);
+                return NewNodeManager.New(LobotomyPlugin.pluginGuid, name, generationType, T, nodeAnimation);
             }
             else
             {
@@ -51,7 +51,7 @@ namespace WhistleWindLobotomyMod.Core.Helpers
                 {
                     new NodeData.WithinRegionIndexRange(0, 2)
                 };
-                return NewNodeManager.New(pluginGuid, name, generationType | extraGenType, T, nodeAnimation).SetGenerationPrerequisites(data);
+                return NewNodeManager.New(LobotomyPlugin.pluginGuid, name, generationType | extraGenType, T, nodeAnimation).SetGenerationPrerequisites(data);
             }
         }
     }

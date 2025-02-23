@@ -6,6 +6,18 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
+    public partial class Abilities
+    {
+        private static void AddLongArms()
+        {
+            const string rulebookName = "Long Arms";
+            LongArms.ability = AbilityHelper.New<LongArms>(LobotomyPlugin.pluginGuid, "sigilLongArms", rulebookName,
+                "[creature] is immune to status ailments. While this card is on the board, time cannot be altered.",
+                0, true)
+                .SetItemRedirect("time cannot be altered", "Hourglass", GameColors.Instance.red).Id;
+        }
+    }
+
     [HarmonyPatch]
     public class LongArms : AbilityBehaviour
     {
@@ -21,18 +33,6 @@ namespace WhistleWindLobotomyMod
             {
                 __result = false;
             }
-        }
-    }
-
-    public partial class LobotomyPlugin
-    {
-        private void Ability_LongArms()
-        {
-            const string rulebookName = "Long Arms";
-            LongArms.ability = AbilityHelper.New<LongArms>(pluginGuid, "sigilLongArms", rulebookName,
-                "[creature] is immune to status ailments. While this card is on the board, time cannot be altered.",
-                0, true)
-                .SetItemRedirect("time cannot be altered", "Hourglass", GameColors.Instance.red).Id;
         }
     }
 }

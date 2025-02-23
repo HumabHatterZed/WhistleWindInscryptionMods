@@ -6,28 +6,30 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_Ppodae_D02107()
+        public const string ppodae = "wstl_ppodae";
+        public const string ppodaeBuff = "wstl_ppodaeBuff";
+        private static void Ppodae_D02107()
         {
-            const string name = "Ppodae";
-            const string ppodae = "ppodae";
-            const string ppodaeBuff = "ppodaeBuff";
+            string name = "Ppodae";
+            string textureName = "ppodaeBuff";
+            string textureName2 = "ppodae";
             Tribe[] tribes = new[] { Tribe.Canine };
 
-            CardInfo ppodaeBuffCard = CardManager.New(pluginPrefix, ppodaeBuff, name,
+            CardInfo ppodaeBuffCard = CardManager.New(LobotomyPlugin.pluginPrefix, ppodaeBuff, name,
                 attack: 3, health: 2)
                 .SetBonesCost(8)
-                .SetPortraits(ModAssembly, ppodaeBuff)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.DebuffEnemy)
                 .AddTribes(tribes)
                 .AddMetaCategories(DonatorCard)
                 .Build();
 
-            CardManager.New(pluginPrefix, ppodae, name,
-                attack: 1, health: 1, "An innocent little puppy.")
+            CardManager.New(LobotomyPlugin.pluginPrefix, ppodae, name,
+                attack: 1, health: 1, "Just an innocent wittle puppy, yes he is!!")
                 .SetBonesCost(4)
-                .SetPortraits(ModAssembly, ppodae)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Ability.DebuffEnemy, Ability.Evolve)
                 .AddTribes(tribes)
                 .SetEvolve(ppodaeBuffCard, 1)

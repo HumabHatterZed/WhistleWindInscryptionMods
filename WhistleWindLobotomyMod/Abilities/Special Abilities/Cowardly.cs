@@ -77,11 +77,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_Cowardly()
+        private static void Rulebook_Cowardly()
             => RulebookEntryCowardly.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCowardly>(Cowardly.rName, Cowardly.rDesc).Id;
-        private void SpecialAbility_Cowardly()
-            => Cowardly.specialAbility = AbilityHelper.CreateSpecialAbility<Cowardly>(pluginGuid, Cowardly.rName).Id;
+        private static void AddSpecial_Cowardly()
+            => Cowardly.specialAbility = AbilityHelper.CreateSpecialAbility<Cowardly>(LobotomyPlugin.pluginGuid, Cowardly.rName).Id;
     }
 }

@@ -102,11 +102,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_CrimsonScar()
+        private static void Rulebook_CrimsonScar()
             => RulebookEntryCrimsonScar.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCrimsonScar>(CrimsonScar.rName, CrimsonScar.rDesc).Id;
-        private void SpecialAbility_CrimsonScar()
-            => CrimsonScar.specialAbility = AbilityHelper.CreateSpecialAbility<CrimsonScar>(pluginGuid, CrimsonScar.rName).Id;
+        private static void AddSpecial_CrimsonScar()
+            => CrimsonScar.specialAbility = AbilityHelper.CreateSpecialAbility<CrimsonScar>(LobotomyPlugin.pluginGuid, CrimsonScar.rName).Id;
     }
 }

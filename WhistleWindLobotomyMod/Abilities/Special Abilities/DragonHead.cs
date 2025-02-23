@@ -24,9 +24,9 @@ namespace WhistleWindLobotomyMod
             yield break;
         }
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void SpecialAbility_DragonHead()
-            => DragonHead.specialAbility = AbilityHelper.CreateSpecialAbility<DragonHead>(pluginGuid, "DragonHead").Id;
+        private static void AddSpecial_DragonHead()
+            => DragonHead.specialAbility = AbilityHelper.CreateSpecialAbility<DragonHead>(LobotomyPlugin.pluginGuid, "DragonHead").Id;
     }
 }

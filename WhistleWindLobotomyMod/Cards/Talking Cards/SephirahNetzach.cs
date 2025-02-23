@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
 {
     public class TalkingCardNetzach : CustomPaperTalkingCard
     {
-        public override string CardName => "wstl_sephirahNetzach";
+        public override string CardName => Cards.sephirahNetzach;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.8f, voiceSoundPitch: 0.6f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
@@ -82,21 +82,25 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void SpecialAbility_Netzach()
+        public const string sephirahNetzach = "wstl_sephirahNetzach";
+        private static void Netzach()
         {
-            TalkingCardNetzach.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardNetzach>("Netzach").Id;
-        }
-        private void Card_Netzach()
-        {
-            CardManager.New(pluginPrefix, "sephirahNetzach", "Netzach",
+            CardManager.New(LobotomyPlugin.pluginPrefix, sephirahNetzach, "Netzach",
                 attack: 0, health: 3, "Unmotivated and unwilling. Surely there are others you can choose?")
                 .SetBloodCost(1)
                 .AddAbilities(GreedyHealing.ability, Ability.WhackAMole)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
+        }
+    }
+    public partial class Abilities
+    {
+        private static void AddSpecial_Netzach()
+        {
+            TalkingCardNetzach.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardNetzach>("Netzach").Id;
         }
     }
 }

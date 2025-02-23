@@ -4,15 +4,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_ReddenedBuddy()
+        public const string reddenedBuddy = "wstl_reddenedBuddy";
+        private static void ReddenedBuddy()
         {
-            const string reddenedBuddy = "reddenedBuddy";
-
-            CardManager.New(wonderlabPrefix, reddenedBuddy, "Reddened Buddy",
+            return;
+            string textureName = "reddenedBuddy";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, reddenedBuddy, "Reddened Buddy",
                 attack: 0, health: 0)
-                .SetPortraits(ModAssembly, reddenedBuddy)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities()
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }

@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_FairyFestival_F0483()
+        public const string fairyFestival = "wstl_fairyFestival";
+        private static void FairyFestival_F0483()
         {
-            const string fairyFestival = "fairyFestival";
-
-            CardManager.New(pluginPrefix, fairyFestival, "Fairy Festival",
+            string textureName = "fairyFestival";
+            CardManager.New(LobotomyPlugin.pluginPrefix, fairyFestival, "Fairy Festival",
                 attack: 1, health: 1, "Everything will be peaceful while you're under the fairies' care.")
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, fairyFestival)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Bloodfiend.ability)
                 .AddTribes(TribeFae)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);

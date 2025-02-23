@@ -5,14 +5,15 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_RANDOM_PLACEHOLDER()
+        public const string randomPlaceholder = "wstl_RANDOM_PLACEHOLDER";
+        private static void RANDOM_PLACEHOLDER()
         {
-            const string RANDOM_PLACEHOLDER = "RANDOM_PLACEHOLDER";
-            CardManager.New(pluginPrefix, RANDOM_PLACEHOLDER, RANDOM_PLACEHOLDER,
+            string textureName = "RANDOM_PLACEHOLDER";
+            CardManager.New(LobotomyPlugin.pluginPrefix, randomPlaceholder, randomPlaceholder,
                 attack: 0, health: 0)
-                .SetPortraits(ModAssembly, RANDOM_PLACEHOLDER)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName, emissionName: "")
                 .AddAbilities(DiskCardGame.Ability.RandomAbility)
                 .SetStatIcon(SigilPower.Icon)
                 .Build();

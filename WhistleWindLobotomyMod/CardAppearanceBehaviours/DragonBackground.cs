@@ -5,13 +5,13 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Appearances
     {
-        private void Appearance_DragonBackground()
+        private static void AddDragonBackgrounds()
         {
-            DragonHeadBackground.appearance = CardHelper.CreateAppearance<DragonHeadBackground>(pluginGuid, "DragonHeadBackground").Id;
-            DragonHornsBackground.appearance = CardHelper.CreateAppearance<DragonHornsBackground>(pluginGuid, "DragonHornsBackground").Id;
-            DragonBodyBackground.appearance = CardHelper.CreateAppearance<DragonBodyBackground>(pluginGuid, "DragonBodyBackground").Id;
+            DragonHeadBackground.appearance = CardHelper.CreateAppearance<DragonHeadBackground>(LobotomyPlugin.pluginGuid, "DragonHeadBackground").Id;
+            DragonHornsBackground.appearance = CardHelper.CreateAppearance<DragonHornsBackground>(LobotomyPlugin.pluginGuid, "DragonHornsBackground").Id;
+            DragonBodyBackground.appearance = CardHelper.CreateAppearance<DragonBodyBackground>(LobotomyPlugin.pluginGuid, "DragonBodyBackground").Id;
         }
     }
     public class DragonHeadBackground : PixelAppearanceBehaviour

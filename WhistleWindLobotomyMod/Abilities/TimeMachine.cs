@@ -16,17 +16,16 @@ using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Ability_TimeMachine()
+        private static void AddTimeMachine()
         {
             const string rulebookName = "Time Machine";
             const string rulebookDescription = "End the current battle then remove this card from the player's deck. Choose an additional card to remove from your deck. Effect differs during certain battles.";
             const string dialogue = "Close your eyes and count to ten.";
 
             TimeMachine.ability = LobotomyAbilityHelper.CreateActivatedAbility<TimeMachine>(
-                "sigilTimeMachine",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
+                "sigilTimeMachine", rulebookName, rulebookDescription, dialogue, powerLevel: 5).Id;
         }
     }
     public class TimeMachine : ActivatedAbilityBehaviour

@@ -42,16 +42,16 @@ namespace WhistleWindLobotomyMod
             // check cards on the board first
             foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(!base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
             {
-                string cardName = slot.Card.Info.name;
+                string cardName = slot.Card.Info.name.Split('_')[1];
                 if (slot == base.PlayableCard.Slot)
                     cardsOnBoard[0] ??= slot.Card;
-                else if (cardName.StartsWith("wstl_scaredyCat"))
+                else if (cardName.StartsWith("scaredyCat"))
                     cardsOnBoard[1] ??= slot.Card;
-                else if (cardName == "wstl_wisdomScarecrow")
+                else if (cardName == "wisdomScarecrow")
                     cardsOnBoard[2] ??= slot.Card;
-                else if (cardName == "wstl_warmHeartedWoodsman")
+                else if (cardName == "warmHeartedWoodsman")
                     cardsOnBoard[3] ??= slot.Card;
-                else if (cardName == "wstl_ozma")
+                else if (cardName == "ozma")
                     cardsOnBoard[4] ??= slot.Card;
             }
 
@@ -106,7 +106,7 @@ namespace WhistleWindLobotomyMod
 
             yield return DialogueHelper.PlayDialogueEvent("LyingAdultIntro");
 
-            CardInfo info = CardLoader.GetCardByName("wstl_lyingAdult");
+            CardInfo info = CardLoader.GetCardByName(Cards.lyingAdult);
             if (opponentCard)
             {
                 List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
@@ -225,11 +225,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_YellowBrick()
+        private static void Rulebook_YellowBrick()
             => RulebookEntryYellowBrick.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryYellowBrick>(YellowBrick.rName, YellowBrick.rDesc).Id;
-        private void SpecialAbility_YellowBrick()
-            => YellowBrick.specialAbility = AbilityHelper.CreateSpecialAbility<YellowBrick>(pluginGuid, YellowBrick.rName).Id;
+        private static void AddSpecial_YellowBrick()
+            => YellowBrick.specialAbility = AbilityHelper.CreateSpecialAbility<YellowBrick>(LobotomyPlugin.pluginGuid, YellowBrick.rName).Id;
     }
 }

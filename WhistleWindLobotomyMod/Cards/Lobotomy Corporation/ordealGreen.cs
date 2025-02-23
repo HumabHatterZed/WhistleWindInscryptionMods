@@ -9,34 +9,39 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Cards_GreenOrdeal()
+        public const string doubtA = "wstl_doubtA";
+        public const string doubtB = "wstl_doubtB";
+        public const string doubtY = "wstl_doubtY";
+        public const string doubtO = "wstl_doubtO";
+        public const string doubtProcess = "wstl_doubtProcess";
+        public const string whereWeReach = "wstl_doubtReach";
+        public const string lastHelix = "wstl_doubtHelix";
+        private static void Cards_GreenOrdeal()
         {
-            const string doubtA = "doubtA";
-            const string doubtB = "doubtB";
-            const string doubtY = "doubtY";
-            const string doubtO = "doubtO";
-            const string doubtProcess = "doubtProcess";
-            const string whereWeReach = "whereWeReach";
-            const string lastHelix = "lastHelix";
-
-            CardInfo infoO = CardManager.New(pluginPrefix, doubtO, "Doubt O",
+            string textureName = "doubtA";
+            string textureName2 = "doubtB";
+            string textureName3 = "doubtY";
+            string textureName4 = "doubtO";
+            string textureName5 = "doubtProcess";
+            string textureName6 = "whereWeReach";
+            CardInfo infoO = CardManager.New(LobotomyPlugin.pluginPrefix, doubtO, "Doubt O",
                 attack: 2, health: 3)
                 .SetEnergyCost(4)
-                .SetPortraits(ModAssembly, doubtO)
-                .SetTitle(ModAssembly, "doubtO_title.png")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName4)
+                .SetTitle(LobotomyPlugin.ModAssembly, "doubtO_title.png")
                 .AddAbilities(Piercing.ability, Challenging.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal)
                 .Build();
 
-            CardInfo infoY = CardManager.New(pluginPrefix, doubtY, "Doubt Y",
+            CardInfo infoY = CardManager.New(LobotomyPlugin.pluginPrefix, doubtY, "Doubt Y",
                 attack: 2, health: 2)
                 .SetEnergyCost(3)
-                .SetPortraits(ModAssembly, doubtY)
-                .SetTitle(ModAssembly, "doubtY_title.png")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
+                .SetTitle(LobotomyPlugin.ModAssembly, "doubtY_title.png")
                 .AddAbilities(Piercing.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
@@ -44,11 +49,11 @@ namespace WhistleWindLobotomyMod
                 .AddTraits(Ordeal)
                 .Build();
 
-            CardInfo infoB = CardManager.New(pluginPrefix, doubtB, "Doubt B",
+            CardInfo infoB = CardManager.New(LobotomyPlugin.pluginPrefix, doubtB, "Doubt B",
                 attack: 1, health: 2)
                 .SetEnergyCost(2)
-                .SetPortraits(ModAssembly, doubtB)
-                .SetTitle(ModAssembly, "doubtB_title.png")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
+                .SetTitle(LobotomyPlugin.ModAssembly, "doubtB_title.png")
                 .AddAbilities(Piercing.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
@@ -56,11 +61,11 @@ namespace WhistleWindLobotomyMod
                 .AddTraits(Ordeal)
                 .Build();
 
-            CardManager.New(pluginPrefix, doubtA, "Doubt A",
+            CardManager.New(LobotomyPlugin.pluginPrefix, doubtA, "Doubt A",
                 attack: 1, health: 1)
                 .SetEnergyCost(2)
-                .SetPortraits(ModAssembly, doubtA)
-                .SetTitle(ModAssembly, "doubtA_title.png")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .SetTitle(LobotomyPlugin.ModAssembly, "doubtA_title.png")
                 .AddAbilities(Piercing.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
@@ -68,20 +73,20 @@ namespace WhistleWindLobotomyMod
                 .AddTraits(Ordeal)
                 .Build();
 
-            CardManager.New(pluginPrefix, doubtProcess, "Process of Understanding",
+            CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcess, "Process of Understanding",
                 attack: 2, health: 4)
                 .SetEnergyCost(4)
-                .SetPortraits(ModAssembly, doubtProcess)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName5)
                 .AddAbilities(Piercing.ability, Ability.Sentry, Ability.MadeOfStone)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal)
                 .Build();
 
-            CardManager.New(pluginPrefix, whereWeReach, "Where We Must Reach",
+            CardManager.New(LobotomyPlugin.pluginPrefix, whereWeReach, "Where We Must Reach",
                 attack: 0, health: 10)
                 .SetEnergyCost(5)
-                .SetPortraits(ModAssembly, whereWeReach)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName6)
                 .AddAbilities(Life.ability, Challenging.ability)
                 .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
@@ -89,9 +94,8 @@ namespace WhistleWindLobotomyMod
                 .SetTerrain()
                 .Build();
 
-            CardManager.New(pluginPrefix, lastHelix, "Last Helix",
+            CardManager.New(LobotomyPlugin.pluginPrefix, lastHelix, "Last Helix",
                 attack: 0, health: 25)
-                .SetPortraits(ModAssembly, lastHelix)
                 .AddAbilities(Piercing.ability, Ability.Reach, Tower.ability, Challenging.ability)
                 .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)

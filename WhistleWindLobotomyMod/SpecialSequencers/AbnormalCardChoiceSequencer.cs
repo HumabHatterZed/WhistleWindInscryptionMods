@@ -308,9 +308,9 @@ namespace WhistleWindLobotomyMod
         }
     }
 
-    public partial class LobotomyPlugin
+    public partial class Nodes
     {
-        private void Node_ModCardChoice()
+        private static void ModCardChoice()
         {
             List<string> animationFrames = new()
             {

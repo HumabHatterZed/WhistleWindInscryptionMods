@@ -6,9 +6,19 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.StatusEffects;
 using WhistleWind.Core.Helpers;
 
-
 namespace WhistleWindLobotomyMod
 {
+    public partial class Abilities
+    {
+        private static void AddDazzling()
+        {
+            const string rulebookName = "Dazzling";
+            Dazzling.ability = AbilityHelper.New<Dazzling>(LobotomyPlugin.pluginGuid, "sigilDazzling", rulebookName,
+                "The turn after this card is played, inflict up to 3 other cards on the board with Enchanted. This card takes no damage from Enchanted cards.",
+                0, true, "Like moths to a flame.")
+                .SetAbilityRedirect("Enchanted", Enchanted.iconId, GameColors.Instance.gold).Id;
+        }
+    }
     public class Dazzling : AbilityBehaviour, IPreTakeDamage
     {
         public static Ability ability;
@@ -30,20 +40,6 @@ namespace WhistleWindLobotomyMod
             }
             else
                 yield return new WaitForSeconds(0.25f);
-        }
-
-
-    }
-
-    public partial class LobotomyPlugin
-    {
-        private void Ability_Dazzling()
-        {
-            const string rulebookName = "Dazzling";
-            Dazzling.ability = AbilityHelper.New<Dazzling>(pluginGuid, "sigilDazzling", rulebookName,
-                "The turn after this card is played, inflict up to 3 other cards on the board with Enchanted. This card takes no damage from Enchanted cards.",
-                0, true, "Like moths to a flame.")
-                .SetAbilityRedirect("Enchanted", Enchanted.iconId, GameColors.Instance.gold).Id;
         }
     }
 }

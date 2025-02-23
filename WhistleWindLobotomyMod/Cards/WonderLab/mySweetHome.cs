@@ -5,16 +5,17 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_MySweetHome()
+        public const string mySweetHome = "wstl_mySweetHome";
+        private static void MySweetHome()
         {
-            const string mySweetHome = "mySweetHome";
-
-            CardManager.New(wonderlabPrefix, mySweetHome, "My Sweet Home",
+            return;
+            string textureName = "mySweetHome";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, mySweetHome, "My Sweet Home",
                 attack: 0, health: 2)
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, mySweetHome)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.MadeOfStone, Ability.Reach)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }

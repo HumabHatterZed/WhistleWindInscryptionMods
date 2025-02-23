@@ -8,20 +8,24 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_MagicalGirlClover_O01111()
+        public const string magicalGirlClover = "wstl_magicalGirlClover";
+        public const string servantOfWrath = "wstl_servantOfWrath";
+        public const string magicalGirlCloverPixel = "wstlGBC_magicalGirlClover";
+        public const string servantOfWrathPixel = "wstlGBC_servantOfWrath";
+        private static void MagicalGirlClover_O01111()
         {
-            const string servantName = "The Servant of Wrath";
-            const string magicalGirlClover = "magicalGirlClover";
-            const string servantOfWrath = "servantOfWrath";
+            string name = "The Servant of Wrath";
+            string desc = "Blind protector of another world, betrayed by their closest friend.";
+            string textureName = "servantOfWrath";
+            string textureName2 = "magicalGirlClover";
             Trait[] traits = new[] { MagicalGirl };
 
-            CardManager.New(pluginPrefix, servantOfWrath, servantName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, servantOfWrath, name,
                 attack: 3, health: 2)
                 .SetBloodCost(2)
-                .SetCardTemple(CardTemple.Wizard)
-                .SetPortraits(ModAssembly, servantOfWrath)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.DoubleStrike, Persistent.ability)
                 .AddSpecialAbilities(BlindRage.specialAbility)
                 .AddTribes(TribeFae, Tribe.Reptile)
@@ -30,11 +34,36 @@ namespace WhistleWindLobotomyMod
                 .AddMetaCategories(RuinaCard)
                 .Build();
 
-            CardManager.New(pluginPrefix, magicalGirlClover, servantName,
-                attack: 2, health: 2, "Blind protector of another world, betrayed by their closest friend.")
+            CardManager.New(LobotomyPlugin.pluginPrefix, magicalGirlClover, name,
+                attack: 2, health: 2, desc)
                 .SetBloodCost(2)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
+                .AddAbilities(Scorching.ability)
+                .AddSpecialAbilities(CloverCompanion.specialAbility)
+                .AddTribes(TribeFae)
+                .AddTraits(traits)
+                .SetOnePerDeck()
+                .AddMetaCategories(RuinaCard)
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, servantOfWrathPixel, name,
+                attack: 3, health: 2)
+                .SetGemsCost(GemType.Green, GemType.Green)
                 .SetCardTemple(CardTemple.Wizard)
-                .SetPortraits(ModAssembly, magicalGirlClover)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Ability.DoubleStrike, Persistent.ability)
+                .AddSpecialAbilities(BlindRage.specialAbility)
+                .AddTribes(TribeFae, Tribe.Reptile)
+                .AddTraits(traits)
+                .SetOnePerDeck()
+                .AddMetaCategories(RuinaCard)
+                .Build();
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, magicalGirlCloverPixel, name,
+                attack: 2, health: 2, desc)
+                .SetGemsCost(GemType.Green)
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Scorching.ability)
                 .AddSpecialAbilities(CloverCompanion.specialAbility)
                 .AddTribes(TribeFae)

@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ParasiteTree_D04108()
+        public const string parasiteTree = "wstl_parasiteTree";
+        private static void ParasiteTree_D04108()
         {
-            const string parasiteTree = "parasiteTree";
-
-            CardManager.New(pluginPrefix, parasiteTree, "Parasite Tree",
+            string textureName = "parasiteTree";
+            CardManager.New(LobotomyPlugin.pluginPrefix, parasiteTree, "Parasite Tree",
                 attack: 0, health: 3, "A beautiful tree. It wants only to help you and your beasts.")
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, parasiteTree)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Gardener.ability)
                 .AddTribes(TribeBotanic)
                 .AddMetaCategories(DonatorCard)

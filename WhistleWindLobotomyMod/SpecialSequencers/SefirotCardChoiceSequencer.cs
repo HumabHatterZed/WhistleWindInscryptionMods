@@ -13,9 +13,9 @@ using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Nodes
     {
-        private void Node_SefirotCardChoice()
+        private static void SefirotCardChoice()
         {
             List<string> animationFrames = new()
             {

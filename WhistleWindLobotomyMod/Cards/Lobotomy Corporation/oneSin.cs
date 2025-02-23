@@ -7,17 +7,28 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private const string oneSinName = "One Sin and Hundreds of Good Deeds";
-        private const string oneSin = "oneSin";
-        private void Card_OneSin_O0303()
+        public const string oneSinName = "One Sin and Hundreds of Good Deeds";
+        public const string oneSin = "wstl_oneSin";
+        private static void OneSin_O0303()
         {
-            CardManager.New(pluginPrefix, oneSin, oneSinName,
-                attack: 0, health: 1, "A floating skull. Its hollow sockets see through you.")
+            string desc = "A floating skull. Its hollow sockets see through you.";
+            string textureName = "oneSin";
+            CardManager.New(LobotomyPlugin.pluginPrefix, oneSin, oneSinName,
+                attack: 0, health: 1, desc)
+                .SetBonesCost(1)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Martyr.ability)
+                .AddTribes(TribeDivine)
+                .SetDefaultEvolutionName(oneSinName)
+                .Build(CardHelper.CardType.Common, RiskLevel.Zayin);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, oneSinName,
+                attack: 0, health: 1, desc)
                 .SetBonesCost(1)
                 .SetCardTemple(CardTemple.Undead)
-                .SetPortraits(ModAssembly, oneSin)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Martyr.ability)
                 .AddTribes(TribeDivine)
                 .SetDefaultEvolutionName(oneSinName)

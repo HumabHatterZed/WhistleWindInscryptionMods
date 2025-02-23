@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_TheNakedNest_O0274()
+        public const string theNakedNest = "wstl_theNakedNest";
+        private static void TheNakedNest_O0274()
         {
-            const string theNakedNest = "theNakedNest";
-
-            CardManager.New(pluginPrefix, theNakedNest, "The Naked Nest",
+            string textureName = "theNakedNest";
+            CardManager.New(LobotomyPlugin.pluginPrefix, theNakedNest, "The Naked Nest",
                 attack: 0, health: 3, "They can enter your body through any aperture.")
                 .SetBonesCost(4)
-                .SetPortraits(ModAssembly, theNakedNest)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(SerpentsNest.ability)
                 .AddTraits(Trait.KillsSurvivors)
                 .SetDefaultEvolutionName("The Elder Naked Nest")

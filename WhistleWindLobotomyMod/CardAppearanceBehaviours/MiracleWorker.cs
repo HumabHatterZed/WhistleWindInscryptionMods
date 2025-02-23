@@ -5,11 +5,11 @@ using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Appearances
     {
-        private void Appearance_MiracleWorker()
+        private static void AddMiracleWorkerAppearance()
         {
-            MiracleWorkerAppearance.appearance = CardHelper.CreateAppearance<MiracleWorkerAppearance>(pluginGuid, "MiracleWorkerAppearance").Id;
+            MiracleWorkerAppearance.appearance = CardHelper.CreateAppearance<MiracleWorkerAppearance>(LobotomyPlugin.pluginGuid, "MiracleWorkerAppearance").Id;
         }
     }
     public class MiracleWorkerAppearance : PixelAppearanceBehaviour
@@ -18,12 +18,12 @@ namespace WhistleWindLobotomyMod
         public override Sprite OverridePixelPortrait()
         {
             int blessings = SaviourBossUtils.Blessings(base.Card);
-            return LobotomyPlugin.UpdateDoctorPixelPortrait(blessings);
+            return PlagueDoctorCreator.UpdateDoctorPixelPortrait(blessings);
         }
         public override void ApplyAppearance()
         {
             int blessings = SaviourBossUtils.Blessings(base.Card);
-            base.Card.RenderInfo.portraitOverride = LobotomyPlugin.PlagueDoctorPortraits[Mathf.Min(11, blessings)];
+            base.Card.RenderInfo.portraitOverride = PlagueDoctorCreator.PlagueDoctorPortraits[Mathf.Min(11, blessings)];
             base.Card.RenderInfo.forceEmissivePortrait = base.Card.RenderInfo.forceEmissivePortrait || blessings >= 11;
         }
         public override void OnPreRenderCard() => ApplyAppearance();

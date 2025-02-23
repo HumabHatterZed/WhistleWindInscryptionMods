@@ -7,6 +7,18 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
+    public partial class Abilities
+    {
+        private static void AddSurvival()
+        {
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+            info.rulebookName = "Survival";
+            info.rulebookDescription = "At the start of every other turn for the owner, this card creates a Food Chain in empty adjacent spaces. [define:wstl_foodChain]";
+            info.powerLevel = 4;
+            Survival.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Survival), TextureLoader.LoadTextureFromFile("sigilSurvival.png")).Id;
+        }
+    }
+
     public class Survival : CreateCardsAdjacent
     {
         public static Ability ability;
@@ -27,18 +39,6 @@ namespace WhistleWindLobotomyMod
                 yield return base.OnResolveOnBoard();
                 turnsTillActivation = 2;
             }
-        }
-    }
-
-    public partial class LobotomyPlugin
-    {
-        private void Ability_Survival()
-        {
-            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            info.rulebookName = "Survival";
-            info.rulebookDescription = "At the start of every other turn for the owner, this card creates a Food Chain in empty adjacent spaces. [define:wstl_foodChain]";
-            info.powerLevel = 4;
-            Survival.ability = AbilityManager.Add(pluginGuid, info, typeof(Survival), TextureLoader.LoadTextureFromFile("sigilSurvival.png")).Id;
         }
     }
 }

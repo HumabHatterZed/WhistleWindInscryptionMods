@@ -7,17 +7,25 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_BehaviourAdjustment_O0996()
+        public const string behaviourAdjustment = "wstl_behaviourAdjustment";
+        private static void BehaviourAdjustment_O0996()
         {
-            const string behaviourAdjustment = "behaviourAdjustment";
+            string textureName = "behaviourAdjustment";
+            CardManager.New(LobotomyPlugin.pluginPrefix, behaviourAdjustment, "Behaviour Adjustment",
+                attack: 0, health: 1, "A device that corrects errant beasts, though not always how you expect.")
+                .SetEnergyCost(3)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Corrector.ability)
+                .AddTribes(TribeMechanical)
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth);
 
-            CardManager.New(pluginPrefix, behaviourAdjustment, "Behaviour Adjustment",
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, "Behaviour Adjustment",
                 attack: 0, health: 1, "A device that corrects errant beasts, though not always how you expect.")
                 .SetEnergyCost(3)
                 .SetCardTemple(CardTemple.Tech)
-                .SetPortraits(ModAssembly, behaviourAdjustment)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Corrector.ability)
                 .AddTribes(TribeMechanical)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);

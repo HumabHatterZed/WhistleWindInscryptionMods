@@ -6,17 +6,19 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_Titania()
+        public const string titania = "wstl_titania";
+        private static void Titania()
         {
-            const string titania = "titania";
-            CardManager.New(wonderlabPrefix, titania, "Titania",
+            return;
+            string textureName = "titania";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, titania, "Titania",
                 attack: 0, health: 4, "The queen of faeries, searching always for her traitorous husband.")
                 .SetBloodCost(1)
                 .SetStatIcon(FlowerPower.Icon)
-                .SetPortraits(ModAssembly, titania)
-                .AddAbilities(Ability.StrafeSwap)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(FlowerQueen.ability)
                 .Build(CardHelper.CardType.Rare, RiskLevel.Aleph, true);
         }
     }

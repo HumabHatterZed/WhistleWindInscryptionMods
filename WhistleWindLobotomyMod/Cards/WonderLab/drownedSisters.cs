@@ -6,16 +6,17 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_DrownedSisters()
+        public const string drownedSisters = "wstl_drownedSisters";
+        private static void DrownedSisters()
         {
-            const string drownedSisters = "drownedSisters";
-
-            CardManager.New(wonderlabPrefix, drownedSisters, "The Drowned Sisters",
+            return;
+            string textureName = "drownedSisters";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, drownedSisters, "The Drowned Sisters",
                 attack: 0, health: 2)
                 .SetBonesCost(2)
-                .SetPortraits(ModAssembly, drownedSisters)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.DebuffEnemy)
                 .AddTribes(AbnormalPlugin.TribeAnthropoid)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);

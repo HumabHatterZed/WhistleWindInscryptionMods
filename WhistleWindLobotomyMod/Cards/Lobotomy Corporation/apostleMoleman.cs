@@ -8,20 +8,22 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ApostleMoleman_T0346()
+        public const string apostleMoleman = "wstl_apostleMoleman";
+        public const string apostleMolemanDown = "wstl_apostleMolemanDown";
+        private static void ApostleMoleman_T0346()
         {
-            const string molemanName = "Moleman Apostle";
-            const string apostleMoleman = "apostleMoleman";
-            const string apostleMolemanDown = "apostleMolemanDown";
+            string molemanName = "Moleman Apostle";
+            string textureName = "apostleMoleman";
+            string textureName2 = "apostleMolemanDown";
             Tribe[] tribes = new[] { TribeDivine };
             Trait[] traits = new[] { Apostle };
             CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
-            CardManager.New(pluginPrefix, apostleMoleman, molemanName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, apostleMoleman, molemanName,
                 attack: 1, health: 8)
-                .SetPortraits(ModAssembly, apostleMoleman)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Reach, Ability.WhackAMole, ApostleSigil.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)
@@ -29,9 +31,9 @@ namespace WhistleWindLobotomyMod
                 .SetEventCard(true)
                 .Build();
 
-            CardManager.New(pluginPrefix, apostleMolemanDown, molemanName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, apostleMolemanDown, molemanName,
                 attack: 0, health: 1)
-                .SetPortraits(ModAssembly, apostleMolemanDown)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(ApostleSigil.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)

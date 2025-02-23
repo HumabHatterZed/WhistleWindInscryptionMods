@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
 {
     public class TalkingCardHod : CustomPaperTalkingCard
     {
-        public override string CardName => "wstl_sephirahHod";
+        public override string CardName => Cards.sephirahHod;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.0f, voiceSoundPitch: 1.4f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
@@ -87,21 +87,25 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void SpecialAbility_Hod()
+        public const string sephirahHod = "wstl_sephirahHod";
+        private static void Hod()
         {
-            TalkingCardHod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardHod>("Hod").Id;
-        }
-        private void Card_Hod()
-        {
-            CardManager.New(pluginPrefix, "sephirahHod", "Hod",
+            CardManager.New(LobotomyPlugin.pluginPrefix, sephirahHod, "Hod",
                 attack: 1, health: 2, "Timid she may be, she will still try her hardest.")
                 .SetBonesCost(3)
                 .AddAbilities(Protector.ability)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
+        }
+    }
+    public partial class Abilities
+    {
+        private static void AddSpecial_Hod()
+        {
+            TalkingCardHod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardHod>("Hod").Id;
         }
     }
 }

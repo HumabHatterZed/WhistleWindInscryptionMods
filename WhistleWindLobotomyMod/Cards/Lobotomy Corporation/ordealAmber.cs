@@ -8,38 +8,40 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Cards_AmberOrdeal()
+        public const string perfectFood = "wstl_foodPerfect";
+        public const string foodChain = "wstl_foodChain";
+        public const string eternalMeal = "wstl_foodEternal";
+        private static void Cards_AmberOrdeal()
         {
-            const string perfectFood = "perfectFood";
-            const string foodChain = "foodChain";
-            const string eternalMeal = "eternalMeal";
-
-            CardInfo food = CardManager.New(pluginPrefix, perfectFood, "The Perfect Food",
+            string textureName = "perfectFood";
+            string textureName2 = "foodChain";
+            string textureName3 = "eternalMeal";
+            CardInfo food = CardManager.New(LobotomyPlugin.pluginPrefix, perfectFood, "The Perfect Food",
                 attack: 1, health: 1)
                 .SetBonesCost(2)
-                .SetPortraits(ModAssembly, perfectFood)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities()
                 //.AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(Tribe.Insect)
                 .AddTraits(Ordeal)
                 .Build();
 
-            CardInfo chain = CardManager.New(pluginPrefix, foodChain, "The Food Chain",
+            CardInfo chain = CardManager.New(LobotomyPlugin.pluginPrefix, foodChain, "The Food Chain",
                 attack: 3, health: 4)
                 .SetBonesCost(12)
-                .SetPortraits(ModAssembly, foodChain)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Food.ability, Challenging.ability)
                 //.AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(Tribe.Insect)
                 .AddTraits(Ordeal)
                 .Build();
 
-            CardInfo meal = CardManager.New(pluginPrefix, eternalMeal, "The Eternal Meal",
+            CardInfo meal = CardManager.New(LobotomyPlugin.pluginPrefix, eternalMeal, "The Eternal Meal",
                 attack: 2, health: 20)
                 .SetBonesCost(40)
-                .SetPortraits(ModAssembly, eternalMeal)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
                 .AddAbilities(Survival.ability, Challenging.ability)
                 //.AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(Tribe.Insect)

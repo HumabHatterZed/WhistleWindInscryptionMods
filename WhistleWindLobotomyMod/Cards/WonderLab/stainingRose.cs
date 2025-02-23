@@ -5,15 +5,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_StainingRose()
+        public const string stainingRose = "wstl_stainingRose";
+        private static void StainingRose()
         {
-            const string stainingRose = "stainingRose";
-
-            CardManager.New(wonderlabPrefix, stainingRose, "Staining Rose",
+            return;
+            string textureName = "stainingRose";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, stainingRose, "Staining Rose",
                 attack: 0, health: 0)
-                .SetPortraits(ModAssembly, stainingRose)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities()
                 .SetInstaGlobalSpell()
                 .SetOnePerDeck()

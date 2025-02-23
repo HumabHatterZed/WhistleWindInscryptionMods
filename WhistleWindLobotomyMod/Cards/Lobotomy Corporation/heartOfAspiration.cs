@@ -6,16 +6,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_HeartOfAspiration_O0977()
+        public const string heartOfAspiration = "wstl_heartOfAspiration";
+        private static void HeartOfAspiration_O0977()
         {
-            const string heartOfAspiration = "heartOfAspiration";
-
-            CardManager.New(pluginPrefix, heartOfAspiration, "The Heart of Aspiration",
+            string textureName = "heartOfAspiration";
+            CardManager.New(LobotomyPlugin.pluginPrefix, heartOfAspiration, "The Heart of Aspiration",
                 attack: 1, health: 2, "A heart without an owner. It emboldens those nearby.")
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, heartOfAspiration)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.BuffNeighbours)
                 .SetDefaultEvolutionName("The Elder Heart of Aspiration")
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);

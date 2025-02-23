@@ -89,7 +89,7 @@ namespace WhistleWindLobotomyMod
 
         private CardInfo GetEvolve(PlayableCard card)
         {
-            CardInfo evolution = CardLoader.GetCardByName("wstl_queenOfHatred");
+            CardInfo evolution = CardLoader.GetCardByName(SaveManager.SaveFile.IsPart1 ? Cards.queenOfHatred : Cards.queenOfHatredPixel);
             foreach (CardModificationInfo item in card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
                 CardModificationInfo cardModificationInfo = (CardModificationInfo)item.Clone();
@@ -127,11 +127,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_LoveAndHate()
+        private static void Rulebook_LoveAndHate()
             => RulebookEntryLoveAndHate.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryLoveAndHate>(LoveAndHate.rName, LoveAndHate.rDesc).Id;
-        private void SpecialAbility_LoveAndHate()
-            => LoveAndHate.specialAbility = AbilityHelper.CreateSpecialAbility<LoveAndHate>(pluginGuid, LoveAndHate.rName).Id;
+        private static void AddSpecial_LoveAndHate()
+            => LoveAndHate.specialAbility = AbilityHelper.CreateSpecialAbility<LoveAndHate>(LobotomyPlugin.pluginGuid, LoveAndHate.rName).Id;
     }
 }

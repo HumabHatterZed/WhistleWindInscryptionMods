@@ -74,9 +74,9 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(1.418f);
         }
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void SpecialAbility_BoardEffects()
-            => BoardEffects.specialAbility = AbilityHelper.CreateSpecialAbility<BoardEffects>(pluginGuid, "EventBoardEffects").Id;
+        private static void AddSpecial_BoardEffects()
+            => BoardEffects.specialAbility = AbilityHelper.CreateSpecialAbility<BoardEffects>(LobotomyPlugin.pluginGuid, "EventBoardEffects").Id;
     }
 }

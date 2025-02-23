@@ -4,9 +4,20 @@ using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
-
 namespace WhistleWindLobotomyMod
 {
+    public partial class Abilities
+    {
+        private static void AddLife()
+        {
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+            info.rulebookName = "Life";
+            info.rulebookDescription = "At the start of every other turn for the owner, this card creates a random Doubt or Process of Understanding in empty adjacent spaces.";
+            info.powerLevel = 4;
+            Life.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Life), TextureLoader.LoadTextureFromFile("sigilLife.png")).Id;
+        }
+    }
+
     public class Life : CreateCardsAdjacent
     {
         public static Ability ability;
@@ -56,18 +67,6 @@ namespace WhistleWindLobotomyMod
             {
                 return "wstl_processUnderstanding";
             }
-        }
-    }
-
-    public partial class LobotomyPlugin
-    {
-        private void Ability_Life()
-        {
-            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            info.rulebookName = "Life";
-            info.rulebookDescription = "At the start of every other turn for the owner, this card creates a random Doubt or Process of Understanding in empty adjacent spaces.";
-            info.powerLevel = 4;
-            Life.ability = AbilityManager.Add(pluginGuid, info, typeof(Life), TextureLoader.LoadTextureFromFile("sigilLife.png")).Id;
         }
     }
 }

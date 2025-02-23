@@ -7,36 +7,39 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_CanOfWellCheers_F0552()
+        public const string canOfWellCheers = "wstl_canOfWellCheers";
+        public const string skeletonShrimp = "wstl_SKELETON_SHRIMP";
+        public const string crumpledCan = "wstl_CRUMPLED_CAN";
+        private static void CanOfWellCheers_F0552()
         {
-            const string canOfWellCheers = "canOfWellCheers";
-
-            CardInfo can = CardManager.New(pluginPrefix,
-                "CRUMPLED_CAN", "Crumpled Can of WellCheers",
+            string textureName = "skeleton_can";
+            string textureName2 = "skeleton_shrimp";
+            string textureName3 = "canOfWellCheers";
+            CardInfo can = CardManager.New(LobotomyPlugin.pluginPrefix, crumpledCan, "Crumpled Can of WellCheers",
                 attack: 0, health: 1)
-                .SetPortraits(ModAssembly, "skeleton_can")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .SetTerrain()
-                .SetDefaultEvolutionName("Rusted Can of WellCheers")
+                .SetDefaultEvolutionName("Still Crumpled Can of WellCheers")
                 .Build();
 
-            CardInfo skeleton = CardManager.New(pluginPrefix,
-                "SKELETON_SHRIMP", "Skeleton Shrimp",
+            CardInfo skeleton = CardManager.New(LobotomyPlugin.pluginPrefix, skeletonShrimp, "Skeleton Shrimp",
                 attack: 2, health: 1)
                 .SetBonesCost(5)
-                .SetPortraits(ModAssembly, "skeleton_shrimp")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Ability.IceCube, Ability.Brittle)
                 .SetIceCube(can)
                 .Build();
 
-            CardManager.New(pluginPrefix, canOfWellCheers, "Opened Can of WellCheers",
+            CardManager.New(LobotomyPlugin.pluginPrefix, canOfWellCheers, "Opened Can of WellCheers",
                 attack: 1, health: 1, "A vending machine dispensing ocean soda.")
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, canOfWellCheers)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
                 .AddAbilities(Ability.Strafe, Ability.Submerge)
                 .AddTribes(TribeMechanical)
                 .SetIceCube(skeleton)
+                .SetDefaultEvolutionName("Opened Can of Elder WellCheers")
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
     }

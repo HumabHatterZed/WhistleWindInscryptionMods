@@ -25,6 +25,7 @@ namespace WhistleWindLobotomyMod.Patches
             AchievementAPI.Unlock(UnlockedAngela, AchievementAPI.Impuritas);
 
             // other
+            AchievementAPI.Unlock(AchievementAPI.UnlockDummies(), AchievementAPI.Dummies);
             AchievementAPI.Unlock(LobotomyConfigManager.Instance.HasSeenHim, AchievementAPI.Blessing);
         }
     }

@@ -7,20 +7,22 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ApostleSpear_T0346()
+        public const string apostleSpear = "wstl_apostleSpear";
+        public const string apostleSpearDown = "wstl_apostleSpearDown";
+        private static void ApostleSpear_T0346()
         {
-            const string spearName = "Spear Apostle";
-            const string apostleSpear = "apostleSpear";
-            const string apostleSpearDown = "apostleSpearDown";
+            string spearName = "Spear Apostle";
+            string textureName = "apostleSpear";
+            string textureName2 = "apostleSpearDown";
             Tribe[] tribes = new[] { TribeDivine };
             Trait[] traits = new[] { Apostle };
             CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
-            CardManager.New(pluginPrefix, apostleSpear, spearName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, apostleSpear, spearName,
                 attack: 4, health: 6)
-                .SetPortraits(ModAssembly, apostleSpear)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Piercing.ability, ApostleSigil.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)
@@ -28,9 +30,9 @@ namespace WhistleWindLobotomyMod
                 .SetEventCard(false)
                 .Build();
 
-            CardManager.New(pluginPrefix, apostleSpearDown, spearName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, apostleSpearDown, spearName,
                 attack: 0, health: 1)
-                .SetPortraits(ModAssembly, apostleSpearDown)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(ApostleSigil.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)

@@ -6,16 +6,17 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_RedQueen()
+        public const string redQueen = "wstl_redQueen";
+        private static void RedQueen()
         {
-            const string redQueen = "redQueen";
-
-            CardManager.New(wonderlabPrefix, redQueen, "Red Queen",
+            return;
+            string textureName = "redQueen";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, redQueen, "Red Queen",
                 attack: 2, health: 2)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, redQueen)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.BuffNeighbours)
                 .AddTribes(AbnormalPlugin.TribeFae)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);

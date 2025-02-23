@@ -8,17 +8,29 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_WisdomScarecrow_F0187()
+        public const string wisdomScarecrow = "wstl_wisdomScarecrow";
+        private static void WisdomScarecrow_F0187()
         {
-            const string wisdomScarecrow = "wisdomScarecrow";
+            string name = "Scarecrow Searching for Wisdom";
+            string desc = "A hollow-headed scarecrow. Blood soaks its straw limbs.";
+            string textureName = "wisdomScarecrow";
+            CardManager.New(LobotomyPlugin.pluginPrefix, wisdomScarecrow, name,
+                attack: 1, health: 1, desc)
+                .SetBonesCost(4)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Bloodfiend.ability)
+                .AddTribes(TribeBotanic)
+                .AddTraits(EmeraldCity)
+                .SetOnePerDeck()
+                .Build(CardHelper.CardType.Common, RiskLevel.He);
 
-            CardManager.New(pluginPrefix, wisdomScarecrow, "Scarecrow Searching for Wisdom",
-                attack: 1, health: 1, "A hollow-headed scarecrow. Blood soaks its straw limbs.")
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 1, health: 1, desc)
                 .SetBonesCost(4)
                 .SetCardTemple(CardTemple.Undead)
-                .SetPortraits(ModAssembly, wisdomScarecrow)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Bloodfiend.ability)
                 .AddTribes(TribeBotanic)
                 .AddTraits(EmeraldCity)

@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
 {
     public class TalkingCardChesed : CustomPaperTalkingCard
     {
-        public override string CardName => "wstl_sephirahChesed";
+        public override string CardName => Cards.sephirahChesed;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.9f, voiceSoundPitch: 0.7f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
@@ -87,21 +87,25 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void SpecialAbility_Chesed()
+        public const string sephirahChesed = "wstl_sephirahChesed";
+        private static void Chesed()
         {
-            TalkingCardChesed.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardChesed>("Chesed").Id;
-        }
-        private void Card_Chesed()
-        {
-            CardManager.New(pluginPrefix, "sephirahChesed", "Chesed",
+            CardManager.New(LobotomyPlugin.pluginPrefix, sephirahChesed, "Chesed",
                 attack: 1, health: 4, "Nothing like a fresh cup of coffee to start your day.")
                 .SetEnergyCost(4)
                 .AddAbilities(Healer.ability, Regenerator.ability)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
+        }
+    }
+    public partial class Abilities
+    {
+        private static void AddSpecial_Chesed()
+        {
+            TalkingCardChesed.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardChesed>("Chesed").Id;
         }
     }
 }

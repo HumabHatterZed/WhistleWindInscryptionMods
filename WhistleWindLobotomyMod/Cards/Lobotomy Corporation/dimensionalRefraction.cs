@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_DimensionalRefraction_O0388()
+        public const string dimensionalRefraction = "wstl_dimensionalRefraction";
+        private static void DimensionalRefraction_O0388()
         {
-            const string dimensionalRefraction = "dimensionalRefraction";
-
-            CardManager.New(pluginPrefix, dimensionalRefraction, "Dimensional Refraction Variant",
+            string textureName = "dimensionalRefraction";
+            CardManager.New(LobotomyPlugin.pluginPrefix, dimensionalRefraction, "Dimensional Refraction Variant",
                 attack: 0, health: 1, "A strange phenomenon. Or rather, the creature is the phenomena in and of itself.")
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, dimensionalRefraction)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.RandomAbility)
                 .SetStatIcon(SigilPower.Icon)
                 .SetDefaultEvolutionName("4th Dimensional Refraction Variant")

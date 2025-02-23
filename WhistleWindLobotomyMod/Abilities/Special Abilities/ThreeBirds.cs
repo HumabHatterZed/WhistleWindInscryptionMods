@@ -143,11 +143,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_ThreeBirds()
+        private static void Rulebook_ThreeBirds()
             => RulebookEntryThreeBirds.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryThreeBirds>(ThreeBirds.rName, ThreeBirds.rDesc).Id;
-        private void SpecialAbility_ThreeBirds()
-            => ThreeBirds.specialAbility = AbilityHelper.CreateSpecialAbility<ThreeBirds>(pluginGuid, ThreeBirds.rName).Id;
+        private static void AddSpecial_ThreeBirds()
+            => ThreeBirds.specialAbility = AbilityHelper.CreateSpecialAbility<ThreeBirds>(LobotomyPlugin.pluginGuid, ThreeBirds.rName).Id;
     }
 }

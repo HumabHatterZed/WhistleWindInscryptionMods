@@ -6,16 +6,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_WorldPortrait_O0991()
+        public const string worldPortrait = "wstl_worldPortrait";
+        private static void WorldPortrait_O0991()
         {
-            const string worldPortrait = "worldPortrait";
-
-            CardManager.New(pluginPrefix, worldPortrait, "Portrait of Another World",
+            string textureName = "worldPortrait";
+            CardManager.New(LobotomyPlugin.pluginPrefix, worldPortrait, "Portrait of Another World",
                 attack: 0, health: 4, "This portrait captures a moment, one we're destined to lose.")
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, worldPortrait)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Reflector.ability)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }

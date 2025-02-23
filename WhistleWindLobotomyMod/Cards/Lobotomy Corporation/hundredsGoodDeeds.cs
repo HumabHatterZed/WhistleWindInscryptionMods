@@ -6,14 +6,15 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_HundredsGoodDeeds_O0303()
+        public const string hundredsGoodDeeds = "wstl_hundredsGoodDeeds";
+        private static void HundredsGoodDeeds_O0303()
         {
-            const string hundredsGoodDeeds = "hundredsGoodDeeds";
-            CardManager.New(pluginPrefix, hundredsGoodDeeds, oneSinName,
+            string textureName = "oneSin";
+            CardManager.New(LobotomyPlugin.pluginPrefix, hundredsGoodDeeds, oneSinName,
                 attack: 0, health: 77)
-                .SetPortraits(ModAssembly, oneSin, "hundredsGoodDeeds_emission", "hundredsGoodDeeds_pixel")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName, "hundredsGoodDeeds_emission.png", "hundredsGoodDeeds_pixel.png")
                 .AddAbilities(Confession.ability)
                 .AddTraits(Trait.Uncuttable, Apostle)
                 .AddAppearances(ForcedWhiteEmission.appearance)

@@ -1,6 +1,8 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
@@ -13,8 +15,13 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPrefix, HarmonyPatch(nameof(DeckInfo.AddCard))]
         private static void AddNothingThereToPlayerDeck(ref CardInfo card)
         {
-            if (card.Mods.Exists((x) => x.singletonId == "wstl_nothingThere"))
+            CardModificationInfo mod = card.Mods.Find(x => HelperMethods.CompareSingleton(x.singletonId, "NothingThere"));
+            if (mod != null)
+            {
+                string disguise = card.name;
                 card = CardLoader.GetCardByName("wstl_nothingThere");
+                card.Mods = new() { new() { singletonId = "NothingThere:" + disguise } };
+            }
         }
 
         // Act 1 starter decks

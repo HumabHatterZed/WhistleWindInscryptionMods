@@ -8,21 +8,34 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_SnowWhitesApple_F0442()
+        public const string snowWhitesApple = "wstl_snowWhitesApple";
+        private static void SnowWhitesApple_F0442()
         {
-            const string snowWhitesApple = "snowWhitesApple";
-
-            CardManager.New(pluginPrefix, snowWhitesApple, "Snow White's Apple",
-                attack: 1, health: 1, "A poisoned apple brought to life, on a fruitless search for its own happily ever after.")
+            string name = "Snow White's Apple";
+            string name2 = "Snow White's Rotted Apple";
+            string desc = "A poisoned apple brought to life, on a fruitless search for its own happily ever after.";
+            string textureName = "snowWhitesApple";
+            CardManager.New(LobotomyPlugin.pluginPrefix, snowWhitesApple, name,
+                attack: 1, health: 1, desc)
                 .SetBonesCost(3)
-                .SetCardTemple(CardTemple.Undead)
-                .SetPortraits(ModAssembly, snowWhitesApple)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Roots.ability)
                 .AddTribes(TribeBotanic)
                 .AddTraits(Trait.KillsSurvivors)
-                .SetDefaultEvolutionName("Snow White's Rotted Apple")
+                .SetDefaultEvolutionName(name2)
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 1, health: 1, desc)
+                .SetBonesCost(3)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Roots.ability)
+                .AddTribes(TribeBotanic)
+                .AddTraits(Trait.KillsSurvivors)
+                .SetDefaultEvolutionName(name2)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }

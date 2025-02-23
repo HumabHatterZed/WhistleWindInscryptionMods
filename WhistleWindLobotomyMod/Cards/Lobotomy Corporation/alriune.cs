@@ -7,15 +7,17 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_Alriune_T0453()
+        public const string alriune = "wstl_alriune";
+        private static void Alriune_T0453()
         {
-            const string alriune = "alriune";
-            const string description = "A doll yearning to be a human. A human yearning to be a doll.";
-            CardManager.New(pluginPrefix, alriune, "Alriune",
+            string name = "Alriune";
+            string textureName = "alriune";
+            string description = "A doll yearning to be a human. A human yearning to be a doll.";
+            CardManager.New(LobotomyPlugin.pluginPrefix, alriune, name,
                 attack: 4, health: 5, description)
-                .SetPortraits(ModAssembly, alriune)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Strafe)
                 .AddTribes(TribeBotanic, Tribe.Hooved)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);

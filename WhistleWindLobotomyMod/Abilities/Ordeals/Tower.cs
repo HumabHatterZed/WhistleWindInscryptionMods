@@ -9,6 +9,18 @@ using WhistleWindLobotomyMod.Opponents;
 
 namespace WhistleWindLobotomyMod
 {
+    public partial class Abilities
+    {
+        private static void AddTower()
+        {
+            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
+            info.rulebookName = "The Tower";
+            info.rulebookDescription = "This card changes state when this sigil's count reaches 0. In an active state, create two Lights on the opposing side of the board.";
+            info.powerLevel = 5;
+            Tower.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Tower), TextureLoader.LoadTextureFromFile("sigilTower.png")).Id;
+        }
+    }
+
     public class Tower : AbilityBehaviour, ISetupAttackSequence, IModifyDirectDamage
     {
         public static Ability ability;
@@ -44,17 +56,5 @@ namespace WhistleWindLobotomyMod
         public bool RespondsToModifyDirectDamage(CardSlot target, int damage, PlayableCard attacker, int originalDamage) => attacker == base.Card && doubleDirectDamage;
         public int OnModifyDirectDamage(CardSlot target, int damage, PlayableCard attacker, int originalDamage) => damage * 2;
         public int TriggerPriority(CardSlot target, int damage, PlayableCard attacker) => 0;
-    }
-
-    public partial class LobotomyPlugin
-    {
-        private void Ability_Tower()
-        {
-            AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
-            info.rulebookName = "The Tower";
-            info.rulebookDescription = "This card changes state when this sigil's count reaches 0. In an active state, create two Lights on the opposing side of the board.";
-            info.powerLevel = 5;
-            Tower.ability = AbilityManager.Add(pluginGuid, info, typeof(Tower), TextureLoader.LoadTextureFromFile("sigilTower.png")).Id;
-        }
     }
 }

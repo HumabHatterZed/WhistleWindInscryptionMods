@@ -6,20 +6,32 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_FuneralOfButterflies_T0168()
+        public const string funeralOfButterflies = "wstl_funeralOfButterflies";
+        private static void FuneralOfButterflies_T0168()
         {
-            const string funeralOfButterflies = "funeralOfButterflies";
-
-            CardManager.New(pluginPrefix, funeralOfButterflies, "Funeral of the Dead Butterflies",
-                attack: 1, health: 3, "The coffin is a tribute to the fallen. A memorial to those who can't return home.")
+            string name = "Funeral of the Dead Butterflies";
+            string name2 = "2nd Funeral of the Dead Butterflies";
+            string desc = "The coffin is a tribute to the fallen. A memorial to those who can't return home.";
+            string textureName = "funeralOfButterflies";
+            CardManager.New(LobotomyPlugin.pluginPrefix, funeralOfButterflies, name,
+                attack: 1, health: 3, desc)
                 .SetBloodCost(2)
-                .SetCardTemple(CardTemple.Undead)
-                .SetPortraits(ModAssembly, funeralOfButterflies)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.DoubleStrike)
                 .AddTribes(Tribe.Insect)
-                .SetDefaultEvolutionName("2nd Funeral of the Dead Butterflies")
+                .SetDefaultEvolutionName(name2)
+                .Build(CardHelper.CardType.Common, RiskLevel.He);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 1, health: 2, desc)
+                .SetBonesCost(5)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Ability.DoubleStrike)
+                .AddTribes(Tribe.Insect)
+                .SetDefaultEvolutionName(name2)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }
     }

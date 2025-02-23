@@ -120,11 +120,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_Concord()
+        private static void Rulebook_Concord()
             => RulebookEntryConcord.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryConcord>(Concord.rName, Concord.rDesc).Id;
-        private void SpecialAbility_Concord()
-            => Concord.specialAbility = AbilityHelper.CreateSpecialAbility<Concord>(pluginGuid, Concord.rName).Id;
+        private static void AddSpecial_Concord()
+            => Concord.specialAbility = AbilityHelper.CreateSpecialAbility<Concord>(LobotomyPlugin.pluginGuid, Concord.rName).Id;
     }
 }

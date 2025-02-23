@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_DellaLuna_D01105()
+        public const string dellaLuna = "wstl_dellaLuna";
+        private static void DellaLuna_D01105()
         {
-            const string dellaLuna = "dellaLuna";
-
-            CardManager.New(pluginPrefix, dellaLuna, "Il Pianto della Luna",
+            string textureName = "dellaLuna";
+            CardManager.New(LobotomyPlugin.pluginPrefix, dellaLuna, "Il Pianto della Luna",
                 attack: 2, health: 7, "In reality, man despairs at [c:bR]the moon[c:].")
                 .SetBloodCost(3)
-                .SetPortraits(ModAssembly, dellaLuna)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(GroupHealer.ability)
                 .AddTribes(Tribe.Bird)
                 .AddMetaCategories(DonatorCard)

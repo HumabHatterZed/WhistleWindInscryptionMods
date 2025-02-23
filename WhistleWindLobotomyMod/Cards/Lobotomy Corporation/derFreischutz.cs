@@ -8,16 +8,28 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_DerFreischutz_F0169()
+        public const string derFreischutz = "wstl_derFreischutz";
+        private static void DerFreischutz_F0169()
         {
-            const string derFreischutz = "derFreischutz";
-
-            CardManager.New(pluginPrefix, derFreischutz, "Der Freischütz",
-                attack: 2, health: 2, "A friendly hunter to some, a cruel gunsman to others. His bullets always hit their mark.")
+            string name = "Der Freischütz";
+            string desc = "A friendly hunter to some, a cruel gunsman to others. His bullets always hit their mark.";
+            string textureName = "derFreischutz";
+            CardManager.New(LobotomyPlugin.pluginPrefix, derFreischutz, name,
+                attack: 2, health: 2, desc)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, derFreischutz)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Ability.Sniper, Persistent.ability)
+                .AddTribes(TribeFae)
+                .SetDefaultEvolutionName("Der Ältere Freischütz")
+                .Build(CardHelper.CardType.Rare, RiskLevel.He);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 2, health: 2, desc)
+                .SetGemsCost(GemType.Orange, GemType.Orange)
+                .SetCardTemple(CardTemple.Wizard)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Sniper, Persistent.ability)
                 .AddTribes(TribeFae)
                 .SetDefaultEvolutionName("Der Ältere Freischütz")

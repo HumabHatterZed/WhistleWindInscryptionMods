@@ -8,16 +8,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_JesterOfNihil_O01118()
+        public const string jesterOfNihil = "wstl_jesterOfNihil";
+        private static void JesterOfNihil_O01118()
         {
-            const string jesterOfNihil = "jesterOfNihil";
-
-            CardManager.New(pluginPrefix, jesterOfNihil, "The Jester of Nihil",
+            string textureName = "jesterOfNihil";
+            CardManager.New(LobotomyPlugin.pluginPrefix, jesterOfNihil, "The Jester of Nihil",
                 attack: 0, health: 7)
                 .SetBonesCost(8)
-                .SetPortraits(ModAssembly, jesterOfNihil)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(ReturnToNihil.ability)
                 .AddSpecialAbilities(BoardEffects.specialAbility)
                 .SetStatIcon(Nihil.Icon)

@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_GraveOfBlossoms_O04100()
+        public const string graveOfBlossoms = "wstl_graveOfBlossoms";
+        private static void GraveOfBlossoms_O04100()
         {
-            const string graveOfBlossoms = "graveOfBlossoms";
-
-            CardManager.New(pluginPrefix, graveOfBlossoms, "Grave of Cherry Blossoms",
+            string textureName = "graveOfBlossoms";
+            CardManager.New(LobotomyPlugin.pluginPrefix, graveOfBlossoms, "Grave of Cherry Blossoms",
                 attack: 0, health: 3, "A blooming cherry tree. The more blood it has, the more beautiful it becomes.")
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, graveOfBlossoms)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Bloodletter.ability)
                 .AddTribes(TribeBotanic)
                 .SetDefaultEvolutionName("Mass Grave of Cherry Blossoms")

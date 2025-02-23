@@ -83,11 +83,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_CensoredSpecial()
+        private static void Rulebook_CensoredSpecial()
             => RulebookEntryCensoredSpecial.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCensoredSpecial>(CensoredSpecial.rName, CensoredSpecial.rDesc).Id;
-        private void SpecialAbility_CensoredSpecial()
-            => CensoredSpecial.specialAbility = AbilityHelper.CreateSpecialAbility<CensoredSpecial>(pluginGuid, CensoredSpecial.rName).Id;
+        private static void AddSpecial_CensoredSpecial()
+            => CensoredSpecial.specialAbility = AbilityHelper.CreateSpecialAbility<CensoredSpecial>(LobotomyPlugin.pluginGuid, CensoredSpecial.rName).Id;
     }
 }

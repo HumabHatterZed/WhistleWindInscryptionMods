@@ -8,6 +8,23 @@ using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod
 {
+    public partial class Abilities
+    {
+        private static void StatusEffect_Sin()
+        {
+            const string rName = "Sin";
+            const string rDesc = "When this card deals damage to another creature, transfer 1 Sin to that card.";
+
+            StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Sin>(
+                LobotomyPlugin.pluginGuid, rName, rDesc, 0, GameColors.Instance.gold,
+                TextureLoader.LoadTextureFromFile("sigilUnjustScale.png", LobotomyPlugin.ModAssembly))
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
+
+            Sin.specialAbility = data.Id;
+            Sin.iconId = data.IconInfo.ability;
+        }
+    }
+
     public class Sin : StatusEffectBehaviour, IOnUpkeepInHand
     {
         public static Ability iconId;
@@ -41,21 +58,5 @@ namespace WhistleWindLobotomyMod
             yield break;
         }
         public IEnumerator OnUpkeepInHand(bool playerUpkeep) => this.OnUpkeep(playerUpkeep);
-    }
-    public partial class LobotomyPlugin
-    {
-        private void StatusEffect_Sin()
-        {
-            const string rName = "Sin";
-            const string rDesc = "When this card deals damage to another creature, transfer 1 Sin to that card.";
-
-            StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Sin>(
-                pluginGuid, rName, rDesc, 0, GameColors.Instance.gold,
-                TextureLoader.LoadTextureFromFile("sigilUnjustScale.png", ModAssembly))
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
-
-            Sin.specialAbility = data.Id;
-            Sin.iconId = data.IconInfo.ability;
-        }
     }
 }

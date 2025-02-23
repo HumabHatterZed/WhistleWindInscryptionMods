@@ -6,16 +6,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_DreamingCurrent_T0271()
+        public const string dreamingCurrent = "wstl_dreamingCurrent";
+        private static void DreamingCurrent_T0271()
         {
-            const string dreamingCurrent = "dreamingCurrent";
-
-            CardManager.New(pluginPrefix, dreamingCurrent, "The Dreaming Current",
+            string textureName = "dreamingCurrent";
+            CardManager.New(LobotomyPlugin.pluginPrefix, dreamingCurrent, "The Dreaming Current",
                 attack: 4, health: 2, "A sickly child that was fed candy that let it see the ocean.")
                 .SetBloodCost(3)
-                .SetPortraits(ModAssembly, dreamingCurrent)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Submerge, Ability.StrafeSwap)
                 .SetDefaultEvolutionName("The Elder Dreaming Current")
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);

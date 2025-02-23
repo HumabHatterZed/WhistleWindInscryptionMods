@@ -7,17 +7,27 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_Theresia_T0909()
+        public const string theresia = "wstl_theresia";
+        private static void Theresia_T0909()
         {
-            const string theresia = "theresia";
+            string name = "Theresia";
+            string desc = "An old music box. It plays a familiar melody.";
+            string textureName = "theresia";
+            CardManager.New(LobotomyPlugin.pluginPrefix, theresia, name,
+                attack: 0, health: 2, desc)
+                .SetEnergyCost(2)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Healer.ability)
+                .AddTribes(TribeMechanical)
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth);
 
-            CardManager.New(pluginPrefix, theresia, "Theresia",
-                attack: 0, health: 2, "An old music box. It plays a familiar melody.")
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 0, health: 1, desc)
                 .SetEnergyCost(2)
                 .SetCardTemple(CardTemple.Tech)
-                .SetPortraits(ModAssembly, theresia)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Healer.ability)
                 .AddTribes(TribeMechanical)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);

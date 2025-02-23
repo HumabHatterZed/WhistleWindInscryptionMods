@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_OldLady_O0112()
+        public const string oldLady = "wstl_oldLady";
+        private static void OldLady_O0112()
         {
-            const string oldLady = "oldLady";
-
-            CardManager.New(pluginPrefix, oldLady, "Old Lady",
+            string textureName = "oldLady";
+            CardManager.New(LobotomyPlugin.pluginPrefix, oldLady, "Old Lady",
                 attack: 1, health: 2, "An aged storyteller. She can tell you any tale, even those that can't exist.")
                 .SetBonesCost(4)
-                .SetPortraits(ModAssembly, oldLady)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.DebuffEnemy)
                 .AddTribes(TribeAnthropoid)
                 .SetDefaultEvolutionName("Elderly Lady")

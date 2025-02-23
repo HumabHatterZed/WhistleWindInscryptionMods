@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_TheLittlePrince_O0466()
+        public const string theLittlePrince = "wstl_theLittlePrince";
+        private static void TheLittlePrince_O0466()
         {
-            const string theLittlePrince = "theLittlePrince";
-
-            CardManager.New(pluginPrefix, theLittlePrince, "The Little Prince",
+            string textureName = "theLittlePrince";
+            CardManager.New(LobotomyPlugin.pluginPrefix, theLittlePrince, "The Little Prince",
                 attack: 1, health: 4, "A giant mushroom chunk. A mist of spores surrounds it.")
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, theLittlePrince)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Sporogenic.ability)
                 .AddTribes(TribeBotanic)
                 .AddTraits(SporeFriend)

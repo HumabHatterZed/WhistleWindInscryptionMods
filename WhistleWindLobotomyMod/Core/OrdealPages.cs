@@ -28,7 +28,7 @@ namespace WhistleWindLobotomyMod
             CreateNewPage("The Ordeal of Indigo", "Humanoid beings that persistently hunt for replenishing meat. Can appear at Noon.", null);
 
             RuleBookManager.New(
-                modGuid: AbnormalPlugin.pluginGuid,
+                modGuid: LobotomyPlugin.pluginGuid,
                 pageType: PageRangeType.Items,
                 subsectionName: "Ordeals",
                 getInsertPositionFunc: GetInsertPosition,

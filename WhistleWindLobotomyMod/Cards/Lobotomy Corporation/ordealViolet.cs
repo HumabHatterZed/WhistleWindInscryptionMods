@@ -9,28 +9,30 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Cards_VioletOrdeal()
+        public const string fruitUnderstanding = "wstl_fruitUnderstanding";
+        public const string grantUsLove = "wstl_fruitGrantLove";
+        private static void Cards_VioletOrdeal()
         {
-            const string fruitUnderstanding = "fruitUnderstanding";
-            const string grantUsLove = "grantUsLove";
-
-            CardInfo fruit = CardManager.New(pluginPrefix, fruitUnderstanding, "Fruit of Understanding",
+            string textureName = "fruitUnderstanding";
+            string textureName2 = "grantUsLove";
+            //string textureName3 = ""
+            CardInfo fruit = CardManager.New(LobotomyPlugin.pluginPrefix, fruitUnderstanding, "Fruit of Understanding",
                 attack: 0, health: 4)
                 .SetBonesCost(4)
-                .SetPortraits(ModAssembly, fruitUnderstanding)
-                .SetTitle(ModAssembly, "fruitUnderstanding_title.png")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .SetTitle(LobotomyPlugin.ModAssembly, "fruitUnderstanding_title.png")
                 .AddAbilities(StartingDecay.ability, StartingDecay.ability, Understanding.ability, Bleachproof.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddTribes(TribeDivine)
                 .AddTraits(Ordeal)
                 .Build();
 
-            CardInfo love = CardManager.New(pluginPrefix, grantUsLove, "Grant Us Love",
+            CardInfo love = CardManager.New(LobotomyPlugin.pluginPrefix, grantUsLove, "Grant Us Love",
                 attack: 1, health: 10)
                 .SetBonesCost(12)
-                .SetPortraits(ModAssembly, grantUsLove)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Ability.AllStrike, ExplosiveOpening.ability, Ability.Evolve, Challenging.ability)
                 .AddAppearances(ForcedPurpleEmission.appearance)
                 .AddSpecialAbilities(MiniGiantCard.Id)

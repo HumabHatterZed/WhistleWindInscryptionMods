@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_QueenBee_T0450()
+        public const string queenBee = "wstl_queenBee";
+        private static void QueenBee_T0450()
         {
-            const string queenBee = "queenBee";
-
-            CardManager.New(pluginPrefix, queenBee, "Queen Bee",
+            string textureName = "queenBee";
+            CardManager.New(LobotomyPlugin.pluginPrefix, queenBee, "Queen Bee",
                 attack: 0, health: 4, "A monstrous amalgam of a hive and a bee.")
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, queenBee)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(QueenNest.ability)
                 .AddTribes(Tribe.Insect)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);

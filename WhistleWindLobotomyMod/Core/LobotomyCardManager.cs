@@ -2,8 +2,10 @@
 using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Card;
 using InscryptionAPI.Guid;
+using InscryptionAPI.Saves;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -26,28 +28,58 @@ namespace WhistleWindLobotomyMod.Core
             if (cardInfo.HasAnyOfAbilities(Punisher.ability, Ability.Deathtouch))
                 cardInfo.AddTraits(Trait.KillsSurvivors);
 
-            if (CardCanBeObtained(cardInfo))
+            if (cardType != CardType.None && CardCanBeObtained(cardInfo))
             {
                 cardInfo.SetCardType(cardType, !overrideCardChoice);
-                if (!overrideCardChoice && availableInGBC && LobotomyConfigManager.Instance.GBCPacks)
+                if (availableInGBC)
                 {
-                    cardInfo.AddMetaCategories(CardMetaCategory.GBCPack, CardMetaCategory.GBCPlayable);
+                    AllLobotomyPixelCards.Add(cardInfo);
+                    if (!overrideCardChoice)
+                    {
+                        ObtainableAct2Cards.Add(cardInfo);
+                        if (LobotomyConfigManager.Instance.GBCPacks)
+                            cardInfo.AddMetaCategories(CardMetaCategory.GBCPack, CardMetaCategory.GBCPlayable);
+                    }
+                }
+
+                if (!overrideCardChoice)
+                {
+                    Log.LogDebug($"[Obtainable] {cardInfo.name}");
+                    switch (cardInfo.temple)
+                    {
+                        case CardTemple.Nature:
+                            ObtainableAct1Cards.Add(cardInfo);
+                            break;
+                        case CardTemple.Undead:
+                            ObtainableActGCards.Add(cardInfo);
+                            break;
+                        case CardTemple.Tech:
+                            ObtainableAct3Cards.Add(cardInfo);
+                            break;
+                        case CardTemple.Wizard:
+                            ObtainableActMCards.Add(cardInfo);
+                            break;
+                    }
                 }
             }
 
-            AllLobotomyCards.Add(cardInfo);
             switch (cardInfo.GetModPrefix())
             {
-                case pluginPrefix:
+                case LobotomyPlugin.pluginPrefix:
                     BaseModCards.Add(cardInfo);
-                    break;
-                case wonderlabPrefix:
+                    goto default;
+                case LobotomyPlugin.wonderlabPrefix:
                     WonderLabCards.Add(cardInfo);
-                    break;
+                    goto default;
                 case limbusPrefix:
                     LimbusCards.Add(cardInfo);
+                    goto default;
+                case pixelPrefix:
                     break;
-            }
+                default:
+                    AllLobotomyCards.Add(cardInfo);
+                    break;
+                }
             return cardInfo;
         }
 
@@ -130,19 +162,44 @@ namespace WhistleWindLobotomyMod.Core
         public static readonly List<CardInfo> LimbusCards = new();
 
         public static readonly List<CardInfo> AllLobotomyCards = new();
-        public static List<CardInfo> ObtainableLobotomyCards { get; internal set; } = new();
+        public static readonly List<CardInfo> AllLobotomyPixelCards = new();
 
-        public static Trait Ordeal = GuidManager.GetEnumValue<Trait>(pluginGuid, "Ordeal");
-        public static Trait Apostle = GuidManager.GetEnumValue<Trait>(pluginGuid, "Apostle");
-        public static Trait Sephirah = GuidManager.GetEnumValue<Trait>(pluginGuid, "Sephirah");
-        public static Trait Executioner = GuidManager.GetEnumValue<Trait>(pluginGuid, "Executioner");
-        public static Trait BlackForest = GuidManager.GetEnumValue<Trait>(pluginGuid, "BlackForest");
-        public static Trait EmeraldCity = GuidManager.GetEnumValue<Trait>(pluginGuid, "EmeraldCity");
-        public static Trait MagicalGirl = GuidManager.GetEnumValue<Trait>(pluginGuid, "MagicalGirl");
+        private static readonly List<CardInfo> ObtainableAct1Cards = new();
+        private static readonly List<CardInfo> ObtainableAct2Cards = new();
+        private static readonly List<CardInfo> ObtainableAct3Cards = new();
+        private static readonly List<CardInfo> ObtainableActGCards = new();
+        private static readonly List<CardInfo> ObtainableActMCards = new();
 
-        public static CardMetaCategory RuinaCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "RuinaCard");
-        public static CardMetaCategory EventCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "EventCard");
-        public static CardMetaCategory DonatorCard = GuidManager.GetEnumValue<CardMetaCategory>(pluginGuid, "DonatorCard");
+        public static List<CardInfo> ObtainableLobotomyCards
+        {
+            get {
+                if (LobotomyPlugin.AllCardsDisabled)
+                    return new() { CardLoader.GetCardByName(Cards.trainingDummy) };
+
+                if (SaveManager.SaveFile.IsPart2)
+                    return new(ObtainableAct2Cards);
+
+                return SaveManager.SaveFile.GetSceneAsCardTemple() switch
+                {
+                    CardTemple.Undead => new(ObtainableActGCards),
+                    CardTemple.Tech => new(ObtainableAct3Cards),
+                    CardTemple.Wizard => new(ObtainableActMCards),
+                    _ => new(ObtainableAct1Cards)
+                };
+            }
+        }
+
+        public static Trait Ordeal = GuidManager.GetEnumValue<Trait>(LobotomyPlugin.pluginGuid, "Ordeal");
+        public static Trait Apostle = GuidManager.GetEnumValue<Trait>(LobotomyPlugin.pluginGuid, "Apostle");
+        public static Trait Sephirah = GuidManager.GetEnumValue<Trait>(LobotomyPlugin.pluginGuid, "Sephirah");
+        public static Trait Executioner = GuidManager.GetEnumValue<Trait>(LobotomyPlugin.pluginGuid, "Executioner");
+        public static Trait BlackForest = GuidManager.GetEnumValue<Trait>(LobotomyPlugin.pluginGuid, "BlackForest");
+        public static Trait EmeraldCity = GuidManager.GetEnumValue<Trait>(LobotomyPlugin.pluginGuid, "EmeraldCity");
+        public static Trait MagicalGirl = GuidManager.GetEnumValue<Trait>(LobotomyPlugin.pluginGuid, "MagicalGirl");
+
+        public static CardMetaCategory RuinaCard = GuidManager.GetEnumValue<CardMetaCategory>(LobotomyPlugin.pluginGuid, "RuinaCard");
+        public static CardMetaCategory EventCard = GuidManager.GetEnumValue<CardMetaCategory>(LobotomyPlugin.pluginGuid, "EventCard");
+        public static CardMetaCategory DonatorCard = GuidManager.GetEnumValue<CardMetaCategory>(LobotomyPlugin.pluginGuid, "DonatorCard");
 
         [Flags]
         public enum RiskLevel

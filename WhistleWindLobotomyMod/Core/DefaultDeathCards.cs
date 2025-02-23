@@ -5,9 +5,9 @@ using WhistleWind.AbnormalSigils;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void AddCustomDeathCards()
+        internal static void AddCustomDeathCards()
         {
             List<CardModificationInfo> defaultMods = new()
             {

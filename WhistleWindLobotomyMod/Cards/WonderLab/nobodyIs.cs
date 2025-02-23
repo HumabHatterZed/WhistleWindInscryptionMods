@@ -4,15 +4,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_Nobodyis()
+        public const string nobodyIs = "wstl_nobodyIs";
+        private static void Nobodyis()
         {
-            const string nobodyIs = "nobodyIs";
-
-            CardManager.New(wonderlabPrefix, nobodyIs, "Nobody Is",
+            return;
+            string textureName = "nobodyIs";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, nobodyIs, "Nobody Is",
                 attack: 0, health: 0)
-                .SetPortraits(ModAssembly, nobodyIs)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities()
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }

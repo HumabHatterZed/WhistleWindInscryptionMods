@@ -7,17 +7,17 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_Yin_O05102()
+        public const string yin = "wstl_yin";
+        private static void Yin_O05102()
         {
-            const string yin = "yin";
-
-            CardManager.New(pluginPrefix, yin, "Yin",
+            string textureName = "yin";
+            CardManager.New(LobotomyPlugin.pluginPrefix, yin, "Yin",
                 attack: 2, health: 3, "A black pendant in search of its missing half.")
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, yin)
-                .SetAltPortraits(ModAssembly, "yinAlt")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .SetAltPortraits(LobotomyPlugin.ModAssembly, "yinAlt")
                 .AddAbilities(Ability.Strafe, Ability.Submerge)
                 .AddAppearances(AlternateBattlePortrait.appearance)
                 .SetOnePerDeck()

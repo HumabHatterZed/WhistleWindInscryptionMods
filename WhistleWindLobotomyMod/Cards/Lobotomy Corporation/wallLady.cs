@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_WallLady_F0118()
+        public const string wallLady = "wstl_wallLady";
+        private static void WallLady_F0118()
         {
-            const string wallLady = "wallLady";
-
-            CardManager.New(pluginPrefix, wallLady, "The Lady Facing the Wall",
+            string textureName = "wallLady";
+            CardManager.New(LobotomyPlugin.pluginPrefix, wallLady, "The Lady Facing the Wall",
                 attack: 1, health: 2, "A deep sorrow, grown to obsession. Perhaps it's best to leave her be.")
                 .SetBonesCost(4)
-                .SetPortraits(ModAssembly, wallLady)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Sharp)
                 .AddTribes(TribeAnthropoid)
                 .SetDefaultEvolutionName("The Elder Lady Facing the Wall")

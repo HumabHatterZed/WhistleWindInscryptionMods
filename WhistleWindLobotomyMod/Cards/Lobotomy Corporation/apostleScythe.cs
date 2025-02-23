@@ -7,20 +7,22 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ApostleScythe_T0346()
+        public const string apostleScythe = "wstl_apostleScythe";
+        public const string apostleScytheDown = "wstl_apostleScytheDown";
+        private static void ApostleScythe_T0346()
         {
-            const string scytheName = "Scythe Apostle";
-            const string apostleScythe = "apostleScythe";
-            const string apostleScytheDown = "apostleScytheDown";
+            string scytheName = "Scythe Apostle";
+            string textureName = "apostleScythe";
+            string textureName2 = "apostleScytheDown";
             Tribe[] tribes = new[] { TribeDivine };
             Trait[] traits = new[] { Apostle };
             CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
-            CardManager.New(pluginPrefix, apostleScythe, scytheName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, apostleScythe, scytheName,
                 attack: 2, health: 6)
-                .SetPortraits(ModAssembly, apostleScythe)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.DoubleStrike, ApostleSigil.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)
@@ -28,9 +30,9 @@ namespace WhistleWindLobotomyMod
                 .SetEventCard(false)
                 .Build();
 
-            CardManager.New(pluginPrefix, apostleScytheDown, scytheName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, apostleScytheDown, scytheName,
                 attack: 0, health: 1)
-                .SetPortraits(ModAssembly, apostleScytheDown)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(ApostleSigil.ability)
                 .AddTribes(tribes)
                 .AddTraits(traits)

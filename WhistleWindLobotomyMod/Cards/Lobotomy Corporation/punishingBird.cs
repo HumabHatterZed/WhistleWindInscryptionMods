@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_PunishingBird_O0256()
+        public const string punishingBird = "wstl_punishingBird";
+        private static void PunishingBird_O0256()
         {
-            const string punishingBird = "punishingBird";
-
-            CardManager.New(pluginPrefix, punishingBird, "Punishing Bird",
+            string textureName = "punishingBird";
+            CardManager.New(LobotomyPlugin.pluginPrefix, punishingBird, "Punishing Bird",
                 attack: 1, health: 1, "A small bird on a mission to punish evildoers.")
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, punishingBird)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Flying, Punisher.ability)
                 .AddTribes(Tribe.Bird)
                 .AddTraits(BlackForest)

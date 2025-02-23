@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_GiantTreeSap_T0980()
+        public const string giantTreeSap = "wstl_giantTreeSap";
+        private static void GiantTreeSap_T0980()
         {
-            const string giantTreeSap = "giantTreeSap";
-
-            CardManager.New(pluginPrefix, giantTreeSap, "Giant Tree Sap",
+            string textureName = "giantTreeSap";
+            CardManager.New(LobotomyPlugin.pluginPrefix, giantTreeSap, "Giant Tree Sap",
                 attack: 0, health: 3, "Sap from a tree at the end of the world. It is a potent healing agent.")
                 .SetBonesCost(3)
-                .SetPortraits(ModAssembly, giantTreeSap)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Sacrificial, Ability.Morsel)
                 .AddSpecialAbilities(Sap.specialAbility)
                 .AddTribes(TribeBotanic)

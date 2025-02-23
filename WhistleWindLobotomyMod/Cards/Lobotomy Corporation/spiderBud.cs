@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_SpiderBud_O0243()
+        public const string spiderBud = "wstl_spiderBud";
+        private static void SpiderBud_O0243()
         {
-            const string spiderBud = "spiderBud";
-
-            CardManager.New(pluginPrefix, spiderBud, "Spider Bud",
+            string textureName = "spiderBud";
+            CardManager.New(LobotomyPlugin.pluginPrefix, spiderBud, "Spider Bud",
                 attack: 0, health: 3, "A grotesque mother of spiders. Its children are small but grow quickly.")
                 .SetBonesCost(4)
-                .SetPortraits(ModAssembly, spiderBud)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(BroodMother.ability)
                 .AddTribes(Tribe.Insect)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);

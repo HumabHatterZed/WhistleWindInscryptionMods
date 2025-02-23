@@ -56,11 +56,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_Pink()
+        private static void Rulebook_Pink()
             => RulebookEntryPink.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryPink>(Pink.rName, Pink.rDesc).Id;
-        private void SpecialAbility_Pink()
-            => Pink.specialAbility = AbilityHelper.CreateSpecialAbility<Pink>(pluginGuid, Pink.rName).Id;
+        private static void AddSpecial_Pink()
+            => Pink.specialAbility = AbilityHelper.CreateSpecialAbility<Pink>(LobotomyPlugin.pluginGuid, Pink.rName).Id;
     }
 }

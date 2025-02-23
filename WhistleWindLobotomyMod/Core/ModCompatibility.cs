@@ -29,15 +29,22 @@ namespace WhistleWindLobotomyMod
             pack.ValidFor.Clear();
             pack.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             pack.Title = "World of L Corp HQ";
-            pack.Description = $"A set of 88 abnormalities hailing from L Corp HQ and the Library.";
+            pack.Description = $"A set of [count] abnormalities hailing from L Corp HQ and the Library.";
             pack.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack.png"));
 
-            /*PackInfo pack2 = PackManager.GetPackInfo<PackInfo>(LobotomyPlugin.wonderlabPrefix);
-            pack.ValidFor.Clear();
+            PackInfo packPixel = PackManager.GetPackInfo<PackInfo>(LobotomyPlugin.pixelPrefix);
+            packPixel.ValidFor.Remove(PackInfo.PackMetacategory.LeshyPack);
+            packPixel.Title = "World of L Corp HQ";
+            packPixel.Description = $"A set of [count] abnormalities hailing from L Corp HQ and the Library.";
+            packPixel.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack.png"));
+            packPixel.SplitPackByCardTemple = true;
+
+            PackInfo pack2 = PackManager.GetPackInfo<PackInfo>(LobotomyPlugin.wonderlabPrefix);
+            pack2.ValidFor.Clear();
             pack2.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             pack2.Title = "World of WonderLab";
-            pack2.Description = $"A set of {WonderLabCards.Count(x => x.HasAnyOfCardMetaCategories(DiskCardGame.CardMetaCategory.ChoiceNode, DiskCardGame.CardMetaCategory.Rare))} abnormalities originating primarily from Branch O-5681.";
-            pack2.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack_wl.png"));*/
+            pack2.Description = $"A set of [count] abnormalities from Branch O-5681 and related branches.";
+            //pack2.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack_wl.png"));
 
             /*PackInfo pack3 = PackManager.GetPackInfo<PackInfo>(LobotomyPlugin.limbusPrefix);
             pack3.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);

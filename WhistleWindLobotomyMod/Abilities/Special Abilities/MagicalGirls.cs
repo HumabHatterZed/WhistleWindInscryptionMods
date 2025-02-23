@@ -192,11 +192,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_MagicalGirls()
+        private static void Rulebook_MagicalGirls()
             => RulebookEntryMagicalGirls.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryMagicalGirls>(MagicalGirls.rName, MagicalGirls.rDesc).Id;
-        private void SpecialAbility_MagicalGirls()
-            => MagicalGirls.specialAbility = AbilityHelper.CreateSpecialAbility<MagicalGirls>(pluginGuid, MagicalGirls.rName).Id;
+        private static void AddSpecial_MagicalGirls()
+            => MagicalGirls.specialAbility = AbilityHelper.CreateSpecialAbility<MagicalGirls>(LobotomyPlugin.pluginGuid, MagicalGirls.rName).Id;
     }
 }

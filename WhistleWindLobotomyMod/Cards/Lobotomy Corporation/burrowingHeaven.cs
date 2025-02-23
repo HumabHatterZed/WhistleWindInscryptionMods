@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_BurrowingHeaven_O0472()
+        public const string burrowingHeaven = "wstl_burrowingHeaven";
+        private static void BurrowingHeaven_O0472()
         {
-            const string burrowingHeaven = "burrowingHeaven";
-
-            CardManager.New(pluginPrefix, burrowingHeaven, "The Burrowing Heaven",
+            string textureName = "burrowingHeaven";
+            CardManager.New(LobotomyPlugin.pluginPrefix, burrowingHeaven, "The Burrowing Heaven",
                 attack: 0, health: 1, "Don't look away. Contain it in your sight.")
                 .SetBonesCost(2)
-                .SetPortraits(ModAssembly, burrowingHeaven)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.GuardDog, Ability.Sentry)
                 .AddTribes(TribeDivine)
                 .SetDefaultEvolutionName("The Elder Burrowing Heaven")

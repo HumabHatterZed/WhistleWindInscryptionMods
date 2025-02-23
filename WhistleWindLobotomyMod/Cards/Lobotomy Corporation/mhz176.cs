@@ -6,17 +6,28 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_MHz176_T0727()
+        public const string mhz176 = "wstl_mhz176";
+        private static void MHz176_T0727()
         {
-            const string mhz176 = "mhz176";
+            string name = "1.76 MHz";
+            string desc = "This is a record. A record of a day we must never forget.";
+            string textureName = "mhz176";
+            CardManager.New(LobotomyPlugin.pluginPrefix, mhz176, name,
+                attack: 2, health: 1, desc)
+                .SetEnergyCost(3)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Ability.BuffEnemy)
+                .SetTerrain(false)
+                .SetDefaultEvolutionName("1.76 GHz")
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth);
 
-            CardManager.New(pluginPrefix, mhz176, "1.76 MHz",
-                attack: 2, health: 1, "This is a record. A record of a day we must never forget.")
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 2, health: 1, desc)
                 .SetEnergyCost(3)
                 .SetCardTemple(CardTemple.Undead)
-                .SetPortraits(ModAssembly, mhz176)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.BuffEnemy)
                 .SetTerrain(false)
                 .SetDefaultEvolutionName("1.76 GHz")

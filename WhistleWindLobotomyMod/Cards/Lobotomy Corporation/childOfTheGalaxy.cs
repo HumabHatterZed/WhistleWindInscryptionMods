@@ -7,17 +7,29 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ChildOfTheGalaxy_O0155()
+        public const string childOfTheGalaxy = "wstl_childOfTheGalaxy";
+        private static void ChildOfTheGalaxy_O0155()
         {
-            const string childOfTheGalaxy = "childOfTheGalaxy";
-
-            CardManager.New(pluginPrefix, childOfTheGalaxy, "Child of the Galaxy",
-                attack: 0, health: 0, "A small child longing for an eternal friend. Will you be his?")
+            string name = "Child of the Galaxy";
+            string desc = "A small child longing for an eternal friend. Will you be his?";
+            string textureName = "childOfTheGalaxy";
+            CardManager.New(LobotomyPlugin.pluginPrefix, childOfTheGalaxy, name,
+                attack: 0, health: 0, desc)
                 .SetBloodCost(1)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Lonely.ability)
+                .SetSpellType(SpellType.Targeted)
+                .AddTraits(CannotGiveSigils)
+                .SetOnePerDeck()
+                .Build(CardHelper.CardType.Common, RiskLevel.He);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 0, health: 0, desc)
+                .SetGemsCost(DiskCardGame.GemType.Blue)
                 .SetCardTemple(CardTemple.Wizard)
-                .SetPortraits(ModAssembly, childOfTheGalaxy)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Lonely.ability)
                 .SetSpellType(SpellType.Targeted)
                 .AddTraits(CannotGiveSigils)

@@ -8,16 +8,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_WhiteNight_T0346()
+        public const string whiteNight = "wstl_whiteNight";
+        private static void WhiteNight_T0346()
         {
-            const string whiteNight = "whiteNight";
-
-            CardManager.New(pluginPrefix, whiteNight, "WhiteNight",
+            string textureName = "whiteNight";
+            CardManager.New(LobotomyPlugin.pluginPrefix, whiteNight, "WhiteNight",
                 attack: 0, health: 66, "The time has come.")
-                .SetPortraits(ModAssembly, whiteNight)
-                .SetTitle(ModAssembly, "whiteNight_title.png")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .SetTitle(LobotomyPlugin.ModAssembly, "whiteNight_title.png")
                 .AddAbilities(Ability.Flying, Idol.ability, TrueSaviour.ability)
                 .AddTribes(TribeDivine)
                 .AddTraits(ImmuneToInstaDeath, Trait.Uncuttable)

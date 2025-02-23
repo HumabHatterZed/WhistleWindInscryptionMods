@@ -7,6 +7,25 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
+    public partial class Abilities
+    {
+        private static void StatusEffect_Enchanted()
+        {
+            const string rName = "Enchanted";
+            const string rDesc = "This card will only target Dazzling cards, and will perish when striking one. At the start of the owner's turn, lose 1 Potency.";
+
+            StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Enchanted>(
+                LobotomyPlugin.pluginGuid, rName, rDesc, -3, GameColors.Instance.gold,
+                TextureLoader.LoadTextureFromFile("sigilEnchanted.png", LobotomyPlugin.ModAssembly),
+                TextureLoader.LoadTextureFromFile("sigilEnchanted_pixel.png", LobotomyPlugin.ModAssembly))
+                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
+
+            data.IconInfo.SetAbilityRedirect("Dazzling", Dazzling.ability, GameColors.Instance.gold);
+            Enchanted.specialAbility = data.Id;
+            Enchanted.iconId = data.IconInfo.ability;
+        }
+    }
+
     public class Enchanted : ModifyOnUpkeepStatusEffectBehaviour, IModifyDamageTaken, ISetupAttackSequence
     {
         public static Ability iconId;
@@ -47,24 +66,6 @@ namespace WhistleWindLobotomyMod
         public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
         {
             return int.MinValue;
-        }
-    }
-    public partial class LobotomyPlugin
-    {
-        private void StatusEffect_Enchanted()
-        {
-            const string rName = "Enchanted";
-            const string rDesc = "This card will only target Dazzling cards, and will perish when striking one. At the start of the owner's turn, lose 1 Potency.";
-
-            StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Enchanted>(
-                pluginGuid, rName, rDesc, -3, GameColors.Instance.gold,
-                TextureLoader.LoadTextureFromFile("sigilEnchanted.png", ModAssembly),
-                TextureLoader.LoadTextureFromFile("sigilEnchanted_pixel.png", ModAssembly))
-                .AddMetaCategories(StatusMetaCategory.Part1StatusEffect);
-
-            data.IconInfo.SetAbilityRedirect("Dazzling", Dazzling.ability, GameColors.Instance.gold);
-            Enchanted.specialAbility = data.Id;
-            Enchanted.iconId = data.IconInfo.ability;
         }
     }
 }

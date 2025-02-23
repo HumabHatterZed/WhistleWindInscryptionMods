@@ -7,14 +7,15 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ApocalypseBird_O0263()
+        public const string apocalypseBird = "wstl_apocalypseBird";
+        private static void ApocalypseBird_O0263()
         {
-            const string apocalypseBird = "apocalypseBird";
-            CardManager.New(pluginPrefix, apocalypseBird, "Apocalypse Bird",
+            string textureName = "apocalypseBird";
+            CardManager.New(LobotomyPlugin.pluginPrefix, apocalypseBird, "Apocalypse Bird",
                 attack: 3, health: 9)
-                .SetPortraits(ModAssembly, apocalypseBird)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .SetBloodCost(4)
                 .AddAbilities(Ability.AllStrike, Ability.SplitStrike)
                 .AddTribes(Tribe.Bird)
@@ -23,7 +24,7 @@ namespace WhistleWindLobotomyMod
                 .SetNodeRestrictions(true, false, false, true)
                 .SetDefaultEvolutionName("Final Apocalypse Bird")
                 .SetEventCard(true)
-                .Build(riskLevel: RiskLevel.Aleph);
+                .Build(riskLevel: RiskLevel.Aleph, overrideCardChoice: true);
         }
     }
 }

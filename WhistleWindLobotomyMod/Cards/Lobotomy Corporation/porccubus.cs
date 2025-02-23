@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_Porccubus_O0298()
+        public const string porccubus = "wstl_porccubus";
+        private static void Porccubus_O0298()
         {
-            const string porccubus = "porccubus";
-
-            CardManager.New(pluginPrefix, porccubus, "Porccubus",
+            string textureName = "porccubus";
+            CardManager.New(LobotomyPlugin.pluginPrefix, porccubus, "Porccubus",
                 attack: 1, health: 1, "A prick from one of its quills creates a deadly euphoria.")
                 .SetBonesCost(5)
-                .SetPortraits(ModAssembly, porccubus)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Deathtouch)
                 .AddTribes(TribeBotanic)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);

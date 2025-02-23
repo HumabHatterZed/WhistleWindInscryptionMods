@@ -8,27 +8,29 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_NamelessFetus_O0115()
+        public const string namelessFetus = "wstl_namelessFetus";
+        public const string namelessFetusAwake = "wstl_namelessFetusAwake";
+        private static void NamelessFetus_O0115()
         {
-            const string fetusName = "Nameless Fetus";
-            const string namelessFetus = "namelessFetus";
-            const string namelessFetusAwake = "namelessFetusAwake";
+            string fetusName = "Nameless Fetus";
+            string textureName = "namelessFetusAwake";
+            string textureName2 = "namelessFetus";
             Tribe[] tribes = new[] { TribeAnthropoid };
 
-            CardManager.New(pluginPrefix, namelessFetusAwake, displayName: fetusName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, namelessFetusAwake, displayName: fetusName,
                 attack: 0, health: 1)
                 .SetBonesCost(3)
-                .SetPortraits(ModAssembly, namelessFetusAwake)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Aggravating.ability, Ability.PreventAttack, Ability.Sacrificial)
                 .AddTribes(tribes)
                 .Build();
 
-            CardManager.New(pluginPrefix, namelessFetus, fetusName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, namelessFetus, fetusName,
                 attack: 0, health: 1, "A neverending supply of blood. Just don't wake it up.")
                 .SetBonesCost(3)
-                .SetPortraits(ModAssembly, namelessFetus)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Ability.TripleBlood, Ability.Sacrificial)
                 .AddSpecialAbilities(Syrinx.specialAbility)
                 .AddTribes(tribes)

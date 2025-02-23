@@ -5,15 +5,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_BlueSmockedShepherd()
+        public const string blueSmockedShepherd = "wstl_blueSmockedShepherd";
+        private static void BlueSmockedShepherd()
         {
-            const string blueSmockedShepherd = "blueSmockedShepherd";
-
-            CardManager.New(wonderlabPrefix, blueSmockedShepherd, "Blue-Smocked Shepherd",
+            return;
+            string textureName = "blueSmockedShepherd";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, blueSmockedShepherd, "Blue-Smocked Shepherd",
                 attack: 0, health: 0)
-                .SetPortraits(ModAssembly, blueSmockedShepherd)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Abusive.ability)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
         }

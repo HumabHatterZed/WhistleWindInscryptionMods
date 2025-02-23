@@ -4,27 +4,30 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_YinYangDragon_O07103()
+        public const string yinYangHead = "wstl_yinYangHead";
+        public const string yinYangHorns = "wstl_yinYangHorns";
+        public const string yinYangBody = "wstl_yinYangBody";
+        private static void YinYangDragon_O07103()
         {
             SpecialTriggeredAbility[] specialAbilities = new[] { DragonHead.specialAbility };
 
-            CardManager.New(pluginPrefix, "yinYangHead", "",
+            CardManager.New(LobotomyPlugin.pluginPrefix, yinYangHead, string.Empty,
                 attack: 0, health: 0)
                 .AddSpecialAbilities(specialAbilities)
                 .AddAppearances(DragonHeadBackground.appearance)
                 .SetHideStats()
                 .Build();
 
-            CardManager.New(pluginPrefix, "yinYangHorns", "",
+            CardManager.New(LobotomyPlugin.pluginPrefix, yinYangHorns, string.Empty,
                 attack: 0, health: 0)
                 .AddSpecialAbilities(specialAbilities)
                 .AddAppearances(DragonHornsBackground.appearance)
                 .SetHideStats()
                 .Build();
 
-            CardManager.New(pluginPrefix, "yinYangBody", "",
+            CardManager.New(LobotomyPlugin.pluginPrefix, yinYangBody, string.Empty,
                 attack: 0, health: 0)
                 .AddAppearances(DragonBodyBackground.appearance)
                 .SetHideStats()

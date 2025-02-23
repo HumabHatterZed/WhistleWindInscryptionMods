@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_Schadenfreude_O0576()
+        public const string schadenfreude = "wstl_schadenfreude";
+        private static void Schadenfreude_O0576()
         {
-            const string schadenfreude = "schadenfreude";
-
-            CardManager.New(pluginPrefix, schadenfreude, "Schadenfreude",
+            string textureName = "schadenfreude";
+            CardManager.New(LobotomyPlugin.pluginPrefix, schadenfreude, "Schadenfreude",
                 attack: 1, health: 1, "A strange machine. You can feel someone's persistent gaze through the keyhole.")
                 .SetEnergyCost(3)
-                .SetPortraits(ModAssembly, schadenfreude)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Sentry)
                 .AddTribes(TribeMechanical)
                 .SetDefaultEvolutionName("Große Schadenfreude")

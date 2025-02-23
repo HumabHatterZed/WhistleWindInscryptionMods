@@ -7,6 +7,17 @@ using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod
 {
+    public partial class Abilities
+    {
+        private static void AddApocalypse()
+        {
+            const string rulebookName = "Monster in the Black Forest";
+            ApocalypseAbility.ability = AbilityHelper.New<ApocalypseAbility>(LobotomyPlugin.pluginGuid, "sigilApocalypse", rulebookName,
+                "'Once upon a time, three birds lived happily in the lush forest...'", 0, true,
+                "The three birds, now one, wandered vainly looking for the monster.").Id;
+        }
+    }
+
     public class ApocalypseAbility : AbilityBehaviour, ISetupAttackSequence
     {
         public static Ability ability;
@@ -47,17 +58,6 @@ namespace WhistleWindLobotomyMod
         public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
         {
             return 0;
-        }
-    }
-
-    public partial class LobotomyPlugin
-    {
-        private void Ability_Apocalypse()
-        {
-            const string rulebookName = "Monster in the Black Forest";
-            ApocalypseAbility.ability = AbilityHelper.New<ApocalypseAbility>(pluginGuid, "sigilApocalypse", rulebookName,
-                "'Once upon a time, three birds lived happily in the lush forest...'", 0, true,
-                "The three birds, now one, wandered vainly looking for the monster.").Id;
         }
     }
 }

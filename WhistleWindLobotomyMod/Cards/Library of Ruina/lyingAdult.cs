@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_AdultWhoTellsLies_F01117()
+        public const string lyingAdult = "wstl_lyingAdult";
+        private static void AdultWhoTellsLies_F01117()
         {
-            const string lyingAdult = "lyingAdult";
-
-            CardManager.New(pluginPrefix, lyingAdult, "The Adult Who Tells Lies",
+            string textureName = "lyingAdult";
+            CardManager.New(LobotomyPlugin.pluginPrefix, lyingAdult, "The Adult Who Tells Lies",
                 attack: 1, health: 5)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, lyingAdult)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(FalseThrone.ability)
                 .AddSpecialAbilities(BoardEffects.specialAbility)
                 .AddTribes(TribeAnthropoid)

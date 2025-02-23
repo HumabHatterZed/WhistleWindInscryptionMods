@@ -7,17 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_Pinocchio_F01112()
+        public const string pinocchio = "wstl_pinocchio";
+        private static void Pinocchio_F01112()
         {
-            const string pinocchio = "pinocchio";
-
-            CardManager.New(pluginPrefix, pinocchio, "Pinocchio",
+            string textureName = "pinocchio";
+            CardManager.New(LobotomyPlugin.pluginPrefix, pinocchio, "Pinocchio",
                 attack: 0, health: 1, "A wooden doll that mimics the beasts it encounters. Can you see through its lie?")
                 .SetBonesCost(1)
-                .SetCardTemple(CardTemple.Undead)
-                .SetPortraits(ModAssembly, pinocchio)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Copycat.ability)
                 .AddTribes(TribeBotanic)
                 .AddMetaCategories(RuinaCard)

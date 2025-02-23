@@ -6,16 +6,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_JudgementBird_O0262()
+        public const string judgementBird = "wstl_judgementBird";
+        private static void JudgementBird_O0262()
         {
-            const string judgementBird = "judgementBird";
-
-            CardManager.New(pluginPrefix, judgementBird, "Judgement Bird",
+            string textureName = "judgementBird";
+            CardManager.New(LobotomyPlugin.pluginPrefix, judgementBird, "Judgement Bird",
                 attack: 1, health: 1, "A long-necked bird that swiftly judges sinners, guilty or no.")
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, judgementBird)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Sniper)
                 .AddTribes(Tribe.Bird)
                 .AddTraits(BlackForest, Executioner)

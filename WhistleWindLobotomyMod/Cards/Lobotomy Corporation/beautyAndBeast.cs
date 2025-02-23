@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_BeautyAndBeast_O0244()
+        public const string beautyAndBeast = "wstl_beautyAndBeast";
+        private static void BeautyAndBeast_O0244()
         {
-            const string beautyAndBeast = "beautyAndBeast";
-
-            CardManager.New(pluginPrefix, beautyAndBeast, "Beauty and the Beast",
+            string textureName = "beautyAndBeast"; 
+            CardManager.New(LobotomyPlugin.pluginPrefix, beautyAndBeast, "Beauty and the Beast",
                 attack: 0, health: 1, "A pitiable creature. Death would be a mercy for it.")
                 .SetBonesCost(1)
-                .SetPortraits(ModAssembly, beautyAndBeast)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Cursed.ability)
                 .AddTribes(Tribe.Hooved, Tribe.Insect)
                 .AddTraits(Trait.KillsSurvivors)

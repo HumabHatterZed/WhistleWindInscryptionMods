@@ -6,20 +6,30 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_CrumblingArmour_O0561()
+        public const string crumblingArmour = "wstl_crumblingArmour";
+        private static void CrumblingArmour_O0561()
         {
-            const string crumblingArmour = "crumblingArmour";
-
-            CardManager.New(pluginPrefix, crumblingArmour, "Crumbling Armour",
-                attack: 0, health: 3, "A suit of armour that rewards the brave and punishes the cowardly.")
+            string name = "Crumbling Armour";
+            string desc = "A suit of armour that rewards the brave and punishes the cowardly.";
+            string textureName = "crumblingArmour";
+            CardManager.New(LobotomyPlugin.pluginPrefix, crumblingArmour, name,
+                attack: 0, health: 3, desc)
                 .SetBonesCost(4)
-                .SetCardTemple(CardTemple.Undead)
-                .SetPortraits(ModAssembly, crumblingArmour)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Courageous.ability)
                 .SetTerrain(true)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 0, health: 3, desc)
+                .SetBonesCost(4)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Courageous.ability)
+                .SetTerrain(true)
+                .Build(CardHelper.CardType.Common, RiskLevel.Teth);
         }
     }
 }

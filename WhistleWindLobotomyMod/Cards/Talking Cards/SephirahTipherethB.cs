@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
 {
     public class TalkingCardTipherethB : CustomPaperTalkingCard
     {
-        public override string CardName => "wstl_sephirahTipherethB";
+        public override string CardName => Cards.sephirahTipherethB;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.9f, voiceSoundPitch: 1.4f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
@@ -60,20 +60,24 @@ namespace WhistleWindLobotomyMod
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new();
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void SpecialAbility_TipherethB()
+        public const string sephirahTipherethB = "wstl_sephirahTipherethB";
+        private static void TipherethB()
         {
-            TalkingCardTipherethB.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardTipherethB>("TipherethB").Id;
-        }
-        private void Card_TipherethB()
-        {
-            CardManager.New(pluginPrefix, "sephirahTipherethB", "Tiphereth",
+            CardManager.New(LobotomyPlugin.pluginPrefix, sephirahTipherethB, "Tiphereth",
                 attack: 0, health: 1)
                 .SetEnergyCost(3)
                 .AddAbilities(Ability.DrawCopyOnDeath, Ability.LatchDeathShield)
                 .SetOnePerDeck()
                 .Build();
+        }
+    }
+    public partial class Abilities
+    {
+        private static void AddSpecial_TipherethB()
+        {
+            TalkingCardTipherethB.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardTipherethB>("TipherethB").Id;
         }
     }
 }

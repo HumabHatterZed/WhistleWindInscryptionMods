@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_TheFirebird_O02101()
+        public const string theFirebird = "wstl_theFirebird";
+        private static void TheFirebird_O02101()
         {
-            const string theFirebird = "theFirebird";
-
-            CardManager.New(pluginPrefix, theFirebird, "The Firebird",
+            string textureName = "theFirebird";
+            CardManager.New(LobotomyPlugin.pluginPrefix, theFirebird, "The Firebird",
                 attack: 2, health: 3, "A bird that longs for the thrill of being hunted.")
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, theFirebird)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Scorching.ability, Ability.Flying)
                 .AddTribes(Tribe.Bird)
                 .SetDefaultEvolutionName("The Grand Firebird")

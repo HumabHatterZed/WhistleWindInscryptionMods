@@ -3,11 +3,11 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Appearances
     {
-        private void Appearance_GiantBird()
+        private static void AddGiantBirdAppearance()
         {
-            GiantBirdAppearance.appearance = CardHelper.CreateAppearance<GiantBirdAppearance>(pluginGuid, "GiantBirdAppearance").Id;
+            GiantBirdAppearance.appearance = CardHelper.CreateAppearance<GiantBirdAppearance>(LobotomyPlugin.pluginGuid, "GiantBirdAppearance").Id;
         }
     }
     public class GiantBirdAppearance : GiantAnimatedPortrait

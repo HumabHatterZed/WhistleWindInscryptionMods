@@ -5,16 +5,17 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_WhiteLake()
+        public const string whiteLake = "wstl_whiteLake";
+        private static void XWhiteLake()
         {
-            const string whiteLake = "whiteLake";
-
-            CardManager.New(wonderlabPrefix, whiteLake, "White Lake",
+            return;
+            string textureName = "whiteLake";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, whiteLake, "White Lake",
                 attack: 1, health: 3)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, whiteLake)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Damsel.ability)
                 .AddTribes(AbnormalPlugin.TribeFae)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);

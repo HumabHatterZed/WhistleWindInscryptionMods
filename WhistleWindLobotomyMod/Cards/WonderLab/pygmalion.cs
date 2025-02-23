@@ -5,16 +5,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_Pygmalion()
+        public const string pygmalion = "wstl_pygmalion";
+        private static void Pygmalion()
         {
-            const string pygmalion = "pygmalion";
-
-            CardManager.New(wonderlabPrefix, pygmalion, "Pygmalion",
+            string textureName = "pygmalion";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, pygmalion, "Pygmalion",
                 attack: 3, health: 4)
                 .SetBloodCost(3)
-                .SetPortraits(ModAssembly, pygmalion, "")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(FingerTapping.ability)
                 .AddTribes(AbnormalPlugin.TribeBotanic)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);

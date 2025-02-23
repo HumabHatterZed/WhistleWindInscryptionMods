@@ -6,16 +6,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ForsakenMurderer_T0154()
+        public const string forsakenMurderer = "wstl_forsakenMurderer";
+        private static void ForsakenMurderer_T0154()
         {
-            const string forsakenMurderer = "forsakenMurderer";
-
-            CardManager.New(pluginPrefix, forsakenMurderer, "Forsaken Murderer",
+            string textureName = "forsakenMurderer";
+            CardManager.New(LobotomyPlugin.pluginPrefix, forsakenMurderer, "Forsaken Murderer",
                 attack: 4, health: 1, "Experimented on then forgotten. What was anger has become abhorrence.")
                 .SetBonesCost(8)
-                .SetPortraits(ModAssembly, forsakenMurderer)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddTribes(TribeAnthropoid)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }

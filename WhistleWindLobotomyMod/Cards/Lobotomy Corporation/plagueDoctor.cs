@@ -13,20 +13,19 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private const string plagueDoctor = "plagueDoctor";
-        public static readonly List<Sprite> PlagueDoctorPortraits = new();
-        private void Card_PlagueDoctor_O0145()
+        public const string plagueDoctor = "wstl_plagueDoctor";
+        private static void PlagueDoctor_O0145()
         {
-            RegisterPortraitsAndEmissions();
+            PlagueDoctorCreator.RegisterPortraitsAndEmissions();
 
-            CardManager.New(pluginPrefix, plagueDoctor, "Plague Doctor",
+            CardManager.New(LobotomyPlugin.pluginPrefix, plagueDoctor, "Plague Doctor",
                 attack: 0, health: 3, "A worker of miracles. He humbly requests to join you.")
                 .SetBonesCost(3)
-                .SetPortrait(PlagueDoctorPortraits.FirstOrDefault())
-                .SetEmissivePortrait(UpdateDoctorEmission(0))
-                .SetPixelPortrait(UpdateDoctorPixelPortrait(0))
+                .SetPortrait(PlagueDoctorCreator.PlagueDoctorPortraits.FirstOrDefault())
+                .SetEmissivePortrait(PlagueDoctorCreator.UpdateDoctorEmission(0))
+                .SetPixelPortrait(PlagueDoctorCreator.UpdateDoctorPixelPortrait(0))
                 .AddAbilities(Ability.Flying, Healer.ability)
                 .AddSpecialAbilities(Bless.specialAbility)
                 .AddTribes(TribeDivine)
@@ -34,7 +33,12 @@ namespace WhistleWindLobotomyMod
                 .SetOnePerDeck()
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
-        private void RegisterPortraitsAndEmissions()
+    }
+
+    public static class PlagueDoctorCreator
+    {
+        public static readonly List<Sprite> PlagueDoctorPortraits = new();
+        internal static void RegisterPortraitsAndEmissions()
         {
             for (int i = 0; i < 12; i++)
             {
@@ -58,7 +62,7 @@ namespace WhistleWindLobotomyMod
                 5 => "plagueDoctor5",
                 9 => "plagueDoctor9",
                 11 => "plagueDoctor11",
-                _ => plagueDoctor,
+                _ => "plagueDoctor",
             };
             return TextureLoader.LoadSpriteFromFile(portraitName + "_emission.png");
         }
@@ -66,7 +70,7 @@ namespace WhistleWindLobotomyMod
         {
             return key switch
             {
-                0 => plagueDoctor,
+                0 => "plagueDoctor",
                 1 => "plagueDoctor1",
                 2 => "plagueDoctor2",
                 3 => "plagueDoctor3",

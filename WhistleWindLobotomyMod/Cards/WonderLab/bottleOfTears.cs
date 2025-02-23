@@ -6,15 +6,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_BottleOfTears()
+        public const string bottleOfTears = "wstl_bottleOfTears";
+        private static void BottleOfTears()
         {
-            const string bottleOfTears = "bottleOfTears";
-
-            CardManager.New(wonderlabPrefix, bottleOfTears, "Bottle of Tears",
+            return;
+            string textureName = "bottleOfTears";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, bottleOfTears, "Bottle of Tears",
                 attack: 0, health: 0)
-                .SetPortraits(ModAssembly, bottleOfTears)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Spilling.ability, Ability.Morsel)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }

@@ -7,21 +7,23 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ApostleGuardian_T0346()
+        public const string apostleGuardian = "wstl_apostleGuardian";
+        public const string apostleGuardianDown = "wstl_apostleGuardianDown";
+        private static void ApostleGuardian_T0346()
         {
-            const string guardianName = "Guardian Apostle";
-            const string apostleGuardian = "apostleGuardian";
-            const string apostleGuardianDown = "apostleGuardianDown";
+            string guardianName = "Guardian Apostle";
+            string textureName = "apostleGuardian";
+            string textureName2 = "apostleGuardianDown";
             Ability[] abilities = new[] { ApostleSigil.ability };
             Tribe[] tribes = new[] { TribeDivine };
             Trait[] traits = new[] { Apostle };
             CardAppearanceBehaviour.Appearance[] appearances = new[] { ForcedWhiteEmission.appearance };
 
-            CardManager.New(pluginPrefix, apostleGuardian, guardianName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, apostleGuardian, guardianName,
                 attack: 4, health: 6)
-                .SetPortraits(ModAssembly, apostleGuardian)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(abilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)
@@ -29,9 +31,9 @@ namespace WhistleWindLobotomyMod
                 .SetEventCard(false)
                 .Build();
 
-            CardManager.New(pluginPrefix, apostleGuardianDown, guardianName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, apostleGuardianDown, guardianName,
                 attack: 0, health: 1)
-                .SetPortraits(ModAssembly, apostleGuardianDown)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(abilities)
                 .AddTribes(tribes)
                 .AddTraits(traits)

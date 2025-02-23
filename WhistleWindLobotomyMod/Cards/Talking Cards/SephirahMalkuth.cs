@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
 {
     public class TalkingCardMalkuth : CustomPaperTalkingCard
     {
-        public override string CardName => "wstl_sephirahMalkuth";
+        public override string CardName => Cards.sephirahMalkuth;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.0f, voiceSoundPitch: 1.5f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
@@ -81,21 +81,25 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void SpecialAbility_Malkuth()
+        public const string sephirahMalkuth = "wstl_sephirahMalkuth";
+        private static void Malkuth()
         {
-            TalkingCardMalkuth.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardMalkuth>("Malkuth").Id;
-        }
-        private void Card_Malkuth()
-        {
-            CardManager.New(pluginPrefix, "sephirahMalkuth", "Malkuth",
+            CardManager.New(LobotomyPlugin.pluginPrefix, sephirahMalkuth, "Malkuth",
                 attack: 1, health: 1, "The head of the Control Team, here to assist you any way she can.")
                 .SetBonesCost(3)
                 .AddAbilities(Ability.BuffNeighbours)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
+        }
+    }
+    public partial class Abilities
+    {
+        private static void AddSpecial_Malkuth()
+        {
+            TalkingCardMalkuth.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardMalkuth>("Malkuth").Id;
         }
     }
 }

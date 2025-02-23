@@ -4,15 +4,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void XCard_Tangle()
+        public const string tangle = "wstl_tangle";
+        private static void Tangle()
         {
-            const string tangle = "tangle";
-
-            CardManager.New(wonderlabPrefix, tangle, "Tangle",
+            return;
+            string textureName = "tangle";
+            CardManager.New(LobotomyPlugin.wonderlabPrefix, tangle, "Tangle",
                 attack: 0, health: 0)
-                .SetPortraits(ModAssembly, tangle)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities()
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }

@@ -7,42 +7,56 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_MountainOfBodies_T0175()
+        public const string mountainOfBodies = "wstl_mountainOfBodies";
+        public const string mountainOfBodiesPixel = "wstlGBC_mountainOfBodiesPixel";
+        public const string mountainOfBodies2 = "wstl_mountainOfBodies2";
+        public const string mountainOfBodies3 = "wstl_mountainOfBodies3";
+        private static void MountainOfBodies_T0175()
         {
-            const string mountainName = "The Mountain of Smiling Bodies";
-            const string mountainOfBodies = "mountainOfBodies";
-            const string mountainOfBodies2 = "mountainOfBodies2";
-            const string mountainOfBodies3 = "mountainOfBodies3";
+            string mountainName = "The Mountain of Smiling Bodies";
+            string desc = "A mass grave, melted and congealed into one eternally hungry beast.";
+            string textureName = "mountainOfBodies3";
+            string textureName2 = "mountainOfBodies2";
+            string textureName3 = "mountainOfBodies";
             Ability[] abilities = new[] { Assimilator.ability };
             SpecialTriggeredAbility[] specialAbilities = new[] { Smile.specialAbility };
 
-            CardManager.New(pluginPrefix, mountainOfBodies3, displayName: mountainName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, mountainOfBodies3, displayName: mountainName,
                 attack: 3, health: 1)
                 .SetBloodCost(3)
                 .SetCardTemple(CardTemple.Undead)
-                .SetPortraits(ModAssembly, mountainOfBodies3)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(specialAbilities)
                 .SetDefaultEvolutionName(mountainName)
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            CardManager.New(pluginPrefix, mountainOfBodies2, displayName: mountainName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, mountainOfBodies2, displayName: mountainName,
                 attack: 2, health: 1)
                 .SetBloodCost(2)
                 .SetCardTemple(CardTemple.Undead)
-                .SetPortraits(ModAssembly, mountainOfBodies2)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(specialAbilities)
                 .SetDefaultEvolutionName(mountainName)
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            CardManager.New(pluginPrefix, mountainOfBodies, mountainName,
-                attack: 2, health: 1, "A mass grave, melted and congealed into one eternally hungry beast.")
+            CardManager.New(LobotomyPlugin.pluginPrefix, mountainOfBodies, mountainName,
+                attack: 2, health: 1, desc)
+                .SetBloodCost(2)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
+                .AddAbilities(abilities)
+                .AddSpecialAbilities(specialAbilities)
+                .SetDefaultEvolutionName(mountainName)
+                .Build(CardHelper.CardType.Rare, RiskLevel.Aleph);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, mountainOfBodiesPixel, mountainName,
+                attack: 2, health: 1, desc)
                 .SetBloodCost(2)
                 .SetCardTemple(CardTemple.Undead)
-                .SetPortraits(ModAssembly, mountainOfBodies)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
                 .AddAbilities(abilities)
                 .AddSpecialAbilities(specialAbilities)
                 .SetDefaultEvolutionName(mountainName)

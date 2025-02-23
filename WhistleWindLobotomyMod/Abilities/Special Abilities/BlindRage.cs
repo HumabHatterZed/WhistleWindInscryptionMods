@@ -69,12 +69,12 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_BlindRage()
+        private static void Rulebook_BlindRage()
             => RulebookEntryBlindRage.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryBlindRage>(BlindRage.rName, BlindRage.rDesc).Id;
-        private void SpecialAbility_BlindRage()
-            => BlindRage.specialAbility = AbilityHelper.CreateSpecialAbility<BlindRage>(pluginGuid, BlindRage.rName).Id;
+        private static void AddSpecial_BlindRage()
+            => BlindRage.specialAbility = AbilityHelper.CreateSpecialAbility<BlindRage>(LobotomyPlugin.pluginGuid, BlindRage.rName).Id;
     }
 
     [HarmonyPatch]

@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
 {
     public class TalkingCardBinah : CustomPaperTalkingCard
     {
-        public override string CardName => "wstl_sephirahBinah";
+        public override string CardName => Cards.sephirahBinah;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.8f, voiceSoundPitch: 0.7f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
@@ -76,21 +76,25 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void SpecialAbility_Binah()
+        public const string sephirahBinah = "wstl_sephirahBinah";
+        private static void Binah()
         {
-            TalkingCardBinah.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardBinah>("Binah").Id;
-        }
-        private void Card_Binah()
-        {
-            CardManager.New(pluginPrefix, "sephirahBinah", "Binah",
+            CardManager.New(LobotomyPlugin.pluginPrefix, sephirahBinah, "Binah",
                 attack: 3, health: 5, "Callous and sadistic, she seems keen on seeing your struggles in person.")
                 .SetBloodCost(3)
                 .AddAbilities(Ability.Sniper, Piercing.ability)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
+        }
+    }
+    public partial class Abilities
+    {
+        private static void AddSpecial_Binah()
+        {
+            TalkingCardBinah.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardBinah>("Binah").Id;
         }
     }
 }

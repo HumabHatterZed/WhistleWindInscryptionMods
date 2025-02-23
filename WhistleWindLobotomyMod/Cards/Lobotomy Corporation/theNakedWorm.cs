@@ -7,15 +7,15 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_TheNakedWorm_O0274()
+        public const string theNakedWorm = "wstl_theNakedWorm";
+        private static void TheNakedWorm_O0274()
         {
-            const string theNakedWorm = "theNakedWorm";
-
-            CardManager.New(pluginPrefix, theNakedWorm, "Naked Worm",
+            string textureName = "theNakedWorm";
+            CardManager.New(LobotomyPlugin.pluginPrefix, theNakedWorm, "Naked Worm",
                 attack: 1, health: 1, "It can enter your body through any aperture.")
-                .SetPortraits(ModAssembly, theNakedWorm)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddTribes(Tribe.Insect)
                 .AddTraits(NakedSerpent)
                 .Build();

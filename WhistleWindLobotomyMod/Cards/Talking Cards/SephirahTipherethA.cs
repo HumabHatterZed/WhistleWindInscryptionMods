@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
 {
     public class TalkingCardTipherethA : CustomPaperTalkingCard
     {
-        public override string CardName => "wstl_sephirahTipherethA";
+        public override string CardName => Cards.sephirahTipherethA;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.9f, voiceSoundPitch: 1.5f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
@@ -82,15 +82,12 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void SpecialAbility_TipherethA()
+        public const string sephirahTipherethA = "wstl_sephirahTipherethA";
+        private static void TipherethA()
         {
-            TalkingCardTipherethA.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardTipherethA>("TipherethA").Id;
-        }
-        private void Card_TipherethA()
-        {
-            CardManager.New(pluginPrefix, "sephirahTipherethA", "Tiphereth",
+            CardManager.New(LobotomyPlugin.pluginPrefix, sephirahTipherethA, "Tiphereth",
                 attack: 1, health: 2, "A foul-mouthed child. She's never seen without her brother.")
                 .SetEnergyCost(3)
                 .AddAbilities(GiftGiver.ability)
@@ -98,6 +95,13 @@ namespace WhistleWindLobotomyMod
                 .SetOnePerDeck()
                 .SetExtendedProperty("wstl:GiftGiver", "wstl_sephirahTipherethB")
                 .Build();
+        }
+    }
+    public partial class Abilities
+    {
+        private static void AddSpecial_TipherethA()
+        {
+            TalkingCardTipherethA.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardTipherethA>("TipherethA").Id;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace WhistleWindLobotomyMod
         public const string rName = "Clover Companion";
         public const string rDesc = "Servant of Wrath will transform when an adjacent card dies.";
 
-        public override string CardToTransformInto => "wstl_servantOfWrath";
+        public override string CardToTransformInto => SaveManager.SaveFile.IsPart1 ? Cards.servantOfWrath : Cards.servantOfWrathPixel;
         public override string PostEvolveDialogueId => "ServantOfWrathTransform";
     }
     public class RulebookEntryCloverCompanion : AbilityBehaviour
@@ -21,11 +21,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_CloverCompanion()
+        private static void Rulebook_CloverCompanion()
             => RulebookEntryCloverCompanion.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryCloverCompanion>(CloverCompanion.rName, CloverCompanion.rDesc).Id;
-        private void SpecialAbility_CloverCompanion()
-            => CloverCompanion.specialAbility = AbilityHelper.CreateSpecialAbility<CloverCompanion>(pluginGuid, CloverCompanion.rName).Id;
+        private static void AddSpecial_CloverCompanion()
+            => CloverCompanion.specialAbility = AbilityHelper.CreateSpecialAbility<CloverCompanion>(LobotomyPlugin.pluginGuid, CloverCompanion.rName).Id;
     }
 }

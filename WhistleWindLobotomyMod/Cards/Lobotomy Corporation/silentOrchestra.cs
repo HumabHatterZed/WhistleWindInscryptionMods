@@ -8,25 +8,26 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_SilentOrchestra_T0131()
+        public const string silentOrchestra = "wstl_silentOrchestra";
+        public const string silentEnsemble = "wstl_silentEnsemble";
+        private static void SilentOrchestra_T0131()
         {
-            const string silentOrchestra = "silentOrchestra";
-            const string silentEnsemble = "silentEnsemble";
-
-            CardManager.New(pluginPrefix, silentEnsemble, "Chairs",
+            string textureName = "silentEnsemble";
+            string textureName2 = "silentOrchestra";
+            CardManager.New(LobotomyPlugin.pluginPrefix, silentEnsemble, "Chairs",
                 attack: 0, health: 3)
-                .SetPortraits(ModAssembly, silentEnsemble)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.BuffNeighbours)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(Orchestral)
                 .Build();
 
-            CardManager.New(pluginPrefix, silentOrchestra, "The Silent Orchestra",
+            CardManager.New(LobotomyPlugin.pluginPrefix, silentOrchestra, "The Silent Orchestra",
                 attack: 2, health: 6, "Soon, the song none can hear but all can listen to will begin.")
                 .SetBloodCost(3)
-                .SetPortraits(ModAssembly, silentOrchestra)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Conductor.ability)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(Orchestral)

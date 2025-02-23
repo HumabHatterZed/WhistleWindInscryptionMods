@@ -6,14 +6,15 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ApostleHeretic_T0346()
+        public const string apostleHeretic = "wstl_apostleHeretic";
+        private static void ApostleHeretic_T0346()
         {
-            const string apostleHeretic = "apostleHeretic";
-            CardManager.New(pluginPrefix, apostleHeretic, "Heretic",
+            string textureName = "apostleHeretic";
+            CardManager.New(LobotomyPlugin.pluginPrefix, apostleHeretic, "Heretic",
                 attack: 0, health: 7)
-                .SetPortraits(ModAssembly, apostleHeretic)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Confession.ability)
                 .AddTraits(Trait.Uncuttable, Apostle)
                 .AddAppearances(ForcedWhiteEmission.appearance)

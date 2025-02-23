@@ -111,11 +111,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_TheHomingInstinct()
+        private static void Rulebook_TheHomingInstinct()
             => RulebookEntryTheHomingInstinct.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryTheHomingInstinct>(TheHomingInstinct.rName, TheHomingInstinct.rDesc).Id;
-        private void SpecialAbility_TheHomingInstinct()
-            => TheHomingInstinct.specialAbility = AbilityHelper.CreateSpecialAbility<TheHomingInstinct>(pluginGuid, TheHomingInstinct.rName).Id;
+        private static void AddSpecial_TheHomingInstinct()
+            => TheHomingInstinct.specialAbility = AbilityHelper.CreateSpecialAbility<TheHomingInstinct>(LobotomyPlugin.pluginGuid, TheHomingInstinct.rName).Id;
     }
 }

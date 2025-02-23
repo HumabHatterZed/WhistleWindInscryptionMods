@@ -3,7 +3,7 @@
 ## v3.0.0 - Wondrous Ordeals ()
 ### 🧱 Structural
 - Achievements API is now a required dependency
-- Created secondary versions of all obtainable cards for Act 2 to prevent any multi-Act Temple nonsense
+- Alternate versions of non-Nature cards have been created for use outside Act 1 with the prefix "wstlGBC"
 - Changed internal name of Abnormal card choice to 'AbnormalCardChoice'
 - Changed internal name of Sefirot card choice to 'SefirotCardChoice'
 - Changed internal names of Sefirot-related dialogue events to remove the 'Sephirah' prefix
@@ -31,6 +31,7 @@
 ### Time Machine
 - Fixed selected cards not being correctly removed from the deck
 - Fixed the activating card being a possible choice for removal
+- Fixed Nothing There not being obtainable
 - Can no longer activate if no other cards exist in the deck
 - Improved activation sequence
 - Changed how card choices are determined
@@ -43,6 +44,7 @@
 - Modified some encounters to use Ordeal cards as opponents
 ### General
 - Fixed Miracle Worker challenge trying to insert Plague Doctor into turns with 4 cards
+- Fixed One Sin and Hundreds of Good Deeds EX having missing textures
 - Modified some dialogue
 - Updated artwork for Nameless Fetus
 - Final Apocalypse challenge icon now occupys an entire column on the selection menu
@@ -57,14 +59,17 @@
 - Changed evolution name for Apocalypse Bird
 - Changed evolution name for You're Bald...
 - Random Starter Deck: placeholder sprites now have a '?' in the sigil space
-- Funeral of the Dead Butterflies now belongs to the Undead temple
+- Funeral of the Dead Butterflies: now belongs to the Undead temple
+- Nothing There: now disguises as common cards instead of death cards
 ### Balancing
 - Giant Tree Sap: No longer considered singleton/unique
 - <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
-- <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
+- <span style='color:#2084A0'>All-Around Helper: increased Health from 2 -> 3
+- Nothing There: If Nothing There is not killed within a set number of turns, it will reveal itself automatically
 - Red Riding Hooded Mercenary: now possesses Vendetta sigil
 - Big and Will Be Bad Wolf: now possesses Vendetta sigil
 - Big and Will Be Bad Wolf: rebalanced from 3/3 -> 2/4
+- <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
 - <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
 - <span style='color:#DE6080'>Reshuffle Decks card now possesses the Bone Meal sigil
 - <span style='color:#DE6080'>Apocalypse Bird card: no longer possesses Made of Stone sigil

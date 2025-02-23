@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
 {
     public class TalkingCardYesod : CustomPaperTalkingCard
     {
-        public override string CardName => "wstl_sephirahYesod";
+        public override string CardName => Cards.sephirahYesod;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1.0f, voiceSoundPitch: 0.7f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
@@ -75,12 +75,12 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void SpecialAbility_Yesod() => TalkingCardYesod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardYesod>("Yesod").Id;
-        private void Card_Yesod()
+        public const string sephirahYesod = "wstl_sephirahYesod";
+        private static void Yesod()
         {
-            CardManager.New(pluginPrefix, "sephirahYesod", "Yesod",
+            CardManager.New(LobotomyPlugin.pluginPrefix, sephirahYesod, "Yesod",
                 attack: 2, health: 3, "A stickler for rules, he'll ensure your beasts' compliance.")
                 .SetBloodCost(2)
                 .AddAbilities(Ability.Tutor)
@@ -88,5 +88,9 @@ namespace WhistleWindLobotomyMod
                 .SetOnePerDeck()
                 .Build();
         }
+    }
+    public partial class Abilities
+    {
+        private static void AddSpecial_Yesod() => TalkingCardYesod.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardYesod>("Yesod").Id;
     }
 }

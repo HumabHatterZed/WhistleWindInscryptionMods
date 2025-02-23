@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
 {
     public class TalkingCardGebura : CustomPaperTalkingCard
     {
-        public override string CardName => "wstl_sephirahGebura";
+        public override string CardName => Cards.sephirahGebura;
         public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 1f, voiceSoundPitch: 0.7f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
@@ -76,21 +76,25 @@ namespace WhistleWindLobotomyMod
         };
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
     }
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void SpecialAbility_Gebura()
+        public const string sephirahGebura = "wstl_sephirahGebura";
+        private static void Gebura()
         {
-            TalkingCardGebura.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardGebura>("Gebura").Id;
-        }
-        private void Card_Gebura()
-        {
-            CardManager.New(pluginPrefix, "sephirahGebura", "Gebura",
+            CardManager.New(LobotomyPlugin.pluginPrefix, sephirahGebura, "Gebura",
                 attack: 3, health: 5, "Though not as strong as she once was, she will still make for a powerful ally.")
                 .SetBloodCost(3)
                 .AddAbilities(Ability.GainAttackOnKill, Persistent.ability)
                 .AddTraits(Sephirah)
                 .SetOnePerDeck()
                 .Build();
+        }
+    }
+    public partial class Abilities
+    {
+        private static void AddSpecial_Gebura()
+        {
+            TalkingCardGebura.specialAbility = LobotomyAbilityHelper.CreatePaperTalkingCard<TalkingCardGebura>("Gebura").Id;
         }
     }
 }

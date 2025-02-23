@@ -8,16 +8,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_WarmHeartedWoodsman_F0532()
+        public const string warmHeartedWoodsman = "wstl_warmHeartedWoodsman";
+        private static void WarmHeartedWoodsman_F0532()
         {
-            const string warmHeartedWoodsman = "warmHeartedWoodsman";
-
-            CardManager.New(pluginPrefix, warmHeartedWoodsman, "Warm-Hearted Woodsman",
+            string textureName = "warmHeartedWoodsman";
+            CardManager.New(LobotomyPlugin.pluginPrefix, warmHeartedWoodsman, "Warm-Hearted Woodsman",
                 attack: 2, health: 3, "A tin woodsman in search of a heart. Perhaps you can give him yours.")
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, warmHeartedWoodsman)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Woodcutter.ability)
                 .AddTribes(TribeMechanical)
                 .AddTraits(EmeraldCity)

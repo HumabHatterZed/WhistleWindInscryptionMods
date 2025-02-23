@@ -7,20 +7,32 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_WeCanChangeAnything_T0985()
+        public const string weCanChangeAnything = "wstl_weCanChangeAnything";
+        private static void WeCanChangeAnything_T0985()
         {
-            const string weCanChangeAnything = "weCanChangeAnything";
-
-            CardManager.New(pluginPrefix, weCanChangeAnything, "We Can Change Anything",
-                attack: 1, health: 1, "Whatever you're dissatisfied with, this machine will fix it. You just have to step inside.")
+            string name = "We Can Change Anything";
+            string name2 = "We Will Change Everything";
+            string desc = "Whatever you're dissatisfied with, this machine will fix it. You just have to step inside.";
+            string textureName = "weCanChangeAnything";
+            CardManager.New(LobotomyPlugin.pluginPrefix, weCanChangeAnything, name,
+                attack: 1, health: 1, desc)
                 .SetBloodCost(1)
-                .SetCardTemple(CardTemple.Tech)
-                .SetPortraits(ModAssembly, weCanChangeAnything)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Grinder.ability)
                 .AddTribes(TribeMechanical)
-                .SetDefaultEvolutionName("We Will Change Everything")
+                .SetDefaultEvolutionName(name2)
+                .Build(CardHelper.CardType.Common, RiskLevel.Zayin);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 1, health: 1, desc)
+                .SetBloodCost(1)
+                .SetCardTemple(CardTemple.Tech)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(Grinder.ability)
+                .AddTribes(TribeMechanical)
+                .SetDefaultEvolutionName(name2)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
     }

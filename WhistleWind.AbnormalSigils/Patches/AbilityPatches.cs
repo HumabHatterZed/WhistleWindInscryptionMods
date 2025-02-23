@@ -35,7 +35,7 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch]
     internal class OtherAbilityPatches
     {
-        [HarmonyPrefix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.Opponent))]
+        [HarmonyPrefix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.OpponentTurn))]
         private static bool CacheOpponentTurnSkipped(ref bool __state)
         {
             __state = TurnManager.Instance.Opponent.SkipNextTurn;

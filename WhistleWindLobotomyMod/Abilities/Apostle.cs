@@ -9,6 +9,16 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
+    public partial class Abilities
+    {
+        private static void AddApostle()
+        {
+            const string rulebookName = "Apostle";
+            ApostleSigil.ability = AbilityHelper.New<ApostleSigil>(LobotomyPlugin.pluginGuid,
+                "sigilApostle", rulebookName, "'Thou wilt abandon flesh and be born again.'", -3, true).Id;
+        }
+    }
+
     public class ApostleSigil : AbilityBehaviour, IModifyDamageTaken
     {
         public static Ability ability;
@@ -111,16 +121,6 @@ namespace WhistleWindLobotomyMod
             return 0;
         }
 
-        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
-    }
-
-    public partial class LobotomyPlugin
-    {
-        private void Ability_Apostle()
-        {
-            const string rulebookName = "Apostle";
-            ApostleSigil.ability = AbilityHelper.New<ApostleSigil>(pluginGuid,
-                "sigilApostle", rulebookName, "'Thou wilt abandon flesh and be born again.'", -3, true).Id;
-        }
+        public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => -6000;
     }
 }

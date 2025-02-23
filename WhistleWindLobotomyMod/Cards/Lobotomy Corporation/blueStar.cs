@@ -8,37 +8,39 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_BlueStar_O0393()
+        public const string blueStar = "wstl_blueStar";
+        public const string blueStar2 = "wstl_blueStar2";
+        public const string blueStar3 = "wstl_blueStar3";
+        private static void BlueStar_O0393()
         {
-            const string starName = "Blue Star";
-            const string blueStar = "blueStar";
+            string starName = "Blue Star";
+            string textureName = "blueStar";
             Tribe[] tribes = new[] { TribeDivine };
-
-            CardInfo star3 = CardManager.New(pluginPrefix, "blueStar3", starName,
+            CardInfo star3 = CardManager.New(LobotomyPlugin.pluginPrefix, blueStar3, starName,
                 attack: 4, health: 4)
                 .SetBloodCost(4)
-                .SetPortraits(ModAssembly, blueStar, pixelPortraitName: "blueStar2_pixel")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName, pixelPortraitName: "blueStar2_pixel.png")
                 .AddAbilities(Ability.Transformer, Ability.AllStrike)
                 .AddSpecialAbilities(StarSound.specialAbility)
                 .AddTribes(tribes)
                 .AddAppearances(ForcedEmission.appearance)
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            CardInfo star2 = CardManager.New(pluginPrefix, "blueStar2", starName,
+            CardInfo star2 = CardManager.New(LobotomyPlugin.pluginPrefix, blueStar2, starName,
                 attack: 0, health: 4)
                 .SetBloodCost(4)
-                .SetPortraits(ModAssembly, blueStar)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Transformer, Idol.ability)
                 .AddTribes(tribes)
                 .SetEvolve(star3, 1)
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            CardInfo star = CardManager.New(pluginPrefix, blueStar, starName,
+            CardInfo star = CardManager.New(LobotomyPlugin.pluginPrefix, blueStar, starName,
                 attack: 0, health: 4, "When this is over, let's meet again as stars.")
                 .SetBloodCost(3)
-                .SetPortraits(ModAssembly, blueStar)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Transformer)
                 .AddTribes(tribes)
                 .SetEvolve(star2, 1)

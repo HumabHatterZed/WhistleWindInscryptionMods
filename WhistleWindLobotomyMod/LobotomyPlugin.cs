@@ -32,7 +32,7 @@ namespace WhistleWindLobotomyMod
     [BepInDependency("zorro.inscryption.infiniscryption.packmanager", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("arackulele.inscryption.grimoramod", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("zorro.inscryption.infiniscryption.p03kayceerun", BepInDependency.DependencyFlags.SoftDependency)]
-    public partial class LobotomyPlugin : BaseUnityPlugin
+    public class LobotomyPlugin : BaseUnityPlugin
     {
         private void Awake()
         {
@@ -70,21 +70,24 @@ namespace WhistleWindLobotomyMod
             AddChallenges();
 
             Log.LogDebug("Loading abilities...");
-            AddAbilities();
-            AddSpecialAbilities();
+            Abilities.AddAbilities(this);
 
             Log.LogDebug("Loading cards...");
-            AddAppearances();
+            AccessTools.GetDeclaredMethods(typeof(Appearances)).ForEach(mi => mi.Invoke(this, null));
             AddCards();
-            AddStarterDecks();
+            StarterDecks.AddStarterDecks();
 
             Log.LogDebug("Loading encounters...");
             AddEncounters();
 
             Log.LogDebug("Loading everything else...");
-            AddItems();
-            AddNodes();
-            OrdealPages.AddPages();
+            // Enkephalin box - max out and recharge energy
+            // Pebble - Gives Pebble effect to a card
+            // Accelerator - Gives card +X Haste
+            // Decelerator - Gives card +X Bind
+            AccessTools.GetDeclaredMethods(typeof(Items)).ForEach(mi => mi.Invoke(this, null));
+            AccessTools.GetDeclaredMethods(typeof(Nodes)).ForEach(mi => mi.Invoke(this, null));
+            //OrdealPages.AddPages();
 
             if (PackAPI.Enabled)
                 PackAPI.CreateCardPack();
@@ -111,14 +114,28 @@ namespace WhistleWindLobotomyMod
                 if (LobotomyConfigManager.Instance.NoRuina)
                     Log.LogWarning("Disable Ruina is set to [true]. Some cards have been removed from the pool of obtainable cards.");
 
-                Log.LogInfo($"There are [{AllLobotomyCards.Count}] total cards and [{BaseModCards.Count} | {WonderLabCards.Count} | {LimbusCards.Count}] obtainable cards.");
+                Log.LogInfo($"There are [{AllLobotomyCards.Count}:{BaseModCards.Count}+{WonderLabCards.Count}+{LimbusCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
             }
             Log.LogInfo($"The Clock is at [{LobotomyConfigManager.Instance.NumOfBlessings}].");
         }
         private void OnDisable() => HarmonyInstance.UnpatchSelf();
-        private void AddAppearances() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Appearance")).ForEach(mi => mi.Invoke(this, null));
-        private void AddSpecialAbilities() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("SpecialAbility")).ForEach(mi => mi.Invoke(this, null));
-        private void AddNodes() => AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Node")).ForEach(mi => mi.Invoke(this, null));
+
+        private void AddCards()
+        {
+            foreach (CardInfo card in CardManager.AllCardsCopy.Where(c => c.GetModTag() == "whistlewind.inscryption.abnormalsigils"))
+            {
+                if (!AllLobotomyCards.Contains(card))
+                    AllLobotomyCards.Add(card);
+            }
+            AccessTools.GetDeclaredMethods(typeof(Cards)).ForEach(mi => mi.Invoke(this, null));
+            Cards.AddCustomDeathCards();
+            CreateTalkingCards();
+
+            if (AllCardsDisabled)
+            {
+                Log.LogInfo("All mod cards are disabled, adding [Standard Training-Dummy Rabbit] as a fallback card.");
+            }
+        }
         private void CreateTalkingCards()
         {
             TalkingCardManager.New<TalkingCardHod>();
@@ -133,94 +150,7 @@ namespace WhistleWindLobotomyMod
             TalkingCardManager.New<TalkingCardHokma>();
             TalkingCardManager.New<TalkingCardAngela>();
         }
-        private void AddCards()
-        {
-            foreach (CardInfo card in CardManager.AllCardsCopy.Where(c => c.GetModTag() == "whistlewind.inscryption.abnormalsigils"))
-            {
-                if (!AllLobotomyCards.Contains(card))
-                    AllLobotomyCards.Add(card);
-            }
-            AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Card")).ForEach(mi => mi.Invoke(this, null));
-            AddCustomDeathCards();
-            CreateTalkingCards();
 
-            if (AllCardsDisabled)
-            {
-                Log.LogInfo("All mod cards are disabled, adding [Standard Training-Dummy Rabbit] as a fallback card.");
-                ObtainableLobotomyCards = new() { AllLobotomyCards.Find(x => x.name == "wstl_trainingDummy") };
-            }
-            else
-            {
-                ObtainableLobotomyCards = AllLobotomyCards.Where(x => x.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.Rare)).ToList();
-            }
-        }
-        private void AddAbilities()
-        {
-            if (LobotomyConfigManager.Instance.ReskinSigils)
-            {
-                AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
-                {
-                    abilities.AbilityByID(Ability.Sniper).Info
-                        .SetRulebookName("Marksman")
-                        .SetAbilityLearnedDialogue("Your beast strikes with precision.")
-                        .SetIcon(TextureLoader.LoadTextureFromFile("sigilMarksman.png"))
-                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilMarksman_pixel.png"))
-                        .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
-
-                    abilities.AbilityByID(Ability.Sentry).Info
-                        .SetRulebookName("Quick Draw")
-                        .SetAbilityLearnedDialogue("The early bird gets the worm.")
-                        .SetIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw.png"))
-                        .SetPixelAbilityIcon(TextureLoader.LoadTextureFromFile("sigilQuickDraw_pixel.png"))
-                        .SetCanStack()
-                        .SetFlipYIfOpponent()
-                        .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
-
-                    abilities.AbilityByID(Ability.Transformer).Info
-                        .SetRulebookDescription("[creature] will transform into a different form after 1 turn on the board.")
-                        .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
-
-                    abilities.AbilityByID(Ability.ExplodeOnDeath).Info
-                        .SetRulebookName("Volatile")
-                        .SetCustomFlippedTexture(TextureLoader.LoadTextureFromFile("sigilVolatile_flipped.png", ModAssembly))
-                        .SetFlipYIfOpponent(false)
-                        .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
-
-                    return abilities;
-                };
-            }
-
-            Ability_BoneMeal();
-            Ability_TimeMachine();
-            Ability_Apostle();
-            Ability_TrueSaviour();
-            Ability_Confession();
-
-            Ability_Life();
-            Ability_Harmony();
-            Ability_Food();
-            Ability_Survival();
-            Ability_Tower();
-
-            Ability_Apocalypse();
-            Ability_BigEyes();
-
-            StatusEffect_Enchanted();
-            Ability_Dazzling();
-
-            Ability_SmallBeak();
-            Ability_Misdeeds();
-            Ability_LongArms();
-
-            StatusEffect_Sin();
-            Ability_UnjustScale();
-
-            if (LobotomyConfigManager.Instance.RevealSpecials)
-            {
-                Log.LogDebug("Adding rulebook entries for special abilities.");
-                AccessTools.GetDeclaredMethods(typeof(LobotomyPlugin)).Where(mi => mi.Name.StartsWith("Rulebook")).ForEach(mi => mi.Invoke(this, null));
-            }
-        }
         private void AddChallenges()
         {
             //FinalComing.Register();
@@ -239,14 +169,6 @@ namespace WhistleWindLobotomyMod
             AllOrdeals.Register(HarmonyInstance);
             AbnormalBosses.Register(HarmonyInstance);
             AbnormalEncounters.Register(HarmonyInstance);
-        }
-        private void AddItems()
-        {
-            // Enkephalin box - max out and recharge energy
-            // Pebble - Gives Pebble effect to a card
-            // Accelerator - Gives card +X Haste
-            // Decelerator - Gives card +X Bind
-            Item_RecallBottle();
         }
 
         private void AddEncounters()
@@ -276,27 +198,28 @@ namespace WhistleWindLobotomyMod
                 if (!DialogueEventsManager.RepeatDialogueEvents.TryGetValue(dialogue.Key, out List<List<CustomLine>> repeatLines))
                     repeatLines = null;
 
-                GenerateEvent(pluginGuid, dialogue.Key, dialogue.Value, repeatLines, defaultSpeaker: speaker);
+                GenerateEvent(LobotomyPlugin.pluginGuid, dialogue.Key, dialogue.Value, repeatLines, defaultSpeaker: speaker);
             }
         }
         public static bool AllCardsDisabled { get; internal set; }
         public static RiskLevel DisabledRiskLevels { get; internal set; }
 
-        public static readonly StoryEvent ApocalypseBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "ApocalpyseBossDefeated");
-        public static readonly StoryEvent JesterBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "JesterBossDefeated");
-        public static readonly StoryEvent EmeraldBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "EmeraldBossDefeated");
-        public static readonly StoryEvent SaviourBossDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "SaviourBossDefeated");
+        public static readonly StoryEvent ApocalypseBossDefeated = GuidManager.GetEnumValue<StoryEvent>(LobotomyPlugin.pluginGuid, "ApocalpyseBossDefeated");
+        public static readonly StoryEvent JesterBossDefeated = GuidManager.GetEnumValue<StoryEvent>(LobotomyPlugin.pluginGuid, "JesterBossDefeated");
+        public static readonly StoryEvent EmeraldBossDefeated = GuidManager.GetEnumValue<StoryEvent>(LobotomyPlugin.pluginGuid, "EmeraldBossDefeated");
+        public static readonly StoryEvent SaviourBossDefeated = GuidManager.GetEnumValue<StoryEvent>(LobotomyPlugin.pluginGuid, "SaviourBossDefeated");
 
-        public static readonly StoryEvent OrdealDefeated = GuidManager.GetEnumValue<StoryEvent>(pluginGuid, "OrdealDefeated");
+        public static readonly StoryEvent OrdealDefeated = GuidManager.GetEnumValue<StoryEvent>(LobotomyPlugin.pluginGuid, "OrdealDefeated");
 
-        internal static readonly Harmony HarmonyInstance = new(pluginGuid);
+        internal static readonly Harmony HarmonyInstance = new(LobotomyPlugin.pluginGuid);
         internal static Assembly ModAssembly { get; private set; }
         internal static ManualLogSource Log;
 
         public const string pluginGuid = "whistlewind.inscryption.lobotomycorp";
         public const string pluginPrefix = "wstl";
-        public const string wonderlabPrefix = "wstl_WL";
-        public const string limbusPrefix = "wstl_LiC";
+        public const string pixelPrefix = "wstlGBC";
+        public const string wonderlabPrefix = "wstlWonder";
+        public const string limbusPrefix = "wstlLimbus";
 
         public const string pluginName = "WhistleWind Lobotomy Mod";
         private const string pluginVersion = "3.0.0";

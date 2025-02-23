@@ -8,17 +8,30 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_Ozma_F04116()
+        public const string ozma = "wstl_ozma";
+        private static void Ozma_F04116()
         {
-            const string ozma = "ozma";
+            string name = "Ozma";
+            string desc = "The former ruler of a far away land, now reduced to a shambling husk.";
+            string textureName = "ozma";
+            CardManager.New(LobotomyPlugin.pluginPrefix, ozma, name,
+                attack: 1, health: 2, desc)
+                .SetBloodCost(1)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(RightfulHeir.ability)
+                .AddTribes(TribeFae)
+                .AddTraits(EmeraldCity)
+                .SetOnePerDeck()
+                .AddMetaCategories(RuinaCard)
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw);
 
-            CardManager.New(pluginPrefix, ozma, "Ozma",
-                attack: 1, health: 2, "The former ruler of a far away land, now reduced to this.")
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 1, health: 2, desc)
                 .SetBloodCost(1)
                 .SetCardTemple(CardTemple.Wizard)
-                .SetPortraits(ModAssembly, ozma)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(RightfulHeir.ability)
                 .AddTribes(TribeFae)
                 .AddTraits(EmeraldCity)

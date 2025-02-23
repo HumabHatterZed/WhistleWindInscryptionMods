@@ -6,17 +6,26 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_TrainingDummy_00000()
+        public const string trainingDummy = "wstl_trainingDummy";
+        private static void TrainingDummy_00000()
         {
-            const string trainingDummy = "trainingDummy";
+            string name = "Standard Training-Dummy Rabbit";
+            string desc = "A beast in the shape of a training dummy. The safest of these abnormal creatures.";
+            string textureName = "trainingDummy";
+            CardManager.New(LobotomyPlugin.pluginPrefix, trainingDummy, name,
+                attack: 0, health: 2, desc)
+                .SetEnergyCost(1)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddTribes(TribeMechanical)
+                .Build(CardHelper.CardType.Common, RiskLevel.Zayin);
 
-            CardManager.New(pluginPrefix, trainingDummy, "Standard Training-Dummy Rabbit",
-                attack: 0, health: 2, "A beast in the shape of a training dummy. The safest of these abnormal creatures.")
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 0, health: 2, desc)
                 .SetEnergyCost(1)
                 .SetCardTemple(CardTemple.Tech)
-                .SetPortraits(ModAssembly, trainingDummy)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddTribes(TribeMechanical)
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }

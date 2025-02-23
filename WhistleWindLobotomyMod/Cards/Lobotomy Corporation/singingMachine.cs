@@ -7,17 +7,28 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_SingingMachine_O0530()
+        public const string singingMachine = "wstl_singingMachine";
+        private static void SingingMachine_O0530()
         {
-            const string singingMachine = "singingMachine";
+            string name = "Singing Machine";
+            string desc = "A wind-up music machine. The song it plays is to die for.";
+            string textureName = "singingMachine";
+            CardManager.New(LobotomyPlugin.pluginPrefix, singingMachine, name,
+                attack: 0, health: 4, desc)
+                .SetBloodCost(1)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(TeamLeader.ability, Aggravating.ability)
+                .AddTribes(TribeMechanical)
+                .AddTraits(Orchestral)
+                .Build(CardHelper.CardType.Common, RiskLevel.He);
 
-            CardManager.New(pluginPrefix, singingMachine, "Singing Machine",
-                attack: 0, health: 4, "A wind-up music machine. The song it plays is to die for.")
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 0, health: 4, desc)
                 .SetBloodCost(1)
                 .SetCardTemple(CardTemple.Tech)
-                .SetPortraits(ModAssembly, singingMachine)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(TeamLeader.ability, Aggravating.ability)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Orchestral)

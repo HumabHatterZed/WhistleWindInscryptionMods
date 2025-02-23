@@ -8,9 +8,9 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_Justitia()
+        private static void Rulebook_Justitia()
         {
             const string rName = "Justitia";
             const string rDesc = "Non-Terrain cards targeted by Judgement Bird are killed regardless of Health. Judgement Bird is not affected by abilities like Sharp and Punisher.";

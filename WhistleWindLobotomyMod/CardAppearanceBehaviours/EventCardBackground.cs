@@ -5,12 +5,12 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Appearances
     {
-        private void Appearance_EventBackground()
+        private static void AddEventBackgrounds()
         {
-            EventBackground.appearance = CardHelper.CreateAppearance<EventBackground>(pluginGuid, "EventCardBackground").Id;
-            RareEventBackground.appearance = CardHelper.CreateAppearance<RareEventBackground>(pluginGuid, "EventCardBackgroundRare").Id;
+            EventBackground.appearance = CardHelper.CreateAppearance<EventBackground>(LobotomyPlugin.pluginGuid, "EventCardBackground").Id;
+            RareEventBackground.appearance = CardHelper.CreateAppearance<RareEventBackground>(LobotomyPlugin.pluginGuid, "EventCardBackgroundRare").Id;
         }
     }
     public class EventBackground : PixelAppearanceBehaviour

@@ -1,4 +1,5 @@
-﻿using InscryptionAPI.Card;
+﻿using DiskCardGame;
+using InscryptionAPI.Card;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
@@ -7,17 +8,27 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_Laetitia_O0167()
+        public const string laetitia = "wstl_laetitia";
+        private static void Laetitia_O0167()
         {
-            const string laetitia = "laetitia";
-
-            CardManager.New(pluginPrefix, laetitia, "Laetitia",
-                attack: 1, health: 2, "A little witch carrying a heart-shaped gift.")
+            string name = "Laetitita";
+            string desc = "A little witch carrying a heart-shaped gift.";
+            string textureName = "laetitia";
+            CardManager.New(LobotomyPlugin.pluginPrefix, laetitia, name,
+                attack: 1, health: 2, desc)
                 .SetBloodCost(1)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(GiftGiver.ability)
+                .AddTribes(TribeFae)
+                .Build(CardHelper.CardType.Common, RiskLevel.He);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 1, health: 1, desc)
+                .SetGemsCost(GemType.Orange)
                 .SetCardTemple(CardTemple.Wizard)
-                .SetPortraits(ModAssembly, laetitia)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(GiftGiver.ability)
                 .AddTribes(TribeFae)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);

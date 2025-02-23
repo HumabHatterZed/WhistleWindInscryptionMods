@@ -40,11 +40,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_StarSound()
+        private static void Rulebook_StarSound()
             => RulebookEntryStarSound.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryStarSound>(StarSound.rName, StarSound.rDesc).Id;
-        private void SpecialAbility_StarSound()
-            => StarSound.specialAbility = AbilityHelper.CreateSpecialAbility<StarSound>(pluginGuid, StarSound.rName).Id;
+        private static void AddSpecial_StarSound()
+            => StarSound.specialAbility = AbilityHelper.CreateSpecialAbility<StarSound>(LobotomyPlugin.pluginGuid, StarSound.rName).Id;
     }
 }

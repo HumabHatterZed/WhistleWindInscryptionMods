@@ -124,11 +124,11 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
     }
-    public partial class LobotomyPlugin
+    public partial class Abilities
     {
-        private void Rulebook_TodaysExpression()
+        private static void Rulebook_TodaysExpression()
             => RulebookEntryTodaysExpression.ability = LobotomyAbilityHelper.CreateRulebookAbility<RulebookEntryTodaysExpression>(TodaysExpression.rName, TodaysExpression.rDesc).Id;
-        private void SpecialAbility_TodaysExpression()
-            => TodaysExpression.specialAbility = AbilityHelper.CreateSpecialAbility<TodaysExpression>(pluginGuid, TodaysExpression.rName).Id;
+        private static void AddSpecial_TodaysExpression()
+            => TodaysExpression.specialAbility = AbilityHelper.CreateSpecialAbility<TodaysExpression>(LobotomyPlugin.pluginGuid, TodaysExpression.rName).Id;
     }
 }

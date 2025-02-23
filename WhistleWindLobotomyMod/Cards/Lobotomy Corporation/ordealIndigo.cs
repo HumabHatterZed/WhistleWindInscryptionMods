@@ -8,15 +8,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Cards_IndigoOrdeal()
+        public const string sweeper = "wstl_sweeper";
+        private static void Cards_IndigoOrdeal()
         {
-            const string sweeper = "sweeper";
-            CardInfo sweeperCard = CardManager.New(pluginPrefix, sweeper, "Sweeper",
+            string textureName = "sweeper";
+            CardInfo sweeperCard = CardManager.New(LobotomyPlugin.pluginPrefix, sweeper, "Sweeper",
                 attack: 2, health: 3)
                 .SetBloodCost(2).SetEnergyCost(2)
-                .SetPortraits(ModAssembly, sweeper)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Persistent.ability, Bloodfiend.ability)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission, SweeperAppearance.appearance)
                 .AddTribes(TribeFae)

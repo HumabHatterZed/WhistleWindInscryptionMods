@@ -7,16 +7,16 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_MeatLantern_O0484()
+        public const string meatLantern = "wstl_meatLantern";
+        private static void MeatLantern_O0484()
         {
-            const string meatLantern = "meatLantern";
-
-            CardManager.New(pluginPrefix, meatLantern, "Meat Lantern",
+            string textureName = "meatLantern";
+            CardManager.New(LobotomyPlugin.pluginPrefix, meatLantern, "Meat Lantern",
                 attack: 1, health: 2, "A beautiful flower attached to a mysterious creature.")
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, meatLantern)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Reach, Punisher.ability)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }

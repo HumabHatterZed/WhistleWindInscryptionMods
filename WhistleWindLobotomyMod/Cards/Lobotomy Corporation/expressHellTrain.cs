@@ -7,21 +7,34 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_ExpressHellTrain_T0986()
+        public const string expressHellTrain = "wstl_expressHellTrain";
+        private static void ExpressHellTrain_T0986()
         {
-            const string expressHellTrain = "expressHellTrain";
-
-            CardManager.New(pluginPrefix, expressHellTrain, "Express Train to Hell",
-                attack: 0, health: 1, "When the time comes, the train will sound its mighty horn.")
+            string name = "Express Train to Hell";
+            string name2 = "Express Train to Turbo Hell";
+            string desc = "When the time comes, the train will sound its mighty horn.";
+            string textureName = "expressHellTrain";
+            CardManager.New(LobotomyPlugin.pluginPrefix, expressHellTrain, name,
+                attack: 0, health: 1, desc)
                 .SetEnergyCost(2)
-                .SetCardTemple(CardTemple.Undead)
-                .SetPortraits(ModAssembly, expressHellTrain)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(TheTrain.ability)
                 .AddTribes(TribeMechanical)
                 .SetTerrain()
-                .SetDefaultEvolutionName("Express Train to Turbo Hell")
+                .SetDefaultEvolutionName(name2)
+                .Build(CardHelper.CardType.Rare, RiskLevel.Waw);
+
+            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+                attack: 0, health: 1, desc)
+                .SetEnergyCost(2)
+                .SetCardTemple(CardTemple.Undead)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .AddAbilities(TheTrain.ability)
+                .AddTribes(TribeMechanical)
+                .SetTerrain()
+                .SetDefaultEvolutionName(name2)
                 .Build(CardHelper.CardType.Rare, RiskLevel.Waw, true);
         }
     }

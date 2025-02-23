@@ -6,17 +6,17 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_Yang_O07103()
+        public const string yang = "wstl_yang";
+        private static void Yang_O07103()
         {
-            const string yang = "yang";
-
-            CardManager.New(pluginPrefix, yang, "Yang",
+            string textureName = "yang";
+            CardManager.New(LobotomyPlugin.pluginPrefix, yang, "Yang",
                 attack: 0, health: 3, "A white pendant that heals those nearby.")
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, yang)
-                .SetAltPortraits(ModAssembly, "yangAlt")
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
+                .SetAltPortraits(LobotomyPlugin.ModAssembly, "yangAlt")
                 .AddAbilities(Regenerator.ability)
                 .AddSpecialAbilities(Concord.specialAbility)
                 .AddAppearances(AlternateBattlePortrait.appearance)

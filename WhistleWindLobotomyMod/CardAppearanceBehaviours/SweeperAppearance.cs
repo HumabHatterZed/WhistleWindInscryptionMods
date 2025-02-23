@@ -4,11 +4,11 @@ using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Appearances
     {
-        private void Appearance_SweeperAppearance()
+        private static void AddSweeperAppearance()
         {
-            SweeperAppearance.appearance = CardHelper.CreateAppearance<SweeperAppearance>(pluginGuid, "SweeperAppearance").Id;
+            SweeperAppearance.appearance = CardHelper.CreateAppearance<SweeperAppearance>(LobotomyPlugin.pluginGuid, "SweeperAppearance").Id;
         }
     }
     public class SweeperAppearance : PixelAppearanceBehaviour

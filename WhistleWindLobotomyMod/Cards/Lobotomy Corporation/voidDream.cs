@@ -6,26 +6,26 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
-    public partial class LobotomyPlugin
+    public partial class Cards
     {
-        private void Card_VoidDream_T0299()
+        public const string voidDream = "wstl_voidDream";
+        public const string voidDreamRooster = "wstl_voidDreamRooster";
+        private static void VoidDream_T0299()
         {
-            const string dreamName = "Void Dream";
-            const string voidDream = "voidDream";
-            const string voidDreamRooster = "voidDreamRooster";
-
-            CardInfo voidDreamRoosterCard = CardManager.New(pluginPrefix, voidDreamRooster, dreamName,
+            string textureName = "voidDreamRooster";
+            string textureName2 = "voidDream";
+            CardInfo voidDreamRoosterCard = CardManager.New(LobotomyPlugin.pluginPrefix, voidDreamRooster, "Void Dream",
                 attack: 2, health: 3)
                 .SetBloodCost(2)
-                .SetPortraits(ModAssembly, voidDreamRooster)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.DebuffEnemy)
                 .AddTribes(Tribe.Hooved, Tribe.Bird)
                 .Build();
 
-            CardManager.New(pluginPrefix, voidDream, dreamName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, voidDream, "Void Dream",
                 attack: 1, health: 1, "A sleeping goat. Or is it a sheep?")
                 .SetBloodCost(1)
-                .SetPortraits(ModAssembly, voidDream)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Ability.Flying, Ability.Evolve)
                 .AddTribes(Tribe.Hooved)
                 .SetEvolve(voidDreamRoosterCard, 1)
