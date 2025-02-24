@@ -3,6 +3,9 @@
 <details>
 <summary>View changelog</summary>
 
+## 1.2.6 (, 2025)
+- Fixed errors related to queued cards
+
 ## 1.2.5 (Aug 11, 2024)
 - Fixed Terrain stat spells being boostable at the campfire
 - Fixed stat spells not colouring their stat values correctly in the hand

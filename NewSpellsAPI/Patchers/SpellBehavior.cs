@@ -743,11 +743,11 @@ namespace Infiniscryption.Spells.Patchers
                 yield return Singleton<BoardManager>.Instance.ResolveCardOnBoard(queuedCard, queuedSlot, tweenLength);
                 playedCards.Add(queuedCard);
             }
+            __instance.Queue.RemoveAll(playedCards.Contains);
+            playedCards.Clear();
+
             foreach (PlayableCard queuedCard in queuedCards.Where(qc => qc.Info.IsSpell()))
             {
-                if (__instance.QueuedCardIsBlocked(queuedCard))
-                    continue;
-
                 CardSlot queuedSlot = queuedCard.QueuedSlot;
                 queuedCard.QueuedSlot = null;
                 queuedCard?.OnPlayedFromOpponentQueue();
