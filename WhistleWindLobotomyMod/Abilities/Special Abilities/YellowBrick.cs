@@ -14,7 +14,7 @@ using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public class YellowBrick : SpecialCardBehaviour, IOnOtherCardResolveInHand, IOnOtherCardAddedToHand
+    public class YellowBrick : SpecialCardBehaviour, IOnOtherCardResolveInHand
     {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
@@ -35,7 +35,7 @@ namespace WhistleWindLobotomyMod
         {
             if (LobotomyConfigManager.NoEvents)
                 return false;
-
+            Debug.Log(base.PlayableCard.OpponentCard);
             return card != base.PlayableCard && !base.PlayableCard.OpponentCard;
         }
         public override bool RespondsToResolveOnBoard() => !LobotomyConfigManager.NoEvents;
@@ -252,16 +252,6 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.2f);
             if (card.InHand)
                 (Singleton<PlayerHand>.Instance as PlayerHand3D)?.MoveCardAboveHand(card);
-        }
-
-        public bool RespondsToOtherCardAddedToHand(PlayableCard card)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerator OnOtherCardAddedToHand(PlayableCard card)
-        {
-            throw new System.NotImplementedException();
         }
     }
     public class RulebookEntryYellowBrick : AbilityBehaviour

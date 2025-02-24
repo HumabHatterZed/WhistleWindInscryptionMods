@@ -5,6 +5,7 @@
 
 ## v2.0.0 - ()
 ### 🧱 Structural
+- New Spell Card Toolkit is now a required dependency
 - Overhauled status effects
     - Renamed several fields and methods
     - Improved status effect icon appearances and implementation
@@ -20,7 +21,7 @@
 - Overhauled Barreler sigil
 - Overhauled Bitter Enemies (Vendetta) sigil
 - Overhauled Pebble status effect
-- Adjusted descriptions of Persistent and Piercing sigils to account for new sigil effects
+- Return Card to Hand now works when used by the opponent
 - Replaced dialogue for when a Brother card dies while a card with Nettle Clothes is on the board
 - Renamed Refresh Decks sigil to Grand Reopening
 - Renamed Status Effect Overflow sigil to See More
@@ -33,6 +34,7 @@
 - Changed icons for Conductor sigil
 - Changed icons for Barreler sigil
 - Changed Lonely sigil's icons
+- Updated descriptions of Persistent and Piercing sigils to account for new sigil effects
 - Updated descriptions for status effects to use similar technical language
 - Updated icons for Rightful Heir sigil to reflect its activation cost
 - Updated artwork for Jack
