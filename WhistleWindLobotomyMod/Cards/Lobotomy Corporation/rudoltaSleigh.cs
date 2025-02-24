@@ -10,6 +10,7 @@ namespace WhistleWindLobotomyMod
     public partial class Cards
     {
         public const string rudoltaSleigh = "wstl_rudoltaSleigh";
+        public const string rudoltaSleigh_mule = "wstl_RUDOLTA_MULE";
         private static void Rudolta_F0249()
         {
             string sleighName = "Rudolta of the Sleigh";
@@ -25,7 +26,7 @@ namespace WhistleWindLobotomyMod
                 .AddTribes(tribes)
                 .Build(CardHelper.CardType.Common, RiskLevel.He, true);
 
-            CardManager.New(LobotomyPlugin.pluginPrefix, "RUDOLTA_MULE", sleighName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, rudoltaSleigh_mule, sleighName,
                 attack: 2, health: 3)
                 .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)

@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool CanActivate() => base.Card.Info.name != "wstl_hundredsGoodDeeds";
+        public override bool CanActivate() => base.Card.Info.name != Cards.hundredsGoodDeeds;
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
         public override IEnumerator Activate()
         {
@@ -34,7 +34,7 @@ namespace WhistleWindLobotomyMod
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);
             CardSlot thisSlot = base.Card.Slot;
-            CardInfo cardInfo = CardLoader.GetCardByName("wstl_hundredsGoodDeeds");
+            CardInfo cardInfo = CardLoader.GetCardByName(Cards.hundredsGoodDeeds);
             yield return base.Card.Die(false, base.Card);
             yield return new WaitForSeconds(0.5f);
             yield return Singleton<BoardManager>.Instance.CreateCardInSlot(cardInfo, thisSlot, 0.15f);

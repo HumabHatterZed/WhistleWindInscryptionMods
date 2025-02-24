@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 -15,
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart_activated.png"), 0)
-                .SetCustomUnlock(dummy => LobotomySaveManager.UnlockedJesterOfNihil || LobotomyConfigManager.Instance.EventFlags)
+                .SetCustomUnlock(dummy => LobotomySaveManager.UnlockedJesterOfNihil || LobotomyConfigManager.EventFlags)
                 .Challenge.challengeType;
         }
     }

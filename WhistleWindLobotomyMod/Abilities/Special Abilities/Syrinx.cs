@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
             if (this.sacrificeCount >= 6)
             {
                 yield return new WaitForSeconds(0.25f);
-                CardInfo cardByName = CardLoader.GetCardByName("wstl_namelessFetusAwake");
+                CardInfo cardByName = CardLoader.GetCardByName(Cards.namelessFetusAwake);
                 yield return DialogueHelper.PlayDialogueEvent("NamelessFetusAwake", 0f);
                 yield return base.PlayableCard.TransformIntoCard(cardByName);
                 yield return new WaitForSeconds(0.5f);

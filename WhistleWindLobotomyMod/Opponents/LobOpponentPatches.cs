@@ -147,7 +147,7 @@ namespace WhistleWindLobotomyMod.Patches
                                     else if (AscensionSaveData.Data.ChallengeIsActive(FinalJester.Id))
                                         __result = CustomBossUtils.jesterRegion;*/
                 }
-                else if (LobotomyConfigManager.Instance.FinalApocalypse)
+                else if (LobotomyConfigManager.FinalApocalypse)
                 {
                     __result = LobOpponentUtils.apocalypseRegion;
                 }

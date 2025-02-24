@@ -11,6 +11,7 @@ namespace WhistleWindLobotomyMod
         public const string bigEgg = "wstl_apocalypseEgg_big";
         public const string littleEgg = "wstl_apocalypseEgg_small";
         public const string longEgg = "wstl_apocalypseEgg_long";
+        public const string giantApocalypse = "!GIANTCARD_ApocalypseBird";
         private static void ApocalypseBirdEggs()
         {
             Trait[] traits = new Trait[2] { Trait.Uncuttable, AbnormalPlugin.ImmuneToInstaDeath };
@@ -42,7 +43,7 @@ namespace WhistleWindLobotomyMod
                 .SetEventCard(false)
                 .Build();
 
-            CardManager.New(LobotomyPlugin.pluginPrefix, "!GIANTCARD_ApocalypseBird", "",
+            CardManager.New(LobotomyPlugin.pluginPrefix, giantApocalypse, "",
                 attack: 2, health: 40)
                 .AddAbilities(ApocalypseAbility.ability, SoulboundFlesh.ability, Ability.Reach, Challenging.ability)
                 .AddTraits(Trait.Uncuttable, Trait.Giant, AbnormalPlugin.ImmuneToInstaDeath)

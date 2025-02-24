@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
         public override Ability Ability => ability;
 
         int turnsTillActivation = 2;
-        public override string SpawnedCardId => "wstl_foodChain";
+        public override string SpawnedCardId => Cards.foodChain;
 
         public override string CannotSpawnDialogue => "The banquest is halted.";
 

@@ -72,8 +72,8 @@ namespace WhistleWindLobotomyMod.Patches
             if (LobotomySaveManager.OpponentBlessings > 11)
                 LobotomySaveManager.OpponentBlessings = 11;
 
-            if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
-                LobotomyConfigManager.Instance.SetBlessings(11);
+            if (LobotomyConfigManager.NumOfBlessings > 11)
+                LobotomyConfigManager.SetBlessings(11);
         }
 
         // Reset board effects for event cards and the Clock for WhiteNight
@@ -91,8 +91,8 @@ namespace WhistleWindLobotomyMod.Patches
                 if (LobotomySaveManager.OpponentBlessings > 11)
                     LobotomySaveManager.OpponentBlessings = 0;
 
-                if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
-                    LobotomyConfigManager.Instance.SetBlessings(0);
+                if (LobotomyConfigManager.NumOfBlessings > 11)
+                    LobotomyConfigManager.SetBlessings(0);
 
                 AchievementAPI.Unlock(true, AchievementAPI.Blessing);
                 LobotomySaveManager.TriggeredWhiteNightThisBattle = false;

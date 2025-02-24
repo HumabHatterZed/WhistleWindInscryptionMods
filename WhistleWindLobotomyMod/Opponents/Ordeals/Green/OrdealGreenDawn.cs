@@ -18,50 +18,50 @@ namespace WhistleWindLobotomyMod.Opponents
             if (encounterData.Difficulty <= minDifficulty)
             {
                 turn1 = new() {
-                    HelperMethods.NewDifficultyCard("wstl_doubtA", "wstl_doubtB", 1),
-                    EncounterManager.NewCardBlueprint("wstl_doubtA")
+                    HelperMethods.NewDifficultyCard(Cards.doubtA, Cards.doubtB, 1),
+                    EncounterManager.NewCardBlueprint(Cards.doubtA)
                 };
                 turn2 = new() {
-                    HelperMethods.NewDifficultyCard("wstl_doubtB", "wstl_doubtY", 1),
-                    HelperMethods.NewDifficultyCard("wstl_doubtA", "wstl_doubtB", 1)
+                    HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, 1),
+                    HelperMethods.NewDifficultyCard(Cards.doubtA, Cards.doubtB, 1)
                 };
                 turn3 = new() {
-                    HelperMethods.NewDifficultyCard("wstl_doubtY", "wstl_doubtO", 1),
-                    EncounterManager.NewCardBlueprint("wstl_doubtB")
+                    HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, 1),
+                    EncounterManager.NewCardBlueprint(Cards.doubtB)
                 };
             }
             else if (encounterData.Difficulty <= minDifficulty + 2)
             {
                 turn1 = new() {
-                    HelperMethods.NewDifficultyCard("wstl_doubtB", "wstl_doubtY", 3),
-                    EncounterManager.NewCardBlueprint("wstl_doubtB")
+                    HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, 3),
+                    EncounterManager.NewCardBlueprint(Cards.doubtB)
                 };
                 turn2 = new() {
-                    HelperMethods.NewDifficultyCard("wstl_doubtY", "wstl_doubtO", 3),
-                    HelperMethods.NewDifficultyCard("wstl_doubtB", "wstl_doubtY", 3)
+                    HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, 3),
+                    HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, 3)
                 };
                 turn3 = new() {
-                    EncounterManager.NewCardBlueprint("wstl_doubtO"),
-                    EncounterManager.NewCardBlueprint("wstl_doubtY"),
-                    HelperMethods.NewDifficultyCard("wstl_doubtA", "wstl_doubtB", 3)
+                    EncounterManager.NewCardBlueprint(Cards.doubtO),
+                    EncounterManager.NewCardBlueprint(Cards.doubtY),
+                    HelperMethods.NewDifficultyCard(Cards.doubtA, Cards.doubtB, 3)
                 };
             }
             else
             {
                 turn1 = new() {
-                    EncounterManager.NewCardBlueprint("wstl_doubtY"),
-                    EncounterManager.NewCardBlueprint("wstl_doubtB")
+                    EncounterManager.NewCardBlueprint(Cards.doubtY),
+                    EncounterManager.NewCardBlueprint(Cards.doubtB)
                 };
                 turn2 = new() {
-                    EncounterManager.NewCardBlueprint("wstl_doubtO"),
-                    EncounterManager.NewCardBlueprint("wstl_doubtY"),
-                    EncounterManager.NewCardBlueprint("wstl_doubtB")
+                    EncounterManager.NewCardBlueprint(Cards.doubtO),
+                    EncounterManager.NewCardBlueprint(Cards.doubtY),
+                    EncounterManager.NewCardBlueprint(Cards.doubtB)
                 };
                 turn3 = new() {
-                    EncounterManager.NewCardBlueprint("wstl_doubtO"),
-                    EncounterManager.NewCardBlueprint("wstl_doubtY"),
-                    EncounterManager.NewCardBlueprint("wstl_doubtY"),
-                    EncounterManager.NewCardBlueprint("wstl_doubtB")
+                    EncounterManager.NewCardBlueprint(Cards.doubtO),
+                    EncounterManager.NewCardBlueprint(Cards.doubtY),
+                    EncounterManager.NewCardBlueprint(Cards.doubtY),
+                    EncounterManager.NewCardBlueprint(Cards.doubtB)
                 };
             }
 

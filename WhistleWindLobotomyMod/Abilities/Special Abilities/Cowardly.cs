@@ -42,13 +42,13 @@ namespace WhistleWindLobotomyMod
             System.Action action = null;
             if (slots.Count > 0)
             {
-                if (card.Info.name == "wstl_scaredyCat")
-                    transformation = HelperMethods.GetInfoWithMods(card, "wstl_scaredyCatStrong");
+                if (card.Info.name == Cards.scaredyCat)
+                    transformation = HelperMethods.GetInfoWithMods(card, Cards.scaredyCatStrong);
             }
-            else if (card.Info.name == "wstl_scaredyCatStrong")
+            else if (card.Info.name == Cards.scaredyCatStrong)
             {
                 // reset damage taken if we're changing to the weak forme, since it has less Health
-                transformation = HelperMethods.GetInfoWithMods(card, "wstl_scaredyCat");
+                transformation = HelperMethods.GetInfoWithMods(card, Cards.scaredyCat);
                 action = () => card.Status.damageTaken = 0;
             }
 

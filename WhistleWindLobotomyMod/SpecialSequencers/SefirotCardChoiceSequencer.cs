@@ -26,10 +26,10 @@ namespace WhistleWindLobotomyMod
             };
 
             GenerationType main = GenerationType.SpecialCardChoice;
-            GenerationType extra = LobotomyConfigManager.Instance.SefirotChoiceAtStart ? GenerationType.RegionStart : GenerationType.None;
+            GenerationType extra = LobotomyConfigManager.SefirotChoiceAtStart ? GenerationType.RegionStart : GenerationType.None;
 
             // don't generate node if it's disabled
-            if (LobotomyConfigManager.Instance.NoSefirot)
+            if (LobotomyConfigManager.NoSefirot)
             {
                 main = GenerationType.None;
                 extra = GenerationType.None;
@@ -147,7 +147,7 @@ namespace WhistleWindLobotomyMod
 
             // if the player has 2 sephirah already, unlock Angela and make her a guaranteed choice
             if (sephirahCards.Count <= 7 && !LobotomySaveManager.UnlockedAngela)
-                listOfChoices.Add(new() { CardInfo = CardLoader.GetCardByName("wstl_angela") });
+                listOfChoices.Add(new() { CardInfo = CardLoader.GetCardByName(Cards.angela) });
 
             while (listOfChoices.Count < 3)
             {
@@ -222,7 +222,7 @@ namespace WhistleWindLobotomyMod
                 SpawnMushroom(originalCardPos);
 
             // unlock achievement upon flipping the card
-            if (card.Info.name == "wstl_angela" && !LobotomySaveManager.UnlockedAngela)
+            if (card.Info.name == Cards.angela && !LobotomySaveManager.UnlockedAngela)
             {
                 yield return new WaitForSeconds(0.25f);
                 LobotomySaveManager.UnlockedAngela = true;

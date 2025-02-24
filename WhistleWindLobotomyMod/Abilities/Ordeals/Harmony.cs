@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod
 
             foreach (CardSlot slot in openSlots)
             {
-                yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_skinCheers"), slot);
+                yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.skinHarmony), slot);
             }
         }
     }

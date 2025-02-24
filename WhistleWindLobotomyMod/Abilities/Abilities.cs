@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
     {
         public static void AddAbilities(LobotomyPlugin plugin)
         {
-            if (LobotomyConfigManager.Instance.ReskinSigils)
+            if (LobotomyConfigManager.ReskinSigils)
             {
                 AbilityManager.ModifyAbilityList += delegate (List<AbilityManager.FullAbility> abilities)
                 {
@@ -77,7 +77,7 @@ namespace WhistleWindLobotomyMod
             StatusEffect_Sin();
             AddUnjustScale();
 
-            if (LobotomyConfigManager.Instance.RevealSpecials)
+            if (LobotomyConfigManager.RevealSpecials)
             {
                 LobotomyPlugin.Log.LogDebug("Adding rulebook entries for special abilities.");
                 AccessTools.GetDeclaredMethods(typeof(Abilities)).Where(mi => mi.Name.StartsWith("Rulebook")).ForEach(mi => mi.Invoke(plugin, null));

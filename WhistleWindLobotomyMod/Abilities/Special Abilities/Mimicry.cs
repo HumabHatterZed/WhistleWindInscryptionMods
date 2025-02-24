@@ -1,12 +1,15 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Saves;
 using InscryptionAPI.Slots;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
@@ -18,7 +21,6 @@ namespace WhistleWindLobotomyMod
 
         public const string rName = "Mimicry";
         public const string rDesc = "Nothing There reveals itself after three turns on the board.";
-        private bool deactivate = false;
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
@@ -110,7 +112,7 @@ namespace WhistleWindLobotomyMod
         private void DisguiseInBattle()
         {
             CardModificationInfo mod = GetNothingThereMod();
-            CardInfo disguise = CardLoader.GetCardByName(mod?.singletonId.Replace("NothingThere:", "") ?? "wstl_nothingThere");
+            CardInfo disguise = CardLoader.GetCardByName(mod?.singletonId.Replace("NothingThere:", "") ?? Cards.nothingThere);
             this.DisguiseAsCard(disguise);
             base.PlayableCard.AddPermanentBehaviour<Mimicry>();
         }
@@ -118,14 +120,17 @@ namespace WhistleWindLobotomyMod
         private void DisguiseOutOfBattle()
         {
             CardModificationInfo mod = GetNothingThereMod();
-            CardInfo disguise = CardLoader.GetCardByName(mod?.singletonId.Replace("NothingThere:", "") ?? "wstl_nothingThere");
+            CardInfo disguise = CardLoader.GetCardByName(mod?.singletonId.Replace("NothingThere:", "") ?? Cards.nothingThere);
             this.DisguiseAsCard(disguise);
         }
 
         private void DisguiseAsCardChoice() // for when first choosing Nothing There
         {
-            CardInfo disguise = CardLoader.GetRandomChoosableCard(Environment.TickCount, SaveManager.SaveFile.GetSceneAsCardTemple() ?? CardTemple.Nature);
-            disguise ??= CardLoader.GetCardByName("wstl_nothingThere");
+            // valid initial card options are cards without special abilities or traits
+            List<CardInfo> options = LobotomyCardLoader.GetUnlockedModCards(CardMetaCategory.ChoiceNode)
+                .Where(x => x.SpecialAbilities.Count == 0 && x.traits.Count == 0).ToList();
+
+            CardInfo disguise = CardLoader.GetCardByName(options.Count > 0 ? options.GetSeededRandom(Environment.TickCount).name : Cards.nothingThere);
 
             CardModificationInfo cardModificationInfo = new();
             cardModificationInfo.singletonId = "NothingThere";

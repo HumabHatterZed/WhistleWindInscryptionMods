@@ -10,10 +10,10 @@ namespace WhistleWindLobotomyMod.Core
         {
             List<CardInfo> unlockedCards = GetUnlockedModCards(CardMetaCategory.Rare);
             if (LobotomySaveManager.UsedBackwardClock)
-                unlockedCards.RemoveAll((x) => x.name == "wstl_backwardClock");
+                unlockedCards.RemoveAll((x) => x.name == Cards.backwardClock);
 
             if (unlockedCards.Count == 0)
-                return CardLoader.Clone(CardLoader.GetCardByName("wstl_trainingDummy"));
+                return CardLoader.Clone(CardLoader.GetCardByName(Cards.trainingDummy));
 
             return CardLoader.Clone(unlockedCards[SeededRandom.Range(0, unlockedCards.Count, randomSeed)]);
         }
@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod.Core
                 unlockedCards.RemoveAll(x => x.HasTrait(LobotomyCardManager.EmeraldCity));
 
             if (unlockedCards.Count == 0)
-                return CardLoader.Clone(CardLoader.GetCardByName("wstl_trainingDummy"));
+                return CardLoader.Clone(CardLoader.GetCardByName(Cards.trainingDummy));
 
             return CardLoader.Clone(unlockedCards[SeededRandom.Range(0, unlockedCards.Count, randomSeed)]);
         }
@@ -46,7 +46,7 @@ namespace WhistleWindLobotomyMod.Core
 
             foreach (CardModificationInfo mod in SaveFile.IsAscension ? DefaultDeathCards.CreateAscensionCardMods() : SaveManager.SaveFile.deathCardMods)
             {
-                if (mod.singletonId != null && mod.singletonId.StartsWith("wstl"))
+                if (mod.singletonId != null && mod.singletonId.StartsWith(LobotomyPlugin.pluginPrefix))
                     allDeathCards.Add(CardLoader.CreateDeathCard(mod));
             }
             List<CardInfo> uniqueDeathCard = allDeathCards.FindAll(x => !RunState.DeckList.Contains(x));
@@ -59,7 +59,7 @@ namespace WhistleWindLobotomyMod.Core
             obtainableCards.RemoveAll(x => x.LacksTrait(LobotomyCardManager.Sephirah));
 
             if (LobotomySaveManager.UnlockedAngela)
-                obtainableCards.Add(CardLoader.GetCardByName("wstl_angela"));
+                obtainableCards.Add(CardLoader.GetCardByName(Cards.angela));
 
             return CardLoader.RemoveDeckSingletonsIfInDeck(obtainableCards);
         }

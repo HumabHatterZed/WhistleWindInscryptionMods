@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod.Patches
             string preEvolutionName = __instance.Card.Info.name;
 
             // pre-evolution dialogue
-            if (preEvolutionName == "wstl_nothingThereTrue")
+            if (preEvolutionName == Cards.nothingThereTrue)
             {
                 ViewManager.Instance.SwitchToView(View.Board);
                 yield return new WaitForSeconds(0.15f);
@@ -46,11 +46,13 @@ namespace WhistleWindLobotomyMod.Patches
             // dialogue plays after evolution
             switch (preEvolutionName)
             {
-                case "wstl_magicalGirlDiamond":
+                case Cards.magicalGirlDiamondPixel:
+                    goto case Cards.magicalGirlDiamond;
+                case Cards.magicalGirlDiamond:
                     yield return new WaitForSeconds(0.2f);
                     yield return DialogueHelper.PlayDialogueEvent("KingOfGreedTransform");
                     yield break;
-                case "wstl_nothingThereEgg":
+                case Cards.nothingThereEgg:
                     yield return new WaitForSeconds(0.2f);
                     yield return DialogueHelper.PlayDialogueEvent("NothingThereTransformEgg");
                     yield break;

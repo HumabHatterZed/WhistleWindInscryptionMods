@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
         private int downCount = 0;
 
         private bool Saviour => BoardManager.Instance.GetSlotsCopy(!base.Card.OpponentCard).Exists(s => s.Card != null && s.Card.HasAbility(TrueSaviour.ability));
-        private bool Downed => base.Card.Info.name.Contains("Down");
+        private bool Downed => base.Card.Info.name.EndsWith("Down");
 
         public override bool RespondsToUpkeep(bool playerUpkeep) => Downed && base.Card.OpponentCard != playerUpkeep;
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
@@ -75,11 +75,11 @@ namespace WhistleWindLobotomyMod
         {
             CardInfo downedInfo = base.Card.Info.name switch
             {
-                "wstl_apostleGuardian" => CardLoader.GetCardByName("wstl_apostleGuardianDown"),
-                "wstl_apostleMoleman" => CardLoader.GetCardByName("wstl_apostleMolemanDown"),
-                "wstl_apostleSpear" => CardLoader.GetCardByName("wstl_apostleSpearDown"),
-                "wstl_apostleStaff" => CardLoader.GetCardByName("wstl_apostleStaffDown"),
-                "wstl_apostleScythe" => CardLoader.GetCardByName("wstl_apostleScytheDown"),
+                Cards.apostleGuardian => CardLoader.GetCardByName(Cards.apostleGuardianDown),
+                Cards.apostleMoleman => CardLoader.GetCardByName(Cards.apostleMolemanDown),
+                Cards.apostleSpear => CardLoader.GetCardByName(Cards.apostleSpearDown),
+                Cards.apostleStaff => CardLoader.GetCardByName(Cards.apostleStaffDown),
+                Cards.apostleScythe => CardLoader.GetCardByName(Cards.apostleScytheDown),
                 _ => CardLoader.GetCardByName(base.Card.Info.name)
             };
 
@@ -97,11 +97,11 @@ namespace WhistleWindLobotomyMod
         {
             CardInfo risenInfo = base.Card.Info.name switch
             {
-                "wstl_apostleGuardianDown" => CardLoader.GetCardByName("wstl_apostleGuardian"),
-                "wstl_apostleMolemanDown" => CardLoader.GetCardByName("wstl_apostleMoleman"),
-                "wstl_apostleSpearDown" => CardLoader.GetCardByName("wstl_apostleSpear"),
-                "wstl_apostleStaffDown" => CardLoader.GetCardByName("wstl_apostleStaff"),
-                _ => CardLoader.GetCardByName("wstl_apostleScythe")
+                Cards.apostleGuardianDown => CardLoader.GetCardByName(Cards.apostleGuardian),
+                Cards.apostleMolemanDown => CardLoader.GetCardByName(Cards.apostleMoleman),
+                Cards.apostleSpearDown => CardLoader.GetCardByName(Cards.apostleSpear),
+                Cards.apostleStaffDown => CardLoader.GetCardByName(Cards.apostleStaff),
+                _ => CardLoader.GetCardByName(Cards.apostleScythe)
             };
             yield return new WaitForSeconds(0.2f);
             yield return base.Card.TransformIntoCard(risenInfo, ResetDamage);

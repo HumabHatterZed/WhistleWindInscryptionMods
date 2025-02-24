@@ -23,7 +23,7 @@ namespace WhistleWind.AbnormalSigils
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
     [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("community.inscryption.patch", BepInDependency.DependencyFlags.HardDependency)]
-    [BepInDependency("zorro.inscryption.infiniscryption.spells", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("zorro.inscryption.infiniscryption.spells", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("tribes.libary", BepInDependency.DependencyFlags.SoftDependency)]
     public partial class AbnormalPlugin : BaseUnityPlugin
     {
@@ -252,6 +252,9 @@ namespace WhistleWind.AbnormalSigils
             Slot_Flooded();
             Ability_Spilling();
 
+            StatusEffect_FizzyLifterEffect();
+            Ability_FizzyLifter();
+            
             Slot_Blooming();
             Ability_FlowerQueen();
 

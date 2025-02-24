@@ -95,7 +95,7 @@ namespace WhistleWindLobotomyMod.Opponents
             base.StartCoroutine(DisplayBanner(BattleSequencer.ordealType, true));
             this.SetSceneEffectsShown(true);
             //AudioController.Instance.SetLoopAndPlay("first_warning", 1);
-            //AudioController.Instance.SetLoopVolumeImmediate(0.3f, 0.8f);
+            AudioController.Instance.SetLoopVolumeImmediate(0.3f, 1);
             OrdealCounterManager.Instance.SetShown(true);
             yield return new WaitForSeconds(1.5f);
 

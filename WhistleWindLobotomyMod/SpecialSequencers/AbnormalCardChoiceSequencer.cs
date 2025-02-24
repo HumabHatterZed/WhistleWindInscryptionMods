@@ -194,7 +194,7 @@ namespace WhistleWindLobotomyMod
         {
             int regionMultiplier = regionTier;
 
-            if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(BetterRareChances.Id) : LobotomyConfigManager.Instance.BetterRareChances)
+            if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(BetterRareChances.Id) : LobotomyConfigManager.BetterRareChances)
                 regionMultiplier++;
 
             return regionMultiplier switch
@@ -321,10 +321,10 @@ namespace WhistleWindLobotomyMod
             };
 
             GenerationType main = GenerationType.SpecialCardChoice;
-            GenerationType extra = LobotomyConfigManager.Instance.BoxStart ? GenerationType.RegionStart : GenerationType.None;
+            GenerationType extra = LobotomyConfigManager.BoxStart ? GenerationType.RegionStart : GenerationType.None;
 
             // don't generate node if it's disabled or no cards to spawn
-            if (LobotomyConfigManager.Instance.NoBox || AllCardsDisabled)
+            if (LobotomyConfigManager.NoBox || AllCardsDisabled)
             {
                 main = GenerationType.None;
                 extra = GenerationType.None;

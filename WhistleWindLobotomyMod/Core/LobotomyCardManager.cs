@@ -37,14 +37,13 @@ namespace WhistleWindLobotomyMod.Core
                     if (!overrideCardChoice)
                     {
                         ObtainableAct2Cards.Add(cardInfo);
-                        if (LobotomyConfigManager.Instance.GBCPacks)
+                        if (LobotomyConfigManager.GBCPacks)
                             cardInfo.AddMetaCategories(CardMetaCategory.GBCPack, CardMetaCategory.GBCPlayable);
                     }
                 }
 
                 if (!overrideCardChoice)
                 {
-                    Log.LogDebug($"[Obtainable] {cardInfo.name}");
                     switch (cardInfo.temple)
                     {
                         case CardTemple.Nature:
@@ -85,13 +84,13 @@ namespace WhistleWindLobotomyMod.Core
 
         public static bool CardIsDisabled(CardInfo info)
         {
-            if (info.HasCardMetaCategory(EventCard) && LobotomyConfigManager.Instance.NoEvents)
+            if (info.HasCardMetaCategory(EventCard) && LobotomyConfigManager.NoEvents)
                 return true;
 
-            if (info.HasCardMetaCategory(DonatorCard) && LobotomyConfigManager.Instance.NoDonators)
+            if (info.HasCardMetaCategory(DonatorCard) && LobotomyConfigManager.NoDonators)
                 return true;
 
-            if (info.HasCardMetaCategory(RuinaCard) && LobotomyConfigManager.Instance.NoRuina)
+            if (info.HasCardMetaCategory(RuinaCard) && LobotomyConfigManager.NoRuina)
                 return true;
 
             RiskLevel riskLevel = info.GetRiskLevel();

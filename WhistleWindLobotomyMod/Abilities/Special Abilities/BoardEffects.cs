@@ -15,13 +15,13 @@ namespace WhistleWindLobotomyMod
         public override bool RespondsToResolveOnBoard() => !SaveManager.SaveFile.IsPart2;
         public override IEnumerator OnResolveOnBoard()
         {
-            if (base.PlayableCard.Info.name == "wstl_apocalypseBird" && !LobotomySaveManager.BoardEffectsApocalypse)
+            if (base.PlayableCard.Info.name == Cards.apocalypseBird && !LobotomySaveManager.BoardEffectsApocalypse)
                 yield return ApocalypseTableEffects();
 
-            if (base.PlayableCard.Info.name == "wstl_jesterOfNihil" && !LobotomySaveManager.BoardEffectsEntropy)
+            if (base.PlayableCard.Info.name == Cards.jesterOfNihil && !LobotomySaveManager.BoardEffectsEntropy)
                 yield return EntropyTableEffects();
 
-            if (base.PlayableCard.Info.name == "wstl_lyingAdult" && !LobotomySaveManager.BoardEffectsEmerald)
+            if (base.PlayableCard.Info.name == Cards.lyingAdult && !LobotomySaveManager.BoardEffectsEmerald)
                 yield return EmeraldTableEffects();
 
             yield break;

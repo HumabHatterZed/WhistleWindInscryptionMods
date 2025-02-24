@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using Core.Helpers;
+using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             // Creates a minion that has the abilities, tribes, power of the killed card
-            CardInfo minion = CardLoader.GetCardByName("wstl_censoredMinion");
+            CardInfo minion = CardLoader.GetCardByName(Cards.censoredMinion);
 
             minion.displayedName = card.Info.displayedName;
             minion.appearanceBehaviour = card.Info.appearanceBehaviour;
@@ -72,7 +73,7 @@ namespace WhistleWindLobotomyMod
             }
             else
             {
-                HelperMethods.QueueCreatedCard(minion);
+                CombatHelpers.QueueCreatedCard(minion);
             }
             yield return DialogueHelper.PlayDialogueEvent("CENSOREDKilledCard");
             yield return new WaitForSeconds(0.25f);

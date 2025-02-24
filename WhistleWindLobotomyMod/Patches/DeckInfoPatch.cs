@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod.Patches
             if (mod != null)
             {
                 string disguise = card.name;
-                card = CardLoader.GetCardByName("wstl_nothingThere");
+                card = CardLoader.GetCardByName(Cards.nothingThere);
                 card.Mods = new() { new() { singletonId = "NothingThere:" + disguise } };
             }
         }
@@ -29,92 +29,40 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix]
         private static void VanillaDeckAddEvents(ref DeckInfo __instance)
         {
-            if (LobotomyConfigManager.Instance.StartApocalypseBird && !__instance.Cards.Exists(x => x.name == "wstl_apocalypseBird"))
-                __instance.AddCard(CardLoader.GetCardByName("wstl_apocalypseBird"));
+            if (LobotomyConfigManager.StartApocalypseBird && !__instance.Cards.Exists(x => x.name == Cards.apocalypseBird))
+                __instance.AddCard(CardLoader.GetCardByName(Cards.apocalypseBird));
 
-            if (LobotomyConfigManager.Instance.StartJesterOfNihil && !__instance.Cards.Exists(x => x.name == "wstl_jesterOfNihil"))
-                __instance.AddCard(CardLoader.GetCardByName("wstl_jesterOfNihil"));
+            if (LobotomyConfigManager.StartJesterOfNihil && !__instance.Cards.Exists(x => x.name == Cards.jesterOfNihil))
+                __instance.AddCard(CardLoader.GetCardByName(Cards.jesterOfNihil));
 
-            if (LobotomyConfigManager.Instance.StartLyingAdult && !__instance.Cards.Exists(x => x.name == "wstl_lyingAdult"))
-                __instance.AddCard(CardLoader.GetCardByName("wstl_lyingAdult"));
+            if (LobotomyConfigManager.StartLyingAdult && !__instance.Cards.Exists(x => x.name == Cards.lyingAdult))
+                __instance.AddCard(CardLoader.GetCardByName(Cards.lyingAdult));
         }
 
         [HarmonyPatch(nameof(DeckInfo.InitializeAsPlayerDeck))]
         [HarmonyPrefix]
         private static bool Part1StarterDecks(ref DeckInfo __instance)
         {
-            if (LobotomyConfigManager.Instance.StarterDeck <= 0 || LobotomyConfigManager.Instance.StarterDeck > 12)
+            if (LobotomyConfigManager.StarterDeck <= 0 || LobotomyConfigManager.StarterDeck > 12)
                 return true;
 
-            int deckIdx = LobotomyConfigManager.Instance.StarterDeck;
+            int deckIdx = LobotomyConfigManager.StarterDeck;
             if (deckIdx == 1)
-                deckIdx = UnityEngine.Random.Range(3, 13);
+                deckIdx = UnityEngine.Random.Range(3, 1 + StarterDecks.NUM_DECKS);
 
             List<string> cardsToAdd = deckIdx switch
             {
-                2 => new(),
-                3 => new()
-                {
-                    "wstl_oneSin",
-                    "wstl_fairyFestival",
-                    "wstl_oldLady"
-                },
-                4 => new()
-                {
-                    "wstl_scorchedGirl",
-                    "wstl_laetitia",
-                    "wstl_childOfTheGalaxy"
-                },
-                5 => new()
-                {
-                    "wstl_weCanChangeAnything",
-                    "wstl_allAroundHelper",
-                    "wstl_singingMachine"
-                },
-                6 => new()
-                {
-                    "wstl_todaysShyLook",
-                    LobotomyConfigManager.Instance.NoRuina ? "wstl_mirrorOfAdjustment" : "wstl_pinocchio",
-                    "wstl_behaviourAdjustment"
-                },
-                7 => new()
-                {
-                    "wstl_beautyAndBeast",
-                    "wstl_voidDream",
-                    "wstl_queenBee"
-                },
-                8 => new()
-                {
-                    "wstl_fragmentOfUniverse",
-                    "wstl_skinProphecy",
-                    LobotomyConfigManager.Instance.NoRuina ? "wstl_mhz176" : "wstl_priceOfSilence"
-                },
-                9 => new()
-                {
-                    "wstl_bloodBath",
-                    "wstl_burrowingHeaven",
-                    "wstl_snowQueen"
-                },
-                10 => new()
-                {
-                    LobotomyConfigManager.Instance.NoRuina ? "wstl_laetitia" : "wstl_theRoadHome",
-                    "wstl_warmHeartedWoodsman",
-                    "wstl_wisdomScarecrow",
-                    LobotomyConfigManager.Instance.NoRuina ? "wstl_snowWhitesApple" : "wstl_ozma"
-                },
-                11 => new()
-                {
-                    "wstl_magicalGirlSpade",
-                    "wstl_magicalGirlHeart",
-                    "wstl_magicalGirlDiamond",
-                    LobotomyConfigManager.Instance.NoRuina ? "wstl_voidDream" : "wstl_magicalGirlClover"
-                },
-                12 => new()
-                {
-                    "wstl_punishingBird",
-                    "wstl_bigBird",
-                    "wstl_judgementBird"
-                },
+                3 => StarterDecks.firstDay,
+                4 => StarterDecks.lonelyFriends,
+                5 => StarterDecks.bloodMechs,
+                6 => StarterDecks.peoplePleasers,
+                7 => StarterDecks.freakShow,
+                8 => StarterDecks.apocrypha,
+                9 => StarterDecks.keter,
+                10 => StarterDecks.deathLovers,
+                11 => StarterDecks.roadToOz,
+                12 => StarterDecks.magicGirls,
+                13 => StarterDecks.twilight,
                 _ => null
             };
 
@@ -126,7 +74,7 @@ namespace WhistleWindLobotomyMod.Patches
             if (cardsToAdd.Count == 0)
             {
                 List<CardInfo> validCards = new(ObtainableLobotomyCards);
-                while (cardsToAdd.Count < 3 + LobotomyConfigManager.Instance.StarterDeckSize)
+                while (cardsToAdd.Count < 3 + LobotomyConfigManager.StarterDeckSize)
                 {
                     CardInfo cardToAdd = ObtainableLobotomyCards[SeededRandom.Range(0, validCards.Count, SaveManager.SaveFile.GetCurrentRandomSeed())];
 
@@ -140,14 +88,14 @@ namespace WhistleWindLobotomyMod.Patches
             foreach (string str in cardsToAdd)
                 __instance.AddCard(CardLoader.GetCardByName(str));
 
-            if (LobotomyConfigManager.Instance.StartApocalypseBird)
-                __instance.AddCard(CardLoader.GetCardByName("wstl_apocalypseBird"));
+            if (LobotomyConfigManager.StartApocalypseBird)
+                __instance.AddCard(CardLoader.GetCardByName(Cards.apocalypseBird));
 
-            if (LobotomyConfigManager.Instance.StartJesterOfNihil)
-                __instance.AddCard(CardLoader.GetCardByName("wstl_jesterOfNihil"));
+            if (LobotomyConfigManager.StartJesterOfNihil)
+                __instance.AddCard(CardLoader.GetCardByName(Cards.jesterOfNihil));
 
-            if (LobotomyConfigManager.Instance.StartLyingAdult)
-                __instance.AddCard(CardLoader.GetCardByName("wstl_lyingAdult"));
+            if (LobotomyConfigManager.StartLyingAdult)
+                __instance.AddCard(CardLoader.GetCardByName(Cards.lyingAdult));
 
             return false;
         }

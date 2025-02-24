@@ -9,6 +9,21 @@ namespace WhistleWindLobotomyMod.Core.Helpers
 {
     public static class LobotomyHelpers
     {
+        public static bool CardIsMimicking(PlayableCard card)
+        {
+            if (card != null)
+            {
+                if (card.HasAnyOfSpecialAbilities(Mimicry.specialAbility, SpecialTriggeredAbility.Shapeshifter))
+                    return true;
+
+                if (card.Info.Mods.Exists(x => HelperMethods.CompareSingleton(x.singletonId, "wstl:Copycat") || HelperMethods.StartsWithSingleton(x.singletonId, "NothingThere")))
+
+                if (card.TriggerHandler.permanentlyAttachedBehaviours.Exists(x => x.GetType() == typeof(Mimicry) || x.GetType() == typeof(Shapeshifter)))
+                    return true;
+            }
+            return false;
+        }
+
         public static bool IsChallengeConfigActive(AscensionChallenge challenge, bool config)
         {
             return SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(challenge) : config;

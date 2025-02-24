@@ -60,7 +60,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 cardToConvert.RemoveFromBoard();
                 yield return new WaitForSeconds(0.5f);
                 yield return HelperMethods.ChangeCurrentView(View.Hand, 0f);
-                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_apostleHeretic"), null, 0.25f, null);
+                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName(Cards.apostleHeretic), null, 0.25f, null);
                 yield return new WaitForSeconds(0.45f);
             }
 
@@ -68,9 +68,9 @@ namespace WhistleWindLobotomyMod.Opponents
             {
                 CardInfo randApostle = SeededRandom.Range(0, 3, randomSeed++) switch
                 {
-                    0 => CardLoader.GetCardByName("wstl_apostleScythe"),
-                    1 => CardLoader.GetCardByName("wstl_apostleSpear"),
-                    _ => CardLoader.GetCardByName("wstl_apostleStaff")
+                    0 => CardLoader.GetCardByName(Cards.apostleScythe),
+                    1 => CardLoader.GetCardByName(Cards.apostleSpear),
+                    _ => CardLoader.GetCardByName(Cards.apostleStaff)
                 };
 
                 yield return cardToConvert.TransformIntoCard(randApostle);
@@ -103,7 +103,7 @@ namespace WhistleWindLobotomyMod.Opponents
         }
         public static int Blessings(Card card)
         {
-            return OpponentPlagueDoctor(card) ? LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.Instance.NumOfBlessings;
+            return OpponentPlagueDoctor(card) ? LobotomySaveManager.OpponentBlessings : LobotomyConfigManager.NumOfBlessings;
         }
 
         public static void UpdateBlessings(Card card, int num)
@@ -111,7 +111,7 @@ namespace WhistleWindLobotomyMod.Opponents
             if (OpponentPlagueDoctor(card))
                 LobotomySaveManager.OpponentBlessings += num;
             else
-                LobotomyConfigManager.Instance.UpdateBlessings(num);
+                LobotomyConfigManager.UpdateBlessings(num);
         }
         #endregion
 

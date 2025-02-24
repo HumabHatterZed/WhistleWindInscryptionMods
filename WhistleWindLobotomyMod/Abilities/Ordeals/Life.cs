@@ -49,23 +49,23 @@ namespace WhistleWindLobotomyMod
             int extraDifficulty = AscensionSaveData.Data.GetNumChallengesOfTypeActive(AscensionChallenge.BaseDifficulty);
             if (randomValue <= Mathf.Max(0.15f, 0.55f - extraDifficulty * 0.07f))
             {
-                return "wstl_doubtA";
+                return Cards.doubtA;
             }
             else if (randomValue <= Mathf.Max(0.25f, 0.75f - extraDifficulty * 0.09f))
             {
-                return "wstl_doubtB";
+                return Cards.doubtB;
             }
             else if (randomValue <= Mathf.Max(0.45f - extraDifficulty * 0.05f))
             {
-                return "wstl_doubtY";
+                return Cards.doubtY;
             }
             else if (randomValue <= Mathf.Max(0.75f, 0.95f - extraDifficulty * 0.03f))
             {
-                return "wstl_doubtO";
+                return Cards.doubtO;
             }
             else
             {
-                return "wstl_processUnderstanding";
+                return Cards.doubtProcess;
             }
         }
     }

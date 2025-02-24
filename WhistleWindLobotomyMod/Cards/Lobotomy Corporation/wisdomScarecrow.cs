@@ -11,6 +11,7 @@ namespace WhistleWindLobotomyMod
     public partial class Cards
     {
         public const string wisdomScarecrow = "wstl_wisdomScarecrow";
+        public const string wisdomScarecrowPixel = "wstlGBC_wisdomScarecrow";
         private static void WisdomScarecrow_F0187()
         {
             string name = "Scarecrow Searching for Wisdom";
@@ -26,7 +27,7 @@ namespace WhistleWindLobotomyMod
                 .SetOnePerDeck()
                 .Build(CardHelper.CardType.Common, RiskLevel.He);
 
-            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+            CardManager.New(LobotomyPlugin.pixelPrefix, wisdomScarecrowPixel, name,
                 attack: 1, health: 1, desc)
                 .SetBonesCost(4)
                 .SetCardTemple(CardTemple.Undead)

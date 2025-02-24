@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 -15,
                 TextureLoader.LoadTextureFromFile("ascensionLiarStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionLiarStart_activated.png"), 0)
-                .SetCustomUnlock(dummy => LobotomySaveManager.UnlockedLyingAdult || LobotomyConfigManager.Instance.EventFlags)
+                .SetCustomUnlock(dummy => LobotomySaveManager.UnlockedLyingAdult || LobotomyConfigManager.EventFlags)
                 .Challenge.challengeType;
         }
     }

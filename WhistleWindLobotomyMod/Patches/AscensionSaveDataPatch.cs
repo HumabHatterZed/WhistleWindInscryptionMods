@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod.Patches
                         starterDeck[i] = LobotomyCardLoader.GetRandomModDeathCard(randomSeed++);
                 }
             }
-            else if (starterDeck.Exists(x => x.name == "wstl_RANDOM_PLACEHOLDER")) // if the starter deck has a placeholder card in it
+            else if (starterDeck.Exists(x => x.name == Cards.randomPlaceholder)) // if the starter deck has a placeholder card in it
             {
                 List<CardInfo> newStarterDeck = new();
                 bool addRare = SeededRandom.Value(randomSeed++) <= 0.05f;
@@ -60,14 +60,14 @@ namespace WhistleWindLobotomyMod.Patches
 
             // only add 1 copy
             // this is to prevent duplication when restarting a run using the retry button
-            if (AscensionSaveData.Data.ChallengeIsActive(ApocalypseBirdStart.Id) && !starterDeck.Exists(x => x.name == "wstl_apocalypseBird"))
-                starterDeck.Add(CardLoader.GetCardByName("wstl_apocalypseBird"));
+            if (AscensionSaveData.Data.ChallengeIsActive(ApocalypseBirdStart.Id) && !starterDeck.Exists(x => x.name == Cards.apocalypseBird))
+                starterDeck.Add(CardLoader.GetCardByName(Cards.apocalypseBird));
 
-            if (AscensionSaveData.Data.ChallengeIsActive(JesterOfNihilStart.Id) && !starterDeck.Exists(x => x.name == "wstl_jesterOfNihil"))
-                starterDeck.Add(CardLoader.GetCardByName("wstl_jesterOfNihil"));
+            if (AscensionSaveData.Data.ChallengeIsActive(JesterOfNihilStart.Id) && !starterDeck.Exists(x => x.name == Cards.jesterOfNihil))
+                starterDeck.Add(CardLoader.GetCardByName(Cards.jesterOfNihil));
 
-            if (AscensionSaveData.Data.ChallengeIsActive(LyingAdultStart.Id) && !starterDeck.Exists(x => x.name == "wstl_lyingAdult"))
-                starterDeck.Add(CardLoader.GetCardByName("wstl_lyingAdult"));
+            if (AscensionSaveData.Data.ChallengeIsActive(LyingAdultStart.Id) && !starterDeck.Exists(x => x.name == Cards.lyingAdult))
+                starterDeck.Add(CardLoader.GetCardByName(Cards.lyingAdult));
         }
     }
 }

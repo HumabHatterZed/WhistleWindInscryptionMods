@@ -8,8 +8,7 @@
 - Changed internal name of Sefirot card choice to 'SefirotCardChoice'
 - Changed internal names of Sefirot-related dialogue events to remove the 'Sephirah' prefix
 - Detonator sigil is now re-rethemed to Volatile if config 'ReskinSigils' is set to true
-- Refactored custom opponents and sequencers
-- Refactored card and ability creation
+- Massive refactoring of basically everything
 - Removed unused asset files
 ### Apocalypse Boss
 - Fixed boss card becoming invincible when too much damage is dealt to it
@@ -36,17 +35,16 @@
 - Improved activation sequence
 - Changed how card choices are determined
 - Effect now changes during custom boss fights (Final Apocalypse, etc.)
-### Ordeals
-- Added Ordeal nodes
-- Added XX cards
-- Added XX abilities
-- Added XX challenges
-- Modified some encounters to use Ordeal cards as opponents
 ### General
 - Fixed Miracle Worker challenge trying to insert Plague Doctor into turns with 4 cards
 - Fixed One Sin and Hundreds of Good Deeds EX having missing textures
+- Fixed Lying Adult not being unlocked when meeting the conditions
+- Fixed True Saviour sigil activating certain effects when it shouldn't
+- Fixed missing/misnamed cards in encounter blueprints
 - Modified some dialogue
 - Updated artwork for Nameless Fetus
+- Updated emission for King of Greed
+- 'Random' starter deck now unlocks at challenge level 12
 - Final Apocalypse challenge icon now occupys an entire column on the selection menu
 - Modified descriptions of 'Abnormal Bosses' and 'Abnormal Encounters' challenges for clarity
 - Modified description of Concord special ability for clarity
@@ -69,6 +67,7 @@
 - Red Riding Hooded Mercenary: now possesses Vendetta sigil
 - Big and Will Be Bad Wolf: now possesses Vendetta sigil
 - Big and Will Be Bad Wolf: rebalanced from 3/3 -> 2/4
+- Modified encounters to be less unbalanced, hopefully
 - <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
 - <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
 - <span style='color:#DE6080'>Reshuffle Decks card now possesses the Bone Meal sigil
@@ -78,6 +77,11 @@
 - Pack Manager API: Updated encounter pack
 - Achievements API: Added 1 new achievement
 - Achievements API: Modified several achievement descriptions to better indicate how to unlock them
+### Additions
+- Added Ordeal battles
+- Added XX Cards
+- Added XX Starter Decks
+- Added XX Encounters
 
 ## v2.1.1 - Minor Patch (2/19/2024)
 ### 🩹 Bug fixes

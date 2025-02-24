@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using Infiniscryption.P03KayceeRun.Encounters;
 using InscryptionAPI.Encounters;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +17,7 @@ namespace WhistleWindLobotomyMod.Opponents
         private string chosenWhiteDawnFixer;
         private readonly List<string> allPossibleFixers = new()
         {
-            "wstl_fixerRed", "wstl_fixerWhite", "wstl_fixerWhite", "wstl_fixerPale"
+            Cards.fixerRed, Cards.fixerBlack, Cards.fixerWhite, Cards.fixerPale
         };
         private CardSlot clawSlot = null;
 
@@ -33,7 +32,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 yield return clawSlot.Card.Die(false);
 
             CameraEffects.Instance.Shake(1f, 0.75f);
-            yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_claw"), clawSlot);
+            yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.claw), clawSlot);
             yield return new WaitForSeconds(0.2f);
             AudioController.Instance.PlaySound3D("map_slam", MixerGroup.TableObjectsSFX, Singleton<BoardManager>.Instance.transform.position);
             yield return new WaitForSeconds(1f);
@@ -74,7 +73,7 @@ namespace WhistleWindLobotomyMod.Opponents
                     break;
             }
 
-            if (currentTier < 4 || card.Info.name != "wstl_claw")
+            if (currentTier < 4 || card.Info.name != Cards.claw)
                 yield break;
 
             yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
@@ -90,9 +89,9 @@ namespace WhistleWindLobotomyMod.Opponents
         {
             chosenWhiteDawnFixer = UnityEngine.Random.RandomRangeInt(0, 3) switch
             {
-                0 => "wstl_fixerWhite",
-                1 => "wstl_fixerBlack",
-                _ => "wstl_fixerRed"
+                0 => Cards.fixerWhite,
+                1 => Cards.fixerBlack,
+                _ => Cards.fixerRed
             };
 
             encounterData.Blueprint
@@ -105,7 +104,7 @@ namespace WhistleWindLobotomyMod.Opponents
         {
             List<string> possibleFixers = new(allPossibleFixers);
             possibleFixers.Remove(chosenWhiteDawnFixer);
-            possibleFixers.Remove("wstl_fixerPale");
+            possibleFixers.Remove(Cards.fixerPale);
             possibleFixers.Randomize();
 
             Opponent.TurnPlan.Add(new());

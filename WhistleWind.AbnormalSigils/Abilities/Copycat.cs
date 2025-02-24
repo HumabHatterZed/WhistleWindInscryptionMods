@@ -43,10 +43,10 @@ namespace WhistleWind.AbnormalSigils
 
             originalCardInfo = base.Card.Info.Clone() as CardInfo;
         }
-        public override bool RespondsToResolveOnBoard() => !copiedCard && base.Card.OpposingCard() != null;
+        public override bool RespondsToResolveOnBoard() => base.Card.OpposingCard() != null;
         public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard)
         {
-            if (!copiedCard && otherCard != null && otherCard == base.Card.OpposingCard())
+            if (otherCard != null && otherCard == base.Card.OpposingCard())
                 return true;
 
             return false;
@@ -54,6 +54,9 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => copiedCard && !wasSacrifice;
         public override IEnumerator OnResolveOnBoard()
         {
+            if (base.Card.Info.Mods.Exists(x => HelperMethods.CompareSingleton(x.singletonId, "wstl:Copycat")))
+                yield break;
+
             if (!CanCopyCard(base.Card.OpposingCard()))
             {
                 base.Card.Anim.StrongNegationEffect();
@@ -74,6 +77,9 @@ namespace WhistleWind.AbnormalSigils
         }
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
         {
+            if (base.Card.Info.Mods.Exists(x => HelperMethods.CompareSingleton(x.singletonId, "wstl:Copycat")))
+                yield break;
+
             if (CanCopyCard(base.Card.OpposingCard()))
             {
                 yield return TransformIntoCopy(otherCard);
@@ -109,7 +115,10 @@ namespace WhistleWind.AbnormalSigils
             CardModificationInfo mod = new()
             {
                 nameReplacement = "False " + cloneCardInfo.DisplayedNameLocalized,
-                abilities = new(originalCardInfo.DefaultAbilities)
+                abilities = new(originalCardInfo.DefaultAbilities),
+                negateAbilities = new() { this.Ability },
+                singletonId = "wstl:CopyCat",
+                nonCopyable = true
             };
             mod.abilities.Remove(this.Ability);
             evolutionCardInfo.Mods.Add(mod);
@@ -122,8 +131,6 @@ namespace WhistleWind.AbnormalSigils
 
             if (base.Card.Health == 0)
                 base.Card.Status.damageTaken = 0;
-
-            base.Card.AddTemporaryMod(new() { negateAbilities = new() { this.Ability } });
         }
         private bool CanCopyCard(PlayableCard card) => card.LacksAllTraits(Trait.Giant, Trait.Uncuttable);
     }

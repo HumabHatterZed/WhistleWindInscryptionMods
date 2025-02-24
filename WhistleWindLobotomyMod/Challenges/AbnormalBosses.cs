@@ -59,7 +59,7 @@ namespace WhistleWindLobotomyMod.Challenges
         private static bool ReplaceBossEncounter(EncounterData encounterData, ref Opponent __result)
         {
             // breaks if challenge is not active or if opponent is not supported
-            if (!LobotomyHelpers.IsChallengeConfigActive(Id, LobotomyConfigManager.Instance.AbnormalBosses))
+            if (!LobotomyHelpers.IsChallengeConfigActive(Id, LobotomyConfigManager.AbnormalBosses))
                 return true;
 
             if (!SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
@@ -113,7 +113,7 @@ namespace WhistleWindLobotomyMod.Challenges
         private static bool ReplaceSequencers(string specialBattleId, ref TurnManager __instance)
         {
             // if challenge not active
-            if (SaveFile.IsAscension ? !AscensionSaveData.Data.ChallengeIsActive(Id) : !LobotomyConfigManager.Instance.AbnormalBosses)
+            if (SaveFile.IsAscension ? !AscensionSaveData.Data.ChallengeIsActive(Id) : !LobotomyConfigManager.AbnormalBosses)
                 return true;
 
             if (!OPPONENT_IDS.Contains(specialBattleId))
@@ -173,7 +173,7 @@ namespace WhistleWindLobotomyMod.Challenges
                         yield return new WaitForSeconds(1f);
                         Singleton<ViewManager>.Instance.SwitchToView(View.Board);
                         CardSlot slot = validSlots[UnityEngine.Random.Range(0, validSlots.Count)];
-                        yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_SKELETON_SHRIMP"), slot);
+                        yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.skeletonShrimp), slot);
                         yield return new WaitForSeconds(0.2f);
                         __instance.skelesSpawned++;
                     }

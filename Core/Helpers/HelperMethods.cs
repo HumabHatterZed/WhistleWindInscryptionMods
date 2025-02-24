@@ -181,34 +181,14 @@ namespace WhistleWind.Core.Helpers
             }
             return cardByName;
         }
-        public static IEnumerator ChangeCurrentView(View view, float startDelay = 0.2f, float endDelay = 0.2f, bool lockAfter = false)
+        public static IEnumerator ChangeCurrentView(View view, float startDelay = 0.2f, float endDelay = 0.2f, bool immediate = false, bool lockAfter = false)
         {
             if (Singleton<ViewManager>.Instance.CurrentView != view)
             {
                 yield return new WaitForSeconds(startDelay);
-                Singleton<ViewManager>.Instance.SwitchToView(view, lockAfter: lockAfter);
+                Singleton<ViewManager>.Instance.SwitchToView(view, immediate, lockAfter);
                 yield return new WaitForSeconds(endDelay);
             }
-        }
-
-        public static IEnumerator QueueCreatedCard(CardInfo cardToQueue)
-        {
-            int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
-            List<CardSlot> openSlots = Singleton<BoardManager>.Instance.OpponentSlotsCopy.FindAll(s => !Singleton<TurnManager>.Instance.Opponent.QueuedSlots.Contains(s));
-            if (openSlots.Count == 0)
-            {
-                List<List<CardInfo>> turnPlan = Singleton<TurnManager>.Instance.Opponent.TurnPlan;
-                List<CardInfo> addInfo = new() { cardToQueue };
-                turnPlan.Add(addInfo);
-                yield return Singleton<TurnManager>.Instance.Opponent.ModifyTurnPlan(turnPlan);
-            }
-            else
-            {
-                CardSlot index = openSlots[SeededRandom.Range(0, openSlots.Count, randomSeed++)];
-                ViewManager.Instance.SwitchToView(View.OpponentQueue);
-                yield return Singleton<TurnManager>.Instance.Opponent.QueueCard(cardToQueue, index);
-            }
-            yield return new WaitForSeconds(0.45f);
         }
     }
 }

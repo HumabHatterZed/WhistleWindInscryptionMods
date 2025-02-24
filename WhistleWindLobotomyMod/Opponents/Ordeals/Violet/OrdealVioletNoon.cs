@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod.Opponents
             if (loveSlots[1].Card != null) yield return loveSlots[1].Card.Die(false);
 
             CameraEffects.Instance.Shake(1f, 0.75f);
-            yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_grantUsLove"), loveSlots[0]);
+            yield return BoardManager.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.grantUsLove), loveSlots[0]);
             yield return new WaitForSeconds(0.2f);
             AudioController.Instance.PlaySound3D("map_slam", MixerGroup.TableObjectsSFX, Singleton<BoardManager>.Instance.transform.position);
             yield return new WaitForSeconds(1f);
@@ -57,7 +57,7 @@ namespace WhistleWindLobotomyMod.Opponents
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             // noon of violet only ends when Grant Us Love dies
-            if (card.Info.name != "wstl_grantUsLove")
+            if (card.Info.name != Cards.grantUsLove)
                 yield break;
 
             yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);

@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod.Opponents.Leshy
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, nodeData.difficulty + RunState.Run.DifficultyModifier + num, false);
             encounterData.startConditions.Clear();
             EncounterData.StartCondition startCondition = new();
-            startCondition.cardsInOpponentSlots[2] = CardLoader.GetCardByName("wstl_apostleMoleman");
+            startCondition.cardsInOpponentSlots[2] = CardLoader.GetCardByName(Cards.apostleMoleman);
             encounterData.startConditions.Add(startCondition);
             return encounterData;
         }

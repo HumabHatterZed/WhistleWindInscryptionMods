@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod.Patches
 
             // other
             AchievementAPI.Unlock(AchievementAPI.UnlockDummies(), AchievementAPI.Dummies);
-            AchievementAPI.Unlock(LobotomyConfigManager.Instance.HasSeenHim, AchievementAPI.Blessing);
+            AchievementAPI.Unlock(LobotomyConfigManager.HasSeenHim, AchievementAPI.Blessing);
         }
     }
 }

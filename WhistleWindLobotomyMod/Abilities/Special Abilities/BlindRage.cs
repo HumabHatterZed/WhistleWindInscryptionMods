@@ -61,7 +61,7 @@ namespace WhistleWindLobotomyMod
 
         public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
         {
-            return 0; // I have no clue what this does, I think it's used for sorting the order cards are attacked?
+            return 0;
         }
     }
     public class RulebookEntryBlindRage : AbilityBehaviour

@@ -35,10 +35,10 @@ namespace WhistleWindLobotomyMod.Challenges
         [HarmonyPostfix]
         private static void AddPlagueDoctor(ref Opponent __result)
         {
-            if (!BLACKLISTED_OPPONENTS.Contains(__result.OpponentType) && SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id) : LobotomyConfigManager.Instance.MiracleWorker)
+            if (!BLACKLISTED_OPPONENTS.Contains(__result.OpponentType) && SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id) : LobotomyConfigManager.MiracleWorker)
             {
                 List<List<CardInfo>> turnPlan = new(__result.TurnPlan);
-                CardInfo doctorInfo = CardLoader.GetCardByName("wstl_plagueDoctor");
+                CardInfo doctorInfo = CardLoader.GetCardByName(Cards.plagueDoctor);
                 int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
 
                 List<int> validIdxs = new();

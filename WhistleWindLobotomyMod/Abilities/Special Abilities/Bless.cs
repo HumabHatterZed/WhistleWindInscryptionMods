@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
         private IEnumerator CheckTheClock()
         {
             int blessings = SaviourBossUtils.Blessings(base.PlayableCard);
-            if (LobotomyConfigManager.Instance.NoEvents || (blessings >= 0 && blessings < 12)) // [0, 12)
+            if (LobotomyConfigManager.NoEvents || (blessings >= 0 && blessings < 12)) // [0, 12)
                 yield break;
 
             if (LobotomySaveManager.TriggeredWhiteNightThisBattle || BoardManager.Instance.CardsOnBoard.Exists(x => x.HasAbility(TrueSaviour.ability)))
@@ -45,7 +45,7 @@ namespace WhistleWindLobotomyMod
                 LeshyAnimationController.Instance?.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
 
             // Negative blessing values will forcefully trigger the event
-            if (LobotomyConfigManager.Instance.NumOfBlessings < 0)
+            if (LobotomyConfigManager.NumOfBlessings < 0)
                 yield return DialogueHelper.PlayAlternateDialogue(speaker: DialogueEvent.Speaker.Bonelord, dialogue: "[c:bR]Thou cannot stop my ascension.[c:]");
 
             LobotomyPlugin.Log.LogDebug("Transforming into WhiteNight");
@@ -55,7 +55,7 @@ namespace WhistleWindLobotomyMod
             CardSlot baseSlot = base.PlayableCard.Slot;
 
             // Transform the Doctor into Him
-            yield return base.PlayableCard.TransformIntoCard(CardLoader.GetCardByName("wstl_whiteNight"), () => base.PlayableCard.Status.damageTaken = 0);
+            yield return base.PlayableCard.TransformIntoCard(CardLoader.GetCardByName(Cards.whiteNight), () => base.PlayableCard.Status.damageTaken = 0);
             MiracleWorkerAppearance app = base.PlayableCard.GetComponent<MiracleWorkerAppearance>();
             if (app != null)
             {
@@ -95,7 +95,7 @@ namespace WhistleWindLobotomyMod
                 if (opposingCards.Count > 0)
                 {
                     LobotomyPlugin.Log.LogDebug("One Sin is on the board");
-                    yield return opposingCards[0].TransformIntoCard(CardLoader.GetCardByName("wstl_apostleHeretic"));
+                    yield return opposingCards[0].TransformIntoCard(CardLoader.GetCardByName(Cards.apostleHeretic));
                 }
                 else if (CardDrawPiles3D.Instance.Deck.cards.Exists(x => x.name == SaviourBossUtils.ONESIN_NAME))
                 {
@@ -118,7 +118,7 @@ namespace WhistleWindLobotomyMod
                     {
                         LobotomyPlugin.Log.LogDebug("Forcing Heretic into the hand");
                         yield return HelperMethods.ChangeCurrentView(View.Hand, 0f);
-                        yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_apostleHeretic"));
+                        yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardLoader.GetCardByName(Cards.apostleHeretic));
                         yield return new WaitForSeconds(0.5f);
                     }
                 }
@@ -126,7 +126,7 @@ namespace WhistleWindLobotomyMod
 
             // for future use
             LobotomySaveManager.TriggeredWhiteNightThisBattle = true;
-            LobotomyConfigManager.Instance.SetHasSeenHim();
+            LobotomyConfigManager.SetHasSeenHim();
 
             yield return new WaitForSeconds(0.2f);
             LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
@@ -135,7 +135,7 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator TriggerClock() => CheckTheClock();
         public override IEnumerator TriggerBlessing()
         {
-            if (LobotomyConfigManager.Instance.NoEvents || LobotomySaveManager.TriggeredWhiteNightThisBattle)
+            if (LobotomyConfigManager.NoEvents || LobotomySaveManager.TriggeredWhiteNightThisBattle)
                 yield break;
 
             SaviourBossUtils.UpdateBlessings(base.PlayableCard, 1);

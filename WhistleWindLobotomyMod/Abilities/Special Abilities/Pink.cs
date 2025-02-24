@@ -33,7 +33,7 @@ namespace WhistleWindLobotomyMod
             yield return new WaitForSeconds(0.4f);
 
             // reset damage taken since the evolution has less base Health
-            CardInfo cardByName = HelperMethods.GetInfoWithMods(base.PlayableCard, "wstl_armyInBlack");
+            CardInfo cardByName = HelperMethods.GetInfoWithMods(base.PlayableCard, Cards.armyInBlack);
             yield return base.PlayableCard.TransformIntoCard(cardByName);
             yield return new WaitForSeconds(0.5f);
             yield return CreateArmyInHand();
@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator CreateArmyInHand()
         {
-            CardInfo cardByName = CardLoader.GetCardByName("wstl_armyInBlackSpell");
+            CardInfo cardByName = CardLoader.GetCardByName(Cards.armyInBlackSpell);
 
             yield return HelperMethods.ChangeCurrentView(View.Hand);
 

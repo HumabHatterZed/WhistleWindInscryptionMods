@@ -11,6 +11,7 @@ namespace WhistleWindLobotomyMod
     public partial class Cards
     {
         public const string ozma = "wstl_ozma";
+        public const string ozmaPixel = "wstlGBC_ozma";
         private static void Ozma_F04116()
         {
             string name = "Ozma";
@@ -27,7 +28,7 @@ namespace WhistleWindLobotomyMod
                 .AddMetaCategories(RuinaCard)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw);
 
-            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+            CardManager.New(LobotomyPlugin.pixelPrefix, ozmaPixel, name,
                 attack: 1, health: 2, desc)
                 .SetBloodCost(1)
                 .SetCardTemple(CardTemple.Wizard)

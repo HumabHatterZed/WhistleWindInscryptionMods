@@ -10,19 +10,20 @@ namespace WhistleWindLobotomyMod.Patches
     internal class CardChoicePatch
     {
         [HarmonyPrefix, HarmonyPatch(nameof(CardChoicesSequencer.ExamineCardWithDialogue))]
-        private static void ShowNothingThereDialogue(SelectableCard card, ref string message)
+        private static bool ShowNothingThereDialogue(SelectableCard card, ref string message)
         {
             // if this isn't a disguised Nothing There, or is just the fallback Nothing There
-            if (card?.Info == null || card.Info.LacksSpecialAbility(Mimicry.specialAbility) || card.Info.name == "wstl_nothingThere")
-                return;
+            if (card?.Info == null || card.Info.LacksSpecialAbility(Mimicry.specialAbility) || card.Info.name == Cards.nothingThere)
+                return true;
 
             // use final forme as dummy for the introduced bool
-            CardInfo info = CardLoader.GetCardByName("wstl_nothingThereFinal");
+            CardInfo info = CardLoader.GetCardByName(Cards.nothingThereFinal);
             if (!ProgressionData.IntroducedCard(info))
             {
                 message = "How did that get there?";
                 ProgressionData.SetCardIntroduced(info);
             }
+            return true;
         }
     }
     [HarmonyPatch(typeof(CardMergeSequencer))]

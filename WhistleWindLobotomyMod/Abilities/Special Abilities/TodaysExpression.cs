@@ -30,35 +30,25 @@ namespace WhistleWindLobotomyMod
 
             yield return DialogueHelper.PlayDialogueEvent(base.Card.Info.name switch
             {
-                "wstl_todaysShyLookAngry" => "TodaysShyLookAngry",
-                "wstl_todaysShyLookHappy" => "TodaysShyLookHappy",
+                Cards.todaysShyLookAngry => "TodaysShyLookAngry",
+                Cards.todaysShyLookHappy => "TodaysShyLookHappy",
                 _ => "TodaysShyLookNeutral"
             });
         }
         public override IEnumerator OnResolveOnBoard()
         {
             GlobalTriggerHandler.Instance.NumTriggersThisBattle++;
-            CardInfo cardByName = CardLoader.GetCardByName("wstl_todaysShyLookNeutral");
             int rand = SeededRandom.Range(0, 3, base.GetRandomSeed());
-            switch (rand)
-            {
-                case 0:
-                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookAngry");
-                    break;
-                case 1:
-                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookHappy");
-                    break;
-                default:
-                    cardByName.abilities.Clear();
-                    break;
-            }
+            CardInfo cardByName = GetRandomForme(rand);
+            cardByName.abilities.Clear();
+
             yield return base.PlayableCard.TransformIntoCard(cardByName);
             yield return new WaitForSeconds(0.5f);
 
             yield return DialogueHelper.PlayDialogueEvent(base.Card.Info.name switch
             {
-                "wstl_todaysShyLookAngry" => "TodaysShyLookAngry",
-                "wstl_todaysShyLookHappy" => "TodaysShyLookHappy",
+                Cards.todaysShyLookAngry => "TodaysShyLookAngry",
+                Cards.todaysShyLookHappy => "TodaysShyLookHappy",
                 _ => "TodaysShyLookNeutral"
             });
         }
@@ -66,19 +56,9 @@ namespace WhistleWindLobotomyMod
         private void ChangeForme()
         {
             GlobalTriggerHandler.Instance.NumTriggersThisBattle++;
-            CardInfo cardByName = CardLoader.GetCardByName("wstl_todaysShyLookNeutral");
             int rand = SeededRandom.Range(0, 3, base.GetRandomSeed());
-            switch (rand)
-            {
-                case 0:
-                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookAngry");
-                    break;
-                case 1:
-                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookHappy");
-                    break;
-                default:
-                    break;
-            }
+            CardInfo cardByName = GetRandomForme(rand);
+
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
                 // Adds merged sigils
@@ -93,20 +73,9 @@ namespace WhistleWindLobotomyMod
 
         private void ChangeFormeDeck()
         {
-            CardInfo cardByName = CardLoader.GetCardByName("wstl_todaysShyLookNeutral");
-
             int rand = UnityEngine.Random.Range(0, 3);
-            switch (rand)
-            {
-                case 0:
-                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookAngry");
-                    break;
-                case 1:
-                    cardByName = CardLoader.GetCardByName("wstl_todaysShyLookHappy");
-                    break;
-                case 2:
-                    break;
-            }
+            CardInfo cardByName = GetRandomForme(rand);
+
             foreach (CardModificationInfo item in base.Card.Info.Mods.FindAll((CardModificationInfo x) => !x.nonCopyable))
             {
                 // Adds merged sigils
@@ -117,6 +86,16 @@ namespace WhistleWindLobotomyMod
 
             base.Card.ClearAppearanceBehaviours();
             base.Card.SetInfo(cardByName);
+        }
+
+        private CardInfo GetRandomForme(int index)
+        {
+            return index switch
+            {
+                0 => CardLoader.GetCardByName(Cards.todaysShyLookAngry),
+                1 => CardLoader.GetCardByName(Cards.todaysShyLookHappy),
+                _ => CardLoader.GetCardByName(Cards.todaysShyLookNeutral),
+            };
         }
     }
     public class RulebookEntryTodaysExpression : AbilityBehaviour

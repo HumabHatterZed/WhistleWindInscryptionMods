@@ -31,7 +31,7 @@ namespace WhistleWindLobotomyMod
 
         // True if on the player's side and they have Heretic in hand
         public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.IsPlayerCard() == playerUpkeep
-            && Singleton<PlayerHand>.Instance.CardsInHand.Count(c => c.Info.name == "wstl_apostleHeretic") >= 0;
+            && Singleton<PlayerHand>.Instance.CardsInHand.Count(c => c.Info.name == Cards.apostleHeretic) > 0;
         public override IEnumerator OnUpkeep(bool playerUpkeep) => MakeRoomForOneSin();
 
         public override bool RespondsToResolveOnBoard() => true;
@@ -124,7 +124,7 @@ namespace WhistleWindLobotomyMod
 
             // Resets Blessings
             LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");
-            LobotomyConfigManager.Instance.SetBlessings(0);
+            LobotomyConfigManager.SetBlessings(0);
         }
         private IEnumerator KilledByNull()
         {

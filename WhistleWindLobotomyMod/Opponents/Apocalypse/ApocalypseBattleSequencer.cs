@@ -26,14 +26,14 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         private readonly Dictionary<ActiveEggEffect, string[]> AllBossPhases = new()
         {
             { ActiveEggEffect.BigEyes, new string[2] {
-                "wstl_eyeballChick",
-                "wstl_apocalypseEgg_big"} },
+                Cards.eyeballChick,
+                Cards.bigEgg} },
             { ActiveEggEffect.SmallBeak, new string[2] {
-                "wstl_forestKeeper",
-                "wstl_apocalypseEgg_small" } },
+                Cards.forestKeeper,
+                Cards.littleEgg } },
             { ActiveEggEffect.LongArms, new string[2] {
-                "wstl_runawayBird",
-                "wstl_apocalypseEgg_long" } }
+                Cards.runawayBird,
+                Cards.longEgg } }
         };
 
         public ActiveEggEffect ActiveEggEffect = ActiveEggEffect.None;

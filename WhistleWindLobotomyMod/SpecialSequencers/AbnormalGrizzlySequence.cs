@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod.Core.SpecialSequencers
         }
         private static IEnumerator AbnormalGlitchSequence()
         {
-            CardInfo grizzlyInfo = CardLoader.GetCardByName("wstl_apostleGuardian");
+            CardInfo grizzlyInfo = CardLoader.GetCardByName(Cards.apostleGuardian);
             Singleton<UIManager>.Instance.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 1f);
             Singleton<CameraEffects>.Instance.Shake(0.1f, 1f);
             AudioController.Instance.PlaySound2D("broken_hum");
@@ -51,7 +51,7 @@ namespace WhistleWindLobotomyMod.Core.SpecialSequencers
             }
             foreach (PlayableCard item in Singleton<TurnManager>.Instance.Opponent.Queue)
             {
-                if (item.Info.name == "wstl_apostleGuardian")
+                if (item.Info.name == Cards.apostleGuardian)
                 {
                     GiveCardReach(item);
                 }

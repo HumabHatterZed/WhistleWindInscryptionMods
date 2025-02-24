@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using Core.Helpers;
+using DiskCardGame;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,8 +19,8 @@ namespace WhistleWindLobotomyMod
         public const string rName = "Three Birds";
         public const string rDesc = "Gain a special card when Punishing Bird, Judgement Bird, and Big Bird are on the same side of the board.";
 
-        public override bool RespondsToResolveOnBoard() => !LobotomyConfigManager.Instance.NoEvents;
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !LobotomyConfigManager.Instance.NoEvents && otherCard.OpponentCard == base.PlayableCard.OpponentCard;
+        public override bool RespondsToResolveOnBoard() => !LobotomyConfigManager.NoEvents;
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => !LobotomyConfigManager.NoEvents && otherCard.OpponentCard == base.PlayableCard.OpponentCard;
         public override IEnumerator OnResolveOnBoard() => CheckForOtherCards();
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => CheckForOtherCards();
 
@@ -31,26 +32,24 @@ namespace WhistleWindLobotomyMod
                 yield break;
             }
 
-            CardSlot punishingBird = null;
-            CardSlot judgementBird = null;
+            if (BoardManager.Instance.GetCards(!base.PlayableCard.OpponentCard).Count < 3)
+                yield break;
 
-            foreach (CardSlot slot in BoardManager.Instance.GetSlotsCopy(!base.PlayableCard.OpponentCard).Where((CardSlot s) => s.Card != null))
-            {
-                if (slot.Card.Info.name == "wstl_punishingBird")
-                    punishingBird = slot;
-                else if (slot.Card.Info.name == "wstl_judgementBird")
-                    judgementBird = slot;
-            }
+            bool isOpponent = base.PlayableCard.OpponentCard;
+            PlayableCard bigBird = base.PlayableCard;
+            PlayableCard punishingBird = BoardManager.Instance.GetCards(!isOpponent).Find(x => x.Info.name == Cards.punishingBird);
+            PlayableCard judgementBird = BoardManager.Instance.GetCards(!isOpponent).Find(x => x.Info.name == Cards.judgementBird);
 
             if (punishingBird == null || judgementBird == null)
                 yield break;
 
-            yield return Apocalypse(punishingBird, judgementBird);
+            yield return BeginApocalypse(bigBird, punishingBird, judgementBird, isOpponent);
         }
 
-        private IEnumerator Apocalypse(CardSlot smallSlot, CardSlot longSlot)
+        private IEnumerator BeginApocalypse(PlayableCard big, PlayableCard small, PlayableCard tall, bool opponentCard)
         {
-            bool opponentCard = base.PlayableCard.OpponentCard;
+            bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
+            CardInfo info = CardLoader.GetCardByName(Cards.apocalypseBird);
 
             yield return new WaitForSeconds(0.5f);
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdIntro");
@@ -68,60 +67,47 @@ namespace WhistleWindLobotomyMod
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory1");
 
                 // Look down at the board
-                Singleton<ViewManager>.Instance.SwitchToView(View.Board);
-                yield return new WaitForSeconds(0.25f);
+                yield return HelperMethods.ChangeCurrentView(View.Board);
 
-                smallSlot.Card.Anim.StrongNegationEffect();
+                small.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStorySmall");
-                longSlot.Card.Anim.StrongNegationEffect();
+
+                tall.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStoryLong");
-                base.PlayableCard.Anim.StrongNegationEffect();
+
+                big.Anim.StrongNegationEffect();
                 yield return new WaitForSeconds(0.4f);
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStoryBig");
 
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory2");
             }
 
-            Singleton<ViewManager>.Instance.SwitchToView(View.Default, lockAfter: true);
-            bool canInitiateCombat = LobotomyHelpers.AllowInitiateCombat(false);
-            yield return new WaitForSeconds(0.2f);
-
+            yield return HelperMethods.ChangeCurrentView(View.Board, lockAfter: true);
+            
             // Remove cards
-            smallSlot.Card.RemoveFromBoard(!opponentCard);
+            small.RemoveFromBoard(!opponentCard);
             yield return new WaitForSeconds(0.2f);
-            longSlot.Card.RemoveFromBoard(!opponentCard);
+            tall.RemoveFromBoard(!opponentCard);
             yield return new WaitForSeconds(0.2f);
-            base.PlayableCard.RemoveFromBoard(!opponentCard);
+            big.RemoveFromBoard(!opponentCard);
             yield return new WaitForSeconds(0.5f);
 
             if (!SaveManager.SaveFile.IsPart2)
                 yield return BoardEffects.ApocalypseTableEffects();
 
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBirdStory3");
-
-            CardInfo info = CardLoader.GetCardByName("wstl_apocalypseBird");
             if (opponentCard)
             {
                 List<CardSlot> validSlots = BoardManager.Instance.GetSlotsCopy(!opponentCard).FindAll(x => x.Card == null);
-                if (validSlots.Count > 0)
-                {
-                    yield return HelperMethods.ChangeCurrentView(View.Board, 0.4f);
-                    yield return Singleton<BoardManager>.Instance.CreateCardInSlot(info, validSlots[SeededRandom.Range(0, validSlots.Count - 1, RunState.RandomSeed)], resolveTriggers: false);
-                }
-                else
-                {
-                    yield return HelperMethods.ChangeCurrentView(View.OpponentQueue, 0.4f);
-                    yield return HelperMethods.QueueCreatedCard(info);
-                }
+                yield return CombatHelpers.CreateCardInRandomSlot(info, validSlots);
             }
             else
             {
-                yield return HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
-
                 RunState.Run.playerDeck.AddCard(info);
-                info.cost = 0;
+                info.Mods.Add(new() { bloodCostAdjustment = -info.cost });
+                yield return HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
                 yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0.25f, null);
 
                 LobotomySaveManager.OwnsApocalypseBird = true;

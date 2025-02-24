@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using Core.Helpers;
+using DiskCardGame;
 using HarmonyLib;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,33 +21,20 @@ namespace WhistleWindLobotomyMod
         public const string rName = "The Homing Instinct";
         public const string rDesc = "When The Road Home is played, create a Scaredy Cat in your hand. [define:wstl_scaredyCat]";
 
-        //internal static Texture PavedSlotTexture => TextureLoader.LoadTextureFromFile(SaveManager.SaveFile.IsPart2 ? "slotPavedRoad_pixel" : "slotPavedRoad");
-        //internal static Texture DefaultSlotTexture;
-        //internal static List<CardSlot> PavedSlots = new();
-        //private bool hasResolved = false;
         public override bool RespondsToResolveOnBoard() => true;
-        //public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => hasResolved && otherCard == base.PlayableCard;
         public override IEnumerator OnResolveOnBoard()
         {
-            //hasResolved = true;
-            //DefaultSlotTexture = base.PlayableCard.Slot.transform.Find("Quad").GetComponent<Renderer>().material.mainTexture;
-
-            CardInfo CardToDraw = CardLoader.GetCardByName("wstl_scaredyCat");
+            CardInfo CardToDraw = CardLoader.GetCardByName(Cards.scaredyCat);
             ModifySpawnedCard(CardToDraw);
 
             if (base.PlayableCard.OpponentCard)
-                yield return HelperMethods.QueueCreatedCard(CardToDraw);
+                yield return CombatHelpers.QueueCreatedCard(CardToDraw);
             else
                 yield return CreateDrawnCard(CardToDraw);
         }
         private IEnumerator CreateDrawnCard(CardInfo CardToDraw)
         {
-            if (Singleton<ViewManager>.Instance.CurrentView != View.Default)
-            {
-                yield return new WaitForSeconds(0.2f);
-                Singleton<ViewManager>.Instance.SwitchToView(View.Default);
-                yield return new WaitForSeconds(0.2f);
-            }
+            //yield return HelperMethods.ChangeCurrentView(View.Default);
             yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(CardToDraw);
             yield return new WaitForSeconds(0.45f);
 
@@ -71,40 +59,6 @@ namespace WhistleWindLobotomyMod
                 card.Mods.Add(cardModificationInfo);
             }
         }
-
-        /*        [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.SetupPhase))]
-                [HarmonyPostfix]
-                private static void ResetPavedSlots() => PavedSlots.Clear();
-
-                [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.CleanupPhase))]
-                [HarmonyPostfix]
-                private static void CleanUpPavedSlots() => ClearPavedRoads();
-                [HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.GetPassiveHealthBuffs))]
-                [HarmonyPostfix]
-                private static void AddBuffForCardSlot(PlayableCard __instance, ref int __result)
-                {
-                    if (PavedSlots.Count == 4 && PavedSlots.Contains(__instance.Slot))
-                        __result += 2;
-                }
-
-                private static void PaveSlot(CardSlot slot)
-                {
-                    if (slot == null)
-                        return;
-                    // if this is a new, unpaved slot
-                    if (!PavedSlots.Contains(slot))
-                    {
-                        PavedSlots.Add(slot);
-                        slot.SetTexture(PavedSlotTexture);
-                    }
-                }
-                private static void ResetCardSlot(CardSlot slot) => slot.SetTexture(DefaultSlotTexture);
-                private static void ClearPavedRoads()
-                {
-                    foreach (CardSlot slot in PavedSlots)
-                        ResetCardSlot(slot);
-                    PavedSlots.Clear();
-                }*/
     }
     public class RulebookEntryTheHomingInstinct : AbilityBehaviour
     {

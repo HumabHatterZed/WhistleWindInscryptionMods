@@ -22,7 +22,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPrefix, HarmonyPatch(nameof(PlayableCard.Die))]
         private static bool DontDestroyCardsOnDeath(ref IEnumerator __result, PlayableCard __instance, bool wasSacrifice, PlayableCard killer)
         {
-            if (__instance.HasSpecialAbility(Smile.specialAbility) && __instance.Info.name != "wstl_mountainOfBodies")
+            if (__instance.HasSpecialAbility(Smile.specialAbility) && __instance.Info.name != Cards.mountainOfBodies)
             {
                 __result = HelperMethods.DieDontDestroy(__instance, wasSacrifice, killer);
                 return false;

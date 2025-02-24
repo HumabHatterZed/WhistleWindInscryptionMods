@@ -12,6 +12,7 @@ namespace WhistleWindLobotomyMod
     public partial class Cards
     {
         public const string theRoadHome = "wstl_theRoadHome";
+        public const string theRoadHomePixel = "wstlGBC_theRoadHome";
         private static void TheRoadHome_F01114()
         {
             string name = "The Road Home";
@@ -29,7 +30,7 @@ namespace WhistleWindLobotomyMod
                 .AddMetaCategories(RuinaCard)
                 .Build(CardHelper.CardType.Common, RiskLevel.He);
 
-            CardManager.New(LobotomyPlugin.pixelPrefix, textureName, name,
+            CardManager.New(LobotomyPlugin.pixelPrefix, theRoadHomePixel, name,
                 attack: 1, health: 1, desc)
                 .SetGemsCost(GemType.Green)
                 .SetCardTemple(CardTemple.Wizard)

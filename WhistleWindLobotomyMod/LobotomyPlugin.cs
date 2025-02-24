@@ -38,28 +38,28 @@ namespace WhistleWindLobotomyMod
         {
             Log = base.Logger;
             ModAssembly = Assembly.GetExecutingAssembly();
-            LobotomyConfigManager.Instance.BindConfig();
-            if (!LobotomyConfigManager.Instance.ModEnabled)
+            LobotomyConfigManager.BindConfig();
+            if (!LobotomyConfigManager.ModEnabled)
             {
                 Log.LogWarning($"{pluginName} is disabled in the configuration. Things will likely break.");
                 return;
             }
 
-            if (LobotomyConfigManager.Instance.NoRisk == RiskLevel.All)
+            if (LobotomyConfigManager.NoRisk == RiskLevel.All)
             {
                 DisabledRiskLevels = RiskLevel.Zayin & RiskLevel.Teth & RiskLevel.He & RiskLevel.Waw & RiskLevel.Aleph;
             }
             else
             {
-                DisabledRiskLevels = LobotomyConfigManager.Instance.NoRisk;
+                DisabledRiskLevels = LobotomyConfigManager.NoRisk;
             }
             AllCardsDisabled = DisabledRiskLevels.HasFlag(RiskLevel.All) || DisabledRiskLevels.HasFlags(RiskLevel.Zayin, RiskLevel.Teth, RiskLevel.He, RiskLevel.Waw, RiskLevel.Aleph);
 
             if (LobotomySaveManager.OpponentBlessings > 11)
                 LobotomySaveManager.OpponentBlessings = 11;
 
-            if (LobotomyConfigManager.Instance.NumOfBlessings > 11)
-                LobotomyConfigManager.Instance.SetBlessings(11);
+            if (LobotomyConfigManager.NumOfBlessings > 11)
+                LobotomyConfigManager.SetBlessings(11);
 
             AssetManager.Initialise();
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
@@ -98,7 +98,7 @@ namespace WhistleWindLobotomyMod
 
         private void Start()
         {
-            if (!LobotomyConfigManager.Instance.ModEnabled)
+            if (!LobotomyConfigManager.ModEnabled)
                 return;
 
             if (AllCardsDisabled)
@@ -108,15 +108,15 @@ namespace WhistleWindLobotomyMod
                 if (DisabledRiskLevels != RiskLevel.None)
                     Log.LogWarning($"Disable Cards is set to [{DisabledRiskLevels}]. Cards with the affected risk level(s) have been removed from the pool of obtainable cards.");
 
-                if (LobotomyConfigManager.Instance.NoDonators)
+                if (LobotomyConfigManager.NoDonators)
                     Log.LogWarning("Disable Donators is set to [true]. Some cards have been removed from the pool of obtainable cards.");
 
-                if (LobotomyConfigManager.Instance.NoRuina)
+                if (LobotomyConfigManager.NoRuina)
                     Log.LogWarning("Disable Ruina is set to [true]. Some cards have been removed from the pool of obtainable cards.");
 
                 Log.LogInfo($"There are [{AllLobotomyCards.Count}:{BaseModCards.Count}+{WonderLabCards.Count}+{LimbusCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
             }
-            Log.LogInfo($"The Clock is at [{LobotomyConfigManager.Instance.NumOfBlessings}].");
+            Log.LogInfo($"The Clock is at [{LobotomyConfigManager.NumOfBlessings}].");
         }
         private void OnDisable() => HarmonyInstance.UnpatchSelf();
 

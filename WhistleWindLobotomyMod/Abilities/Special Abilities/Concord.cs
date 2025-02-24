@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,16 +18,13 @@ namespace WhistleWindLobotomyMod
         public const string rName = "Concord";
         public const string rDesc = "When Yang is adjacent to Yin, invert the scales.";
         public override bool RespondsToResolveOnBoard() => true;
-        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard.Info.name == "wstl_yin";
+        public override bool RespondsToOtherCardAssignedToSlot(PlayableCard otherCard) => otherCard.Info.name == Cards.yin;
         public override IEnumerator OnResolveOnBoard()
         {
-            foreach (CardSlot slot in Singleton<BoardManager>.Instance.GetAdjacentSlots(base.PlayableCard.Slot).Where(s => s.Card != null))
+            PlayableCard card = base.PlayableCard.Slot.GetAdjacentCards().First(x => x.Info.name == Cards.yin);
+            if (card != null)
             {
-                if (slot.Card.Info.name == "wstl_yin")
-                {
-                    yield return DragonSequence(slot.Card);
-                    break;
-                }
+                yield return DragonSequence(card);
             }
         }
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
@@ -66,7 +64,7 @@ namespace WhistleWindLobotomyMod
                     yield return slot.Card.DieTriggerless();
                 }
 
-                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName("wstl_yinYangHead"), slot);
+                yield return Singleton<BoardManager>.Instance.CreateCardInSlot(CardLoader.GetCardByName(Cards.yinYangHead), slot);
             }
             yield return new WaitForSeconds(0.66f);
 

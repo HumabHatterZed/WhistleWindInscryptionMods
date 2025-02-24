@@ -192,7 +192,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         private IEnumerator StartGiantPhase()
         {
-            CardInfo beast = CardLoader.GetCardByName("wstl_!GIANTCARD_ApocalypseBird");
+            CardInfo beast = CardLoader.GetCardByName(Cards.giantApocalypse);
             beast.Mods.Add(new(BattleSequencer.ReactiveDifficulty > 13 ? 1 : 0, BattleSequencer.BossHealthThreshold(2) - beast.baseHealth)
             { singletonId = "ReactiveStrength", nonCopyable = true });
 

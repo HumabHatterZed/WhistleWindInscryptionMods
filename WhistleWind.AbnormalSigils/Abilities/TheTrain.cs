@@ -49,7 +49,7 @@ namespace WhistleWind.AbnormalSigils
             yield return new WaitForSeconds(0.55f);
             foreach (CardSlot slot in affectedSlots)
             {
-                slot.Card.AddTemporaryMod(new() { singletonId = "wstl:KilledByTrain" });
+                slot.Card.AddTemporaryMod(new() { singletonId = "wstl:NoBones" });
                 yield return slot.Card.Die(false, null);
                 yield return new WaitForSeconds(0.1f);
             }

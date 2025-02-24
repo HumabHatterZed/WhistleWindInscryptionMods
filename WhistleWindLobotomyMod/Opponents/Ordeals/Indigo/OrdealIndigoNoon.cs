@@ -26,8 +26,8 @@ namespace WhistleWindLobotomyMod.Opponents
 
                 List<EncounterBlueprintData.CardBlueprint> turn = new()
                 {
-                    EncounterManager.NewCardBlueprint("wstl_sweeper"),
-                    EncounterManager.NewCardBlueprint("wstl_sweeper")
+                    EncounterManager.NewCardBlueprint(Cards.sweeper),
+                    EncounterManager.NewCardBlueprint(Cards.sweeper)
                 };
                 encounterData.Blueprint.AddTurn(turn);
             }

@@ -51,7 +51,7 @@ namespace WhistleWindLobotomyMod.Opponents.Leshy
             new List<CardInfo>()
         };
             TryAddDeathCardsToTurn(2, target, list[0]);
-            list[0].Add(CardLoader.GetCardByName("wstl_nothingThere"));
+            list[0].Add(CardLoader.GetCardByName(Cards.nothingThere));
             TryAddDeathCardsToTurn(1, target, list[1]);
             TryAddDeathCardsToTurn(1, target, list[2]);
             TryAddDeathCardsToTurn(2, target, list[4]);

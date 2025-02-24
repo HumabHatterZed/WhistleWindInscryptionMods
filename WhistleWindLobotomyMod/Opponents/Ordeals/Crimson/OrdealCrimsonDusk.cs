@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using Infiniscryption.P03KayceeRun.Encounters;
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
 
@@ -11,11 +10,11 @@ namespace WhistleWindLobotomyMod.Opponents
         {
             List<EncounterBlueprintData.CardBlueprint> turn1 = new()
             {
-                EncounterManager.NewCardBlueprint("wstl_skinClimax")
+                EncounterManager.NewCardBlueprint(Cards.skinClimax)
             };
             List<EncounterBlueprintData.CardBlueprint> turn2 = new()
             {
-                EncounterManager.NewCardBlueprint("wstl_skinClimax")
+                EncounterManager.NewCardBlueprint(Cards.skinClimax)
             };
 
             encounterData.Blueprint.AddTurn().AddTurn(turn1).AddTurn().AddTurn();

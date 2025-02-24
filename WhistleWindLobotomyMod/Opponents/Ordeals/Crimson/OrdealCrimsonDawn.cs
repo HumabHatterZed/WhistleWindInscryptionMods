@@ -21,15 +21,15 @@ namespace WhistleWindLobotomyMod.Opponents
         {
             List<EncounterBlueprintData.CardBlueprint> turn1 = new()
             {
-                EncounterManager.NewCardBlueprint("wstl_skinCheers"),
-                EncounterManager.NewCardBlueprint("wstl_skinCheers")
+                EncounterManager.NewCardBlueprint(Cards.skinCheers),
+                EncounterManager.NewCardBlueprint(Cards.skinCheers)
             };
 
             if (encounterData.Difficulty >= 3)
             {
-                turn1.Add(EncounterManager.NewCardBlueprint("wstl_skinCheers"));
+                turn1.Add(EncounterManager.NewCardBlueprint(Cards.skinCheers));
                 if (encounterData.Difficulty >= 5)
-                    turn1.Add(EncounterManager.NewCardBlueprint("wstl_skinCheers"));
+                    turn1.Add(EncounterManager.NewCardBlueprint(Cards.skinCheers));
             }
 
             encounterData.Blueprint.AddTurns(turn1);

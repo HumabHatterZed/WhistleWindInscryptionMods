@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Food";
-            info.rulebookDescription = "Whenever [creature] moves to a new space, create a Perfect Food in the old space. [define:wstl_perfectFood]";
+            info.rulebookDescription = "Whenever [creature] moves to a new space, create a Perfect Food in the old space. [define:wstl_foodPerfect]";
             info.powerLevel = 3;
             Food.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Food), TextureLoader.LoadTextureFromFile("sigilFood.png")).Id;
         }
@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardAssignedToSlot(PlayableCard otherCard)
         {
             if (oldSlot.Card == null)
-                yield return oldSlot.CreateCardInSlot(CardLoader.GetCardByName("wstl_perfectFood"));
+                yield return oldSlot.CreateCardInSlot(CardLoader.GetCardByName(Cards.perfectFood));
         }
     }
 }

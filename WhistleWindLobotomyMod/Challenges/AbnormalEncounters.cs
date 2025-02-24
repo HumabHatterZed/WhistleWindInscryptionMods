@@ -45,7 +45,7 @@ namespace WhistleWindLobotomyMod.Challenges
         {
             if (__instance != null)
             {
-                if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id) : LobotomyConfigManager.Instance.AbnormalBattles)
+                if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id) : LobotomyConfigManager.AbnormalBattles)
                 {
                     if (!LobotomySaveManager.ShownAbnormalEncounters)
                     {

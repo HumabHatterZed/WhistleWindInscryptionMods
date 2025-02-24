@@ -9,6 +9,7 @@ namespace WhistleWindLobotomyMod
     public partial class Cards
     {
         public const string armyInBlack = "wstl_armyInBlack";
+        public const string armyInBlackSpell = "wstl_armyInBlackSpell";
         private static void ArmyInBlack_D01106()
         {
             string blackName = "Army in Black";
@@ -20,7 +21,7 @@ namespace WhistleWindLobotomyMod
                 .AddAbilities(Ability.ExplodeOnDeath, Ability.Brittle)
                 .Build(CardHelper.CardType.Rare, overrideCardChoice: true);
 
-            CardManager.New(LobotomyPlugin.pluginPrefix, "armyInBlackSpell", blackName,
+            CardManager.New(LobotomyPlugin.pluginPrefix, armyInBlackSpell, blackName,
                 attack: 0, health: 0)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.ExplodeOnDeath)

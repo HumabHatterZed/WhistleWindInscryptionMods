@@ -60,9 +60,9 @@ namespace WhistleWindLobotomyMod.Patches
             }
             if (IsEnraged(attackingSlot)) // if enraged, target the rival if they exist
             {
-                string nameToFind = "wstl_redHoodedMercenary";
+                string nameToFind = Cards.redHoodedMercenary;
                 if (attackingSlot.Card.Info.name == nameToFind)
-                    nameToFind = "wstl_willBeBadWolf";
+                    nameToFind = Cards.willBeBadWolf;
 
                 CardSlot enragedTarget = BoardManager.Instance.AllSlotsCopy.Find(x => x.Card?.Info.name == nameToFind);
                 if (enragedTarget != null)

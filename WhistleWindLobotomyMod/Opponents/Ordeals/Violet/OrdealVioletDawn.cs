@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using Infiniscryption.P03KayceeRun.Encounters;
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
 using WhistleWind.AbnormalSigils;
@@ -42,17 +41,17 @@ namespace WhistleWindLobotomyMod.Opponents
         public void ConstructVioletDawn(EncounterData encounterData, int maxDifficultyNoModifier)
         {
             List<EncounterBlueprintData.CardBlueprint> turn1 = new() {
-                EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding")
+                EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding)
             };
             List<EncounterBlueprintData.CardBlueprint> turn2 = new() {
-                EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding")
+                EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding)
             };
             List<EncounterBlueprintData.CardBlueprint> turn3 = new() {
-                EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding")
+                EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding)
             };
 
             if (encounterData.Difficulty >= maxDifficultyNoModifier + 2)
-                turn2.Add(EncounterManager.NewCardBlueprint("wstl_fruitUnderstanding"));
+                turn2.Add(EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding));
 
             encounterData.Blueprint.AddTurns(turn1, turn2, turn3);
             if (encounterData.Difficulty < maxDifficultyNoModifier)

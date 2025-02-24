@@ -1,3 +1,4 @@
+using Core.Helpers;
 using DiskCardGame;
 using System.Collections;
 using WhistleWind.Core.Helpers;
@@ -10,7 +11,7 @@ namespace WhistleWind.Core.AbilityClasses
         {
             // Queue card if opponent, otherwise draw card to hand
             if (base.Card.OpponentCard)
-                yield return HelperMethods.QueueCreatedCard(CardToDraw);
+                yield return CombatHelpers.QueueCreatedCard(CardToDraw);
             else
                 yield return base.CreateDrawnCard();
         }

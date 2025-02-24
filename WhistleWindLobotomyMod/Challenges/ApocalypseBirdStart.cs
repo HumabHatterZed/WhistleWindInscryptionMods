@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 -15,
                 TextureLoader.LoadTextureFromFile("ascensionBeastStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionBeastStart_activated.png"), 0)
-                .SetCustomUnlock(dummy => LobotomySaveManager.UnlockedApocalypseBird || LobotomyConfigManager.Instance.EventFlags)
+                .SetCustomUnlock(dummy => LobotomySaveManager.UnlockedApocalypseBird || LobotomyConfigManager.EventFlags)
                 .Challenge.challengeType;
         }
     }

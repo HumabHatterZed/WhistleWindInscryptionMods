@@ -20,17 +20,17 @@ namespace WhistleWindLobotomyMod
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             View view = Singleton<ViewManager>.Instance.CurrentView;
-            string nameOfEvo = "wstl_bloodBath";
+            string nameOfEvo = Cards.bloodBath;
             switch (base.PlayableCard.Info.name)
             {
-                case "wstl_bloodBath":
-                    nameOfEvo = "wstl_bloodBath1";
+                case Cards.bloodBath:
+                    nameOfEvo = Cards.bloodBath1;
                     break;
-                case "wstl_bloodBath1":
-                    nameOfEvo = "wstl_bloodBath2";
+                case Cards.bloodBath1:
+                    nameOfEvo = Cards.bloodBath2;
                     break;
-                case "wstl_bloodBath2":
-                    nameOfEvo = "wstl_bloodBath3";
+                case Cards.bloodBath2:
+                    nameOfEvo = Cards.bloodBath3;
                     break;
             }
             CardInfo evolution = HelperMethods.GetInfoWithMods(base.PlayableCard, nameOfEvo);
@@ -52,21 +52,20 @@ namespace WhistleWindLobotomyMod
 
             switch (base.PlayableCard.Info.name)
             {
-                case "wstl_bloodBath1":
+                case Cards.bloodBath1:
                     yield return DialogueHelper.PlayDialogueEvent("Bloodbath1");
                     break;
-                case "wstl_bloodBath2":
+                case Cards.bloodBath2:
                     yield return DialogueHelper.PlayDialogueEvent("Bloodbath2");
                     break;
-                case "wstl_bloodBath3":
+                case Cards.bloodBath3:
                     yield return DialogueHelper.PlayDialogueEvent("Bloodbath3");
                     break;
             }
             if (base.PlayableCard.InHand && Singleton<BoardManager>.Instance.currentSacrificeDemandingCard != base.PlayableCard)
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.3f);
 
-            if (Singleton<ViewManager>.Instance.CurrentView != view)
-                Singleton<ViewManager>.Instance.SwitchToView(view);
+            yield return HelperMethods.ChangeCurrentView(View.Default);
         }
     }
     public class RulebookEntryWristCutter : AbilityBehaviour

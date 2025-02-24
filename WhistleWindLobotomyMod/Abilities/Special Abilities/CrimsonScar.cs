@@ -17,19 +17,16 @@ namespace WhistleWindLobotomyMod
         public const string rName = "Crimson Scar";
         public const string rDesc = "Big and Will Be Bad Wolf and Red Hooded Mercenary will gain 1 Power when their counterpart is played on the board. While they're on the board, target them exclusively.";
 
-        private const string WolfName = "wstl_willBeBadWolf";
-        private const string HoodName = "wstl_redHoodedMercenary";
-
         public bool Enraged = false;
         private bool GrudgeExists(PlayableCard thisCard, PlayableCard otherCard)
         {
             if (otherCard == null)
                 return false;
 
-            if (thisCard.Info.name == HoodName && otherCard.Info.name == WolfName)
+            if (thisCard.Info.name == Cards.redHoodedMercenary && otherCard.Info.name == Cards.willBeBadWolf)
                 return true;
 
-            if (thisCard.Info.name == WolfName && otherCard.Info.name == HoodName)
+            if (thisCard.Info.name == Cards.willBeBadWolf && otherCard.Info.name == Cards.redHoodedMercenary)
                 return true;
 
             return false;
@@ -38,7 +35,7 @@ namespace WhistleWindLobotomyMod
         public override bool RespondsToResolveOnBoard()
         {
             PlayableCard otherCard = BoardManager.Instance.CardsOnBoard.Find(
-                x => x != base.PlayableCard && x.Info.name == (base.PlayableCard.Info.name == HoodName ? WolfName : HoodName));
+                x => x != base.PlayableCard && x.Info.name == (base.PlayableCard.Info.name == Cards.redHoodedMercenary ? Cards.willBeBadWolf : Cards.redHoodedMercenary));
 
             return !Enraged && GrudgeExists(base.PlayableCard, otherCard);
         }
@@ -51,7 +48,7 @@ namespace WhistleWindLobotomyMod
                 base.PlayableCard.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
             yield return new WaitForSeconds(0.4f);
 
-            if (base.PlayableCard.Info.name == HoodName)
+            if (base.PlayableCard.Info.name == Cards.redHoodedMercenary)
                 yield return DialogueManager.PlayDialogueEventSafe("CrimsonScarHood", TextDisplayer.MessageAdvanceMode.Input);
             else
                 yield return DialogueManager.PlayDialogueEventSafe("CrimsonScarWolf", TextDisplayer.MessageAdvanceMode.Input);
@@ -65,7 +62,7 @@ namespace WhistleWindLobotomyMod
                 base.PlayableCard.StatsLayer.SetEmissionColor(GameColors.Instance.glowRed);
             yield return new WaitForSeconds(0.4f);
 
-            if (base.PlayableCard.Info.name == HoodName)
+            if (base.PlayableCard.Info.name == Cards.redHoodedMercenary)
                 yield return DialogueManager.PlayDialogueEventSafe("CrimsonScarHood", TextDisplayer.MessageAdvanceMode.Input);
             else
                 yield return DialogueManager.PlayDialogueEventSafe("CrimsonScarWolf", TextDisplayer.MessageAdvanceMode.Input);
@@ -81,7 +78,7 @@ namespace WhistleWindLobotomyMod
             if (Enraged)
             {
                 CardSlot slot = BoardManager.Instance.AllSlotsCopy.Find(
-                    x => x.Card?.Info.name == (base.PlayableCard.Info.name == HoodName ? WolfName : HoodName));
+                    x => x.Card?.Info.name == (base.PlayableCard.Info.name == Cards.redHoodedMercenary ? Cards.willBeBadWolf : Cards.redHoodedMercenary));
 
                 if (slot != null)
                 {

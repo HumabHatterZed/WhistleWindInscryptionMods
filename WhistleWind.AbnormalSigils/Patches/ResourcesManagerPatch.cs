@@ -12,11 +12,12 @@ namespace WhistleWind.AbnormalSigils.Patches
         [HarmonyPostfix, HarmonyPatch(nameof(ResourcesManager.AddBones))]
         public static IEnumerator AddBones(IEnumerator enumerator, CardSlot slot)
         {
-            if (slot != null && slot.Card != null)
+            if (slot?.Card != null)
             {
-                bool killedByTrain = slot.Card.TemporaryMods.Exists(x => x.singletonId == "wstl:KilledByTrain");
+                if (slot.Card.HasTrait(AbnormalPlugin.Boneless))
+                    yield break;
 
-                if (slot.Card.HasTrait(AbnormalPlugin.Boneless) || killedByTrain)
+                if (slot.Card.Dead && slot.Card.TemporaryMods.Exists(x => x.singletonId == "wstl:NoBones"))
                     yield break;
             }
             yield return enumerator;

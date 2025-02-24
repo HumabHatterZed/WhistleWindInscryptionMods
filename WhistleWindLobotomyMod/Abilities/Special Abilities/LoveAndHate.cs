@@ -1,4 +1,5 @@
-﻿using DiskCardGame;
+﻿using Core.Helpers;
+using DiskCardGame;
 using InscryptionAPI.Card;
 using System.Collections;
 using UnityEngine;
@@ -79,7 +80,7 @@ namespace WhistleWindLobotomyMod
                         LobotomyPlugin.Log.LogDebug("Adding Queen of Hatred to queue.");
                         base.PlayableCard.RemoveFromBoard();
                         yield return new WaitForSeconds(0.5f);
-                        HelperMethods.QueueCreatedCard(evolution);
+                        CombatHelpers.QueueCreatedCard(evolution);
                     }
                     yield return new WaitForSeconds(0.25f);
                 }
