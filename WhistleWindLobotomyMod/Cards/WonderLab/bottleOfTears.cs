@@ -14,11 +14,11 @@ namespace WhistleWindLobotomyMod
         {
             string textureName = "bottleOfTears";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, bottleOfTears, "Bottle of Tears",
-                attack: 0, health: 2)
-                .SetBonesCost(1)
+                attack: 0, health: 0)
+                .SetBonesCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(FizzyLifter.ability, Spilling.ability)
-                .AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout)
+                .SetTargetedSpell()
                 .Build(CardHelper.CardType.Common, RiskLevel.Zayin, true);
         }
     }
