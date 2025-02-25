@@ -35,17 +35,35 @@
 - Improved activation sequence
 - Changed how card choices are determined
 - Effect now changes during custom boss fights (Final Apocalypse, etc.)
+### Cards
+- Adult Who Tells Lies: changed unlock condition to consider cards on the board -and- in the hand
+- <span style='color:#2084A0'>All-Around Helper: increased Health from 2 -> 3
+- Apocalypse Bird: changed evolution name
+- <span style='color:#DE6080'>Apocalypse Bird: no longer possesses Made of Stone
+- <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
+- Big and Will Be Bad Wolf: now possesses Vendetta sigil
+- Big and Will Be Bad Wolf: rebalanced from 3/3 -> 2/4
+- Don't Touch Me: updated artwork
+- Don't Touch Me: no longer belongs to the Mechanical tribe
+- Funeral of the Dead Butterflies: now belongs to the Undead temple
+- Giant Tree Sap: no longer considered onePerDeck
+- King of Greed: updated emission
+- <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
+- Nameless Fetus: updated artwork
+- Nothing There: If Nothing There is not killed within a set number of turns, it will reveal itself automatically
+- Nothing There: now disguises as common cards instead of death cards
+- One Sin EX: fixed missing textures
+- <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
+- Red Riding Hooded Mercenary: now possesses Vendetta sigil
+- You're Bald...: changed evolution name
 ### General
 - Fixed Miracle Worker challenge trying to insert Plague Doctor into turns with 4 cards
-- Fixed One Sin and Hundreds of Good Deeds EX having missing textures
-- Fixed Lying Adult not being unlocked when meeting the conditions
 - Fixed True Saviour sigil activating certain effects when it shouldn't
 - Fixed missing/misnamed cards in encounter blueprints
-- Modified some dialogue
-- Updated artwork for Nameless Fetus
-- Updated emission for King of Greed
-- 'Random' starter deck now unlocks at challenge level 12
+- Reduced points of Miracle Worker challenge from 60 -> 33
 - Final Apocalypse challenge icon now occupys an entire column on the selection menu
+- Modified encounters to be less unbalanced, hopefully
+- Modified some dialogue
 - Modified descriptions of 'Abnormal Bosses' and 'Abnormal Encounters' challenges for clarity
 - Modified description of Concord special ability for clarity
 - Changed weights used in the Abnormal Choice Node for card choices in each region tier:
@@ -53,25 +71,9 @@
     - Tier 0: (40%, 30%, 20%, 10%) -> (35%, 35%, 20%, 10%)
     - Tier 1: (30%, 30%, 20%, 20%) -> (20%, 30%, 30%, 20%)
     - Tier 2: Unchanged
-- Reduced points of Miracle Worker challenge from 60 -> 33
-- Changed evolution name for Apocalypse Bird
-- Changed evolution name for You're Bald...
-- Random Starter Deck: placeholder sprites now have a '?' in the sigil space
-- Funeral of the Dead Butterflies: now belongs to the Undead temple
-- Nothing There: now disguises as common cards instead of death cards
-### Balancing
-- Giant Tree Sap: No longer considered singleton/unique
-- <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
-- <span style='color:#2084A0'>All-Around Helper: increased Health from 2 -> 3
-- Nothing There: If Nothing There is not killed within a set number of turns, it will reveal itself automatically
-- Red Riding Hooded Mercenary: now possesses Vendetta sigil
-- Big and Will Be Bad Wolf: now possesses Vendetta sigil
-- Big and Will Be Bad Wolf: rebalanced from 3/3 -> 2/4
-- Modified encounters to be less unbalanced, hopefully
-- <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
-- <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
+- 'Random' starter deck now unlocks at challenge level 12
+- 'Random' starter deck placeholder sprites now have a '?' in the sigil space
 - <span style='color:#DE6080'>Reshuffle Decks card now possesses the Bone Meal sigil
-- <span style='color:#DE6080'>Apocalypse Bird card: no longer possesses Made of Stone sigil
 ### Mod Compatibility
 - Pack Manager API: Updated pack artwork for card pack
 - Pack Manager API: Updated encounter pack
