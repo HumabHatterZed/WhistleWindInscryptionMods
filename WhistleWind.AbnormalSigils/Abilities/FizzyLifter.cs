@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FizzyLifter()
         {
             const string rulebookName = "Fizzy Lifter";
-            const string rulebookDescription = "The selected card gains Airborne for the next 3 turns.";
+            const string rulebookDescription = "When [creature] is sacrificed, the card it was sacrificed for will become Airborne for 3 turns.";
             FizzyLifter.ability = AbnormalAbilityHelper.CreateAbility<FizzyLifter>(
                 "sigilFizzyLifter",
                 rulebookName, rulebookDescription, powerLevel: 4,
@@ -30,36 +30,17 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToResolveOnBoard() => base.Card.Info.IsGlobalSpell();
-        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) => base.Card.Info.IsTargetedSpell() && base.Card == attacker && slot.Card != null;
-
-        public override IEnumerator OnResolveOnBoard()
-        {
-            foreach (PlayableCard card in BoardManager.Instance.GetCards())
-            {
-                yield return OnSlotTargetedForAttack(card.Slot, base.Card);
-            }
-        }
-
-        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-            CardModificationInfo mod = new CardModificationInfo(Ability.Flying) { singletonId = "FizzyLifted" };
-            slot.Card.AddTemporaryMod(mod);
-            yield return slot.Card.AddStatusEffect<FizzyLifterEffect>(3);
-            slot.Card.GetStatusEffect<FizzyLifterEffect>().SetPotency(3, false); // reset to 3
-            yield return base.LearnAbility();
-        }
-
         public override bool RespondsToSacrifice() => true;
         public override IEnumerator OnSacrifice()
         {
             yield return base.PreSuccessfulTriggerSequence();
             CardModificationInfo mod = new CardModificationInfo(Ability.Flying) { singletonId = "FizzyLifted" };
+            BoardManager.Instance.CurrentSacrificeDemandingCard.Status.hiddenAbilities.Add(Ability.Flying);
+            BoardManager.Instance.CurrentSacrificeDemandingCard.Anim.PlayTransformAnimation();
             BoardManager.Instance.CurrentSacrificeDemandingCard.AddTemporaryMod(mod);
-            yield return BoardManager.Instance.CurrentSacrificeDemandingCard.AddStatusEffect<FizzyLifterEffect>(3);
-            BoardManager.Instance.CurrentSacrificeDemandingCard.GetStatusEffect<FizzyLifterEffect>().SetPotency(3, false); // reset to 3
-            yield return base.LearnAbility();
+            yield return BoardManager.Instance.CurrentSacrificeDemandingCard.AddStatusEffect<FizzyLifterEffect>(2);
+            BoardManager.Instance.CurrentSacrificeDemandingCard.GetStatusEffect<FizzyLifterEffect>().SetPotency(2, false); // reset to 3
+            yield return base.LearnAbility(0.5f);
         }
     }
 }

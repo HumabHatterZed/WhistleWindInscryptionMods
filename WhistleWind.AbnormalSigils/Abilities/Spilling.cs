@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using Infiniscryption.Spells.Patchers;
 using InscryptionAPI.RuleBook;
 using InscryptionAPI.Slots;
 using System.Collections;
@@ -42,7 +43,8 @@ namespace WhistleWind.AbnormalSigils
             slots.Remove(base.Card.Slot);
             slots.Sort((CardSlot a, CardSlot b) => GetSlotDistance(a) - GetSlotDistance(b));
 
-            base.StartCoroutine(HelperMethods.PlayTruncated3DSound("ocean_fall", 0.1f, base.Card));
+            yield return base.PreSuccessfulTriggerSequence();
+            base.StartCoroutine(HelperMethods.PlayTruncated3DSound("ocean_fall", 0.1f, base.Card.Slot));
             yield return base.Card.Slot.SetSlotModification(FloodedSlot.Id);
             yield return new WaitForSeconds(0.25f);
             for (int i = 0; i < slots.Count; i++)

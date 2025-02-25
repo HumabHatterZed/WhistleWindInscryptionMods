@@ -64,9 +64,9 @@ namespace WhistleWind.Core.Helpers
             return false;
         }
 
-        public static IEnumerator PlayTruncated3DSound(string soundId, float skipToTime, PlayableCard card)
+        public static IEnumerator PlayTruncated3DSound(string soundId, float skipToTime, CardSlot slot)
         {
-            AudioSource ocean = AudioController.Instance.PlaySound3D(soundId, MixerGroup.TableObjectsSFX, card.Slot.transform.position, skipToTime: skipToTime);
+            AudioSource ocean = AudioController.Instance.PlaySound3D(soundId, MixerGroup.TableObjectsSFX, slot.transform.position, skipToTime: skipToTime);
             yield return new WaitUntil(() => ocean.time >= (ocean.clip.length * 0.15f));
             ocean.Stop();
         }

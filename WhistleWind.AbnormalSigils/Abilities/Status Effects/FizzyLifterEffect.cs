@@ -21,6 +21,10 @@ namespace WhistleWind.AbnormalSigils
         }
         public override IEnumerator OnStatusEffectRemoved(PlayableCard target, StatusEffectBehaviour statusEffect)
         {
+            CardModificationInfo mod = base.PlayableCard.TemporaryMods.Find(x => HelperMethods.CompareSingleton(x.singletonId, "FizzyLifted"));
+            if (mod != null)
+                base.PlayableCard.RemoveTemporaryMod(mod);
+            base.PlayableCard.Status.hiddenAbilities.Remove(Ability.Flying);
             return base.OnStatusEffectRemoved(target, statusEffect);
         }
     }
@@ -29,7 +33,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_FizzyLifterEffect()
         {
             const string rName = "Fizzy Lifted";
-            const string rDesc = "A card bearing this effect is Airborne. At the end of the owner's turn, reduce this effect's Severity by 1.";
+            const string rDesc = "A card bearing this effect will be Airborne. At the end of the owner's turn, reduce this effect's Severity by 1.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<FizzyLifterEffect>(
                 pluginGuid, rName, rDesc, 0, GameColors.Instance.seafoam,
                 TextureLoader.LoadTextureFromFile("sigilFizzyLifter.png", Assembly),
