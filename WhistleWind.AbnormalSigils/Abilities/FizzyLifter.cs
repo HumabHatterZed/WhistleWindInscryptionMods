@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FizzyLifter()
         {
             const string rulebookName = "Fizzy Lifter";
-            const string rulebookDescription = "When [creature] is sacrificed, the card it was sacrificed for will become Airborne for 3 turns.";
+            const string rulebookDescription = "The selected card will become Airborne for 3 turns.";
             FizzyLifter.ability = AbnormalAbilityHelper.CreateAbility<FizzyLifter>(
                 "sigilFizzyLifter",
                 rulebookName, rulebookDescription, powerLevel: 0,
@@ -33,14 +33,26 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToSacrifice() => true;
         public override IEnumerator OnSacrifice()
         {
+            yield return Sequence(BoardManager.Instance.CurrentSacrificeDemandingCard);
+            yield return base.LearnAbility(0.5f);
+        }
+
+        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+            => attacker == base.Card && base.Card.Info.IsTargetedSpell() && slot.Card != null;
+        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+        {
+            yield return Sequence(slot.Card);
+        }
+
+        private IEnumerator Sequence(PlayableCard target)
+        {
             yield return base.PreSuccessfulTriggerSequence();
             CardModificationInfo mod = new CardModificationInfo(Ability.Flying) { singletonId = "FizzyLifted" };
-            BoardManager.Instance.CurrentSacrificeDemandingCard.Status.hiddenAbilities.Add(Ability.Flying);
-            BoardManager.Instance.CurrentSacrificeDemandingCard.Anim.PlayTransformAnimation();
-            BoardManager.Instance.CurrentSacrificeDemandingCard.AddTemporaryMod(mod);
-            yield return BoardManager.Instance.CurrentSacrificeDemandingCard.AddStatusEffect<FizzyLifterEffect>(2);
-            BoardManager.Instance.CurrentSacrificeDemandingCard.GetStatusEffect<FizzyLifterEffect>().SetPotency(2, false); // reset to 3
-            yield return base.LearnAbility(0.5f);
+            target.Status.hiddenAbilities.Add(Ability.Flying);
+            target.Anim.PlayTransformAnimation();
+            target.AddTemporaryMod(mod);
+            yield return target.AddStatusEffect<FizzyLifterEffect>(2);
+            target.GetStatusEffect<FizzyLifterEffect>().SetPotency(2, false); // reset to 3
         }
     }
 }

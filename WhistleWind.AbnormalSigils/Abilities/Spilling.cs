@@ -35,21 +35,26 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => true;
-        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => !base.Card.Info.IsSpell();
+        public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer) => Sequence(base.Card.Slot);
+
+        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) => attacker == base.Card && base.Card.Info.IsTargetedSpell();
+        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) => Sequence(slot);
+        
+        private IEnumerator Sequence(CardSlot startingSlot)
         {
             bool extinguishedCard = false;
             List<CardSlot> slots = new(BoardManager.Instance.AllSlotsCopy);
-            slots.Remove(base.Card.Slot);
-            slots.Sort((CardSlot a, CardSlot b) => GetSlotDistance(a) - GetSlotDistance(b));
+            slots.Remove(startingSlot);
+            slots.Sort((CardSlot a, CardSlot b) => GetSlotDistance(startingSlot, a) - GetSlotDistance(startingSlot, b));
 
             yield return base.PreSuccessfulTriggerSequence();
-            base.StartCoroutine(HelperMethods.PlayTruncated3DSound("ocean_fall", 0.1f, base.Card.Slot));
-            yield return base.Card.Slot.SetSlotModification(FloodedSlot.Id);
+            startingSlot.StartCoroutine(HelperMethods.PlayTruncated3DSound("ocean_fall", 0.1f, startingSlot));
+            yield return startingSlot.SetSlotModification(FloodedSlot.Id);
             yield return new WaitForSeconds(0.25f);
             for (int i = 0; i < slots.Count; i++)
             {
-                int distance = GetSlotDistance(slots[i]);
+                int distance = GetSlotDistance(startingSlot, slots[i]);
                 if (slots[i].Card != null && slots[i].Card.HasAbility(Scorching.ability))
                 {
                     extinguishedCard = true;
@@ -61,7 +66,7 @@ namespace WhistleWind.AbnormalSigils
                     slots[i].GetComponent<FloodedSlot>().Severity += distance;
                 }
 
-                if (i < slots.Count - 1 && GetSlotDistance(slots[i + 1]) != distance)
+                if (i + 1 < slots.Count && GetSlotDistance(startingSlot, slots[i + 1]) != distance)
                     yield return new WaitForSeconds(0.25f);
             }
             if (extinguishedCard)
@@ -69,9 +74,10 @@ namespace WhistleWind.AbnormalSigils
                 yield return DialogueHelper.PlayDialogueEvent("ScorchingExtinguished");
             }
         }
-        private int GetSlotDistance(CardSlot slot)
+
+        private int GetSlotDistance(CardSlot refSlot, CardSlot slot)
         {
-            return (base.Card.OpponentCard != slot.IsPlayerSlot ? 0 : 1) + Mathf.Abs(base.Card.Slot.Index - slot.Index);
+            return (refSlot.IsPlayerSlot == slot.IsPlayerSlot ? 0 : 1) + Mathf.Abs(refSlot.Index - slot.Index);
         }
     }
 }
