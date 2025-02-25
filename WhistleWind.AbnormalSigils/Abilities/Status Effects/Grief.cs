@@ -50,7 +50,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Grief()
         {
             const string rName = "Grief";
-            const string rDesc = "A card bearing this effect loses Power equal to its Grief. If there is an ally card with Pebble, remove this effect. Otherwise, gain 1 Grief at the start of the owner's turn.";
+            const string rDesc = "A card bearing this effect loses Power equal to its Grief. Remove this effect when an ally card has Pebble. Otherwise, gain 1 Grief at the start of the owner's turn.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Grief>(
                 pluginGuid, rName, rDesc, -1, GameColors.Instance.nearWhite,
                 TextureLoader.LoadTextureFromFile("sigilGrief.png", Assembly),

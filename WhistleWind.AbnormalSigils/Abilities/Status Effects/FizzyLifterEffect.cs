@@ -33,7 +33,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_FizzyLifterEffect()
         {
             const string rName = "Fizzy Lifted";
-            const string rDesc = "A card bearing this effect will be Airborne. At the end of the owner's turn, reduce this effect's Severity by 1.";
+            const string rDesc = "While a card bears this effect, it will be Airborne. At the end of the owner's turn, reduce this effect's Potency by 1.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<FizzyLifterEffect>(
                 pluginGuid, rName, rDesc, 0, GameColors.Instance.seafoam,
                 TextureLoader.LoadTextureFromFile("sigilFizzyLifter.png", Assembly),

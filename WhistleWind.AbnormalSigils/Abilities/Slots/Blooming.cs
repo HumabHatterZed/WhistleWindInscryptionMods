@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Slot_Blooming()
         {
             const string rulebookName = "Blooming";
-            const string rulebookDescription = "At the end of the owner's turn, siphon 1 Health from the opposing card. If this space is occupied, the occupying card regains 1 Health.";
+            const string rulebookDescription = "At the end of the owner's turn, siphon 1 Health from the opposing creature and heal cards occupying this space.";
 
             Texture2D texture = TextureLoader.LoadTextureFromFile("slotBlooming_act1.png", Assembly);
             Dictionary<CardTemple, Texture2D> slotTextures = SlotHelper.BuildTextureDictionary(
@@ -38,25 +38,25 @@ namespace WhistleWind.AbnormalSigils
     {
         public static SlotModificationManager.ModificationType Id;
 
-        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Slot.IsPlayerSlot == playerTurnEnd && base.Slot.opposingSlot.Card != null;
+        public override bool RespondsToTurnEnd(bool playerTurnEnd)
+            => base.Slot.IsPlayerSlot == playerTurnEnd && base.Slot.opposingSlot.Card != null && base.Slot.Card != null;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
             base.Slot.opposingSlot.Card.Anim.LightNegationEffect();
             base.Slot.opposingSlot.Card.HealDamage(-1);
-            yield return new WaitForSeconds(0.2f);
-            if (base.Slot.Card != null)
+            if (base.Slot.Card.Health < base.Slot.Card.MaxHealth)
             {
                 base.Slot.Card.Anim.LightNegationEffect();
-                if (base.Slot.Card.Health < base.Slot.Card.MaxHealth)
-                {
-                    base.Slot.Card.HealDamage(1);
-                }
+                base.Slot.Card.HealDamage(1);
+            }
+            else
+            {
+                base.Slot.Card.Anim.StrongNegationEffect();
             }
 
+            yield return new WaitForSeconds(0.2f);
             if (base.Slot.opposingSlot.Card.Health == 0)
-            {
                 yield return base.Slot.opposingSlot.Card.Die(false, null);
-            }
 
             yield return new WaitForSeconds(0.4f);
         }

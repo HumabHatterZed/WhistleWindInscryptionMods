@@ -27,7 +27,7 @@ namespace WhistleWind.AbnormalSigils
         private void StatusEffect_Decay()
         {
             const string rName = "Decay";
-            const string rDesc = "At the start of the owner's turn, reduce this effect's Potency by 1. A card bearing this effect will perish when its Potency reaches 0.";
+            const string rDesc = "At the start of the owner's turn, reduce this effect's Potency by 1. At 0 Potency, a card bearing this sigil will perish.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<Decay>(
                 pluginGuid, rName, rDesc, -3, GameColors.Instance.lightPurple,
                 TextureLoader.LoadTextureFromFile("sigilDecay.png", Assembly),

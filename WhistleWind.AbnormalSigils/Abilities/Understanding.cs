@@ -1,7 +1,11 @@
 ﻿using DiskCardGame;
+using Infiniscryption.Spells.Sigils;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.RuleBook;
+using InscryptionAPI.Triggers;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
@@ -13,13 +17,12 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Understanding()
         {
             const string rulebookName = "Understanding";
-            const string rulebookDescription = "If [creature] perishes from the effect of Decay, deal 4 damage to each opposing creature and 2 direct damage to their owner.";
+            const string rulebookDescription = "If [creature] perishes due to indirect or self-inflicted damage, deal 4 damage to opposing creatures.";
             const string dialogue = "Too slow.";
             Understanding.ability = AbnormalAbilityHelper.CreateAbility<Understanding>(
                 "sigilUnderstanding",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: false, opponent: false, canStack: false)
-                .SetAbilityRedirect("Decay", Decay.iconId, GameColors.Instance.darkPurple)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
                 .SetMagnificusRulebook().Id;
@@ -30,28 +33,16 @@ namespace WhistleWind.AbnormalSigils
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => killer == base.Card;
+        public override bool RespondsToDie(bool wasSacrifice, PlayableCard killer) => killer == base.Card || killer == null;
 
         public override IEnumerator OnDie(bool wasSacrifice, PlayableCard killer)
         {
             foreach (PlayableCard card in BoardManager.Instance.GetCards(base.Card.OpponentCard))
             {
-                yield return card.TakeDamage(4, null);
+                yield return card.TakeDamage(4, base.Card);
             }
-            yield return LifeManager.Instance.ShowDamageSequence(4, 4, base.Card.OpponentCard);
-            if (!base.HasLearned)
-            {
-                base.SetLearned();
-                if (TextDisplayer.m_Instance == null)
-                    yield break;
 
-                yield return new WaitForSeconds(0.4f);
-                DialogueEvent.LineSet abilityLearnedDialogue = AbilitiesUtil.GetInfo(this.Ability).abilityLearnedDialogue;
-                foreach (DialogueEvent.Line line in abilityLearnedDialogue.lines)
-                {
-                    yield return Singleton<TextDisplayer>.Instance.ShowUntilInput(line.text, -0.65f, 0.4f, line.emotion);
-                }
-            }
+            yield return base.LearnAbility(0.4f);
         }
     }
 }

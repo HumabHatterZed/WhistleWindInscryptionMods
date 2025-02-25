@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookDescription = "When [creature] is sacrificed, the card it was sacrificed for will become Airborne for 3 turns.";
             FizzyLifter.ability = AbnormalAbilityHelper.CreateAbility<FizzyLifter>(
                 "sigilFizzyLifter",
-                rulebookName, rulebookDescription, powerLevel: 4,
+                rulebookName, rulebookDescription, powerLevel: 0,
                 modular: false, opponent: false, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
