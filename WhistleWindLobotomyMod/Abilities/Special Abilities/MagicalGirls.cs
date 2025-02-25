@@ -124,10 +124,10 @@ namespace WhistleWindLobotomyMod
                 // add the card to the player's deck (this adds a clone so we can modify info after-the-fact for this battle only)
                 RunState.Run.playerDeck.AddCard(info);
                 info.Mods.Add(new() { bonesCostAdjustment = -info.bonesCost });
-                yield return HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
-                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0f, null);
                 LobotomySaveManager.OwnsJesterOfNihil = true;
                 LobotomySaveManager.UnlockedJesterOfNihil = true;
+                yield return HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
+                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0f, null);
             }
 
             yield return new WaitForSeconds(0.2f);

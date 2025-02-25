@@ -4,6 +4,7 @@ using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using InscryptionAPI.Triggers;
+using Sirenix.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,15 @@ using WhistleWindLobotomyMod.Core.Helpers;
 
 namespace WhistleWindLobotomyMod
 {
-    public class YellowBrick : SpecialCardBehaviour, IOnOtherCardResolveInHand
+    public class YellowBrick : SpecialCardBehaviour, IOnOtherCardResolveInHand, IOnOtherCardAddedToHand
     {
         public static SpecialTriggeredAbility specialAbility;
         public SpecialTriggeredAbility SpecialAbility => specialAbility;
 
         public const string rName = "Yellow Brick Road";
-        public const string rDesc = "Gain a special card when Ozma, The Road Home, Warm-Hearted Woodsman, and Scarecrow Searching for Wisdom are all on the same side of the board.";
+        public const string rDesc = "Gain a special card when Ozma, The Road Home, Warm-Hearted Woodsman, and Scarecrow Searching for Wisdom are all on the field or in hand.";
 
-        private List<string>[] ValidCardNames = new List<string>[]
+        private readonly List<string>[] ValidCardNames = new List<string>[]
         {
             new() { Cards.wisdomScarecrow, Cards.wisdomScarecrowPixel },
             new() { Cards.warmHeartedWoodsman },
@@ -30,28 +31,22 @@ namespace WhistleWindLobotomyMod
             new() { Cards.scaredyCat, Cards.scaredyCatStrong }
         };
 
-        public override bool RespondsToDrawn() => !LobotomyConfigManager.NoEvents;
-        public override bool RespondsToOtherCardDrawn(PlayableCard card)
-        {
-            if (LobotomyConfigManager.NoEvents)
-                return false;
-            Debug.Log(base.PlayableCard.OpponentCard);
-            return card != base.PlayableCard && !base.PlayableCard.OpponentCard;
-        }
         public override bool RespondsToResolveOnBoard() => !LobotomyConfigManager.NoEvents;
-        public override bool RespondsToOtherCardResolve(PlayableCard otherCard)
+        public override bool RespondsToOtherCardResolve(PlayableCard otherCard) => RespondsToOtherCardAddedToHand(otherCard);
+        public bool RespondsToOtherCardResolveInHand(PlayableCard card) => RespondsToOtherCardResolve(card);
+        public bool RespondsToOtherCardAddedToHand(PlayableCard card) // triggers AFTER card is actually added to hoof
         {
             if (LobotomyConfigManager.NoEvents)
                 return false;
 
-            return otherCard != base.PlayableCard && otherCard.OpponentCard == base.PlayableCard.OpponentCard;
+            return card != base.PlayableCard && !base.PlayableCard.OpponentCard && card.HasTrait(LobotomyCardManager.EmeraldCity);
         }
-        public bool RespondsToOtherCardResolveInHand(PlayableCard card) => RespondsToOtherCardResolve(card);
-        public override IEnumerator OnDrawn() => CheckForOtherCards();
-        public override IEnumerator OnOtherCardDrawn(PlayableCard card) => CheckForOtherCards();
+
         public override IEnumerator OnResolveOnBoard() => CheckForOtherCards();
         public override IEnumerator OnOtherCardResolve(PlayableCard otherCard) => CheckForOtherCards();
         public IEnumerator OnOtherCardResolveInHand(PlayableCard card) => CheckForOtherCards();
+        public IEnumerator OnOtherCardAddedToHand(PlayableCard card) => CheckForOtherCards();
+
         private IEnumerator CheckForOtherCards()
         {
             if (LobotomySaveManager.OwnsLyingAdult)
@@ -65,11 +60,25 @@ namespace WhistleWindLobotomyMod
 
             bool isOpponent = base.PlayableCard.OpponentCard;
             PlayableCard[] cardsOnBoard = new PlayableCard[5] { base.PlayableCard, null, null, null, null };
+            List<PlayableCard> cardsToCheck = BoardManager.Instance.GetCards(!isOpponent, x => x.HasTrait(LobotomyCardManager.EmeraldCity));
 
-            // check cards on the board first
-            foreach (PlayableCard card in BoardManager.Instance.GetCards(!isOpponent, x => x.HasTrait(LobotomyCardManager.EmeraldCity)))
+            if (cardsToCheck.Count < 3) // at least 3 Oz cards must be on the board, with the rest in the hoof/queue
+                yield break;
+
+            if (isOpponent)
             {
-                if (card == base.PlayableCard || LobotomyHelpers.CardIsMimicking(card))
+                cardsToCheck.AddRange(TurnManager.Instance.Opponent.Queue.Where(x => x.HasTrait(LobotomyCardManager.EmeraldCity)));
+            }
+            else
+            {
+                cardsToCheck.AddRange(PlayerHand.Instance.CardsInHand.Where(x => x.HasTrait(LobotomyCardManager.EmeraldCity)));
+            }
+            
+            cardsToCheck.RemoveAll(x => x == base.PlayableCard);
+
+            foreach (PlayableCard card in cardsToCheck)
+            {
+                if (LobotomyHelpers.CardIsMimicking(card))
                     continue;
 
                 string cardName = card.Info.name;
@@ -81,46 +90,6 @@ namespace WhistleWindLobotomyMod
                     cardsOnBoard[3] = card;
                 else if (ValidCardNames[3].Contains(cardName))
                     cardsOnBoard[4] = card;
-            }
-
-            if (cardsOnBoard.Count(x => x != null) < 3) // at least 3 of the Oz cards must be on the board, with the rest in the hoof/queue
-                yield break;
-
-            if (isOpponent)
-            {
-                foreach (PlayableCard card in Singleton<Opponent>.Instance.Queue.Where(x => x.HasTrait(LobotomyCardManager.EmeraldCity)))
-                {
-                    if (card == base.PlayableCard || LobotomyHelpers.CardIsMimicking(card))
-                        continue;
-
-                    string cardName = card.Info.name;
-                    if (ValidCardNames[0].Contains(cardName))
-                        cardsOnBoard[1] = card;
-                    else if (ValidCardNames[1].Contains(cardName))
-                        cardsOnBoard[2] = card;
-                    else if (ValidCardNames[2].Contains(cardName))
-                        cardsOnBoard[3] = card;
-                    else if (ValidCardNames[3].Contains(cardName))
-                        cardsOnBoard[4] = card;
-                }
-            }
-            else
-            {
-                foreach (PlayableCard card in PlayerHand.Instance.CardsInHand.Where(x => x.HasTrait(LobotomyCardManager.EmeraldCity)))
-                {
-                    if (card == base.PlayableCard || LobotomyHelpers.CardIsMimicking(card))
-                        continue;
-
-                    string cardName = card.Info.name;
-                    if (ValidCardNames[0].Contains(cardName))
-                        cardsOnBoard[1] = card;
-                    else if (ValidCardNames[1].Contains(cardName))
-                        cardsOnBoard[2] = card;
-                    else if (ValidCardNames[2].Contains(cardName))
-                        cardsOnBoard[3] = card;
-                    else if (ValidCardNames[3].Contains(cardName))
-                        cardsOnBoard[4] = card;
-                }
             }
 
             if (cardsOnBoard.Count(x => x != null) < 5) // we don't have all 5 Oz cards
@@ -160,10 +129,9 @@ namespace WhistleWindLobotomyMod
             {
                 RunState.Run.playerDeck.AddCard(info);
                 info.Mods.Add(new() { bloodCostAdjustment = -info.cost });
+                LobotomySaveManager.OwnsLyingAdult = true;
                 Singleton<ViewManager>.Instance.SwitchToView(View.Hand, lockAfter: true);
                 yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0.25f, null);
-
-                LobotomySaveManager.OwnsLyingAdult = true;
             }
 
             yield return new WaitForSeconds(0.2f);
@@ -216,7 +184,6 @@ namespace WhistleWindLobotomyMod
 
             LobotomySaveManager.UnlockedLyingAdult = true;
 
-            Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             LobotomyHelpers.AllowInitiateCombat(canInitiateCombat);
         }
@@ -248,10 +215,15 @@ namespace WhistleWindLobotomyMod
         }
         private IEnumerator LookAtCard(PlayableCard card)
         {
-            Singleton<ViewManager>.Instance.SwitchToView(!card.InHand ? View.Board : View.Default);
+            Singleton<ViewManager>.Instance.SwitchToView(!card.InHand ? View.Board : View.Hand);
             yield return new WaitForSeconds(0.2f);
             if (card.InHand)
+            {
+                PlayerHand.Instance.cardsInHand.Remove(card);
                 (Singleton<PlayerHand>.Instance as PlayerHand3D)?.MoveCardAboveHand(card);
+                yield return new WaitForSeconds(0.5f);
+                PlayerHand.Instance.cardsInHand.Add(card);
+            }
         }
     }
     public class RulebookEntryYellowBrick : AbilityBehaviour

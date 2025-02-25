@@ -107,11 +107,10 @@ namespace WhistleWindLobotomyMod
             {
                 RunState.Run.playerDeck.AddCard(info);
                 info.Mods.Add(new() { bloodCostAdjustment = -info.cost });
-                yield return HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
-                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0.25f, null);
-
                 LobotomySaveManager.OwnsApocalypseBird = true;
                 LobotomySaveManager.UnlockedApocalypseBird = true;
+                yield return HelperMethods.ChangeCurrentView(View.Hand, 0.4f);
+                yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(info, null, 0.25f, null);
             }
 
             yield return new WaitForSeconds(0.2f);
