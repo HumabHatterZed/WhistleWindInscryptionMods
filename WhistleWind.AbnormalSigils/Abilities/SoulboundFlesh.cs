@@ -12,8 +12,8 @@ namespace WhistleWind.AbnormalSigils
     {
         private void Ability_SoulboundFlesh()
         {
-            const string rulebookName = "Soulbound Flesh";
-            const string rulebookDescription = "When [creature] is struck, also deal damage directly to the owner.";
+            const string rulebookName = "Soulbound";
+            const string rulebookDescription = "When [creature] is struck, deal an equal amount of damage to its owner.";
             const string dialogue = "So this is what they feel...";
             SoulboundFlesh.ability = AbnormalAbilityHelper.CreateAbility<SoulboundFlesh>(
                 "sigilSoulboundFlesh",
@@ -37,8 +37,8 @@ namespace WhistleWind.AbnormalSigils
         {
             yield return base.PreSuccessfulTriggerSequence();
             yield return LifeManager.Instance.ShowDamageSequence(amount, amount, !base.Card.OpponentCard, changeView: false);
-            yield return new WaitForSeconds(0.5f);
-            yield return base.LearnAbility();
+            yield return new WaitForSeconds(0.3f);
+            yield return base.LearnAbility(0.4f);
         }
     }
 }
