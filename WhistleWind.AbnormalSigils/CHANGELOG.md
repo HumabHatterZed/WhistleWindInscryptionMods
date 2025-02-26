@@ -71,6 +71,7 @@
 - Bloodfiend - reduced powerlevel from 3 -> 2
 - Gift Giver - increased powerlevel from 3 -> 4
 - Bloodletter - reduced powerlevel from 4 -> 3
+- Binding Strike - reduced powerlevel from 2 -> 1
 - Opportunistic - changed to activate against cards with Loose Tail and an intact tail status
 - Refresh Deck - changed to discard the player's current hand and draw a new opening hand after resetting the deck piles
 - Nettle Clothes - reduced powerlevel from 5 -> 4

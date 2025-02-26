@@ -14,11 +14,11 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_BindingStrike()
         {
             const string rulebookName = "Binding Strike";
-            const string rulebookDescription = "When [creature] strikes an opposing creature, inflict Bind this turn and next turn equal to card's Attack.";
+            const string rulebookDescription = "When [creature] strikes an opposing creature, inflict Bind this turn and next turn equal to this card's Attack.";
             const string dialogue = "The creature has been slowed, if only temporarily.";
             BindingStrike.ability = AbnormalAbilityHelper.CreateAbility<BindingStrike>(
                 "sigilBindingStrike",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 1,
                 modular: false, opponent: true, canStack: false)
                 .SetAbilityRedirect("Bind", Bind.iconId, GameColors.Instance.orange)
                 .SetPart3Rulebook()
