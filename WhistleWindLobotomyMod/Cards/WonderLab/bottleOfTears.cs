@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         {
             string textureName = "bottleOfTears";
             CardManager.New(LobotomyPlugin.wonderlabPrefix, bottleOfTears, "Bottle of Tears",
-                attack: 0, health: 0)
+                attack: 0, health: 0, "Sorrow stoppered by sweets, fragile and overflowing.")
                 .SetBonesCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(FizzyLifter.ability, Spilling.ability)
