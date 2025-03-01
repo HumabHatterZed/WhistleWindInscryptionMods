@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
@@ -37,6 +38,18 @@ namespace WhistleWindLobotomyMod
                         .SetCanStack()
                         .SetFlipYIfOpponent()
                         .AddMetaCategories(AbilityMetaCategory.Part1Rulebook);
+
+                    abilities.AbilityByID(PotshotPop.ability)
+                        .Info.rulebookDescription.Replace("Sentry", "Quick Draw");
+
+                    abilities.AbilityByID(PotshotPopEffect.iconId)
+                        .Info.rulebookDescription.Replace("Sentry", "Quick Draw");
+
+                    abilities.AbilityByID(SurefireDrink.ability)
+                        .Info.rulebookDescription.Replace("Sniper", "Marksman");
+
+                    abilities.AbilityByID(SurefireDrinkEffect.iconId)
+                        .Info.rulebookDescription.Replace("Sniper", "Marksman");
 
                     abilities.AbilityByID(Ability.Transformer).Info
                         .SetRulebookDescription("[creature] will transform into a different form after 1 turn on the board.")
