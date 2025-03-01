@@ -154,12 +154,43 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
             return retval;
         }
 
+        public static IEnumerator AddStatusEffect(this PlayableCard card, SpecialTriggeredAbility status, int amount, bool updateDecals = false, Func<int, int> modifyTurnGained = null)
+        {
+            Type type = StatusEffectManager.AllStatusEffects.EffectByID(status)?.Behaviour;
+            if (type == null)
+            {
+                AbnormalPlugin.Log.LogError("Couldn't find status effect with id " + status);
+                yield break;
+            }
+
+            StatusEffectBehaviour component = card.GetComponent(type) as StatusEffectBehaviour;
+            bool firstStack = component == null || component.EffectPotency < 1;
+            if (firstStack)
+            {
+                component = card.gameObject.AddComponent(type) as StatusEffectBehaviour;
+                card.TriggerHandler.permanentlyAttachedBehaviours.Add(component);
+                component.TurnGained = modifyTurnGained?.Invoke(TurnManager.Instance.TurnNumber) ?? TurnManager.Instance.TurnNumber;
+            }
+
+            component.ModifyPotency(amount, updateDecals);
+
+            yield return CustomTriggerFinder.TriggerAll<IOnStatusEffectAdded>(firstStack,
+                x => x.RespondsToStatusEffectAdded(card, amount, component, firstStack),
+                x => x.OnStatusEffectAdded(card, amount, component, firstStack));
+
+            if (!DialogueEventsData.EventIsPlayed("LearnStatusEffects"))
+                yield return new WaitForSeconds(0.2f);
+
+            yield return DialogueHelper.PlayDialogueEvent("LearnStatusEffects", card: card);
+
+            if (card.GetDisplayedStatusEffects(false).Count > 5)
+                yield return DialogueHelper.PlayDialogueEvent("LearnStatusEffectsOverflow", card: card);
+        }
         public static IEnumerator AddStatusEffect<T>(this PlayableCard card, int amount, bool updateDecals = false, Func<int, int> modifyTurnGained = null)
             where T : StatusEffectBehaviour
         {
-
             T component = card.GetComponent<T>();
-            bool firstStack = component == null;
+            bool firstStack = component == null || component.EffectPotency < 1;
             if (firstStack)
             {
                 component = card.gameObject.AddComponent<T>();

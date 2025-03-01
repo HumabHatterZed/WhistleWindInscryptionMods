@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using Infiniscryption.Spells.Patchers;
-using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -12,13 +11,13 @@ namespace WhistleWind.AbnormalSigils
 {
     public partial class AbnormalPlugin
     {
-        private void Ability_FizzyLifter()
+        private void Ability_SurefireDrink()
         {
-            const string rulebookName = "Fizzy Lifter";
-            const string rulebookDescription = "The selected card will become Airborne for 3 turns.";
-            FizzyLifter.ability = AbnormalAbilityHelper.CreateAbility<FizzyLifter>(
-                "sigilFizzyLifter",
-                rulebookName, rulebookDescription, powerLevel: 0,
+            const string rulebookName = "Surefire Soda";
+            const string rulebookDescription = "The selected card will have Sniper for this turn.";
+            SurefireDrink.ability = AbnormalAbilityHelper.CreateAbility<SurefireDrink>(
+                "sigilSurefireDrink",
+                rulebookName, rulebookDescription, powerLevel: 2,
                 modular: false, opponent: false, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
@@ -26,15 +25,16 @@ namespace WhistleWind.AbnormalSigils
         }
     }
 
-    public class FizzyLifter : SodaAbilityBehaviour
+    public class SurefireDrink : SodaAbilityBehaviour
     {
-        public const Ability abilityToAdd = Ability.Flying;
-        public const string id = "FizzyLifted";
+        public const Ability abilityToAdd = Ability.Sniper;
+        public const string id = "SurefireDrunk";
 
         public static Ability ability;
         public override Ability Ability => ability;
         public override string SingletonId => id;
         public override Ability AbilityToAdd => abilityToAdd;
-        public override SpecialTriggeredAbility StatusEffectId => FizzyLifterEffect.specialAbility;
+        public override SpecialTriggeredAbility StatusEffectId => SurefireDrinkEffect.specialAbility;
+        public override int BasePotency => 1;
     }
 }

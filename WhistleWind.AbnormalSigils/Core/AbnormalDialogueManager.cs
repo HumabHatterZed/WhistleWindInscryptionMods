@@ -18,6 +18,11 @@ namespace WhistleWind.AbnormalSigils.Core
                     "You can see the excess by interacting with the rightmost status." }
             },
 
+            { "SodaLover",
+                new() {
+                    "This beast seems extra enthused by the sugary concoction." }
+            },
+
             { "CopycatFail",
                 new() { "Some things in this world are too unique to replicate." }},
             { "CopycatDead",

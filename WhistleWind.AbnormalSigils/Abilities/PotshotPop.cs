@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using Infiniscryption.Spells.Patchers;
-using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -12,13 +11,13 @@ namespace WhistleWind.AbnormalSigils
 {
     public partial class AbnormalPlugin
     {
-        private void Ability_FizzyLifter()
+        private void Ability_PotshotPop()
         {
-            const string rulebookName = "Fizzy Lifter";
-            const string rulebookDescription = "The selected card will become Airborne for 3 turns.";
-            FizzyLifter.ability = AbnormalAbilityHelper.CreateAbility<FizzyLifter>(
-                "sigilFizzyLifter",
-                rulebookName, rulebookDescription, powerLevel: 0,
+            const string rulebookName = "Potshot Pop";
+            const string rulebookDescription = "The selected card will have Sentry for 2 turns.";
+            PotshotPop.ability = AbnormalAbilityHelper.CreateAbility<PotshotPop>(
+                "sigilPotshotPop",
+                rulebookName, rulebookDescription, powerLevel: 2,
                 modular: false, opponent: false, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
@@ -26,15 +25,16 @@ namespace WhistleWind.AbnormalSigils
         }
     }
 
-    public class FizzyLifter : SodaAbilityBehaviour
+    public class PotshotPop : SodaAbilityBehaviour
     {
-        public const Ability abilityToAdd = Ability.Flying;
-        public const string id = "FizzyLifted";
+        public const Ability abilityToAdd = Ability.Sentry;
+        public const string id = "PotshotPopped";
 
         public static Ability ability;
         public override Ability Ability => ability;
         public override string SingletonId => id;
         public override Ability AbilityToAdd => abilityToAdd;
-        public override SpecialTriggeredAbility StatusEffectId => FizzyLifterEffect.specialAbility;
+        public override SpecialTriggeredAbility StatusEffectId => PotshotPopEffect.specialAbility;
+        public override int BasePotency => 2;
     }
 }

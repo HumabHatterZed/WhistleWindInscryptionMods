@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Soulbound";
             const string rulebookDescription = "When [creature] is struck, deal an equal amount of damage to its owner.";
             const string dialogue = "So this is what they feel...";
-            SoulboundFlesh.ability = AbnormalAbilityHelper.CreateAbility<SoulboundFlesh>(
+            Soulbound.ability = AbnormalAbilityHelper.CreateAbility<Soulbound>(
                 "sigilSoulboundFlesh",
                 rulebookName, rulebookDescription, dialogue, powerLevel: -5,
                 modular: false, opponent: false, canStack: false)
@@ -24,7 +24,7 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class SoulboundFlesh : AbilityBehaviour
+    public class Soulbound : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
