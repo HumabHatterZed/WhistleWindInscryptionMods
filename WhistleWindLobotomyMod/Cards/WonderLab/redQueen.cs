@@ -29,6 +29,7 @@ namespace WhistleWindLobotomyMod
                 .SetCardTemple(CardTemple.Wizard)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Deathtouch, Unyielding.ability)
+                .AddTraits(AbnormalPlugin.SodaLover)
                 .AddTribes(AbnormalPlugin.TribeFae)
                 .Build(CardHelper.CardType.Common, RiskLevel.Teth, true);
         }

@@ -1,5 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 
 using static WhistleWind.AbnormalSigils.AbnormalPlugin;
@@ -21,6 +22,7 @@ namespace WhistleWindLobotomyMod
                 attack: 0, health: 1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .SetTerrain()
+                .AddTraits(AbnormalPlugin.SodaLover)
                 .SetDefaultEvolutionName("Still Crumpled Can of WellCheers")
                 .Build();
 
@@ -29,6 +31,7 @@ namespace WhistleWindLobotomyMod
                 .SetBonesCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(Ability.IceCube, Ability.Brittle)
+                .AddTraits(AbnormalPlugin.SodaLover)
                 .SetIceCube(can)
                 .Build();
 
@@ -37,6 +40,7 @@ namespace WhistleWindLobotomyMod
                 .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
                 .AddAbilities(Ability.Strafe, Ability.Submerge)
+                .AddTraits(AbnormalPlugin.SodaLover)
                 .AddTribes(TribeMechanical)
                 .SetIceCube(skeleton)
                 .SetDefaultEvolutionName("Opened Can of Elder WellCheers")
