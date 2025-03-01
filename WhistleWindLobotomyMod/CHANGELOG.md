@@ -64,6 +64,7 @@
 - Final Apocalypse challenge icon now occupys an entire column on the selection menu
 - Modified encounters to be less unbalanced, hopefully
 - Modified some dialogue
+- Modified some pixel artwork
 - Modified descriptions of 'Abnormal Bosses' and 'Abnormal Encounters' challenges for clarity
 - Modified description of Concord special ability for clarity
 - Changed weights used in the Abnormal Choice Node for card choices in each region tier:

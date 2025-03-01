@@ -44,7 +44,7 @@ namespace WhistleWindLobotomyMod
             pack2.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
             pack2.Title = "World of WonderLab";
             pack2.Description = $"A set of [count] abnormalities from Branch O-5681 and related branches.";
-            //pack2.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack_wl.png"));
+            pack2.SetTexture(TextureLoader.LoadTextureFromFile("wstl_pack_wl.png"));
 
             /*PackInfo pack3 = PackManager.GetPackInfo<PackInfo>(LobotomyPlugin.limbusPrefix);
             pack3.ValidFor.Add(PackInfo.PackMetacategory.LeshyPack);
