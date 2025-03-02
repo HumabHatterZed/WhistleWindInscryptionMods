@@ -85,6 +85,7 @@
 - Added XX Cards
 - Added XX Starter Decks
 - Added XX Encounters
+- Added XX items
 
 ## v2.1.1 - Minor Patch (2/19/2024)
 ### 🩹 Bug fixes

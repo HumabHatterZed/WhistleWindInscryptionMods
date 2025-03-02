@@ -17,38 +17,42 @@ namespace WhistleWind.AbnormalSigils
         public abstract Ability AbilityToAdd { get; }
         public abstract SpecialTriggeredAbility StatusEffectId { get; }
         public abstract string SingletonId { get; }
-
         public virtual int BasePotency { get; } = 3;
 
         public override bool RespondsToSacrifice() => true;
         public override IEnumerator OnSacrifice()
         {
-            yield return Sequence(BoardManager.Instance.CurrentSacrificeDemandingCard);
+            yield return base.PreSuccessfulTriggerSequence();
+            yield return Sequence(BoardManager.Instance.CurrentSacrificeDemandingCard, StatusEffectId, AbilityToAdd, BasePotency, SingletonId);
             yield return base.LearnAbility(0.5f);
         }
 
         public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
             => attacker == base.Card && base.Card.Info.IsTargetedSpell() && slot.Card != null;
-        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker) => Sequence(slot.Card);
-        
-        private IEnumerator Sequence(PlayableCard target)
+        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            CardModificationInfo mod = new CardModificationInfo(AbilityToAdd) { fromCardMerge = true, singletonId = SingletonId };
+            yield return Sequence(slot.Card, StatusEffectId, AbilityToAdd, BasePotency, SingletonId);
+            yield return base.LearnAbility(0.5f);
+        }
+        
+        public static IEnumerator Sequence(PlayableCard target, SpecialTriggeredAbility statusId, Ability abilityToAdd, int potency, string singletonId)
+        {
+            CardModificationInfo mod = new CardModificationInfo(abilityToAdd) { fromCardMerge = true, singletonId = singletonId };
             target.Anim.PlayTransformAnimation();
             target.AddTemporaryMod(mod);
-            yield return ApplyCounterBehaviour(target);
+            yield return ApplyCounterBehaviour(target, statusId, potency);
         }
 
-        private IEnumerator ApplyCounterBehaviour(PlayableCard target)
+        private static IEnumerator ApplyCounterBehaviour(PlayableCard target, SpecialTriggeredAbility statusId, int basePotency)
         {
-            int potency = BasePotency;
+            int potency = basePotency;
             bool sodaLover = target.HasTrait(AbnormalPlugin.SodaLover);
             if (sodaLover)
                 potency++;
 
-            yield return target.AddStatusEffect(StatusEffectId, potency);
-            target.GetStatusEffect(StatusEffectId).SetPotency(potency, false);
+            yield return target.AddStatusEffect(statusId, potency);
+            target.GetStatusEffect(statusId).SetPotency(potency, false);
 
             if (sodaLover && !DialogueEventsData.EventIsPlayed("SodaLover"))
             {

@@ -42,6 +42,8 @@ Testing and feedback:
 ReadMe cost icons:
 - James Veug (from ReadmeMaker)
 
+Can model by DanJ08 on [TurboSquid](https://www.turbosquid.com/3d-models/metal-can-3d-model-1960980)
+
 Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public GitHubs I could ~~steal~~borrow code from.
 
 ## 📜 Obtainable Cards
