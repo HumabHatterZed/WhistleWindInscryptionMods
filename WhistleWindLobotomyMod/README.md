@@ -36,15 +36,23 @@ you will be able to unlock 11 different achievements.
 Artwork and coding:
 - WhistleWind
 
-Testing and feedback:
-- Orochi Umbra, Rengar #1220, yam the nokia, Observateur #3241, valikin
+ReadMe cost icons from [ReadmeMaker](https://inscryption.thunderstore.io/package/JamesGames/ReadmeMaker/) by James Veug
 
-ReadMe cost icons:
-- James Veug (from ReadmeMaker)
+"Metal Can" by DanJ08 on [TurboSquid](https://www.turbosquid.com/3d-models/metal-can-3d-model-1960980)
 
-Can model by DanJ08 on [TurboSquid](https://www.turbosquid.com/3d-models/metal-can-3d-model-1960980)
+"Soda can open" by OxidVideos on [Pixabay](https://pixabay.com/sound-effects/soda-can-open-183214/)
 
-Special thanks to Arackulele, divsionbyz0rro, and julien-perge for having public GitHubs I could ~~steal~~borrow code from.
+"Soda Can Falling" by Alex_Jauk on [Pixabay](https://pixabay.com/sound-effects/soda-can-falling-191106/)
+
+Testing by Orochi Umbra
+
+Additional feedback:
+- Rengar #1220
+- yam the nokia
+- Observateur #3241
+- valikin
+
+Special thanks to Arackulele, divsionbyz0rro, and julien-perge for their community contributions; this wouldn't have been possible without you!
 
 ## 📜 Obtainable Cards
 <details>
@@ -360,16 +368,9 @@ This mod contains a number of configuration options, many of which recreate KCM-
 Check this mod's configuration file for more information.
 
 ## 🕓 Closing Notes
-
 Another update, this time featuring the WonderLab abnormalities and the Ordeals!
 
+This one suffered quite a bit from feature creep, but it was a fun journey and I'm glad it's finally out!
 
-
-Outside the new content, I also took the time to go back and clean up some of the older and messier code,
-which if anything will make building off of it easier to manage.
-
-So to summarise current plans for this mod:
-- WonderLab expansion
-- Second boss
-
-Whether or not these come to fruition is entirely arbitrary, but the WonderLab expansion is already semi-in-progress.
+Work on this mod will continue at the current, on-and-off pace;
+I have a lot of stuff planned for the future, so thank you for playing and maybe see you next time!

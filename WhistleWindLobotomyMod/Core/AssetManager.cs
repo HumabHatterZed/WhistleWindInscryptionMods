@@ -36,6 +36,8 @@ namespace WhistleWindLobotomyMod.Core
             warningTargetPrefab = AssetBundle.LoadAsset<GameObject>("WarningTargetIcon");
             ordealCounterPrefab = AssetBundle.LoadAsset<GameObject>("OrdealCounter");
             ordealBannerPrefab = AssetBundle.LoadAsset<GameObject>("OrdealBanner");
+            sfxClips.Add(AssetBundle.LoadAsset<AudioClip>("soda_open"));
+            sfxClips.Add(AssetBundle.LoadAsset<AudioClip>("can_hit"));
             LobOpponentUtils.InitBossObjects();
             OrdealUtils.InitOrdeals();
         }
