@@ -109,10 +109,20 @@ namespace WhistleWindLobotomyMod
         public override void OnShownInDeckReview() => DisguiseOutOfBattle();
         public override void OnShownForCardChoiceNode() => DisguiseAsCardChoice();
 
-        private void DisguiseInBattle()
+        public void DisguiseInBattle()
         {
             CardModificationInfo mod = GetNothingThereMod();
-            CardInfo disguise = CardLoader.GetCardByName(mod?.singletonId.Replace("NothingThere:", "") ?? Cards.nothingThere);
+            CardInfo disguise;
+
+            if (base.PlayableCard.OpponentCard)
+            {
+                disguise = LobotomyCardLoader.GetRandomModDeathCard(base.GetRandomSeed()) ?? CardLoader.GetCardByName(Cards.nothingThere);
+            }
+            else
+            {
+                disguise = CardLoader.GetCardByName(mod?.singletonId.Replace("NothingThere:", "") ?? Cards.nothingThere);
+            }
+
             this.DisguiseAsCard(disguise);
             base.PlayableCard.AddPermanentBehaviour<Mimicry>();
         }

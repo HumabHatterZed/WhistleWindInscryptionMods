@@ -66,7 +66,6 @@ namespace WhistleWindLobotomyMod.Opponents.Leshy
             List<CardInfo> list = new();
             foreach (CardModificationInfo item2 in SaveFile.IsAscension ? DefaultDeathCards.CreateAscensionCardMods() : SaveManager.SaveFile.deathCardMods)
             {
-                LobotomyPlugin.Log.LogDebug($"{item2.singletonId} {item2}");
                 if (!item2.abilities.Exists((x) => !AbilitiesUtil.GetInfo(x).opponentUsable) && item2.singletonId != null)
                 {
                     if (item2.singletonId.StartsWith("wstl"))
@@ -77,6 +76,14 @@ namespace WhistleWindLobotomyMod.Opponents.Leshy
                 }
             }
             return list;
+        }
+
+        public override void ModifyQueuedCard(PlayableCard card)
+        {
+            if (card.Info.name == Cards.nothingThere)
+            {
+                card.GetComponent<Mimicry>().DisguiseInBattle();
+            }
         }
     }
 }

@@ -18,10 +18,10 @@ namespace WhistleWindLobotomyMod
             Tribe[] tribes = new[] { Tribe.Canine };
 
             CardInfo ppodaeBuffCard = CardManager.New(LobotomyPlugin.pluginPrefix, ppodaeBuff, name,
-                attack: 3, health: 2)
+                attack: 2, health: 2)
                 .SetBonesCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Ability.DebuffEnemy)
+                .AddAbilities(Abilities.PpodaeStinky)
                 .AddTribes(tribes)
                 .AddMetaCategories(DonatorCard)
                 .Build();
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
                 attack: 1, health: 1, "Just an innocent wittle puppy, yes he is!!")
                 .SetBonesCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
-                .AddAbilities(Ability.DebuffEnemy, Ability.Evolve)
+                .AddAbilities(Abilities.PpodaeStinky, Ability.Evolve)
                 .AddTribes(tribes)
                 .SetEvolve(ppodaeBuffCard, 1)
                 .AddMetaCategories(DonatorCard)

@@ -50,10 +50,7 @@ namespace WhistleWind.AbnormalSigils
 
             if (ability == Ability.MadeOfStone || ability == Bleachproof.ability)
             {
-                if (__instance.HasAbility(Challenging.ability))
-                {
-                    __result = true;
-                }
+                __result = __instance.HasAbility(Challenging.ability);
             }
         }
     }

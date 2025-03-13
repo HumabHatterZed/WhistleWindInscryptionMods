@@ -41,24 +41,29 @@
 - Apocalypse Bird: changed evolution name
 - <span style='color:#DE6080'>Apocalypse Bird: no longer possesses Made of Stone
 - <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
-- Big and Will Be Bad Wolf: now possesses Vendetta sigil
+- <span style='color:#2084A0'>Big and Will Be Bad Wolf: now possesses Vendetta sigil
 - Big and Will Be Bad Wolf: rebalanced from 3/3 -> 2/4
 - Don't Touch Me: updated artwork
 - Don't Touch Me: no longer belongs to the Mechanical tribe
 - Funeral of the Dead Butterflies: now belongs to the Undead temple
-- Giant Tree Sap: no longer considered onePerDeck
+- <span style='color:#2084A0'>Giant Tree Sap: no longer considered onePerDeck
 - King of Greed: updated emission
+- Meat Lantern: updated artwork
 - <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
 - Nameless Fetus: updated artwork
 - Nothing There: If Nothing There is not killed within a set number of turns, it will reveal itself automatically
 - Nothing There: now disguises as common cards instead of death cards
 - One Sin EX: fixed missing textures
+- <span style='color:#DE6080'>Ppodae EVO: Reduced Power from 3 -> 2
+- Ppodae & Ppodae EVO: now possess unique version of Stinky
+- Ppodae & Ppodae EVO: changed artwork
 - <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
-- Red Riding Hooded Mercenary: now possesses Vendetta sigil
+- <span style='color:#2084A0'>Red Riding Hooded Mercenary: now possesses Vendetta sigil
 - You're Bald...: changed evolution name
 ### General
 - Fixed Miracle Worker challenge trying to insert Plague Doctor into turns with 4 cards
 - Fixed True Saviour sigil activating certain effects when it shouldn't
+- Fixed Abnormal Leshy battle not disguising Nothing There doing the deathcard section
 - Fixed missing/misnamed cards in encounter blueprints
 - Reduced points of Miracle Worker challenge from 60 -> 33
 - Final Apocalypse challenge icon now occupys an entire column on the selection menu

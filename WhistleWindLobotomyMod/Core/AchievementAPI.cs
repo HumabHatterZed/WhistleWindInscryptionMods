@@ -80,7 +80,7 @@ namespace WhistleWindLobotomyMod
         {
             if (RunState.Run?.playerDeck != null)
             {
-                return RunState.Run.playerDeck.Cards.Exists(x => x.name == Cards.trainingDummy && x.HasAbility(Ability.DrawRabbits));
+                return RunState.Run.playerDeck.Cards.Exists(x => x != null && x.name == Cards.trainingDummy && x.HasAbility(Ability.DrawRabbits));
             }
             return false;
         }

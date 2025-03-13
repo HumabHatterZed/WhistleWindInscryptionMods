@@ -3,6 +3,7 @@ using HarmonyLib;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
 using System.Linq;
+using WhistleWind.AbnormalSigils;
 using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Patches
@@ -21,6 +22,15 @@ namespace WhistleWindLobotomyMod.Patches
                 return false;
             }
             return true;
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(CardInfo), nameof(CardInfo.HasAbility))]
+        private static void PpodaeStinkyIsStinky(CardInfo __instance, Ability ability, ref bool __result)
+        {
+            if (__result || ability != Ability.DebuffEnemy)
+                return;
+
+            __result = __instance.HasAbility(Abilities.PpodaeStinky);
         }
     }
 }

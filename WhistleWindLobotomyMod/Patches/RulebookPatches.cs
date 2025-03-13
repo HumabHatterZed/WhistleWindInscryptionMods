@@ -21,7 +21,6 @@ namespace WhistleWindLobotomyMod.Patches
             {
                 if (!shown && changedRulebook)
                 {
-                    AbilitiesUtil.GetInfo(DynamicAbilities[0]).rulebookName = "Stinky";
                     for (int i = 1; i < DynamicAbilities.Count; i++)
                         AbilitiesUtil.GetInfo(DynamicAbilities[i]).ResetDescription();
 
@@ -34,12 +33,6 @@ namespace WhistleWindLobotomyMod.Patches
             {
                 if (card != null)
                 {
-                    if (abilityName == "DebuffEnemy" && card.Info.displayedName == "Ppodae")
-                    {
-                        changedRulebook = true;
-                        AbilitiesUtil.GetInfo(DynamicAbilities[0]).rulebookName = "Cute Lil Guy";
-                    }
-
                     if (card.HasTrait(LobotomyCardManager.Apostle))
                     {
                         changedRulebook = true;

@@ -19,7 +19,7 @@ namespace WhistleWindLobotomyMod
         private bool foundNewDisguise = false;
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            if (!foundNewDisguise && fromCombat && killer == base.PlayableCard && !base.PlayableCard.OpponentCard)
+            if (!foundNewDisguise && fromCombat && killer == base.PlayableCard && !base.PlayableCard.OpponentCard && !base.PlayableCard.OriginatedFromQueue)
             {
                 return card.LacksAllTraits(Trait.Giant, Trait.DeathcardCreationNonOption, Trait.Uncuttable);
             }
@@ -30,7 +30,7 @@ namespace WhistleWindLobotomyMod
             CardModificationInfo mod = Mimicry.GetNothingThereMod();
             if (mod != null)
             {
-                mod.SetSingletonId("NothingThere:" + card.Info.name == "!DEATHCARD_BASE" ? Cards.nothingThere : card.Info.name);
+                mod.SetSingletonId("NothingThere:" + (card.Info.name == "!DEATHCARD_BASE" ? Cards.nothingThere : card.Info.name));
                 RunState.Run.playerDeck.UpdateModDictionary();
             }
             yield break;
