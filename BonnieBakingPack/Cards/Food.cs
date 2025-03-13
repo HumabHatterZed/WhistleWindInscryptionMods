@@ -179,7 +179,7 @@ namespace BonniesBakingPack
                 .SetTerrain(false);
 
             // Magnificus
-            CardInfo moxScones = CardManager.New(pluginPrefixM, "scones", "Mox Scones", 0, 1, "")
+            CardInfo moxScones = CardManager.New(pluginPrefixM, "scones", "Mox Scones", 0, 3, "")
                 .SetCardTemple(CardTemple.Wizard)
                 .SetPortrait(GetTexture("scones_magnificus.png"))
                 .AddAbilities(ScrybeCompat.GetMagnificusAbility("Mox Cycle", Ability.GemsDraw));
