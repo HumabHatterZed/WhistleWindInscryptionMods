@@ -11,6 +11,27 @@ namespace BonniesBakingPack
 {
     public static class MagnificusPatches
     {
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(SigilCode.FecundityCycle), nameof(SigilCode.FecundityCycle.CardToDraw), MethodType.Getter)]
+        private static void ChangeMouseCopyForEachCose(SigilCode.FecundityCycle __instance, ref CardInfo __result)
+        {
+            if (__result.name.StartsWith("bbp_magnificus_mouseApprentice"))
+            {
+                switch (__result.gemsCost[0])
+                {
+                    case GemType.Green:
+                        __result = CardLoader.GetCardByName("bbp_magnificus_mouseApprentice_blue");
+                        break;
+                    case GemType.Orange:
+                        __result = CardLoader.GetCardByName("bbp_magnificus_mouseApprentice_green");
+                        break;
+                    case GemType.Blue:
+                        __result = CardLoader.GetCardByName("bbp_magnificus_mouseApprentice_orange");
+                        break;
+                }
+            }
+        }
+
         [HarmonyPostfix, HarmonyPatch(typeof(SigilCode.MoxCycling), nameof(SigilCode.MoxCycling.OnUpkeep))]
         private static IEnumerator CycleGemFood(IEnumerator result, SigilCode.MoxCycling __instance)
         {

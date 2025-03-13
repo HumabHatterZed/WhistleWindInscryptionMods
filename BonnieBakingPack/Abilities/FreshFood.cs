@@ -14,7 +14,7 @@ namespace BonniesBakingPack
         private void AddFreshFood()
         {
             const string rulebookName = "Fresh Food";
-            const string rulebookDescription = "Remove this card from the board. At the start of the owner's next turn, a Bunnie is created in your hand.\n\nWhen this card is drawn, create a random Food in your hand.";
+            const string rulebookDescription = "Remove this card from the board and draw Bunnie into your hand next turn.\nWhen this card is drawn, create a random Food in your hand.";
             const string dialogue = "A freshly baked confectionary, made with love and care.";
             const string triggerText = "[creature] books it!";
 
@@ -24,7 +24,7 @@ namespace BonniesBakingPack
                 .SetPowerlevel(3)
                 .SetActivated()
                 .SetPixelAbilityIcon(GetTexture("sigilFreshFood_pixel.png"))
-                .AddMetaCategories(AbilityMetaCategory.Part1Rulebook, AbilityMetaCategory.Part3Rulebook)
+                .AddMetaCategories(AbilityMetaCategory.Part1Rulebook, AbilityMetaCategory.Part3Rulebook, AbilityMetaCategory.GrimoraRulebook)
                 .ability;
         }
     }
@@ -79,89 +79,92 @@ namespace BonniesBakingPack
         }
         public static string GetRandomFoodName(int randomSeed)
         {
-            int val = 0;
             List<string> possibleFoodPool = new()
             {
-                "bbp_act1_pastry",
-                "bbp_act1_whiteDonut",
-                "bbp_act1_meetBun",
+                "bbp_act1_pastry", // give hp
+                "bbp_act1_whiteDonut", // bones
+                "bbp_act1_meetBun", // blood
                 "bbp_act1_scones",
                 "bbp_act1_eggTart",
-                "bbp_act1_redVelvet",
-                "bbp_act3_pastry",
-                "bbp_act3", // placeholder, will be replaced with a valid name if chosen
+                "bbp_act1_redVelvet", // give atk
+                "bbp_act3_pastry", // give hp
+                "bbp_act3_n", // gem dust - placeholder, is replaced with a valid name if chosen
                 "bbp_act3_meetBun",
                 "bbp_act3_scones",
                 "bbp_act3_eggTart",
-                "bbp_act3_redVelvet",
-                "bbp_grimora_redVelvet",
-                "bbp_grimora_pastry",
-                "bbp_grimora_whiteDonut",
+                "bbp_act3_redVelvet", // upgrade/battery spell
+                "bbp_grimora_redVelvet", // give atk
+                "bbp_grimora_pastry", // give hp
+                "bbp_grimora_whiteDonut", // bones
                 "bbp_grimora_meetBun",
                 "bbp_grimora_scones",
                 "bbp_grimora_eggTart",
-                "bbp_magnificus_redVelvet",
-                "bbp_magnificus_pastry",
-                "bbp_magnificus_whiteDonut",
+                "bbp_magnificus_redVelvet", // orange gem
+                "bbp_magnificus_pastry", // trap
+                "bbp_magnificus_whiteDonut", // blue gem
                 "bbp_magnificus_meetBun",
                 "bbp_magnificus_scones",
                 "bbp_magnificus_eggTart"
             };
 
-            if (!BakingPlugin.SplitByAct.Value)
+            List<CardInfo> playableCards = CardDrawPiles.Instance.Deck.Cards.Concat(PlayerHand.Instance.CardsInHand.Select(x => x.Info)).ToList();
+
+            bool hasBloodCost = playableCards.Exists(x => x.BloodCost > 0);
+            bool hasManaCost = BakingPlugin.ScrybeCompat.MagnificusEnabled && playableCards.Exists(BakingPlugin.ScrybeCompat.HasManaCost);
+
+            bool hasGreenGem = playableCards.Exists(x => x.GemsCost.Contains(GemType.Green));
+            bool hasBlueGem = playableCards.Exists(x => x.GemsCost.Contains(GemType.Blue));
+            bool hasOrangeGem = playableCards.Exists(x => x.GemsCost.Contains(GemType.Orange));
+
+            if (!hasBloodCost)
             {
-                if (SaveManager.SaveFile.IsPart1)
-                {
-                    possibleFoodPool.RemoveAll(x => !x.StartsWith("bbp_act1"));
-                }
-                else if (SaveManager.SaveFile.IsPart3)
-                {
-                    possibleFoodPool.RemoveAll(x => !x.StartsWith("bbp_act3"));
-                }
-                else if (SaveManager.SaveFile.IsGrimora)
-                {
-                    possibleFoodPool.RemoveAll(x => !x.StartsWith("bbp_grimora"));
-                }
+                possibleFoodPool.Remove("bbp_act1_meetBun");
             }
 
-            // remove cards that are useless to the player every now and then
-            // makes this ability a tad more consistent in utility
-            if (SeededRandom.Bool(++randomSeed))
+            if (!hasManaCost) // if no cards cost mana (sac gems)
             {
-                List<CardInfo> deck = CardDrawPiles.Instance.Deck.Cards.Concat(PlayerHand.Instance.CardsInHand.Select(x => x.Info)).ToList();
-
-                if (!deck.Exists(x => x.GemsCost.Count > 0))
+                if (!hasGreenGem && !hasBlueGem && !hasOrangeGem) // remove all gem-giving pastries
                 {
                     possibleFoodPool.Remove("bbp_act3");
                     possibleFoodPool.Remove("bbp_magnificus_redVelvet");
                     possibleFoodPool.Remove("bbp_magnificus_whiteDonut");
                     possibleFoodPool.Remove("bbp_magnificus_eggTart");
                 }
-                else if (SaveManager.SaveFile.IsMagnificus || BakingPlugin.SplitByAct.Value)
+                else // don't give gem-giving patries if their respective colour isn't needed
                 {
-                    if (deck.Select(x => x.GemsCost?.Count(x => x == GemType.Orange) ?? 0).Sum() == 0)
-                    {
-                        possibleFoodPool.Remove("bbp_magnificus_redVelvet");
-                    }
-                    if (deck.Select(x => x.GemsCost?.Count(x => x == GemType.Blue) ?? 0).Sum() == 0)
-                    {
-                        possibleFoodPool.Remove("bbp_magnificus_whiteDonut");
-                    }
-                    if (deck.Select(x => x.GemsCost?.Count(x => x == GemType.Green) ?? 0).Sum() == 0)
-                    {
+                    if (!hasGreenGem)
                         possibleFoodPool.Remove("bbp_magnificus_eggTart");
-                    }
-                }
 
-                if (!deck.Exists(x => x.BloodCost > 0))
-                {
-                    possibleFoodPool.Remove("bbp_act1_meetBun");
+                    if (!hasBlueGem)
+                        possibleFoodPool.Remove("bbp_magnificus_whiteDonut");
+
+                    if (!hasOrangeGem)
+                        possibleFoodPool.Remove("bbp_magnificus_redVelvet");
                 }
             }
 
+            if (!BakingPlugin.SplitByAct.Value) // remove cards from other acts if they aren't allowed
+            {
+                if (SaveManager.SaveFile.IsPart1)
+                {
+                    possibleFoodPool.RemoveAll(x => !x.StartsWith(BakingPlugin.pluginPrefix));
+                }
+                else if (SaveManager.SaveFile.IsPart3)
+                {
+                    possibleFoodPool.RemoveAll(x => !x.StartsWith(BakingPlugin.pluginPrefix3));
+                }
+                else if (SaveManager.SaveFile.IsGrimora)
+                {
+                    possibleFoodPool.RemoveAll(x => !x.StartsWith(BakingPlugin.pluginPrefixG));
+                }
+                else if (SaveManager.SaveFile.IsMagnificus)
+                {
+                    possibleFoodPool.RemoveAll(x => !x.StartsWith(BakingPlugin.pluginPrefixM));
+                }
+            }
 
             string chosenFood = possibleFoodPool[SeededRandom.Range(0, possibleFoodPool.Count, randomSeed)];
-            if (chosenFood.Equals("bbp_act3"))
+            if (chosenFood.Equals("bbp_act3_n"))
             {
                 chosenFood = GetRandomNoise(randomSeed);
             }
@@ -188,69 +191,4 @@ namespace BonniesBakingPack
             return "bbp_act3_whiteDonut";
         }
     }
-    public class CreateBunnieTrigger : NonCardTriggerReceiver
-    {
-        private bool opponent;
-        private int turnCreated;
-        private List<CardModificationInfo> cardmods;
-
-        public override bool TriggerBeforeCards => true;
-        public void Initialise(PlayableCard parent)
-        {
-            opponent = parent.OpponentCard;
-            cardmods = new(parent.Info.Mods);
-            turnCreated = TurnManager.Instance.TurnNumber;
-        }
-        public override bool RespondsToUpkeep(bool playerUpkeep)
-        {
-            return playerUpkeep != opponent && TurnManager.Instance.TurnNumber > turnCreated;
-        }
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
-            string infoName;
-            if (SaveManager.SaveFile.IsPart3)
-            {
-                infoName = "bbp_act3_bunnie";
-            }
-            else if (SaveManager.SaveFile.IsGrimora)
-            {
-                infoName = "bbp_grimora_bunnie";
-            }
-            else
-            {
-                infoName = "bbp_act1_bunnie";
-            }
-
-            CardInfo cardInfo = CardLoader.GetCardByName(infoName);
-            cardInfo.Mods = cardmods;
-            if (opponent)
-            {
-                CardSlot queue = BoardManager.Instance.GetOpenSlots(false).FirstOrDefault();
-                if (queue == null)
-                {
-                    queue = BoardManager.Instance.OpponentSlotsCopy[SeededRandom.Range(0, BoardManager.Instance.OpponentSlotsCopy.Count, base.GetRandomSeed())];
-                    PlayableCard card = TurnManager.Instance.Opponent.Queue.Find(x => x.QueuedSlot == queue);
-                    card.ExitBoard(0.2f, new Vector3(-1f, -2f, 5f));
-                    TurnManager.Instance.Opponent.Queue.Remove(card);
-                }
-                yield return TurnManager.Instance.Opponent.QueueCard(cardInfo, queue);
-            }
-            else
-            {
-                ViewManager.Instance.SwitchToView(View.Default);
-                yield return new WaitForSeconds(0.2f);
-                yield return CardSpawner.Instance.SpawnCardToHand(cardInfo);
-            }
-
-            if (infoName.Equals("bbp_grimora_bunnie") && !ProgressionData.IntroducedCard(cardInfo))
-            {
-                yield return new WaitForSeconds(0.2f);
-                yield return TextDisplayer.Instance.ShowThenClear(cardInfo.description, 3f);
-                ProgressionData.SetCardIntroduced(cardInfo);
-
-            }
-            Destroy();
-        }
-    }
-
 }

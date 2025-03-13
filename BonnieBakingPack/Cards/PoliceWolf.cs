@@ -29,7 +29,7 @@ namespace BonniesBakingPack
                 .SetPixelPortrait(GetTexture("firewolf_pixel.png"))
                 .AddAbilities(ScrybeCompat.GetP03Ability("Electric", Ability.DoubleStrike));
 
-            CardInfo pig = CardManager.New(pluginPrefixM, "guardWolf", "Guardian Wolf", 1, 1, "An appointed protector of the source of arcana.")
+            CardInfo pig = CardManager.New(pluginPrefixM, "guardWolf", "Guardian Wolf", 1, 1, "An appointed protector of all sources of arcana.")
                 .SetDefaultPart1Card().AddMagnificus()
                 .SetGemsCost(GemType.Green)
                 .SetPortrait(GetTexture("guardWolf.png"))

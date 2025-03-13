@@ -27,9 +27,8 @@ namespace BonniesBakingPack
                 .AddAbilities(ScrybeCompat.GetGrimoraAbility("Soul Shot", Ability.ActivatedDealDamage));
 
             CardInfo bot = CardManager.New(pluginPrefix3, "pandat", "Pardan Panda", 2, 3)
-                .SetDefaultPart3Card().AddP03()
+                .SetRare().AddP03()
                 .SetEnergyCost(6)
-                .SetRare()
                 .SetPortrait(GetTexture("pandat.png"))
                 .SetAltPortrait(GetTexture("pandat_alt.png"))
                 .AddSpecialAbilities(PandaAbility.SpecialAbility);

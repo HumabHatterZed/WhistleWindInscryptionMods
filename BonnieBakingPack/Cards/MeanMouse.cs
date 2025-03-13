@@ -29,6 +29,13 @@ namespace BonniesBakingPack
                 .SetPixelPortrait(GetTexture("anonymouse_pixel.png"))
                 .AddAbilities(ScrybeCompat.GetP03Ability("Arsonist", Ability.TailOnHit));
 
+            CardInfo mage = CardManager.New(pluginPrefixM, "lich", "Lich", 1, 3, "A grotesque perversion of the most sacred magicks.")
+                .SetDefaultPart1Card().AddMagnificus()
+                .SetGemsCost(GemType.Blue)
+                .SetPortrait(GetTexture("lich.png"))
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Bone Marrow", Ability.GainAttackOnKill));
+
+            ScrybeCompat.SetManaCost(mage, 1);
             if (ScrybeCompat.P03Enabled)
             {
                 mean.AddMetaCategories(ScrybeCompat.NatureRegion);

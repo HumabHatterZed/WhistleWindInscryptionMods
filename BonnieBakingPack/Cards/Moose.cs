@@ -17,7 +17,7 @@ namespace BonniesBakingPack
                 .AddAbilities(Ability.WhackAMole);
 
             CardInfo moosetro = CardManager.New(pluginPrefixG, "moosetro", "Moosetro", 0, 1, "ALONGSIDE HIS SKELETAL ENTOURAGE, HE TRAVELS THE WORLD SPREADING BEAUTIFUL MOOSEIC.")
-                .SetDefaultPart1Card().AddGrimora().SetRare()
+                .SetRare().AddGrimora()
                 .SetEnergyCost(6)
                 .SetPortraitAndEmission(GetTexture("moosetro.png"), GetTexture("moosetro_emission.png"))
                 .AddAbilities(ScrybeCompat.GetGrimoraAbility("Sea Shanty", Ability.BuffNeighbours), Ability.SkeletonStrafe); ;
@@ -28,11 +28,18 @@ namespace BonniesBakingPack
                 .SetPortrait(GetTexture("moosebot.png"))
                 .AddAbilities(ScrybeCompat.GetP03Ability("Phase Through", Ability.StrafePush));
 
+            CardInfo mage = CardManager.New(pluginPrefixM, "mooseAlchemist", "Mooster Alchemist", 0, 3, "The power to condense magick into crystal is a rare and powerful one indeed.")
+                .SetRare().AddMagnificus()
+                .SetGemsCost(GemType.Green, GemType.Orange)
+                .SetPortrait(GetTexture("mooseAlchemist.png"))
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Gem Absorber", Ability.BuffGems), ScrybeCompat.GetMagnificusAbility("Brewery", Ability.ExplodeGems));
+
             if (ScrybeCompat.P03Enabled)
             {
                 moose.AddMetaCategories(ScrybeCompat.NatureRegion);
                 moosetro.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.UndeadRegion);
+                mage.AddMetaCategories(ScrybeCompat.WizardRegion);
             }
         }
     }

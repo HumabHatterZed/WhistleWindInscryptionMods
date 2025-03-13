@@ -39,6 +39,7 @@ namespace BonniesBakingPack
             CreateBonnie();
             CreateBunnie();
             CreateBonnieGrimora();
+            CreateBonnieMagnificus();
             CreateBonnieDisk();
             CreateBunnieDisk();
             CreateBingus();
@@ -186,6 +187,7 @@ namespace BonniesBakingPack
             internal const string GrimoraGuid = "arackulele.inscryption.grimoramod";
             internal const string MagnificusGuid = "silenceman.inscryption.magnificusmod";
 
+            internal static CardMetaCategory GrimoraChoice = GuidManager.GetEnumValue<CardMetaCategory>(GrimoraGuid, "GrimoraModChoiceNode");
             internal static CardMetaCategory NeutralRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "NeutralRegionCards");
             internal static CardMetaCategory NatureRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "NatureRegionCards");
             internal static CardMetaCategory TechRegion = GuidManager.GetEnumValue<CardMetaCategory>(P03Guid, "TechRegionCards");
@@ -253,6 +255,12 @@ namespace BonniesBakingPack
                 card.SetBloodCost(manaCost);
                 card.SetExtendedProperty("ManaCost", true);
             }
+
+            internal static bool HasManaCost(CardInfo card)
+            {
+                return card.GetExtendedPropertyAsBool("ManaCost") ?? false && card.BloodCost > 0;
+            }
+
             internal static CardInfo SetMagnificusSpell(CardInfo info)
             {
                 info.SetExtendedProperty("TargetedSpell", true);
@@ -373,38 +381,77 @@ namespace BonniesBakingPack
 
     internal static class Extensions
     {
+        /// <remarks>
+        /// Must be called AFTER SetRare or SetPart...Card
+        /// </remark>
         internal static CardInfo AddAct1(this CardInfo info)
         {
             if (!BakingPlugin.Act1Cards.Contains(info))
                 BakingPlugin.Act1Cards.Add(info);
 
-            return info.SetGBCPlayable(info.temple);
+            if (info.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.Rare))
+            {
+                info.SetGBCPlayable(info.temple);
+            }
+            else
+            {
+                info.AddMetaCategories(CardMetaCategory.GBCPack);
+            }
+            return info.SetCardTemple(CardTemple.Nature);
         }
-        internal static CardInfo AddGrimora(this CardInfo info)
+        /// <remarks>
+        /// Must be called AFTER SetRare or SetPart...Card
+        /// </remark>
+        internal static CardInfo AddGrimora(this CardInfo info, bool cardChoice = true)
         {
             if (!BakingPlugin.GrimoraCards.Contains(info))
                 BakingPlugin.GrimoraCards.Add(info);
 
-            if (BakingPlugin.ScrybeCompat.GrimoraEnabled)
+            if (cardChoice)
             {
-                info.AddMetaCategories(GuidManager.GetEnumValue<CardMetaCategory>(BakingPlugin.ScrybeCompat.GrimoraGuid, "GrimoraModChoiceNode"));
+                if (BakingPlugin.ScrybeCompat.GrimoraEnabled && info.LacksCardMetaCategory(CardMetaCategory.Rare))
+                    info.AddMetaCategories(BakingPlugin.ScrybeCompat.GrimoraChoice);
+                
+                info.AddMetaCategories(CardMetaCategory.TraderOffer);
             }
+            else info.metaCategories.Clear();
 
-            return info.AddMetaCategories(CardMetaCategory.TraderOffer).SetCardTemple(CardTemple.Undead);
+            return info.SetCardTemple(CardTemple.Undead);
         }
-        internal static CardInfo AddP03(this CardInfo info)
+        /// <remarks>
+        /// Must be called AFTER SetRare or SetPart...Card
+        /// </remark>
+        internal static CardInfo AddP03(this CardInfo info, bool overrideRandom = false)
         {
             if (!BakingPlugin.P03Cards.Contains(info))
                 BakingPlugin.P03Cards.Add(info);
 
-            return info.AddMetaCategories(CardMetaCategory.TraderOffer).SetCardTemple(CardTemple.Tech);
+            if (!overrideRandom && info.LacksCardMetaCategory(CardMetaCategory.Rare))
+                info.AddMetaCategories(CardMetaCategory.Part3Random);
+
+            if (info.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.Rare))
+            {
+                info.AddMetaCategories(CardMetaCategory.TraderOffer);
+            }
+            else info.metaCategories.Clear();
+
+            return info.SetCardTemple(CardTemple.Tech);
         }
-        internal static CardInfo AddMagnificus(this CardInfo info)
+        /// <remarks>
+        /// Must be called AFTER SetRare or SetPart...Card
+        /// </remark>
+        internal static CardInfo AddMagnificus(this CardInfo info, bool overrideChoice = false)
         {
             if (!BakingPlugin.MagnificusCards.Contains(info))
                 BakingPlugin.MagnificusCards.Add(info);
 
-            return info.AddMetaCategories(CardMetaCategory.TraderOffer).SetCardTemple(CardTemple.Wizard);
+            if (info.HasAnyOfCardMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.Rare) && !overrideChoice)
+            {
+                info.AddMetaCategories(CardMetaCategory.TraderOffer);
+            }
+            else info.metaCategories.Clear();
+
+            return info.SetCardTemple(CardTemple.Wizard);
         }
     }
 }

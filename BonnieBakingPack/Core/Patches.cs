@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
+using MagnificusMod;
 using Sirenix.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,59 +14,6 @@ namespace BonniesBakingPack
     {
         [HarmonyPrefix, HarmonyPatch(typeof(AudioController), nameof(AudioController.GetAudioClip))]
         private static void AddAudioClips(AudioController __instance) => __instance.SFX.AddRange(BakingPlugin.AudioClips.Where(x => !__instance.SFX.Contains(x)));
-
-        [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.TakeDamage))]
-        private static IEnumerator ChangeHitSound(IEnumerator enumerator, PlayableCard __instance, int damage, PlayableCard attacker)
-        {
-            if (attacker != null)
-            {
-                if (attacker.HasSpecialAbility(PandaAbility.SpecialAbility))
-                {
-                    __instance.Info.Mods.Add(new() { singletonId = "BBP_Sound:panda_gun" }); // since PlayHit doesn't track the attacker, we do that here
-                }
-                else if (attacker.Info.name.FastEndsWith("bunnie"))
-                {
-                    __instance.Info.Mods.Add(new() { singletonId = "BBP_Sound:bonnie_bonk" });
-                }
-            }
-            yield return enumerator;
-        }
-
-        [HarmonyPrefix, HarmonyPatch(typeof(PaperCardAnimationController), nameof(PaperCardAnimationController.PlayHitAnimation))]
-        private static bool PlayCustomHitSoundPaper(PaperCardAnimationController __instance)
-        {
-            if (!__instance.deathAnimationStarted)
-            {
-                CardModificationInfo mod = __instance.Card.Info.Mods.Find(x => !string.IsNullOrEmpty(x.singletonId) && x.singletonId.StartsWith("BBP_Sound"));
-                if (mod != null)
-                {
-                    __instance.Card.Info.Mods.Remove(mod);
-                    string customSoundId = mod.singletonId.Replace("BBP_Sound:", "");
-                    AudioController.Instance.PlaySound3D(customSoundId, MixerGroup.TableObjectsSFX, __instance.transform.position, 1f, 0f, new AudioParams.Pitch(AudioParams.Pitch.Variation.Small));
-                    __instance.Anim.SetTrigger("take_hit");
-                    __instance.FlashDamageMarks();
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        [HarmonyPrefix, HarmonyPatch(typeof(GravestoneCardAnimationController), nameof(GravestoneCardAnimationController.PlayHitAnimation))]
-        private static bool PlayCustomHitSoundGrave(GravestoneCardAnimationController __instance)
-        {
-            CardModificationInfo mod = __instance.Card.Info.Mods.Find(x => !string.IsNullOrEmpty(x.singletonId) && x.singletonId.StartsWith("BBP_Sound"));
-            if (mod != null)
-            {
-                __instance.Card.Info.Mods.Remove(mod);
-                string customSoundId = mod.singletonId.Replace("BBP_Sound:", "");
-                AudioController.Instance.PlaySound3D(customSoundId, MixerGroup.TableObjectsSFX, __instance.transform.position, 1f, 0f, new AudioParams.Pitch(AudioParams.Pitch.Variation.Small));
-                __instance.Anim.Play("take_hit", 0, 0f);
-                __instance.FlashDamageMarks();
-                __instance.damageParticles.Play();
-                return false;
-            }
-            return true;
-        }
 
         [HarmonyPostfix, HarmonyPatch(typeof(DrawRandomCardOnDeath), nameof(DrawRandomCardOnDeath.CardToDraw), MethodType.Getter)]
         private static void PhoneMouseCallsThePopo(DrawRandomCardOnDeath __instance, ref CardInfo __result)
@@ -84,13 +32,13 @@ namespace BonniesBakingPack
                 __instance.StatIcons.SetInteractionEnabled(false);
             }
         }
+
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.CanBeSacrificed), MethodType.Getter)]
         private static void NoSacForBingus(PlayableCard __instance, ref bool __result)
         {
             if (__instance.Info.name == "bbp_act1_bingus")
                 __result = false;
         }
-
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(CardMergeSequencer), nameof(CardMergeSequencer.GetValidCardsForHost))]
@@ -99,20 +47,6 @@ namespace BonniesBakingPack
         {
             __result.RemoveAll(x => x.name.StartsWith("bbp") && x.onePerDeck);
         }
-
-        /*        [HarmonyPostfix, HarmonyPatch(typeof(CardStatBoostSequencer), nameof(CardStatBoostSequencer.StatBoostSequence), MethodType.Enumerator)]
-                private static IEnumerator ReturnBonnieToDeck(IEnumerator enumerator)
-                {
-                    bool hasBonnie = SaveManager.SaveFile.CurrentDeck.cardIds.Contains("bbp_bonnie");
-                    Debug.Log($"{hasBonnie}");
-                    yield return enumerator;
-                    if (hasBonnie && !SaveManager.SaveFile.CurrentDeck.cardIds.Contains("bbp_bonnie"))
-                    {
-                        Debug.Log($"dck");
-                        SaveManager.SaveFile.CurrentDeck.AddCard(CardLoader.GetCardByName("bbp_bonnie"));
-                        yield return TextDisplayer.Instance.PlayDialogueEvent("BonnieStatBoost");
-                    }
-                }*/
 
         [HarmonyPostfix, HarmonyPatch(typeof(PlayerHand), nameof(PlayerHand.PlayCardOnSlot))]
         private static IEnumerator RemoveBingusInHand(IEnumerator enumerator, PlayerHand __instance, PlayableCard card, CardSlot slot)

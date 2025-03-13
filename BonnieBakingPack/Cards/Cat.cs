@@ -16,7 +16,7 @@ namespace BonniesBakingPack
                 .AddAbilities(Ability.Morsel);
 
             CardInfo nine = CardManager.New(pluginPrefixG, "nine", "Nine", 1, 1, "A REFINED FOX WAITING PATIENTLY FOR ITS TIME TO COME.")
-                .SetDefaultPart1Card().AddGrimora().SetRare()
+                .SetRare().AddGrimora()
                 .SetBonesCost(2)
                 .SetPortraitAndEmission(GetTexture("nine.png"), GetTexture("nine_emission.png"))
                 .AddAbilities(Ability.DrawCopyOnDeath)

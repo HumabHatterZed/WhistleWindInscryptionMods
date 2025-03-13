@@ -24,13 +24,29 @@ namespace BonniesBakingPack
                 .SetEnergyCost(6)
                 .SetPortrait(GetTexture("mousebot.png"));
 
+            CardInfo mage1 = CardManager.New(pluginPrefixM, "mouseWizard_green", "Mouse Wizard", 1, 2, "A mouse that has learned to wield the magick of Mox.")
+                .SetDefaultPart1Card().AddMagnificus()
+                .SetGemsCost(GemType.Green)
+                .SetPortrait(GetTexture("mouseWizard_green.png"));
+
+            CardInfo mage2 = CardManager.New(pluginPrefixM, "mouseWizard_orange", "Mouse Wizard", 1, 2)
+                .AddMagnificus()
+                .SetGemsCost(GemType.Orange)
+                .SetPortrait(GetTexture("mouseWizard_orange.png"));
+
+            CardInfo mage3 = CardManager.New(pluginPrefixM, "mouseWizard_blue", "Mouse Wizard", 1, 2)
+                .AddMagnificus()
+                .SetGemsCost(GemType.Blue)
+                .SetPortrait(GetTexture("mouseWizard_blue.png"));
+
             if (ScrybeCompat.P03Enabled)
             {
                 mouse.AddMetaCategories(ScrybeCompat.NatureRegion);
                 skele.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NatureRegion);
+                mage3.AddMetaCategories(ScrybeCompat.WizardRegion);
             }
-            CreateShoolMice(mouse, bot);
+            CreateShoolMice(mouse, bot, mage1, mage2, mage3);
         }
     }
 }

@@ -22,12 +22,19 @@ namespace BonniesBakingPack
                 .AddAbilities(ScrybeCompat.GetGrimoraAbility("Alternating Strike", Ability.DebuffEnemy));
 
             CardInfo bot = CardManager.New(pluginPrefix3, "steambotWilly", "Steambot Willy", 3, 1)
-                .SetDefaultPart3Card().AddP03().SetRare()
+                .SetRare().AddP03()
                 .SetEnergyCost(4)
                 .SetPortrait(GetTexture("steambotWilly.png"))
                 .AddAbilities(ScrybeCompat.GetP03Ability("Fuel Strike", Ability.BuffEnemy), Ability.Submerge);
 
+            CardInfo mage = CardManager.New(pluginPrefixM, "occultist", "Rat Occultist", 1, 1, "A practicioner of the dark arts, its eyes gleam from beneath its shadowed hood.")
+                .SetDefaultPart1Card().AddMagnificus()
+                .SetGemsCost(GemType.Blue)
+                .SetPortrait(GetTexture("occultist.png"))
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Resurrection", Ability.DrawRandomCardOnDeath));
+
             ScrybeCompat.SetFuel(bot, 3);
+            //ScrybeCompat.SetManaCost(mage, 1);
             if (ScrybeCompat.P03Enabled)
             {
                 loud.AddMetaCategories(ScrybeCompat.NatureRegion);

@@ -1,15 +1,17 @@
 ﻿using DiskCardGame;
+using EasyFeedback.APIs;
 using InscryptionAPI.Card;
+using System.Collections.Generic;
 
 namespace BonniesBakingPack
 {
     public partial class BakingPlugin
     {
-        private void CreateShoolMice(CardInfo mouse, CardInfo bot)
+        private void CreateShoolMice(CardInfo mouse, CardInfo bot, CardInfo wizard, CardInfo wizard2, CardInfo wizard3)
         {
             // Shool Mouse
             CardInfo shool = CardManager.New(pluginPrefix, "mouseShool", "Shool Mouse", 1, 1, "A young mouse, spirited and full of potential.")
-                .AddAct1().SetDefaultPart1Card()
+                .SetDefaultPart1Card().AddAct1()
                 .SetBloodCost(1)
                 .SetPortraitAndEmission(GetTexture("mouseShool.png"), GetTexture("mouseShool_emission.png"))
                 .SetPixelPortrait(GetTexture("mouseShool_pixel.png"))
@@ -31,11 +33,36 @@ namespace BonniesBakingPack
                 .SetEvolve(bot, 1)
                 .AddAbilities(ScrybeCompat.GetP03Ability("Transforms When Powered", Ability.Evolve));
 
+            CardInfo mage = CardManager.New(pluginPrefixM, "mouseApprentice_green", "Appretice Mouse", 0, 1, "A junior wizard with great potential. A quick learner, despite its poor spelling.")
+                .SetDefaultPart1Card().AddMagnificus()
+                .SetGemsCost(GemType.Green)
+                .SetPortrait(GetTexture("mouseApprentice_green.png"))
+                .AddTraits(Trait.Juvenile)
+                .SetEvolve(wizard, 1)
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Multiplication", Ability.DrawCopy), Ability.Evolve);
+
+            CardInfo mage2 = CardManager.New(pluginPrefixM, "mouseApprentice_orange", "Appretice Mouse", 0, 1)
+                .AddMagnificus()
+                .SetGemsCost(GemType.Orange)
+                .SetPortrait(GetTexture("mouseApprentice_orange.png"))
+                .AddTraits(Trait.Juvenile)
+                .SetEvolve(wizard2, 1)
+                .AddAbilities(Ability.Evolve);
+
+            CardInfo mage3 = CardManager.New(pluginPrefixM, "mouseApprentice_blue", "Appretice Mouse", 0, 1)
+                .AddMagnificus()
+                .SetGemsCost(GemType.Blue)
+                .SetPortrait(GetTexture("mouseApprentice_blue.png"))
+                .AddTraits(Trait.Juvenile)
+                .SetEvolve(wizard3, 1)
+                .AddAbilities(Ability.Evolve);
+
             if (ScrybeCompat.P03Enabled)
             {
                 shool.AddMetaCategories(ScrybeCompat.NatureRegion);
                 ghool.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot1.AddMetaCategories(ScrybeCompat.NatureRegion);
+                mage.AddMetaCategories(ScrybeCompat.WizardRegion);
             }
         }
     }

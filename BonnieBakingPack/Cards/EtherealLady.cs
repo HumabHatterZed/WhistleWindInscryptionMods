@@ -9,7 +9,7 @@ namespace BonniesBakingPack
         {
             // The Ethereal Lady
             CardInfo lady = CardManager.New(pluginPrefix, "etherealLady", "Ethereal Lady", 3, 1, "Under her protection, there will be no misery or strife.")
-                .SetDefaultPart1Card().AddAct1().SetRare()
+                .SetRare().AddAct1()
                 .SetBloodCost(3)
                 .SetPortraitAndEmission(GetTexture("etherealLady.png"), GetTexture("etherealLady_emission.png"))
                 .SetPixelPortrait(GetTexture("etherealLady_pixel.png"))
@@ -19,7 +19,7 @@ namespace BonniesBakingPack
                 .SetOnePerDeck();
 
             CardInfo queen = CardManager.New(pluginPrefixG, "eternalLady", "Our Eternal Lady", 1, 1, "UNDER HER CARE THERE WILL BE NO SUFFERING OR DEATH.")
-                .SetDefaultPart1Card().AddGrimora().SetRare()
+                .SetRare().AddGrimora()
                 .SetEnergyCost(6)
                 .SetPortraitAndEmission(GetTexture("eternalLady.png"), GetTexture("eternalLady_emission.png"))
                 .AddTraits(Trait.DeathcardCreationNonOption)
@@ -27,7 +27,7 @@ namespace BonniesBakingPack
                 .SetOnePerDeck();
 
             CardInfo bot = CardManager.New(pluginPrefix3, "administrator", "Administrator", 1, 3)
-                .SetDefaultPart3Card().AddP03().SetRare()
+                .SetRare().AddP03()
                 .SetEnergyCost(4)
                 .SetPortraitAndEmission(GetTexture("administrator.png"), GetTexture("administrator_emission.png"))
                 .AddAppearances(LadyAbility.CardAppearance)
@@ -37,6 +37,18 @@ namespace BonniesBakingPack
                     ScrybeCompat.GetP03Ability("Combat Research", Ability.BuffNeighbours))
                 .SetOnePerDeck();
 
+            CardInfo gem = CardManager.New(pluginPrefixM, "completeLady", "The Lady Complete", 1, 2, "A portrait of perfection; none will ever compare to such beauty.")
+                .SetRare().AddMagnificus()
+                .SetGemsCost(GemType.Green, GemType.Orange, GemType.Blue)
+                .SetPortrait(GetTexture("completeLady.png"))
+                .AddAbilities(
+                    ScrybeCompat.GetMagnificusAbility("Stimulation", Ability.GainAttackOnKill),
+                    ScrybeCompat.GetMagnificusAbility("Stimulation (Health)", Ability.DeathShield),
+                    ScrybeCompat.GetMagnificusAbility("Purist", Ability.DebuffEnemy)
+                    )
+                .AddTraits(Trait.DeathcardCreationNonOption)
+                .SetOnePerDeck();
+
             if (ScrybeCompat.P03Enabled)
             {
                 ScrybeCompat.AddPart3Decal(bot, bot.GetEmissivePortrait().texture);
@@ -44,19 +56,8 @@ namespace BonniesBakingPack
                 lady.AddMetaCategories(ScrybeCompat.NatureRegion);
                 queen.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.TechRegion);
+                gem.AddMetaCategories(ScrybeCompat.WizardRegion);
             }
-
-            CardInfo gem = CardManager.New(pluginPrefixM, "completeLady", "The Lady Complete", 1, 2, "A portrait of perfection, none will ever compare to such beauty.")
-                .SetRare().AddMagnificus()
-                .SetGemsCost(GemType.Green, GemType.Orange, GemType.Blue)
-                .SetPortrait(GetTexture("completeLady.png"))
-                .AddAbilities(
-                    ScrybeCompat.GetMagnificusAbility("Stimulation", Ability.DebuffEnemy),
-                    ScrybeCompat.GetMagnificusAbility("Stimulation (Health)", Ability.DebuffEnemy),
-                    ScrybeCompat.GetMagnificusAbility("Purist", Ability.DebuffEnemy)
-                    )
-                .AddTraits(Trait.DeathcardCreationNonOption)
-                .SetOnePerDeck();
         }
     }
 }
