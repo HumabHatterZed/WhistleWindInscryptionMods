@@ -9,6 +9,7 @@ namespace BonniesBakingPack
         private void AddAbilities()
         {
             AddFreshFood();
+            AddFreshFoodMagnificus();
             AddFreshIngredients();
             AddFreshIngredientsMagnificus();
 

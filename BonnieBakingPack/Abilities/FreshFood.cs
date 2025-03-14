@@ -36,37 +36,48 @@ namespace BonniesBakingPack
 
         public override IEnumerator Activate()
         {
-            bool satUp = false;
-            bool moveLeft = base.Card.Slot.Index < 2;
-
             yield return base.PreSuccessfulTriggerSequence();
-            base.Card.Anim.LightNegationEffect();
+            yield return PrepareForBunnie(base.Card);
+        }
+
+        public static IEnumerator PrepareForBunnie(PlayableCard card)
+        {
+            CardSlot slot = card.Slot;
+            bool moveLeft = slot.Index < 2;
+
+            card.Anim.LightNegationEffect();
             yield return new WaitForSeconds(0.4f);
 
             ViewManager.Instance.SwitchToView(View.Default);
             yield return new WaitForSeconds(0.2f);
+            yield return ShimmyCardOutOfHere(card.transform, moveLeft, card.OpponentCard);
+            
+            slot.gameObject.AddComponent<CreateBunnieTrigger>().Initialise(card);
+            card.UnassignFromSlot();
+            slot.StartCoroutine(card.DestroyWhenStackIsClear());
+        }
 
-            Tween.LocalPosition(base.Card.transform,
-                new Vector3(base.Card.transform.localPosition.x, base.Card.transform.localPosition.y + 1f, base.Card.transform.localPosition.z),
+        public static IEnumerator ShimmyCardOutOfHere(Transform transform, bool moveLeft, bool opponentSide)
+        {
+            bool satUp = false;
+            Tween.LocalPosition(transform,
+                new Vector3(transform.localPosition.x, transform.localPosition.y + 1f, transform.localPosition.z),
                 0.2f, 0f);
 
-            Tween.LocalRotation(base.Card.transform, Vector3.zero, 0.2f, 0f, completeCallback: delegate
+            Tween.LocalRotation(transform, Vector3.zero, 0.2f, 0f, completeCallback: delegate
             {
                 satUp = true;
             });
 
             yield return new WaitUntil(() => satUp);
-            base.Card.Slot.gameObject.AddComponent<CreateBunnieTrigger>().Initialise(base.Card);
             yield return new WaitForSeconds(0.4f);
-            Tween.LocalPosition(base.Card.transform, new(moveLeft ? -20f : 20f, base.Card.transform.localPosition.y, base.Card.transform.localPosition.z + (base.Card.OpponentCard ? 0.2f : -0.2f)), 3f, 0f,
+
+            Tween.LocalPosition(transform, new(moveLeft ? -20f : 20f, transform.localPosition.y, transform.localPosition.z + (opponentSide ? 0.2f : -0.2f)), 3f, 0f,
                 startCallback: delegate
                 {
-                    Tween.LocalRotation(base.Card.transform, Quaternion.Euler(0f, 10f, -15f), 0.1f, 0f);
-                    Tween.LocalRotation(base.Card.transform, Quaternion.Euler(0f, 10f, 15f), 0.1f, 0.1f, loop: Tween.LoopType.PingPong);
+                    Tween.LocalRotation(transform, Quaternion.Euler(0f, 10f, -15f), 0.1f, 0f);
+                    Tween.LocalRotation(transform, Quaternion.Euler(0f, 10f, 15f), 0.1f, 0.1f, loop: Tween.LoopType.PingPong);
                 });
-
-            base.Card.UnassignFromSlot();
-            base.StartCoroutine(base.Card.DestroyWhenStackIsClear());
         }
 
         public override bool RespondsToDrawn() => false;

@@ -15,6 +15,15 @@ namespace BonniesBakingPack
         [HarmonyPrefix, HarmonyPatch(typeof(AudioController), nameof(AudioController.GetAudioClip))]
         private static void AddAudioClips(AudioController __instance) => __instance.SFX.AddRange(BakingPlugin.AudioClips.Where(x => !__instance.SFX.Contains(x)));
 
+        [HarmonyPostfix, HarmonyPatch(typeof(WizardBattlePortraitSlot), nameof(WizardBattlePortraitSlot.RespondsToOtherCardResolve))]
+        private static void PreventPortraitureForBonnie(ref bool __result, PlayableCard otherCard)
+        {
+            if (__result && otherCard.Slot.GetComponent<CreateBunnieTrigger>() != null)
+            {
+                __result = false;
+            }
+        }
+
         [HarmonyPostfix, HarmonyPatch(typeof(DrawRandomCardOnDeath), nameof(DrawRandomCardOnDeath.CardToDraw), MethodType.Getter)]
         private static void PhoneMouseCallsThePopo(DrawRandomCardOnDeath __instance, ref CardInfo __result)
         {

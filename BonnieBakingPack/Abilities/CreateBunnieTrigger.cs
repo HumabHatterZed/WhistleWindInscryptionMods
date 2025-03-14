@@ -1,6 +1,8 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Dialogue;
 using InscryptionAPI.Helpers.Extensions;
+using InscryptionAPI.Saves;
 using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,19 +30,13 @@ namespace BonniesBakingPack
         }
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            string infoName;
-            if (SaveManager.SaveFile.IsPart3)
+            string infoName = SaveManager.SaveFile.GetSceneAsCardTemple() switch
             {
-                infoName = "bbp_act3_bunnie";
-            }
-            else if (SaveManager.SaveFile.IsGrimora)
-            {
-                infoName = "bbp_grimora_bunnie";
-            }
-            else
-            {
-                infoName = "bbp_act1_bunnie";
-            }
+                CardTemple.Tech => "bbp_act3_bunnie",
+                CardTemple.Undead => "bbp_grimora_bunnie",
+                CardTemple.Wizard => "bbp_magnificus_bunnie",
+                _ => "bbp_act1_bunnie",
+            };
 
             CardInfo cardInfo = CardLoader.GetCardByName(infoName);
             cardInfo.Mods = cardmods;
@@ -58,12 +54,12 @@ namespace BonniesBakingPack
             }
             else
             {
-                ViewManager.Instance.SwitchToView(View.Default);
+                ViewManager.Instance.SwitchToView(View.Hand);
                 yield return new WaitForSeconds(0.2f);
                 yield return CardSpawner.Instance.SpawnCardToHand(cardInfo);
             }
 
-            if (!ProgressionData.IntroducedCard(cardInfo))
+            if (!ProgressionData.IntroducedCard(cardInfo) && !SaveManager.SaveFile.IsPart2)
             {
                 yield return new WaitForSeconds(0.2f);
                 if (infoName.Equals("bbp_grimora_bunnie"))

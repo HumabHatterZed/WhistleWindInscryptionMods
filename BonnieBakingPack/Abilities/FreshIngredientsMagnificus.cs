@@ -13,7 +13,7 @@ namespace BonniesBakingPack
             const string rulebookDescription = "When [creature] strikes a card and it perishes, create a random Food in your hand.";
             const string dialogue = "Made with the freshest ingredients.";
 
-            FreshIngredientsMagnificus.ability = AbilityManager.New(pluginGuid, rulebookName, rulebookDescription, typeof(FreshIngredientsMagnificus), GetTexture("sigilFreshIngredients.png"))
+            FreshIngredientsMagnificus.Id = AbilityManager.New(pluginGuid, rulebookName, rulebookDescription, typeof(FreshIngredientsMagnificus), GetTexture("sigilFreshIngredients.png"))
                 .SetAbilityLearnedDialogue(dialogue)
                 .SetRulebookName("Fresh Ingredients")
                 .SetPowerlevel(4)
@@ -23,26 +23,9 @@ namespace BonniesBakingPack
         }
     }
 
-    public class FreshIngredientsMagnificus : AbilityBehaviour
+    public class FreshIngredientsMagnificus : FreshIngredients
     {
-        public static Ability ability;
-        public override Ability Ability => ability;
-
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
-            return killer == base.Card;
-        }
-
-        public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
-            yield return base.PreSuccessfulTriggerSequence();
-            CardInfo info = CardLoader.GetCardByName(FreshFood.GetRandomFoodName(base.GetRandomSeed()));
-            ViewManager.Instance.SwitchToView(View.Hand);
-            yield return new WaitForSeconds(0.2f);
-            yield return CardSpawner.Instance.SpawnCardToHand(info);
-            yield return new WaitForSeconds(0.5f);
-            yield return base.LearnAbility();
-            ViewManager.Instance.SwitchToView(View.Board);
-        }
+        public static Ability Id;
+        public override Ability Ability => Id;
     }
 }

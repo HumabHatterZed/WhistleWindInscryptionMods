@@ -34,13 +34,15 @@ namespace BonniesBakingPack
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            yield return base.PreSuccessfulTriggerSequence();
-
-            if (!SaveManager.SaveFile.IsMagnificus)
-                yield return ResourcesManager.Instance.AddBones(1, deathSlot);
-
-            yield return new WaitForSeconds(0.3f);
             CardInfo info = CardLoader.GetCardByName(FreshFood.GetRandomFoodName(base.GetRandomSeed()));
+
+            yield return base.PreSuccessfulTriggerSequence();
+            if (!SaveManager.SaveFile.IsMagnificus)
+            {
+                yield return ResourcesManager.Instance.AddBones(1, deathSlot);
+                yield return new WaitForSeconds(0.3f);
+            }
+            
             ViewManager.Instance.SwitchToView(View.Hand);
             yield return new WaitForSeconds(0.2f);
             yield return CardSpawner.Instance.SpawnCardToHand(info);
