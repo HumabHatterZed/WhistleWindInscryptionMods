@@ -21,8 +21,7 @@ namespace BonniesBakingPack
                 .SetPortraitAndEmission(GetTexture("duckit.png"), GetTexture("duckit_emission.png"))
                 .AddSpecialAbilities(DuckRabbitAbility.SpecialAbility)
                 .AddAbilities(
-                    ScrybeCompat.GetGrimoraAbility("Random Ability", Ability.RandomAbility)
-                    );
+                    ScrybeCompat.GetGrimoraAbility("Random Ability", Ability.RandomAbility));
 
             CardInfo bot = CardManager.New(pluginPrefix3, "bunbot", "Bunbot", 2, 1)
                 .SetDefaultPart3Card().AddP03()
@@ -30,14 +29,26 @@ namespace BonniesBakingPack
                 .SetPortrait(GetTexture("bunbot.png"))
                 .AddAbilities(
                     ScrybeCompat.GetP03Ability("Hopper", Ability.Strafe),
-                    ScrybeCompat.GetP03Ability("Flammable", Ability.ExplodeOnDeath)
-                    );
+                    ScrybeCompat.GetP03Ability("Flammable", Ability.ExplodeOnDeath));
+
+            CardInfo mage = CardManager.New(pluginPrefixM, "magicHat", "Magician's Hat", 0, 1, "Appearances are deceiving with this little parlour trick.")
+                .AddMagnificus()
+                .SetTraits(Trait.EatsWarrens)
+                .AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout)
+                .SetHideStats(true)
+                .SetPortrait(GetTexture("magicHat.png"))
+                .AddAbilities(Ability.DrawRabbits);
+
+            mage.Mods = new() { new(ScrybeCompat.GetMagnificusAbility("Rerolls", Ability.GuardDog)) {
+                singletonId = "MagicHatSpecialMod" }
+            };
 
             if (ScrybeCompat.P03Enabled)
             {
                 bunny.AddMetaCategories(ScrybeCompat.NatureRegion);
                 duck.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NatureRegion);
+                mage.AddMetaCategories(ScrybeCompat.NeutralRegion);
             }
         }
     }
