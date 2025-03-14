@@ -48,7 +48,7 @@ namespace BonniesBakingPack
                 bunny.AddMetaCategories(ScrybeCompat.NatureRegion);
                 duck.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NatureRegion);
-                mage.AddMetaCategories(ScrybeCompat.NeutralRegion);
+                mage.AddMetaCategories(ScrybeCompat.WizardRegion);
             }
         }
     }
