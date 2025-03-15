@@ -261,14 +261,6 @@ namespace BonniesBakingPack
                 return card.GetExtendedPropertyAsBool("ManaCost") ?? false && card.BloodCost > 0;
             }
 
-            internal static CardInfo SetMagnificusSpell(CardInfo info)
-            {
-                info.SetExtendedProperty("TargetedSpell", true);
-                info.AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout);
-                info.AddTraits(Trait.EatsWarrens);
-                return info;
-            }
-
             internal static Assembly MagnificusAsm
             {
                 get

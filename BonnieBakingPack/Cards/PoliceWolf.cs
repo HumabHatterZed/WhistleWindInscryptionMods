@@ -29,17 +29,18 @@ namespace BonniesBakingPack
                 .SetPixelPortrait(GetTexture("firewolf_pixel.png"))
                 .AddAbilities(ScrybeCompat.GetP03Ability("Electric", Ability.DoubleStrike));
 
-            CardInfo pig = CardManager.New(pluginPrefixM, "guardWolf", "Guardian Wolf", 1, 1, "An appointed protector of all sources of arcana.")
+            CardInfo pig = CardManager.New(pluginPrefixM, "werewizard", "Werewizard", 3, 2, "A wizard afflicted with a terrible curse. ")
                 .SetDefaultPart1Card().AddMagnificus()
-                .SetGemsCost(GemType.Green)
-                .SetPortrait(GetTexture("guardWolf.png"))
-                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Gem Shield", Ability.ShieldGems));
+                .SetPortrait(GetTexture("werewizard.png"))
+                .AddAbilities(Ability.GemDependant);
 
+            ScrybeCompat.SetManaCost(pig, 2);
             if (ScrybeCompat.P03Enabled)
             {
                 wolf.AddMetaCategories(ScrybeCompat.NatureRegion);
                 spirit.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.TechRegion);
+                pig.AddMetaCategories(ScrybeCompat.WizardRegion);
             }
         }
     }
