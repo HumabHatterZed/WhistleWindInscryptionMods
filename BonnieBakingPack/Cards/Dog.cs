@@ -30,11 +30,18 @@ namespace BonniesBakingPack
                     ScrybeCompat.GetP03Ability("Solar Heart", Ability.GuardDog)
                     );
 
+            CardInfo mage = CardManager.New(pluginPrefixM, "dogWizard", "Dognabbit", 1, 1, "An ordinary housecat gifted arcane power by its owner.")
+                .SetDefaultPart1Card().AddMagnificus()
+                .SetGemsCost(GemType.Orange)
+                .SetPortrait(GetTexture("witchCat.png"))
+                .AddAbilities(Ability.BuffNeighbours, ScrybeCompat.GetMagnificusAbility("Familiar", Ability.GemDependant));
+
             if (ScrybeCompat.P03Enabled)
             {
                 dog.AddMetaCategories(ScrybeCompat.NatureRegion);
                 doggone.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.TechRegion);
+                mage.AddMetaCategories(ScrybeCompat.WizardRegion);
             }
         }
     }
