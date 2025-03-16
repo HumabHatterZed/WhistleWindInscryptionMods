@@ -26,7 +26,7 @@ namespace BonniesBakingPack
             TalkingCardManager.New<TalkingBunnieAbility>();
 
             DialogueManager.GenerateEvent(pluginGuid, "BunnieDrawn", new() {
-                NewLine("Hello ag- for the time!", Emotion.Neutral ) },
+                NewLine("Hello ag- for the first time!", Emotion.Neutral ) },
             new() {
                 new() { NewLine("Is it time to restock?", Emotion.Neutral) },
                 new() { NewLine("Good morning!", Emotion.Neutral) },
