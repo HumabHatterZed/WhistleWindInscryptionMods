@@ -1,8 +1,6 @@
 ﻿using DiskCardGame;
 using HarmonyLib;
 using InscryptionAPI.Card;
-using MagnificusMod;
-using Sirenix.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

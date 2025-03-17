@@ -22,5 +22,24 @@ namespace BonniesBakingPack
             yield return new WaitForSeconds(0.2f);
             attackingSlot.Card.SwitchToDefaultPortrait();
         }
+
+        // MagnificusMod sucks and overrides the entire combat sequence in a way that removes custom triggers
+        public override bool RespondsToSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+        {
+            return SaveManager.SaveFile.IsMagnificus && BakingPlugin.ScrybeCompat.MagnificusEnabled && attacker == base.Card && slot.Card != null;
+        }
+        public override IEnumerator OnSlotTargetedForAttack(CardSlot slot, PlayableCard attacker)
+        {
+            base.StartCoroutine(HandleMagnificus(attacker));
+            yield break;
+        }
+
+        private IEnumerator HandleMagnificus(PlayableCard card)
+        {
+            yield return new WaitForSeconds(0.2f);
+            card.SwitchToAlternatePortrait();
+            yield return new WaitForSeconds(0.5f);
+            card.SwitchToDefaultPortrait();
+        }
     }
 }

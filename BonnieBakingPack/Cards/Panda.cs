@@ -33,6 +33,15 @@ namespace BonniesBakingPack
                 .SetAltPortrait(GetTexture("pandat_alt.png"))
                 .AddSpecialAbilities(PandaAbility.SpecialAbility);
 
+            CardInfo mage = CardManager.New(pluginPrefixM, "gunWizard", "Gun Wizard", 1, 2, "Contrary to what this self-described wizard will claim, 'bullet' is not a spell.")
+                .SetDefaultPart1Card().AddMagnificus()
+                .SetGemsCost(GemType.Green)
+                .SetPortrait(GetTexture("gunWizard.png"))
+                .SetAltPortrait(GetTexture("gunWizard_alt.png"))
+                .AddSpecialAbilities(PandaAbility.SpecialAbility)
+                .AddAbilities(Ability.Deathtouch);
+
+            ScrybeCompat.SetManaCost(mage, 1);
             if (ScrybeCompat.P03Enabled)
             {
                 panda.AddMetaCategories(ScrybeCompat.NatureRegion);
