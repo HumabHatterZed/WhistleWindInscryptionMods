@@ -35,26 +35,23 @@ namespace BonniesBakingPack
 
             CardInfo mage = CardManager.New(pluginPrefixM, "mouseApprentice_green", "Appretice Mouse", 0, 1, "A junior wizard with great potential. A quick learner, despite its poor spelling.")
                 .SetDefaultPart1Card().AddMagnificus()
-                .SetGemsCost(GemType.Green)
                 .SetPortrait(GetTexture("mouseApprentice_green.png"))
                 .AddTraits(Trait.Juvenile)
-                .SetEvolve(wizard, 1)
-                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Multiplication", Ability.DrawCopy), Ability.Evolve);
+                .SetEvolve(wizard, 1, new CardModificationInfo[] { new CardModificationInfo(0, 1) })
+                .AddAbilities(Ability.Evolve);
 
             CardInfo mage2 = CardManager.New(pluginPrefixM, "mouseApprentice_orange", "Appretice Mouse", 0, 1)
                 .AddMagnificus()
-                .SetGemsCost(GemType.Orange)
                 .SetPortrait(GetTexture("mouseApprentice_orange.png"))
                 .AddTraits(Trait.Juvenile)
-                .SetEvolve(wizard2, 1)
+                .SetEvolve(wizard2, 1, new CardModificationInfo[] { new CardModificationInfo(0, 1) })
                 .AddAbilities(Ability.Evolve);
 
             CardInfo mage3 = CardManager.New(pluginPrefixM, "mouseApprentice_blue", "Appretice Mouse", 0, 1)
                 .AddMagnificus()
-                .SetGemsCost(GemType.Blue)
                 .SetPortrait(GetTexture("mouseApprentice_blue.png"))
                 .AddTraits(Trait.Juvenile)
-                .SetEvolve(wizard3, 1)
+                .SetEvolve(wizard3, 1, new CardModificationInfo[] { new CardModificationInfo(0, 1) })
                 .AddAbilities(Ability.Evolve);
 
             if (ScrybeCompat.P03Enabled)

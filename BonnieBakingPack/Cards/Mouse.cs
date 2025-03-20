@@ -24,20 +24,23 @@ namespace BonniesBakingPack
                 .SetEnergyCost(6)
                 .SetPortrait(GetTexture("mousebot.png"));
 
-            CardInfo mage1 = CardManager.New(pluginPrefixM, "mouseWizard_green", "Mouse Wizard", 1, 2, "A mouse that has learned to wield the magick of Mox.")
+            CardInfo mage1 = CardManager.New(pluginPrefixM, "mouseWizard_green", "Mouse Wizard", 1, 1, "A mouse that has learned to wield the magick of Mox.")
                 .SetDefaultPart1Card().AddMagnificus()
                 .SetGemsCost(GemType.Green)
-                .SetPortrait(GetTexture("mouseWizard_green.png"));
+                .SetPortrait(GetTexture("mouseWizard_green.png"))
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Multiplication", Ability.DrawCopy));
 
-            CardInfo mage2 = CardManager.New(pluginPrefixM, "mouseWizard_orange", "Mouse Wizard", 1, 2)
+            CardInfo mage2 = CardManager.New(pluginPrefixM, "mouseWizard_orange", "Mouse Wizard", 1, 1)
                 .AddMagnificus()
                 .SetGemsCost(GemType.Orange)
-                .SetPortrait(GetTexture("mouseWizard_orange.png"));
+                .SetPortrait(GetTexture("mouseWizard_orange.png"))
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Multiplication", Ability.DrawCopy));
 
-            CardInfo mage3 = CardManager.New(pluginPrefixM, "mouseWizard_blue", "Mouse Wizard", 1, 2)
+            CardInfo mage3 = CardManager.New(pluginPrefixM, "mouseWizard_blue", "Mouse Wizard", 1, 1)
                 .AddMagnificus()
                 .SetGemsCost(GemType.Blue)
-                .SetPortrait(GetTexture("mouseWizard_blue.png"));
+                .SetPortrait(GetTexture("mouseWizard_blue.png"))
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Multiplication", Ability.DrawCopy));
 
             if (ScrybeCompat.P03Enabled)
             {
