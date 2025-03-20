@@ -28,7 +28,7 @@ namespace BonniesBakingPack
                 .SetPortrait(GetTexture("felinebot.png"))
                 .AddAbilities(Ability.ConduitNull, ScrybeCompat.GetP03RunAbility("Mine Cryptocurrency", Ability.CreateBells));
 
-            CardInfo mage = CardManager.New(pluginPrefixM, "witchCat", "Witch's Familiar", 1, 1, "An ordinary housecat gifted arcane power by its owner.")
+            CardInfo mage = CardManager.New(pluginPrefixM, "witchCat", "Witch's Familiar", 0, 3, "An ordinary housecat gifted arcane power by its owner.")
                 .SetDefaultPart1Card().AddMagnificus()
                 .SetGemsCost(GemType.Blue)
                 .SetPortrait(GetTexture("witchCat.png"))
