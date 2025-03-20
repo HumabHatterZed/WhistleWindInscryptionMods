@@ -13,6 +13,7 @@ namespace BonniesBakingPack
                 .SetBloodCost(1).SetRare().AddP03()
                 .SetPixelPortrait(GetTexture("bonnie_pixel.png"))
                 .AddAbilities(FreshFood.ability)
+                .SetExtendedProperty("IsBonnie", true)
                 .AddTraits(Trait.KillsSurvivors)
                 .SetOnePerDeck();
 

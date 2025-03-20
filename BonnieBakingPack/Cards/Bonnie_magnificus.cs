@@ -11,6 +11,7 @@ namespace BonniesBakingPack
                 .SetDefaultPart1Card().AddMagnificus()
                 .SetPortrait(GetTexture("bonnie_magnificus.png"))
                 .AddAbilities(FreshFoodMagnificus.ability) // activated don't work?
+                .SetExtendedProperty("IsBonnie", true)
                 .SetOnePerDeck();
 
             CardInfo bon2 = CardManager.New(pluginPrefixM, "bunnie", "Rabid Rabbit", 2, 2, "Magick flows through the veins of all things living. To wield this purest of living arcana is to become a beast.")
