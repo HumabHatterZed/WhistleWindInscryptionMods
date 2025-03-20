@@ -37,8 +37,11 @@ namespace BonniesBakingPack
 
         private static List<CardInfo> ModifyBonnieAct3(List<CardInfo> cards)
         {
+            if (!BakingPlugin.ScrybeCompat.P03Enabled)
+                return cards;
+
             CardInfo bonnie_act3 = cards.Find(x => x.name == "bbp_act3_bonnie");
-            if (bonnie_act3 == null || !BakingPlugin.ScrybeCompat.P03Enabled)
+            if (bonnie_act3 == null)
                 return cards;
 
             bonnie_act3.RemoveMetaCategories(ScrybeCompat.NatureRegion);

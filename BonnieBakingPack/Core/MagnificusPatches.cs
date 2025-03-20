@@ -30,6 +30,21 @@ namespace BonniesBakingPack
                         break;
                 }
             }
+            else if (__result.name.StartsWith("bbp_magnificus_mouseWizard"))
+            {
+                switch (__result.gemsCost[0])
+                {
+                    case GemType.Green:
+                        __result = CardLoader.GetCardByName("bbp_magnificus_mouseWizard_blue");
+                        break;
+                    case GemType.Orange:
+                        __result = CardLoader.GetCardByName("bbp_magnificus_mouseWizard_green");
+                        break;
+                    case GemType.Blue:
+                        __result = CardLoader.GetCardByName("bbp_magnificus_mouseWizard_orange");
+                        break;
+                }
+            }
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(SigilCode.MoxCycling), nameof(SigilCode.MoxCycling.OnUpkeep))]

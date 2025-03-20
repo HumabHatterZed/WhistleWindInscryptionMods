@@ -12,20 +12,18 @@ These cards can be obtained in Act 1 by changing the config file, and vice versa
 ## Compatibility
 **GrimoraMod** - Spooky variants of the main cards will appear in the mod, as well as a custom starter deck.
 
-**P03 in Kaycee's Mod** - Robotic variants of the main cards will appear in the mod, as well as a custom starter deck. Includes a challenge to add Bonnie as a card choice.
+**P03 in Kaycee's Mod** - Robotic variants of the main cards will appear in the mod, as well as a custom starter deck and challenge.
+
+**Magnificus Mod** - Magical variants of the main cards will appear in the mod, as well as a custom starter deck.
 
 **Tribal Libary (sic)** - Mouse cards will gain the Vermin tribe and cat cards will gain the Feline tribe.
 
 **Bundle of Totems** - Mouse cards will gain the Vermin tribe and cat cards will gain the Feline tribe (overrides Tribal Libary).
 
 ## Configuration
-**Acts for Leshy Cards** - Adds Leshy cards to the given Acts.
-
-**Acts for P03 Cards** - Adds P03 cards to the given Acts. Note that they will have different abilities if P03 in KCM is not installed.
-
-**Acts for Grimora Cards** - Adds Grimora cards to the given Acts. Note that they will have different abilities if GrimoraMod is not installed.
-
+**All Acts** - Should each Scrybe's card pack be choosable in any act?
 **Bingus Flubbed It** - Has Bingus been played for the first time?
+
 ## Cards
 <details>
 <summary>Main Set</summary>
@@ -56,6 +54,7 @@ These cards can be obtained in Act 1 by changing the config file, and vice versa
 
 |Name|Atk/HP|Cost|Sigils|Traits
 |:-|:-:
+|Leela|1/1|<img src='https://i.imgur.com/H6vESv7.png'>|Fresh Food|Unique
 |Ghool Mouse|0/1|<img src='https://i.imgur.com/XmTnHld.png'>|Skin Crawler
 |Skelemouse|1/1||Brittle
 |Mousenapper|1/2|<img src='https://i.imgur.com/UvtK0PY.png'>|Hook Line and Sinker
@@ -80,8 +79,8 @@ These cards can be obtained in Act 1 by changing the config file, and vice versa
 |Litle M0U53|1/1|<img src='https://i.imgur.com/9tZzgbv.png'>|Transforms When Powered|Juvenile
 |M0U53|2/4|<img src='https://i.imgur.com/mBwmFpx.png'>|
 |Anonymouse|1/1|<img src='https://i.imgur.com/vUBgPOO.png'>|Arsonist
-|Steambot Willy|3/1|<img src='https://i.imgur.com/OYmdUg3.png'>|Fuel Strike, Waterborne|Rare, Fuel (3)
 |Mouse Phone|0/0|<img src='https://i.imgur.com/C22peXt.png'>|Tinkerer|Spell
+|Steambot Willy|3/1|<img src='https://i.imgur.com/OYmdUg3.png'>|Fuel Strike, Waterborne|Rare, Fuel (3)
 |Cop.stable|1/1|<img src='https://i.imgur.com/9tZzgbv.png'>|Electric
 |FAT C4T|0/2|<img src='https://i.imgur.com/9tZzgbv.png'>|Null Conduit, Mine Cryptocurrency
 |Bunbot|2/1|<img src='https://i.imgur.com/OYmdUg3.png'>|Hopper, Flammable
@@ -91,6 +90,29 @@ These cards can be obtained in Act 1 by changing the config file, and vice versa
 |Trojan|0/2|<img src='https://i.imgur.com/vUBgPOO.png'>|Armour Giver, Shield Absorption
 |Default User|0/1|<img src='https://i.imgur.com/9tZzgbv.png'>|Rubber Stamp
 |Administrator|1/3|<img src='https://i.imgur.com/OYmdUg3.png'>|Button Pusher, Combat Research|Rare, Unique
+</details>
+
+<details>
+<summary>Magnificus Set</summary>
+
+|Name|Atk/HP|Cost|Sigils|Traits
+|:-|:-:
+|Cake Witch|1/1|<img src='https://i.imgur.com/H6vESv7.png'>|Fresh Food|Unique, Kills Survivors
+|Rabbit Rabbit|2/2|<img src='https://i.imgur.com/H6vESv7.png'>|Fresh Ingredients|
+|Appretice Mouse|0/1||Fledgling|Juvenile
+|Wizard Mouse|1/1|<img src='https://i.imgur.com/cVoD0p2.png'>|Multiplication
+|Lich|2/1|<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/VohLYjY.png'>|Bone Marrow
+|Witness|0/1|<img src='https://i.imgur.com/VohLYjY.png'>|Dead Draw
+|Rat Occultist|1/1|<img src='https://i.imgur.com/H6vESv7.png'>|Resurrection
+|Werewizard|2/2|<img src='https://i.imgur.com/62GUUAC.png'>|Gem Reckoning
+|Witch's Familiar|0/3|<img src='https://i.imgur.com/VohLYjY.png'>|Leader, Familiar
+|Magician's Hat|0/0||Rabbit Hole, Rerolls|Spell
+|Faithful Companion|0/2|<img src='https://i.imgur.com/WnaCjEY.png'>|Sapphire Heart, Guardian
+|Gun Wizard|1/2|<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/cVoD0p2.png'>|Touch of Death
+|Mooster Alchemist|0/3|<img src='https://i.imgur.com/cVoD0p2.png'><img src='https://i.imgur.com/WnaCjEY.png'>|Gem Absorber, Brewery|Rare
+|Pirate Sorcerer|1/3|<img src='https://i.imgur.com/WnaCjEY.png'><img src='https://i.imgur.com/VohLYjY.png'>|Mox Strafe, Made of Gold
+|Forgotten Subject|2/1|<img src='https://i.imgur.com/WnaCjEY.png'><img src='https://i.imgur.com/WnaCjEY.png'>|Double Strike, Fading
+|The Lady Complete|2/4|<img src='https://i.imgur.com/H6vESv7.png'><img src='https://i.imgur.com/cVoD0p2.png'><img src='https://i.imgur.com/WnaCjEY.png'><img src='https://i.imgur.com/VohLYjY.png'>|Stimulation, Stimulation (Health), Purist|Rare, Unique
 </details>
 
 ## Starter Decks
@@ -105,6 +127,10 @@ These cards can be obtained in Act 1 by changing the config file, and vice versa
 |Bot Baking Pack|
 |:-|
 |Mouse Phone<br>Anonymouse<br>Cop.stable<br>Pardan Panda|
+
+|Bauble Baking Pack|
+|:-|
+|Witness<br>Occultist<br>Occultist<br>Lich|
 
 ## Credits
 **WhistleWind** - Artwork and programming

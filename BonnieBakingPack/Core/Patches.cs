@@ -32,7 +32,7 @@ namespace BonniesBakingPack
         [HarmonyPostfix, HarmonyPatch(typeof(CardDisplayer3D), nameof(CardDisplayer3D.DisplaySpecialStatIcons))]
         private static void BingusIsInfinite(CardDisplayer3D __instance, PlayableCard playableCard)
         {
-            if (__instance.info.name == "bbp_act1_bingus")
+            if (__instance.info.SpecialStatIcon == BingusStatIcon.Icon)
             {
                 __instance.SetHealthAndAttackIconsActive(true, true);
                 __instance.StatIcons.AssignStatIcon(BingusStatIcon.Icon, playableCard);
@@ -43,7 +43,7 @@ namespace BonniesBakingPack
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.CanBeSacrificed), MethodType.Getter)]
         private static void NoSacForBingus(PlayableCard __instance, ref bool __result)
         {
-            if (__instance.Info.name == "bbp_act1_bingus")
+            if (__instance.Info.SpecialStatIcon == BingusStatIcon.Icon)
                 __result = false;
         }
 
@@ -58,7 +58,7 @@ namespace BonniesBakingPack
         [HarmonyPostfix, HarmonyPatch(typeof(PlayerHand), nameof(PlayerHand.PlayCardOnSlot))]
         private static IEnumerator RemoveBingusInHand(IEnumerator enumerator, PlayerHand __instance, PlayableCard card, CardSlot slot)
         {
-            if (card.LacksSpecialAbility(BingusAbility.SpecialAbility))
+            if (card.Info.SpecialStatIcon != BingusStatIcon.Icon)
             {
                 yield return enumerator;
             }
@@ -115,11 +115,21 @@ namespace BonniesBakingPack
         [HarmonyPrefix, HarmonyPatch(typeof(CardChoicesSequencer), nameof(CardChoicesSequencer.ExamineCardWithDialogue))]
         private static bool ExamineBingusWithDialogue(SelectableCard card, ref string message)
         {
-            if (card?.Info != null && card.Info.HasSpecialAbility(BingusAbility.SpecialAbility) && BakingPlugin.BingusCrash.Value)
+            if (card?.Info != null && card.Info.SpecialStatIcon == BingusStatIcon.Icon && BakingPlugin.BingusCrash.Value)
             {
-                message = "Bingus wants to apologise for bingusing your game. She hopes you'll give her another chance.";
+                message =  $"{card.Info.displayedName} wants to apologise for {card.Info.displayedName.ToLowerInvariant()}ing your game. She hopes you'll give her another chance.";
             }
             return true;
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(CardLoader), nameof(CardLoader.GetUnlockedCards))]
+        private static void BingusOnlyIfBonnie(CardMetaCategory category, CardTemple temple, List<CardInfo> __result)
+        {
+            if (category == CardMetaCategory.Rare && !SaveManager.SaveFile.CurrentDeck.Cards.Exists(x => x.GetExtendedPropertyAsBool("IsBonnie") ?? false))
+            {
+                BakingPlugin.Log.LogDebug("No Bonnie, remove Bingus");
+                __result.RemoveAll(x => x.SpecialStatIcon == BingusStatIcon.Icon);
+            }
         }
     }
 }

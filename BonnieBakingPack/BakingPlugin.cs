@@ -145,7 +145,7 @@ namespace BonniesBakingPack
                 );
 
             StarterDeckManager.New(pluginGuid, "Bauble Baking Pack",
-                GetTexture("starterDeck4.png"), new string[4] { "bbp_act3_phoneMouse", "bbp_act3_anonymouse", "bbp_act3_copstable", "bbp_act3_copstable" }
+                GetTexture("starterDeck4.png"), new string[4] { "bbp_magnificus_witness", "bbp_magnificus_occultist", "bbp_magnificus_occultist", "bbp_magnificus_lich" }
                 );
 
             StarterDeckManager.ModifyDeckList += delegate (List<StarterDeckManager.FullStarterDeck> decks)
@@ -205,31 +205,33 @@ namespace BonniesBakingPack
 
             internal static Ability GetGrimoraAbility(string rulebookName, Ability fallback)
             {
-                if (GrimoraEnabled)
-                    return GuidManager.GetEnumValue<Ability>(GrimoraGuid, rulebookName);
+                Ability ab = GuidManager.GetEnumValue<Ability>(GrimoraGuid, rulebookName);
+                if (AbilityManager.AllAbilities.AbilityByID(ab) != null)
+                    return ab;
 
                 return fallback;
             }
             internal static Ability GetP03Ability(string rulebookName, Ability fallback)
             {
-                if (P03SigilsEnabled)
-                {
-                    return GuidManager.GetEnumValue<Ability>(P03Sigil, rulebookName);
-                }
+                Ability ab = GuidManager.GetEnumValue<Ability>(P03Sigil, rulebookName);
+                if (AbilityManager.AllAbilities.AbilityByID(ab) != null)
+                    return ab;
 
                 return fallback;
             }
             internal static Ability GetP03RunAbility(string rulebookName, Ability fallback)
             {
-                if (P03Enabled)
-                    return GuidManager.GetEnumValue<Ability>(P03Guid, rulebookName);
+                Ability ab = GuidManager.GetEnumValue<Ability>(P03Guid, rulebookName);
+                if (AbilityManager.AllAbilities.AbilityByID(ab) != null)
+                    return ab;
 
                 return fallback;
             }
             internal static Ability GetMagnificusAbility(string rulebookName, Ability fallback)
             {
-                if (MagnificusEnabled)
-                    return GuidManager.GetEnumValue<Ability>(MagnificusGuid, rulebookName);
+                Ability ab = GuidManager.GetEnumValue<Ability>(MagnificusGuid, rulebookName);
+                if (AbilityManager.AllAbilities.AbilityByID(ab) != null)
+                    return ab;
 
                 return fallback;
             }

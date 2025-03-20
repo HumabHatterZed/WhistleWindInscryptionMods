@@ -11,14 +11,14 @@ namespace BonniesBakingPack
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForSacrifice))]
         private static void RemoveFromValidCardsForSacrifice(ref List<CardInfo> __result)
         {
-            __result.RemoveAll(x => x.name == "bbp_act1_bingus");
+            __result.RemoveAll(x => x.SpecialStatIcon == BingusStatIcon.Icon);
         }
 
         // Prevents card from being merged / gaining sigils
         [HarmonyPostfix, HarmonyPatch(nameof(CardMergeSequencer.GetValidCardsForHost))]
         private static void RemoveFromValidCardsForHost(ref List<CardInfo> __result)
         {
-            __result.RemoveAll(x => x.name == "bbp_act1_bingus");
+            __result.RemoveAll(x => x.SpecialStatIcon == BingusStatIcon.Icon);
         }
     }
 
@@ -29,7 +29,7 @@ namespace BonniesBakingPack
         [HarmonyPostfix, HarmonyPatch(nameof(CardStatBoostSequencer.GetValidCards))]
         private static void RemoveFromValidCardsForStatBoost(ref List<CardInfo> __result)
         {
-            __result.RemoveAll(x => x.name == "bbp_act1_bingus");
+            __result.RemoveAll(x => x.SpecialStatIcon == BingusStatIcon.Icon);
         }
     }
     [HarmonyPatch(typeof(CopyCardSequencer))]
@@ -38,7 +38,7 @@ namespace BonniesBakingPack
         [HarmonyPostfix, HarmonyPatch(nameof(CopyCardSequencer.GetValidCards))]
         private static void RemoveFromValidCardsForCopyCard(ref List<CardInfo> __result)
         {
-            __result.RemoveAll(x => x.name == "bbp_act1_bingus");
+            __result.RemoveAll(x => x.SpecialStatIcon == BingusStatIcon.Icon);
         }
     }
 }

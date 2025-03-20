@@ -20,6 +20,7 @@ namespace BonniesBakingPack
                 .SetDefaultPart1Ability();
             BingusStatIcon.Icon = StatIconManager.Add(pluginGuid, bingusStatInfo, typeof(BingusStatIcon)).Id;
             BingusAbility.SpecialAbility = SpecialTriggeredAbilityManager.Add(pluginGuid, "BingusAbility", typeof(BingusAbility)).Id;
+            LoolooAbility.SpecialAbility2 = SpecialTriggeredAbilityManager.Add(pluginGuid, "LoolooAbility", typeof(LoolooAbility)).Id;
 
             TalkingBonnieAbility.SpecialAbility = SpecialTriggeredAbilityManager.Add(pluginGuid, "BonnieAbility", typeof(TalkingBonnieAbility)).Id;
             TalkingBunnieAbility.SpecialAbility = SpecialTriggeredAbilityManager.Add(pluginGuid, "BunnieAbility", typeof(TalkingBunnieAbility)).Id;
