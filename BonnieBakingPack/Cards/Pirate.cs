@@ -26,6 +26,12 @@ namespace BonniesBakingPack
                 .SetEnergyCost(2)
                 .SetPortrait(GetTexture("pirateTrojan.png"));
 
+            CardInfo mage = CardManager.New(pluginPrefixM, "pirateWizard", "Pirate Sorcerer", 1, 3, "An austentatious disgrace to the name of every honest wizard.")
+                .SetDefaultPart1Card().AddMagnificus()
+                .SetGemsCost(GemType.Orange, GemType.Blue)
+                .SetPortrait(GetTexture("wizardPirate.png"))
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Mox Strafe", Ability.SkeletonStrafe), ScrybeCompat.GetMagnificusAbility("Made of Gold", Ability.QuadrupleBones));
+
             if (ScrybeCompat.GrimoraEnabled)
             {
                 Ability ability = ScrybeCompat.GetGrimoraAbility("Anchored", Ability.None);
@@ -37,6 +43,7 @@ namespace BonniesBakingPack
                 pirate.AddMetaCategories(ScrybeCompat.NatureRegion);
                 plunderer.AddMetaCategories(ScrybeCompat.UndeadRegion);
                 bot.AddMetaCategories(ScrybeCompat.NeutralRegion);
+                mage.AddMetaCategories(ScrybeCompat.WizardRegion);
 
                 Ability ability = ScrybeCompat.GetP03Ability("Armor Giver", Ability.None);
                 Ability ability2 = ScrybeCompat.GetP03Ability("Shield Absorption", Ability.None);
