@@ -37,7 +37,7 @@ namespace BonniesBakingPack
                     ScrybeCompat.GetP03Ability("Combat Research", Ability.BuffNeighbours))
                 .SetOnePerDeck();
 
-            CardInfo gem = CardManager.New(pluginPrefixM, "completeLady", "The Lady Complete", 1, 2, "A portrait of perfection; none will ever compare to such beauty.")
+            CardInfo gem = CardManager.New(pluginPrefixM, "completeLady", "The Lady Complete", 2, 4, "A portrait of perfection; none will ever compare to such beauty.")
                 .SetRare().AddMagnificus()
                 .SetGemsCost(GemType.Green, GemType.Orange, GemType.Blue)
                 .SetPortrait(GetTexture("completeLady.png"))
@@ -49,6 +49,7 @@ namespace BonniesBakingPack
                 .AddTraits(Trait.DeathcardCreationNonOption)
                 .SetOnePerDeck();
 
+            ScrybeCompat.SetManaCost(gem, 1);
             if (ScrybeCompat.P03Enabled)
             {
                 ScrybeCompat.AddPart3Decal(bot, bot.GetEmissivePortrait().texture);
