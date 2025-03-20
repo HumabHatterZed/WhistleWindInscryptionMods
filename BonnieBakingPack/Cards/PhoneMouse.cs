@@ -31,7 +31,7 @@ namespace BonniesBakingPack
                 .SetGlobalSpell()
                 .AddAbilities(ScrybeCompat.GetP03Ability("Tinkerer", Ability.DrawRandomCardOnDeath));
 
-            CardInfo gem = CardManager.New(pluginPrefixM, "witness", "Witness", 0, 2, "No misdeed nor demerit will go unseen by this rat's eternal gaze.")
+            CardInfo gem = CardManager.New(pluginPrefixM, "witness", "Witness", 0, 1, "No misdeed nor demerit will go unseen by this rat's eternal gaze.")
                 .SetDefaultPart1Card().AddMagnificus()
                 .SetGemsCost(GemType.Blue)
                 .SetPortrait(GetTexture("witness.png"))
