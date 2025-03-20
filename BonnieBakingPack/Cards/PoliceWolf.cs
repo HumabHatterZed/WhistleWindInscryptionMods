@@ -29,10 +29,10 @@ namespace BonniesBakingPack
                 .SetPixelPortrait(GetTexture("firewolf_pixel.png"))
                 .AddAbilities(ScrybeCompat.GetP03Ability("Electric", Ability.DoubleStrike));
 
-            CardInfo pig = CardManager.New(pluginPrefixM, "werewizard", "Werewizard", 3, 2, "A wizard afflicted with a terrible curse. ")
+            CardInfo pig = CardManager.New(pluginPrefixM, "werewizard", "Werewizard", 2, 2, "A wizard afflicted with a terrible curse, fated to endless hunger.")
                 .SetDefaultPart1Card().AddMagnificus()
                 .SetPortrait(GetTexture("werewizard.png"))
-                .AddAbilities(Ability.GemDependant);
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Gem Reckoning", Ability.GemDependant));
 
             ScrybeCompat.SetManaCost(pig, 2);
             if (ScrybeCompat.P03Enabled)
