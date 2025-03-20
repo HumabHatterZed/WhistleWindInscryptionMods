@@ -22,7 +22,7 @@ namespace BonniesBakingPack
 
             CardInfo bot = CardManager.New(pluginPrefix3, "defaultUser", "Default User", 0, 1)
                 .SetDefaultPart3Card().AddP03()
-                .SetEnergyCost(3)
+                .SetEnergyCost(5)
                 .SetPortrait(GetTexture("defaultUser.png"))
                 .AddAbilities(ScrybeCompat.GetP03Ability("Rubber Stamp", Ability.DrawCopy));
 
