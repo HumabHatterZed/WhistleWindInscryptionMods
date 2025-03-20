@@ -30,11 +30,11 @@ namespace BonniesBakingPack
                     ScrybeCompat.GetP03Ability("Solar Heart", Ability.GuardDog)
                     );
 
-            CardInfo mage = CardManager.New(pluginPrefixM, "dogWizard", "Dognabbit", 1, 1, "An ordinary housecat gifted arcane power by its owner.")
+            CardInfo mage = CardManager.New(pluginPrefixM, "dogWizard", "Faithful Companion", 0, 2, "A gem construct eternally bound to protect its master.")
                 .SetDefaultPart1Card().AddMagnificus()
                 .SetGemsCost(GemType.Orange)
-                .SetPortrait(GetTexture("witchCat.png"))
-                .AddAbilities(Ability.BuffNeighbours, ScrybeCompat.GetMagnificusAbility("Familiar", Ability.GemDependant));
+                .SetPortrait(GetTexture("dogWizard.png"))
+                .AddAbilities(ScrybeCompat.GetMagnificusAbility("Sapphire Heart", Ability.DropRubyOnDeath), Ability.GuardDog);
 
             if (ScrybeCompat.P03Enabled)
             {
