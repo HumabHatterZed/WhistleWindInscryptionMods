@@ -37,6 +37,7 @@ namespace BonniesBakingPack
                 .SetCardTemple(CardTemple.Wizard)
                 .SetPortrait(GetTexture("redVelvet_magnificus.png"))
                 .AddAbilities(Ability.GainGemOrange)
+                .SetGemify()
                 .SetTraits(Trait.Gem);
 
             // Act 1
@@ -95,6 +96,7 @@ namespace BonniesBakingPack
                 .SetCardTemple(CardTemple.Wizard)
                 .SetPortrait(GetTexture("whiteDonut_magnificus.png"))
                 .AddAbilities(Ability.GainGemBlue)
+                .SetGemify()
                 .AddTraits(Trait.Gem);
 
             // Act 1
@@ -213,6 +215,7 @@ namespace BonniesBakingPack
                 .SetCardTemple(CardTemple.Wizard)
                 .SetPortrait(GetTexture("eggTart_magnificus.png"))
                 .AddAbilities(Ability.GainGemGreen)
+                .SetGemify()
                 .AddTraits(Trait.Gem);
         }
     }
