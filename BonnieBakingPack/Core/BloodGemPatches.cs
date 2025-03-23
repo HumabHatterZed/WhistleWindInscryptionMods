@@ -6,13 +6,13 @@ using System.Linq;
 
 namespace BonniesBakingPack
 {
-    [HarmonyPatch]
+    //[HarmonyPatch]
     public static class BloodGemPatches
     {
         [HarmonyPostfix, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.SacrificesCreateRoomForCard))]
         private static void HandleGemBloodCombinationCost(ref bool __result, PlayableCard card, List<CardSlot> sacrifices)
         {
-            if (!__result || !card.Info.ModPrefixIs(BakingPlugin.pluginPrefixM))
+            if (!__result || !card.Info.name.StartsWith(BakingPlugin.pluginPrefixM))
                 return;
 
             List<GemType> gems = card.GemsCost();
@@ -43,7 +43,7 @@ namespace BonniesBakingPack
         private static void DontSacGemProviders(ref bool __result, PlayableCard __instance)
         {
             PlayableCard sacrificingCard = BoardManager.Instance.CurrentSacrificeDemandingCard;
-            if (!__result || __instance.OpponentCard || sacrificingCard == null || !sacrificingCard.Info.ModPrefixIs(BakingPlugin.pluginPrefixM))
+            if (!__result || __instance.OpponentCard || sacrificingCard == null || !sacrificingCard.Info.name.StartsWith(BakingPlugin.pluginPrefixM))
                 return;
 
             List<GemType> gems = sacrificingCard.GemsCost();
@@ -73,7 +73,7 @@ namespace BonniesBakingPack
         [HarmonyPrefix, HarmonyPatch(typeof(BoardManager), nameof(BoardManager.ChooseSacrificesForCard))]
         private static bool PreventSacrificingNecessaryGems(ref List<CardSlot> validSlots, PlayableCard card)
         {
-            if (!card.Info.ModPrefixIs(BakingPlugin.pluginPrefixM))
+            if (!card.Info.name.StartsWith(BakingPlugin.pluginPrefixM))
                 return true;
 
             List<GemType> gems = card.GemsCost();

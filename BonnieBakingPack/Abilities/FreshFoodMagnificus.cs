@@ -35,13 +35,11 @@ namespace BonniesBakingPack
         public override Ability Ability => ability;
         public override int Priority => int.MinValue;
 
-        public override bool RespondsToDrawn() => false;
+        public override bool RespondsToDrawn() => true;
         public override IEnumerator OnDrawn()
         {
-            yield return new WaitForSeconds(0.1f);
-            CardInfo info = CardLoader.GetCardByName(FreshFood.GetRandomFoodName(base.GetRandomSeed()));
-            yield return CardSpawner.Instance.SpawnCardToHand(info);
-            yield return base.LearnAbility(0.5f);
+            base.StartCoroutine(FreshFood.SpawnFoodToHoof(this, base.Card));
+            return base.OnOtherCardDrawn(base.Card);
         }
 
         public override bool RespondsToResolveOnBoard()

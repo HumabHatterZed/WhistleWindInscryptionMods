@@ -98,19 +98,21 @@ namespace BonniesBakingPack
             if (panda) __instance.Card.SwitchToDefaultPortrait();
         }
 
-        [HarmonyPostfix, HarmonyPatch(typeof(PlayerHand), nameof(PlayerHand.AddCardToHand))]
-        private static IEnumerator DrawFreshFoodAfterPositioning(IEnumerator enumerator, PlayableCard card)
-        {
-            yield return enumerator;
-            if (card.HasAbility(FreshFood.ability))
-            {
-                AbilityBehaviour trigger = card.TriggerHandler.triggeredAbilities.FirstOrDefault(x => x.Item1 == FreshFood.ability).Item2;
-                if (trigger != null)
-                {
-                    yield return trigger.OnDrawn();
-                }
-            }
-        }
+        //[HarmonyPostfix, HarmonyPatch(typeof(PlayerHand), nameof(PlayerHand.AddCardToHand))]
+        //private static IEnumerator DrawFreshFoodAfterPositioning(IEnumerator enumerator, PlayableCard card)
+        //{
+        //    yield return enumerator;
+        //    if (card.HasAbility(FreshFood.ability) || card.HasAbility(FreshFoodMagnificus.ability))
+        //    {
+        //        BakingPlugin.Log.LogDebug("FreshFood");
+        //        AbilityBehaviour trigger = card.TriggerHandler.triggeredAbilities.FirstOrDefault(x => x.Item1 == FreshFood.ability || x.Item1 == FreshFoodMagnificus.ability).Item2;
+        //        if (trigger != null)
+        //        {
+        //            BakingPlugin.Log.LogDebug("FreshFood OnDrawn");
+        //            yield return trigger.OnDrawn();
+        //        }
+        //    }
+        //}
 
         [HarmonyPrefix, HarmonyPatch(typeof(CardChoicesSequencer), nameof(CardChoicesSequencer.ExamineCardWithDialogue))]
         private static bool ExamineBingusWithDialogue(SelectableCard card, ref string message)

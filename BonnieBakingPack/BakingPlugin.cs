@@ -97,8 +97,8 @@ namespace BonniesBakingPack
             }
             if (ScrybeCompat.P03SigilsEnabled)
             {
-                HarmonyInstance.PatchAll(typeof(P03Patches));
                 BonnieAct3.Register();
+                HarmonyInstance.PatchAll(typeof(P03Patches));
                 HarmonyInstance.PatchAll(typeof(BonnieAct3));
             }
             if (ScrybeCompat.MagnificusEnabled)

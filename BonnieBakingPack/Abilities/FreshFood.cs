@@ -34,6 +34,13 @@ namespace BonniesBakingPack
         public static Ability ability;
         public override Ability Ability => ability;
 
+        public override bool RespondsToDrawn() => true;
+        public override IEnumerator OnDrawn()
+        {
+            base.StartCoroutine(SpawnFoodToHoof(this, base.Card));
+            return base.OnOtherCardDrawn(base.Card);
+        }
+
         public override IEnumerator Activate()
         {
             yield return base.PreSuccessfulTriggerSequence();
@@ -80,14 +87,15 @@ namespace BonniesBakingPack
                 });
         }
 
-        public override bool RespondsToDrawn() => false;
-        public override IEnumerator OnDrawn()
+        public static IEnumerator SpawnFoodToHoof(AbilityBehaviour behav, PlayableCard card)
         {
+            yield return new WaitUntil(() => PlayerHand.Instance.CardsInHand.Contains(card));
             yield return new WaitForSeconds(0.1f);
-            CardInfo info = CardLoader.GetCardByName(GetRandomFoodName(base.GetRandomSeed()));
+            CardInfo info = CardLoader.GetCardByName(GetRandomFoodName(behav.GetRandomSeed()));
             yield return CardSpawner.Instance.SpawnCardToHand(info);
-            yield return base.LearnAbility(0.5f);
+            yield return behav.LearnAbility(0.5f);
         }
+
         public static string GetRandomFoodName(int randomSeed)
         {
             List<string> possibleFoodPool = new()

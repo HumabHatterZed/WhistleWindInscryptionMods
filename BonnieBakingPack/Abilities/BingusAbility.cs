@@ -201,7 +201,23 @@ namespace BonniesBakingPack
                 int rand = Random.RandomRangeInt(0, 3);
                 if (rand > 0)
                 {
-                    yield return Singleton<LifeManager>.Instance.ShowDamageSequence(rand, 1, toPlayer: Random.value <= 0.5f);
+                    if (LifeManager.Instance is MagnificusLifeManager)
+                    {
+                        if (Random.value <= 0.5f)
+                        {
+                            MagnificusLifeManager.Instance.playerLife -= rand;
+                            MagnificusLifeManager.Instance.playerLifeCounter.ShowValue(MagnificusLifeManager.Instance.playerLife);
+                        }
+                        else
+                        {
+                            MagnificusLifeManager.Instance.opponentLife -= rand;
+                            MagnificusLifeManager.Instance.opponentLifeCounter.ShowValue(MagnificusLifeManager.Instance.opponentLife);
+                        }
+                    }
+                    else
+                    {
+                        yield return Singleton<LifeManager>.Instance.ShowDamageSequence(rand, 1, toPlayer: Random.value <= 0.5f);
+                    }
                     yield return new WaitForSeconds(0.11f);
                 }
                 yield return InvertScales();
@@ -217,7 +233,23 @@ namespace BonniesBakingPack
 
             int damageToDeal = Mathf.Abs(balance);
             Singleton<CombatPhaseManager>.Instance.DamageDealtThisPhase = damageToDeal;
-            yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damageToDeal, damageToDeal * 7, toPlayer: balance < 0);
+            if (LifeManager.Instance is MagnificusLifeManager)
+            {
+                if (balance < 0)
+                {
+                    MagnificusLifeManager.Instance.playerLife -= damageToDeal;
+                    MagnificusLifeManager.Instance.playerLifeCounter.ShowValue(MagnificusLifeManager.Instance.playerLife);
+                }
+                else
+                {
+                    MagnificusLifeManager.Instance.opponentLife -= damageToDeal;
+                    MagnificusLifeManager.Instance.opponentLifeCounter.ShowValue(MagnificusLifeManager.Instance.opponentLife);
+                }
+            }
+            else
+            {
+                yield return Singleton<LifeManager>.Instance.ShowDamageSequence(damageToDeal, damageToDeal * 7, toPlayer: balance < 0);
+            }
         }
 
         #region Prevent Attacking
