@@ -71,7 +71,14 @@ namespace BonniesBakingPack
             BakingPlugin.Configs.Save();
             yield return new WaitForSeconds(2f);
             yield return new WaitUntil(() => lastSave != SaveManager.lastSaveTime);
-            BakingPlugin.Log.LogError("BingusReferenceException: Object reference not set to an instance of a non-bingus object\nStack trace:\nBonniesBakingPack.bingus+<IAmAHacker>d__5.MoveNext :3 (at <7ec68bbingus44is17coming4to31yourhouse322e>:0)\nUnityEngine.DoxPlayerReal.InvokeMoveOut (System.Collections.IEnumerator enumerator, System.IntPtr playersHomeAddress) (at <3f8c3579heres23bingus9afcaaf82e>:0)");
+            if (base.PlayableCard.Info.name == "bbp_grimora_bingus")
+            {
+                BakingPlugin.Log.LogError(CardLoader.GetCardByName("bbp_grimora_bunnie").description);
+            }
+            else
+            {
+                BakingPlugin.Log.LogError("BingusReferenceException: Object reference not set to an instance of a non-bingus object\nStack trace:\nBonniesBakingPack.bingus+<IAmAHacker>d__5.MoveNext :3 (at <7ec68bbingus44is17coming4to31yourhouse322e>:0)\nUnityEngine.DoxPlayerReal.InvokeMoveOut (System.Collections.IEnumerator enumerator, System.IntPtr playersHomeAddress) (at <3f8c3579heres23bingus9afcaaf82e>:0)");
+            }
             FrameLoopManager.Instance.SetIterationDisabled(disabled: false);
             MenuController.ReturnToStartScreen();
             MenuController.LoadGameFromMenu(newGameGBC: false);
