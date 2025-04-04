@@ -1,6 +1,6 @@
 # Plugin GUID: whistlewind.inscryption.bonniesbakingpack
 
-## v1.1.0 - Cooking with Mox-ie ()
+## v1.1.0 - Cooking with Mox-ie (April 4, 2025)
 - Fixed cards appearing/not appearing when they should/shouldn't
 - Fixed custom hit sounds not triggering when dealing lethal damage
 - Fixed dialogue typos
