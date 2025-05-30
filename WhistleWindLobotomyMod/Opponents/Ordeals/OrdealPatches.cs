@@ -29,15 +29,20 @@ namespace WhistleWindLobotomyMod.Opponents
         {
             yield return enumerator;
 
-            if (OrdealUtils.OpponentIsOrdeal() && __instance.SpecialSequencer is OrdealBattleSequencer seq)
+            if (OrdealUtils.OpponentIsOrdeal())
             {
-                yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, 0.5f);
-                yield return OrdealCounterManager.Instance.UpdateAmountLeft(seq.amountKilledThisTurn, 0.25f);
-                if (OrdealCounterManager.Instance.amountLeft <= 0 && !seq.PlayerHasDefeatedOrdeal())
+                OrdealBattleSequencer sequencer = __instance.SpecialSequencer as OrdealBattleSequencer;
+                bool leftoverCardsLeft = OrdealCounterManager.Instance.amountLeft < 1 && !sequencer.PlayerHasDefeatedOrdeal();
+                if (sequencer.amountKilledThisTurn > 0 || leftoverCardsLeft)
                 {
-                    yield return TextDisplayer.Instance.PlayDialogueEvent("OrdealDefeatedCardsLeft", TextDisplayer.MessageAdvanceMode.Input);
+                    yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, 0.5f);
+                    yield return OrdealCounterManager.Instance.UpdateAmountLeft(sequencer.amountKilledThisTurn, 0.25f);
+                    if (leftoverCardsLeft)
+                    {
+                        yield return TextDisplayer.Instance.PlayDialogueEvent("OrdealDefeatedCardsLeft", TextDisplayer.MessageAdvanceMode.Input);
+                    }
+                    yield return 0.5f;
                 }
-                yield return 0.5f;
             }
         }
 
@@ -205,7 +210,10 @@ namespace WhistleWindLobotomyMod.Opponents
                 else
                     data.totemOpponent = __result is TotemBattleNodeData;
 
-                if (true) // debug, force ordeal
+                // DEBUG DEBUG
+                // REMOVE ON RELEASE
+                // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                if (true)
                 {
                     data.tier = 0;
                     data.ordealType = OrdealType.Green;
