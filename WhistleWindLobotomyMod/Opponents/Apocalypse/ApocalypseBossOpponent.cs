@@ -121,8 +121,11 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             BattleSequencer.HighestPositiveScaleBalance = 5;
             int damage = Singleton<LifeManager>.Instance.DamageUntilPlayerWin - 1;
-            yield return LifeManager.Instance.ShowDamageSequence(damage, damage, false);
-            yield return new WaitForSeconds(1f);
+            if (damage > 0)
+            {
+                yield return LifeManager.Instance.ShowDamageSequence(damage, damage, false);
+                yield return new WaitForSeconds(1f);
+            }
             yield return LifeManager.Instance.ShowDamageSequence(1, 1, false);
         }
         public override IEnumerator StartNewPhaseSequence()
