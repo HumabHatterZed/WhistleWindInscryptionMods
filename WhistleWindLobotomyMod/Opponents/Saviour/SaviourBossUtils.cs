@@ -49,7 +49,7 @@ namespace WhistleWindLobotomyMod.Opponents
             else if (cardToConvert.HasTrait(Trait.Uncuttable))
                 yield break;
 
-            if (cardToConvert.HasAnyOfTraits(Trait.Pelt, Trait.Terrain)) // remove Pelts and Terrain
+            if (cardToConvert.HasAnyOfTraits(Trait.Pelt, Trait.Terrain, LobotomyCardManager.Ordeal)) // remove Pelts and Terrain
             {
                 yield return cardToConvert.DieTriggerless();
                 yield break;
