@@ -25,7 +25,7 @@ namespace WhistleWindLobotomyMod
         {
             if (OrdealCounterManager.Instance == null)
             {
-                LobotomyPlugin.Log.LogInfo("Setting up Ordeal managers");
+                LobotomyPlugin.Log.LogDebug("[OrdealCounterManager] Setting up managers");
 
                 GameObject obj = Instantiate(AssetManager.ordealCounterPrefab, BoardManager.Instance.transform.parent);
                 m_Instance = obj.AddComponent<OrdealCounterManager>();
@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod
             }
             else
             {
-                LobotomyPlugin.Log.LogInfo("Ordeal managers exist");
+                LobotomyPlugin.Log.LogDebug("[OrdealCounterManager] Managers exist");
             }
         }
 

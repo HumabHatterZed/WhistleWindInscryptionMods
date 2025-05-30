@@ -17,7 +17,7 @@ namespace WhistleWindLobotomyMod.Opponents
     /// </summary>
     public class OrdealAmberDawn : OrdealBattleSequencer
     {
-        public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
         {
             List<EncounterBlueprintData.CardBlueprint> turn1 = new()
             {
@@ -55,7 +55,7 @@ namespace WhistleWindLobotomyMod.Opponents
             }
 
             encounterData.Blueprint.AddTurns(turn1, turn2, turn3, turn4);
-            return encounterData;
+            return -1;
         }
     }
 }

@@ -16,8 +16,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 card.AddTemporaryMod(new(SeededRandom.Bool(seed++) ? 1 : 0, SeededRandom.Bool(seed++) ? 1 : 0));
             }
         }
-
-        public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
         {
             int numTurns = (encounterData.Difficulty - 1) / 2;
             for (int i = 0; i < numTurns; i++)
@@ -31,7 +30,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 };
                 encounterData.Blueprint.AddTurn(turn);
             }
-            return encounterData;
+            return -1;
         }
     }
 }

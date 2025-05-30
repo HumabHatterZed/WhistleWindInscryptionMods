@@ -25,14 +25,13 @@ namespace WhistleWindLobotomyMod.Opponents
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.OrdealDefeated;
         public override int HighestPositiveScaleBalance { get => 4; set => base.HighestPositiveScaleBalance = value; }
 
-        public abstract EncounterData ConstructOrdealBlueprint(EncounterData encounterData);
-
-        public virtual int GetMinCardsRequired(EncounterData data)
-        {
-            int retval = 0;
-            data.Blueprint.turns.ForEach(x => retval += x.Count(x => x.card.HasTrait(LobotomyCardManager.Ordeal)));
-            return retval;
-        }
+        /// <summary>
+        /// Abstract method for constructing the battle blueprint for the current Ordeal.
+        /// </summary>
+        /// <param name="encounterData">The EncounterData for the current Ordeal battle.</param>
+        /// <param name="difficultyModifier">An additional difficulty modifier for the battle blueprint.</param>
+        /// <returns>The minimum number of Ordeal cards that must be killed to progress.</returns>
+        public abstract int ConstructOrdealBlueprint(EncounterData encounterData, int difficultyModifier);
 
         public virtual List<Ability> GetBlacklistedAbilities(List<Ability> redundantAbilities)
         {
@@ -65,7 +64,7 @@ namespace WhistleWindLobotomyMod.Opponents
             OrdealCounterManager.ValidateCounter();
             if (nodeData is not OrdealBattleNodeData ordealData)
             {
-                LobotomyPlugin.Log.LogWarning("NodeData is null!");
+                LobotomyPlugin.Log.LogWarning("[OrdealBattle] NodeData is null!");
                 return null;
             }
 
@@ -75,9 +74,13 @@ namespace WhistleWindLobotomyMod.Opponents
             {
                 opponentType = OrdealUtils.OpponentID,
                 Blueprint = EncounterManager.New("", false).SetDifficulty(0, 20),
-                Difficulty = ordealData.difficulty + RunState.Run.DifficultyModifier
+                Difficulty = ordealData.difficulty
             };
-            LobotomyPlugin.Log.LogInfo($"Ordeal difficulty: {encounterData.Difficulty}");
+            if (RunState.Run.DifficultyModifier > 1)
+            {
+                encounterData.Difficulty += RunState.Run.DifficultyModifier - 1;
+            }
+            LobotomyPlugin.Log.LogInfo($"[OrdealBattle] Difficulty: {encounterData.Difficulty}");
             switch (ordealType)
             {
                 case OrdealType.Green:
@@ -100,16 +103,15 @@ namespace WhistleWindLobotomyMod.Opponents
             if (ordealData.totemOpponent)
                 encounterData.opponentTotem = EncounterBuilder.BuildOpponentTotem(encounterData.Blueprint.dominantTribes[0], nodeData.difficulty + RunState.Run.DifficultyModifier, GetBlacklistedAbilities(encounterData.Blueprint.redundantAbilities));
 
-            ConstructOrdealBlueprint(encounterData);
-            MinNumCardsRequired = GetMinCardsRequired(encounterData);
-            LobotomyPlugin.Log.LogInfo($"Encounter made: [{MinNumCardsRequired}] cards required");
+            MinNumCardsRequired = ConstructOrdealBlueprint(encounterData, ordealData.difficulty);
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards required: [{MinNumCardsRequired}]");
             encounterData.opponentTurnPlan = EncounterBuilder.BuildOpponentTurnPlan(encounterData.Blueprint, encounterData.Difficulty, false);
             return encounterData;
         }
 
         public override IEnumerator OpponentCombatEnd()
         {
-            LobotomyPlugin.Log.LogInfo($"TurnEnd: {OrdealCounterManager.Instance.amountLeft}");
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OpponentCombatEnd: {OrdealCounterManager.Instance.amountLeft} left");
             return base.OpponentCombatEnd();
         }
 
@@ -120,7 +122,8 @@ namespace WhistleWindLobotomyMod.Opponents
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
             amountKilledThisTurn++;
-            LobotomyPlugin.Log.LogInfo($"Ordeal [{card.Info.displayedName}] killed: {amountKilledThisTurn} | Left: {OrdealCounterManager.Instance.amountLeft}");
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnOtherCardDie: attacker:[{card.Info.displayedName}] killed:[{amountKilledThisTurn}]");
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards left: {OrdealCounterManager.Instance.amountLeft}");
             return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
         }
 

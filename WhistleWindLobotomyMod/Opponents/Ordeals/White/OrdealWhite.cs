@@ -130,10 +130,10 @@ namespace WhistleWindLobotomyMod.Opponents
             Opponent.TurnPlan.Add(new());
             Opponent.TurnPlan.Add(new() { CardLoader.GetCardByName(possibleFixers[3]) });
         }
-        public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
         {
-            ConstructWhiteDawn(encounterData);
-            return encounterData;
+            //ConstructWhiteDawn(encounterData);
+            return -1;
         }
     }
 }

@@ -18,28 +18,20 @@ namespace WhistleWindLobotomyMod.Opponents
     {
         public override void ModifyQueuedCard(PlayableCard card)
         {
-            switch (Opponent.Difficulty)
+            if (Opponent.Difficulty < RunState.Run.regionTier * 6 + 2)
             {
-                case 1:
-                case 2:
-                    if (Opponent.NumTurnsTaken == 0)
-                        card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability, StartingDecay.ability } });
-                    else
-                        card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability } });
-                    break;
-                case 3:
-                    if (Opponent.NumTurnsTaken < 2)
-                        card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability } });
-                    break;
-                default:
-                    if (Opponent.NumTurnsTaken == 1)
-                        card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability } });
-                    break;
+                if (Opponent.NumTurnsTaken == 0)
+                    card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability, StartingDecay.ability } });
+                else
+                    card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability } });
             }
+            else if (Opponent.NumTurnsTaken < 2)
+                card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability } });
         }
 
-        public void ConstructVioletDawn(EncounterData encounterData, int maxDifficultyNoModifier)
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
         {
+            int minCards = 3;
             List<EncounterBlueprintData.CardBlueprint> turn1 = new() {
                 EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding)
             };
@@ -50,18 +42,16 @@ namespace WhistleWindLobotomyMod.Opponents
                 EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding)
             };
 
-            if (encounterData.Difficulty >= maxDifficultyNoModifier + 2)
+            if (encounterData.Difficulty > difficulty + 1)
+            {
+                minCards++;
                 turn2.Add(EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding));
+            }
 
             encounterData.Blueprint.AddTurns(turn1, turn2, turn3);
-            if (encounterData.Difficulty < maxDifficultyNoModifier)
-                encounterData.Blueprint.AddTurn();
-        }
+            if (difficulty < 3) encounterData.Blueprint.AddTurn();
 
-        public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
-        {
-            ConstructVioletDawn(encounterData, 3);
-            return encounterData;
+            return minCards;
         }
     }
 }

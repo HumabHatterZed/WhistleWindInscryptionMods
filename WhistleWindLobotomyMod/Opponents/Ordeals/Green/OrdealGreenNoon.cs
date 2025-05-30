@@ -34,10 +34,10 @@ namespace WhistleWindLobotomyMod.Opponents
                 .AddTurn(turn3);
         }
 
-        public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
         {
-            ConstructGreenNoon(encounterData);
-            return encounterData;
+            //ConstructGreenNoon(encounterData);
+            return -1;
         }
     }
 }

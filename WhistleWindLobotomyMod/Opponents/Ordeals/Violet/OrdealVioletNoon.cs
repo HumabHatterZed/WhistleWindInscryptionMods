@@ -63,31 +63,10 @@ namespace WhistleWindLobotomyMod.Opponents
             yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
         }
 
-        public override void ModifyQueuedCard(PlayableCard card)
-        {
-            if (Opponent.Difficulty == 8)
-            {
-                if (Opponent.NumTurnsTaken == 0)
-                    card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability } });
-            }
-            else if (Opponent.Difficulty < 8)
-            {
-                if (Opponent.NumTurnsTaken < 1)
-                    card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability, StartingDecay.ability } });
-                else
-                    card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability } });
-            }
-            else
-            {
-                if (Opponent.NumTurnsTaken < 2)
-                    card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability } });
-            }
-        }
-        public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
         {
             targetIconPrefab = AssetManager.warningTargetPrefab;
-            base.ConstructVioletDawn(encounterData, 9);
-            return encounterData;
+            return 1 + base.ConstructOrdealBlueprint(encounterData, difficulty);
         }
     }
 }

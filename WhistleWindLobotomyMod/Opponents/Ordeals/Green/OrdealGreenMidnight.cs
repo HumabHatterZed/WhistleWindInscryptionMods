@@ -54,8 +54,6 @@ namespace WhistleWindLobotomyMod.Opponents
 
         public bool CleanUpLasers = false;
 
-        public override int GetMinCardsRequired(EncounterData data) => 1;
-
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) => true;
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
@@ -194,7 +192,7 @@ namespace WhistleWindLobotomyMod.Opponents
 
             UpdateCounter();
         }
-        public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
         {
             isActive = false;
             phaseCountdown = Mathf.Max(2, MaxCooldownPeriod - 1);
@@ -203,7 +201,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 cardsInOpponentSlots = new CardInfo[] { null, CardLoader.GetCardByName("wstl_lastHelix") }
             };
             encounterData.startConditions.Add(cond);
-            return encounterData;
+            return 1;
         }
 
         public override List<Ability> GetBlacklistedAbilities(List<Ability> redundantAbilities)

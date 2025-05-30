@@ -4,9 +4,10 @@ namespace WhistleWindLobotomyMod.Opponents
 {
     public class OrdealVioletMidnight : OrdealBattleSequencer
     {
-        public override EncounterData ConstructOrdealBlueprint(EncounterData encounterData)
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
         {
-            return encounterData;
+            //ConstructWhiteDawn(encounterData);
+            return -1;
         }
     }
 }
