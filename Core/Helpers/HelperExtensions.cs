@@ -38,7 +38,8 @@ namespace WhistleWind.Core.Helpers
                 item.ExitBoard(tweenLength, Vector3.zero);
         }
         /// <summary>
-        /// Kills this card without triggering OnDie or OnOtherCardDie. Triggers OnDie if it has the PackMule special ability.
+        /// Kills this card without triggering OnDie or OnOtherCardDie for cards.
+        /// Non-card triggers will still be activated to 
         /// </summary>
         public static IEnumerator DieTriggerless(this PlayableCard card)
         {
@@ -64,6 +65,9 @@ namespace WhistleWind.Core.Helpers
 
                 if (card.HasSpecialAbility(SpecialTriggeredAbility.PackMule))
                     UnityEngine.Object.Destroy(card.GetComponent<PackMule>().pack.gameObject);
+
+                yield return GlobalTriggerHandler.Instance.TriggerNonCardReceivers(beforeCards: true, Trigger.OtherCardDie, slotBeforeDeath, false, null);
+                yield return GlobalTriggerHandler.Instance.TriggerNonCardReceivers(beforeCards: false, Trigger.OtherCardDie, slotBeforeDeath, false, null);
 
                 card.UnassignFromSlot();
                 card.StartCoroutine(card.DestroyWhenStackIsClear());
