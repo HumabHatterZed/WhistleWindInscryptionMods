@@ -66,9 +66,8 @@ namespace WhistleWindLobotomyMod.Patches
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(SceneLoader), nameof(SceneLoader.Load))]
-        private static void ResetTriggers()
+        private static void ResetTriggersOnSceneLoad()
         {
-            //PreventOpponentDamage = false;
             if (LobotomySaveManager.OpponentBlessings > 11)
                 LobotomySaveManager.OpponentBlessings = 11;
 
@@ -78,9 +77,8 @@ namespace WhistleWindLobotomyMod.Patches
 
         // Reset board effects for event cards and the Clock for WhiteNight
         [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.CleanupPhase))]
-        private static IEnumerator ResetEffects(IEnumerator enumerator, TurnManager __instance)
+        private static IEnumerator ResetEffectsOnCleanup(IEnumerator enumerator, TurnManager __instance)
         {
-            //PreventOpponentDamage = false;
             if (LobotomySaveManager.TriggeredWhiteNightThisBattle)
             {
                 LobotomyPlugin.Log.LogDebug($"Resetting the clock to [0].");

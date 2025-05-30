@@ -5,6 +5,9 @@ using static WhistleWindLobotomyMod.Core.LobotomyCardManager;
 
 namespace WhistleWindLobotomyMod
 {
+    /// <summary>
+    /// Utility class containing the internal string names for all added cards, plus the methods for adding cards to the base game.
+    /// </summary>
     public partial class Cards
     {
         public const string allAroundHelper = "wstl_allAroundHelper";

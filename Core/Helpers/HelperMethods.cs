@@ -84,7 +84,10 @@ namespace WhistleWind.Core.Helpers
             }
             return false;
         }
-        // plays hit anim then triggers Die, doesn't destroy the card object
+        
+        /// <summary>
+        /// Variant of OnDie that doesn't destroy the PlayableCard object.
+        /// </summary>
         public static IEnumerator DieDontDestroy(PlayableCard card, bool wasSacrifice, PlayableCard killer)
         {
             card.Anim.PlayHitAnimation();
