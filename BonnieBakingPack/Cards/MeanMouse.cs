@@ -33,6 +33,7 @@ namespace BonniesBakingPack
                 .SetDefaultPart1Card().AddMagnificus()
                 .SetGemsCost(GemType.Blue)
                 .SetPortrait(GetTexture("lich.png"))
+                .SetPixelPortrait(GetTexture("lich_pixel.png"))
                 .AddAbilities(ScrybeCompat.GetMagnificusAbility("Bone Marrow", Ability.GainAttackOnKill));
 
             ScrybeCompat.SetManaCost(mage, 1);

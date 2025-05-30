@@ -29,7 +29,7 @@ These cards can be obtained in Act 1 by changing the config file, and vice versa
 <summary>Main Set</summary>
 
 |Name|Atk/HP|Cost|Sigils|Traits
-|:-|:-:
+|:-|:-:|:-:|:-:|:-:|
 |Bonnie|1/1|<img src='https://i.imgur.com/H6vESv7.png'>|Fresh Food|Unique, Kills Survivors
 |Bunnie|2/2|<img src='https://i.imgur.com/H6vESv7.png'>|Fresh Ingredients|
 |Shool Mouse|1/1|<img src='https://i.imgur.com/H6vESv7.png'>|Fledgling|Juvenile
@@ -53,7 +53,7 @@ These cards can be obtained in Act 1 by changing the config file, and vice versa
 <summary>Grimora Set</summary>
 
 |Name|Atk/HP|Cost|Sigils|Traits
-|:-|:-:
+|:-|:-:|:-:|:-:|:-:|
 |Leela|1/1|<img src='https://i.imgur.com/H6vESv7.png'>|Fresh Food|Unique
 |Ghool Mouse|0/1|<img src='https://i.imgur.com/XmTnHld.png'>|Skin Crawler
 |Skelemouse|1/1||Brittle
@@ -75,7 +75,7 @@ These cards can be obtained in Act 1 by changing the config file, and vice versa
 <summary>P03 Set</summary>
 
 |Name|Atk/HP|Cost|Sigils|Traits
-|:-|:-:
+|:-|:-:|:-:|:-:|:-:|
 |Litle M0U53|1/1|<img src='https://i.imgur.com/9tZzgbv.png'>|Transforms When Powered|Juvenile
 |M0U53|2/4|<img src='https://i.imgur.com/mBwmFpx.png'>|
 |Anonymouse|1/1|<img src='https://i.imgur.com/vUBgPOO.png'>|Arsonist
@@ -96,7 +96,7 @@ These cards can be obtained in Act 1 by changing the config file, and vice versa
 <summary>Magnificus Set</summary>
 
 |Name|Atk/HP|Cost|Sigils|Traits
-|:-|:-:
+|:-|:-:|:-:|:-:|:-:|
 |Cake Witch|1/1|<img src='https://i.imgur.com/H6vESv7.png'>|Fresh Food|Unique, Kills Survivors
 |Rabbit Rabbit|2/2|<img src='https://i.imgur.com/H6vESv7.png'>|Fresh Ingredients|
 |Appretice Mouse|0/1||Fledgling|Juvenile

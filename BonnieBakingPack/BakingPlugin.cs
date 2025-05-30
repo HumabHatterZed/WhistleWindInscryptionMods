@@ -127,6 +127,12 @@ namespace BonniesBakingPack
                     abilities.Find(x => x.Id == ScrybeCompat.GetP03Ability("Electric", Ability.None))?.Info.SetPixelAbilityIcon(GetTexture("electric_pixel.png"));
                     abilities.Find(x => x.Id == ScrybeCompat.GetP03Ability("Tinkerer", Ability.None))?.Info.SetPixelAbilityIcon(GetTexture("tinkerer_pixel.png"));
                 }
+                if (ScrybeCompat.MagnificusEnabled)
+                {
+                    abilities.Find(x => x.Id == ScrybeCompat.GetMagnificusAbility("Bone Marrow", Ability.None))?.Info.SetPixelAbilityIcon(GetTexture("boneMarrow_pixel.png"));
+                    abilities.Find(x => x.Id == ScrybeCompat.GetMagnificusAbility("Dead Draw", Ability.None))?.Info.SetPixelAbilityIcon(GetTexture("deadDraw_pixel.png"));
+                    abilities.Find(x => x.Id == ScrybeCompat.GetMagnificusAbility("Resurrection", Ability.None))?.Info.SetPixelAbilityIcon(GetTexture("resurrection_pixel.png"));
+                }
 
                 return abilities;
             };
@@ -144,7 +150,7 @@ namespace BonniesBakingPack
                 GetTexture("starterDeck3.png"), new string[4] { "bbp_act3_phoneMouse", "bbp_act3_anonymouse", "bbp_act3_copstable", "bbp_act3_copstable" }
                 );
 
-            StarterDeckManager.New(pluginGuid, "Bauble Baking Pack",
+            StarterDeckManager.New(pluginGuid, "Bauble Baking Pack;1",
                 GetTexture("starterDeck4.png"), new string[4] { "bbp_magnificus_witness", "bbp_magnificus_occultist", "bbp_magnificus_occultist", "bbp_magnificus_lich" }
                 );
 
@@ -162,7 +168,7 @@ namespace BonniesBakingPack
 
                 if (!ScrybeCompat.MagnificusEnabled)
                 {
-                    decks.RemoveAll(x => x.Info.title == "Bauble Baking Pack");
+                    decks.RemoveAll(x => x.Info.title == "Bauble Baking Pack;1");
                 }
 
                 return decks;
@@ -370,7 +376,7 @@ namespace BonniesBakingPack
         public const string pluginPrefixM = "bbp_magnificus";
 
         public const string pluginName = "Bonnie's Baking Pack";
-        private const string pluginVersion = "1.1.0";
+        private const string pluginVersion = "1.1.1";
     }
 
     internal static class Extensions

@@ -1,5 +1,10 @@
 # Plugin GUID: whistlewind.inscryption.bonniesbakingpack
 
+## v1.1.1 - Kitchen Cleanup (April 6, 2025)
+- Fixed Magnficus starting decks not working
+- Fixed cards in Magnificus starting deck not having pixel portraits
+- Fixed sigils used by cards in Magnificus starting deck not having pixel icons
+
 ## v1.1.0 - Cooking with Mox-ie (April 4, 2025)
 - Fixed cards appearing/not appearing when they should/shouldn't
 - Fixed custom hit sounds not triggering when dealing lethal damage

@@ -35,6 +35,7 @@ namespace BonniesBakingPack
                 .SetDefaultPart1Card().AddMagnificus()
                 .SetGemsCost(GemType.Blue)
                 .SetPortrait(GetTexture("witness.png"))
+                .SetPixelPortrait(GetTexture("witness_pixel.png"))
                 .AddAbilities(ScrybeCompat.GetMagnificusAbility("Dead Draw", Ability.DrawRandomCardOnDeath));
 
             if (ScrybeCompat.GrimoraEnabled)

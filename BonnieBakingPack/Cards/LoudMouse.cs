@@ -31,6 +31,7 @@ namespace BonniesBakingPack
                 .SetDefaultPart1Card().AddMagnificus()
                 .SetGemsCost(GemType.Blue)
                 .SetPortrait(GetTexture("occultist.png"))
+                .SetPixelPortrait(GetTexture("occultist_pixel.png"))
                 .AddAbilities(ScrybeCompat.GetMagnificusAbility("Resurrection", Ability.DrawRandomCardOnDeath));
 
             ScrybeCompat.SetFuel(bot, 3);
