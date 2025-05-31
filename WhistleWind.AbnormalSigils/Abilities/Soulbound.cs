@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_SoulboundFlesh()
         {
             const string rulebookName = "Soulbound";
-            const string rulebookDescription = "When [creature] is struck, deal an equal amount of damage to its owner.";
+            const string rulebookDescription = "Whenever [creature] takes damage, its owner also takes damage.";
             const string dialogue = "So this is what they feel...";
             Soulbound.ability = AbnormalAbilityHelper.CreateAbility<Soulbound>(
                 "sigilSoulboundFlesh",
@@ -24,19 +24,16 @@ namespace WhistleWind.AbnormalSigils
                 .SetMagnificusRulebook().Id;
         }
     }
-    public class Soulbound : AbilityBehaviour
+    public class Soulbound : AbilityBehaviour, IPreTakeDamage
     {
         public static Ability ability;
         public override Ability Ability => ability;
 
-        public override bool RespondsToOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
-        {
-            return target == base.Card && amount > 0;
-        }
-        public override IEnumerator OnOtherCardDealtDamage(PlayableCard attacker, int amount, PlayableCard target)
+        public bool RespondsToPreTakeDamage(PlayableCard source, int damage) => damage > 0;
+        public IEnumerator OnPreTakeDamage(PlayableCard source, int damage)
         {
             yield return base.PreSuccessfulTriggerSequence();
-            yield return LifeManager.Instance.ShowDamageSequence(amount, amount, !base.Card.OpponentCard, changeView: false);
+            yield return LifeManager.Instance.ShowDamageSequence(damage, damage, !base.Card.OpponentCard, changeView: false);
             yield return new WaitForSeconds(0.3f);
             yield return base.LearnAbility(0.4f);
         }
