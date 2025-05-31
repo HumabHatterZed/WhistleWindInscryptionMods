@@ -9,17 +9,23 @@ namespace WhistleWindLobotomyMod.Opponents
 {
     public static class LobOpponentUtils
     {
-        public static bool FightingCustomOpponent(bool bossOnly)
+        public static bool FightingCustomBoss() {
+            return TurnManager.Instance?.Opponent is LobotomyBossOpponent;
+        }
+        public static bool FightingCustomOpponent()
         {
-            if (TurnManager.Instance?.Opponent == null)
-                return false;
-
-            return TurnManager.Instance.Opponent is LobotomyBossOpponent || (!bossOnly && TurnManager.Instance.Opponent is OrdealOpponent);
+            return TurnManager.Instance.Opponent is LobotomyOpponent;
         }
 
-        public static bool IsCustomBoss<T>() where T : LobotomyBossOpponent
+        public static bool IsCustomBoss<T>(out T opponent) where T : LobotomyBossOpponent
         {
-            return TurnManager.Instance.Opponent is T;
+            if (TurnManager.Instance?.Opponent != null && TurnManager.Instance.Opponent is T opp)
+            {
+                opponent = opp;
+                return true;
+            }
+            opponent = null;
+            return false;
         }
 
         public static int CardOffscreenLayer { get; internal set; }

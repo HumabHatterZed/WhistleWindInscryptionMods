@@ -10,32 +10,55 @@ namespace WhistleWindLobotomyMod.Patches
     internal static class ApocalypseBossPatches
     {
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.GetPassiveAttackBuffs))]
-        private static void ChangeColourDuringBigEyes(ref int __result)
+        private static void BigEyesPhaseChangesAttackColour(ref int __result)
         {
-            if (TurnManager.Instance?.Opponent != null && TurnManager.Instance.Opponent is ApocalypseBossOpponent boss)
+            if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent boss) && boss.BattleSequencer.ActiveEggEffect == ActiveEggEffect.BigEyes)
             {
-                if (boss.BattleSequencer.ActiveEggEffect == ActiveEggEffect.BigEyes)
-                    __result = -1; // easiest way to change the colour
+                // easiest way to change the text colour
+                // since big eyes ignores passive attack buffs, this won't have an effect on cards' actual Power
+                __result = -1;
             }
         }
+
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.Attack), MethodType.Getter)]
-        private static void NegatePowerChangeDuringBigEyes(PlayableCard __instance, ref int __result)
+        private static void BigEyesPhaseNegatesAttackBuffs(PlayableCard __instance, ref int __result)
         {
-            if (TurnManager.Instance?.Opponent != null && TurnManager.Instance.Opponent is ApocalypseBossOpponent boss)
+            if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent boss) && boss.BattleSequencer.ActiveEggEffect == ActiveEggEffect.BigEyes)
             {
-                if (boss.BattleSequencer.ActiveEggEffect == ActiveEggEffect.BigEyes)
-                    __result = Mathf.Max(0, __instance.Info.Attack);
+                __result = Mathf.Max(0, __instance.Info.Attack);
             }
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(MapDataReader), nameof(MapDataReader.SpawnMapObjects))]
         private static void MakeTheBlackForestBlack(MapDataReader __instance)
         {
-            if (RunState.CurrentMapRegion == null || RunState.CurrentMapRegion != LobOpponentUtils.apocalypseRegion)
+            if (RunState.CurrentMapRegion != LobOpponentUtils.apocalypseRegion)
                 return;
 
-            foreach (var i in __instance.scenery)
+            foreach (MapElement i in __instance.scenery)
                 i.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", Texture2D.blackTexture);
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(ConsumableItem), nameof(ConsumableItem.CanActivate))]
+        private static void PreventHourglassItem(ConsumableItem __instance, ref bool __result) {
+            if (!__result)
+                return;
+
+            if (__instance is HourglassItem) {
+                if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent boss) && !boss.BattleSequencer.DisabledEggEffects.Contains(ActiveEggEffect.LongArms))
+                    __result = false;
+            }
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(ConsumableItem), nameof(ConsumableItem.OnExtraActivationPrerequisitesNotMet))]
+        private static void PreventHourglassItemDialogue(ConsumableItem __instance) {
+            if (__instance is HourglassItem
+                && LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent boss)
+                && !boss.BattleSequencer.DisabledEggEffects.Contains(ActiveEggEffect.LongArms)) {
+                if (!TextDisplayer.Instance.textMesh.gameObject.activeSelf) {
+                    CustomCoroutine.Instance.StartCoroutine(TextDisplayer.Instance.ShowUntilInput("The Long Bird's arms conceal time."));
+                }
+            }
         }
     }
 }

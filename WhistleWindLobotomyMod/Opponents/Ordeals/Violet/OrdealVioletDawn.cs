@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 card.AddTemporaryMod(new() { abilities = new() { StartingDecay.ability } });
         }
 
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty)
         {
             int minCards = 3;
             List<EncounterBlueprintData.CardBlueprint> turn1 = new() {
@@ -42,14 +42,15 @@ namespace WhistleWindLobotomyMod.Opponents
                 EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding)
             };
 
-            if (encounterData.Difficulty > difficulty + 1)
+            if (encounterData.Difficulty > baseDifficulty + 1)
             {
                 minCards++;
                 turn2.Add(EncounterManager.NewCardBlueprint(Cards.fruitUnderstanding));
             }
 
             encounterData.Blueprint.AddTurns(turn1, turn2, turn3);
-            if (difficulty < 3) encounterData.Blueprint.AddTurn();
+            if (baseDifficulty < 3)
+                encounterData.Blueprint.AddTurn();
 
             return minCards;
         }

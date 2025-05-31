@@ -4,11 +4,13 @@ using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
+using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Opponents
 {
-    public abstract class LobotomyBattleSequencer : BossBattleSequencer, IOnPreScalesChangedRef, IOnCardDealtDamageDirectly
+    public abstract class LobotomyBattleSequencer : BossBattleSequencer, IOnPreScalesChangedRef, IOnCardDealtDamageDirectly, IOnRoundEnd
     {
         public int currentExcessBones = 0;
         public bool drewInitialHand = false;
@@ -24,13 +26,45 @@ namespace WhistleWindLobotomyMod.Opponents
         public virtual bool DirectDamageGivesBones { get; set; } = true;
         public virtual int MaxExcessBones { get; } = 8;
 
+        public bool RespondsToRoundEnd(bool opponentTurnSkipped) => true;
+        public virtual IEnumerator OnRoundEnd(bool opponentTurnSkipped) {
+            currentExcessBones = 0;
+            yield break;
+        }
+        public int RoundEndPriority(bool opponentTurnSkipped) => 0;
+
+        public override List<CardInfo> GetFixedOpeningHand() => drewInitialHand ? CardDrawPiles.Instance.Deck.GetFairHand(5, false) : null;
         public virtual IEnumerator PreDrawOpeningHand()
         {
-            yield break;
+            if (drewInitialHand) {
+                CardDrawPiles3D.Instance.sidePile.Draw();
+                yield return CardDrawPiles3D.Instance.DrawFromSidePile();
+                yield return new WaitForSeconds(0.1f);
+            }
         }
         public virtual IEnumerator PostDrawOpeningHand()
         {
-            yield break;
+            ViewManager.Instance.SwitchToView(View.Hand);
+            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD"));
+            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD_ALL"));
+            yield return new WaitForSeconds(0.4f);
+        }
+
+        public virtual IEnumerator MoveOpponentCards() {
+            LobotomyPlugin.Log.LogDebug($"[LobotomyBattleSequencer.MoveOpponentCards] Start");
+            int rand = base.GetRandomSeed() + TurnNumber;
+            List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
+            List<CardSlot> slots2 = new();
+            for (int i = 0; i < slots.Count; i++) {
+                if (true || SeededRandom.Bool(rand++)) {
+                    slots2.Add(slots[i]);
+                }
+            }
+            LobotomyPlugin.Log.LogDebug($"[LobotomyBattleSequencer.MoveOpponentCards] CardsToMove: {slots2.Count}");
+            ViewManager.Instance.SwitchToView(View.Board);
+            yield return CardScramble.RandomiseCardsInSlots(slots2, rand, sortPredicate: delegate (CardSlot s) {
+                return s.Card.HasAbility(HighStrung.ability) ? 100 : 0;
+            });
         }
 
         public virtual bool RespondsToPreScalesChangedRef(int damage, int numWeights, bool toPlayer)
@@ -72,11 +106,6 @@ namespace WhistleWindLobotomyMod.Opponents
         public override IEnumerator PlayerCombatEnd()
         {
             yield return base.PlayerCombatEnd();
-            currentExcessBones = 0;
-        }
-        public override IEnumerator OpponentCombatEnd()
-        {
-            yield return base.OpponentCombatEnd();
             currentExcessBones = 0;
         }
 

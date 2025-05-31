@@ -63,10 +63,10 @@ namespace WhistleWindLobotomyMod.Opponents
             yield return base.OnOtherCardDie(card, deathSlot, fromCombat, killer);
         }
 
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty)
         {
             targetIconPrefab = AssetManager.warningTargetPrefab;
-            return 1 + base.ConstructOrdealBlueprint(encounterData, difficulty);
+            return 1 + base.ConstructOrdealBlueprint(encounterData, baseDifficulty);
         }
     }
 }

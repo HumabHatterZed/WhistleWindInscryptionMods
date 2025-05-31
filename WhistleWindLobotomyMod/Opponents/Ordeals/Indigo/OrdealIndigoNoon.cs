@@ -16,12 +16,12 @@ namespace WhistleWindLobotomyMod.Opponents
                 card.AddTemporaryMod(new(SeededRandom.Bool(seed++) ? 1 : 0, SeededRandom.Bool(seed++) ? 1 : 0));
             }
         }
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty)
         {
             int numTurns = (encounterData.Difficulty - 1) / 2;
             for (int i = 0; i < numTurns; i++)
             {
-                if (i % 2 == 0) encounterData.Blueprint.AddTurn();
+                if (i == 0 || i == 2 || i == 4) encounterData.Blueprint.AddTurn();
 
                 List<EncounterBlueprintData.CardBlueprint> turn = new()
                 {

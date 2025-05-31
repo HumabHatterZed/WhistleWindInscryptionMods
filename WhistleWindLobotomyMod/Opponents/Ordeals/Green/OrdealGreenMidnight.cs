@@ -180,8 +180,20 @@ namespace WhistleWindLobotomyMod.Opponents
             Helix.RenderCard();
         }
 
-        public override void ModifySpawnedCard(PlayableCard card)
+
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
         {
+            isActive = false;
+            phaseCountdown = Mathf.Max(2, MaxCooldownPeriod - 1);
+            EncounterData.StartCondition cond = new()
+            {
+                cardsInOpponentSlots = new CardInfo[] { null, CardLoader.GetCardByName("wstl_lastHelix") } // Last Helix is guaranteed to appear in the second slot
+            };
+            encounterData.startConditions.Add(cond);
+            return 1;
+        }
+        
+        public override void ModifySpawnedCard(PlayableCard card) {
             LobotomyPlugin.Log.LogDebug("ModifySpawnedCard: " + card.Info.name);
             if (card.Info.name != "wstl_lastHelix")
                 return;
@@ -192,31 +204,23 @@ namespace WhistleWindLobotomyMod.Opponents
 
             UpdateCounter();
         }
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
-        {
-            isActive = false;
-            phaseCountdown = Mathf.Max(2, MaxCooldownPeriod - 1);
-            EncounterData.StartCondition cond = new()
-            {
-                cardsInOpponentSlots = new CardInfo[] { null, CardLoader.GetCardByName("wstl_lastHelix") }
-            };
-            encounterData.startConditions.Add(cond);
-            return 1;
-        }
 
-        public override List<Ability> GetBlacklistedAbilities(List<Ability> redundantAbilities)
-        {
-            return new(redundantAbilities)
-            {
-                Ability.WhackAMole,
-                Ability.Strafe,
-                Ability.StrafePush,
-                Ability.StrafeSwap,
-                Ability.GuardDog,
-                Ability.TailOnHit,
-                Cycler.ability,
-                Barreler.ability
-            };
+        /// <summary>
+        /// Last Helix should not possess any movement sigils
+        /// </summary>
+        public override List<Ability> BlacklistedAbilities {
+            get {
+                return new() {
+                    Ability.WhackAMole,
+                    Ability.Strafe,
+                    Ability.StrafePush,
+                    Ability.StrafeSwap,
+                    Ability.GuardDog,
+                    Ability.TailOnHit,
+                    Cycler.ability,
+                    Barreler.ability
+                };
+            }
         }
     }
 

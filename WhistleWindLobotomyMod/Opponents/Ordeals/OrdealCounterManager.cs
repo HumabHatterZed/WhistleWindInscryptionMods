@@ -18,9 +18,8 @@ namespace WhistleWindLobotomyMod
         private SpriteRenderer leftRenderer;
         private TextMeshPro counterText;
 
-
-
         public int amountLeft;
+
         public static void ValidateCounter()
         {
             if (OrdealCounterManager.Instance == null)

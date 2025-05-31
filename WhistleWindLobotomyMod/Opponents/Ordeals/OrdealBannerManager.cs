@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using WhistleWindLobotomyMod.Opponents;
@@ -54,6 +55,24 @@ namespace WhistleWindLobotomyMod
         {
             bannerDescription.text = OrdealUtils.GetOrdealOutroDescription(type, tier);
         }
+
+        public void DisplayBanner(OrdealType ordeal, bool intro)
+        {
+            base.StartCoroutine(DisplayBannerEnumerator(ordeal, intro));
+        }
+        public IEnumerator DisplayBannerEnumerator(OrdealType ordeal, bool intro)
+        {
+            LobotomyPlugin.Log.LogInfo($"[OrdealBannerManager.DisplayBanner] [{ordeal}] Intro:{intro}");
+            string audioName = ordeal.ToString() + "_" + (intro ? "start" : "end");
+            AudioController.Instance.PlaySound2D(audioName, MixerGroup.TableObjectsSFX);
+            ShowBanner();
+            yield return new WaitForSeconds(3f);
+
+            HideBanner();
+            yield return new WaitForSeconds(2f);
+        }
+
+
         public void ShowBanner()
         {
             bannerTitle.gameObject.SetActive(true);

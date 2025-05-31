@@ -8,6 +8,7 @@
 - Changed internal name of Sefirot card choice to 'SefirotCardChoice'
 - Changed internal names of Sefirot-related dialogue events to remove the 'Sephirah' prefix
 - Detonator sigil is now re-rethemed to Volatile if config 'ReskinSigils' is set to true
+- PlayableCard.DieTriggerless now triggers non-card receivers
 - Massive refactoring of basically everything
 - Removed unused asset files
 ### Apocalypse Boss
@@ -17,16 +18,18 @@
 - Boss cards are no longer considered Terrain
 - Bones gained from excess direct damage are now capped at 8 per turn
 - Modified description of Unjust Scales sigil for clarity
-- Unjust Scales sigil no longer changes behaviour and description during the final phase - split into own sigil
+- Apocalypse sigil no longer changes behaviour and description during the final phase - split behaviour into separate sigil
+- Unjust Scales sigil no longer changes behaviour and description during the final phase
 - Movement order of opponent cards is now randomised each turn
 - Modified movement sequence for opponent cards
-- Hourglass item can no longer be used during the Long Arms phase
+- Hourglass item can no longer be used unless Long Arms is defeated
 - Sin can no longer be removed by certain effects like Martyr
 - Sin is now automatically removed from cards when Long Arms is defeated
-- Time Machine cannot be activated unless Long Arms is defeated
-- Time Machine now removes non-boss opponent cards from the board, changes current active phase
+- Time Machine can no longer be activated unless Long Arms is defeated
+- Time Machine now has a different effect when used during the battle
 - Adjusted reactive difficulty thresholds
 - Final phase can gain 1 additional base Power when above certain difficulty threshold
+- Defeat sequence is now shorter if the player is at max life
 ### Time Machine
 - Fixed selected cards not being correctly removed from the deck
 - Fixed the activating card being a possible choice for removal
@@ -65,6 +68,7 @@
 - Fixed True Saviour sigil activating certain effects when it shouldn't
 - Fixed Abnormal Leshy battle not disguising Nothing There doing the deathcard section
 - Fixed missing/misnamed cards in encounter blueprints
+- Removed dynamic rulebook descriptions for certain sigils
 - Reduced points of Miracle Worker challenge from 60 -> 33
 - Final Apocalypse challenge icon now occupys an entire column on the selection menu
 - Modified encounters to be less unbalanced, hopefully

@@ -53,13 +53,17 @@ namespace WhistleWindLobotomyMod.Patches
             }
         }
 
+        /// <summary>
+        /// During custom boss fights, give the player a card to refresh their decks.
+        /// Allows for the fight to continue without dealing with Starvation.
+        /// </summary>
         [HarmonyPostfix]
         [HarmonyPatch(typeof(CardDrawPiles), nameof(CardDrawPiles.DrawCardFromDeck))]
         [HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawFromSidePile))]
         private static IEnumerator RefreshDeckBeforeExhaustion(IEnumerator enumerator, CardDrawPiles __instance)
         {
             yield return enumerator;
-            if (!LobOpponentUtils.FightingCustomOpponent(true))
+            if (!LobOpponentUtils.FightingCustomBoss())
                 yield break;
 
             if (__instance.Exhausted && !PlayerHand.Instance.CardsInHand.Exists(x => x.Info.name == "wstl_REFRESH_DECKS"))
@@ -70,13 +74,15 @@ namespace WhistleWindLobotomyMod.Patches
                 yield return new WaitForSeconds(0.4f);
                 yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossExhausted", TextDisplayer.MessageAdvanceMode.Input);
             }
-
         }
 
+        /// <summary>
+        /// Prevents the camera from panning to the scales if direct damage has been modified to be 0.
+        /// </summary>
         [HarmonyPrefix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowDamageSequence))]
         private static bool DontChangeViewOnZeroDamage(int damage, int numWeights, ref bool changeView)
         {
-            if (LobOpponentUtils.FightingCustomOpponent(false) && TurnManager.Instance.SpecialSequencer is LobotomyBattleSequencer seq && seq != null)
+            if (TurnManager.Instance?.SpecialSequencer is LobotomyBattleSequencer seq && seq != null)
             {
                 if (LifeManager.Instance.DamageUntilPlayerWin == 1 || (damage >= LifeManager.Instance.DamageUntilPlayerWin && Mathf.Min(LifeManager.Instance.DamageUntilPlayerWin - 1, numWeights) == 0))
                 {
@@ -90,7 +96,7 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(LifeManager), nameof(LifeManager.ShowResetSequence))]
         private static IEnumerator CustomOpponentsDontResetScales(IEnumerator enumerator)
         {
-            if (LobOpponentUtils.FightingCustomOpponent(true))
+            if (LobOpponentUtils.FightingCustomBoss())
                 yield break;
 
             yield return enumerator;
@@ -99,11 +105,12 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(CombatPhaseManager3D), nameof(CombatPhaseManager3D.VisualizeCardAttackingDirectly))]
         private static IEnumerator FixGiantCardAnimation(IEnumerator enumerator, CombatPhaseManager3D __instance, CardSlot attackingSlot, CardSlot targetSlot, int damage)
         {
-            if (!LobOpponentUtils.FightingCustomOpponent(true) || !LobOpponentUtils.IsCustomBoss<ApocalypseBossOpponent>() || attackingSlot.Card.LacksTrait(Trait.Giant))
+            if (attackingSlot.Card.LacksTrait(Trait.Giant) || !LobOpponentUtils.FightingCustomBoss())
             {
                 yield return enumerator;
                 yield break;
             }
+
             List<Transform> newWeights = new();
             for (int i = 0; i < Mathf.Min(20, damage); i++)
             {

@@ -45,7 +45,7 @@ namespace WhistleWindLobotomyMod.Opponents
         }
 
         #region Card movement
-        public IEnumerator MoveOpponentCards()
+        public override IEnumerator MoveOpponentCards()
         {
             int rand = base.GetRandomSeed() + TurnNumber;
             List<CardSlot> slots = CardScramble.GetOccupiedSlotsMovable(BoardManager.Instance.OpponentSlotsCopy);
@@ -101,23 +101,23 @@ namespace WhistleWindLobotomyMod.Opponents
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => ModifyDamagePriority(target, damage, attacker);
         #endregion
 
-        public override List<CardInfo> GetFixedOpeningHand() => drewInitialHand ? CardDrawPiles.Instance.Deck.GetFairHand(5, false) : null;
-        public override IEnumerator PreDrawOpeningHand()
-        {
-            if (drewInitialHand)
-            {
-                CardDrawPiles3D.Instance.sidePile.Draw();
-                yield return CardDrawPiles3D.Instance.DrawFromSidePile();
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
-        public override IEnumerator PostDrawOpeningHand()
-        {
-            ViewManager.Instance.SwitchToView(View.Hand);
-            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD"));
-            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD_ALL"));
-            yield return new WaitForSeconds(0.4f);
-        }
+        //public override List<CardInfo> GetFixedOpeningHand() => drewInitialHand ? CardDrawPiles.Instance.Deck.GetFairHand(5, false) : null;
+        //public override IEnumerator PreDrawOpeningHand()
+        //{
+        //    if (drewInitialHand)
+        //    {
+        //        CardDrawPiles3D.Instance.sidePile.Draw();
+        //        yield return CardDrawPiles3D.Instance.DrawFromSidePile();
+        //        yield return new WaitForSeconds(0.1f);
+        //    }
+        //}
+        //public override IEnumerator PostDrawOpeningHand()
+        //{
+        //    ViewManager.Instance.SwitchToView(View.Hand);
+        //    yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD"));
+        //    yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD_ALL"));
+        //    yield return new WaitForSeconds(0.4f);
+        //}
     }
 
     [HarmonyPatch]
@@ -126,8 +126,7 @@ namespace WhistleWindLobotomyMod.Opponents
         [HarmonyPostfix, HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawOpeningHand))]
         public static IEnumerator CallPostDrawOpeningHand(IEnumerator enumerator)
         {
-            LobotomyBattleSequencer sequence = TurnManager.Instance.SpecialSequencer as LobotomyBattleSequencer;
-            if (!SaveManager.SaveFile.IsPart1 || sequence == null)
+            if (!SaveManager.SaveFile.IsPart1 || TurnManager.Instance.SpecialSequencer is not LobotomyBattleSequencer sequence)
             {
                 yield return enumerator;
                 yield break;

@@ -22,9 +22,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public readonly List<Transform> LeftEyes = new();
         public readonly List<Transform> RightEyes = new();
 
-        private const float BG_VOLUME = 0.3f;
-
-        public override bool RespondsToCustomExhaustSequence(CardDrawPiles drawPiles) => NumLives == 1 && BattleSequencer.BossCard != null;
+        public override bool RespondsToCustomExhaustSequence(CardDrawPiles drawPiles) => BattleSequencer.BossCard != null;
         public override IEnumerator DoCustomExhaustSequence(CardDrawPiles drawPiles)
         {
             if (drawPiles.turnsSinceExhausted == 0)
@@ -34,18 +32,19 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return new WaitForSeconds(0.25f);
             BattleSequencer.BossCard.AddTemporaryMod(new CardModificationInfo(1, 0));
             BattleSequencer.BossCard.Anim.StrongNegationEffect();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
+            // TEST TEST
+            // need to unlock view?
         }
 
         public override bool RespondsToKillPlayerSequence() => true;
         public override IEnumerator KillPlayerSequence()
         {
-            ApocalypseBossOpponent opponent = TurnManager.Instance.Opponent as ApocalypseBossOpponent;
-            opponent.MasterAnimator.SetTrigger("KillPlayer");
-            opponent.MasterAnimator.SetLayerWeight(1, 0f);
-            opponent.MasterAnimator.SetLayerWeight(2, 0f);
-            opponent.MasterAnimator.SetLayerWeight(3, 0f);
-            opponent.MasterAnimator.SetLayerWeight(4, 0f);
+            MasterAnimator.SetTrigger("KillPlayer");
+            MasterAnimator.SetLayerWeight(1, 0f);
+            MasterAnimator.SetLayerWeight(2, 0f);
+            MasterAnimator.SetLayerWeight(3, 0f);
+            MasterAnimator.SetLayerWeight(4, 0f);
             yield break;
         }
 
@@ -141,16 +140,18 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             if (AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems))
             {
-                if (finalPhase)
-                {
-                    bossTotemAbilities.Clear();
-                    bossTotemAbilities = new() { Persistent.ability, Piercing.ability, Scorching.ability };
+                if (finalPhase) {
+                    TotemAbilitiesWhitelist.Clear();
+                    TotemAbilitiesWhitelist.Add(Persistent.ability);
+                    TotemAbilitiesWhitelist.Add(Piercing.ability);
+                    TotemAbilitiesWhitelist.Add(Scorching.ability);
                 }
+
                 Singleton<ViewManager>.Instance.SwitchToView(View.OpponentTotem);
                 yield return new WaitForSeconds(0.25f);
                 yield return ReplaceTotemBottom();
 
-                // immediately increase the music to regular volume for maximum coolness(tm)
+                // immediately set the music to the climax for maximum coolness(tm)
                 AudioController.Instance.loopSources[0].time = 11.5f;
                 AudioController.Instance.SetLoopVolumeImmediate(BG_VOLUME);
                 yield return new WaitForSeconds(0.5f);
@@ -223,17 +224,17 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossFinalTargets");
         }
 
+        public override void InitialiseOpponent(EncounterData encounter) {
+            base.InitialiseOpponent(encounter);
+            TotemAbilitiesWhitelist.Add(Ability.GuardDog);
+            TotemAbilitiesWhitelist.Add(Ability.Sentry);
+            TotemAbilitiesWhitelist.Add(Ability.Strafe);
+            TotemAbilitiesWhitelist.Add(NimbleFoot.ability);
+            TotemAbilitiesWhitelist.Add(Scorching.ability);
+            TotemAbilitiesWhitelist.Add(ThickSkin.ability);
+        }
         public override IEnumerator IntroSequence(EncounterData encounter)
         {
-            bossTotemAbilities = new() {
-                    Ability.GuardDog,
-                    Ability.Sentry,
-                    Ability.Strafe,
-                    NimbleFoot.ability,
-                    Scorching.ability,
-                    ThickSkin.ability
-                };
-
             yield return base.IntroSequence(encounter);
             base.SpawnScenery("ForestTableEffects");
             this.sceneryObject.transform.Find("GodRaysEffect").gameObject.SetActive(false);

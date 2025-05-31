@@ -13,92 +13,43 @@ namespace WhistleWindLobotomyMod.Opponents
     internal class OrdealPatches
     {
         /// <remarks>
-        /// Use to guarantee the sequence works correctly (account for turn skipping)
+        /// Using a patch to account for turn skipping and other potential shenanigans.
+        /// Guarantee amountKilledThisTurn is reset to 0.
         /// </remarks>
-        [HarmonyPrefix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.PlayerTurn))]
-        private static bool ResetOrdealKillCountEachTurn(TurnManager __instance)
-        {
-            if (OrdealUtils.OpponentIsOrdeal())
-                (__instance.SpecialSequencer as OrdealBattleSequencer).amountKilledThisTurn = 0;
-
-            return true;
-        }
-
-        [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.OpponentTurn))]
-        private static IEnumerator UpdateOrdealAmountLeft(IEnumerator enumerator, TurnManager __instance)
+        [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.PlayerTurn))]
+        private static IEnumerator ResetOrdealKillCountEachTurn(IEnumerator enumerator, TurnManager __instance)
         {
             yield return enumerator;
 
             if (OrdealUtils.OpponentIsOrdeal())
-            {
-                OrdealBattleSequencer sequencer = __instance.SpecialSequencer as OrdealBattleSequencer;
-                bool leftoverCardsLeft = OrdealCounterManager.Instance.amountLeft < 1 && !sequencer.PlayerHasDefeatedOrdeal();
-                if (sequencer.amountKilledThisTurn > 0 || leftoverCardsLeft)
-                {
-                    yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, 0.5f);
-                    yield return OrdealCounterManager.Instance.UpdateAmountLeft(sequencer.amountKilledThisTurn, 0.25f);
-                    if (leftoverCardsLeft)
-                    {
-                        yield return TextDisplayer.Instance.PlayDialogueEvent("OrdealDefeatedCardsLeft", TextDisplayer.MessageAdvanceMode.Input);
-                    }
-                    yield return 0.5f;
-                }
-            }
+                yield return (__instance.SpecialSequencer as OrdealBattleSequencer).OnRoundEnd(false);
         }
 
-        [HarmonyPostfix, HarmonyPatch(typeof(ViewController), nameof(ViewController.SwitchToControlMode))]
-        private static void AllowMoveToCounterView(ViewController __instance, ViewController.ControlMode mode)
-        {
-            if (!OrdealUtils.OpponentIsOrdeal())
-                return;
+        //[HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.OpponentTurn))]
+        //private static IEnumerator UpdateOrdealAmountLeft(IEnumerator enumerator, TurnManager __instance)
+        //{
+        //    yield return enumerator;
 
-            switch (mode)
-            {
-                case ViewController.ControlMode.CardGameDefault:
-                    AddOrdealViewControls(__instance, true);
-                    break;
-                case ViewController.ControlMode.CardGameChoosingSlot:
-                    AddOrdealViewControls(__instance, false);
-                    break;
-                case ViewController.ControlMode.CardGameChooseDraw:
-                    AddOrdealViewControls(__instance, false);
-                    break;
-            }
-        }
-        private static void AddOrdealViewControls(ViewController instance, bool addSideControls)
-        {
-            if (!OrdealUtils.OpponentIsOrdeal())
-                return;
+        //    if (OrdealUtils.OpponentIsOrdeal())
+        //    {
+        //        OrdealBattleSequencer sequencer = __instance.SpecialSequencer as OrdealBattleSequencer;
 
-            if (!instance.allowedViews.Contains(OrdealUtils.ViewCounter))
-                instance.allowedViews.Add(OrdealUtils.ViewCounter);
+        //    }
+        //}
 
-            if (!instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Exists(x => x.from == OrdealUtils.ViewCounter))
-            {
-                instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(
-                    new ViewController.ViewTransitionInput(View.OpponentQueue, OrdealUtils.ViewCounter, Button.LookUp));
-
-                instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(
-                    new ViewController.ViewTransitionInput(OrdealUtils.ViewCounter, View.OpponentQueue, Button.LookDown));
-
-                if (addSideControls)
-                {
-                    instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(
-                        new ViewController.ViewTransitionInput(OrdealUtils.ViewCounter, View.Consumables, Button.LookRight));
-
-                    instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(
-                        new ViewController.ViewTransitionInput(OrdealUtils.ViewCounter, View.Scales, Button.LookLeft));
-                }
-            }
-        }
         [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.ScalesTippedToOpponent))]
-        private static void ValidateOrdealCompletion(TurnManager __instance, ref bool __result)
+        private static void OrdealCompleted(TurnManager __instance, ref bool __result)
         {
-            if (!OrdealUtils.OpponentIsOrdeal())
+            if (__result || !OrdealUtils.OpponentIsOrdeal())
                 return;
 
             if ((__instance.SpecialSequencer as OrdealBattleSequencer).PlayerHasDefeatedOrdeal())
                 __result = true;
+        }
+        [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.LifeLossConditionsMet))]
+        private static void OrdealCompletionConditionsMet(TurnManager __instance, ref bool __result)
+        {
+            OrdealCompleted(__instance, ref __result);
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(ViewManager), nameof(ViewManager.GetViewInfo))]
@@ -255,6 +206,52 @@ namespace WhistleWindLobotomyMod.Opponents
                 3 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Violet, OrdealType.Amber),
                 _ => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Amber),
             };
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(ViewController), nameof(ViewController.SwitchToControlMode))]
+        private static void AllowMoveToCounterView(ViewController __instance, ViewController.ControlMode mode)
+        {
+            if (!OrdealUtils.OpponentIsOrdeal())
+                return;
+
+            switch (mode)
+            {
+                case ViewController.ControlMode.CardGameDefault:
+                    AddOrdealViewControls(__instance, true);
+                    break;
+                case ViewController.ControlMode.CardGameChoosingSlot:
+                    AddOrdealViewControls(__instance, false);
+                    break;
+                case ViewController.ControlMode.CardGameChooseDraw:
+                    AddOrdealViewControls(__instance, false);
+                    break;
+            }
+        }
+        private static void AddOrdealViewControls(ViewController instance, bool addSideControls)
+        {
+            if (!OrdealUtils.OpponentIsOrdeal())
+                return;
+
+            if (!instance.allowedViews.Contains(OrdealUtils.ViewCounter))
+                instance.allowedViews.Add(OrdealUtils.ViewCounter);
+
+            if (!instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Exists(x => x.from == OrdealUtils.ViewCounter))
+            {
+                instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(
+                    new ViewController.ViewTransitionInput(View.OpponentQueue, OrdealUtils.ViewCounter, Button.LookUp));
+
+                instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(
+                    new ViewController.ViewTransitionInput(OrdealUtils.ViewCounter, View.OpponentQueue, Button.LookDown));
+
+                if (addSideControls)
+                {
+                    instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(
+                        new ViewController.ViewTransitionInput(OrdealUtils.ViewCounter, View.Consumables, Button.LookRight));
+
+                    instance.CARDBATTLE_ALT_TRANSITION_INPUTS.Add(
+                        new ViewController.ViewTransitionInput(OrdealUtils.ViewCounter, View.Scales, Button.LookLeft));
+                }
+            }
         }
     }
 }
