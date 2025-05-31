@@ -1,5 +1,4 @@
 ﻿using DiskCardGame;
-using HarmonyLib;
 using InscryptionAPI.RuleBook;
 using WhistleWind.Core.Helpers;
 
@@ -18,21 +17,9 @@ namespace WhistleWindLobotomyMod
         }
     }
 
-    [HarmonyPatch]
     public class LongArms : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
-        [HarmonyPostfix, HarmonyPatch(typeof(ConsumableItem), nameof(ConsumableItem.CanActivate))]
-        private static void PreventHourglassItem(ConsumableItem __instance, ref bool __result)
-        {
-            if (!__result)
-                return;
-
-            if (__instance is HourglassItem && BoardManager.Instance.AllSlotsCopy.Exists(x => x.Card != null && x.Card.HasAbility(LongArms.ability)))
-            {
-                __result = false;
-            }
-        }
     }
 }
