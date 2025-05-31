@@ -11,53 +11,18 @@ namespace WhistleWindLobotomyMod
     {
         private static void AddApocalypse()
         {
-            const string rulebookName = "Monster in the Black Forest";
-            ApocalypseAbility.ability = AbilityHelper.New<ApocalypseAbility>(LobotomyPlugin.pluginGuid, "sigilApocalypse", rulebookName,
-                "'Once upon a time, three birds lived happily in the lush forest...'", 0, true,
-                "The three birds, now one, wandered vainly looking for the monster.").Id;
+            const string rulebookName = "Black Forest Guardians";
+            AbilityManager.FullAbility ab = AbilityHelper.New<ApocalypseAbility>(LobotomyPlugin.pluginGuid, "sigilApocalypse", rulebookName,
+                "This card will change its combat pattern every three turns. At 80/60/40 Health, change pattern and the previous pattern cannot used again.", 0, true);
+            ab.Info.SetPassive();
+
+            ApocalypseAbility.ability = ab.Id;
         }
     }
 
-    public class ApocalypseAbility : AbilityBehaviour, ISetupAttackSequence
+    public class ApocalypseAbility : AbilityBehaviour
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
-        public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
-            return card == base.Card && base.Card.HasTrait(Trait.Giant) && modType == OpposingSlotTriggerPriority.Normal;
-        }
-
-        public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
-        {
-            ApocalypseBattleSequencer sequencer = TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer;
-            List<CardSlot> slots = new();
-            bool attackingNull = false;
-            foreach (CardSlot slot in sequencer.specialTargetSlots)
-            {
-                if (slot.Card == null)
-                {
-                    if (attackingNull)
-                    {
-                        sequencer.CleanUpGiantTarget(slot);
-                        continue;
-                    }
-
-                    attackingNull = true;
-                }
-                else if (base.Card.CanAttackDirectly(slot))
-                {
-                    sequencer.CleanUpGiantTarget(slot);
-                    continue;
-                }
-                slots.Add(slot);
-            }
-            return slots;
-        }
-
-        public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
-        {
-            return 0;
-        }
     }
 }

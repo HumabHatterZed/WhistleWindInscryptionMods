@@ -15,9 +15,15 @@ using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod
 {
+    /// <summary>
+    /// Utility class that contains all ability classes.
+    /// </summary>
     public partial class Abilities
     {
-        public static void AddAbilities(LobotomyPlugin plugin)
+        /// <summary>
+        /// Register this mod's abilities with the API.
+        /// </summary>
+        internal static void AddAbilities(LobotomyPlugin plugin)
         {
             if (LobotomyConfigManager.ReskinSigils)
             {
@@ -79,6 +85,7 @@ namespace WhistleWindLobotomyMod
             AddTower();
 
             AddApocalypse();
+            AddApocalypseGiant();
             AddBigEyes();
 
             StatusEffect_Enchanted();
