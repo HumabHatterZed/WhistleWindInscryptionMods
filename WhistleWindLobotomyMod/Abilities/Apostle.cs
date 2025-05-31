@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod
         {
             const string rulebookName = "Apostle";
             ApostleSigil.ability = AbilityHelper.New<ApostleSigil>(LobotomyPlugin.pluginGuid,
-                "sigilApostle", rulebookName, "'Thou wilt abandon flesh and be born again.'", -3, true).Id;
+                "sigilApostle", rulebookName, "On taking fatal damage, this card enters a downed state instead of dying.", -3, true).Id;
         }
     }
 
