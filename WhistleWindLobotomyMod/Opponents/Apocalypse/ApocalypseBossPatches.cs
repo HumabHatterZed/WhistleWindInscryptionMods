@@ -39,17 +39,6 @@ namespace WhistleWindLobotomyMod.Patches
                 i.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", Texture2D.blackTexture);
         }
 
-        [HarmonyPostfix, HarmonyPatch(typeof(ConsumableItem), nameof(ConsumableItem.CanActivate))]
-        private static void PreventHourglassItem(ConsumableItem __instance, ref bool __result) {
-            if (!__result)
-                return;
-
-            if (__instance is HourglassItem) {
-                if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent boss) && !boss.BattleSequencer.DisabledEggEffects.Contains(ActiveEggEffect.LongArms))
-                    __result = false;
-            }
-        }
-
         [HarmonyPostfix, HarmonyPatch(typeof(ConsumableItem), nameof(ConsumableItem.OnExtraActivationPrerequisitesNotMet))]
         private static void PreventHourglassItemDialogue(ConsumableItem __instance) {
             if (__instance is HourglassItem

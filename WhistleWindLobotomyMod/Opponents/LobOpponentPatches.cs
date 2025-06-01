@@ -14,6 +14,17 @@ namespace WhistleWindLobotomyMod.Patches
     [HarmonyPatch]
     internal static class LobOpponentPatches
     {
+        [HarmonyPostfix, HarmonyPatch(typeof(ConsumableItem), nameof(ConsumableItem.CanActivate))]
+        private static void PreventHourglassItem(ConsumableItem __instance, ref bool __result) {
+            if (!__result)
+                return;
+
+            if (__instance is HourglassItem) {
+                if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent boss) && !boss.BattleSequencer.DisabledEggEffects.Contains(ActiveEggEffect.LongArms))
+                    __result = false;
+            }
+        }
+
         [HarmonyPostfix, HarmonyPatch(typeof(Part1GameFlowManager), nameof(Part1GameFlowManager.KillPlayerSequence))]
         private static IEnumerator CustomKillPlayerSequences(IEnumerator enumerator)
         {
