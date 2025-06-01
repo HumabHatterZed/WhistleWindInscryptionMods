@@ -77,7 +77,7 @@ namespace WhistleWindLobotomyMod
                 counterText.text = "000";
                 counterText.color = Color.black;
                 this.anim.Play("exit", 0, 0f);
-                Tween.Position(this.transform, new(0f, -4.5f, 9f), 0.5f, 0f);
+                //Tween.Position(this.transform, new(0f, -4.5f, 9f), 0.5f, 0f);
                 Tween.Position(LeshyAnimationController.Instance.transform, new Vector3(0f, 4.75f, 9f), 1f, 0.5f);
                 CustomCoroutine.WaitThenExecute(0.5f, delegate
                 {
@@ -113,7 +113,7 @@ namespace WhistleWindLobotomyMod
                     counterText.color = Color.red;
                 }
                 counterText.text = this.amountLeft.ToString();
-                yield return waitTime;
+                yield return new WaitForSeconds(waitTime);
             }
         }
     }
