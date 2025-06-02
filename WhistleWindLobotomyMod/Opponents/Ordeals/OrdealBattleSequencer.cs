@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WhistleWind.AbnormalSigils;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 using EncounterBuilder = DiskCardGame.EncounterBuilder;
@@ -19,14 +18,17 @@ namespace WhistleWindLobotomyMod.Opponents
         public override Opponent.Type BossType => OrdealUtils.OpponentID;
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.OrdealDefeated;
         public override int HighestPositiveScaleBalance { get => 4; set => base.HighestPositiveScaleBalance = value; }
-        public OrdealOpponent Opponent => TurnManager.Instance.Opponent as OrdealOpponent;
+        public virtual List<Ability> BlacklistedAbilities { get; set; }
+        public List<Ability> AllBlacklistedAbilities { get; private set; }
         public int MinNumCardsRequired { get; protected set; }
+        public OrdealOpponent Opponent => TurnManager.Instance.Opponent as OrdealOpponent;
 
         public OrdealType ordealType;
         public int ordealTier;
         public int amountKilledThisTurn = 0;
         private int TotalExcessDamageDealt = 0;
         public bool defeated = false;
+        private List<List<CardInfo>> opponentTurnPlan = null;
 
         /// <summary>
         /// Abstract method for constructing the battle blueprint for the current Ordeal.
@@ -56,7 +58,7 @@ namespace WhistleWindLobotomyMod.Opponents
 
         public override IEnumerator OnRoundEnd(bool opponentTurnSkipped)
         {
-            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnRoundEnd: {OrdealCounterManager.Instance.amountLeft} left");
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnRoundEnd1: {OrdealCounterManager.Instance.amountLeft} left {opponentTurnSkipped}");
             if (amountKilledThisTurn > 0)
             {
                 yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
@@ -64,10 +66,39 @@ namespace WhistleWindLobotomyMod.Opponents
                 yield return new WaitForSeconds(0.75f);
             }
 
-            yield return MoveOpponentCards();
+            if (!defeated) {
+                if (OrdealCounterManager.Instance.amountLeft == 0) {
+                    defeated = true;
+                    OrdealBannerManager.Instance.UpdateBannerOutro(ordealType, ordealTier);
+                    OrdealBannerManager.Instance.DisplayBanner(ordealType, false);
+                }
+                else if (ShouldExtendBattle()) {
+                    opponentTurnPlan ??= new(Opponent.TurnPlan);
+                    while (Opponent.TurnPlan.Count < Opponent.NumTurnsTaken + 1) {
+                        Opponent.TurnPlan.Add(new());
+                    }
+                    Opponent.TurnPlan.AddRange(opponentTurnPlan);
+                }
+            }
 
-            amountKilledThisTurn = 0;
+            if (!defeated && !opponentTurnSkipped) {
+                yield return MoveOpponentCards();
+            }
             yield return base.OnRoundEnd(opponentTurnSkipped);
+            amountKilledThisTurn = 0;
+
+            LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnRoundEnd2: {OrdealCounterManager.Instance.amountLeft} left");
+        }
+
+        /// <summary>
+        /// Checks if the battle should be extended with additional Ordeal cards.
+        /// </summary>
+        /// <returns>True if the player runs out of Ordeal cards before meeting the kill requirement.</returns>
+        public bool ShouldExtendBattle() {
+            LobotomyPlugin.Log.LogDebug($"[ShouldExtendOrdeal] {Opponent.NumTurnsTaken} {Opponent.TurnPlan.Count}");
+            return Opponent.NumTurnsTaken >= Opponent.TurnPlan.Count
+                && BoardManager.Instance.GetOpponentCards(x => x.HasTrait(LobotomyCardManager.Ordeal)).Count == 0
+                && Opponent.Queue.Count(x => x.HasTrait(LobotomyCardManager.Ordeal)) == 0;
         }
 
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
@@ -94,24 +125,6 @@ namespace WhistleWindLobotomyMod.Opponents
             LobotomyPlugin.Log.LogDebug($"[OrdealBattle] OnOtherCardDie: dead card:[{card.Info.displayedName}] total killed:[{amountKilledThisTurn}]");
             LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards left: {OrdealCounterManager.Instance.amountLeft}");
         }
-
-        /*        public IEnumerator VerifyOrdealDefeated()
-                {
-                    if (OrdealCounterManager.Instance.amountLeft <= 0 && PlayerHasDefeatedOrdeal())
-                    {
-                        LobotomyPlugin.Log.LogInfo($"Defeated Ordeal [{ordealType}] on turn [{TurnNumber}]");
-                        Opponent.NumLives--;
-                        LifeManager.Instance.PlayerDamage = 0;
-                        LifeManager.Instance.OpponentDamage = 10; // ensure end of battle sequence triggers
-                        yield return Opponent.LifeLostSequence();
-                        yield return OpponentLifeLost();
-                        if (Opponent.NumLives > 0)
-                        {
-                            yield return LifeManager.Instance.ShowResetSequence();
-                        }
-                        yield return Opponent.PostResetScalesSequence();
-                    }
-                }*/
 
         /// <summary>
         /// If the player dealt excess damage, visualise the money gained.
@@ -167,7 +180,7 @@ namespace WhistleWindLobotomyMod.Opponents
             // set the dominant tribe and redundant abilities for each Ordeal type
             switch (ordealType) {
                 case OrdealType.Green:
-                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeMechanical).SetRedundantAbilities(Piercing.ability);
+                    encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeMechanical).SetRedundantAbilities(Ability.Flying, Piercing.ability);
                     break;
                 case OrdealType.Crimson:
                     encounterData.Blueprint.AddDominantTribes(AbnormalPlugin.TribeFae).SetRedundantAbilities(Ability.ExplodeOnDeath);
@@ -195,9 +208,6 @@ namespace WhistleWindLobotomyMod.Opponents
 
             return encounterData;
         }
-
-        public virtual List<Ability> BlacklistedAbilities { get; set; }
-        public List<Ability> AllBlacklistedAbilities { get; private set; }
 
         private void GetAllBlacklistedAbilities(List<Ability> redundantAbilities) {
             AllBlacklistedAbilities = new(redundantAbilities);
