@@ -39,23 +39,22 @@ namespace WhistleWind.AbnormalSigils.Patches
 
             allCardsResult.Sort((CardSlot a, CardSlot b) => CardSpeed(b) - CardSpeed(a));
 
-            // cards already played have been filtered out, so return the remainder for the opponent's turn
-            if (!playerIsAttacker)
-            {
-                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Opponent's turn.");
-                return allCardsResult;
-            }
-
             List<CardSlot> distinctResults = allCardsResult.Distinct().ToList();
             int lowestPlayerSpeed = CardSpeed(distinctResults.LastOrDefault(x => x.IsPlayerSlot));
             int highestOpponentSpeed = CardSpeed(distinctResults.FirstOrDefault(x => !x.IsPlayerSlot));
 
             // if the slowest player matches the fastest opponent or it faster, return vanilla order
             // also captures results where cards are all the same speed
-            if (lowestPlayerSpeed >= highestOpponentSpeed)
-            {
+            if (lowestPlayerSpeed >= highestOpponentSpeed) {
                 AbnormalPlugin.Log.LogDebug("[SpeedLogic] Player faster/equal than opponent");
                 return result;
+            }
+
+            // cards already played have been filtered out, so return the remainder for the opponent's turn
+            if (!playerIsAttacker)
+            {
+                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Opponent's turn.");
+                return allCardsResult;
             }
 
             int highestPlayerSpeed = CardSpeed(distinctResults.FirstOrDefault(x => x.IsPlayerSlot));
