@@ -21,6 +21,11 @@ namespace WhistleWind.AbnormalSigils.Patches
             if (!ModifyBySpeed || result.Count == 0) // prevent recursion
                 return result;
 
+            //if (result.Count(x => x.IsPlayerSlot == playerIsAttacker) == 0) {
+            //    AbnormalPlugin.Log.LogDebug("[SpeedLogic] Zero attackers for player="+playerIsAttacker);
+            //    return result;
+            //}
+
             ModifyBySpeed = false;
             List<CardSlot> cardsAttackingThisTurn = new();
             List<CardSlot> playerCardsResult = DoCombatPhasePatches.ModifyAttackingSlots(true);
@@ -31,9 +36,9 @@ namespace WhistleWind.AbnormalSigils.Patches
             allCardsResult.RemoveAll(x => x.Card == null || x.Card.Attack == 0 || AttackedThisRound.Contains(x));
 
             AbnormalPlugin.Log.LogDebug($"[SpeedLogic] Results: {allCardsResult.Count} AttackedThisRound: {AttackedThisRound.Count}");
-            if (allCardsResult.Count == 0)
+            if (allCardsResult.Count == 0 || allCardsResult.Count(x => x.IsPlayerSlot == playerIsAttacker) == 0)
             {
-                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Zero attackers");
+                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Zero attackers total/on owner's side: " + playerIsAttacker);
                 return cardsAttackingThisTurn;
             }
 
