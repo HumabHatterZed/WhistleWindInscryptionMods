@@ -14,7 +14,10 @@ namespace WhistleWindLobotomyMod.Opponents
     {
         public static Opponent.Type OpponentID { get; internal set; }
 
-        public static MechanicsConcept OrdealBattle = GuidManager.GetEnumValue<MechanicsConcept>(LobotomyPlugin.pluginGuid, "OrdealBattle");
+        public static ViewInfo OrdealViewInfo;
+        public static readonly View ViewCounter = GuidManager.GetEnumValue<View>(LobotomyPlugin.pluginGuid, "ViewCounter");
+        public static readonly ViewController.ViewTransitionInput[] AcceptableViewTransitions = new ViewController.ViewTransitionInput[4];
+        public static readonly MechanicsConcept OrdealBattle = GuidManager.GetEnumValue<MechanicsConcept>(LobotomyPlugin.pluginGuid, "OrdealBattle");
 
         public static Texture2D[] DawnAnim;
         public static Texture2D[] DawnTotemAnim;
@@ -50,8 +53,6 @@ namespace WhistleWindLobotomyMod.Opponents
 
         public static AudioClip[] OrdealSFX;
 
-        public static View ViewCounter = GuidManager.GetEnumValue<View>(LobotomyPlugin.pluginGuid, "ViewCounter");
-
         public static bool OpponentIsOrdeal() => TurnManager.Instance.Opponent != null && TurnManager.Instance.Opponent is OrdealOpponent;
         public static OrdealType ChooseRandomOrdealType(params OrdealType[] possibleOrdeals) => possibleOrdeals[UnityEngine.Random.Range(0, possibleOrdeals.Length - 1)];
 
@@ -67,6 +68,14 @@ namespace WhistleWindLobotomyMod.Opponents
         internal static void InitOrdeals()
         {
             OpponentID = OpponentManager.Add(LobotomyPlugin.pluginGuid, "OrdealOpponent", null, typeof(OrdealOpponent), null).Id;
+            OrdealViewInfo = new() {
+                camPosition = new Vector3(0f, 7.65f, -5.15f),
+                fov = 35f
+            };
+            AcceptableViewTransitions[0] = new ViewController.ViewTransitionInput(View.OpponentQueue, ViewCounter, Button.LookUp);
+            AcceptableViewTransitions[1] = new ViewController.ViewTransitionInput(ViewCounter, View.OpponentQueue, Button.LookDown);
+            AcceptableViewTransitions[2] = new ViewController.ViewTransitionInput(ViewCounter, View.Consumables, Button.LookRight);
+            AcceptableViewTransitions[3] = new ViewController.ViewTransitionInput(ViewCounter, View.Scales, Button.LookLeft);
 
             DawnAnim = NodeHelper.GetNodeTextureList("nodeOrdealDawn1", "nodeOrdealDawn2", "nodeOrdealDawn3", "nodeOrdealDawn4").ToArray();
             DawnTotemAnim = NodeHelper.GetNodeTextureList("nodeOrdealDawnTotem1", "nodeOrdealDawnTotem2", "nodeOrdealDawnTotem3", "nodeOrdealDawnTotem4").ToArray();
