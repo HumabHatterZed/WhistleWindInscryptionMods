@@ -67,7 +67,6 @@ namespace WhistleWindLobotomyMod.Opponents
             if (!ProgressionData.LearnedMechanic(OrdealUtils.OrdealBattle)) {
                 yield return new WaitUntil(() => !OrdealBannerManager.Instance.Displaying);
                 ViewManager.Instance.SwitchToView(View.Default);
-                yield return new WaitForSeconds(0.4f);
                 yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("OrdealFirstIntro", TextDisplayer.MessageAdvanceMode.Input);
                 ProgressionData.SetMechanicLearned(OrdealUtils.OrdealBattle);
             }
@@ -103,8 +102,8 @@ namespace WhistleWindLobotomyMod.Opponents
             OrdealCounterManager.Instance.SetShown(false);
             yield return new WaitForSeconds(1.5f);
 
-            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
+            Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
             Singleton<InteractionCursor>.Instance.InteractionDisabled = false;
         }
 
