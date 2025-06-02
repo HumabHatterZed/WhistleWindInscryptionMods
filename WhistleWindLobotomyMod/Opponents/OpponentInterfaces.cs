@@ -17,8 +17,19 @@ namespace WhistleWindLobotomyMod.Opponents
     /// </summary>
     public interface IPreventInstantWin
     {
-        public bool PreventInstantWin(bool timeMachine, CardSlot triggeringSlot);
-        public IEnumerator OnInstantWinTriggered(bool timeMachine, CardSlot triggeringSlot);
-        public IEnumerator OnInstantWinPrevented(bool timeMachine, CardSlot triggeringSlot);
+        public bool PreventInstantWin(CardSlot triggeringSlot, InstantWinType instantWinType);
+        /// <summary>
+        /// Triggered if PreventInstantWin is true
+        /// </summary>
+        public IEnumerator OnInstantWinPrevented(CardSlot triggeringSlot, InstantWinType instantWinType);
+        /// <summary>
+        /// Triggered if an instant win condition is not prevented
+        /// </summary>
+        public IEnumerator OnInstantWinTriggered(CardSlot triggeringSlot, InstantWinType instantWinType);
+
+        public enum InstantWinType {
+            TimeMachine,
+            Confession
+        }
     }
 }

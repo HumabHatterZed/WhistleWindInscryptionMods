@@ -3,6 +3,7 @@ using InscryptionAPI.Encounters;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static WhistleWindLobotomyMod.Opponents.IPreventInstantWin;
 
 namespace WhistleWindLobotomyMod.Opponents
 {
@@ -19,15 +20,15 @@ namespace WhistleWindLobotomyMod.Opponents
 
         protected const float BG_VOLUME = 0.3f;
 
-        public virtual bool PreventInstantWin(bool timeMachine, CardSlot triggeringSlot)
+        public virtual bool PreventInstantWin(CardSlot triggeringSlot, InstantWinType instantWinType)
         {
             return false;
         }
-        public virtual IEnumerator OnInstantWinPrevented(bool timeMachine, CardSlot triggeringSlot)
+        public virtual IEnumerator OnInstantWinPrevented(CardSlot triggeringSlot, InstantWinType instantWinType)
         {
             yield break;
         }
-        public virtual IEnumerator OnInstantWinTriggered(bool timeMachine, CardSlot triggeringSlot)
+        public virtual IEnumerator OnInstantWinTriggered(CardSlot triggeringSlot, InstantWinType instantWinType)
         {
             yield break;
         }
