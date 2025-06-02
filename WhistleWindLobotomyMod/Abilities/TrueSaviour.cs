@@ -74,7 +74,7 @@ namespace WhistleWindLobotomyMod
             if (killer.LacksAbility(Confession.ability))
             {
                 // kill all Apostles
-                foreach (PlayableCard card in Singleton<BoardManager>.Instance.CardsOnBoard.Where(x => x.HasAbility(ApostleSigil.ability)))
+                foreach (PlayableCard card in Singleton<BoardManager>.Instance.GetCards(!base.Card.OpponentCard, x => x.HasAbility(ApostleSigil.ability)))
                 {
                     yield return card.Die(false, base.Card);
                 }
@@ -84,12 +84,12 @@ namespace WhistleWindLobotomyMod
 
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
 
-            if (TurnManager.Instance.Opponent is LobotomyBossOpponent opp)
+            if (TurnManager.Instance.Opponent is LobotomyOpponent opp)
             {
-                if (opp.PreventInstantWin(false, base.Card.Slot))
-                    yield return opp.OnInstantWinPrevented(false, base.Card.Slot);
+                if (opp.PreventInstantWin(base.Card.Slot, IPreventInstantWin.InstantWinType.Confession))
+                    yield return opp.OnInstantWinPrevented(base.Card.Slot, IPreventInstantWin.InstantWinType.Confession);
                 else
-                    yield return opp.OnInstantWinTriggered(false, base.Card.Slot);
+                    yield return opp.OnInstantWinTriggered(base.Card.Slot, IPreventInstantWin.InstantWinType.Confession);
             }
             else
             {
