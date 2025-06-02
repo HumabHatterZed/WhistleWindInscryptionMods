@@ -8,66 +8,56 @@ namespace WhistleWindLobotomyMod.Opponents
 {
     /// <summary>
     /// The weakest Green Ordeal.
-    /// As the 'standard' Ordeal type, Green Ordeals should have the simplest blueprints.
-    /// Difficulty range: [1,3] +[0,2]
-    /// Cards required: 3, 3, 4
+    /// Green Ordeals should have simple blueprints, with cards appearing quickly.
+    /// Difficulty range: [0,2] +[1,3]
+    /// Cards required: 3, 4, 5
     /// Valid regions: 0
     /// </summary>
     public class OrdealGreenDawn : OrdealBattleSequencer
     {
         public override int ConstructOrdealBlueprint(EncounterData encounterData, int baseDifficulty)
         {
-            int minCards = 3;
-            int oneMoreDiff = baseDifficulty + 2, twoMoreDiff = baseDifficulty + 3; // account for innate +1 modifier
-            List<EncounterBlueprintData.CardBlueprint> turn1 = new(), turn2 = new(), turn3 = new();
-            switch (baseDifficulty)
-            {
+            int minCards;
+            //int difficultyModifier = encounterData.Difficulty - baseDifficulty - 1; // account for innate +1 modifier
+            int oneAboveBase = baseDifficulty + 2, twoAboveBase = baseDifficulty + 3; // account for innate modifier
+            List<CardInfo> startingCard = new() { null, null, null };
+            List<EncounterBlueprintData.CardBlueprint> turn1 = new(), turn2 = new();
+
+            switch (baseDifficulty) {
                 case 0:
-                    LobotomyPlugin.Log.LogDebug("Easy");
-                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtA, Cards.doubtB, oneMoreDiff));
-                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtA, Cards.doubtB, oneMoreDiff));
-                    turn3.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, twoMoreDiff));
+                    startingCard.Add(CardLoader.GetCardByName(encounterData.Difficulty > oneAboveBase ? Cards.doubtB : Cards.doubtA));
+                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtA, Cards.doubtB, oneAboveBase));
+                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, twoAboveBase));
+                    minCards = 3;
                     break;
                 case 1:
-                    LobotomyPlugin.Log.LogDebug("Medium");
-                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, oneMoreDiff));
-                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, twoMoreDiff));
-                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, twoMoreDiff));
+                    startingCard.Add(CardLoader.GetCardByName(encounterData.Difficulty > oneAboveBase ? Cards.doubtB : Cards.doubtA));
+                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, twoAboveBase));
+                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, oneAboveBase));
+                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, twoAboveBase));
+                    minCards = 4;
                     break;
                 default:
-                    LobotomyPlugin.Log.LogDebug("Hard");
-                    minCards++;
-                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, oneMoreDiff));
-                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, oneMoreDiff));
-                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, twoMoreDiff));
-                    turn3.Add(EncounterManager.NewCardBlueprint(Cards.doubtY));
+                    startingCard.Add(CardLoader.GetCardByName(Cards.doubtB));
+                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, twoAboveBase));
+                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, twoAboveBase));
+                    turn2.Add(HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, oneAboveBase));
+                    minCards = 4;
                     break;
             }
 
-            // make the entire blueprint occur 1 turn sooner
-            int difficultyModifier = encounterData.Difficulty - baseDifficulty;
-            if (difficultyModifier > 1)
+            if (encounterData.Difficulty > oneAboveBase)
             {
-                EncounterData.StartCondition cond = new();
-                turn1.Add(null);
-                turn1.Add(null);
-                turn1.Add(null);
-                turn1.Randomize();
-                cond.cardsInOpponentSlots = turn1.Select(x => difficultyModifier > 2 ? x?.replacement : x?.card).ToArray();
-                encounterData.startConditions.Add(cond);
-                turn1.Clear();
-                turn1.AddRange(turn2);
-                turn2.Clear();
-                turn2.AddRange(turn3);
-                turn3.Clear();
-
-                if (difficultyModifier > 2) {
-                    turn3.Add(HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, 3));
-                    minCards++;
-                }
+                startingCard[0] = CardLoader.GetCardByName(Cards.doubtA);
+                minCards++;
             }
 
-            encounterData.Blueprint.AddTurns(turn1, turn2, turn3);
+            EncounterData.StartCondition cond = new();
+            startingCard.Randomize();
+            cond.cardsInOpponentSlots = startingCard.ToArray();
+            encounterData.startConditions.Add(cond);
+
+            encounterData.Blueprint.AddTurns(turn1, turn2);
             return minCards;
         }
     }
