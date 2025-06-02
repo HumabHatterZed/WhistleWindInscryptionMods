@@ -21,7 +21,7 @@ namespace WhistleWindLobotomyMod
         private static void AddTimeMachine()
         {
             const string rulebookName = "Time Machine";
-            const string rulebookDescription = "End the current battle then remove this card from the player's deck. Choose an additional card to remove from your deck. Effect differs during certain battles.";
+            const string rulebookDescription = "Choose a card from your deck, then remove it and this card from your deck. End the current battle; some opponents have alternate effects.";
             const string dialogue = "Close your eyes and count to ten.";
 
             TimeMachine.ability = LobotomyAbilityHelper.CreateActivatedAbility<TimeMachine>(
@@ -36,25 +36,24 @@ namespace WhistleWindLobotomyMod
         private CardInfo chosenCardInfo = null;
         private PlayableCard chosenCard = null;
 
-        // Failsafe that prevents ability from being used multiple times per run
+        /// <summary>
+        /// Prevent Backward Clock from being activated if it has already been activated this run.
+        /// </summary>
         public override bool CanActivate()
         {
-            if (SaveManager.SaveFile.CurrentDeck.Cards.Count - 1 > 0)
+            if (SaveManager.SaveFile.CurrentDeck.Cards.Count > 1)
             {
-                if (SaveManager.SaveFile.IsPart2)
-                    return !LobotomySaveManager.UsedBackwardClockGBC;
-
-                return !LobotomySaveManager.UsedBackwardClock;
+                return !(SaveManager.SaveFile.IsPart2 ? LobotomySaveManager.UsedBackwardClockGBC : LobotomySaveManager.UsedBackwardClock);
             }
             return false;
         }
 
         public override IEnumerator Activate()
         {
-            if (TurnManager.Instance.Opponent is LobotomyBossOpponent opp && opp.PreventInstantWin(true, base.Card.Slot))
+            if (TurnManager.Instance.Opponent is LobotomyBossOpponent opp && opp.PreventInstantWin(base.Card.Slot, IPreventInstantWin.InstantWinType.TimeMachine))
             {
                 base.Card.Anim.StrongNegationEffect();
-                yield return opp.OnInstantWinPrevented(true, base.Card.Slot);
+                yield return opp.OnInstantWinPrevented(base.Card.Slot, IPreventInstantWin.InstantWinType.TimeMachine);
                 yield break;
             }
 
@@ -194,9 +193,9 @@ namespace WhistleWindLobotomyMod
 
         private IEnumerator EndBattle()
         {
-            if (TurnManager.Instance.Opponent is LobotomyBossOpponent opp)
+            if (TurnManager.Instance.Opponent is LobotomyOpponent opp)
             {
-                yield return opp.OnInstantWinTriggered(true, base.Card.Slot);
+                yield return opp.OnInstantWinTriggered(base.Card.Slot, IPreventInstantWin.InstantWinType.TimeMachine);
             }
             else
             {
