@@ -343,12 +343,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         }
         #endregion
 
-        public override IEnumerator PostDrawOpeningHand()
-        {
-            yield return base.PostDrawOpeningHand();
-            if (TurnNumber == 0)
-                yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossRecall", TextDisplayer.MessageAdvanceMode.Input);
-        }
+
 
         public override IEnumerator OpponentUpkeep()
         {
@@ -437,32 +432,24 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             if (addedReactive)
                 yield return OnReactiveDifficultyIncreased(0);
+
+            damageTakenThisTurn = timesHitThisTurn = 0;
+        }
+
+        /// <summary>
+        /// Update certain variables even when the opponent's turn is skipped.
+        /// </summary>
+        public override IEnumerator OnRoundEnd(bool opponentTurnSkipped) {
+            if (opponentTurnSkipped) {
+                yield return OpponentTurnEndUpdateEffects();
+            }
         }
         public override IEnumerator OpponentCombatEnd()
         {
-            // if the player is dead
-            if (LifeManager.Instance.Balance <= -5)
-                yield break;
-
             yield return OpponentTurnEndUpdateEffects();
 
-
-            ClearTempMods();
-            bool addedReactive = false;
-            if (timesHitThisTurn > 2) // if the boss has been hit 3+ times in a single turn
-            {
-                addedReactive = true;
-                reactiveDifficulty += timesHitThisTurn - 2;
-            }
-
-            if (damageTakenThisTurn > 5) // if the boss took 6+ damage in a single turn
-            {
-                addedReactive = true;
-                reactiveDifficulty += damageTakenThisTurn / 6;
-            }
-
-            if (addedReactive)
-                yield return OnReactiveDifficultyIncreased(0);
+            if (LifeManager.Instance.Balance < -4) // player is dead bby
+                yield break;
 
             if (finalPhase)
             {
@@ -497,22 +484,25 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 }
             }
 
-            damageTakenThisTurn = timesHitThisTurn = 0;
             AudioController.Instance.SetLoopVolume(0.3f, 1f);
         }
 
         #region Turn Plan
+        /// <summary>
+        /// Determines how many cards should be played each turn.
+        /// In order of priority:
+        /// Every 4 turns: queue 2 cards.
+        /// Every even turn: queue 0 cards.
+        /// Every odd turn: queue 1 card.
+        /// </summary>
         private int GetStartingCardCount()
         {
-            // queue 2 cards every 4 turns
             if (TurnManager.Instance.TurnNumber % 4 == 0)
                 return 2;
 
-            // queue 0 cards every 2 turns
             if (TurnManager.Instance.TurnNumber % 2 == 0)
                 return 0;
 
-            // queue 1 card every odd turn
             return 1;
         }
         private void CreateNextTurnPlan()
@@ -595,17 +585,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         }
         #endregion
 
-        private void ClearTempMods()
-        {
-            BossCard.RemoveTemporaryMod(BossCard.TemporaryMods.Find(x => x.singletonId == "SmallBeak"));
-            BossCard.RemoveTemporaryMod(BossCard.TemporaryMods.Find(x => x.singletonId == "ReactiveSkin"));
-        }
-        public void UpdateCounter()
-        {
-            string newTex = (turnsToNextPhase <= 0 || DisabledEggEffects.Count == 3) ? "sigilApocalypse.png" : ("sigilApocalypse_" + turnsToNextPhase + ".png");
-            BossCard.RenderInfo.OverrideAbilityIcon(ApocalypseAbility.ability, TextureLoader.LoadTextureFromFile(newTex));
-            BossCard.RenderCard();
-        }
         public IEnumerator SwitchToNextEggEffect(bool lostLife)
         {
             // clean up the previous phase and reset the counter
@@ -665,62 +644,48 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                     yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossFinalPhase", 0f);
             }
         }
-        private void ChangeActiveEggEffect()
-        {
-            if (finalPhase)
+
+        /// <summary>
+        /// Handles changing the effect and main mook card for the current subphase.
+        /// </summary>
+        private void ChangeActiveEggEffect() {
+            if (finalPhase || DisabledEggEffects.Count == 3)
                 return;
 
             List<ActiveEggEffect> possiblePhases = AllBossPhases.Keys.Where(x => !DisabledEggEffects.Contains(x)).ToList();
             possiblePhases.Remove(ActiveEggEffect);
-            if (possiblePhases.Count == 0)
-                return;
 
             ActiveEggEffect = possiblePhases[SeededRandom.Range(0, possiblePhases.Count, base.GetRandomSeed() + TurnManager.Instance.TurnNumber)];
             ActiveEggMinion = AllBossPhases[ActiveEggEffect][0];
         }
-
-        public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData)
-        {
-            ChangeActiveEggEffect();
-            bossMouthPrefab = AssetManager.BossBundle.LoadAsset<GameObject>("ApocalypseMouth");
-
-            EncounterData data = base.BuildCustomEncounter(nodeData);
-            CardInfo startingEgg = CardLoader.GetCardByName(AllBossPhases[ActiveEggEffect][1]);
-
-            if (ActiveEggEffect == ActiveEggEffect.BigEyes)
-                UpdateAttackColours();
-
-            else if (ActiveEggEffect == ActiveEggEffect.LongArms)
-                startingEgg.AddTraits(AbnormalPlugin.ImmuneToAilments);
-
-            data.Blueprint = ApocalypseBossUtils.CreateStartingBlueprint();
-            data.startConditions = new()
-            {
-                new()
-                {
-                    cardsInOpponentSlots = new CardInfo[1] { startingEgg }
-                }
-            };
-            data.opponentTurnPlan = DiskCardGame.EncounterBuilder.BuildOpponentTurnPlan(data.Blueprint, 20, false);
-            return data;
+        /// <summary>
+        /// Updates the appearance of the Apocalypse sigil based on the current phase and subphase.
+        /// </summary>
+        public void UpdateCounter() {
+            string newTex = (turnsToNextPhase <= 0 || DisabledEggEffects.Count == 3) ? "sigilApocalypse.png" : ("sigilApocalypse_" + turnsToNextPhase + ".png");
+            BossCard.RenderInfo.OverrideAbilityIcon(ApocalypseAbility.ability, TextureLoader.LoadTextureFromFile(newTex));
+            BossCard.RenderCard();
         }
 
+        /// <summary>
+        /// Increase boss's power and play dialogue based on reactive difficulty.
+        /// </summary>
         public override IEnumerator OnReactiveDifficultyIncreased(int amount)
         {
             LobotomyPlugin.Log.LogDebug($"[ApocalypseBoss] {reactiveDifficulty} (+{amount})");
             Singleton<CameraEffects>.Instance.Shake(0.5f, 0.25f);
             BossCard.Anim.StrongNegationEffect();
 
-            if (ReactiveDifficulty > 3 && BossCard.Info.Mods.Exists(x => x.singletonId == "ReactiveStrength"))
+            if (ReactiveDifficulty > 7 && BossCard.Info.Mods.Exists(x => x.singletonId == "ReactiveStrength"))
             {
                 BossCard.Info.Mods.Add(new(1, 0) { singletonId = "ReactiveStrength", nonCopyable = true });
                 BossCard.OnStatsChanged();
             }
             yield return new WaitForSeconds(0.15f);
 
-            if (ReactiveDifficulty >= 13)
+            if (ReactiveDifficulty > 12)
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossReactive3");
-            else if (ReactiveDifficulty >= 8)
+            else if (ReactiveDifficulty > 7)
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossReactive2");
             else
                 yield return DialogueHelper.PlayDialogueEvent("ApocalypseBossReactive3");
@@ -968,6 +933,41 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return new WaitForSeconds(0.1f);
         }
         #endregion
+
+        public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData) {
+            ChangeActiveEggEffect();
+            bossMouthPrefab = AssetManager.BossBundle.LoadAsset<GameObject>("ApocalypseMouth");
+
+            EncounterData data = base.BuildCustomEncounter(nodeData);
+            CardInfo startingEgg = CardLoader.GetCardByName(AllBossPhases[ActiveEggEffect][1]);
+
+            if (ActiveEggEffect == ActiveEggEffect.BigEyes)
+                UpdateAttackColours();
+
+            else if (ActiveEggEffect == ActiveEggEffect.LongArms)
+                startingEgg.AddTraits(AbnormalPlugin.ImmuneToAilments);
+
+            data.Blueprint = ApocalypseBossUtils.CreateStartingBlueprint();
+            data.startConditions = new()
+            {
+                new()
+                {
+                    cardsInOpponentSlots = new CardInfo[1] { startingEgg }
+                }
+            };
+            data.opponentTurnPlan = DiskCardGame.EncounterBuilder.BuildOpponentTurnPlan(data.Blueprint, 20, false);
+            return data;
+        }
+
+        public override IEnumerator PostDrawOpeningHand() {
+            yield return base.PostDrawOpeningHand();
+            if (TurnNumber == 0)
+                yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossRecall", TextDisplayer.MessageAdvanceMode.Input);
+        }
+        private void ClearTempMods() {
+            BossCard.RemoveTemporaryMod(BossCard.TemporaryMods.Find(x => x.singletonId == "SmallBeak"));
+            BossCard.RemoveTemporaryMod(BossCard.TemporaryMods.Find(x => x.singletonId == "ReactiveSkin"));
+        }
     }
 
     public enum ActiveEggEffect
