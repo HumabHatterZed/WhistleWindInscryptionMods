@@ -23,12 +23,12 @@ namespace WhistleWindLobotomyMod.Opponents
         public int MinNumCardsRequired { get; protected set; }
         public OrdealOpponent Opponent => TurnManager.Instance.Opponent as OrdealOpponent;
 
+        public bool defeated = false;
         public OrdealType ordealType;
         public int ordealTier;
         public int amountKilledThisTurn = 0;
-        private int TotalExcessDamageDealt = 0;
-        public bool defeated = false;
-        private List<List<CardInfo>> opponentTurnPlan = null;
+        protected int TotalExcessDamageDealt = 0;
+        protected List<List<CardInfo>> opponentTurnPlan = null;
 
         /// <summary>
         /// Abstract method for constructing the battle blueprint for the current Ordeal.
@@ -73,11 +73,12 @@ namespace WhistleWindLobotomyMod.Opponents
                     OrdealBannerManager.Instance.DisplayBanner(ordealType, false);
                 }
                 else if (ShouldExtendBattle()) {
-                    opponentTurnPlan ??= new(Opponent.TurnPlan);
-                    while (Opponent.TurnPlan.Count < Opponent.NumTurnsTaken + 1) {
-                        Opponent.TurnPlan.Add(new());
+                    if (opponentTurnPlan == null) {
+                        opponentTurnPlan = new(Opponent.TurnPlan);
+                        opponentTurnPlan.Insert(0, new());
                     }
-                    Opponent.TurnPlan.AddRange(opponentTurnPlan);
+                    
+                    Opponent.ReplaceAndAppendTurnPlan(opponentTurnPlan);
                 }
             }
 
