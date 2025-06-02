@@ -35,25 +35,26 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch]
     internal class OtherAbilityPatches
     {
-        [HarmonyPrefix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.OpponentTurn))]
-        private static bool CacheOpponentTurnSkipped(ref bool __state)
-        {
-            __state = TurnManager.Instance.Opponent.SkipNextTurn;
-            return true;
-        }
+        //[HarmonyPrefix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.OpponentTurn))]
+        //private static bool CacheOpponentTurnSkipped(ref bool __state)
+        //{
+        //    __state = TurnManager.Instance.Opponent.SkipNextTurn;
+        //    return true;
+        //}
 
         [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.OpponentTurn))]
-        private static IEnumerator TriggerOnTurnEnd(IEnumerator result, bool __state)
+        private static IEnumerator TriggerOnTurnEnd(IEnumerator result, TurnManager __instance)
         {
+            bool skipTurn = __instance.Opponent.SkipNextTurn;
             yield return result;
 
             List<IOnRoundEnd> onRoundEnd = CustomTriggerFinder.FindGlobalTriggers<IOnRoundEnd>(true).ToList();
-            onRoundEnd.Sort((a, b) => b.RoundEndPriority(__state) - a.RoundEndPriority(__state));
+            onRoundEnd.Sort((a, b) => b.RoundEndPriority(skipTurn) - a.RoundEndPriority(skipTurn));
 
             foreach (IOnRoundEnd trigger in onRoundEnd)
             {
-                if (trigger.RespondsToRoundEnd(__state))
-                    yield return trigger.OnRoundEnd(__state);
+                if (trigger.RespondsToRoundEnd(skipTurn))
+                    yield return trigger.OnRoundEnd(skipTurn);
             }
         }
 
