@@ -307,66 +307,54 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Unlocked;
         }
 
-        public override bool PreventInstantWin(bool timeMachine, CardSlot triggeringSlot)
+        public override bool PreventInstantWin(CardSlot triggeringSlot, IPreventInstantWin.InstantWinType instantWinType)
         {
-            if (timeMachine)
+            if (instantWinType == IPreventInstantWin.InstantWinType.TimeMachine)
                 return !BattleSequencer.DisabledEggEffects.Contains(ActiveEggEffect.LongArms);
 
             return true;
         }
-        public override IEnumerator OnInstantWinPrevented(bool timeMachine, CardSlot triggeringSlot)
+        public override IEnumerator OnInstantWinPrevented(CardSlot triggeringSlot, IPreventInstantWin.InstantWinType instantWinType)
         {
-            if (timeMachine)
+            if (instantWinType == IPreventInstantWin.InstantWinType.TimeMachine)
                 yield return DialogueHelper.ShowUntilInput("The Long Bird's arms conceal time.");
         }
-        public override IEnumerator OnInstantWinTriggered(bool timeMachine, CardSlot triggeringSlot)
+        public override IEnumerator OnInstantWinTriggered(CardSlot triggeringSlot, IPreventInstantWin.InstantWinType instantWinType)
         {
-            if (timeMachine)
-            {
-                if (NumLives > 1)
-                {
-                    BattleSequencer.turnsToNextPhase = 3;
-                    BattleSequencer.justSwitchedEffect = true;
-                    BattleSequencer.BossCard.Anim.StrongNegationEffect();
-                    BattleSequencer.CleanupTargetIcons();
-                    BattleSequencer.specialTargetSlots.Clear();
-                    foreach (GameObject obj in BattleSequencer.mouthIcons.Values)
-                        BattleSequencer.CleanUpTargetIcon(obj);
+            if (NumLives > 1) {
+                BattleSequencer.turnsToNextPhase = 3;
+                BattleSequencer.justSwitchedEffect = true;
+                BattleSequencer.BossCard.Anim.StrongNegationEffect();
+                BattleSequencer.CleanupTargetIcons();
+                BattleSequencer.specialTargetSlots.Clear();
+                foreach (GameObject obj in BattleSequencer.mouthIcons.Values)
+                    BattleSequencer.CleanUpTargetIcon(obj);
 
-                    BattleSequencer.mouthIcons.Clear();
-                    BattleSequencer.UpdateCounter();
+                BattleSequencer.mouthIcons.Clear();
+                BattleSequencer.UpdateCounter();
 
-                    foreach (PlayableCard item in Queue)
-                    {
-                        GlitchOutAssetEffect.GlitchModel(item.StatsLayer.transform);
+                foreach (PlayableCard item in Queue) {
+                    GlitchOutAssetEffect.GlitchModel(item.StatsLayer.transform);
+                    yield return new WaitForSeconds(0.1f);
+                }
+                Queue.Clear();
+                foreach (CardSlot slot in BoardManager.Instance.OpponentSlotsCopy) {
+                    if (slot.Card != null && slot.Card != BattleSequencer.BossCard) {
+                        PlayableCard card = slot.Card;
+                        slot.Card.UnassignFromSlot();
+                        GlitchOutAssetEffect.GlitchModel(card.StatsLayer.transform);
                         yield return new WaitForSeconds(0.1f);
                     }
-                    Queue.Clear();
-                    foreach (CardSlot slot in BoardManager.Instance.OpponentSlotsCopy)
-                    {
-                        if (slot.Card != null && slot.Card != BattleSequencer.BossCard)
-                        {
-                            PlayableCard card = slot.Card;
-                            slot.Card.UnassignFromSlot();
-                            GlitchOutAssetEffect.GlitchModel(card.StatsLayer.transform);
-                            yield return new WaitForSeconds(0.1f);
-                        }
-                    }
-
-                    yield return new WaitForSeconds(0.5f);
-                    yield return DialogueHelper.ShowUntilInput("Your beasts are rejuvenated and the [c:bR]monster[c:] finds itself alone.");
-                }
-                else
-                {
-                    yield return BattleSequencer.GiantPhaseLogic(true);
                 }
 
                 yield return new WaitForSeconds(0.5f);
-                yield return DialogueHelper.ShowUntilInput("The [c:bR]monster[c:] switches its targets.");
+                yield return DialogueHelper.ShowUntilInput("Your beasts are rejuvenated and the [c:bR]monster[c:] finds itself alone.");
             }
-            else if (triggeringSlot.Card.HasAbility(TrueSaviour.ability))
-            {
-                yield return BattleSequencer.BossCard.TakeDamage(20, null);
+            else {
+                yield return BattleSequencer.BossCard.TakeDamage(10, null);
+                yield return BattleSequencer.GiantPhaseLogic(true);
+                yield return new WaitForSeconds(0.5f);
+                yield return DialogueHelper.ShowUntilInput("The [c:bR]monster[c:] changes its targets.");
             }
         }
 
