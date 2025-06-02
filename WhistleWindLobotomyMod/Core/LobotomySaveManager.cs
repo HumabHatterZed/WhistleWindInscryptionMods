@@ -18,8 +18,8 @@ namespace WhistleWindLobotomyMod.Core
         }
         public static bool ShownAbnormalEncounters
         {
-            get => GetRunBool("ShownAbnormalEncounters");
-            set => SetRunValue("ShownAbnormalEncounters", value);
+            get => GetSaveBool("ShownAbnormalEncounters");
+            set => SetSaveValue("ShownAbnormalEncounters", value);
         }
         public static bool UsedBackwardClock
         {
