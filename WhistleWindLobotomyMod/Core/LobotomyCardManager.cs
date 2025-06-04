@@ -169,22 +169,36 @@ namespace WhistleWindLobotomyMod.Core
         private static readonly List<CardInfo> ObtainableActGCards = new();
         private static readonly List<CardInfo> ObtainableActMCards = new();
 
+        private static readonly List<CardInfo> _obtainableCards = new();
+        private static CardTemple? SavedAct = null;
+        
         public static List<CardInfo> ObtainableLobotomyCards
         {
             get {
-                if (LobotomyPlugin.AllCardsDisabled)
-                    return new() { CardLoader.GetCardByName(Cards.trainingDummy) };
+                if (AllCardsDisabled) {
+                    if (_obtainableCards.Count == 0)
+                        _obtainableCards.Add(CardLoader.GetCardByName(Cards.trainingDummy));
+                    
+                    return _obtainableCards;
+                }
 
-                if (SaveManager.SaveFile.IsPart2)
-                    return new(ObtainableAct2Cards);
+                CardTemple? currentAct = SaveManager.SaveFile.IsPart2 ? CardTemple.NUM_TEMPLES : SaveManager.SaveFile.GetSceneAsCardTemple();
+                if (SavedAct != currentAct) {
+                    SavedAct = currentAct;
+                    _obtainableCards.Clear();
+                }
 
-                return SaveManager.SaveFile.GetSceneAsCardTemple() switch
-                {
-                    CardTemple.Undead => new(ObtainableActGCards),
-                    CardTemple.Tech => new(ObtainableAct3Cards),
-                    CardTemple.Wizard => new(ObtainableActMCards),
-                    _ => new(ObtainableAct1Cards)
-                };
+                if (_obtainableCards.Count == 0) {
+                    _obtainableCards.AddRange(SavedAct switch {
+                        CardTemple.NUM_TEMPLES => ObtainableAct2Cards,
+                        CardTemple.Tech => ObtainableAct3Cards,
+                        CardTemple.Undead => ObtainableActGCards,
+                        CardTemple.Wizard => ObtainableActMCards,
+                        _ => ObtainableAct1Cards
+                    });
+                }
+
+                return _obtainableCards;
             }
         }
 
