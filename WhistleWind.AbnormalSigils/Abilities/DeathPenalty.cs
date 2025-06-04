@@ -1,6 +1,4 @@
 ﻿using DiskCardGame;
-using InscryptionAPI.Triggers;
-using System;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -13,7 +11,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_DeathPenalty()
         {
             const string rulebookName = "Death Penalty";
-            const string rulebookDescription = "When [creature] dies, its owner takes 1 damage.";
+            const string rulebookDescription = "When [creature] is killed, its owner takes 1 damage.";
             const string dialogue = "Pay better care to your beasts.";
             Soulbound.ability = AbnormalAbilityHelper.CreateAbility<DeathPenalty>(
                 "sigilDeathPenalty",
