@@ -67,9 +67,8 @@ namespace WhistleWindLobotomyMod
             AudioController.Instance.PlaySound2D(audioName, MixerGroup.TableObjectsSFX);
             ShowBanner();
             yield return new WaitForSeconds(3f);
-
             HideBanner();
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1.5f);
         }
 
 
