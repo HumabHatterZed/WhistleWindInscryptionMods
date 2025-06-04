@@ -2,7 +2,6 @@
 using HarmonyLib;
 using InscryptionAPI.Card;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Challenges;
@@ -16,7 +15,7 @@ namespace WhistleWindLobotomyMod.Patches
         /// <summary>
         /// Modifies the starting deck. Use to add cheat cards or generate the Random deck.
         /// </summary>
-        [HarmonyPrefix, HarmonyPatch(nameof(AscensionSaveData.NewRun))]
+        [HarmonyPrefix, HarmonyPatch(typeof(AscensionSaveData), nameof(AscensionSaveData.NewRun))]
         private static void AscensionModStarterDecks(ref List<CardInfo> starterDeck) {
             if (AscensionSaveData.Data.ChallengeIsActive(NoTime.Id)) {
                 LobotomyPlugin.Log.LogInfo("Disable Backward Clock");
