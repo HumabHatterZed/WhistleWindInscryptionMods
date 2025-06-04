@@ -9,6 +9,7 @@ namespace WhistleWindLobotomyMod.Opponents
     {
         public override Type ID => OrdealUtils.OpponentID;
         public override string DefeatedPlayerDialogue => "Not good enough.";
+        public override int StartingLives => 1;
         public OrdealBattleSequencer BattleSequencer => TurnManager.Instance.SpecialSequencer as OrdealBattleSequencer;
 
         public bool hasTotem;
