@@ -5,7 +5,7 @@ using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Challenges
 {
-    public static class LyingAdultStart
+    public static class StartingLiar
     {
         public static AscensionChallenge Id { get; private set; }
 
@@ -15,7 +15,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 LobotomyPlugin.pluginGuid,
                 "Start with a Liar",
                 "Start your run with Adult Who Tells Lies in your deck.",
-                -15,
+                -10,
                 TextureLoader.LoadTextureFromFile("ascensionLiarStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionLiarStart_activated.png"), 0)
                 .SetCustomUnlock(dummy => LobotomySaveManager.UnlockedLyingAdult || LobotomyConfigManager.EventFlags)

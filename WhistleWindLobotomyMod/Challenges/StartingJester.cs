@@ -5,7 +5,7 @@ using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Challenges
 {
-    public static class JesterOfNihilStart
+    public static class StartingJester
     {
         public static AscensionChallenge Id { get; private set; }
 
@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 LobotomyPlugin.pluginGuid,
                 "Start with a Fool",
                 "Start your run with Jester of Nihil in your deck.",
-                -15,
+                -10,
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart_activated.png"), 0)
                 .SetCustomUnlock(dummy => LobotomySaveManager.UnlockedJesterOfNihil || LobotomyConfigManager.EventFlags)

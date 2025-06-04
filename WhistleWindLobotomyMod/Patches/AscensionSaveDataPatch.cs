@@ -60,13 +60,13 @@ namespace WhistleWindLobotomyMod.Patches
 
             // only add 1 copy
             // this is to prevent duplication when restarting a run using the retry button
-            if (AscensionSaveData.Data.ChallengeIsActive(ApocalypseBirdStart.Id) && !starterDeck.Exists(x => x.name == Cards.apocalypseBird))
+            if (AscensionSaveData.Data.ChallengeIsActive(StartingApocalypse.Id) && !starterDeck.Exists(x => x.name == Cards.apocalypseBird))
                 starterDeck.Add(CardLoader.GetCardByName(Cards.apocalypseBird));
 
-            if (AscensionSaveData.Data.ChallengeIsActive(JesterOfNihilStart.Id) && !starterDeck.Exists(x => x.name == Cards.jesterOfNihil))
+            if (AscensionSaveData.Data.ChallengeIsActive(StartingJester.Id) && !starterDeck.Exists(x => x.name == Cards.jesterOfNihil))
                 starterDeck.Add(CardLoader.GetCardByName(Cards.jesterOfNihil));
 
-            if (AscensionSaveData.Data.ChallengeIsActive(LyingAdultStart.Id) && !starterDeck.Exists(x => x.name == Cards.lyingAdult))
+            if (AscensionSaveData.Data.ChallengeIsActive(StartingLiar.Id) && !starterDeck.Exists(x => x.name == Cards.lyingAdult))
                 starterDeck.Add(CardLoader.GetCardByName(Cards.lyingAdult));
         }
     }
