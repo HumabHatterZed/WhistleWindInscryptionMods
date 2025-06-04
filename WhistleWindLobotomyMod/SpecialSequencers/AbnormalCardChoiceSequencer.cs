@@ -4,6 +4,7 @@ using InscryptionAPI.Nodes;
 using Pixelplacement;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Challenges;
@@ -27,8 +28,7 @@ namespace WhistleWindLobotomyMod
 
             Singleton<TableRuleBook>.Instance.SetOnBoard(onBoard: true);
             base.StartCoroutine(deckPile.SpawnCards(SaveManager.SaveFile.CurrentDeck.Cards.Count));
-
-            // First-time dialogue for the node
+            
             if (!DialogueEventsData.EventIsPlayed("AbnormalChoiceNodeIntro"))
             {
                 Singleton<ViewManager>.Instance.SwitchToView(View.Default);
@@ -128,22 +128,19 @@ namespace WhistleWindLobotomyMod
             int regionTier = RunState.CurrentRegionTier;
             while (listOfChoices.Count < 3)
             {
+                int riskLevel;
+                CardInfo card;
                 CardChoice cardChoice = new();
-                int riskLevel = GetRiskLevel(randomSeed++, regionTier);
-
-                bool overrideWithRare = SeededRandom.Value(randomSeed++) <= RareChoiceChance(regionTier);
-                CardInfo card = overrideWithRare ? LobotomyCardLoader.GetRandomRareModCard(randomSeed++) : LobotomyCardLoader.GetRandomChoosableModCard(randomSeed++, riskLevel);
-
-                // if this is a duplicate card, generate a new card
-                while (listOfChoices.Exists((CardChoice x) => x.CardInfo.name == card.name))
-                {
-                    int riskLevel2 = GetRiskLevel(randomSeed++, regionTier);
-                    card = overrideWithRare ? LobotomyCardLoader.GetRandomRareModCard(randomSeed++) : LobotomyCardLoader.GetRandomChoosableModCard(randomSeed++, riskLevel2);
+                bool overrideWithRare = !AscensionSaveData.Data.ChallengeIsActive(NoRares.Id) && SeededRandom.Value(randomSeed++) <= RareChoiceChance(regionTier);
+                do {
+                    riskLevel = GetRiskLevel(randomSeed++, regionTier);
+                    card = overrideWithRare ? LobotomyCardLoader.GetRandomRareModCard(randomSeed++) : LobotomyCardLoader.GetRandomChoosableModCard(randomSeed++, riskLevel);
                 }
+                while (listOfChoices.Exists(x => x.CardInfo.name == card.name));
                 cardChoice.CardInfo = card;
                 listOfChoices.Add(cardChoice);
             }
-            return new List<CardChoice>(listOfChoices.Randomize());
+            return listOfChoices.Randomize().ToList();
         }
         private int GetRiskLevel(int randomSeed, int regionTier) // determines which risk level to draw cards from
         {
@@ -164,11 +161,9 @@ namespace WhistleWindLobotomyMod
                 return tiers[0];
 
             // when there are disabled Risk Levels, the other Risk Levels become more common
-            for (int i = 0; i < tiers.Count; i++)
+            for (int i = 0; tiers.Count < 4; i++)
             {
                 tiers.Add(tiers[0]);
-                if (tiers.Count >= 4)
-                    break;
             }
 
             int[] probabilities = regionTier switch
