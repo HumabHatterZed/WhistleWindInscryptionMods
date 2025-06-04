@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod
             string textureName4 = "fixerBlack";
             string textureName5 = "fixerPale";
             CardInfo red2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerRed2, "Red Fixer",
-                attack: 5, health: 15)
+                attack: 5, health: 7)
                 .SetBloodCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.AllStrike, Piercing.ability, Ability.Transformer, Challenging.ability)
@@ -37,7 +37,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             CardInfo red = CardManager.New(LobotomyPlugin.pluginPrefix, fixerRed, "Red Fixer",
-                attack: 1, health: 15)
+                attack: 1, health: 7)
                 .SetBloodCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Transformer, Challenging.ability)
@@ -49,7 +49,7 @@ namespace WhistleWindLobotomyMod
             red2.SetEvolve(red, 2);
 
             CardInfo white2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerWhite2, "White Fixer",
-                attack: 0, health: 18)
+                attack: 0, health: 8)
                 .SetBloodCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName2)
                 .AddAbilities(InfiniteShield.ability, Reflector.ability, Ability.Transformer, Challenging.ability)
@@ -59,7 +59,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             CardInfo white = CardManager.New(LobotomyPlugin.pluginPrefix, fixerWhite, "White Fixer",
-                attack: 2, health: 18)
+                attack: 1, health: 8)
                 .SetBloodCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName3)
                 .AddAbilities(MindStrike.ability, Ability.Transformer, Challenging.ability)
@@ -71,7 +71,7 @@ namespace WhistleWindLobotomyMod
             white2.SetEvolve(white, 2);
 
             CardInfo black2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerBlack2, "Black Fixer",
-                attack: 2, health: 15)
+                attack: 1, health: 7)
                 .SetBloodCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName4)
                 .AddAbilities(TeamLeader.ability, Ability.Transformer, Challenging.ability)
@@ -81,7 +81,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             CardInfo black = CardManager.New(LobotomyPlugin.pluginPrefix, fixerBlack, "Black Fixer",
-                attack: 2, health: 15)
+                attack: 1, health: 7)
                 .SetBloodCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName4)
                 .AddAbilities(Ability.Transformer, Challenging.ability)
@@ -93,7 +93,7 @@ namespace WhistleWindLobotomyMod
             black2.SetEvolve(black, 2);
 
             CardInfo pale2 = CardManager.New(LobotomyPlugin.pluginPrefix, fixerPale2, "Pale Fixer",
-                attack: 2, health: 12)
+                attack: 2, health: 8)
                 .SetBloodCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName5)
                 .AddAbilities(Ability.Sniper, Persistent.ability, Ability.Transformer, Challenging.ability)
@@ -103,7 +103,7 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             CardInfo pale = CardManager.New(LobotomyPlugin.pluginPrefix, fixerPale, "Pale Fixer",
-                attack: 2, health: 12)
+                attack: 2, health: 6)
                 .SetBloodCost(8)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName5)
                 .AddAbilities(Persistent.ability, Ability.Transformer, Challenging.ability)
@@ -115,7 +115,7 @@ namespace WhistleWindLobotomyMod
             pale2.SetEvolve(pale, 2);
 
             CardInfo clawCard = CardManager.New(LobotomyPlugin.pluginPrefix, claw, "The Claw",
-                attack: 2, health: 30)
+                attack: 3, health: 30)
                 .SetBloodCost(15)
                 //.SetPortraits(LobotomyPlugin.ModAssembly, textureName claw)
                 .AddAbilities(Piercing.ability, Persistent.ability, Challenging.ability)
