@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using WhistleWindLobotomyMod.Core;
 using WhistleWindLobotomyMod.Core.Helpers;
-using WhistleWindLobotomyMod.Core.SpecialSequencers;
 
 namespace WhistleWindLobotomyMod.Opponents.Angler
 {
@@ -13,12 +12,7 @@ namespace WhistleWindLobotomyMod.Opponents.Angler
         {
             if (HasGrizzlyGlitchPhase(0))
             {
-                // do Apostles only if it's ascension and the Grizzly challenge is active
-                if (SaveFile.IsAscension)
-                    yield return AbnormalGrizzlySequence.ApostleGlitchSequence(this);
-                else
-                    yield return GrizzlyGlitchSequence();
-
+                yield return GrizzlyGlitchSequence();
                 yield break;
             }
             TurnPlan.Clear();

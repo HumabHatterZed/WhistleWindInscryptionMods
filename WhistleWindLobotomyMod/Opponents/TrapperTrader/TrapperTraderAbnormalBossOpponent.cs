@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
-using WhistleWindLobotomyMod.Core.SpecialSequencers;
 
 namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
 {
@@ -11,12 +10,7 @@ namespace WhistleWindLobotomyMod.Opponents.TrapperTrader
         {
             if (HasGrizzlyGlitchPhase(1))
             {
-                // do Apostles only if it's ascension and the Grizzly challenge is active
-                if (SaveFile.IsAscension)
-                    yield return AbnormalGrizzlySequence.ApostleGlitchSequence(this);
-                else
-                    yield return GrizzlyGlitchSequence();
-
+                yield return GrizzlyGlitchSequence();
                 yield break;
             }
             sceneryObject.GetComponent<Animation>().Play("knives_table_exit");

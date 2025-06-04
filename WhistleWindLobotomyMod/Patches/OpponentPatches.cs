@@ -5,7 +5,9 @@ using InscryptionAPI.Card;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WhistleWindLobotomyMod.Challenges;
 using WhistleWindLobotomyMod.Core;
+using WhistleWindLobotomyMod.Core.SpecialSequencers;
 
 namespace WhistleWindLobotomyMod.Patches
 {
@@ -22,6 +24,16 @@ namespace WhistleWindLobotomyMod.Patches
                 yield return Cowardly.CheckTransform(card);
             }
         }
+
+        [HarmonyPrefix, HarmonyPatch(typeof(Part1BossOpponent), nameof(Part1BossOpponent.GrizzlyGlitchSequence))]
+        private static bool ReplaceGrizzlySequence(ref IEnumerator __result, Part1BossOpponent __instance) {
+            bool apostles = LobotomyConfigManager.ChallengeIsActive(ApostleGrizzlies.Id);
+            if (apostles || LobotomyConfigManager.ChallengeIsActive(AbnormalBosses.Id)) {
+                __result = AbnormalGrizzlySequence.ApostleGlitchSequence(__instance, apostles);
+            }
+            return false;
+        }
+
         // fixes Trapper-Trader boss fight not using all lobotomy cards
         [HarmonyPrefix, HarmonyPatch(typeof(TradeCardsForPelts), nameof(TradeCardsForPelts.GenerateTradeCardsWithCostTier))]
         private static bool FixTrapperTrapperBoss(int numCards, int tier, int randomSeed, ref List<CardInfo> __result)
@@ -58,6 +70,7 @@ namespace WhistleWindLobotomyMod.Patches
             __result = distinctCardsFromPool;
             return false;
         }
+
         [HarmonyPostfix, HarmonyPatch(typeof(Opponent), nameof(Opponent.CreateCard))]
         private static void UpdatePlagueDoctorAppearance(PlayableCard __result)
         {

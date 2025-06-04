@@ -1,6 +1,7 @@
 ﻿using DiskCardGame;
 using System.Collections;
 using UnityEngine;
+using WhistleWindLobotomyMod.Challenges;
 
 namespace WhistleWindLobotomyMod.Core.SpecialSequencers
 {
@@ -8,13 +9,18 @@ namespace WhistleWindLobotomyMod.Core.SpecialSequencers
     {
         private static void GiveCardReach(PlayableCard card)
         {
-            CardModificationInfo cardModificationInfo = new(Ability.Reach);
+            CardModificationInfo cardModificationInfo = new(Ability.Reach) { healthAdjustment = 1 };
             cardModificationInfo.fromTotem = true;
             card.AddTemporaryMod(cardModificationInfo);
         }
-        public static IEnumerator ApostleGlitchSequence(Opponent opponent)
+        public static IEnumerator ApostleGlitchSequence(Opponent opponent, bool apostles)
         {
-            ChallengeActivationUI.TryShowActivation(AscensionChallenge.GrizzlyMode);
+            if (apostles) {
+                ChallengeActivationUI.TryShowActivation(ApostleGrizzlies.Id);
+            }
+            else {
+                ChallengeActivationUI.TryShowActivation(AscensionChallenge.GrizzlyMode);
+            }
             opponent.TurnPlan.Clear();
             Singleton<ViewManager>.Instance.SwitchToView(View.Default);
             yield return new WaitForSeconds(0.1f);
@@ -22,15 +28,16 @@ namespace WhistleWindLobotomyMod.Core.SpecialSequencers
             yield return opponent.ClearQueue();
             yield return new WaitForSeconds(0.1f);
             LeshyAnimationController.Instance.SetEyesTexture(ResourceBank.Get<Texture>("Art/Effects/red"));
-            yield return AbnormalGlitchSequence();
+            yield return AbnormalGlitchSequence(apostles);
             if (!SaveFile.IsAscension)
             {
                 yield return Singleton<TextDisplayer>.Instance.ShowUntilInput("[c:bR]Too fast. Too soon.[c:]", -2.5f, 0.5f, Emotion.Anger);
             }
         }
-        private static IEnumerator AbnormalGlitchSequence()
+
+        private static IEnumerator AbnormalGlitchSequence(bool apostles)
         {
-            CardInfo grizzlyInfo = CardLoader.GetCardByName(Cards.apostleGuardian);
+            CardInfo grizzlyInfo = CardLoader.GetCardByName(apostles ? Cards.apostleGuardian : Cards.alriune);
             Singleton<UIManager>.Instance.Effects.GetEffect<ScreenGlitchEffect>().SetIntensity(1f, 1f);
             Singleton<CameraEffects>.Instance.Shake(0.1f, 1f);
             AudioController.Instance.PlaySound2D("broken_hum");
