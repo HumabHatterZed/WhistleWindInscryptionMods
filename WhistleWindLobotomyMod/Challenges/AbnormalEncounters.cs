@@ -17,24 +17,12 @@ namespace WhistleWindLobotomyMod.Challenges
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
                 "Abnormal Encounters",
-                "Only Abnormality cards will be used during non-boss battles.",
-                15,
+                "Regular and totem battles will only use Abnormality cards.",
+                10,
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters.png"),
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters_activated.png")
                 )
-                .SetIncompatibleChallengeGetterStatic(AllOrdeals.Id)
                 .Challenge.challengeType;
-
-            // Do later?
-            /*CardManager.ModifyCardList += delegate (List<CardInfo> cards)
-            {
-                if (AscensionSaveData.Data.ChallengeIsActive(Id))
-                {
-                    cards.CardByName("Starvation").portraitTex = null;
-                }
-
-                return cards;
-            };*/
 
             harmony.PatchAll(typeof(AbnormalEncounters));
         }
