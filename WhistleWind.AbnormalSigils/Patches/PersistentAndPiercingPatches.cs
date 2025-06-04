@@ -8,9 +8,11 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
-// Patches to make abilities function properly
 namespace WhistleWind.AbnormalSigils.Patches
 {
+    /// <summary>
+    /// Patches relating to the behaviour of the Piercing and Persistent sigils.
+    /// </summary>
     [HarmonyPatch]
     internal class PersistentAndPiercingPatches
     {

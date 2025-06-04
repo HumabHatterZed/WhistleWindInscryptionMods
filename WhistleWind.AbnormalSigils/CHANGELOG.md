@@ -121,6 +121,7 @@
     - Board Shuffle
     - Soulbound Flesh
     - Ethereal
+    - Death Penalty
 - Added 1 stat icons:
     - Flower Power
 - Added 4 status effects:

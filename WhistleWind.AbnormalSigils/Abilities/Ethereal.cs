@@ -1,6 +1,4 @@
 ﻿using DiskCardGame;
-using System.Collections;
-using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
 
@@ -14,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookDescription = "Attacks directed at [creature] will strike the owner instead.";
             Ethereal.ability = AbnormalAbilityHelper.CreateAbility<Ethereal>(
                 "sigilEthereal",
-                rulebookName, rulebookDescription, powerLevel: -1,
+                rulebookName, rulebookDescription, powerLevel: 0,
                 modular: false, opponent: false, canStack: false)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()

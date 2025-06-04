@@ -283,6 +283,7 @@ namespace WhistleWind.AbnormalSigils
             Ability_ExplosiveOpening();
             Ability_CardScramble();
             Ability_SoulboundFlesh();
+            Ability_DeathPenalty();
             Ability_Ethereal();
 
             #endregion
