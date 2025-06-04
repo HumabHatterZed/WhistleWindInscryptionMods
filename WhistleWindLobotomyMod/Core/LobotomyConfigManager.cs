@@ -1,22 +1,23 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
+using DiskCardGame;
 using System.IO;
+using WhistleWindLobotomyMod.Challenges;
 using static WhistleWindLobotomyMod.LobotomyPlugin;
 
 namespace WhistleWindLobotomyMod.Core
 {
     public static class LobotomyConfigManager // Taken from GrimoraMod
     {
-        private static readonly ConfigFile WstlConfigFile = new(
-            Path.Combine(Paths.ConfigPath, "whistlewind.inscryption.lobotomycorp.cfg"), true);
+        private static readonly ConfigFile WstlConfigFile = new(Path.Combine(Paths.ConfigPath, "whistlewind.inscryption.lobotomycorp.cfg"), true);
 
         #region Config
-
         private static ConfigEntry<bool> Config_ModEnabled;
         public static bool ModEnabled => Config_ModEnabled.Value;
 
         private static ConfigEntry<bool> Config_FoundInGBC;
         public static bool GBCPacks => Config_FoundInGBC.Value;
+
         private static ConfigEntry<bool> Config_ReskinSigils;
         public static bool ReskinSigils => Config_ReskinSigils.Value;
 
@@ -71,43 +72,51 @@ namespace WhistleWindLobotomyMod.Core
         public static int StarterDeck => Config_StarterDeck.Value;
 
         #region Gameplay.Part1.Challenges
-        private static ConfigEntry<bool> Config_AbnormalBosses;
-        public static bool AbnormalBosses => Config_AbnormalBosses.Value;
+        private static ConfigEntry<bool> _configNoTime;
+        private static ConfigEntry<bool> _configNoRares;
+        private static ConfigEntry<bool> _configSoulbound;
+        private static ConfigEntry<bool> _configApostleBears;
+        private static ConfigEntry<bool> _configMeltdown;
+        private static ConfigEntry<bool> _configMiracleWorker;
 
-        private static ConfigEntry<bool> Config_AbnormalBattles;
-        public static bool AbnormalBattles => Config_AbnormalBattles.Value;
+        private static ConfigEntry<bool> _configAbnormalBosses;
+        private static ConfigEntry<bool> _configAbnormalBattles;
+        private static ConfigEntry<bool> _configOrdealBosses;
+        private static ConfigEntry<bool> _configOrdealBattles;
 
-        private static ConfigEntry<bool> Config_MiracleWorker;
-        public static bool MiracleWorker => Config_MiracleWorker.Value;
+        private static ConfigEntry<bool> _configFinalOrdeal;
+        private static ConfigEntry<bool> _configFinalBird;
+        private static ConfigEntry<bool> _configFinalLiar;
+        private static ConfigEntry<bool> _configFinalFool;
+        private static ConfigEntry<bool> _configFinalGod;
 
-        private static ConfigEntry<bool> Config_FinalApocalypse;
-        public static bool FinalApocalypse => Config_FinalApocalypse.Value;
+        private static ConfigEntry<bool> _configStartBird;
+        private static ConfigEntry<bool> _configStartLiar;
+        private static ConfigEntry<bool> _configStartFool;
+        private static ConfigEntry<bool> _configMoreRares;
 
-        private static ConfigEntry<bool> Config_FinalJester;
-        public static bool FinalJester => Config_FinalJester.Value;
+        private static bool ConfigNoTime => _configNoTime.Value;
+        private static bool ConfigNoRares => _configNoRares.Value;
+        private static bool ConfigSoulbound => _configSoulbound.Value;
+        private static bool ConfigApostleBears => _configApostleBears.Value;
+        private static bool ConfigMeltdown => _configMeltdown.Value;
+        private static bool ConfigMiracleWorker => _configMiracleWorker.Value;
 
-        private static ConfigEntry<bool> Config_FinalEmerald;
-        public static bool FinalEmerald => Config_FinalEmerald.Value;
+        private static bool ConfigAbnormalBosses => _configAbnormalBosses.Value;
+        private static bool ConfigAbnormalBattles => _configAbnormalBattles.Value;
+        private static bool ConfigOrdealBosses => _configOrdealBosses.Value;
+        private static bool ConfigOrdealBattles => _configOrdealBattles.Value;
 
-        private static ConfigEntry<bool> Config_FinalComing;
-        public static bool FinalComing => Config_FinalComing.Value;
+        private static bool ConfigFinalOrdeal => _configFinalOrdeal.Value;
+        private static bool ConfigFinalBird => _configFinalBird.Value;
+        private static bool ConfigFinalLiar => _configFinalLiar.Value;
+        private static bool ConfigFinalFool => _configFinalFool.Value;
+        private static bool ConfigFinalGod => _configFinalGod.Value;
 
-        #endregion
-
-        #region Gameplay.Part1.Cheats
-        private static ConfigEntry<bool> Config_BetterRareChances;
-        public static bool BetterRareChances => Config_BetterRareChances.Value;
-
-        private static ConfigEntry<bool> Config_StartApocalypseBird;
-        public static bool StartApocalypseBird => Config_StartApocalypseBird.Value;
-
-        private static ConfigEntry<bool> Config_StartJesterOfNihil;
-        public static bool StartJesterOfNihil => Config_StartJesterOfNihil.Value;
-
-        private static ConfigEntry<bool> Config_StartLyingAdult;
-        public static bool StartLyingAdult => Config_StartLyingAdult.Value;
-
-        #endregion
+        private static bool ConfigStartBird => _configStartBird.Value;
+        private static bool ConfigStartLiar => _configStartLiar.Value;
+        private static bool ConfigStartFool => _configStartFool.Value;
+        private static bool ConfigMoreRares => _configMoreRares.Value;
 
         #endregion
 
@@ -120,6 +129,8 @@ namespace WhistleWindLobotomyMod.Core
 
         internal static ConfigEntry<bool> Config_HasSeenHim;
         public static bool HasSeenHim => Config_HasSeenHim.Value;
+
+        #endregion
 
         #endregion
 
@@ -171,6 +182,22 @@ namespace WhistleWindLobotomyMod.Core
                 "Gameplay", "Random Bosses", false,
                 new ConfigDescription("KCM ONLY - This mod's bosses can be randomly encountered at the end of the first 3 regions."));
 
+            Config_NoBox = WstlConfigFile.Bind(
+                "Gameplay.Nodes", "Disable Choice Node", false,
+                new ConfigDescription("Prevents the abnormal card choice node from appearing."));
+
+            Config_NoSefirot = WstlConfigFile.Bind(
+                "Gameplay.Nodes", "Disable Sefirot Node", false,
+                new ConfigDescription("Prevents the sefirot card choice node from appearing."));
+
+            Config_BoxStart = WstlConfigFile.Bind(
+                "Gameplay.Nodes", "Choice Node at Start", false,
+                new ConfigDescription("Each new region will have an abnormal choice node at its start."));
+
+            Config_SefirotChoiceAtStart = WstlConfigFile.Bind(
+                "Gameplay.Nodes", "Sefirot Node at Start", false,
+                new ConfigDescription("Each new region will have a sephirah choice node at its start."));
+
             Config_StarterDeck = WstlConfigFile.Bind(
                 "Gameplay.Part1", "Starter Deck", 0,
                 new ConfigDescription("Replaces your starting cards with one of this mod's custom decks." +
@@ -189,71 +216,32 @@ namespace WhistleWindLobotomyMod.Core
                 "\n12 - Magical Girl, King of Greed, Knight of Despair, Servant of Wrath/Void Dream" +
                 "\n13 - Punishing Bird, Big Bird, Judgement Bird"));
 
-            Config_AbnormalBosses = WstlConfigFile.Bind(
-                "Gameplay.Part1.Challenges", "Abnormal Bosses", false,
-                new ConfigDescription("Bosses will only use Abnormality cards."));
+            string challenges = "Gameplay.Part1.Challenges";
 
-            Config_AbnormalBattles = WstlConfigFile.Bind(
-                "Gameplay.Part1.Challenges", "Abnormal Encounters", false,
-                new ConfigDescription("All regular battles will only use Abnormality cards."));
+            _configNoTime = WstlConfigFile.Bind(challenges, NoTime.title, false, new ConfigDescription(NoTime.description));
+            _configNoRares = WstlConfigFile.Bind(challenges, NoRares.title, false, new ConfigDescription(NoRares.description));
 
-            Config_MiracleWorker = WstlConfigFile.Bind(
-                "Gameplay.Part1.Challenges", "Miracle Worker", false,
-                new ConfigDescription("Leshy will play Plague Doctor during regular battles. Beware the Clock."));
+            _configOrdealBattles = WstlConfigFile.Bind(challenges, AllOrdeals.title, false, new ConfigDescription(AllOrdeals.description));
+            _configOrdealBosses = WstlConfigFile.Bind(challenges, BossOrdeals.title, false, new ConfigDescription(BossOrdeals.description));
+            _configAbnormalBosses = WstlConfigFile.Bind(challenges, AbnormalBosses.title, false, new ConfigDescription(AbnormalBosses.description));
+            _configAbnormalBattles = WstlConfigFile.Bind(challenges, AbnormalEncounters.title, false, new ConfigDescription(AbnormalEncounters.description));
 
-            Config_FinalApocalypse = WstlConfigFile.Bind(
-                "Gameplay.Part1.Challenges", "Final Apocalypse", false,
-                new ConfigDescription("Leshy will be replaced with the Beast."));
+            _configMeltdown = WstlConfigFile.Bind(challenges, QlippothMeltdown.title, false, new ConfigDescription(QlippothMeltdown.description));
+            _configMiracleWorker = WstlConfigFile.Bind(challenges, MiracleWorker.title, false, new ConfigDescription(MiracleWorker.description));
 
-            /*            Config_FinalJester = WstlConfigFile.Bind(
-                            "Gameplay.Part1.Challenges", "Final Laugh", false,
-                            new ConfigDescription("The Fool boss will be stronger and guaranteed to appear."));
+            _configFinalOrdeal = WstlConfigFile.Bind(challenges, FinalOrdeal.title, false, new ConfigDescription(FinalOrdeal.description));
+            //_configFinalFool = WstlConfigFile.Bind(challenges, FinalJester.title, false, new ConfigDescription(FinalJester.description));
+            //_configFinalLiar = WstlConfigFile.Bind(challenges, FinalLie.title, false, new ConfigDescription(FinalLie.description));
+            _configFinalBird = WstlConfigFile.Bind(challenges, FinalApocalypse.title, false, new ConfigDescription(FinalApocalypse.description));
+            //_configFinalGod = WstlConfigFile.Bind(challenges, FinalComing.title, false, new ConfigDescription(FinalComing.description));
 
-                        Config_FinalEmerald = WstlConfigFile.Bind(
-                            "Gameplay.Part1.Challenges", "Final Trick", false,
-                            new ConfigDescription("The Adult boss will be stronger and guaranteed to appear."));
+            _configMoreRares = WstlConfigFile.Bind(challenges, BetterRareChances.title, false, new ConfigDescription(BetterRareChances.description));
+            _configStartBird = WstlConfigFile.Bind(challenges, StartingApocalypse.title, false, new ConfigDescription(StartingApocalypse.description));
+            _configStartFool = WstlConfigFile.Bind(challenges, StartingJester.title, false, new ConfigDescription(StartingJester.description));
+            _configStartLiar = WstlConfigFile.Bind(challenges, StartingLiar.title, false, new ConfigDescription(StartingLiar.description));
 
-                        Config_FinalComing = WstlConfigFile.Bind(
-                            "Gameplay.Part1.Challenges", "Final Coming", false,
-                            new ConfigDescription("The Saviour boss will be stronger and guaranteed to appear."));*/
-
-            Config_BetterRareChances = WstlConfigFile.Bind(
-                "Gameplay.Part1.Cheats", "Better Rare Chances", false,
-                new ConfigDescription("Raises the chance of getting a Rare card from the abnormal choice node."));
-
-            Config_StartApocalypseBird = WstlConfigFile.Bind(
-                "Gameplay.Part1.Cheats", "Start with a Beast", false,
-                new ConfigDescription("Start your run with Apocalypse Bird in your deck."));
-
-            Config_StartJesterOfNihil = WstlConfigFile.Bind(
-                "Gameplay.Part1.Cheats", "Start with a Fool", false,
-                new ConfigDescription("Start your run with Jester of Nihil in your deck."));
-
-            Config_StartLyingAdult = WstlConfigFile.Bind(
-                "Gameplay.Part1.Cheats", "Start with a Liar", false,
-                new ConfigDescription("Start your run with Adult Who Tells Lies in your deck."));
-
-            Config_NoBox = WstlConfigFile.Bind(
-                "Gameplay.Nodes", "Disable Choice Node", false,
-                new ConfigDescription("Prevents the abnormal card choice node from appearing."));
-
-            Config_NoSefirot = WstlConfigFile.Bind(
-                "Gameplay.Nodes", "Disable Sefirot Node", false,
-                new ConfigDescription("Prevents the sefirot card choice node from appearing."));
-
-            Config_BoxStart = WstlConfigFile.Bind(
-                "Gameplay.Nodes", "Choice Node at Start", false,
-                new ConfigDescription("Each new region will have an abnormal choice node at its start."));
-
-            Config_SefirotChoiceAtStart = WstlConfigFile.Bind(
-                "Gameplay.Nodes", "Sefirot Node at Start", false,
-                new ConfigDescription("Each new region will have a sephirah choice node at its start."));
-
-            Config_Blessings = WstlConfigFile.Bind(
-                "Gameplay.Other", "Blessings", 0);
-
-            Config_HasSeenHim = WstlConfigFile.Bind(
-                "Gameplay.Other", "Blessed", false);
+            Config_Blessings = WstlConfigFile.Bind("Gameplay.Other", "Blessings", 0);
+            Config_HasSeenHim = WstlConfigFile.Bind("Gameplay.Other", "Blessed", false);
         }
         public static void UpdateBlessings(int value)
         {
@@ -268,6 +256,75 @@ namespace WhistleWindLobotomyMod.Core
         public static void SetHasSeenHim()
         {
             Config_HasSeenHim.Value = true;
+        }
+
+        public static bool ChallengeIsActive(AscensionChallenge challenge) {
+            if (SaveFile.IsAscension) {
+                return AscensionSaveData.Data.ChallengeIsActive(challenge);
+            }
+
+            if (challenge == AbnormalEncounters.Id) {
+                return ConfigAbnormalBattles;
+            }
+            if (challenge == AbnormalBosses.Id) {
+                return ConfigAbnormalBosses;
+            }
+            if (challenge == AllOrdeals.Id) {
+                return ConfigOrdealBattles;
+            }
+            if (challenge == BossOrdeals.Id) {
+                return ConfigOrdealBosses;
+            }
+
+            if (challenge == NoTime.Id) {
+                return ConfigNoTime;
+            }
+            if (challenge == NoRares.Id) {
+                return ConfigNoRares;
+            }
+            if (challenge == MiracleWorker.Id) {
+                return ConfigMiracleWorker;
+            }
+            if (challenge == QlippothMeltdown.Id) {
+                return ConfigMeltdown;
+            }
+            if (challenge == SoulboundCards.Id) {
+                return ConfigSoulbound;
+            }
+            if (challenge == ApostleGrizzlies.Id) {
+                return ConfigApostleBears;
+            }
+
+            if (challenge == FinalOrdeal.Id) {
+                return ConfigFinalOrdeal;
+            }
+            if (challenge == FinalApocalypse.Id) {
+                return ConfigFinalBird;
+            }
+            //if (challenge == FinalComing.Id) {
+            //    return ConfigFinalGod;
+            //}
+            //if (challenge == FinalLie.Id) {
+            //    return ConfigFinalLiar;
+            //}
+            //if (challenge == FinalJester.Id) {
+            //    return ConfigFinalFool;
+            //}
+
+            if (challenge == BetterRareChances.Id) {
+                return ConfigMoreRares;
+            }
+            if (challenge == StartingApocalypse.Id) {
+                return ConfigStartBird;
+            }
+            if (challenge == StartingJester.Id) {
+                return ConfigStartFool;
+            }
+            if (challenge == StartingLiar.Id) {
+                return ConfigStartLiar;
+            }
+
+            return false;
         }
     }
 }

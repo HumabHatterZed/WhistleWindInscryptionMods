@@ -7,14 +7,17 @@ namespace WhistleWindLobotomyMod.Challenges
 {
     public static class FinalApocalypse
     {
+        internal const string title = "Final Apocalypse";
+        internal const string description = "Leshy is replaced as the final boss of the run with the Beast.";
+
         public static AscensionChallenge Id { get; private set; }
 
         internal static void Register()
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                "Final Apocalypse",
-                "Leshy is replaced as the final boss of the run with the Beast.",
+                title,
+                description,
                 70,
                 TextureLoader.LoadTextureFromFile("ascensionFinalApocalypse.png"),
                 TextureLoader.LoadTextureFromFile("ascensionFinalApocalypse_activated.png"), 0)

@@ -2,12 +2,10 @@
 
 ## v3.0.0 - Wondrous Ordeals ()
 ### 🧱 Structural
-- Achievements API is now a required dependency
 - Alternate versions of non-Nature cards have been created for use outside Act 1 with the prefix "wstlGBC"
 - Changed internal name of Abnormal card choice to 'AbnormalCardChoice'
 - Changed internal name of Sefirot card choice to 'SefirotCardChoice'
 - Changed internal names of Sefirot-related dialogue events to remove the 'Sephirah' prefix
-- Detonator sigil is now re-rethemed to Volatile if config 'ReskinSigils' is set to true
 - PlayableCard.DieTriggerless now triggers non-card receivers
 - Massive refactoring of basically everything
 - Removed unused asset files
@@ -63,30 +61,32 @@
 - <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
 - <span style='color:#2084A0'>Red Riding Hooded Mercenary: now possesses Vendetta sigil
 - You're Bald...: changed evolution name
-### General
+- <span style='color:#DE6080'>Reshuffle Decks: now possesses the Bone Meal sigil
+### Challenges
 - Fixed Miracle Worker challenge trying to insert Plague Doctor into turns with 4 cards
-- Fixed True Saviour sigil activating certain effects when it shouldn't
-- Fixed Abnormal Leshy battle not disguising Nothing There doing the deathcard section
-- Fixed missing/misnamed cards in encounter blueprints
-- Removed dynamic rulebook descriptions for certain sigils
-- Reduced points of Miracle Worker challenge from 60 -> 33
+- Adjusted points given by challenges and rearranged positioning
 - Final Apocalypse challenge icon now occupys an entire column on the selection menu
-- Modified encounters to be less unbalanced, hopefully
+- Replaced Guardian Apostle with Alriune during the Grizzly sequence when the Abnormal Bosses challenge is active
+- Changed descriptions of challenges to improve clarity/follow vanilla syntax
+### General
+- Fixed True Saviour sigil activating certain effects when it shouldn't
+- Fixed Nothing There not disguising when played by Leshy
+- Overhauled encounters
 - Modified some dialogue
 - Modified some pixel artwork
-- Modified descriptions of 'Abnormal Bosses' and 'Abnormal Encounters' challenges for clarity
-- Modified description of Concord special ability for clarity
+- Detonator sigil is now re-rethemed to Volatile if config 'ReskinSigils' is set to true
+- Changed description of Concord special ability for clarity
 - Changed weights used in the Abnormal Choice Node for card choices in each region tier:
     - Key: (Zayin, Teth, He, Waw, Aleph), weakest to strongest
     - Tier 0: (40%, 30%, 20%, 10%) -> (35%, 35%, 20%, 10%)
     - Tier 1: (30%, 30%, 20%, 20%) -> (20%, 30%, 30%, 20%)
     - Tier 2: Unchanged
 - 'Random' starter deck now unlocks at challenge level 12
-- 'Random' starter deck placeholder sprites now have a '?' in the sigil space
-- <span style='color:#DE6080'>Reshuffle Decks card now possesses the Bone Meal sigil
+- Removed dynamic rulebook descriptions for certain sigils
 ### Mod Compatibility
 - Pack Manager API: Updated pack artwork for card pack
 - Pack Manager API: Updated encounter pack
+- Achievements Now a required dependency
 - Achievements API: Added 1 new achievement
 - Achievements API: Modified several achievement descriptions to better indicate how to unlock them
 ### Additions
@@ -95,6 +95,7 @@
 - Added XX Starter Decks
 - Added XX Encounters
 - Added XX items
+- Added 6 challenges
 
 ## v2.1.1 - Minor Patch (2/19/2024)
 ### 🩹 Bug fixes

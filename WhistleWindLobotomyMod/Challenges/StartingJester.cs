@@ -7,15 +7,17 @@ namespace WhistleWindLobotomyMod.Challenges
 {
     public static class StartingJester
     {
+        internal const string title = "Start with a Fool";
+        internal const string description = "Start your run with Jester of Nihil in your deck.";
+
         public static AscensionChallenge Id { get; private set; }
 
-        // Creates the challenge then calls the relevant patches
         public static void Register()
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                "Start with a Fool",
-                "Start your run with Jester of Nihil in your deck.",
+                title,
+                description,
                 -10,
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart_activated.png"), 0)

@@ -189,7 +189,7 @@ namespace WhistleWindLobotomyMod
         {
             int regionMultiplier = regionTier;
 
-            if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(BetterRareChances.Id) : LobotomyConfigManager.BetterRareChances)
+            if (LobotomyConfigManager.ChallengeIsActive(BetterRareChances.Id))
                 regionMultiplier++;
 
             return regionMultiplier switch

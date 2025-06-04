@@ -3,26 +3,29 @@ using HarmonyLib;
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
 
-
 namespace WhistleWindLobotomyMod.Challenges
 {
     public static class AllOrdeals // taken from infiniscryption
     {
+        internal const string title = "All Ordeals";
+        internal const string description = "All non-boss battles are replaced with Ordeals.";
+
         public static AscensionChallenge Id { get; private set; }
+        internal static ChallengeManager.FullChallenge Info { get; private set; }
 
         // Creates the challenge then calls the relevant patches
         internal static void Register(Harmony harmony)
         {
-            Id = ChallengeManager.Add(
+            Info = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                "All Ordeals",
-                "All non-boss battles are replaced with Ordeals.",
+                title,
+                description,
                 20,
                 TextureLoader.LoadTextureFromFile("ascensionOrdeals.png"),
                 TextureLoader.LoadTextureFromFile("ascensionOrdeals_activated.png")
-                )
-                .SetIncompatibleChallengeGetterStatic(AbnormalEncounters.Id)
-                .Challenge.challengeType;
+                );
+
+            Id = Info.Challenge.challengeType;
 
             harmony.PatchAll(typeof(AllOrdeals));
         }

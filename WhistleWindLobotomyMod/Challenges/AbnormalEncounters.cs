@@ -9,6 +9,9 @@ namespace WhistleWindLobotomyMod.Challenges
 {
     public static class AbnormalEncounters // taken from infiniscryption
     {
+        internal const string title = "Abnormal Encounters";
+        internal const string description = "Regular and totem battles will only use Abnormality cards.";
+
         public static AscensionChallenge Id { get; private set; }
 
         // Creates the challenge then calls the relevant patches
@@ -16,8 +19,8 @@ namespace WhistleWindLobotomyMod.Challenges
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                "Abnormal Encounters",
-                "Regular and totem battles will only use Abnormality cards.",
+                title,
+                description,
                 10,
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters.png"),
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalEncounters_activated.png")
@@ -33,7 +36,7 @@ namespace WhistleWindLobotomyMod.Challenges
         {
             if (__instance != null)
             {
-                if (SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(Id) : LobotomyConfigManager.AbnormalBattles)
+                if (LobotomyConfigManager.ChallengeIsActive(Id))
                 {
                     if (!LobotomySaveManager.ShownAbnormalEncounters)
                     {

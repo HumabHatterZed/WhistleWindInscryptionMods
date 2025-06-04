@@ -2,13 +2,12 @@
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
 
-
 namespace WhistleWindLobotomyMod.Challenges
 {
-    public static class NoRares
+    public static class SoulboundCards
     {
-        internal const string title = "No Abnormal Rares";
-        internal const string description = "Abnormal card choices cannot offer rare cards.";
+        internal const string title = "Animal Safety";
+        internal const string description = "All cards in your main deck have the Death Penalty sigil.";
 
         public static AscensionChallenge Id { get; private set; }
 
@@ -18,9 +17,9 @@ namespace WhistleWindLobotomyMod.Challenges
                 LobotomyPlugin.pluginGuid,
                 title,
                 description,
-                5,
-                TextureLoader.LoadTextureFromFile("ascensionNoRares.png"),
-                TextureLoader.LoadTextureFromFile("ascensionNoRares_activated.png")
+                50,
+                TextureLoader.LoadTextureFromFile("ascensionSoulbound.png"),
+                TextureLoader.LoadTextureFromFile("ascensionSoulbound_activated.png")
                 ).Challenge.challengeType;
         }
     }

@@ -23,7 +23,7 @@ namespace ModDebuggingMod
                 .AddAbilities(Test.ability)
                 //.AddSpecialAbilities(BlindRage.specialAbility)
                 //.SetTransformerCardId("Squirrel")
-                .SetEvolve("Squirrel", 1)
+                .SetEvolve("Squirrel", 6)
                 .SetPortraits(typeof(Plugin).Assembly, "misterWin_grimora", emissionName: "misterWin_grimora_emission", pixelPortraitName: "buffBell.png")
                 ;
         }

@@ -7,14 +7,17 @@ namespace WhistleWindLobotomyMod.Challenges
 {
     public static class StartingLiar
     {
+        internal const string title = "Start with a Liar";
+        internal const string description = "Start your run with Adult Who Tells Lies in your deck.";
+
         public static AscensionChallenge Id { get; private set; }
 
         public static void Register()
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                "Start with a Liar",
-                "Start your run with Adult Who Tells Lies in your deck.",
+                title   ,
+                description,
                 -10,
                 TextureLoader.LoadTextureFromFile("ascensionLiarStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionLiarStart_activated.png"), 0)

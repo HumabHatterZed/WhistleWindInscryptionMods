@@ -8,27 +8,27 @@ using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
-using WhistleWindLobotomyMod.Core.Helpers;
 using WhistleWindLobotomyMod.Opponents.Angler;
 using WhistleWindLobotomyMod.Opponents.Leshy;
 using WhistleWindLobotomyMod.Opponents.PirateSkull;
 using WhistleWindLobotomyMod.Opponents.Prospector;
 using WhistleWindLobotomyMod.Opponents.TrapperTrader;
 
-
 namespace WhistleWindLobotomyMod.Challenges
 {
     public static class AbnormalBosses // taken from infiniscryption
     {
+        internal const string title = "Abnormal Bosses";
+        internal const string description = "Boss battles will only use Abnormality cards.";
+
         public static AscensionChallenge Id { get; private set; }
 
-        // Creates the challenge then calls the relevant patches
         internal static void Register(Harmony harmony)
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                "Abnormal Bosses",
-                "Boss battles will only use Abnormality cards.",
+                title,
+                description,
                 20,
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses.png"),
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses_activated.png")
@@ -59,10 +59,7 @@ namespace WhistleWindLobotomyMod.Challenges
         private static bool ReplaceBossEncounter(EncounterData encounterData, ref Opponent __result)
         {
             // breaks if challenge is not active or if opponent is not supported
-            if (!LobotomyHelpers.IsChallengeConfigActive(Id, LobotomyConfigManager.AbnormalBosses))
-                return true;
-
-            if (!SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
+            if (!LobotomyConfigManager.ChallengeIsActive(Id) || !SUPPORTED_OPPONENTS.Contains(encounterData.opponentType))
                 return true;
 
             GameObject gameObject = new()
@@ -112,11 +109,7 @@ namespace WhistleWindLobotomyMod.Challenges
         [HarmonyPrefix]
         private static bool ReplaceSequencers(string specialBattleId, ref TurnManager __instance)
         {
-            // if challenge not active
-            if (SaveFile.IsAscension ? !AscensionSaveData.Data.ChallengeIsActive(Id) : !LobotomyConfigManager.AbnormalBosses)
-                return true;
-
-            if (!OPPONENT_IDS.Contains(specialBattleId))
+            if (!LobotomyConfigManager.ChallengeIsActive(Id) || !OPPONENT_IDS.Contains(specialBattleId))
                 return true;
 
             LobotomyPlugin.Log.LogDebug($"Replacing special ID: {specialBattleId}");

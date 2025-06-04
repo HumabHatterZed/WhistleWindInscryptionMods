@@ -7,16 +7,18 @@ namespace WhistleWindLobotomyMod.Challenges
 {
     public static class BetterRareChances
     {
+        internal const string title = "Better Rare Chances";
+        internal const string description = "Abnormal card choices offer rare cards more often.";
+
         public static AscensionChallenge Id { get; private set; }
         internal static ChallengeManager.FullChallenge Info { get; private set; }
 
-        // Creates the challenge then calls the relevant patches
         public static void Register()
         {
             Info = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                "Better Rare Chances",
-                "Abnormal card choices offer rare cards more often.",
+                title,
+                description,
                 -5,
                 TextureLoader.LoadTextureFromFile("ascensionBetterRareChances.png"),
                 TextureLoader.LoadTextureFromFile("ascensionBetterRareChances_activated.png")

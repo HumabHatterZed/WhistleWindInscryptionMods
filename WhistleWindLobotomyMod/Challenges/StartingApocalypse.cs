@@ -7,13 +7,17 @@ namespace WhistleWindLobotomyMod.Challenges
 {
     public static class StartingApocalypse
     {
+        internal const string title = "Start with a Beast";
+        internal const string description = "Start your run with Apocalypse Bird in your deck.";
+
         public static AscensionChallenge Id { get; private set; }
+
         public static void Register()
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                "Start with a Beast",
-                "Start your run with Apocalypse Bird in your deck.",
+                title,
+                description,
                 -10,
                 TextureLoader.LoadTextureFromFile("ascensionBeastStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionBeastStart_activated.png"), 0)

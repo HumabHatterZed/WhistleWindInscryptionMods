@@ -6,21 +6,24 @@ namespace WhistleWindLobotomyMod.Challenges
 {
     public static class BossOrdeals // taken from infiniscryption
     {
-        public static AscensionChallenge Id { get; private set; }
+        internal const string title = "Ordeal Bosses";
+        internal const string description = "All bosses are replaced with Ordeals of Midnight.";
 
-        // Creates the challenge then calls the relevant patches
+        public static AscensionChallenge Id { get; private set; }
+        internal static ChallengeManager.FullChallenge Info { get; private set; }
+
         internal static void Register()
         {
-            Id = ChallengeManager.Add(
+            Info = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                "Ordeal Bosses",
-                "All bosses will be replaced with Midnight Ordeals.",
-                10,
+                title,
+                description,
+                20,
                 TextureLoader.LoadTextureFromFile("ascensionBossOrdeals.png"),
                 TextureLoader.LoadTextureFromFile("ascensionBossOrdeals_activated.png")
-                )
-                .SetIncompatibleChallengeGetterStatic(AbnormalBosses.Id)
-                .Challenge.challengeType;
+                );
+
+            Id = Info.Challenge.challengeType;
         }
     }
 }

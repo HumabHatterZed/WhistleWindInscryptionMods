@@ -127,7 +127,7 @@ namespace WhistleWindLobotomyMod.Patches
             {
                 GameObject gameObject = GameObject.Instantiate(__instance.weightPrefab);
                 Vector3 vector = new(0f, 0f, attackingSlot.IsPlayerSlot ? 0.75f : (-0.75f));
-                gameObject.transform.position = targetSlot.transform.position + vector + new Vector3((float)i * 0.1f, 0f, (float)i * 0.1f);
+                gameObject.transform.position = targetSlot.transform.position + vector + new Vector3(i * 0.1f, 0f, i * 0.1f);
                 gameObject.transform.eulerAngles = UnityEngine.Random.insideUnitSphere;
                 newWeights.Add(gameObject.transform);
             }
@@ -152,21 +152,7 @@ namespace WhistleWindLobotomyMod.Patches
         {
             if (RunState.Run.regionTier == RegionProgression.Instance.regions.Count - 1)
             {
-                if (SaveFile.IsAscension)
-                {
-                    if (AscensionSaveData.Data.ChallengeIsActive(FinalApocalypse.Id))
-                        __result = LobOpponentUtils.apocalypseRegion;
-                    /*else if (AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id))
-                        __result = LobOpponentUtils.whiteOrdealRegion;*/
-                    /*                else if (AscensionSaveData.Data.ChallengeIsActive(FinalComing.Id))
-                                        __result = CustomBossUtils.saviourRegion;
-                                    else if (AscensionSaveData.Data.ChallengeIsActive(FinalTrick.Id))
-                                        __result = CustomBossUtils.adultRegion;
-                                    else if (AscensionSaveData.Data.ChallengeIsActive(FinalJester.Id))
-                                        __result = CustomBossUtils.jesterRegion;*/
-                }
-                else if (LobotomyConfigManager.FinalApocalypse)
-                {
+                if (LobotomyConfigManager.ChallengeIsActive(FinalApocalypse.Id)) {
                     __result = LobOpponentUtils.apocalypseRegion;
                 }
             }

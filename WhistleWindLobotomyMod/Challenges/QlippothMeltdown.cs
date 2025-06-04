@@ -2,13 +2,12 @@
 using InscryptionAPI.Ascension;
 using WhistleWind.Core.Helpers;
 
-
 namespace WhistleWindLobotomyMod.Challenges
 {
-    public static class NoRares
+    public static class QlippothMeltdown
     {
-        internal const string title = "No Abnormal Rares";
-        internal const string description = "Abnormal card choices cannot offer rare cards.";
+        internal const string title = "Qlippoth Meltdown";
+        internal const string description = "Leshy will occasionally play empowered Abnormalities.";
 
         public static AscensionChallenge Id { get; private set; }
 
@@ -18,9 +17,9 @@ namespace WhistleWindLobotomyMod.Challenges
                 LobotomyPlugin.pluginGuid,
                 title,
                 description,
-                5,
-                TextureLoader.LoadTextureFromFile("ascensionNoRares.png"),
-                TextureLoader.LoadTextureFromFile("ascensionNoRares_activated.png")
+                15,
+                TextureLoader.LoadTextureFromFile("ascensionMeltdown.png"),
+                TextureLoader.LoadTextureFromFile("ascensionMeltdown_activated.png")
                 ).Challenge.challengeType;
         }
     }

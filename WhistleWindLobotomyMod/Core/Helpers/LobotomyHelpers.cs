@@ -24,11 +24,6 @@ namespace WhistleWindLobotomyMod.Core.Helpers
             return false;
         }
 
-        public static bool IsChallengeConfigActive(AscensionChallenge challenge, bool config)
-        {
-            return SaveFile.IsAscension ? AscensionSaveData.Data.ChallengeIsActive(challenge) : config;
-        }
-
         public static bool AllowInitiateCombat(bool initiate)
         {
             bool canInitiateCombat = TurnManager.Instance.PlayerCanInitiateCombat;

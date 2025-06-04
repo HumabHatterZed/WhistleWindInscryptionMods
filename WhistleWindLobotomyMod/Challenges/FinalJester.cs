@@ -7,6 +7,9 @@ namespace WhistleWindLobotomyMod.Challenges
 {
     public static class FinalJester
     {
+        internal const string title = "Final Laugh";
+        internal const string description = "Leshy is replaced as the final boss of the run with the Fool.";
+
         public static AscensionChallenge Id { get; private set; }
         internal static ChallengeManager.FullChallenge Info { get; private set; }
 
@@ -14,8 +17,8 @@ namespace WhistleWindLobotomyMod.Challenges
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                "Final Laugh",
-                "Leshy is replaced as the final boss of the run with the Fool.",
+                title,
+                description,
                 50,
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart.png"),
                 TextureLoader.LoadTextureFromFile("ascensionJesterStart_activated.png"), 0)
