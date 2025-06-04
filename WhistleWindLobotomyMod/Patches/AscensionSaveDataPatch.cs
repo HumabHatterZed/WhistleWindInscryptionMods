@@ -14,6 +14,11 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPrefix, HarmonyPatch(nameof(AscensionSaveData.NewRun))]
         private static void AscensionModStarterDecks(ref List<CardInfo> starterDeck)
         {
+            if (AscensionSaveData.Data.ChallengeIsActive(NoTime.Id)) {
+                LobotomyPlugin.Log.LogInfo("Disable Backward Clock");
+                LobotomySaveManager.UsedBackwardClock = true;
+            }
+
             int randomSeed = SaveFile.IsAscension ? AscensionSaveData.Data.currentRunSeed : (SaveManager.SaveFile.pastRuns.Count * 1000);
 
             // if all cards are disabled and this starter deck has mod cards in it, replace them mod death cards
@@ -31,27 +36,26 @@ namespace WhistleWindLobotomyMod.Patches
                 bool addRare = SeededRandom.Value(randomSeed++) <= 0.05f;
                 while (newStarterDeck.Count < starterDeck.Count)
                 {
+                    if (LobotomyPlugin.AllCardsDisabled) {
+                        newStarterDeck.Add(ObtainableLobotomyCards[0]);
+                        continue;
+                    }
+
                     List<CardInfo> validCards;
 
-                    if (addRare)
+                    if (addRare) {
+                        addRare = false;
                         validCards = ObtainableLobotomyCards.FindAll(x => x.HasCardMetaCategory(CardMetaCategory.Rare));
-                    else
+                    }
+                    else {
                         validCards = ObtainableLobotomyCards.FindAll(x => x.LacksCardMetaCategory(CardMetaCategory.Rare));
+                    }
 
                     validCards.RemoveAll(x => x.HasTrait(Sephirah));
                     validCards.RemoveAll(x => x.onePerDeck && newStarterDeck.Contains(x));
 
                     int randomIdx = SeededRandom.Range(0, validCards.Count, randomSeed++);
                     CardInfo cardToAdd = validCards[randomIdx];
-
-                    // starting deck cannot have rare (if non-Aleph cards can be pulled)
-                    while (!addRare && cardToAdd.HasCardMetaCategory(CardMetaCategory.Rare))
-                    {
-                        randomIdx = SeededRandom.Range(0, ObtainableLobotomyCards.Count, randomSeed++);
-                        cardToAdd = ObtainableLobotomyCards[randomIdx];
-                    }
-
-                    if (addRare) addRare = false;
 
                     newStarterDeck.Add(cardToAdd);
                 }

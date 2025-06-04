@@ -39,11 +39,16 @@ namespace WhistleWindLobotomyMod.Patches
                 __instance.AddCard(CardLoader.GetCardByName(Cards.lyingAdult));
         }
 
-        [HarmonyPatch(nameof(DeckInfo.InitializeAsPlayerDeck))]
-        [HarmonyPrefix]
+        /// <summary>
+        /// Patch that lets people playing Act 1 use the starter decks via the config.
+        /// </summary>
+        /// <remarks>
+        /// Doubt this is used by anyone but may as well keep it.
+        /// </remarks>
+        [HarmonyPrefix, HarmonyPatch(nameof(DeckInfo.InitializeAsPlayerDeck))]
         private static bool Part1StarterDecks(ref DeckInfo __instance)
         {
-            if (LobotomyConfigManager.StarterDeck <= 0 || LobotomyConfigManager.StarterDeck > 12)
+            if (LobotomyConfigManager.StarterDeck < 1 || LobotomyConfigManager.StarterDeck > 12)
                 return true;
 
             int deckIdx = LobotomyConfigManager.StarterDeck;
