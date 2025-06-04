@@ -27,7 +27,7 @@ namespace WhistleWindLobotomyMod.Opponents
         /// Guarantee amountKilledThisTurn is reset to 0.
         /// </remarks>
         [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.PlayerTurn))]
-        private static IEnumerator ResetOrdealKillCountEachTurn(IEnumerator enumerator, TurnManager __instance)
+        private static IEnumerator UpdateOrdealBattleVariables(IEnumerator enumerator, TurnManager __instance)
         {
             yield return enumerator;
 
@@ -44,11 +44,11 @@ namespace WhistleWindLobotomyMod.Opponents
             if ((__instance.SpecialSequencer as OrdealBattleSequencer).PlayerHasDefeatedOrdeal())
                 __result = true;
         }
-        [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.LifeLossConditionsMet))]
-        private static void OrdealCompletionConditionsMet(TurnManager __instance, ref bool __result)
-        {
-            OrdealCompleted(__instance, ref __result);
-        }
+        //[HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.LifeLossConditionsMet))]
+        //private static void OrdealCompletionConditionsMet(TurnManager __instance, ref bool __result)
+        //{
+        //    OrdealCompleted(__instance, ref __result);
+        //}
 
         [HarmonyPostfix, HarmonyPatch(typeof(MapDataReader), nameof(MapDataReader.SpawnAndPlaceElement))]
         private static void ConstructOrdealNode(ref GameObject __result, MapElementData data)
@@ -150,14 +150,11 @@ namespace WhistleWindLobotomyMod.Opponents
             if (true) {
                 data.tier = 0;
                 data.ordealType = OrdealType.Green;
-                __result = data;
-                return;
             }
-
-            
-            LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Region {RunState.Run.regionTier}");
-            AssignOrdealDataToNode(data, RunState.Run.regionTier);
+            //AssignOrdealDataToNode(data, RunState.Run.regionTier);
             __result = data;
+
+            LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Region {RunState.Run.regionTier}");
         }
         private static void AssignOrdealDataToNode(OrdealBattleNodeData ordealNodeData, int tier)
         {
@@ -167,7 +164,7 @@ namespace WhistleWindLobotomyMod.Opponents
                 1 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Indigo),
                 2 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Amber),
                 3 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Violet, OrdealType.Amber),
-                _ => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Amber),
+                _ => AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id) ? OrdealType.White : OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Amber),
             };
         }
 
