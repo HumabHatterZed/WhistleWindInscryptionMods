@@ -52,6 +52,7 @@ namespace WhistleWind.AbnormalSigils
             validCards.RemoveAll(x => BoardManager.Instance.GetCards(!base.Card.OpponentCard).Exists(pc => pc.name == x));
             return validCards[SeededRandom.Range(0, validCards.Count, randomBrotherSeed++)];
         }
+        public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard()
         {
             randomBrotherSeed = base.GetRandomSeed() * 2;
