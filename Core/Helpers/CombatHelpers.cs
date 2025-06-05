@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using WhistleWind.Core.Helpers;
 using System.Collections;
 using UnityEngine;
+using System.Linq;
+using InscryptionAPI.Card;
 
 namespace Core.Helpers
 {
@@ -11,7 +13,8 @@ namespace Core.Helpers
         public static IEnumerator QueueCreatedCard(CardInfo cardToQueue)
         {
             int randomSeed = SaveManager.SaveFile.GetCurrentRandomSeed();
-            List<CardSlot> openSlots = Singleton<BoardManager>.Instance.OpponentSlotsCopy.FindAll(s => !Singleton<TurnManager>.Instance.Opponent.QueuedSlots.Contains(s));
+            List<CardSlot> openSlots = BoardManager.Instance.OpponentSlotsCopy.Where(x => !TurnManager.Instance.Opponent.QueuedSlots.Contains(x)).ToList();
+            openSlots.RemoveAll(x => x.Card != null && x.Card.HasTrait(Trait.Giant));
             if (openSlots.Count == 0)
             {
                 List<List<CardInfo>> turnPlan = Singleton<TurnManager>.Instance.Opponent.TurnPlan;
