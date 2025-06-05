@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
             const string rulebookName = "Death Penalty";
             const string rulebookDescription = "When [creature] is killed, its owner takes 1 damage.";
             const string dialogue = "Pay better care to your beasts.";
-            Soulbound.ability = AbnormalAbilityHelper.CreateAbility<DeathPenalty>(
+            DeathPenalty.ability = AbnormalAbilityHelper.CreateAbility<DeathPenalty>(
                 "sigilDeathPenalty",
                 rulebookName, rulebookDescription, dialogue, powerLevel: -4,
                 modular: false, opponent: false, canStack: false)
