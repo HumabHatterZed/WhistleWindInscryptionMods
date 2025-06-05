@@ -124,7 +124,7 @@ namespace WhistleWindLobotomyMod.Opponents
 
         public virtual IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage)
         {
-            Debug.Log($"Direct: {damage} {LifeManager.Instance.Balance} {HighestPositiveScaleBalance}");
+            LobotomyPlugin.Log.LogDebug($"[LobotomyBattleSequencer] Direct: {damage} Balance: {LifeManager.Instance.Balance} Max: {HighestPositiveScaleBalance}");
 
             int bonesToGive = 0;
             // if we are already at our balance cap or we will go over it with this attack

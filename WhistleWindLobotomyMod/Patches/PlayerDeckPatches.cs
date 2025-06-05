@@ -18,7 +18,6 @@ namespace WhistleWindLobotomyMod.Patches
         [HarmonyPrefix, HarmonyPatch(typeof(AscensionSaveData), nameof(AscensionSaveData.NewRun))]
         private static void AscensionModStarterDecks(ref List<CardInfo> starterDeck) {
             if (AscensionSaveData.Data.ChallengeIsActive(NoTime.Id)) {
-                LobotomyPlugin.Log.LogInfo("Disable Backward Clock");
                 LobotomySaveManager.UsedBackwardClock = true;
             }
 
