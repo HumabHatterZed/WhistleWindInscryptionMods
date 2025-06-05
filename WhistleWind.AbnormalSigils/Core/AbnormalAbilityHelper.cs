@@ -43,23 +43,12 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
             if (target == null)
                 return false;
 
-            if (target.Attack == 0 || target.HasAbility(Neutered.ability)) // target cannot attack on its turn
+            // target cannot attack on its turn
+            // attacker is not being targeted
+            if (target.Attack == 0 || target.HasAbility(Neutered.ability) || target.CanAttackDirectly(attacker.Slot) || target.AttackIsBlocked(attacker.Slot) || !target.GetOpposingSlots().Contains(attacker.Slot))
                 return true;
 
-            if (!target.GetOpposingSlots().Contains(attacker.Slot)) // attacker is not being targeted
-                return true;
-
-            // if target can hit us
-            if (target.LacksAbility(Ability.Flying) || attacker.HasAbility(Ability.Reach))
-            {
-                // if the target is Persistent it can always hit us
-                if (target.HasAbility(Persistent.ability))
-                    return false;
-
-                // target cannot hit facedown/submerged cards, Repulsive cards, or Loose Tail cards with their tail intact
-                return attacker.FaceDown || attacker.HasAbility(Ability.PreventAttack);
-            }
-            return true; // target cannot hit us
+            return false;
         }
         /// <summary>
         /// Returns whether Persistent can trigger during an attack.
