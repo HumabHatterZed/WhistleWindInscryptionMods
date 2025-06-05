@@ -35,7 +35,9 @@ namespace WhistleWindLobotomyMod.Opponents
                 yield return (__instance.SpecialSequencer as OrdealBattleSequencer).OnRoundEnd(true);
         }
 
-        [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.ScalesTippedToOpponent))]
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.ScalesTippedToOpponent))]
+        [HarmonyPatch(typeof(TurnManager), nameof(TurnManager.LifeLossConditionsMet))]
         private static void OrdealCompleted(TurnManager __instance, ref bool __result)
         {
             if (__result || !OrdealUtils.OpponentIsOrdeal())
@@ -44,9 +46,8 @@ namespace WhistleWindLobotomyMod.Opponents
             if ((__instance.SpecialSequencer as OrdealBattleSequencer).PlayerHasDefeatedOrdeal())
                 __result = true;
         }
-        //[HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.LifeLossConditionsMet))]
-        //private static void OrdealCompletionConditionsMet(TurnManager __instance, ref bool __result)
-        //{
+        //[HarmonyPostfix, 
+        //private static void OrdealCompletionConditionsMet(TurnManager __instance, ref bool __result) {
         //    OrdealCompleted(__instance, ref __result);
         //}
 
