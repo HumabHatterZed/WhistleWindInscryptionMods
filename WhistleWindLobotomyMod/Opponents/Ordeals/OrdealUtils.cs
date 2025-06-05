@@ -17,7 +17,6 @@ namespace WhistleWindLobotomyMod.Opponents
         public static ViewInfo OrdealViewInfo;
         public static readonly View ViewCounter = GuidManager.GetEnumValue<View>(LobotomyPlugin.pluginGuid, "ViewCounter");
         public static readonly ViewController.ViewTransitionInput[] AcceptableViewTransitions = new ViewController.ViewTransitionInput[4];
-        public static readonly MechanicsConcept OrdealBattle = GuidManager.GetEnumValue<MechanicsConcept>(LobotomyPlugin.pluginGuid, "OrdealBattle");
 
         public static Texture2D[] DawnAnim;
         public static Texture2D[] DawnTotemAnim;

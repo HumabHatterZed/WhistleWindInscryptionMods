@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents
 {
@@ -65,11 +66,11 @@ namespace WhistleWindLobotomyMod.Opponents
             }
 
             Singleton<OpponentAnimationController>.Instance.ClearLookTarget();
-            if (!ProgressionData.LearnedMechanic(OrdealUtils.OrdealBattle)) {
+            if (!LobotomySaveManager.LearnedOrdeals) {
                 yield return new WaitUntil(() => !OrdealBannerManager.Instance.Displaying);
                 ViewManager.Instance.SwitchToView(View.Default);
                 yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("OrdealFirstIntro", TextDisplayer.MessageAdvanceMode.Input);
-                ProgressionData.SetMechanicLearned(OrdealUtils.OrdealBattle);
+                LobotomySaveManager.LearnedOrdeals = true;
             }
 
             ViewManager.Instance.SwitchToView(OrdealUtils.ViewCounter);

@@ -6,6 +6,10 @@ namespace WhistleWindLobotomyMod.Core
 {
     public static class LobotomySaveManager
     {
+        public static bool LearnedOrdeals {
+            get => GetSaveBool("LearnedOrdeals");
+            set => SetSaveValue("LearnedOrdeals", value);
+        }
         public static bool LearnedAbnormalChoice
         {
             get => GetSaveBool("LearnedAbnormalChoice");
@@ -13,8 +17,8 @@ namespace WhistleWindLobotomyMod.Core
         }
         public static bool LearnedSefirotChoice
         {
-            get => GetSaveBool("LearnedSefirotChoice");
-            set => SetSaveValue("LearnedSefirotChoice", value);
+            get => GetRunBool("LearnedSefirotChoice");
+            set => SetRunValue("LearnedSefirotChoice", value);
         }
         public static bool ShownAbnormalEncounters
         {
