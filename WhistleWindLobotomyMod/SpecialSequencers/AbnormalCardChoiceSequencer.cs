@@ -57,13 +57,19 @@ namespace WhistleWindLobotomyMod
                         rerollInteractable.SetEnabled(enabled: true);
                     });
                 }
-                ChallengeActivationUI.TryShowActivation(AscensionChallenge.NoClover);
-                if (AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.NoClover) && !DialogueEventsData.EventIsPlayed("ChallengeNoClover"))
-                {
-                    yield return new WaitForSeconds(1f);
-                    yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("ChallengeNoClover", TextDisplayer.MessageAdvanceMode.Input);
+                else {
+                    ChallengeActivationUI.TryShowActivation(AscensionChallenge.NoClover);
+                    if (!DialogueEventsData.EventIsPlayed("ChallengeNoClover")) {
+                        yield return new WaitForSeconds(1f);
+                        yield return Singleton<TextDisplayer>.Instance.PlayDialogueEvent("ChallengeNoClover", TextDisplayer.MessageAdvanceMode.Input);
+                    }
                 }
+            }
 
+            if (LobotomyConfigManager.ChallengeIsActive(NoRares.Id)) {
+                ChallengeActivationUI.TryShowActivation(NoRares.Id);
+            }
+            else if (LobotomyConfigManager.ChallengeIsActive(BetterRareChances.Id)) {
                 ChallengeActivationUI.TryShowActivation(BetterRareChances.Id);
             }
 
