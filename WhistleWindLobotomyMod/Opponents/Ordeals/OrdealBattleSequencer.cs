@@ -62,7 +62,7 @@ namespace WhistleWindLobotomyMod.Opponents
             if (amountKilledThisTurn > 0)
             {
                 yield return HelperMethods.ChangeCurrentView(OrdealUtils.ViewCounter, endDelay: 0.5f);
-                yield return OrdealCounterManager.Instance.UpdateAmountLeft(amountKilledThisTurn, 0.25f);
+                yield return OrdealCounterManager.Instance.UpdateAmountLeft(amountKilledThisTurn);
                 yield return new WaitForSeconds(0.75f);
             }
 

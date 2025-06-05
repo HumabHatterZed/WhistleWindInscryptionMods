@@ -98,14 +98,15 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public IEnumerator UpdateAmountLeft(int amountKilled, float waitTime)
+        public IEnumerator UpdateAmountLeft(int amountKilled, float waitTime = 0.125f)
         {
             if (this.amountLeft == 0)
                 yield break;
 
-            AudioController.Instance.PlaySound3D("holomap_power_off", MixerGroup.TableObjectsSFX, Instance.transform.position, 1f, 0f, new AudioParams.Pitch(0.9f));
             for (int i = 0; i < amountKilled; i++)
             {
+                AudioController.Instance.PlaySound3D("holomap_power_off", MixerGroup.TableObjectsSFX, Instance.transform.position, 1f, 0f, new AudioParams.Pitch(0.9f));
+
                 this.amountLeft--;
                 if (this.amountLeft == 0)
                 {
