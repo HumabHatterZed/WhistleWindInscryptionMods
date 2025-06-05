@@ -146,7 +146,7 @@ namespace WhistleWindLobotomyMod
             List<CardInfo> sephirahCards = LobotomyCardLoader.GetSephirahCards();
 
             // if the player has 2 sephirah already, unlock Angela and make her a guaranteed choice
-            if (sephirahCards.Count <= 7 && !LobotomySaveManager.UnlockedAngela)
+            if (sephirahCards.Count < 8 && !LobotomySaveManager.UnlockedAngela)
                 listOfChoices.Add(new() { CardInfo = CardLoader.GetCardByName(Cards.angela) });
 
             while (listOfChoices.Count < 3)
@@ -154,11 +154,10 @@ namespace WhistleWindLobotomyMod
                 CardInfo card;
                 if (sephirahCards.Count > 0)
                 {
-                    card = CardLoader.Clone(sephirahCards[SeededRandom.Range(0, sephirahCards.Count, randomSeed++)]);
-                    while (listOfChoices.Exists(x => x.CardInfo.name == card.name))
-                        card = CardLoader.Clone(sephirahCards[SeededRandom.Range(0, sephirahCards.Count, randomSeed++)]);
-
-                    sephirahCards.RemoveAll(x => x.name == card.name);
+                    CardInfo card2 = sephirahCards[SeededRandom.Range(0, sephirahCards.Count, randomSeed++)];
+                    card = CardLoader.Clone(card2);
+                    
+                    sephirahCards.Remove(card2);
                 }
                 else
                     card = LobotomyCardLoader.GetRandomModDeathCard(randomSeed++);
@@ -166,7 +165,8 @@ namespace WhistleWindLobotomyMod
                 CardChoice cardChoice = new() { CardInfo = card };
                 listOfChoices.Add(cardChoice);
             }
-            return new(listOfChoices.Randomize());
+            listOfChoices.Randomize();
+            return listOfChoices;
         }
 
         private new IEnumerator AddCardToDeckAndCleanUp(SelectableCard card)
@@ -181,8 +181,10 @@ namespace WhistleWindLobotomyMod
         }
         private new IEnumerator RewardChosenSequence(SelectableCard card)
         {
-            card.OnCardAddedToDeck();
             float num = !LobotomySaveManager.LearnedSefirotChoice ? 0.5f : 0f;
+
+            card.OnCardAddedToDeck();
+            ViewManager.Instance.SwitchToView(View.Default);
             deckPile.MoveCardToPile(card, flipFaceDown: true, num);
             yield return new WaitForSeconds(num);
             if (!LobotomySaveManager.LearnedSefirotChoice)
@@ -255,6 +257,9 @@ namespace WhistleWindLobotomyMod
             }
         }
 
+        /// <summary>
+        /// Grabs shared GameObjects and variables
+        /// </summary>
         public void Inherit(CustomSpecialNodeData nodeData)
         {
             CardSingleChoicesSequencer inheritTarget = SpecialNodeHandler.Instance.cardChoiceSequencer;
