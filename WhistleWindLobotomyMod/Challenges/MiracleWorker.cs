@@ -41,7 +41,7 @@ namespace WhistleWindLobotomyMod.Challenges
         [HarmonyPostfix]
         private static void AddPlagueDoctor(ref Opponent __result)
         {
-            if (LobotomyConfigManager.ChallengeIsActive(Id) || BLACKLISTED_OPPONENTS.Contains(__result.OpponentType)) {
+            if (!LobotomyConfigManager.ChallengeIsActive(Id) || BLACKLISTED_OPPONENTS.Contains(__result.OpponentType)) {
                 return;
             }
 
