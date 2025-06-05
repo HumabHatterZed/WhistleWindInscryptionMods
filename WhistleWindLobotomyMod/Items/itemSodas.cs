@@ -1,12 +1,8 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Card;
-using InscryptionAPI.Helpers;
 using InscryptionAPI.Items;
 using InscryptionAPI.Items.Extensions;
 using UnityEngine;
-using UnityEngine.UIElements;
-using WhistleWind.AbnormalSigils;
-using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
 using WhistleWindLobotomyMod.Core;
 
@@ -20,7 +16,6 @@ namespace WhistleWindLobotomyMod
             GameObject obj2 = AssetManager.AssetBundle.LoadAsset<GameObject>("OceanSoda");
             GameObject obj3 = AssetManager.AssetBundle.LoadAsset<GameObject>("PotshotPop");
             GameObject obj4 = AssetManager.AssetBundle.LoadAsset<GameObject>("SurefireDrink");
-            Debug.Log($"{obj != null} {obj2 != null} {obj3 != null} {obj4 != null}");
             ConsumableItemManager.New(LobotomyPlugin.pluginGuid,
                 "Fizzy Lifting Drink",
                 "To the user: Select a card on the board to gain Airborne for 3 turns.", TextureLoader.LoadTextureFromFile("itemFizzyLifter.png", LobotomyPlugin.ModAssembly), typeof(FizzyLifterItem), obj)
