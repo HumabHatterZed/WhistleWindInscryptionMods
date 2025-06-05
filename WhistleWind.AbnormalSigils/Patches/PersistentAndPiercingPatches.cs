@@ -19,17 +19,18 @@ namespace WhistleWind.AbnormalSigils.Patches
         [HarmonyPostfix, HarmonyPatch(typeof(PlayableCard), nameof(PlayableCard.CanAttackDirectly))]
         private static void AllowAttackingSubmerged(PlayableCard __instance, CardSlot opposingSlot, ref bool __result)
         {
-            if (opposingSlot.Card != null)
-            {
-                if (opposingSlot.Card.HasAbility(Ethereal.ability)) // Ethereal cards cannot be hit normally
-                {
-                    __result = true;
-                }
+            if (opposingSlot.Card == null) {
+                return;
+            }
 
-                if (__instance.HasAbility(Persistent.ability)) // Persistent cards can always hit cards unless it has Flying and they can't Reach
-                {
-                    __result = __instance.HasAbility(Ability.Flying) && opposingSlot.Card.LacksAbility(Ability.Reach);
-                }
+            if (opposingSlot.Card.HasAbility(Ethereal.ability)) // Ethereal cards cannot be hit normally
+            {
+                __result = true;
+            }
+
+            if (__instance.HasAbility(Persistent.ability)) // Persistent cards can always hit cards unless it has Flying and they can't Reach
+            {
+                __result = __instance.HasAbility(Ability.Flying) && opposingSlot.Card.LacksAbility(Ability.Reach);
             }
         }
 
