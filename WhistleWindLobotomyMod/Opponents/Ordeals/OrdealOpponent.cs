@@ -61,7 +61,6 @@ namespace WhistleWindLobotomyMod.Opponents
             yield return new WaitForSeconds(1.5f);
 
             if (hasTotem) {
-                encounter.opponentTotem = EncounterBuilder.BuildOpponentTotem(DominantTribe, encounter.Difficulty, TotemAbilitiesBlacklist);
                 yield return base.AssembleTotem(encounter.opponentTotem, Vector3.zero, Vector3.zero, totemGlowColour, true);
             }
 

@@ -206,7 +206,6 @@ namespace WhistleWindLobotomyMod.Opponents
             }
 
             LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards required: [{MinNumCardsRequired}] {encounterData.opponentTurnPlan.Count} {encounterData.opponentTurnPlan.FirstOrDefault()?.Count}");
-
             return encounterData;
         }
 
