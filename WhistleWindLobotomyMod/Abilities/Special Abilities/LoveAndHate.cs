@@ -1,6 +1,7 @@
 ﻿using Core.Helpers;
 using DiskCardGame;
 using InscryptionAPI.Card;
+using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
@@ -21,71 +22,43 @@ namespace WhistleWindLobotomyMod
         public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
             => fromCombat && killer != null && killer != base.PlayableCard;
 
-        public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep && Mathf.Abs(cardDeathBalance) >= 2;
+        public override bool RespondsToUpkeep(bool playerUpkeep) => base.PlayableCard.OpponentCard != playerUpkeep && Mathf.Abs(cardDeathBalance) > 2;
 
         public override IEnumerator OnOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
         {
-            cardDeathBalance += card.OpponentCard ? -1 : 1;
+            cardDeathBalance += card.OpponentCard == base.PlayableCard.OpponentCard ? -1 : 1;
             yield break;
         }
 
         public override IEnumerator OnUpkeep(bool playerUpkeep)
         {
-            if (cardDeathBalance > 0)
-            {
-                CardInfo evolution = GetEvolve(base.PlayableCard);
-                yield return PerformTransformation(evolution);
+            CardInfo evolution = GetEvolve(base.PlayableCard);
+            CardSlot opposingSlot = base.PlayableCard.Slot.opposingSlot;
+            yield return PerformTransformation(evolution);
 
-                // If on opponent's side, move to player's if there's room, otherwise create in hand
-                if (base.PlayableCard.OpponentCard)
-                {
-                    if (base.PlayableCard.Slot.opposingSlot.Card != null)
-                    {
-                        base.PlayableCard.RemoveFromBoard();
-                        yield return new WaitForSeconds(0.5f);
-
-                        yield return HelperMethods.ChangeCurrentView(View.Hand);
-
+            // positive death balance means Queen of Hatred will go to the opposing side
+            if (cardDeathBalance > 0) {
+                if (opposingSlot.Card == null) {
+                    LobotomyPlugin.Log.LogDebug("Moving Queen of Hatred to opposing slot.");
+                    yield return MoveToSlot(!base.PlayableCard.OpponentCard, opposingSlot);
+                }
+                else {
+                    LobotomyPlugin.Log.LogDebug("Adding Queen of Hatred to queue.");
+                    base.PlayableCard.RemoveFromBoard();
+                    yield return new WaitForSeconds(0.5f);
+                    if (base.PlayableCard.OpponentCard) {
+                        ViewManager.Instance.SwitchToView(View.Default);
                         yield return Singleton<CardSpawner>.Instance.SpawnCardToHand(evolution);
                         yield return new WaitForSeconds(0.45f);
                     }
-                    else
-                    {
-                        yield return MoveToSlot(false, base.PlayableCard.Slot.opposingSlot);
+                    else if (BoardManager.Instance.GetOpponentCards(x => x.HasTrait(Trait.Giant)).Count < BoardManager.Instance.OpponentSlotsCopy.Count) {
+                        ViewManager.Instance.SwitchToView(View.Board);
+                        yield return CombatHelpers.QueueCreatedCard(evolution);
                         yield return new WaitForSeconds(0.25f);
                     }
                 }
-                yield return PlayDialogue();
-                Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             }
-            else
-            {
-                CardInfo evolution = GetEvolve(base.PlayableCard);
-
-                yield return PerformTransformation(evolution);
-
-                bool giantCard = Singleton<BoardManager>.Instance.OpponentSlotsCopy.FindAll(s => s.Card != null && s.Card.HasTrait(Trait.Giant)).Count > 0;
-
-                if (!base.PlayableCard.OpponentCard && !giantCard)
-                {
-                    CardSlot opposingSlot = base.PlayableCard.Slot.opposingSlot;
-
-                    if (opposingSlot.Card == null) // if the opposing slot is empty, move over to it
-                    {
-                        LobotomyPlugin.Log.LogDebug("Moving Queen of Hatred to opposing slot.");
-                        yield return MoveToSlot(true, opposingSlot);
-                    }
-                    else // if the opposing slot is occupied add to queue
-                    {
-                        LobotomyPlugin.Log.LogDebug("Adding Queen of Hatred to queue.");
-                        base.PlayableCard.RemoveFromBoard();
-                        yield return new WaitForSeconds(0.5f);
-                        CombatHelpers.QueueCreatedCard(evolution);
-                    }
-                    yield return new WaitForSeconds(0.25f);
-                }
-                yield return PlayDialogue();
-            }
+            yield return PlayDialogue();
         }
 
         private CardInfo GetEvolve(PlayableCard card)
@@ -116,9 +89,9 @@ namespace WhistleWindLobotomyMod
             yield return base.PlayableCard.TransformIntoCard(evolution);
             yield return new WaitForSeconds(0.5f);
         }
-        private IEnumerator MoveToSlot(bool opponent, CardSlot slot)
+        private IEnumerator MoveToSlot(bool setOpponent, CardSlot slot)
         {
-            base.PlayableCard.SetIsOpponentCard(opponent);
+            base.PlayableCard.SetIsOpponentCard(setOpponent);
             base.PlayableCard.transform.eulerAngles += new Vector3(0f, 0f, -180f);
             yield return Singleton<BoardManager>.Instance.AssignCardToSlot(base.PlayableCard, slot, 0.25f);
         }
