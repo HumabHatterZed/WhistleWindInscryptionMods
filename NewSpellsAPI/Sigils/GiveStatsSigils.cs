@@ -99,6 +99,7 @@ namespace Infiniscryption.Spells.Sigils
             info.passive = false;
             info.metaCategories = new List<AbilityMetaCategory>() { AbilityMetaCategory.Part1Rulebook };
             info.SetPixelAbilityIcon(AssetHelper.LoadTexture("give_stats_sigils_pixel"));
+            info.SetExtendedProperty("Spells:GiveAbility", true);
 
             GiveStatsSigils.AbilityID = AbilityManager.Add(
                 InfiniscryptionSpellsPlugin.OriginalPluginGuid,

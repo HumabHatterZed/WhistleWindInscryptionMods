@@ -1,10 +1,8 @@
 # PluginGUID: zorro.inscryption.infiniscryption.spells
 
-<details>
-<summary>View changelog</summary>
-
 ## 1.2.6 (, 2025)
 - Fixed errors related to queued cards
+- Fixed Give Stats and Sigils applying itself to targeted cards
 
 ## 1.2.5 (Aug 11, 2024)
 - Fixed Terrain stat spells being boostable at the campfire
@@ -123,4 +121,3 @@
 
 ## 1.0.0
 - Initial version. Adds global spells.
-</details>
