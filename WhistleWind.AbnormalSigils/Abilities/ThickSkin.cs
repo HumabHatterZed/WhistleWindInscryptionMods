@@ -17,7 +17,7 @@ namespace WhistleWind.AbnormalSigils
             const string triggerText = "[creature] absorbs the blow.";
             ThickSkin.ability = AbnormalAbilityHelper.CreateAbility<ThickSkin>(
                 "sigilThickSkin",
-                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 3,
+                rulebookName, rulebookDescription, dialogue, triggerText, powerLevel: 2,
                 modular: false, opponent: false, canStack: true)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
