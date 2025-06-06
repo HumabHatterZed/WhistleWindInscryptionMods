@@ -35,12 +35,14 @@ namespace WhistleWind.AbnormalSigils.Patches
     [HarmonyPatch]
     internal class OtherAbilityPatches
     {
-        //[HarmonyPrefix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.OpponentTurn))]
-        //private static bool CacheOpponentTurnSkipped(ref bool __state)
-        //{
-        //    __state = TurnManager.Instance.Opponent.SkipNextTurn;
-        //    return true;
-        //}
+        [HarmonyPostfix, HarmonyPatch(typeof(AbilityBehaviour), nameof(AbilityBehaviour.GetNonDefaultModsFromSelf))]
+        private static void DeathPenaltyNonInheritable(ref List<CardModificationInfo> __result) {
+            if (__result.Count == 0 || __result[0].abilities.Count == 0) {
+                return;
+            }
+
+            __result[0].abilities.Remove(DeathPenalty.ability);
+        }
 
         [HarmonyPostfix, HarmonyPatch(typeof(TurnManager), nameof(TurnManager.OpponentTurn))]
         private static IEnumerator TriggerOnTurnEnd(IEnumerator result, TurnManager __instance)
