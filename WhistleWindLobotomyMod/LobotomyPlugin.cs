@@ -189,38 +189,6 @@ namespace WhistleWindLobotomyMod
 
         private void AddEncounters()
         {
-/*            for (int i = 0; i < RegionProgression.Instance.regions.Count; i++) {
-                RegionData region = RegionProgression.Instance.regions[i];
-
-                Log.LogInfo($"Encounters for region {i}: " + region.name);
-                for (int j = 0; j < RegionProgression.Instance.regions[i].encounters.Count; j++) {
-                    EncounterBlueprintData encounter = RegionProgression.Instance.regions[i].encounters[j];
-                    List<List<EncounterBlueprintData.CardBlueprint>> turns = encounter.turns;
-
-                    Log.LogInfo("|   " + encounter.name + ":");
-                    Log.LogInfo($"|   Difficulty: [{encounter.minDifficulty}, {encounter.maxDifficulty}]");
-                    Log.LogInfo($"|   Tribes:");
-                    for (int h = 0; h < encounter.dominantTribes.Count; h++) {
-                        Log.LogInfo($"|   |   {encounter.dominantTribes[h]}");
-                    }
-
-                    Log.LogInfo($"|   Replacements:");
-                    for (int p = 0; p < encounter.randomReplacementCards.Count; p++) {
-                        Log.LogInfo("|   |   " + encounter.randomReplacementCards[p].name);
-                    }
-                    Log.LogInfo($"|   Turns:");
-                    for (int k = 0; k < turns.Count; k++) {
-                        Log.LogInfo($"|   |   Turn {k}:");
-                        for (int m = 0; m < turns[k].Count; m++) {
-                            Log.LogInfo($"|   |   |   {turns[k][m].card?.name}");
-                            Log.LogInfo($"|   |   |   Difficulty: [{turns[k][m].minDifficulty}, {turns[k][m].maxDifficulty}]");
-                            Log.LogInfo($"|   |   |   Difficulty replacement: {turns[k][m].replacement?.name} [{turns[k][m].difficultyReplace}, {turns[k][m].difficultyReq}]");
-                            Log.LogInfo($"|   |   |   Random replacement: {turns[k][m].randomReplaceChance}");
-                        }
-                    }
-                }
-            }*/
-
             BuildEncounters();
             RegionProgression.Instance.regions[0].AddEncounters(ModEncounters[0].ToArray());
             RegionProgression.Instance.regions[1].AddEncounters(ModEncounters[1].ToArray());

@@ -92,6 +92,76 @@ namespace ModDebuggingMod
             }
         }
 
+        private void DebugEncounterInfo() {
+            /*            for (int i = 0; i < RegionProgression.Instance.regions.Count; i++) {
+                RegionData region = RegionProgression.Instance.regions[i];
+
+                Log.LogInfo($"Encounters for region {i}: " + region.name);
+                for (int j = 0; j < RegionProgression.Instance.regions[i].encounters.Count; j++) {
+                    EncounterBlueprintData encounter = RegionProgression.Instance.regions[i].encounters[j];
+                    List<List<EncounterBlueprintData.CardBlueprint>> turns = encounter.turns;
+
+                    Log.LogInfo("|   " + encounter.name + ":");
+                    Log.LogInfo($"|   Difficulty: [{encounter.minDifficulty}, {encounter.maxDifficulty}]");
+                    Log.LogInfo($"|   Tribes:");
+                    for (int h = 0; h < encounter.dominantTribes.Count; h++) {
+                        Log.LogInfo($"|   |   {encounter.dominantTribes[h]}");
+                    }
+
+                    Log.LogInfo($"|   Replacements:");
+                    for (int p = 0; p < encounter.randomReplacementCards.Count; p++) {
+                        Log.LogInfo("|   |   " + encounter.randomReplacementCards[p].name);
+                    }
+                    Log.LogInfo($"|   Turns:");
+                    for (int k = 0; k < turns.Count; k++) {
+                        Log.LogInfo($"|   |   Turn {k}:");
+                        for (int m = 0; m < turns[k].Count; m++) {
+                            Log.LogInfo($"|   |   |   {turns[k][m].card?.name}");
+                            Log.LogInfo($"|   |   |   Difficulty: [{turns[k][m].minDifficulty}, {turns[k][m].maxDifficulty}]");
+                            Log.LogInfo($"|   |   |   Difficulty replacement: {turns[k][m].replacement?.name} [{turns[k][m].difficultyReplace}, {turns[k][m].difficultyReq}]");
+                            Log.LogInfo($"|   |   |   Random replacement: {turns[k][m].randomReplaceChance}");
+                        }
+                    }
+                }
+            }*/
+
+            /*            List<EncounterBlueprintData> data = new() {
+                            ResourceBank.Get<EncounterBlueprintData>("Data/EncounterBlueprints/Part1/ProspectorBossP1"),
+                            ResourceBank.Get<EncounterBlueprintData>("Data/EncounterBlueprints/Part1/ProspectorBossP2"),
+                            ResourceBank.Get<EncounterBlueprintData>("Data/EncounterBlueprints/Part1/AnglerBossP1"),
+                            ResourceBank.Get<EncounterBlueprintData>("Data/EncounterBlueprints/Part1/AnglerBossP2"),
+                            ResourceBank.Get<EncounterBlueprintData>("Data/EncounterBlueprints/Part1/TrapperTraderBossP1"),
+                            ResourceBank.Get<EncounterBlueprintData>("Data/EncounterBlueprints/Part1/LeshyBossP1"),
+                            ResourceBank.Get<EncounterBlueprintData>("Data/EncounterBlueprints/Part1/PirateSkullBossP1")
+                        };
+                        for (int i = 0; i < data.Count; i++) {
+                            EncounterBlueprintData encounter = data[i];
+                            List<List<EncounterBlueprintData.CardBlueprint>> turns = encounter.turns;
+
+                            Log.LogInfo(encounter.name + ":");
+                            Log.LogInfo($"|   Difficulty: [{encounter.minDifficulty}, {encounter.maxDifficulty}]");
+                            Log.LogInfo($"|   Tribes:");
+                            for (int h = 0; h < encounter.dominantTribes.Count; h++) {
+                                Log.LogInfo($"|   |   {encounter.dominantTribes[h]}");
+                            }
+
+                            Log.LogInfo($"|   Replacements:");
+                            for (int p = 0; p < encounter.randomReplacementCards.Count; p++) {
+                                Log.LogInfo("|   |   " + encounter.randomReplacementCards[p].name);
+                            }
+                            Log.LogInfo($"|   Turns:");
+                            for (int k = 0; k < turns.Count; k++) {
+                                Log.LogInfo($"|   |   Turn {k}:");
+                                for (int m = 0; m < turns[k].Count; m++) {
+                                    Log.LogInfo($"|   |   |   {turns[k][m].card?.name}");
+                                    Log.LogInfo($"|   |   |   Difficulty: [{turns[k][m].minDifficulty}, {turns[k][m].maxDifficulty}]");
+                                    Log.LogInfo($"|   |   |   Difficulty replacement: {turns[k][m].replacement?.name} [{turns[k][m].difficultyReplace}, {turns[k][m].difficultyReq}]");
+                                    Log.LogInfo($"|   |   |   Random replacement: {turns[k][m].randomReplaceChance}");
+                                }
+                            }
+                        }*/
+        }
+
         private void PrintCardsToConsole(string pluginPrefix)
         {
             foreach (CardInfo info in CardManager.AllCardsCopy.Where(x => x.ModPrefixIs(pluginPrefix)))
