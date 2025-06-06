@@ -91,7 +91,7 @@ namespace WhistleWindLobotomyMod
                 .AddAppearances(ForcedGreenEmission.appearance)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
-                .SetTerrain()
+                .SetTerrain(false)
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, lastHelix, "Last Helix",
@@ -101,7 +101,7 @@ namespace WhistleWindLobotomyMod
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal, Trait.Uncuttable, Trait.Structure, ImmuneToInstaDeath)
                 .SetAnimatedPortrait(LobOpponentUtils.helixBossPrefab)
-                .SetTerrain(true)
+                .SetTerrain(false)
                 .SetMiniGiant()
                 .Build();
         }
