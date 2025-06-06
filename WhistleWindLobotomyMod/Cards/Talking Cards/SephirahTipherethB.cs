@@ -16,7 +16,7 @@ namespace WhistleWindLobotomyMod
     public class TalkingCardTipherethB : CustomPaperTalkingCard
     {
         public override string CardName => Cards.sephirahTipherethB;
-        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 0.9f, voiceSoundPitch: 1.4f);
+        public override FaceInfo FaceInfo => new(voiceId: "female1_voice", blinkRate: 2.2f, voiceSoundPitch: 1.4f);
         public override DialogueEvent.Speaker SpeakerType => DialogueEvent.Speaker.Single;
 
         public static SpecialTriggeredAbility specialAbility;
