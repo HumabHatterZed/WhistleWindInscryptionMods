@@ -99,7 +99,7 @@ namespace WhistleWind.AbnormalSigils
          */
         public static List<CardSlot> GetOccupiedSlotsMovable(List<CardSlot> slots)
         {
-            slots.RemoveAll(x => x.Card == null || x.Card.HasAbility(Unyielding.ability) || x.Card.HasTrait(Trait.Giant));
+            slots.RemoveAll(x => x.Card == null || x.Card.HasAbility(Unyielding.ability) || x.Card.HasAnyOfTraits(Trait.Giant, Trait.Structure));
             return slots;
         }
 
