@@ -38,6 +38,7 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
         /// </summary>
         /// <param name="attacker">The card with Opportunistic.</param>
         /// <param name="target">The card being targeted.</param>
+        [Obsolete]
         public static bool SimulateOneSidedAttack(PlayableCard attacker, PlayableCard target)
         {
             if (target == null || target.Attack > 0 || target.HasAbility(Neutered.ability))

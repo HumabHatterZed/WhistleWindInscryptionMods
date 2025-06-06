@@ -67,40 +67,42 @@
 - Fixed Haste gained from High Strung being inconsistent in when it's removed from the card
 - Fixed learned ability dialogue not triggering
 ### ⚖️ Balancing
-- Modified logic for opponent activated sigils to be based on sigil power level
+- Modified logic for opponent activated sigils to be based on sigil power level - stronger sigils are less likely to be triggered each turn
 - Lonely - reduced powerlevel from 3 -> 2
-- Bloodfiend - reduced powerlevel from 3 -> 2
-- Gift Giver - increased powerlevel from 3 -> 4
-- Bloodletter - reduced powerlevel from 4 -> 3
 - Binding Strike - reduced powerlevel from 2 -> 1
-- Opportunistic - changed to activate against cards with Loose Tail and an intact tail status
-- Refresh Deck - changed to discard the player's current hand and draw a new opening hand after resetting the deck piles
-- Nettle Clothes - reduced powerlevel from 5 -> 4
-- Nettle Clothes - changed to only create Brothers in adjacent slots rather than all friendly slots
-- Witness - reduced activation cost from 2 Bones -> 1 Bone
-- Ruler of Frost - targeting cards now requires an additional 2 Bones - empty spaces still cost 2 Bones to target
-- Ruler of Frost - kill effect no longer affects Terrain and Pelt cards
+- Bloodfiend - no longer triggers against Terrain cards
+- Bloodfiend - reduced powerlevel from 3 -> 2
+- Bloodletter - no longer triggers against Terrain cards
+- Bloodletter - reduced powerlevel from 4 -> 3
 - Frozen Heart - changed to give 1 Power and 1 Health instead of 2 Health
 - Frozen Heart - reduced powerlevel from -1 -> -3
-- Punisher - now activates on death instead of on take damage
+- Gift Giver - increased powerlevel from 3 -> 4
 - Healer - now removes a random negative status effect from targeted cards
 - Healer - reduced health gained from 2 -> 1
-- Thick Skin - now only reduces damage from cards; null sources do not trigger damage reduction
-- Thick Skin - raised powerlevel from 2 -> 3
+- Nettle Clothes - reduced powerlevel from 5 -> 4
+- Nettle Clothes - changed to only create Brothers in adjacent slots rather than all friendly slots
+- Opportunistic - reworked to trigger against injured cards
+- Punisher - now activates on card death instead of on taking damage
+- Refresh Deck - changed to discard the player's current hand and draw a new opening hand after resetting the deck piles
+- Ruler of Frost - targeting cards now requires an additional 2 Bones - empty spaces still cost 2 Bones to target
+- Ruler of Frost - kill effect no longer affects Terrain and Pelt cards
+- Thick Skin - now only reduces damage from cards; null sources no longer trigger damage reduction
 - Thick Skin - no longer modular
+- Witness - reduced activation cost from 2 Bones -> 1 Bone
 - Spores - increased powerlevel from -1 -> 0
 - Worms - Infested cards now deprioritise Terrain and Pelt cards when targeting
 - Worms - increased powerlevel from -2 -> -1
 - Worms - no longer affects cards with Made of Stone
-- Little Witch's Friend - rebalanced from 1/2, 3 Bones -> 1/1, 2 Bones, Detonator
-- Little Witch's Friend - no longer possesses the Insect tribe
-- Spiderling - reduced play cost from 3 Bones -> Free
-- Spider Brood - reduced Health from 3 -> 2
-- Pumpkin Jack - Replaced Cursed sigil with Brittle
-- Hammer - replaced Made of Stone with Pin Down
 - Block of Ice - removed Mighty Leap sigil
 - First Brother - replaced Double Strike with Persistent
 - All Brother cards - removed play cost, reduced Health to 1
+- Little Witch's Friend - reworked from 1/2, 3 Bones -> 1/1, 2 Bones, Detonator
+- Hammer - replaced Made of Stone with Pin Down
+- Little Witch's Friend - no longer possesses the Insect tribe
+- Pumpkin Jack - Replaced Cursed sigil with Brittle
+- Spiderling - reduced play cost from 3 Bones -> Free
+- Spider Brood - reduced Health from 3 -> 2
+
 ### ➕ Additions
 - Added TargetIconHelper - contains helper methods for creating target icons in Act 1
 - Added dialogue for when first encountering a status effect

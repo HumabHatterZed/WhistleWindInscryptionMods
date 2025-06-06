@@ -13,11 +13,11 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_OneSided()
         {
             const string rulebookName = "Opportunistic";
-            const string rulebookDescription = "[creature] deals 1 additional damage when striking creatures that cannot attack it.";
-            const string dialogue = "A cheap hit.";
+            const string rulebookDescription = "[creature] deals 1 additional damage when striking injured cards.";
+            const string dialogue = "Blood in the water.";
             OneSided.ability = AbnormalAbilityHelper.CreateAbility<OneSided>(
                 "sigilOneSided",
-                rulebookName, rulebookDescription, dialogue, powerLevel: 2,
+                rulebookName, rulebookDescription, dialogue, powerLevel: 3,
                 modular: true, opponent: true, canStack: true)
                 .SetPart3Rulebook()
                 .SetGrimoraRulebook()
@@ -34,7 +34,7 @@ namespace WhistleWind.AbnormalSigils
 
         public override bool RespondsToModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
-            return base.Card == attacker && AbnormalAbilityHelper.SimulateOneSidedAttack(base.Card, target);
+            return base.Card == attacker && target.Health < target.MaxHealth;
         }
         public override int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
