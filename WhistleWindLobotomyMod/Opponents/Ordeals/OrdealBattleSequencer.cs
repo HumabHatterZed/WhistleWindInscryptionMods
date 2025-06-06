@@ -19,6 +19,7 @@ namespace WhistleWindLobotomyMod.Opponents
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.OrdealDefeated;
         public override int HighestPositiveScaleBalance { get => 4; set => base.HighestPositiveScaleBalance = value; }
         public virtual List<Ability> BlacklistedAbilities { get; set; }
+        public List<string> ValidCards => new();
         public List<Ability> AllBlacklistedAbilities { get; private set; }
         public int MinNumCardsRequired { get; protected set; }
         public OrdealOpponent Opponent => TurnManager.Instance.Opponent as OrdealOpponent;
@@ -98,14 +99,18 @@ namespace WhistleWindLobotomyMod.Opponents
         public bool ShouldExtendBattle() {
             LobotomyPlugin.Log.LogDebug($"[ShouldExtendOrdeal] {Opponent.NumTurnsTaken} {Opponent.TurnPlan.Count}");
             return Opponent.NumTurnsTaken >= Opponent.TurnPlan.Count
-                && BoardManager.Instance.GetOpponentCards(x => x.HasTrait(LobotomyCardManager.Ordeal)).Count == 0
-                && Opponent.Queue.Count(x => x.HasTrait(LobotomyCardManager.Ordeal)) == 0;
+                && BoardManager.Instance.GetOpponentCards(CardIsValidOrdeal).Count == 0
+                && Opponent.Queue.Count(CardIsValidOrdeal) == 0;
         }
 
-        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer)
-        {
-            return card.HasTrait(LobotomyCardManager.Ordeal);
-        }
+        /// <returns>True if the given card's death is counted towards the kill requirement.</returns>
+        protected bool CardIsValidOrdeal(PlayableCard card) => card.HasTrait(LobotomyCardManager.Ordeal) && (ValidCards.Count == 0 || ValidCards.Contains(card.Info.name));
+        
+        /// <summary>
+        /// Only valid Ordeal cards will trigger 'this.OnOtherCardDie'.
+        /// By default, any card with the Ordeal trait is valid.
+        /// </summary>
+        public override bool RespondsToOtherCardDie(PlayableCard card, CardSlot deathSlot, bool fromCombat, PlayableCard killer) => CardIsValidOrdeal(card);
 
         /// <remarks>
         /// By default, only triggers when an opponent-owned Ordeal card dies.
