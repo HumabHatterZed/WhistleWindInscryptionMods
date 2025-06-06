@@ -16,9 +16,9 @@ namespace WhistleWindLobotomyMod.Challenges
         {
             Id = ChallengeManager.Add(
                 LobotomyPlugin.pluginGuid,
-                title   ,
+                title,
                 description,
-                5,
+                3,
                 TextureLoader.LoadTextureFromFile("ascensionNoTime.png"),
                 TextureLoader.LoadTextureFromFile("ascensionNoTime_activated.png")
                 ).Challenge.challengeType;
