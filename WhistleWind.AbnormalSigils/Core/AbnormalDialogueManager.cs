@@ -7,6 +7,9 @@ namespace WhistleWind.AbnormalSigils.Core
     {
         public static Dictionary<string, List<CustomLine>> EventNames => new()
         {
+            { "BloodfiendStone",
+                new() { "You cannot draw blood from a stone." }
+            },
             { "LearnStatusEffects",
                 new() {
                     "Ah, this beast has been afflicted with a [c:bR]status effect[c:].",
