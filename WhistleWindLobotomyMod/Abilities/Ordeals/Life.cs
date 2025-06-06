@@ -3,8 +3,6 @@ using DiskCardGame;
 using InscryptionAPI.Card;
 using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using WhistleWind.Core.Helpers;
 
@@ -26,45 +24,60 @@ namespace WhistleWindLobotomyMod
     {
         public static Ability ability;
         public override Ability Ability => ability;
-
+        private Texture life2 = null;
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
-            int rand = base.GetRandomSeed();
-            yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(GetRandomCardId(rand++)), BoardManager.Instance.GetOpponentOpenSlots());
-            yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(GetRandomCardId(rand++)), BoardManager.Instance.GetOpponentOpenSlots());
+            if (base.Card.TurnPlayed > 1) {
+                life2 ??= TextureLoader.LoadTextureFromFile("sigilLife_2.png");
+                base.Card.RenderInfo.OverrideAbilityIcon(Life.ability, life2);
+                base.Card.RenderCard();
+            }
+            yield break;
+
         }
-        public override bool RespondsToUpkeep(bool playerUpkeep) => base.Card.OpponentCard != playerUpkeep && TurnManager.Instance.TurnNumber > base.Card.TurnPlayed + 2;
-        public override IEnumerator OnUpkeep(bool playerUpkeep)
-        {
-            base.Card.Slot.Card = null;
-            base.Card.Slot = BoardManager.Instance.OpponentSlotsCopy.FindAll(x => !TurnManager.Instance.Opponent.QueuedSlots.Contains(x)).GetSeededRandom(base.GetRandomSeed());
-            yield return TurnManager.Instance.Opponent.ReturnCardToQueue(base.Card, 0.2f);
+        public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
+        public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
+            int diff = TurnManager.Instance.TurnNumber - base.Card.TurnPlayed;
+            if (diff > 1 || base.Card.TurnPlayed < 2) {
+                base.Card.Slot.Card = null;
+                int rand = base.GetRandomSeed();
+                base.Card.Slot = BoardManager.Instance.OpponentSlotsCopy.FindAll(x => !TurnManager.Instance.Opponent.QueuedSlots.Contains(x)).GetSeededRandom(base.GetRandomSeed());
+                // sound effect
+                CustomCoroutine.Instance.StartCoroutine(TurnManager.Instance.Opponent.ReturnCardToQueue(base.Card, 0.2f));
+                yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(GetRandomCardId(rand++)), BoardManager.Instance.GetOpponentOpenSlots());
+                yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(GetRandomCardId(rand++)), BoardManager.Instance.GetOpponentOpenSlots());
+                yield return new WaitForSeconds(0.5f);
+
+
+            }
+            else {
+                base.Card.RenderInfo.OverrideAbilityIcon(Life.ability, AbilityManager.AllAbilities.AbilityByID(ability).Texture);
+                base.Card.RenderCard();
+            }
+            yield return new WaitForSeconds(0.5f);
         }
+
         private string GetRandomCardId(int randomSeed)
         {
-            // .48 .66 .80 .92 1
-            // .41 .57 .75 .89 1
-            // .34 .48 .70 .86 1
+            //  A   B   Y   O  P
+            // .17 .41 .69 .92 1
+            // .10 .32 .64 .89 1
+            // .03 .23 .59 .86 1
             float randomValue = SeededRandom.Value(randomSeed);
             int extraDifficulty = AscensionSaveData.Data.GetNumChallengesOfTypeActive(AscensionChallenge.BaseDifficulty);
-            if (randomValue <= Mathf.Max(0.15f, 0.55f - extraDifficulty * 0.07f))
-            {
+            if (randomValue <= 0.17f - extraDifficulty * 0.07f) {
                 return Cards.doubtA;
             }
-            else if (randomValue <= Mathf.Max(0.25f, 0.75f - extraDifficulty * 0.09f))
-            {
+            else if (randomValue <= 0.41f - extraDifficulty * 0.09f) {
                 return Cards.doubtB;
             }
-            else if (randomValue <= Mathf.Max(0.45f - extraDifficulty * 0.05f))
-            {
+            else if (randomValue <= 0.69f - extraDifficulty * 0.05f) {
                 return Cards.doubtY;
             }
-            else if (randomValue <= Mathf.Max(0.75f, 0.95f - extraDifficulty * 0.03f))
-            {
+            else if (randomValue <= 0.92f - extraDifficulty * 0.03f) {
                 return Cards.doubtO;
             }
-            else
-            {
+            else {
                 return Cards.doubtProcess;
             }
         }
