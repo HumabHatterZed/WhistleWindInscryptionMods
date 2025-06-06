@@ -50,7 +50,12 @@ namespace WhistleWind.Core.AbilityClasses
 
         public virtual bool CanActivateOpponent()
         {
-            if (CanActivate())
+            if (!CanActivate()) {
+                return false;
+            }
+
+            // energy costs cannot be used until enough time has passed to afford it
+            if (EnergyCost == 0 || EnergyCost <= TurnManager.Instance.TurnNumber)
             {
                 return SeededRandom.Range(0, AbilitiesUtil.GetInfo(this.Ability).powerLevel, base.GetRandomSeed()) == 0;
             }
