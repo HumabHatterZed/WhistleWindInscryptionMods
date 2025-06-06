@@ -662,8 +662,13 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         /// Updates the appearance of the Apocalypse sigil based on the current phase and subphase.
         /// </summary>
         public void UpdateCounter() {
-            string newTex = (turnsToNextPhase <= 0 || DisabledEggEffects.Count == 3) ? "sigilApocalypse.png" : ("sigilApocalypse_" + turnsToNextPhase + ".png");
-            BossCard.RenderInfo.OverrideAbilityIcon(ApocalypseAbility.ability, TextureLoader.LoadTextureFromFile(newTex));
+            if (turnsToNextPhase < 1 || DisabledEggEffects.Count == 3) {
+                BossCard.RenderInfo.OverrideAbilityIcon(ApocalypseAbility.ability, AbilityManager.AllAbilities.AbilityByID(ApocalypseAbility.ability).Texture);
+            }
+            else {
+                BossCard.RenderInfo.OverrideAbilityIcon(ApocalypseAbility.ability, TextureLoader.LoadTextureFromFile($"sigilApocalypse_{turnsToNextPhase}.png", LobotomyPlugin.ModAssembly));
+            }
+
             BossCard.RenderCard();
         }
 
