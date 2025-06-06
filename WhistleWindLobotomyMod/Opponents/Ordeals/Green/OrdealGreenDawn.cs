@@ -1,7 +1,6 @@
 ﻿using DiskCardGame;
 using InscryptionAPI.Encounters;
 using System.Collections.Generic;
-using System.Linq;
 using WhistleWind.Core.Helpers;
 
 namespace WhistleWindLobotomyMod.Opponents
