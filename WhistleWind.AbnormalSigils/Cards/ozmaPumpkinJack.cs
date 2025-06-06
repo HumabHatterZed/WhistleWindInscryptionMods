@@ -15,7 +15,7 @@ namespace WhistleWind.AbnormalSigils
 
             CardInfo jack = CardManager.New(pluginPrefix, ozmaPumpkinJack, "Jack", 2, 2)
                 .SetPortraits(Assembly, ozmaPumpkinJack)
-                .AddAbilities(Cursed.ability)
+                .AddAbilities(Ability.Brittle)
                 .AddTribes(tribes);
 
             CardManager.New(pluginPrefix, ozmaPumpkin, "Pumpkin", 0, 2)
