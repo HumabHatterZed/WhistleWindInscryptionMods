@@ -1,4 +1,6 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionAPI.Dialogue;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
@@ -11,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Bloodfiend()
         {
             const string rulebookName = "Bloodfiend";
-            const string rulebookDescription = "When [creature] deals damage, it gains 1 Health.";
+            const string rulebookDescription = "When [creature] strikes a creature, it gains 1 Health.";
             const string dialogue = "Accursed fiend.";
             const string triggerText = "[creature] satiates its thirst!";
             Bloodfiend.ability = AbnormalAbilityHelper.CreateAbility<Bloodfiend>(
@@ -33,8 +35,13 @@ namespace WhistleWind.AbnormalSigils
         {
             yield return base.PreSuccessfulTriggerSequence();
             yield return new WaitForSeconds(0.3f);
-            base.Card.HealDamage(1);
             base.Card.Anim.LightNegationEffect();
+            if (target.HasTrait(Trait.Terrain)) {
+                yield return DialogueManager.PlayDialogueEventSafe("BloodfiendStone");
+            }
+            else {
+                base.Card.HealDamage(1);
+            }
             yield return base.LearnAbility(0.3f);
         }
     }

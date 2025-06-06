@@ -1,8 +1,11 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Card;
+using InscryptionAPI.Dialogue;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
 using WhistleWind.Core.Helpers;
+using static UnityEngine.GraphicsBuffer;
 
 namespace WhistleWind.AbnormalSigils
 {
@@ -11,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Bloodletter()
         {
             const string rulebookName = "Bloodletter";
-            const string rulebookDescription = "When a [creature] is struck by a non-lethal attack, absorb 1 Health from the striker.";
+            const string rulebookDescription = "When a [creature] is struck by a creature and lives, absorb 1 Health from the attacker.";
             const string dialogue = "The blood runs warm with sweet vitality.";
             const string triggerText = "[creature] absorbs nutrients!";
             Bloodletter.ability = AbnormalAbilityHelper.CreateAbility<Bloodletter>(
@@ -41,10 +44,14 @@ namespace WhistleWind.AbnormalSigils
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);
-            yield return source.TakeDamage(1, base.Card);
-            base.Card.HealDamage(1);
-            base.Card.Anim.LightNegationEffect();
-            yield return base.LearnAbility(0.4f);
+            if (source.HasTrait(Trait.Terrain)) {
+                yield return DialogueManager.PlayDialogueEventSafe("BloodfiendStone");
+            }
+            else {
+                yield return source.TakeDamage(1, base.Card);
+                base.Card.HealDamage(1);
+            }
+            yield return base.LearnAbility(0.3f);
         }
     }
 }
