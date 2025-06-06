@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
             Tribe[] tribes = new[] { Tribe.Insect };
             CardAppearanceBehaviour.Appearance[] appearances = new[] { CardAppearanceBehaviour.Appearance.RedEmission };
 
-            CardInfo brood = CardManager.New(pluginPrefix, spiderBrood, "Spider Brood", 1, 3)
+            CardInfo brood = CardManager.New(pluginPrefix, spiderBrood, "Spider Brood", 1, 2)
                 .SetBonesCost(3)
                 .SetPortraits(Assembly, spiderBrood)
                 .AddAppearances(appearances)
@@ -22,7 +22,6 @@ namespace WhistleWind.AbnormalSigils
                 .SetDefaultEvolutionName("Spider Buff");
 
             CardManager.New(pluginPrefix, spiderling, "Spiderling", 0, 1)
-                .SetBonesCost(3)
                 .SetPortraits(Assembly, spiderling)
                 .AddAppearances(appearances)
                 .AddTribes(tribes)
