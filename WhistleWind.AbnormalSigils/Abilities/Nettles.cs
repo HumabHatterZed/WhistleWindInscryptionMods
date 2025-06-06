@@ -97,7 +97,7 @@ namespace WhistleWind.AbnormalSigils
                 if (leftCard != oldLeftCard)
                 {
                     base.Card.RemoveTemporaryMod(leftMod, false);
-                    if (leftCard != null)
+                    if (leftCard != null && leftCard.HasTrait(AbnormalPlugin.SwanBrother))
                     {
                         leftMod.abilities.Clear();
                         leftMod.abilities.Add(leftCard.Info.Abilities.Count > 0 ? leftCard.Info.Abilities[0] : Ability.Sharp);
@@ -114,7 +114,7 @@ namespace WhistleWind.AbnormalSigils
                 if (rightCard != oldRightCard)
                 {
                     base.Card.RemoveTemporaryMod(rightMod, false);
-                    if (rightCard != null)
+                    if (rightCard != null && rightCard.HasTrait(AbnormalPlugin.SwanBrother))
                     {
                         rightMod.abilities.Clear();
                         rightMod.abilities.Add(rightCard.Info.Abilities.Count > 0 ? rightCard.Info.Abilities[0] : Ability.Sharp);
