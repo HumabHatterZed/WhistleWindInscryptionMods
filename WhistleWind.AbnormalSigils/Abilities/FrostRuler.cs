@@ -4,7 +4,6 @@ using InscryptionAPI.Helpers.Extensions;
 using System.Collections;
 using UnityEngine;
 using WhistleWind.AbnormalSigils.Core.Helpers;
-
 using WhistleWind.Core.AbilityClasses;
 using WhistleWind.Core.Helpers;
 
@@ -15,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_FrostRuler()
         {
             const string rulebookName = "Ruler of Frost";
-            const string rulebookDescription = "Once per turn, pay 2 Bones to choose a space on the board and create a Block of Ice, or pay 4 Bones to kill a card and create a Frozen Heart.";
+            const string rulebookDescription = "Once per turn, choose a space on the board. If it is empty, pay 2 Bones to create a Block of Ice, otherwise pay 4 Bones to create a Frozen Heart.";
             const string dialogue = "With a wave of her hand, the Snow Queen blocked the path.";
             const string triggerText = "[creature] freezes the path.";
             FrostRuler.ability = AbnormalAbilityHelper.CreateActivatedAbility<FrostRuler>(
