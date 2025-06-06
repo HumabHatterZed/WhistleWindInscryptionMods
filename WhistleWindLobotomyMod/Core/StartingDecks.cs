@@ -38,12 +38,12 @@ namespace WhistleWindLobotomyMod
             LobotomyConfigManager.NoRuina ? Cards.mhz176 : Cards.priceOfSilence
         };
         public static readonly List<string> keter = new() {
-            Cards.bloodBath,
             Cards.burrowingHeaven,
+            Cards.heartOfAspiration,
             Cards.snowQueen
         };
         public static readonly List<string> deathLovers = new() {
-            Cards.magicalGirlHeart,
+            Cards.bloodBath,
             Cards.bigBird,
             Cards.dreamOfABlackSwan
         };
