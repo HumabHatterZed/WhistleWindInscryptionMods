@@ -22,9 +22,9 @@ namespace WhistleWindLobotomyMod.Opponents
         /// How far the scales can tip towards the opponent. Values below 5 mean the player cannot win by dealing direct damage.
         /// </summary>
         public virtual int HighestPositiveScaleBalance { get; set; } = 5;
-        public bool PlayerCanWinThroughScaleDamage => HighestPositiveScaleBalance >= 5;
+        public bool PlayerCanWinThroughScaleDamage => HighestPositiveScaleBalance > 4;
         public virtual bool DirectDamageGivesBones { get; set; } = true;
-        public virtual int MaxExcessBones { get; } = 8;
+        public virtual int MaxExcessBones { get; } = 3;
 
         public bool RespondsToRoundEnd(bool opponentTurnSkipped) => true;
         public virtual IEnumerator OnRoundEnd(bool opponentTurnSkipped) {
