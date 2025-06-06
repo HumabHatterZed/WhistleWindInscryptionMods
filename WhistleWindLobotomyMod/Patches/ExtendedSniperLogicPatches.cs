@@ -165,7 +165,7 @@ namespace WhistleWindLobotomyMod.Patches
         private static bool ImmuneToHanging(CardSlot slot)
         {
             if (slot.Card != null)
-                return slot.Card.HasAbility(Ability.MadeOfStone) || slot.Card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt, AbnormalPlugin.ImmuneToInstaDeath);
+                return slot.Card.HasAbility(Ability.MadeOfStone) || slot.Card.HasAnyOfTraits(Trait.Terrain, Trait.Pelt, Trait.Giant, AbnormalPlugin.ImmuneToInstaDeath);
 
             return true;
         }
