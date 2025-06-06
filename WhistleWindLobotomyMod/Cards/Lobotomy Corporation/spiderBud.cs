@@ -14,8 +14,8 @@ namespace WhistleWindLobotomyMod
         {
             string textureName = "spiderBud";
             CardManager.New(LobotomyPlugin.pluginPrefix, spiderBud, "Spider Bud",
-                attack: 0, health: 3, "A grotesque mother of spiders. Its children are small but grow quickly.")
-                .SetBonesCost(4)
+                attack: 0, health: 2, "A grotesque mother of spiders. Its children are small but grow quickly.")
+                .SetBonesCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(BroodMother.ability)
                 .AddTribes(Tribe.Insect)

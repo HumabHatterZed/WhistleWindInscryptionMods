@@ -49,6 +49,7 @@
 - Sped up sequence when gaining or losing a status effect
 - Spore Mold Creatures now inherit the name of the card they were created from
 - Frozen Heart card is now considered Terrain
+- Shortened some sigil sequences
 - Sigils that inherit from ActivatedSelectSlotBehaviour are now usable by the opponent on upkeep
 - Sigil Power stat icon no longer gives a minimum of 1 Health
 - Changed tje order in which cards are damaged by Return to Nihil sigil
@@ -83,12 +84,16 @@
 - Frozen Heart - reduced powerlevel from -1 -> -3
 - Healer - now removes a random negative status effect from targeted cards
 - Healer - reduced health gained from 2 -> 1
+- Thick Skin - now only reduces damage from cards; null sources do not trigger damage reduction
 - Spores - reduced powerlevel from -1 -> 0
 - Worms - Infested cards now deprioritise Terrain and Pelt cards when targeting
 - Worms - increased powerlevel from -2 -> -1
 - Worms - no longer affects cards with Made of Stone
 - Little Witch's Friend - rebalanced from 1/2, 3 Bones -> 1/1, 2 Bones, Detonator
 - Little Witch's Friend - no longer possesses the Insect tribe
+- Spiderling - reduced play cost from 3 Bones -> Free
+- Spider Brood - reduced Health from 3 -> 2
+- Pumpkin Jack - Replaced Cursed sigil with Brittle
 - Hammer - replaced Made of Stone with Pin Down
 - Block of Ice - removed Mighty Leap sigil
 - First Brother - replaced Double Strike with Persistent

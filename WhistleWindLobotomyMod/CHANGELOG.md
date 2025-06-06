@@ -46,9 +46,12 @@
 - Big and Will Be Bad Wolf: rebalanced from 3/3 -> 2/4
 - Don't Touch Me: updated artwork
 - Don't Touch Me: no longer belongs to the Mechanical tribe
+- <span style='color:#2084A0'>Dream of a Black Swan: Buffed from 2/5 -> 3/5
+- Dream of a Black Swan: no longer considered Rare
 - Funeral of the Dead Butterflies: now belongs to the Undead temple
 - <span style='color:#2084A0'>Giant Tree Sap: no longer considered onePerDeck
 - King of Greed: updated emission
+- Magical Girl: now requires more cards to die before transforming into Queen of Hatred
 - Meat Lantern: updated artwork
 - <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
 - Nameless Fetus: updated artwork
@@ -56,12 +59,12 @@
 - Nothing There: now disguises as common cards instead of death cards
 - One Sin EX: fixed missing textures
 - <span style='color:#DE6080'>Ppodae EVO: Reduced Power from 3 -> 2
-- Ppodae & Ppodae EVO: now possess unique version of Stinky
-- Ppodae & Ppodae EVO: changed artwork
-- <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
+- Ppodae: now possess unique version of Stinky
+- Ppodae: changed artwork
 - <span style='color:#2084A0'>Red Riding Hooded Mercenary: now possesses Vendetta sigil
-- You're Bald...: changed evolution name
 - <span style='color:#DE6080'>Reshuffle Decks: now possesses the Bone Meal sigil
+- <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
+- You're Bald...: changed evolution name
 ### Challenges
 - Fixed Miracle Worker challenge trying to insert Plague Doctor into turns with 4 cards
 - Adjusted points given by challenges and rearranged positioning
