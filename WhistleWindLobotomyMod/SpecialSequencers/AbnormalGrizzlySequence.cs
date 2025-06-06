@@ -9,8 +9,11 @@ namespace WhistleWindLobotomyMod.Core.SpecialSequencers
     {
         private static void GiveCardReach(PlayableCard card)
         {
-            CardModificationInfo cardModificationInfo = new(Ability.Reach) { healthAdjustment = 1 };
+            CardModificationInfo cardModificationInfo = new(Ability.Reach);
             cardModificationInfo.fromTotem = true;
+            if (!card.HasAbility(ApostleSigil.ability)) {
+                cardModificationInfo.healthAdjustment = 1;
+            }
             card.AddTemporaryMod(cardModificationInfo);
         }
         public static IEnumerator ApostleGlitchSequence(Opponent opponent, bool apostles)
