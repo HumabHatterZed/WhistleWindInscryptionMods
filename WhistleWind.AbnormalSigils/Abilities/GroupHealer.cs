@@ -44,7 +44,7 @@ namespace WhistleWind.AbnormalSigils
             if (cardsToHeal.Count == 0)
             {
                 base.Card.Anim.StrongNegationEffect();
-                yield return new WaitForSeconds(0.4f);
+                yield return new WaitForSeconds(0.15f);
                 yield break;
             }
 
