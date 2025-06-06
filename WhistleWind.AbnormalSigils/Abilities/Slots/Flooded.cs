@@ -69,7 +69,13 @@ namespace WhistleWind.AbnormalSigils
         }
 
         public bool RespondsToRoundEnd(bool opponentTurnSkipped) => base.Slot.Card != null && CardIsGrounded(base.Slot.Card);
-        public IEnumerator OnRoundEnd(bool opponentTurnSkipped) => base.Slot.Card.TakeDamage(1, null);
+        public IEnumerator OnRoundEnd(bool opponentTurnSkipped) {
+            if (ViewManager.Instance.CurrentView != View.Board) {
+                ViewManager.Instance.SwitchToView(View.Board);
+            }
+
+            yield return base.Slot.Card.TakeDamage(1, null);
+        }
         public int RoundEndPriority(bool opponentTurnSkipped) => 0;
     }
 
@@ -81,7 +87,13 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnUpkeep(bool playerUpkeep) => base.Slot.SetSlotModification(SlotModificationManager.ModificationType.NoModification);
 
         public bool RespondsToRoundEnd(bool opponentTurnSkipped) => base.Slot.Card != null && FloodedSlot.CardIsGrounded(base.Slot.Card);
-        public IEnumerator OnRoundEnd(bool opponentTurnSkipped) => base.Slot.Card.TakeDamage(1, null);
+        public IEnumerator OnRoundEnd(bool opponentTurnSkipped) {
+            if (ViewManager.Instance.CurrentView != View.Board) {
+                ViewManager.Instance.SwitchToView(View.Board);
+            }
+
+            yield return base.Slot.Card.TakeDamage(1, null);
+        }
         public int RoundEndPriority(bool opponentTurnSkipped) => 0;
     }
 }
