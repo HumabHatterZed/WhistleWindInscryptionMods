@@ -61,7 +61,7 @@ namespace WhistleWindLobotomyMod.Core.SpecialSequencers
             }
             foreach (PlayableCard item in Singleton<TurnManager>.Instance.Opponent.Queue)
             {
-                if (item.Info.name == Cards.apostleGuardian)
+                if (item.Info.name == grizzlyInfo.name)
                 {
                     GiveCardReach(item);
                 }
