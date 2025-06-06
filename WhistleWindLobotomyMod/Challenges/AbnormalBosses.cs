@@ -29,7 +29,7 @@ namespace WhistleWindLobotomyMod.Challenges
                 LobotomyPlugin.pluginGuid,
                 title,
                 description,
-                20,
+                15,
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses.png"),
                 TextureLoader.LoadTextureFromFile("ascensionAbnormalBosses_activated.png")
                 ).Challenge.challengeType;
