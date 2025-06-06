@@ -20,7 +20,7 @@ namespace WhistleWindLobotomyMod
                 .AddTribes(Tribe.Bird)
                 .AddTraits(BlackForest, Executioner)
                 .SetOnePerDeck()
-                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
+                .Build(CardHelper.CardType.Rare, RiskLevel.Waw, true);
         }
     }
 }
