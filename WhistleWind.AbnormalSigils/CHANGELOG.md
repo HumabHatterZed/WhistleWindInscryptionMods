@@ -85,6 +85,8 @@
 - Healer - now removes a random negative status effect from targeted cards
 - Healer - reduced health gained from 2 -> 1
 - Thick Skin - now only reduces damage from cards; null sources do not trigger damage reduction
+- Thick Skin - raised powerlevel from 2 -> 3
+- Thick Skin - no longer modular
 - Spores - reduced powerlevel from -1 -> 0
 - Worms - Infested cards now deprioritise Terrain and Pelt cards when targeting
 - Worms - increased powerlevel from -2 -> -1
