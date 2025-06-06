@@ -74,17 +74,17 @@ namespace WhistleWindLobotomyMod
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcess, "Process of Understanding",
-                attack: 2, health: 4)
+                attack: 3, health: 3)
                 .SetEnergyCost(4)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName5)
-                .AddAbilities(Piercing.ability, Ability.Sentry, Ability.MadeOfStone)
+                .AddAbilities(Piercing.ability, Ability.Sentry)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal)
                 .Build();
 
             CardManager.New(LobotomyPlugin.pluginPrefix, whereWeReach, "Where We Must Reach",
-                attack: 0, health: 10)
+                attack: 0, health: 7)
                 .SetEnergyCost(5)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName6)
                 .AddAbilities(Life.ability, Challenging.ability)
