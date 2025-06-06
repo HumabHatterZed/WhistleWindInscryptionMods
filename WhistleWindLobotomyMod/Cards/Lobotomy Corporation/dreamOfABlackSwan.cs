@@ -14,13 +14,13 @@ namespace WhistleWindLobotomyMod
         {
             string textureName = "dreamOfABlackSwan";
             CardManager.New(LobotomyPlugin.pluginPrefix, dreamOfABlackSwan, "Dream of a Black Swan",
-                attack: 2, health: 5, "Sister of six brothers. Tirelessly she worked to protect them, all for naught.")
+                attack: 3, health: 5, "Sister of six brothers. Tirelessly she worked to protect them, all for naught.")
                 .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Nettles.ability)
                 .AddTribes(Tribe.Bird)
                 .SetDefaultEvolutionName("Dream of an Elder Swan")
-                .Build(CardHelper.CardType.Rare, RiskLevel.Waw, true);
+                .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }
 }
