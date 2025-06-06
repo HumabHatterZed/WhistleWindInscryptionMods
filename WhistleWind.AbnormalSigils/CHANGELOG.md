@@ -82,12 +82,13 @@
 - Ruler of Frost - kill effect no longer affects Terrain and Pelt cards
 - Frozen Heart - changed to give 1 Power and 1 Health instead of 2 Health
 - Frozen Heart - reduced powerlevel from -1 -> -3
+- Punisher - now activates on death instead of on take damage
 - Healer - now removes a random negative status effect from targeted cards
 - Healer - reduced health gained from 2 -> 1
 - Thick Skin - now only reduces damage from cards; null sources do not trigger damage reduction
 - Thick Skin - raised powerlevel from 2 -> 3
 - Thick Skin - no longer modular
-- Spores - reduced powerlevel from -1 -> 0
+- Spores - increased powerlevel from -1 -> 0
 - Worms - Infested cards now deprioritise Terrain and Pelt cards when targeting
 - Worms - increased powerlevel from -2 -> -1
 - Worms - no longer affects cards with Made of Stone
