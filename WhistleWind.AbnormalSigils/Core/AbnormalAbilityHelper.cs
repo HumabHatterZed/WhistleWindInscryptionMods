@@ -40,13 +40,12 @@ namespace WhistleWind.AbnormalSigils.Core.Helpers
         /// <param name="target">The card being targeted.</param>
         public static bool SimulateOneSidedAttack(PlayableCard attacker, PlayableCard target)
         {
-            if (target == null)
+            if (target == null || target.Attack > 0 || target.HasAbility(Neutered.ability))
                 return false;
 
-            // target cannot attack on its turn
-            // attacker is not being targeted
-            if (target.Attack == 0 || target.HasAbility(Neutered.ability) || target.CanAttackDirectly(attacker.Slot) || target.AttackIsBlocked(attacker.Slot) || !target.GetOpposingSlots().Contains(attacker.Slot))
-                return true;
+            if (target.GetOpposingSlots().Contains(attacker.Slot)) {
+                return target.CanAttackDirectly(attacker.Slot) || target.AttackIsBlocked(attacker.Slot) || (target.HasAbility(Ability.TailOnHit) && !target.Status.lostTail);
+            }
 
             return false;
         }

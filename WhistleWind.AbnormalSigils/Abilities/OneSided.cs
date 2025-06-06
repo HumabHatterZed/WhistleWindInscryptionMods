@@ -39,7 +39,7 @@ namespace WhistleWind.AbnormalSigils
         public override int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage)
         {
             activate = true;
-            return damage + 1;
+            return ++damage;
         }
         public override int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => 0;
 
