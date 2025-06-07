@@ -55,6 +55,7 @@ namespace WhistleWind.AbnormalSigils
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard()
         {
+            base.Card.TemporaryMods.RemoveAll(x => x.singletonId == "BlackSwan_Left" || x.singletonId == "BlackSwan_Right");
             randomBrotherSeed = base.GetRandomSeed() * 2;
             Singleton<ViewManager>.Instance.SwitchToView(View.Board);
             CardSlot toLeft = Singleton<BoardManager>.Instance.GetAdjacent(base.Card.Slot, adjacentOnLeft: true);

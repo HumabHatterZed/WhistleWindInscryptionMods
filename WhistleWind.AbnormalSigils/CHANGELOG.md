@@ -60,6 +60,7 @@
 ### 🩹 Bug fixes
 - Fixed activated select slot sigils triggering when there are no valid targets on the board
 - Fixed Witness sigil using an outdated description
+- Fixed interaction with Creature Retrieval where Nettles would retain sigils when replayed
 - Fixed Worms status effect not letting Infested cards attack the right-most ally card
 - Fixed Bitter Enemies sigil using an incorrect description
 - Fixed Alchemist sigil breaking in Act 2 when trying to activate after the deck is exhausted
