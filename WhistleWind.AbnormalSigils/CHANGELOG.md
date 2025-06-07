@@ -79,6 +79,7 @@
 - Frozen Heart - changed to give 1 Power and 1 Health instead of 2 Health
 - Frozen Heart - reduced powerlevel from -1 -> -3
 - Gift Giver - increased powerlevel from 3 -> 4
+- Gift Giver - No longer gives multiple copies of singleton cards when retriggered
 - Healer - now removes a random negative status effect from targeted cards
 - Healer - reduced health gained from 2 -> 1
 - Nettle Clothes - reduced powerlevel from 5 -> 4

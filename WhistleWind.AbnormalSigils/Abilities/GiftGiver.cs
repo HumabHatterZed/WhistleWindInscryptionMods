@@ -32,6 +32,7 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
         private bool IsLaetitia => base.Card.Info.name.ToLowerInvariant().Contains("laetitia");
         private string CustomCardToDraw => base.Card.Info.GetExtendedProperty("wstl:GiftGiver");
+        private bool customDrawIsSingleton = false;
         public override CardInfo CardToDraw
         {
             get
@@ -40,6 +41,9 @@ namespace WhistleWind.AbnormalSigils
                 {
                     CardInfo cardByName = CardLoader.GetCardByName(CustomCardToDraw ?? "wstl_laetitiaFriend");
                     cardByName.Mods.AddRange(base.GetNonDefaultModsFromSelf(this.Ability));
+                    if (cardByName.onePerDeck) {
+                        customDrawIsSingleton = true;
+                    }
                     return cardByName;
                 }
                 List<CardInfo> list = CardManager.AllCardsCopy.FindAll(x => x.HasCardMetaCategory(CardMetaCategory.ChoiceNode));
@@ -58,7 +62,9 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnResolveOnBoard()
         {
             yield return base.PreSuccessfulTriggerSequence();
-            yield return QueueOrCreateDrawnCard();
+            if (!customDrawIsSingleton) {
+                yield return QueueOrCreateDrawnCard();
+            }
             yield return base.LearnAbility();
         }
     }
