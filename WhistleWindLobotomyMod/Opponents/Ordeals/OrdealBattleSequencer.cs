@@ -75,13 +75,6 @@ namespace WhistleWindLobotomyMod.Opponents
                 else if (ShouldExtendBattle()) {
                     LobotomyPlugin.Log.LogDebug("[OrdealBattle] OnRoundEnd1.5: Extend turn place");
                     Opponent.ReplaceAndAppendTurnPlan(Encounter.opponentTurnPlan);
-                    if (Encounter.startConditions.Count > 0 && Encounter.startConditions[0].cardsInOpponentSlots != null) {
-                        List<CardInfo> infos = Encounter.startConditions[0].cardsInOpponentSlots.ToList();
-                        infos.RemoveAll(x => x == null);
-                        for (int i = 0; i < infos.Count; i++) {
-                            yield return BoardManager.Instance.CreateCardInSlot(infos[i], BoardManager.Instance.GetOpponentOpenSlots().GetRandom());
-                        }
-                    }
                 }
             }
 
@@ -146,6 +139,7 @@ namespace WhistleWindLobotomyMod.Opponents
             if (TotalExcessDamageDealt > 0)
             {
                 ViewManager.Instance.SwitchToView(View.Default);
+                RunState.Run.currency += TotalExcessDamageDealt;
                 yield return Singleton<CombatPhaseManager>.Instance.VisualizeExcessLethalDamage(TotalExcessDamageDealt, this);
             }
         }
