@@ -16,6 +16,7 @@ namespace WhistleWindLobotomyMod
         public const string doubtY = "wstl_doubtY";
         public const string doubtO = "wstl_doubtO";
         public const string doubtProcess = "wstl_doubtProcess";
+        public const string doubtProcessDown = "wstl_doubtProcess_down";
         public const string whereWeReach = "wstl_doubtReach";
         public const string lastHelix = "wstl_doubtHelix";
         private static void Cards_GreenOrdeal()
@@ -25,6 +26,7 @@ namespace WhistleWindLobotomyMod
             string textureName3 = "doubtY";
             string textureName4 = "doubtO";
             string textureName5 = "doubtProcess";
+            string textureName51 = "doubtProcess_down";
             string textureName6 = "whereWeReach";
             CardInfo infoO = CardManager.New(LobotomyPlugin.pluginPrefix, doubtO, "Doubt O",
                 attack: 2, health: 3)
@@ -73,15 +75,28 @@ namespace WhistleWindLobotomyMod
                 .AddTraits(Ordeal)
                 .Build();
 
-            CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcess, "Process of Understanding",
-                attack: 3, health: 3)
+            CardInfo down = CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcessDown, "Process of Understanding",
+                attack: 0, health: 3)
                 .SetEnergyCost(4)
-                .SetPortraits(LobotomyPlugin.ModAssembly, textureName5)
-                .AddAbilities(Piercing.ability, Ability.Sentry)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName51, "")
+                .AddAbilities(Piercing.ability, Ability.Transformer)
                 .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
                 .AddTribes(TribeMechanical)
                 .AddTraits(Ordeal)
                 .Build();
+
+            CardInfo pro = CardManager.New(LobotomyPlugin.pluginPrefix, doubtProcess, "Process of Understanding",
+                attack: 3, health: 3)
+                .SetEnergyCost(4)
+                .SetPortraits(LobotomyPlugin.ModAssembly, textureName5)
+                .AddAbilities(Piercing.ability, Ability.Sentry, Ability.Transformer)
+                .AddAppearances(CardAppearanceBehaviour.Appearance.RedEmission)
+                .AddTribes(TribeMechanical)
+                .AddTraits(Ordeal)
+                .SetEvolve(down, 1)
+                .Build();
+
+            down.SetEvolve(pro, 1);
 
             CardManager.New(LobotomyPlugin.pluginPrefix, whereWeReach, "Where We Must Reach",
                 attack: 0, health: 7)
