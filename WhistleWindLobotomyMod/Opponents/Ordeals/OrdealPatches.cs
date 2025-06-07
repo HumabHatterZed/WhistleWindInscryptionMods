@@ -30,7 +30,6 @@ namespace WhistleWindLobotomyMod.Opponents
         private static IEnumerator UpdateOrdealBattleVariables(IEnumerator enumerator, TurnManager __instance)
         {
             yield return enumerator;
-
             if (OrdealUtils.OpponentIsOrdeal())
                 yield return (__instance.SpecialSequencer as OrdealBattleSequencer).OnRoundEnd(true);
         }
@@ -46,92 +45,26 @@ namespace WhistleWindLobotomyMod.Opponents
             if ((__instance.SpecialSequencer as OrdealBattleSequencer).PlayerHasDefeatedOrdeal())
                 __result = true;
         }
-        //[HarmonyPostfix, 
-        //private static void OrdealCompletionConditionsMet(TurnManager __instance, ref bool __result) {
-        //    OrdealCompleted(__instance, ref __result);
-        //}
-
-        [HarmonyPostfix, HarmonyPatch(typeof(MapDataReader), nameof(MapDataReader.SpawnAndPlaceElement))]
-        private static void ConstructOrdealNode(ref GameObject __result, MapElementData data)
-        {
-            if (data is OrdealBattleNodeData ordealNodeData)
-            {
-                Texture2D[] nodeAnimation = null;
-                float randomValue = UnityEngine.Random.value;
-                AnimatingSprite sprite = __result.GetComponentInChildren<AnimatingSprite>();
-
-                // region 1: dawn
-                // region 2: noon
-                // region 3: dusk
-                nodeAnimation = ordealNodeData.tier switch
-                {
-                    1 => ordealNodeData.totemOpponent ? OrdealUtils.NoonTotemAnim : OrdealUtils.NoonAnim,
-                    2 => ordealNodeData.totemOpponent ? OrdealUtils.DuskTotemAnim : OrdealUtils.DuskAnim,
-                    3 => ordealNodeData.totemOpponent ? OrdealUtils.MidnightTotemAnim : OrdealUtils.MidnightAnim,
-                    _ => ordealNodeData.totemOpponent ? OrdealUtils.DawnTotemAnim : OrdealUtils.DawnAnim,
-                };
-
-                for (int i = 0; i < sprite.textureFrames.Count; i++)
-                {
-                    sprite.textureFrames[i] = nodeAnimation[i];
-                }
-
-                // recolour the sprite's mask based on the ordeal colour - also assign the correct battle id for the given the colour and tier
-                sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[(int)ordealNodeData.ordealType];
-                ordealNodeData.specialBattleId = ordealNodeData.ordealType switch
-                {
-                    OrdealType.Green => ordealNodeData.tier switch
-                    {
-                        1 => OrdealUtils.GreenNoon,
-                        2 => OrdealUtils.GreenDusk,
-                        3 => OrdealUtils.GreenMidnight,
-                        _ => OrdealUtils.GreenDawn
-                    },
-                    OrdealType.Violet => ordealNodeData.tier switch
-                    {
-                        1 => OrdealUtils.VioletNoon,
-                        3 => OrdealUtils.VioletMidnight,
-                        _ => OrdealUtils.VioletDawn
-                    },
-                    OrdealType.Crimson => ordealNodeData.tier switch
-                    {
-                        1 => OrdealUtils.CrimsonNoon,
-                        2 => OrdealUtils.CrimsonDusk,
-                        _ => OrdealUtils.CrimsonDawn
-                    },
-                    OrdealType.Amber => ordealNodeData.tier switch
-                    {
-                        2 => OrdealUtils.AmberDusk,
-                        3 => OrdealUtils.AmberMidnight,
-                        _ => OrdealUtils.AmberDawn
-                    },
-                    OrdealType.Indigo => OrdealUtils.IndigoNoon,
-                    _ => OrdealUtils.WhiteOrdeal
-                };
-                sprite.IterateFrame();
-            }
-        }
 
         [HarmonyPostfix, HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.CreateNode))]
         private static void ConvertBattleIntoOrdeal(ref NodeData __result, List<NodeData> previousNodes, int mapLength)
         {
             // only modify card battle nodes
             // if this is the final node, only modify if we have boss ordeals
-            if (__result is not CardBattleNodeData nodeData ||
-                (nodeData.gridY + 1 >= mapLength && !AscensionSaveData.Data.ChallengeIsActive(BossOrdeals.Id))) {
+            bool bossNode = __result is BossBattleNodeData;
+            if ((bossNode && !AscensionSaveData.Data.ChallengeIsActive(BossOrdeals.Id)) || __result is not CardBattleNodeData nodeData) {
                 return;
             }
 
             bool addOrdeal = false;
-            float randomValue = UnityEngine.Random.value;
-            
-            if (AscensionSaveData.Data.ChallengeIsActive(AllOrdeals.Id) || 
-                randomValue > (0.75f + previousNodes.Count(x => x is OrdealBattleNodeData) * 0.01f - RunState.Run.DifficultyModifier * 0.023f)) {
+            if (AscensionSaveData.Data.ChallengeIsActive(AllOrdeals.Id) ||
+                UnityEngine.Random.value > (0.75f + previousNodes.Count(x => x is OrdealBattleNodeData) * 0.01f - RunState.Run.DifficultyModifier * 0.023f)) {
                 addOrdeal = true;
             }
 
             if (!addOrdeal) return;
 
+            int tier;
             OrdealBattleNodeData data = new() {
                 id = __result.id,
                 gridX = __result.gridX,
@@ -140,22 +73,39 @@ namespace WhistleWindLobotomyMod.Opponents
                 connectedNodes = __result.connectedNodes
             };
 
-            if (__result is BossBattleNodeData boss)
+            if (bossNode) {
                 data.totemOpponent = AscensionSaveData.Data.ChallengeIsActive(AscensionChallenge.BossTotems);
-            else
+                tier = 3;
+            }
+            else {
+                float randomValue = UnityEngine.Random.value;
                 data.totemOpponent = __result is TotemBattleNodeData;
+
+                // .50  1   0
+                // .28 .83  1 
+                // .06 .66  1
+                if (randomValue <= 0.5f - RunState.CurrentRegionTier * 0.22f) {
+                    tier = 0;
+                }
+                else if (randomValue <= 1f - RunState.CurrentRegionTier * 0.17f) {
+                    tier = 1;
+                }
+                else {
+                    tier = 2;
+                }
+            }
 
             // DEBUG DEBUG
             // REMOVE ON RELEASE
             // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
             if (true) {
-                data.tier = 0;
+                data.tier = tier;
                 data.ordealType = OrdealType.Green;
             }
-            //AssignOrdealDataToNode(data, RunState.Run.regionTier);
+            //AssignOrdealDataToNode(data, tier);
             __result = data;
 
-            LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Region {RunState.Run.regionTier}");
+            LobotomyPlugin.Log.LogDebug($"[AddOrdeal] Region {RunState.CurrentRegionTier} {tier}");
         }
         private static void AssignOrdealDataToNode(OrdealBattleNodeData ordealNodeData, int tier)
         {
@@ -164,8 +114,8 @@ namespace WhistleWindLobotomyMod.Opponents
             {
                 1 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Indigo),
                 2 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Amber),
-                3 => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Violet, OrdealType.Amber),
-                _ => AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id) ? OrdealType.White : OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Amber),
+                3 => AscensionSaveData.Data.ChallengeIsActive(FinalOrdeal.Id) ? OrdealType.White : OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Violet, OrdealType.Amber),
+                _ => OrdealUtils.ChooseRandomOrdealType(OrdealType.Green, OrdealType.Crimson, OrdealType.Violet, OrdealType.Amber),
             };
         }
 
@@ -180,11 +130,11 @@ namespace WhistleWindLobotomyMod.Opponents
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(ViewController), nameof(ViewController.SwitchToControlMode))]
-        private static void AllowMoveToCounterView(ViewController __instance, ViewController.ControlMode mode)
+        internal static void AllowMoveToCounterView(ViewController __instance, ViewController.ControlMode mode)
         {
             if (!OrdealUtils.OpponentIsOrdeal())
                 return;
-
+            
             switch (mode)
             {
                 case ViewController.ControlMode.CardGameDefault:
@@ -201,9 +151,7 @@ namespace WhistleWindLobotomyMod.Opponents
         /// </summary>
         private static void AddOrdealViewControls(ViewController instance, bool addSideControls)
         {
-            if (!OrdealUtils.OpponentIsOrdeal())
-                return;
-
+            LobotomyPlugin.Log.LogInfo($"[AddOrdealViewControls] AddSideControls: {addSideControls}");
             if (!instance.allowedViews.Contains(OrdealUtils.ViewCounter))
                 instance.allowedViews.Add(OrdealUtils.ViewCounter);
 
@@ -220,5 +168,57 @@ namespace WhistleWindLobotomyMod.Opponents
             }
         }
         #endregion
+
+        [HarmonyPostfix, HarmonyPatch(typeof(MapDataReader), nameof(MapDataReader.SpawnAndPlaceElement))]
+        private static void ConstructOrdealMapNode(ref GameObject __result, MapElementData data) {
+            if (data is OrdealBattleNodeData ordealNodeData) {
+                Texture2D[] nodeAnimation = null;
+                float randomValue = UnityEngine.Random.value;
+                AnimatingSprite sprite = __result.GetComponentInChildren<AnimatingSprite>();
+
+                // region 1: dawn
+                // region 2: noon
+                // region 3: dusk
+                nodeAnimation = ordealNodeData.tier switch {
+                    1 => ordealNodeData.totemOpponent ? OrdealUtils.NoonTotemAnim : OrdealUtils.NoonAnim,
+                    2 => ordealNodeData.totemOpponent ? OrdealUtils.DuskTotemAnim : OrdealUtils.DuskAnim,
+                    3 => ordealNodeData.totemOpponent ? OrdealUtils.MidnightTotemAnim : OrdealUtils.MidnightAnim,
+                    _ => ordealNodeData.totemOpponent ? OrdealUtils.DawnTotemAnim : OrdealUtils.DawnAnim,
+                };
+
+                for (int i = 0; i < sprite.textureFrames.Count; i++) {
+                    sprite.textureFrames[i] = nodeAnimation[i];
+                }
+
+                // recolour the sprite's mask based on the ordeal colour - also assign the correct battle id for the given the colour and tier
+                sprite.r.material.mainTexture = OrdealUtils.OrdealNodeMats[(int)ordealNodeData.ordealType];
+                ordealNodeData.specialBattleId = ordealNodeData.ordealType switch {
+                    OrdealType.Green => ordealNodeData.tier switch {
+                        1 => OrdealUtils.GreenNoon,
+                        2 => OrdealUtils.GreenDusk,
+                        3 => OrdealUtils.GreenMidnight,
+                        _ => OrdealUtils.GreenDawn
+                    },
+                    OrdealType.Violet => ordealNodeData.tier switch {
+                        1 => OrdealUtils.VioletNoon,
+                        3 => OrdealUtils.VioletMidnight,
+                        _ => OrdealUtils.VioletDawn
+                    },
+                    OrdealType.Crimson => ordealNodeData.tier switch {
+                        1 => OrdealUtils.CrimsonNoon,
+                        2 => OrdealUtils.CrimsonDusk,
+                        _ => OrdealUtils.CrimsonDawn
+                    },
+                    OrdealType.Amber => ordealNodeData.tier switch {
+                        2 => OrdealUtils.AmberDusk,
+                        3 => OrdealUtils.AmberMidnight,
+                        _ => OrdealUtils.AmberDawn
+                    },
+                    OrdealType.Indigo => OrdealUtils.IndigoNoon,
+                    _ => OrdealUtils.WhiteOrdeal
+                };
+                sprite.IterateFrame();
+            }
+        }
     }
 }
