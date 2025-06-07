@@ -13,7 +13,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Bloodfiend()
         {
             const string rulebookName = "Bloodfiend";
-            const string rulebookDescription = "When [creature] strikes a creature, it gains 1 Health.";
+            const string rulebookDescription = "When [creature] strikes a creature, it gains 1 Health, up to 2 above its maximum Health.";
             const string dialogue = "Accursed fiend.";
             const string triggerText = "[creature] satiates its thirst!";
             Bloodfiend.ability = AbnormalAbilityHelper.CreateAbility<Bloodfiend>(
@@ -39,7 +39,7 @@ namespace WhistleWind.AbnormalSigils
             if (target.HasTrait(Trait.Terrain)) {
                 yield return DialogueManager.PlayDialogueEventSafe("BloodfiendStone");
             }
-            else {
+            else if (base.Card.Health < base.Card.MaxHealth + 2) {
                 base.Card.HealDamage(1);
             }
             yield return base.LearnAbility(0.3f);

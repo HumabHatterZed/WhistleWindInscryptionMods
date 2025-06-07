@@ -73,8 +73,10 @@
 - Lonely - reduced powerlevel from 3 -> 2
 - Binding Strike - reduced powerlevel from 2 -> 1
 - Bloodfiend - no longer triggers against Terrain cards
+- Bloodfiend - healing is now capped at 2 above the card's max health
 - Bloodfiend - reduced powerlevel from 3 -> 2
 - Bloodletter - no longer triggers against Terrain cards
+- Bloodletter - healing is now capped at 2 above the card's max health
 - Bloodletter - reduced powerlevel from 4 -> 3
 - Frozen Heart - changed to give 1 Power and 1 Health instead of 2 Health
 - Frozen Heart - reduced powerlevel from -1 -> -3

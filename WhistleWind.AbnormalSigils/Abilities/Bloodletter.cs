@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Bloodletter()
         {
             const string rulebookName = "Bloodletter";
-            const string rulebookDescription = "When a [creature] is struck by a creature and lives, absorb 1 Health from the attacker.";
+            const string rulebookDescription = "When a [creature] is struck by a creature and lives, absorb 1 Health from the attacker, up to 2 above this card's maximum Health.";
             const string dialogue = "The blood runs warm with sweet vitality.";
             const string triggerText = "[creature] absorbs nutrients!";
             Bloodletter.ability = AbnormalAbilityHelper.CreateAbility<Bloodletter>(
@@ -47,7 +47,7 @@ namespace WhistleWind.AbnormalSigils
             if (source.HasTrait(Trait.Terrain)) {
                 yield return DialogueManager.PlayDialogueEventSafe("BloodfiendStone");
             }
-            else {
+            else if (base.Card.Health < base.Card.MaxHealth + 2) {
                 yield return source.TakeDamage(1, base.Card);
                 base.Card.HealDamage(1);
             }
