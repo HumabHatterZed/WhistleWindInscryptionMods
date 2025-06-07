@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Life";
-            info.rulebookDescription = "Two turns after this card has been played, return this card to the queue, then create 2 Dawns/Noons of Green on the board.";
+            info.rulebookDescription = "Two turns after this card has been played, return this card to the queue, then create 2-3 Dawns/Noons of Green on the board.";
             info.powerLevel = 4;
             Life.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Life), TextureLoader.LoadTextureFromFile("sigilLife.png")).Id;
         }
@@ -44,10 +44,13 @@ namespace WhistleWindLobotomyMod
                 int rand = base.GetRandomSeed();
                 base.Card.Slot.Card = null;
                 base.Card.Slot = BoardManager.Instance.OpponentSlotsCopy.FindAll(x => !TurnManager.Instance.Opponent.QueuedSlots.Contains(x)).GetSeededRandom(base.GetRandomSeed());
-                // sound effect
+                AudioController.Instance.PlaySound3D("disk_card_transform", MixerGroup.CardPaperSFX, base.transform.position);
                 CustomCoroutine.Instance.StartCoroutine(TurnManager.Instance.Opponent.ReturnCardToQueue(base.Card, 0.2f));
                 yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(GetRandomCardId(rand++)), BoardManager.Instance.GetOpponentOpenSlots());
                 yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(GetRandomCardId(rand++)), BoardManager.Instance.GetOpponentOpenSlots());
+                if (AscensionSaveData.Data.GetNumChallengesOfTypeActive(AscensionChallenge.BaseDifficulty) > 1) {
+                    yield return CombatHelpers.CreateCardInRandomSlot(CardLoader.GetCardByName(GetRandomCardId(rand++)), BoardManager.Instance.GetOpponentOpenSlots());
+                }
                 yield return new WaitForSeconds(0.5f);
 
 
