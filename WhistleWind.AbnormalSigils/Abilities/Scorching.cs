@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_Scorching()
         {
             const string rulebookName = "Scorching";
-            const string rulebookDescription = "At the end of its owner's turn, the creature opposing [creature] will take 1 damage. This card cannot be frozen.";
+            const string rulebookDescription = "At the end of the owner's turn, the creature opposing [creature] will take 1 damage. This card cannot be frozen.";
             const string dialogue = "A slow and painful death.";
             const string triggerText = "The creature opposing [creature] is burned!";
             Scorching.ability = AbnormalAbilityHelper.CreateAbility<Scorching>(
@@ -56,9 +56,7 @@ namespace WhistleWind.AbnormalSigils
 
         public override bool RespondsToTurnEnd(bool playerTurnEnd)
         {
-            if (base.Card.OpposingCard() != null) return base.Card.OpposingCard().OpponentCard != playerTurnEnd;
-
-            return false;
+            return base.Card.OpponentCard != playerTurnEnd && base.Card.OpposingCard() != null;
         }
         public override IEnumerator OnTurnEnd(bool playerTurnEnd)
         {
