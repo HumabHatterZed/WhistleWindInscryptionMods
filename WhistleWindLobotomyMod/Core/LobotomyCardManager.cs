@@ -24,28 +24,41 @@ namespace WhistleWindLobotomyMod.Core
             bool overrideCardChoice = false
             )
         {
+            switch (cardInfo.GetModPrefix()) {
+                case pluginPrefix:
+                    BaseModCards.Add(cardInfo);
+                    AllLobotomyCards.Add(cardInfo);
+                    break;
+                case wonderlabPrefix:
+                    WonderLabCards.Add(cardInfo);
+                    AllLobotomyCards.Add(cardInfo);
+                    break;
+                case limbusPrefix:
+                    LimbusCards.Add(cardInfo);
+                    AllLobotomyCards.Add(cardInfo);
+                    break;
+                case pixelPrefix:
+                    AllLobotomyPixelCards.Add(cardInfo);
+                    break;
+            }
+
             cardInfo.SetExtendedProperty("wstl:RiskLevel", riskLevel.ToString());
-            if (cardInfo.HasAnyOfAbilities(Punisher.ability, Ability.Deathtouch))
+            if (cardInfo.HasAnyOfAbilities(Punisher.ability, Ability.Deathtouch)) {
                 cardInfo.AddTraits(Trait.KillsSurvivors);
+            }
 
             if (cardType != CardType.None && CardCanBeObtained(cardInfo))
             {
                 cardInfo.SetCardType(cardType, !overrideCardChoice);
-                if (availableInGBC)
-                {
-                    AllLobotomyPixelCards.Add(cardInfo);
-                    if (!overrideCardChoice)
-                    {
-                        ObtainableAct2Cards.Add(cardInfo);
-                        if (LobotomyConfigManager.GBCPacks)
+                if (!overrideCardChoice) {
+                    if (availableInGBC) {
+                        if (LobotomyConfigManager.GBCPacks) {
                             cardInfo.AddMetaCategories(CardMetaCategory.GBCPack, CardMetaCategory.GBCPlayable);
+                        }
+                        ObtainableAct2Cards.Add(cardInfo);
                     }
-                }
 
-                if (!overrideCardChoice)
-                {
-                    switch (cardInfo.temple)
-                    {
+                    switch (cardInfo.temple) {
                         case CardTemple.Nature:
                             ObtainableAct1Cards.Add(cardInfo);
                             break;
@@ -62,23 +75,6 @@ namespace WhistleWindLobotomyMod.Core
                 }
             }
 
-            switch (cardInfo.GetModPrefix())
-            {
-                case LobotomyPlugin.pluginPrefix:
-                    BaseModCards.Add(cardInfo);
-                    goto default;
-                case LobotomyPlugin.wonderlabPrefix:
-                    WonderLabCards.Add(cardInfo);
-                    goto default;
-                case limbusPrefix:
-                    LimbusCards.Add(cardInfo);
-                    goto default;
-                case pixelPrefix:
-                    break;
-                default:
-                    AllLobotomyCards.Add(cardInfo);
-                    break;
-                }
             return cardInfo;
         }
 
@@ -170,35 +166,26 @@ namespace WhistleWindLobotomyMod.Core
         private static readonly List<CardInfo> ObtainableActMCards = new();
 
         private static readonly List<CardInfo> _obtainableCards = new();
-        private static CardTemple? SavedAct = null;
-        
         public static List<CardInfo> ObtainableLobotomyCards
         {
             get {
+                if (_obtainableCards.Count == 0)
+                    _obtainableCards.Add(CardLoader.GetCardByName(Cards.trainingDummy));
+
                 if (AllCardsDisabled) {
-                    if (_obtainableCards.Count == 0)
-                        _obtainableCards.Add(CardLoader.GetCardByName(Cards.trainingDummy));
-                    
                     return _obtainableCards;
                 }
 
                 CardTemple? currentAct = SaveManager.SaveFile.IsPart2 ? CardTemple.NUM_TEMPLES : SaveManager.SaveFile.GetSceneAsCardTemple();
-                if (SavedAct != currentAct) {
-                    SavedAct = currentAct;
-                    _obtainableCards.Clear();
-                }
 
-                if (_obtainableCards.Count == 0) {
-                    _obtainableCards.AddRange(SavedAct switch {
-                        CardTemple.NUM_TEMPLES => ObtainableAct2Cards,
-                        CardTemple.Tech => ObtainableAct3Cards,
-                        CardTemple.Undead => ObtainableActGCards,
-                        CardTemple.Wizard => ObtainableActMCards,
-                        _ => ObtainableAct1Cards
-                    });
-                }
-
-                return _obtainableCards;
+                return currentAct switch {
+                    CardTemple.Nature => ObtainableAct1Cards,
+                    CardTemple.NUM_TEMPLES => ObtainableAct2Cards,
+                    CardTemple.Tech => ObtainableAct3Cards,
+                    CardTemple.Undead => ObtainableActGCards,
+                    CardTemple.Wizard => ObtainableActMCards,
+                    _ => _obtainableCards
+                };
             }
         }
 

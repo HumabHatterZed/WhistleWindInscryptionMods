@@ -142,7 +142,7 @@ namespace WhistleWindLobotomyMod.Patches
                 if (cardsToAdd.Count == 0) {
                     List<CardInfo> validCards = new(ObtainableLobotomyCards);
                     while (cardsToAdd.Count < 3 + LobotomyConfigManager.StarterDeckSize) {
-                        CardInfo cardToAdd = ObtainableLobotomyCards[SeededRandom.Range(0, validCards.Count, SaveManager.SaveFile.GetCurrentRandomSeed())];
+                        CardInfo cardToAdd = validCards[SeededRandom.Range(0, validCards.Count, SaveManager.SaveFile.GetCurrentRandomSeed())];
 
                         if (cardToAdd.onePerDeck)
                             validCards.Remove(cardToAdd);

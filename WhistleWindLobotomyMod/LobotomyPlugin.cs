@@ -114,7 +114,7 @@ namespace WhistleWindLobotomyMod
                 if (LobotomyConfigManager.NoRuina)
                     Log.LogWarning("Disable Ruina is set to [true]. Some cards have been removed from the pool of obtainable cards.");
 
-                Log.LogInfo($"There are [{AllLobotomyCards.Count}:{BaseModCards.Count}+{WonderLabCards.Count}+{LimbusCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
+                Log.LogInfo($"There are [{AllLobotomyCards.Count}:{BaseModCards.Count} + WL:{WonderLabCards.Count} + LC:{LimbusCards.Count}] total cards and [{ObtainableLobotomyCards.Count}] obtainable cards.");
             }
             Log.LogInfo($"The Clock is at [{LobotomyConfigManager.NumOfBlessings}].");
         }

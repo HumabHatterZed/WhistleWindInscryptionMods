@@ -2,6 +2,7 @@
 using InscryptionAPI.Card;
 using System.Reflection;
 using UnityEngine;
+using static InscryptionAPI.Slots.SlotModificationManager;
 
 namespace WhistleWind.Core.Helpers
 {
@@ -59,7 +60,10 @@ namespace WhistleWind.Core.Helpers
         {
             if (cardChoice == CardType.Common && availableAsCardChoice)
             {
-                cardInfo.SetDefaultPart1Card();
+                if (!cardInfo.metaCategories.Contains(CardMetaCategory.Rare)) {
+                    cardInfo.AddMetaCategories(CardMetaCategory.ChoiceNode, CardMetaCategory.TraderOffer);
+                    cardInfo.cardComplexity = CardComplexity.Simple;
+                }
             }
             else if (cardChoice == CardType.Rare)
             {
