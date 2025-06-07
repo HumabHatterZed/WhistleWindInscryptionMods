@@ -12,7 +12,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_ThickSkin()
         {
             const string rulebookName = "Thick Skin";
-            const string rulebookDescription = "Whenever [creature] is struck, reduce the damage taken by 1.";
+            const string rulebookDescription = "Whenever [creature] is struck by a creature, reduce the damage taken by 1.";
             const string dialogue = "Your creature's hide absorbs the blow.";
             const string triggerText = "[creature] absorbs the blow.";
             ThickSkin.ability = AbnormalAbilityHelper.CreateAbility<ThickSkin>(
