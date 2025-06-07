@@ -16,8 +16,8 @@ namespace WhistleWindLobotomyMod
             string desc = "The coffin is a tribute to the fallen. A memorial to those who can't return home.";
             string textureName = "funeralOfButterflies";
             CardManager.New(LobotomyPlugin.pluginPrefix, funeralOfButterflies, name,
-                attack: 1, health: 3, desc)
-                .SetBloodCost(2)
+                attack: 1, health: 1, desc)
+                .SetBloodCost(1)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.DoubleStrike)
                 .AddTribes(Tribe.Insect)
