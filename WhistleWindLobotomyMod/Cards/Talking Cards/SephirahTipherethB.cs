@@ -50,12 +50,12 @@ namespace WhistleWindLobotomyMod
             }
         }
 
-        public override string OnDrawnDialogueId => "SephirahTipherethBDrawn";
-        public override string OnAttackedDialogueId => "SephirahTipherethBSacrificed";
-        public override string OnSacrificedDialogueId => "SephirahTipherethBSacrificed";
-        public override string OnBecomeSelectableNegativeDialogueId => "SephirahTipherethBSacrificed";
-        public override string OnBecomeSelectablePositiveDialogueId => "SephirahTipherethBSacrificed";
-        public override string OnPlayFromHandDialogueId => "SephirahTipherethBPlayed";
+        public override string OnDrawnDialogueId => "TipherethBDrawn";
+        public override string OnAttackedDialogueId => "TipherethBSacrificed";
+        public override string OnSacrificedDialogueId => "TipherethBSacrificed";
+        public override string OnBecomeSelectableNegativeDialogueId => "TipherethBSacrificed";
+        public override string OnBecomeSelectablePositiveDialogueId => "TipherethBSacrificed";
+        public override string OnPlayFromHandDialogueId => "TipherethBPlayed";
 
         public override Dictionary<Opponent.Type, string> OnDrawnSpecialOpponentDialogueIds => new();
         public override void OnShownForCardChoiceNode() => base.OnShownForCardChoiceNode();
