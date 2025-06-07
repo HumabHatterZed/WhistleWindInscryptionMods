@@ -50,6 +50,8 @@ namespace WhistleWindLobotomyMod.Opponents
 
         public override IEnumerator IntroSequence(EncounterData encounter)
         {
+            OrdealPatches.AllowMoveToCounterView(ViewManager.Instance.Controller, ViewManager.Instance.Controller.controlMode);
+
             yield return base.IntroSequence(encounter);
             AudioController.Instance.FadeOutLoop(0.1f, 0, 1);
 

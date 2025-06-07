@@ -151,7 +151,6 @@ namespace WhistleWindLobotomyMod.Opponents
         /// </summary>
         private static void AddOrdealViewControls(ViewController instance, bool addSideControls)
         {
-            LobotomyPlugin.Log.LogInfo($"[AddOrdealViewControls] AddSideControls: {addSideControls}");
             if (!instance.allowedViews.Contains(OrdealUtils.ViewCounter))
                 instance.allowedViews.Add(OrdealUtils.ViewCounter);
 
