@@ -19,17 +19,16 @@ namespace WhistleWindLobotomyMod.Opponents
         public override StoryEvent DefeatedStoryEvent => LobotomyPlugin.OrdealDefeated;
         public override int HighestPositiveScaleBalance { get => 4; set => base.HighestPositiveScaleBalance = value; }
         public virtual List<Ability> BlacklistedAbilities { get; set; }
-        public List<string> ValidCards => new();
+        public List<string> ValidCards { get; protected set; } = new();
         public List<Ability> AllBlacklistedAbilities { get; private set; }
         public int MinNumCardsRequired { get; protected set; }
-        public OrdealOpponent Opponent => TurnManager.Instance.Opponent as OrdealOpponent;
-
+        protected EncounterData Encounter { get; private set; }
+        protected OrdealOpponent Opponent => TurnManager.Instance.Opponent as OrdealOpponent;
         public bool defeated = false;
         public OrdealType ordealType;
         public int ordealTier;
         public int amountKilledThisTurn = 0;
         protected int TotalExcessDamageDealt = 0;
-        protected List<List<CardInfo>> opponentTurnPlan = null;
 
         /// <summary>
         /// Abstract method for constructing the battle blueprint for the current Ordeal.
@@ -74,12 +73,15 @@ namespace WhistleWindLobotomyMod.Opponents
                     OrdealBannerManager.Instance.DisplayBanner(ordealType, false);
                 }
                 else if (ShouldExtendBattle()) {
-                    if (opponentTurnPlan == null) {
-                        opponentTurnPlan = new(Opponent.TurnPlan);
-                        opponentTurnPlan.Insert(0, new());
+                    LobotomyPlugin.Log.LogDebug("[OrdealBattle] OnRoundEnd1.5: Extend turn place");
+                    Opponent.ReplaceAndAppendTurnPlan(Encounter.opponentTurnPlan);
+                    if (Encounter.startConditions.Count > 0 && Encounter.startConditions[0].cardsInOpponentSlots != null) {
+                        List<CardInfo> infos = Encounter.startConditions[0].cardsInOpponentSlots.ToList();
+                        infos.RemoveAll(x => x == null);
+                        for (int i = 0; i < infos.Count; i++) {
+                            yield return BoardManager.Instance.CreateCardInSlot(infos[i], BoardManager.Instance.GetOpponentOpenSlots().GetRandom());
+                        }
                     }
-                    
-                    Opponent.ReplaceAndAppendTurnPlan(opponentTurnPlan);
                 }
             }
 
@@ -104,7 +106,10 @@ namespace WhistleWindLobotomyMod.Opponents
         }
 
         /// <returns>True if the given card's death is counted towards the kill requirement.</returns>
-        protected bool CardIsValidOrdeal(PlayableCard card) => card.HasTrait(LobotomyCardManager.Ordeal) && (ValidCards.Count == 0 || ValidCards.Contains(card.Info.name));
+        protected bool CardIsValidOrdeal(PlayableCard card) {
+            LobotomyPlugin.Log.LogInfo($"Ordeal: {card.HasTrait(LobotomyCardManager.Ordeal)} Valid: {ValidCards.Count == 0} || {ValidCards.Contains(card.Info.name)}");
+            return card.HasTrait(LobotomyCardManager.Ordeal) && (ValidCards.Count == 0 || ValidCards.Contains(card.Info.name));
+        }
         
         /// <summary>
         /// Only valid Ordeal cards will trigger 'this.OnOtherCardDie'.
@@ -211,7 +216,7 @@ namespace WhistleWindLobotomyMod.Opponents
             }
 
             LobotomyPlugin.Log.LogDebug($"[OrdealBattle] Cards required: [{MinNumCardsRequired}] {encounterData.opponentTurnPlan.Count} {encounterData.opponentTurnPlan.FirstOrDefault()?.Count}");
-            return encounterData;
+            return Encounter = encounterData;
         }
 
         private void GetAllBlacklistedAbilities(List<Ability> redundantAbilities) {

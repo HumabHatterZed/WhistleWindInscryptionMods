@@ -14,7 +14,7 @@ namespace WhistleWindLobotomyMod
         {
             AbilityInfo info = ScriptableObject.CreateInstance<AbilityInfo>();
             info.rulebookName = "Life";
-            info.rulebookDescription = "When this card is played, create two random Dawn of Greens on the board. Two turns after being played, return to the queue.";
+            info.rulebookDescription = "Two turns after this card has been played, return this card to the queue, then create 2 Dawns/Noons of Green on the board.";
             info.powerLevel = 4;
             Life.ability = AbilityManager.Add(LobotomyPlugin.pluginGuid, info, typeof(Life), TextureLoader.LoadTextureFromFile("sigilLife.png")).Id;
         }
@@ -24,6 +24,7 @@ namespace WhistleWindLobotomyMod
     {
         public static Ability ability;
         public override Ability Ability => ability;
+        private int numTimesActivated = 0;
         private Texture life2 = null;
         public override bool RespondsToResolveOnBoard() => true;
         public override IEnumerator OnResolveOnBoard() {
@@ -37,10 +38,11 @@ namespace WhistleWindLobotomyMod
         }
         public override bool RespondsToTurnEnd(bool playerTurnEnd) => base.Card.OpponentCard != playerTurnEnd;
         public override IEnumerator OnTurnEnd(bool playerTurnEnd) {
+            numTimesActivated++;
             int diff = TurnManager.Instance.TurnNumber - base.Card.TurnPlayed;
             if (diff > 1 || base.Card.TurnPlayed < 2) {
-                base.Card.Slot.Card = null;
                 int rand = base.GetRandomSeed();
+                base.Card.Slot.Card = null;
                 base.Card.Slot = BoardManager.Instance.OpponentSlotsCopy.FindAll(x => !TurnManager.Instance.Opponent.QueuedSlots.Contains(x)).GetSeededRandom(base.GetRandomSeed());
                 // sound effect
                 CustomCoroutine.Instance.StartCoroutine(TurnManager.Instance.Opponent.ReturnCardToQueue(base.Card, 0.2f));

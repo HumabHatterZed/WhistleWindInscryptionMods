@@ -1,4 +1,6 @@
 ﻿using DiskCardGame;
+using InscryptionAPI.Encounters;
+using System.Collections.Generic;
 
 namespace WhistleWindLobotomyMod.Opponents
 {
@@ -8,14 +10,15 @@ namespace WhistleWindLobotomyMod.Opponents
     /// </summary>
     public class OrdealGreenDusk : OrdealBattleSequencer
     {
-        public void ConstructGreenDusk(EncounterData encounterData)
-        {
-
-        }
-        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty)
-        {
-            //ConstructGreenNoon(encounterData);
-            return -1;
+        public override int ConstructOrdealBlueprint(EncounterData encounterData, int difficulty) {
+            ValidCards.Add(Cards.whereWeReach);
+            List<CardInfo> info = new() { null, null, null, CardLoader.GetCardByName(Cards.whereWeReach) };
+            info.Randomize();
+            EncounterData.StartCondition start = new() {
+                cardsInOpponentSlots = info.ToArray()
+            };
+            encounterData.startConditions.Add(start);
+            return 2;
         }
     }
 }

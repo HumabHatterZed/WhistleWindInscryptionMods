@@ -8,7 +8,7 @@ namespace WhistleWindLobotomyMod.Opponents
     /// <summary>
     /// The weakest Green Ordeal.
     /// Green Ordeals should have simple blueprints, with cards appearing quickly.
-    /// Difficulty range: [0,2] +[1,3]
+    /// Difficulty range: [0,3] +[1,3]
     /// Cards required: 3, 4, 5
     /// Valid regions: 0
     /// </summary>
