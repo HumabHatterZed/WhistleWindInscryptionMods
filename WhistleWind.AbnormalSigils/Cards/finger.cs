@@ -12,7 +12,8 @@ namespace WhistleWind.AbnormalSigils
             const string finger = "finger";
             CardManager.New(pluginPrefix, finger, "Finger", 1, 1)
                 .SetPortraits(Assembly, finger)
-                .AddAbilities(Ability.Sniper, MindStrike.ability);
+                .AddAbilities(Ability.Sniper, MindStrike.ability)
+                .SetTerrain(false);
         }
     }
 }

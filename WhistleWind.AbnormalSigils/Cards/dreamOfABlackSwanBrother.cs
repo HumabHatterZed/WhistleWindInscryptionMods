@@ -20,42 +20,42 @@ namespace WhistleWind.AbnormalSigils
                 .AddAbilities(Persistent.ability)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(SwanBrother)
-                .AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout);
+                .SetTerrain();
 
             CardManager.New(pluginPrefix, brother2, "Second Brother", 0, 1)
                 .SetPortraits(Assembly, brother2)
                 .AddAbilities(Piercing.ability)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(SwanBrother)
-                .AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout);
+                .SetTerrain();
 
             CardManager.New(pluginPrefix, brother3, "Third Brother", 0, 1)
                 .SetPortraits(Assembly, brother3)
                 .AddAbilities(Ability.Sharp)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(SwanBrother)
-                .AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout);
+                .SetTerrain();
 
             CardManager.New(pluginPrefix, brother4, "Fourth Brother", 0, 1)
                 .SetPortraits(Assembly, brother4)
                 .AddAbilities(Ability.Deathtouch)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(SwanBrother)
-                .AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout);
+                .SetTerrain();
 
             CardManager.New(pluginPrefix, brother5, "Fifth Brother", 0, 1)
                 .SetPortraits(Assembly, brother5)
                 .AddAbilities(BindingStrike.ability)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(SwanBrother)
-                .AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout);
+                .SetTerrain();
 
             CardManager.New(pluginPrefix, brother6, "Sixth Brother", 0, 1)
                 .SetPortraits(Assembly, brother6)
                 .AddAbilities(ThickSkin.ability)
                 .AddTribes(TribeAnthropoid)
                 .AddTraits(SwanBrother)
-                .AddAppearances(CardAppearanceBehaviour.Appearance.TerrainLayout);
+                .SetTerrain();
         }
     }
 }
