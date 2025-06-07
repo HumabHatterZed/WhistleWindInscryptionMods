@@ -24,7 +24,7 @@ namespace WhistleWindLobotomyMod.Opponents
         public virtual int HighestPositiveScaleBalance { get; set; } = 5;
         public bool PlayerCanWinThroughScaleDamage => HighestPositiveScaleBalance > 4;
         public virtual bool DirectDamageGivesBones { get; set; } = true;
-        public virtual int MaxExcessBones { get; } = 3;
+        public virtual int MaxExcessBones { get; } = 2;
 
         public bool RespondsToRoundEnd(bool opponentTurnSkipped) => true;
         public virtual IEnumerator OnRoundEnd(bool opponentTurnSkipped) {

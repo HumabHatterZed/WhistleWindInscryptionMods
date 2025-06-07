@@ -141,7 +141,7 @@ namespace WhistleWind.AbnormalSigils
 
         public static IEnumerator RandomiseCardsInSlots(List<CardSlot> slots, int randomSeed, float waitAfter = 0.5f, Func<CardSlot, int> sortPredicate = null)
         {
-            AbnormalPlugin.Log.LogDebug("[CardScramble.RandomiseCardsInSlots] Start");
+            //AbnormalPlugin.Log.LogDebug("[CardScramble.RandomiseCardsInSlots] Start");
             if (slots.Count == 0)
                 yield break;
 
@@ -150,7 +150,7 @@ namespace WhistleWind.AbnormalSigils
 
             List<PlayableCard> cards = UnassignCardsFromSlots(slots);
             List<CardSlot> openSlots = BoardManager.Instance.GetOpenSlots(!cards[0].OpponentCard);
-            AbnormalPlugin.Log.LogDebug($"[CardScramble.RandomiseCardsInSlots] Open: {openSlots.Count} Cards: {cards.Count}");
+            //AbnormalPlugin.Log.LogDebug($"[CardScramble.RandomiseCardsInSlots] Open: {openSlots.Count} Cards: {cards.Count}");
             foreach (PlayableCard card in cards)
             {
                 if (openSlots.Count == 0)
@@ -169,7 +169,7 @@ namespace WhistleWind.AbnormalSigils
                     slot = openSlots.GetSeededRandom(randomSeed++);
                 }
 
-                AbnormalPlugin.Log.LogDebug("Move to new slot");
+                //AbnormalPlugin.Log.LogDebug("Move to new slot");
                 card.Slot = null;
                 openSlots.Remove(slot);
                 BoardManager.Instance.StartCoroutine(MoveToNewSlot(card, slot, 0.1f));
