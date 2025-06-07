@@ -17,6 +17,7 @@ namespace WhistleWindLobotomyMod
             string description = "A doll yearning to be a human. A human yearning to be a doll.";
             CardManager.New(LobotomyPlugin.pluginPrefix, alriune, name,
                 attack: 4, health: 5, description)
+                .SetBloodCost(3)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
                 .AddAbilities(Ability.Strafe)
                 .AddTribes(TribeBotanic, Tribe.Hooved)
