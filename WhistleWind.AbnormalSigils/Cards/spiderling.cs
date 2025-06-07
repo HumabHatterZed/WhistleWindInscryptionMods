@@ -23,6 +23,7 @@ namespace WhistleWind.AbnormalSigils
 
             CardManager.New(pluginPrefix, spiderling, "Spiderling", 0, 1)
                 .SetPortraits(Assembly, spiderling)
+                .AddAbilities(Ability.Evolve)
                 .AddAppearances(appearances)
                 .AddTribes(tribes)
                 .SetEvolve(brood, 1)

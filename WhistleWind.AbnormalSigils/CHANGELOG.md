@@ -64,8 +64,9 @@
 - Fixed Bitter Enemies sigil using an incorrect description
 - Fixed Alchemist sigil breaking in Act 2 when trying to activate after the deck is exhausted
 - Fixed False Throne altering persistent CardModificationInfos
-- Fixed Haste gained from High Strung being inconsistent in when it's removed from the card
+- Fixed Haste gained from High Strung being inconsistent on when it's removed from the card
 - Fixed learned ability dialogue not triggering
+- Fixed Spiderling not having Fledgling
 ### ⚖️ Balancing
 - Modified logic for opponent activated sigils to be based on sigil power level - stronger sigils are less likely to be triggered each turn
 - Lonely - reduced powerlevel from 3 -> 2
