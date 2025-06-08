@@ -8,6 +8,13 @@ namespace WhistleWindLobotomyMod
     {
         private void Dialogue_FirstOrdeal()
         {
+            CreateDialogueEvents("OrdealRecall", new() {
+                "These creatures will not stay in one spot for long. Use these to reposition your creatures." });
+
+            CreateDialogueEvents("RecallMechanic", new() {
+                "Newly played creatures will cost [c:bR]2 bones[c:] to play again.",
+                "I will reduce this cost over time, until they become [c:bR]free[c:] to replay." });
+
             CreateDialogueEvents("OrdealFirstIntro", new()
             {
                 "This will be a little different than normal.",
@@ -15,8 +22,8 @@ namespace WhistleWindLobotomyMod
                 "They are... abominations.",
                 "You will need to destroy them all before they destroy you.",
                 "As I am not your opponent, any attacks against me will instead replenish your life.",
-                "Excess damage will reward you with up to two [c:bR]bones[c:].",
-                "This monitor will tell you how many enemies remain.",
+                "Excess damage will reward you with up to two [c:bR]bones[c:] per turn.",
+                "The monitor will show you how many foes remain.",
                 "Now, prepare yourself."
             });
             CreateDialogueEvents("OrdealDefeatedCardsLeft", new()

@@ -111,21 +111,14 @@ namespace WhistleWindLobotomyMod
                 new() { "The Beast's hide hardens under your creatures' claws." });
 
             CreateDialogueEvents("ApocalypseBossRecall",
-                new() {
-                    "The Beast and its ilk move quickly and frequently. Use these to reposition your creatures.",
-                    "Returned creatures will have their cost changed based on how recently you played them.",
-                    "Newly played creatures will cost [c:bR]2 Bones[c:] to play again.",
-                    "I will reduce their cost over time, until they become [c:bR]free[c:] to replay." },
-                new()
-                {
-                    new() { "Use these to reposition your creatures, for a cost." }
-                });
+                new() { "The Beast and its ilk move quickly and frequently. Use these to reposition your creatures."});
+            
             CreateDialogueEvents("ApocalypseBossExhausted",
                 new() { "Why don't we continue a little longer?" });
             CreateDialogueEvents("ApocalypseBossBoneGain",
                 new() {
-                    "The beast is immune to mortal damage.",
-                    "Excess injury will instead yield you up to [c:bR]2[c:] bones.",
+                    "You cannot harm the beast directly.",
+                    "Instead, excess damage will yield you up to [c:bR]2[c:] bones each turn.",
                     "Don't worry about running dry, the ground you walk on is full of them."
                 },
                 new()

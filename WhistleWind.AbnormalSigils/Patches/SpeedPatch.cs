@@ -21,11 +21,6 @@ namespace WhistleWind.AbnormalSigils.Patches
             if (!ModifyBySpeed || result.Count == 0) // prevent recursion
                 return result;
 
-            //if (result.Count(x => x.IsPlayerSlot == playerIsAttacker) == 0) {
-            //    AbnormalPlugin.Log.LogDebug("[SpeedLogic] Zero attackers for player="+playerIsAttacker);
-            //    return result;
-            //}
-
             ModifyBySpeed = false;
             List<CardSlot> cardsAttackingThisTurn = new();
             List<CardSlot> playerCardsResult = DoCombatPhasePatches.ModifyAttackingSlots(true);
@@ -35,10 +30,10 @@ namespace WhistleWind.AbnormalSigils.Patches
             List<CardSlot> allCardsResult = playerCardsResult.Concat(opponentCardsResult).ToList();
             allCardsResult.RemoveAll(x => x.Card == null || x.Card.Attack == 0 || AttackedThisRound.Contains(x));
 
-            AbnormalPlugin.Log.LogDebug($"[SpeedLogic] Results: {allCardsResult.Count} AttackedThisRound: {AttackedThisRound.Count}");
+            //AbnormalPlugin.Log.LogDebug($"[SpeedLogic] Results: {allCardsResult.Count} AttackedThisRound: {AttackedThisRound.Count}");
             if (allCardsResult.Count == 0 || allCardsResult.Count(x => x.IsPlayerSlot == playerIsAttacker) == 0)
             {
-                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Zero attackers total/on owner's side: " + playerIsAttacker);
+                //AbnormalPlugin.Log.LogDebug("[SpeedLogic] Zero attackers total/on owner's side: " + playerIsAttacker);
                 return cardsAttackingThisTurn;
             }
 
@@ -51,14 +46,14 @@ namespace WhistleWind.AbnormalSigils.Patches
             // if the slowest player matches the fastest opponent or it faster, return vanilla order
             // also captures results where cards are all the same speed
             if (lowestPlayerSpeed >= highestOpponentSpeed) {
-                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Player faster/equal than opponent");
+                //AbnormalPlugin.Log.LogDebug("[SpeedLogic] Player faster/equal than opponent");
                 return result;
             }
 
             // cards already played have been filtered out, so return the remainder for the opponent's turn
             if (!playerIsAttacker)
             {
-                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Opponent's turn.");
+                //AbnormalPlugin.Log.LogDebug("[SpeedLogic] Opponent's turn.");
                 return allCardsResult;
             }
 
@@ -68,7 +63,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             // if all opponents are faster than the player, reverse the attacker order
             if (lowestOpponentSpeed > highestPlayerSpeed)
             {
-                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Opponent outspeeds player");
+                //AbnormalPlugin.Log.LogDebug("[SpeedLogic] Opponent outspeeds player");
                 return allCardsResult;
             }
 
@@ -103,7 +98,7 @@ namespace WhistleWind.AbnormalSigils.Patches
                 // if slowest player is neutral or all cards outspeeding it are at most neutral, add slowest speed
                 if (lowestPlayerSpeed > -1)
                 {
-                    AbnormalPlugin.Log.LogDebug("[SpeedLogic] Add slowest player slots");
+                    //AbnormalPlugin.Log.LogDebug("[SpeedLogic] Add slowest player slots");
 
                     List<CardSlot> playerNeutralSpeed = allCardsResult.FindAll(x => CardSpeed(x) == lowestPlayerSpeed);
                     allCardsResult.RemoveAll(playerNeutralSpeed.Contains);
@@ -135,7 +130,7 @@ namespace WhistleWind.AbnormalSigils.Patches
             if (ModifyBySpeed)
             {
                 int or = __result.Count;
-                AbnormalPlugin.Log.LogDebug("[SpeedLogic] Start: " + playerIsAttacker);
+                //AbnormalPlugin.Log.LogDebug("[SpeedLogic] Start: " + playerIsAttacker);
                 __result = HandleSpeedModifications(__result, playerIsAttacker);
                 if (playerIsAttacker)
                 {

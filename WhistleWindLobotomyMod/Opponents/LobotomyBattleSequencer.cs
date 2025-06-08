@@ -7,6 +7,7 @@ using UnityEngine;
 using WhistleWind.AbnormalSigils;
 using WhistleWind.AbnormalSigils.Core;
 using WhistleWind.Core.Helpers;
+using WhistleWindLobotomyMod.Opponents.Apocalypse;
 
 namespace WhistleWindLobotomyMod.Opponents
 {
@@ -48,6 +49,18 @@ namespace WhistleWindLobotomyMod.Opponents
             yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD"));
             yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD_ALL"));
             yield return new WaitForSeconds(0.4f);
+            if (TurnNumber == 0) {
+                if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent opp)) {
+                    yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossRecall", TextDisplayer.MessageAdvanceMode.Input);
+                }
+                else if (!DialogueEventsData.EventIsPlayed("OrdealRecall")) {
+                    yield return TextDisplayer.Instance.PlayDialogueEvent("OrdealRecall", TextDisplayer.MessageAdvanceMode.Input);
+                }
+
+                if (!DialogueEventsData.EventIsPlayed("RecallMechanic")) {
+                    yield return TextDisplayer.Instance.PlayDialogueEvent("RecallMechanic", TextDisplayer.MessageAdvanceMode.Input);
+                }
+            }
         }
 
         public virtual IEnumerator MoveOpponentCards() {
@@ -111,31 +124,20 @@ namespace WhistleWindLobotomyMod.Opponents
 
         public virtual bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage)
         {
-            if (!opposingSlot.IsPlayerSlot && (attacker.OpponentCard ? damage < 0 : damage > 0))
-            {
-                // if there's a cap on positive scale damage and we have hit that cap,
-                if (!PlayerCanWinThroughScaleDamage && DirectDamageGivesBones && currentExcessBones < MaxExcessBones)
-                {
-                    return true;
-                }
+            if (!opposingSlot.IsPlayerSlot) {
+                return attacker.OpponentCard ? damage < 0 : damage > 0;
             }
             return false;
         }
 
         public virtual IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage)
         {
-            LobotomyPlugin.Log.LogDebug($"[LobotomyBattleSequencer] Direct: {damage} Balance: {LifeManager.Instance.Balance} Max: {HighestPositiveScaleBalance}");
+            if (!DirectDamageGivesBones || PlayerCanWinThroughScaleDamage || currentExcessBones >= MaxExcessBones) {
+                yield break;
+            }
 
-            int bonesToGive = 0;
-            // if we are already at our balance cap or we will go over it with this attack
-            if (LifeManager.Instance.Balance >= HighestPositiveScaleBalance)
-            {
-                bonesToGive = Mathf.Min(MaxExcessBones - currentExcessBones, damage);
-            }
-            else if (LifeManager.Instance.Balance + damage > HighestPositiveScaleBalance)
-            {
-                bonesToGive = Mathf.Min(MaxExcessBones - currentExcessBones, damage - (HighestPositiveScaleBalance - LifeManager.Instance.Balance));
-            }
+            int bonesToGive = Mathf.Min(MaxExcessBones - currentExcessBones, damage) - (HighestPositiveScaleBalance - LifeManager.Instance.Balance);
+            LobotomyPlugin.Log.LogDebug($"[LobotomyBattleSequencer] Direct: {damage} BonesToGive: {bonesToGive} Balance: {LifeManager.Instance.Balance}");
 
             if (bonesToGive < 1)
                 yield break;

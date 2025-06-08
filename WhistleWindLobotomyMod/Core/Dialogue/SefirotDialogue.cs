@@ -1137,8 +1137,7 @@ namespace WhistleWindLobotomyMod
             CreateDialogueEvents("TipherethAApocalypse", new()
             {
                 NewLine("It's massive...", Emotion.Neutral),
-                NewLine("I hope you know", Emotion.Neutral),
-                NewLine("what you're doing.", Emotion.Neutral) },
+                NewLine("I hope you know what you're doing", Emotion.Neutral) },
                 new() {
                     new() { NewLine("Keep your head on tight, manager.", Emotion.Neutral) },
                     new() { NewLine("This'll be tough.", Emotion.Neutral) },
