@@ -95,9 +95,9 @@ namespace WhistleWind.AbnormalSigils
             {
                 oldLeftCard = leftCard;
                 leftCard = BoardManager.Instance.GetAdjacent(base.Card.Slot, true)?.Card;
-                if (leftCard != oldLeftCard)
+                if (leftCard != oldLeftCard || leftCard == null)
                 {
-                    base.Card.RemoveTemporaryMod(leftMod, false);
+                    base.Card.TemporaryMods.RemoveAll(x => x.singletonId == "BlackSwan_Left");
                     if (leftCard != null && leftCard.HasTrait(AbnormalPlugin.SwanBrother))
                     {
                         leftMod.abilities.Clear();
@@ -112,9 +112,9 @@ namespace WhistleWind.AbnormalSigils
 
                 oldRightCard = rightCard;
                 rightCard = BoardManager.Instance.GetAdjacent(base.Card.Slot, false)?.Card;
-                if (rightCard != oldRightCard)
+                if (rightCard != oldRightCard || rightCard == null)
                 {
-                    base.Card.RemoveTemporaryMod(rightMod, false);
+                    base.Card.TemporaryMods.RemoveAll(x => x.singletonId == "BlackSwan_Right");
                     if (rightCard != null && rightCard.HasTrait(AbnormalPlugin.SwanBrother))
                     {
                         rightMod.abilities.Clear();
