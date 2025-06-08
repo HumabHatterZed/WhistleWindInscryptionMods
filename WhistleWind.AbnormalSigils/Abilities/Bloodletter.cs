@@ -44,13 +44,8 @@ namespace WhistleWind.AbnormalSigils
             yield return base.PreSuccessfulTriggerSequence();
             base.Card.Anim.StrongNegationEffect();
             yield return new WaitForSeconds(0.55f);
-            if (source.HasTrait(Trait.Terrain)) {
-                if (!DialogueEventsData.EventIsPlayed("BloodfiendStone")) {
-                    yield return DialogueManager.PlayDialogueEventSafe("BloodfiendStone", TextDisplayer.MessageAdvanceMode.Input);
-                }
-            }
-            else if (base.Card.Health < base.Card.MaxHealth + 2) {
-                yield return source.TakeDamage(1, base.Card);
+            yield return source.TakeDamage(1, base.Card);
+            if (base.Card.Health < base.Card.MaxHealth + 2) {
                 base.Card.HealDamage(1);
             }
             yield return base.LearnAbility(0.3f);
