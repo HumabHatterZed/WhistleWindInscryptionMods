@@ -14,7 +14,7 @@ namespace WhistleWind.AbnormalSigils
         private void Ability_GiftGiver()
         {
             const string rulebookName = "Gift Giver";
-            const string rulebookDescription = "When [creature] is played, create a random card in your hand.";
+            const string rulebookDescription = "When [creature] is first played, create a random card in your hand.";
             const string dialogue = "A gift for you.";
             const string triggerText = "[creature] has a gift for you!";
             GiftGiver.ability = AbnormalAbilityHelper.CreateAbility<GiftGiver>(
@@ -32,7 +32,6 @@ namespace WhistleWind.AbnormalSigils
         public override Ability Ability => ability;
         private bool IsLaetitia => base.Card.Info.name.ToLowerInvariant().Contains("laetitia");
         private string CustomCardToDraw => base.Card.Info.GetExtendedProperty("wstl:GiftGiver");
-        private bool customDrawIsSingleton = false;
         public override CardInfo CardToDraw
         {
             get
@@ -41,9 +40,6 @@ namespace WhistleWind.AbnormalSigils
                 {
                     CardInfo cardByName = CardLoader.GetCardByName(CustomCardToDraw ?? "wstl_laetitiaFriend");
                     cardByName.Mods.AddRange(base.GetNonDefaultModsFromSelf(this.Ability));
-                    if (cardByName.onePerDeck) {
-                        customDrawIsSingleton = true;
-                    }
                     return cardByName;
                 }
                 List<CardInfo> list = CardManager.AllCardsCopy.FindAll(x => x.HasCardMetaCategory(CardMetaCategory.ChoiceNode));
@@ -62,9 +58,8 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnResolveOnBoard()
         {
             yield return base.PreSuccessfulTriggerSequence();
-            if (!customDrawIsSingleton) {
-                yield return QueueOrCreateDrawnCard();
-            }
+            yield return QueueOrCreateDrawnCard();
+            base.Card.AddTemporaryMod(new() { negateAbilities = new() { GiftGiver.ability }, nonCopyable = true });
             yield return base.LearnAbility();
         }
     }
