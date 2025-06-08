@@ -37,8 +37,8 @@ namespace WhistleWindLobotomyMod.Opponents
                     break;
                 default:
                     startingCard.Add(CardLoader.GetCardByName(Cards.doubtB));
-                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, twoAboveBase));
-                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, twoAboveBase));
+                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, 8));
+                    turn1.Add(HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, 11));
                     turn2.Add(EncounterManager.NewCardBlueprint(Cards.doubtO));
                     break;
             }
@@ -54,11 +54,11 @@ namespace WhistleWindLobotomyMod.Opponents
                 minCards++;
             }
 
-            if (encounterData.Difficulty > 4) {
-                float strongCeiling = Mathf.Max(0, 0.5f + (encounterData.Difficulty - 6) * 0.05f);
-                for (int i = 0; i < (encounterData.Difficulty - 4) / 2; i++) {
+            if (baseDifficulty > 4) {
+                float strongCeiling = (baseDifficulty - 6) * 0.05f;
+                for (int i = 0; i < (baseDifficulty - 4) / 2; i++) {
                     if (UnityEngine.Random.value <= strongCeiling) {
-                        encounterData.Blueprint.AddTurn(HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, 13));
+                        encounterData.Blueprint.AddTurn(HelperMethods.NewDifficultyCard(Cards.doubtY, Cards.doubtO, 12));
                     }
                     else {
                         encounterData.Blueprint.AddTurn(HelperMethods.NewDifficultyCard(Cards.doubtB, Cards.doubtY, 9));
