@@ -21,7 +21,7 @@ namespace WhistleWind.AbnormalSigils.StatusEffects
 
         public virtual bool CanModifyOnTurnEnd(bool playerTurnEnd)
         {
-            return base.PlayableCard.OpponentCard != playerTurnEnd && TurnManager.Instance.TurnNumber > TurnGained;
+            return base.PlayableCard.OpponentCard != playerTurnEnd && TurnManager.Instance.TurnNumber >= TurnGained;
         }
         public virtual IEnumerator OnModifyOnTurnEnd()
         {
