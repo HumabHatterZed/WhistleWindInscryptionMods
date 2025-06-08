@@ -13,5 +13,6 @@ namespace WhistleWindLobotomyMod
         public override string ID => OceanSoda.id;
         public override Ability AbilityToAdd => Ability.Submerge;
         public override SpecialTriggeredAbility StatusEffect => OceanSodaEffect.specialAbility;
+        public override int TurnsApplied => 2;
     }
 }

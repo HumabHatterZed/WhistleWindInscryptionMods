@@ -21,11 +21,11 @@ namespace WhistleWind.AbnormalSigils
         public override IEnumerator OnStatusEffectRemoved(PlayableCard target, StatusEffectBehaviour statusEffect)
         {
             CardModificationInfo mod = base.PlayableCard.TemporaryMods.Find(x => HelperMethods.CompareSingleton(x.singletonId, SingletonId));
+            base.PlayableCard.Status.hiddenAbilities.Remove(AbilityToAdd);
             if (mod != null)
                 base.PlayableCard.RemoveTemporaryMod(mod);
-            base.PlayableCard.Status.hiddenAbilities.Remove(AbilityToAdd);
 
-            return base.OnStatusEffectRemoved(target, statusEffect);
+            yield return base.OnStatusEffectRemoved(target, statusEffect);
         }
     }
 }

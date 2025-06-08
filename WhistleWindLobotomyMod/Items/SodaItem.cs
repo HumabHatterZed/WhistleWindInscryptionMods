@@ -13,13 +13,14 @@ namespace WhistleWindLobotomyMod
         public abstract Ability AbilityToAdd { get; }
         public abstract SpecialTriggeredAbility StatusEffect { get; }
         public abstract string ID { get; }
+        public abstract int TurnsApplied { get; }
         public override View SelectionView => View.Board;
         public override bool ExtraActivationPrerequisitesMet() => GetValidTargets().Count > 0;
         public override IEnumerator OnValidTargetSelected(CardSlot target, GameObject firstPersonItem)
         {
             PlayableCard targetCard = target.Card;
             AudioController.Instance.PlaySound3D("soda_open", MixerGroup.TableObjectsSFX, target.transform.position, 1f, 0.1f);
-            yield return SodaAbilityBehaviour.Sequence(targetCard, StatusEffect, AbilityToAdd, 3, ID);
+            yield return SodaAbilityBehaviour.Sequence(targetCard, StatusEffect, AbilityToAdd, TurnsApplied, ID);
             yield return new WaitForSeconds(0.5f);
         }
 

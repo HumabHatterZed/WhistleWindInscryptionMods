@@ -18,7 +18,7 @@ namespace WhistleWindLobotomyMod
             GameObject obj4 = AssetManager.AssetBundle.LoadAsset<GameObject>("SurefireDrink");
             ConsumableItemManager.New(LobotomyPlugin.pluginGuid,
                 "Fizzy Lifting Drink",
-                "Select a card on the board to gain Airborne for 3 turns.", TextureLoader.LoadTextureFromFile("itemFizzyLifter.png", LobotomyPlugin.ModAssembly), typeof(FizzyLifterItem), obj)
+                "Select a card on the board to gain Airborne for this and next turn.", TextureLoader.LoadTextureFromFile("itemFizzyLifter.png", LobotomyPlugin.ModAssembly), typeof(FizzyLifterItem), obj)
                 .SetPowerLevel(1)
                 .SetPlacedSoundId("can_hit")
                 .SetPickupSoundId("can_hit")
@@ -26,7 +26,7 @@ namespace WhistleWindLobotomyMod
 
             ConsumableItemManager.New(LobotomyPlugin.pluginGuid,
                 "Ocean Flavoured Soda",
-                "Select a card on the board to gain Waterborne for 3 turns.", TextureLoader.LoadTextureFromFile("itemOceanSoda.png", LobotomyPlugin.ModAssembly), typeof(OceanSodaItem), obj2)
+                "Select a card on the board to gain Waterborne for this and next turn.", TextureLoader.LoadTextureFromFile("itemOceanSoda.png", LobotomyPlugin.ModAssembly), typeof(OceanSodaItem), obj2)
                 .SetPowerLevel(1)
                 .SetPlacedSoundId("can_hit")
                 .SetPickupSoundId("can_hit")

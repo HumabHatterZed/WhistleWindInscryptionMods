@@ -23,7 +23,7 @@ namespace WhistleWind.AbnormalSigils
             const string rName = "Surefired";
             const string rDesc = "A card bearing this effect has Sniper. At the end of the owner's turn, reduce this effect's Potency by 1.";
             StatusEffectManager.FullStatusEffect data = StatusEffectManager.New<SurefireDrinkEffect>(
-                pluginGuid, rName, rDesc, 0, GameColors.Instance.darkRed,
+                pluginGuid, rName, rDesc, 0, GameColors.Instance.glowRed,
                 TextureLoader.LoadTextureFromFile("sigilSurefireDrink.png", Assembly),
                 TextureLoader.LoadTextureFromFile("sigilSurefireDrink_2_pixel.png", Assembly))
                 .AddMetaCategories(StatusMetaCategory.Part1StatusEffect, StatusMetaCategory.Part3StatusEffect, StatusMetaCategory.GrimoraStatusEffect, StatusMetaCategory.MagnificusStatusEffect, StatusMetaCategory.MagnificusStatusEffect);

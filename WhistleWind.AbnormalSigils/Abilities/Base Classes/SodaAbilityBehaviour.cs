@@ -41,6 +41,7 @@ namespace WhistleWind.AbnormalSigils
             CardModificationInfo mod = new CardModificationInfo(abilityToAdd) { fromCardMerge = true, singletonId = singletonId };
             target.Anim.PlayTransformAnimation();
             target.AddTemporaryMod(mod);
+            target.Status.hiddenAbilities.Add(abilityToAdd);
             yield return ApplyCounterBehaviour(target, statusId, potency);
         }
 
@@ -52,7 +53,7 @@ namespace WhistleWind.AbnormalSigils
                 potency++;
 
             yield return target.AddStatusEffect(statusId, potency);
-            target.GetStatusEffect(statusId).SetPotency(potency, false);
+            //target.GetStatusEffect(statusId).SetPotency(potency, false);
 
             if (sodaLover && !DialogueEventsData.EventIsPlayed("SodaLover"))
             {
