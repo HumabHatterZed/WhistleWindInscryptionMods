@@ -41,9 +41,9 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
         public override int BossHealthThreshold(int remainingLives) => remainingLives switch
         {
-            4 => 80,
-            3 => 60,
-            2 => 40,
+            4 => 70,
+            3 => 50,
+            2 => 30,
             _ => 1
         };
 
@@ -343,8 +343,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         }
         #endregion
 
-
-
         public override IEnumerator OpponentUpkeep()
         {
             yield return HelperMethods.ChangeCurrentView(View.Board);
@@ -417,21 +415,20 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         public IEnumerator OpponentTurnEndUpdateEffects()
         {
             ClearTempMods();
-            bool addedReactive = false;
-            if (timesHitThisTurn > 2) // if the boss has been hit 3+ times in a single turn
+            int raiseDifficulty = 0;
+            if (timesHitThisTurn > 2) {
+                if (damageTakenThisTurn > 5) {
+                    raiseDifficulty += damageTakenThisTurn / 6;
+                }
+                raiseDifficulty += timesHitThisTurn - 2;
+            }
+            else if (damageTakenThisTurn > 4) // if the boss took 5+ damage in 1-2 hits
             {
-                addedReactive = true;
-                reactiveDifficulty += timesHitThisTurn - 2;
+                raiseDifficulty += damageTakenThisTurn / 3;
             }
 
-            if (damageTakenThisTurn > 5) // if the boss took 6+ damage in a single turn
-            {
-                addedReactive = true;
-                reactiveDifficulty += damageTakenThisTurn / 6;
-            }
-
-            if (addedReactive)
-                yield return OnReactiveDifficultyIncreased(0);
+            if (raiseDifficulty > 0)
+                yield return OnReactiveDifficultyIncreased(raiseDifficulty);
 
             damageTakenThisTurn = timesHitThisTurn = 0;
         }
@@ -497,11 +494,12 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         /// </summary>
         private int GetStartingCardCount()
         {
-            if (TurnManager.Instance.TurnNumber % 4 == 0)
-                return 2;
+            if (TurnManager.Instance.TurnNumber % 2 == 0) {
+                if (TurnManager.Instance.TurnNumber % 4 == 0)
+                    return 2;
 
-            if (TurnManager.Instance.TurnNumber % 2 == 0)
                 return 0;
+            }
 
             return 1;
         }
@@ -509,15 +507,14 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         {
             List<CardInfo> nextTurn = new();
             bool opponentWinning = LifeManager.Instance.Balance < 0;
+            int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
 
             // starting number of cards
             int cardNum = GetStartingCardCount();
             if (opponentWinning)
                 cardNum--;
-            else
+            else if (TurnNumber > 2 && LifeManager.Instance.Balance == HighestPositiveScaleBalance)
                 cardNum++;
-
-            int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
 
             // threshold for whether to give queued card a mod
             // if the difficulty modifier is 6 or higher, guaranteed to modify stats, other chance is dependent on difficulty and cards being cued
@@ -677,9 +674,10 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         /// </summary>
         public override IEnumerator OnReactiveDifficultyIncreased(int amount)
         {
-            LobotomyPlugin.Log.LogDebug($"[ApocalypseBoss] {reactiveDifficulty} (+{amount})");
-            Singleton<CameraEffects>.Instance.Shake(0.5f, 0.25f);
+            LobotomyPlugin.Log.LogDebug($"[ApocalypseBoss] Reactive: {reactiveDifficulty} (+{amount})");
+            Singleton<CameraEffects>.Instance.Shake(0.25f, 0.125f);
             BossCard.Anim.StrongNegationEffect();
+            reactiveDifficulty += amount;
 
             if (ReactiveDifficulty > 7 && BossCard.Info.Mods.Exists(x => x.singletonId == "ReactiveStrength"))
             {
@@ -814,35 +812,36 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             }
         }
 
+        public override void DigUpBones(int damage, int bonesToGive, CardSlot targetSlot) {
+            damageTakenThisTurn -= bonesToGive;
+            base.DigUpBones(damage, bonesToGive, targetSlot);
+        }
+
         public override bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) => true;
         public override IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage)
         {
-            if (base.RespondsToCardDealtDamageDirectly(attacker, opposingSlot, damage))
-            {
-                yield return base.OnCardDealtDamageDirectly(attacker, opposingSlot, damage);
-                if (!DialogueEventsData.EventIsPlayed("ApocalypseBossBoneGain"))
-                {
-                    yield return new WaitForSeconds(0.5f);
-                    yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBoneGain", TextDisplayer.MessageAdvanceMode.Input);
-                }
-            }
-
-            if (finalPhase && attacker == BossCard)
-            {
+            if (finalPhase && attacker == BossCard) {
                 if (giantTargetSlots[1].Contains(opposingSlot))
                     BossCard.HealDamage(damage * 2);
 
                 CleanUpGiantTarget(opposingSlot);
             }
-
-            if (attacker.OpponentCard && damage < -4)
-            {
-                yield return OnReactiveDifficultyIncreased(Mathf.Abs(damage) - 4);
+            else if (base.RespondsToCardDealtDamageDirectly(attacker, opposingSlot, damage)) {
+                yield return base.OnCardDealtDamageDirectly(attacker, opposingSlot, damage);
+                if (!DialogueEventsData.EventIsPlayed("ApocalypseBossBoneGain") && currentExcessBones > 0)
+                {
+                    yield return new WaitForSeconds(0.5f);
+                    yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossBoneGain", TextDisplayer.MessageAdvanceMode.Input);
+                }
+                damageTakenThisTurn += damage / 2;
             }
 
-            else if (!attacker.OpponentCard && damage > 4)
-            {
-                yield return OnReactiveDifficultyIncreased(damage - 4);
+            if (attacker.OpponentCard && damage < -3) {
+                yield return OnReactiveDifficultyIncreased(Mathf.Abs(damage) - 3);
+            }
+            
+            else if (!attacker.OpponentCard && damage > 3) {
+                yield return OnReactiveDifficultyIncreased(damage - 3);
             }
             yield break;
         }
@@ -964,11 +963,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             return data;
         }
 
-        public override IEnumerator PostDrawOpeningHand() {
-            yield return base.PostDrawOpeningHand();
-            if (TurnNumber == 0)
-                yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossRecall", TextDisplayer.MessageAdvanceMode.Input);
-        }
         private void ClearTempMods() {
             BossCard.RemoveTemporaryMod(BossCard.TemporaryMods.Find(x => x.singletonId == "SmallBeak"));
             BossCard.RemoveTemporaryMod(BossCard.TemporaryMods.Find(x => x.singletonId == "ReactiveSkin"));
