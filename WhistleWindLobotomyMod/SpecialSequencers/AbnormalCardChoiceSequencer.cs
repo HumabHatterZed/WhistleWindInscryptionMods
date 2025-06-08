@@ -264,7 +264,6 @@ namespace WhistleWindLobotomyMod
         }
         private new IEnumerator TutorialTextSequence(SelectableCard card)
         {
-            Debug.Log("TutorialText");
             if (!string.IsNullOrEmpty(card.Info.description) && !ProgressionData.IntroducedCard(card.Info))
             {
                 Singleton<ViewManager>.Instance.Controller.LockState = ViewLockState.Locked;

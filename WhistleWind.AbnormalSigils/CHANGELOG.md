@@ -87,6 +87,7 @@
 - Nettle Clothes - reduced powerlevel from 5 -> 4
 - Nettle Clothes - changed to only create Brothers in adjacent slots rather than all friendly slots
 - Opportunistic - reworked to trigger against injured cards
+- Persecutor - summoned cards are now considered Terrain, have 1 Health
 - Punisher - now activates on card death instead of on taking damage
 - Refresh Deck - changed to discard the player's current hand and draw a new opening hand after resetting the deck piles
 - Ruler of Frost - targeting cards now requires an additional 2 Bones - empty spaces still cost 2 Bones to target
