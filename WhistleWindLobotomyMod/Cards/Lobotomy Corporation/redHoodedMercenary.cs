@@ -13,15 +13,19 @@ namespace WhistleWindLobotomyMod
         public const string redHoodedMercenary = "wstl_redHoodedMercenary";
         private static void RedHoodedMercenary_F0157()
         {
+            string name = "Little Red Riding Hooded Mercenary";
+            string name2 = "Red Riding Hooded Mercenary";
+            string desc = "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.";
             string textureName = "redHoodedMercenary";
-            CardManager.New(LobotomyPlugin.pluginPrefix, redHoodedMercenary, "Little Red Riding Hooded Mercenary",
-                attack: 2, health: 5, "A skilled mercenary with a bloody vendetta. Perhaps you can help her sate it.")
-                .SetBloodCost(3)
+
+            CardManager.New(LobotomyPlugin.pluginPrefix, redHoodedMercenary, name,
+                attack: 2, health: 1, desc)
+                .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Ability.Sniper, BitterEnemies.ability)
+                .AddAbilities(BitterEnemies.ability, Ability.Sniper)
                 .AddSpecialAbilities(CrimsonScar.specialAbility)
                 .AddTribes(TribeAnthropoid)
-                .SetDefaultEvolutionName("Red Riding Hooded Mercenary")
+                .SetDefaultEvolutionName(name2)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
         }
     }

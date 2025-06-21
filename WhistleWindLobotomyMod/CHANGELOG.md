@@ -14,7 +14,7 @@
 - Fixed certain fight mechanics and effects triggering at incorrect times
 - Added Challenging sigil to boss cards
 - Boss cards are no longer considered Terrain
-- Bones gained from excess direct damage are now capped at 8 per turn
+- Bones gained from excess direct damage are now capped at 3 per turn, with the amount being reduced as the player accumulates more tokens
 - Modified description of Unjust Scales sigil for clarity
 - Apocalypse sigil no longer changes behaviour and description during the final phase - split behaviour into separate sigil
 - Unjust Scales sigil no longer changes behaviour and description during the final phase
@@ -42,34 +42,35 @@
 - Apocalypse Bird: changed evolution name
 - <span style='color:#DE6080'>Apocalypse Bird: no longer possesses Made of Stone
 - <span style='color:#2084A0'>Beauty and the Beast: changed play cost from 1 Blood -> 1 Bone
-- <span style='color:#2084A0'>Big and Will Be Bad Wolf: now possesses Vendetta sigil
-- Big and Will Be Bad Wolf: rebalanced from 3/3 -> 2/4
+- Big and Will Be Bad Wolf: reworked to 3/3; Vendetta, Blood Lust; 3 Blood
 - Don't Touch Me: updated artwork
 - Don't Touch Me: no longer belongs to the Mechanical tribe
 - <span style='color:#2084A0'>Dream of a Black Swan: Buffed from 2/5 -> 3/5
 - Dream of a Black Swan: no longer considered Rare
+- Funeral of the Dead Butterflies: rebalanced from 1/3; 2 Blood -> 1/1; 1 Blood
 - Funeral of the Dead Butterflies: now belongs to the Undead temple
 - <span style='color:#2084A0'>Giant Tree Sap: no longer considered onePerDeck
+- Judgement Bird: now considered Rare
 - King of Greed: updated emission
 - Magical Girl: now requires more cards to die before transforming into Queen of Hatred
 - Meat Lantern: updated artwork
 - <span style='color:#DE6080'>Melting Love: increased play cost from 5 Bones -> 7 Bones
 - Nameless Fetus: updated artwork
-- Nothing There: If Nothing There is not killed within a set number of turns, it will reveal itself automatically
-- Nothing There: now disguises as common cards instead of death cards
+- Nothing There: now reveals itself if on the board for a set number of turns - can still be killed to reveal sooner
+- Nothing There: now disguises as regular cards instead of death cards outside the Leshy fight
 - One Sin EX: fixed missing textures
 - <span style='color:#DE6080'>Ppodae EVO: Reduced Power from 3 -> 2
 - Ppodae: now possess unique version of Stinky
 - Ppodae: changed artwork
-- <span style='color:#2084A0'>Red Riding Hooded Mercenary: now possesses Vendetta sigil
-- <span style='color:#DE6080'>Reshuffle Decks: now possesses the Bone Meal sigil
+- Red Riding Hooded Mercenary: reworked to 1/3; Vendetta, Sniper; 2 Blood
+- Sephirah: all cards now blink slower
 - <span style='color:#DE6080'>Skeleton Shrimp: increased play cost from free -> 5 Bones
 - You're Bald...: changed evolution name
 ### Challenges
 - Fixed Miracle Worker challenge trying to insert Plague Doctor into turns with 4 cards
 - Adjusted points given by challenges and rearranged positioning
+- Replaced Guardian Apostle with slightly buffed Alriune during the Grizzly sequence when the Abnormal Bosses challenge is active
 - Final Apocalypse challenge icon now occupys an entire column on the selection menu
-- Replaced Guardian Apostle with Alriune during the Grizzly sequence when the Abnormal Bosses challenge is active
 - Changed descriptions of challenges to improve clarity/follow vanilla syntax
 ### General
 - Fixed True Saviour sigil activating certain effects when it shouldn't
@@ -85,6 +86,7 @@
     - Tier 1: (30%, 30%, 20%, 20%) -> (20%, 30%, 30%, 20%)
     - Tier 2: Unchanged
 - 'Random' starter deck now unlocks at challenge level 12
+- 'Keter' starter deck now contains Heart of Aspiration instead of Bloodbath
 - Removed dynamic rulebook descriptions for certain sigils
 ### Mod Compatibility
 - Pack Manager API: Updated pack artwork for card pack
@@ -93,9 +95,9 @@
 - Achievements API: Added 1 new achievement
 - Achievements API: Modified several achievement descriptions to better indicate how to unlock them
 ### Additions
-- Added Ordeal battles
+- Added Ordeals
 - Added XX Cards
-- Added XX Starter Decks
+- Added 1 Starter Deck
 - Added XX Encounters
 - Added XX items
 - Added 6 challenges

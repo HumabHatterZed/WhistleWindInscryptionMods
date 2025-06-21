@@ -15,7 +15,7 @@ using WhistleWindLobotomyMod.Core;
 
 namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 {
-    public class ApocalypseBattleSequencer : LobotomyBossBattleSequencer, IOnCardDealtDamageDirectly, IModifyDirectDamage
+    public class ApocalypseBattleSequencer : LobotomyBossBattleSequencer, IModifyDirectDamage
     {
         public static readonly string ID = SpecialSequenceManager.Add(LobotomyPlugin.pluginGuid, "ApocalypseBattleSequencer", typeof(ApocalypseBattleSequencer)).Id;
         public override Opponent.Type BossType => LobOpponentUtils.ApocalypseBossID;
@@ -254,92 +254,159 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             CleanUpTargetIcon(obj);
         }
+
         public IEnumerator GiantPhaseLogic(bool firstStrike)
         {
+            int maxRedTargets = 3, maxWhiteTargets = 1;
+            int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
+            List<CardSlot> playerSlots = BoardManager.Instance.PlayerSlotsCopy;
+            playerSlots.Randomize();
+
+            if (firstStrike) {
+                maxRedTargets--;
+                maxWhiteTargets--;
+            }
+
             CleanupTargetIcons();
             specialTargetSlots.Clear();
             giantTargetSlots[0].Clear();
             giantTargetSlots[1].Clear();
+            
+            yield return SelectGiantTargets(3, 2, randomSeed, playerSlots);
+        }
 
-            List<CardSlot> playerSlots = BoardManager.Instance.PlayerSlotsCopy;
-            int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
-            if (firstStrike)
-                randomSeed += 5;
+        private IEnumerator SelectGiantTargets(int numRedTargets, int numWhiteTargets, int randomSeed, List<CardSlot> targetSlots) {
+            int numTargets = 0;
+            int halfHealth = BossHealthThreshold(2) / 2;
+            float chanceForRed = 0.17f, chanceForWhite = 0.19f;
 
-            int maxRedTargets = 3, maxWhiteTargets = 1;
-            float redChance = 0.15f, whiteChance = 0.15f, directChance = 0.2f;
-
-            // if the opponent is winning, soften up on the attacks somewhat
-            if (LifeManager.Instance.Balance < 0)
-            {
-                redChance = 0.08f;
-                whiteChance = 0.06f;
-                directChance = 0.1f;
-            }
-
-            if (ReactiveDifficulty > 3)
-            {
+            if (ReactiveDifficulty > 3) {
                 float baseChance = (ReactiveDifficulty - 3) / 100f;
-                redChance += baseChance * 1.2f;
-                whiteChance += baseChance;
-                directChance += baseChance * 1.4f;
+                chanceForRed += baseChance;
+                chanceForWhite += baseChance * 1.2f;
             }
 
-            if (playerSlots.Count(x => x.Card != null) > 1)
-                redChance += 0.1f;
-
-            if (BossCard.Health >= BossHealthThreshold(2))
-                whiteChance /= 2f;
-
-            // if the boss is at half health
-            else if (BossCard.Health <= 15)
-            {
-                redChance += 0.02f;
-                whiteChance += 0.05f;
-                directChance += 0.04f;
+            if (BossCard.Health <= halfHealth) {
+                chanceForRed += 0.02f;
+            }
+            else {
+                chanceForWhite = 0f;
             }
 
-            // if no opposing cards, target one random empty space
-            if (playerSlots.Count(x => x.Card != null) == 0)
-            {
-                CardSlot slotToTarget = playerSlots[SeededRandom.Range(0, playerSlots.Count, randomSeed++)];
-                directChance = 1f;
-                playerSlots.Clear();
-                playerSlots.Add(slotToTarget);
-            }
-
-            bool directlyAttacking = false;
-            foreach (CardSlot slot in playerSlots)
-            {
-                if (slot.Card == null)
-                {
-                    // if already directly attacking this turn, or random chance
-                    if (directlyAttacking || SeededRandom.Value(randomSeed *= 10) > directChance)
-                        continue;
-
-                    directlyAttacking = true;
+            foreach (CardSlot slot in targetSlots) {
+                float chanceToIgnore = numTargets * 0.25f;
+                if (SeededRandom.Value(randomSeed++) <= chanceToIgnore) {
+                    continue;
                 }
-
                 Color targetColour = GameColors.Instance.yellow;
-                float value = SeededRandom.Value(randomSeed++);
 
-                if (maxRedTargets > 0 && SeededRandom.Value(randomSeed + 5) <= redChance)
-                {
+                if (numRedTargets > 0 && SeededRandom.Value(randomSeed++) <= chanceForRed) {
                     targetColour = GameColors.Instance.glowRed;
                     giantTargetSlots[0].Add(slot);
-                    maxRedTargets--;
+                    numRedTargets--;
                 }
-                else if (maxWhiteTargets > 0 && SeededRandom.Value(randomSeed++) <= whiteChance)
-                {
+                else if (numWhiteTargets > 0 && SeededRandom.Value(randomSeed++) <= chanceForWhite) {
                     targetColour = GameColors.Instance.brightNearWhite;
                     giantTargetSlots[1].Add(slot);
-                    maxWhiteTargets--;
+                    numWhiteTargets--;
                 }
 
                 yield return new WaitForSeconds(0.05f);
                 CreateTargetIcon(slot, targetColour);
                 specialTargetSlots.Add(slot);
             }
+
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        #endregion
+
+        #region Turn Plan
+        /// <summary>
+        /// Determines how many cards should be played each turn.
+        /// In order of priority:
+        /// Every 4 turns: queue 2 cards.
+        /// Every even turn: queue 0 cards.
+        /// Every odd turn: queue 1 card.
+        /// </summary>
+        private int GetStartingCardCount() {
+            if (TurnManager.Instance.TurnNumber % 2 == 0) {
+                if (TurnManager.Instance.TurnNumber % 4 == 0)
+                    return 2;
+
+                return 0;
+            }
+
+            return 1;
+        }
+        private void CreateNextTurnPlan() {
+            List<CardInfo> nextTurn = new();
+            bool opponentWinning = LifeManager.Instance.Balance < 0;
+            int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
+
+            // starting number of cards
+            int cardNum = GetStartingCardCount();
+            if (opponentWinning)
+                cardNum--;
+            else if (TurnNumber > 2 && LifeManager.Instance.Balance == HighestPositiveScaleBalance)
+                cardNum++;
+
+            // threshold for whether to give queued card a mod
+            // if the difficulty modifier is 6 or higher, guaranteed to modify stats, other chance is dependent on difficulty and cards being cued
+            float gateValue;
+            if (ReactiveDifficulty > 11) {
+                gateValue = opponentWinning ? 0.65f + ((ReactiveDifficulty - 12) * 0.02f) : 1f; // guaranteed to give a mod at 12+ reactive if scale is losing
+                cardNum++;
+            }
+            else
+                gateValue = (4 - cardNum - (opponentWinning ? 1 : 0)) / Mathf.Max(1f, 7f - RunState.Run.DifficultyModifier);
+
+            // if the queue is full, reduce the cardNum
+            if (BossOpponent.Queue.Count == 4) {
+                // if the latest added turn was also full, add an empty turn plan
+                if (BossOpponent.TurnPlan.Last().Count == 4 && ReactiveDifficulty < 11)
+                    cardNum = 0;
+                else
+                    cardNum -= ReactiveDifficulty > 7 ? 1 : (ReactiveDifficulty > 4 ? 2 : 2);
+            }
+
+            for (int i = 0; i < cardNum; i++) {
+                CardInfo clone = CardLoader.GetCardByName(ActiveEggMinion);
+                float randomValue = SeededRandom.Value(randomSeed++);
+                if (randomValue <= gateValue) // if give stat boost
+                {
+                    // either give +1/-1 or 0/+1
+                    int attack = 0;
+                    int health = randomValue <= (gateValue / 2f) ? 1 : 0;
+
+                    if (ReactiveDifficulty > 3) {
+                        health++;
+                        if (ReactiveDifficulty > 7) {
+                            attack++;
+                            health++;
+                        }
+                    }
+                    if (SeededRandom.Bool(randomSeed++)) {
+                        attack++;
+                        if (ReactiveDifficulty <= 11)
+                            health--;
+                    }
+                    else {
+                        if (ReactiveDifficulty > 11) // at 12+, give extra attack instead of health
+                            attack++;
+                        else
+                            health++;
+                    }
+
+                    clone.baseAttack += attack;
+                    clone.baseHealth += health;
+                    if (clone.baseHealth <= 0)
+                        clone.baseHealth = 1;
+                }
+                nextTurn.Add(clone);
+            }
+
+            BossOpponent.TurnPlan.Add(nextTurn);
         }
         #endregion
 
@@ -483,104 +550,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
 
             AudioController.Instance.SetLoopVolume(0.3f, 1f);
         }
-
-        #region Turn Plan
-        /// <summary>
-        /// Determines how many cards should be played each turn.
-        /// In order of priority:
-        /// Every 4 turns: queue 2 cards.
-        /// Every even turn: queue 0 cards.
-        /// Every odd turn: queue 1 card.
-        /// </summary>
-        private int GetStartingCardCount()
-        {
-            if (TurnManager.Instance.TurnNumber % 2 == 0) {
-                if (TurnManager.Instance.TurnNumber % 4 == 0)
-                    return 2;
-
-                return 0;
-            }
-
-            return 1;
-        }
-        private void CreateNextTurnPlan()
-        {
-            List<CardInfo> nextTurn = new();
-            bool opponentWinning = LifeManager.Instance.Balance < 0;
-            int randomSeed = base.GetRandomSeed() + TurnManager.Instance.TurnNumber;
-
-            // starting number of cards
-            int cardNum = GetStartingCardCount();
-            if (opponentWinning)
-                cardNum--;
-            else if (TurnNumber > 2 && LifeManager.Instance.Balance == HighestPositiveScaleBalance)
-                cardNum++;
-
-            // threshold for whether to give queued card a mod
-            // if the difficulty modifier is 6 or higher, guaranteed to modify stats, other chance is dependent on difficulty and cards being cued
-            float gateValue;
-            if (ReactiveDifficulty > 11)
-            {
-                gateValue = opponentWinning ? 0.65f + ((ReactiveDifficulty - 12) * 0.02f) : 1f; // guaranteed to give a mod at 12+ reactive if scale is losing
-                cardNum++;
-            }
-            else
-                gateValue = (4 - cardNum - (opponentWinning ? 1 : 0)) / Mathf.Max(1f, 7f - RunState.Run.DifficultyModifier);
-
-            // if the queue is full, reduce the cardNum
-            if (BossOpponent.Queue.Count == 4)
-            {
-                // if the latest added turn was also full, add an empty turn plan
-                if (BossOpponent.TurnPlan.Last().Count == 4 && ReactiveDifficulty < 11)
-                    cardNum = 0;
-                else
-                    cardNum -= ReactiveDifficulty > 7 ? 1 : (ReactiveDifficulty > 4 ? 2 : 2);
-            }
-
-            for (int i = 0; i < cardNum; i++)
-            {
-                CardInfo clone = CardLoader.GetCardByName(ActiveEggMinion);
-                float randomValue = SeededRandom.Value(randomSeed++);
-                if (randomValue <= gateValue) // if give stat boost
-                {
-                    // either give +1/-1 or 0/+1
-                    int attack = 0;
-                    int health = randomValue <= (gateValue / 2f) ? 1 : 0;
-
-                    if (ReactiveDifficulty > 3)
-                    {
-                        health++;
-                        if (ReactiveDifficulty > 7)
-                        {
-                            attack++;
-                            health++;
-                        }
-                    }
-                    if (SeededRandom.Bool(randomSeed++))
-                    {
-                        attack++;
-                        if (ReactiveDifficulty <= 11)
-                            health--;
-                    }
-                    else
-                    {
-                        if (ReactiveDifficulty > 11) // at 12+, give extra attack instead of health
-                            attack++;
-                        else
-                            health++;
-                    }
-
-                    clone.baseAttack += attack;
-                    clone.baseHealth += health;
-                    if (clone.baseHealth <= 0)
-                        clone.baseHealth = 1;
-                }
-                nextTurn.Add(clone);
-            }
-
-            BossOpponent.TurnPlan.Add(nextTurn);
-        }
-        #endregion
 
         public IEnumerator SwitchToNextEggEffect(bool lostLife)
         {
@@ -812,11 +781,6 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             }
         }
 
-        public override void DigUpBones(int damage, int bonesToGive, CardSlot targetSlot) {
-            damageTakenThisTurn -= bonesToGive;
-            base.DigUpBones(damage, bonesToGive, targetSlot);
-        }
-
         public override bool RespondsToCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage) => true;
         public override IEnumerator OnCardDealtDamageDirectly(PlayableCard attacker, CardSlot opposingSlot, int damage)
         {
@@ -837,13 +801,11 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             }
 
             if (attacker.OpponentCard && damage < -3) {
-                yield return OnReactiveDifficultyIncreased(Mathf.Abs(damage) - 3);
+                yield return OnReactiveDifficultyIncreased(-damage - 3);
             }
-            
             else if (!attacker.OpponentCard && damage > 3) {
                 yield return OnReactiveDifficultyIncreased(damage - 3);
             }
-            yield break;
         }
 
         public bool RespondsToModifyDirectDamage(CardSlot target, int damage, PlayableCard attacker, int originalDamage) => finalPhase && attacker == BossCard;
@@ -851,6 +813,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         {
             if (giantTargetSlots[0].Contains(target))
                 return damage * 2;
+
             if (giantTargetSlots[1].Contains(target))
                 return damage / 2;
 
@@ -862,8 +825,7 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         #region Big Eyes
         private void UpdateAttackColours()
         {
-            foreach (PlayableCard c in BoardManager.Instance.CardsOnBoard.Concat(PlayerHand.Instance.CardsInHand))
-            {
+            foreach (PlayableCard c in BoardManager.Instance.CardsOnBoard.Concat(PlayerHand.Instance.CardsInHand)) {
                 c.OnStatsChanged();
             }
         }
@@ -887,20 +849,10 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
         }
         private IEnumerator TweenLineWidth(LineRenderer line, bool attackPlayer, float time = 0.25f)
         {
-            if (line == null)
-            {
-                if (attackPlayer)
-                    yield break;
-
-                Singleton<TableVisualEffectsManager>.Instance.ThumpTable(0.2f);
-                yield break;
-            }
-
             float ela2 = line.widthMultiplier = 0f;
             while (ela2 < time)
             {
-                if (line == null)
-                {
+                if (line == null) {
                     if (attackPlayer)
                         yield break;
 
@@ -912,17 +864,15 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
                 yield return new WaitForEndOfFrame();
             }
 
-            if (line == null)
-            {
+            if (line == null) {
                 yield return new WaitForSeconds(0.1f);
                 yield break;
             }
-            line.widthMultiplier = 1f;
             ela2 = 0f;
+            line.widthMultiplier = 1f;
             while (ela2 < time)
             {
-                if (line == null)
-                {
+                if (line == null) {
                     yield return new WaitForSeconds(0.1f);
                     yield break;
                 }
@@ -937,6 +887,16 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             yield return new WaitForSeconds(0.1f);
         }
         #endregion
+
+        private void ClearTempMods() {
+            BossCard.RemoveTemporaryMod(BossCard.TemporaryMods.Find(x => x.singletonId == "SmallBeak"));
+            BossCard.RemoveTemporaryMod(BossCard.TemporaryMods.Find(x => x.singletonId == "ReactiveSkin"));
+        }
+
+        public override void DigUpBones(int damage, int bonesToGive, CardSlot targetSlot) {
+            damageTakenThisTurn -= bonesToGive;
+            base.DigUpBones(damage, bonesToGive, targetSlot);
+        }
 
         public override EncounterData BuildCustomEncounter(CardBattleNodeData nodeData) {
             ChangeActiveEggEffect();
@@ -954,18 +914,12 @@ namespace WhistleWindLobotomyMod.Opponents.Apocalypse
             data.Blueprint = ApocalypseBossUtils.CreateStartingBlueprint();
             data.startConditions = new()
             {
-                new()
-                {
+                new() {
                     cardsInOpponentSlots = new CardInfo[1] { startingEgg }
                 }
             };
             data.opponentTurnPlan = DiskCardGame.EncounterBuilder.BuildOpponentTurnPlan(data.Blueprint, 20, false);
             return data;
-        }
-
-        private void ClearTempMods() {
-            BossCard.RemoveTemporaryMod(BossCard.TemporaryMods.Find(x => x.singletonId == "SmallBeak"));
-            BossCard.RemoveTemporaryMod(BossCard.TemporaryMods.Find(x => x.singletonId == "ReactiveSkin"));
         }
     }
 

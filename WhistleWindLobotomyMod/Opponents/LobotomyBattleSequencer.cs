@@ -1,4 +1,5 @@
 ﻿using DiskCardGame;
+using HarmonyLib;
 using InscryptionAPI.Triggers;
 using Pixelplacement;
 using System.Collections;
@@ -33,35 +34,6 @@ namespace WhistleWindLobotomyMod.Opponents
             yield break;
         }
         public int RoundEndPriority(bool opponentTurnSkipped) => 0;
-
-        public override List<CardInfo> GetFixedOpeningHand() => drewInitialHand ? CardDrawPiles.Instance.Deck.GetFairHand(5, false) : null;
-        public virtual IEnumerator PreDrawOpeningHand()
-        {
-            if (drewInitialHand) {
-                CardDrawPiles3D.Instance.sidePile.Draw();
-                yield return CardDrawPiles3D.Instance.DrawFromSidePile();
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
-        public virtual IEnumerator PostDrawOpeningHand()
-        {
-            ViewManager.Instance.SwitchToView(View.Hand);
-            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD"));
-            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD_ALL"));
-            yield return new WaitForSeconds(0.4f);
-            if (TurnNumber == 0) {
-                if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent opp)) {
-                    yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossRecall", TextDisplayer.MessageAdvanceMode.Input);
-                }
-                else if (!DialogueEventsData.EventIsPlayed("OrdealRecall")) {
-                    yield return TextDisplayer.Instance.PlayDialogueEvent("OrdealRecall", TextDisplayer.MessageAdvanceMode.Input);
-                }
-
-                if (!DialogueEventsData.EventIsPlayed("RecallMechanic")) {
-                    yield return TextDisplayer.Instance.PlayDialogueEvent("RecallMechanic", TextDisplayer.MessageAdvanceMode.Input);
-                }
-            }
-        }
 
         public virtual IEnumerator MoveOpponentCards() {
             LobotomyPlugin.Log.LogDebug($"[LobotomyBattleSequencer.MoveOpponentCards] Start");
@@ -175,6 +147,49 @@ namespace WhistleWindLobotomyMod.Opponents
                 manager.boneTokens.Add(component);
                 manager.isOrganized = false;
             }
+        }
+
+        public override List<CardInfo> GetFixedOpeningHand() => drewInitialHand ? CardDrawPiles.Instance.Deck.GetFairHand(5, false) : null;
+        public virtual IEnumerator PreDrawOpeningHand() {
+            if (drewInitialHand) {
+                CardDrawPiles3D.Instance.sidePile.Draw();
+                yield return CardDrawPiles3D.Instance.DrawFromSidePile();
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+        public virtual IEnumerator PostDrawOpeningHand() {
+            ViewManager.Instance.SwitchToView(View.Hand);
+            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD"));
+            yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD_ALL"));
+            yield return new WaitForSeconds(0.4f);
+            if (TurnNumber == 0) {
+                if (LobOpponentUtils.IsCustomBoss(out ApocalypseBossOpponent opp)) {
+                    yield return TextDisplayer.Instance.PlayDialogueEvent("ApocalypseBossRecall", TextDisplayer.MessageAdvanceMode.Input);
+                }
+                else if (!DialogueEventsData.EventIsPlayed("OrdealRecall")) {
+                    yield return TextDisplayer.Instance.PlayDialogueEvent("OrdealRecall", TextDisplayer.MessageAdvanceMode.Input);
+                }
+
+                if (!DialogueEventsData.EventIsPlayed("RecallMechanic")) {
+                    yield return TextDisplayer.Instance.PlayDialogueEvent("RecallMechanic", TextDisplayer.MessageAdvanceMode.Input);
+                }
+            }
+        }
+    }
+
+    [HarmonyPatch]
+    internal static class LobotomyBattleSetUpPatch {
+        [HarmonyPostfix, HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawOpeningHand))]
+        public static IEnumerator CallPrePostDrawOpeningHand(IEnumerator enumerator) {
+            if (!SaveManager.SaveFile.IsPart1 || TurnManager.Instance.SpecialSequencer is not LobotomyBattleSequencer sequence) {
+                yield return enumerator;
+                yield break;
+            }
+
+            yield return sequence.PreDrawOpeningHand();
+            yield return enumerator;
+            yield return sequence.PostDrawOpeningHand();
+            sequence.drewInitialHand = true;
         }
     }
 }

@@ -24,34 +24,17 @@ namespace WhistleWindLobotomyMod
 
         public bool RespondsToModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)
         {
-            return card == base.Card && base.Card.HasTrait(Trait.Giant) && modType == OpposingSlotTriggerPriority.Normal;
+            return card == base.Card && modType == OpposingSlotTriggerPriority.PostAdditionModification;
         }
 
         public List<CardSlot> CollectModifyAttackSlots(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, ref int attackCount, ref bool didRemoveDefaultSlot)
         {
             ApocalypseBattleSequencer sequencer = TurnManager.Instance.SpecialSequencer as ApocalypseBattleSequencer;
-            List<CardSlot> slots = new();
-            bool attackingNull = false;
             foreach (CardSlot slot in sequencer.specialTargetSlots)
             {
-                if (slot.Card == null)
-                {
-                    if (attackingNull)
-                    {
-                        sequencer.CleanUpGiantTarget(slot);
-                        continue;
-                    }
-
-                    attackingNull = true;
-                }
-                else if (base.Card.CanAttackDirectly(slot))
-                {
-                    sequencer.CleanUpGiantTarget(slot);
-                    continue;
-                }
-                slots.Add(slot);
+                sequencer.CleanUpGiantTarget(slot);
             }
-            return slots;
+            return sequencer.specialTargetSlots;
         }
 
         public int GetTriggerPriority(PlayableCard card, OpposingSlotTriggerPriority modType, List<CardSlot> originalSlots, List<CardSlot> currentSlots, int attackCount, bool didRemoveDefaultSlot)

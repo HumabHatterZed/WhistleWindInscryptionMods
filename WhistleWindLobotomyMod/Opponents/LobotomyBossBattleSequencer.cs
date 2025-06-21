@@ -19,9 +19,9 @@ namespace WhistleWindLobotomyMod.Opponents
 
         public int timesHitThisTurn = 0;
         public int damageTakenThisTurn = 0;
+        protected int reactiveDifficulty = 0;
 
-        public int reactiveDifficulty = 0;
-        public int ReactiveDifficulty => RunState.Run.DifficultyModifier + reactiveDifficulty;
+        public int ReactiveDifficulty => reactiveDifficulty + RunState.Run.DifficultyModifier;
         public int PhaseDifficulty => TurnManager.Instance.Opponent.StartingLives - TurnManager.Instance.Opponent.NumLives;
 
         public bool finalPhase = false;
@@ -100,42 +100,5 @@ namespace WhistleWindLobotomyMod.Opponents
         public int OnModifyDamageTaken(PlayableCard target, int damage, PlayableCard attacker, int originalDamage) => OnModifyDamage(target, damage, attacker, originalDamage);
         public int TriggerPriority(PlayableCard target, int damage, PlayableCard attacker) => ModifyDamagePriority(target, damage, attacker);
         #endregion
-
-        //public override List<CardInfo> GetFixedOpeningHand() => drewInitialHand ? CardDrawPiles.Instance.Deck.GetFairHand(5, false) : null;
-        //public override IEnumerator PreDrawOpeningHand()
-        //{
-        //    if (drewInitialHand)
-        //    {
-        //        CardDrawPiles3D.Instance.sidePile.Draw();
-        //        yield return CardDrawPiles3D.Instance.DrawFromSidePile();
-        //        yield return new WaitForSeconds(0.1f);
-        //    }
-        //}
-        //public override IEnumerator PostDrawOpeningHand()
-        //{
-        //    ViewManager.Instance.SwitchToView(View.Hand);
-        //    yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD"));
-        //    yield return CardSpawner.Instance.SpawnCardToHand(CardLoader.GetCardByName("wstl_RETURN_CARD_ALL"));
-        //    yield return new WaitForSeconds(0.4f);
-        //}
-    }
-
-    [HarmonyPatch]
-    internal static class LobotomyBossSetUpPatch
-    {
-        [HarmonyPostfix, HarmonyPatch(typeof(CardDrawPiles3D), nameof(CardDrawPiles3D.DrawOpeningHand))]
-        public static IEnumerator CallPostDrawOpeningHand(IEnumerator enumerator)
-        {
-            if (!SaveManager.SaveFile.IsPart1 || TurnManager.Instance.SpecialSequencer is not LobotomyBattleSequencer sequence)
-            {
-                yield return enumerator;
-                yield break;
-            }
-
-            yield return sequence.PreDrawOpeningHand();
-            yield return enumerator;
-            yield return sequence.PostDrawOpeningHand();
-            sequence.drewInitialHand = true;
-        }
     }
 }

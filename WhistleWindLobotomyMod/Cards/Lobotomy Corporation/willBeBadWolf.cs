@@ -14,10 +14,10 @@ namespace WhistleWindLobotomyMod
         {
             string textureName = "willBeBadWolf";
             CardManager.New(LobotomyPlugin.pluginPrefix, willBeBadWolf, "Big and Will Be Bad Wolf",
-                attack: 2, health: 4, "It's the fate of all wolves to be the villains of fairy tales.")
-                .SetBloodCost(3)
+                attack: 1, health: 3, "It's the fate of all wolves to be the villains of fairy tales.")
+                .SetBloodCost(2)
                 .SetPortraits(LobotomyPlugin.ModAssembly, textureName)
-                .AddAbilities(Assimilator.ability, BitterEnemies.ability)
+                .AddAbilities(BitterEnemies.ability, Ability.GainAttackOnKill)
                 .AddSpecialAbilities(CrimsonScar.specialAbility)
                 .AddTribes(Tribe.Canine)
                 .Build(CardHelper.CardType.Common, RiskLevel.Waw, true);
